@@ -4,30 +4,30 @@
 class AUX_OS2A
 
 feature {ANY}
-	foo: INTEGER is
-		do
-			assert(1 = 1.object_size)
-			assert(4 = 1.to_integer_32.object_size)
-			assert(Result.object_size = 4)
-			assert(Result.to_integer_16.object_size = 2)
-			assert(Result.to_integer_64.object_size = 8)
-		end
+   foo: INTEGER is
+      do
+         assert(1 = 1.object_size)
+         assert(4 = 1.to_integer_32.object_size)
+         assert(Result.object_size = 4)
+         assert(Result.to_integer_16.object_size = 2)
+         assert(Result.to_integer_64.object_size = 8)
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_OBJECT_SIZE2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_OBJECT_SIZE2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class AUX_OS2A
 --

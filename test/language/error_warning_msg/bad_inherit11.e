@@ -18,13 +18,13 @@ feature
 
    make is
       do 
-	 if foo.is_connected then
-	 end;
-	 if bar.is_connected then
-	 end;
-	 check
-	    foo = bar
-	 end;
+    if foo.is_connected then
+    end;
+    if bar.is_connected then
+    end;
+    check
+       foo = bar
+    end;
       end 
 end -- class BAD_INHERIT11
 --

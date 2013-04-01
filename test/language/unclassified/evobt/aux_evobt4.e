@@ -4,11 +4,11 @@
 deferred class AUX_EVOBT4
 
 feature {ANY}
-	show: BOOLEAN is
-		deferred
-		ensure
-			True
-		end
+   show: BOOLEAN is
+      deferred
+      ensure
+         True
+      end
 
 end -- class AUX_EVOBT4
 --

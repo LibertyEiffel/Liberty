@@ -11,9 +11,9 @@ feature
 
    make is
       local
-	 ptr: POINTER;
+    ptr: POINTER;
       do
-	 prt := $Current;
+    prt := $Current;
       end;
 
 end -- class BAD_ADDRESS_OF1

@@ -2,15 +2,15 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EMPTY
-	-- Just to be sure that the compiler can compile an empty main class
+   -- Just to be sure that the compiler can compile an empty main class
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main is
-		do
-		end
+   main is
+      do
+      end
 
 end -- class TEST_EMPTY
 --

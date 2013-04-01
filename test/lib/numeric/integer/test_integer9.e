@@ -4,25 +4,25 @@
 class TEST_INTEGER9
 
 insert
-	AUX_INTEGER9
-		redefine foo_it
-		end
+   AUX_INTEGER9
+      redefine foo_it
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			foo_it(42)
-		end
+   make is
+      do
+         foo_it(42)
+      end
 
-	foo_it (foo: INTEGER) is
-		local
-			bar: like foo
-		do
-			bar := foo + 1
-		end
+   foo_it (foo: INTEGER) is
+      local
+         bar: like foo
+      do
+         bar := foo + 1
+      end
 
 end -- class TEST_INTEGER9
 --

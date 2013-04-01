@@ -2,41 +2,41 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_CREATION1
-	-- From a message in comp.lang.eiffel by Robert RIST
-	--
-	-- Test rename in a child with dynamic creation.
+   -- From a message in comp.lang.eiffel by Robert RIST
+   --
+   -- Test rename in a child with dynamic creation.
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	p: AUX_CREATION1A
+   p: AUX_CREATION1A
 
-	make is
-			-- make and display a child object
-		do
-			create {AUX_CREATION1B} p.make
-			p.display
-			assert(p.run_make_a = 0)
-			assert(p.run_make_b = 1)
-			assert(p.run_display_a = 1)
-			assert(p.run_display_b = 0)
-		end
+   make is
+         -- make and display a child object
+      do
+         create {AUX_CREATION1B} p.make
+         p.display
+         assert(p.run_make_a = 0)
+         assert(p.run_make_b = 1)
+         assert(p.run_display_a = 1)
+         assert(p.run_display_b = 0)
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_CRETION1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_CRETION1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_CREATION1
 --

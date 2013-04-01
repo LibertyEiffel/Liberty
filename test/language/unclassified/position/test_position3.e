@@ -4,43 +4,43 @@
 class TEST_POSITION3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	p1: AUX_POSITION
+   p1: AUX_POSITION
 
-	make is
-		local
-			str: STRING
-		do
-			str := "...."
-			p1.set(1, 2, 3)
-			assert(p1.line = 1)
-			assert(p1.column = 2)
-			assert(p1.id = 3)
-			str.clear_count
-			p1.line.append_in(str)
-			assert(str.is_equal("1"))
-			str.clear_count
-			p1.column.append_in(str)
-			assert(str.is_equal("2"))
-			str.clear_count
-			p1.id.append_in(str)
-			assert(str.is_equal("3"))
-		end
+   make is
+      local
+         str: STRING
+      do
+         str := "...."
+         p1.set(1, 2, 3)
+         assert(p1.line = 1)
+         assert(p1.column = 2)
+         assert(p1.id = 3)
+         str.clear_count
+         p1.line.append_in(str)
+         assert(str.is_equal("1"))
+         str.clear_count
+         p1.column.append_in(str)
+         assert(str.is_equal("2"))
+         str.clear_count
+         p1.id.append_in(str)
+         assert(str.is_equal("3"))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_POSITION3: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_POSITION3: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_POSITION3
 --

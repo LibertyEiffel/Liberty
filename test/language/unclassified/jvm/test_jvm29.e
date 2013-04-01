@@ -4,19 +4,19 @@
 class TEST_JVM29
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			cr1, cr2: REFERENCE[CHARACTER]
-		do
-			create cr1.set_item('a')
-			create cr2.set_item('b')
-			if cr1.is_equal(cr2) then
-				std_output.put_string("Error in TEST_JVM29.%N")
-			end
-		end
+   make is
+      local
+         cr1, cr2: REFERENCE[CHARACTER]
+      do
+         create cr1.set_item('a')
+         create cr2.set_item('b')
+         if cr1.is_equal(cr2) then
+            std_output.put_string("Error in TEST_JVM29.%N")
+         end
+      end
 
 end -- class TEST_JVM29
 --

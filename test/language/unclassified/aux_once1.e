@@ -4,15 +4,15 @@
 class AUX_ONCE1
 
 inherit
-	TEST_ONCE1
-		redefine foo
-		end
+   TEST_ONCE1
+      redefine foo
+      end
 
 feature {ANY}
-	foo: INTEGER is
-		once
-			Result := 2
-		end
+   foo: INTEGER is
+      once
+         Result := 2
+      end
 
 end -- class AUX_ONCE1
 --

@@ -4,15 +4,15 @@
 class BAD_REAL2
    
 creation
-	make
+   make
    
 feature 
    make is 
       local
-			r: REAL
+         r: REAL
       do 
-			r := 1.;
-			r := .5;
+         r := 1.;
+         r := .5;
       end
    
 end -- class BAD_REAL2

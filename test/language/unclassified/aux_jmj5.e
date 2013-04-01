@@ -4,40 +4,40 @@
 expanded class AUX_JMJ5
 
 feature {ANY}
-	x, y: INTEGER
+   x, y: INTEGER
 
 feature {ANY}
-	set (nx, ny: like x) is
-		do
-			x := nx
-			y := ny
-		ensure
-			x = nx
-			y = ny
-		end
+   set (nx, ny: like x) is
+      do
+         x := nx
+         y := ny
+      ensure
+         x = nx
+         y = ny
+      end
 
-	next_towards (target: like Current): like Current is
-		do
-			Result.set(target.x - 1, target.y - 1)
-		end
+   next_towards (target: like Current): like Current is
+      do
+         Result.set(target.x - 1, target.y - 1)
+      end
 
-	test is
-		local
-			h1, h2, next, h3: like Current
-		do
-			h1.set(3, 3)
-			h2.set(2, 6)
-			next.set(1, 5)
-			if h1.next_towards(h2) = next then
-			else
-				std_output.put_string("TEST_JMJ5: ERROR Test #1%N")
-			end
-			h3 := h1.next_towards(h2)
-			if h3 = next then
-			else
-				std_output.put_string("TEST_JMJ5: ERROR Test #2%N")
-			end
-		end
+   test is
+      local
+         h1, h2, next, h3: like Current
+      do
+         h1.set(3, 3)
+         h2.set(2, 6)
+         next.set(1, 5)
+         if h1.next_towards(h2) = next then
+         else
+            std_output.put_string("TEST_JMJ5: ERROR Test #1%N")
+         end
+         h3 := h1.next_towards(h2)
+         if h3 = next then
+         else
+            std_output.put_string("TEST_JMJ5: ERROR Test #2%N")
+         end
+      end
 
 end -- class AUX_JMJ5
 --

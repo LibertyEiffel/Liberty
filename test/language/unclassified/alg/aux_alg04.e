@@ -4,7 +4,7 @@
 class AUX_ALG04
 
 feature {ANY}
-	a, b, c, d: INTEGER is unique
+   a, b, c, d: INTEGER is unique
 
 end -- class AUX_ALG04
 --

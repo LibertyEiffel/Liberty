@@ -4,24 +4,24 @@
 class AUX_EB9B[G]
 
 inherit
-	AUX_EB9A[G]
-		redefine f
-		end
+   AUX_EB9A[G]
+      redefine f
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			bool: BOOLEAN
-		do
-			if bool then
-				create f.make
-			end
-		end
+   make is
+      local
+         bool: BOOLEAN
+      do
+         if bool then
+            create f.make
+         end
+      end
 
-	f: AUX_EB9B[G]
+   f: AUX_EB9B[G]
 
 end -- class AUX_EB9B
 --

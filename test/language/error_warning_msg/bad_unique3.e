@@ -13,8 +13,8 @@ feature
 
    make is
       do
-	 if u1 < u2 then The compiler should check this wrong code
-	 end
+    if u1 < u2 then The compiler should check this wrong code
+    end
       end
    
 end -- class BAD_UNIQUE3

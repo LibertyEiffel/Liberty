@@ -4,18 +4,18 @@
 class AUX_JMJ3TPT[E]
 
 inherit
-	AUX_JMJ3PT[E]
-		redefine start_i, container
-		end
+   AUX_JMJ3PT[E]
+      redefine start_i, container
+      end
 
 feature {ANY}
-	start_i is
-		do
-			container := Void
-		end
+   start_i is
+      do
+         container := Void
+      end
 
 feature {}
-	container: AUX_JMJ3TS[E]
+   container: AUX_JMJ3TS[E]
 
 end -- class AUX_JMJ3TPT
 --

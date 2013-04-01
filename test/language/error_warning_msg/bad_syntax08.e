@@ -5,18 +5,18 @@ class BAD_SYNTAX08
 --
 -- Reported by Daniel F Moisset.
 --
-	
+   
 creation
-	main
+   main
 
 feature {}
-	main is
-		do
-			screen_memo.set_item (SDL_SCREEN_set_videomode
-										 0);
-		end
+   main is
+      do
+         screen_memo.set_item (SDL_SCREEN_set_videomode
+                               0);
+      end
 
-	
+   
 end -- class BAD_SYNTAX08
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

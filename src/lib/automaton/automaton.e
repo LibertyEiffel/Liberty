@@ -44,6 +44,7 @@ feature {ANY} -- Step-by-step execution
          Result.set_current_state(state)
       ensure
          Result.is_valid
+         Result.current_state /= Void
       end
 
    next (context: AUTOMATON_CONTEXT[E_]) is
@@ -62,7 +63,7 @@ feature {ANY} -- Step-by-step execution
             end
             context.set_current_state(state)
          else
-            last_transition(state, context.data)
+            last_transition(context.current_state, context.data)
             context.invalidate
          end
       end
@@ -82,6 +83,8 @@ feature {}
       end
 
    last_transition (from_state: STATE[E_]; e: E_) is
+      require
+         from_state /= Void
       do
          debug ("automaton/transition")
             std_output.put_line(from_state.name.out + " => Void")

@@ -4,24 +4,24 @@
 class TEST_ANCHOR7
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: like infix "+"; j: like prefix "+"
-		do
-			i := i + 1
-			j := i + j
-		end
+   make is
+      local
+         i: like infix "+"; j: like prefix "+"
+      do
+         i := i + 1
+         j := i + j
+      end
 
-	infix "+" (other: like Current): INTEGER is
-		do
-		end
+   infix "+" (other: like Current): INTEGER is
+      do
+      end
 
-	prefix "+": INTEGER is
-		do
-		end
+   prefix "+": INTEGER is
+      do
+      end
 
 end -- class TEST_ANCHOR7
 --

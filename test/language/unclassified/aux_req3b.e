@@ -4,7 +4,7 @@
 class AUX_REQ3B
 
 feature {ANY}
-	b: BOOLEAN
+   b: BOOLEAN
 
 end -- class AUX_REQ3B
 --

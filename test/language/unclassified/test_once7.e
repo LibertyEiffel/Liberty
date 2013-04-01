@@ -4,25 +4,25 @@
 class TEST_ONCE7
 
 inherit
-	EIFFELTEST_TOOLS
-		-- SZ:262: ensure violation for once method redefined as non once.
-		-- Generated C code can't compile.
+   EIFFELTEST_TOOLS
+      -- SZ:262: ensure violation for once method redefined as non once.
+      -- Generated C code can't compile.
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_ONCE7A; b: AUX_ONCE7B; c: AUX_ONCE7C
-		do
-			create a
-			assert(a.default_value = 200)
-			create b
-			assert(b.default_value = 200)
-			create c
-			assert(c.default_value = 400)
-		end
+   make is
+      local
+         a: AUX_ONCE7A; b: AUX_ONCE7B; c: AUX_ONCE7C
+      do
+         create a
+         assert(a.default_value = 200)
+         create b
+         assert(b.default_value = 200)
+         create c
+         assert(c.default_value = 400)
+      end
 
 end -- class TEST_ONCE7
 --

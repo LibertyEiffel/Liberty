@@ -4,14 +4,14 @@
 expanded class AUX_ARRAY7
 
 feature {ANY}
-	x, y, z: INTEGER
+   x, y, z: INTEGER
 
-	set (a, b, c: INTEGER) is
-		do
-			x := a
-			y := b
-			z := c
-		end
+   set (a, b, c: INTEGER) is
+      do
+         x := a
+         y := b
+         z := c
+      end
 
 end -- class AUX_ARRAY7
 --

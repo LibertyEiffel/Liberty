@@ -4,21 +4,21 @@
 class AUX_DIABLE6[T]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			create column_buffer.make(1, 1)
-		end
+   make is
+      do
+         create column_buffer.make(1, 1)
+      end
 
 feature {ANY}
-	column (j: INTEGER): ARRAY[T] is
-		do
-			Result := column_buffer
-		end
+   column (j: INTEGER): ARRAY[T] is
+      do
+         Result := column_buffer
+      end
 
-	column_buffer: like column
+   column_buffer: like column
 
 end -- class AUX_DIABLE6
 --

@@ -236,6 +236,7 @@ feature -- Expression compiling
    visit_internal_local2 (visited: INTERNAL_LOCAL2) is do not_yet_implemented end
         visit_local_name2 (visited: LOCAL_NAME2) is do not_yet_implemented end
         visit_loop_variant (visited: LOOP_VARIANT) is do not_yet_implemented end
+        visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is do not_yet_implemented end
    visit_no_dispatch (visited: NO_DISPATCH) is do not_yet_implemented end
    visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH) is do not_yet_implemented end
    visit_null_pointer (visited: NULL_POINTER) is do not_yet_implemented end

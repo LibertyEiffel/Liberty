@@ -20,6 +20,14 @@ feature {ANY} -- INTEGER aliasing
 
    integer_bit_count: INTEGER is 32
 
+feature {ANY} -- NATURAL aliasing
+   natural_alias: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_natural_32)
+      end
+
+   natural_bit_count: INTEGER is 32
+
 feature {ANY} -- REAL aliasing
    real_alias: HASHED_STRING is
       once

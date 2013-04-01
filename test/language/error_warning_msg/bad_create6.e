@@ -9,20 +9,20 @@ creation
 feature {}
    make is
       do
-	 if once_make_1 = Void then
-	 end
+    if once_make_1 = Void then
+    end
       end
    
    once_make_1: like Current is
       do
-	 create make_1
+    create make_1
       end
 
    make_1 is
       local
-	 i: INTEGER
+    i: INTEGER
       do
-	 i := i + 1
+    i := i + 1
       end
    
 end -- class BAD_CREATE6

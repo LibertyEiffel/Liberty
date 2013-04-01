@@ -4,37 +4,37 @@
 deferred class AUX_JLP8_PROVIDER[E]
 
 insert
-	ANY
+   ANY
 
 feature {ANY}
-	start is
-		deferred
-		end
+   start is
+      deferred
+      end
 
-	exhausted: BOOLEAN is
-		deferred
-		end
+   exhausted: BOOLEAN is
+      deferred
+      end
 
-	aborted: BOOLEAN is
-		deferred
-		end
+   aborted: BOOLEAN is
+      deferred
+      end
 
-	next is
-		deferred
-		end
+   next is
+      deferred
+      end
 
-	item: E is
-		deferred
-		end
+   item: E is
+      deferred
+      end
 
-	abort is
-		deferred
-		end
+   abort is
+      deferred
+      end
 
-	is_runnable: BOOLEAN is
-		do
-			Result := True
-		end
+   is_runnable: BOOLEAN is
+      do
+         Result := True
+      end
 
 end -- class AUX_JLP8_PROVIDER
 --

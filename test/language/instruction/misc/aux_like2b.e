@@ -4,15 +4,15 @@
 class AUX_LIKE2B
 
 inherit
-	AUX_LIKE2A
-		redefine type
-		end
+   AUX_LIKE2A
+      redefine type
+      end
 
 feature {ANY}
-	type: CHARACTER is
-		do
-			Result := 'B'
-		end
+   type: CHARACTER is
+      do
+         Result := 'B'
+      end
 
 end -- class AUX_LIKE2B
 --

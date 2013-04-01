@@ -2,27 +2,27 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EG14
-	-- From a bug report of Enrico GOBBETTI
+   -- From a bug report of Enrico GOBBETTI
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	f (i: INTEGER): AUX_EG14B is
-		do
-			Result.put(0, i)
-		end
+   f (i: INTEGER): AUX_EG14B is
+      do
+         Result.put(0, i)
+      end
 
-	make is
-		local
-			b: BOOLEAN
-		do
-			if b then
-				--	    f(1).print_on(std_output);
-				-- *** There is stil a problem with `to_pointer'.
-				-- *** (Dom. sept 9th 2004) ***
-			end
-		end
+   make is
+      local
+         b: BOOLEAN
+      do
+         if b then
+            --       f(1).print_on(std_output);
+            -- *** There is stil a problem with `to_pointer'.
+            -- *** (Dom. sept 9th 2004) ***
+         end
+      end
 
 end -- class TEST_EG14
 --

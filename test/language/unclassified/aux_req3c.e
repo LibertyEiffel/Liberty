@@ -4,17 +4,17 @@
 class AUX_REQ3C
 
 inherit
-	AUX_REQ3B
+   AUX_REQ3B
 
 insert
-	AUX_REQ3A
+   AUX_REQ3A
 
 feature {ANY}
-	make is
-		require
-			not f.b
-		do
-		end
+   make is
+      require
+         not f.b
+      do
+      end
 
 end -- class AUX_REQ3C
 --

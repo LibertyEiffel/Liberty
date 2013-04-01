@@ -4,12 +4,12 @@
 class AUX_PRECURSOR02
 
 feature {ANY}
-	value: INTEGER
+   value: INTEGER
 
-	foo is
-		do
-			value := value + 1
-		end
+   foo is
+      do
+         value := value + 1
+      end
 
 end -- class AUX_PRECURSOR02
 --

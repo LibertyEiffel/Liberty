@@ -4,51 +4,51 @@
 class TEST_INHERIT5
 
 inherit
-	AUX_INHERIT5
-		rename foo as aux_foo
-		end
+   AUX_INHERIT5
+      rename foo as aux_foo
+      end
 
 insert
-	AUX_INHERIT5
-		redefine foo
-		end
+   AUX_INHERIT5
+      redefine foo
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	foo is
-		do
-			aux_foo
-			foo_count := foo_count + 1
-		end
+   foo is
+      do
+         aux_foo
+         foo_count := foo_count + 1
+      end
 
-	make is
-		local
-			aux: AUX_INHERIT5
-		do
-			assert(foo_count = 0)
-			aux := Current
-			aux.foo
-			assert(foo_count = 1)
-			foo
-			assert(foo_count = 3)
-		end
+   make is
+      local
+         aux: AUX_INHERIT5
+      do
+         assert(foo_count = 0)
+         aux := Current
+         aux.foo
+         assert(foo_count = 1)
+         foo
+         assert(foo_count = 3)
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_INHERIT5: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_INHERIT5: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_INHERIT5
 --

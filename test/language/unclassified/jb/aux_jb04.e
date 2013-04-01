@@ -4,12 +4,12 @@
 class AUX_JB04
 
 feature {ANY}
-	link: like Current
+   link: like Current
 
-	identity: STRING is
-		do
-			Result := "AUX_JB04.identity"
-		end
+   identity: STRING is
+      do
+         Result := "AUX_JB04.identity"
+      end
 
 end -- class AUX_JB04
 --

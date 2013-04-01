@@ -9,9 +9,9 @@ feature
    
    make is
       local
-	 i: INTEGER
+    i: INTEGER
       do
-	 i := Void
+    i := Void
       end
    
 end -- class BAD_ASSIGNMENT1

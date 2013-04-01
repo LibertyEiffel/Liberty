@@ -4,18 +4,18 @@
 class AUX_EB19_A
 
 feature {ANY}
-	f (other: like Current) is
-		require
-			other_not_void: other /= Void
-		do
-		ensure
-			g: other.g
-		end
+   f (other: like Current) is
+      require
+         other_not_void: other /= Void
+      do
+      ensure
+         g: other.g
+      end
 
-	g: BOOLEAN is
-		do
-			Result := True
-		end
+   g: BOOLEAN is
+      do
+         Result := True
+      end
 
 end -- class AUX_EB19_A
 --

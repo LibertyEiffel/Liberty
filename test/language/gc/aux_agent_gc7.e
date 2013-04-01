@@ -4,22 +4,22 @@
 class AUX_AGENT_GC7
 
 creation {ANY}
-	set_patient
+   set_patient
 
 feature {ANY}
-	patient: AUX_AGENT_GC3
+   patient: AUX_AGENT_GC3
 
-	next: like Current
+   next: like Current
 
-	set_patient (p: AUX_AGENT_GC3) is
-		do
-			patient := p
-		end
+   set_patient (p: AUX_AGENT_GC3) is
+      do
+         patient := p
+      end
 
-	set_next (n: like Current) is
-		do
-			next := n
-		end
+   set_next (n: like Current) is
+      do
+         next := n
+      end
 
 end -- class AUX_AGENT_GC7
 --

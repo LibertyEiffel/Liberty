@@ -2,34 +2,34 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_GENERIC7
-	-- From a bug report of Xavier CREGUT
+   -- From a bug report of Xavier CREGUT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			table: AUX_GENERIC7HT[STRING, INTEGER]
-		do
-			create table.make(10)
-			table.put(5, "cinq")
-			display(table)
-		end
+   make is
+      local
+         table: AUX_GENERIC7HT[STRING, INTEGER]
+      do
+         create table.make(10)
+         table.put(5, "cinq")
+         display(table)
+      end
 
-	display (l: AUX_GENERIC7XCT[INTEGER]) is
-		do
-			from
-				l.start
-			until
-				l.after
-			loop
-				check
-					l.item = 5
-				end
-				l.forth
-			end
-		end
+   display (l: AUX_GENERIC7XCT[INTEGER]) is
+      do
+         from
+            l.start
+         until
+            l.after
+         loop
+            check
+               l.item = 5
+            end
+            l.forth
+         end
+      end
 
 end -- class TEST_GENERIC7
 --

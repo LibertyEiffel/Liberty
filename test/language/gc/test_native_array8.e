@@ -4,40 +4,40 @@
 class TEST_NATIVE_ARRAY8
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	limit: INTEGER is 33000
+   limit: INTEGER is 33000
 
-	na1, na2: NATIVE_ARRAY[CHARACTER]
+   na1, na2: NATIVE_ARRAY[CHARACTER]
 
-	make is
-		local
-			i: INTEGER; x: like Current
-		do
-			from
-				i := limit
-			until
-				i = 0
-			loop
-				na2 := na2.calloc(i)
-				i := i - 1
-			end
-			na1 := na1.calloc(1)
-			na1.put('a', 0)
-			from
-				i := limit
-			until
-				i = 0
-			loop
-				na2 := na2.calloc(i)
-				if na1.item(0) = 'a' then
-				else
-					x.make
-				end
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER; x: like Current
+      do
+         from
+            i := limit
+         until
+            i = 0
+         loop
+            na2 := na2.calloc(i)
+            i := i - 1
+         end
+         na1 := na1.calloc(1)
+         na1.put('a', 0)
+         from
+            i := limit
+         until
+            i = 0
+         loop
+            na2 := na2.calloc(i)
+            if na1.item(0) = 'a' then
+            else
+               x.make
+            end
+            i := i - 1
+         end
+      end
 
 end -- class TEST_NATIVE_ARRAY8
 --

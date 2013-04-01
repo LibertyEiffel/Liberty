@@ -4,30 +4,30 @@
 class TEST_NUMBER08
 
 insert
-	EIFFELTEST_TOOLS
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2, n3, n4: NUMBER
-		do
-			n1 := from_integer(10)
-			n2 := n1.twin
-			assert(n1.is_equal(n2))
-			n3 := from_integer(10)
-			n3.copy(n2)
-			assert(n2.is_equal(n3))
-			assert(n1.is_equal(n3))
-			n4 := from_integer(10)
-			assert(n4.is_equal(n1))
-			assert(n4.is_equal(n2))
-			assert(n4.is_equal(n3))
-			assert(n4.is_equal(n4))
-		end
+   make is
+      local
+         n1, n2, n3, n4: NUMBER
+      do
+         n1 := from_integer(10)
+         n2 := n1.twin
+         assert(n1.is_equal(n2))
+         n3 := from_integer(10)
+         n3.copy(n2)
+         assert(n2.is_equal(n3))
+         assert(n1.is_equal(n3))
+         n4 := from_integer(10)
+         assert(n4.is_equal(n1))
+         assert(n4.is_equal(n2))
+         assert(n4.is_equal(n3))
+         assert(n4.is_equal(n4))
+      end
 
 
 

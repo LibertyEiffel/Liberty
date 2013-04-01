@@ -4,31 +4,31 @@
 class AUX_ONCE2A
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 feature {ANY}
-	buf: STRING is
-		once
-			Result := "0123456789"
-		end
+   buf: STRING is
+      once
+         Result := "0123456789"
+      end
 
-	do_test is
-		local
-			i: INTEGER; a: ARRAY[STRING]
-		do
-			from
-				i := 10000
-				create a.make(0, 1)
-			until
-				i = 0
-			loop
-				a.put("ABCDEFGHIJ", 1)
-				a.put("ABCDEFGHIJ", 0)
-				assert(buf.is_equal("0123456789"))
-				buf.copy("0123456789")
-				i := i - 1
-			end
-		end
+   do_test is
+      local
+         i: INTEGER; a: ARRAY[STRING]
+      do
+         from
+            i := 10000
+            create a.make(0, 1)
+         until
+            i = 0
+         loop
+            a.put("ABCDEFGHIJ", 1)
+            a.put("ABCDEFGHIJ", 0)
+            assert(buf.is_equal("0123456789"))
+            buf.copy("0123456789")
+            i := i - 1
+         end
+      end
 
 end -- class AUX_ONCE2A
 --

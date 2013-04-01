@@ -4,27 +4,27 @@
 class TEST_ONCE6
 
 inherit
-	EIFFELTEST_TOOLS
-		-- SZ:262: ensure violation for once method redefined. There is bug,
-		-- not sure it is exactly the reported bug.
+   EIFFELTEST_TOOLS
+      -- SZ:262: ensure violation for once method redefined. There is bug,
+      -- not sure it is exactly the reported bug.
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_ONCE6A; b: AUX_ONCE6B; c: AUX_ONCE6C; d: AUX_ONCE6D
-		do
-			create a
-			assert(a.default_value = 200)
-			create b
-			assert(b.default_value = 300)
-			create c
-			assert(c.default_value = 400)
-			create d
-			assert(d.default_value = 500)
-		end
+   make is
+      local
+         a: AUX_ONCE6A; b: AUX_ONCE6B; c: AUX_ONCE6C; d: AUX_ONCE6D
+      do
+         create a
+         assert(a.default_value = 200)
+         create b
+         assert(b.default_value = 300)
+         create c
+         assert(c.default_value = 400)
+         create d
+         assert(d.default_value = 500)
+      end
 
 end -- class TEST_ONCE6
 --

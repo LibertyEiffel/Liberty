@@ -9,10 +9,10 @@ feature
    
    make is 
       local
-	 aux: BAD_RENAME1;
+    aux: BAD_RENAME1;
       do
-	 !!aux.make;
-	 aux.g;
+    !!aux.make;
+    aux.g;
       end;
 
 end -- class BAD_RENAME2

@@ -2,37 +2,37 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER11
-	-- some strange examples of calculations between numbers
-	-- large_positive_integer & large_negative_integer
+   -- some strange examples of calculations between numbers
+   -- large_positive_integer & large_negative_integer
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   PLATFORM
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2: NUMBER
-		do
-			-- large_positive_integer
-			n1 := from_integer(Maximum_integer)
-			n2 := n1 @+ 1000
-			assert((n1 @+ 1).is_equal(n1 @+ 3 @- 2))
-			assert((n1 @+ 2).is_equal(n1 @+ 3 @- 1))
-			assert((n1 @+ 100).is_equal(n1 @+ 200 @- 100))
-			assert((n1 + n2).is_equal(n1 @* 2 @+ 1000))
-			-- large_negative_integer
-			n1 := from_integer(Minimum_integer)
-			n2 := n1 @- 1000
-			assert((n1 @- 1).is_equal(n1 @- 3 @+ 2))
-			assert((n1 @- 2).is_equal(n1 @- 3 @+ 1))
-			assert((n1 @- 100).is_equal(n1 @- 200 @+ 100))
-			assert((n1 + n2).is_equal(n1 @* 2 @- 1000))
-		end
+   make is
+      local
+         n1, n2: NUMBER
+      do
+         -- large_positive_integer
+         n1 := from_integer(Maximum_integer)
+         n2 := n1 @+ 1000
+         assert((n1 @+ 1).is_equal(n1 @+ 3 @- 2))
+         assert((n1 @+ 2).is_equal(n1 @+ 3 @- 1))
+         assert((n1 @+ 100).is_equal(n1 @+ 200 @- 100))
+         assert((n1 + n2).is_equal(n1 @* 2 @+ 1000))
+         -- large_negative_integer
+         n1 := from_integer(Minimum_integer)
+         n2 := n1 @- 1000
+         assert((n1 @- 1).is_equal(n1 @- 3 @+ 2))
+         assert((n1 @- 2).is_equal(n1 @- 3 @+ 1))
+         assert((n1 @- 100).is_equal(n1 @- 200 @+ 100))
+         assert((n1 + n2).is_equal(n1 @* 2 @- 1000))
+      end
 
 
 

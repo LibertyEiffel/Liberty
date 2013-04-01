@@ -4,12 +4,12 @@
 class BAD_C_INLINE_C_3
 
 insert
-	ANY
-		rename c_inline_c as eric_inline_c
-		end
-	
+   ANY
+      rename c_inline_c as eric_inline_c
+      end
+   
 creation
-	main
+   main
 
 feature
 

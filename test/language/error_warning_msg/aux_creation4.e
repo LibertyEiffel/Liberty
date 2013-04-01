@@ -4,9 +4,9 @@
 class AUX_CREATION4
 creation blub
 feature
-	borg is
-		do
-		end
+   borg is
+      do
+      end
 end -- class AUX_CREATION4
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

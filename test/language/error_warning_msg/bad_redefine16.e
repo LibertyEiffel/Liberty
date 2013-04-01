@@ -4,24 +4,24 @@
 class BAD_REDEFINE16
 
 insert
-	AUX_REDEFINE16
-		rename bar as bar1 end
-	AUX_REDEFINE16
-		rename bar as bar2 end
+   AUX_REDEFINE16
+      rename bar as bar1 end
+   AUX_REDEFINE16
+      rename bar as bar2 end
 
 creation
-	foo
+   foo
 
 feature
-	bar1 is
-		do
---			io.put_integer(1)
-		end
+   bar1 is
+      do
+--         io.put_integer(1)
+      end
 
-	bar2 is
-		do
---			io.put_integer(2)
-		end
+   bar2 is
+      do
+--         io.put_integer(2)
+      end
 
 end -- class BAD_REDEFINE16
 --

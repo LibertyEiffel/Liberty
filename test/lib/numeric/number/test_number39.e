@@ -2,38 +2,38 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER39
-	-- tests on "factorial"
+   -- tests on "factorial"
 
 insert
-	EIFFELTEST_TOOLS
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2, n3: NUMBER
-		do
-			n1 := from_integer(0)
-			assert(n1.factorial @= 1)
-			n1 := from_integer(1)
-			assert(n1.factorial @= 1)
-			n1 := from_integer(10)
-			n2 := from_string("3628800")
-			assert(n1.factorial.is_equal(n2))
-			-- warning : very slow
-			n1 := from_integer(1000) --from_integer(Maximum_integer) ;
-			n1 := n1 @+ 1
-			n1 := n1.factorial
-			n2 := from_integer(1000) --from_integer(Maximum_integer);
-			n2 := n2.factorial
-			n3 := from_integer(1000) --from_integer(Maximum_integer);
-			n3 := n3 @+ 1
-			n2 := n2 * n3
-			assert(n2.is_equal(n1))
-		end
+   make is
+      local
+         n1, n2, n3: NUMBER
+      do
+         n1 := from_integer(0)
+         assert(n1.factorial @= 1)
+         n1 := from_integer(1)
+         assert(n1.factorial @= 1)
+         n1 := from_integer(10)
+         n2 := from_string("3628800")
+         assert(n1.factorial.is_equal(n2))
+         -- warning : very slow
+         n1 := from_integer(1000) --from_integer(Maximum_integer) ;
+         n1 := n1 @+ 1
+         n1 := n1.factorial
+         n2 := from_integer(1000) --from_integer(Maximum_integer);
+         n2 := n2.factorial
+         n3 := from_integer(1000) --from_integer(Maximum_integer);
+         n3 := n3 @+ 1
+         n2 := n2 * n3
+         assert(n2.is_equal(n1))
+      end
 
 
 

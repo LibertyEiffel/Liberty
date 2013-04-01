@@ -4,47 +4,47 @@
 class TEST_HASH_CODE2
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d: DICTIONARY[INTEGER, CHARACTER]
-		do
-			create {HASHED_DICTIONARY[INTEGER, CHARACTER]} d.make
-			assert(not d.has('b'))
-			d.put(6, 'b')
-			assert(d.has('b'))
-			assert(d.at('b') = 6)
-			for_time
-		end
+   make is
+      local
+         d: DICTIONARY[INTEGER, CHARACTER]
+      do
+         create {HASHED_DICTIONARY[INTEGER, CHARACTER]} d.make
+         assert(not d.has('b'))
+         d.put(6, 'b')
+         assert(d.has('b'))
+         assert(d.at('b') = 6)
+         for_time
+      end
 
-	for_time is
-		local
-			d: DICTIONARY[INTEGER, TIME]; t1, t2: TIME
-		do
-			create {HASHED_DICTIONARY[INTEGER, TIME]} d.make
-			t1.update
-			assert(not d.has(t1))
-			d.put(1, t1)
-			assert(d.has(t1))
-			assert(d.at(t1) = 1)
-			from
-				t2.update
-			until
-				t1.second /= t2.second
-			loop
-				t2.update
-			end
-			assert(not d.has(t2))
-			d.put(2, t2)
-			assert(d.has(t2))
-			assert(d.at(t2) = 2)
-			assert(d.at(t1) = 1)
-		end
+   for_time is
+      local
+         d: DICTIONARY[INTEGER, TIME]; t1, t2: TIME
+      do
+         create {HASHED_DICTIONARY[INTEGER, TIME]} d.make
+         t1.update
+         assert(not d.has(t1))
+         d.put(1, t1)
+         assert(d.has(t1))
+         assert(d.at(t1) = 1)
+         from
+            t2.update
+         until
+            t1.second /= t2.second
+         loop
+            t2.update
+         end
+         assert(not d.has(t2))
+         d.put(2, t2)
+         assert(d.has(t2))
+         assert(d.at(t2) = 2)
+         assert(d.at(t1) = 1)
+      end
 
 end -- class TEST_HASH_CODE2
 --

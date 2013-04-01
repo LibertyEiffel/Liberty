@@ -4,10 +4,10 @@
 class AUX_PM1APPLE
 
 inherit
-	AUX_PM1FRUIT
+   AUX_PM1FRUIT
 
 creation {ANY}
-	make
+   make
 
 end -- class AUX_PM1APPLE
 --

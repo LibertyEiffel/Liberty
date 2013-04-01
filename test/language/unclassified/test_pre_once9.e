@@ -4,22 +4,22 @@
 class TEST_PRE_ONCE9
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			f: TEXT_FILE_READ
-		do
-			create f.connect_to("test_pre_once9.e")
-			f.read_line
-			assert(not io.last_string.is_empty)
-			assert(io.last_string = f.last_string)
-			f.disconnect
-		end
+   make is
+      local
+         f: TEXT_FILE_READ
+      do
+         create f.connect_to("test_pre_once9.e")
+         f.read_line
+         assert(not io.last_string.is_empty)
+         assert(io.last_string = f.last_string)
+         f.disconnect
+      end
 
 end -- class TEST_PRE_ONCE9
 --

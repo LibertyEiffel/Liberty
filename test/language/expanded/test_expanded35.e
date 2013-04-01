@@ -4,24 +4,24 @@
 class TEST_EXPANDED35
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			list: LINKED_LIST[AUX_EXPANDED35]; it: ITERATOR[AUX_EXPANDED35]; x: AUX_EXPANDED35
-		do
-			create list.make
-			list.add_last(x)
-			it := list.get_new_iterator
-			it.start
-			assert(it.item.val = 0)
-			it.item.set(5)
-			assert(it.item.val = 0) -- Not changed (expanded).
-		end
+   make is
+      local
+         list: LINKED_LIST[AUX_EXPANDED35]; it: ITERATOR[AUX_EXPANDED35]; x: AUX_EXPANDED35
+      do
+         create list.make
+         list.add_last(x)
+         it := list.get_new_iterator
+         it.start
+         assert(it.item.val = 0)
+         it.item.set(5)
+         assert(it.item.val = 0) -- Not changed (expanded).
+      end
 
 end -- class TEST_EXPANDED35
 --

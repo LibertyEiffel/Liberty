@@ -4,17 +4,17 @@
 class POLYMORPHIC2
 
 inherit
-	POLYMORPHIC1
-		redefine is_equal
-		end
+   POLYMORPHIC1
+      redefine is_equal
+      end
 
 feature {ANY}
-	foo: INTEGER
+   foo: INTEGER
 
-	is_equal (other: like Current): BOOLEAN is
-		do
-			Result := foo = other.foo
-		end
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := foo = other.foo
+      end
 
 end -- class POLYMORPHIC2
 --

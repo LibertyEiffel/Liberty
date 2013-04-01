@@ -4,17 +4,17 @@
 class AUX_PRECURSOR14
 
 creation {ANY}
-	make_aux
+   make_aux
 
 feature {ANY}
-	make_aux is
-		do
-		end
+   make_aux is
+      do
+      end
 
-	foo: like Current is
-		do
-			Result := create {like Current}.make_aux
-		end
+   foo: like Current is
+      do
+         Result := create {like Current}.make_aux
+      end
 
 end -- class AUX_PRECURSOR14
 --

@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_COPPERFIELD
-	--
-	-- From a bug report of : Philippe RIBET
-	--
+   --
+   -- From a bug report of : Philippe RIBET
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			copperfield: INTEGER
-		do
-			copperfield := 5.to_integer_32 // 5.sqrt.floor.force_to_integer_32
-			if copperfield /= 5.to_integer_32 // 5.sqrt.floor.force_to_integer_32 then
-				std_output.put_string("TEST_COPPERFIELD: ERROR.%N")
-			end
-		end
+   make is
+      local
+         copperfield: INTEGER
+      do
+         copperfield := 5.to_integer_32 // 5.sqrt.floor.force_to_integer_32
+         if copperfield /= 5.to_integer_32 // 5.sqrt.floor.force_to_integer_32 then
+            std_output.put_string("TEST_COPPERFIELD: ERROR.%N")
+         end
+      end
 
 end -- class TEST_COPPERFIELD
 --

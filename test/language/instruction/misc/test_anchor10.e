@@ -2,30 +2,30 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ANCHOR10
-	-- SZ361 from franck@nenie.org (Franck Arnaud)
+   -- SZ361 from franck@nenie.org (Franck Arnaud)
 
 inherit
-	AUX_ANCHOR10_EFFECTOR[STRING]
+   AUX_ANCHOR10_EFFECTOR[STRING]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			do_it
-		end
+   make is
+      do
+         do_it
+      end
 
 feature {ANY}
-	do_it is
-		local
-			b: like anchor
-		do
-			b := anchor
-			if b.item /= Void then
-				b.item.wipe_out
-			end
-		end
+   do_it is
+      local
+         b: like anchor
+      do
+         b := anchor
+         if b.item /= Void then
+            b.item.wipe_out
+         end
+      end
 
 end -- class TEST_ANCHOR10
 --

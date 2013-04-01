@@ -4,15 +4,15 @@
 class AUX_GENERIC4
 
 creation {ANY}
-	use
+   use
 
 feature {ANY}
-	use (t: ARRAY[COMPARABLE]) is
-		require
-			t.count > 1
-		do
-			t.put(t.last, t.upper)
-		end
+   use (t: ARRAY[COMPARABLE]) is
+      require
+         t.count > 1
+      do
+         t.put(t.last, t.upper)
+      end
 
 end -- class AUX_GENERIC4
 --

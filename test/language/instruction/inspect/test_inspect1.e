@@ -4,50 +4,50 @@
 class TEST_INSPECT1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	u1, u2: INTEGER is unique
+   u1, u2: INTEGER is unique
 
-	aux_inspect1: AUX_INSPECT1
+   aux_inspect1: AUX_INSPECT1
 
-	aux_inspect2: AUX_INSPECT2
+   aux_inspect2: AUX_INSPECT2
 
-	make is
-		do
-			do_it
-			create aux_inspect1
-			aux_inspect1.do_it
-			create aux_inspect2
-			aux_inspect2.do_it
-		end
+   make is
+      do
+         do_it
+         create aux_inspect1
+         aux_inspect1.do_it
+         create aux_inspect2
+         aux_inspect2.do_it
+      end
 
-	do_it is
-		local
-			i: INTEGER
-		do
-			i := u1
-			inspect
-				i
-			when u1 then
-			when u2 then
-				std_output.put_string("TEST_INSPECT1: ERROR # 1%N")
-			end
-			inspect
-				i
-			when u1 then
-			when u2 then
-				std_output.put_string("TEST_INSPECT1: ERROR # 2%N")
-			else
-				std_output.put_string("TEST_INSPECT1: ERROR # 3%N")
-			end
-			inspect
-				i
-			when u2 then
-				std_output.put_string("TEST_INSPECT1: ERROR # 4%N")
-			else
-			end
-		end
+   do_it is
+      local
+         i: INTEGER
+      do
+         i := u1
+         inspect
+            i
+         when u1 then
+         when u2 then
+            std_output.put_string("TEST_INSPECT1: ERROR # 1%N")
+         end
+         inspect
+            i
+         when u1 then
+         when u2 then
+            std_output.put_string("TEST_INSPECT1: ERROR # 2%N")
+         else
+            std_output.put_string("TEST_INSPECT1: ERROR # 3%N")
+         end
+         inspect
+            i
+         when u2 then
+            std_output.put_string("TEST_INSPECT1: ERROR # 4%N")
+         else
+         end
+      end
 
 end -- class TEST_INSPECT1
 --

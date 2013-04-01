@@ -4,37 +4,37 @@
 class TEST_READ_INTEGER1
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {}
-	main is
-		local
-			sfr: TEXT_FILE_READ; i: INTEGER
-		do
-			create sfr.connect_to("aux_read_integer1.dat")
-			assert(sfr.is_connected)
-			sfr.read_integer
-			i := sfr.last_integer
-			assert(i = 1)
-			sfr.read_integer
-			i := sfr.last_integer
-			assert(i = 2)
-			sfr.read_character
-			assert(sfr.last_character = 'A')
-			sfr.read_integer
-			i := sfr.last_integer
-			assert(i = 3)
-			sfr.read_integer
-			i := sfr.last_integer
-			assert(i = 4)
-			assert(sfr.end_of_input)
-			sfr.read_integer
-			assert(not sfr.valid_last_integer)
-			sfr.disconnect
-		end
+   main is
+      local
+         sfr: TEXT_FILE_READ; i: INTEGER
+      do
+         create sfr.connect_to("aux_read_integer1.dat")
+         assert(sfr.is_connected)
+         sfr.read_integer
+         i := sfr.last_integer
+         assert(i = 1)
+         sfr.read_integer
+         i := sfr.last_integer
+         assert(i = 2)
+         sfr.read_character
+         assert(sfr.last_character = 'A')
+         sfr.read_integer
+         i := sfr.last_integer
+         assert(i = 3)
+         sfr.read_integer
+         i := sfr.last_integer
+         assert(i = 4)
+         assert(sfr.end_of_input)
+         sfr.read_integer
+         assert(not sfr.valid_last_integer)
+         sfr.disconnect
+      end
 
 end -- class TEST_READ_INTEGER1
 --

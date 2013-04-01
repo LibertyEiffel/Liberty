@@ -2,30 +2,30 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SIMPLIFY20
-	-- For sz:495
+   -- For sz:495
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			precomputable.set_item(1)
-			assert(not_precomputable = 1)
-		end
+   make is
+      do
+         precomputable.set_item(1)
+         assert(not_precomputable = 1)
+      end
 
-	precomputable: REFERENCE[INTEGER] is
-		once
-			create Result
-		end
+   precomputable: REFERENCE[INTEGER] is
+      once
+         create Result
+      end
 
-	not_precomputable: INTEGER is
-		once
-			Result := precomputable.item
-		end
+   not_precomputable: INTEGER is
+      once
+         Result := precomputable.item
+      end
 
 end -- class TEST_SIMPLIFY20
 --

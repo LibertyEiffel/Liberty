@@ -4,12 +4,12 @@
 class AUX_EXPORT1B
 
 inherit
-	AUX_EXPORT1A
-		export {TEST_EXPORT1} f
-		end
+   AUX_EXPORT1A
+      export {TEST_EXPORT1} f
+      end
 
 insert
-	AUX_EXPORT1A
+   AUX_EXPORT1A
 
 end -- class AUX_EXPORT1B
 --

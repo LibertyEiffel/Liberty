@@ -4,13 +4,13 @@
 class BAD_NAME3
 
 creation
-	thisIsWrong
+   thisIsWrong
 
 feature
-	thisIsWrong is
-		do
-		end
-	
+   thisIsWrong is
+      do
+      end
+   
 end -- class BAD_NAME3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

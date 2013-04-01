@@ -9,14 +9,14 @@ feature
 
    make is
       local
-	 x: INTEGER
+    x: INTEGER
       do
-	 routine if x > 3 then end
+    routine if x > 3 then end
       end
 
    routine is
       do
-	 Precursor
+    Precursor
       end
 
 end -- class BAD_PRECURSOR03

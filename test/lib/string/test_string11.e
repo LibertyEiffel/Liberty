@@ -4,48 +4,48 @@
 class TEST_STRING11
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			c: CHARACTER; s, s1, s2: STRING
-		do
-			c := 0.hexadecimal_digit
-			assert(c = '0')
-			c := 1.hexadecimal_digit
-			assert(c = '1')
-			c := 9.hexadecimal_digit
-			assert(c = '9')
-			c := 10.hexadecimal_digit
-			assert(c = 'A')
-			c := 15.hexadecimal_digit
-			assert(c = 'F')
-			s := "0000"
-			s.to_hexadecimal
-			assert(("0").is_equal(s))
-			s := "1000"
-			s.to_hexadecimal
-			assert(("8").is_equal(s))
-			s := "1111"
-			s.to_hexadecimal
-			assert(("F").is_equal(s))
-			s := "111"
-			s.to_hexadecimal
-			assert(("7").is_equal(s))
-			s := "11111"
-			s.to_hexadecimal
-			assert(("1F").is_equal(s))
-			s := "11111111"
-			s.to_hexadecimal
-			assert(("FF").is_equal(s))
-			create s1.make(1)
-			create s2.make(0)
-			s1.append(s2)
-		end
+   make is
+      local
+         c: CHARACTER; s, s1, s2: STRING
+      do
+         c := 0.hexadecimal_digit
+         assert(c = '0')
+         c := 1.hexadecimal_digit
+         assert(c = '1')
+         c := 9.hexadecimal_digit
+         assert(c = '9')
+         c := 10.hexadecimal_digit
+         assert(c = 'A')
+         c := 15.hexadecimal_digit
+         assert(c = 'F')
+         s := "0000"
+         s.to_hexadecimal
+         assert(("0").is_equal(s))
+         s := "1000"
+         s.to_hexadecimal
+         assert(("8").is_equal(s))
+         s := "1111"
+         s.to_hexadecimal
+         assert(("F").is_equal(s))
+         s := "111"
+         s.to_hexadecimal
+         assert(("7").is_equal(s))
+         s := "11111"
+         s.to_hexadecimal
+         assert(("1F").is_equal(s))
+         s := "11111111"
+         s.to_hexadecimal
+         assert(("FF").is_equal(s))
+         create s1.make(1)
+         create s2.make(0)
+         s1.append(s2)
+      end
 
 end -- class TEST_STRING11
 --

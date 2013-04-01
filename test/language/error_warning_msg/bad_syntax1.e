@@ -9,7 +9,7 @@ feature
 
    make is
       local
-	 i: INTEGER[]
+    i: INTEGER[]
       do
       end
 

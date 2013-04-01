@@ -2,56 +2,56 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_BYSL1
-	-- From: Benjamin Yin-Sun Lynn <blynn@Stanford.EDU>
+   -- From: Benjamin Yin-Sun Lynn <blynn@Stanford.EDU>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	array: ARRAY[STRING] is
-		once
-			Result := {ARRAY[STRING] 1, << "one", once "two", "three", "four" >> }
-		end
+   array: ARRAY[STRING] is
+      once
+         Result := {ARRAY[STRING] 1, << "one", once "two", "three", "four" >> }
+      end
 
-	show is
-		local
-			i: INTEGER
-		do
-			from
-				i := array.lower
-			until
-				i > array.upper
-			loop
-				io.put_string("%"" + array.item(i) + "%"%N")
-				i := i + 1
-			end
-		end
+   show is
+      local
+         i: INTEGER
+      do
+         from
+            i := array.lower
+         until
+            i > array.upper
+         loop
+            io.put_string("%"" + array.item(i) + "%"%N")
+            i := i + 1
+         end
+      end
 
-	make is
-		local
-			i, j: INTEGER; s: STRING
-		do
-			from
-				j := 1
-			until
-				j > 3
-			loop
-				from
-					i := 1
-				until
-					i > 100000
-				loop
-					create s.make(5)
-					i := i + 1
-				end
-				if not array.item(1).is_equal("one") then
-					io.put_string("BUG!%N")
-					show
-					die_with_code(1)
-				end
-				j := j + 1
-			end
-		end
+   make is
+      local
+         i, j: INTEGER; s: STRING
+      do
+         from
+            j := 1
+         until
+            j > 3
+         loop
+            from
+               i := 1
+            until
+               i > 100000
+            loop
+               create s.make(5)
+               i := i + 1
+            end
+            if not array.item(1).is_equal("one") then
+               io.put_string("BUG!%N")
+               show
+               die_with_code(1)
+            end
+            j := j + 1
+         end
+      end
 
 end -- class TEST_BYSL1
 --

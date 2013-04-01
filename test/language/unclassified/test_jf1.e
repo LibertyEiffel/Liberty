@@ -2,37 +2,37 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JF1
-	-- From a bug report of "Joël Faedi" <Joel.Faedi@esial.uhp-nancy.fr>
-	--
-	-- Really interresting syntactic bug (length of line ????).
-	--
+   -- From a bug report of "Joël Faedi" <Joel.Faedi@esial.uhp-nancy.fr>
+   --
+   -- Really interresting syntactic bug (length of line ????).
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			bool: BOOLEAN
-		do
-			if bool then
-				io.put_string(regle_yacc_5(1, 2))
-			end
-		end
+   make is
+      local
+         bool: BOOLEAN
+      do
+         if bool then
+            io.put_string(regle_yacc_5(1, 2))
+         end
+      end
 
 feature {}
-	regle_yacc_5 (dollar_1: INTEGER; dollar_2: INTEGER): STRING is
-		require
-			check_idf(dollar_1)
-			check_idf(dollar_2)
-		do
-			io.put_integer(dollar_1 + dollar_2)
-			Result := " regle_yacc_5%N"
-		end
+   regle_yacc_5 (dollar_1: INTEGER; dollar_2: INTEGER): STRING is
+      require
+         check_idf(dollar_1)
+         check_idf(dollar_2)
+      do
+         io.put_integer(dollar_1 + dollar_2)
+         Result := " regle_yacc_5%N"
+      end
 
-	check_idf (x: INTEGER): BOOLEAN is
-		do
-		end
+   check_idf (x: INTEGER): BOOLEAN is
+      do
+      end
 
 end -- class TEST_JF1
 --

@@ -3,7 +3,7 @@
 --
 class AUX_UNDEFINE3A
 insert
-	ANY
+   ANY
 feature {ANY}
 
    test is

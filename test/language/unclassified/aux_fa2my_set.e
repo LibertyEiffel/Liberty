@@ -4,12 +4,12 @@
 class AUX_FA2MY_SET[G]
 
 feature {ANY}
-	remove is
-		local
-			list: AUX_FA2MY_LINKED_LIST[G]; it: AUX_FA2ABSTRACT_ITERATOR[G]
-		do
-			it := list.iterator
-		end
+   remove is
+      local
+         list: AUX_FA2MY_LINKED_LIST[G]; it: AUX_FA2ABSTRACT_ITERATOR[G]
+      do
+         it := list.iterator
+      end
 
 end -- class AUX_FA2MY_SET
 --

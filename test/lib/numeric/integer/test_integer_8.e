@@ -2,40 +2,40 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_INTEGER_8
-	-- To test INTEGER_8
+   -- To test INTEGER_8
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i8: INTEGER_8; i32, i: INTEGER
-		do
-			i32 := 2
-			i := i8 + i32
-			assert(i = 2)
-			i := 0
-			i := i32.max(i8)
-			assert(i = 2)
-			i := 76
-			assert(76 = i)
-			assert(i + 1 = 77)
-			assert(76 = i)
-		end
+   make is
+      local
+         i8: INTEGER_8; i32, i: INTEGER
+      do
+         i32 := 2
+         i := i8 + i32
+         assert(i = 2)
+         i := 0
+         i := i32.max(i8)
+         assert(i = 2)
+         i := 76
+         assert(76 = i)
+         assert(i + 1 = 77)
+         assert(76 = i)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_INTEGER_8: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_INTEGER_8: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_INTEGER_8
 --

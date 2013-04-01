@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PH4
-	-- From: Philip Malin <psm@whitedove.melbourneit.com.au>
+   -- From: Philip Malin <psm@whitedove.melbourneit.com.au>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			splay: AUX_PH4_SPLAY_DICTIONARY[INTEGER, INTEGER]; iterator: AUX_PH4_SPLAY_DICTIONARY_ITERATOR[INTEGER]
-			i: INTEGER
-		do
-			create splay.make
-			splay.put(1, 3)
-			splay.put(4, 4)
-			iterator := splay.new_iterator
-			i := iterator.index
-		end
+   make is
+      local
+         splay: AUX_PH4_SPLAY_DICTIONARY[INTEGER, INTEGER]; iterator: AUX_PH4_SPLAY_DICTIONARY_ITERATOR[INTEGER]
+         i: INTEGER
+      do
+         create splay.make
+         splay.put(1, 3)
+         splay.put(4, 4)
+         iterator := splay.new_iterator
+         i := iterator.index
+      end
 
 end -- class TEST_PH4
 --

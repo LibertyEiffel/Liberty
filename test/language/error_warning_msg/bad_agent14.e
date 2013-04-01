@@ -11,8 +11,8 @@ feature
       local
          my_collection: COLLECTION[STRING]
       do
-			my_collection := {FAST_ARRAY[STRING] <<"Benedicte","Lucien","Marie">> }
-			my_collection.do_all(agent print_item(?))
+         my_collection := {FAST_ARRAY[STRING] <<"Benedicte","Lucien","Marie">> }
+         my_collection.do_all(agent print_item(?))
       end
 
 feature {}

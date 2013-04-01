@@ -4,35 +4,35 @@
 class TEST_DYNAMIC_DISPATCH1
 
 inherit
-	ANY
+   ANY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	any: ANY
+   any: ANY
 
-	triangle: TRIANGLE
+   triangle: TRIANGLE
 
-	point: POINT
+   point: POINT
 
-	make is
-		local
-			i: INTEGER
-		do
-			from
-				i := 1000000
-			until
-				i = 0
-			loop
-				create point.make(1.0, 2.0)
-				any := point
-				create triangle.make(point, point, point)
-				any := triangle
-				i := i - 1
-				any := Current
-			end
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         from
+            i := 1000000
+         until
+            i = 0
+         loop
+            create point.make(1.0, 2.0)
+            any := point
+            create triangle.make(point, point, point)
+            any := triangle
+            i := i - 1
+            any := Current
+         end
+      end
 
 end -- class TEST_DYNAMIC_DISPATCH1
 --

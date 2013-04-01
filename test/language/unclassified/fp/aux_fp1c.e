@@ -4,26 +4,26 @@
 class AUX_FP1C
 
 inherit
-	AUX_FP1B
-		redefine init
-		end
+   AUX_FP1B
+      redefine init
+      end
 
 insert
-	AUX_FP1B
-		rename init as b_init
-		end
+   AUX_FP1B
+      rename init as b_init
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	c_count: INTEGER
+   c_count: INTEGER
 
-	init is
-		do
-			b_init
-			c_count := c_count + 1
-		end
+   init is
+      do
+         b_init
+         c_count := c_count + 1
+      end
 
 end -- class AUX_FP1C
 --

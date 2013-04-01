@@ -5,17 +5,17 @@ class AUX_SELECT9CC
 inherit
    AUX_SELECT9AA
       rename
-			f as aa_f
+         f as aa_f
       end;
    AUX_SELECT9BB
       end;
-	
+   
 feature
 
    f is
       do
-			aa_f;
-			io.put_string ("CC.f%N");
+         aa_f;
+         io.put_string ("CC.f%N");
       end;
 end -- class AUX_SELECT9CC
 --

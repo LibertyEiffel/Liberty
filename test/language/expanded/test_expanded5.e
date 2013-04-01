@@ -4,23 +4,23 @@
 class TEST_EXPANDED5
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	e1, e2: EXPANDED2
+   e1, e2: EXPANDED2
 
-	make is
-		do
-			assert(e1.x = 2)
-			assert(e1 = e2)
-			e1.set_x(1)
-			assert(e1.x = 1)
-			assert(not (e1 = e2))
-			assert(e1 /= e2)
-		end
+   make is
+      do
+         assert(e1.x = 2)
+         assert(e1 = e2)
+         e1.set_x(1)
+         assert(e1.x = 1)
+         assert(not (e1 = e2))
+         assert(e1 /= e2)
+      end
 
 end -- class TEST_EXPANDED5
 --

@@ -4,12 +4,12 @@
 class AUX_JMJ2A[T]
 
 feature {ANY}
-	container: COLLECTION[T]
+   container: COLLECTION[T]
 
-	set (new: like container) is
-		do
-			container := new
-		end
+   set (new: like container) is
+      do
+         container := new
+      end
 
 end -- class AUX_JMJ2A
 --

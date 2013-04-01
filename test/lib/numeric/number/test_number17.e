@@ -2,38 +2,38 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER17
-	-- tests on "is_integer"
+   -- tests on "is_integer"
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   PLATFORM
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: NUMBER
-		do
-			n := from_integer(0)
-			assert(n.is_integer_32)
-			n := from_integer(1)
-			assert(n.is_integer_32)
-			n := from_integer(-1)
-			assert(n.is_integer_32)
-			n := from_integer(Maximum_integer)
-			n := n @+ 1000
-			assert(not n.is_integer_32)
-			n := from_integer(Minimum_integer)
-			n := n @- 1000
-			assert(not n.is_integer_32)
-			n := from_string("3/5")
-			assert(not n.is_integer_32)
-			n := from_string("-9/10")
-			assert(not n.is_integer_32)
-		end
+   make is
+      local
+         n: NUMBER
+      do
+         n := from_integer(0)
+         assert(n.is_integer_32)
+         n := from_integer(1)
+         assert(n.is_integer_32)
+         n := from_integer(-1)
+         assert(n.is_integer_32)
+         n := from_integer(Maximum_integer)
+         n := n @+ 1000
+         assert(not n.is_integer_32)
+         n := from_integer(Minimum_integer)
+         n := n @- 1000
+         assert(not n.is_integer_32)
+         n := from_string("3/5")
+         assert(not n.is_integer_32)
+         n := from_string("-9/10")
+         assert(not n.is_integer_32)
+      end
 
 
 

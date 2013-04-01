@@ -4,18 +4,18 @@
 class BAD_FEATURE6
 
 creation
-	main
+   main
 
 feature
-	frozen MY_FUNCTION: INTEGER is
-		do
-		end
-	
+   frozen MY_FUNCTION: INTEGER is
+      do
+      end
+   
 
-	main is
-		do
-		end
-	
+   main is
+      do
+      end
+   
 end -- class BAD_FEATURE6
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

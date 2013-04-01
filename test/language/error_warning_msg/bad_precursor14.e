@@ -4,17 +4,17 @@
 class BAD_PRECURSOR14
 
 insert
-	AUX_PRECURSOR14
-		end
+   AUX_PRECURSOR14
+      end
 
 creation
-	main
+   main
 
 feature
-	main is
-		do
-			Precursor -- ... no existing one!
-		end
+   main is
+      do
+         Precursor -- ... no existing one!
+      end
 end -- class BAD_PRECURSOR14
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -2,52 +2,52 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_STRING3
-	-- Test from Philippe Ribet
-	-- GC fail on this program. A memory debugging tool may help (overflow).
-	-- memset in rso_from_store does overflow.
+   -- Test from Philippe Ribet
+   -- GC fail on this program. A memory debugging tool may help (overflow).
+   -- memset in rso_from_store does overflow.
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			str: STRING
-		do
-			from
-				create str.make(5)
-				fill(str, 30000)
-			until
-				str.count > 70000
-			loop
-				fill(str, 100)
-				str.remove_suffix(str.substring(str.count - 5, str.count))
-			end
-		end
+   make is
+      local
+         str: STRING
+      do
+         from
+            create str.make(5)
+            fill(str, 30000)
+         until
+            str.count > 70000
+         loop
+            fill(str, 100)
+            str.remove_suffix(str.substring(str.count - 5, str.count))
+         end
+      end
 
-	fill (s: STRING; size: INTEGER) is
-		require
-			size > 0
-		local
-			i: INTEGER
-		do
-			from
-				i := size
-			until
-				i <= 0
-			loop
-				rand.next
-				s.add_last((rand.last_integer(25) + 65).to_character)
-				i := i - 1
-			end
-		ensure
-			s.count = old s.count + size
-		end
+   fill (s: STRING; size: INTEGER) is
+      require
+         size > 0
+      local
+         i: INTEGER
+      do
+         from
+            i := size
+         until
+            i <= 0
+         loop
+            rand.next
+            s.add_last((rand.last_integer(25) + 65).to_character)
+            i := i - 1
+         end
+      ensure
+         s.count = old s.count + size
+      end
 
-	rand: MINIMAL_RANDOM_NUMBER_GENERATOR is
-		once
-			create Result.with_seed(57)
-		end
+   rand: MINIMAL_RANDOM_NUMBER_GENERATOR is
+      once
+         create Result.with_seed(57)
+      end
 
 end -- class TEST_STRING3
 --

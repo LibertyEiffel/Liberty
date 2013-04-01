@@ -4,39 +4,39 @@
 class DICTIONARY_ITEM
 
 inherit
-	HASHABLE
-	COMPARABLE
+   HASHABLE
+   COMPARABLE
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	hash_code: INTEGER is
-		do
-			-- Make sure to cause many collisions
-			Result := value & 255
-		end
+   hash_code: INTEGER is
+      do
+         -- Make sure to cause many collisions
+         Result := value & 255
+      end
 
-	infix "<" (other: like Current): BOOLEAN is
-		do
-			Result := value < other.value
-		end
+   infix "<" (other: like Current): BOOLEAN is
+      do
+         Result := value < other.value
+      end
 
 feature {DICTIONARY_ITEM}
-	value: INTEGER
+   value: INTEGER
 
 feature {}
-	make (value_: like value) is
-		do
-			value := value_
-			trail.add_last(Current)
-		end
+   make (value_: like value) is
+      do
+         value := value_
+         trail.add_last(Current)
+      end
 
-	trail: FAST_ARRAY[DICTIONARY_ITEM] is
-			-- A trail of the DICTIONARY_ITEMS, in the order they were created.
-		once
-			create Result.with_capacity(1024)
-		end
+   trail: FAST_ARRAY[DICTIONARY_ITEM] is
+         -- A trail of the DICTIONARY_ITEMS, in the order they were created.
+      once
+         create Result.with_capacity(1024)
+      end
 
 end -- class DICTIONARY_ITEM
 --

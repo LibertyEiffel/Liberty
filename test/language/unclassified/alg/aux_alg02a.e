@@ -4,15 +4,15 @@
 class AUX_ALG02A
 
 insert
-	ANY
+   ANY
 
 feature {ANY}
-	a: INTEGER
+   a: INTEGER
 
-	make is
-		do
-			a := 1
-		end
+   make is
+      do
+         a := 1
+      end
 
 end -- class AUX_ALG02A
 --

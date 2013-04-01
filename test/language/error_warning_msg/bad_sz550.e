@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_SZ550
-	-- From smartzilla 550
+   -- From smartzilla 550
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			foo: PREDICATE[TUPLE]
-		do
-			foo := agent foo.item([])
-		end
+   make is
+      local
+         foo: PREDICATE[TUPLE]
+      do
+         foo := agent foo.item([])
+      end
 
 end -- class BAD_SZ550
 --

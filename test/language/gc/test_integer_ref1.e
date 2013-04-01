@@ -4,22 +4,22 @@
 class TEST_INTEGER_REF1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			any: ANY; i: INTEGER
-		do
-			from
-				i := 10000000
-			until
-				i = 0
-			loop
-				any := create {REFERENCE[INTEGER]}.set_item(i)
-				i := i - 1
-			end
-		end
+   make is
+      local
+         any: ANY; i: INTEGER
+      do
+         from
+            i := 10000000
+         until
+            i = 0
+         loop
+            any := create {REFERENCE[INTEGER]}.set_item(i)
+            i := i - 1
+         end
+      end
 
 end -- class TEST_INTEGER_REF1
 --

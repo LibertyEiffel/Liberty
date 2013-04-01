@@ -4,16 +4,16 @@
 deferred class QUADRUPED
 
 inherit
-	ANIMAL
-		redefine fornicate_with
-		end
+   ANIMAL
+      redefine fornicate_with
+      end
 
 feature {ANY}
-	fornicate_with (other: ANIMAL): ANIMAL is
-		do
-			-- *** Because the 2.0 release is checking all the code !
-			-- Result := other.reproduction_avec_quadrupede(Current);
-		end
+   fornicate_with (other: ANIMAL): ANIMAL is
+      do
+         -- *** Because the 2.0 release is checking all the code !
+         -- Result := other.reproduction_avec_quadrupede(Current);
+      end
 
 end -- class QUADRUPED
 --

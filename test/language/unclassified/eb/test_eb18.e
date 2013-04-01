@@ -4,21 +4,21 @@
 class TEST_EB18
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a, b: ARRAY[ANY]
-		do
-			create a.make(1, 1)
-			create b.make(1, 1)
-			a.put(a, 1)
-			b.put(b, 1)
-			if not a.is_equal_map(b) then
-				-- print("ERROR TEST_EB18%N");
-			end
-		end
+   make is
+      local
+         a, b: ARRAY[ANY]
+      do
+         create a.make(1, 1)
+         create b.make(1, 1)
+         a.put(a, 1)
+         b.put(b, 1)
+         if not a.is_equal_map(b) then
+            -- print("ERROR TEST_EB18%N");
+         end
+      end
 
 end -- class TEST_EB18
 --

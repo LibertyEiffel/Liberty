@@ -755,6 +755,42 @@ feature {INTEGER_CONSTANT}
          end
       end
 
+feature {NATURAL_CONSTANT}
+   visit_natural_constant (visited: NATURAL_CONSTANT) is
+      local
+         actual_size: INTEGER
+      do
+         if visited.pretty_view /= Void then
+            function_body.append(once "/*")
+            function_body.append(visited.pretty_view)
+            function_body.append(once "*/")
+         end
+         if visited.result_type_memory /= Void then
+            actual_size := visited.result_type_memory.bit_count
+         else
+            actual_size := visited.size
+         end
+         inspect
+            actual_size
+         when 8 then
+            function_body.append(once "UINT8_C(")
+            visited.value_memory.append_in(function_body)
+            function_body.extend(')')
+         when 16 then
+            function_body.append(once "UINT16_C(")
+            visited.value_memory.append_in(function_body)
+            function_body.extend(')')
+         when 32 then
+            function_body.append(once "UINT32_C(")
+            visited.value_memory.append_in(function_body)
+            function_body.extend(')')
+         when 64 then
+            function_body.append(once "UINT64_C(")
+            visited.value_memory.append_in(function_body)
+            function_body.extend(')')
+         end
+      end
+
 feature {REAL_CONSTANT}
    visit_real_constant (visited: REAL_CONSTANT) is
       local
@@ -921,6 +957,14 @@ feature {INTERNAL_LOCAL2}
             set_internal_c_local_tag(visited, cpp.pending_c_function_lock_local(visited.resolve_in(type), visited.tag))
          end
          internal_c_local_tag(visited).append_in(function_body)
+      end
+
+feature {NATIVE_ARRAY_ITEM}
+   visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+      do
+         function_body.append(once "/*NAI*/(C[")
+         compile_expression(visited.index)
+         function_body.append(once "])")
       end
 
 feature {NO_DISPATCH}

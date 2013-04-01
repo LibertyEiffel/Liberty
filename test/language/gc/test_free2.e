@@ -2,79 +2,79 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FREE2
-	-- From philippe Coucaud <Philippe.Coucaud@telelogic.com>
+   -- From philippe Coucaud <Philippe.Coucaud@telelogic.com>
 
 insert
-	MEMORY
+   MEMORY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	scale_factor: INTEGER is 1
-			-- 3
-			-- 2
-			-- 1 -> 38Mo
+   scale_factor: INTEGER is 1
+         -- 3
+         -- 2
+         -- 1 -> 38Mo
 
-	make is
-		local
-			d0, d1, d2: ARRAY[ARRAY[REAL_64]]; a: ARRAY[REAL_64]; i, j: INTEGER
-		do
-			from
-				j := 200
-			until
-				j < 0
-			loop
-				-- allocate medium and big size RSOC
-				from
-					i := 30 * scale_factor
-					create d0.make(1, 0)
-					create d1.make(1, 0)
-				until
-					i < 1
-				loop
-					create a.make(0, 33777)
-					-- requires a big chunk
-					d0.add_last(a)
-					create a.make(0, 2711) -- should fit in a 32K RSOC
-					d1.add_last(a)
-					i := i - 1
-				end
-				create d0.make(1, 0)
-				-- forget previous d0
-				-- allocate small and medium size RSOC
-				from
-					i := 40 * scale_factor
-					create d1.make(1, 0)
-					create d2.make(1, 0)
-				until
-					i < 1
-				loop
-					create a.make(0, 1971)
-					-- should fit in a 32K RSOC
-					d1.add_last(a)
-					create a.make(0, 357)
-					d2.add_last(a)
-					i := i - 1
-				end
-				create d1.make(1, 0) -- forget previous d1
-				create d2.make(1, 0)
-				-- forget previous d2
-				-- allocate big RSOC again
-				from
-					i := 30 * scale_factor
-					create d0.make(1, 0)
-				until
-					i < 1
-				loop
-					create a.make(0, 35001)
-					-- should fit in a 32K RSOC
-					d0.add_last(a)
-					i := i - 1
-				end
-				j := j - 1
-			end
-		end
+   make is
+      local
+         d0, d1, d2: ARRAY[ARRAY[REAL_64]]; a: ARRAY[REAL_64]; i, j: INTEGER
+      do
+         from
+            j := 200
+         until
+            j < 0
+         loop
+            -- allocate medium and big size RSOC
+            from
+               i := 30 * scale_factor
+               create d0.make(1, 0)
+               create d1.make(1, 0)
+            until
+               i < 1
+            loop
+               create a.make(0, 33777)
+               -- requires a big chunk
+               d0.add_last(a)
+               create a.make(0, 2711) -- should fit in a 32K RSOC
+               d1.add_last(a)
+               i := i - 1
+            end
+            create d0.make(1, 0)
+            -- forget previous d0
+            -- allocate small and medium size RSOC
+            from
+               i := 40 * scale_factor
+               create d1.make(1, 0)
+               create d2.make(1, 0)
+            until
+               i < 1
+            loop
+               create a.make(0, 1971)
+               -- should fit in a 32K RSOC
+               d1.add_last(a)
+               create a.make(0, 357)
+               d2.add_last(a)
+               i := i - 1
+            end
+            create d1.make(1, 0) -- forget previous d1
+            create d2.make(1, 0)
+            -- forget previous d2
+            -- allocate big RSOC again
+            from
+               i := 30 * scale_factor
+               create d0.make(1, 0)
+            until
+               i < 1
+            loop
+               create a.make(0, 35001)
+               -- should fit in a 32K RSOC
+               d0.add_last(a)
+               i := i - 1
+            end
+            j := j - 1
+         end
+      end
 
 end -- class TEST_FREE2
 --

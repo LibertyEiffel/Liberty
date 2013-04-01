@@ -4,38 +4,38 @@
 class TEST_BIJECTIVE_DICTIONARY2
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			d1: HASHED_BIJECTIVE_DICTIONARY[INTEGER, INTEGER]
-		do
-			create d1.make
-			assert(d1.count = 0)
-			d1.put(1, 2)
-			assert(d1.count = 1)
-			assert(d1.at(2) = 1)
-			assert(d1.fast_at(2) = 1)
-			assert(d1.has_value(1))
-			assert(d1.fast_has_value(1))
-			d1.put(3, 4)
-			assert(d1.count = 2)
-			assert(d1.at(4) = 3)
-			assert(d1.fast_at(4) = 3)
-			assert(d1.has_value(3))
-			assert(d1.fast_has_value(3))
-			d1.put(5, 2)
-			assert(d1.count = 2)
-			assert(d1.at(2) = 5)
-			assert(d1.fast_at(2) = 5)
-			assert(d1.has_value(5))
-			assert(d1.fast_has_value(5))
-			assert(not d1.has_value(1))
-		end
+   make is
+      local
+         d1: HASHED_BIJECTIVE_DICTIONARY[INTEGER, INTEGER]
+      do
+         create d1.make
+         assert(d1.count = 0)
+         d1.put(1, 2)
+         assert(d1.count = 1)
+         assert(d1.at(2) = 1)
+         assert(d1.fast_at(2) = 1)
+         assert(d1.has_value(1))
+         assert(d1.fast_has_value(1))
+         d1.put(3, 4)
+         assert(d1.count = 2)
+         assert(d1.at(4) = 3)
+         assert(d1.fast_at(4) = 3)
+         assert(d1.has_value(3))
+         assert(d1.fast_has_value(3))
+         d1.put(5, 2)
+         assert(d1.count = 2)
+         assert(d1.at(2) = 5)
+         assert(d1.fast_at(2) = 5)
+         assert(d1.has_value(5))
+         assert(d1.fast_has_value(5))
+         assert(not d1.has_value(1))
+      end
 
 end -- class TEST_BIJECTIVE_DICTIONARY2
 --

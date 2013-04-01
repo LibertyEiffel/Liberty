@@ -4,51 +4,51 @@
 class TEST_EXCEPTIONS07
 
 inherit
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			counter: INTEGER
-		do
-			if counter = 0 then
-				make2
-			end
-		rescue
-			counter := counter + 1
-			is_true(cpt = 1)
-			retry
-		end
+   make is
+      local
+         counter: INTEGER
+      do
+         if counter = 0 then
+            make2
+         end
+      rescue
+         counter := counter + 1
+         is_true(cpt = 1)
+         retry
+      end
 
-	make2 is
-		local
-			aux: AUX_EXCEPTIONS07
-		do
-			if aux = Void then
-				create aux
-				aux.do_invariant_violation
-			end
-		rescue
-			is_true(Class_invariant = exception)
-			aux.restore_invariant
-			retry
-		end
+   make2 is
+      local
+         aux: AUX_EXCEPTIONS07
+      do
+         if aux = Void then
+            create aux
+            aux.do_invariant_violation
+         end
+      rescue
+         is_true(Class_invariant = exception)
+         aux.restore_invariant
+         retry
+      end
 
 feature {}
-	is_true (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_EXCEPTION07: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   is_true (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_EXCEPTION07: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_EXCEPTIONS07
 --

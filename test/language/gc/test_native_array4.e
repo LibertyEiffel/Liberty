@@ -4,108 +4,108 @@
 class TEST_NATIVE_ARRAY4
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	na_max: INTEGER is 9999
+   na_max: INTEGER is 9999
 
-	make is
-		local
-			i: INTEGER; na1, na2, na3, na4, na5, na6, na7, na8, na9, na10, na11, na12: NATIVE_ARRAY[CHARACTER]
-		do
-			from
-				i := 1000
-			until
-				i = 0
-			loop
-				-- na1 :
-				na1 := na1.calloc(na_max)
-				assert(na1.all_default(na_max))
-				na1.set_all_with('a', na_max)
-				-- na2 :
-				na2 := na2.calloc(na_max)
-				assert(na2.all_default(na_max))
-				na2.set_all_with('a', na_max)
-				-- na3 :
-				na3 := na3.calloc(na_max)
-				assert(na3.all_default(na_max))
-				na3.set_all_with('a', na_max)
-				-- na4 :
-				na4 := na4.calloc(na_max)
-				assert(na4.all_default(na_max))
-				na4.set_all_with('a', na_max)
-				-- na5 :
-				na5 := na5.calloc(na_max)
-				assert(na5.all_default(na_max))
-				na5.set_all_with('a', na_max)
-				-- na6 :
-				na6 := na6.calloc(na_max)
-				assert(na6.all_default(na_max))
-				na6.set_all_with('a', na_max)
-				-- na7 :
-				na7 := na7.calloc(na_max)
-				assert(na7.all_default(na_max))
-				na7.set_all_with('a', na_max)
-				-- na8 :
-				na8 := na8.calloc(na_max)
-				assert(na8.all_default(na_max))
-				na8.set_all_with('a', na_max)
-				-- na9 :
-				na9 := na9.calloc(na_max)
-				assert(na9.all_default(na_max))
-				na9.set_all_with('a', na_max)
-				-- na10 :
-				na10 := na10.calloc(na_max)
-				assert(na10.all_default(na_max))
-				na10.set_all_with('a', na_max)
-				-- na11 :
-				na11 := na11.calloc(na_max)
-				assert(na11.all_default(na_max))
-				na11.set_all_with('a', na_max)
-				-- na12 :
-				na12 := na12.calloc(na_max)
-				assert(na12.all_default(na_max))
-				na12.set_all_with('a', na_max)
-				---------------------------------------
-				check_na(na1)
-				check_na(na2)
-				check_na(na3)
-				check_na(na4)
-				check_na(na5)
-				check_na(na6)
-				check_na(na7)
-				check_na(na8)
-				check_na(na9)
-				check_na(na10)
-				check_na(na11)
-				check_na(na12)
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER; na1, na2, na3, na4, na5, na6, na7, na8, na9, na10, na11, na12: NATIVE_ARRAY[CHARACTER]
+      do
+         from
+            i := 1000
+         until
+            i = 0
+         loop
+            -- na1 :
+            na1 := na1.calloc(na_max)
+            assert(na1.all_default(na_max))
+            na1.set_all_with('a', na_max)
+            -- na2 :
+            na2 := na2.calloc(na_max)
+            assert(na2.all_default(na_max))
+            na2.set_all_with('a', na_max)
+            -- na3 :
+            na3 := na3.calloc(na_max)
+            assert(na3.all_default(na_max))
+            na3.set_all_with('a', na_max)
+            -- na4 :
+            na4 := na4.calloc(na_max)
+            assert(na4.all_default(na_max))
+            na4.set_all_with('a', na_max)
+            -- na5 :
+            na5 := na5.calloc(na_max)
+            assert(na5.all_default(na_max))
+            na5.set_all_with('a', na_max)
+            -- na6 :
+            na6 := na6.calloc(na_max)
+            assert(na6.all_default(na_max))
+            na6.set_all_with('a', na_max)
+            -- na7 :
+            na7 := na7.calloc(na_max)
+            assert(na7.all_default(na_max))
+            na7.set_all_with('a', na_max)
+            -- na8 :
+            na8 := na8.calloc(na_max)
+            assert(na8.all_default(na_max))
+            na8.set_all_with('a', na_max)
+            -- na9 :
+            na9 := na9.calloc(na_max)
+            assert(na9.all_default(na_max))
+            na9.set_all_with('a', na_max)
+            -- na10 :
+            na10 := na10.calloc(na_max)
+            assert(na10.all_default(na_max))
+            na10.set_all_with('a', na_max)
+            -- na11 :
+            na11 := na11.calloc(na_max)
+            assert(na11.all_default(na_max))
+            na11.set_all_with('a', na_max)
+            -- na12 :
+            na12 := na12.calloc(na_max)
+            assert(na12.all_default(na_max))
+            na12.set_all_with('a', na_max)
+            ---------------------------------------
+            check_na(na1)
+            check_na(na2)
+            check_na(na3)
+            check_na(na4)
+            check_na(na5)
+            check_na(na6)
+            check_na(na7)
+            check_na(na8)
+            check_na(na9)
+            check_na(na10)
+            check_na(na11)
+            check_na(na12)
+            i := i - 1
+         end
+      end
 
-	check_na (na: NATIVE_ARRAY[CHARACTER]) is
-		local
-			i: INTEGER
-		do
-			from
-				i := na_max
-			until
-				i < 0
-			loop
-				assert(na.item(i) = 'a')
-				i := i - 1
-			end
-		end
+   check_na (na: NATIVE_ARRAY[CHARACTER]) is
+      local
+         i: INTEGER
+      do
+         from
+            i := na_max
+         until
+            i < 0
+         loop
+            assert(na.item(i) = 'a')
+            i := i - 1
+         end
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			if not b then
-				std_output.put_string("Error in TEST_NATIVE_ARRAY4%N")
-				crash
-			else
-				--	    std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         if not b then
+            std_output.put_string("Error in TEST_NATIVE_ARRAY4%N")
+            crash
+         else
+            --       std_output.put_string("Yes%N");
+         end
+      end
 
 end -- class TEST_NATIVE_ARRAY4
 --

@@ -4,14 +4,14 @@
 class AUX_EB12B1
 
 inherit
-	AUX_EB12A1
-		redefine g
-		end
+   AUX_EB12A1
+      redefine g
+      end
 
 feature {AUX_EB12A}
-	g is
-		do
-		end
+   g is
+      do
+      end
 
 end -- class AUX_EB12B1
 --

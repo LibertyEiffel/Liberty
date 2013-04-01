@@ -4,47 +4,47 @@
 class TEST_RENAME1
 
 inherit
-	ANY
-		rename is_equal as dummy_equal
-		end
+   ANY
+      rename is_equal as dummy_equal
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	r: INTEGER is
-		do
-			Result := 1
-		end
+   r: INTEGER is
+      do
+         Result := 1
+      end
 
-	make is
-		local
-			aux: AUX_RENAME1; c: TEST_RENAME1
-		do
-			assert(Current.dummy_equal(Current))
-			assert(r = 1)
-			create aux
-			assert(aux.r = 2)
-			assert(aux.super_r = 1)
-			c := Current
-			assert(c.r = 1)
-			c := aux
-			assert(c.r = 1)
-		end
+   make is
+      local
+         aux: AUX_RENAME1; c: TEST_RENAME1
+      do
+         assert(Current.dummy_equal(Current))
+         assert(r = 1)
+         create aux
+         assert(aux.r = 2)
+         assert(aux.super_r = 1)
+         c := Current
+         assert(c.r = 1)
+         c := aux
+         assert(c.r = 1)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_RENAME1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_RENAME1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_RENAME1
 --

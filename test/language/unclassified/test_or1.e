@@ -4,50 +4,50 @@
 class TEST_OR1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert(foo_count = 0)
-			assert(bar_count = 0)
-			if foo or bar then
-			end
-			assert(foo_count = 1)
-			assert(bar_count = 1)
-			if bar or foo then
-			end
-			assert(foo_count = 2)
-			assert(bar_count = 2)
-		end
+   make is
+      do
+         assert(foo_count = 0)
+         assert(bar_count = 0)
+         if foo or bar then
+         end
+         assert(foo_count = 1)
+         assert(bar_count = 1)
+         if bar or foo then
+         end
+         assert(foo_count = 2)
+         assert(bar_count = 2)
+      end
 
 feature {}
-	foo_count, bar_count: INTEGER
+   foo_count, bar_count: INTEGER
 
-	foo: BOOLEAN is
-		do
-			foo_count := foo_count + 1
-			Result := True
-		end
+   foo: BOOLEAN is
+      do
+         foo_count := foo_count + 1
+         Result := True
+      end
 
-	bar: BOOLEAN is
-		do
-			bar_count := bar_count + 1
-		end
+   bar: BOOLEAN is
+      do
+         bar_count := bar_count + 1
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_OR1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_OR1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_OR1
 --

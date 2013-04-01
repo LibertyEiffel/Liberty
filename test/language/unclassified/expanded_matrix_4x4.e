@@ -4,12 +4,12 @@
 expanded class EXPANDED_MATRIX_4X4[T]
 
 feature {ANY}
-	put (x: like item) is
-		do
-			item := x
-		end
+   put (x: like item) is
+      do
+         item := x
+      end
 
-	item: T
+   item: T
 
 end -- class EXPANDED_MATRIX_4X4
 --

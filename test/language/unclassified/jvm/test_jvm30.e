@@ -4,20 +4,20 @@
 class TEST_JVM30
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			dr1, dr2: REFERENCE[REAL]
-		do
-			create {REFERENCE[REAL]} dr1.set_item(1.5)
-			dr2 := create {REFERENCE[REAL]}.set_item(1.5)
-			if dr1.is_equal(dr2) then
-			else
-				std_output.put_string("Error in TEST_JVM30.%N")
-			end
-		end
+   make is
+      local
+         dr1, dr2: REFERENCE[REAL]
+      do
+         create {REFERENCE[REAL]} dr1.set_item(1.5)
+         dr2 := create {REFERENCE[REAL]}.set_item(1.5)
+         if dr1.is_equal(dr2) then
+         else
+            std_output.put_string("Error in TEST_JVM30.%N")
+         end
+      end
 
 end -- class TEST_JVM30
 --

@@ -4,7 +4,7 @@
 class AUX_GENERIC11[D -> ARRAY[COMPARABLE]]
 
 feature {ANY}
-	items: D
+   items: D
 
 end -- class AUX_GENERIC11
 --

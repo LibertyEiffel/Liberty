@@ -4,84 +4,84 @@
 class TEST_MANIFEST_ARRAY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	array_boolean: ARRAY[BOOLEAN]
+   array_boolean: ARRAY[BOOLEAN]
 
-	array_integer: ARRAY[INTEGER]
+   array_integer: ARRAY[INTEGER]
 
-	array_animal: ARRAY[ANIMAL]
+   array_animal: ARRAY[ANIMAL]
 
-	array_quadruped: ARRAY[QUADRUPED]
+   array_quadruped: ARRAY[QUADRUPED]
 
-	array_real_32: ARRAY[REAL_32]
+   array_real_32: ARRAY[REAL_32]
 
-	array_real_64: ARRAY[REAL_64]
+   array_real_64: ARRAY[REAL_64]
 
-	array_character: ARRAY[CHARACTER]
+   array_character: ARRAY[CHARACTER]
 
-	make is
-		local
-			cat: CAT; dog: DOG
-		do
-			array_integer := {ARRAY[INTEGER] 1, << 1, 2, 3 >> }
-			assert(array_integer.fast_first_index_of(2) = 2)
-			array_boolean := {ARRAY[BOOLEAN] 1, << True, False >> }
-			assert(1 = array_boolean.first_index_of(True))
-			assert(1 = array_boolean.fast_first_index_of(True))
-			assert(2 = array_boolean.first_index_of(False))
-			assert(2 = array_boolean.fast_first_index_of(False))
-			assert({ARRAY[INTEGER_8] 1, << 1, 2, 3 >> }.is_equal({ARRAY[INTEGER_8] 1, << 1, 2, 3 >> }))
-			assert({ARRAY[CHARACTER] 1, << 'a', 'b', 'c' >> }.is_equal({ARRAY[CHARACTER] 1, << 'a', 'b', 'c' >> }))
-			array_character := {ARRAY[CHARACTER] 1, << 'a', 'b', 'c' >> }
-			assert(array_character.item(1) = 'a')
-			create array_character.make(1, 1)
-			array_character.put('z', 1)
-			assert(array_character.item(1) = 'z')
-			assert({ARRAY[REAL] 1, << 1.5, 2.5, 3.0 >> }.is_equal({ARRAY[REAL] 1, << 1.5, 2.5, 3.0 >> }))
-			array_integer := {ARRAY[INTEGER] 1, << 1 >> }
-			array_real_32 := {ARRAY[REAL_32] 1, << 1.0.force_to_real_32 >> }
-			assert(array_real_32.first = array_integer.last.force_to_real_32)
-			create cat
-			array_quadruped := {ARRAY[CAT] 1, << cat, cat >> }
-			array_animal := {ARRAY[CAT] 1, << cat, cat >> }
-			assert(array_animal.is_equal(array_quadruped))
-			array_quadruped.put(Void, 1)
-			array_animal.put(Void, 1)
-			assert(array_animal.is_equal(array_quadruped))
-			array_animal.put(cat, 1)
-			assert(not array_animal.is_equal(array_quadruped))
-			create cat
-			create dog
-			array_quadruped := {ARRAY[QUADRUPED] 1, << cat, dog >> }
-			array_animal := {ARRAY[ANIMAL] 1, << cat, dog >> }
-			assert(array_animal.is_equal(array_quadruped))
-			array_quadruped := {ARRAY[QUADRUPED] 1, << cat, dog >> }
-			assert(array_animal.is_equal(array_quadruped))
-			array_real_64 := {ARRAY[REAL_64] 1, << d1, d2, d3 >> }
-			assert(array_real_64.is_equal({ARRAY[REAL_64] 1, << d1, d2, d3 >> }))
-		end
+   make is
+      local
+         cat: CAT; dog: DOG
+      do
+         array_integer := {ARRAY[INTEGER] 1, << 1, 2, 3 >> }
+         assert(array_integer.fast_first_index_of(2) = 2)
+         array_boolean := {ARRAY[BOOLEAN] 1, << True, False >> }
+         assert(1 = array_boolean.first_index_of(True))
+         assert(1 = array_boolean.fast_first_index_of(True))
+         assert(2 = array_boolean.first_index_of(False))
+         assert(2 = array_boolean.fast_first_index_of(False))
+         assert({ARRAY[INTEGER_8] 1, << 1, 2, 3 >> }.is_equal({ARRAY[INTEGER_8] 1, << 1, 2, 3 >> }))
+         assert({ARRAY[CHARACTER] 1, << 'a', 'b', 'c' >> }.is_equal({ARRAY[CHARACTER] 1, << 'a', 'b', 'c' >> }))
+         array_character := {ARRAY[CHARACTER] 1, << 'a', 'b', 'c' >> }
+         assert(array_character.item(1) = 'a')
+         create array_character.make(1, 1)
+         array_character.put('z', 1)
+         assert(array_character.item(1) = 'z')
+         assert({ARRAY[REAL] 1, << 1.5, 2.5, 3.0 >> }.is_equal({ARRAY[REAL] 1, << 1.5, 2.5, 3.0 >> }))
+         array_integer := {ARRAY[INTEGER] 1, << 1 >> }
+         array_real_32 := {ARRAY[REAL_32] 1, << 1.0.force_to_real_32 >> }
+         assert(array_real_32.first = array_integer.last.force_to_real_32)
+         create cat
+         array_quadruped := {ARRAY[CAT] 1, << cat, cat >> }
+         array_animal := {ARRAY[CAT] 1, << cat, cat >> }
+         assert(array_animal.is_equal(array_quadruped))
+         array_quadruped.put(Void, 1)
+         array_animal.put(Void, 1)
+         assert(array_animal.is_equal(array_quadruped))
+         array_animal.put(cat, 1)
+         assert(not array_animal.is_equal(array_quadruped))
+         create cat
+         create dog
+         array_quadruped := {ARRAY[QUADRUPED] 1, << cat, dog >> }
+         array_animal := {ARRAY[ANIMAL] 1, << cat, dog >> }
+         assert(array_animal.is_equal(array_quadruped))
+         array_quadruped := {ARRAY[QUADRUPED] 1, << cat, dog >> }
+         assert(array_animal.is_equal(array_quadruped))
+         array_real_64 := {ARRAY[REAL_64] 1, << d1, d2, d3 >> }
+         assert(array_real_64.is_equal({ARRAY[REAL_64] 1, << d1, d2, d3 >> }))
+      end
 
-	d1: REAL_64 is 1.5
+   d1: REAL_64 is 1.5
 
-	d2: REAL_64 is 1.7
+   d2: REAL_64 is 1.7
 
-	d3: REAL_64 is 1.8
+   d3: REAL_64 is 1.8
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_MANIFEST_ARRAY: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_MANIFEST_ARRAY: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_MANIFEST_ARRAY
 --

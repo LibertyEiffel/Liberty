@@ -2,30 +2,30 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JMJ2
-	-- From a bug report of Jean-Marc JEZEQUEL
+   -- From a bug report of Jean-Marc JEZEQUEL
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_JMJ2A[ARRAY[REAL]]; b: AUX_JMJ2B[REAL]
-		do
-			create b
-			a := b
-		end
+   make is
+      local
+         a: AUX_JMJ2A[ARRAY[REAL]]; b: AUX_JMJ2B[REAL]
+      do
+         create b
+         a := b
+      end
 
-	do_invariant: BOOLEAN is
-		local
-			a: ARRAY[REAL]
-		do
-			create a.make(1, 1)
-			Result := True
-		end
+   do_invariant: BOOLEAN is
+      local
+         a: ARRAY[REAL]
+      do
+         create a.make(1, 1)
+         Result := True
+      end
 
 invariant
-	do_invariant
+   do_invariant
 
 end -- class TEST_JMJ2
 --

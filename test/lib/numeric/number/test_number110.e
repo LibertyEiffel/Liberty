@@ -2,43 +2,43 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER110
-	--
-	-- Test of the NUMBER_TOOLS.is_number parser.
-	--
+   --
+   -- Test of the NUMBER_TOOLS.is_number parser.
+   --
 
 insert
-	EIFFELTEST_TOOLS
-	
+   EIFFELTEST_TOOLS
+   
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			number: NUMBER
-		do
-			assert(nt.is_number("1"))
-			assert(nt.is_number(" %N1%N  "))
-			assert(nt.is_number("2 + 2"))
-			assert(nt.is_number("2 + 2 / 7"))
-			assert(nt.is_number("2 + 2 ! / 7"))
-			assert(not nt.is_number("1 1"))
-			assert(not nt.is_number("1) "))
-			assert(not nt.is_number("(1"))
-			assert(not nt.is_number("("))
-			assert(not nt.is_number("d"))
-			assert(nt.from_string("1").to_string.is_equal("1"))
-			assert(nt.from_string(" %N1%N  ").to_string.is_equal("1"))
-			assert(nt.from_string("2 + 2").to_string.is_equal("4"))
-			assert(nt.from_string("2 + 2 / 7").to_string.is_equal("16/7"))
-			assert(nt.from_string("2 + 2 ! / 7").to_string.is_equal("16/7"))
-			number := nt.from_string("2/0")
-			assert(number = Void)
-			number := nt.from_string("(-2)!")
-			assert(number = Void)
-		end
+   make is
+      local
+         number: NUMBER
+      do
+         assert(nt.is_number("1"))
+         assert(nt.is_number(" %N1%N  "))
+         assert(nt.is_number("2 + 2"))
+         assert(nt.is_number("2 + 2 / 7"))
+         assert(nt.is_number("2 + 2 ! / 7"))
+         assert(not nt.is_number("1 1"))
+         assert(not nt.is_number("1) "))
+         assert(not nt.is_number("(1"))
+         assert(not nt.is_number("("))
+         assert(not nt.is_number("d"))
+         assert(nt.from_string("1").to_string.is_equal("1"))
+         assert(nt.from_string(" %N1%N  ").to_string.is_equal("1"))
+         assert(nt.from_string("2 + 2").to_string.is_equal("4"))
+         assert(nt.from_string("2 + 2 / 7").to_string.is_equal("16/7"))
+         assert(nt.from_string("2 + 2 ! / 7").to_string.is_equal("16/7"))
+         number := nt.from_string("2/0")
+         assert(number = Void)
+         number := nt.from_string("(-2)!")
+         assert(number = Void)
+      end
 
-	nt: NUMBER_TOOLS
+   nt: NUMBER_TOOLS
 
 end -- class TEST_NUMBER110
 --

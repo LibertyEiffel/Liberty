@@ -10,8 +10,8 @@ feature
    make is
       local d: AUX_GENERIC3B[INTEGER];
       do
-	 !!d;
-	 d.machin(242);
+    !!d;
+    d.machin(242);
       end;
 end -- class BAD_GENERIC3
 --

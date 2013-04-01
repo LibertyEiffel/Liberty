@@ -4,21 +4,21 @@
 class AUX_EVOBT5
 
 inherit
-	AUX_EVOBT4
+   AUX_EVOBT4
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	show: BOOLEAN is
-		do
-			Result := True
-		end
+   show: BOOLEAN is
+      do
+         Result := True
+      end
 
 feature {}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class AUX_EVOBT5
 --

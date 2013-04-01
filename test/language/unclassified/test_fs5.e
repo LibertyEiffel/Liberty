@@ -4,18 +4,18 @@
 class TEST_FS5
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			s_a: ARRAY[ANIMAL]; s_aa: ARRAY[ARRAY[ANIMAL]]; s_i: ARRAY[INTEGER]; c: CAT
-		do
-			create c
-			s_a := {ARRAY[CAT] 1, << c, Void, c >> }
-			s_aa := {ARRAY[ARRAY[ANIMAL]] 1, << s_a, Void, s_a >> }
-			s_i := {ARRAY[INTEGER] 1, << 1, 0, 2 >> }
-		end
+   make is
+      local
+         s_a: ARRAY[ANIMAL]; s_aa: ARRAY[ARRAY[ANIMAL]]; s_i: ARRAY[INTEGER]; c: CAT
+      do
+         create c
+         s_a := {ARRAY[CAT] 1, << c, Void, c >> }
+         s_aa := {ARRAY[ARRAY[ANIMAL]] 1, << s_a, Void, s_a >> }
+         s_i := {ARRAY[INTEGER] 1, << 1, 0, 2 >> }
+      end
 
 end -- class TEST_FS5
 --

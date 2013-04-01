@@ -4,20 +4,20 @@
 class AUX_FA3B1
 
 insert
-	ANY
+   ANY
 
 feature {ANY}
-	ref: STRING
+   ref: STRING
 
-	get_ref: STRING is
-		do
-			Result := ref
-		end
+   get_ref: STRING is
+      do
+         Result := ref
+      end
 
-	init_ref is
-		do
-			ref := "ref"
-		end
+   init_ref is
+      do
+         ref := "ref"
+      end
 
 end -- class AUX_FA3B1
 --

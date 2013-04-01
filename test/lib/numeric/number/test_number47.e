@@ -2,30 +2,30 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER47
-	-- tests on "@^"
+   -- tests on "@^"
 
 insert
-	EIFFELTEST_TOOLS
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2: NUMBER
-		do
-			n1 := from_integer(0)
-			assert((n1 @^ 2).is_equal(n1))
-			n1 := from_integer(1)
-			assert((n1 @^ 2).is_equal(n1))
-			n1 := from_integer(0)
-			assert((n1 @^ 2).is_equal(n1))
-			n1 := from_string("1/2")
-			n2 := from_string("1/16")
-			assert((n1 @^ 4).is_equal(n2))
-		end
+   make is
+      local
+         n1, n2: NUMBER
+      do
+         n1 := from_integer(0)
+         assert((n1 @^ 2).is_equal(n1))
+         n1 := from_integer(1)
+         assert((n1 @^ 2).is_equal(n1))
+         n1 := from_integer(0)
+         assert((n1 @^ 2).is_equal(n1))
+         n1 := from_string("1/2")
+         n2 := from_string("1/16")
+         assert((n1 @^ 4).is_equal(n2))
+      end
 
 
 

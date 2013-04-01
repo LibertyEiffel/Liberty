@@ -4,17 +4,17 @@
 class BAD_REAL3
    
 creation
-	make
+   make
    
 feature 
    make is 
       local
-			r64: REAL
-			r32: REAL_32
+         r64: REAL
+         r32: REAL_32
       do 
-			r64 := 000.5             -- <-- Normal warning #1 here
-			r32 := {REAL_32 00.5 }   -- <-- Normal warning #2 here
-			r64 := 0.5E              -- <-- Error here.
+         r64 := 000.5             -- <-- Normal warning #1 here
+         r32 := {REAL_32 00.5 }   -- <-- Normal warning #2 here
+         r64 := 0.5E              -- <-- Error here.
       end
    
 end -- class BAD_REAL3

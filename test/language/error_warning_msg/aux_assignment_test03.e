@@ -4,13 +4,13 @@
 class AUX_ASSIGNMENT_TEST03 [X_ -> AUX_ASSIGNMENT_TEST03_A]
 
 feature {ANY}
-	get_x: X_ is
-		local
-			x: X_
-		do
-			x ?= Result.get_x
-		end
-	
+   get_x: X_ is
+      local
+         x: X_
+      do
+         x ?= Result.get_x
+      end
+   
 end -- class AUX_ASSIGNMENT_TEST03
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

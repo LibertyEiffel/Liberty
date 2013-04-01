@@ -4,16 +4,16 @@
 class POINT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	x, y: REAL
+   x, y: REAL
 
-	make (vx, vy: REAL) is
-		do
-			x := vx
-			y := vy
-		end
+   make (vx, vy: REAL) is
+      do
+         x := vx
+         y := vy
+      end
 
 end -- class POINT
 --

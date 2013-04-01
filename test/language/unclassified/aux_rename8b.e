@@ -4,9 +4,9 @@
 class AUX_RENAME8B
 
 inherit
-	AUX_RENAME8A
-		rename f as old_f
-		end
+   AUX_RENAME8A
+      rename f as old_f
+      end
 
 end -- class AUX_RENAME8B
 --

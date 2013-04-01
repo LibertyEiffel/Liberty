@@ -4,35 +4,35 @@
 class TEST_MANIFEST_ARRAY7
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	t_animal: ARRAY[ANIMAL]
+   t_animal: ARRAY[ANIMAL]
 
-	t_quadruped: ARRAY[QUADRUPED]
+   t_quadruped: ARRAY[QUADRUPED]
 
-	make is
-		local
-			cat: CAT
-		do
-			create cat
-			t_quadruped := {ARRAY[CAT] 1, << cat, cat >> }
-			t_animal := {ARRAY[CAT] 1, << cat, cat >> }
-			assert(t_animal.is_equal(t_quadruped))
-			assert(t_quadruped.first = t_animal.first)
-		end
+   make is
+      local
+         cat: CAT
+      do
+         create cat
+         t_quadruped := {ARRAY[CAT] 1, << cat, cat >> }
+         t_animal := {ARRAY[CAT] 1, << cat, cat >> }
+         assert(t_animal.is_equal(t_quadruped))
+         assert(t_quadruped.first = t_animal.first)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_MANIFEST_ARRAY7: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_MANIFEST_ARRAY7: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_MANIFEST_ARRAY7
 --

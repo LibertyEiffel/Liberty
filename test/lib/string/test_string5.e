@@ -4,33 +4,33 @@
 class TEST_STRING5
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			s: STRING
-		do
-			s := "   foo"
-			s.left_adjust
-			assert(s.is_equal("foo"))
-			s.left_adjust
-			assert(s.is_equal("foo"))
-			s := " foo"
-			s.left_adjust
-			assert(s.is_equal("foo"))
-			s := "bar   "
-			s.right_adjust
-			assert(s.is_equal("bar"))
-			s.right_adjust
-			assert(s.is_equal("bar"))
-			s := "bar "
-			s.right_adjust
-			assert(s.is_equal("bar"))
-		end
+   make is
+      local
+         s: STRING
+      do
+         s := "   foo"
+         s.left_adjust
+         assert(s.is_equal("foo"))
+         s.left_adjust
+         assert(s.is_equal("foo"))
+         s := " foo"
+         s.left_adjust
+         assert(s.is_equal("foo"))
+         s := "bar   "
+         s.right_adjust
+         assert(s.is_equal("bar"))
+         s.right_adjust
+         assert(s.is_equal("bar"))
+         s := "bar "
+         s.right_adjust
+         assert(s.is_equal("bar"))
+      end
 
 end -- class TEST_STRING5
 --

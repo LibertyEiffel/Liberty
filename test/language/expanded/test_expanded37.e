@@ -4,20 +4,20 @@
 class TEST_EXPANDED37
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main is
-		local
-			impossible_directory_path: STRING
-		do
-			impossible_directory_path := "aux_expanded37"
-			if (create {FILE_TOOLS}).is_readable(impossible_directory_path) then
-				-- Oops.
-			elseif (create {BASIC_DIRECTORY}).remove_directory(once "dummy") then
-				-- Problem in C code generation.
-			end
-		end
+   main is
+      local
+         impossible_directory_path: STRING
+      do
+         impossible_directory_path := "aux_expanded37"
+         if (create {FILE_TOOLS}).is_readable(impossible_directory_path) then
+            -- Oops.
+         elseif (create {BASIC_DIRECTORY}).remove_directory(once "dummy") then
+            -- Problem in C code generation.
+         end
+      end
 
 end -- class TEST_EXPANDED37
 --

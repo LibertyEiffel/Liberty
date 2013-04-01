@@ -9,10 +9,10 @@ feature
 
    make is
       local
-	 a1: ARRAY[INTEGER];
+    a1: ARRAY[INTEGER];
       do
-	 if a1.bidon then
-	 end;
+    if a1.bidon then
+    end;
       end;
 
 end -- class BAD_ARRAY1

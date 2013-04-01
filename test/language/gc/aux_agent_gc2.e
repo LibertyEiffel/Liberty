@@ -4,90 +4,90 @@
 class AUX_AGENT_GC2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	alea: AUX_AGENT_GC4
+   alea: AUX_AGENT_GC4
 
-	discharged: AUX_AGENT_GC5
+   discharged: AUX_AGENT_GC5
 
-	is_main: BOOLEAN
+   is_main: BOOLEAN
 
-	staff: INTEGER
+   staff: INTEGER
 
-	triage, examination, treatment, transfers: AUX_AGENT_GC6
+   triage, examination, treatment, transfers: AUX_AGENT_GC6
 
-	make (staf, seed: INTEGER; main: BOOLEAN) is
-		do
-			alea.set_seed(seed)
-			staff := staf
-			is_main := main
-		end
+   make (staf, seed: INTEGER; main: BOOLEAN) is
+      do
+         alea.set_seed(seed)
+         staff := staf
+         is_main := main
+      end
 
-	triage_examination is
-		do
-			transfers.clear
-			treatment.do_all(agent discharge_one_patient(?))
-			examination.do_all(agent treat_or_transfert_one_patient(?))
-			triage.do_all(agent triage_one_patient(?))
-			if alea.test(0.7) then
-				new_arrival(create {AUX_AGENT_GC3})
-			end
-		end
+   triage_examination is
+      do
+         transfers.clear
+         treatment.do_all(agent discharge_one_patient(?))
+         examination.do_all(agent treat_or_transfert_one_patient(?))
+         triage.do_all(agent triage_one_patient(?))
+         if alea.test(0.7) then
+            new_arrival(create {AUX_AGENT_GC3})
+         end
+      end
 
-	new_arrival (p: AUX_AGENT_GC3) is
-		do
-			p.enter_hospital
-			if staff <= 0 then
-				triage.add(p)
-			else
-				staff := staff - 1
-				examination.add(p)
-				p.wait(3)
-			end
-		end
+   new_arrival (p: AUX_AGENT_GC3) is
+      do
+         p.enter_hospital
+         if staff <= 0 then
+            triage.add(p)
+         else
+            staff := staff - 1
+            examination.add(p)
+            p.wait(3)
+         end
+      end
 
-	discharge_one_patient (p: AUX_AGENT_GC3) is
-		do
-			p.next_time
-			if p.finished then
-				staff := staff + 1
-				treatment.remove(p)
-				discharged.add(p)
-			end
-		end
+   discharge_one_patient (p: AUX_AGENT_GC3) is
+      do
+         p.next_time
+         if p.finished then
+            staff := staff + 1
+            treatment.remove(p)
+            discharged.add(p)
+         end
+      end
 
-	treat_or_transfert_one_patient (p: AUX_AGENT_GC3) is
-		do
-			p.next_time
-			if p.finished then
-				examination.remove(p)
-				if alea.test(0.1) or else is_main then
-					treatment.add(p)
-					p.wait(10)
-				else
-					staff := staff + 1
-					transfers.add(p)
-				end
-			end
-		end
+   treat_or_transfert_one_patient (p: AUX_AGENT_GC3) is
+      do
+         p.next_time
+         if p.finished then
+            examination.remove(p)
+            if alea.test(0.1) or else is_main then
+               treatment.add(p)
+               p.wait(10)
+            else
+               staff := staff + 1
+               transfers.add(p)
+            end
+         end
+      end
 
-	triage_one_patient (p: AUX_AGENT_GC3) is
-		do
-			if staff <= 0 then
-				p.incr_hospital_time
-			else
-				staff := staff - 1
-				triage.remove(p)
-				examination.add(p)
-				p.wait(3)
-			end
-		end
+   triage_one_patient (p: AUX_AGENT_GC3) is
+      do
+         if staff <= 0 then
+            p.incr_hospital_time
+         else
+            staff := staff - 1
+            triage.remove(p)
+            examination.add(p)
+            p.wait(3)
+         end
+      end
 
-	accumulate_totals: AUX_AGENT_GC5 is
-		do
-			Result := discharged + triage.accumulate_totals + examination.accumulate_totals + treatment.accumulate_totals
-		end
+   accumulate_totals: AUX_AGENT_GC5 is
+      do
+         Result := discharged + triage.accumulate_totals + examination.accumulate_totals + treatment.accumulate_totals
+      end
 
 end -- class AUX_AGENT_GC2
 --

@@ -14,12 +14,12 @@ feature
 
    make is
       do
-	 routine(3);
+    routine(3);
       end;
 
    routine(i: INTEGER) is
       do
-	 Precursor;
+    Precursor;
       end;
 
 end -- class BAD_PRECURSOR05

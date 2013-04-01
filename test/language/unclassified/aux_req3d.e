@@ -4,10 +4,10 @@
 class AUX_REQ3D
 
 inherit
-	AUX_REQ3B
+   AUX_REQ3B
 
 insert
-	AUX_REQ3A
+   AUX_REQ3A
 
 end -- class AUX_REQ3D
 --

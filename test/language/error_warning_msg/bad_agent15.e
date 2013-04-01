@@ -9,9 +9,9 @@ creation
 feature
    make is
       local
-	 my_procedure: PROCEDURE[TUPLE]
+    my_procedure: PROCEDURE[TUPLE]
       do
-	 my_procedure.call([1])
+    my_procedure.call([1])
       end
 end -- class BAD_AGENT15
 --

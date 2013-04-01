@@ -2,46 +2,46 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EG4
-	-- From a bug report of Enrico GOBBETTI
+   -- From a bug report of Enrico GOBBETTI
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a4: AUX_EG4_B
+   a4: AUX_EG4_B
 
-	make is
-		local
-			a1, a2, a3: AUX_EG4_B
-		do
-			a1.set_x(1.0)
-			a2.set_x(2.0)
-			a3 := a1 + a2
-			assert(a1.x = 1.0)
-			assert(a2.x = 2.0)
-			assert(a3.x = 3.0)
-			create a3.make
-			assert(a3.x = 1.0)
-			a4 := a2
-			assert(a4.x = 2.0)
-			assert(a4 = a2)
-			create a4.make
-			assert(a4.x = 1.0)
-		end
+   make is
+      local
+         a1, a2, a3: AUX_EG4_B
+      do
+         a1.set_x(1.0)
+         a2.set_x(2.0)
+         a3 := a1 + a2
+         assert(a1.x = 1.0)
+         assert(a2.x = 2.0)
+         assert(a3.x = 3.0)
+         create a3.make
+         assert(a3.x = 1.0)
+         a4 := a2
+         assert(a4.x = 2.0)
+         assert(a4 = a2)
+         create a4.make
+         assert(a4.x = 1.0)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_EG4: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_EG4: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_EG4
 --

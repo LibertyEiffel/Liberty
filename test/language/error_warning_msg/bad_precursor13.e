@@ -4,19 +4,19 @@
 class BAD_PRECURSOR13
 
 insert
-	AUX_PRECURSOR13
-		redefine
-			foo
-		end
+   AUX_PRECURSOR13
+      redefine
+         foo
+      end
 
 creation
-	default_create
+   default_create
 
 feature
-	foo (bidule: REAL) is
-		do
-			Precursor(bidule)
-		end
+   foo (bidule: REAL) is
+      do
+         Precursor(bidule)
+      end
 end -- class BAD_PRECURSOR13
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

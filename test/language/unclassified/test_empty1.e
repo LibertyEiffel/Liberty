@@ -1,17 +1,17 @@
 indexing
-		"this should cause a require  violation"
+      "this should cause a require  violation"
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EMPTY1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class TEST_EMPTY1
 --

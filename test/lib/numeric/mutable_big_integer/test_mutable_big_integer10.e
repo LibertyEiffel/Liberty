@@ -2,80 +2,80 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_MUTABLE_BIG_INTEGER10
-	--
-	-- Testing feature `add_integer'.
-	--
+   --
+   -- Testing feature `add_integer'.
+   --
 
 insert
-	ANY
-	PLATFORM
+   ANY
+   PLATFORM
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			mbia: MUTABLE_BIG_INTEGER; ib: INTEGER
-		do
-			create mbia.from_integer(2)
-			ib := 0
-			mbia.add_integer(ib)
-			assert(mbia.to_integer_32 = 2)
-			assert(("2").is_equal(mbia.to_string))
-			mbia.from_integer(0)
-			ib := 2
-			mbia.add_integer(ib)
-			assert(mbia.to_integer_32 = 2)
-			assert(("2").is_equal(mbia.to_string))
-			mbia.from_integer(3)
-			ib := 2
-			mbia.add_integer(ib)
-			assert(mbia.to_integer_32 = 5)
-			assert(("5").is_equal(mbia.to_string))
-			mbia.from_integer_64(Maximum_integer_64)
-			ib := 2
-			mbia.add_integer(ib)
-			mbia.subtract_integer(ib)
-			assert(mbia.to_integer_64 = Maximum_integer_64)
-			mbia.add(mbia)
-			ib := 4096
-			mbia.add_integer(ib)
-			mbia.from_integer(3)
-			ib := -2
-			mbia.add_integer(ib)
-			assert(mbia.to_integer_32 = 1)
-			--|mbia| < |ib|
-			mbia.from_integer(2)
-			ib := -3
-			mbia.add_integer(ib)
-			assert(mbia.to_integer_32 = -1)
-			mbia.from_integer(-3)
-			ib := -2
-			mbia.add_integer(ib)
-			assert(mbia.to_integer_32 = -5)
-			mbia.from_integer(-3)
-			ib := 2
-			mbia.add_integer(ib)
-			assert(mbia.to_integer_32 = -1)
-			mbia.from_integer(-2)
-			ib := 3
-			mbia.add_integer(ib)
-			assert(mbia.to_integer_32 = 1)
-		end
+   make is
+      local
+         mbia: MUTABLE_BIG_INTEGER; ib: INTEGER
+      do
+         create mbia.from_integer(2)
+         ib := 0
+         mbia.add_integer(ib)
+         assert(mbia.to_integer_32 = 2)
+         assert(("2").is_equal(mbia.to_string))
+         mbia.from_integer(0)
+         ib := 2
+         mbia.add_integer(ib)
+         assert(mbia.to_integer_32 = 2)
+         assert(("2").is_equal(mbia.to_string))
+         mbia.from_integer(3)
+         ib := 2
+         mbia.add_integer(ib)
+         assert(mbia.to_integer_32 = 5)
+         assert(("5").is_equal(mbia.to_string))
+         mbia.from_integer_64(Maximum_integer_64)
+         ib := 2
+         mbia.add_integer(ib)
+         mbia.subtract_integer(ib)
+         assert(mbia.to_integer_64 = Maximum_integer_64)
+         mbia.add(mbia)
+         ib := 4096
+         mbia.add_integer(ib)
+         mbia.from_integer(3)
+         ib := -2
+         mbia.add_integer(ib)
+         assert(mbia.to_integer_32 = 1)
+         --|mbia| < |ib|
+         mbia.from_integer(2)
+         ib := -3
+         mbia.add_integer(ib)
+         assert(mbia.to_integer_32 = -1)
+         mbia.from_integer(-3)
+         ib := -2
+         mbia.add_integer(ib)
+         assert(mbia.to_integer_32 = -5)
+         mbia.from_integer(-3)
+         ib := 2
+         mbia.add_integer(ib)
+         assert(mbia.to_integer_32 = -1)
+         mbia.from_integer(-2)
+         ib := 3
+         mbia.add_integer(ib)
+         assert(mbia.to_integer_32 = 1)
+      end
 
-	count: INTEGER
+   count: INTEGER
 
-	assert (b: BOOLEAN) is
-		do
-			count := count + 1
-			if not b then
-				sedb_breakpoint
-				io.put_string("TEST_MUTABLE_BIG_INTEGER10 : ERROR Test # ")
-				io.put_integer(count)
-				io.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         count := count + 1
+         if not b then
+            sedb_breakpoint
+            io.put_string("TEST_MUTABLE_BIG_INTEGER10 : ERROR Test # ")
+            io.put_integer(count)
+            io.put_string("%N")
+         end
+      end
 
 end -- class TEST_MUTABLE_BIG_INTEGER10
 --

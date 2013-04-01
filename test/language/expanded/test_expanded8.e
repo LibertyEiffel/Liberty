@@ -4,23 +4,23 @@
 class TEST_EXPANDED8
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			e1, e2: SUB_EXPANDED1
-		do
-			---- Original:
-			-- e1, e2: expanded SUB_EXPANDED1
-			assert(e1.x = 0)
-			assert(e1 = e2)
-			e1.set_x(2)
-			assert(e1.x = 2)
-		end
+   make is
+      local
+         e1, e2: SUB_EXPANDED1
+      do
+         ---- Original:
+         -- e1, e2: expanded SUB_EXPANDED1
+         assert(e1.x = 0)
+         assert(e1 = e2)
+         e1.set_x(2)
+         assert(e1.x = 2)
+      end
 
 end -- class TEST_EXPANDED8
 --

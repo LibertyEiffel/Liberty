@@ -4,13 +4,13 @@
 class BAD_CONSTANT9
 creation make
 feature
-	make is
-		do
-			print(f.out+"%N")
-		end
-	
-	f (i:INTEGER): INTEGER is 3
-	
+   make is
+      do
+         print(f.out+"%N")
+      end
+   
+   f (i:INTEGER): INTEGER is 3
+   
 end -- class BAD_CONSTANT9
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -4,10 +4,10 @@
 class AUX_UNDEFINE2A
 
 feature {ANY}
-	my_feature is
-		do
-			io.put_string("Error in AUX_UNDEFINE2A%N")
-		end
+   my_feature is
+      do
+         io.put_string("Error in AUX_UNDEFINE2A%N")
+      end
 
 end -- class AUX_UNDEFINE2A
 --

@@ -4,16 +4,16 @@
 class TEST_U01
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			f3: AUX_U01F3; r3: AUX_U01R3
-		do
-			create f3
-			r3 := f3.f
-		end
+   make is
+      local
+         f3: AUX_U01F3; r3: AUX_U01R3
+      do
+         create f3
+         r3 := f3.f
+      end
 
 end -- class TEST_U01
 --

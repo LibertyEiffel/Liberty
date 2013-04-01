@@ -4,14 +4,14 @@
 class AUX_INTEGER9
 
 feature {ANY}
-	foo_it (foo: NUMERIC) is
-		require
-			foo /= Void
-		local
-			bar: like foo
-		do
-			bar := foo + foo.one
-		end
+   foo_it (foo: NUMERIC) is
+      require
+         foo /= Void
+      local
+         bar: like foo
+      do
+         bar := foo + foo.one
+      end
 
 end -- class AUX_INTEGER9
 --

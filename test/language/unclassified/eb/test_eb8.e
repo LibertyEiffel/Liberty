@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EB8
-	--
-	-- From a bug report of Eric BEZAULT
-	--
+   --
+   -- From a bug report of Eric BEZAULT
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			c: AUX_EB8C[STRING]
-		do
-			create c.make
-		end
+   make is
+      local
+         c: AUX_EB8C[STRING]
+      do
+         create c.make
+      end
 
 end -- class TEST_EB8
 --

@@ -9,10 +9,10 @@ feature
 
    make is
       local
-	 p: PROCEDURE[TUPLE[CHARACTER]];
+    p: PROCEDURE[TUPLE[CHARACTER]];
       do
-	 p := agent proc(?);
-	 p.item(['a']);
+    p := agent proc(?);
+    p.item(['a']);
       end;
 
 feature {NONE}

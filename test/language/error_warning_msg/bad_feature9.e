@@ -4,10 +4,10 @@
 class BAD_FEATURE9
 
 creation
-	make
-	
+   make
+   
 feature
-	
+   
    make is
       do
       end

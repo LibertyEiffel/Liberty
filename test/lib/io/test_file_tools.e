@@ -4,53 +4,53 @@
 class TEST_FILE_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	file_tools: FILE_TOOLS
+   file_tools: FILE_TOOLS
 
-	make is
-		local
-			tfw: TEXT_FILE_WRITE; path: STRING; ft: FILE_TOOLS; s: INTEGER; bt1, bt2: TIME; tif: TIME_IN_FRENCH
-		do
-			path := "tmp657"
-			if (create {FILE_TOOLS}).is_readable(path) then
-				(create {FILE_TOOLS}).delete(path)
-			end
-			assert(not (create {FILE_TOOLS}).is_readable(path))
-			create tfw.connect_to(path)
-			tfw.disconnect
-			bt1 := file_tools.last_change_of(path)
-			assert((create {FILE_TOOLS}).is_readable(path))
-			assert(ft.is_empty(path))
-			(create {FILE_TOOLS}).delete(path)
-			assert(not (create {FILE_TOOLS}).is_readable(path))
-			create tfw.connect_to(path)
-			tfw.put_string("Hello")
-			tfw.disconnect
-			s := file_tools.size_of(path)
-			assert(s = 5)
-			bt2 := file_tools.last_change_of(path)
-			assert(bt1.is_equal(bt2))
-			(create {FILE_TOOLS}).delete(path)
-			create tif
-			tif.set_time(bt1)
-		end
+   make is
+      local
+         tfw: TEXT_FILE_WRITE; path: STRING; ft: FILE_TOOLS; s: INTEGER; bt1, bt2: TIME; tif: TIME_IN_FRENCH
+      do
+         path := "tmp657"
+         if (create {FILE_TOOLS}).is_readable(path) then
+            (create {FILE_TOOLS}).delete(path)
+         end
+         assert(not (create {FILE_TOOLS}).is_readable(path))
+         create tfw.connect_to(path)
+         tfw.disconnect
+         bt1 := file_tools.last_change_of(path)
+         assert((create {FILE_TOOLS}).is_readable(path))
+         assert(ft.is_empty(path))
+         (create {FILE_TOOLS}).delete(path)
+         assert(not (create {FILE_TOOLS}).is_readable(path))
+         create tfw.connect_to(path)
+         tfw.put_string("Hello")
+         tfw.disconnect
+         s := file_tools.size_of(path)
+         assert(s = 5)
+         bt2 := file_tools.last_change_of(path)
+         assert(bt1.is_equal(bt2))
+         (create {FILE_TOOLS}).delete(path)
+         create tif
+         tif.set_time(bt1)
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_FILE_TOOLS: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_FILE_TOOLS: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_FILE_TOOLS
 --

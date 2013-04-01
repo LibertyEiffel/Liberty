@@ -4,62 +4,62 @@
 deferred class AUX_JLP8_CROSS[E, F, G]
 
 inherit
-	AUX_JLP8_PROVIDER[G]
-		redefine is_runnable
-		end
+   AUX_JLP8_PROVIDER[G]
+      redefine is_runnable
+      end
 
 feature {ANY}
-	attach (p1: AUX_JLP8_PROVIDER[E]; p2: AUX_JLP8_PROVIDER[F]) is
-		do
-			prov1 := p1
-			prov2 := p2
-		end
+   attach (p1: AUX_JLP8_PROVIDER[E]; p2: AUX_JLP8_PROVIDER[F]) is
+      do
+         prov1 := p1
+         prov2 := p2
+      end
 
-	start is
-		do
-			prov1.start
-			prov2.start
-		end
+   start is
+      do
+         prov1.start
+         prov2.start
+      end
 
-	next is
-		do
-			prov1.next
-			prov2.next
-		end
+   next is
+      do
+         prov1.next
+         prov2.next
+      end
 
-	item: G is
-		do
-			Result := cross_operation(prov1.item, prov2.item)
-		end
+   item: G is
+      do
+         Result := cross_operation(prov1.item, prov2.item)
+      end
 
-	exhausted: BOOLEAN is
-		do
-			Result := prov1.exhausted or prov2.exhausted
-		end
+   exhausted: BOOLEAN is
+      do
+         Result := prov1.exhausted or prov2.exhausted
+      end
 
-	abort is
-		do
-			prov1.abort
-			prov2.abort
-		end
+   abort is
+      do
+         prov1.abort
+         prov2.abort
+      end
 
-	aborted: BOOLEAN is
-		do
-			Result := prov1.aborted or prov2.aborted
-		end
+   aborted: BOOLEAN is
+      do
+         Result := prov1.aborted or prov2.aborted
+      end
 
-	is_runnable: BOOLEAN is
-		do
-			Result := prov1 /= Void and prov2 /= Void
-		end
+   is_runnable: BOOLEAN is
+      do
+         Result := prov1 /= Void and prov2 /= Void
+      end
 
-	cross_operation (e: E; f: F): G is
-		deferred
-		end
+   cross_operation (e: E; f: F): G is
+      deferred
+      end
 
-	prov1: AUX_JLP8_PROVIDER[E]
+   prov1: AUX_JLP8_PROVIDER[E]
 
-	prov2: AUX_JLP8_PROVIDER[F]
+   prov2: AUX_JLP8_PROVIDER[F]
 
 end -- class AUX_JLP8_CROSS
 --

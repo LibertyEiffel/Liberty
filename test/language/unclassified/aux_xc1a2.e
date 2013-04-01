@@ -4,10 +4,10 @@
 class AUX_XC1A2[G, U]
 
 inherit
-	AUX_XC1AA[G]
+   AUX_XC1AA[G]
 
 feature {ANY}
-	item2: U
+   item2: U
 
 end -- class AUX_XC1A2
 --

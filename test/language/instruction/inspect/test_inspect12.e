@@ -4,22 +4,22 @@
 class TEST_INSPECT12
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			inspect
-				i
-			else
-				assert(True)
-			end
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         inspect
+            i
+         else
+            assert(True)
+         end
+      end
 
 end -- class TEST_INSPECT12
 --

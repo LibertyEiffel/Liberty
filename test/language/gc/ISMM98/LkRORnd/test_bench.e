@@ -2,34 +2,34 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_BENCH
-	-- Allocation and recycling of ARRAY[INTEGER] of random size.
-	-- SE runs fast, since it does not try to mark the contents of these
-	-- arrays.
-	-- Compiled with SmartEiffel, this benchmark has an important memory
-	-- footprint, because SE's GC does not merge memory blocks
-	-- and thus recycles poorly the dead arrays.
+   -- Allocation and recycling of ARRAY[INTEGER] of random size.
+   -- SE runs fast, since it does not try to mark the contents of these
+   -- arrays.
+   -- Compiled with SmartEiffel, this benchmark has an important memory
+   -- footprint, because SE's GC does not merge memory blocks
+   -- and thus recycles poorly the dead arrays.
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	array_int: ARRAY[INTEGER]
+   array_int: ARRAY[INTEGER]
 
-	make is
-		local
-			i: INTEGER; random: PRESS_RANDOM_NUMBER_GENERATOR
-		do
-			create random.with_seed(74363)
-			from
-				i := 30000
-			until
-				i = 0
-			loop
-				random.next
-				create array_int.make(0, random.last_integer(50000))
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER; random: PRESS_RANDOM_NUMBER_GENERATOR
+      do
+         create random.with_seed(74363)
+         from
+            i := 30000
+         until
+            i = 0
+         loop
+            random.next
+            create array_int.make(0, random.last_integer(50000))
+            i := i - 1
+         end
+      end
 
 end -- class TEST_BENCH
 --

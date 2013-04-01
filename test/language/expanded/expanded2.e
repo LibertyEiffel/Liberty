@@ -2,27 +2,27 @@
 -- See the Copyright notice at the end of this file.
 --
 expanded class EXPANDED2
-	--
-	-- For use of test_expanded*.e
-	--
+   --
+   -- For use of test_expanded*.e
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	x: INTEGER
+   x: INTEGER
 
-	make is
-		do
-			x := 2
-		end
+   make is
+      do
+         x := 2
+      end
 
-	set_x (v: INTEGER) is
-		do
-			x := v
-		ensure
-			x = v
-		end
+   set_x (v: INTEGER) is
+      do
+         x := v
+      ensure
+         x = v
+      end
 
 end -- class EXPANDED2
 --

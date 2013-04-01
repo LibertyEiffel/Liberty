@@ -11,12 +11,12 @@ class HELLO_WORLD
 --
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main is
-		do
-			io.put_string("Hello World.%N")
-		end
+   main is
+      do
+         io.put_string("Hello World.%N")
+      end
 
 end -- class HELLO_WORLD

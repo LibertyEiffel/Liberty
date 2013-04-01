@@ -4,15 +4,15 @@
 class AUX_RENAME1
 
 inherit
-	TEST_RENAME1
-		rename r as super_r
-		end
+   TEST_RENAME1
+      rename r as super_r
+      end
 
 feature {ANY}
-	r: INTEGER is
-		do
-			Result := 2
-		end
+   r: INTEGER is
+      do
+         Result := 2
+      end
 
 end -- class AUX_RENAME1
 --

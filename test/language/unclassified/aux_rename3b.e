@@ -4,32 +4,32 @@
 class AUX_RENAME3B
 
 inherit
-	AUX_RENAME3A
-		rename nb_element as taille
-		end
+   AUX_RENAME3A
+      rename nb_element as taille
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			taille := 6
-			if read_nb_element /= taille then
-				std_output.put_string("TEST_RENAME3: ERROR Test #1%N")
-			end
-			if plein then
-				std_output.put_string("TEST_RENAME3: ERROR Test #2%N")
-			end
-		end
+   make is
+      do
+         taille := 6
+         if read_nb_element /= taille then
+            std_output.put_string("TEST_RENAME3: ERROR Test #1%N")
+         end
+         if plein then
+            std_output.put_string("TEST_RENAME3: ERROR Test #2%N")
+         end
+      end
 
-	plein: BOOLEAN is
-		do
-			Result := taille = 10
-		end
+   plein: BOOLEAN is
+      do
+         Result := taille = 10
+      end
 
 invariant
-	taille >= 0
+   taille >= 0
 
 end -- class AUX_RENAME3B
 --

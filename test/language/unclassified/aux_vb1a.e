@@ -4,12 +4,12 @@
 expanded class AUX_VB1A
 
 feature {ANY}
-	pt: INTEGER
+   pt: INTEGER
 
-	a_feature: INTEGER is
-		do
-			Result := pt
-		end
+   a_feature: INTEGER is
+      do
+         Result := pt
+      end
 
 end -- class AUX_VB1A
 --

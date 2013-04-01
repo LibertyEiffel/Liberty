@@ -9,10 +9,10 @@ feature
 
    make is 
       local
-	 i: INTEGER;
+    i: INTEGER;
       do 
-	 i := 1_234;
-	 i := 1_23_456;
+    i := 1_234;
+    i := 1_23_456;
       end;
    
 end -- class BAD_INTEGER_CONSTANT1

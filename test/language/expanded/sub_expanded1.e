@@ -4,7 +4,7 @@
 expanded class SUB_EXPANDED1
 
 insert
-	EXPANDED1
+   EXPANDED1
 
 end -- class SUB_EXPANDED1
 --

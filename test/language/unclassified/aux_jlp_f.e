@@ -4,15 +4,15 @@
 class AUX_JLP_F[E -> NUMERIC]
 
 inherit
-	AUX_JLP_B[E, E]
+   AUX_JLP_B[E, E]
 
 feature {ANY}
-	bar: E is
-		do
-			if a /= Void then
-				Result := a.foo + foo
-			end
-		end
+   bar: E is
+      do
+         if a /= Void then
+            Result := a.foo + foo
+         end
+      end
 
 end -- class AUX_JLP_F
 --

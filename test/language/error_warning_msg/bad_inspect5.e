@@ -6,12 +6,12 @@ creation make
 feature
    make is
       local
-	 i: INTEGER
+    i: INTEGER
       do
-	 inspect
-	    i
-	 when ("foo").count then
-	 end
+    inspect
+       i
+    when ("foo").count then
+    end
       end
 end -- class BAD_INSPECT5
 --

@@ -4,28 +4,28 @@
 class AUX_SIMPLIFY17
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make (a_custom_data: ANY) is
-		do
-			custom_data := a_custom_data
-		end
+   make (a_custom_data: ANY) is
+      do
+         custom_data := a_custom_data
+      end
 
-	data: TEST_SIMPLIFY17 is
-		do
-			Result ?= custom_data
-		end
+   data: TEST_SIMPLIFY17 is
+      do
+         Result ?= custom_data
+      end
 
-	custom_data: ANY
+   custom_data: ANY
 
 feature {ANY}
-	process is
-		local
-			t: INTEGER
-		do
-			t := data.item
-		end
+   process is
+      local
+         t: INTEGER
+      do
+         t := data.item
+      end
 
 end -- class AUX_SIMPLIFY17
 --

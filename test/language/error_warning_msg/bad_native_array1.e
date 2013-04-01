@@ -13,7 +13,7 @@ feature
 
    make is
       do
-	 store1 := store2;
+    store1 := store2;
       end;
    
 end -- class BAD_NATIVE_ARRAY1

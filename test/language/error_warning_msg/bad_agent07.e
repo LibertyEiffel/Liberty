@@ -9,10 +9,10 @@ feature
 
    make is
       local
-	 p: FUNCTION[TUPLE[CHARACTER],REAL];
+    p: FUNCTION[TUPLE[CHARACTER],REAL];
       do
-	 p := agent proc(?);
-	 p.call([]);
+    p := agent proc(?);
+    p.call([]);
       end;
 
 feature {NONE}

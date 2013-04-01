@@ -4,45 +4,45 @@
 class TEST_FAST_ARRAY2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	fad: FAST_ARRAY[REAL]
+   fad: FAST_ARRAY[REAL]
 
-	ad: ARRAY[REAL]
+   ad: ARRAY[REAL]
 
-	make is
-		local
-			i: INTEGER
-		do
-			create ad.make(0, 2)
-			ad.put(0.5, 0)
-			ad.put(1.5, 1)
-			ad.put(2.5, 2)
-			create fad.from_collection(ad)
-			from
-				i := fad.upper
-			until
-				i < 0
-			loop
-				assert(fad.item(i) = ad.item(i))
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         create ad.make(0, 2)
+         ad.put(0.5, 0)
+         ad.put(1.5, 1)
+         ad.put(2.5, 2)
+         create fad.from_collection(ad)
+         from
+            i := fad.upper
+         until
+            i < 0
+         loop
+            assert(fad.item(i) = ad.item(i))
+            i := i - 1
+         end
+      end
 
-	assert (bool: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not bool then
-				std_output.put_string("TEST_FAST_ARRAY2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N");
-			end
-		end
+   assert (bool: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not bool then
+            std_output.put_string("TEST_FAST_ARRAY2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_FAST_ARRAY2
 --

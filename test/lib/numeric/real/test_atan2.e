@@ -4,18 +4,18 @@
 class TEST_ATAN2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d1, d2: REAL; r1, r2: REAL_32
-		do
-			d1 := d1.atan2(d2)
-			d1 := r1.atan2(r2)
-			d1 := d1.pow(d2)
-			d1 := r1.pow(r2)
-		end
+   make is
+      local
+         d1, d2: REAL; r1, r2: REAL_32
+      do
+         d1 := d1.atan2(d2)
+         d1 := r1.atan2(r2)
+         d1 := d1.pow(d2)
+         d1 := r1.pow(r2)
+      end
 
 end -- class TEST_ATAN2
 --

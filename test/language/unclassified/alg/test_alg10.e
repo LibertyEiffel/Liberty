@@ -2,39 +2,39 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ALG10
-	-- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
+   -- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY} -- Essayer de compiler avec c2c en -debug_check ....
-	do_nothing is
-		do
-		end
+   do_nothing is
+      do
+      end
 
-	make is
-		do
-			make1
-			make2
-		end
+   make is
+      do
+         make1
+         make2
+      end
 
-	make1 is
-		local
-			i: INTEGER
-		do
-			if False or else i = 10 then
-				do_nothing
-			end
-		end
+   make1 is
+      local
+         i: INTEGER
+      do
+         if False or else i = 10 then
+            do_nothing
+         end
+      end
 
-	make2 is
-		local
-			i: INTEGER
-		do
-			if True and then i = 10 then
-				do_nothing
-			end
-		end
+   make2 is
+      local
+         i: INTEGER
+      do
+         if True and then i = 10 then
+            do_nothing
+         end
+      end
 
 end -- class TEST_ALG10
 --

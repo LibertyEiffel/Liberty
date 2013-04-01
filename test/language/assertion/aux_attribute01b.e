@@ -4,10 +4,10 @@
 class AUX_ATTRIBUTE01B
 
 inherit
-	AUX_ATTRIBUTE01A
+   AUX_ATTRIBUTE01A
 
 feature {ANY}
-	value: INTEGER
+   value: INTEGER
 
 end -- class AUX_ATTRIBUTE01B
 --

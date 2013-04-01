@@ -2,44 +2,44 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_REAL_CONSTANT
-	--
-	-- From a bug report of Olivier ZENDRA.
-	--
+   --
+   -- From a bug report of Olivier ZENDRA.
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			r := 0.5
-			d := 0.5
-			assert(r = 0.5)
-			assert(d = 0.5)
-			assert(d = r)
-		ensure
-			r_ok: r = 0.5
-			d_ok: d = 0.5
-			r_et_r: d = r
-		end
+   make is
+      do
+         r := 0.5
+         d := 0.5
+         assert(r = 0.5)
+         assert(d = 0.5)
+         assert(d = r)
+      ensure
+         r_ok: r = 0.5
+         d_ok: d = 0.5
+         r_et_r: d = r
+      end
 
-	r: REAL
+   r: REAL
 
-	d: REAL
+   d: REAL
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_REAL_CONSTANT: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_REAL_CONSTANT: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_REAL_CONSTANT
 --

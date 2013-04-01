@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EG10
-	-- From a bug report of Enrico GOBBETTI
+   -- From a bug report of Enrico GOBBETTI
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_EG10A[REAL]; bool: BOOLEAN
-		do
-			if bool then
-				a.print_on(io)
-			end
-		end
+   make is
+      local
+         a: AUX_EG10A[REAL]; bool: BOOLEAN
+      do
+         if bool then
+            a.print_on(io)
+         end
+      end
 
 end -- class TEST_EG10
 --

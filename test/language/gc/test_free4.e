@@ -2,49 +2,49 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FREE4
-	-- From philippe Coucaud <Philippe.Coucaud@telelogic.com>
+   -- From philippe Coucaud <Philippe.Coucaud@telelogic.com>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	incr: BOOLEAN
+   incr: BOOLEAN
 
-	make is
-		local
-			i, j, k: INTEGER; a: ARRAY[STRING]; s: STRING; rand: PRESS_RANDOM_NUMBER_GENERATOR
-		do
-			from
-				i := 200
-				create a.make(0, 350)
-				create rand.make
-			until
-				i < 0
-			loop
-				--io.put_integer(i); io.put_new_line;
-				from
-					if incr then
-						j := a.lower
-					else
-						j := a.upper
-					end
-				until
-					incr and j = a.upper or not incr and j = a.lower
-				loop
-					k := rand.last_integer(100000)
-					rand.next
-					create s.make(k)
-					a.put(s, j)
-					if incr then
-						j := j + 1
-					else
-						j := j - 1
-					end
-				end
-				incr := not incr
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i, j, k: INTEGER; a: ARRAY[STRING]; s: STRING; rand: PRESS_RANDOM_NUMBER_GENERATOR
+      do
+         from
+            i := 200
+            create a.make(0, 350)
+            create rand.make
+         until
+            i < 0
+         loop
+            --io.put_integer(i); io.put_new_line;
+            from
+               if incr then
+                  j := a.lower
+               else
+                  j := a.upper
+               end
+            until
+               incr and j = a.upper or not incr and j = a.lower
+            loop
+               k := rand.last_integer(100000)
+               rand.next
+               create s.make(k)
+               a.put(s, j)
+               if incr then
+                  j := j + 1
+               else
+                  j := j - 1
+               end
+            end
+            incr := not incr
+            i := i - 1
+         end
+      end
 
 end -- class TEST_FREE4
 --

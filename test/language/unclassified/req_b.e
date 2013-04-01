@@ -4,32 +4,32 @@
 class REQ_B
 
 inherit
-	REQ_A
-		redefine bc, rb, rc
-		end
+   REQ_A
+      redefine bc, rb, rc
+      end
 
 feature {ANY}
-	bc: CHARACTER
+   bc: CHARACTER
 
-	set_bc (c: CHARACTER) is
-		do
-			bc := c
-		end
+   set_bc (c: CHARACTER) is
+      do
+         bc := c
+      end
 
-	rb is
-		require else
-			bc = 'b'
-		do
-		end
+   rb is
+      require else
+         bc = 'b'
+      do
+      end
 
-	rc is
-		require else
-			4 = 2 + 2
-		local
-			b: BOOLEAN
-		do
-			b := est_dans('b')
-		end
+   rc is
+      require else
+         4 = 2 + 2
+      local
+         b: BOOLEAN
+      do
+         b := est_dans('b')
+      end
 
 end -- class REQ_B
 --

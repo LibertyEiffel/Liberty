@@ -2,60 +2,60 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_PH01_SPLAY_DICTIONARY_ITERATOR[I -> COMPARABLE]
-	--
-	-- The iterator for AUX_PH01_SPLAY_DICTIONARY over the keys.
-	--
-	-- Copyright (C) Philip Malin 2000.
-	--
+   --
+   -- The iterator for AUX_PH01_SPLAY_DICTIONARY over the keys.
+   --
+   -- Copyright (C) Philip Malin 2000.
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make (sd: AUX_PH01_SPLAY_DICTIONARY[INTEGER, I]) is
-		do
-			cont := sd
-			start
-		ensure
-			cont = sd
-		end
+   make (sd: AUX_PH01_SPLAY_DICTIONARY[INTEGER, I]) is
+      do
+         cont := sd
+         start
+      ensure
+         cont = sd
+      end
 
 feature {ANY}
-	start is
-			-- Positions the iterator to the first object in the
-			-- aggregate to be traversed.
-		do
-		end
+   start is
+         -- Positions the iterator to the first object in the
+         -- aggregate to be traversed.
+      do
+      end
 
-	is_off: BOOLEAN is
-			-- Returns true when there are no more objects in the
-			-- sequence.
-		do
-			Result := node = Void
-		end
+   is_off: BOOLEAN is
+         -- Returns true when there are no more objects in the
+         -- sequence.
+      do
+         Result := node = Void
+      end
 
-	index: I is
-			-- Returns the index of the object at the current position in the
-			-- sequence.
-		require
-			not is_off
-		do
-			Result := node.index
-		end
+   index: I is
+         -- Returns the index of the object at the current position in the
+         -- sequence.
+      require
+         not is_off
+      do
+         Result := node.index
+      end
 
-	next is
-			-- Positions the iterator to the next object in the
-			-- sequence.
-		require
-			not is_off
-		do
-			node := cont.next_highest(node)
-		end
+   next is
+         -- Positions the iterator to the next object in the
+         -- sequence.
+      require
+         not is_off
+      do
+         node := cont.next_highest(node)
+      end
 
 feature {}
-	cont: AUX_PH01_SPLAY_DICTIONARY[INTEGER, I]
+   cont: AUX_PH01_SPLAY_DICTIONARY[INTEGER, I]
 
-	node: AUX_PH01_SPLAY_DICTIONARY_ITEM[INTEGER, I]
+   node: AUX_PH01_SPLAY_DICTIONARY_ITEM[INTEGER, I]
 
 end -- class AUX_PH01_SPLAY_DICTIONARY_ITERATOR
 --

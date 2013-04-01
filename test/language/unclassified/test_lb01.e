@@ -2,26 +2,26 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_LB01
-	-- From: Luc Bourhis <Luc.Bourhis@durham.ac.uk>
+   -- From: Luc Bourhis <Luc.Bourhis@durham.ac.uk>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: INTEGER; b, c: REAL_64
-		do
-			a := 1
-			b := 2.5
-			c := a + b
-			-- (1) INTEGER has infix "+"(a:INTEGER)
-			--	 and REAL_64 is not compatible with INTEGER
-			c := 1 + b -- (2) idem
-			c := 1.0 + b
-			-- (3) REAL has infix "+"(a:REAL)
-			-- and REAL_64 is not compatible with REAL
-		end
+   make is
+      local
+         a: INTEGER; b, c: REAL_64
+      do
+         a := 1
+         b := 2.5
+         c := a + b
+         -- (1) INTEGER has infix "+"(a:INTEGER)
+         --    and REAL_64 is not compatible with INTEGER
+         c := 1 + b -- (2) idem
+         c := 1.0 + b
+         -- (3) REAL has infix "+"(a:REAL)
+         -- and REAL_64 is not compatible with REAL
+      end
 
 end -- class TEST_LB01
 --

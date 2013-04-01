@@ -4,12 +4,12 @@
 deferred class FRUIT
 
 feature {ANY}
-	blob: INTEGER
+   blob: INTEGER
 
-	make (new_blob: INTEGER) is
-		do
-			blob := new_blob
-		end
+   make (new_blob: INTEGER) is
+      do
+         blob := new_blob
+      end
 
 end -- class FRUIT
 --

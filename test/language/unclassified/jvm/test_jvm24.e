@@ -4,24 +4,24 @@
 class TEST_JVM24
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			foo(28, 27)
-		end
+   make is
+      do
+         foo(28, 27)
+      end
 
 feature {}
-	foo (i1: INTEGER; i2: INTEGER) is
-		do
-			if i1 /= 28 then
-				io.put_string("TEST_JVM24: ERROR Test #1%N")
-			end
-			if i2 /= 27 then
-				io.put_string("TEST_JVM24: ERROR Test #2%N")
-			end
-		end
+   foo (i1: INTEGER; i2: INTEGER) is
+      do
+         if i1 /= 28 then
+            io.put_string("TEST_JVM24: ERROR Test #1%N")
+         end
+         if i2 /= 27 then
+            io.put_string("TEST_JVM24: ERROR Test #2%N")
+         end
+      end
 
 end -- class TEST_JVM24
 --

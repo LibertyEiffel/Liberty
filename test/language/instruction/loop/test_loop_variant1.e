@@ -4,26 +4,26 @@
 class TEST_LOOP_VARIANT1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			from
-				i := 1
-			invariant
-				i <= 11
-				i >= 1
-			variant
-				10 - i
-			until
-				i > 10
-			loop
-				i := i + 1
-			end
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         from
+            i := 1
+         invariant
+            i <= 11
+            i >= 1
+         variant
+            10 - i
+         until
+            i > 10
+         loop
+            i := i + 1
+         end
+      end
 
 end -- class TEST_LOOP_VARIANT1
 --

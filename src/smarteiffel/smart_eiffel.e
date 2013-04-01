@@ -393,7 +393,7 @@ feature {ANY}
          Result := live_type_map_
       end
 
-feature {FEATURE_CALL, WRITABLE_ATTRIBUTE_NAME, MANIFEST_STRING_POOL, CREATION_CLAUSE, ADDRESS_OF, ONCE_FUNCTION, MANIFEST_GENERIC}
+feature {FEATURE_CALL, WRITABLE_ATTRIBUTE_NAME, MANIFEST_STRING_POOL, CREATION_CLAUSE, ADDRESS_OF, ONCE_FUNCTION, MANIFEST_GENERIC, BUILT_IN_EQ_NEQ}
    collect (type: TYPE; fs: FEATURE_STAMP; at_run_time: BOOLEAN): TYPE is
          -- The `Result' is not Void when `fs' is actually a function (see ensure).
       require
@@ -404,8 +404,8 @@ feature {FEATURE_CALL, WRITABLE_ATTRIBUTE_NAME, MANIFEST_STRING_POOL, CREATION_C
          --|*** PH(03/03/04) To be removed
          lt := collect_one_type(type, at_run_time)
          --|*** PH(03/03/04) should be "af := fs.anonymous_feature(type)",
-         --but in order to quickly solve a hard problem I added one
-         --extra resolution.
+         --|but in order to quickly solve a hard problem I added one
+         --|extra resolution.
          --
 --         tmp_fs := fs.resolve_dynamic_binding_for(type)
 --***
@@ -500,6 +500,7 @@ feature {LIVE_TYPE}
          type.live_type /= Void
       end
 
+feature {LIVE_TYPE, PROCEDURE_CALL_0}
    collect_se_atexit (type: TYPE) is
       require
          type /= Void
@@ -514,7 +515,7 @@ feature {LIVE_TYPE}
          se_atexit_stamp /= Void
       end
 
-feature {CODE_PRINTER}
+feature {LIVE_TYPE, PROCEDURE_CALL_0, C_PRETTY_PRINTER}
    se_atexit_stamp: FEATURE_STAMP
 
    se_atexit_id: INTEGER

@@ -2,7 +2,7 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_FMOISSET1[F, G -> COLLECTION[F]]
-	-- yes, it looks evil, doesn't it?
+   -- yes, it looks evil, doesn't it?
 
 end -- class AUX_FMOISSET1
 --

@@ -2,52 +2,52 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_MUTABLE_BIG_INTEGER21
-	-- Test of `is_integer', `is_integer_64',`to_integer_32' and `to_integer_64'.
+   -- Test of `is_integer', `is_integer_64',`to_integer_32' and `to_integer_64'.
 
 insert
-	AUX_MUTABLE_BIG_INTEGER1
+   AUX_MUTABLE_BIG_INTEGER1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			from
-				i := numbers1.lower
-			until
-				i > numbers1.upper
-			loop
-				assert(numbers1.item(i).is_integer_32 = res_is_int.item(i))
-				assert(numbers1.item(i).is_integer_32 implies numbers1.item(i).to_integer_32 = res_to_int.item(i))
-				assert(numbers1.item(i).is_integer_64 = res_is_int_64.item(i))
-				assert(numbers1.item(i).is_integer_64 implies numbers1.item(i).to_integer_64 = res_to_int_64.item(i))
-				i := i + 1
-			end
-			verify(numbers1)
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         from
+            i := numbers1.lower
+         until
+            i > numbers1.upper
+         loop
+            assert(numbers1.item(i).is_integer_32 = res_is_int.item(i))
+            assert(numbers1.item(i).is_integer_32 implies numbers1.item(i).to_integer_32 = res_to_int.item(i))
+            assert(numbers1.item(i).is_integer_64 = res_is_int_64.item(i))
+            assert(numbers1.item(i).is_integer_64 implies numbers1.item(i).to_integer_64 = res_to_int_64.item(i))
+            i := i + 1
+         end
+         verify(numbers1)
+      end
 
-	res_is_int: FAST_ARRAY[BOOLEAN] is
-		once
-			Result := {FAST_ARRAY[BOOLEAN] << True, True, True, True, True, True, True, True, True, True, True, True, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False >> }
-		end
+   res_is_int: FAST_ARRAY[BOOLEAN] is
+      once
+         Result := {FAST_ARRAY[BOOLEAN] << True, True, True, True, True, True, True, True, True, True, True, True, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False >> }
+      end
 
-	res_is_int_64: FAST_ARRAY[BOOLEAN] is
-		once
-			Result := {FAST_ARRAY[BOOLEAN] << True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, False, True, True, True, False, False, False, False, False, False, False, False >> }
-		end
+   res_is_int_64: FAST_ARRAY[BOOLEAN] is
+      once
+         Result := {FAST_ARRAY[BOOLEAN] << True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, False, True, True, True, False, False, False, False, False, False, False, False >> }
+      end
 
-	res_to_int: FAST_ARRAY[INTEGER] is
-		once
-			Result := {FAST_ARRAY[INTEGER] << 0, 1, -1, 2, -2, 3, -3, 1000, -1000, 1000000000, -1000000000, Maximum_integer, -Maximum_integer, 0, Minimum_integer, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 >> }
-		end
+   res_to_int: FAST_ARRAY[INTEGER] is
+      once
+         Result := {FAST_ARRAY[INTEGER] << 0, 1, -1, 2, -2, 3, -3, 1000, -1000, 1000000000, -1000000000, Maximum_integer, -Maximum_integer, 0, Minimum_integer, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 >> }
+      end
 
-	res_to_int_64: FAST_ARRAY[INTEGER_64] is
-		once
-			Result := {FAST_ARRAY[INTEGER_64] << 0, 1, -1, 2, -2, 3, -3, 1000, -1000, 1000000000, -1000000000, Maximum_integer, -Maximum_integer, -Minimum_integer.to_integer_64, Minimum_integer, Maximum_integer_64, -Maximum_integer_64, 0, Minimum_integer_64, 1000000000000000000, -1000000000000000000, 0, 0, 0, 0, 0, 0, 0 >> }
-		end
+   res_to_int_64: FAST_ARRAY[INTEGER_64] is
+      once
+         Result := {FAST_ARRAY[INTEGER_64] << 0, 1, -1, 2, -2, 3, -3, 1000, -1000, 1000000000, -1000000000, Maximum_integer, -Maximum_integer, -Minimum_integer.to_integer_64, Minimum_integer, Maximum_integer_64, -Maximum_integer_64, 0, Minimum_integer_64, 1000000000000000000, -1000000000000000000, 0, 0, 0, 0, 0, 0, 0 >> }
+      end
 
 end -- class TEST_MUTABLE_BIG_INTEGER21
 --

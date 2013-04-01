@@ -4,21 +4,21 @@
 class TEST_PRECURSOR08
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			b: AUX_PRECURSOR08B; array: ARRAY[STRING]
-		do
-			create b
-			array := b.f
-			assert(array.is_empty)
-			assert(array = b.f)
-		end
+   make is
+      local
+         b: AUX_PRECURSOR08B; array: ARRAY[STRING]
+      do
+         create b
+         array := b.f
+         assert(array.is_empty)
+         assert(array = b.f)
+      end
 
 end -- class TEST_PRECURSOR08
 --

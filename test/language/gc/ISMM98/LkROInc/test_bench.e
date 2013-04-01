@@ -4,31 +4,31 @@
 class TEST_BENCH
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	array_int: ARRAY[INTEGER]
+   array_int: ARRAY[INTEGER]
 
-	make is
-		local
-			size: INTEGER; i: INTEGER
-		do
-			from
-				i := 150
-			until
-				i = 0
-			loop
-				from
-					size := 0
-				until
-					size = 5000
-				loop
-					create array_int.make(0, size)
-					size := size + 1
-				end
-				i := i - 1
-			end
-		end
+   make is
+      local
+         size: INTEGER; i: INTEGER
+      do
+         from
+            i := 150
+         until
+            i = 0
+         loop
+            from
+               size := 0
+            until
+               size = 5000
+            loop
+               create array_int.make(0, size)
+               size := size + 1
+            end
+            i := i - 1
+         end
+      end
 
 end -- class TEST_BENCH
 --

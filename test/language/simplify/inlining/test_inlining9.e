@@ -4,41 +4,41 @@
 class TEST_INLINING9
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a1, a2, a3, a4: like Current
+   a1, a2, a3, a4: like Current
 
-	make is
-		do
-			a1 := Current
-			a2 := Current
-			a3 := Current
-			a4 := Current
-			if get_a4 /= Current then
-				std_output.put_string("TEST_INLINING9: ERROR Test #1%N")
-			end
-		end
+   make is
+      do
+         a1 := Current
+         a2 := Current
+         a3 := Current
+         a4 := Current
+         if get_a4 /= Current then
+            std_output.put_string("TEST_INLINING9: ERROR Test #1%N")
+         end
+      end
 
-	get_a1: like Current is
-		do
-			Result := a1
-		end
+   get_a1: like Current is
+      do
+         Result := a1
+      end
 
-	get_a2: like Current is
-		do
-			Result := a2.get_a1
-		end
+   get_a2: like Current is
+      do
+         Result := a2.get_a1
+      end
 
-	get_a3: like Current is
-		do
-			Result := a3.get_a2
-		end
+   get_a3: like Current is
+      do
+         Result := a3.get_a2
+      end
 
-	get_a4: like Current is
-		do
-			Result := a4.get_a3
-		end
+   get_a4: like Current is
+      do
+         Result := a4.get_a3
+      end
 
 end -- class TEST_INLINING9
 --

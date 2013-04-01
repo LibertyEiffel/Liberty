@@ -4,25 +4,25 @@
 class TEST_ONCE5
 
 inherit
-	EIFFELTEST_TOOLS
-		-- SZ:262: ensure violation for once method. This code is not able to
-		-- reproduce the bug...
+   EIFFELTEST_TOOLS
+      -- SZ:262: ensure violation for once method. This code is not able to
+      -- reproduce the bug...
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert(default_value = 16384)
-		end
+   make is
+      do
+         assert(default_value = 16384)
+      end
 
-	default_value: INTEGER is
-		once
-			Result := 16384
-		ensure
-			positive_default_value: Result > 0
-		end
+   default_value: INTEGER is
+      once
+         Result := 16384
+      ensure
+         positive_default_value: Result > 0
+      end
 
 end -- class TEST_ONCE5
 --

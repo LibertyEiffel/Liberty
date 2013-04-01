@@ -4,15 +4,15 @@
 class AUX_RENAME9B
 
 inherit
-	AUX_RENAME9A
-		rename foo as bar
-		end
+   AUX_RENAME9A
+      rename foo as bar
+      end
 
 feature {ANY}
-	foo: STRING is
-		do
-			Result := "baz"
-		end
+   foo: STRING is
+      do
+         Result := "baz"
+      end
 
 end -- class AUX_RENAME9B
 --

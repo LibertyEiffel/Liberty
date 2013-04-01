@@ -2,35 +2,35 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER14
-	-- tests on limits of small_integer & large_positive_integer
+   -- tests on limits of small_integer & large_positive_integer
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   PLATFORM
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1: NUMBER
-		do
-			-- pass along the frontier again & again...
-			n1 := from_integer(Maximum_integer)
-			n1 := n1 @+ 1
-			n1 := n1 @- 1
-			assert(n1.is_integer_32)
-			n1 := from_integer(Maximum_integer)
-			n1 := n1 @+ 2
-			n1 := n1 @- 2
-			assert(n1.is_integer_32)
-			n1 := from_integer(Maximum_integer)
-			n1 := n1 @* 2
-			n1 := n1 @/ 2
-			assert(n1.is_integer_32)
-		end
+   make is
+      local
+         n1: NUMBER
+      do
+         -- pass along the frontier again & again...
+         n1 := from_integer(Maximum_integer)
+         n1 := n1 @+ 1
+         n1 := n1 @- 1
+         assert(n1.is_integer_32)
+         n1 := from_integer(Maximum_integer)
+         n1 := n1 @+ 2
+         n1 := n1 @- 2
+         assert(n1.is_integer_32)
+         n1 := from_integer(Maximum_integer)
+         n1 := n1 @* 2
+         n1 := n1 @/ 2
+         assert(n1.is_integer_32)
+      end
 
 
 

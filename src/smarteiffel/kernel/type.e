@@ -627,6 +627,34 @@ feature {ANY}
          Result /= Void
       end
 
+   is_equal_stamp: FEATURE_STAMP is
+         -- The one of the `is_equal' feature (which is magically called by user-expanded comparisons).
+      local
+         type_any: like Current; fn: FEATURE_NAME
+      do
+         -- First, going to ANY in order to get the FEATURE_NAME:
+         type_any := smart_eiffel.type_any
+         fn := type_any.class_text.any_is_equal_feature.names.first
+         Result := feature_accumulator.feature_stamp_of(fn)
+         Result := Result.resolve_static_binding_for(type_any, Current)
+      ensure
+         Result /= Void
+      end
+
+   do_at_exit_stamp: FEATURE_STAMP is
+         -- The one of the `do_at_exit' feature (which is magically called by user-expanded comparisons).
+      local
+         type_any: like Current; fn: FEATURE_NAME
+      do
+         -- First, going to ANY in order to get the FEATURE_NAME:
+         type_any := smart_eiffel.type_any
+         fn := type_any.class_text.do_at_exit_feature.names.first
+         Result := feature_accumulator.feature_stamp_of(fn)
+         Result := Result.resolve_static_binding_for(type_any, Current)
+      ensure
+         Result /= Void
+      end
+
    accept (visitor: TYPE_VISITOR) is
       do
          visitor.visit_type(Current)

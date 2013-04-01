@@ -4,10 +4,10 @@
 class AUX_SELECT3A
 
 feature {ANY}
-	foo: STRING is
-		do
-			Result := ("fooA").twin
-		end
+   foo: STRING is
+      do
+         Result := ("fooA").twin
+      end
 
 end -- class AUX_SELECT3A
 --

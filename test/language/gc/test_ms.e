@@ -4,31 +4,31 @@
 class TEST_MS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER; s: STRING
-		do
-			from
-				i := 10000000
-			until
-				i = 0
-			loop
-				s := ("foo").twin
-				touch(s)
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER; s: STRING
+      do
+         from
+            i := 10000000
+         until
+            i = 0
+         loop
+            s := ("foo").twin
+            touch(s)
+            i := i - 1
+         end
+      end
 
-	touch (s: STRING) is
-		do
-			if s.count >= 3 then
-			else
-				s.extend(' ')
-			end
-		end
+   touch (s: STRING) is
+      do
+         if s.count >= 3 then
+         else
+            s.extend(' ')
+         end
+      end
 
 end -- class TEST_MS
 --

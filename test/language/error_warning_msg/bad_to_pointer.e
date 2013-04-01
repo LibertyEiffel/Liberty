@@ -4,15 +4,15 @@
 class BAD_TO_POINTER
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d: REAL; p: POINTER
-		do
-			p := d.to_pointer
-		end
+   make is
+      local
+         d: REAL; p: POINTER
+      do
+         p := d.to_pointer
+      end
 
 end -- class BAD_TO_POINTER
 --

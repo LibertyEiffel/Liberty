@@ -4,7 +4,7 @@
 class AUX_CREATE07[G]
 
 feature {ANY}
-	data: G
+   data: G
 
 end -- class AUX_CREATE07
 --

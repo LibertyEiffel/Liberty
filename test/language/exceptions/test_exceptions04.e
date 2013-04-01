@@ -4,48 +4,48 @@
 class TEST_EXCEPTIONS04
 
 inherit
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	require_check_mode: BOOLEAN
+   require_check_mode: BOOLEAN
 
-	make is
-		require
-			set_require_check_mode
-		local
-			s: STRING
-		do
-			s.extend('o')
-			is_true(("foo").is_equal(s))
-		rescue
-			if require_check_mode then
-				is_true(Void_call_target = exception)
-			end
-			s := "fo"
-			retry
-		end
+   make is
+      require
+         set_require_check_mode
+      local
+         s: STRING
+      do
+         s.extend('o')
+         is_true(("foo").is_equal(s))
+      rescue
+         if require_check_mode then
+            is_true(Void_call_target = exception)
+         end
+         s := "fo"
+         retry
+      end
 
-	set_require_check_mode: BOOLEAN is
-		do
-			require_check_mode := True
-			Result := True
-		end
+   set_require_check_mode: BOOLEAN is
+      do
+         require_check_mode := True
+         Result := True
+      end
 
 feature {}
-	is_true (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_EXCEPTION04: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   is_true (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_EXCEPTION04: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_EXCEPTIONS04
 --

@@ -2,42 +2,42 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER68
-	-- tests on "is_even"
+   -- tests on "is_even"
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   PLATFORM
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: NUMBER
-		do
-			n := from_integer(0)
-			assert(n.is_even)
-			n := from_integer(1)
-			assert(not n.is_even)
-			n := from_integer(2)
-			assert(n.is_even)
-			n := from_integer(-1)
-			assert(not n.is_even)
-			n := from_integer(-2)
-			assert(n.is_even)
-			n := from_integer(Maximum_integer)
-			n := n @+ 1000
-			assert(not n.is_even)
-			n := n @+ 1
-			assert(n.is_even)
-			n := from_integer(Minimum_integer)
-			n := n @- 1000
-			assert(n.is_even)
-			n := n @- 1
-			assert(not n.is_even)
-		end
+   make is
+      local
+         n: NUMBER
+      do
+         n := from_integer(0)
+         assert(n.is_even)
+         n := from_integer(1)
+         assert(not n.is_even)
+         n := from_integer(2)
+         assert(n.is_even)
+         n := from_integer(-1)
+         assert(not n.is_even)
+         n := from_integer(-2)
+         assert(n.is_even)
+         n := from_integer(Maximum_integer)
+         n := n @+ 1000
+         assert(not n.is_even)
+         n := n @+ 1
+         assert(n.is_even)
+         n := from_integer(Minimum_integer)
+         n := n @- 1000
+         assert(n.is_even)
+         n := n @- 1
+         assert(not n.is_even)
+      end
 
 
 

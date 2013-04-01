@@ -9,9 +9,9 @@ feature
 
    make is
       local
-	 x: like Current;
+    x: like Current;
       do
-	 x := Void;
+    x := Void;
       end;
 
    Void: NONE is

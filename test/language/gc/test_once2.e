@@ -4,16 +4,16 @@
 class TEST_ONCE2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_ONCE2A
-		do
-			create {AUX_ONCE2B} a
-			a.do_test
-		end
+   make is
+      local
+         a: AUX_ONCE2A
+      do
+         create {AUX_ONCE2B} a
+         a.do_test
+      end
 
 end -- class TEST_ONCE2
 --

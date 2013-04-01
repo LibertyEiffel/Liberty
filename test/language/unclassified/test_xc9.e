@@ -2,24 +2,24 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_XC9
-	--
-	-- From a bug report of Xavier CREGUT
-	--
+   --
+   -- From a bug report of Xavier CREGUT
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			bb: AUX_XC9BB; bbprime: AUX_XC9BB
-		do
-			create bb.make
-			bbprime := bb.twin
-			if bbprime.a /= 1 then
-				std_output.put_string("TEST_XC9: ERROR Test #1%N")
-			end
-		end
+   make is
+      local
+         bb: AUX_XC9BB; bbprime: AUX_XC9BB
+      do
+         create bb.make
+         bbprime := bb.twin
+         if bbprime.a /= 1 then
+            std_output.put_string("TEST_XC9: ERROR Test #1%N")
+         end
+      end
 
 end -- class TEST_XC9
 --

@@ -4,18 +4,18 @@
 class AUX_FP1B
 
 inherit
-	AUX_FP1A
+   AUX_FP1A
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	b_count: INTEGER
+   b_count: INTEGER
 
-	init is
-		do
-			b_count := b_count + 1
-		end
+   init is
+      do
+         b_count := b_count + 1
+      end
 
 end -- class AUX_FP1B
 --

@@ -17,6 +17,6 @@ fi
 
 eval `se -environment | grep -v '^#'`
 
-$LIBERTY_INTERPRETER ./loadpath.se $(echo ${testclass%.e} | tr '[a-z]' '[A-Z]') make -vsys=$LIBERTY_HOME/work/ -vpath_tutorial=${path_se_tutorial} "$@"
+$LIBERTY_INTERPRETER ./loadpath.se $(echo ${testclass%.e} | tr '[a-z]' '[A-Z]') make -vsys=$LIBERTY_HOME/work/ -vpath_tutorial=${path_tutorial} "$@"
 
 test -e loadpath.se~ && mv -f loadpath.se~ loadpath.se

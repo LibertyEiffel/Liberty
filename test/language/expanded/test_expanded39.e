@@ -2,29 +2,29 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EXPANDED39
-	-- From a bug report of Alex Cozzi
+   -- From a bug report of Alex Cozzi
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			c1: AUX_AC_COMPLEX; c2: AUX_AC_COMPLEX; c3: AUX_AC_COMPLEX
-		do
-			c1.set_item(1, 2)
-			c2.set_item(1, 2)
-			c3.set_item(1, 2)
-			test_plus_and_times(c1, c2, c3)
-		end
+   make is
+      local
+         c1: AUX_AC_COMPLEX; c2: AUX_AC_COMPLEX; c3: AUX_AC_COMPLEX
+      do
+         c1.set_item(1, 2)
+         c2.set_item(1, 2)
+         c3.set_item(1, 2)
+         test_plus_and_times(c1, c2, c3)
+      end
 
-	test_plus_and_times (x, y, z: AUX_AC_COMPLEX) is
-		do
-			assert(((x + y) * z).is_near_equal(x * z + y * z))
-		end
+   test_plus_and_times (x, y, z: AUX_AC_COMPLEX) is
+      do
+         assert(((x + y) * z).is_near_equal(x * z + y * z))
+      end
 
 end -- class TEST_EXPANDED39
 --

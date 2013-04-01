@@ -4,25 +4,25 @@
 class AUX_GENERIC1[E]
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	arg: E
+   arg: E
 
-	make (e: E) is
-		do
-			arg := e
-		end
+   make (e: E) is
+      do
+         arg := e
+      end
 
 feature {ANY}
-	bizarre is
-			-- Vous avez dit bizarre ?
-			-- Comme c'est etrange...
-		local
-			tmp: AUX_GENERIC1[E]
-		do
-			tmp := Current.twin
-		end
+   bizarre is
+         -- Vous avez dit bizarre ?
+         -- Comme c'est etrange...
+      local
+         tmp: AUX_GENERIC1[E]
+      do
+         tmp := Current.twin
+      end
 
 end -- class AUX_GENERIC1
 --

@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_UNUSED_LOCAL4
-	-- Little bug for expanded classes that satisfy both of the following conditions:
-	--  - Has no writable attributes
-	--  - Has an sedb_breakpoint instruction inside its creation procedure
+   -- Little bug for expanded classes that satisfy both of the following conditions:
+   --  - Has no writable attributes
+   --  - Has an sedb_breakpoint instruction inside its creation procedure
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_UNUSED_LOCAL4
-		do
-		end
+   make is
+      local
+         a: AUX_UNUSED_LOCAL4
+      do
+      end
 
 end -- class BAD_UNUSED_LOCAL4
 --

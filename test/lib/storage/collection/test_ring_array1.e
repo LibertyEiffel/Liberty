@@ -4,48 +4,48 @@
 class TEST_RING_ARRAY1
 
 inherit
-	ANY
+   ANY
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {}
-	make
+   make
 
 feature {}
-	rai: RING_ARRAY[INTEGER]
+   rai: RING_ARRAY[INTEGER]
 
-	make is
-		local
-			i: INTEGER
-		do
-			create rai.make(0, 2)
-			assert(rai.count = 3)
-			assert(rai.upper = 2)
-			assert(rai.lower = 0)
-			from
-				i := rai.upper
-			until
-				i < 0
-			loop
-				assert(rai.item(i) = 0)
-				rai.put(i, i)
-				i := i - 1
-			end
-			from
-				i := rai.upper
-			until
-				i < 0
-			loop
-				assert(rai.item(i) = i)
-				i := i - 1
-			end
-			assert(rai.count = 3)
-			rai.clear_count
-			assert(rai.count = 0)
-			rai.clear_count_and_capacity
-			assert(rai.capacity = 0)
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         create rai.make(0, 2)
+         assert(rai.count = 3)
+         assert(rai.upper = 2)
+         assert(rai.lower = 0)
+         from
+            i := rai.upper
+         until
+            i < 0
+         loop
+            assert(rai.item(i) = 0)
+            rai.put(i, i)
+            i := i - 1
+         end
+         from
+            i := rai.upper
+         until
+            i < 0
+         loop
+            assert(rai.item(i) = i)
+            i := i - 1
+         end
+         assert(rai.count = 3)
+         rai.clear_count
+         assert(rai.count = 0)
+         rai.clear_count_and_capacity
+         assert(rai.capacity = 0)
+      end
 
 end -- class TEST_RING_ARRAY1
 --

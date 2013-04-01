@@ -35,7 +35,7 @@ feature {REPOSITORY_IMPL, REPOSITORY_LAYOUT}
    layouts: AVL_DICTIONARY[REPOSITORY_LAYOUT, STRING]
          -- child layouts
 
-   assigned: AVL_SET[STRING]
+   assigned: HASHED_SET[STRING]
          -- each layout for which the INTERNALS object was assigned
 
    solved: BOOLEAN
@@ -70,8 +70,8 @@ feature {REPOSITORY_IMPL, REPOSITORY_LAYOUT}
                      end
                      an_attribute := layout.solve(a_solver)
                      if layout.internals_set then --|** should it be layout.solved?
-                        assigned.add(attribute_name)
                         Result.set_object_attribute(an_attribute, i)
+                        assigned.add(attribute_name.twin)
                      else
                         s := False
                      end

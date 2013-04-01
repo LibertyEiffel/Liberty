@@ -4,67 +4,67 @@
 class TEST_POPOF
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			hand: HAND; wins, losses: INTEGER; card1, card2, card3, card4, card5: INTEGER
-		do
-			from
-				card1 := 1
-			until
-				card1 > 48
-			loop
-				from
-					card2 := card1 + 1
-				until
-					card2 > 49
-				loop
-					from
-						card3 := card2 + 1
-					until
-						card3 > 50
-					loop
-						from
-							card4 := card3 + 1
-						until
-							card4 > 51
-						loop
-							from
-								card5 := card4 + 1
-							until
-								card5 > 52
-							loop
-								hand.deal(card1, card2, card3, card4, card5)
-								if hand.wins then
-									wins := wins + 1
-								else
-									losses := losses + 1
-								end
-								-- if
-								card5 := card5 + 1
-							end
-							-- loop
-							card4 := card4 + 1
-						end
-						-- loop
-						card3 := card3 + 1
-					end
-					-- loop
-					card2 := card2 + 1
-				end
-				-- loop
-				card1 := card1 + 1
-			end
-			-- loop
-			if 23940 /= wins then
-				std_error.put_string("Error #1 in TEST_POPOF%N")
-			end
-			if 2598960 /= wins + losses then
-				std_error.put_string("Error #2 in TEST_POPOF%N")
-			end
-		end
+   make is
+      local
+         hand: HAND; wins, losses: INTEGER; card1, card2, card3, card4, card5: INTEGER
+      do
+         from
+            card1 := 1
+         until
+            card1 > 48
+         loop
+            from
+               card2 := card1 + 1
+            until
+               card2 > 49
+            loop
+               from
+                  card3 := card2 + 1
+               until
+                  card3 > 50
+               loop
+                  from
+                     card4 := card3 + 1
+                  until
+                     card4 > 51
+                  loop
+                     from
+                        card5 := card4 + 1
+                     until
+                        card5 > 52
+                     loop
+                        hand.deal(card1, card2, card3, card4, card5)
+                        if hand.wins then
+                           wins := wins + 1
+                        else
+                           losses := losses + 1
+                        end
+                        -- if
+                        card5 := card5 + 1
+                     end
+                     -- loop
+                     card4 := card4 + 1
+                  end
+                  -- loop
+                  card3 := card3 + 1
+               end
+               -- loop
+               card2 := card2 + 1
+            end
+            -- loop
+            card1 := card1 + 1
+         end
+         -- loop
+         if 23940 /= wins then
+            std_error.put_string("Error #1 in TEST_POPOF%N")
+         end
+         if 2598960 /= wins + losses then
+            std_error.put_string("Error #2 in TEST_POPOF%N")
+         end
+      end
 
 end -- class TEST_POPOF
 --

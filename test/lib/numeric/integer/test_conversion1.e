@@ -4,32 +4,32 @@
 class TEST_CONVERSION1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			---- Original:
-			-- conv(1);
-			-- New:
-			conv("toto")
-		end
+   make is
+      do
+         ---- Original:
+         -- conv(1);
+         -- New:
+         conv("toto")
+      end
 
-	conv (x: ANY) is
-		do
-		end
+   conv (x: ANY) is
+      do
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_INTEGER: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_INTEGER: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_CONVERSION1
 --

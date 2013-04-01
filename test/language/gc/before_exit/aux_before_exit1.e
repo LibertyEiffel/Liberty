@@ -4,25 +4,25 @@
 class AUX_BEFORE_EXIT1
 
 insert
-	DISPOSABLE
+   DISPOSABLE
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	text_file_write: TEXT_FILE_WRITE
+   text_file_write: TEXT_FILE_WRITE
 
-	make is
-		do
-			create text_file_write.connect_to(once "before_exit.new")
-		end
+   make is
+      do
+         create text_file_write.connect_to(once "before_exit.new")
+      end
 
-	dispose is
-		do
-			text_file_write.put_string("The before_exit run is ok.%N")
-			text_file_write.put_string("This file must be kept unchanged under svn control.%N")
-			text_file_write.disconnect
-		end
+   dispose is
+      do
+         text_file_write.put_string("The before_exit run is ok.%N")
+         text_file_write.put_string("This file must be kept unchanged under svn control.%N")
+         text_file_write.disconnect
+      end
 
 end -- class AUX_BEFORE_EXIT1
 --

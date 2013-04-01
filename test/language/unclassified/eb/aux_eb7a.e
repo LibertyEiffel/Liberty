@@ -4,17 +4,17 @@
 class AUX_EB7A[G]
 
 feature {ANY}
-	f: G is
-		local
-			q: like c
-		do
-			q := c
-		end
+   f: G is
+      local
+         q: like c
+      do
+         q := c
+      end
 
-	c: AUX_EB7A1[G] is
-		do
-			create Result
-		end
+   c: AUX_EB7A1[G] is
+      do
+         create Result
+      end
 
 end -- class AUX_EB7A
 --

@@ -4,15 +4,15 @@
 class TEST_STRING1
 
 creation {ANY}
-	main
+   main
 
 feature {}
-	main is
-		local
-			unicode_string: UNICODE_STRING
-		do
-			unicode_string := once U"Foo"
-		end
+   main is
+      local
+         unicode_string: UNICODE_STRING
+      do
+         unicode_string := once U"Foo"
+      end
 
 end -- class TEST_STRING1
 --

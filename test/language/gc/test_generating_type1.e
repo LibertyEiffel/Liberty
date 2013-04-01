@@ -2,55 +2,55 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_GENERATING_TYPE1
-	-- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
+   -- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
 
 insert
-	MEMORY
+   MEMORY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER; s, s2: STRING
-		do
-			assert(generator.is_equal("TEST_GENERATING_TYPE1"))
-			full_collect
-			assert(generator.is_equal("TEST_GENERATING_TYPE1"))
-			assert(generating_type.is_equal("TEST_GENERATING_TYPE1"))
-			from
-				i := 10000
-			until
-				i = 0
-			loop
-				create s.make(0)
-				s.extend('A')
-				create s.make(1)
-				s.extend('A')
-				create s.make(34)
-				s.extend('A')
-				generator.append("AAA")
-				generator.remove_tail(3)
-				s2 := generator.twin
-				assert(generator.is_equal("TEST_GENERATING_TYPE1"))
-				assert(generating_type.is_equal("TEST_GENERATING_TYPE1"))
-				assert(generating_type.is_equal(generator))
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER; s, s2: STRING
+      do
+         assert(generator.is_equal("TEST_GENERATING_TYPE1"))
+         full_collect
+         assert(generator.is_equal("TEST_GENERATING_TYPE1"))
+         assert(generating_type.is_equal("TEST_GENERATING_TYPE1"))
+         from
+            i := 10000
+         until
+            i = 0
+         loop
+            create s.make(0)
+            s.extend('A')
+            create s.make(1)
+            s.extend('A')
+            create s.make(34)
+            s.extend('A')
+            generator.append("AAA")
+            generator.remove_tail(3)
+            s2 := generator.twin
+            assert(generator.is_equal("TEST_GENERATING_TYPE1"))
+            assert(generating_type.is_equal("TEST_GENERATING_TYPE1"))
+            assert(generating_type.is_equal(generator))
+            i := i - 1
+         end
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_GENERATING_TYPE1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_GENERATING_TYPE1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_GENERATING_TYPE1
 --

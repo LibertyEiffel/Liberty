@@ -4,17 +4,17 @@
 class TEST_001
 
 creation {ANY}
-	main
+   main
 
 feature {}
-	main is
-		local
-			hello: HELLO_WORLD; b: BOOLEAN
-		do
-			if b then
-				create hello.main
-			end
-		end
+   main is
+      local
+         hello: HELLO_WORLD; b: BOOLEAN
+      do
+         if b then
+            create hello.main
+         end
+      end
 
 end -- class TEST_001
 --

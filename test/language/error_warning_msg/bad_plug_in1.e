@@ -7,9 +7,9 @@ creation
 feature {}
    make is
       local
-	 p: POINTER
+    p: POINTER
       do
-	 p := open(p)
+    p := open(p)
       end
 
    open (p: POINTER): POINTER is

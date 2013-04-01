@@ -2,73 +2,73 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JB01
-	-- From: Jacques Bouchard <bouchard@mageos.com>
+   -- From: Jacques Bouchard <bouchard@mageos.com>
 
 inherit
-	AUX_JB01
-		rename p as a_p
-		redefine x
-		end
+   AUX_JB01
+      rename p as a_p
+      redefine x
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	x: TEST_JB01
+   x: TEST_JB01
 
-	p: STRING is
-		do
-			Result := "TEST.p"
-		end
+   p: STRING is
+      do
+         Result := "TEST.p"
+      end
 
-	make is
-		local
-			a: TEST_JB01; b: AUX_JB01; v1, v2: STRING
-		do
-			a := x
-			b := x
-			a := y
-			b := y
-			a := Current
-			b := Current
-			x := Current
-			y := Current
-			assert(x.p.is_equal(p))
-			assert(x.p.is_equal("TEST.p"))
-			v1 := y.p
-			v2 := p
-			assert(x = y)
-			assert(y = Current)
-			assert(y.generating_type.is_equal("TEST_JB01"))
-			assert(y.p.is_equal("TEST.p"))
-			assert(y.p.is_equal(p))
-			check
-				y = Current
-			end
-			v1 := y.p
-			assert(v1.is_equal("TEST.p"))
-			assert(y.p.is_equal("TEST.p"))
-			assert(generator.is_equal("TEST_JB01"))
-			assert(y.generator.is_equal("TEST_JB01"))
-			assert(x.generator.is_equal("TEST_JB01"))
-			a := Current
-			assert(a.p.is_equal("TEST.p"))
-		end
+   make is
+      local
+         a: TEST_JB01; b: AUX_JB01; v1, v2: STRING
+      do
+         a := x
+         b := x
+         a := y
+         b := y
+         a := Current
+         b := Current
+         x := Current
+         y := Current
+         assert(x.p.is_equal(p))
+         assert(x.p.is_equal("TEST.p"))
+         v1 := y.p
+         v2 := p
+         assert(x = y)
+         assert(y = Current)
+         assert(y.generating_type.is_equal("TEST_JB01"))
+         assert(y.p.is_equal("TEST.p"))
+         assert(y.p.is_equal(p))
+         check
+            y = Current
+         end
+         v1 := y.p
+         assert(v1.is_equal("TEST.p"))
+         assert(y.p.is_equal("TEST.p"))
+         assert(generator.is_equal("TEST_JB01"))
+         assert(y.generator.is_equal("TEST_JB01"))
+         assert(x.generator.is_equal("TEST_JB01"))
+         a := Current
+         assert(a.p.is_equal("TEST.p"))
+      end
 
-	assert (boolean: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not boolean then
-				sedb_breakpoint
-				std_output.put_string("TEST_JB01: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N")
-			end
-		end
+   assert (boolean: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not boolean then
+            sedb_breakpoint
+            std_output.put_string("TEST_JB01: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_JB01
 --

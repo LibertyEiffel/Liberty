@@ -2,33 +2,33 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JP2
-	-- From a bug report privat@lirmm.fr (Jean Privat)
-	-- SZ:31:
+   -- From a bug report privat@lirmm.fr (Jean Privat)
+   -- SZ:31:
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux: AUX_JP2[INTEGER]
-		do
-			create aux.make(1)
-			assert(aux.foo.generating_type.is_equal("AUX_JP2[INTEGER_32]"))
-		end
+   make is
+      local
+         aux: AUX_JP2[INTEGER]
+      do
+         create aux.make(1)
+         assert(aux.foo.generating_type.is_equal("AUX_JP2[INTEGER_32]"))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_JP2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_JP2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_JP2
 --

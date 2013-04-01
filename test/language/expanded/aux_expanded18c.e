@@ -4,10 +4,10 @@
 expanded class AUX_EXPANDED18C
 
 insert
-	AUX_EXPANDED18A
+   AUX_EXPANDED18A
 
 creation {ANY}
-	make
+   make
 
 end -- class AUX_EXPANDED18C
 --

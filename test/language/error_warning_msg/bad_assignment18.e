@@ -4,15 +4,15 @@
 class BAD_ASSIGNMENT18
 
 creation
-	make
-	
+   make
+   
 feature
    make is
       local
-			non_expanded: AUX_ASSIGNMENT18A
-			actual_expanded: AUX_ASSIGNMENT18B
+         non_expanded: AUX_ASSIGNMENT18A
+         actual_expanded: AUX_ASSIGNMENT18B
       do
-			non_expanded := actual_expanded
+         non_expanded := actual_expanded
       end
 end -- class BAD_ASSIGNMENT18
 --

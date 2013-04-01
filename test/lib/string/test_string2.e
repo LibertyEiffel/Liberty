@@ -4,46 +4,46 @@
 class TEST_STRING2
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			s1, s2: STRING
-		do
-			create s1.copy("kiki")
-			assert(s1.is_equal("kiki"))
-			create s2.copy(s1)
-			assert(s1 /= s2)
-			assert(s1.is_equal(s2))
-			s1 := s2
-			create s2.copy(s2)
-			assert(s1 /= s2)
-			assert(s1.is_equal(s2))
-			create s1.make(25)
-			assert(s1.capacity >= 25)
-			assert(s1.count = 0)
-			create s1.make_filled(' ', 25)
-			assert(s1.capacity >= 25)
-			assert(s1.occurrences(' ') = 25)
-			assert(s1.count = 25)
-			create s1.make(1)
-			assert(s1.capacity >= 1)
-			assert(s1.count = 0)
-			s1.extend('x')
-			assert(s1.count = 1)
-			s1 := "foo.c"
-			s1.remove_suffix(".c")
-			assert(s1.is_equal("foo"))
-			assert(("foo bar").has_prefix("foo"))
-			assert(("foo bar").has_prefix(""))
-			assert(("foo bar").has_suffix(""))
-			assert(not ("foo").has_prefix("foo bar"))
-			assert(not ("foo bar").has_prefix(" foo"))
-		end
+   make is
+      local
+         s1, s2: STRING
+      do
+         create s1.copy("kiki")
+         assert(s1.is_equal("kiki"))
+         create s2.copy(s1)
+         assert(s1 /= s2)
+         assert(s1.is_equal(s2))
+         s1 := s2
+         create s2.copy(s2)
+         assert(s1 /= s2)
+         assert(s1.is_equal(s2))
+         create s1.make(25)
+         assert(s1.capacity >= 25)
+         assert(s1.count = 0)
+         create s1.make_filled(' ', 25)
+         assert(s1.capacity >= 25)
+         assert(s1.occurrences(' ') = 25)
+         assert(s1.count = 25)
+         create s1.make(1)
+         assert(s1.capacity >= 1)
+         assert(s1.count = 0)
+         s1.extend('x')
+         assert(s1.count = 1)
+         s1 := "foo.c"
+         s1.remove_suffix(".c")
+         assert(s1.is_equal("foo"))
+         assert(("foo bar").has_prefix("foo"))
+         assert(("foo bar").has_prefix(""))
+         assert(("foo bar").has_suffix(""))
+         assert(not ("foo").has_prefix("foo bar"))
+         assert(not ("foo bar").has_prefix(" foo"))
+      end
 
 end -- class TEST_STRING2
 --

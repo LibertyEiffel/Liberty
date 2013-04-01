@@ -4,7 +4,7 @@
 class AUX_XC3SG
 
 inherit
-	AUX_XC3GG
+   AUX_XC3GG
 
 end -- class AUX_XC3SG
 --

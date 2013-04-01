@@ -9,7 +9,7 @@ feature
 
    make is
       do
-	 foo(?)
+    foo(?)
       end
 
    foo(i: INTEGER) is

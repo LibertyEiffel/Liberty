@@ -5,18 +5,18 @@ insert
    EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	foo, bar: INTEGER is
-		once
+   foo, bar: INTEGER is
+      once
          count := count + 1
-			Result := count
-		end
+         Result := count
+      end
 
    
-	make is
-		do
+   make is
+      do
          assert(foo = 1)
          assert(bar = 1)
          assert(foo = 1)
@@ -27,7 +27,7 @@ feature {ANY}
          assert(foo = 1)
          assert(count = 2)
 
-		end
+      end
 
 feature {NONE}
    count: INTEGER

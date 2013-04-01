@@ -4,29 +4,29 @@
 deferred class AUX_ATTRIBUTE03A
 
 feature {ANY}
-	deferred_require_counter: INTEGER
+   deferred_require_counter: INTEGER
 
-	deferred_require: BOOLEAN is
-		do
-			deferred_require_counter := deferred_require_counter + 1
-			Result := True
-		end
+   deferred_require: BOOLEAN is
+      do
+         deferred_require_counter := deferred_require_counter + 1
+         Result := True
+      end
 
-	value: INTEGER is
-		require
-			deferred_require
-		deferred
-		ensure
-			deferred_ensure
-		end
+   value: INTEGER is
+      require
+         deferred_require
+      deferred
+      ensure
+         deferred_ensure
+      end
 
-	deferred_ensure_counter: INTEGER
+   deferred_ensure_counter: INTEGER
 
-	deferred_ensure: BOOLEAN is
-		do
-			deferred_ensure_counter := deferred_ensure_counter + 1
-			Result := True
-		end
+   deferred_ensure: BOOLEAN is
+      do
+         deferred_ensure_counter := deferred_ensure_counter + 1
+         Result := True
+      end
 
 end -- class AUX_ATTRIBUTE03A
 --

@@ -9,37 +9,37 @@ feature
 
    make is
       local
-	 s: separate BAD_SEPARATE1
+    s: separate BAD_SEPARATE1
       do
-	 fatal := error -- *** I broke this test because everything of SCOOP must be rebuild in another way.
-	 -- *** The first thing to do is to forget first the external 
-	 -- separate stuff I think.
-	 -- *** (Dom. april 15th 2004) ***
-	 create s.no_make
-	 is_true(once_string_of(s) = once_string_of(s))
-	 is_true(once_string = once_string)
-	 is_true(once_string /= once_string_of(s))
+    fatal := error -- *** I broke this test because everything of SCOOP must be rebuild in another way.
+    -- *** The first thing to do is to forget first the external 
+    -- separate stuff I think.
+    -- *** (Dom. april 15th 2004) ***
+    create s.no_make
+    is_true(once_string_of(s) = once_string_of(s))
+    is_true(once_string = once_string)
+    is_true(once_string /= once_string_of(s))
       end
 
    once_string_of(s: separate BAD_SEPARATE1): STRING is
       do
-	 Result := s.once_string
+    Result := s.once_string
       end
 
    once_string: STRING is
       do
-	 Result := once "test"
+    Result := once "test"
       end
 
    is_true(b: BOOLEAN) is
       do
-	 cpt := cpt + 1;
-	 if not b then
-	    sedb_breakpoint;
-	    std_output.put_string("BAD_SEPARATE1: ERROR Test # ");
-	    std_output.put_integer(cpt);
-	    std_output.put_string("%N");
-	 end;
+    cpt := cpt + 1;
+    if not b then
+       sedb_breakpoint;
+       std_output.put_string("BAD_SEPARATE1: ERROR Test # ");
+       std_output.put_integer(cpt);
+       std_output.put_string("%N");
+    end;
       end;
 
    cpt: INTEGER;

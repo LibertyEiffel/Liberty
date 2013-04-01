@@ -4,38 +4,38 @@
 class TEST_PLATFORM1
 
 insert
-	ANY
-	PLATFORM
+   ANY
+   PLATFORM
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert(Boolean_bits >= Character_bits)
-			assert(32 = Integer_bits)
-			assert(64 = Real_bits)
-			assert(Pointer_bits > Character_bits)
-			assert(Maximum_character_code > Minimum_character_code)
-			assert(Maximum_integer > Minimum_integer)
-			assert(Maximum_real_32 > Minimum_real_32)
-			assert(Maximum_real_32.to_real_64 < Maximum_real_64)
-			assert(Minimum_real_32.to_real_64 > Minimum_real_64)
-			assert(Maximum_real_64 > Minimum_real_64)
-		end
+   make is
+      do
+         assert(Boolean_bits >= Character_bits)
+         assert(32 = Integer_bits)
+         assert(64 = Real_bits)
+         assert(Pointer_bits > Character_bits)
+         assert(Maximum_character_code > Minimum_character_code)
+         assert(Maximum_integer > Minimum_integer)
+         assert(Maximum_real_32 > Minimum_real_32)
+         assert(Maximum_real_32.to_real_64 < Maximum_real_64)
+         assert(Minimum_real_32.to_real_64 > Minimum_real_64)
+         assert(Maximum_real_64 > Minimum_real_64)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_PLATFORM1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_PLATFORM1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_PLATFORM1
 --

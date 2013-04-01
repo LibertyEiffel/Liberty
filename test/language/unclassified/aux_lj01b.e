@@ -4,14 +4,14 @@
 class AUX_LJ01B
 
 feature {ANY}
-	set_max_board_members (b: INTEGER) is
-		do
-			max := b
-		ensure
-			max = b
-		end
+   set_max_board_members (b: INTEGER) is
+      do
+         max := b
+      ensure
+         max = b
+      end
 
-	max: INTEGER
+   max: INTEGER
 
 end -- class AUX_LJ01B
 --

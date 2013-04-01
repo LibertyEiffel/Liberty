@@ -10,9 +10,9 @@ feature
 
    make is
       local
-	 aux: AUX_CREATION1;
+    aux: AUX_CREATION1;
       do
-	 !!aux;
+    !!aux;
       end;
 
 end -- class BAD_CREATION1

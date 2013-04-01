@@ -4,18 +4,18 @@
 class BAD_INHERIT19
 
 inherit
-	AUX_INHERIT19
+   AUX_INHERIT19
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			foo: AUX_INHERIT19
-		do
-			foo := Current
-		end
+   make is
+      local
+         foo: AUX_INHERIT19
+      do
+         foo := Current
+      end
 
 end -- class BAD_INHERIT19
 --

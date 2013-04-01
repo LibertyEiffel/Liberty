@@ -2,37 +2,37 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_RB4
-	--
-	-- From a bug report of Reimer BEHRENDS
-	--
+   --
+   -- From a bug report of Reimer BEHRENDS
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	data: INTEGER is
-		once
-		end
+   data: INTEGER is
+      once
+      end
 
-	make is
-		do
-			assert(data = 0)
-		end
+   make is
+      do
+         assert(data = 0)
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_RB4: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_RB4: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_RB4
 --

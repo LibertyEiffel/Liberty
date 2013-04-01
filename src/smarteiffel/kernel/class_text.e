@@ -974,17 +974,6 @@ feature {TYPE, CLASS_TEXT_VISITOR}
          -- the same features contained in `feature_clause_list' (this
          -- dictionary speed up feature look up).
 
-   any_copy_feature: ANONYMOUS_FEATURE is
-         -- To get the original definition of feature `copy' from class ANY.
-      require
-         name.to_string = as_any
-      do
-         fn_buffer.unknown_position(as_copy)
-         Result := feature_dictionary.at(fn_buffer)
-      ensure
-         Result.names.first.to_string = as_copy
-      end
-
    creation_list_check (type: TYPE) is
       require
          type.class_text = Current
@@ -996,6 +985,40 @@ feature {TYPE, CLASS_TEXT_VISITOR}
                creation_clause_list.check_for(type)
             end
          end
+      end
+
+feature {ANY}
+   any_copy_feature: ANONYMOUS_FEATURE is
+         -- To get the original definition of feature `copy' from class ANY.
+      require
+         name.to_string = as_any
+      do
+         fn_buffer.unknown_position(as_copy)
+         Result := feature_dictionary.at(fn_buffer)
+      ensure
+         Result.names.first.to_string = as_copy
+      end
+
+   any_is_equal_feature: ANONYMOUS_FEATURE is
+         -- To get the original definition of feature `is_equal' from class ANY.
+      require
+         name.to_string = as_any
+      do
+         fn_buffer.unknown_position(as_is_equal)
+         Result := feature_dictionary.at(fn_buffer)
+      ensure
+         Result.names.first.to_string = as_is_equal
+      end
+
+   do_at_exit_feature: ANONYMOUS_FEATURE is
+         -- To get the original definition of feature `do_at_exit' from class ANY.
+      require
+         name.to_string = as_any
+      do
+         fn_buffer.unknown_position(as_do_at_exit)
+         Result := feature_dictionary.at(fn_buffer)
+      ensure
+         Result.names.first.to_string = as_do_at_exit
       end
 
 feature {}

@@ -2,38 +2,38 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER04
-	-- tests on "is_positive"
+   -- tests on "is_positive"
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   PLATFORM
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: NUMBER
-		do
-			n := from_integer(0)
-			assert(not n.is_positive)
-			n := from_integer(1)
-			assert(n.is_positive)
-			n := from_integer(-1)
-			assert(not n.is_positive)
-			n := from_integer(Maximum_integer)
-			n := n @+ 1000
-			assert(n.is_positive)
-			n := from_integer(Minimum_integer)
-			n := n @- 1000
-			assert(not n.is_positive)
-			n := from_string("3/5")
-			assert(n.is_positive)
-			n := from_string("-3/10")
-			assert(not n.is_positive)
-		end
+   make is
+      local
+         n: NUMBER
+      do
+         n := from_integer(0)
+         assert(not n.is_positive)
+         n := from_integer(1)
+         assert(n.is_positive)
+         n := from_integer(-1)
+         assert(not n.is_positive)
+         n := from_integer(Maximum_integer)
+         n := n @+ 1000
+         assert(n.is_positive)
+         n := from_integer(Minimum_integer)
+         n := n @- 1000
+         assert(not n.is_positive)
+         n := from_string("3/5")
+         assert(n.is_positive)
+         n := from_string("-3/10")
+         assert(not n.is_positive)
+      end
 
 
 

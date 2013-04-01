@@ -4,9 +4,9 @@
 class AUX_XC6_AA
 
 feature {ANY}
-	f is
-		do
-		end
+   f is
+      do
+      end
 
 end -- class AUX_XC6_AA
 --

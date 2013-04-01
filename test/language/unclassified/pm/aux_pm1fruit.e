@@ -4,12 +4,12 @@
 class AUX_PM1FRUIT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class AUX_PM1FRUIT
 --

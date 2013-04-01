@@ -9,9 +9,9 @@ feature
 
    make is
       local
-	 aux: AUX_CALL6
+    aux: AUX_CALL6
       do
-	 aux.foo
+    aux.foo
       end
    
 end -- class BAD_CALL6

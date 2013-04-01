@@ -4,15 +4,15 @@
 class BAD_VOID3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			c: COLLECTION[STRING]
-		do
-			c := <<Void>>
-		end
+   make is
+      local
+         c: COLLECTION[STRING]
+      do
+         c := <<Void>>
+      end
 
 end -- class BAD_VOID3
 --

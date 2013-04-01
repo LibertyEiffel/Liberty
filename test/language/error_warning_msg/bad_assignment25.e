@@ -4,16 +4,16 @@
 class BAD_ASSIGNMENT25
 
 creation
-	main
+   main
 
 feature
-	main is
-		local
-			aux25: AUX_ASSIGNMENT25
-		do
-			create aux25
-			aux25.an_attribute := 1
-		end
+   main is
+      local
+         aux25: AUX_ASSIGNMENT25
+      do
+         create aux25
+         aux25.an_attribute := 1
+      end
 
 end -- class BAD_ASSIGNMENT25
 --

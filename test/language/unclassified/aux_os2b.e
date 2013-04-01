@@ -4,15 +4,15 @@
 class AUX_OS2B
 
 inherit
-	AUX_OS2A
-		redefine foo
-		end
+   AUX_OS2A
+      redefine foo
+      end
 
 feature {ANY}
-	foo: INTEGER is
-		do
-			Result := Result.object_size
-		end
+   foo: INTEGER is
+      do
+         Result := Result.object_size
+      end
 
 end -- class AUX_OS2B
 --

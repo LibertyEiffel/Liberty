@@ -2,37 +2,37 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER69
-	-- tests on "valid_divisor"
+   -- tests on "valid_divisor"
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   PLATFORM
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2: NUMBER
-		do
-			n1 := from_integer(1)
-			n2 := from_integer(0)
-			assert(not n1.divisible(n2))
-			n2 := from_integer(1)
-			assert(n1.divisible(n2))
-			n2 := from_integer(-1)
-			assert(n1.divisible(n2))
-			n2 := n2 @+ Minimum_integer
-			assert(n1.divisible(n2))
-			n2 := n2 @* -1
-			assert(n1.divisible(n2))
-			n2 := from_string("1/5")
-			assert(n1.divisible(n2))
-			n2 := from_string("-3/10")
-			assert(n1.divisible(n2))
-		end
+   make is
+      local
+         n1, n2: NUMBER
+      do
+         n1 := from_integer(1)
+         n2 := from_integer(0)
+         assert(not n1.divisible(n2))
+         n2 := from_integer(1)
+         assert(n1.divisible(n2))
+         n2 := from_integer(-1)
+         assert(n1.divisible(n2))
+         n2 := n2 @+ Minimum_integer
+         assert(n1.divisible(n2))
+         n2 := n2 @* -1
+         assert(n1.divisible(n2))
+         n2 := from_string("1/5")
+         assert(n1.divisible(n2))
+         n2 := from_string("-3/10")
+         assert(n1.divisible(n2))
+      end
 
 
 

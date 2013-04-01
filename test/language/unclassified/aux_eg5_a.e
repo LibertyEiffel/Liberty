@@ -4,18 +4,18 @@
 expanded class AUX_EG5_A
 
 feature {ANY}
-	set_x (other_x: REAL) is
-		do
-			x := other_x
-		end
+   set_x (other_x: REAL) is
+      do
+         x := other_x
+      end
 
-	x: REAL
+   x: REAL
 
-	infix "+" (other: like Current): like Current is
-		do
-			create Result
-			Result.set_x(x + other.x)
-		end
+   infix "+" (other: like Current): like Current is
+      do
+         create Result
+         Result.set_x(x + other.x)
+      end
 
 end -- class AUX_EG5_A
 --

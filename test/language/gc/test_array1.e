@@ -4,50 +4,50 @@
 class TEST_ARRAY1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			array_of_array: ARRAY[ARRAY[INTEGER]]; i, limit: INTEGER
-		do
-			limit := 5000
-			create array_of_array.make(1, limit)
-			from
-				i := 1
-			until
-				i > limit
-			loop
-				array_of_array.put({ARRAY[INTEGER] 1, << 2, 3 >> }, i)
-				array_of_array.put({ARRAY[INTEGER] 1, << i + 1, i >> }, i)
-				i := i + 1
-			end
-			from
-				i := 1
-			until
-				i > limit
-			loop
-				array_of_array.put({ARRAY[INTEGER] 1, << i + 1, i >> }, i)
-				check_array_contents(array_of_array)
-				i := i + 1
-			end
-		end
+   make is
+      local
+         array_of_array: ARRAY[ARRAY[INTEGER]]; i, limit: INTEGER
+      do
+         limit := 5000
+         create array_of_array.make(1, limit)
+         from
+            i := 1
+         until
+            i > limit
+         loop
+            array_of_array.put({ARRAY[INTEGER] 1, << 2, 3 >> }, i)
+            array_of_array.put({ARRAY[INTEGER] 1, << i + 1, i >> }, i)
+            i := i + 1
+         end
+         from
+            i := 1
+         until
+            i > limit
+         loop
+            array_of_array.put({ARRAY[INTEGER] 1, << i + 1, i >> }, i)
+            check_array_contents(array_of_array)
+            i := i + 1
+         end
+      end
 
-	check_array_contents (a: ARRAY[ARRAY[INTEGER]]) is
-		local
-			i: INTEGER
-		do
-			from
-				i := a.upper
-			until
-				i = 0
-			loop
-				if not {ARRAY[INTEGER] 1, << i + 1, i >> }.is_equal(a.item(i)) then
-					crash
-				end
-				i := i - 1
-			end
-		end
+   check_array_contents (a: ARRAY[ARRAY[INTEGER]]) is
+      local
+         i: INTEGER
+      do
+         from
+            i := a.upper
+         until
+            i = 0
+         loop
+            if not {ARRAY[INTEGER] 1, << i + 1, i >> }.is_equal(a.item(i)) then
+               crash
+            end
+            i := i - 1
+         end
+      end
 
 end -- class TEST_ARRAY1
 --

@@ -4,15 +4,15 @@
 class AUX_POSITION4
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	position: AUX_POSITION
+   position: AUX_POSITION
 
-	make (p: like position) is
-		do
-			position := p
-		end
+   make (p: like position) is
+      do
+         position := p
+      end
 
 end -- class AUX_POSITION4
 --

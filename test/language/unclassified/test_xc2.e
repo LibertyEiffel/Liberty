@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_XC2
-	-- From a bug report of Xavier CREGUT
+   -- From a bug report of Xavier CREGUT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	s2a: AUX_XC2S2A[INTEGER]
+   s2a: AUX_XC2S2A[INTEGER]
 
-	sa: AUX_XC2SA[INTEGER]
+   sa: AUX_XC2SA[INTEGER]
 
-	aa: AUX_XC2AA[INTEGER]
+   aa: AUX_XC2AA[INTEGER]
 
-	make is
-		do
-			aa := s2a
-		end
+   make is
+      do
+         aa := s2a
+      end
 
 end -- class TEST_XC2
 --

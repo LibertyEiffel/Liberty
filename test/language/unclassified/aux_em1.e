@@ -4,7 +4,7 @@
 expanded class AUX_EM1
 
 feature {ANY}
-	an_attribute: STRING
+   an_attribute: STRING
 
 end -- class AUX_EM1
 --

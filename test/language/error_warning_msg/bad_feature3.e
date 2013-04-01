@@ -2,7 +2,7 @@
 -- See the Copyright notice at the end of this file.
 --
 class
-	BAD_FEATURE3
+   BAD_FEATURE3
 
 creation
    make
@@ -10,9 +10,9 @@ creation
 feature -- Initialization
    
    make is
-	 -- Make
+    -- Make
       do
-	 test_1
+    test_1
       end
    
 feature {NONE} -- Test
@@ -20,13 +20,13 @@ feature {NONE} -- Test
    test_1 is
       local
       do
-	 !! s.make (20)
-	 -- s is not an attribute of this class, 
-	 -- this causes
-	 -- SmartEiffel compile_to_c to crash.
+    !! s.make (20)
+    -- s is not an attribute of this class, 
+    -- this causes
+    -- SmartEiffel compile_to_c to crash.
       end
    
-end -- class 	BAD_FEATURE3
+end -- class    BAD_FEATURE3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

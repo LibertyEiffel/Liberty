@@ -4,23 +4,23 @@
 class TEST_TYPE2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			at2_integer: AUX_TYPE2[INTEGER]; at2_string: AUX_TYPE2[STRING]; li1: LINKED_LIST[INTEGER]
-			ls1: LINKED_LIST[STRING]
-		do
-			create at2_integer
-			create at2_string
-			create li1.make
-			li1.add_first(1)
-			create ls1.make
-			ls1.add_first("foo")
-			at2_integer.rout(li1, 1, 2, 3)
-			at2_string.rout(ls1, "douze", "quinze", "soixante")
-		end
+   make is
+      local
+         at2_integer: AUX_TYPE2[INTEGER]; at2_string: AUX_TYPE2[STRING]; li1: LINKED_LIST[INTEGER]
+         ls1: LINKED_LIST[STRING]
+      do
+         create at2_integer
+         create at2_string
+         create li1.make
+         li1.add_first(1)
+         create ls1.make
+         ls1.add_first("foo")
+         at2_integer.rout(li1, 1, 2, 3)
+         at2_string.rout(ls1, "douze", "quinze", "soixante")
+      end
 
 end -- class TEST_TYPE2
 --

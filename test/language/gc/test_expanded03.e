@@ -4,33 +4,33 @@
 class TEST_EXPANDED03
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			from
-				i := 1000000
-			until
-				i = 0
-			loop
-				no_leak
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         from
+            i := 1000000
+         until
+            i = 0
+         loop
+            no_leak
+            i := i - 1
+         end
+      end
 
 feature {ANY}
-	no_leak is
-		local
-			a: AUX_EXPANDED03A[REAL]; b: AUX_EXPANDED03B[REAL]; s: STRING
-		do
-			create a
-			b := a.b
-			s := b.name
-			b.set_value(5.5)
-		end
+   no_leak is
+      local
+         a: AUX_EXPANDED03A[REAL]; b: AUX_EXPANDED03B[REAL]; s: STRING
+      do
+         create a
+         b := a.b
+         s := b.name
+         b.set_value(5.5)
+      end
 
 end -- class TEST_EXPANDED03
 --

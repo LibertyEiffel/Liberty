@@ -4,15 +4,15 @@
 class TEST_INHERIT12
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d: AUX_INHERIT12_D
-		do
-			create d
-		end
+   make is
+      local
+         d: AUX_INHERIT12_D
+      do
+         create d
+      end
 
 end -- class TEST_INHERIT12
 --

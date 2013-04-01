@@ -4,40 +4,40 @@
 class TEST_NATIVE_ARRAY5
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: NATIVE_ARRAY[NATIVE_ARRAY[CHARACTER]]
-		do
-			a := a.calloc(2)
-			a.put(a.item(0).calloc(2), 0)
-			a.put(a.item(1).calloc(2), 1)
-			a.item(0).put('a', 0)
-			a.item(0).put('b', 1)
-			a.item(1).put('c', 0)
-			a.item(1).put('d', 1)
-			assert(a.item(0).item(0) = 'a')
-			assert(a.item(0).item(1) = 'b')
-			assert(a.item(1).item(0) = 'c')
-			assert(a.item(1).item(1) = 'd')
-		end
+   make is
+      local
+         a: NATIVE_ARRAY[NATIVE_ARRAY[CHARACTER]]
+      do
+         a := a.calloc(2)
+         a.put(a.item(0).calloc(2), 0)
+         a.put(a.item(1).calloc(2), 1)
+         a.item(0).put('a', 0)
+         a.item(0).put('b', 1)
+         a.item(1).put('c', 0)
+         a.item(1).put('d', 1)
+         assert(a.item(0).item(0) = 'a')
+         assert(a.item(0).item(1) = 'b')
+         assert(a.item(1).item(0) = 'c')
+         assert(a.item(1).item(1) = 'd')
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_NATIVE_ARRAY5: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_NATIVE_ARRAY5: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_NATIVE_ARRAY5
 --

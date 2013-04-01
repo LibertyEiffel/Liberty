@@ -9,8 +9,8 @@ feature {NONE}
 
    make is
       local
-	 bwr: WEAK_REFERENCE[expanded BAD_WEAK_REFERENCE03]
-      do	 
+    bwr: WEAK_REFERENCE[expanded BAD_WEAK_REFERENCE03]
+      do    
       end
 end -- class BAD_WEAK_REFERENCE03
 --

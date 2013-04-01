@@ -4,64 +4,64 @@
 class TEST_INLINING5
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			a1 := Current
-			a2 := Current
-			a3 := Current
-			a4 := 1
-			assert(f4 = 1)
-			assert(f3 = 1)
-			assert(f2 = 1)
-			assert(f1 = 1)
-		end
+   make is
+      do
+         a1 := Current
+         a2 := Current
+         a3 := Current
+         a4 := 1
+         assert(f4 = 1)
+         assert(f3 = 1)
+         assert(f2 = 1)
+         assert(f1 = 1)
+      end
 
 feature {TEST_INLINING5}
-	a1: like Current
+   a1: like Current
 
-	f1: INTEGER is
-		do
-			Result := a1.f2
-		end
+   f1: INTEGER is
+      do
+         Result := a1.f2
+      end
 
-	a2: like Current
+   a2: like Current
 
-	f2: INTEGER is
-		do
-			Result := a2.f3
-		end
+   f2: INTEGER is
+      do
+         Result := a2.f3
+      end
 
-	a3: like Current
+   a3: like Current
 
-	f3: INTEGER is
-		do
-			Result := a3.f4
-		end
+   f3: INTEGER is
+      do
+         Result := a3.f4
+      end
 
-	a4: INTEGER
+   a4: INTEGER
 
-	f4: INTEGER is
-		do
-			Result := a4
-		end
+   f4: INTEGER is
+      do
+         Result := a4
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_INLINING5: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_INLINING5: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_INLINING5
 --

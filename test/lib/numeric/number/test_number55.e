@@ -2,42 +2,42 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER55
-	-- tests on "#>"
+   -- tests on "#>"
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   PLATFORM
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: NUMBER
-		do
-			n := from_integer(-1)
-			assert(n #> Minimum_integer)
-			n := from_integer(0)
-			assert(n #> -1)
-			n := from_integer_64(Maximum_integer_64)
-			n := n @+ 1
-			assert(n #> Maximum_integer_64.force_to_real_64)
-			n := from_integer_64(Minimum_integer_64)
-			n := n @- 1
-			assert(not (n #> Minimum_integer_64.force_to_real_64))
-			n := from_string("2/5")
-			assert(n #> 0)
-			n := from_string("3/2")
-			assert(n #> 1)
-			n := from_string("-1/54")
-			assert(n #> -1)
-			n := from_string("2/5")
-			assert(n #> 0.19)
-			n := from_string("-29/100")
-			assert(n #> -0.3)
-		end
+   make is
+      local
+         n: NUMBER
+      do
+         n := from_integer(-1)
+         assert(n #> Minimum_integer)
+         n := from_integer(0)
+         assert(n #> -1)
+         n := from_integer_64(Maximum_integer_64)
+         n := n @+ 1
+         assert(n #> Maximum_integer_64.force_to_real_64)
+         n := from_integer_64(Minimum_integer_64)
+         n := n @- 1
+         assert(not (n #> Minimum_integer_64.force_to_real_64))
+         n := from_string("2/5")
+         assert(n #> 0)
+         n := from_string("3/2")
+         assert(n #> 1)
+         n := from_string("-1/54")
+         assert(n #> -1)
+         n := from_string("2/5")
+         assert(n #> 0.19)
+         n := from_string("-29/100")
+         assert(n #> -0.3)
+      end
 
 
 

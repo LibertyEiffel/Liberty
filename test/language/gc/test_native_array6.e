@@ -4,64 +4,64 @@
 class TEST_NATIVE_ARRAY6
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	limit: INTEGER is 100000
+   limit: INTEGER is 100000
 
-	na_max: INTEGER is 9999
+   na_max: INTEGER is 9999
 
-	make is
-		local
-			i: INTEGER; na1, na2: NATIVE_ARRAY[CHARACTER]
-		do
-			na1 := na1.calloc(na_max)
-			na1.set_all_with('a', na_max)
-			from
-				i := limit
-			until
-				i = 0
-			loop
-				na2 := na2.calloc(i)
-				check_na(na1)
-				i := i - 1
-			end
-			na1 := na1.calloc(na_max)
-			na1.set_all_with('a', na_max)
-			from
-				i := limit
-			until
-				i = 0
-			loop
-				na2 := na2.calloc(i)
-				check_na(na1)
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER; na1, na2: NATIVE_ARRAY[CHARACTER]
+      do
+         na1 := na1.calloc(na_max)
+         na1.set_all_with('a', na_max)
+         from
+            i := limit
+         until
+            i = 0
+         loop
+            na2 := na2.calloc(i)
+            check_na(na1)
+            i := i - 1
+         end
+         na1 := na1.calloc(na_max)
+         na1.set_all_with('a', na_max)
+         from
+            i := limit
+         until
+            i = 0
+         loop
+            na2 := na2.calloc(i)
+            check_na(na1)
+            i := i - 1
+         end
+      end
 
-	check_na (na: NATIVE_ARRAY[CHARACTER]) is
-		local
-			i: INTEGER
-		do
-			from
-				i := na_max
-			until
-				i < 0
-			loop
-				assert(na.item(i) = 'a')
-				i := i - 1
-			end
-		end
+   check_na (na: NATIVE_ARRAY[CHARACTER]) is
+      local
+         i: INTEGER
+      do
+         from
+            i := na_max
+         until
+            i < 0
+         loop
+            assert(na.item(i) = 'a')
+            i := i - 1
+         end
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			if not b then
-				std_output.put_string("Error in TEST_NATIVE_ARRAY6%N")
-				crash
-			else
-				--	    std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         if not b then
+            std_output.put_string("Error in TEST_NATIVE_ARRAY6%N")
+            crash
+         else
+            --       std_output.put_string("Yes%N");
+         end
+      end
 
 end -- class TEST_NATIVE_ARRAY6
 --

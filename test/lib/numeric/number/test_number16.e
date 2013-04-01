@@ -2,37 +2,37 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER16
-	-- tests on fractions...
-	-- small_fraction
+   -- tests on fractions...
+   -- small_fraction
 
 insert
-	EIFFELTEST_TOOLS
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2, n3, n4, n5, n6: NUMBER
-		do
-			n1 := from_integer(1)
-			n2 := from_integer(2)
-			n3 := from_string("8/4")
-			n4 := from_string("3/5")
-			n5 := from_string("2/5")
-			n6 := from_string("13/5")
-			-- comparaisons
-			assert(n2.is_equal(n3))
-			assert((n4 + n5).is_equal(n1))
-			assert((n3 + n4).is_equal(n6))
-			-- simplification
-			n1 := from_string("21/3")
-			n2 := from_string("38836/5548")
-			assert(n1.is_equal(n2))
-			assert(not (n1 @* -1).is_equal(n2))
-		end
+   make is
+      local
+         n1, n2, n3, n4, n5, n6: NUMBER
+      do
+         n1 := from_integer(1)
+         n2 := from_integer(2)
+         n3 := from_string("8/4")
+         n4 := from_string("3/5")
+         n5 := from_string("2/5")
+         n6 := from_string("13/5")
+         -- comparaisons
+         assert(n2.is_equal(n3))
+         assert((n4 + n5).is_equal(n1))
+         assert((n3 + n4).is_equal(n6))
+         -- simplification
+         n1 := from_string("21/3")
+         n2 := from_string("38836/5548")
+         assert(n1.is_equal(n2))
+         assert(not (n1 @* -1).is_equal(n2))
+      end
 
 
 

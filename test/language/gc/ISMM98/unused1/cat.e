@@ -4,19 +4,19 @@
 class CAT
 
 inherit
-	ANIMAL
+   ANIMAL
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		do
-			name := once "Felix"
-		end
+   make is
+      do
+         name := once "Felix"
+      end
 
 feature {ANY}
-	is_cat: BOOLEAN is True
+   is_cat: BOOLEAN is True
 
 end -- class CAT
 --

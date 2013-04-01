@@ -8,21 +8,21 @@ feature
 
    make is
       local
-	 i : INTEGER
-	 memory : ARRAY [ AUX_WMH06 ]
-	 item : AUX_WMH06
+    i : INTEGER
+    memory : ARRAY [ AUX_WMH06 ]
+    item : AUX_WMH06
       do
-	 !!memory.make(1, max)
-	 from i := 0
-	 until i >= max_loop
-	 loop
-	    !!item.make
-	    memory.put(item, (i \\ max) + 1)
-	    i := i + 1;
-	    if (i \\ max) = 0 then
-	       full_collect
-	    end;
-	 end;
+    !!memory.make(1, max)
+    from i := 0
+    until i >= max_loop
+    loop
+       !!item.make
+       memory.put(item, (i \\ max) + 1)
+       i := i + 1;
+       if (i \\ max) = 0 then
+          full_collect
+       end;
+    end;
       end;
    
 feature {}

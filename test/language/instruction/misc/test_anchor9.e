@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ANCHOR9
-	-- SZ:225: anchored type not allowed for procedure type
+   -- SZ:225: anchored type not allowed for procedure type
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	triplet: TUPLE[INTEGER, STRING, REAL_64]
+   triplet: TUPLE[INTEGER, STRING, REAL_64]
 
-	foo3: PROCEDURE[like triplet]
+   foo3: PROCEDURE[like triplet]
 
 feature {ANY}
-	make is
-		do
-			foo3 := agent bar
-		end
+   make is
+      do
+         foo3 := agent bar
+      end
 
-	bar (a: INTEGER; b: STRING; c: REAL_64) is
-		do
-		end
+   bar (a: INTEGER; b: STRING; c: REAL_64) is
+      do
+      end
 
 end -- class TEST_ANCHOR9
 --

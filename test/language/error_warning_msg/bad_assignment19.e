@@ -6,17 +6,17 @@ class BAD_ASSIGNMENT19
 -- To check that insert ANY is the default.
 --
 creation
-	make
+   make
 
 feature
-	make is
-		local
-			any: ANY
-		do
-			any := Current
-		end
-	
-	
+   make is
+      local
+         any: ANY
+      do
+         any := Current
+      end
+   
+   
 end -- class BAD_ASSIGNMENT19
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

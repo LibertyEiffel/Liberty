@@ -4,16 +4,16 @@
 class BAD_CREATION7
 
 creation
-	main
+   main
 
 feature
-	main is
-		local
-			fast_array: FAST_ARRAY[INTEGER]
-		do
-			fast_array := {FAST_ARRAY[INTEGER] << Void, 2 >> }
-		end
-	
+   main is
+      local
+         fast_array: FAST_ARRAY[INTEGER]
+      do
+         fast_array := {FAST_ARRAY[INTEGER] << Void, 2 >> }
+      end
+   
 end -- class BAD_CREATION7
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

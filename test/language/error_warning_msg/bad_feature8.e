@@ -4,13 +4,13 @@
 class BAD_FEATURE8
 
 creation
-	main
+   main
 
 feature
-	frozen Current is
-		do
-		end
-	
+   frozen Current is
+      do
+      end
+   
 end -- class BAD_FEATURE8
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -4,14 +4,14 @@
 class BAD_ATTRIBUTE2
 
 creation {}
-	default_create
+   default_create
 
 feature {}
-	bad_attribute: INTEGER is
-		local
-			whatever: INTEGER
-		attribute
-		end
+   bad_attribute: INTEGER is
+      local
+         whatever: INTEGER
+      attribute
+      end
 
 end -- class BAD_ATTRIBUTE2
 --

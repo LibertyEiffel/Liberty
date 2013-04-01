@@ -34,11 +34,66 @@ feature {RUN_FEATURE}
    hook_collect (t: TYPE) is
       local
          n: STRING
+         dummy: TYPE
       do
          n := first_name.to_string
          if as_raise_exception = n then
             exceptions_handler.set_used
+         elseif as_slice_copy = n and then as_native_array = t.class_text.name.to_string and then t.generic_list.first.is_user_expanded then --|**** TODO also check that copy was redefined
+            if routine_body = Void then
+               echo.put_string(once "**** collecting ")
+               echo.put_string(t.name.to_string)
+               echo.put_line(once ".slice_copy")
+               routine_body := collect_slice_copy(t)
+               is_generated_eiffel := True
+            end
+            dummy := routine_body.collect(t)
          end
+      end
+
+feature {}
+   collect_slice_copy (type: TYPE): INSTRUCTION is
+      local
+         local_index: INTERNAL_LOCAL2
+         arg_at, arg_src, arg_src_min, arg_src_max: ARGUMENT_NAME2
+         call_copy: PROCEDURE_CALL_1
+         until_expression: CALL_INFIX_GT
+         array_item, src_item: NATIVE_ARRAY_ITEM
+         offset: CALL_INFIX_MINUS; plus: CALL_INFIX_PLUS
+         one: INTEGER_CONSTANT
+         t_int: TYPE
+         compound: COMPOUND
+         initialize, increment: ASSIGNMENT
+         copy_args: EFFECTIVE_ARG_LIST
+      do
+         create arg_at.refer_to(start_position, arguments, 1)
+         create arg_src.refer_to(start_position, arguments, 2)
+         create arg_src_min.refer_to(start_position, arguments, 3)
+         create arg_src_max.refer_to(start_position, arguments, 4)
+         t_int := smart_eiffel.type_integer_32
+         -- from index := src_min
+         create local_index.make(start_position, arg_src_min, once "copy index", True)
+         create initialize.make(local_index, arg_src_min)
+         -- until index > src_max
+         create until_expression.make(local_index, start_position, arg_src_max)
+         until_expression.set_feature_stamp(t_int.lookup(create {FEATURE_NAME}.infix_name(eiffel_parser.gt_name, start_position)))
+         -- loop copy(Current[index + at], src[index]); index := index + 1
+         create plus.make(local_index, start_position, arg_at)
+         plus.set_feature_stamp(t_int.lookup(create {FEATURE_NAME}.infix_name(eiffel_parser.plus_name, start_position)))
+         create offset.make(plus, start_position, arg_src_min)
+         offset.set_feature_stamp(t_int.lookup(create {FEATURE_NAME}.infix_name(eiffel_parser.minus_name, start_position)))
+         create array_item.make(start_position, offset, type.generic_list.first)
+         create src_item.make(start_position, local_index, type.generic_list.first)
+         create copy_args.make_1(src_item)
+         create call_copy.make(array_item, smart_eiffel.type_any.class_text.any_copy_feature.names.first, copy_args)
+         call_copy.set_feature_stamp(type.generic_list.first.copy_stamp)
+         create one.make(1, start_position)
+         create plus.make(local_index, start_position, one)
+         plus.set_feature_stamp(t_int.lookup(create {FEATURE_NAME}.infix_name(eiffel_parser.plus_name, start_position)))
+         create increment.make(local_index, plus)
+         create compound.make_2(call_copy, increment)
+         -- end
+         create {LOOP_INSTRUCTION} Result.make(start_position, initialize, Void, Void, until_expression, compound)
       end
 
 feature {}

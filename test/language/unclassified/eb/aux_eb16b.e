@@ -4,9 +4,9 @@
 class AUX_EB16B
 
 feature {ANY}
-	f: AUX_EB16B is
-		do
-		end
+   f: AUX_EB16B is
+      do
+      end
 
 end -- class AUX_EB16B
 --

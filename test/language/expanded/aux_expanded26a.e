@@ -4,25 +4,25 @@
 expanded class AUX_EXPANDED26A
 
 insert
-	ANY
-		redefine is_equal
-		end
+   ANY
+      redefine is_equal
+      end
 
 feature {ANY}
-	set (in: INTEGER) is
-		do
-			value := in
-		ensure
-			value_is_set: Current.value = in
-		end
+   set (in: INTEGER) is
+      do
+         value := in
+      ensure
+         value_is_set: Current.value = in
+      end
 
 feature {ANY}
-	value: INTEGER
+   value: INTEGER
 
-	is_equal (other: like Current): BOOLEAN is
-		do
-			Result := value.is_equal(other.value)
-		end
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := value.is_equal(other.value)
+      end
 
 end -- class AUX_EXPANDED26A
 --

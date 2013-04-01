@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_LOOP3
-	
+   
 creation
-	main
+   main
 
 feature {}
    main is
       do
-			from
-			until
-				Void
-			loop
-				
-			end
+         from
+         until
+            Void
+         loop
+            
+         end
       end
 
 end -- class BAD_LOOP3

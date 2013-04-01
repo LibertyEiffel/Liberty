@@ -4,29 +4,29 @@
 class TEST_INLINING1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i1, i2: INTEGER; c1: CHARACTER; target: like Current
-		do
-			foo(1, 'b')
-			foo(i1, c1)
-			foo(i1 + i2, 'b')
-			i2 := 1
-			foo(i1 + i2, ("foo").item(i2))
-			foo(i1, ("foo").item(i2))
-			target := Current
-			target.foo(1, 'b')
-			target.foo(i1, c1)
-			target.foo(i1 + i2, 'b')
-			target.foo(i1 + i2, ("foo").item(i2))
-		end
+   make is
+      local
+         i1, i2: INTEGER; c1: CHARACTER; target: like Current
+      do
+         foo(1, 'b')
+         foo(i1, c1)
+         foo(i1 + i2, 'b')
+         i2 := 1
+         foo(i1 + i2, ("foo").item(i2))
+         foo(i1, ("foo").item(i2))
+         target := Current
+         target.foo(1, 'b')
+         target.foo(i1, c1)
+         target.foo(i1 + i2, 'b')
+         target.foo(i1 + i2, ("foo").item(i2))
+      end
 
-	foo (x: INTEGER; c: CHARACTER) is
-		do
-		end
+   foo (x: INTEGER; c: CHARACTER) is
+      do
+      end
 
 end -- class TEST_INLINING1
 --

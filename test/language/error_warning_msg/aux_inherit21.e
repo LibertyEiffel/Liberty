@@ -3,7 +3,7 @@
 --
 class AUX_INHERIT21[X]
 inherit
-	X
+   X
 feature
 end -- class AUX_INHERIT21
 --

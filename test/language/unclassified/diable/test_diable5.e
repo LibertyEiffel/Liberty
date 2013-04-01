@@ -4,18 +4,18 @@
 class TEST_DIABLE5
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			ai: ARRAY[INTEGER]; aai: ARRAY[ARRAY[INTEGER]]
-		do
-			create ai.make(1, 2)
-			create aai.make(1, 2)
-			if aai.is_equal(aai) then
-			end
-		end
+   make is
+      local
+         ai: ARRAY[INTEGER]; aai: ARRAY[ARRAY[INTEGER]]
+      do
+         create ai.make(1, 2)
+         create aai.make(1, 2)
+         if aai.is_equal(aai) then
+         end
+      end
 
 end -- class TEST_DIABLE5
 --

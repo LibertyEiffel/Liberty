@@ -4,24 +4,24 @@
 class TEST_SELECT5
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			b: AUX_SELECT5B; a: AUX_SELECT5A
-		do
-			create b
-			assert(("fooAnew").is_equal(b.new_foo))
-			assert(("fooA").is_equal(b.foo_a))
-			a := b
-			assert(("fooA").is_equal(a.foo))
-			create a
-			assert(("fooA").is_equal(a.foo))
-		end
+   make is
+      local
+         b: AUX_SELECT5B; a: AUX_SELECT5A
+      do
+         create b
+         assert(("fooAnew").is_equal(b.new_foo))
+         assert(("fooA").is_equal(b.foo_a))
+         a := b
+         assert(("fooA").is_equal(a.foo))
+         create a
+         assert(("fooA").is_equal(a.foo))
+      end
 
 end -- class TEST_SELECT5
 --

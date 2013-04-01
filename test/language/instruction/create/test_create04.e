@@ -2,29 +2,29 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_CREATE04
-	--
-	-- SZ:58: From a bug report of Andreas Scholz (andreas13@web.de)
-	--
+   --
+   -- SZ:58: From a bug report of Andreas Scholz (andreas13@web.de)
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux: AUX_CREATE04; i: INTEGER
-		do
-			if aux = Void then
-				inspect
-					i
-				when 1 then
-					create {AUX_CREATE04A} aux.make(Current)
-				else
-					create {AUX_CREATE04B} aux.make(Current)
-				end
-			end
-			aux.g(aux)
-		end
+   make is
+      local
+         aux: AUX_CREATE04; i: INTEGER
+      do
+         if aux = Void then
+            inspect
+               i
+            when 1 then
+               create {AUX_CREATE04A} aux.make(Current)
+            else
+               create {AUX_CREATE04B} aux.make(Current)
+            end
+         end
+         aux.g(aux)
+      end
 
 end -- class TEST_CREATE04
 --

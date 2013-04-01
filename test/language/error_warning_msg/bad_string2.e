@@ -9,11 +9,11 @@ feature
 
    make is
       local
-	 s: STRING
+    s: STRING
       do
-	 s := "Hi %/Ux1234/"
-	 s := "Hi %/UxFFF/"
-	 s := "Hi %/UxG/"
+    s := "Hi %/Ux1234/"
+    s := "Hi %/UxFFF/"
+    s := "Hi %/UxG/"
       end
    
 end -- class BAD_STRING2

@@ -4,15 +4,15 @@
 deferred class AUX_PRECURSOR20
 
 feature {}
-	find_string (string: STRING): BOOLEAN is
-		do
-			inspect string
-			when "foo", "bar" then
-				Result := True
-			else
-				-- Result := False
-			end
-		end
+   find_string (string: STRING): BOOLEAN is
+      do
+         inspect string
+         when "foo", "bar" then
+            Result := True
+         else
+            -- Result := False
+         end
+      end
 
 end -- class AUX_PRECURSOR20
 --

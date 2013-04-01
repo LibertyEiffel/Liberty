@@ -4,24 +4,24 @@
 class AUX_EXCEPTION19SUB2
 
 inherit
-	AUX_EXCEPTION19SUB
-	EXCEPTIONS
+   AUX_EXCEPTION19SUB
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	cause_exception is
-		local
-			dummy: INTEGER
-		do
-			raise("SUB2.cause_exception")
-			dummy := dummy + 1
-		rescue
-			if dummy = 1 then
-				print("SUB2.cause_exception rescue%N")
-			end
-		end
+   cause_exception is
+      local
+         dummy: INTEGER
+      do
+         raise("SUB2.cause_exception")
+         dummy := dummy + 1
+      rescue
+         if dummy = 1 then
+            print("SUB2.cause_exception rescue%N")
+         end
+      end
 
 end -- class AUX_EXCEPTION19SUB2
 --

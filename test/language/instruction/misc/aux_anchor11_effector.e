@@ -4,9 +4,9 @@
 class AUX_ANCHOR11_EFFECTOR[G]
 
 feature {ANY}
-	anchor: G is
-		do
-		end
+   anchor: G is
+      do
+      end
 
 end -- class AUX_ANCHOR11_EFFECTOR
 --

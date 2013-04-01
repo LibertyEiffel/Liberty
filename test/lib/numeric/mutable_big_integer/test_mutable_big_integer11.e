@@ -2,58 +2,58 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_MUTABLE_BIG_INTEGER11
-	--
-	-- Testing feature `add' when magnitude must grow up.
-	--
+   --
+   -- Testing feature `add' when magnitude must grow up.
+   --
 
 insert
-	ANY
-	PLATFORM
+   ANY
+   PLATFORM
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			mbia, mbib, mbir, mbiq: MUTABLE_BIG_INTEGER; i: INTEGER_64
-		do
-			create mbia.from_integer_64(Maximum_integer_64)
-			create mbib.from_integer_64(Maximum_integer_64)
-			create mbiq.from_integer(13)
-			create mbir.from_integer(12)
-			from
-				i := 0
-			until
-				i = 100
-			loop
-				mbia.add(mbia)
-				i := i + 1
-			end
-			mbib.shift_left(100)
-			assert(mbia.is_equal(mbib))
-			mbia.divide_to(mbia, mbiq, mbir)
-			assert(mbiq.is_one)
-			assert(mbir.is_zero)
-			mbia.multiply_to(mbib, mbir)
-			assert(mbia.is_equal(mbib))
-			mbir.divide_to(mbia, mbiq, mbib)
-			assert(mbia.is_equal(mbiq))
-			assert(mbib.is_zero)
-		end
+   make is
+      local
+         mbia, mbib, mbir, mbiq: MUTABLE_BIG_INTEGER; i: INTEGER_64
+      do
+         create mbia.from_integer_64(Maximum_integer_64)
+         create mbib.from_integer_64(Maximum_integer_64)
+         create mbiq.from_integer(13)
+         create mbir.from_integer(12)
+         from
+            i := 0
+         until
+            i = 100
+         loop
+            mbia.add(mbia)
+            i := i + 1
+         end
+         mbib.shift_left(100)
+         assert(mbia.is_equal(mbib))
+         mbia.divide_to(mbia, mbiq, mbir)
+         assert(mbiq.is_one)
+         assert(mbir.is_zero)
+         mbia.multiply_to(mbib, mbir)
+         assert(mbia.is_equal(mbib))
+         mbir.divide_to(mbia, mbiq, mbib)
+         assert(mbia.is_equal(mbiq))
+         assert(mbib.is_zero)
+      end
 
-	count: INTEGER
+   count: INTEGER
 
-	assert (b: BOOLEAN) is
-		do
-			count := count + 1
-			if not b then
-				sedb_breakpoint
-				io.put_string("TEST_MUTABLE_BIG_INTEGER11 : ERROR Test # ")
-				io.put_integer(count)
-				io.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         count := count + 1
+         if not b then
+            sedb_breakpoint
+            io.put_string("TEST_MUTABLE_BIG_INTEGER11 : ERROR Test # ")
+            io.put_integer(count)
+            io.put_string("%N")
+         end
+      end
 
 end -- class TEST_MUTABLE_BIG_INTEGER11
 --

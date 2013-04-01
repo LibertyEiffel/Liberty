@@ -10,12 +10,12 @@ feature {ANY}
    
    make is
       local
-	 aux_deferred1_d: AUX_DEFERRED1_D
-	 td_ar: ARRAY[AUX_DEFERRED1_D]
+    aux_deferred1_d: AUX_DEFERRED1_D
+    td_ar: ARRAY[AUX_DEFERRED1_D]
       do
-	 !AUX_DEFERRED1_D!aux_deferred1_d.make
-	 aux_deferred1_d.r
-	 !!td_ar.make(1,1)
+    !AUX_DEFERRED1_D!aux_deferred1_d.make
+    aux_deferred1_d.r
+    !!td_ar.make(1,1)
       end
 
 end -- class BAD_DEFERRED1

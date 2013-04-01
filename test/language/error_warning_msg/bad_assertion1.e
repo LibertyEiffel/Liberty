@@ -10,11 +10,11 @@ feature {ANY}
    
    make is 
       local
-	 x: INTEGER;
+    x: INTEGER;
       do 
-	 check
-	    x := 3;
-	 end;
+    check
+       x := 3;
+    end;
       end;
    
 end -- class BAD_ASSERTION1

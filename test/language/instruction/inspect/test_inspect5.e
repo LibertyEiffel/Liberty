@@ -4,42 +4,42 @@
 class TEST_INSPECT5
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			if foo then
-				std_output.put_string("TEST_INSPECT5: ERROR Test #1%N")
-			end
-			if not bar then
-				std_output.put_string("TEST_INSPECT5: ERROR Test #2%N")
-			end
-		end
+   make is
+      do
+         if foo then
+            std_output.put_string("TEST_INSPECT5: ERROR Test #1%N")
+         end
+         if not bar then
+            std_output.put_string("TEST_INSPECT5: ERROR Test #2%N")
+         end
+      end
 
-	foo: BOOLEAN is
-		local
-			i: INTEGER
-		do
-			inspect
-				i
-			when 1 then
-				Result := True
-			else
-			end
-		end
+   foo: BOOLEAN is
+      local
+         i: INTEGER
+      do
+         inspect
+            i
+         when 1 then
+            Result := True
+         else
+         end
+      end
 
-	bar: BOOLEAN is
-		local
-			i: INTEGER
-		do
-			i := 1
-			inspect
-				i
-			when 1 then
-				Result := True
-			end
-		end
+   bar: BOOLEAN is
+      local
+         i: INTEGER
+      do
+         i := 1
+         inspect
+            i
+         when 1 then
+            Result := True
+         end
+      end
 
 end -- class TEST_INSPECT5
 --

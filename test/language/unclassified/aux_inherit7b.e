@@ -4,19 +4,19 @@
 deferred class AUX_INHERIT7B
 
 feature {ANY} -- Access
-	flags: INTEGER is
-		deferred
-		end
+   flags: INTEGER is
+      deferred
+      end
 
-	is_foo: BOOLEAN is
-		do
-			Result := flags & 2 /= 0
-		end
+   is_foo: BOOLEAN is
+      do
+         Result := flags & 2 /= 0
+      end
 
-	is_bar: BOOLEAN is
-		do
-			Result := flags & 4 /= 0
-		end
+   is_bar: BOOLEAN is
+      do
+         Result := flags & 4 /= 0
+      end
 
 end -- class AUX_INHERIT7B
 --

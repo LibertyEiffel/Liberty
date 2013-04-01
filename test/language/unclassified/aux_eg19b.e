@@ -4,15 +4,15 @@
 class AUX_EG19B
 
 inherit
-	AUX_EG19A
-		redefine infix "#"
-		end
+   AUX_EG19A
+      redefine infix "#"
+      end
 
 feature {ANY}
-	infix "#" (other: like Current): AUX_EG19A is
-		do
-			Result := Precursor(other)
-		end
+   infix "#" (other: like Current): AUX_EG19A is
+      do
+         Result := Precursor(other)
+      end
 
 end -- class AUX_EG19B
 --

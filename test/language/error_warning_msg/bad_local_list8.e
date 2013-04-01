@@ -4,15 +4,15 @@
 class BAD_LOCAL_LIST8
 
 creation
-	main
+   main
 
 feature {}
-	main is
-		local
-			string, STRING_g
-		do
-		end
-	
+   main is
+      local
+         string, STRING_g
+      do
+      end
+   
 end -- class BAD_LOCAL_LIST8
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

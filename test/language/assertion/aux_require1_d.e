@@ -4,89 +4,89 @@
 class AUX_REQUIRE1_D
 
 inherit
-	AUX_REQUIRE1_A
-	AUX_REQUIRE1_C
-	
+   AUX_REQUIRE1_A
+   AUX_REQUIRE1_C
+   
 creation {ANY}
-	default_create
+   default_create
 
 feature {}
-	d_only is
-		require
-			counting_require
-		do
-		end
+   d_only is
+      require
+         counting_require
+      do
+      end
 
-	d_or_a_and_c is
-		require else
-			bad_counting_require
-		do
-		end
-	
-	d_or_a_and_b is
-		require else
-			bad_counting_require
-		do
-		end
-	
-	everywhere is
-		require else
-			bad_counting_require
-		do
-		end
+   d_or_a_and_c is
+      require else
+         bad_counting_require
+      do
+      end
+   
+   d_or_a_and_b is
+      require else
+         bad_counting_require
+      do
+      end
+   
+   everywhere is
+      require else
+         bad_counting_require
+      do
+      end
 
-	partial is
-		require else
-			counting_require
-			bad_counting_require
-			counting_require
-		do
-		end
+   partial is
+      require else
+         counting_require
+         bad_counting_require
+         counting_require
+      do
+      end
 
 feature {ANY}
-	foo is
-		do
-			counter.reset
-			a_only
-			assert(counter.value = 1)
+   foo is
+      do
+         counter.reset
+         a_only
+         assert(counter.value = 1)
 
-			counter.reset
-			b_only
-			assert(counter.value = 1)
+         counter.reset
+         b_only
+         assert(counter.value = 1)
 
-			counter.reset
-			c_only
-			assert(counter.value = 1)
+         counter.reset
+         c_only
+         assert(counter.value = 1)
 
-			counter.reset
-			d_only
-			assert(counter.value = 1)
+         counter.reset
+         d_only
+         assert(counter.value = 1)
 
-			counter.reset
-			a_and_c
-			assert(counter.value = 2)
+         counter.reset
+         a_and_c
+         assert(counter.value = 2)
 
-			counter.reset
-			d_or_a_and_c
-			assert(counter.value = 3)
+         counter.reset
+         d_or_a_and_c
+         assert(counter.value = 3)
 
-			counter.reset
-			a_and_b
-			assert(counter.value = 3)
+         counter.reset
+         a_and_b
+         assert(counter.value = 3)
 
-			counter.reset
-			d_or_a_and_b
-			assert(counter.value = 4)
+         counter.reset
+         d_or_a_and_b
+         assert(counter.value = 4)
 
-			counter.reset
-			everywhere
-			assert(counter.value = 5)
+         counter.reset
+         everywhere
+         assert(counter.value = 5)
 
-			counter.reset
-			partial
-			assert(counter.value = 7)
+         counter.reset
+         partial
+         assert(counter.value = 7)
 
-		end
+      end
 
 end -- class AUX_REQUIRE1_D
 --

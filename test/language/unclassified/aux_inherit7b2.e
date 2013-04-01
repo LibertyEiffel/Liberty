@@ -4,22 +4,22 @@
 class AUX_INHERIT7B2
 
 inherit
-	AUX_INHERIT7B
+   AUX_INHERIT7B
 
 creation {ANY}
-	make
+   make
 
 feature {} -- Initialization
-	make (fl: INTEGER; a: AUX_INHERIT7A2) is
-		do
-			flags := fl
-			as_expanded := a.as_expanded.x
-		end
+   make (fl: INTEGER; a: AUX_INHERIT7A2) is
+      do
+         flags := fl
+         as_expanded := a.as_expanded.x
+      end
 
 feature {ANY} -- Access
-	as_expanded: AUX_INHERIT7B1
+   as_expanded: AUX_INHERIT7B1
 
-	flags: INTEGER
+   flags: INTEGER
 
 end -- class AUX_INHERIT7B2
 --

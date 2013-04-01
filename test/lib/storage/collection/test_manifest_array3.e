@@ -4,27 +4,27 @@
 class TEST_MANIFEST_ARRAY3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			foo({ARRAY[STRING] 1, << ("foo").twin >> })
-			foo({ARRAY[STRING] 1, << "foo" >> })
-			create aux.make({ARRAY[STRING] 1, << string.twin >> })
-		end
+   make is
+      do
+         foo({ARRAY[STRING] 1, << ("foo").twin >> })
+         foo({ARRAY[STRING] 1, << "foo" >> })
+         create aux.make({ARRAY[STRING] 1, << string.twin >> })
+      end
 
 feature {}
-	foo (array_string: ARRAY[STRING]) is
-		do
-		end
+   foo (array_string: ARRAY[STRING]) is
+      do
+      end
 
-	string: STRING is
-		once
-			create Result.make(80)
-		end
+   string: STRING is
+      once
+         create Result.make(80)
+      end
 
-	aux: AUX_MANIFEST_ARRAY3
+   aux: AUX_MANIFEST_ARRAY3
 
 end -- class TEST_MANIFEST_ARRAY3
 --

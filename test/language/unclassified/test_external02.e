@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EXTERNAL02
-	--SZ:543: wrong generated C code
+   --SZ:543: wrong generated C code
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main is
-		local
-			pointer: POINTER
-		do
-			pointer := malloc(pointer)
-		end
+   main is
+      local
+         pointer: POINTER
+      do
+         pointer := malloc(pointer)
+      end
 
-	malloc (p: POINTER): POINTER is
-		require
-			has_handle: p = default_pointer
-		external "C inline"
-		alias "malloc(1)"
-		end
+   malloc (p: POINTER): POINTER is
+      require
+         has_handle: p = default_pointer
+      external "C inline"
+      alias "malloc(1)"
+      end
 
 end -- class TEST_EXTERNAL02
 --

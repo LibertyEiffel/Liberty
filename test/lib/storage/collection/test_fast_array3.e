@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FAST_ARRAY3
-	-- From a bug report of Jean-Marc JEZEQUEL
+   -- From a bug report of Jean-Marc JEZEQUEL
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	aux: AUX_FAST_ARRAY3
+   aux: AUX_FAST_ARRAY3
 
-	make is
-		do
-			create aux.test
-		end
+   make is
+      do
+         create aux.test
+      end
 
 end -- class TEST_FAST_ARRAY3
 --

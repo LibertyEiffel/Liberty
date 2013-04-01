@@ -7,13 +7,13 @@ feature
 
    make is
       local
-	 i: INTEGER
+    i: INTEGER
       do
-	 inspect
-	    i
-	 when 1 .. 3 then
-	 when 3 .. 4 then -- Overlapped slice !
-	 end
+    inspect
+       i
+    when 1 .. 3 then
+    when 3 .. 4 then -- Overlapped slice !
+    end
       end
 end -- class BAD_INSPECT9
 --

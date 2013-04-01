@@ -4,29 +4,29 @@
 class TEST_STRING12
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			s1: STRING
-		do
-			create s1.make_from_string("foo")
-			assert(("foo").is_equal(s1))
-			create s1.make_from_string("")
-			assert(("").is_equal(s1))
-			create s1.make_from_string("f")
-			assert(("f").is_equal(s1))
-			s1.make_from_string("foo")
-			assert(("foo").is_equal(s1))
-			s1.make_from_string("")
-			assert(("").is_equal(s1))
-			s1.make_from_string("f")
-			assert(("f").is_equal(s1))
-		end
+   make is
+      local
+         s1: STRING
+      do
+         create s1.make_from_string("foo")
+         assert(("foo").is_equal(s1))
+         create s1.make_from_string("")
+         assert(("").is_equal(s1))
+         create s1.make_from_string("f")
+         assert(("f").is_equal(s1))
+         s1.make_from_string("foo")
+         assert(("foo").is_equal(s1))
+         s1.make_from_string("")
+         assert(("").is_equal(s1))
+         s1.make_from_string("f")
+         assert(("f").is_equal(s1))
+      end
 
 end -- class TEST_STRING12
 --

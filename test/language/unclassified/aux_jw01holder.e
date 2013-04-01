@@ -4,15 +4,15 @@
 class AUX_JW01HOLDER[G]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make (x: G) is
-		do
-			item := x
-		end
+   make (x: G) is
+      do
+         item := x
+      end
 
-	item: G
+   item: G
 
 end -- class AUX_JW01HOLDER
 --

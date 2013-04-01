@@ -55,7 +55,7 @@ feature {ANY}
 
    set_indent_level (il: INTEGER) is
          -- To be called each time we need a blank left margin of `il' characters '%T'.
-         -- Actually, this method can be called more than one time to increase or to
+         -- Actually, this method can be called more than once to increase or to
          -- decrease the actual left margin without starting a new line each time.
       require
          il >= 0
@@ -463,7 +463,7 @@ feature {COMPOUND, ASSERTION_LIST}
             end
          end
       end
-   
+
 feature {ANY}
    wrap_limit: INTEGER is 120
 

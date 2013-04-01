@@ -4,7 +4,7 @@
 class AUX_U01R1
 
 insert
-	ANY
+   ANY
 
 end -- class AUX_U01R1
 --

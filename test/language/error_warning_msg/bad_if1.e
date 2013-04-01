@@ -9,8 +9,8 @@ feature
    
    make is
       do
-	 if 1
-	 end
+    if 1
+    end
       end
 
 end -- class BAD_IF1

@@ -2,36 +2,36 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER18
-	-- tests on "is_double"
+   -- tests on "is_double"
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   PLATFORM
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: NUMBER
-		do
-			n := from_integer(0)
-			assert(n.fit_real)
-			n := from_integer(1)
-			assert(n.fit_real)
-			n := from_integer(Maximum_integer)
-			n := n @- 1000
-			assert(n.fit_real)
-			n := from_integer(Minimum_integer)
-			n := n @+ 1000
-			assert(n.fit_real)
-			n := from_string("4/2")
-			assert(n.fit_real)
-			n := from_string("6/10")
-			assert(n.fit_real)
-		end
+   make is
+      local
+         n: NUMBER
+      do
+         n := from_integer(0)
+         assert(n.fit_real)
+         n := from_integer(1)
+         assert(n.fit_real)
+         n := from_integer(Maximum_integer)
+         n := n @- 1000
+         assert(n.fit_real)
+         n := from_integer(Minimum_integer)
+         n := n @+ 1000
+         assert(n.fit_real)
+         n := from_string("4/2")
+         assert(n.fit_real)
+         n := from_string("6/10")
+         assert(n.fit_real)
+      end
 
 
 

@@ -4,84 +4,84 @@
 class AUX_DIABLE4[E]
 
 creation {ANY}
-	from_model
+   from_model
 
 feature {ANY}
-	from_model (model: COLLECTION[COLLECTION[E]]) is
-			-- The `model' is used to fill line by line the COLLECTION2.
-			-- Assume all sub-collections of `model' have the same indexing.
-		local
-			line, column: INTEGER
-		do
-			make(model.lower, model.upper, model.first.lower, model.first.upper)
-			from
-				line := model.lower
-			until
-				line > model.upper
-			loop
-				from
-					column := model.first.lower
-				until
-					column > model.first.upper
-				loop
-					put(model.item(line).item(column), line, column)
-					column := column + 1
-				end
-				line := line + 1
-			end
-		end
+   from_model (model: COLLECTION[COLLECTION[E]]) is
+         -- The `model' is used to fill line by line the COLLECTION2.
+         -- Assume all sub-collections of `model' have the same indexing.
+      local
+         line, column: INTEGER
+      do
+         make(model.lower, model.upper, model.first.lower, model.first.upper)
+         from
+            line := model.lower
+         until
+            line > model.upper
+         loop
+            from
+               column := model.first.lower
+            until
+               column > model.first.upper
+            loop
+               put(model.item(line).item(column), line, column)
+               column := column + 1
+            end
+            line := line + 1
+         end
+      end
 
-	put (element: like item; line, column: INTEGER) is
-		do
-			storage.put(element, (line - lower1) * count2 + column - lower2)
-		end
+   put (element: like item; line, column: INTEGER) is
+      do
+         storage.put(element, (line - lower1) * count2 + column - lower2)
+      end
 
-	item (line, column: INTEGER): E is
-		do
-			Result := storage.item((line - lower1) * count2 + column - lower2)
-		end
+   item (line, column: INTEGER): E is
+      do
+         Result := storage.item((line - lower1) * count2 + column - lower2)
+      end
 
-	storage: NATIVE_ARRAY[E]
+   storage: NATIVE_ARRAY[E]
 
 feature {ANY}
-	lower1, lower2, upper1, upper2: INTEGER
+   lower1, lower2, upper1, upper2: INTEGER
 
-	count2: INTEGER is
-		do
-			Result := upper2 - lower2 + 1
-		end
+   count2: INTEGER is
+      do
+         Result := upper2 - lower2 + 1
+      end
 
-	make (line_min, line_max, column_min, column_max: INTEGER) is
-			-- Reset all bounds `line_minimum' / `line_maximum' / `column_minimum' and
-			-- `column_maximum' using arguments as new values.
-			-- All elements are set to the default value of type E.
-		require
-			line_min <= line_max
-			column_min <= column_max
-		do
-			lower1 := line_min
-			upper1 := line_max
-			lower2 := column_min
-			upper2 := column_max
-			if capacity >= count then
-				storage.clear_all(count - 1)
-			else
-				capacity := count
-				storage := storage.calloc(count)
-			end
-		end
+   make (line_min, line_max, column_min, column_max: INTEGER) is
+         -- Reset all bounds `line_minimum' / `line_maximum' / `column_minimum' and
+         -- `column_maximum' using arguments as new values.
+         -- All elements are set to the default value of type E.
+      require
+         line_min <= line_max
+         column_min <= column_max
+      do
+         lower1 := line_min
+         upper1 := line_max
+         lower2 := column_min
+         upper2 := column_max
+         if capacity >= count then
+            storage.clear_all(count - 1)
+         else
+            capacity := count
+            storage := storage.calloc(count)
+         end
+      end
 
-	capacity: INTEGER
+   capacity: INTEGER
 
-	count: INTEGER is
-		do
-			Result := count1 * count2
-		end
+   count: INTEGER is
+      do
+         Result := count1 * count2
+      end
 
-	count1: INTEGER is
-		do
-			Result := upper1 - lower1 + 1
-		end
+   count1: INTEGER is
+      do
+         Result := upper1 - lower1 + 1
+      end
 
 end -- class AUX_DIABLE4
 --

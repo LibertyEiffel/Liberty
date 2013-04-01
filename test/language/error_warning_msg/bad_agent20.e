@@ -6,20 +6,20 @@ class BAD_AGENT20
 -- As TUPLE must not hold open arguments.
 
 creation {ANY}
-	make
-	
+   make
+   
 feature {}
-	make is
-		do
-			if (agent foo([?])).item([True]) then
-			end
-		end
+   make is
+      do
+         if (agent foo([?])).item([True]) then
+         end
+      end
 
-	foo (repeat: TUPLE[BOOLEAN]): BOOLEAN is
-		do
-			Result := repeat.first
-		end
-	
+   foo (repeat: TUPLE[BOOLEAN]): BOOLEAN is
+      do
+         Result := repeat.first
+      end
+   
 end -- class BAD_AGENT20
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

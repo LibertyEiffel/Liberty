@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ASSERTION1
-	--From: Gerson Sunye <gerson.sunye@gmail.com>
+   --From: Gerson Sunye <gerson.sunye@gmail.com>
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main is
-		local
-			b: AUX_ASSERTION1_B
-		do
-			create b
-			b.set_attribute("ID")
-			b.set_attribute("NAME")
-		end
+   main is
+      local
+         b: AUX_ASSERTION1_B
+      do
+         create b
+         b.set_attribute("ID")
+         b.set_attribute("NAME")
+      end
 
 end -- class TEST_ASSERTION1
 --

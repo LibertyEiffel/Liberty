@@ -4,27 +4,27 @@
 class AUX_OLD2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make (a: INTEGER) is
-		do
-			attrib := a
-		end
+   make (a: INTEGER) is
+      do
+         attrib := a
+      end
 
-	infix "-" (Other: like Current): INTEGER is
-		do
-			Result := Other.attrib - attrib
-		end
+   infix "-" (Other: like Current): INTEGER is
+      do
+         Result := Other.attrib - attrib
+      end
 
-	add (n: INTEGER) is
-		do
-			attrib := attrib + n
-		ensure
-			Current - old Current = 0
-		end
+   add (n: INTEGER) is
+      do
+         attrib := attrib + n
+      ensure
+         Current - old Current = 0
+      end
 
-	attrib: INTEGER
+   attrib: INTEGER
 
 end -- class AUX_OLD2
 --

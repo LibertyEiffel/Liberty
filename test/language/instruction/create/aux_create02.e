@@ -4,20 +4,20 @@
 class AUX_CREATE02
 
 inherit
-	ANY
-		redefine default_create
-		end
+   ANY
+      redefine default_create
+      end
 
 creation {ANY}
-	default_create
+   default_create
 
 feature {ANY}
-	value: INTEGER
+   value: INTEGER
 
-	default_create is
-		do
-			value := 1
-		end
+   default_create is
+      do
+         value := 1
+      end
 
 end -- class AUX_CREATE02
 --

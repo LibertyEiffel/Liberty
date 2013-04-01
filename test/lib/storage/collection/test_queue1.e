@@ -4,29 +4,29 @@
 class TEST_QUEUE1
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			queue: QUEUE[INTEGER_8]
-		do
-			create queue.make
-			assert(queue.count = 0)
-			queue.add(1)
-			assert(queue.count = 1)
-			queue.add(2)
-			assert(queue.count = 2)
-			assert(queue.first = 1)
-			queue.remove
-			assert(queue.count = 1)
-			assert(queue.first = 2)
-			queue.remove
-			assert(queue.count = 0)
-		end
+   make is
+      local
+         queue: QUEUE[INTEGER_8]
+      do
+         create queue.make
+         assert(queue.count = 0)
+         queue.add(1)
+         assert(queue.count = 1)
+         queue.add(2)
+         assert(queue.count = 2)
+         assert(queue.first = 1)
+         queue.remove
+         assert(queue.count = 1)
+         assert(queue.first = 2)
+         queue.remove
+         assert(queue.count = 0)
+      end
 
 end -- class TEST_QUEUE1
 --

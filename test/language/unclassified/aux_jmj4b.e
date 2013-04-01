@@ -4,16 +4,16 @@
 class AUX_JMJ4B[T]
 
 inherit
-	AUX_JMJ4A[T]
-		rename set as met
-		redefine met
-		end
+   AUX_JMJ4A[T]
+      rename set as met
+      redefine met
+      end
 
 feature {ANY}
-	met (new: like container) is
-		do
-			container := new
-		end
+   met (new: like container) is
+      do
+         container := new
+      end
 
 end -- class AUX_JMJ4B
 --

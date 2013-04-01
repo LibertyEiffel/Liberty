@@ -4,16 +4,16 @@
 class AUX_CREATE08[P]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	container: ARRAY[ARRAY[P]]
+   container: ARRAY[ARRAY[P]]
 
-	make is
-		do
-			create container.make(0, 0)
-			container.put(create {ARRAY[P]}.make(1, 0), 0)
-		end
+   make is
+      do
+         create container.make(0, 0)
+         container.put(create {ARRAY[P]}.make(1, 0), 0)
+      end
 
 end -- class AUX_CREATE08
 --

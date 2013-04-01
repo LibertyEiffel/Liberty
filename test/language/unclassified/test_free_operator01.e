@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FREE_OPERATOR01
-	-- From sz:438
+   -- From sz:438
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: INTEGER
-		do
-			n := Current \ Current
-		end
+   make is
+      local
+         n: INTEGER
+      do
+         n := Current \ Current
+      end
 
-	infix "\" (other: like Current): INTEGER is
-		do
-		end
+   infix "\" (other: like Current): INTEGER is
+      do
+      end
 
 end -- class TEST_FREE_OPERATOR01
 --

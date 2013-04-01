@@ -10,9 +10,9 @@ feature
 
    make is
       local
-	 agent: INTEGER;
+    agent: INTEGER;
       do
-	 agent := agent;
+    agent := agent;
       end;
 
 end -- class BAD_KEYWORD2

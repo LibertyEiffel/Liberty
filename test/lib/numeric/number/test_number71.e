@@ -2,42 +2,42 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER71
-	-- tests on "inverse"
+   -- tests on "inverse"
 
 insert
-	NUMBER_TOOLS
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: NUMBER
-		do
-			n := from_integer(1)
-			assert(n.inverse @= 1)
-			n := from_integer(-1)
-			assert(n.inverse @= -1)
-			n := from_string("1/5")
-			assert(n.inverse @= 5)
-			n := from_string("-1/4")
-			assert(n.inverse @= -4)
-			n := from_string("458/4561891")
-			assert(n.inverse.inverse.is_equal(n))
-		end
+   make is
+      local
+         n: NUMBER
+      do
+         n := from_integer(1)
+         assert(n.inverse @= 1)
+         n := from_integer(-1)
+         assert(n.inverse @= -1)
+         n := from_string("1/5")
+         assert(n.inverse @= 5)
+         n := from_string("-1/4")
+         assert(n.inverse @= -4)
+         n := from_string("458/4561891")
+         assert(n.inverse.inverse.is_equal(n))
+      end
 
-	count: INTEGER
+   count: INTEGER
 
-	assert (b: BOOLEAN) is
-		do
-			count := count + 1
-			if not b then
-				io.put_string("TEST_NUMBER71 : ERROR Test # ")
-				io.put_integer(count)
-				io.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         count := count + 1
+         if not b then
+            io.put_string("TEST_NUMBER71 : ERROR Test # ")
+            io.put_integer(count)
+            io.put_string("%N")
+         end
+      end
 
 end -- class TEST_NUMBER71
 --

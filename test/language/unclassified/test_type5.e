@@ -4,18 +4,18 @@
 class TEST_TYPE5
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			ls1: LINKED_LIST[STRING]; li1: LINKED_LIST[INTEGER]
-		do
-			create ls1.make
-			ls1.add_first("foo")
-			create li1.make
-			li1.add_first(1)
-		end
+   make is
+      local
+         ls1: LINKED_LIST[STRING]; li1: LINKED_LIST[INTEGER]
+      do
+         create ls1.make
+         ls1.add_first("foo")
+         create li1.make
+         li1.add_first(1)
+      end
 
 end -- class TEST_TYPE5
 --

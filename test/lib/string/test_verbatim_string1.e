@@ -4,47 +4,47 @@
 class TEST_VERBATIM_STRING1
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	run
+   run
 
 feature {}
-	run is
-		local
-			s1: STRING
-		do
-			s1 := "bar[
-		Hi there !
-		]bar"
-			assert(("Hi there !").is_equal(s1))
-			s1 := "bar[
+   run is
+      local
+         s1: STRING
+      do
+         s1 := "bar[
+      Hi there !
+      ]bar"
+         assert(("Hi there !").is_equal(s1))
+         s1 := "bar[
 
-		Hi there !
+      Hi there !
 
-		]bar"
-			assert(("%NHi there !%N").is_equal(s1))
-			s1 := "bar[
+      ]bar"
+         assert(("%NHi there !%N").is_equal(s1))
+         s1 := "bar[
 
-		Hi there !
+      Hi there !
 
-		           ]bar"
-			assert(("%NHi there !%N").is_equal(s1))
-			s1 := "bar[
-		11
-		  22
-		33%N
-		]bar"
-			assert(("11%N  22%N33%%N").is_equal(s1))
-			s1 := "[
+                 ]bar"
+         assert(("%NHi there !%N").is_equal(s1))
+         s1 := "bar[
+      11
+        22
+      33%N
+      ]bar"
+         assert(("11%N  22%N33%%N").is_equal(s1))
+         s1 := "[
 
 
-		11
-		  22
-		 33%N
-		]"
-			assert(("%N%N11%N  22%N 33%%N").is_equal(s1))
-		end
+      11
+        22
+       33%N
+      ]"
+         assert(("%N%N11%N  22%N 33%%N").is_equal(s1))
+      end
 
 end -- class TEST_VERBATIM_STRING1
 --

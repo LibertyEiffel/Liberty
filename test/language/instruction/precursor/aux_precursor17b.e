@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_PRECURSOR17B
-	-- Written by Philippe Ribet
+   -- Written by Philippe Ribet
 
 inherit
-	AUX_PRECURSOR17A
-		redefine make
-		end
+   AUX_PRECURSOR17A
+      redefine make
+      end
 
 feature {ANY}
-	make is
-		do
-			assert(assert_counter.value = 1)
-			Precursor
-			assert(assert_counter.value = 3)
-		end
+   make is
+      do
+         assert(assert_counter.value = 1)
+         Precursor
+         assert(assert_counter.value = 3)
+      end
 
 end -- class AUX_PRECURSOR17B
 --

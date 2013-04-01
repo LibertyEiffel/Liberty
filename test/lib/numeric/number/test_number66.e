@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER66
-	-- tests on "log"
+   -- tests on "log"
 
 insert
-	EIFFELTEST_TOOLS
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: NUMBER
-		do
-			n := from_integer(1)
-			assert(n.log = 0)
-			n := from_integer(10)
-			assert((n.log - 2.3025851).abs < 0.0000001)
-		end
+   make is
+      local
+         n: NUMBER
+      do
+         n := from_integer(1)
+         assert(n.log = 0)
+         n := from_integer(10)
+         assert((n.log - 2.3025851).abs < 0.0000001)
+      end
 
 
 

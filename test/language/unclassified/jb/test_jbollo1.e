@@ -2,38 +2,38 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JBOLLO1
-	--
-	-- Following a discussion with Jose Bollo in our mailing list.
-	--
+   --
+   -- Following a discussion with Jose Bollo in our mailing list.
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	n: INTEGER_8 is 9
+   n: INTEGER_8 is 9
 
-	make is
-		local
-			integer: INTEGER_32
-		do
-			integer := 10000 * 2
-			check
-				integer = 20000
-			end
-			integer := 10000 * 2 ^ 9
-			check
-				integer = 5120000
-			end
-			-- *** Faut il aussi accepter ce qui suit ... je pense que oui... Dom 30 mars 2005 ***
-			-- integer := 10000*2 ^ n
-			-- ***
-			check
-				integer = 5120000
-			end
-		end
+   make is
+      local
+         integer: INTEGER_32
+      do
+         integer := 10000 * 2
+         check
+            integer = 20000
+         end
+         integer := 10000 * 2 ^ 9
+         check
+            integer = 5120000
+         end
+         -- *** Faut il aussi accepter ce qui suit ... je pense que oui... Dom 30 mars 2005 ***
+         -- integer := 10000*2 ^ n
+         -- ***
+         check
+            integer = 5120000
+         end
+      end
 
 end -- class TEST_JBOLLO1
 --

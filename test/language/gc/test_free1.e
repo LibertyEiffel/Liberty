@@ -2,30 +2,30 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FREE1
-	-- From philippe Coucaud <Philippe.Coucaud@telelogic.com>
+   -- From philippe Coucaud <Philippe.Coucaud@telelogic.com>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	i: INTEGER
+   i: INTEGER
 
-	make is
-		local
-			s: STRING; array: FAST_ARRAY[STRING]
-		do
-			from
-				i := 250000
-				create array.make(0)
-			until
-				i = 0
-			loop
-				s := i.to_string
-				s.append(s)
-				array.add_last(s)
-				i := i - 1
-			end
-		end
+   make is
+      local
+         s: STRING; array: FAST_ARRAY[STRING]
+      do
+         from
+            i := 250000
+            create array.make(0)
+         until
+            i = 0
+         loop
+            s := i.to_string
+            s.append(s)
+            array.add_last(s)
+            i := i - 1
+         end
+      end
 
 end -- class TEST_FREE1
 --

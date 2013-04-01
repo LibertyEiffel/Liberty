@@ -4,98 +4,98 @@
 class TEST_DICTIONARY7
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d: DICTIONARY[INTEGER, INTEGER]
-		do
-			create {HASHED_DICTIONARY[INTEGER, INTEGER]} d.make
-			buffer.clear_count
-			d.key_map_in(buffer)
-			assert(buffer.count = 0)
-			d.item_map_in(buffer)
-			assert(buffer.count = 0)
-			d.put(1, 1)
-			buffer.clear_count
-			d.key_map_in(buffer)
-			assert(buffer.count = 1)
-			assert(buffer.first = 1)
-			buffer.clear_count
-			d.item_map_in(buffer)
-			assert(buffer.count = 1)
-			assert(buffer.first = 1)
-			d.put(2, 2)
-			buffer.clear_count
-			d.key_map_in(buffer)
-			sorter.sort(buffer)
-			assert(buffer.is_equal({ARRAY[INTEGER] 1, << 1.to_integer_32, 2 >> }))
-			buffer.clear_count
-			d.item_map_in(buffer)
-			sorter.sort(buffer)
-			assert(buffer.is_equal({ARRAY[INTEGER] 1, << 1, 2.to_integer_32 >> }))
-			d.put(3, 3)
-			buffer.clear_count
-			d.key_map_in(buffer)
-			sorter.sort(buffer)
-			assert(buffer.is_equal({ARRAY[INTEGER] 1, << 1, 2, 3 >> }))
-			buffer.clear_count
-			d.item_map_in(buffer)
-			sorter.sort(buffer)
-			assert(buffer.is_equal({ARRAY[INTEGER] 1, << 1, 2.to_integer_32, 3 >> }))
-			d.put(1, 3)
-			buffer.clear_count
-			d.key_map_in(buffer)
-			sorter.sort(buffer)
-			assert(buffer.is_equal({ARRAY[INTEGER] 1, << 1, 2.to_integer_32, 3 >> }))
-			buffer.clear_count
-			d.item_map_in(buffer)
-			buffer_view
-			sorter.sort(buffer)
-			assert(buffer.is_equal({ARRAY[INTEGER] 1, << 1, 1, 2.to_integer_32 >> }))
-			d.put(1, 2)
-			buffer.clear_count
-			d.key_map_in(buffer)
-			sorter.sort(buffer)
-			assert(buffer.is_equal({ARRAY[INTEGER] 1, << 1, 2.to_integer_32, 3 >> }))
-			buffer.clear_count
-			d.item_map_in(buffer)
-			buffer_view
-			sorter.sort(buffer)
-			assert(buffer.is_equal({ARRAY[INTEGER] 1, << 1, 1.to_integer_32, 1 >> }))
-		end
+   make is
+      local
+         d: DICTIONARY[INTEGER, INTEGER]
+      do
+         create {HASHED_DICTIONARY[INTEGER, INTEGER]} d.make
+         buffer.clear_count
+         d.key_map_in(buffer)
+         assert(buffer.count = 0)
+         d.item_map_in(buffer)
+         assert(buffer.count = 0)
+         d.put(1, 1)
+         buffer.clear_count
+         d.key_map_in(buffer)
+         assert(buffer.count = 1)
+         assert(buffer.first = 1)
+         buffer.clear_count
+         d.item_map_in(buffer)
+         assert(buffer.count = 1)
+         assert(buffer.first = 1)
+         d.put(2, 2)
+         buffer.clear_count
+         d.key_map_in(buffer)
+         sorter.sort(buffer)
+         assert(buffer.is_equal({ARRAY[INTEGER] 1, << 1.to_integer_32, 2 >> }))
+         buffer.clear_count
+         d.item_map_in(buffer)
+         sorter.sort(buffer)
+         assert(buffer.is_equal({ARRAY[INTEGER] 1, << 1, 2.to_integer_32 >> }))
+         d.put(3, 3)
+         buffer.clear_count
+         d.key_map_in(buffer)
+         sorter.sort(buffer)
+         assert(buffer.is_equal({ARRAY[INTEGER] 1, << 1, 2, 3 >> }))
+         buffer.clear_count
+         d.item_map_in(buffer)
+         sorter.sort(buffer)
+         assert(buffer.is_equal({ARRAY[INTEGER] 1, << 1, 2.to_integer_32, 3 >> }))
+         d.put(1, 3)
+         buffer.clear_count
+         d.key_map_in(buffer)
+         sorter.sort(buffer)
+         assert(buffer.is_equal({ARRAY[INTEGER] 1, << 1, 2.to_integer_32, 3 >> }))
+         buffer.clear_count
+         d.item_map_in(buffer)
+         buffer_view
+         sorter.sort(buffer)
+         assert(buffer.is_equal({ARRAY[INTEGER] 1, << 1, 1, 2.to_integer_32 >> }))
+         d.put(1, 2)
+         buffer.clear_count
+         d.key_map_in(buffer)
+         sorter.sort(buffer)
+         assert(buffer.is_equal({ARRAY[INTEGER] 1, << 1, 2.to_integer_32, 3 >> }))
+         buffer.clear_count
+         d.item_map_in(buffer)
+         buffer_view
+         sorter.sort(buffer)
+         assert(buffer.is_equal({ARRAY[INTEGER] 1, << 1, 1.to_integer_32, 1 >> }))
+      end
 
-	buffer: ARRAY[INTEGER] is
-		once
-			create Result.with_capacity(12, 1)
-		end
+   buffer: ARRAY[INTEGER] is
+      once
+         create Result.with_capacity(12, 1)
+      end
 
-	view: STRING
+   view: STRING
 
-	buffer_view is
-		local
-			i: INTEGER
-		do
-			view := ("<<").twin
-			from
-				i := 1
-			until
-				i > buffer.count
-			loop
-				buffer.item(i).append_in(view)
-				view.extend(' ')
-				i := i + 1
-			end
-			view.append(">>")
-		end
+   buffer_view is
+      local
+         i: INTEGER
+      do
+         view := ("<<").twin
+         from
+            i := 1
+         until
+            i > buffer.count
+         loop
+            buffer.item(i).append_in(view)
+            view.extend(' ')
+            i := i + 1
+         end
+         view.append(">>")
+      end
 
-	sorter: COLLECTION_SORTER[INTEGER] is
-		once
-		end
+   sorter: COLLECTION_SORTER[INTEGER] is
+      once
+      end
 
 end -- class TEST_DICTIONARY7
 --

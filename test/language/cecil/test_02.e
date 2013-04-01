@@ -4,36 +4,36 @@
 class TEST_02
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	memo: BOOLEAN
+   memo: BOOLEAN
 
-	called_from_c is
-		local
-			i: INTEGER
-		do
-			i := 1
-			-- Let's raise an Eiffel exception...
-			check
-				memo
-			end
-		end
+   called_from_c is
+      local
+         i: INTEGER
+      do
+         i := 1
+         -- Let's raise an Eiffel exception...
+         check
+            memo
+         end
+      end
 
-	make is
-		do
-			call_c(Current)
-		rescue
-			memo := True
-			retry
-		end
+   make is
+      do
+         call_c(Current)
+      rescue
+         memo := True
+         retry
+      end
 
-	call_c (c: like Current) is
-			-- To avoid creating a C file ourself,
-			-- we'll force SE to use "call_c"
-			-- as the Cecil wrapper name for called_from_c.
-		external "C"
-		end
+   call_c (c: like Current) is
+         -- To avoid creating a C file ourself,
+         -- we'll force SE to use "call_c"
+         -- as the Cecil wrapper name for called_from_c.
+      external "C"
+      end
 
 end -- class TEST_02
 --

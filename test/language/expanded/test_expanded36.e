@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EXPANDED36
-	-- From sz:491
+   -- From sz:491
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			create e.make(2)
-			assert(e.n = 2)
-		end
+   make is
+      do
+         create e.make(2)
+         assert(e.n = 2)
+      end
 
-	e: AUX_EXPANDED36
+   e: AUX_EXPANDED36
 
 end -- class TEST_EXPANDED36
 --

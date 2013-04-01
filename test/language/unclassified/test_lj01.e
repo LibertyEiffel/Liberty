@@ -2,47 +2,47 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_LJ01
-	-- From a bug report of Loryn Jenkins.
+   -- From a bug report of Loryn Jenkins.
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			v: INTEGER
-		do
-			create board
-			create board2
-			board.set_max_board_members(3)
-			v := board.max
-			assert(v = 3)
-			board2.set_max_board_members(3)
-			board2.set_min_board_members(1)
-			v := board2.max
-			assert(v = 3)
-			v := board2.min
-			assert(v = 1)
-		end
+   make is
+      local
+         v: INTEGER
+      do
+         create board
+         create board2
+         board.set_max_board_members(3)
+         v := board.max
+         assert(v = 3)
+         board2.set_max_board_members(3)
+         board2.set_min_board_members(1)
+         v := board2.max
+         assert(v = 3)
+         v := board2.min
+         assert(v = 1)
+      end
 
-	board: AUX_LJ01B
+   board: AUX_LJ01B
 
-	board2: AUX_LJ01B2
+   board2: AUX_LJ01B2
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_LJ01: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_LJ01: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_LJ01
 --

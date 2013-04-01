@@ -2,27 +2,27 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EB1
-	-- From a bug report of Eric BEZAULT
+   -- From a bug report of Eric BEZAULT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			b: AUX_EB1B
-		do
-			create b
-			a := b
-			b.set_a(True)
-			if a.a then
-				a := b
-			else
-				std_output.put_string("TEST_EB1: ERROR Test #1%N")
-			end
-		end
+   make is
+      local
+         b: AUX_EB1B
+      do
+         create b
+         a := b
+         b.set_a(True)
+         if a.a then
+            a := b
+         else
+            std_output.put_string("TEST_EB1: ERROR Test #1%N")
+         end
+      end
 
-	a: AUX_EB1A
+   a: AUX_EB1A
 
 end -- class TEST_EB1
 --

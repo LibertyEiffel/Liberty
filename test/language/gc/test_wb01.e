@@ -2,27 +2,27 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_WB01
-	-- From a bug report of Wilfried Berger
+   -- From a bug report of Wilfried Berger
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i, upper: INTEGER; an_array: FAST_ARRAY[ANY]; an_any: FAST_ARRAY[ANY]
-		do
-			from
-				upper := 14999
-				create an_array.make(upper + 1)
-			until
-				i > upper
-			loop
-				create an_any.make(10)
-				an_array.put(an_any, i)
-				i := i + 1
-			end
-		end
+   make is
+      local
+         i, upper: INTEGER; an_array: FAST_ARRAY[ANY]; an_any: FAST_ARRAY[ANY]
+      do
+         from
+            upper := 14999
+            create an_array.make(upper + 1)
+         until
+            i > upper
+         loop
+            create an_any.make(10)
+            an_array.put(an_any, i)
+            i := i + 1
+         end
+      end
 
 end -- class TEST_WB01
 --

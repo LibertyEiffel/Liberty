@@ -4,10 +4,10 @@
 class AUX_SELECT1C
 
 inherit
-	AUX_SELECT1B
-		-- *** AUX_SELECT1A select f end
-		rename f2 as f
-		end
+   AUX_SELECT1B
+      -- *** AUX_SELECT1A select f end
+      rename f2 as f
+      end
 
 end -- class AUX_SELECT1C
 --

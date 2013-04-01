@@ -4,10 +4,10 @@
 class AUX_XC7A
 
 insert
-	ANY
+   ANY
 
 feature {ANY}
-	path: STRING
+   path: STRING
 
 end -- class AUX_XC7A
 --

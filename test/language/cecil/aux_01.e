@@ -4,21 +4,21 @@
 class AUX_01
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
-	se_call is
-		do
-			flag := True
-		ensure
-			flag
-		end
+   se_call is
+      do
+         flag := True
+      ensure
+         flag
+      end
 
-	flag: BOOLEAN
+   flag: BOOLEAN
 
 end -- class AUX_01
 --

@@ -4,7 +4,7 @@
 class AUX_ONCE2B
 
 inherit
-	AUX_ONCE2A
+   AUX_ONCE2A
 
 end -- class AUX_ONCE2B
 --

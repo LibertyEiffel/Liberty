@@ -147,35 +147,25 @@ feature {ANY}
          Result := left_side.side_effect_free(type) and then right_side.side_effect_free(type)
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): EXPRESSION is
       local
          ls: like left_side; rs: like right_side
       do
          ls := left_side.specialize_in(type)
          rs := right_side.specialize_in(type)
-         if ls = left_side and then rs = right_side then
-            Result := Current
-         else
-            Result := twin
-            Result.set_left_and_right(ls, rs)
-         end
+         Result := current_or_twin_init(ls, rs)
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): EXPRESSION is
       local
          ls: like left_side; rs: like right_side
       do
          ls := left_side.specialize_thru(parent_type, parent_edge, new_type)
          rs := right_side.specialize_thru(parent_type, parent_edge, new_type)
-         if ls = left_side and then rs = right_side then
-            Result := Current
-         else
-            Result := twin
-            Result.set_left_and_right(ls, rs)
-         end
+         Result := current_or_twin_init(ls, rs)
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_2 (type: TYPE): EXPRESSION is
       local
          ls: like left_side; rs: like right_side
       do
@@ -188,12 +178,7 @@ feature {ANY}
          else
             specialize_2_standard_comparison_check(ls, rs, type)
          end
-         if ls = left_side and then rs = right_side then
-            Result := Current
-         else
-            Result := twin
-            Result.set_left_and_right(ls, rs)
-         end
+         Result := specialized(ls, rs, type, True)
       end
 
    has_been_specialized: BOOLEAN is
@@ -246,13 +231,22 @@ feature {ANY}
 
    collect (type: TYPE): TYPE is
       local
-         dummy: TYPE
+         t, dummy: TYPE
       do
          if not left_side.is_void then
             dummy := left_side.collect(type)
          end
          if not right_side.is_void then
             dummy := right_side.collect(type)
+         end
+         if not left_side.is_void and then not right_side.is_void then
+            t := left_side.resolve_in(type)
+            if t.is_user_expanded and then t = right_side.resolve_in(type) then
+               Result := smart_eiffel.collect(t, t.is_equal_stamp, False)
+               check
+                  Result = declaration_type
+               end
+            end
          end
          Result := declaration_type
       end
@@ -287,14 +281,46 @@ feature {ANY}
          visitor.visit_built_in_eq_neq(Current)
       end
 
+feature {}
+   specialized (ls: like left_side; rs: like right_side; type: TYPE; specialize_more: BOOLEAN): EXPRESSION is
+      local
+         t: TYPE
+      do
+         if ls.is_void or else rs.is_void then
+            Result := current_or_twin_init(ls, rs)
+         else
+            t := ls.resolve_in(type)
+            if t.is_user_expanded and then t = rs.resolve_in(type) then
+               create {FUNCTION_CALL_1} Result.make_specialized(ls, t, create {FEATURE_NAME}.simple_feature_name(as_is_equal, start_position), create {EFFECTIVE_ARG_LIST}.make_1(rs))
+               if not eq_flag then
+                  create {CALL_PREFIX_NOT} Result.make(start_position, Result)
+               end
+               if specialize_more then
+                  Result := Result.specialize_2(type)
+               end
+            else
+               Result := current_or_twin_init(ls, rs)
+            end
+         end
+      end
+
+   current_or_twin_init (ls: like left_side; rs: like right_side): like Current is
+      do
+         if ls = left_side and then rs = right_side then
+            Result := Current
+         else
+            Result := twin
+            Result.set_left_and_right(ls, rs)
+         end
+      end
+
 feature {E_FUNCTION}
-   inline_with (new_left_side, new_right_side: EXPRESSION): like Current is
+   inline_with (new_left_side, new_right_side: EXPRESSION; type: TYPE): EXPRESSION is
       require
          new_left_side /= Void
          new_right_side /= Void
       do
-         Result := twin
-         Result.set_left_and_right(new_left_side, new_right_side)
+         Result := specialized(new_left_side, new_right_side, type, False)
       end
 
 feature {BUILT_IN_EQ_NEQ}

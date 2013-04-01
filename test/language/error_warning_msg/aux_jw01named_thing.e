@@ -6,7 +6,7 @@ creation make
 feature
    make (n: STRING) is
       do
-	 name := n
+    name := n
       end
    name: STRING
 end -- class AUX_JW01NAMED_THING

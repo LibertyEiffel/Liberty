@@ -4,73 +4,73 @@
 class AUX_AGENT_GC1
 
 creation {ANY}
-	make_region, make_main
+   make_region, make_main
 
 feature {ANY}
-	districts: FAST_ARRAY[AUX_AGENT_GC1]
+   districts: FAST_ARRAY[AUX_AGENT_GC1]
 
-	hospital: AUX_AGENT_GC2
+   hospital: AUX_AGENT_GC2
 
-	Levels: INTEGER is 5
+   Levels: INTEGER is 5
 
-	Districts: INTEGER is 4
+   Districts: INTEGER is 4
 
-	make_main is
-		do
-			make_region(Levels, 0, 42)
-		end
+   make_main is
+      do
+         make_region(Levels, 0, 42)
+      end
 
-	make_region (level, seed1, seed2: INTEGER) is
-		local
-			staff: INTEGER; hr: AUX_AGENT_GC1; i: INTEGER
-		do
-			staff := {INTEGER_32 1} |<< (level - 1).to_integer_8
-			if level = 1 then
-				make(staff, seed1 * seed2, False)
-			else
-				make(staff, seed1 * seed2, level = Levels)
-				from
-				until
-					i = Districts
-				loop
-					create hr.make_region(level - 1, 4 * seed1 + i + 1, seed2)
-					districts.add_last(hr)
-					i := i + 1
-				end
-			end
-		end
+   make_region (level, seed1, seed2: INTEGER) is
+      local
+         staff: INTEGER; hr: AUX_AGENT_GC1; i: INTEGER
+      do
+         staff := {INTEGER_32 1} |<< (level - 1).to_integer_8
+         if level = 1 then
+            make(staff, seed1 * seed2, False)
+         else
+            make(staff, seed1 * seed2, level = Levels)
+            from
+            until
+               i = Districts
+            loop
+               create hr.make_region(level - 1, 4 * seed1 + i + 1, seed2)
+               districts.add_last(hr)
+               i := i + 1
+            end
+         end
+      end
 
-	make (staff, seed: INTEGER; is_main: BOOLEAN) is
-		do
-			create hospital.make(staff, seed, is_main)
-			create districts.with_capacity(Districts)
-		end
+   make (staff, seed: INTEGER; is_main: BOOLEAN) is
+      do
+         create hospital.make(staff, seed, is_main)
+         create districts.with_capacity(Districts)
+      end
 
-	next_time is
-		do
-			districts.do_all(agent {AUX_AGENT_GC1}.next_time_and_transfer_to(hospital))
-			hospital.triage_examination
-		end
+   next_time is
+      do
+         districts.do_all(agent {AUX_AGENT_GC1}.next_time_and_transfer_to(hospital))
+         hospital.triage_examination
+      end
 
-	next_time_and_transfer_to (destination: AUX_AGENT_GC2) is
-		do
-			next_time
-			hospital.transfers.do_all(agent destination.new_arrival(?))
-		end
+   next_time_and_transfer_to (destination: AUX_AGENT_GC2) is
+      do
+         next_time
+         hospital.transfers.do_all(agent destination.new_arrival(?))
+      end
 
-	accumulate_totals: AUX_AGENT_GC5 is
-		local
-			i: INTEGER
-		do
-			from
-				Result := hospital.accumulate_totals
-			until
-				i > districts.upper
-			loop
-				Result := Result + districts.item(i).accumulate_totals
-				i := i + 1
-			end
-		end
+   accumulate_totals: AUX_AGENT_GC5 is
+      local
+         i: INTEGER
+      do
+         from
+            Result := hospital.accumulate_totals
+         until
+            i > districts.upper
+         loop
+            Result := Result + districts.item(i).accumulate_totals
+            i := i + 1
+         end
+      end
 
 end -- class AUX_AGENT_GC1
 --

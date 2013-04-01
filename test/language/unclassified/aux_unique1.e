@@ -4,7 +4,7 @@
 class AUX_UNIQUE1
 
 inherit
-	TEST_UNIQUE
+   TEST_UNIQUE
 
 end -- class AUX_UNIQUE1
 --

@@ -4,13 +4,13 @@
 deferred class AUX_SCR1A
 
 feature {ANY}
-	manager: AUX_SCR1B is
-		once
-			create Result.make
-		end
+   manager: AUX_SCR1B is
+      once
+         create Result.make
+      end
 
 invariant
-	managed: manager.is_managed(Current)
+   managed: manager.is_managed(Current)
 
 end -- class AUX_SCR1A
 --

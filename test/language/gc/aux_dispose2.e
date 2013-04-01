@@ -4,25 +4,25 @@
 class AUX_DISPOSE2
 
 inherit
-	DISPOSABLE
+   DISPOSABLE
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	dispose_count: COUNTER is
-		once
-			create Result
-		end
+   dispose_count: COUNTER is
+      once
+         create Result
+      end
 
-	make is
-		do
-		end
+   make is
+      do
+      end
 
-	dispose is
-		do
-			dispose_count.increment
-		end
+   dispose is
+      do
+         dispose_count.increment
+      end
 
 end -- class AUX_DISPOSE2
 --

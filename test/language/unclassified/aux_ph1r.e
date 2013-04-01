@@ -4,10 +4,10 @@
 class AUX_PH1R
 
 inherit
-	AUX_PH1H
-		rename f as g
-		export {ANY} g, h
-		end
+   AUX_PH1H
+      rename f as g
+      export {ANY} g, h
+      end
 
 end -- class AUX_PH1R
 --

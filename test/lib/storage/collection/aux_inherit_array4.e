@@ -4,12 +4,12 @@
 class AUX_INHERIT_ARRAY4
 
 inherit
-	ARRAY[INTEGER]
-		rename make as array_make
-		end
+   ARRAY[INTEGER]
+      rename make as array_make
+      end
 
 creation {ANY}
-	array_make
+   array_make
 
 end -- class AUX_INHERIT_ARRAY4
 --

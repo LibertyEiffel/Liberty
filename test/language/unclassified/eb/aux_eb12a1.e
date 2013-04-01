@@ -4,9 +4,9 @@
 class AUX_EB12A1
 
 feature {AUX_EB12A}
-	g is
-		do
-		end
+   g is
+      do
+      end
 
 end -- class AUX_EB12A1
 --

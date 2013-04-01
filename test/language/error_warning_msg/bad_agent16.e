@@ -9,9 +9,9 @@ creation
 feature
    make is
       local
-			my_function: FUNCTION[TUPLE[INTEGER_8], INTEGER]; i: INTEGER
+         my_function: FUNCTION[TUPLE[INTEGER_8], INTEGER]; i: INTEGER
       do
-			i := my_function.item([1, 2])
+         i := my_function.item([1, 2])
       end
 end -- class BAD_AGENT16
 --

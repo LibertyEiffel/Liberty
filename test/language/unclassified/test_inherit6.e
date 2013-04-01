@@ -4,60 +4,60 @@
 class TEST_INHERIT6
 
 inherit
-	AUX_INHERIT6A
-	AUX_INHERIT6B
-		undefine foo2
-		end
-	EIFFELTEST_TOOLS
+   AUX_INHERIT6A
+   AUX_INHERIT6B
+      undefine foo2
+      end
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_INHERIT6A; b: AUX_INHERIT6B
-		do
-			assert(count = 0)
-			foo
-			assert(count = 1)
-			bar
-			assert(count = 3)
-			assert(new_count = 0)
-			foo2
-			assert(count = 3)
-			assert(new_count = 5)
-			a := Current
-			b := Current
-			assert(count = 3)
-			a.foo
-			assert(count = 4)
-			a.bar
-			assert(count = 6)
-			assert(new_count = 5)
-			assert(a.new_count = 5)
-			a.foo2
-			assert(count = 6)
-			assert(new_count = 10)
-			assert(a.new_count = 10)
-			assert(count = 6)
-			assert(b.count = 6)
-			b.foo
-			assert(count = 7)
-			assert(b.count = 7)
-			b.bar
-			assert(b.count = 9)
-			assert(new_count = 10)
-			b.foo2
-			assert(count = 9)
-			assert(b.count = 9)
-			assert(new_count = 15)
-		end
+   make is
+      local
+         a: AUX_INHERIT6A; b: AUX_INHERIT6B
+      do
+         assert(count = 0)
+         foo
+         assert(count = 1)
+         bar
+         assert(count = 3)
+         assert(new_count = 0)
+         foo2
+         assert(count = 3)
+         assert(new_count = 5)
+         a := Current
+         b := Current
+         assert(count = 3)
+         a.foo
+         assert(count = 4)
+         a.bar
+         assert(count = 6)
+         assert(new_count = 5)
+         assert(a.new_count = 5)
+         a.foo2
+         assert(count = 6)
+         assert(new_count = 10)
+         assert(a.new_count = 10)
+         assert(count = 6)
+         assert(b.count = 6)
+         b.foo
+         assert(count = 7)
+         assert(b.count = 7)
+         b.bar
+         assert(b.count = 9)
+         assert(new_count = 10)
+         b.foo2
+         assert(count = 9)
+         assert(b.count = 9)
+         assert(new_count = 15)
+      end
 
-	foo is
-		do
-			count := count + 1
-		end
+   foo is
+      do
+         count := count + 1
+      end
 
 end -- class TEST_INHERIT6
 --

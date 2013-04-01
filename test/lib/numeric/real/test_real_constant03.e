@@ -4,22 +4,22 @@
 class TEST_REAL_CONSTANT03
 
 inherit
-	EIFFELTEST_TOOLS
-		-- Bug from Frank Salter (frankmsalter@blueyonder.co.uk)
+   EIFFELTEST_TOOLS
+      -- Bug from Frank Salter (frankmsalter@blueyonder.co.uk)
 
 creation {ANY}
-	make
+   make
 
 feature {ANY} -- Initialization
-	make is
-		do
-			assert(x > 139.9)
-			assert(x < 140.1)
-		end
+   make is
+      do
+         assert(x > 139.9)
+         assert(x < 140.1)
+      end
 
 feature {ANY} -- Constant
-	x: REAL is 140.0
-			-- Value parsed is 14.0 !
+   x: REAL is 140.0
+         -- Value parsed is 14.0 !
 
 end -- class TEST_REAL_CONSTANT03
 --

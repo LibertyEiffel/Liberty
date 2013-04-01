@@ -2,27 +2,27 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_INHERIT2
-	-- From a bug report of Xavier CREGUT
+   -- From a bug report of Xavier CREGUT
 
 inherit
-	AUX_INHERIT2A
-		redefine reset
-		end
+   AUX_INHERIT2A
+      redefine reset
+      end
 
 insert
-	AUX_INHERIT2A
-		rename reset as aa_reset
-		end
+   AUX_INHERIT2A
+      rename reset as aa_reset
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	reset is
-		do
-			aa_reset
-			reset_count := reset_count + 1
-		end
+   reset is
+      do
+         aa_reset
+         reset_count := reset_count + 1
+      end
 
 end -- class TEST_INHERIT2
 --

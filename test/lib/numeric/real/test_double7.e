@@ -4,33 +4,33 @@
 class TEST_DOUBLE7
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d: REAL_64; rd: REFERENCE[REAL_64]; s1, s2: STRING
-		do
-			d := 6.5
-			s1 := d.to_string
-			create rd.set_item(d)
-			s2 := rd.item.to_string
-			assert(s1.is_equal(s2))
-		end
+   make is
+      local
+         d: REAL_64; rd: REFERENCE[REAL_64]; s1, s2: STRING
+      do
+         d := 6.5
+         s1 := d.to_string
+         create rd.set_item(d)
+         s2 := rd.item.to_string
+         assert(s1.is_equal(s2))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_DOUBLE7: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_DOUBLE7: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_DOUBLE7
 --

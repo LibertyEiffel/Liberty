@@ -4,55 +4,55 @@
 class TEST_ARRAY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	t_boolean: ARRAY[BOOLEAN]
+   t_boolean: ARRAY[BOOLEAN]
 
-	t_integer: ARRAY[INTEGER_8]
+   t_integer: ARRAY[INTEGER_8]
 
-	t_animal: ARRAY[ANIMAL]
+   t_animal: ARRAY[ANIMAL]
 
-	t_real: ARRAY[REAL]
+   t_real: ARRAY[REAL]
 
-	make is
-		local
-			cat: CAT; dog: DOG
-		do
-			assert(True)
-			t_boolean := {ARRAY[BOOLEAN] 1, << True, False >> }
-			assert(1 = t_boolean.first_index_of(True))
-			assert(1 = t_boolean.fast_first_index_of(True))
-			assert(2 = t_boolean.first_index_of(False))
-			assert(2 = t_boolean.fast_first_index_of(False))
-			assert({ARRAY[INTEGER_8] 1, << 1, 2, 3 >> }.is_equal({ARRAY[INTEGER_8] 1, << 1, 2, 3 >> }))
-			assert({ARRAY[CHARACTER] 1, << 'a', 'b', 'c' >> }.is_equal({ARRAY[CHARACTER] 1, << 'a', 'b', 'c' >> }))
-			assert({ARRAY[REAL] 1, << 1.5, 2.5, 3.0 >> }.is_equal({ARRAY[REAL] 1, << 1.5, 2.5, 3.0 >> }))
-			t_integer := {ARRAY[INTEGER_8] 1, << 1, 2 >> }
-			t_real := {ARRAY[REAL] 1, << 1.0, 2.0 >> }
-			create cat
-			t_animal := {ARRAY[ANIMAL] 1, << cat, cat >> }
-			t_animal.put(Void, 1)
-			t_animal.put(cat, 1)
-			create cat
-			create dog
-			t_animal := {ARRAY[ANIMAL] 1, << cat, dog >> }
-		end
+   make is
+      local
+         cat: CAT; dog: DOG
+      do
+         assert(True)
+         t_boolean := {ARRAY[BOOLEAN] 1, << True, False >> }
+         assert(1 = t_boolean.first_index_of(True))
+         assert(1 = t_boolean.fast_first_index_of(True))
+         assert(2 = t_boolean.first_index_of(False))
+         assert(2 = t_boolean.fast_first_index_of(False))
+         assert({ARRAY[INTEGER_8] 1, << 1, 2, 3 >> }.is_equal({ARRAY[INTEGER_8] 1, << 1, 2, 3 >> }))
+         assert({ARRAY[CHARACTER] 1, << 'a', 'b', 'c' >> }.is_equal({ARRAY[CHARACTER] 1, << 'a', 'b', 'c' >> }))
+         assert({ARRAY[REAL] 1, << 1.5, 2.5, 3.0 >> }.is_equal({ARRAY[REAL] 1, << 1.5, 2.5, 3.0 >> }))
+         t_integer := {ARRAY[INTEGER_8] 1, << 1, 2 >> }
+         t_real := {ARRAY[REAL] 1, << 1.0, 2.0 >> }
+         create cat
+         t_animal := {ARRAY[ANIMAL] 1, << cat, cat >> }
+         t_animal.put(Void, 1)
+         t_animal.put(cat, 1)
+         create cat
+         create dog
+         t_animal := {ARRAY[ANIMAL] 1, << cat, dog >> }
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_ARRAY: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--	    std_output.put_string("Yes%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_ARRAY: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --       std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_ARRAY
 --

@@ -4,12 +4,12 @@
 expanded class AUX_EXPANDED24B
 
 feature {ANY}
-	value: BOOLEAN
+   value: BOOLEAN
 
-	set_value (v: BOOLEAN) is
-		do
-			value := v
-		end
+   set_value (v: BOOLEAN) is
+      do
+         value := v
+      end
 
 end -- class AUX_EXPANDED24B
 --

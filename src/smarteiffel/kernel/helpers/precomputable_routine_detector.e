@@ -696,6 +696,11 @@ feature {INTEGER_CONSTANT}
       do
       end
 
+feature {NATURAL_CONSTANT}
+   visit_natural_constant (visited: NATURAL_CONSTANT) is
+      do
+      end
+
 feature {CHARACTER_CONSTANT}
    visit_character_constant (visited: CHARACTER_CONSTANT) is
       do
@@ -1097,6 +1102,12 @@ feature {ADDRESS_OF}
    visit_address_of (visited: ADDRESS_OF) is
       do
          precomputable := False
+      end
+
+feature {NATIVE_ARRAY_ITEM}
+   visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+      do
+         visited.index.accept(Current)
       end
 
 feature {NON_VOID_NO_DISPATCH}

@@ -4,31 +4,31 @@
 class TEST_INFINITE_INLINING03
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			if i /= 0 then
-				foo
-			end
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         if i /= 0 then
+            foo
+         end
+      end
 
-	foo is
-		local
-			t: TEST_INFINITE_INLINING03
-		do
-			t.bar
-		end
+   foo is
+      local
+         t: TEST_INFINITE_INLINING03
+      do
+         t.bar
+      end
 
-	bar is
-		local
-			t: TEST_INFINITE_INLINING03
-		do
-			t.foo
-		end
+   bar is
+      local
+         t: TEST_INFINITE_INLINING03
+      do
+         t.foo
+      end
 
 end -- class TEST_INFINITE_INLINING03
 --

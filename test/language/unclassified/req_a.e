@@ -4,40 +4,40 @@
 class REQ_A
 
 feature {ANY}
-	est_dans (x: CHARACTER): BOOLEAN is
-		do
-			Result := bc = x
-		end
+   est_dans (x: CHARACTER): BOOLEAN is
+      do
+         Result := bc = x
+      end
 
-	bc: CHARACTER is
-		do
-			Result := 'a'
-		end
+   bc: CHARACTER is
+      do
+         Result := 'a'
+      end
 
-	ra is
-		require
-			bc = 'a'
-			est_dans('a')
-		do
-		end
+   ra is
+      require
+         bc = 'a'
+         est_dans('a')
+      do
+      end
 
-	rb is
-		require
-			bc = 'a'
-		local
-			b: BOOLEAN
-		do
-			b := est_dans('a')
-		end
+   rb is
+      require
+         bc = 'a'
+      local
+         b: BOOLEAN
+      do
+         b := est_dans('a')
+      end
 
-	rc is
-		require
-			4 = 2 + 1
-		local
-			b: BOOLEAN
-		do
-			b := est_dans('a')
-		end
+   rc is
+      require
+         4 = 2 + 1
+      local
+         b: BOOLEAN
+      do
+         b := est_dans('a')
+      end
 
 end -- class REQ_A
 --

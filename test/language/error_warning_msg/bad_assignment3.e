@@ -7,9 +7,9 @@ creation make
 feature
    make is
       local
-	 any: TUPLE[STRING, STRING, ANY]
+    any: TUPLE[STRING, STRING, ANY]
       do
-	 any := ["foo", "bar"]
+    any := ["foo", "bar"]
       end
 end -- class BAD_ASSIGNMENT3
 --

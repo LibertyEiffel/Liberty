@@ -4,48 +4,48 @@
 class TEST_RESIZE2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: FAST_ARRAY[INTEGER]
-		do
-			create a.from_collection({ARRAY[INTEGER] 1, << 1, 2, 3, 4, 5 >> })
-			a.resize(0)
-			assert(a.all_default)
-			a.resize(5)
-			assert(a.all_default)
-			a.put(3, 3)
-			assert(not a.all_default)
-			a.resize(6)
-			assert(not a.all_default)
-			a.resize(4)
-			assert(not a.all_default)
-			a.resize(3)
-			assert(a.all_default)
-			a.put(3, 0)
-			assert(not a.all_default)
-			a.resize(1)
-			assert(not a.all_default)
-			a.resize(0)
-			assert(a.all_default)
-		end
+   make is
+      local
+         a: FAST_ARRAY[INTEGER]
+      do
+         create a.from_collection({ARRAY[INTEGER] 1, << 1, 2, 3, 4, 5 >> })
+         a.resize(0)
+         assert(a.all_default)
+         a.resize(5)
+         assert(a.all_default)
+         a.put(3, 3)
+         assert(not a.all_default)
+         a.resize(6)
+         assert(not a.all_default)
+         a.resize(4)
+         assert(not a.all_default)
+         a.resize(3)
+         assert(a.all_default)
+         a.put(3, 0)
+         assert(not a.all_default)
+         a.resize(1)
+         assert(not a.all_default)
+         a.resize(0)
+         assert(a.all_default)
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_RESIZE2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_RESIZE2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_RESIZE2
 --

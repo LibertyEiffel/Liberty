@@ -2,33 +2,33 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER20
-	-- tests on "to_double"
+   -- tests on "to_double"
 
 insert
-	EIFFELTEST_TOOLS
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: NUMBER; d: REAL_64
-		do
-			n := from_integer(0)
-			assert(n.force_to_real_64 = 0)
-			n := from_integer(1)
-			assert(n.force_to_real_64 = 1)
-			n := from_string("4/2")
-			assert(n.force_to_real_64 = 2)
-			n := from_string("6/10")
-			d := n.force_to_real_64
-			-- Relaxed test (this kind of problem should be fixed one
-			-- day when we'll have better REAL notation):
-			-- Original test: assert(d = 0.6 )
-			assert(d.in_range(0.59, 0.61))
-		end
+   make is
+      local
+         n: NUMBER; d: REAL_64
+      do
+         n := from_integer(0)
+         assert(n.force_to_real_64 = 0)
+         n := from_integer(1)
+         assert(n.force_to_real_64 = 1)
+         n := from_string("4/2")
+         assert(n.force_to_real_64 = 2)
+         n := from_string("6/10")
+         d := n.force_to_real_64
+         -- Relaxed test (this kind of problem should be fixed one
+         -- day when we'll have better REAL notation):
+         -- Original test: assert(d = 0.6 )
+         assert(d.in_range(0.59, 0.61))
+      end
 
 
 

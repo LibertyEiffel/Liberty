@@ -4,7 +4,7 @@
 class AUX_EB7B1[G]
 
 inherit
-	AUX_EB7A1[G]
+   AUX_EB7A1[G]
 
 end -- class AUX_EB7B1
 --

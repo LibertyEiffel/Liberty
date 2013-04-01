@@ -4,13 +4,13 @@
 class AUX_JMJ4A[T]
 
 feature {ANY}
-	container: COLLECTION[T]
+   container: COLLECTION[T]
 
-	set (new: like container) is
-		do
-			container := new
-			std_output.put_string("TEST_JMJ4: ERROR.%N")
-		end
+   set (new: like container) is
+      do
+         container := new
+         std_output.put_string("TEST_JMJ4: ERROR.%N")
+      end
 
 end -- class AUX_JMJ4A
 --

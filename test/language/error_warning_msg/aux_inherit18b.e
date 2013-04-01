@@ -4,8 +4,8 @@
 class AUX_INHERIT18B
 
 feature
-	an_attribute: INTEGER
-	
+   an_attribute: INTEGER
+   
 end -- class AUX_INHERIT18B
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

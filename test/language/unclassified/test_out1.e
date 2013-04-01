@@ -4,42 +4,42 @@
 class TEST_OUT1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			view: STRING
-		do
-			assert(0.out.is_equal("0"))
-			assert(25.out.is_equal("25"))
-			assert(True.out.is_equal("True"))
-			assert(False.out.is_equal("False"))
-			assert('A'.out.is_equal("A"))
-			assert('a'.out.is_equal("a"))
-			assert(1.5.out.is_equal("1.500000"))
-			assert(("foo").out.is_equal("foo"))
-			view := 3.out
-			assert(("3").is_equal(3.out))
-			view := {INTEGER_32 3}.out
-			assert(("3").is_equal({INTEGER_32 3}.out))
-			assert(("X").is_equal('X'.out))
-		end
+   make is
+      local
+         view: STRING
+      do
+         assert(0.out.is_equal("0"))
+         assert(25.out.is_equal("25"))
+         assert(True.out.is_equal("True"))
+         assert(False.out.is_equal("False"))
+         assert('A'.out.is_equal("A"))
+         assert('a'.out.is_equal("a"))
+         assert(1.5.out.is_equal("1.500000"))
+         assert(("foo").out.is_equal("foo"))
+         view := 3.out
+         assert(("3").is_equal(3.out))
+         view := {INTEGER_32 3}.out
+         assert(("3").is_equal({INTEGER_32 3}.out))
+         assert(("X").is_equal('X'.out))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_OUT1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_OUT1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_OUT1
 --

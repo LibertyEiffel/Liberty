@@ -4,40 +4,40 @@
 class TEST_BENCH
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	array: ARRAY[TRIANGLE]
+   array: ARRAY[TRIANGLE]
 
-	t: TRIANGLE
+   t: TRIANGLE
 
-	p1, p2, p3: POINT
+   p1, p2, p3: POINT
 
-	make is
-		local
-			i, j: INTEGER
-		do
-			from
-				i := 4000
-				create array.make(1, 2000)
-			until
-				i = 0
-			loop
-				from
-					j := 2000
-				until
-					j = 0
-				loop
-					create p1.make(1.0, 1.0)
-					create p2.make(2.0, 2.0)
-					create p3.make(3.0, 3.0)
-					create t.make(p1, p2, p3)
-					array.put(t, j)
-					j := j - 1
-				end
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i, j: INTEGER
+      do
+         from
+            i := 4000
+            create array.make(1, 2000)
+         until
+            i = 0
+         loop
+            from
+               j := 2000
+            until
+               j = 0
+            loop
+               create p1.make(1.0, 1.0)
+               create p2.make(2.0, 2.0)
+               create p3.make(3.0, 3.0)
+               create t.make(p1, p2, p3)
+               array.put(t, j)
+               j := j - 1
+            end
+            i := i - 1
+         end
+      end
 
 end -- class TEST_BENCH
 --

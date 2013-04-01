@@ -4,20 +4,20 @@
 expanded class AUX_EG14A
 
 feature {ANY}
-	a1: INTEGER
+   a1: INTEGER
 
-	a2: INTEGER
+   a2: INTEGER
 
-	put (x: INTEGER; i: INTEGER) is
-		do
-			inspect
-				i
-			when 1 then
-				a1 := x
-			when 2 then
-				a2 := x
-			end
-		end
+   put (x: INTEGER; i: INTEGER) is
+      do
+         inspect
+            i
+         when 1 then
+            a1 := x
+         when 2 then
+            a2 := x
+         end
+      end
 
 end -- class AUX_EG14A
 --

@@ -4,33 +4,33 @@
 class TEST_NATIVE_ARRAY9
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a, b: NATIVE_ARRAY[ANY]
-		do
-			assert(a = b)
-			a := a.calloc(2)
-			b := a
-			assert(a = b)
-		end
+   make is
+      local
+         a, b: NATIVE_ARRAY[ANY]
+      do
+         assert(a = b)
+         a := a.calloc(2)
+         b := a
+         assert(a = b)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_NATIVE_ARRAY9: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_NATIVE_ARRAY9: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_NATIVE_ARRAY9
 --

@@ -4,21 +4,21 @@
 class TEST_DISPOSE3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux: AUX_DISPOSE3
-		do
-			from
-				create aux.make
-			until
-				aux.dispose_count.value > 10
-			loop
-				create aux.make
-			end
-		end
+   make is
+      local
+         aux: AUX_DISPOSE3
+      do
+         from
+            create aux.make
+         until
+            aux.dispose_count.value > 10
+         loop
+            create aux.make
+         end
+      end
 
 end -- class TEST_DISPOSE3
 --

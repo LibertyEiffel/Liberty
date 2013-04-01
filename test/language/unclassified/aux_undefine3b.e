@@ -4,10 +4,10 @@
 deferred class AUX_UNDEFINE3B
 
 inherit
-	AUX_UNDEFINE3A
-		rename my_feature as my_renamed_feature
-		undefine my_renamed_feature
-		end
+   AUX_UNDEFINE3A
+      rename my_feature as my_renamed_feature
+      undefine my_renamed_feature
+      end
 
 end -- class AUX_UNDEFINE3B
 --

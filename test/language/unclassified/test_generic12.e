@@ -4,16 +4,16 @@
 class TEST_GENERIC12
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			foo: AUX_GENERIC12[REAL]; bar: AUX_GENERIC12[INTEGER]
-		do
-			create foo
-			create bar
-		end
+   make is
+      local
+         foo: AUX_GENERIC12[REAL]; bar: AUX_GENERIC12[INTEGER]
+      do
+         create foo
+         create bar
+      end
 
 end -- class TEST_GENERIC12
 --

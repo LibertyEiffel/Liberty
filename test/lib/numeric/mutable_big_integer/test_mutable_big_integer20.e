@@ -2,35 +2,35 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_MUTABLE_BIG_INTEGER20
-	-- Test of `negate'.
+   -- Test of `negate'.
 
 insert
-	AUX_MUTABLE_BIG_INTEGER1
+   AUX_MUTABLE_BIG_INTEGER1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			from
-				i := numbers1.lower
-			until
-				i > numbers1.upper
-			loop
-				numbers1.item(i).negate
-				assert(numbers1.item(i).is_equal(res.item(i)))
-				i := i + 1
-			end
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         from
+            i := numbers1.lower
+         until
+            i > numbers1.upper
+         loop
+            numbers1.item(i).negate
+            assert(numbers1.item(i).is_equal(res.item(i)))
+            i := i + 1
+         end
+      end
 
-	res: FAST_ARRAY[MUTABLE_BIG_INTEGER] is
-			-- Expected results.
-		once
-			Result := {FAST_ARRAY[MUTABLE_BIG_INTEGER] << create {MUTABLE_BIG_INTEGER}.from_integer(0), create {MUTABLE_BIG_INTEGER}.from_integer(-1), create {MUTABLE_BIG_INTEGER}.from_integer(1), create {MUTABLE_BIG_INTEGER}.from_integer(-2), create {MUTABLE_BIG_INTEGER}.from_integer(2), create {MUTABLE_BIG_INTEGER}.from_integer(-3), create {MUTABLE_BIG_INTEGER}.from_integer(3), create {MUTABLE_BIG_INTEGER}.from_integer(-1000), create {MUTABLE_BIG_INTEGER}.from_integer(1000), create {MUTABLE_BIG_INTEGER}.from_integer(-1000000000), create {MUTABLE_BIG_INTEGER}.from_integer(1000000000), create {MUTABLE_BIG_INTEGER}.from_integer(-Maximum_integer), create {MUTABLE_BIG_INTEGER}.from_integer(Maximum_integer), create {MUTABLE_BIG_INTEGER}.from_integer(Minimum_integer), create {MUTABLE_BIG_INTEGER}.from_integer_64(-Minimum_integer.to_integer_64), create {MUTABLE_BIG_INTEGER}.from_integer_64(-Maximum_integer_64), create {MUTABLE_BIG_INTEGER}.from_integer_64(Maximum_integer_64), create {MUTABLE_BIG_INTEGER}.from_integer_64(Minimum_integer_64), create {MUTABLE_BIG_INTEGER}.from_string("9223372036854775808"), create {MUTABLE_BIG_INTEGER}.from_string("-1000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("1000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("-1000000000000000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("1000000000000000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("-100000000000000000000000000000000000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("100000000000000000000000000000000000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("-99999999999999999999999999999999999999999999999999"), create {MUTABLE_BIG_INTEGER}.from_string("99999999999999999999999999999999999999999999999999"), create {MUTABLE_BIG_INTEGER}.from_string("-100000000000000000000000000000000000000000000000001"), create {MUTABLE_BIG_INTEGER}.from_string("100000000000000000000000000000000000000000000000001") >> }
-		end
+   res: FAST_ARRAY[MUTABLE_BIG_INTEGER] is
+         -- Expected results.
+      once
+         Result := {FAST_ARRAY[MUTABLE_BIG_INTEGER] << create {MUTABLE_BIG_INTEGER}.from_integer(0), create {MUTABLE_BIG_INTEGER}.from_integer(-1), create {MUTABLE_BIG_INTEGER}.from_integer(1), create {MUTABLE_BIG_INTEGER}.from_integer(-2), create {MUTABLE_BIG_INTEGER}.from_integer(2), create {MUTABLE_BIG_INTEGER}.from_integer(-3), create {MUTABLE_BIG_INTEGER}.from_integer(3), create {MUTABLE_BIG_INTEGER}.from_integer(-1000), create {MUTABLE_BIG_INTEGER}.from_integer(1000), create {MUTABLE_BIG_INTEGER}.from_integer(-1000000000), create {MUTABLE_BIG_INTEGER}.from_integer(1000000000), create {MUTABLE_BIG_INTEGER}.from_integer(-Maximum_integer), create {MUTABLE_BIG_INTEGER}.from_integer(Maximum_integer), create {MUTABLE_BIG_INTEGER}.from_integer(Minimum_integer), create {MUTABLE_BIG_INTEGER}.from_integer_64(-Minimum_integer.to_integer_64), create {MUTABLE_BIG_INTEGER}.from_integer_64(-Maximum_integer_64), create {MUTABLE_BIG_INTEGER}.from_integer_64(Maximum_integer_64), create {MUTABLE_BIG_INTEGER}.from_integer_64(Minimum_integer_64), create {MUTABLE_BIG_INTEGER}.from_string("9223372036854775808"), create {MUTABLE_BIG_INTEGER}.from_string("-1000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("1000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("-1000000000000000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("1000000000000000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("-100000000000000000000000000000000000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("100000000000000000000000000000000000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("-99999999999999999999999999999999999999999999999999"), create {MUTABLE_BIG_INTEGER}.from_string("99999999999999999999999999999999999999999999999999"), create {MUTABLE_BIG_INTEGER}.from_string("-100000000000000000000000000000000000000000000000001"), create {MUTABLE_BIG_INTEGER}.from_string("100000000000000000000000000000000000000000000000001") >> }
+      end
 
 end -- class TEST_MUTABLE_BIG_INTEGER20
 --

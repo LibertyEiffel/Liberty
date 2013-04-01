@@ -4,66 +4,66 @@
 class TEST_ARRAY_TO_EXTERNAL
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	t_double: ARRAY[REAL_64]
+   t_double: ARRAY[REAL_64]
 
-	t_boolean: ARRAY[BOOLEAN]
+   t_boolean: ARRAY[BOOLEAN]
 
-	t_integer: ARRAY[INTEGER]
+   t_integer: ARRAY[INTEGER]
 
-	t_any: ARRAY[CAT]
+   t_any: ARRAY[CAT]
 
-	make is
-		local
-			cat: CAT
-		do
-			t_boolean := {ARRAY[BOOLEAN] 1, << True, False >> }
-			assert(boolean(t_boolean.to_external))
-			t_integer := {ARRAY[INTEGER] 1, << 4, 5.to_integer_32, 6 >> }
-			assert(t_integer.first = integer(t_integer.to_external))
-			t_double := {ARRAY[REAL_64] 1, << 3.0 >> }
-			assert(double(t_double.to_external) = 3.0)
-			create cat
-			t_any := {ARRAY[CAT] 1, << cat, cat >> }
-			assert(any(t_any.to_external) /= Void)
-		end
+   make is
+      local
+         cat: CAT
+      do
+         t_boolean := {ARRAY[BOOLEAN] 1, << True, False >> }
+         assert(boolean(t_boolean.to_external))
+         t_integer := {ARRAY[INTEGER] 1, << 4, 5.to_integer_32, 6 >> }
+         assert(t_integer.first = integer(t_integer.to_external))
+         t_double := {ARRAY[REAL_64] 1, << 3.0 >> }
+         assert(double(t_double.to_external) = 3.0)
+         create cat
+         t_any := {ARRAY[CAT] 1, << cat, cat >> }
+         assert(any(t_any.to_external) /= Void)
+      end
 
 feature {}
-	boolean (p: POINTER): BOOLEAN is
-		do
-			Result := integer(p).to_boolean
-		end
+   boolean (p: POINTER): BOOLEAN is
+      do
+         Result := integer(p).to_boolean
+      end
 
-	integer (p: POINTER): INTEGER is
-		do
-			c_inline_c("R=*((EIF_INTEGER*)a1);")
-		end
+   integer (p: POINTER): INTEGER is
+      do
+         c_inline_c("R=*((EIF_INTEGER*)a1);")
+      end
 
-	double (p: POINTER): REAL_64 is
-		do
-			c_inline_c("R=*((double *)a1);")
-		end
+   double (p: POINTER): REAL_64 is
+      do
+         c_inline_c("R=*((double *)a1);")
+      end
 
-	any (p: POINTER): ANY is
-		do
-			c_inline_c("R=*((void**)a1);")
-		end
+   any (p: POINTER): ANY is
+      do
+         c_inline_c("R=*((void**)a1);")
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_ARRAY_TO_EXTERNAL: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_ARRAY_TO_EXTERNAL: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_ARRAY_TO_EXTERNAL
 --

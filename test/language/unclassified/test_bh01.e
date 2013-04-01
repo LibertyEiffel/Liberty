@@ -2,29 +2,29 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_BH01
-	-- From a bug report of Bob Hutchison
+   -- From a bug report of Bob Hutchison
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			b: BOOLEAN
-		do
-			b := m1(1.0)
-			b := b or m1(2.0)
-			b := b or m1(3.0)
-			if b then
-			else
-				io.put_string("Error in TEST_BH01 #1%N")
-			end
-		end
+   make is
+      local
+         b: BOOLEAN
+      do
+         b := m1(1.0)
+         b := b or m1(2.0)
+         b := b or m1(3.0)
+         if b then
+         else
+            io.put_string("Error in TEST_BH01 #1%N")
+         end
+      end
 
-	m1 (a: REAL): BOOLEAN is
-		do
-			Result := a < 2.0
-		end
+   m1 (a: REAL): BOOLEAN is
+      do
+         Result := a < 2.0
+      end
 
 end -- class TEST_BH01
 --

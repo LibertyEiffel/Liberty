@@ -4,17 +4,17 @@
 class BAD_ASSIGNMENT_TEST01
 create make
 feature {}
-	make is
-		local
-			c: COMPARABLE
-			h: HASHABLE
-		do
-			c := "toto"
-			h := "titi"
-			if not c ?:= h then
-				io.put_string("not true!%N")
-			end
-		end
+   make is
+      local
+         c: COMPARABLE
+         h: HASHABLE
+      do
+         c := "toto"
+         h := "titi"
+         if not c ?:= h then
+            io.put_string("not true!%N")
+         end
+      end
 end -- class BAD_ASSIGNMENT_TEST01
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

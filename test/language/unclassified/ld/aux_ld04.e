@@ -4,9 +4,9 @@
 class AUX_LD04[A -> B, B]
 
 feature {ANY}
-	item1: A
+   item1: A
 
-	item2: B
+   item2: B
 
 end -- class AUX_LD04
 --

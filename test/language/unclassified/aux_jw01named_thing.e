@@ -4,15 +4,15 @@
 class AUX_JW01NAMED_THING
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make (n: STRING) is
-		do
-			name := n
-		end
+   make (n: STRING) is
+      do
+         name := n
+      end
 
-	name: STRING
+   name: STRING
 
 end -- class AUX_JW01NAMED_THING
 --

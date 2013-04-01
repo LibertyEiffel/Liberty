@@ -4,7 +4,7 @@
 class AUX_AL1A
 
 feature {ANY}
-	original_name: STRING
+   original_name: STRING
 
 end -- class AUX_AL1A
 --

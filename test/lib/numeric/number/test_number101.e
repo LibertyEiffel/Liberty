@@ -2,39 +2,39 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER101
-	--
-	-- Test of depassement of INTEGER_64_NUMBER capacity
-	-- Result is BIG_INTEGER_NUMBER which is > Maximum_integer_64
-	--
+   --
+   -- Test of depassement of INTEGER_64_NUMBER capacity
+   -- Result is BIG_INTEGER_NUMBER which is > Maximum_integer_64
+   --
 
 insert
-	EIFFELTEST_TOOLS
-	ANY
-	PLATFORM
+   EIFFELTEST_TOOLS
+   ANY
+   PLATFORM
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: NUMBER
-		do
-			n := nt.from_integer_64(Maximum_integer_64)
-			n := n @+ Maximum_integer_64
-			n := n @- Maximum_integer_64
-			assert(n.is_integer_64)
-			assert(n @= Maximum_integer_64)
-			n := nt.from_integer_64(Maximum_integer_64)
-			n := n @* 2
-			n := n @/ 2
-			assert(n.is_integer_64)
-			assert(n @= Maximum_integer_64)
-		end
+   make is
+      local
+         n: NUMBER
+      do
+         n := nt.from_integer_64(Maximum_integer_64)
+         n := n @+ Maximum_integer_64
+         n := n @- Maximum_integer_64
+         assert(n.is_integer_64)
+         assert(n @= Maximum_integer_64)
+         n := nt.from_integer_64(Maximum_integer_64)
+         n := n @* 2
+         n := n @/ 2
+         assert(n.is_integer_64)
+         assert(n @= Maximum_integer_64)
+      end
 
 
 
-	nt: NUMBER_TOOLS
+   nt: NUMBER_TOOLS
 
 end -- class TEST_NUMBER101
 --

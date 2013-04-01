@@ -4,12 +4,12 @@
 class AUX_OZ03A
 
 feature {ANY}
-	store: REAL
+   store: REAL
 
-	set_store (s: like store) is
-		do
-			store := s
-		end
+   set_store (s: like store) is
+      do
+         store := s
+      end
 
 end -- class AUX_OZ03A
 --

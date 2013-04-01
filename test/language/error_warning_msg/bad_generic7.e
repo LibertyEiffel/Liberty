@@ -9,10 +9,10 @@ feature
 
    make is
       local
-	 aux: AUX_GENERIC7[ANY]
+    aux: AUX_GENERIC7[ANY]
       do
-	 if aux.is_equal(aux) then
-	 end
+    if aux.is_equal(aux) then
+    end
       end
    
 end -- class BAD_GENERIC7

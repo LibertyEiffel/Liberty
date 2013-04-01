@@ -4,11 +4,11 @@
 class AUX_ASSERTION1_A
 
 feature {ANY}
-	set_attribute (attr: STRING) is
-		require
-			attr.is_equal("NAME")
-		do
-		end
+   set_attribute (attr: STRING) is
+      require
+         attr.is_equal("NAME")
+      do
+      end
 
 end -- class AUX_ASSERTION1_A
 --

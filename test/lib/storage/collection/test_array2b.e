@@ -4,17 +4,17 @@
 class TEST_ARRAY2B
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a: ARRAY2[INTEGER]
+   a: ARRAY2[INTEGER]
 
-	make is
-		do
-			create a.make(1, 3, 1, 3)
-			if a.is_equal(a) then
-			end
-		end
+   make is
+      do
+         create a.make(1, 3, 1, 3)
+         if a.is_equal(a) then
+         end
+      end
 
 end -- class TEST_ARRAY2B
 --

@@ -4,33 +4,33 @@
 class TEST_JVM16
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[REAL_64]
-		do
-			create a.make(1, 3)
-			a.put(1, 1)
-			a.put(2, 2)
-			a.put(3, 3)
-			check
-				a.item(1) = 1
-				a.item(2) = 2
-				a.item(3) = 3
-			end
-			a := Void
-			check
-				a = Void
-			end
-			a := {ARRAY[REAL_64] 1, << 1, 2, 3 >> }
-			check
-				a.item(1) = 1
-				a.item(2) = 2
-				a.item(3) = 3
-			end
-		end
+   make is
+      local
+         a: ARRAY[REAL_64]
+      do
+         create a.make(1, 3)
+         a.put(1, 1)
+         a.put(2, 2)
+         a.put(3, 3)
+         check
+            a.item(1) = 1
+            a.item(2) = 2
+            a.item(3) = 3
+         end
+         a := Void
+         check
+            a = Void
+         end
+         a := {ARRAY[REAL_64] 1, << 1, 2, 3 >> }
+         check
+            a.item(1) = 1
+            a.item(2) = 2
+            a.item(3) = 3
+         end
+      end
 
 end -- class TEST_JVM16
 --

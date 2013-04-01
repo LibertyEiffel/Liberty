@@ -4,16 +4,16 @@
 class BAD_LOCAL_LIST5
 
 creation
-	main
+   main
 
 feature
-	main is
-		local
-			clock CLOCK integer INTEGER
-		do
-			integer := clock.value
-		end
-	
+   main is
+      local
+         clock CLOCK integer INTEGER
+      do
+         integer := clock.value
+      end
+   
 end -- class BAD_LOCAL_LIST5
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

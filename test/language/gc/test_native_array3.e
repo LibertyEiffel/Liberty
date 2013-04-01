@@ -4,22 +4,22 @@
 class TEST_NATIVE_ARRAY3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER; fa: FAST_ARRAY[REAL_64]
-		do
-			from
-				i := 3000000
-			until
-				i = 0
-			loop
-				create fa.make(64)
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER; fa: FAST_ARRAY[REAL_64]
+      do
+         from
+            i := 3000000
+         until
+            i = 0
+         loop
+            create fa.make(64)
+            i := i - 1
+         end
+      end
 
 end -- class TEST_NATIVE_ARRAY3
 --

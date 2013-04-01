@@ -4,15 +4,15 @@
 class AUX_CREATE04B
 
 inherit
-	AUX_CREATE04
+   AUX_CREATE04
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make (med_par: TEST_CREATE04) is
-		do
-		end
+   make (med_par: TEST_CREATE04) is
+      do
+      end
 
 end -- class AUX_CREATE04B
 --

@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JVM26
-	--
-	-- Test Reference/ARRAY.
-	--
+   --
+   -- Test Reference/ARRAY.
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			a: ARRAY[ANY]; c: INTEGER
-		do
-			create a.make(1, 0)
-			a.make(1, 1)
-			c := a.upper
-			check
-				c = 1
-			end
-		end
+   make is
+      local
+         a: ARRAY[ANY]; c: INTEGER
+      do
+         create a.make(1, 0)
+         a.make(1, 1)
+         c := a.upper
+         check
+            c = 1
+         end
+      end
 
 end -- class TEST_JVM26
 --

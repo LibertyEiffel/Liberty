@@ -4,20 +4,20 @@
 class AUX_JP2[E]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make (e: E) is
-		do
-			item := e
-		end
+   make (e: E) is
+      do
+         item := e
+      end
 
-	foo: AUX_JP2[E] is
-		do
-			create Result.make(item)
-		end
+   foo: AUX_JP2[E] is
+      do
+         create Result.make(item)
+      end
 
-	item: E
+   item: E
 
 end -- class AUX_JP2
 --

@@ -2,39 +2,39 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_BENCH
-	-- Allocation and recycling of ARRAY[INTEGER] of decreasing size.
-	-- SE runs fast, since it does not try to mark the contents of these
-	-- arrays.
-	-- Compiled with SmartEiffel, this benchmark has an important memory
-	-- footprint, because SE's GC does not merge or split memory blocks
-	-- and thus recycles poorly the dead arrays.??????
+   -- Allocation and recycling of ARRAY[INTEGER] of decreasing size.
+   -- SE runs fast, since it does not try to mark the contents of these
+   -- arrays.
+   -- Compiled with SmartEiffel, this benchmark has an important memory
+   -- footprint, because SE's GC does not merge or split memory blocks
+   -- and thus recycles poorly the dead arrays.??????
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	array_int: ARRAY[INTEGER]
+   array_int: ARRAY[INTEGER]
 
-	make is
-		local
-			size: INTEGER; i: INTEGER
-		do
-			from
-				i := 70
-			until
-				i = 0
-			loop
-				from
-					size := 5000
-				until
-					size = 0
-				loop
-					create array_int.make(0, size)
-					size := size - 1
-				end
-				i := i - 1
-			end
-		end
+   make is
+      local
+         size: INTEGER; i: INTEGER
+      do
+         from
+            i := 70
+         until
+            i = 0
+         loop
+            from
+               size := 5000
+            until
+               size = 0
+            loop
+               create array_int.make(0, size)
+               size := size - 1
+            end
+            i := i - 1
+         end
+      end
 
 end -- class TEST_BENCH
 --

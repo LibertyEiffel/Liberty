@@ -4,9 +4,9 @@
 class AUX_REDEFINE2A
 
 feature {ANY}
-	f is
-		do
-		end
+   f is
+      do
+      end
 
 end -- class AUX_REDEFINE2A
 --

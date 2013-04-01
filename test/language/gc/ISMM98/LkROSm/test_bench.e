@@ -4,31 +4,31 @@
 class TEST_BENCH
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	s: STRING
+   s: STRING
 
-	make is
-		local
-			i, j: INTEGER
-		do
-			from
-				i := 200000
-			until
-				i = 0
-			loop
-				from
-					j := 80
-				until
-					j = 40
-				loop
-					create s.make_filled(' ', j)
-					j := j - 1
-				end
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i, j: INTEGER
+      do
+         from
+            i := 200000
+         until
+            i = 0
+         loop
+            from
+               j := 80
+            until
+               j = 40
+            loop
+               create s.make_filled(' ', j)
+               j := j - 1
+            end
+            i := i - 1
+         end
+      end
 
 end -- class TEST_BENCH
 --

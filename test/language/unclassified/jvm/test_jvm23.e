@@ -4,51 +4,51 @@
 class TEST_JVM23
 
 inherit
-	ANY
+   ANY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			foo(1, 2, 'c', Current)
-		end
+   make is
+      do
+         foo(1, 2, 'c', Current)
+      end
 
 feature {}
-	foo (v1, v2: INTEGER; c1: CHARACTER; o1: ANY) is
-		local
-			lv1, lv2: INTEGER; lc1: CHARACTER; lo1: ANY
-		do
-			check
-				lv1 = 0
-				lv2 = 0
-				lc1 = '%U'
-				lo1 = Void
-			end
-			lv1 := v1
-			lv2 := v2
-			lc1 := c1
-			lo1 := o1
-			check
-				v1 = lv1
-				v2 = lv2
-				c1 = lc1
-				o1 = lo1
-			end
-			check
-				lc1 = 'c'
-				o1 = Current
-				v1 = 1
-				v2 = 2
-			end
-			check
-				c1 = 'c'
-				o1 = Current
-				v1 = 1
-				v2 = 2
-			end
-		end
+   foo (v1, v2: INTEGER; c1: CHARACTER; o1: ANY) is
+      local
+         lv1, lv2: INTEGER; lc1: CHARACTER; lo1: ANY
+      do
+         check
+            lv1 = 0
+            lv2 = 0
+            lc1 = '%U'
+            lo1 = Void
+         end
+         lv1 := v1
+         lv2 := v2
+         lc1 := c1
+         lo1 := o1
+         check
+            v1 = lv1
+            v2 = lv2
+            c1 = lc1
+            o1 = lo1
+         end
+         check
+            lc1 = 'c'
+            o1 = Current
+            v1 = 1
+            v2 = 2
+         end
+         check
+            c1 = 'c'
+            o1 = Current
+            v1 = 1
+            v2 = 2
+         end
+      end
 
 end -- class TEST_JVM23
 --

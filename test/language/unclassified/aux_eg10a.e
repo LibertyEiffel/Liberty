@@ -4,16 +4,16 @@
 expanded class AUX_EG10A[T]
 
 insert
-	ANY
-		redefine print_on
-		end
+   ANY
+      redefine print_on
+      end
 
 feature {ANY}
-	x: T
+   x: T
 
-	print_on (file: OUTPUT_STREAM) is
-		do
-		end
+   print_on (file: OUTPUT_STREAM) is
+      do
+      end
 
 end -- class AUX_EG10A
 --

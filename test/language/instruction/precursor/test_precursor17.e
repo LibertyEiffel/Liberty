@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PRECURSOR17
-	-- Written by Philippe Ribet
+   -- Written by Philippe Ribet
 
 inherit
-	AUX_PRECURSOR17B
-		redefine make
-		end
+   AUX_PRECURSOR17B
+      redefine make
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert(assert_counter.value = 0)
-			Precursor
-			assert(assert_counter.value = 4)
-		end
+   make is
+      do
+         assert(assert_counter.value = 0)
+         Precursor
+         assert(assert_counter.value = 4)
+      end
 
 end -- class TEST_PRECURSOR17
 --

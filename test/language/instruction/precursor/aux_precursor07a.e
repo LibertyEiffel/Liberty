@@ -4,12 +4,12 @@
 class AUX_PRECURSOR07A
 
 feature {ANY}
-	make_a_done, make_b_done, make_c_done: BOOLEAN
+   make_a_done, make_b_done, make_c_done: BOOLEAN
 
-	make is
-		do
-			make_a_done := True
-		end
+   make is
+      do
+         make_a_done := True
+      end
 
 end -- class AUX_PRECURSOR07A
 --

@@ -41,7 +41,7 @@ feature {CALL_0}
                end
             end
          end
-         
+
          -- To handle non Void `routine_body' which is a single ASSIGNMENT:
          if Result = Void and then routine_body /= Void then
             if direct_non_void_call_flag and then no_rescue_no_local_expanded then
@@ -73,10 +73,10 @@ feature {CALL_0}
                         built_in_eq_neq ?= assignment.right_side
                         if built_in_eq_neq /= Void then
                            -- (This pattern includes the BOOLEAN not definition.)
-                           built_in_eq_neq := inline_eq_neq0(type, built_in_eq_neq, target_type, target)
-                           if built_in_eq_neq /= Void then
+                           expression := inline_eq_neq0(type, built_in_eq_neq, target_type, target)
+                           if expression /= Void then
                               Result := smart_eiffel.get_inline_memo
-                              Result.set_expression(built_in_eq_neq)
+                              Result.set_expression(expression)
                            end
                         else
                            call_0 ?= assignment.right_side
@@ -131,7 +131,7 @@ feature {CALL_1}
       local
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN; assignment: ASSIGNMENT
          built_in_eq_neq: BUILT_IN_EQ_NEQ; call_1: CALL_1; bc: BOOLEAN_CONSTANT; name: STRING
-         integer_constant: INTEGER_CONSTANT
+         integer_constant: INTEGER_CONSTANT; expression: EXPRESSION
       do
          direct_non_void_call_flag := target_type.direct_non_void_call_flag
          no_rescue_no_local_expanded := no_rescue_no_local_expanded_in(target_type)
@@ -187,10 +187,10 @@ feature {CALL_1}
                   elseif return_type.is_boolean then
                      built_in_eq_neq ?= assignment.right_side
                      if built_in_eq_neq /= Void then
-                        built_in_eq_neq := inline_eq_neq1(type, built_in_eq_neq, target_type, target, arg)
-                        if built_in_eq_neq /= Void then
+                        expression := inline_eq_neq1(type, built_in_eq_neq, target_type, target, arg)
+                        if expression /= Void then
                            Result := smart_eiffel.get_inline_memo
-                           Result.set_expression(built_in_eq_neq)
+                           Result.set_expression(expression)
                         end
                      end
                   end
@@ -205,7 +205,7 @@ feature {CALL_1}
                Result.set_expression(integer_constant)
             end
          end
-         
+
          -- Finally, we must not inline BOOLEAN infix "and" and infix "or".
          if Result /= Void and then target_type.is_boolean then
             name := first_name.to_string
@@ -283,7 +283,7 @@ feature {FUNCTION_CALL_N}
                      argument_name2 ?= built_in_eq_neq.right_side
                      if argument_name2 /= Void and then argument_name2.rank = 2 then
                         Result := smart_eiffel.get_inline_memo
-                        Result.set_expression(built_in_eq_neq.inline_with(args.expression(1), args.expression(2)))
+                        Result.set_expression(built_in_eq_neq.inline_with(args.expression(1), args.expression(2), type))
                      end
                   end
                end
@@ -393,10 +393,10 @@ feature {}
          else
             call_1_arg1 ?= call_1.arg1
             if False and then call_1_arg1 /= Void and then call_1_arg1.arg1.is_static then
-               --*** (PR 01/05/08) Sorry, it's too complex (and wrong 
-               --as shown by test_fast_array6). We test here if the 
-               --argument of the call is a call with a static 
-               --argument! f(i*j+1), here 1 is static. Now, what is 
+               --*** (PR 01/05/08) Sorry, it's too complex (and wrong
+               --as shown by test_fast_array6). We test here if the
+               --argument of the call is a call with a static
+               --argument! f(i*j+1), here 1 is static. Now, what is
                --the possible inlining?
                --***Turned off with "if False"
 
@@ -412,7 +412,7 @@ feature {}
          end
       end
 
-   inline_eq_neq1 (type: TYPE; built_in_eq_neq: BUILT_IN_EQ_NEQ; target_type: TYPE; target: EXPRESSION; arg1: EXPRESSION): BUILT_IN_EQ_NEQ is
+   inline_eq_neq1 (type: TYPE; built_in_eq_neq: BUILT_IN_EQ_NEQ; target_type: TYPE; target: EXPRESSION; arg1: EXPRESSION): EXPRESSION is
       require
          target /= Void
          arg1 /= Void
@@ -424,13 +424,13 @@ feature {}
             -- The argument is passed as it is:
             if built_in_eq_neq.left_side.is_current then
                -- Simple "Result := Current = arg1" now replaced:
-               Result := built_in_eq_neq.inline_with(target, arg1)
+               Result := built_in_eq_neq.inline_with(target, arg1, type)
             else
                call_0 := left_most_current_direct_call_0_sequence(target_type, built_in_eq_neq.left_side)
                if call_0 /= Void then
                   call_0 := left_most_current_direct_call_0_sequence_inline(type, call_0, target_type, target)
                   -- Direct call on attribute now replaced:
-                  Result := built_in_eq_neq.inline_with(call_0, arg1)
+                  Result := built_in_eq_neq.inline_with(call_0, arg1, type)
                end
             end
          else
@@ -441,13 +441,13 @@ feature {}
                if call_0 /= Void then
                   call_0 := left_most_current_direct_call_0_sequence_inline(type, call_0, target_type, target)
                   call_1 := call_1.inline_with(arg1, call_1.arg1) -- Direct call on attribute now replaced:
-                  Result := built_in_eq_neq.inline_with(call_0, call_1)
+                  Result := built_in_eq_neq.inline_with(call_0, call_1, type)
                end
             end
          end
       end
 
-   inline_eq_neq0 (type: TYPE; built_in_eq_neq: BUILT_IN_EQ_NEQ; target_type: TYPE; target: EXPRESSION): BUILT_IN_EQ_NEQ is
+   inline_eq_neq0 (type: TYPE; built_in_eq_neq: BUILT_IN_EQ_NEQ; target_type: TYPE; target: EXPRESSION): EXPRESSION is
       do
          Result := inline_eq_neq0_(type, built_in_eq_neq, built_in_eq_neq.left_side, built_in_eq_neq.right_side, target_type, target)
          if Result = Void then
@@ -455,27 +455,27 @@ feature {}
          end
       end
 
-   inline_eq_neq0_ (type: TYPE; built_in_eq_neq: BUILT_IN_EQ_NEQ; e1, e2: EXPRESSION; target_type: TYPE; target: EXPRESSION): BUILT_IN_EQ_NEQ is
+   inline_eq_neq0_ (type: TYPE; built_in_eq_neq: BUILT_IN_EQ_NEQ; e1, e2: EXPRESSION; target_type: TYPE; target: EXPRESSION): EXPRESSION is
       local
          call_0: CALL_0
       do
          if e1.is_current then
             if e2.is_static then
-               Result := built_in_eq_neq.inline_with(target, e2)
+               Result := built_in_eq_neq.inline_with(target, e2, type)
             end
          else
             call_0 := left_most_current_direct_call_0_sequence(target_type, e1)
             if call_0 /= Void then
                if e2.is_static then
                   call_0 := left_most_current_direct_call_0_sequence_inline(type, call_0, target_type, target)
-                  Result := built_in_eq_neq.inline_with(call_0, e2)
+                  Result := built_in_eq_neq.inline_with(call_0, e2, type)
                end
             else
                call_0 ?= e1
                if call_0 /= Void and then call_0.target.is_current then
                   if e2.is_static then
                      call_0 := call_0.inline_with(target)
-                     Result := built_in_eq_neq.inline_with(call_0, e2)
+                     Result := built_in_eq_neq.inline_with(call_0, e2, type)
                   end
                end
             end

@@ -37,7 +37,7 @@ feature {}
          --
          -- Note: you may change that default behaviour by calling `when_test_fails'.
       require
-         label /= Void
+         not test implies label /= Void
       do
          message_assert(agent label_to_message(label), test)
       end
@@ -50,7 +50,7 @@ feature {}
          --
          -- Note: you may change that default behaviour by calling `when_test_fails'.
       require
-         message_generator /= Void
+         not test implies message_generator /= Void
       local
          actual_label: ABSTRACT_STRING
       do

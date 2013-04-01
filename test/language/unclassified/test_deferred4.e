@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_DEFERRED4
-	--
-	-- From a bug report of : Mostefa KASSAB
-	--
+   --
+   -- From a bug report of : Mostefa KASSAB
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			cltn: COLLECTION[INTEGER]; i: BOOLEAN; ll: LINKED_LIST[INTEGER]
-		do
-			create {LINKED_LIST[INTEGER]} cltn.make
-			i := cltn.upper = 3
-			create ll.make
-			ll.add_first(2)
-		end
+   make is
+      local
+         cltn: COLLECTION[INTEGER]; i: BOOLEAN; ll: LINKED_LIST[INTEGER]
+      do
+         create {LINKED_LIST[INTEGER]} cltn.make
+         i := cltn.upper = 3
+         create ll.make
+         ll.add_first(2)
+      end
 
 end -- class TEST_DEFERRED4
 --

@@ -1,24 +1,24 @@
 class TEST_ADDRESS_OF1
 
 insert
-	EIFFELTEST_TOOLS
-	
+   EIFFELTEST_TOOLS
+   
 creation
-	main
+   main
 
 feature {}
-	main is
-		do
-			proc($function)
-		end
+   main is
+      do
+         proc($function)
+      end
 
-	function: INTEGER is
-		do
-		end
+   function: INTEGER is
+      do
+      end
 
-	proc (pointer: POINTER) is
-		do
-			assert(pointer.is_not_null)
-		end
+   proc (pointer: POINTER) is
+      do
+         assert(pointer.is_not_null)
+      end
 
 end

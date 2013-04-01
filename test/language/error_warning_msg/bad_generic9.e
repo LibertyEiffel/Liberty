@@ -4,14 +4,14 @@
 class BAD_GENERIC9
 
 create
-	make
+   make
 
 feature
-	make is
-		local
-			a: AUX_GENERIC9[INTEGER]
-		do
-		end
+   make is
+      local
+         a: AUX_GENERIC9[INTEGER]
+      do
+      end
 
 end -- class BAD_GENERIC9
 --

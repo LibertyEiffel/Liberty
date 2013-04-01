@@ -4,55 +4,55 @@
 class AUX_INHERIT_STRING1
 
 inherit
-	STRING
-		rename make as string_make
-		end
+   STRING
+      rename make as string_make
+      end
 
 creation {ANY}
-	make, copy, string_make
+   make, copy, string_make
 
 feature {ANY}
-	make (init: STRING) is
-		local
-			i: INTEGER
-		do
-			string_make(init.count)
-			assert(capacity = init.count)
-			assert(count = 0)
-			from
-				i := 1
-			until
-				i > init.count
-			loop
-				extend(init.item(i))
-				i := i + 1
-			end
-			assert(not is_empty)
-			assert(count = 3)
-			assert(init.count = count)
-			from
-				i := count
-			until
-				i = 0
-			loop
-				assert(init.item(i) = item(i))
-				i := i - 1
-			end
-		end
+   make (init: STRING) is
+      local
+         i: INTEGER
+      do
+         string_make(init.count)
+         assert(capacity = init.count)
+         assert(count = 0)
+         from
+            i := 1
+         until
+            i > init.count
+         loop
+            extend(init.item(i))
+            i := i + 1
+         end
+         assert(not is_empty)
+         assert(count = 3)
+         assert(init.count = count)
+         from
+            i := count
+         until
+            i = 0
+         loop
+            assert(init.item(i) = item(i))
+            i := i - 1
+         end
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_INHERIT_STRING1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_INHERIT_STRING1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class AUX_INHERIT_STRING1
 --

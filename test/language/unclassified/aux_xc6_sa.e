@@ -4,12 +4,12 @@
 class AUX_XC6_SA
 
 inherit
-	AUX_XC6_AA
+   AUX_XC6_AA
 
 feature {ANY}
-	g is
-		do
-		end
+   g is
+      do
+      end
 
 end -- class AUX_XC6_SA
 --

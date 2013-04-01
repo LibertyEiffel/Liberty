@@ -4,19 +4,19 @@
 class DOG
 
 inherit
-	ANIMAL
+   ANIMAL
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		do
-			name := once "Lassie"
-		end
+   make is
+      do
+         name := once "Lassie"
+      end
 
 feature {ANY}
-	is_cat: BOOLEAN is False
+   is_cat: BOOLEAN is False
 
 end -- class DOG
 --

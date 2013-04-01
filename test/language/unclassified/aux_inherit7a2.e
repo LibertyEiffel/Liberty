@@ -4,16 +4,16 @@
 class AUX_INHERIT7A2
 
 inherit
-	AUX_INHERIT7A
+   AUX_INHERIT7A
 
 feature {ANY} -- Access
-	x: AUX_INHERIT7B2 is
-		do
-			create Result.make(4, Current)
-		end
+   x: AUX_INHERIT7B2 is
+      do
+         create Result.make(4, Current)
+      end
 
 feature {ANY}
-	as_expanded: AUX_INHERIT7A1
+   as_expanded: AUX_INHERIT7A1
 
 end -- class AUX_INHERIT7A2
 --

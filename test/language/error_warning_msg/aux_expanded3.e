@@ -4,31 +4,31 @@
 expanded class AUX_EXPANDED3
 
 creation {ANY}
-	make_1, make_2, make_3
+   make_1, make_2, make_3
 
 feature {ANY} -- Should be rejected
-	make_1 is
-		do
-			n := 1
-		ensure
-			n = 1
-		end
+   make_1 is
+      do
+         n := 1
+      ensure
+         n = 1
+      end
 
-	make_2 (n_: like n) is
-		do
-			n := n_
-		ensure
-			n = n_
-		end
+   make_2 (n_: like n) is
+      do
+         n := n_
+      ensure
+         n = n_
+      end
 
-	make_3 is
-		do
-			n := 3
-		ensure
-			n = 3
-		end
+   make_3 is
+      do
+         n := 3
+      ensure
+         n = 3
+      end
 
-	n: INTEGER
+   n: INTEGER
 
 end -- class AUX_EXPANDED3
 --

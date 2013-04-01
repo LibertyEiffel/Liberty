@@ -2,34 +2,34 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_INTEGER_32
-	-- To test INTEGER_32
+   -- To test INTEGER_32
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i32: INTEGER_32
-		do
-			i32 := 2147483647
-			assert(2147483647 = i32)
-			i32 := i32 #+ 1
-			assert(i32 = -2147483648)
-		end
+   make is
+      local
+         i32: INTEGER_32
+      do
+         i32 := 2147483647
+         assert(2147483647 = i32)
+         i32 := i32 #+ 1
+         assert(i32 = -2147483648)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_INTEGER_32: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_INTEGER_32: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_INTEGER_32
 --

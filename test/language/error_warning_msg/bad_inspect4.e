@@ -7,13 +7,13 @@ feature
    foo: INTEGER is unique
    make is
       local
-	 i: INTEGER
+    i: INTEGER
       do
-	 inspect -- Must be rejected because we mix unique and non unique !
-	    i
-	 when foo then
-	 when 25 then
-	 end
+    inspect -- Must be rejected because we mix unique and non unique !
+       i
+    when foo then
+    when 25 then
+    end
       end
    
 end -- class BAD_INSPECT4

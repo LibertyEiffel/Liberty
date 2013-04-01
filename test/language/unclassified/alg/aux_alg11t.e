@@ -4,7 +4,7 @@
 class AUX_ALG11T
 
 inherit
-	ANY
+   ANY
 
 end -- class AUX_ALG11T
 --

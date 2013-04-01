@@ -4,82 +4,82 @@
 class TEST_SUBSTRING
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			s1, s2: STRING
-		do
-			s1 := "123"
-			s2 := s1.substring(1, 1)
-			assert(s2.count = 1)
-			assert(("1").is_equal(s2))
-			s2 := s1.substring(2, 2)
-			assert(("2").is_equal(s2))
-			s2 := s1.substring(3, 3)
-			assert(("3").is_equal(s2))
-			s2 := s1.substring(2, 3)
-			assert(("23").is_equal(s2))
-			s2 := s1.substring(1, 3)
-			assert(("123").is_equal(s2))
-			s2 := s1.substring(1, 2)
-			assert(("12").is_equal(s2))
-			s2 := s1.substring(1, 0)
-			assert(("").is_equal(s2))
-			s2 := s1.substring(2, 1)
-			assert(("").is_equal(s2))
-			s2 := s1.substring(3, 2)
-			assert(("").is_equal(s2))
-			s2 := s1.substring(4, 3)
-			assert(("").is_equal(s2))
-			s1 := "1"
-			s2 := s1.substring(1, 1)
-			assert(("1").is_equal(s2))
-			s2 := s1.substring(1, 0)
-			assert(("").is_equal(s2))
-			s2 := s1.substring(2, 1)
-			assert(("").is_equal(s2))
-			s1 := ""
-			s2 := s1.substring(1, 0)
-			assert(("").is_equal(s2))
+   make is
+      local
+         s1, s2: STRING
+      do
+         s1 := "123"
+         s2 := s1.substring(1, 1)
+         assert(s2.count = 1)
+         assert(("1").is_equal(s2))
+         s2 := s1.substring(2, 2)
+         assert(("2").is_equal(s2))
+         s2 := s1.substring(3, 3)
+         assert(("3").is_equal(s2))
+         s2 := s1.substring(2, 3)
+         assert(("23").is_equal(s2))
+         s2 := s1.substring(1, 3)
+         assert(("123").is_equal(s2))
+         s2 := s1.substring(1, 2)
+         assert(("12").is_equal(s2))
+         s2 := s1.substring(1, 0)
+         assert(("").is_equal(s2))
+         s2 := s1.substring(2, 1)
+         assert(("").is_equal(s2))
+         s2 := s1.substring(3, 2)
+         assert(("").is_equal(s2))
+         s2 := s1.substring(4, 3)
+         assert(("").is_equal(s2))
+         s1 := "1"
+         s2 := s1.substring(1, 1)
+         assert(("1").is_equal(s2))
+         s2 := s1.substring(1, 0)
+         assert(("").is_equal(s2))
+         s2 := s1.substring(2, 1)
+         assert(("").is_equal(s2))
+         s1 := ""
+         s2 := s1.substring(1, 0)
+         assert(("").is_equal(s2))
 
-			s1 := "1234"
-			s1.insert_string("XY", 3)
-			assert(("12XY34").is_equal(s1))
-			s1 := "1234567"
-			s1.remove_first
-			s1.insert_string("X", 4)
-			assert(("234X567").is_equal(s1))
-			s1 := "1234567"
-			s1.remove_first
-			s1.remove_first
-			s1.remove_first
-			s1.remove_first
-			s1.insert_string("X", 2)
-			assert(("5X67").is_equal(s1))
-			s1 := "1234567"
-			s1.remove_first
-			s1.remove_first
-			s1.insert_string("XYZ", 3)
-			assert(("34XYZ567").is_equal(s1))
-			
-			assert(("1234567890"^4|..|6)~"456")
-		end
+         s1 := "1234"
+         s1.insert_string("XY", 3)
+         assert(("12XY34").is_equal(s1))
+         s1 := "1234567"
+         s1.remove_first
+         s1.insert_string("X", 4)
+         assert(("234X567").is_equal(s1))
+         s1 := "1234567"
+         s1.remove_first
+         s1.remove_first
+         s1.remove_first
+         s1.remove_first
+         s1.insert_string("X", 2)
+         assert(("5X67").is_equal(s1))
+         s1 := "1234567"
+         s1.remove_first
+         s1.remove_first
+         s1.insert_string("XYZ", 3)
+         assert(("34XYZ567").is_equal(s1))
+         
+         assert(("1234567890"^4|..|6)~"456")
+      end
 
 feature {}
-	assert (bool: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not bool then
-				std_output.put_string("TEST_SUBSTRING: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			end
-		end
+   assert (bool: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not bool then
+            std_output.put_string("TEST_SUBSTRING: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_SUBSTRING
 --

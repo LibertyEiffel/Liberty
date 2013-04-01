@@ -12,7 +12,7 @@ inherit
          static_simplify
       end
 
-creation {EIFFEL_PARSER}
+creation {EIFFEL_PARSER, EXTERNAL_PROCEDURE}
    make
 
 creation {AGENT_CREATION}

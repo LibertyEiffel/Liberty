@@ -4,22 +4,22 @@
 expanded class AUX_EXPANDED03B[X]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	value: X
+   value: X
 
-	name: STRING
+   name: STRING
 
-	make is
-		do
-			name := ("foo").twin
-		end
+   make is
+      do
+         name := ("foo").twin
+      end
 
-	set_value (v: like value) is
-		do
-			value := v
-		end
+   set_value (v: like value) is
+      do
+         value := v
+      end
 
 end -- class AUX_EXPANDED03B
 --

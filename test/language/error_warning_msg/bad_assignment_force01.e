@@ -4,15 +4,15 @@
 class BAD_ASSIGNMENT_FORCE01
 create make
 feature {}
-	make is
-		local
-			c: COMPARABLE
-			h: HASHABLE
-		do
-			c := "toto"
-			h := "titi"
-			c ::= h
-		end
+   make is
+      local
+         c: COMPARABLE
+         h: HASHABLE
+      do
+         c := "toto"
+         h := "titi"
+         c ::= h
+      end
 end -- class BAD_ASSIGNMENT_FORCE01
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

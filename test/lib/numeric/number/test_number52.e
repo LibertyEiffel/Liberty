@@ -2,38 +2,38 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER52
-	-- tests on infix "#="
+   -- tests on infix "#="
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   PLATFORM
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: NUMBER
-		do
-			n := from_integer(0)
-			assert(n #= 0)
-			n := from_integer(1)
-			assert(n #= 1)
-			n := from_integer(-1)
-			assert(n #= -1)
-			n := from_integer(Maximum_integer)
-			assert(n #= Maximum_integer)
-			n := from_string("10/5")
-			assert(n #= 2)
-			n := from_string("0/30")
-			assert(n #= 0)
-			n := from_string("-500/50")
-			assert(n #= -10)
-			n := from_string("1/2")
-			assert(n #= 0.5)
-		end
+   make is
+      local
+         n: NUMBER
+      do
+         n := from_integer(0)
+         assert(n #= 0)
+         n := from_integer(1)
+         assert(n #= 1)
+         n := from_integer(-1)
+         assert(n #= -1)
+         n := from_integer(Maximum_integer)
+         assert(n #= Maximum_integer)
+         n := from_string("10/5")
+         assert(n #= 2)
+         n := from_string("0/30")
+         assert(n #= 0)
+         n := from_string("-500/50")
+         assert(n #= -10)
+         n := from_string("1/2")
+         assert(n #= 0.5)
+      end
 
 
 

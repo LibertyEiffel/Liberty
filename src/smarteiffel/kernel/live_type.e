@@ -138,7 +138,7 @@ feature {ANY}
          visitor.visit_live_type(Current)
       end
 
-feature {SMART_EIFFEL, EXTERNAL_FUNCTION, LIVE_TYPE_EXTRA_COLLECTOR}
+feature {SMART_EIFFEL, EXTERNAL_ROUTINE, LIVE_TYPE_EXTRA_COLLECTOR}
    collect (fs: FEATURE_STAMP) is
       require
          valid_stamp: fs /= Void
@@ -842,7 +842,7 @@ feature {SMART_EIFFEL}
             collect(memory_dispose_stamp)
          end
          run_time_set.force_add(Current)
-         if name.to_string.is_equal(once "STD_OUTPUT") then
+         if (name.to_string.is_equal(once "STD_OUTPUT") or else name.to_string.is_equal(once "AT_EXIT")) and then smart_eiffel.se_atexit_stamp = Void then
             smart_eiffel.collect_se_atexit(type)
          end
          smart_eiffel.magic_count_increment

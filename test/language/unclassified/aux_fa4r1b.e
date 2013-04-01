@@ -4,8 +4,8 @@
 class AUX_FA4R1B
 
 inherit
-	AUX_FA4B1
-		-- idem
+   AUX_FA4B1
+      -- idem
 
 end -- class AUX_FA4R1B
 --

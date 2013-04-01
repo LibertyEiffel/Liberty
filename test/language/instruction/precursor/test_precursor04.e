@@ -4,32 +4,32 @@
 class TEST_PRECURSOR04
 
 inherit
-	AUX_PRECURSOR01
-		redefine make, class_number
-		end
+   AUX_PRECURSOR01
+      redefine make, class_number
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			i := class_number
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         i := class_number
+      end
 
-	class_number: INTEGER is
-		local
-			str: STRING
-		do
-			create str.make(5)
-			Precursor.append_in(str)
-			if not ("0").is_equal(str) then
-				std_error.put_string("TEST_PRECURSOR04 Error #1%N")
-			end
-			Result := 2
-		end
+   class_number: INTEGER is
+      local
+         str: STRING
+      do
+         create str.make(5)
+         Precursor.append_in(str)
+         if not ("0").is_equal(str) then
+            std_error.put_string("TEST_PRECURSOR04 Error #1%N")
+         end
+         Result := 2
+      end
 
 end -- class TEST_PRECURSOR04
 --

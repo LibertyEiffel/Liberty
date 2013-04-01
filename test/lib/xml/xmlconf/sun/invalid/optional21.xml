@@ -1,0 +1,5 @@
+<!DOCTYPE root SYSTEM "../valid/dtdtest.dtd">
+<root>
+    <once-or-more-2b></once-or-more-2b>
+</root>
+

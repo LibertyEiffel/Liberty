@@ -4,18 +4,18 @@
 class TEST_INTEGER_VARIATION
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a: FAST_ARRAY[INTEGER]
+   a: FAST_ARRAY[INTEGER]
 
-	b: FAST_ARRAY[INTEGER_32]
+   b: FAST_ARRAY[INTEGER_32]
 
-	make is
-		do
-			create a.make(0)
-			create b.make(0)
-		end
+   make is
+      do
+         create a.make(0)
+         create b.make(0)
+      end
 
 end -- class TEST_INTEGER_VARIATION
 --

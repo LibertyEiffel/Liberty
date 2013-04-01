@@ -4,36 +4,36 @@
 class TEST_BENCH
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	peach: PEACH
+   peach: PEACH
 
-	apple: APPLE
+   apple: APPLE
 
-	make is
-		local
-			i, limit: INTEGER
-		do
-			limit := 70000000
-			from
-				i := 0
-			until
-				i > limit
-			loop
-				create apple.make(i)
-				i := i + 1
-			end
-			apple := Void
-			from
-				i := 0
-			until
-				i > limit
-			loop
-				create peach.make(i)
-				i := i + 1
-			end
-		end
+   make is
+      local
+         i, limit: INTEGER
+      do
+         limit := 70000000
+         from
+            i := 0
+         until
+            i > limit
+         loop
+            create apple.make(i)
+            i := i + 1
+         end
+         apple := Void
+         from
+            i := 0
+         until
+            i > limit
+         loop
+            create peach.make(i)
+            i := i + 1
+         end
+      end
 
 end -- class TEST_BENCH
 --

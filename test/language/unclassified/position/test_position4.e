@@ -4,51 +4,51 @@
 class TEST_POSITION4
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	p1: AUX_POSITION
+   p1: AUX_POSITION
 
-	current_class_id: INTEGER
+   current_class_id: INTEGER
 
-	aux: AUX_POSITION4
+   aux: AUX_POSITION4
 
-	pos (l, c: INTEGER): AUX_POSITION is
-		require
-			l >= 1
-			c >= 1
-		do
-			Result.set(l, c, current_class_id.to_integer_16)
-		end
+   pos (l, c: INTEGER): AUX_POSITION is
+      require
+         l >= 1
+         c >= 1
+      do
+         Result.set(l, c, current_class_id.to_integer_16)
+      end
 
-	make is
-		local
-			str: STRING
-		do
-			str := "...."
-			current_class_id := 3
-			p1 := pos(1, 2)
-			assert(p1.line = 1)
-			assert(p1.column = 2)
-			assert(p1.id = 3)
-			create aux.make(pos(4, 5))
-			assert(aux.position.line = 4)
-			assert(aux.position.column = 5)
-			assert(aux.position.id = 3)
-		end
+   make is
+      local
+         str: STRING
+      do
+         str := "...."
+         current_class_id := 3
+         p1 := pos(1, 2)
+         assert(p1.line = 1)
+         assert(p1.column = 2)
+         assert(p1.id = 3)
+         create aux.make(pos(4, 5))
+         assert(aux.position.line = 4)
+         assert(aux.position.column = 5)
+         assert(aux.position.id = 3)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_POSITION4: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_POSITION4: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_POSITION4
 --

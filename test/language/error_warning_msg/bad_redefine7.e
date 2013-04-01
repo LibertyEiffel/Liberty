@@ -15,15 +15,15 @@ feature
 
     make is
       do
-	 if path /= Void then
-	    path := "Xavier Cregut";
-	 end
+    if path /= Void then
+       path := "Xavier Cregut";
+    end
       end
 
    foo is
-	 -- To really crashes because only the warning is to be kept.
+    -- To really crashes because only the warning is to be kept.
       do
-	 i_want_to_crash_here_to_keep_track_of_the_previous_warning
+    i_want_to_crash_here_to_keep_track_of_the_previous_warning
       end
 
 end -- class BAD_REDEFINE7

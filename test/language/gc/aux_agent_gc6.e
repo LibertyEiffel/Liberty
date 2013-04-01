@@ -4,78 +4,78 @@
 expanded class AUX_AGENT_GC6
 
 feature {ANY}
-	head, tail: AUX_AGENT_GC7
+   head, tail: AUX_AGENT_GC7
 
-	clear is
-		do
-			head := Void
-			tail := Void
-		end
+   clear is
+      do
+         head := Void
+         tail := Void
+      end
 
-	add (p: AUX_AGENT_GC3) is
-		local
-			node: AUX_AGENT_GC7
-		do
-			create node.set_patient(p)
-			if tail = Void then
-				head := node
-			else
-				tail.set_next(node)
-			end
-			tail := node
-		end
+   add (p: AUX_AGENT_GC3) is
+      local
+         node: AUX_AGENT_GC7
+      do
+         create node.set_patient(p)
+         if tail = Void then
+            head := node
+         else
+            tail.set_next(node)
+         end
+         tail := node
+      end
 
-	remove (p: AUX_AGENT_GC3) is
-		local
-			node, previous: AUX_AGENT_GC7
-		do
-			from
-				node := head
-			until
-				node = Void or else node.patient = p
-			loop
-				previous := node
-				node := node.next
-			end
-			if node /= Void then
-				if previous /= Void then
-					previous.set_next(node.next)
-				else
-					head := node.next
-				end
-				if tail = node then
-					tail := previous
-				end
-			end
-		end
+   remove (p: AUX_AGENT_GC3) is
+      local
+         node, previous: AUX_AGENT_GC7
+      do
+         from
+            node := head
+         until
+            node = Void or else node.patient = p
+         loop
+            previous := node
+            node := node.next
+         end
+         if node /= Void then
+            if previous /= Void then
+               previous.set_next(node.next)
+            else
+               head := node.next
+            end
+            if tail = node then
+               tail := previous
+            end
+         end
+      end
 
-	do_all (proc: ROUTINE[TUPLE[AUX_AGENT_GC3]]) is
-		local
-			node: AUX_AGENT_GC7
-		do
-			from
-				node := head
-			until
-				node = Void
-			loop
-				proc.call([node.patient])
-				node := node.next
-			end
-		end
+   do_all (proc: ROUTINE[TUPLE[AUX_AGENT_GC3]]) is
+      local
+         node: AUX_AGENT_GC7
+      do
+         from
+            node := head
+         until
+            node = Void
+         loop
+            proc.call([node.patient])
+            node := node.next
+         end
+      end
 
-	accumulate_totals: AUX_AGENT_GC5 is
-		local
-			node: AUX_AGENT_GC7
-		do
-			from
-				node := head
-			until
-				node = Void
-			loop
-				Result.add(node.patient)
-				node := node.next
-			end
-		end
+   accumulate_totals: AUX_AGENT_GC5 is
+      local
+         node: AUX_AGENT_GC7
+      do
+         from
+            node := head
+         until
+            node = Void
+         loop
+            Result.add(node.patient)
+            node := node.next
+         end
+      end
 
 end -- class AUX_AGENT_GC6
 --

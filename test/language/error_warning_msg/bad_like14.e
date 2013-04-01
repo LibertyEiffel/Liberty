@@ -4,19 +4,19 @@
 class BAD_LIKE14
 
 creation
-	make
-	
+   make
+   
 feature
-	make is
-		do
-		end
+   make is
+      do
+      end
 
-	method (foo: like zoo; zoo: INTEGER) is
-		local
-			bar: like foo
-		do
-		end
-	
+   method (foo: like zoo; zoo: INTEGER) is
+      local
+         bar: like foo
+      do
+      end
+   
 end -- class BAD_LIKE14
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

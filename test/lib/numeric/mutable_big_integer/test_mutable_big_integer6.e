@@ -2,68 +2,68 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_MUTABLE_BIG_INTEGER6
-	--
-	-- Testing `hash_code' and `copy'.
-	--
+   --
+   -- Testing `hash_code' and `copy'.
+   --
 
 insert
-	ANY
-	PLATFORM
+   ANY
+   PLATFORM
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	dictionary1: HASHED_DICTIONARY[MUTABLE_BIG_INTEGER, INTEGER_64]
+   dictionary1: HASHED_DICTIONARY[MUTABLE_BIG_INTEGER, INTEGER_64]
 
-	dictionary2: HASHED_DICTIONARY[INTEGER_64, MUTABLE_BIG_INTEGER]
+   dictionary2: HASHED_DICTIONARY[INTEGER_64, MUTABLE_BIG_INTEGER]
 
-	make is
-		local
-			mbi1, mbi2, mbi3: MUTABLE_BIG_INTEGER; v1, v2: INTEGER_64
-		do
-			create dictionary1.make
-			create dictionary2.make
-			v1 := Maximum_integer_64
-			create mbi1.from_integer_64(v1)
-			dictionary1.put(mbi1, v1)
-			dictionary2.put(v1, mbi1)
-			assert(dictionary1.reference_at(v1) = mbi1)
-			assert(dictionary2.at(mbi1) = v1)
-			v2 := Minimum_integer_64
-			create mbi2.from_integer_64(v2)
-			dictionary1.put(mbi2, v2)
-			dictionary2.put(v2, mbi2)
-			assert(dictionary1.reference_at(v1) = mbi1)
-			assert(dictionary2.at(mbi1) = v1)
-			assert(dictionary1.reference_at(v2) = mbi2)
-			assert(dictionary2.at(mbi2) = v2)
-			mbi3 := mbi1.twin
-			assert(mbi1.is_equal(mbi3))
-			mbi3.from_integer(2)
-			assert(not mbi1.is_equal(mbi3))
-			mbi1.from_integer(2)
-			assert(mbi1.is_equal(mbi3))
-			mbi1.swap_with(mbi3)
-			assert(mbi1.is_equal(mbi3))
-			mbi3.from_integer(6)
-			assert(not mbi1.is_equal(mbi3))
-			mbi1.from_integer(6)
-			assert(mbi1.is_equal(mbi3))
-		end
+   make is
+      local
+         mbi1, mbi2, mbi3: MUTABLE_BIG_INTEGER; v1, v2: INTEGER_64
+      do
+         create dictionary1.make
+         create dictionary2.make
+         v1 := Maximum_integer_64
+         create mbi1.from_integer_64(v1)
+         dictionary1.put(mbi1, v1)
+         dictionary2.put(v1, mbi1)
+         assert(dictionary1.reference_at(v1) = mbi1)
+         assert(dictionary2.at(mbi1) = v1)
+         v2 := Minimum_integer_64
+         create mbi2.from_integer_64(v2)
+         dictionary1.put(mbi2, v2)
+         dictionary2.put(v2, mbi2)
+         assert(dictionary1.reference_at(v1) = mbi1)
+         assert(dictionary2.at(mbi1) = v1)
+         assert(dictionary1.reference_at(v2) = mbi2)
+         assert(dictionary2.at(mbi2) = v2)
+         mbi3 := mbi1.twin
+         assert(mbi1.is_equal(mbi3))
+         mbi3.from_integer(2)
+         assert(not mbi1.is_equal(mbi3))
+         mbi1.from_integer(2)
+         assert(mbi1.is_equal(mbi3))
+         mbi1.swap_with(mbi3)
+         assert(mbi1.is_equal(mbi3))
+         mbi3.from_integer(6)
+         assert(not mbi1.is_equal(mbi3))
+         mbi1.from_integer(6)
+         assert(mbi1.is_equal(mbi3))
+      end
 
-	count: INTEGER
+   count: INTEGER
 
-	assert (b: BOOLEAN) is
-		do
-			count := count + 1
-			if not b then
-				sedb_breakpoint
-				io.put_string("TEST_MUTABLE_BIG_INTEGER6 : ERROR Test # ")
-				io.put_integer(count)
-				io.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         count := count + 1
+         if not b then
+            sedb_breakpoint
+            io.put_string("TEST_MUTABLE_BIG_INTEGER6 : ERROR Test # ")
+            io.put_integer(count)
+            io.put_string("%N")
+         end
+      end
 
 end -- class TEST_MUTABLE_BIG_INTEGER6
 --

@@ -4,26 +4,26 @@
 class AUX_EXCEPTION19SUB1
 
 inherit
-	AUX_EXCEPTION19SUB
-	EXCEPTIONS
+   AUX_EXCEPTION19SUB
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	cause_exception is
-		local
-			dummy: BOOLEAN
-		do
-			dummy := True
-			exceptions.raise("SUB1.cause_exception")
-		rescue
-			if not dummy then
-				print("SUB1.cause_exception rescue dummy=")
-				print(dummy.to_string)
-				print("%N")
-			end
-		end
+   cause_exception is
+      local
+         dummy: BOOLEAN
+      do
+         dummy := True
+         exceptions.raise("SUB1.cause_exception")
+      rescue
+         if not dummy then
+            print("SUB1.cause_exception rescue dummy=")
+            print(dummy.to_string)
+            print("%N")
+         end
+      end
 
 end -- class AUX_EXCEPTION19SUB1
 --

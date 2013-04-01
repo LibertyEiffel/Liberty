@@ -2,45 +2,45 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_SUBSTITUTE_01
-	--
-	-- Regular expression matcher for expression "(a)(a)"
+   --
+   -- Regular expression matcher for expression "(a)(a)"
 
 inherit
-	REGULAR_EXPRESSION
-		redefine default_create
-		end
+   REGULAR_EXPRESSION
+      redefine default_create
+      end
 
 feature {ANY}
-	default_create is
-		do
-			pattern := once "aa"
-			create substrings_first_indexes.make(0, 2)
-			create substrings_last_indexes.make(0, 2)
-			substitution_pattern_ready := False
-		end
+   default_create is
+      do
+         pattern := once "aa"
+         create substrings_first_indexes.make(0, 2)
+         create substrings_last_indexes.make(0, 2)
+         substitution_pattern_ready := False
+      end
 
-	match_from (text: STRING; first_index: INTEGER): BOOLEAN is
-		local
-			pos, i: INTEGER
-		do
-			pos := text.substring_index(pattern, first_index)
-			Result := pos /= 0
-			substrings_first_indexes.put(pos, 0)
-			substrings_last_indexes.put(pos + pattern.count - 1, 0)
-			from
-				i := pattern.count.min(9)
-			until
-				i < 1
-			loop
-				substrings_first_indexes.put(pos + i - 1, i)
-				substrings_last_indexes.put(pos + i - 1, i)
-				i := i - 1
-			end
-		end
+   match_from (text: STRING; first_index: INTEGER): BOOLEAN is
+      local
+         pos, i: INTEGER
+      do
+         pos := text.substring_index(pattern, first_index)
+         Result := pos /= 0
+         substrings_first_indexes.put(pos, 0)
+         substrings_last_indexes.put(pos + pattern.count - 1, 0)
+         from
+            i := pattern.count.min(9)
+         until
+            i < 1
+         loop
+            substrings_first_indexes.put(pos + i - 1, i)
+            substrings_last_indexes.put(pos + i - 1, i)
+            i := i - 1
+         end
+      end
 
-	can_match: BOOLEAN is True
+   can_match: BOOLEAN is True
 
-	pattern: STRING
+   pattern: STRING
 
 end -- class AUX_SUBSTITUTE_01
 --

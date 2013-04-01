@@ -2,46 +2,46 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER21
-	-- tests on "to_string"
+   -- tests on "to_string"
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   PLATFORM
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: NUMBER; s: STRING
-		do
-			n := from_integer(0)
-			assert(n.to_string.is_equal("0"))
-			n := from_integer(1)
-			assert(n.to_string.is_equal("1"))
-			n := from_integer(-1)
-			assert(n.to_string.is_equal("-1"))
-			n := from_integer(Maximum_integer)
-			assert(n.to_string.is_equal(Maximum_integer.to_string))
-			n := n @* 10
-			s := Maximum_integer.to_string
-			s.append("0")
-			assert(s.is_equal(n.to_string))
-			n := from_integer(Minimum_integer)
-			assert(n.to_string.is_equal(Minimum_integer.to_string))
-			n := n @* 10
-			s := Minimum_integer.to_string
-			s.append("0")
-			assert(s.is_equal(n.to_string))
-			n := from_string("6/10")
-			assert(n.to_string.is_equal("3/5"))
-			n := from_string("-20/10")
-			assert(n.to_string.is_equal("-2"))
-			n := from_string("3/5")
-			assert(n.to_string.is_equal("3/5"))
-		end
+   make is
+      local
+         n: NUMBER; s: STRING
+      do
+         n := from_integer(0)
+         assert(n.to_string.is_equal("0"))
+         n := from_integer(1)
+         assert(n.to_string.is_equal("1"))
+         n := from_integer(-1)
+         assert(n.to_string.is_equal("-1"))
+         n := from_integer(Maximum_integer)
+         assert(n.to_string.is_equal(Maximum_integer.to_string))
+         n := n @* 10
+         s := Maximum_integer.to_string
+         s.append("0")
+         assert(s.is_equal(n.to_string))
+         n := from_integer(Minimum_integer)
+         assert(n.to_string.is_equal(Minimum_integer.to_string))
+         n := n @* 10
+         s := Minimum_integer.to_string
+         s.append("0")
+         assert(s.is_equal(n.to_string))
+         n := from_string("6/10")
+         assert(n.to_string.is_equal("3/5"))
+         n := from_string("-20/10")
+         assert(n.to_string.is_equal("-2"))
+         n := from_string("3/5")
+         assert(n.to_string.is_equal("3/5"))
+      end
 
 
 

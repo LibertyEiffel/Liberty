@@ -4,12 +4,12 @@
 class AUX_INHERIT5
 
 feature {ANY}
-	foo_count: INTEGER
+   foo_count: INTEGER
 
-	foo is
-		do
-			foo_count := foo_count + 1
-		end
+   foo is
+      do
+         foo_count := foo_count + 1
+      end
 
 end -- class AUX_INHERIT5
 --

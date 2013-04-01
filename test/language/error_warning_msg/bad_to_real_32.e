@@ -7,16 +7,16 @@ class BAD_TO_REAL_32
 --
 
 creation
-	make
+   make
 
 feature
-	make is
-		local
-			real_32: REAL_32
-		do
-			real_32 := real_32.to_real_32
-		end
-	
+   make is
+      local
+         real_32: REAL_32
+      do
+         real_32 := real_32.to_real_32
+      end
+   
 end -- class BAD_TO_REAL_32
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -4,16 +4,16 @@
 class BAD_MANIFEST_GENERIC2
 
 creation
-	make
+   make
 
 feature
-	make is
-		local
-			foo: like Current 
-		do
-			foo := {BAD_MANIFEST_GENERIC2 << "class", "not", "equiped" >> }
-		end
-	
+   make is
+      local
+         foo: like Current 
+      do
+         foo := {BAD_MANIFEST_GENERIC2 << "class", "not", "equiped" >> }
+      end
+   
 end -- class BAD_MANIFEST_GENERIC2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

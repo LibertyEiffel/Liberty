@@ -4,15 +4,15 @@
 class TEST_ARRAY_POINTER
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[POINTER]
-		do
-			create a.make(1, 5)
-		end
+   make is
+      local
+         a: ARRAY[POINTER]
+      do
+         create a.make(1, 5)
+      end
 
 end -- class TEST_ARRAY_POINTER
 --

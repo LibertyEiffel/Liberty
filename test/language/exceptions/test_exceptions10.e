@@ -4,47 +4,47 @@
 class TEST_EXCEPTIONS10
 
 inherit
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	bad_ensure: BOOLEAN
+   bad_ensure: BOOLEAN
 
-	make is
-		local
-			done: BOOLEAN
-		do
-			if not done then
-				done := True
-				do_bad_ensure
-			end
-		rescue
-			is_true(Postcondition = exception)
-			is_true(cpt = 1)
-			retry
-		end
+   make is
+      local
+         done: BOOLEAN
+      do
+         if not done then
+            done := True
+            do_bad_ensure
+         end
+      rescue
+         is_true(Postcondition = exception)
+         is_true(cpt = 1)
+         retry
+      end
 
-	do_bad_ensure is
-		do
-			bad_ensure := False
-		ensure
-			bad_ensure
-		end
+   do_bad_ensure is
+      do
+         bad_ensure := False
+      ensure
+         bad_ensure
+      end
 
 feature {}
-	is_true (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_EXCEPTION10: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   is_true (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_EXCEPTION10: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_EXCEPTIONS10
 --

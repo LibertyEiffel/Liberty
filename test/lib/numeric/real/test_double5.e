@@ -4,39 +4,39 @@
 class TEST_DOUBLE5
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d, d1, d2: REAL_64; str: STRING
-		do
-			d := 0.2222222222
-			str := d.to_string_format(3)
-			assert(("0.222").is_equal(str))
-			str := d.to_string_format(1)
-			assert(("0.2").is_equal(str))
-			d := 0.6
-			assert(d.floor = 0.0)
-			d1 := -1.0
-			d2 := 1.0
-			assert(d1 < d2)
-			assert(d1 <= d2)
-			assert(d2 > d1)
-			assert(d2 >= d1)
-		end
+   make is
+      local
+         d, d1, d2: REAL_64; str: STRING
+      do
+         d := 0.2222222222
+         str := d.to_string_format(3)
+         assert(("0.222").is_equal(str))
+         str := d.to_string_format(1)
+         assert(("0.2").is_equal(str))
+         d := 0.6
+         assert(d.floor = 0.0)
+         d1 := -1.0
+         d2 := 1.0
+         assert(d1 < d2)
+         assert(d1 <= d2)
+         assert(d2 > d1)
+         assert(d2 >= d1)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_DOUBLE5: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_DOUBLE5: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_DOUBLE5
 --

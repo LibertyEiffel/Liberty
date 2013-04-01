@@ -4,12 +4,12 @@
 class AUX_JOIN1B
 
 inherit
-	AUX_JOIN1A
+   AUX_JOIN1A
 
 feature {ANY}
-	v: AUX_JOIN1B is
-		do
-		end
+   v: AUX_JOIN1B is
+      do
+      end
 
 end -- class AUX_JOIN1B
 --

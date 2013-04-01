@@ -2,21 +2,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_CREATE07
-	-- SZ:252:
+   -- SZ:252:
 
 inherit
-	EIFFELTEST_TOOLS
-	AUX_CREATE07[REFERENCE[INTEGER]]
+   EIFFELTEST_TOOLS
+   AUX_CREATE07[REFERENCE[INTEGER]]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			create data
-			assert(data /= Void)
-		end
+   make is
+      do
+         create data
+         assert(data /= Void)
+      end
 
 end -- class TEST_CREATE07
 --

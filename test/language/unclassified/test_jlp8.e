@@ -2,31 +2,31 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JLP8
-	-- From a bug report of Jean-Lin PACHERIE
+   -- From a bug report of Jean-Lin PACHERIE
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	precision: REAL
+   precision: REAL
 
-	size: INTEGER
+   size: INTEGER
 
-	make is
-		local
-			dot: AUX_JLP8_DOT[like precision]; gemv: AUX_JLP8_GEMV[like precision]
-			m: AUX_JLP8_ROW_MATRIX[like precision]
-		do
-			if dot /= Void then
-				size := 2
-				create dot
-				dot.make(Void, Void)
-				dot.run
-				create m.make_unit(size, size)
-				create gemv
-				gemv.make(m.rows, Void)
-			end
-		end
+   make is
+      local
+         dot: AUX_JLP8_DOT[like precision]; gemv: AUX_JLP8_GEMV[like precision]
+         m: AUX_JLP8_ROW_MATRIX[like precision]
+      do
+         if dot /= Void then
+            size := 2
+            create dot
+            dot.make(Void, Void)
+            dot.run
+            create m.make_unit(size, size)
+            create gemv
+            gemv.make(m.rows, Void)
+         end
+      end
 
 end -- class TEST_JLP8
 --

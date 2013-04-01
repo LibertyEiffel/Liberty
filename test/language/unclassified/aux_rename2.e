@@ -4,19 +4,19 @@
 class AUX_RENAME2
 
 inherit
-	TEST_RENAME2
-		rename foo as super_foo
-		end
+   TEST_RENAME2
+      rename foo as super_foo
+      end
 
 feature {ANY}
-	foo (x: like Current): like Current is
-		require
-			req_foo
-		do
-			Result := x.super_foo(Current)
-		ensure
-			ens_foo
-		end
+   foo (x: like Current): like Current is
+      require
+         req_foo
+      do
+         Result := x.super_foo(Current)
+      ensure
+         ens_foo
+      end
 
 end -- class AUX_RENAME2
 --

@@ -4,12 +4,12 @@
 expanded class AUX_EG8B[T]
 
 feature {ANY}
-	put (x: like item) is
-		do
-			item := x
-		end
+   put (x: like item) is
+      do
+         item := x
+      end
 
-	item: T
+   item: T
 
 end -- class AUX_EG8B
 --

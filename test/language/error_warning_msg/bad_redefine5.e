@@ -15,7 +15,7 @@ feature {ANY}
    
    make is 
       do 
-	 frozen_routine(Current)
+    frozen_routine(Current)
       end
    
    frozen_routine (other: AUX_REDEFINE5) is

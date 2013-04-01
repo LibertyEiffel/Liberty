@@ -4,50 +4,50 @@
 class TEST_LIKE2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_LIKE2A; b: AUX_LIKE2B; c: AUX_LIKE2C
-		do
-			create a
-			create b
-			create c
-			assert(a.f(a) = 'A')
-			assert(a.f(b) = 'B')
-			assert(a.f(c) = 'C')
-			--	 assert(b.f(a) = 'A');
-			assert(b.f(b) = 'B')
-			assert(b.f(c) = 'C')
-			--	 assert(c.f(a) = 'A');
-			--	 assert(c.f(b) = 'B');
-			assert(c.f(c) = 'C')
-			assert(a.is_equal(a))
-			assert(not a.is_equal(b))
-			assert(not a.is_equal(c))
-			--	 assert(    b.is_equal(a));
-			assert(b.is_equal(b))
-			assert(not b.is_equal(c))
-			--	 assert(    c.is_equal(a));
-			--	 assert(    c.is_equal(b));
-			assert(c.is_equal(c))
-		end
+   make is
+      local
+         a: AUX_LIKE2A; b: AUX_LIKE2B; c: AUX_LIKE2C
+      do
+         create a
+         create b
+         create c
+         assert(a.f(a) = 'A')
+         assert(a.f(b) = 'B')
+         assert(a.f(c) = 'C')
+         --    assert(b.f(a) = 'A');
+         assert(b.f(b) = 'B')
+         assert(b.f(c) = 'C')
+         --    assert(c.f(a) = 'A');
+         --    assert(c.f(b) = 'B');
+         assert(c.f(c) = 'C')
+         assert(a.is_equal(a))
+         assert(not a.is_equal(b))
+         assert(not a.is_equal(c))
+         --    assert(    b.is_equal(a));
+         assert(b.is_equal(b))
+         assert(not b.is_equal(c))
+         --    assert(    c.is_equal(a));
+         --    assert(    c.is_equal(b));
+         assert(c.is_equal(c))
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_LIKE2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_LIKE2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_LIKE2
 --

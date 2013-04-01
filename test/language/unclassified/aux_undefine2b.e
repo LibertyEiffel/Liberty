@@ -4,9 +4,9 @@
 class AUX_UNDEFINE2B
 
 inherit
-	AUX_UNDEFINE2A
-		rename my_feature as my_renamed_feature
-		end
+   AUX_UNDEFINE2A
+      rename my_feature as my_renamed_feature
+      end
 
 end -- class AUX_UNDEFINE2B
 --

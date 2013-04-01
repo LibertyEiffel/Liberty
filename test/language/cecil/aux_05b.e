@@ -4,13 +4,13 @@
 class AUX_05B
 
 inherit
-	AUX_05A
+   AUX_05A
 
 feature {ANY}
-	print_msg is
-		do
-			print("ok%N")
-		end
+   print_msg is
+      do
+         print("ok%N")
+      end
 
 end -- class AUX_05B
 --

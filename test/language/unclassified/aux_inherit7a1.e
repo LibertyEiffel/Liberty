@@ -4,10 +4,10 @@
 expanded class AUX_INHERIT7A1
 
 insert
-	AUX_INHERIT7A
+   AUX_INHERIT7A
 
 feature {ANY} -- Access
-	x: AUX_INHERIT7B1
+   x: AUX_INHERIT7B1
 
 end -- class AUX_INHERIT7A1
 --

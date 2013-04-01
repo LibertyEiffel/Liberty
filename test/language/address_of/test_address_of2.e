@@ -2,28 +2,28 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ADDRESS_OF2
-	-- From a bug report of : Brian STRELIOFF
+   -- From a bug report of : Brian STRELIOFF
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			ptr: POINTER
-		do
-			exit(Current.to_pointer)
-			ptr := Current.to_pointer
-			exit(ptr)
-		end
+   make is
+      local
+         ptr: POINTER
+      do
+         exit(Current.to_pointer)
+         ptr := Current.to_pointer
+         exit(ptr)
+      end
 
 feature {}
-	exit (ptr: POINTER) is
-		do
-			check
-				to_pointer = ptr
-			end
-		end
+   exit (ptr: POINTER) is
+      do
+         check
+            to_pointer = ptr
+         end
+      end
 
 end -- class TEST_ADDRESS_OF2
 --

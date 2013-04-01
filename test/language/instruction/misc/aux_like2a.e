@@ -4,15 +4,15 @@
 class AUX_LIKE2A
 
 feature {ANY}
-	frozen f (arg: like Current): CHARACTER is
-		do
-			Result := arg.type
-		end
+   frozen f (arg: like Current): CHARACTER is
+      do
+         Result := arg.type
+      end
 
-	type: CHARACTER is
-		do
-			Result := 'A'
-		end
+   type: CHARACTER is
+      do
+         Result := 'A'
+      end
 
 end -- class AUX_LIKE2A
 --

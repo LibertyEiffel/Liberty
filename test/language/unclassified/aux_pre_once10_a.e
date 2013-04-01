@@ -4,14 +4,14 @@
 deferred class AUX_PRE_ONCE10_A
 
 feature {ANY}
-	foofoo: STRING is
-		deferred
-		end
+   foofoo: STRING is
+      deferred
+      end
 
-	frozen barbar: STRING is
-		do
-			Result := foofoo
-		end
+   frozen barbar: STRING is
+      do
+         Result := foofoo
+      end
 
 end -- class AUX_PRE_ONCE10_A
 --

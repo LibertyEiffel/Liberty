@@ -4,19 +4,19 @@
 class TEST_FIT_INTEGER_32
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert({INTEGER_64 -2147483648}.fit_integer_32)
-			assert({INTEGER_64 2147483647}.fit_integer_32)
-			assert(not (-2147483649).fit_integer_32)
-			assert(not 2147483648.fit_integer_32)
-		end
+   make is
+      do
+         assert({INTEGER_64 -2147483648}.fit_integer_32)
+         assert({INTEGER_64 2147483647}.fit_integer_32)
+         assert(not (-2147483649).fit_integer_32)
+         assert(not 2147483648.fit_integer_32)
+      end
 
 end -- class TEST_FIT_INTEGER_32
 --

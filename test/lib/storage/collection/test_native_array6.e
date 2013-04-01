@@ -4,35 +4,35 @@
 class TEST_NATIVE_ARRAY6
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux: AUX_NATIVE_ARRAY6[REAL]
-		do
-			create aux
-			aux.calloc(2)
-			aux.native_array.put(1.5, 0)
-			aux.native_array.put(2.5, 1)
-			assert(aux.native_array.item(0) = 1.5)
-			assert(aux.native_array.item(1) = 2.5)
-		end
+   make is
+      local
+         aux: AUX_NATIVE_ARRAY6[REAL]
+      do
+         create aux
+         aux.calloc(2)
+         aux.native_array.put(1.5, 0)
+         aux.native_array.put(2.5, 1)
+         assert(aux.native_array.item(0) = 1.5)
+         assert(aux.native_array.item(1) = 2.5)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_NATIVE_ARRAY6: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_NATIVE_ARRAY6: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_NATIVE_ARRAY6
 --

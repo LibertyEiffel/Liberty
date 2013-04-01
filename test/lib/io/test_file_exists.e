@@ -4,21 +4,21 @@
 class TEST_FILE_EXISTS
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {}
-	main is
-		local
-			path: STRING
-		do
-			path := "test_file_exists.e"
-			assert((create {FILE_TOOLS}).is_readable(path))
-			path.append(path.twin)
-			assert(not (create {FILE_TOOLS}).is_readable(path))
-		end
+   main is
+      local
+         path: STRING
+      do
+         path := "test_file_exists.e"
+         assert((create {FILE_TOOLS}).is_readable(path))
+         path.append(path.twin)
+         assert(not (create {FILE_TOOLS}).is_readable(path))
+      end
 
 end -- class TEST_FILE_EXISTS
 --

@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_INSPECT16
-	-- Inspecting STRINGS when STRING is not a live type.
+   -- Inspecting STRINGS when STRING is not a live type.
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			x: STRING
-		do
-			die_with_code(exit_success_code)
-			inspect
-				x
-			when "1" then
-			end
-		end
+   make is
+      local
+         x: STRING
+      do
+         die_with_code(exit_success_code)
+         inspect
+            x
+         when "1" then
+         end
+      end
 
 end -- class TEST_INSPECT16
 --

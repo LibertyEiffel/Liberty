@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_LD05
-	-- From: "Le Dressay" <ledressay@eugensystems.com>
-	-- Qui font des jeux.
+   -- From: "Le Dressay" <ledressay@eugensystems.com>
+   -- Qui font des jeux.
 
 inherit
-	AUX_LD05_PARENT
+   AUX_LD05_PARENT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			expanded_object_once.set_value(21)
-		end
+   make is
+      do
+         expanded_object_once.set_value(21)
+      end
 
 end -- class TEST_LD05
 --

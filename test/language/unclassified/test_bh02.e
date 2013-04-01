@@ -2,29 +2,29 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_BH02
-	-- From a bug report of Bob Hutchison
+   -- From a bug report of Bob Hutchison
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			create {HASHED_DICTIONARY[BOOLEAN, STRING]} dict.make
-			dict.put(True, "one")
-			assert(not dict.valid_index(0))
-			assert(dict.valid_index(1))
-			assert(not dict.valid_index(2))
-		end
+   make is
+      do
+         create {HASHED_DICTIONARY[BOOLEAN, STRING]} dict.make
+         dict.put(True, "one")
+         assert(not dict.valid_index(0))
+         assert(dict.valid_index(1))
+         assert(not dict.valid_index(2))
+      end
 
-	dict: DICTIONARY[BOOLEAN, STRING]
+   dict: DICTIONARY[BOOLEAN, STRING]
 
-	assert (b: BOOLEAN) is
-		do
-			if not b then
-				std_output.put_string("Error in TEST_BH02.%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         if not b then
+            std_output.put_string("Error in TEST_BH02.%N")
+         end
+      end
 
 end -- class TEST_BH02
 --

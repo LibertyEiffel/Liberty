@@ -4,46 +4,46 @@
 class TEST_NATIVE_ARRAY_COLLECTOR02
 
 insert
-	EIFFELTEST_TOOLS
-	NATIVE_ARRAY_COLLECTOR[STRING]
+   EIFFELTEST_TOOLS
+   NATIVE_ARRAY_COLLECTOR[STRING]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			capacity := 1
-			honeypot := honeypot.calloc(capacity)
-			full_collect
-			assert(flag)
-			assert(not reentering)
-		end
+   make is
+      do
+         capacity := 1
+         honeypot := honeypot.calloc(capacity)
+         full_collect
+         assert(flag)
+         assert(not reentering)
+      end
 
-	mark_native_arrays is
-		do
-			reentering := reentering or else in_mark
-			if not in_mark then
-				-- To avoid screwing up the test suite
-				in_mark := True
-				full_collect -- This is evil, eh?
-				flag := True
-				in_mark := False
-			end
-		end
+   mark_native_arrays is
+      do
+         reentering := reentering or else in_mark
+         if not in_mark then
+            -- To avoid screwing up the test suite
+            in_mark := True
+            full_collect -- This is evil, eh?
+            flag := True
+            in_mark := False
+         end
+      end
 
-	flag, reentering, in_mark: BOOLEAN
+   flag, reentering, in_mark: BOOLEAN
 
-	capacity: INTEGER
+   capacity: INTEGER
 
-	honeypot: NATIVE_ARRAY[STRING]
+   honeypot: NATIVE_ARRAY[STRING]
 
-	full_collect is
-		local
-			m: MEMORY
-		do
-			m.full_collect
-		end
+   full_collect is
+      local
+         m: MEMORY
+      do
+         m.full_collect
+      end
 
 end -- class TEST_NATIVE_ARRAY_COLLECTOR02
 --

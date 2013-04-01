@@ -4,8 +4,8 @@
 class AUX_ROUTINE_LIKE_CURRENT01
 
 feature {ANY}
-	f: ROUTINE[TUPLE[like Current]]
-			-- With agent conformance, this becomes invalid in any descendant
+   f: ROUTINE[TUPLE[like Current]]
+         -- With agent conformance, this becomes invalid in any descendant
 
 end -- class AUX_ROUTINE_LIKE_CURRENT01
 --

@@ -4,21 +4,21 @@
 class TEST_C_INLINE_C01
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			a: AUX_C_INLINE_C01_1
-		do
-			create {AUX_C_INLINE_C01_2} a
-			assert(a.c_boolean)
-			create {AUX_C_INLINE_C01_3} a
-			assert(a.c_boolean)
-		end
+   make is
+      local
+         a: AUX_C_INLINE_C01_1
+      do
+         create {AUX_C_INLINE_C01_2} a
+         assert(a.c_boolean)
+         create {AUX_C_INLINE_C01_3} a
+         assert(a.c_boolean)
+      end
 
 end -- class TEST_C_INLINE_C01
 --

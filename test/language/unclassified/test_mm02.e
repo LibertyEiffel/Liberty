@@ -2,27 +2,27 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_MM02
-	--
-	-- SZ:412: From mwm-keyword-se.f78c7c@mired.org (Mike Meyer)
-	--
+   --
+   -- SZ:412: From mwm-keyword-se.f78c7c@mired.org (Mike Meyer)
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			real_extended: REAL_EXTENDED; view: STRING
-		do
-			real_extended := real_extended.one
-			assert(real_extended = 1.0)
-			view := {REAL_EXTENDED 1.0}.to_string_scientific(1)
-			assert(view.is_equal("1.0e+00"))
-			assert({REAL_EXTENDED 1.0}.to_string.is_equal("1.000000"))
-		end
+   make is
+      local
+         real_extended: REAL_EXTENDED; view: STRING
+      do
+         real_extended := real_extended.one
+         assert(real_extended = 1.0)
+         view := {REAL_EXTENDED 1.0}.to_string_scientific(1)
+         assert(view.is_equal("1.0e+00"))
+         assert({REAL_EXTENDED 1.0}.to_string.is_equal("1.000000"))
+      end
 
 end -- class TEST_MM02
 --

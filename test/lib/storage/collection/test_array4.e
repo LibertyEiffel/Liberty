@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ARRAY4
-	--
-	-- From a bug report of Cyril ADRIAN
-	--
+   --
+   -- From a bug report of Cyril ADRIAN
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			use({ARRAY[STRING] 1, << "titi" >> })
-			-- *** INTEGER doesn't conform to COMPARABLE (Vincent Croizier, 04/11/2004) ***
-			-- use({ARRAY[INTEGER] 1, <<1>>});
-		end
+   make is
+      do
+         use({ARRAY[STRING] 1, << "titi" >> })
+         -- *** INTEGER doesn't conform to COMPARABLE (Vincent Croizier, 04/11/2004) ***
+         -- use({ARRAY[INTEGER] 1, <<1>>});
+      end
 
-	use (t: ARRAY[COMPARABLE]) is
-		do
-			t.put(t.last, 1)
-		end
+   use (t: ARRAY[COMPARABLE]) is
+      do
+         t.put(t.last, 1)
+      end
 
 end -- class TEST_ARRAY4
 --

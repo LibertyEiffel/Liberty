@@ -45,6 +45,8 @@ feature {} -- Hard-coded class names:
 
    as_native_array_internals: STRING is "NATIVE_ARRAY_INTERNALS"
 
+   as_natural: STRING is "NATURAL"
+
    as_natural_8: STRING is "NATURAL_8"
 
    as_natural_16: STRING is "NATURAL_16"
@@ -231,6 +233,8 @@ feature {} -- Hard coded feature names:
    as_is_deep_equal: STRING is "is_deep_equal"
 
    as_is_equal: STRING is "is_equal"
+
+   as_do_at_exit: STRING is "do_at_exit"
 
    as_is_infinity: STRING is "is_infinity"
 

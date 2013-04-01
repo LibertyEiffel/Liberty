@@ -4,13 +4,13 @@
 class AUX_REDEFINE3B
 
 inherit
-	AUX_REDEFINE3A
-		rename display as message
-		redefine message
-		end
+   AUX_REDEFINE3A
+      rename display as message
+      redefine message
+      end
 
 feature {ANY}
-	message: CHARACTER is 'B'
+   message: CHARACTER is 'B'
 
 end -- class AUX_REDEFINE3B
 --

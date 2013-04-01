@@ -4,28 +4,28 @@
 class TEST_EXPANDED15
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	---- Original:
-	-- arr: ARRAY[expanded INTEGER]
-	arr: ARRAY[INTEGER]
+   ---- Original:
+   -- arr: ARRAY[expanded INTEGER]
+   arr: ARRAY[INTEGER]
 
-	make is
-		local
-			ei: INTEGER
-		do
-			---- Original:
-			-- ei: expanded INTEGER
-			check
-				ei = 0
-			end
-			ei := ei + 1
-			check
-				ei = 1
-			end
-			arr := {ARRAY[INTEGER] 1, << ei, ei >> }
-		end
+   make is
+      local
+         ei: INTEGER
+      do
+         ---- Original:
+         -- ei: expanded INTEGER
+         check
+            ei = 0
+         end
+         ei := ei + 1
+         check
+            ei = 1
+         end
+         arr := {ARRAY[INTEGER] 1, << ei, ei >> }
+      end
 
 end -- class TEST_EXPANDED15
 --

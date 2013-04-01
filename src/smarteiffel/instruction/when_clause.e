@@ -156,15 +156,26 @@ feature {ANY}
       end
 
    side_effect_free (type: TYPE): BOOLEAN is
+      local
+         i: INTEGER
       do
-         --|*** Could be better. ***
+         if compound.side_effect_free(type) then
+            from
+               Result := True
+               i := list.lower
+            until
+               i > list.upper
+            loop
+               Result := list.item(i).side_effect_free(type)
+               i := i + 1
+            end
+         end
       end
 
    accept (visitor: WHEN_CLAUSE_VISITOR) is
       do
          visitor.visit_when_clause(Current)
       end
-
 
 feature {INSPECT_STATEMENT}
    create_merged_with (other: like Current): like Current is

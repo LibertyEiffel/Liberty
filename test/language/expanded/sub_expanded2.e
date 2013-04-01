@@ -4,10 +4,10 @@
 expanded class SUB_EXPANDED2
 
 insert
-	EXPANDED2
+   EXPANDED2
 
 creation {ANY}
-	make
+   make
 
 end -- class SUB_EXPANDED2
 --

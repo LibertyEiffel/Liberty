@@ -2,16 +2,16 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_SYNTAX09
-	
+   
 creation
-	main
+   main
 
 feature {}
-	main is
-		do
+   main is
+      do
          Class
-		end
-	
+      end
+   
 end -- class BAD_SYNTAX09
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

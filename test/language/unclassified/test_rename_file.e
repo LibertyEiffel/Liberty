@@ -4,44 +4,44 @@
 class TEST_RENAME_FILE
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	core1: STRING is "core1.tmp"
+   core1: STRING is "core1.tmp"
 
-	core2: STRING is "core2.tmp"
+   core2: STRING is "core2.tmp"
 
-	make is
-		local
-			tfw: TEXT_FILE_WRITE
-		do
-			if (create {FILE_TOOLS}).is_readable(core1) then
-				(create {FILE_TOOLS}).delete(core1)
-			end
-			assert(not (create {FILE_TOOLS}).is_readable(core1))
-			create tfw.connect_to(core1)
-			tfw.disconnect
-			assert((create {FILE_TOOLS}).is_readable(core1))
-			(create {FILE_TOOLS}).rename_to(core1, core2)
-			assert((create {FILE_TOOLS}).is_readable(core2))
-			assert(not (create {FILE_TOOLS}).is_readable(core1))
-			(create {FILE_TOOLS}).delete(core2)
-			assert(not (create {FILE_TOOLS}).is_readable(core2))
-		end
+   make is
+      local
+         tfw: TEXT_FILE_WRITE
+      do
+         if (create {FILE_TOOLS}).is_readable(core1) then
+            (create {FILE_TOOLS}).delete(core1)
+         end
+         assert(not (create {FILE_TOOLS}).is_readable(core1))
+         create tfw.connect_to(core1)
+         tfw.disconnect
+         assert((create {FILE_TOOLS}).is_readable(core1))
+         (create {FILE_TOOLS}).rename_to(core1, core2)
+         assert((create {FILE_TOOLS}).is_readable(core2))
+         assert(not (create {FILE_TOOLS}).is_readable(core1))
+         (create {FILE_TOOLS}).delete(core2)
+         assert(not (create {FILE_TOOLS}).is_readable(core2))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_RENAME_FILE: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_RENAME_FILE: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_RENAME_FILE
 --

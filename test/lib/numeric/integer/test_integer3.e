@@ -4,55 +4,55 @@
 class TEST_INTEGER3
 
 insert
-	ANY
-	PLATFORM
+   ANY
+   PLATFORM
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER; s: STRING
-		do
-			i := 0
-			s := i.to_string
-			assert(s.to_integer = i)
-			i := 1
-			s := i.to_string
-			assert(s.to_integer = i)
-			i := 2
-			s := i.to_string
-			assert(s.to_integer = i)
-			i := -1
-			s := i.to_string
-			assert(s.to_integer = i)
-			i := -2
-			s := i.to_string
-			assert(s.to_integer = i)
-			i := Maximum_integer
-			s := i.to_string
-			assert(s.to_integer = i)
-			i := Minimum_integer
-			s := i.to_string
-			assert(s.to_integer = i)
-			assert(1234 = 1234)
-			assert(1234567 = 1234567)
-		end
+   make is
+      local
+         i: INTEGER; s: STRING
+      do
+         i := 0
+         s := i.to_string
+         assert(s.to_integer = i)
+         i := 1
+         s := i.to_string
+         assert(s.to_integer = i)
+         i := 2
+         s := i.to_string
+         assert(s.to_integer = i)
+         i := -1
+         s := i.to_string
+         assert(s.to_integer = i)
+         i := -2
+         s := i.to_string
+         assert(s.to_integer = i)
+         i := Maximum_integer
+         s := i.to_string
+         assert(s.to_integer = i)
+         i := Minimum_integer
+         s := i.to_string
+         assert(s.to_integer = i)
+         assert(1234 = 1234)
+         assert(1234567 = 1234567)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_INTEGER3: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_INTEGER3: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_INTEGER3
 --

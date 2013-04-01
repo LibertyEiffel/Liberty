@@ -4,7 +4,7 @@
 class AUX_XC3S2A[G -> AUX_XC3SG]
 
 inherit
-	AUX_XC3SA[G]
+   AUX_XC3SA[G]
 
 end -- class AUX_XC3S2A
 --

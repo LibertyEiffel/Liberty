@@ -4,9 +4,9 @@
 class AUX_ANCHOR12_EFFECTOR[G]
 
 feature {ANY}
-	anchor: ARRAY[G] is
-		do
-		end
+   anchor: ARRAY[G] is
+      do
+      end
 
 end -- class AUX_ANCHOR12_EFFECTOR
 --

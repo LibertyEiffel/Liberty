@@ -2,34 +2,34 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER45
-	-- tests on "^"
+   -- tests on "^"
 
 insert
-	EIFFELTEST_TOOLS
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2, n3: NUMBER
-		do
-			n1 := from_integer(0)
-			n2 := from_integer(2)
-			assert((n1 ^ n2).is_equal(n1))
-			n1 := from_integer(1)
-			assert((n1 ^ n2).is_equal(n1))
-			n2 := from_integer(0)
-			assert((n1 ^ n2).is_equal(n1))
-			n1 := from_string("1/2")
-			n2 := from_integer(4)
-			n3 := from_string("1/16")
-			assert((n1 ^ n2).is_equal(n3))
-			assert((n1.sqrt ^ 2 - 0.5).abs < 0.0000001)
-			assert(n2.sqrt ^ 2 = 4)
-		end
+   make is
+      local
+         n1, n2, n3: NUMBER
+      do
+         n1 := from_integer(0)
+         n2 := from_integer(2)
+         assert((n1 ^ n2).is_equal(n1))
+         n1 := from_integer(1)
+         assert((n1 ^ n2).is_equal(n1))
+         n2 := from_integer(0)
+         assert((n1 ^ n2).is_equal(n1))
+         n1 := from_string("1/2")
+         n2 := from_integer(4)
+         n3 := from_string("1/16")
+         assert((n1 ^ n2).is_equal(n3))
+         assert((n1.sqrt ^ 2 - 0.5).abs < 0.0000001)
+         assert(n2.sqrt ^ 2 = 4)
+      end
 
 
 

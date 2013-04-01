@@ -4,31 +4,31 @@
 class TEST_PRE_ONCE10
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			a: AUX_PRE_ONCE10_A; b: AUX_PRE_ONCE10_B; c: AUX_PRE_ONCE10_C
-		do
-			create b.make
-			create c
-			-- To confuse the assignment_handler:
-			a := b
-			a := c
-			-- Now checking the once result:
-			a := c
-			assert(c.foofoo = a.foofoo)
-			c.foofoo.extend('C')
-			assert(c.foofoo.count = a.foofoo.count)
-			assert(c.barbar = a.foofoo)
-			assert(c.barbar /= b.foofoo)
-			a := b
-			assert(a.barbar /= c.barbar)
-		end
+   make is
+      local
+         a: AUX_PRE_ONCE10_A; b: AUX_PRE_ONCE10_B; c: AUX_PRE_ONCE10_C
+      do
+         create b.make
+         create c
+         -- To confuse the assignment_handler:
+         a := b
+         a := c
+         -- Now checking the once result:
+         a := c
+         assert(c.foofoo = a.foofoo)
+         c.foofoo.extend('C')
+         assert(c.foofoo.count = a.foofoo.count)
+         assert(c.barbar = a.foofoo)
+         assert(c.barbar /= b.foofoo)
+         a := b
+         assert(a.barbar /= c.barbar)
+      end
 
 end -- class TEST_PRE_ONCE10
 --

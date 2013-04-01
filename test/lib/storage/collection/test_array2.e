@@ -4,102 +4,102 @@
 class TEST_ARRAY2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a, b: ARRAY2[INTEGER_8]
+   a, b: ARRAY2[INTEGER_8]
 
-	make is
-		local
-			i1, i2: INTEGER; v: INTEGER_8
-		do
-			create a.make(1, 2, 3, 4)
-			assert(a.count = 4)
-			assert(a.lower1 = 1)
-			assert(a.upper1 = 2)
-			assert(a.lower2 = 3)
-			assert(a.upper2 = 4)
-			assert(a.item(1, 3) = 0)
-			create a.make(1, 3, 1, 3)
-			assert(a.count = 9)
-			assert(a.lower1 = 1)
-			assert(a.upper1 = 3)
-			assert(a.lower1 = 1)
-			assert(a.upper2 = 3)
-			b := {ARRAY2[INTEGER_8] 1, 3, 1, 3, << 0, 0, 0;
-			                                       0, 0, 0;
-			                                       0, 0, 0 >> }
-			assert(b.count = 9)
-			assert(b.lower1 = 1)
-			assert(b.upper1 = 3)
-			assert(b.lower1 = 1)
-			assert(b.upper2 = 3)
-			assert(a.is_equal(b))
-			assert(a.is_equal(b))
-			from
-				a := {ARRAY2[INTEGER_8] 1, 3, 1, 3, << 1, 2, 3;
-				                                       4, 5, 6;
-				                                       7, 8, 9 >> }
-				i1 := a.lower1
-				i2 := a.lower2
-				v := 1
-			until
-				v > 9
-			loop
-				assert(v = a.item(i1, i2))
-				v := v + 1
-				if i2 = a.upper2 then
-					i1 := i1 + 1
-					i2 := a.lower2
-				else
-					i2 := i2 + 1
-				end
-			end
-			from
-				b := a.twin
-				i1 := a.lower1
-				i2 := a.lower2
-				v := 1
-			until
-				v > 9
-			loop
-				assert(v = a.item(i1, i2))
-				assert(v = b.item(i1, i2))
-				v := v + 1
-				if i2 = a.upper2 then
-					i1 := i1 + 1
-					i2 := a.lower2
-				else
-					i2 := i2 + 1
-				end
-			end
-			assert(a.is_equal(b))
-			b.put(0, 2, 2)
-			assert(not a.is_equal(b))
-			a := {ARRAY2[INTEGER_8] 1, 3, 1, 3, << 1, 2, 2;
-			                                       4, 5, 6;
-			                                       7, 8, 9 >> }
-			assert(a.occurrences(2) = 2)
-			assert(a.occurrences(3) = 0)
-			assert(a.occurrences(4) = 1)
-			assert(a.fast_occurrences(2) = 2)
-			assert(a.fast_occurrences(3) = 0)
-			assert(a.fast_occurrences(4) = 1)
-		end
+   make is
+      local
+         i1, i2: INTEGER; v: INTEGER_8
+      do
+         create a.make(1, 2, 3, 4)
+         assert(a.count = 4)
+         assert(a.lower1 = 1)
+         assert(a.upper1 = 2)
+         assert(a.lower2 = 3)
+         assert(a.upper2 = 4)
+         assert(a.item(1, 3) = 0)
+         create a.make(1, 3, 1, 3)
+         assert(a.count = 9)
+         assert(a.lower1 = 1)
+         assert(a.upper1 = 3)
+         assert(a.lower1 = 1)
+         assert(a.upper2 = 3)
+         b := {ARRAY2[INTEGER_8] 1, 3, 1, 3, << 0, 0, 0;
+                                                0, 0, 0;
+                                                0, 0, 0 >> }
+         assert(b.count = 9)
+         assert(b.lower1 = 1)
+         assert(b.upper1 = 3)
+         assert(b.lower1 = 1)
+         assert(b.upper2 = 3)
+         assert(a.is_equal(b))
+         assert(a.is_equal(b))
+         from
+            a := {ARRAY2[INTEGER_8] 1, 3, 1, 3, << 1, 2, 3;
+                                                   4, 5, 6;
+                                                   7, 8, 9 >> }
+            i1 := a.lower1
+            i2 := a.lower2
+            v := 1
+         until
+            v > 9
+         loop
+            assert(v = a.item(i1, i2))
+            v := v + 1
+            if i2 = a.upper2 then
+               i1 := i1 + 1
+               i2 := a.lower2
+            else
+               i2 := i2 + 1
+            end
+         end
+         from
+            b := a.twin
+            i1 := a.lower1
+            i2 := a.lower2
+            v := 1
+         until
+            v > 9
+         loop
+            assert(v = a.item(i1, i2))
+            assert(v = b.item(i1, i2))
+            v := v + 1
+            if i2 = a.upper2 then
+               i1 := i1 + 1
+               i2 := a.lower2
+            else
+               i2 := i2 + 1
+            end
+         end
+         assert(a.is_equal(b))
+         b.put(0, 2, 2)
+         assert(not a.is_equal(b))
+         a := {ARRAY2[INTEGER_8] 1, 3, 1, 3, << 1, 2, 2;
+                                                4, 5, 6;
+                                                7, 8, 9 >> }
+         assert(a.occurrences(2) = 2)
+         assert(a.occurrences(3) = 0)
+         assert(a.occurrences(4) = 1)
+         assert(a.fast_occurrences(2) = 2)
+         assert(a.fast_occurrences(3) = 0)
+         assert(a.fast_occurrences(4) = 1)
+      end
 
-	assert (bool: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not bool then
-				std_output.put_string("TEST_ARRAY2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (bool: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not bool then
+            std_output.put_string("TEST_ARRAY2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_ARRAY2
 --

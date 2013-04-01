@@ -3,7 +3,7 @@
 --
 class AUX_INHERIT12_A
 insert
-	ANY
+   ANY
 feature
    foo is
       do

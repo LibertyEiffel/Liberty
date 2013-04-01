@@ -15,9 +15,9 @@ feature
 
     make is
       do
-	 if path /= Void then
-	    path := "Xavier Cregut";
-	 end;
+    if path /= Void then
+       path := "Xavier Cregut";
+    end;
       end;
 
 end -- class BAD_REDEFINE8

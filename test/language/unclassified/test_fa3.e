@@ -2,69 +2,69 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FA3
-	--
-	-- From a bug report of Franck ARNAUD
-	--
+   --
+   -- From a bug report of Franck ARNAUD
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			r1: AUX_FA3R1; r1b: AUX_FA3R1B; r2: AUX_FA3R2; b1: AUX_FA3B1; b2: AUX_FA3B2
-		do
-			create r1
-			r1.init_ref
-			assert(r1.ref.is_equal("ref"))
-			assert(r1.get_ref.is_equal("ref"))
-			b1 := r1
-			b1.init_ref
-			assert(b1.ref.is_equal("ref"))
-			assert(b1.get_ref.is_equal("ref"))
-			assert(r1.ref.is_equal("ref"))
-			assert(r1.get_ref.is_equal("ref"))
-			create r1b
-			r1b.init_ref
-			assert(r1b.ref.is_equal("ref"))
-			assert(r1b.get_ref.is_equal("ref"))
-			b1 := r1b
-			b1.init_ref
-			assert(b1.ref.is_equal("ref"))
-			assert(b1.get_ref.is_equal("ref"))
-			assert(r1b.ref.is_equal("ref"))
-			assert(r1b.get_ref.is_equal("ref"))
-			create r2
-			r2.init_ref
-			assert(r2.ref.is_equal("ref"))
-			assert(r2.get_ref.is_equal("ref"))
-			r2.init_autre
-			assert(r2.autre.is_equal("autre"))
-			b1 := r2
-			b1.init_ref
-			assert(b1.ref.is_equal("ref"))
-			assert(b1.get_ref.is_equal("ref"))
-			b2 := r2
-			b2.init_autre
-			assert(b2.autre.is_equal("autre"))
-			assert(r2.ref.is_equal("ref"))
-			assert(r2.get_ref.is_equal("ref"))
-			assert(r2.autre.is_equal("autre"))
-		end
+   make is
+      local
+         r1: AUX_FA3R1; r1b: AUX_FA3R1B; r2: AUX_FA3R2; b1: AUX_FA3B1; b2: AUX_FA3B2
+      do
+         create r1
+         r1.init_ref
+         assert(r1.ref.is_equal("ref"))
+         assert(r1.get_ref.is_equal("ref"))
+         b1 := r1
+         b1.init_ref
+         assert(b1.ref.is_equal("ref"))
+         assert(b1.get_ref.is_equal("ref"))
+         assert(r1.ref.is_equal("ref"))
+         assert(r1.get_ref.is_equal("ref"))
+         create r1b
+         r1b.init_ref
+         assert(r1b.ref.is_equal("ref"))
+         assert(r1b.get_ref.is_equal("ref"))
+         b1 := r1b
+         b1.init_ref
+         assert(b1.ref.is_equal("ref"))
+         assert(b1.get_ref.is_equal("ref"))
+         assert(r1b.ref.is_equal("ref"))
+         assert(r1b.get_ref.is_equal("ref"))
+         create r2
+         r2.init_ref
+         assert(r2.ref.is_equal("ref"))
+         assert(r2.get_ref.is_equal("ref"))
+         r2.init_autre
+         assert(r2.autre.is_equal("autre"))
+         b1 := r2
+         b1.init_ref
+         assert(b1.ref.is_equal("ref"))
+         assert(b1.get_ref.is_equal("ref"))
+         b2 := r2
+         b2.init_autre
+         assert(b2.autre.is_equal("autre"))
+         assert(r2.ref.is_equal("ref"))
+         assert(r2.get_ref.is_equal("ref"))
+         assert(r2.autre.is_equal("autre"))
+      end
 
-	assert (bool: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not bool then
-				std_output.put_string("TEST_FA3: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--	    std_output.put_string("Yes%N");
-			end
-		end
+   assert (bool: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not bool then
+            std_output.put_string("TEST_FA3: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --       std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_FA3
 --

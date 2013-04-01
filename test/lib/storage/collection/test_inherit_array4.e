@@ -4,19 +4,19 @@
 class TEST_INHERIT_ARRAY4
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux: AUX_INHERIT_ARRAY4
-		do
-			create aux.array_make(1, 0)
-			aux.force(1, 1)
-			check
-				aux.item(1) = 1
-			end
-		end
+   make is
+      local
+         aux: AUX_INHERIT_ARRAY4
+      do
+         create aux.array_make(1, 0)
+         aux.force(1, 1)
+         check
+            aux.item(1) = 1
+         end
+      end
 
 end -- class TEST_INHERIT_ARRAY4
 --

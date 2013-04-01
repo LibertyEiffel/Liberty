@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EXPANDED40
-	-- Bug report from Philippe Ribet
-	-- Wrong C code is generated in modes other than -boost.
-	-- Generated: r70default_create(&ds,&tmp0->_exp);
-	-- Should be: r70default_create(&ds,tmp0->_exp);
-	-- Because second argument is "int" in the prototype.
+   -- Bug report from Philippe Ribet
+   -- Wrong C code is generated in modes other than -boost.
+   -- Generated: r70default_create(&ds,&tmp0->_exp);
+   -- Should be: r70default_create(&ds,tmp0->_exp);
+   -- Because second argument is "int" in the prototype.
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		do
-			exp.dummy
-		end
+   make is
+      do
+         exp.dummy
+      end
 
-	exp: AUX_EXPANDED40
+   exp: AUX_EXPANDED40
 
 end -- class TEST_EXPANDED40
 --

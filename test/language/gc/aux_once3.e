@@ -4,15 +4,15 @@
 class AUX_ONCE3
 
 inherit
-	AUX_ONCE2A
-		redefine buf
-		end
+   AUX_ONCE2A
+      redefine buf
+      end
 
 feature {ANY}
-	buf: STRING is
-		once
-			Result := "0123456789"
-		end
+   buf: STRING is
+      once
+         Result := "0123456789"
+      end
 
 end -- class AUX_ONCE3
 --

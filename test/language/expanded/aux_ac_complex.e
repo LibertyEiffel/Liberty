@@ -4,146 +4,146 @@
 expanded class AUX_AC_COMPLEX
 
 insert
-	NUMERIC
-		redefine out
-		end
+   NUMERIC
+      redefine out
+      end
 
 feature {ANY}
-	is_equal (other: like Current): BOOLEAN is
-		do
-			Result := standard_is_equal(other)
-		end
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := standard_is_equal(other)
+      end
 
-	is_near_equal (other: like Current): BOOLEAN is
-		do
-			Result := (re - other.re).abs * 2.0 ^ 45 < re.abs and (im - other.im).abs * 2.0 ^ 45 < im.abs
-		end
+   is_near_equal (other: like Current): BOOLEAN is
+      do
+         Result := (re - other.re).abs * 2.0 ^ 45 < re.abs and (im - other.im).abs * 2.0 ^ 45 < im.abs
+      end
 
-	re: REAL
+   re: REAL
 
-	im: REAL
+   im: REAL
 
-	make (r, i: REAL): like Current is
-		do
-			Result.set_item(r, i)
-		end
+   make (r, i: REAL): like Current is
+      do
+         Result.set_item(r, i)
+      end
 
-	set_item (r, i: REAL) is
-		do
-			re := r
-			im := i
-		end
+   set_item (r, i: REAL) is
+      do
+         re := r
+         im := i
+      end
 
-	infix "+" (other: like Current): like Current is
-		do
-			Result.set_item(re + other.re, im + other.im)
-		end
+   infix "+" (other: like Current): like Current is
+      do
+         Result.set_item(re + other.re, im + other.im)
+      end
 
-	infix "-" (other: like Current): like Current is
-		do
-			Result.set_item(re - other.re, im - other.im)
-		end
+   infix "-" (other: like Current): like Current is
+      do
+         Result.set_item(re - other.re, im - other.im)
+      end
 
-	infix "*" (other: like Current): like Current is
-		do
-			Result.set_item(re * other.re - im * other.im, re * other.im + im * other.re)
-		end
+   infix "*" (other: like Current): like Current is
+      do
+         Result.set_item(re * other.re - im * other.im, re * other.im + im * other.re)
+      end
 
-	infix "/" (other: like Current): like Current is
-			-- The ratio of self and `other'.
-			-- From Numerical Recipes in C, 2nd ed. p. 949.
-		local
-			r, den: REAL
-		do
-			if other.re.abs >= other.im.abs then
-				r := other.im / other.re
-				den := other.re + r * other.im
-				Result.set_item((re + r * im) / den, (im - r * re) / den)
-			else
-				r := other.re / other.im
-				den := other.im + r * other.re
-				Result.set_item((re * r + im) / den, (im * r - re) / den)
-			end
-		end
+   infix "/" (other: like Current): like Current is
+         -- The ratio of self and `other'.
+         -- From Numerical Recipes in C, 2nd ed. p. 949.
+      local
+         r, den: REAL
+      do
+         if other.re.abs >= other.im.abs then
+            r := other.im / other.re
+            den := other.re + r * other.im
+            Result.set_item((re + r * im) / den, (im - r * re) / den)
+         else
+            r := other.re / other.im
+            den := other.im + r * other.re
+            Result.set_item((re * r + im) / den, (im * r - re) / den)
+         end
+      end
 
-	prefix "-": like Current is
-		do
-			Result.set_item(-re, -im)
-		end
+   prefix "-": like Current is
+      do
+         Result.set_item(-re, -im)
+      end
 
-	prefix "+": like Current is
-		do
-			Result.set_item(re, im)
-		end
+   prefix "+": like Current is
+      do
+         Result.set_item(re, im)
+      end
 
-	valid_divisor (other: like Current): BOOLEAN is
-		do
-			Result := other /= zero
-		end
+   valid_divisor (other: like Current): BOOLEAN is
+      do
+         Result := other /= zero
+      end
 
-	sign: INTEGER_8 is
-		do
-			check
-				False
-			end
-		end
+   sign: INTEGER_8 is
+      do
+         check
+            False
+         end
+      end
 
-	divisible (other: like Current): BOOLEAN is
-		do
-			Result := re /= 0 or else im /= 0
-		end
+   divisible (other: like Current): BOOLEAN is
+      do
+         Result := re /= 0 or else im /= 0
+      end
 
-	one: like Current is
-		do
-			Result.set_item(re.one, im.zero)
-		end
+   one: like Current is
+      do
+         Result.set_item(re.one, im.zero)
+      end
 
-	zero: like Current is
-		do
-			Result.set_item(re.zero, im.zero)
-		end
+   zero: like Current is
+      do
+         Result.set_item(re.zero, im.zero)
+      end
 
-	plus_scalar (scalar: REAL): like Current is
-		do
-			Result.set_item(re + scalar, im)
-		end
+   plus_scalar (scalar: REAL): like Current is
+      do
+         Result.set_item(re + scalar, im)
+      end
 
-	times_scalar (scalar: REAL): like Current is
-		do
-			Result.set_item(re * scalar, im * scalar)
-		end
+   times_scalar (scalar: REAL): like Current is
+      do
+         Result.set_item(re * scalar, im * scalar)
+      end
 
-	exp: like Current is
-			-- The complex exponential `e^self'.
-		local
-			rp: REAL
-		do
-			rp := re.exp
-			Result.set_item(rp * im.cos, rp * im.sin)
-		end
+   exp: like Current is
+         -- The complex exponential `e^self'.
+      local
+         rp: REAL
+      do
+         rp := re.exp
+         Result.set_item(rp * im.cos, rp * im.sin)
+      end
 
-	out: STRING is
-		do
-			create Result.make(24)
-			Result.append("(")
-			Result.append(re.out)
-			Result.append(", ")
-			Result.append(im.out)
-			Result.append(")")
-		ensure
-			not Result.is_empty
-		end
+   out: STRING is
+      do
+         create Result.make(24)
+         Result.append("(")
+         Result.append(re.out)
+         Result.append(", ")
+         Result.append(im.out)
+         Result.append(")")
+      ensure
+         not Result.is_empty
+      end
 
-	set_item_numeric (other: like Current) is
-		do
-			set_item(other.re, other.im)
-		end
+   set_item_numeric (other: like Current) is
+      do
+         set_item(other.re, other.im)
+      end
 
 feature {ANY}
-	hash_code: INTEGER is
-		do
-			Result := re.hash_code + im.hash_code
-		end
+   hash_code: INTEGER is
+      do
+         Result := re.hash_code + im.hash_code
+      end
 
 end -- class AUX_AC_COMPLEX
 --

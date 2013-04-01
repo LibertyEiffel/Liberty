@@ -4,12 +4,12 @@
 class AUX_UNDEFINE3C
 
 inherit
-	AUX_UNDEFINE3B
+   AUX_UNDEFINE3B
 
 feature {ANY}
-	my_renamed_feature is
-		do
-		end
+   my_renamed_feature is
+      do
+      end
 
 end -- class AUX_UNDEFINE3C
 --

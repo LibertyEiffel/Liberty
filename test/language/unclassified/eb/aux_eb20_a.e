@@ -4,11 +4,11 @@
 class AUX_EB20_A
 
 feature {ANY}
-	f (a_string: STRING; i, j: INTEGER): INTEGER is
-		do
-			a_string.put('c', i)
-			Result := j
-		end
+   f (a_string: STRING; i, j: INTEGER): INTEGER is
+      do
+         a_string.put('c', i)
+         Result := j
+      end
 
 end -- class AUX_EB20_A
 --

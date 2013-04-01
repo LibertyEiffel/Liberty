@@ -4,9 +4,9 @@
 class AUX_RENAME9C
 
 inherit
-	AUX_RENAME9B
-		rename foo as baz
-		end
+   AUX_RENAME9B
+      rename foo as baz
+      end
 
 end -- class AUX_RENAME9C
 --

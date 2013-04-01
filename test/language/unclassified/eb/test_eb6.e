@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EB6
-	-- From a bug report of Eric BEZAULT
+   -- From a bug report of Eric BEZAULT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux: AUX_EB6C
-		do
-			create aux
-			aux.foo
-		end
+   make is
+      local
+         aux: AUX_EB6C
+      do
+         create aux
+         aux.foo
+      end
 
 end -- class TEST_EB6
 --

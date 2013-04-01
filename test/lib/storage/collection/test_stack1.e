@@ -4,29 +4,29 @@
 class TEST_STACK1
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			stack: STACK[INTEGER_8]
-		do
-			create stack.make
-			assert(stack.count = 0)
-			stack.push(1)
-			assert(stack.count = 1)
-			assert(stack.top = 1)
-			stack.push(2)
-			assert(stack.count = 2)
-			assert(stack.top = 2)
-			stack.pop
-			assert(stack.count = 1)
-			stack.pop
-			assert(stack.count = 0)
-		end
+   make is
+      local
+         stack: STACK[INTEGER_8]
+      do
+         create stack.make
+         assert(stack.count = 0)
+         stack.push(1)
+         assert(stack.count = 1)
+         assert(stack.top = 1)
+         stack.push(2)
+         assert(stack.count = 2)
+         assert(stack.top = 2)
+         stack.pop
+         assert(stack.count = 1)
+         stack.pop
+         assert(stack.count = 0)
+      end
 
 end -- class TEST_STACK1
 --

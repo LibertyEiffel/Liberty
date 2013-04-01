@@ -4,14 +4,14 @@
 class AUX_LD01_TOTO[E, G -> AUX_LD01_KIKI[E]]
 
 feature {ANY}
-	setdatas (pardata_e: E; pardata_g: G) is
-		do
-			data_g := pardata_g
-			data_g.setdata(pardata_e)
-		end
+   setdatas (pardata_e: E; pardata_g: G) is
+      do
+         data_g := pardata_g
+         data_g.setdata(pardata_e)
+      end
 
 feature {}
-	data_g: G
+   data_g: G
 
 end -- class AUX_LD01_TOTO
 --

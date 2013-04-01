@@ -2,50 +2,50 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SET_ALL_WITH2
-	-- Test feature `set_all_with' of various implementations.
+   -- Test feature `set_all_with' of various implementations.
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[REAL]; fa: FAST_ARRAY[REAL]; ll: LINKED_LIST[REAL]; l2l: TWO_WAY_LINKED_LIST[REAL]
-		do
-			create a.make(1, 10)
-			test(a)
-			create fa.make(10)
-			test(fa)
-			create ll.make
-			ll.add_last(1)
-			ll.add_last(1)
-			test(ll)
-			create l2l.make
-			l2l.add_last(1)
-			l2l.add_last(1)
-			test(l2l)
-		end
+   make is
+      local
+         a: ARRAY[REAL]; fa: FAST_ARRAY[REAL]; ll: LINKED_LIST[REAL]; l2l: TWO_WAY_LINKED_LIST[REAL]
+      do
+         create a.make(1, 10)
+         test(a)
+         create fa.make(10)
+         test(fa)
+         create ll.make
+         ll.add_last(1)
+         ll.add_last(1)
+         test(ll)
+         create l2l.make
+         l2l.add_last(1)
+         l2l.add_last(1)
+         test(l2l)
+      end
 
 feature {}
-	test (c: COLLECTION[REAL]) is
-		do
-			c.set_all_with(2.55)
-			assert(c.occurrences(2.55) = c.count)
-		end
+   test (c: COLLECTION[REAL]) is
+      do
+         c.set_all_with(2.55)
+         assert(c.occurrences(2.55) = c.count)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_SET_ALL_WITH2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_SET_ALL_WITH2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_SET_ALL_WITH2
 --

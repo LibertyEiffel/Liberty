@@ -4,40 +4,40 @@
 class TEST_ONCE1
 
 creation {ANY}
-	make, make2
+   make, make2
 
 feature {ANY}
-	object: TEST_ONCE1 is
-		once
-			create Result.make2
-		end
+   object: TEST_ONCE1 is
+      once
+         create Result.make2
+      end
 
-	access_count: INTEGER
+   access_count: INTEGER
 
-	make2 is
-		do
-			access_count := access_count + 1
-		end
+   make2 is
+      do
+         access_count := access_count + 1
+      end
 
-	make is
-		local
-			i: INTEGER; o: like Current; old_access_count: INTEGER
-		do
-			from
-				i := 1000000
-				old_access_count := object.access_count
-			until
-				i = 0
-			loop
-				create o.make2
-				if object.access_count /= old_access_count then
-					std_output.put_string("TEST_ONCE1: ERROR Test #1%N")
-				end
-				o.object.make2
-				old_access_count := old_access_count + 1
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER; o: like Current; old_access_count: INTEGER
+      do
+         from
+            i := 1000000
+            old_access_count := object.access_count
+         until
+            i = 0
+         loop
+            create o.make2
+            if object.access_count /= old_access_count then
+               std_output.put_string("TEST_ONCE1: ERROR Test #1%N")
+            end
+            o.object.make2
+            old_access_count := old_access_count + 1
+            i := i - 1
+         end
+      end
 
 end -- class TEST_ONCE1
 --

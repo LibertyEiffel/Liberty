@@ -16,27 +16,27 @@ feature
 
    make is
       local
-	 a: AUX_INHERIT13A
-	 b: AUX_INHERIT13B
+    a: AUX_INHERIT13A
+    b: AUX_INHERIT13B
       do
-	 foo
-	 bar
-	 foo2
+    foo
+    bar
+    foo2
 
-	 a := Current
-	 b := Current
+    a := Current
+    b := Current
 
-	 a.foo
-	 a.bar
-	 a.foo2
-	 b.foo
-	 b.bar
-	 b.foo2
+    a.foo
+    a.bar
+    a.foo2
+    b.foo
+    b.bar
+    b.foo2
       end;
 
    foo is
       do
-	 count := count + 1;
+    count := count + 1;
       end;
 
 end -- class BAD_INHERIT13

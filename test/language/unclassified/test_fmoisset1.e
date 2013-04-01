@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FMOISSET1
-	-- From: Daniel F Moisset <dmoisset@arnet.com.ar>
+   -- From: Daniel F Moisset <dmoisset@arnet.com.ar>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux: AUX_FMOISSET1[INTEGER, COLLECTION[INTEGER]]
-		do
-			create aux
-		end
+   make is
+      local
+         aux: AUX_FMOISSET1[INTEGER, COLLECTION[INTEGER]]
+      do
+         create aux
+      end
 
 end -- class TEST_FMOISSET1
 --

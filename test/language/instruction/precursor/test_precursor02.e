@@ -4,28 +4,28 @@
 class TEST_PRECURSOR02
 
 inherit
-	AUX_PRECURSOR02
-		redefine foo
-		end
+   AUX_PRECURSOR02
+      redefine foo
+      end
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			foo
-		end
+   make is
+      do
+         foo
+      end
 
-	foo is
-		do
-			assert(value = 0)
-			Precursor
-			assert(value = 1)
-		end
+   foo is
+      do
+         assert(value = 0)
+         Precursor
+         assert(value = 1)
+      end
 
 end -- class TEST_PRECURSOR02
 --

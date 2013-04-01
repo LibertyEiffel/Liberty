@@ -4,13 +4,13 @@
 class AUX_CREATE01
 
 feature {ANY}
-	x: INTEGER is
-		do
-			counter := counter + 1
-			Result := counter
-		end
+   x: INTEGER is
+      do
+         counter := counter + 1
+         Result := counter
+      end
 
-	counter: INTEGER
+   counter: INTEGER
 
 end -- class AUX_CREATE01
 --

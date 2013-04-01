@@ -9,9 +9,9 @@ feature
 
    make is
       local
-	 dico: DICTIONARY[INTEGER, INTEGER]
+    dico: DICTIONARY[INTEGER, INTEGER]
       do
-	 dico := create {DICTIONARY[INTEGER, INTEGER]}.make
+    dico := create {DICTIONARY[INTEGER, INTEGER]}.make
       end
    
 end -- class BAD_CREATE_DICTIONARY1

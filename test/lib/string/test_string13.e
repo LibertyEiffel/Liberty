@@ -4,24 +4,24 @@
 class TEST_STRING13
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert(("1.5").is_real)
-			assert(("1").is_real)
-			-- *** assert(("1").is_real);
-			-- *** replace by : (Vincent Croizier, 30/11/04) ***
-			assert(("1").to_real = 1.0)
-			assert(("-1.5").is_real)
-			assert(("-45.5").is_real)
-			assert(("-1").is_real)
-			assert(("1.5E6").is_real)
-		end
+   make is
+      do
+         assert(("1.5").is_real)
+         assert(("1").is_real)
+         -- *** assert(("1").is_real);
+         -- *** replace by : (Vincent Croizier, 30/11/04) ***
+         assert(("1").to_real = 1.0)
+         assert(("-1.5").is_real)
+         assert(("-45.5").is_real)
+         assert(("-1").is_real)
+         assert(("1.5E6").is_real)
+      end
 
 end -- class TEST_STRING13
 --

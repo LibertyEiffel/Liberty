@@ -6,7 +6,7 @@ class BAD_PRECURSOR09
    
 inherit AUX_PRECURSOR09
       redefine
-	 foo
+    foo
       end
 
 creation
@@ -15,16 +15,16 @@ creation
 feature
    make is
       local
-	 temp : like Current
+    temp : like Current
       do
-	 temp := foo
+    temp := foo
       end
 
    foo : like Current is
       local
-	 a : BAD_PRECURSOR09
+    a : BAD_PRECURSOR09
       do
-	 a := Precursor
+    a := Precursor
       end
 
 end -- class BAD_PRECURSOR09

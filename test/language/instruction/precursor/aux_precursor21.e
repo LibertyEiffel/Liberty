@@ -4,10 +4,10 @@
 deferred class AUX_PRECURSOR21
 
 feature {}
-	foo (size: INTEGER): POINTER is
-		external "C inline"
-		alias "malloc($size)"
-		end
+   foo (size: INTEGER): POINTER is
+      external "C inline"
+      alias "malloc($size)"
+      end
 
 end -- class AUX_PRECURSOR20
 --

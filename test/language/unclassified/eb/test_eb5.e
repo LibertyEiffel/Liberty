@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EB5
-	-- From a bug report of Eric BEZAULT
+   -- From a bug report of Eric BEZAULT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d: AUX_EB5D
-		do
-			create d
-			d.f
-		end
+   make is
+      local
+         d: AUX_EB5D
+      do
+         create d
+         d.f
+      end
 
 end -- class TEST_EB5
 --

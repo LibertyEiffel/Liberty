@@ -4,15 +4,15 @@
 expanded class AUX_FS2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	value: INTEGER
+   value: INTEGER
 
-	make is
-		do
-			value := 1
-		end
+   make is
+      do
+         value := 1
+      end
 
 end -- class AUX_FS2
 --

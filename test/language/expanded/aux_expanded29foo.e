@@ -4,15 +4,15 @@
 class AUX_EXPANDED29FOO
 
 feature {ANY}
-	---- Original:
-	-- toto: expanded AUX_EXPANDED29BAR;
-	toto: AUX_EXPANDED29BAR
-			-- tata: expanded AUX_EXPANDED29BAR is
+   ---- Original:
+   -- toto: expanded AUX_EXPANDED29BAR;
+   toto: AUX_EXPANDED29BAR
+         -- tata: expanded AUX_EXPANDED29BAR is
 
-	tata: AUX_EXPANDED29BAR is
-		do
-			Result := toto
-		end
+   tata: AUX_EXPANDED29BAR is
+      do
+         Result := toto
+      end
 
 end -- class AUX_EXPANDED29FOO
 --

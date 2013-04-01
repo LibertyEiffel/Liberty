@@ -4,40 +4,40 @@
 class TEST_GENERIC9
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	d: HASHED_DICTIONARY[DICTIONARY[INTEGER, STRING], STRING]
+   d: HASHED_DICTIONARY[DICTIONARY[INTEGER, STRING], STRING]
 
-	make is
-		local
-			d3, d2: DICTIONARY[INTEGER, STRING]
-		do
-			create d.make
-			check
-				d.count = 0
-			end
-			assert(d.count = 0)
-			create {HASHED_DICTIONARY[INTEGER, STRING]} d2.make
-			d2.put(1, "one")
-			d.put(d2, "one")
-			check
-				d.count = 1
-				d.has("one")
-				d.at("one").at("one") = 1
-			end
-			assert(d.count = 1)
-			assert(d.has("one"))
-			assert(d.at("one").at("one") = 1)
-			d3 := d.at("one")
-			check
-				d2 = d3
-			end
-			assert(d2 = d3)
-		end
+   make is
+      local
+         d3, d2: DICTIONARY[INTEGER, STRING]
+      do
+         create d.make
+         check
+            d.count = 0
+         end
+         assert(d.count = 0)
+         create {HASHED_DICTIONARY[INTEGER, STRING]} d2.make
+         d2.put(1, "one")
+         d.put(d2, "one")
+         check
+            d.count = 1
+            d.has("one")
+            d.at("one").at("one") = 1
+         end
+         assert(d.count = 1)
+         assert(d.has("one"))
+         assert(d.at("one").at("one") = 1)
+         d3 := d.at("one")
+         check
+            d2 = d3
+         end
+         assert(d2 = d3)
+      end
 
 end -- class TEST_GENERIC9
 --

@@ -4,21 +4,21 @@
 class TEST_DISPOSE1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			ref, aux: AUX_DISPOSE1
-		do
-			from
-				create ref.make
-			until
-				ref.dispose_count.value > 10
-			loop
-				create aux.make
-			end
-		end
+   make is
+      local
+         ref, aux: AUX_DISPOSE1
+      do
+         from
+            create ref.make
+         until
+            ref.dispose_count.value > 10
+         loop
+            create aux.make
+         end
+      end
 
 end -- class TEST_DISPOSE1
 --

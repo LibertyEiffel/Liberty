@@ -11,7 +11,7 @@ feature
 
    make is
       do
-	 foo($Current);
+    foo($Current);
       end;
 
    foo(arg: POINTER) is

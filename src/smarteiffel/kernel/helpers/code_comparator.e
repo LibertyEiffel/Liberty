@@ -269,6 +269,12 @@ feature {INTEGER_CONSTANT}
          visited.value_memory.append_in(trace)
       end
 
+feature {NATURAL_CONSTANT}
+   visit_natural_constant (visited: NATURAL_CONSTANT) is
+      do
+         visited.value_memory.append_in(trace)
+      end
+
 feature {FAKE_TARGET}
    visit_fake_target (visited: FAKE_TARGET) is
       do
@@ -341,6 +347,12 @@ feature {INTERNAL_LOCAL2}
       do
          trace.append(once "il2@")
          visited.to_pointer.append_in(trace)
+      end
+
+feature {NATIVE_ARRAY_ITEM}
+   visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+      do
+         visited.index.accept(Current)
       end
 
 feature {NO_DISPATCH}

@@ -4,20 +4,20 @@
 class AUX_EG3_A
 
 creation {ANY}
-	set_x
+   set_x
 
 feature {ANY}
-	set_x (other_x: REAL) is
-		do
-			x := other_x
-		end
+   set_x (other_x: REAL) is
+      do
+         x := other_x
+      end
 
-	x: REAL
+   x: REAL
 
-	infix "+" (other: like Current): like Current is
-		do
-			Result.set_x(x + other.x)
-		end
+   infix "+" (other: like Current): like Current is
+      do
+         Result.set_x(x + other.x)
+      end
 
 end -- class AUX_EG3_A
 --

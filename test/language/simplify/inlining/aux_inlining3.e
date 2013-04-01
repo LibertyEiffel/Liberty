@@ -4,29 +4,29 @@
 class AUX_INLINING3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make (i: INTEGER; s: STRING) is
-		do
-			attribute_integer := i
-			attribute_string := s
-		end
+   make (i: INTEGER; s: STRING) is
+      do
+         attribute_integer := i
+         attribute_string := s
+      end
 
-	read_attribute_integer: INTEGER is
-		do
-			Result := attribute_integer
-		end
+   read_attribute_integer: INTEGER is
+      do
+         Result := attribute_integer
+      end
 
-	read_attribute_string: STRING is
-		do
-			Result := attribute_string
-		end
+   read_attribute_string: STRING is
+      do
+         Result := attribute_string
+      end
 
 feature {}
-	attribute_integer: INTEGER
+   attribute_integer: INTEGER
 
-	attribute_string: STRING
+   attribute_string: STRING
 
 end -- class AUX_INLINING3
 --

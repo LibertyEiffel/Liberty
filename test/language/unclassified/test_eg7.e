@@ -2,21 +2,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EG7
-	-- From a bug report of Enrico GOBBETTI
+   -- From a bug report of Enrico GOBBETTI
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			b: AUX_EG7A[AUX_EG7B[REAL]]; boobool: BOOLEAN
-		do
-			if boobool then
-				io.put_real(b.item.item)
-				io.put_new_line
-			end
-		end
+   make is
+      local
+         b: AUX_EG7A[AUX_EG7B[REAL]]; boobool: BOOLEAN
+      do
+         if boobool then
+            io.put_real(b.item.item)
+            io.put_new_line
+         end
+      end
 
 end -- class TEST_EG7
 --

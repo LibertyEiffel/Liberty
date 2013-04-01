@@ -4,37 +4,37 @@
 class TEST_EXCEPTIONS06
 
 inherit
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			check
-				i = 1
-			end
-		rescue
-			is_true(Check_instruction = exception)
-			i := 1
-			retry
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         check
+            i = 1
+         end
+      rescue
+         is_true(Check_instruction = exception)
+         i := 1
+         retry
+      end
 
 feature {}
-	is_true (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_EXCEPTION06: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   is_true (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_EXCEPTION06: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_EXCEPTIONS06
 --

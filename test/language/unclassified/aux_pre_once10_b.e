@@ -4,18 +4,18 @@
 class AUX_PRE_ONCE10_B
 
 inherit
-	AUX_PRE_ONCE10_A
+   AUX_PRE_ONCE10_A
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	foofoo: STRING
+   foofoo: STRING
 
-	make is
-		do
-			foofoo := once "B"
-		end
+   make is
+      do
+         foofoo := once "B"
+      end
 
 end -- class AUX_PRE_ONCE10_B
 --

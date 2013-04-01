@@ -9,12 +9,12 @@ feature
    
    make is
       do
-	 if True
-	 elseif 1
-	 else
-	 end
+    if True
+    elseif 1
+    else
+    end
 
-	 if True then
+    if True then
       ensure
       end
 

@@ -10,9 +10,9 @@ feature {ANY}
    
    make is 
       local
-	 p2: POINTER;
+    p2: POINTER;
       do 
-	 !!p2.make;
+    !!p2.make;
       end;
 
 end -- class POINTER

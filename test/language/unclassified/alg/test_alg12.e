@@ -2,36 +2,36 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ALG12
-	-- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
+   -- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
 
 insert
-	MEMORY
+   MEMORY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	tab: ARRAY[AUX_ALG12]
+   tab: ARRAY[AUX_ALG12]
 
-	d0, d1: AUX_ALG12
+   d0, d1: AUX_ALG12
 
-	make is
-		do
-			create tab.with_capacity(2, 0)
-			create d0.make("d0")
-			tab.force(d0, 0)
-			create d1.make("d1")
-			tab.force(d1, 1)
-			-- Let's restrict the array to d1.
-			tab.resize(1, 1)
-			-- Let's overwrite d1 by d0.
-			tab.put(d0, 1)
-			d0 := Void
-			d1 := Void
-			-- d1 should be collectable from now on.
-			full_collect
-			full_collect
-		end
+   make is
+      do
+         create tab.with_capacity(2, 0)
+         create d0.make("d0")
+         tab.force(d0, 0)
+         create d1.make("d1")
+         tab.force(d1, 1)
+         -- Let's restrict the array to d1.
+         tab.resize(1, 1)
+         -- Let's overwrite d1 by d0.
+         tab.put(d0, 1)
+         d0 := Void
+         d1 := Void
+         -- d1 should be collectable from now on.
+         full_collect
+         full_collect
+      end
 
 end -- class TEST_ALG12
 --

@@ -4,24 +4,24 @@
 class AUX_DP1
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 feature {ANY}
-	f: AUX_DP1 is
-		do
-			assert(False)
-			Result := Current
-		end
+   f: AUX_DP1 is
+      do
+         assert(False)
+         Result := Current
+      end
 
-	g is
-		do
-			assert(True)
-		end
+   g is
+      do
+         assert(True)
+      end
 
-	run is
-		do
-			f.g
-		end
+   run is
+      do
+         f.g
+      end
 
 end -- class AUX_DP1
 --

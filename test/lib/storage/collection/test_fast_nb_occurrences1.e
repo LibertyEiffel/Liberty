@@ -4,34 +4,34 @@
 class TEST_FAST_NB_OCCURRENCES1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			l1: LINKED_LIST[INTEGER]; l2: TWO_WAY_LINKED_LIST[INTEGER]
-		do
-			create l1.make
-			assert(l1.fast_occurrences(1) = 0)
-			l1.add_last(1)
-			assert(l1.fast_occurrences(1) = 1)
-			create l2.make
-			assert(l2.fast_occurrences(1) = 0)
-			l2.add_last(1)
-			assert(l2.fast_occurrences(1) = 1)
-		end
+   make is
+      local
+         l1: LINKED_LIST[INTEGER]; l2: TWO_WAY_LINKED_LIST[INTEGER]
+      do
+         create l1.make
+         assert(l1.fast_occurrences(1) = 0)
+         l1.add_last(1)
+         assert(l1.fast_occurrences(1) = 1)
+         create l2.make
+         assert(l2.fast_occurrences(1) = 0)
+         l2.add_last(1)
+         assert(l2.fast_occurrences(1) = 1)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_FAST_NB_OCCURRENCES1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_FAST_NB_OCCURRENCES1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_FAST_NB_OCCURRENCES1
 --

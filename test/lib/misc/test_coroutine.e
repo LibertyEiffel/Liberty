@@ -7,22 +7,25 @@ create {}
    make
 
 feature {}
+   max: INTEGER is 10
+
    make is
       local
          coro: AUX_COROUTINE
          i: ITERATOR[INTEGER]
+         i_check: INTEGER
       do
-         create coro
+         create coro.make(max)
          from
             i := coro.item([])
          until
             i.is_off
          loop
-            std_output.put_string(once "next item: ")
-            std_output.put_integer(i.item)
-            std_output.put_new_line
+            i_check := i_check + 1
+            assert(i.item = i_check)
             i.next
          end
+         assert(i_check = max)
       end
 
 end

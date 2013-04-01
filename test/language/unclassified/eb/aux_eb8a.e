@@ -4,7 +4,7 @@
 class AUX_EB8A[G]
 
 feature {ANY}
-	f: AUX_EB8A[G]
+   f: AUX_EB8A[G]
 
 end -- class AUX_EB8A
 --

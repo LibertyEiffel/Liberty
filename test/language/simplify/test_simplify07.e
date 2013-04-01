@@ -2,39 +2,39 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SIMPLIFY07
-	--
-	-- To check that infix calls are inlined too (attempt to fix SZ:209:).
-	--
+   --
+   -- To check that infix calls are inlined too (attempt to fix SZ:209:).
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			string1, string2: STRING; r: BOOLEAN; aux1, aux2: AUX_SIMPLIFY07
-		do
-			string1 := "hello"
-			string2 := "hi"
-			r := string1 <= string2
-			create aux1
-			create aux2
-			if aux1 <= aux2 then
-				assert(assert_counter.value = 0)
-			else
-				c_inline_c("#1 in boost_simplify07")
-			end
-			assert(assert_counter.value = 1)
-			if aux1.direct_call(aux2) then
-				assert(assert_counter.value = 2)
-			else
-				c_inline_c("#2 in boost_simplify07")
-			end
-			assert(assert_counter.value = 3)
-		end
+   make is
+      local
+         string1, string2: STRING; r: BOOLEAN; aux1, aux2: AUX_SIMPLIFY07
+      do
+         string1 := "hello"
+         string2 := "hi"
+         r := string1 <= string2
+         create aux1
+         create aux2
+         if aux1 <= aux2 then
+            assert(assert_counter.value = 0)
+         else
+            c_inline_c("#1 in boost_simplify07")
+         end
+         assert(assert_counter.value = 1)
+         if aux1.direct_call(aux2) then
+            assert(assert_counter.value = 2)
+         else
+            c_inline_c("#2 in boost_simplify07")
+         end
+         assert(assert_counter.value = 3)
+      end
 
 end -- class TEST_SIMPLIFY07
 --

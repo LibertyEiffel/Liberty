@@ -4,13 +4,13 @@
 class AUX_WEAK_REF02B
 
 feature {ANY}
-	do_something is
-		do
-			dummy := -12 + dummy
-		end
+   do_something is
+      do
+         dummy := -12 + dummy
+      end
 
 feature {}
-	dummy: INTEGER
+   dummy: INTEGER
 
 end -- class AUX_WEAK_REF02B
 --

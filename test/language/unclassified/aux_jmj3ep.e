@@ -4,21 +4,21 @@
 deferred class AUX_JMJ3EP[E]
 
 feature {ANY}
-	start is
-		deferred
-		end
+   start is
+      deferred
+      end
 
-	next is
-		deferred
-		end
+   next is
+      deferred
+      end
 
-	item: E is
-		deferred
-		end
+   item: E is
+      deferred
+      end
 
-	exhausted: BOOLEAN is
-		deferred
-		end
+   exhausted: BOOLEAN is
+      deferred
+      end
 
 end -- class AUX_JMJ3EP
 --

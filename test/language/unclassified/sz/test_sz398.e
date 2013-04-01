@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SZ398
-	-- SZ:398:
+   -- SZ:398:
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	t: INTEGER
+   t: INTEGER
 
-	f2 (b: FAST_ARRAY[like t]): FAST_ARRAY[like b] is
-		do
-			Result := {FAST_ARRAY[FAST_ARRAY[INTEGER]] << Void >> }
-		end
+   f2 (b: FAST_ARRAY[like t]): FAST_ARRAY[like b] is
+      do
+         Result := {FAST_ARRAY[FAST_ARRAY[INTEGER]] << Void >> }
+      end
 
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class TEST_SZ398
 --

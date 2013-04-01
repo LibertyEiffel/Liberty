@@ -4,30 +4,30 @@
 class TEST_INLINING6
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			if is_static then
-			end
-		end
+   make is
+      do
+         if is_static then
+         end
+      end
 
 feature {}
-	is_static: BOOLEAN is
-		do
-			Result := True
-			static_value_mem := to_integer
-		end
+   is_static: BOOLEAN is
+      do
+         Result := True
+         static_value_mem := to_integer
+      end
 
-	to_integer: INTEGER is
-		do
-			Result := value.code
-		end
+   to_integer: INTEGER is
+      do
+         Result := value.code
+      end
 
-	value: CHARACTER
+   value: CHARACTER
 
-	static_value_mem: INTEGER
+   static_value_mem: INTEGER
 
 end -- class TEST_INLINING6
 --

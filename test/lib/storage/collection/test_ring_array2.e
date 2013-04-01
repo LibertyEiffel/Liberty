@@ -4,37 +4,37 @@
 class TEST_RING_ARRAY2
 
 inherit
-	ANY
+   ANY
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {}
-	make
+   make
 
 feature {}
-	rad: RING_ARRAY[REAL]
+   rad: RING_ARRAY[REAL]
 
-	ad: ARRAY[REAL]
+   ad: ARRAY[REAL]
 
-	make is
-		local
-			i: INTEGER
-		do
-			create ad.make(0, 2)
-			ad.put(0.5, 0)
-			ad.put(1.5, 1)
-			ad.put(2.5, 2)
-			create rad.from_collection(ad)
-			from
-				i := rad.upper
-			until
-				i < 0
-			loop
-				assert(rad.item(i) = ad.item(i))
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         create ad.make(0, 2)
+         ad.put(0.5, 0)
+         ad.put(1.5, 1)
+         ad.put(2.5, 2)
+         create rad.from_collection(ad)
+         from
+            i := rad.upper
+         until
+            i < 0
+         loop
+            assert(rad.item(i) = ad.item(i))
+            i := i - 1
+         end
+      end
 
 end -- class TEST_RING_ARRAY2
 --

@@ -4,21 +4,21 @@
 class TEST_EXPANDED4
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	e1, e2: EXPANDED1
+   e1, e2: EXPANDED1
 
-	make is
-		do
-			assert(e1.x = 0)
-			assert(e1 = e2)
-			e1.set_x(2)
-			assert(e1.x = 2)
-		end
+   make is
+      do
+         assert(e1.x = 0)
+         assert(e1 = e2)
+         e1.set_x(2)
+         assert(e1.x = 2)
+      end
 
 end -- class TEST_EXPANDED4
 --

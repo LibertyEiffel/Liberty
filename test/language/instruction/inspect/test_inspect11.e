@@ -2,57 +2,57 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_INSPECT11
-	--
-	-- sz:235:
-	--
+   --
+   -- sz:235:
+   --
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert(test_1)
-			assert(test_2)
-			assert(test_3)
-		end
+   make is
+      do
+         assert(test_1)
+         assert(test_2)
+         assert(test_3)
+      end
 
 feature {}
-	test_1: BOOLEAN is
-		do
-			inspect
-				"foo"
-			when "bar" then
-			when "oof", "foo" then
-				Result := True
-			else
-			end
-		end
+   test_1: BOOLEAN is
+      do
+         inspect
+            "foo"
+         when "bar" then
+         when "oof", "foo" then
+            Result := True
+         else
+         end
+      end
 
-	test_2: BOOLEAN is
-		do
-			inspect
-				"foo_bar"
-			when "foo_bar" then
-				Result := True
-			when "foo" then
-			else
-			end
-		end
+   test_2: BOOLEAN is
+      do
+         inspect
+            "foo_bar"
+         when "foo_bar" then
+            Result := True
+         when "foo" then
+         else
+         end
+      end
 
-	test_3: BOOLEAN is
-		do
-			inspect
-				""
-			when "bar" then
-			when "" then
-				Result := True
-			else
-			end
-		end
+   test_3: BOOLEAN is
+      do
+         inspect
+            ""
+         when "bar" then
+         when "" then
+            Result := True
+         else
+         end
+      end
 
 end -- class TEST_INSPECT11
 --

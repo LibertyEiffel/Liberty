@@ -2,29 +2,29 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SWITCH3
-	-- Testing stupid switch on NATIVE_ARRAY.
+   -- Testing stupid switch on NATIVE_ARRAY.
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	store1: NATIVE_ARRAY[CAT]
+   store1: NATIVE_ARRAY[CAT]
 
-	store2: NATIVE_ARRAY[DOG]
+   store2: NATIVE_ARRAY[DOG]
 
-	store0: NATIVE_ARRAY[ANIMAL]
+   store0: NATIVE_ARRAY[ANIMAL]
 
-	make is
-		local
-			c: CAT; d: DOG
-		do
-			create c
-			store1 := store1.calloc(1)
-			store1.put(c, 0)
-			create d
-			store2 := store2.calloc(1)
-			store2.put(d, 0)
-		end
+   make is
+      local
+         c: CAT; d: DOG
+      do
+         create c
+         store1 := store1.calloc(1)
+         store1.put(c, 0)
+         create d
+         store2 := store2.calloc(1)
+         store2.put(d, 0)
+      end
 
 end -- class TEST_SWITCH3
 --

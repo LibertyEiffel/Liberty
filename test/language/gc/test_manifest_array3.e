@@ -4,22 +4,22 @@
 class TEST_MANIFEST_ARRAY3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			ma: FAST_ARRAY[INTEGER_8]; i: INTEGER
-		do
-			from
-				i := 1000000
-			until
-				i = 0
-			loop
-				ma := {FAST_ARRAY[INTEGER_8] << 1, 2, 3 >> }.twin
-				i := i - 1
-			end
-		end
+   make is
+      local
+         ma: FAST_ARRAY[INTEGER_8]; i: INTEGER
+      do
+         from
+            i := 1000000
+         until
+            i = 0
+         loop
+            ma := {FAST_ARRAY[INTEGER_8] << 1, 2, 3 >> }.twin
+            i := i - 1
+         end
+      end
 
 end -- class TEST_MANIFEST_ARRAY3
 --

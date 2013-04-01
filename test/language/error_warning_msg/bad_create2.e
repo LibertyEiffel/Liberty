@@ -9,7 +9,7 @@ feature
 
    make is
       local
-	 aux: AUX_CREATE2;
+    aux: AUX_CREATE2;
       do
          create aux.make;
       end

@@ -2,43 +2,43 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER44
-	-- tests on infix "max"
+   -- tests on infix "max"
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   PLATFORM
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2: NUMBER
-		do
-			n1 := from_integer(0)
-			assert(n1.max(n1).is_equal(n1))
-			n1 := from_integer(-1)
-			n2 := from_integer(1)
-			assert(n1.max(n2).is_equal(n2))
-			n1 := from_integer(0)
-			assert(n1.max(n2).is_equal(n2))
-			n1 := from_integer(Maximum_integer)
-			n1 := n1 @+ 1
-			n2 := from_integer(Maximum_integer)
-			assert(n2.max(n1).is_equal(n1))
-			n2 := from_integer(Minimum_integer)
-			n2 := n2 @- 1000
-			assert(n2.max(n1).is_equal(n1))
-			n1 := n1 @* -1000
-			assert(n2.max(n1).is_equal(n2))
-			n1 := from_string("1/5")
-			assert(n1.max(n2).is_equal(n1))
-			n1 := from_string("1/10")
-			n2 := from_string("-3/30")
-			assert(n1.max(n2).is_equal(n1))
-		end
+   make is
+      local
+         n1, n2: NUMBER
+      do
+         n1 := from_integer(0)
+         assert(n1.max(n1).is_equal(n1))
+         n1 := from_integer(-1)
+         n2 := from_integer(1)
+         assert(n1.max(n2).is_equal(n2))
+         n1 := from_integer(0)
+         assert(n1.max(n2).is_equal(n2))
+         n1 := from_integer(Maximum_integer)
+         n1 := n1 @+ 1
+         n2 := from_integer(Maximum_integer)
+         assert(n2.max(n1).is_equal(n1))
+         n2 := from_integer(Minimum_integer)
+         n2 := n2 @- 1000
+         assert(n2.max(n1).is_equal(n1))
+         n1 := n1 @* -1000
+         assert(n2.max(n1).is_equal(n2))
+         n1 := from_string("1/5")
+         assert(n1.max(n2).is_equal(n1))
+         n1 := from_string("1/10")
+         n2 := from_string("-3/30")
+         assert(n1.max(n2).is_equal(n1))
+      end
 
 
 

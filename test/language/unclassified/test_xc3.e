@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_XC3
-	-- From a bug report of Xavier CREGUT
+   -- From a bug report of Xavier CREGUT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a: AUX_XC3S2A[AUX_XC3SG]
+   a: AUX_XC3S2A[AUX_XC3SG]
 
-	fn (l: AUX_XC3AA[AUX_XC3GG]) is
-		do
-		end
+   fn (l: AUX_XC3AA[AUX_XC3GG]) is
+      do
+      end
 
-	make is
-		do
-			fn(a)
-		end
+   make is
+      do
+         fn(a)
+      end
 
 end -- class TEST_XC3
 --

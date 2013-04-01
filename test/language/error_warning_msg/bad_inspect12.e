@@ -3,16 +3,16 @@
 --
 class BAD_INSPECT12
 creation
-	main
+   main
 feature {}
    main is
       local
-			i: INTEGER
+         i: INTEGER
       do
-			inspect
-				i
-			when Void .. 3 then -- Bad slice.
-			end
+         inspect
+            i
+         when Void .. 3 then -- Bad slice.
+         end
       end
 end -- class BAD_INSPECT12
 --

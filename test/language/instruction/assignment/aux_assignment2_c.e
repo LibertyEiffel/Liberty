@@ -4,22 +4,22 @@
 class AUX_ASSIGNMENT2_C
 
 inherit
-	AUX_ASSIGNMENT2_B
-		redefine anchor, foo, crash_if_not_c
-		end
+   AUX_ASSIGNMENT2_B
+      redefine anchor, foo, crash_if_not_c
+      end
 
 feature {ANY}
-	anchor: AUX_ASSIGNMENT2_B
+   anchor: AUX_ASSIGNMENT2_B
 
-	foo (other: AUX_ASSIGNMENT2_B) is
-		do
-			anchor := other
-			anchor.crash_if_not_c
-		end
+   foo (other: AUX_ASSIGNMENT2_B) is
+      do
+         anchor := other
+         anchor.crash_if_not_c
+      end
 
-	crash_if_not_c is
-		do
-		end
+   crash_if_not_c is
+      do
+      end
 
 end -- class AUX_ASSIGNMENT2_C
 --

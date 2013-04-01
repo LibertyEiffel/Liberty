@@ -4,34 +4,34 @@
 class AUX_INHERIT2A
 
 feature {ANY}
-	make is
-		do
-			reset
-			assert(reset_count = 2)
-		end
+   make is
+      do
+         reset
+         assert(reset_count = 2)
+      end
 
-	reset is
-		do
-			reset_count := reset_count + 1
-		end
-
-feature {}
-	reset_count: INTEGER
+   reset is
+      do
+         reset_count := reset_count + 1
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_INHERIT2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   reset_count: INTEGER
 
-	cpt: INTEGER
+feature {}
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_INHERIT2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
+
+   cpt: INTEGER
 
 end -- class AUX_INHERIT2A
 --

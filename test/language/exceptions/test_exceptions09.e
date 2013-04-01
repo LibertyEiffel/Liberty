@@ -4,55 +4,55 @@
 class TEST_EXCEPTIONS09
 
 inherit
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			done: BOOLEAN
-		do
-			if not done then
-				done := True
-				do_bad_loop
-			end
-		rescue
-			is_true(Loop_variant = exception)
-			is_true(cpt = 2)
-			retry
-		end
+   make is
+      local
+         done: BOOLEAN
+      do
+         if not done then
+            done := True
+            do_bad_loop
+         end
+      rescue
+         is_true(Loop_variant = exception)
+         is_true(cpt = 2)
+         retry
+      end
 
-	do_bad_loop is
-		local
-			i: INTEGER
-		do
-			from
-				i := 2
-			variant
-				5
-			until
-				i = 0
-			loop
-				i := i - 1
-			end
-		rescue
-			is_true(Loop_variant = exception)
-		end
+   do_bad_loop is
+      local
+         i: INTEGER
+      do
+         from
+            i := 2
+         variant
+            5
+         until
+            i = 0
+         loop
+            i := i - 1
+         end
+      rescue
+         is_true(Loop_variant = exception)
+      end
 
 feature {}
-	is_true (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_EXCEPTION09: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   is_true (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_EXCEPTION09: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_EXCEPTIONS09
 --

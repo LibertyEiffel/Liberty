@@ -2,24 +2,24 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_INTEGER_CONSTANT01
-	--
-	-- Various notation for INTEGER_*
-	--
+   --
+   -- Various notation for INTEGER_*
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert(0 = 0x00)
-			assert({INTEGER_32 0} = 0x00)
-			assert({INTEGER_16 0x0000} = 0)
-			assert({INTEGER_32 -1} = 0xFF)
-		end
+   make is
+      do
+         assert(0 = 0x00)
+         assert({INTEGER_32 0} = 0x00)
+         assert({INTEGER_16 0x0000} = 0)
+         assert({INTEGER_32 -1} = 0xFF)
+      end
 
 end -- class TEST_INTEGER_CONSTANT01
 --

@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_XC6
-	--
-	-- From a bug report of Xavier CREGUT
-	--
+   --
+   -- From a bug report of Xavier CREGUT
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	cell: AUX_XC6_DD[AUX_XC6_SA]
+   cell: AUX_XC6_DD[AUX_XC6_SA]
 
-	make is
-		local
-			sa: AUX_XC6_SA
-		do
-			create sa
-			create cell.make(sa)
-			cell.item.f
-			cell.item.g
-		end
+   make is
+      local
+         sa: AUX_XC6_SA
+      do
+         create sa
+         create cell.make(sa)
+         cell.item.f
+         cell.item.g
+      end
 
 end -- class TEST_XC6
 --

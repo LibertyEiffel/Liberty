@@ -4,53 +4,53 @@
 class TEST_NATIVE_ARRAY_COLLECTOR01
 
 insert
-	EIFFELTEST_TOOLS
-	NATIVE_ARRAY_COLLECTOR[STRING]
+   EIFFELTEST_TOOLS
+   NATIVE_ARRAY_COLLECTOR[STRING]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			capacity := 1
-			honeypot := honeypot.calloc(capacity)
-			full_collect
-			assert(flag)
-		end
+   make is
+      do
+         capacity := 1
+         honeypot := honeypot.calloc(capacity)
+         full_collect
+         assert(flag)
+      end
 
-	mark_native_arrays is
-		do
-			flag := True
-		end
+   mark_native_arrays is
+      do
+         flag := True
+      end
 
-	flag: BOOLEAN
+   flag: BOOLEAN
 
-	capacity: INTEGER
+   capacity: INTEGER
 
-	honeypot: NATIVE_ARRAY[STRING]
+   honeypot: NATIVE_ARRAY[STRING]
 
-	full_collect is
-		local
-			m: MEMORY
-		do
-			generate_garbage
-			m.full_collect
-		end
+   full_collect is
+      local
+         m: MEMORY
+      do
+         generate_garbage
+         m.full_collect
+      end
 
-	generate_garbage is
-		local
-			i: INTEGER; s: STRING
-		do
-			from
-				i := 1
-			until
-				i = 10000
-			loop
-				create s.make_from_string("quark           ends here")
-				i := i + 1
-			end
-		end
+   generate_garbage is
+      local
+         i: INTEGER; s: STRING
+      do
+         from
+            i := 1
+         until
+            i = 10000
+         loop
+            create s.make_from_string("quark           ends here")
+            i := i + 1
+         end
+      end
 
 end -- class TEST_NATIVE_ARRAY_COLLECTOR01
 --

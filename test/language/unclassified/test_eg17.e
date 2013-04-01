@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EG17
-	-- From a bug report of Enrico GOBBETTI
+   -- From a bug report of Enrico GOBBETTI
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_EG17A; v: INTEGER
-		do
-			v := a.sum(a.sum(a)).x
-			if v /= 3 then
-				io.put_string("Error in TEST_EG16.%N")
-				crash
-			end
-		end
+   make is
+      local
+         a: AUX_EG17A; v: INTEGER
+      do
+         v := a.sum(a.sum(a)).x
+         if v /= 3 then
+            io.put_string("Error in TEST_EG16.%N")
+            crash
+         end
+      end
 
 end -- class TEST_EG17
 --

@@ -4,27 +4,27 @@
 class TEST_JVM27
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		do
-			p1
-		end
+   make is
+      do
+         p1
+      end
 
-	p1 is
-		do
-			p2
-		end
+   p1 is
+      do
+         p2
+      end
 
-	p2 is
-		do
-			p3
-		end
+   p2 is
+      do
+         p3
+      end
 
-	p3 is
-		do
-		end
+   p3 is
+      do
+      end
 
 end -- class TEST_JVM27
 --

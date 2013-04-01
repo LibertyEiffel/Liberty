@@ -4,16 +4,16 @@
 class BAD_CONSTANT7
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			if f(5).out = Void then
-			end
-		end
+   make is
+      do
+         if f(5).out = Void then
+         end
+      end
 
-	f: INTEGER is 3
+   f: INTEGER is 3
 
 end -- class BAD_CONSTANT7
 --

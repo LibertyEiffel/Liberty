@@ -2,29 +2,29 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_RB5
-	--
-	-- From a bug report of Reimer BEHRENDS
-	--
+   --
+   -- From a bug report of Reimer BEHRENDS
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	list: ARRAY[AUX_RB5A]
+   list: ARRAY[AUX_RB5A]
 
-	make is
-		local
-			b: AUX_RB5B
-		do
-			-- To make compile_to_c shut up about
-			-- instances of B not being created :
-			create b
-			create {ARRAY[AUX_RB5A]} list.make(1, 1)
-			create {ARRAY[AUX_RB5B]} list.make(1, 1)
-		end
+   make is
+      local
+         b: AUX_RB5B
+      do
+         -- To make compile_to_c shut up about
+         -- instances of B not being created :
+         create b
+         create {ARRAY[AUX_RB5A]} list.make(1, 1)
+         create {ARRAY[AUX_RB5B]} list.make(1, 1)
+      end
 
 invariant
-	list.count > 0
+   list.count > 0
 
 end -- class TEST_RB5
 --

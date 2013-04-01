@@ -4,26 +4,26 @@
 expanded class AUX_AGENT_GC5
 
 feature {ANY}
-	patients, time, visits: INTEGER
+   patients, time, visits: INTEGER
 
-	make (p, t, v: INTEGER) is
-		do
-			patients := p
-			time := t
-			visits := v
-		end
+   make (p, t, v: INTEGER) is
+      do
+         patients := p
+         time := t
+         visits := v
+      end
 
-	infix "+" (o: AUX_AGENT_GC5): AUX_AGENT_GC5 is
-		do
-			Result.make(patients + o.patients, time + o.time, visits + o.visits)
-		end
+   infix "+" (o: AUX_AGENT_GC5): AUX_AGENT_GC5 is
+      do
+         Result.make(patients + o.patients, time + o.time, visits + o.visits)
+      end
 
-	add (p: AUX_AGENT_GC3) is
-		do
-			patients := patients + 1
-			time := time + p.hospital_time
-			visits := visits + p.hospital_visits
-		end
+   add (p: AUX_AGENT_GC3) is
+      do
+         patients := patients + 1
+         time := time + p.hospital_time
+         visits := visits + p.hospital_visits
+      end
 
 end -- class AUX_AGENT_GC5
 --

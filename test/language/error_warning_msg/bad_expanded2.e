@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_EXPANDED2
-	-- From sz:491
+   -- From sz:491
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			create e.make(2)
-		end
+   make is
+      do
+         create e.make(2)
+      end
 
-	e: AUX_EXPANDED2
+   e: AUX_EXPANDED2
 
 end -- class BAD_EXPANDED2
 --

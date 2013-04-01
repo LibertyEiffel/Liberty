@@ -9,10 +9,10 @@ feature
 
    make is
       local
-	 s: STRING
+    s: STRING
       do
-	 s := "Hi %/0x456/"
-	 s := "Hi %/0x456G/"
+    s := "Hi %/0x456/"
+    s := "Hi %/0x456G/"
       end
    
 end -- class BAD_STRING1

@@ -2,134 +2,134 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SIMPLIFY16
-	-- To test simplify of the = /= on real constants.
-	-- Actually, this is also a test to check internal normalization of REAL constants.
+   -- To test simplify of the = /= on real constants.
+   -- Actually, this is also a test to check internal normalization of REAL constants.
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		do
-			if 0.01230E4 = 123e0 then
-				--          ----- internal normalized view.
-				assert(True)
-			else
-				c_inline_c("simplify error #1 in boost_simplify16")
-			end
-			if 0.01230E2 = 123e-2 then
-				--          ------ internal normalized view.
-				assert(True)
-			else
-				c_inline_c("simplify error #1 in boost_simplify16")
-			end
-			if {REAL_64 -0.01230} = -123e-4 then
-				--                 ------- internal normalized view.
-				assert(True)
-			else
-				c_inline_c("simplify error #1 in boost_simplify16")
-			end
-			if {REAL_64 0.01230} = 123e-4 then
-				--                  ------ internal normalized view.
-				assert(True)
-			else
-				c_inline_c("simplify error #1 in boost_simplify16")
-			end
-			if {REAL_64 0.01230} = 123e-4 then
-				--                  ------ internal normalized view.
-				assert(True)
-			else
-				c_inline_c("simplify error #1 in boost_simplify16")
-			end
-			if 0.0123 = 123e-4 then
-				--       ------ internal normalized view.
-				assert(True)
-			else
-				c_inline_c("simplify error #1 in boost_simplify16")
-			end
-			if 0.01230 = 123e-4 then
-				--        ------ internal normalized view.
-				assert(True)
-			else
-				c_inline_c("simplify error #1 in boost_simplify16")
-			end
-			if {REAL_EXTENDED 0E0} = 0e0 then
-				--                    --- internal normalized view.
-				assert(True)
-			else
-				c_inline_c("simplify error #1 in boost_simplify16")
-			end
-			if {REAL_32 0.0} = 0e0 then
-				--              --- internal normalized view.
-				assert(True)
-			else
-				c_inline_c("simplify error #1 in boost_simplify16")
-			end
-			if -0.0 = 0e0 then
-				--      --- internal normalized view.
-				assert(True)
-			else
-				c_inline_c("simplify error #1 in boost_simplify16")
-			end
-			if 0.0 = 0e0 then
-				--    --- internal normalized view.
-				assert(True)
-			else
-				c_inline_c("simplify error #1 in boost_simplify16")
-			end
-			if -1.2 = -12e-1 then
-				--      ------ internal normalized view.
-				assert(True)
-			else
-				c_inline_c("simplify error #1 in boost_simplify16")
-			end
-			if 1.2 = 12e-1 then
-				--    ----- internal normalized view.
-				assert(True)
-			else
-				c_inline_c("simplify error #1 in boost_simplify16")
-			end
-			if -1.0 = -1e0 then
-				--     ---- internal normalized view.
-				assert(True)
-			else
-				c_inline_c("simplify error #1 in boost_simplify16")
-			end
-			if 1.0 = 1.0 then
-				--    --- internal normalized view.
-				assert(True)
-			else
-				c_inline_c("simplify error #1 in boost_simplify16")
-			end
-			if 1.1 /= 2.2 then
-				assert(True)
-			else
-				c_inline_c("simplify error #2 in boost_simplify16")
-			end
-			if 0.1 = 0.1 then
-				assert(True)
-			else
-				c_inline_c("simplify error #1 in boost_simplify16")
-			end
-			if 0.1 /= 0.1 then
-				c_inline_c("simplify error #2 in boost_simplify16")
-			else
-				assert(True)
-			end
-			if 0.1 = 0.2 then
-				c_inline_c("simplify error #3 in boost_simplify16")
-			else
-				assert(True)
-			end
-			if 0.1 /= 0.2 then
-				assert(True)
-			else
-				c_inline_c("simplify error #4 in boost_simplify16")
-			end
-		end
+   make is
+      do
+         if 0.01230E4 = 123e0 then
+            --          ----- internal normalized view.
+            assert(True)
+         else
+            c_inline_c("simplify error #1 in boost_simplify16")
+         end
+         if 0.01230E2 = 123e-2 then
+            --          ------ internal normalized view.
+            assert(True)
+         else
+            c_inline_c("simplify error #1 in boost_simplify16")
+         end
+         if {REAL_64 -0.01230} = -123e-4 then
+            --                 ------- internal normalized view.
+            assert(True)
+         else
+            c_inline_c("simplify error #1 in boost_simplify16")
+         end
+         if {REAL_64 0.01230} = 123e-4 then
+            --                  ------ internal normalized view.
+            assert(True)
+         else
+            c_inline_c("simplify error #1 in boost_simplify16")
+         end
+         if {REAL_64 0.01230} = 123e-4 then
+            --                  ------ internal normalized view.
+            assert(True)
+         else
+            c_inline_c("simplify error #1 in boost_simplify16")
+         end
+         if 0.0123 = 123e-4 then
+            --       ------ internal normalized view.
+            assert(True)
+         else
+            c_inline_c("simplify error #1 in boost_simplify16")
+         end
+         if 0.01230 = 123e-4 then
+            --        ------ internal normalized view.
+            assert(True)
+         else
+            c_inline_c("simplify error #1 in boost_simplify16")
+         end
+         if {REAL_EXTENDED 0E0} = 0e0 then
+            --                    --- internal normalized view.
+            assert(True)
+         else
+            c_inline_c("simplify error #1 in boost_simplify16")
+         end
+         if {REAL_32 0.0} = 0e0 then
+            --              --- internal normalized view.
+            assert(True)
+         else
+            c_inline_c("simplify error #1 in boost_simplify16")
+         end
+         if -0.0 = 0e0 then
+            --      --- internal normalized view.
+            assert(True)
+         else
+            c_inline_c("simplify error #1 in boost_simplify16")
+         end
+         if 0.0 = 0e0 then
+            --    --- internal normalized view.
+            assert(True)
+         else
+            c_inline_c("simplify error #1 in boost_simplify16")
+         end
+         if -1.2 = -12e-1 then
+            --      ------ internal normalized view.
+            assert(True)
+         else
+            c_inline_c("simplify error #1 in boost_simplify16")
+         end
+         if 1.2 = 12e-1 then
+            --    ----- internal normalized view.
+            assert(True)
+         else
+            c_inline_c("simplify error #1 in boost_simplify16")
+         end
+         if -1.0 = -1e0 then
+            --     ---- internal normalized view.
+            assert(True)
+         else
+            c_inline_c("simplify error #1 in boost_simplify16")
+         end
+         if 1.0 = 1.0 then
+            --    --- internal normalized view.
+            assert(True)
+         else
+            c_inline_c("simplify error #1 in boost_simplify16")
+         end
+         if 1.1 /= 2.2 then
+            assert(True)
+         else
+            c_inline_c("simplify error #2 in boost_simplify16")
+         end
+         if 0.1 = 0.1 then
+            assert(True)
+         else
+            c_inline_c("simplify error #1 in boost_simplify16")
+         end
+         if 0.1 /= 0.1 then
+            c_inline_c("simplify error #2 in boost_simplify16")
+         else
+            assert(True)
+         end
+         if 0.1 = 0.2 then
+            c_inline_c("simplify error #3 in boost_simplify16")
+         else
+            assert(True)
+         end
+         if 0.1 /= 0.2 then
+            assert(True)
+         else
+            c_inline_c("simplify error #4 in boost_simplify16")
+         end
+      end
 
 end -- class TEST_SIMPLIFY16
 --

@@ -4,45 +4,45 @@
 class TEST_JVM9
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			s: STRING; c: CHARACTER; value: INTEGER
-		do
-			c := 'a'
-			check
-				c /= 'b'
-			end
-			s := "foo"
-			c := s.first
-			check
-				s.count = 3
-				c = 'f'
-			end
-			value := s.count
-			check
-				value = 3
-				value = s.count
-			end
-			value := 6
-			check
-				value = 6
-			end
-			s.clear_count
-			check
-				s.count = 0
-			end
-			s := "oo"
-			s.extend('f')
-			check
-				s.count = 3
-			end
-			check
-				4 >= 3
-			end
-		end
+   make is
+      local
+         s: STRING; c: CHARACTER; value: INTEGER
+      do
+         c := 'a'
+         check
+            c /= 'b'
+         end
+         s := "foo"
+         c := s.first
+         check
+            s.count = 3
+            c = 'f'
+         end
+         value := s.count
+         check
+            value = 3
+            value = s.count
+         end
+         value := 6
+         check
+            value = 6
+         end
+         s.clear_count
+         check
+            s.count = 0
+         end
+         s := "oo"
+         s.extend('f')
+         check
+            s.count = 3
+         end
+         check
+            4 >= 3
+         end
+      end
 
 end -- class TEST_JVM9
 --

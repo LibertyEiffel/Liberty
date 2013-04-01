@@ -4,72 +4,72 @@
 class TEST_DICTIONARY5
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	str: STRING is "qwertyuiop[]asdfghjkl;'zxcvbnm,./1234567890-="
+   str: STRING is "qwertyuiop[]asdfghjkl;'zxcvbnm,./1234567890-="
 
-	make is
-		local
-			i: INTEGER; d: DICTIONARY[INTEGER, CHARACTER]; c: CHARACTER
-		do
-			create {HASHED_DICTIONARY[INTEGER, CHARACTER]} d.with_capacity(1)
-			assert(d.count = 0)
-			from
-				i := str.count
-			until
-				i = 0
-			loop
-				assert(d.count = str.count - i)
-				c := str.item(i)
-				if d.has(c) then
-					crash
-				else
-					d.put(c.code, c)
-					if not d.has(c) then
-						crash
-					end
-				end
-				i := i - 1
-			end
-			create {HASHED_DICTIONARY[INTEGER, CHARACTER]} d.with_capacity(4)
-			from
-				i := str.count
-			until
-				i = 0
-			loop
-				assert(d.count = str.count - i)
-				c := str.item(i)
-				if d.has(c) then
-					crash
-				else
-					d.put(c.code, c)
-					if not d.has(c) then
-						crash
-					end
-				end
-				i := i - 1
-			end
-			assert(d.count = str.count)
-			from
-				i := str.count
-			until
-				i = 0
-			loop
-				assert(d.count = i)
-				c := str.item(i)
-				if d.has(c) then
-					d.remove(c)
-				else
-					crash
-				end
-				i := i - 1
-			end
-			assert(d.is_empty)
-		end
+   make is
+      local
+         i: INTEGER; d: DICTIONARY[INTEGER, CHARACTER]; c: CHARACTER
+      do
+         create {HASHED_DICTIONARY[INTEGER, CHARACTER]} d.with_capacity(1)
+         assert(d.count = 0)
+         from
+            i := str.count
+         until
+            i = 0
+         loop
+            assert(d.count = str.count - i)
+            c := str.item(i)
+            if d.has(c) then
+               crash
+            else
+               d.put(c.code, c)
+               if not d.has(c) then
+                  crash
+               end
+            end
+            i := i - 1
+         end
+         create {HASHED_DICTIONARY[INTEGER, CHARACTER]} d.with_capacity(4)
+         from
+            i := str.count
+         until
+            i = 0
+         loop
+            assert(d.count = str.count - i)
+            c := str.item(i)
+            if d.has(c) then
+               crash
+            else
+               d.put(c.code, c)
+               if not d.has(c) then
+                  crash
+               end
+            end
+            i := i - 1
+         end
+         assert(d.count = str.count)
+         from
+            i := str.count
+         until
+            i = 0
+         loop
+            assert(d.count = i)
+            c := str.item(i)
+            if d.has(c) then
+               d.remove(c)
+            else
+               crash
+            end
+            i := i - 1
+         end
+         assert(d.is_empty)
+      end
 
 end -- class TEST_DICTIONARY5
 --

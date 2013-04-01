@@ -2,15 +2,15 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_ROOT7
-	-- From sz:473
+   -- From sz:473
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main: INTEGER is
-		do -- Root procedure must not be a function.
-		end
+   main: INTEGER is
+      do -- Root procedure must not be a function.
+      end
 
 end -- class BAD_ROOT7
 --

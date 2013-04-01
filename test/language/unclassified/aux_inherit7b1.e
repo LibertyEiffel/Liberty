@@ -4,10 +4,10 @@
 expanded class AUX_INHERIT7B1
 
 insert
-	AUX_INHERIT7B
+   AUX_INHERIT7B
 
 feature {ANY} -- Access
-	flags: INTEGER
+   flags: INTEGER
 
 end -- class AUX_INHERIT7B1
 --

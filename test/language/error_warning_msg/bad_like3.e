@@ -11,7 +11,7 @@ feature
    
    make is
       do
-	 an_attribute := a;
+    an_attribute := a;
       end;
    
    a: like b;

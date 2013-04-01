@@ -4,7 +4,7 @@
 deferred class AUX_EVOBT2
 
 feature {ANY}
-	x_: AUX_EVOBT4
+   x_: AUX_EVOBT4
 
 end -- class AUX_EVOBT2
 --

@@ -2,16 +2,16 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_PRECURSOR19A
-	-- Written by Philippe Ribet
+   -- Written by Philippe Ribet
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 feature {ANY}
-	foo (i: INTEGER) is
-		do
-			assert(i = 10)
-		end
+   foo (i: INTEGER) is
+      do
+         assert(i = 10)
+      end
 
 end -- class AUX_PRECURSOR19A
 --

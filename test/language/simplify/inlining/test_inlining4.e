@@ -4,39 +4,39 @@
 class TEST_INLINING4
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux: AUX_INLINING4; i: INTEGER; s: STRING
-		do
-			create {AUX_INLINING4A} aux.make(4, "foo")
-			i := aux.read_attribute_integer
-			assert(i = 4)
-			s := aux.read_attribute_string
-			assert(s.is_equal("foo"))
-			create {AUX_INLINING4B} aux.make(4, "foo")
-			i := aux.read_attribute_integer
-			assert(i = 4)
-			s := aux.read_attribute_string
-			assert(s.is_equal("foo"))
-		end
+   make is
+      local
+         aux: AUX_INLINING4; i: INTEGER; s: STRING
+      do
+         create {AUX_INLINING4A} aux.make(4, "foo")
+         i := aux.read_attribute_integer
+         assert(i = 4)
+         s := aux.read_attribute_string
+         assert(s.is_equal("foo"))
+         create {AUX_INLINING4B} aux.make(4, "foo")
+         i := aux.read_attribute_integer
+         assert(i = 4)
+         s := aux.read_attribute_string
+         assert(s.is_equal("foo"))
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_INLINING4: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_INLINING4: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_INLINING4
 --

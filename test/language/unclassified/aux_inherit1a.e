@@ -4,12 +4,12 @@
 class AUX_INHERIT1A
 
 feature {ANY}
-	a_count, b_count, c_count: INTEGER
+   a_count, b_count, c_count: INTEGER
 
-	fonc is
-		do
-			a_count := a_count + 1
-		end
+   fonc is
+      do
+         a_count := a_count + 1
+      end
 
 end -- class AUX_INHERIT1A
 --

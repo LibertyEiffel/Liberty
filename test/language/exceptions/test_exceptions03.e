@@ -4,67 +4,67 @@
 class TEST_EXCEPTIONS03
 
 inherit
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	s: STRING
+   s: STRING
 
-	make is
-		do
-			execution_trace.add_last(0)
-			routine_1
-			is_true(("foo").is_equal(s))
-			is_true({ARRAY[INTEGER] 1, << 0, 1, 3, 5, 6, 4, 2, 1, 3, 5 >> }.is_equal(execution_trace))
-		end
+   make is
+      do
+         execution_trace.add_last(0)
+         routine_1
+         is_true(("foo").is_equal(s))
+         is_true({ARRAY[INTEGER] 1, << 0, 1, 3, 5, 6, 4, 2, 1, 3, 5 >> }.is_equal(execution_trace))
+      end
 
-	routine_1 is
-		do
-			execution_trace.add_last(1)
-			routine_2
-			s.extend('o')
-		rescue
-			execution_trace.add_last(2)
-			s := ""
-			retry
-		end
+   routine_1 is
+      do
+         execution_trace.add_last(1)
+         routine_2
+         s.extend('o')
+      rescue
+         execution_trace.add_last(2)
+         s := ""
+         retry
+      end
 
-	routine_2 is
-		do
-			execution_trace.add_last(3)
-			routine_3
-			s.extend('o')
-		rescue
-			execution_trace.add_last(4)
-		end
+   routine_2 is
+      do
+         execution_trace.add_last(3)
+         routine_3
+         s.extend('o')
+      rescue
+         execution_trace.add_last(4)
+      end
 
-	routine_3 is
-		do
-			execution_trace.add_last(5)
-			s.extend('f')
-		rescue
-			execution_trace.add_last(6)
-		end
+   routine_3 is
+      do
+         execution_trace.add_last(5)
+         s.extend('f')
+      rescue
+         execution_trace.add_last(6)
+      end
 
 feature {}
-	execution_trace: ARRAY[INTEGER] is
-		once
-			create Result.make(1, 0)
-		end
+   execution_trace: ARRAY[INTEGER] is
+      once
+         create Result.make(1, 0)
+      end
 
-	is_true (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_EXCEPTION03: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   is_true (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_EXCEPTION03: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_EXCEPTIONS03
 --

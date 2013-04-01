@@ -4,21 +4,21 @@
 expanded class AUX_EXPANDED18A
 
 feature {ANY}
-	value1: INTEGER
+   value1: INTEGER
 
-	value2: CHARACTER
+   value2: CHARACTER
 
-	make is
-		do
-			value1 := 1
-			value2 := 'A'
-		end
+   make is
+      do
+         value1 := 1
+         value2 := 'A'
+      end
 
-	clear is
-		do
-			value1 := 0
-			value2 := '%/0/'
-		end
+   clear is
+      do
+         value1 := 0
+         value2 := '%/0/'
+      end
 
 end -- class AUX_EXPANDED18A
 --

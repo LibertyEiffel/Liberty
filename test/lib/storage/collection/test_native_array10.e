@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NATIVE_ARRAY10
-	--
-	-- SZ:35
-	-- Bug report from Mike Meyer (mwm-keyword-se.f78c7c@mired.org)
-	--
+   --
+   -- SZ:35
+   -- Bug report from Mike Meyer (mwm-keyword-se.f78c7c@mired.org)
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: NATIVE_ARRAY[INTEGER]
-		do
-			--***         create a
-			--*** No more default_create in NATIVE_ARRAY *** (Dom dec 21th 2004) ***
-			a := {NATIVE_ARRAY[INTEGER] << 1, 2 >> }
-		end
+   make is
+      local
+         a: NATIVE_ARRAY[INTEGER]
+      do
+         --***         create a
+         --*** No more default_create in NATIVE_ARRAY *** (Dom dec 21th 2004) ***
+         a := {NATIVE_ARRAY[INTEGER] << 1, 2 >> }
+      end
 
 end -- class TEST_NATIVE_ARRAY10
 --

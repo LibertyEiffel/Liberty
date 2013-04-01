@@ -4,16 +4,16 @@
 class BAD_INHERIT20
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			foo: AUX_INHERIT20
-			bar: like Current
-		do
-			bar := foo
-		end
+   make is
+      local
+         foo: AUX_INHERIT20
+         bar: like Current
+      do
+         bar := foo
+      end
 
 end -- class BAD_INHERIT20
 --

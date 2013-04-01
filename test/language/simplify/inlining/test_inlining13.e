@@ -4,25 +4,25 @@
 class TEST_INLINING13
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			b: BOOLEAN
-		do
-			if b then
-				a_crash := f_crash
-			end
-		end
+   make is
+      local
+         b: BOOLEAN
+      do
+         if b then
+            a_crash := f_crash
+         end
+      end
 
 feature {TEST_INLINING13}
-	a_crash: like Current
+   a_crash: like Current
 
-	f_crash: like Current is
-		do
-			Result := a_crash.f_crash
-		end
+   f_crash: like Current is
+      do
+         Result := a_crash.f_crash
+      end
 
 end -- class TEST_INLINING13
 --

@@ -4,32 +4,32 @@
 class TEST_BENCH
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			recurse(50000)
-		end
+   make is
+      do
+         recurse(50000)
+      end
 
-	recurse (i: INTEGER) is
-		local
-			p: POINT; j: INTEGER
-		do
-			if i /= 0 then
-				recurse(i - 1)
-			else
-				-- trigger the GC
-				from
-					j := 7000000
-				until
-					j < 0
-				loop
-					create p.make(1.0, 2.0)
-					j := j - 1
-				end
-			end
-		end
+   recurse (i: INTEGER) is
+      local
+         p: POINT; j: INTEGER
+      do
+         if i /= 0 then
+            recurse(i - 1)
+         else
+            -- trigger the GC
+            from
+               j := 7000000
+            until
+               j < 0
+            loop
+               create p.make(1.0, 2.0)
+               j := j - 1
+            end
+         end
+      end
 
 end -- class TEST_BENCH
 --

@@ -4,15 +4,15 @@
 expanded class AUX_EXPANDED14
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			i := 2
-		end
+   make is
+      do
+         i := 2
+      end
 
-	i: INTEGER
+   i: INTEGER
 
 end -- class AUX_EXPANDED14
 --

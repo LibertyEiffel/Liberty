@@ -4,22 +4,22 @@
 class AUX_FAST_ARRAY3
 
 inherit
-	FAST_ARRAY[INTEGER]
+   FAST_ARRAY[INTEGER]
 
 insert
-	EIFFELTEST_TOOLS
-		undefine copy, default_create, is_equal, fill_tagged_out_memory, out_in_tagged_out_memory
-		end
+   EIFFELTEST_TOOLS
+      undefine copy, default_create, is_equal, fill_tagged_out_memory, out_in_tagged_out_memory
+      end
 
 creation {ANY}
-	test, make
+   test, make
 
 feature {ANY}
-	test is
-		do
-			make(1)
-			assert(item(0) = 0)
-		end
+   test is
+      do
+         make(1)
+         assert(item(0) = 0)
+      end
 
 end -- class AUX_FAST_ARRAY3
 --

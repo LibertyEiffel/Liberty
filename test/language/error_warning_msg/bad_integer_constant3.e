@@ -9,9 +9,9 @@ feature
 
    make is 
       local
-	 i8: INTEGER_8
+    i8: INTEGER_8
       do 
-	 i8 := 128
+    i8 := 128
       end
    
 end -- class BAD_INTEGER_CONSTANT3

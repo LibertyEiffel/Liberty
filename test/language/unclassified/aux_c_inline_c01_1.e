@@ -4,11 +4,11 @@
 deferred class AUX_C_INLINE_C01_1
 
 feature {ANY}
-	c_boolean: BOOLEAN is
-		do
-			Result := False
-			c_inline_c(once "R=1;%N")
-		end
+   c_boolean: BOOLEAN is
+      do
+         Result := False
+         c_inline_c(once "R=1;%N")
+      end
 
 end -- class AUX_C_INLINE_C01_1
 --

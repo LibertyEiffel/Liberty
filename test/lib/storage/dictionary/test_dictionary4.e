@@ -4,75 +4,75 @@
 class TEST_DICTIONARY4
 
 insert
-	PLATFORM
-	EIFFELTEST_TOOLS
+   PLATFORM
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	str: STRING is "qwertyuiop[]asdfghjkl;'zxcvbnm,./1234567890-="
+   str: STRING is "qwertyuiop[]asdfghjkl;'zxcvbnm,./1234567890-="
 
-	make is
-		local
-			i: INTEGER; d: HASHED_DICTIONARY[INTEGER, CHARACTER]; c: CHARACTER
-		do
-			create d.with_capacity(12)
-			from
-				i := str.count
-			until
-				i = 0
-			loop
-				c := str.item(i)
-				d.put(c.code, c)
-				i := i - 1
-			end
-			assert(d.count = str.count)
-			from
-				i := Maximum_character_code
-			until
-				i < Minimum_character_code
-			loop
-				d.put(i, i.to_character)
-				i := i - 1
-			end
-			assert(d.count = Maximum_character_code - Minimum_character_code + 1)
-			from
-				i := str.count
-			until
-				i = 0
-			loop
-				c := str.item(i)
-				assert(d.fast_key_at(c.code) = c)
-				assert(d.key_at(c.code) = c)
-				i := i - 1
-			end
-			assert(d.count = Maximum_character_code - Minimum_character_code + 1)
-			from
-				i := str.count
-			until
-				i = 0
-			loop
-				c := str.item(i)
-				assert(d.has(c))
-				d.remove(c)
-				assert(not d.has(c))
-				i := i - 1
-			end
-			i := Maximum_character_code - Minimum_character_code + 1
-			assert(d.count = i - str.count)
-			from
-				i := Maximum_character_code
-			until
-				i < Minimum_character_code
-			loop
-				if d.has(i.to_character) then
-					c := d.key_at(i)
-					assert(c.code = i)
-				end
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER; d: HASHED_DICTIONARY[INTEGER, CHARACTER]; c: CHARACTER
+      do
+         create d.with_capacity(12)
+         from
+            i := str.count
+         until
+            i = 0
+         loop
+            c := str.item(i)
+            d.put(c.code, c)
+            i := i - 1
+         end
+         assert(d.count = str.count)
+         from
+            i := Maximum_character_code
+         until
+            i < Minimum_character_code
+         loop
+            d.put(i, i.to_character)
+            i := i - 1
+         end
+         assert(d.count = Maximum_character_code - Minimum_character_code + 1)
+         from
+            i := str.count
+         until
+            i = 0
+         loop
+            c := str.item(i)
+            assert(d.fast_key_at(c.code) = c)
+            assert(d.key_at(c.code) = c)
+            i := i - 1
+         end
+         assert(d.count = Maximum_character_code - Minimum_character_code + 1)
+         from
+            i := str.count
+         until
+            i = 0
+         loop
+            c := str.item(i)
+            assert(d.has(c))
+            d.remove(c)
+            assert(not d.has(c))
+            i := i - 1
+         end
+         i := Maximum_character_code - Minimum_character_code + 1
+         assert(d.count = i - str.count)
+         from
+            i := Maximum_character_code
+         until
+            i < Minimum_character_code
+         loop
+            if d.has(i.to_character) then
+               c := d.key_at(i)
+               assert(c.code = i)
+            end
+            i := i - 1
+         end
+      end
 
 end -- class TEST_DICTIONARY4
 --

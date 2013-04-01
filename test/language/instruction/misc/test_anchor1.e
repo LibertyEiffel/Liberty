@@ -4,28 +4,28 @@
 class TEST_ANCHOR1
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			a: AUX_ANCHOR1A; b: AUX_ANCHOR1B
-		do
-			create a
-			assert(a.generating_type.is_equal("AUX_ANCHOR1A"))
-			create b
-			assert(b.generating_type.is_equal("AUX_ANCHOR1B"))
-			b := b.new_like_current
-			assert(b.generating_type.is_equal("AUX_ANCHOR1B"))
-			a := a.new_like_current
-			assert(a.generating_type.is_equal("AUX_ANCHOR1A"))
-			create {AUX_ANCHOR1B} a
-			a := a.new_like_current
-			assert(a.generating_type.is_equal("AUX_ANCHOR1B"))
-		end
+   make is
+      local
+         a: AUX_ANCHOR1A; b: AUX_ANCHOR1B
+      do
+         create a
+         assert(a.generating_type.is_equal("AUX_ANCHOR1A"))
+         create b
+         assert(b.generating_type.is_equal("AUX_ANCHOR1B"))
+         b := b.new_like_current
+         assert(b.generating_type.is_equal("AUX_ANCHOR1B"))
+         a := a.new_like_current
+         assert(a.generating_type.is_equal("AUX_ANCHOR1A"))
+         create {AUX_ANCHOR1B} a
+         a := a.new_like_current
+         assert(a.generating_type.is_equal("AUX_ANCHOR1B"))
+      end
 
 end -- class TEST_ANCHOR1
 --

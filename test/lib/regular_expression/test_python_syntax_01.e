@@ -15,75 +15,75 @@
 class TEST_PYTHON_SYNTAX_01
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {}
-	make
+   make
 
 feature {}
-	make is
-		local
-			pattern: REGULAR_EXPRESSION
-			text, data: STRING
-		do
-			pattern := re.convert_python_pattern("a+(?P=foo)")
-			assert(pattern = Void)
-			assert(re.last_error_message.is_equal("Error at position 10: undefined named group."))
-			assert(re.last_error_position = 10)
+   make is
+      local
+         pattern: REGULAR_EXPRESSION
+         text, data: STRING
+      do
+         pattern := re.convert_python_pattern("a+(?P=foo)")
+         assert(pattern = Void)
+         assert(re.last_error_message.is_equal("Error at position 10: undefined named group."))
+         assert(re.last_error_position = 10)
 
-			pattern := re.convert_python_pattern("^(?P<foo>a+)(?P=foo)$")
-			assert(pattern /= Void)
-			assert(not pattern.match("aaa"))
-			text := "aaaa"
-			assert(pattern.match(text))
-			assert(pattern.group_names.count = 1)
-			assert(pattern.group_names.first.is_equal("foo"))
-			assert(pattern.has_group_name("foo"))
-			assert(not pattern.has_group_name("bar"))
-			assert(pattern.ith_group_matched(0))
-			assert(pattern.named_group_matched("foo"))
-			data := ""
-			pattern.append_named_group(text, data, "foo")
-			assert(data.is_equal("aa"))
+         pattern := re.convert_python_pattern("^(?P<foo>a+)(?P=foo)$")
+         assert(pattern /= Void)
+         assert(not pattern.match("aaa"))
+         text := "aaaa"
+         assert(pattern.match(text))
+         assert(pattern.group_names.count = 1)
+         assert(pattern.group_names.first.is_equal("foo"))
+         assert(pattern.has_group_name("foo"))
+         assert(not pattern.has_group_name("bar"))
+         assert(pattern.ith_group_matched(0))
+         assert(pattern.named_group_matched("foo"))
+         data := ""
+         pattern.append_named_group(text, data, "foo")
+         assert(data.is_equal("aa"))
 
-			pattern := re.convert_python_pattern("^(?P<foo>a+?)(?P=foo)$")
-			assert(pattern /= Void)
-			assert(not pattern.match("aaa"))
-			text := "aaaa"
-			assert(pattern.match(text))
-			assert(pattern.group_names.count = 1)
-			assert(pattern.group_names.first.is_equal("foo"))
-			assert(pattern.has_group_name("foo"))
-			assert(not pattern.has_group_name("bar"))
-			assert(pattern.ith_group_matched(0))
-			assert(pattern.named_group_matched("foo"))
-			data := ""
-			pattern.append_named_group(text, data, "foo")
-			assert(data.is_equal("aa"))
+         pattern := re.convert_python_pattern("^(?P<foo>a+?)(?P=foo)$")
+         assert(pattern /= Void)
+         assert(not pattern.match("aaa"))
+         text := "aaaa"
+         assert(pattern.match(text))
+         assert(pattern.group_names.count = 1)
+         assert(pattern.group_names.first.is_equal("foo"))
+         assert(pattern.has_group_name("foo"))
+         assert(not pattern.has_group_name("bar"))
+         assert(pattern.ith_group_matched(0))
+         assert(pattern.named_group_matched("foo"))
+         data := ""
+         pattern.append_named_group(text, data, "foo")
+         assert(data.is_equal("aa"))
 
-			pattern := re.convert_python_pattern("^(?P<foo>a+b)(?P=foo)$")
-			assert(pattern /= Void)
-			assert(not pattern.match("aaaabab"))
-			text := "aaabaaab"
-			assert(pattern.match(text))
-			assert(pattern.group_names.count = 1)
-			assert(pattern.group_names.first.is_equal("foo"))
-			assert(pattern.has_group_name("foo"))
-			assert(not pattern.has_group_name("bar"))
-			assert(pattern.ith_group_matched(0))
-			assert(pattern.named_group_matched("foo"))
-			data := ""
-			pattern.append_named_group(text, data, "foo")
-			assert(data.is_equal("aaab"))
-			pattern.for_all_matched_named_groups(text, agent compare_group_text("foo", ?, "aaab", ?))
-		end
+         pattern := re.convert_python_pattern("^(?P<foo>a+b)(?P=foo)$")
+         assert(pattern /= Void)
+         assert(not pattern.match("aaaabab"))
+         text := "aaabaaab"
+         assert(pattern.match(text))
+         assert(pattern.group_names.count = 1)
+         assert(pattern.group_names.first.is_equal("foo"))
+         assert(pattern.has_group_name("foo"))
+         assert(not pattern.has_group_name("bar"))
+         assert(pattern.ith_group_matched(0))
+         assert(pattern.named_group_matched("foo"))
+         data := ""
+         pattern.append_named_group(text, data, "foo")
+         assert(data.is_equal("aaab"))
+         pattern.for_all_matched_named_groups(text, agent compare_group_text("foo", ?, "aaab", ?))
+      end
 
-	compare_group_text (expected_group: STRING; actual_group: FIXED_STRING; expected_data: STRING; actual_data: STRING) is
-		do
-			assert(expected_group.is_equal(actual_group))
-			assert(expected_data.is_equal(actual_data))
-		end
+   compare_group_text (expected_group: STRING; actual_group: FIXED_STRING; expected_data: STRING; actual_data: STRING) is
+      do
+         assert(expected_group.is_equal(actual_group))
+         assert(expected_data.is_equal(actual_data))
+      end
 
-	re: REGULAR_EXPRESSION_BUILDER
+   re: REGULAR_EXPRESSION_BUILDER
 
 end -- class TEST_PYTHON_SYNTAX_01

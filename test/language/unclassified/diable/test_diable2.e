@@ -4,16 +4,16 @@
 class TEST_DIABLE2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d: DICTIONARY[INTEGER, STRING]
-		do
-			create {HASHED_DICTIONARY[INTEGER, STRING]} d.make
-			-- Pas violent ce test !
-		end
+   make is
+      local
+         d: DICTIONARY[INTEGER, STRING]
+      do
+         create {HASHED_DICTIONARY[INTEGER, STRING]} d.make
+         -- Pas violent ce test !
+      end
 
 end -- class TEST_DIABLE2
 --

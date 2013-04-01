@@ -12,7 +12,7 @@ inherit
 creation {ANY}
    make
 
-create {MANIFEST_STRING_INSPECTOR, INSPECT_STATEMENT}
+create {MANIFEST_STRING_INSPECTOR, INSPECT_STATEMENT, BUILT_IN_EQ_NEQ}
    make_specialized
 
 feature {ANY}

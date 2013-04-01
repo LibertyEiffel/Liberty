@@ -2,87 +2,87 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_DOUBLE6
-	--
-	-- To test sprintf_double Java compatibility.
-	--
+   --
+   -- To test sprintf_double Java compatibility.
+   --
 
 insert
-	ANY
-	PLATFORM
+   ANY
+   PLATFORM
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			pi: REAL_64; s: STRING
-		do
-			if Minimum_real_32 < 0.0 then
-				assert(True)
-			else
-				assert(False)
-			end
-			if Minimum_real_64 < 0.0 then
-				assert(True)
-			else
-				assert(False)
-			end
-			if Maximum_real_32 < 0.0 then
-				assert(False)
-			else
-				assert(True)
-			end
-			if Maximum_real_64 < 0.0 then
-				assert(False)
-			else
-				assert(True)
-			end
-			pi := 3.14157
-			s := pi.to_string_format(2)
-			assert(("3.14").is_equal(s))
-			s := pi.to_string_format(1)
-			assert(("3.1").is_equal(s))
-			s := pi.to_string_format(0)
-			assert(("3").is_equal(s))
-			s := Maximum_real_32.to_string_format(3)
-			assert(s.item(s.count - 3) = '.')
-			s := Maximum_real_32.to_string_format(1)
-			assert(s.item(s.count - 1) = '.')
-			s := Maximum_real_32.to_string_format(0)
-			assert(s.item(s.count) /= '.')
-			s := Minimum_real_32.to_string_format(3)
-			assert(s.item(s.count - 3) = '.')
-			s := Minimum_real_32.to_string_format(1)
-			assert(s.item(s.count - 1) = '.')
-			s := Minimum_real_32.to_string_format(0)
-			assert(s.item(s.count) /= '.')
-			s := Maximum_real_64.to_string_format(3)
-			assert(s.item(s.count - 3) = '.')
-			s := Maximum_real_64.to_string_format(1)
-			assert(s.item(s.count - 1) = '.')
-			s := Maximum_real_64.to_string_format(0)
-			assert(s.item(s.count) /= '.')
-			s := Minimum_real_64.to_string_format(3)
-			assert(s.item(s.count - 3) = '.')
-			s := Minimum_real_64.to_string_format(1)
-			assert(s.item(s.count - 1) = '.')
-			s := Minimum_real_64.to_string_format(0)
-			assert(s.item(s.count) /= '.')
-		end
+   make is
+      local
+         pi: REAL_64; s: STRING
+      do
+         if Minimum_real_32 < 0.0 then
+            assert(True)
+         else
+            assert(False)
+         end
+         if Minimum_real_64 < 0.0 then
+            assert(True)
+         else
+            assert(False)
+         end
+         if Maximum_real_32 < 0.0 then
+            assert(False)
+         else
+            assert(True)
+         end
+         if Maximum_real_64 < 0.0 then
+            assert(False)
+         else
+            assert(True)
+         end
+         pi := 3.14157
+         s := pi.to_string_format(2)
+         assert(("3.14").is_equal(s))
+         s := pi.to_string_format(1)
+         assert(("3.1").is_equal(s))
+         s := pi.to_string_format(0)
+         assert(("3").is_equal(s))
+         s := Maximum_real_32.to_string_format(3)
+         assert(s.item(s.count - 3) = '.')
+         s := Maximum_real_32.to_string_format(1)
+         assert(s.item(s.count - 1) = '.')
+         s := Maximum_real_32.to_string_format(0)
+         assert(s.item(s.count) /= '.')
+         s := Minimum_real_32.to_string_format(3)
+         assert(s.item(s.count - 3) = '.')
+         s := Minimum_real_32.to_string_format(1)
+         assert(s.item(s.count - 1) = '.')
+         s := Minimum_real_32.to_string_format(0)
+         assert(s.item(s.count) /= '.')
+         s := Maximum_real_64.to_string_format(3)
+         assert(s.item(s.count - 3) = '.')
+         s := Maximum_real_64.to_string_format(1)
+         assert(s.item(s.count - 1) = '.')
+         s := Maximum_real_64.to_string_format(0)
+         assert(s.item(s.count) /= '.')
+         s := Minimum_real_64.to_string_format(3)
+         assert(s.item(s.count - 3) = '.')
+         s := Minimum_real_64.to_string_format(1)
+         assert(s.item(s.count - 1) = '.')
+         s := Minimum_real_64.to_string_format(0)
+         assert(s.item(s.count) /= '.')
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_DOUBLE6: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_DOUBLE6: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_DOUBLE6
 --

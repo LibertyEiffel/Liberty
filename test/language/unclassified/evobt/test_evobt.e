@@ -4,21 +4,21 @@
 class TEST_EVOBT
 
 inherit
-	AUX_EVOBT1
-	EIFFELTEST_TOOLS
+   AUX_EVOBT1
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			a: AUX_EVOBT2
-		do
-			create {AUX_EVOBT3} a.make
-			context.set_item(a)
-			assert(x.show) -- se_evobt here
-		end
+   make is
+      local
+         a: AUX_EVOBT2
+      do
+         create {AUX_EVOBT3} a.make
+         context.set_item(a)
+         assert(x.show) -- se_evobt here
+      end
 
 end -- class TEST_EVOBT
 --

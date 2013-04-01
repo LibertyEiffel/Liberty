@@ -4,29 +4,29 @@
 class TEST_INSPECT13
 
 insert
-	EIFFELTEST_TOOLS
-	EXCEPTIONS
+   EIFFELTEST_TOOLS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			toto: STRING
-		do
-			-- A Void STRING must never pass an inspect
-			inspect
-				toto
-			when "toto" then
-				assert(False)
-			else
-			end
-		rescue
-			assert(exception = Incorrect_inspect_value)
-			toto := "foo"
-			retry
-		end
+   make is
+      local
+         toto: STRING
+      do
+         -- A Void STRING must never pass an inspect
+         inspect
+            toto
+         when "toto" then
+            assert(False)
+         else
+         end
+      rescue
+         assert(exception = Incorrect_inspect_value)
+         toto := "foo"
+         retry
+      end
 
 end -- class TEST_INSPECT13
 --

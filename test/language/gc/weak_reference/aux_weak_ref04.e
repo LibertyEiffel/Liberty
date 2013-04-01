@@ -4,32 +4,32 @@
 class AUX_WEAK_REF04
 
 inherit
-	AUX_WEAK_REF02B
-		redefine do_something
-		end
-	DISPOSABLE
+   AUX_WEAK_REF02B
+      redefine do_something
+      end
+   DISPOSABLE
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	do_something is
-		do
-			dummy := dummy + 47
-		end
+   do_something is
+      do
+         dummy := dummy + 47
+      end
 
 feature {}
-	twr: TEST_WEAK_REF04
+   twr: TEST_WEAK_REF04
 
-	dispose is
-		do
-			twr.increment_aux_wr_nb_disposed
-		end
+   dispose is
+      do
+         twr.increment_aux_wr_nb_disposed
+      end
 
-	make (tst: TEST_WEAK_REF04) is
-		do
-			twr := tst
-		end
+   make (tst: TEST_WEAK_REF04) is
+      do
+         twr := tst
+      end
 
 end -- class AUX_WEAK_REF04
 --

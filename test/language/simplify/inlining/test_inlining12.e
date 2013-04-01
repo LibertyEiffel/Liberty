@@ -4,53 +4,53 @@
 class TEST_INLINING12
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	aux: AUX_INLINING12
+   aux: AUX_INLINING12
 
-	make is
-		do
-			create aux
-			ecrire01(create {REFERENCE[INTEGER]}.set_item(1), 2)
-			assert(aux.a.item = 1)
-			assert(aux.b = 2)
-			assert(aux.b_is_gt(1))
-			assert(b_is_gt(1))
-			create aux
-			ecrire02(1, 2)
-			assert(aux.a.item = 1)
-			assert(aux.b = 2)
-		end
+   make is
+      do
+         create aux
+         ecrire01(create {REFERENCE[INTEGER]}.set_item(1), 2)
+         assert(aux.a.item = 1)
+         assert(aux.b = 2)
+         assert(aux.b_is_gt(1))
+         assert(b_is_gt(1))
+         create aux
+         ecrire02(1, 2)
+         assert(aux.a.item = 1)
+         assert(aux.b = 2)
+      end
 
-	ecrire01 (a: REFERENCE[INTEGER]; b: INTEGER) is
-		do
-			aux.ecrire(a, b)
-		end
+   ecrire01 (a: REFERENCE[INTEGER]; b: INTEGER) is
+      do
+         aux.ecrire(a, b)
+      end
 
-	ecrire02 (a: INTEGER; b: INTEGER) is
-		do
-			aux.ecrire(create {REFERENCE[INTEGER]}.set_item(a), b)
-		end
+   ecrire02 (a: INTEGER; b: INTEGER) is
+      do
+         aux.ecrire(create {REFERENCE[INTEGER]}.set_item(a), b)
+      end
 
-	b_is_gt (x: INTEGER): BOOLEAN is
-		do
-			Result := aux.b > x
-		end
+   b_is_gt (x: INTEGER): BOOLEAN is
+      do
+         Result := aux.b > x
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_INLINING12: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_INLINING12: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_INLINING12
 --

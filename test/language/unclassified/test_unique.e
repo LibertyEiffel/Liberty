@@ -4,54 +4,54 @@
 class TEST_UNIQUE
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	u5, u6, u7: INTEGER is unique
+   u5, u6, u7: INTEGER is unique
 
-	u1: INTEGER is unique
+   u1: INTEGER is unique
 
-	u2: INTEGER is unique
+   u2: INTEGER is unique
 
-	u3, u4: INTEGER is unique
+   u3, u4: INTEGER is unique
 
-	make is
-		local
-			aux_unique1: AUX_UNIQUE1
-		do
-			do_it
-			create aux_unique1
-			aux_unique1.do_it
-			assert(aux_unique1.u1 = u1)
-			assert(aux_unique1.u2 = u2)
-			assert(aux_unique1.u3 = u3)
-			assert(aux_unique1.u4 = u4)
-		end
+   make is
+      local
+         aux_unique1: AUX_UNIQUE1
+      do
+         do_it
+         create aux_unique1
+         aux_unique1.do_it
+         assert(aux_unique1.u1 = u1)
+         assert(aux_unique1.u2 = u2)
+         assert(aux_unique1.u3 = u3)
+         assert(aux_unique1.u4 = u4)
+      end
 
-	do_it is
-		do
-			assert(u1 > 0)
-			assert(u1 /= u2)
-			assert(u1 /= u3)
-			assert(u1 /= u4)
-			assert(u2 > 0)
-			assert(u2 /= u1)
-			assert(u2 /= u3)
-			assert(u2 /= u4)
-			assert(u3 > 0)
-			assert(u3 /= u1)
-			assert(u3 /= u2)
-			assert(u3 /= u4)
-			assert(u4 > 0)
-			assert(u4 /= u1)
-			assert(u4 /= u2)
-			assert(u4 /= u3)
-			assert(u4 = u3 + 1)
-			assert(u7 = u5 + 2)
-		end
+   do_it is
+      do
+         assert(u1 > 0)
+         assert(u1 /= u2)
+         assert(u1 /= u3)
+         assert(u1 /= u4)
+         assert(u2 > 0)
+         assert(u2 /= u1)
+         assert(u2 /= u3)
+         assert(u2 /= u4)
+         assert(u3 > 0)
+         assert(u3 /= u1)
+         assert(u3 /= u2)
+         assert(u3 /= u4)
+         assert(u4 > 0)
+         assert(u4 /= u1)
+         assert(u4 /= u2)
+         assert(u4 /= u3)
+         assert(u4 = u3 + 1)
+         assert(u7 = u5 + 2)
+      end
 
 end -- class TEST_UNIQUE
 --

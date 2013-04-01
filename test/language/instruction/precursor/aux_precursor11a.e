@@ -4,13 +4,13 @@
 class AUX_PRECURSOR11A
 
 feature {ANY}
-	array: ARRAY[STRING]
+   array: ARRAY[STRING]
 
-	f is
-		once
-			create array.with_capacity(1, 1)
-			array.add_last("foo")
-		end
+   f is
+      once
+         create array.with_capacity(1, 1)
+         array.add_last("foo")
+      end
 
 end -- class AUX_PRECURSOR11A
 --

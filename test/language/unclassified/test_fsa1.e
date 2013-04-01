@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FSA1
-	-- From: frankmsalter@blueyonder.co.uk
+   -- From: frankmsalter@blueyonder.co.uk
 
 creation {ANY}
-	program
+   program
 
 feature {}
-	program is
-		do
-			test_class := create {AUX_FSA1_CLASS3}.make
-			test_class.apply
-		end
+   program is
+      do
+         test_class := create {AUX_FSA1_CLASS3}.make
+         test_class.apply
+      end
 
-	test_class: AUX_FSA1_CLASS3
+   test_class: AUX_FSA1_CLASS3
 
 end -- class TEST_FSA1
 --

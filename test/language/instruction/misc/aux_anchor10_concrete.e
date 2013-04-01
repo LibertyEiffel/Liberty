@@ -4,10 +4,10 @@
 class AUX_ANCHOR10_CONCRETE[G]
 
 inherit
-	AUX_ANCHOR10_ABSTRACT[G]
+   AUX_ANCHOR10_ABSTRACT[G]
 
 feature {ANY}
-	item: G
+   item: G
 
 end -- class AUX_ANCHOR10_CONCRETE
 --

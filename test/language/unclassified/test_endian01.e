@@ -4,70 +4,70 @@
 class TEST_ENDIAN01
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	file_tools: FILE_TOOLS is
-		once
-			create Result
-		end
+   file_tools: FILE_TOOLS is
+      once
+         create Result
+      end
 
-	make is
-		local
-			bfw: BINARY_FILE_WRITE; bfr: BINARY_FILE_READ
-		do
-			create bfw.connect_to("test_endian01.dat")
-			assert(bfw.is_connected)
-			bfw.put_integer_16_native_endian(1)
-			bfw.put_integer_16_native_endian(2)
-			bfw.put_integer_16_native_endian(3)
-			bfw.put_integer_16_native_endian(4)
-			bfw.put_integer_16_big_endian(1)
-			bfw.put_integer_16_big_endian(2)
-			bfw.put_integer_16_big_endian(3)
-			bfw.put_integer_16_big_endian(4)
-			bfw.put_integer_16_little_endian(1)
-			bfw.put_integer_16_little_endian(2)
-			bfw.put_integer_16_little_endian(3)
-			bfw.put_integer_16_little_endian(4)
-			bfw.disconnect
-			assert(not bfw.is_connected)
-			create bfr.connect_to("test_endian01.dat")
-			assert(bfr.is_connected)
-			bfr.read_integer_16_native_endian
-			assert(bfr.last_integer_16 = 1)
-			bfr.read_integer_16_native_endian
-			assert(bfr.last_integer_16 = 2)
-			bfr.read_integer_16_native_endian
-			assert(bfr.last_integer_16 = 3)
-			bfr.read_integer_16_native_endian
-			assert(bfr.last_integer_16 = 4)
-			bfr.read_integer_16_big_endian
-			assert(bfr.last_integer_16 = 1)
-			bfr.read_integer_16_big_endian
-			assert(bfr.last_integer_16 = 2)
-			bfr.read_integer_16_big_endian
-			assert(bfr.last_integer_16 = 3)
-			bfr.read_integer_16_big_endian
-			assert(bfr.last_integer_16 = 4)
-			bfr.read_integer_16_little_endian
-			assert(bfr.last_integer_16 = 1)
-			bfr.read_integer_16_little_endian
-			assert(bfr.last_integer_16 = 2)
-			bfr.read_integer_16_little_endian
-			assert(bfr.last_integer_16 = 3)
-			bfr.read_integer_16_little_endian
-			assert(bfr.last_integer_16 = 4)
-			assert(not bfr.end_of_input)
-			bfr.read_byte
-			assert(bfr.end_of_input)
-			bfr.disconnect
-			assert(not bfr.is_connected)
-			file_tools.delete("test_endian01.dat")
-		end
+   make is
+      local
+         bfw: BINARY_FILE_WRITE; bfr: BINARY_FILE_READ
+      do
+         create bfw.connect_to("test_endian01.dat")
+         assert(bfw.is_connected)
+         bfw.put_integer_16_native_endian(1)
+         bfw.put_integer_16_native_endian(2)
+         bfw.put_integer_16_native_endian(3)
+         bfw.put_integer_16_native_endian(4)
+         bfw.put_integer_16_big_endian(1)
+         bfw.put_integer_16_big_endian(2)
+         bfw.put_integer_16_big_endian(3)
+         bfw.put_integer_16_big_endian(4)
+         bfw.put_integer_16_little_endian(1)
+         bfw.put_integer_16_little_endian(2)
+         bfw.put_integer_16_little_endian(3)
+         bfw.put_integer_16_little_endian(4)
+         bfw.disconnect
+         assert(not bfw.is_connected)
+         create bfr.connect_to("test_endian01.dat")
+         assert(bfr.is_connected)
+         bfr.read_integer_16_native_endian
+         assert(bfr.last_integer_16 = 1)
+         bfr.read_integer_16_native_endian
+         assert(bfr.last_integer_16 = 2)
+         bfr.read_integer_16_native_endian
+         assert(bfr.last_integer_16 = 3)
+         bfr.read_integer_16_native_endian
+         assert(bfr.last_integer_16 = 4)
+         bfr.read_integer_16_big_endian
+         assert(bfr.last_integer_16 = 1)
+         bfr.read_integer_16_big_endian
+         assert(bfr.last_integer_16 = 2)
+         bfr.read_integer_16_big_endian
+         assert(bfr.last_integer_16 = 3)
+         bfr.read_integer_16_big_endian
+         assert(bfr.last_integer_16 = 4)
+         bfr.read_integer_16_little_endian
+         assert(bfr.last_integer_16 = 1)
+         bfr.read_integer_16_little_endian
+         assert(bfr.last_integer_16 = 2)
+         bfr.read_integer_16_little_endian
+         assert(bfr.last_integer_16 = 3)
+         bfr.read_integer_16_little_endian
+         assert(bfr.last_integer_16 = 4)
+         assert(not bfr.end_of_input)
+         bfr.read_byte
+         assert(bfr.end_of_input)
+         bfr.disconnect
+         assert(not bfr.is_connected)
+         file_tools.delete("test_endian01.dat")
+      end
 
 end -- class TEST_ENDIAN01
 --

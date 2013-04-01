@@ -4,27 +4,27 @@
 class TEST_TIMES1
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {}
-	make
+   make
 
 feature {}
-	make is
-		do
-			assert(i = 0)
-			4.times(agent is do i := i + 1 end)
-			assert(i = 4)
-			assert(j = 0)
-			6.times(agent (new_j: like j) is
-				do
-					j := j + 1
-					assert(new_j = j)
-				end (?))
-			assert(j = 6)
-		end
+   make is
+      do
+         assert(i = 0)
+         4.times(agent is do i := i + 1 end)
+         assert(i = 4)
+         assert(j = 0)
+         6.times(agent (new_j: like j) is
+            do
+               j := j + 1
+               assert(new_j = j)
+            end (?))
+         assert(j = 6)
+      end
 
-	i, j: INTEGER_8
+   i, j: INTEGER_8
 
 end -- class TEST_TIMES1
 --

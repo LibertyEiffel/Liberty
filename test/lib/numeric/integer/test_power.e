@@ -4,31 +4,31 @@
 class TEST_POWER
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			v: INTEGER_64
-		do
-			v := 2 ^ 2 ^ 3
-			assert(2 ^ 2 ^ 3 = 256)
-		end
+   make is
+      local
+         v: INTEGER_64
+      do
+         v := 2 ^ 2 ^ 3
+         assert(2 ^ 2 ^ 3 = 256)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_POWER: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			else
-				-- std_output.put_string("Yes%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_POWER: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         else
+            -- std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_POWER
 --

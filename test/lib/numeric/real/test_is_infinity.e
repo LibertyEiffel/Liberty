@@ -2,60 +2,60 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_IS_INFINITY
-	--
-	-- Of REAL_GENERAL.
-	--
+   --
+   -- Of REAL_GENERAL.
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			real_32: REAL_32; real_64: REAL_64; real_extended: REAL_EXTENDED
-		do
-			assert(not real_64.is_infinity)
-			real_64 := unchecked_c_divide_64(1.0, 0.0)
-			assert(real_64.is_infinity)
-			assert(real_64 > 0)
-			real_64 := unchecked_c_divide_64(-1.0, 0.0)
-			assert(real_64.is_infinity)
-			assert(real_64 < 0)
-			assert(not real_32.is_infinity)
-			real_32 := unchecked_c_divide_32({REAL_32 1.0}, {REAL_32 0.0})
-			assert(real_32.is_infinity)
-			assert(real_32 > 0)
-			real_32 := unchecked_c_divide_32(-{REAL_32 1.0}, {REAL_32 0.0})
-			assert(real_32.is_infinity)
-			assert(real_32 < 0)
-			assert(not real_extended.is_infinity)
-			real_extended := unchecked_c_divide_ext({REAL_EXTENDED 1.0}, {REAL_EXTENDED 0.0})
-			assert(real_extended.is_infinity)
-			assert(real_extended > 0)
-			real_extended := unchecked_c_divide_ext(-{REAL_EXTENDED 1.0}, {REAL_EXTENDED 0.0})
-			assert(real_extended.is_infinity)
-			assert(real_extended < 0)
-		end
+   make is
+      local
+         real_32: REAL_32; real_64: REAL_64; real_extended: REAL_EXTENDED
+      do
+         assert(not real_64.is_infinity)
+         real_64 := unchecked_c_divide_64(1.0, 0.0)
+         assert(real_64.is_infinity)
+         assert(real_64 > 0)
+         real_64 := unchecked_c_divide_64(-1.0, 0.0)
+         assert(real_64.is_infinity)
+         assert(real_64 < 0)
+         assert(not real_32.is_infinity)
+         real_32 := unchecked_c_divide_32({REAL_32 1.0}, {REAL_32 0.0})
+         assert(real_32.is_infinity)
+         assert(real_32 > 0)
+         real_32 := unchecked_c_divide_32(-{REAL_32 1.0}, {REAL_32 0.0})
+         assert(real_32.is_infinity)
+         assert(real_32 < 0)
+         assert(not real_extended.is_infinity)
+         real_extended := unchecked_c_divide_ext({REAL_EXTENDED 1.0}, {REAL_EXTENDED 0.0})
+         assert(real_extended.is_infinity)
+         assert(real_extended > 0)
+         real_extended := unchecked_c_divide_ext(-{REAL_EXTENDED 1.0}, {REAL_EXTENDED 0.0})
+         assert(real_extended.is_infinity)
+         assert(real_extended < 0)
+      end
 
 feature {}
-	unchecked_c_divide_64(x, y: REAL_64): REAL_64 is
-		external "C inline"
-		alias "(($x) / ($y))"
-		end
-	
-	unchecked_c_divide_32(x, y: REAL_32): REAL_32 is
-		external "C inline"
-		alias "(($x) / ($y))"
-		end
+   unchecked_c_divide_64(x, y: REAL_64): REAL_64 is
+      external "C inline"
+      alias "(($x) / ($y))"
+      end
+   
+   unchecked_c_divide_32(x, y: REAL_32): REAL_32 is
+      external "C inline"
+      alias "(($x) / ($y))"
+      end
 
-	unchecked_c_divide_ext(x, y: REAL_EXTENDED): REAL_EXTENDED is
-		external "C inline"
-		alias "(($x) / ($y))"
-		end
-	
+   unchecked_c_divide_ext(x, y: REAL_EXTENDED): REAL_EXTENDED is
+      external "C inline"
+      alias "(($x) / ($y))"
+      end
+   
 end -- class TEST_IS_INFINITY
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

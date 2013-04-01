@@ -4,16 +4,16 @@
 expanded class AUX_MANIFEST_ARRAY8
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a, b: INTEGER
+   a, b: INTEGER
 
-	make is
-		do
-			a := 1
-			b := 2
-		end
+   make is
+      do
+         a := 1
+         b := 2
+      end
 
 end -- class AUX_MANIFEST_ARRAY8
 --

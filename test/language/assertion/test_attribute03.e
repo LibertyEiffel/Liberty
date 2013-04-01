@@ -4,56 +4,56 @@
 class TEST_ATTRIBUTE03
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main is
-		local
-			aux: AUX_ATTRIBUTE03B; x: INTEGER
-		do
-			set_flags
-			create aux
-			assert(aux.attribute_require_counter = 0)
-			assert(aux.deferred_require_counter = 0)
-			assert(aux.attribute_ensure_counter = 0)
-			assert(aux.deferred_ensure_counter = 0)
-			x := aux.value
-			if require_flag then
-				assert(aux.attribute_require_counter = 1)
-				assert(aux.deferred_require_counter = 0)
-			end
-			if ensure_flag then
-				assert(aux.attribute_ensure_counter = 1)
-				assert(aux.deferred_ensure_counter = 1)
-			end
-		end
+   main is
+      local
+         aux: AUX_ATTRIBUTE03B; x: INTEGER
+      do
+         set_flags
+         create aux
+         assert(aux.attribute_require_counter = 0)
+         assert(aux.deferred_require_counter = 0)
+         assert(aux.attribute_ensure_counter = 0)
+         assert(aux.deferred_ensure_counter = 0)
+         x := aux.value
+         if require_flag then
+            assert(aux.attribute_require_counter = 1)
+            assert(aux.deferred_require_counter = 0)
+         end
+         if ensure_flag then
+            assert(aux.attribute_ensure_counter = 1)
+            assert(aux.deferred_ensure_counter = 1)
+         end
+      end
 
-	require_flag: BOOLEAN
+   require_flag: BOOLEAN
 
-	ensure_flag: BOOLEAN
+   ensure_flag: BOOLEAN
 
-	set_flags_require: BOOLEAN is
-		do
-			require_flag := True
-			Result := True
-		end
+   set_flags_require: BOOLEAN is
+      do
+         require_flag := True
+         Result := True
+      end
 
-	set_flags is
-		require
-			set_flags_require
-		do
-		ensure
-			set_flags_ensure
-		end
+   set_flags is
+      require
+         set_flags_require
+      do
+      ensure
+         set_flags_ensure
+      end
 
-	set_flags_ensure: BOOLEAN is
-		do
-			ensure_flag := True
-			Result := True
-		end
+   set_flags_ensure: BOOLEAN is
+      do
+         ensure_flag := True
+         Result := True
+      end
 
 end -- class TEST_ATTRIBUTE03
 --

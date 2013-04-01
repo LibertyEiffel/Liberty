@@ -4,7 +4,7 @@
 class AUX_JLP_A[E]
 
 feature {ANY}
-	foo: E
+   foo: E
 
 end -- class AUX_JLP_A
 --

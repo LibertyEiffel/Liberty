@@ -9,9 +9,9 @@ feature
 
    make is
       local
-	 i: INTEGER
+    i: INTEGER
       do
-	 i := 0xFFg
+    i := 0xFFg
       end
    
 end -- class BAD_HEXADECIMAL2

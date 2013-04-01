@@ -4,25 +4,25 @@
 class AUX_CREATE03
 
 inherit
-	ANY
-		redefine default_create
-		end
+   ANY
+      redefine default_create
+      end
 
 creation {ANY}
-	default_create, make
+   default_create, make
 
 feature {ANY}
-	value: INTEGER
+   value: INTEGER
 
-	default_create is
-		do
-			value := 1
-		end
+   default_create is
+      do
+         value := 1
+      end
 
-	make is
-		do
-			value := 2
-		end
+   make is
+      do
+         value := 2
+      end
 
 end -- class AUX_CREATE03
 --

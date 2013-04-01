@@ -2,30 +2,30 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AVL2
-	-- From Simon Frost on the mailing list (sdfrost@ucsd.edu)
+   -- From Simon Frost on the mailing list (sdfrost@ucsd.edu)
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i, n: INTEGER; r: REAL; bs: AVL_DICTIONARY[REAL, INTEGER]; rng: PRESS_RANDOM_NUMBER_GENERATOR
-		do
-			n := 100
-			create rng.with_seed(1)
-			create bs.make
-			from
-				i := 0
-			until
-				i = n
-			loop
-				rng.next
-				r := rng.last_real
-				bs.put(r, i)
-				i := i + 1
-			end
-		end
+   make is
+      local
+         i, n: INTEGER; r: REAL; bs: AVL_DICTIONARY[REAL, INTEGER]; rng: PRESS_RANDOM_NUMBER_GENERATOR
+      do
+         n := 100
+         create rng.with_seed(1)
+         create bs.make
+         from
+            i := 0
+         until
+            i = n
+         loop
+            rng.next
+            r := rng.last_real
+            bs.put(r, i)
+            i := i + 1
+         end
+      end
 
 end -- class TEST_AVL2
 --

@@ -214,7 +214,7 @@ feature {ANY}
          Result /= Void
       end
 
-feature {FEATURE_CALL, CREATE_SUPPORT, FEATURE_STAMP, E_PROCEDURE, AGENT_CREATION}
+feature {FEATURE_CALL, CREATE_SUPPORT, FEATURE_STAMP, E_PROCEDURE, AGENT_CREATION, EXTERNAL_PROCEDURE}
    frozen set_feature_stamp (fs: like feature_stamp) is
       do
          feature_stamp := fs

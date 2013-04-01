@@ -4,39 +4,39 @@
 class TEST_READ_INTEGER2
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {}
-	main is
-		local
-			sfr: TEXT_FILE_READ; i: INTEGER
-		do
-			create sfr.connect_to("aux_read_integer2.dat")
-			assert(sfr.is_connected)
-			sfr.read_integer
-			i := sfr.last_integer
-			assert(i = 1)
-			sfr.read_integer
-			i := sfr.last_integer
-			assert(i = 2)
-			sfr.read_character
-			assert(sfr.last_character = 'A')
-			sfr.read_integer
-			i := sfr.last_integer
-			assert(i = 3)
-			sfr.read_integer
-			i := sfr.last_integer
-			assert(i = 4)
-			sfr.read_character
-			assert(sfr.last_character = 'b')
-			assert(not sfr.end_of_input)
-			sfr.read_character
-			assert(sfr.end_of_input)
-			sfr.disconnect
-		end
+   main is
+      local
+         sfr: TEXT_FILE_READ; i: INTEGER
+      do
+         create sfr.connect_to("aux_read_integer2.dat")
+         assert(sfr.is_connected)
+         sfr.read_integer
+         i := sfr.last_integer
+         assert(i = 1)
+         sfr.read_integer
+         i := sfr.last_integer
+         assert(i = 2)
+         sfr.read_character
+         assert(sfr.last_character = 'A')
+         sfr.read_integer
+         i := sfr.last_integer
+         assert(i = 3)
+         sfr.read_integer
+         i := sfr.last_integer
+         assert(i = 4)
+         sfr.read_character
+         assert(sfr.last_character = 'b')
+         assert(not sfr.end_of_input)
+         sfr.read_character
+         assert(sfr.end_of_input)
+         sfr.disconnect
+      end
 
 end -- class TEST_READ_INTEGER2
 --

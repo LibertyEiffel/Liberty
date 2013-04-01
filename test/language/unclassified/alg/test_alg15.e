@@ -2,37 +2,37 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ALG15
-	-- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
+   -- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a: AUX_ALG15ANCESTOR
+   a: AUX_ALG15ANCESTOR
 
-	h: AUX_ALG15HEIR
+   h: AUX_ALG15HEIR
 
-	make is
-		do
-			create a
-			create h
-			assert(not a.is_equal(h))
-			assert(not a.is_deep_equal(h))
-		end
+   make is
+      do
+         create a
+         create h
+         assert(not a.is_equal(h))
+         assert(not a.is_deep_equal(h))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_ALG15: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_ALG15: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_ALG15
 --

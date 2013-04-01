@@ -2,65 +2,65 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER106
-	--
-	-- Test of depassement of INTEGER_64_NUMBER capacity
-	-- during a multiplication between a small integer
-	-- and an integer which is symbolised by a large integer
-	-- Result is a BIG_INTEGER_NUMBER
-	--
+   --
+   -- Test of depassement of INTEGER_64_NUMBER capacity
+   -- during a multiplication between a small integer
+   -- and an integer which is symbolised by a large integer
+   -- Result is a BIG_INTEGER_NUMBER
+   --
 
 insert
-	EIFFELTEST_TOOLS
-	ANY
-	PLATFORM
+   EIFFELTEST_TOOLS
+   ANY
+   PLATFORM
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2, m1, m2: NUMBER
-		do
-			n1 := nt.from_integer_64(Maximum_integer_64) @+ 1
-			assert(n1.is_integer_general_number)
-			assert(not n1.is_integer_64)
-			n2 := nt.from_integer_64(5)
-			m1 := n1 * n2
-			m2 := n2 * n1
-			assert(m1.is_integer_general_number)
-			assert(not m1.is_integer_64)
-			assert(m1.is_positive)
-			assert(m2.is_equal(m1))
-			n2 := nt.from_integer_64(-5)
-			m1 := n1 * n2
-			m2 := n2 * n1
-			assert(m1.is_integer_general_number)
-			assert(not m1.is_integer_64)
-			assert(not m1.is_positive)
-			assert(m2.is_equal(m1))
-			n1 := nt.from_integer_64(Minimum_integer_64) @- 1
-			assert(n1.is_integer_general_number)
-			assert(not n1.is_integer_64)
-			n2 := nt.from_integer_64(5)
-			m1 := n1 * n2
-			m2 := n2 * n1
-			assert(m1.is_integer_general_number)
-			assert(not m1.is_integer_64)
-			assert(not m1.is_positive)
-			assert(m2.is_equal(m1))
-			n2 := nt.from_integer_64(-5)
-			m1 := n1 * n2
-			m2 := n2 * n1
-			assert(m1.is_integer_general_number)
-			assert(not m1.is_integer_64)
-			assert(m1.is_positive)
-			assert(m2.is_equal(m1))
-		end
+   make is
+      local
+         n1, n2, m1, m2: NUMBER
+      do
+         n1 := nt.from_integer_64(Maximum_integer_64) @+ 1
+         assert(n1.is_integer_general_number)
+         assert(not n1.is_integer_64)
+         n2 := nt.from_integer_64(5)
+         m1 := n1 * n2
+         m2 := n2 * n1
+         assert(m1.is_integer_general_number)
+         assert(not m1.is_integer_64)
+         assert(m1.is_positive)
+         assert(m2.is_equal(m1))
+         n2 := nt.from_integer_64(-5)
+         m1 := n1 * n2
+         m2 := n2 * n1
+         assert(m1.is_integer_general_number)
+         assert(not m1.is_integer_64)
+         assert(not m1.is_positive)
+         assert(m2.is_equal(m1))
+         n1 := nt.from_integer_64(Minimum_integer_64) @- 1
+         assert(n1.is_integer_general_number)
+         assert(not n1.is_integer_64)
+         n2 := nt.from_integer_64(5)
+         m1 := n1 * n2
+         m2 := n2 * n1
+         assert(m1.is_integer_general_number)
+         assert(not m1.is_integer_64)
+         assert(not m1.is_positive)
+         assert(m2.is_equal(m1))
+         n2 := nt.from_integer_64(-5)
+         m1 := n1 * n2
+         m2 := n2 * n1
+         assert(m1.is_integer_general_number)
+         assert(not m1.is_integer_64)
+         assert(m1.is_positive)
+         assert(m2.is_equal(m1))
+      end
 
 
 
-	nt: NUMBER_TOOLS
+   nt: NUMBER_TOOLS
 
 end -- class TEST_NUMBER106
 --

@@ -4,10 +4,10 @@
 class AUX_EB17[G]
 
 feature {ANY}
-	test (a, b: G): BOOLEAN is
-		do
-			Result := a.is_equal(b)
-		end
+   test (a, b: G): BOOLEAN is
+      do
+         Result := a.is_equal(b)
+      end
 
 end -- class AUX_EB17
 --

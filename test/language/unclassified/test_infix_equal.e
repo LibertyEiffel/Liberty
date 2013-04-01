@@ -4,77 +4,77 @@
 class TEST_INFIX_EQUAL
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			c: CHARACTER; d, d2: REAL_64; r: REAL_32; animal: ANIMAL; dog: DOG
-		do
-			-- a: ANY
-			c := 'a'
-			assert('a' = c)
-			-- *** CHARACTER does not conform to ANY (Vincent Croizier, 03/11/2004) ***
-			-- a := c
-			-- *** assert(not(a = 'a'))
-			-- Yes, it was a really bad idea to accept such code !
-			-- *** (Dom. july 12th 2004) ***
-			-- *** assert(not('a' = a))
-			-- Yes, it was a really bad idea to accept such code !
-			-- *** (Dom. july 12th 2004) ***
-			assert(88 = 88)
-			-- *** INTEGER_8 does not conform to ANY (Vincent Croizier, 03/11/2004) ***
-			-- a := 88
-			-- *** assert(not(a = 88))
-			-- Yes, it was a really bad idea to accept such code !
-			-- *** (Dom. july 12th 2004) ***
-			-- *** assert(not(88 = a))
-			-- Yes, it was a really bad idea to accept such code !
-			-- *** (Dom. july 12th 2004) ***
-			assert(88.to_real_64 = 88.0)
-			-- *** INTEGER_8 does not conform to ANY (Vincent Croizier, 03/11/2004) ***
-			-- a := 88
-			-- assert(equal(a,88))
-			-- ***  assert(not(a = 88))
-			-- Yes, it was a really bad idea to accept such code !
-			-- *** (Dom. july 12th 2004) ***
-			-- ***	 assert(not(88 = a))
-			-- Yes, it was a really bad idea to accept such code !
-			-- *** (Dom. july 12th 2004) ***
-			r := {REAL_32 88.0}
-			assert(r = 88.000)
-			-- *** REAL does not conform to ANY (Vincent Croizier, 03/11/2004) ***
-			-- a := 88.0
-			assert(r = 88)
-			assert(88 = r)
-			d := 88.0
-			assert(d = 88.0)
-			assert(88.0 = d)
-			d2 := d
-			assert(d2 = 88.0)
-			assert(88.0 = d2)
-			-- *** REAL does not conform to ANY (Vincent Croizier, 03/11/2004) ***
-			-- a := d2
-			assert(d2 = 88.to_real_64)
-			assert(88.to_real_64 = d2)
-			assert(animal = dog)
-			assert(dog = animal)
-		end
+   make is
+      local
+         c: CHARACTER; d, d2: REAL_64; r: REAL_32; animal: ANIMAL; dog: DOG
+      do
+         -- a: ANY
+         c := 'a'
+         assert('a' = c)
+         -- *** CHARACTER does not conform to ANY (Vincent Croizier, 03/11/2004) ***
+         -- a := c
+         -- *** assert(not(a = 'a'))
+         -- Yes, it was a really bad idea to accept such code !
+         -- *** (Dom. july 12th 2004) ***
+         -- *** assert(not('a' = a))
+         -- Yes, it was a really bad idea to accept such code !
+         -- *** (Dom. july 12th 2004) ***
+         assert(88 = 88)
+         -- *** INTEGER_8 does not conform to ANY (Vincent Croizier, 03/11/2004) ***
+         -- a := 88
+         -- *** assert(not(a = 88))
+         -- Yes, it was a really bad idea to accept such code !
+         -- *** (Dom. july 12th 2004) ***
+         -- *** assert(not(88 = a))
+         -- Yes, it was a really bad idea to accept such code !
+         -- *** (Dom. july 12th 2004) ***
+         assert(88.to_real_64 = 88.0)
+         -- *** INTEGER_8 does not conform to ANY (Vincent Croizier, 03/11/2004) ***
+         -- a := 88
+         -- assert(equal(a,88))
+         -- ***  assert(not(a = 88))
+         -- Yes, it was a really bad idea to accept such code !
+         -- *** (Dom. july 12th 2004) ***
+         -- ***    assert(not(88 = a))
+         -- Yes, it was a really bad idea to accept such code !
+         -- *** (Dom. july 12th 2004) ***
+         r := {REAL_32 88.0}
+         assert(r = 88.000)
+         -- *** REAL does not conform to ANY (Vincent Croizier, 03/11/2004) ***
+         -- a := 88.0
+         assert(r = 88)
+         assert(88 = r)
+         d := 88.0
+         assert(d = 88.0)
+         assert(88.0 = d)
+         d2 := d
+         assert(d2 = 88.0)
+         assert(88.0 = d2)
+         -- *** REAL does not conform to ANY (Vincent Croizier, 03/11/2004) ***
+         -- a := d2
+         assert(d2 = 88.to_real_64)
+         assert(88.to_real_64 = d2)
+         assert(animal = dog)
+         assert(dog = animal)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_INFIX_EQUAL: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_INFIX_EQUAL: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_INFIX_EQUAL
 --

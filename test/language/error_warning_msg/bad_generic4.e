@@ -11,9 +11,9 @@ feature
 
    make is
       local
-	 m: COLLECTION[INTEGER];
+    m: COLLECTION[INTEGER];
       do
-	 !LINKED_LIST!m.make;
+    !LINKED_LIST!m.make;
       end
 
 end -- class BAD_GENERIC4

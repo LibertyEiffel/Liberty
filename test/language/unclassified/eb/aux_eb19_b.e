@@ -4,15 +4,15 @@
 class AUX_EB19_B
 
 inherit
-	AUX_EB19_A
-		rename g as h
-		redefine f
-		end
+   AUX_EB19_A
+      rename g as h
+      redefine f
+      end
 
 feature {ANY}
-	f (other: like Current) is
-		do
-		end
+   f (other: like Current) is
+      do
+      end
 
 end -- class AUX_EB19_B
 --

@@ -4,10 +4,10 @@
 class AUX_TYPE2[E]
 
 feature {ANY}
-	rout (l1: COLLECTION[E]; v1, v2, v3: E) is
-		do
-			l1.put(v1, 1)
-		end
+   rout (l1: COLLECTION[E]; v1, v2, v3: E) is
+      do
+         l1.put(v1, 1)
+      end
 
 end -- class AUX_TYPE2
 --

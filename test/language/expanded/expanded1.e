@@ -2,17 +2,17 @@
 -- See the Copyright notice at the end of this file.
 --
 expanded class EXPANDED1
-	--
-	-- For use of test_expanded*.e
-	--
+   --
+   -- For use of test_expanded*.e
+   --
 
 feature {ANY}
-	x: INTEGER
+   x: INTEGER
 
-	set_x (value: INTEGER) is
-		do
-			x := value
-		end
+   set_x (value: INTEGER) is
+      do
+         x := value
+      end
 
 end -- class EXPANDED1
 --

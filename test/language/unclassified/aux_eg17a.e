@@ -4,25 +4,25 @@
 expanded class AUX_EG17A
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			x := 1
-		end
+   make is
+      do
+         x := 1
+      end
 
-	set_x (v: like x) is
-		do
-			x := v
-		end
+   set_x (v: like x) is
+      do
+         x := v
+      end
 
-	x: INTEGER
+   x: INTEGER
 
-	sum (other: like Current): like Current is
-		do
-			Result.set_x(x + other.x)
-		end
+   sum (other: like Current): like Current is
+      do
+         Result.set_x(x + other.x)
+      end
 
 end -- class AUX_EG17A
 --

@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PH2
-	-- From: Peter Horan <peter@deakin.edu.au>
+   -- From: Peter Horan <peter@deakin.edu.au>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			x: AUX_PH1R; y: INTEGER
-		do
-			create x
-			y := x.g
-		end
+   make is
+      local
+         x: AUX_PH1R; y: INTEGER
+      do
+         create x
+         y := x.g
+      end
 
 end -- class TEST_PH2
 --

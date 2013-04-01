@@ -4,42 +4,42 @@
 class TEST_PRE_ONCE1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert(max = 255)
-			assert(foo.is_equal("hip hop"))
-		end
+   make is
+      do
+         assert(max = 255)
+         assert(foo.is_equal("hip hop"))
+      end
 
-	max: INTEGER is
-		once
-			Result := 255
-		ensure
-			meaningful: Result >= 127
-		end
+   max: INTEGER is
+      once
+         Result := 255
+      ensure
+         meaningful: Result >= 127
+      end
 
-	foo: STRING is
-		once
-			Result := "hip hop"
-		ensure
-			Result.is_equal("hip hop")
-		end
+   foo: STRING is
+      once
+         Result := "hip hop"
+      ensure
+         Result.is_equal("hip hop")
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_PRE_ONCE1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_PRE_ONCE1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_PRE_ONCE1
 --

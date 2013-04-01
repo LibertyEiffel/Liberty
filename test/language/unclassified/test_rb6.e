@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_RB6
-	--
-	-- From a bug report of Reimer BEHRENDS
-	--
+   --
+   -- From a bug report of Reimer BEHRENDS
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	rand: RANDOM_NUMBER_GENERATOR is
-		local
-			tmp: MINIMAL_RANDOM_NUMBER_GENERATOR
-		once
-			create tmp.make
-			Result := tmp
-		end
+   rand: RANDOM_NUMBER_GENERATOR is
+      local
+         tmp: MINIMAL_RANDOM_NUMBER_GENERATOR
+      once
+         create tmp.make
+         Result := tmp
+      end
 
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class TEST_RB6
 --

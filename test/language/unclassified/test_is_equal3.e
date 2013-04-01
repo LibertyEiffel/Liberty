@@ -4,38 +4,38 @@
 class TEST_IS_EQUAL3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a1, a2: ARRAY[INTEGER]; b1, b2: INTEGER
-		do
-			assert(b1.is_equal(b2))
-			b1 := 1
-			assert(not b1.is_equal(b2))
-			create a1.make(1, 2)
-			create a2.make(1, 2)
-			assert(a1.is_equal(a2))
-			a2.put(1, 1)
-			assert(not a1.is_equal(a2))
-			a1.put(1, 1)
-			assert(a1.is_equal(a2))
-		end
+   make is
+      local
+         a1, a2: ARRAY[INTEGER]; b1, b2: INTEGER
+      do
+         assert(b1.is_equal(b2))
+         b1 := 1
+         assert(not b1.is_equal(b2))
+         create a1.make(1, 2)
+         create a2.make(1, 2)
+         assert(a1.is_equal(a2))
+         a2.put(1, 1)
+         assert(not a1.is_equal(a2))
+         a1.put(1, 1)
+         assert(a1.is_equal(a2))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_IS_EQUAL3: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes %N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_IS_EQUAL3: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes %N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_IS_EQUAL3
 --

@@ -4,12 +4,12 @@
 class TEST_JVM1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class TEST_JVM1
 --

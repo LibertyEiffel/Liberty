@@ -7,12 +7,12 @@ creation make
 feature
    make is
       local
-	 n: AUX_JW01NAMED_THING
-	 h: AUX_JW01HOLDER[AUX_JW01NAMED_THING]
+    n: AUX_JW01NAMED_THING
+    h: AUX_JW01HOLDER[AUX_JW01NAMED_THING]
       do
-	 !!n.make("Joe");
-	 !!h.make (n);
-	 io.put_string(h.item);
+    !!n.make("Joe");
+    !!h.make (n);
+    io.put_string(h.item);
       end
 end -- class BAD_JW02
 --

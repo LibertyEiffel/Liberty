@@ -2,47 +2,47 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_REAL_CONSTANT04
-	-- Test the normalisation in {REAL_CONSTANT}.make
+   -- Test the normalisation in {REAL_CONSTANT}.make
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			ref: REAL
-		do
-			ref := 0.1
-			assert(ref = 1e-1)
-			assert(ref = 0.1)
-			assert(ref = 1.0e-1)
-			ref := 21.0
-			assert(ref = 210000000000e-10)
-			assert(ref = 21000000000E-9)
-			assert(ref = 2100000000e-8)
-			assert(ref = 210000000E-7)
-			assert(ref = 21000000e-6)
-			assert(ref = 2100000E-5)
-			assert(ref = 210000e-4)
-			assert(ref = 21000E-3)
-			assert(ref = 2100e-2)
-			assert(ref = 210E-01)
-			assert(ref = 21)
-			assert(ref = 21e0)
-			assert(ref = 2.1E1)
-			assert(ref = 0.21e2)
-			assert(ref = 0.021E3)
-			assert(ref = 0.0021e4)
-			assert(ref = 0.00021E5)
-			assert(ref = 0.000021e6)
-			assert(ref = 0.0000021E7)
-			assert(ref = 0.00000021e8)
-			assert(ref = 0.000000021E9)
-			assert(ref = 0.0000000021E10)
-		end
+   make is
+      local
+         ref: REAL
+      do
+         ref := 0.1
+         assert(ref = 1e-1)
+         assert(ref = 0.1)
+         assert(ref = 1.0e-1)
+         ref := 21.0
+         assert(ref = 210000000000e-10)
+         assert(ref = 21000000000E-9)
+         assert(ref = 2100000000e-8)
+         assert(ref = 210000000E-7)
+         assert(ref = 21000000e-6)
+         assert(ref = 2100000E-5)
+         assert(ref = 210000e-4)
+         assert(ref = 21000E-3)
+         assert(ref = 2100e-2)
+         assert(ref = 210E-01)
+         assert(ref = 21)
+         assert(ref = 21e0)
+         assert(ref = 2.1E1)
+         assert(ref = 0.21e2)
+         assert(ref = 0.021E3)
+         assert(ref = 0.0021e4)
+         assert(ref = 0.00021E5)
+         assert(ref = 0.000021e6)
+         assert(ref = 0.0000021E7)
+         assert(ref = 0.00000021e8)
+         assert(ref = 0.000000021E9)
+         assert(ref = 0.0000000021E10)
+      end
 
 end -- class TEST_REAL_CONSTANT04
 --

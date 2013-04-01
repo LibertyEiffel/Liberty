@@ -2,21 +2,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EG1
-	-- From a bug report of Enrico GOBBETTI
+   -- From a bug report of Enrico GOBBETTI
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a1: AUX_EG1[REAL]
-		do
-			a1.set_x(1.0)
-			check
-				a1.x = 1.0
-			end
-		end
+   make is
+      local
+         a1: AUX_EG1[REAL]
+      do
+         a1.set_x(1.0)
+         check
+            a1.x = 1.0
+         end
+      end
 
 end -- class TEST_EG1
 --

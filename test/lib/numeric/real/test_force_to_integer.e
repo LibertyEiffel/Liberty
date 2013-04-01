@@ -2,67 +2,67 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FORCE_TO_INTEGER
-	-- To test force_to_integer_64, force_to_integer_32 and force_to_integer_16.
+   -- To test force_to_integer_64, force_to_integer_32 and force_to_integer_16.
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			integer_16: INTEGER_16; integer_32: INTEGER_32; integer_64: INTEGER_64; real_32: REAL_32; real_64: REAL_64
-		do
-			real_64 := 0.4
-			integer_16 := real_64.force_to_integer_16
-			assert(integer_16 = 0)
-			assert(0.4.force_to_integer_16 = 0)
-			real_32 := {REAL_32 0.4}
-			integer_16 := real_32.force_to_integer_16
-			assert(integer_16 = 0)
-			assert({REAL_32 0.4}.force_to_integer_16 = 0)
-			real_64 := 0.4
-			integer_32 := real_64.force_to_integer_32
-			assert(integer_32 = 0)
-			assert(0.4.force_to_integer_32 = 0)
-			real_32 := {REAL_32 0.4}
-			integer_32 := real_32.force_to_integer_32
-			assert(integer_32 = 0)
-			assert({REAL_32 0.4}.force_to_integer_32 = 0)
-			real_64 := 0.4
-			integer_64 := real_64.force_to_integer_64
-			assert(integer_64 = 0)
-			assert(0.4.force_to_integer_64 = 0)
-			real_32 := {REAL_32 0.4}
-			integer_64 := real_32.force_to_integer_64
-			assert(integer_64 = 0)
-			assert({REAL_32 0.4}.force_to_integer_64 = 0)
-			assert(0.51.force_to_integer_64 = 0)
-			assert(0.51.force_to_integer_32 = 0)
-			assert(0.51.force_to_integer_16 = 0)
-			assert(1.49.force_to_integer_64 = 1)
-			assert(1.49.force_to_integer_32 = 1)
-			assert(1.49.force_to_integer_16 = 1)
-			assert(1.51.force_to_integer_64 = 1)
-			assert(1.51.force_to_integer_32 = 1)
-			assert(1.51.force_to_integer_16 = 1)
-			assert((-0.4).rounded.force_to_integer_32 = 0)
-			assert((-0.51).rounded.force_to_integer_32 = -1)
-			assert((-1.49).ceiling.force_to_integer_32 = -1)
-			assert((-1.51).floor.force_to_integer_32 = -2)
-			integer_64 := -9007199254740992
-			assert(integer_64.fit_real_64)
-			real_64 := integer_64.force_to_real_64
-			assert(real_64.force_to_integer_64 = integer_64)
-			integer_64 := -9007199254740993
-			assert(not integer_64.fit_real_64)
-			integer_64 := -9007199254740994
-			assert(integer_64.fit_real_64)
-			real_64 := integer_64.force_to_real_64
-			assert(real_64.force_to_integer_64 = integer_64)
-		end
+   make is
+      local
+         integer_16: INTEGER_16; integer_32: INTEGER_32; integer_64: INTEGER_64; real_32: REAL_32; real_64: REAL_64
+      do
+         real_64 := 0.4
+         integer_16 := real_64.force_to_integer_16
+         assert(integer_16 = 0)
+         assert(0.4.force_to_integer_16 = 0)
+         real_32 := {REAL_32 0.4}
+         integer_16 := real_32.force_to_integer_16
+         assert(integer_16 = 0)
+         assert({REAL_32 0.4}.force_to_integer_16 = 0)
+         real_64 := 0.4
+         integer_32 := real_64.force_to_integer_32
+         assert(integer_32 = 0)
+         assert(0.4.force_to_integer_32 = 0)
+         real_32 := {REAL_32 0.4}
+         integer_32 := real_32.force_to_integer_32
+         assert(integer_32 = 0)
+         assert({REAL_32 0.4}.force_to_integer_32 = 0)
+         real_64 := 0.4
+         integer_64 := real_64.force_to_integer_64
+         assert(integer_64 = 0)
+         assert(0.4.force_to_integer_64 = 0)
+         real_32 := {REAL_32 0.4}
+         integer_64 := real_32.force_to_integer_64
+         assert(integer_64 = 0)
+         assert({REAL_32 0.4}.force_to_integer_64 = 0)
+         assert(0.51.force_to_integer_64 = 0)
+         assert(0.51.force_to_integer_32 = 0)
+         assert(0.51.force_to_integer_16 = 0)
+         assert(1.49.force_to_integer_64 = 1)
+         assert(1.49.force_to_integer_32 = 1)
+         assert(1.49.force_to_integer_16 = 1)
+         assert(1.51.force_to_integer_64 = 1)
+         assert(1.51.force_to_integer_32 = 1)
+         assert(1.51.force_to_integer_16 = 1)
+         assert((-0.4).rounded.force_to_integer_32 = 0)
+         assert((-0.51).rounded.force_to_integer_32 = -1)
+         assert((-1.49).ceiling.force_to_integer_32 = -1)
+         assert((-1.51).floor.force_to_integer_32 = -2)
+         integer_64 := -9007199254740992
+         assert(integer_64.fit_real_64)
+         real_64 := integer_64.force_to_real_64
+         assert(real_64.force_to_integer_64 = integer_64)
+         integer_64 := -9007199254740993
+         assert(not integer_64.fit_real_64)
+         integer_64 := -9007199254740994
+         assert(integer_64.fit_real_64)
+         real_64 := integer_64.force_to_real_64
+         assert(real_64.force_to_integer_64 = integer_64)
+      end
 
 end -- class TEST_FORCE_TO_INTEGER
 --

@@ -3,22 +3,22 @@
 --
 class BAD_REDEFINE14
 inherit
-	AUX_REDEFINE14
-		redefine foo
-		end
+   AUX_REDEFINE14
+      redefine foo
+      end
 
 creation
-	make
+   make
 
 feature
-	foo (bar: INTEGER_16) is
-		do
-		end
+   foo (bar: INTEGER_16) is
+      do
+      end
 
-	make is
-		do
-		end
-	
+   make is
+      do
+      end
+   
 end -- class BAD_REDEFINE14
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

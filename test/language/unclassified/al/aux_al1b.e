@@ -4,9 +4,9 @@
 class AUX_AL1B
 
 inherit
-	AUX_AL1A
-		rename original_name as new_name
-		end
+   AUX_AL1A
+      rename original_name as new_name
+      end
 
 end -- class AUX_AL1B
 --

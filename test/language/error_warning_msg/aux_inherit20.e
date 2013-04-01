@@ -4,7 +4,7 @@
 expanded class AUX_INHERIT20
 
 inherit
-	BAD_INHERIT20
+   BAD_INHERIT20
 
 end -- class AUX_INHERIT20
 --

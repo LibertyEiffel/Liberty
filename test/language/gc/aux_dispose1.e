@@ -4,31 +4,31 @@
 class AUX_DISPOSE1
 
 inherit
-	DISPOSABLE
+   DISPOSABLE
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	dispose_count: COUNTER is
-		once
-			create Result
-		end
+   dispose_count: COUNTER is
+      once
+         create Result
+      end
 
-	dispose_done_for_current: BOOLEAN
+   dispose_done_for_current: BOOLEAN
 
-	make is
-		do
-		end
+   make is
+      do
+      end
 
-	dispose is
-		do
-			dispose_count.increment
-			if dispose_done_for_current then
-				std_error.put_string("Error in TEST_DISPOSE1%N")
-			end
-			dispose_done_for_current := True
-		end
+   dispose is
+      do
+         dispose_count.increment
+         if dispose_done_for_current then
+            std_error.put_string("Error in TEST_DISPOSE1%N")
+         end
+         dispose_done_for_current := True
+      end
 
 end -- class AUX_DISPOSE1
 --

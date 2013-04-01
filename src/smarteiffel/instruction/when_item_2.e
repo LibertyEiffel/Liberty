@@ -199,6 +199,11 @@ feature {WHEN_CLAUSE}
          set_values_integer
       end
 
+   side_effect_free (type: TYPE): BOOLEAN is
+      do
+         Result := lower.side_effect_free(type) and then upper.side_effect_free(type)
+      end
+
 feature {}
    make (l, u: EXPRESSION) is
       require

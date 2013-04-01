@@ -10,9 +10,9 @@ feature
    
    make is
       local
-	 bar: BOOLEAN
+    bar: BOOLEAN
       do
-	 bar := foo
+    bar := foo
       end
 
    foo is

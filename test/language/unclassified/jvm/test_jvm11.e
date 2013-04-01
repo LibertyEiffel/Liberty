@@ -4,19 +4,19 @@
 class TEST_JVM11
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i, j: INTEGER
-		do
-			i := 3
-			j := 4
-			check
-				j >= i
-			end
-		end
+   make is
+      local
+         i, j: INTEGER
+      do
+         i := 3
+         j := 4
+         check
+            j >= i
+         end
+      end
 
 end -- class TEST_JVM11
 --

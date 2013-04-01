@@ -4,20 +4,20 @@
 deferred class AUX_RB1RANGE
 
 feature {ANY}
-	lower: INTEGER is
-		deferred
-		end
+   lower: INTEGER is
+      deferred
+      end
 
-	upper: INTEGER is
-		deferred
-		end
+   upper: INTEGER is
+      deferred
+      end
 
-	var: INTEGER
+   var: INTEGER
 
-	test: BOOLEAN is
-		do
-			Result := lower <= var and then var <= upper
-		end
+   test: BOOLEAN is
+      do
+         Result := lower <= var and then var <= upper
+      end
 
 end -- class AUX_RB1RANGE
 --

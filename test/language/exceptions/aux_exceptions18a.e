@@ -4,18 +4,18 @@
 class AUX_EXCEPTIONS18A
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	i: INTEGER
+   i: INTEGER
 
-	make (v: INTEGER) is
-		do
-			i := v
-		end
+   make (v: INTEGER) is
+      do
+         i := v
+      end
 
 invariant
-	i > 1
+   i > 1
 
 end -- class AUX_EXCEPTIONS18A
 --

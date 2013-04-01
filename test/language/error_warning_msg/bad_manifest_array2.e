@@ -3,14 +3,14 @@
 --
 class BAD_MANIFEST_ARRAY2
 creation
-	make
+   make
 feature
-	make is
-		do
-			if (<< Void , Void >>) = Void then
-			end
-		end
-	
+   make is
+      do
+         if (<< Void , Void >>) = Void then
+         end
+      end
+   
 end -- class BAD_MANIFEST_ARRAY2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

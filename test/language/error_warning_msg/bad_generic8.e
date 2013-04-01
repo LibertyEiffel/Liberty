@@ -4,14 +4,14 @@
 class BAD_GENERIC8
 
 create
-	make
+   make
 
 feature
-	make is
-		local
-			a: AUX_GENERIC8
-		do
-		end
+   make is
+      local
+         a: AUX_GENERIC8
+      do
+      end
 
 end -- class BAD_GENERIC8
 --

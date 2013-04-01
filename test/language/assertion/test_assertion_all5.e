@@ -2,33 +2,33 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ASSERTION_ALL5
-	--
-	-- Test for empty procedure with dynamic dispatch
-	--
-	-- Problem is empty procedure are removed and assertions not 
-	-- checked. Works fine with -sedb.
-	
+   --
+   -- Test for empty procedure with dynamic dispatch
+   --
+   -- Problem is empty procedure are removed and assertions not 
+   -- checked. Works fine with -sedb.
+   
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main is
-		local
-			aux: AUX_ASSERTION_ALL5_A
-		do
-			create aux
-			create {AUX_ASSERTION_ALL5_B}aux
-			assert(aux.require_counter = 0)
-			assert(aux.ensure_counter = 0)
-			aux.empty_procedure1
-			aux.empty_procedure2
-			assert(aux.require_counter = 1)
-			assert(aux.ensure_counter = 1)
-		end
-	
+   main is
+      local
+         aux: AUX_ASSERTION_ALL5_A
+      do
+         create aux
+         create {AUX_ASSERTION_ALL5_B}aux
+         assert(aux.require_counter = 0)
+         assert(aux.ensure_counter = 0)
+         aux.empty_procedure1
+         aux.empty_procedure2
+         assert(aux.require_counter = 1)
+         assert(aux.ensure_counter = 1)
+      end
+   
 end -- class TEST_ASSERTION_ALL5
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -14,14 +14,14 @@ feature
 
    make is
       do
-	 procedure
+    procedure
       end
 
    procedure is
       local
-	 v: INTEGER
+    v: INTEGER
       do
-	 v := Precursor
+    v := Precursor
       end
 
 end -- class BAD_PRECURSOR01

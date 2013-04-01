@@ -9,8 +9,8 @@ feature
    
    make is
       local
-	 bar, foo: INTEGER;
-	 bar: INTEGER;
+    bar, foo: INTEGER;
+    bar: INTEGER;
       do
       end;
    

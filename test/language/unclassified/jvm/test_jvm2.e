@@ -4,36 +4,36 @@
 class TEST_JVM2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			i := 0
-			check
-				i = 0
-			end
-			i := 5
-			check
-				i = 5
-			end
-			i := 6
-			check
-				i = 6
-			end
-			foo(5)
-			i := bar(i)
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         i := 0
+         check
+            i = 0
+         end
+         i := 5
+         check
+            i = 5
+         end
+         i := 6
+         check
+            i = 6
+         end
+         foo(5)
+         i := bar(i)
+      end
 
-	foo (x: INTEGER) is
-		do
-		end
+   foo (x: INTEGER) is
+      do
+      end
 
-	bar (x: INTEGER): INTEGER is
-		do
-		end
+   bar (x: INTEGER): INTEGER is
+      do
+      end
 
 end -- class TEST_JVM2
 --

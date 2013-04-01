@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_REAL_CONSTANT02
-	-- Bug from SZ:213: SmartEiffel 1.1b3 is unable to parse 0 constant as REAL
-	-- Warning: infinite loop in boost mode!
+   -- Bug from SZ:213: SmartEiffel 1.1b3 is unable to parse 0 constant as REAL
+   -- Warning: infinite loop in boost mode!
 
 creation {ANY}
-	make
+   make
 
 feature {ANY} -- Initialization
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 feature {ANY} -- Constant
-	dummy_constant: REAL is 0.0
+   dummy_constant: REAL is 0.0
 
 end -- class TEST_REAL_CONSTANT02
 --

@@ -2,37 +2,37 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PD02
-	-- From a bug report of Patrick Doyle
+   -- From a bug report of Patrick Doyle
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a: AUX_PD01 is
-		do
-			create Result
-		end
+   a: AUX_PD01 is
+      do
+         create Result
+      end
 
-	a_ref: AUX_PD01 is
-		do
-			Result := a
-		end
+   a_ref: AUX_PD01 is
+      do
+         Result := a
+      end
 
-	make is
-		local
-			s: STRING
-		do
-			s := a_ref.generator
-			s.extend(' ')
-			s := a_ref.generating_type
-			s.extend(' ')
-			check
-				a.generator = a_ref.generator
-			end
-			check
-				a.generating_type.is_equal(a_ref.generating_type)
-			end
-		end
+   make is
+      local
+         s: STRING
+      do
+         s := a_ref.generator
+         s.extend(' ')
+         s := a_ref.generating_type
+         s.extend(' ')
+         check
+            a.generator = a_ref.generator
+         end
+         check
+            a.generating_type.is_equal(a_ref.generating_type)
+         end
+      end
 
 end -- class TEST_PD02
 --

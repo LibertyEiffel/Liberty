@@ -2,41 +2,41 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PH01
-	-- From: Philip Malin <psm@whitedove.melbourneit.com.au>
+   -- From: Philip Malin <psm@whitedove.melbourneit.com.au>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			splay: AUX_PH01_SPLAY_DICTIONARY[INTEGER, INTEGER]; iterator: AUX_PH01_SPLAY_DICTIONARY_ITERATOR[INTEGER]
-			rand: PRESS_RANDOM_NUMBER_GENERATOR; i: INTEGER; index: INTEGER
-		do
-			create splay.make
-			create rand.make
-			from
-				i := 1
-			until
-				i > 10000
-			loop
-				rand.next
-				index := rand.last_integer(10000)
-				if not splay.has(index) then
-					splay.put(i, index)
-				end
-				i := i + 1
-			end
-			from
-				iterator := splay.new_iterator
-			until
-				iterator.is_off
-			loop
-				i := iterator.index
-				i := splay.item(iterator.index)
-				iterator.next
-			end
-		end
+   make is
+      local
+         splay: AUX_PH01_SPLAY_DICTIONARY[INTEGER, INTEGER]; iterator: AUX_PH01_SPLAY_DICTIONARY_ITERATOR[INTEGER]
+         rand: PRESS_RANDOM_NUMBER_GENERATOR; i: INTEGER; index: INTEGER
+      do
+         create splay.make
+         create rand.make
+         from
+            i := 1
+         until
+            i > 10000
+         loop
+            rand.next
+            index := rand.last_integer(10000)
+            if not splay.has(index) then
+               splay.put(i, index)
+            end
+            i := i + 1
+         end
+         from
+            iterator := splay.new_iterator
+         until
+            iterator.is_off
+         loop
+            i := iterator.index
+            i := splay.item(iterator.index)
+            iterator.next
+         end
+      end
 
 end -- class TEST_PH01
 --

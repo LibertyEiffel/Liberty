@@ -4,39 +4,39 @@
 class TEST_JVM15
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER; r: REAL_32; d: REAL_64
-		do
-			i := 1
-			i := -i
-			check
-				i = -1
-			end
-			r := {REAL_32 -0.5}
-			r := -r
-			check
-				r = 0.5
-			end
-			r := +r
-			check
-				r = 0.5
-			end
-			d := r.to_real_64
-			check
-				d = 0.5
-			end
-			d := -d
-			check
-				d = -0.5
-			end
-			check
-				32.to_character = ' '
-			end
-		end
+   make is
+      local
+         i: INTEGER; r: REAL_32; d: REAL_64
+      do
+         i := 1
+         i := -i
+         check
+            i = -1
+         end
+         r := {REAL_32 -0.5}
+         r := -r
+         check
+            r = 0.5
+         end
+         r := +r
+         check
+            r = 0.5
+         end
+         d := r.to_real_64
+         check
+            d = 0.5
+         end
+         d := -d
+         check
+            d = -0.5
+         end
+         check
+            32.to_character = ' '
+         end
+      end
 
 end -- class TEST_JVM15
 --

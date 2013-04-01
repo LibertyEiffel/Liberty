@@ -4,22 +4,22 @@
 class AUX_RING_ARRAY3
 
 inherit
-	RING_ARRAY[INTEGER]
+   RING_ARRAY[INTEGER]
 
 insert
-	EIFFELTEST_TOOLS
-		undefine copy, default_create,is_equal, fill_tagged_out_memory
-		end
+   EIFFELTEST_TOOLS
+      undefine copy, default_create, is_equal, fill_tagged_out_memory, out_in_tagged_out_memory
+      end
 
 creation {ANY}
-	test, make
+   test, make
 
 feature {ANY}
-	test is
-		do
-			make(0, 0)
-			assert(item(0) = 0)
-		end
+   test is
+      do
+         make(0, 0)
+         assert(item(0) = 0)
+      end
 
 end -- class AUX_RING_ARRAY3
 --

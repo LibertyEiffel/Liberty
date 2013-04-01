@@ -4,16 +4,16 @@
 class TEST_UNDEFINE3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux: AUX_UNDEFINE3C
-		do
-			create aux
-			aux.my_renamed_feature
-		end
+   make is
+      local
+         aux: AUX_UNDEFINE3C
+      do
+         create aux
+         aux.my_renamed_feature
+      end
 
 end -- class TEST_UNDEFINE3
 --

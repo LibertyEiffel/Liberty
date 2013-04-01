@@ -4,12 +4,12 @@
 class AUX_OZ03B
 
 inherit
-	AUX_OZ03A
-		redefine store
-		end
+   AUX_OZ03A
+      redefine store
+      end
 
 feature {ANY}
-	store: REAL_64
+   store: REAL_64
 
 end -- class AUX_OZ03B
 --

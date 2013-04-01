@@ -4,33 +4,33 @@
 class TEST_INSPECT17
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {}
-	make
+   make
 
 feature {}
-	make is
-		local
-			tst: BOOLEAN
-		do
-			inspect
-				"bô"
-			when "bô" then
-				tst := True
-			else
-				tst := False
-			end
-			assert(tst)
-			inspect
-				'ô'
-			when 'ô' then
-				tst := True
-			else
-				tst := False
-			end
-			assert(tst)
-		end
+   make is
+      local
+         tst: BOOLEAN
+      do
+         inspect
+            "bô"
+         when "bô" then
+            tst := True
+         else
+            tst := False
+         end
+         assert(tst)
+         inspect
+            'ô'
+         when 'ô' then
+            tst := True
+         else
+            tst := False
+         end
+         assert(tst)
+      end
 
 end -- class TEST_INSPECT17
 --

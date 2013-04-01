@@ -5,19 +5,19 @@ class AUX_ENSURE3
 
 feature
    attr: INTEGER
-	
+   
    make is
       do
-			attr := attr + 1
+         attr := attr + 1
       ensure
-			attr = 2
+         attr = 2
       end
-	
+   
    make2 is
       do
-			attr := attr + 1
+         attr := attr + 1
       end
-	
+   
 end -- class AUX_ENSURE3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

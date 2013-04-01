@@ -4,14 +4,14 @@
 class BAD_INTEGER2
    
 creation
-	make
+   make
    
 feature 
    make is 
       local
-			i: INTEGER_GENERAL
+         i: INTEGER_GENERAL
       do 
-			i := 1
+         i := 1
       end
    
 end -- class BAD_INTEGER2

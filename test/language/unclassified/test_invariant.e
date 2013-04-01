@@ -4,23 +4,23 @@
 class TEST_INVARIANT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	i: INTEGER
+   i: INTEGER
 
-	make is
-		local
-			c: like Current
-		do
-			c := Current
-			i := 2
-		end
+   make is
+      local
+         c: like Current
+      do
+         c := Current
+         i := 2
+      end
 
 invariant
-	same_dynamic_type(Current)
-	i = 2
-	Current = Current
+   same_dynamic_type(Current)
+   i = 2
+   Current = Current
 
 end -- class TEST_INVARIANT
 --

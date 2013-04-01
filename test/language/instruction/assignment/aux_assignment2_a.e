@@ -4,11 +4,11 @@
 deferred class AUX_ASSIGNMENT2_A
 
 feature {ANY}
-	anchor: AUX_ASSIGNMENT2_A
+   anchor: AUX_ASSIGNMENT2_A
 
-	foo (other: AUX_ASSIGNMENT2_A) is
-		deferred
-		end
+   foo (other: AUX_ASSIGNMENT2_A) is
+      deferred
+      end
 
 end -- class AUX_ASSIGNMENT2_A
 --

@@ -2,27 +2,27 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER23
-	-- tests on "digit"
+   -- tests on "digit"
 
 insert
-	EIFFELTEST_TOOLS
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: NUMBER
-		do
-			n := from_integer(0)
-			assert(n.digit.is_equal('0'))
-			n := from_integer(1)
-			assert(n.digit.is_equal('1'))
-			n := from_integer(9)
-			assert(n.digit.is_equal('9'))
-		end
+   make is
+      local
+         n: NUMBER
+      do
+         n := from_integer(0)
+         assert(n.digit.is_equal('0'))
+         n := from_integer(1)
+         assert(n.digit.is_equal('1'))
+         n := from_integer(9)
+         assert(n.digit.is_equal('9'))
+      end
 
 
 

@@ -7,11 +7,11 @@ creation make
 feature
    make is
       local
-	 r:ROUTINE[TUPLE[STRING]]
+    r:ROUTINE[TUPLE[STRING]]
       do
-	 r := agent f(?,2)
-	 --             ^-- type mismatch(should be STRING)
-	 r.call(["TEST"])
+    r := agent f(?,2)
+    --             ^-- type mismatch(should be STRING)
+    r.call(["TEST"])
       end
    
    f(s: STRING; i: STRING) is

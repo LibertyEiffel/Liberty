@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_INHERIT_ARRAY2
-	-- From a bug report of Jean-Marc JEZEQUEL
+   -- From a bug report of Jean-Marc JEZEQUEL
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	aux: AUX_INHERIT_ARRAY2
+   aux: AUX_INHERIT_ARRAY2
 
-	make is
-		do
-			create aux.test
-		end
+   make is
+      do
+         create aux.test
+      end
 
 end -- class TEST_INHERIT_ARRAY2
 --

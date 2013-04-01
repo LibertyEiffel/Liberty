@@ -2,37 +2,37 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER07
-	-- simple tests of comparaisons between small_integer number and integer
+   -- simple tests of comparaisons between small_integer number and integer
 
 insert
-	NUMBER_TOOLS
-	EIFFELTEST_TOOLS
+   NUMBER_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			text_file_read: TEXT_FILE_READ; text_file_write: TEXT_FILE_WRITE; n: NUMBER
-		do
-			create text_file_read.connect_to("test_number07.in")
-			n := from_input_stream(text_file_read)
-			text_file_read.disconnect
-			assert(n @= 1000)
-			create text_file_write.connect_to("test_number07.new")
-			n := from_integer(1)
-			text_file_write.put_string("%"")
-			text_file_write.put_number(n)
-			text_file_write.put_string("%"")
-			assert(n @= 1)
-			text_file_write.disconnect
-			assert(file_tools.same_files("test_number07.new", "test_number07.ref"))
-			file_tools.delete("test_number07.new")
-			assert(not file_tools.file_exists("test_number07.new"))
-		end
+   make is
+      local
+         text_file_read: TEXT_FILE_READ; text_file_write: TEXT_FILE_WRITE; n: NUMBER
+      do
+         create text_file_read.connect_to("test_number07.in")
+         n := from_input_stream(text_file_read)
+         text_file_read.disconnect
+         assert(n @= 1000)
+         create text_file_write.connect_to("test_number07.new")
+         n := from_integer(1)
+         text_file_write.put_string("%"")
+         text_file_write.put_number(n)
+         text_file_write.put_string("%"")
+         assert(n @= 1)
+         text_file_write.disconnect
+         assert(file_tools.same_files("test_number07.new", "test_number07.ref"))
+         file_tools.delete("test_number07.new")
+         assert(not file_tools.file_exists("test_number07.new"))
+      end
 
-	file_tools: FILE_TOOLS
+   file_tools: FILE_TOOLS
 
 end -- class TEST_NUMBER07
 --

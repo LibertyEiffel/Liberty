@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EG2
-	-- From a bug report of Enrico GOBBETTI
+   -- From a bug report of Enrico GOBBETTI
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_EG2[REAL]
-		do
-			---- Original:
-			-- a: expanded AUX_EG2[DOUBLE];
-			a.set_x(1.0)
-		end
+   make is
+      local
+         a: AUX_EG2[REAL]
+      do
+         ---- Original:
+         -- a: expanded AUX_EG2[DOUBLE];
+         a.set_x(1.0)
+      end
 
 end -- class TEST_EG2
 --

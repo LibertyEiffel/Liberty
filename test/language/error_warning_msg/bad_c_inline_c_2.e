@@ -4,7 +4,7 @@
 class BAD_C_INLINE_C_2
 
 creation
-	main
+   main
 
 feature
    main is

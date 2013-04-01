@@ -4,12 +4,12 @@
 class AUX_EB15A
 
 insert
-	ANY
+   ANY
 
 feature {ANY}
-	a is
-		do
-		end
+   a is
+      do
+      end
 
 end -- class AUX_EB15A
 --

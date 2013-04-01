@@ -6,11 +6,11 @@ class BAD_CREATION5
 -- Because we must check that all creation procedures do exists.
 --
 creation
-	non_exists, make
+   non_exists, make
 feature
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class BAD_CREATION5
 --

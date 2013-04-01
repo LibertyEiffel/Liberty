@@ -4,70 +4,70 @@
 class TEST_DOUBLE4
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d: REAL_64; i: INTEGER; r: REAL_32
-		do
-			i := 2
-			assert(i.sign = 1)
-			i := -2
-			assert(i.sign = -1)
-			assert(0.sign = 0)
-			r := 2
-			assert(r.sign = 1)
-			r := -2
-			assert(r.sign = -1)
-			assert(0.0.sign = 0)
-			d := 2
-			assert(d.sign = 1)
-			d := -2
-			assert(d.sign = -1)
-			d := 0
-			assert(d.sign = 0)
-			d := 3.5
-			assert(d.floor = 3)
-			assert(d.ceiling = 4)
-			d := -3.5
-			assert(d.floor = -4)
-			assert(d.ceiling = -3)
-			d := 2.0
-			assert(d.floor = 2)
-			assert(d.ceiling = 2)
-			assert(0.4.rounded.force_to_integer_32 = 0)
-			assert(0.51.rounded.force_to_integer_32 = 1)
-			assert(1.49.rounded.force_to_integer_32 = 1)
-			assert(1.51.rounded.force_to_integer_32 = 2)
-			assert((-0.4).rounded.force_to_integer_32 = 0)
-			assert((-0.51).rounded.force_to_integer_32 = -1)
-			assert((-1.49).rounded.force_to_integer_32 = -1)
-			assert((-1.51).rounded.force_to_integer_32 = -2)
-			assert(0.4.rounded = 0)
-			assert(0.51.rounded = 1)
-			assert(1.49.rounded = 1)
-			assert(1.51.rounded = 2)
-			assert((-0.4).rounded = 0)
-			assert((-0.51).rounded = -1)
-			assert((-1.49).rounded = -1)
-			assert((-1.51).rounded = -2)
-		end
+   make is
+      local
+         d: REAL_64; i: INTEGER; r: REAL_32
+      do
+         i := 2
+         assert(i.sign = 1)
+         i := -2
+         assert(i.sign = -1)
+         assert(0.sign = 0)
+         r := 2
+         assert(r.sign = 1)
+         r := -2
+         assert(r.sign = -1)
+         assert(0.0.sign = 0)
+         d := 2
+         assert(d.sign = 1)
+         d := -2
+         assert(d.sign = -1)
+         d := 0
+         assert(d.sign = 0)
+         d := 3.5
+         assert(d.floor = 3)
+         assert(d.ceiling = 4)
+         d := -3.5
+         assert(d.floor = -4)
+         assert(d.ceiling = -3)
+         d := 2.0
+         assert(d.floor = 2)
+         assert(d.ceiling = 2)
+         assert(0.4.rounded.force_to_integer_32 = 0)
+         assert(0.51.rounded.force_to_integer_32 = 1)
+         assert(1.49.rounded.force_to_integer_32 = 1)
+         assert(1.51.rounded.force_to_integer_32 = 2)
+         assert((-0.4).rounded.force_to_integer_32 = 0)
+         assert((-0.51).rounded.force_to_integer_32 = -1)
+         assert((-1.49).rounded.force_to_integer_32 = -1)
+         assert((-1.51).rounded.force_to_integer_32 = -2)
+         assert(0.4.rounded = 0)
+         assert(0.51.rounded = 1)
+         assert(1.49.rounded = 1)
+         assert(1.51.rounded = 2)
+         assert((-0.4).rounded = 0)
+         assert((-0.51).rounded = -1)
+         assert((-1.49).rounded = -1)
+         assert((-1.51).rounded = -2)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_DOUBLE4: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_DOUBLE4: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_DOUBLE4
 --

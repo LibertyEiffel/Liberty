@@ -4,23 +4,23 @@
 class AUX_GENERIC5[E]
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	arg: E
+   arg: E
 
-	make (e: E) is
-		do
-			arg := e
-		end
+   make (e: E) is
+      do
+         arg := e
+      end
 
 feature {ANY}
-	bizarre is
-		local
-			tmp: AUX_GENERIC5[E]
-		do
-			tmp := Current.twin
-		end
+   bizarre is
+      local
+         tmp: AUX_GENERIC5[E]
+      do
+         tmp := Current.twin
+      end
 
 end -- class AUX_GENERIC5
 --

@@ -5,17 +5,17 @@ class BAD_IDENTIFIER1
 --
 -- To follow SZ:476:
 --
-	
+   
 creation
-	make
+   make
 
 feature {}
-	make is
-		local
-			badIdentifier: STRING
-		do
-		end
-	
+   make is
+      local
+         badIdentifier: STRING
+      do
+      end
+   
 end -- class BAD_IDENTIFIER1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

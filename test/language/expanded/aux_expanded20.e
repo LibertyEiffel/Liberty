@@ -4,17 +4,17 @@
 expanded class AUX_EXPANDED20
 
 feature {ANY}
-	a, b: INTEGER
+   a, b: INTEGER
 
-	set_a (v: INTEGER) is
-		do
-			a := v
-		end
+   set_a (v: INTEGER) is
+      do
+         a := v
+      end
 
-	set_b (v: INTEGER) is
-		do
-			b := v
-		end
+   set_b (v: INTEGER) is
+      do
+         b := v
+      end
 
 end -- class AUX_EXPANDED20
 --

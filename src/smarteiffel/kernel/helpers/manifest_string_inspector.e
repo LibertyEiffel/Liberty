@@ -58,8 +58,8 @@ feature {}
                   if not (ms ?:= wi1.expression) then
                      error_handler.add_position(ei.start_position)
                      error_handler.add_position(wi1.start_position)
-                     error_handler.append("Only manifest strings are accepted in %"when%" clauses of %
-                                          %%"inspect%" (in order to ensure that the STRING %
+                     error_handler.append("Only manifest strings are accepted in %"when%" clauses of%
+                                          % %"inspect%" (in order to ensure that the STRING %
                                           %won't change at runtime). Note that even a constant of %
                                           %type STRING can have its content changed at runtime.")
                      error_handler.print_as_fatal_error

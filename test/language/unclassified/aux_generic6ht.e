@@ -4,86 +4,86 @@
 class AUX_GENERIC6HT[G, K -> HASHABLE]
 
 inherit
-	AUX_GENERIC6XCT[G]
-		rename item as item_for_iteration
-		end
+   AUX_GENERIC6XCT[G]
+      rename item as item_for_iteration
+      end
 
 insert
-	-- *** It was a inherit in Original release. (Vincent Croizier, 03/11/2004) ***
-	AUX_GENERIC6LL[G]
-		--	    go_to as ll_go_to,
-		rename make as ll_make,
-			forth as ll_forth,
-			start as ll_start,
-			item as item_for_iteration,
-			has as ll_has,
-			put as ll_put
-		export {} ll_make, ll_forth, ll_start, ll_has, ll_put, extend
-		end
+   -- *** It was a inherit in Original release. (Vincent Croizier, 03/11/2004) ***
+   AUX_GENERIC6LL[G]
+      --       go_to as ll_go_to,
+      rename make as ll_make,
+         forth as ll_forth,
+         start as ll_start,
+         item as item_for_iteration,
+         has as ll_has,
+         put as ll_put
+      export {} ll_make, ll_forth, ll_start, ll_has, ll_put, extend
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make (sz: INTEGER) is
-		do
-			ll_make
-			create keys.make
-		end
+   make (sz: INTEGER) is
+      do
+         ll_make
+         create keys.make
+      end
 
-	put (x: G; k: K) is
-		do
-			extend(x)
-			keys.extend(k)
-		end
-		--    item(k : K): G is
-		--	local
-		--	    c: CURSOR;
-		--	do
-		--	    from
-		--		c := cursor;
-		--		start;
-		--	    until
-		--		keys.after or
-		--		    keys.item.is_equal(k)
-		--	    loop
-		--		forth;
-		--	    end; -- loop
-		--	    if not after then
-		--		Result := item_for_iteration;
-		--	    end;
-		--	    go_to(c);
-		--	end; -- item
+   put (x: G; k: K) is
+      do
+         extend(x)
+         keys.extend(k)
+      end
+      --    item(k : K): G is
+      --   local
+      --       c: CURSOR;
+      --   do
+      --       from
+      --      c := cursor;
+      --      start;
+      --       until
+      --      keys.after or
+      --          keys.item.is_equal(k)
+      --       loop
+      --      forth;
+      --       end; -- loop
+      --       if not after then
+      --      Result := item_for_iteration;
+      --       end;
+      --       go_to(c);
+      --   end; -- item
 
-	key_for_iteration: K is
-		do
-			Result := keys.item
-		end
+   key_for_iteration: K is
+      do
+         Result := keys.item
+      end
 
-	forth is
-		do
-			ll_forth
-			keys.forth
-		end
+   forth is
+      do
+         ll_forth
+         keys.forth
+      end
 
-	start is
-		do
-			ll_start
-			keys.start
-		end
+   start is
+      do
+         ll_start
+         keys.start
+      end
 
-	has (x: K): BOOLEAN is
-		do
-			Result := keys.has(x)
-		end
-		--    go_to(c: CURSOR) is
-		--	do
-		--	    ll_go_to(c);
-		--	    keys.go_to(c);
-		--	end;
+   has (x: K): BOOLEAN is
+      do
+         Result := keys.has(x)
+      end
+      --    go_to(c: CURSOR) is
+      --   do
+      --       ll_go_to(c);
+      --       keys.go_to(c);
+      --   end;
 
 feature {}
-	keys: AUX_GENERIC6LL[K]
+   keys: AUX_GENERIC6LL[K]
 
 invariant
 -- ***    same_count: keys.count = count;

@@ -4,15 +4,15 @@
 class AUX_AL1C
 
 feature {ANY}
-	foo is
-		local
-			str: STRING
-		do
-			create a
-			str := a.original_name
-		end
+   foo is
+      local
+         str: STRING
+      do
+         create a
+         str := a.original_name
+      end
 
-	a: AUX_AL1A
+   a: AUX_AL1A
 
 end -- class AUX_AL1C
 --

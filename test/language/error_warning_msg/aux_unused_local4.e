@@ -4,13 +4,13 @@
 expanded class AUX_UNUSED_LOCAL4
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			sedb_breakpoint
-		end
+   make is
+      do
+         sedb_breakpoint
+      end
 
 end -- class AUX_UNUSED_LOCAL4
 --

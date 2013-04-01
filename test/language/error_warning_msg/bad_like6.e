@@ -14,7 +14,7 @@ feature
    
    make is
       do
-	 an_attribute := an_attribute;
+    an_attribute := an_attribute;
       end;
    
 end -- class BAD_LIKE6

@@ -4,38 +4,38 @@
 class TEST_EXCEPTIONS15
 
 inherit
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			done: BOOLEAN
-		do
-			if not done then
-				done := True
-				do_it_bad
-			end
-		rescue
-			retry
-		end
+   make is
+      local
+         done: BOOLEAN
+      do
+         if not done then
+            done := True
+            do_it_bad
+         end
+      rescue
+         retry
+      end
 
-	do_it_bad is
-		local
-			str: STRING; i: INTEGER
-		do
-			from
-				str := "foo"
-				i := 1
-			until
-				i < 1000
-			loop
-				str.put('%U', i)
-				i := i - 1
-			end
-		end
+   do_it_bad is
+      local
+         str: STRING; i: INTEGER
+      do
+         from
+            str := "foo"
+            i := 1
+         until
+            i < 1000
+         loop
+            str.put('%U', i)
+            i := i - 1
+         end
+      end
 
 end -- class TEST_EXCEPTIONS15
 --

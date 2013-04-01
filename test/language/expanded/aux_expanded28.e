@@ -4,17 +4,17 @@
 expanded class AUX_EXPANDED28
 
 feature {ANY}
-	val: INTEGER
+   val: INTEGER
 
-	set_val (this: INTEGER) is
-		do
-			val := this
-		end
+   set_val (this: INTEGER) is
+      do
+         val := this
+      end
 
-	get_val: INTEGER is
-		do
-			Result := val
-		end
+   get_val: INTEGER is
+      do
+         Result := val
+      end
 
 end -- class AUX_EXPANDED28
 --

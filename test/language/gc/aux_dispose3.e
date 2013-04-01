@@ -4,31 +4,31 @@
 class AUX_DISPOSE3
 
 inherit
-	DISPOSABLE
+   DISPOSABLE
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	dispose_count: COUNTER is
-		once
-			create Result
-		end
+   dispose_count: COUNTER is
+      once
+         create Result
+      end
 
-	make is
-		do
-		end
+   make is
+      do
+      end
 
-	dispose is
-		do
-			disposed := True
-			dispose_count.increment
-		end
+   dispose is
+      do
+         disposed := True
+         dispose_count.increment
+      end
 
-	disposed: BOOLEAN
+   disposed: BOOLEAN
 
 invariant
-	not disposed
+   not disposed
 
 end -- class AUX_DISPOSE3
 --

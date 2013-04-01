@@ -2450,7 +2450,7 @@ feature {}
          end
       end
 
-feature {FUNCTION_CALL}
+feature {FUNCTION_CALL, EXTERNAL_PROCEDURE}
    le_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_le)
@@ -2529,6 +2529,21 @@ feature {FUNCTION_CALL}
    sharp_muls_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_sharp_muls)
+      end
+
+   plus_name: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_plus)
+      end
+
+   minus_name: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_minus)
+      end
+
+   not_name: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_not)
       end
 
 feature {}
@@ -5720,22 +5735,6 @@ feature {}
          else
             Result := False
          end
-      end
-
-feature {FUNCTION_CALL}
-   plus_name: HASHED_STRING is
-      once
-         Result := string_aliaser.hashed_string(as_plus)
-      end
-
-   minus_name: HASHED_STRING is
-      once
-         Result := string_aliaser.hashed_string(as_minus)
-      end
-
-   not_name: HASHED_STRING is
-      once
-         Result := string_aliaser.hashed_string(as_not)
       end
 
 feature {TOKEN_BUFFER}

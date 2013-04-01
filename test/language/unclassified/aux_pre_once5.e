@@ -4,16 +4,16 @@
 class AUX_PRE_ONCE5
 
 inherit
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			raise("Some string")
-		end
+   make is
+      do
+         raise("Some string")
+      end
 
 end -- class AUX_PRE_ONCE5
 --

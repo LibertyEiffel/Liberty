@@ -4,18 +4,18 @@
 expanded class AUX_EXPANDED24A
 
 feature {ANY}
-	value: CHARACTER
+   value: CHARACTER
 
-	set_value (v: CHARACTER) is
-		do
-			value := v
-		end
+   set_value (v: CHARACTER) is
+      do
+         value := v
+      end
 
-	fb: AUX_EXPANDED24B is
-		do
-			value := 'b'
-			Result.set_value(True)
-		end
+   fb: AUX_EXPANDED24B is
+      do
+         value := 'b'
+         Result.set_value(True)
+      end
 
 end -- class AUX_EXPANDED24A
 --

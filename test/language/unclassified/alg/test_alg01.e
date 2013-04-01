@@ -2,36 +2,36 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ALG01
-	-- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
+   -- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[ANY]
-		do
-			a := create {ARRAY[ANY]}.make(1, 0) --*** new syntax for: <<>>;
-			assert(a.count = 0)
-			assert(a.lower = 1)
-			assert(a.upper = 0)
-		end
+   make is
+      local
+         a: ARRAY[ANY]
+      do
+         a := create {ARRAY[ANY]}.make(1, 0) --*** new syntax for: <<>>;
+         assert(a.count = 0)
+         assert(a.lower = 1)
+         assert(a.upper = 0)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_ALG01: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			else
-				--std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_ALG01: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         else
+            --std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_ALG01
 --

@@ -12,9 +12,9 @@ feature
 
    make is 
       local
-			i64: INTEGER_64
+         i64: INTEGER_64
       do 
-			i64 := 9223372036854775808
+         i64 := 9223372036854775808
       end
    
 end -- class BAD_INTEGER_CONSTANT8

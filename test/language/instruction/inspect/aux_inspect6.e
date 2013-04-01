@@ -4,24 +4,24 @@
 class AUX_INSPECT6
 
 feature {ANY}
-	make is
-		local
-			a: AUX_INSPECT6
-		do
-			create a
-			a.do_inspect
-		end
+   make is
+      local
+         a: AUX_INSPECT6
+      do
+         create a
+         a.do_inspect
+      end
 
-	do_inspect is
-		local
-			do_nothing: INTEGER
-		do
-			inspect
-				12
-			else
-				do_nothing := do_nothing
-			end
-		end
+   do_inspect is
+      local
+         do_nothing: INTEGER
+      do
+         inspect
+            12
+         else
+            do_nothing := do_nothing
+         end
+      end
 
 end -- class AUX_INSPECT6
 --

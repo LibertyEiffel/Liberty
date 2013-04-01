@@ -2,26 +2,26 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SWITCH1
-	-- From a strange bug report in pyramid2 ?
+   -- From a strange bug report in pyramid2 ?
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			foo(std_output)
-			foo(io)
-		end
+   make is
+      do
+         foo(std_output)
+         foo(io)
+      end
 
-	foo (file: OUTPUT_STREAM) is
-		local
-			b: BOOLEAN
-		do
-			if b then
-				file.put_new_line
-			end
-		end
+   foo (file: OUTPUT_STREAM) is
+      local
+         b: BOOLEAN
+      do
+         if b then
+            file.put_new_line
+         end
+      end
 
 end -- class TEST_SWITCH1
 --

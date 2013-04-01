@@ -4,31 +4,31 @@
 class TEST_JVM20
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			p: POINTER
-		do
-			assert(p.is_null)
-			p := to_pointer
-			assert(p.is_not_null)
-		end
+   make is
+      local
+         p: POINTER
+      do
+         assert(p.is_null)
+         p := to_pointer
+         assert(p.is_not_null)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_JVM20: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_JVM20: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_JVM20
 --

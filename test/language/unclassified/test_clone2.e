@@ -4,34 +4,34 @@
 class TEST_CLONE2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d1, d2, d: REAL
-		do
-			assert(d1 = 0.0)
-			d2 := 1.0
-			assert(d2 = 1.0)
-			d := d2
-			assert(d = 1.0)
-			d := d1
-			assert(d = 0.0)
-			assert(("").is_equal(("").twin))
-		end
+   make is
+      local
+         d1, d2, d: REAL
+      do
+         assert(d1 = 0.0)
+         d2 := 1.0
+         assert(d2 = 1.0)
+         d := d2
+         assert(d = 1.0)
+         d := d1
+         assert(d = 0.0)
+         assert(("").is_equal(("").twin))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_CLONE2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_CLONE2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_CLONE2
 --

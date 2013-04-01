@@ -9,10 +9,10 @@ feature
 
    make is
       local
-	 aux: AUX_COPY1;
+    aux: AUX_COPY1;
       do
-	 !!aux;
-	 aux.copy(Current);
+    !!aux;
+    aux.copy(Current);
       end;
 end -- class BAD_COPY1
 --

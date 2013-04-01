@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_REQ3
-	--
-	-- To correct a bug in the compiler with new lookup
-	--
+   --
+   -- To correct a bug in the compiler with new lookup
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a: AUX_REQ3F
+   a: AUX_REQ3F
 
-	make is
-		do
-			create a.make
-		end
+   make is
+      do
+         create a.make
+      end
 
 end -- class TEST_REQ3
 --

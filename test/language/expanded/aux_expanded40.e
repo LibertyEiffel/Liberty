@@ -4,24 +4,24 @@
 expanded class AUX_EXPANDED40
 
 insert
-	GRAPHIC
-		redefine default_create
-		end
+   GRAPHIC
+      redefine default_create
+      end
 
 feature {ANY}
-	default_create is
-		local
-			v: VISION
-		do
-			v := vision
-		end
+   default_create is
+      local
+         v: VISION
+      do
+         v := vision
+      end
 
-	dummy is
-		local
-			i: INTEGER
-		do
-			i := 2
-		end
+   dummy is
+      local
+         i: INTEGER
+      do
+         i := 2
+      end
 
 end -- class AUX_EXPANDED40
 --

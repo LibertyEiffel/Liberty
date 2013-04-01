@@ -4,15 +4,15 @@
 deferred class AUX_REDEFINE16
 
 feature
-	foo is
-		do
-			bar -- In BAD_REDEFINE16, call to `bar1' or `bar2'?
-			io.put_new_line
-		end
+   foo is
+      do
+         bar -- In BAD_REDEFINE16, call to `bar1' or `bar2'?
+         io.put_new_line
+      end
 
-	bar is
-		deferred
-		end
+   bar is
+      deferred
+      end
 
 end -- class AUX_REDEFINE16
 --

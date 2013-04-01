@@ -6,7 +6,7 @@ creation make
 feature
    make is
       do
-	 (1).set_item(0)
+    (1).set_item(0)
       end
 end -- class BAD_SET_ITEM1
 --

@@ -4,16 +4,16 @@
 class BAD_CONSTANT8
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			if f.out = Void then
-			end
-		end
+   make is
+      do
+         if f.out = Void then
+         end
+      end
 
-	f (x: INTEGER): INTEGER is unique
+   f (x: INTEGER): INTEGER is unique
 
 end -- class BAD_CONSTANT8
 --

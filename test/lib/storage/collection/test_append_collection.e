@@ -4,20 +4,20 @@
 class TEST_APPEND_COLLECTION
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			c1: COLLECTION[INTEGER]
-		do
-			c1 := {ARRAY[INTEGER] 1, << 1, 2 >> }
-			c1.append_traversable({ARRAY[INTEGER] 1, << 3, 4 >> })
-			assert(c1.is_equal({ARRAY[INTEGER] 1, << 1, 2, 3, 4 >> }))
-		end
+   make is
+      local
+         c1: COLLECTION[INTEGER]
+      do
+         c1 := {ARRAY[INTEGER] 1, << 1, 2 >> }
+         c1.append_traversable({ARRAY[INTEGER] 1, << 3, 4 >> })
+         assert(c1.is_equal({ARRAY[INTEGER] 1, << 1, 2, 3, 4 >> }))
+      end
 
 end -- class TEST_APPEND_COLLECTION
 --

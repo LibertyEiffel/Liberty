@@ -4,17 +4,17 @@
 class AUX_REDEFINE17C
 
 insert
-	AUX_REDEFINE17A
-		rename bar as bar2 end
+   AUX_REDEFINE17A
+      rename bar as bar2 end
 
 creation
-	foo
+   foo
 
 feature
-	bar2 is
-		do
---			io.put_integer(2)
-		end
+   bar2 is
+      do
+--         io.put_integer(2)
+      end
 
 end -- class AUX_REDEFINE17C
 --

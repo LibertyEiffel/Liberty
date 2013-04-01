@@ -4,44 +4,44 @@
 deferred class AUX_REQUIRE1_C
 
 inherit
-	AUX_REQUIRE1_B1
-	AUX_REQUIRE1_B2
-	
+   AUX_REQUIRE1_B1
+   AUX_REQUIRE1_B2
+   
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 feature {}
-	c_only is
-		require
-			counting_require
-		do
-		end
+   c_only is
+      require
+         counting_require
+      do
+      end
 
-	a_and_c is
-		require
-			counting_require
-		deferred
-		end
+   a_and_c is
+      require
+         counting_require
+      deferred
+      end
 
-	d_or_a_and_c is
-		require
-			counting_require
-		deferred
-		end
-	
-	everywhere is
-		require else
-			bad_counting_require
-		deferred
-		end
+   d_or_a_and_c is
+      require
+         counting_require
+      deferred
+      end
+   
+   everywhere is
+      require else
+         bad_counting_require
+      deferred
+      end
 
-	partial is
-		require else
-			counting_require
-			bad_counting_require
-			counting_require
-		deferred
-		end
+   partial is
+      require else
+         counting_require
+         bad_counting_require
+         counting_require
+      deferred
+      end
 
 end -- class AUX_REQUIRE1_C
 --

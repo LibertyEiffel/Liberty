@@ -4,20 +4,20 @@
 class AUX_FS3_C
 
 inherit
-	AUX_FS3_B
-		rename q as r
-		end
+   AUX_FS3_B
+      rename q as r
+      end
 
 feature {ANY}
-	r is
-		local
-			my_current: like Current
-		do
-			aux_fs3_c_run := True
-			my_current := Current
-			if my_current = Void then
-			end
-		end
+   r is
+      local
+         my_current: like Current
+      do
+         aux_fs3_c_run := True
+         my_current := Current
+         if my_current = Void then
+         end
+      end
 
 end -- class AUX_FS3_C
 --

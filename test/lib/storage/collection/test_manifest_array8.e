@@ -4,29 +4,29 @@
 class TEST_MANIFEST_ARRAY8
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {}
-	main is
-		local
-			na: NATIVE_ARRAY[AUX_MANIFEST_ARRAY8]; a: ARRAY[AUX_MANIFEST_ARRAY8]; e1, e2: AUX_MANIFEST_ARRAY8
-		do
-			na := na.calloc(2)
-			assert(na.item(0) = e1)
-			assert(na.item(1) = e1)
-			a := {ARRAY[AUX_MANIFEST_ARRAY8] 1, << e1, e2 >> }
-			assert(a.count = 2)
-			assert(a.item(1) = e1)
-			a.resize(1, 3)
-			assert(a.count = 3)
-			assert(a.item(1) = e1)
-			assert(a.item(2) = e1)
-			e2 := a.item(3)
-			assert(a.item(3) = e1)
-		end
+   main is
+      local
+         na: NATIVE_ARRAY[AUX_MANIFEST_ARRAY8]; a: ARRAY[AUX_MANIFEST_ARRAY8]; e1, e2: AUX_MANIFEST_ARRAY8
+      do
+         na := na.calloc(2)
+         assert(na.item(0) = e1)
+         assert(na.item(1) = e1)
+         a := {ARRAY[AUX_MANIFEST_ARRAY8] 1, << e1, e2 >> }
+         assert(a.count = 2)
+         assert(a.item(1) = e1)
+         a.resize(1, 3)
+         assert(a.count = 3)
+         assert(a.item(1) = e1)
+         assert(a.item(2) = e1)
+         e2 := a.item(3)
+         assert(a.item(3) = e1)
+      end
 
 end -- class TEST_MANIFEST_ARRAY8
 --

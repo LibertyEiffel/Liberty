@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_LIKE8
-	
+   
 creation
-	make
+   make
 
 feature
 
    make is
       local
-			a: AUX_LIKE8A;	b: AUX_LIKE8B
+         a: AUX_LIKE8A;   b: AUX_LIKE8B
       do
-			create a
-			create b
-			same_as(a,b)
+         create a
+         create b
+         same_as(a,b)
       end
-	
+   
    same_as(some: AUX_LIKE8A; other: like some) is
       do
       end
-	
+   
 end -- class BAD_LIKE8
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

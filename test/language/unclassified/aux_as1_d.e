@@ -4,15 +4,15 @@
 class AUX_AS1_D
 
 inherit
-	AUX_AS1_B
-		redefine message
-		end
+   AUX_AS1_B
+      redefine message
+      end
 
 feature {ANY}
-	message is
-		do
-			stream.extend('D')
-		end
+   message is
+      do
+         stream.extend('D')
+      end
 
 end -- class AUX_AS1_D
 --

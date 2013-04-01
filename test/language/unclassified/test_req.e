@@ -2,32 +2,32 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_REQ
-	--
-	-- Test of REQuire Assertions.
-	--
+   --
+   -- Test of REQuire Assertions.
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	req_a: REQ_A
+   req_a: REQ_A
 
-	req_b: REQ_B
+   req_b: REQ_B
 
-	make is
-		do
-			create req_a
-			req_a.ra
-			create req_b
-			req_b.set_bc('a')
-			req_b.ra
-			req_a.rb
-			req_b.set_bc('a')
-			req_b.ra
-			req_b.set_bc('b')
-			req_b.rb
-			req_b.rc
-		end
+   make is
+      do
+         create req_a
+         req_a.ra
+         create req_b
+         req_b.set_bc('a')
+         req_b.ra
+         req_a.rb
+         req_b.set_bc('a')
+         req_b.ra
+         req_b.set_bc('b')
+         req_b.rb
+         req_b.rc
+      end
 
 end -- class TEST_REQ
 --

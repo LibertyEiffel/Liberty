@@ -2,41 +2,41 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ALG03
-	-- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
+   -- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
 
 inherit
-	AUX_ALG03B
-	AUX_ALG03A
-		redefine make
-		end
+   AUX_ALG03B
+   AUX_ALG03A
+      redefine make
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert(a = 0)
-			assert(b = 0)
-			Precursor
-			assert(a = 1)
-			assert(b = 0)
-		end
+   make is
+      do
+         assert(a = 0)
+         assert(b = 0)
+         Precursor
+         assert(a = 1)
+         assert(b = 0)
+      end
 
-	assert (bool: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not bool then
-				std_output.put_string("TEST_ALG03: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			else
-				--std_output.put_string("Yes%N");
-			end
-		end
+   assert (bool: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not bool then
+            std_output.put_string("TEST_ALG03: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         else
+            --std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_ALG03
 --

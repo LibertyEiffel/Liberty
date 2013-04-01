@@ -2,21 +2,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_CREATE05
-	--SZ:107: invalid generated C code
+   --SZ:107: invalid generated C code
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			--***	 assert((create {INTEGER}) = 0)
-			--*** Not useful, hence rejected.
-			--*** It is now a fatal error *** Dom Oct 2nd 2005 ***
-		end
+   make is
+      do
+         --***    assert((create {INTEGER}) = 0)
+         --*** Not useful, hence rejected.
+         --*** It is now a fatal error *** Dom Oct 2nd 2005 ***
+      end
 
 end -- class TEST_CREATE05
 --

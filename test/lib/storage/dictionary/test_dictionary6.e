@@ -4,53 +4,53 @@
 class TEST_DICTIONARY6
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	str: STRING is "qwertyuiop[]asdfghjkl;'zxcvbnm,./1234567890-="
+   str: STRING is "qwertyuiop[]asdfghjkl;'zxcvbnm,./1234567890-="
 
-	make is
-		local
-			i: INTEGER; d1, d2: DICTIONARY[INTEGER, CHARACTER]; c: CHARACTER
-		do
-			create {HASHED_DICTIONARY[INTEGER, CHARACTER]} d1.with_capacity(2)
-			from
-				i := str.count
-			until
-				i = 0
-			loop
-				c := str.item(i)
-				d1.put(c.code, c)
-				i := i - 1
-			end
-			d2 := d1
-			assert(d1.is_equal(d2))
-			d2 := d1.twin
-			assert(d1.is_equal(d2))
-			d2 := d1.twin
-			assert(d1.is_equal(d2))
-			create {HASHED_DICTIONARY[INTEGER, CHARACTER]} d2.with_capacity(250)
-			from
-				i := 1
-			until
-				i > str.count
-			loop
-				c := str.item(i)
-				d2.put(c.code, c)
-				i := i + 1
-			end
-			assert(d1.is_equal(d2))
-			assert(d1.is_equal(d2))
-			d1.clear_count
-			assert(d1.count = 0)
-			assert(not d1.has('a'))
-			assert(not d1.is_equal(d2))
-			d2.clear_count
-			assert(d1.is_equal(d2))
-		end
+   make is
+      local
+         i: INTEGER; d1, d2: DICTIONARY[INTEGER, CHARACTER]; c: CHARACTER
+      do
+         create {HASHED_DICTIONARY[INTEGER, CHARACTER]} d1.with_capacity(2)
+         from
+            i := str.count
+         until
+            i = 0
+         loop
+            c := str.item(i)
+            d1.put(c.code, c)
+            i := i - 1
+         end
+         d2 := d1
+         assert(d1.is_equal(d2))
+         d2 := d1.twin
+         assert(d1.is_equal(d2))
+         d2 := d1.twin
+         assert(d1.is_equal(d2))
+         create {HASHED_DICTIONARY[INTEGER, CHARACTER]} d2.with_capacity(250)
+         from
+            i := 1
+         until
+            i > str.count
+         loop
+            c := str.item(i)
+            d2.put(c.code, c)
+            i := i + 1
+         end
+         assert(d1.is_equal(d2))
+         assert(d1.is_equal(d2))
+         d1.clear_count
+         assert(d1.count = 0)
+         assert(not d1.has('a'))
+         assert(not d1.is_equal(d2))
+         d2.clear_count
+         assert(d1.is_equal(d2))
+      end
 
 end -- class TEST_DICTIONARY6
 --

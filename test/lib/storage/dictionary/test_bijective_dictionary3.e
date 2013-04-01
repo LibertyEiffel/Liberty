@@ -4,39 +4,39 @@
 class TEST_BIJECTIVE_DICTIONARY3
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			d1: HASHED_BIJECTIVE_DICTIONARY[INTEGER, INTEGER]; d2: BIJECTIVE_DICTIONARY_REVERSER[INTEGER, INTEGER]
-		do
-			create d1.make
-			create d2.from_bijective_dictionary(d1)
-			assert(d1.count = 0)
-			d2.put(2, 1)
-			assert(d1.count = 1)
-			assert(d1.at(2) = 1)
-			assert(d1.fast_at(2) = 1)
-			assert(d1.has_value(1))
-			assert(d1.fast_has_value(1))
-			d2.put(4, 3)
-			assert(d1.count = 2)
-			assert(d1.at(4) = 3)
-			assert(d1.fast_at(4) = 3)
-			assert(d1.has_value(3))
-			assert(d1.fast_has_value(3))
-			d2.put(6, 1)
-			assert(d1.count = 2)
-			assert(d1.at(6) = 1)
-			assert(d1.fast_at(6) = 1)
-			assert(d1.has(6))
-			assert(d1.fast_has(6))
-			assert(not d1.has(2))
-		end
+   make is
+      local
+         d1: HASHED_BIJECTIVE_DICTIONARY[INTEGER, INTEGER]; d2: BIJECTIVE_DICTIONARY_REVERSER[INTEGER, INTEGER]
+      do
+         create d1.make
+         create d2.from_bijective_dictionary(d1)
+         assert(d1.count = 0)
+         d2.put(2, 1)
+         assert(d1.count = 1)
+         assert(d1.at(2) = 1)
+         assert(d1.fast_at(2) = 1)
+         assert(d1.has_value(1))
+         assert(d1.fast_has_value(1))
+         d2.put(4, 3)
+         assert(d1.count = 2)
+         assert(d1.at(4) = 3)
+         assert(d1.fast_at(4) = 3)
+         assert(d1.has_value(3))
+         assert(d1.fast_has_value(3))
+         d2.put(6, 1)
+         assert(d1.count = 2)
+         assert(d1.at(6) = 1)
+         assert(d1.fast_at(6) = 1)
+         assert(d1.has(6))
+         assert(d1.fast_has(6))
+         assert(not d1.has(2))
+      end
 
 end -- class TEST_BIJECTIVE_DICTIONARY3
 --

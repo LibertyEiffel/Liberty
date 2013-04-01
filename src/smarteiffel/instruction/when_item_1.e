@@ -83,6 +83,11 @@ feature {WHEN_CLAUSE}
          Result := current_or_twin_init(expression.adapt_for(t))
       end
 
+   side_effect_free (type: TYPE): BOOLEAN is
+      do
+         Result := expression.side_effect_free(type)
+      end
+
 feature {WHEN_ITEM_1}
    set_manifest_expression (type: TYPE) is
       do

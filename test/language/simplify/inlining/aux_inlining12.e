@@ -4,20 +4,20 @@
 class AUX_INLINING12
 
 feature {ANY}
-	a: REFERENCE[INTEGER]
+   a: REFERENCE[INTEGER]
 
-	b: INTEGER
+   b: INTEGER
 
-	ecrire (va: like a; vb: like b) is
-		do
-			a := va
-			b := vb
-		end
+   ecrire (va: like a; vb: like b) is
+      do
+         a := va
+         b := vb
+      end
 
-	b_is_gt (x: INTEGER): BOOLEAN is
-		do
-			Result := b > x
-		end
+   b_is_gt (x: INTEGER): BOOLEAN is
+      do
+         Result := b > x
+      end
 
 end -- class AUX_INLINING12
 --

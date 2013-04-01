@@ -4,13 +4,13 @@
 class AUX_XC4_A
 
 insert
-	ANY
+   ANY
 
 feature {ANY}
-	f: CHARACTER is
-		do
-			Result := 'A'
-		end
+   f: CHARACTER is
+      do
+         Result := 'A'
+      end
 
 end -- class AUX_XC4_A
 --

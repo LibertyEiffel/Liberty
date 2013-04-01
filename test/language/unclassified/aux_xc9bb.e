@@ -4,28 +4,28 @@
 class AUX_XC9BB
 
 inherit
-	AUX_XC9AA
-		redefine copy
-		end
+   AUX_XC9AA
+      redefine copy
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a: INTEGER
+   a: INTEGER
 
-	make is
-		do
-			a := 1
-		end
+   make is
+      do
+         a := 1
+      end
 
-	copy (other: like Current) is
-		do
-			if Current = other then
-			else
-				Precursor(other)
-			end
-		end
+   copy (other: like Current) is
+      do
+         if Current = other then
+         else
+            Precursor(other)
+         end
+      end
 
 end -- class AUX_XC9BB
 --

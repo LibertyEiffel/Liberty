@@ -4,24 +4,24 @@
 class AUX_CREATION1B
 
 inherit
-	AUX_CREATION1A
-		rename make as x,
-			display as y
-		end
+   AUX_CREATION1A
+      rename make as x,
+         display as y
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			run_make_b := run_make_b + 1
-		end
+   make is
+      do
+         run_make_b := run_make_b + 1
+      end
 
-	display is
-		do
-			run_display_b := run_display_b + 1
-		end
+   display is
+      do
+         run_display_b := run_display_b + 1
+      end
 
 end -- class AUX_CREATION1B
 --

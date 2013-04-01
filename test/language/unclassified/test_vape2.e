@@ -2,24 +2,24 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_VAPE2
-	--
-	-- From a message of Jason SCHROEDER in comp.lang.eiffel
-	--
+   --
+   -- From a message of Jason SCHROEDER in comp.lang.eiffel
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		require
-			a_condition
-		do
-		end
+   make is
+      require
+         a_condition
+      do
+      end
 
-	a_condition: BOOLEAN is
-		do
-			Result := True
-		end
+   a_condition: BOOLEAN is
+      do
+         Result := True
+      end
 
 end -- class TEST_VAPE2
 --

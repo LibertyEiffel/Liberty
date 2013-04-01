@@ -2,24 +2,24 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_GENERIC5
-	-- From a bug report of Cyril ADRIAN
+   -- From a bug report of Cyril ADRIAN
 
 insert
-	MATH_CONSTANTS
+   MATH_CONSTANTS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			rb: AUX_GENERIC5[REAL]; sb: AUX_GENERIC5[STRING]
-		do
-			create sb.make("Hello World")
-			create rb.make(Pi)
-			rb.bizarre
-			sb.bizarre
-		end
+   make is
+      local
+         rb: AUX_GENERIC5[REAL]; sb: AUX_GENERIC5[STRING]
+      do
+         create sb.make("Hello World")
+         create rb.make(Pi)
+         rb.bizarre
+         sb.bizarre
+      end
 
 end -- class TEST_GENERIC5
 --

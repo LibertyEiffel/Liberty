@@ -2,28 +2,28 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AC04
-	-- From a bug report of Alex Cozzi
+   -- From a bug report of Alex Cozzi
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	Test_count: INTEGER is 1000
+   Test_count: INTEGER is 1000
 
-	make is
-		local
-			c1: AUX_AC_COMPLEX; c2: AUX_AC_COMPLEX; c3: AUX_AC_COMPLEX
-		do
-			test_plus(c1, c2, c3)
-		end
+   make is
+      local
+         c1: AUX_AC_COMPLEX; c2: AUX_AC_COMPLEX; c3: AUX_AC_COMPLEX
+      do
+         test_plus(c1, c2, c3)
+      end
 
-	test_plus (x, y, z: AUX_AC_COMPLEX) is
-		local
-			zero: AUX_AC_COMPLEX
-		do
-			if (x + zero).is_equal(x) then
-			end
-		end
+   test_plus (x, y, z: AUX_AC_COMPLEX) is
+      local
+         zero: AUX_AC_COMPLEX
+      do
+         if (x + zero).is_equal(x) then
+         end
+      end
 
 end -- class TEST_AC04
 --

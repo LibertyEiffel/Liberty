@@ -2,53 +2,53 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ASSERTION_ALL4
-	--
-	-- Test for loops.
-	--
+   --
+   -- Test for loops.
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	variant_counter: INTEGER
+   variant_counter: INTEGER
 
-	invariant_counter: INTEGER
+   invariant_counter: INTEGER
 
-	main is
-		local
-			i: INTEGER
-		do
-			assert(variant_counter = 0)
-			assert(invariant_counter = 0)
-			from
-				i := 1
-			invariant
-				invariant_call
-			variant
-				variant_call - i
-			until
-				i > 10
-			loop
-				i := i + 1
-			end
-			assert(variant_counter = 10)
-			assert(invariant_counter = 11)
-		end
+   main is
+      local
+         i: INTEGER
+      do
+         assert(variant_counter = 0)
+         assert(invariant_counter = 0)
+         from
+            i := 1
+         invariant
+            invariant_call
+         variant
+            variant_call - i
+         until
+            i > 10
+         loop
+            i := i + 1
+         end
+         assert(variant_counter = 10)
+         assert(invariant_counter = 11)
+      end
 
-	variant_call: INTEGER is
-		do
-			variant_counter := variant_counter + 1
-			Result := 50
-		end
+   variant_call: INTEGER is
+      do
+         variant_counter := variant_counter + 1
+         Result := 50
+      end
 
-	invariant_call: BOOLEAN is
-		do
-			invariant_counter := invariant_counter + 1
-			Result := True
-		end
+   invariant_call: BOOLEAN is
+      do
+         invariant_counter := invariant_counter + 1
+         Result := True
+      end
 
 end -- class TEST_ASSERTION_ALL4
 --

@@ -4,20 +4,20 @@
 expanded class AUX_EG13
 
 feature {ANY}
-	a1: REAL
+   a1: REAL
 
-	a2: REAL
+   a2: REAL
 
-	item (i: INTEGER): REAL is
-		do
-			inspect
-				i
-			when 1 then
-				Result := a1
-			when 2 then
-				Result := a2
-			end
-		end
+   item (i: INTEGER): REAL is
+      do
+         inspect
+            i
+         when 1 then
+            Result := a1
+         when 2 then
+            Result := a2
+         end
+      end
 
 end -- class AUX_EG13
 --

@@ -2,38 +2,38 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EXPANDED29
-	-- From: Eric Bezault <ericb@gobosoft.com>
+   -- From: Eric Bezault <ericb@gobosoft.com>
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			l: AUX_EXPANDED29BAR
-		do
-			-- Original:
-			-- l: expanded AUX_EXPANDED29BAR
-			create foo
-			assert(foo.toto.x = 0)
-			assert(foo.tata.x = 0)
-			assert(l.x = 0)
-			foo.toto.set_x(1)
-			assert(foo.toto.x = 0)
-			assert(foo.tata.x = 0)
-			foo.tata.set_x(2)
-			assert(foo.tata.x = 0)
-			assert(foo.toto.x = 0)
-			l := foo.toto
-			l.set_x(3)
-			assert(l.x = 3)
-			assert(foo.toto.x = 0)
-		end
+   make is
+      local
+         l: AUX_EXPANDED29BAR
+      do
+         -- Original:
+         -- l: expanded AUX_EXPANDED29BAR
+         create foo
+         assert(foo.toto.x = 0)
+         assert(foo.tata.x = 0)
+         assert(l.x = 0)
+         foo.toto.set_x(1)
+         assert(foo.toto.x = 0)
+         assert(foo.tata.x = 0)
+         foo.tata.set_x(2)
+         assert(foo.tata.x = 0)
+         assert(foo.toto.x = 0)
+         l := foo.toto
+         l.set_x(3)
+         assert(l.x = 3)
+         assert(foo.toto.x = 0)
+      end
 
-	foo: AUX_EXPANDED29FOO
+   foo: AUX_EXPANDED29FOO
 
 end -- class TEST_EXPANDED29
 --

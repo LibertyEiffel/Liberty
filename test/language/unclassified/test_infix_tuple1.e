@@ -2,28 +2,28 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_INFIX_TUPLE1
-	-- SZ:192 from Greg Compestine
-	-- Parser don't accept a tuple at right side of an infix operator.
-	-- ("Right hand side expression of infix "@|" expected.")
+   -- SZ:192 from Greg Compestine
+   -- Parser don't accept a tuple at right side of an infix operator.
+   -- ("Right hand side expression of infix "@|" expected.")
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			res: BOOLEAN
-		do
-			res := Current @| ([100000, 200000])
-		end
+   make is
+      local
+         res: BOOLEAN
+      do
+         res := Current @| ([100000, 200000])
+      end
 
-	infix "@|" (base: TUPLE[INTEGER, INTEGER]): BOOLEAN is
-		do
-			assert(base.is_equal([100000, 200000]))
-		end
+   infix "@|" (base: TUPLE[INTEGER, INTEGER]): BOOLEAN is
+      do
+         assert(base.is_equal([100000, 200000]))
+      end
 
 end -- class TEST_INFIX_TUPLE1
 --

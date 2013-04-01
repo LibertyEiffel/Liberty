@@ -16,7 +16,7 @@ feature
       do
          b ?= a
          if b = Void then
-	    std_output.put_string("Error in TEST_CA1%N");
+       std_output.put_string("Error in TEST_CA1%N");
          end
       end
 

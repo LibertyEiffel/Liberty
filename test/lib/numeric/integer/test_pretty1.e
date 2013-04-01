@@ -2,40 +2,40 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PRETTY1
-	--
-	-- Also used to test stability of command `pretty'.
-	--
+   --
+   -- Also used to test stability of command `pretty'.
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i, i1, i2, i3: INTEGER
-		do
-			i1 := 1
-			i2 := 2
-			i3 := 3
-			assert(i2 = i1 + 1)
-			i := i1 - i1 + 1 * (i2 - i2) + 1
-			assert(i = 1)
-		end
+   make is
+      local
+         i, i1, i2, i3: INTEGER
+      do
+         i1 := 1
+         i2 := 2
+         i3 := 3
+         assert(i2 = i1 + 1)
+         i := i1 - i1 + 1 * (i2 - i2) + 1
+         assert(i = 1)
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_PRETTY1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_PRETTY1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_PRETTY1
 --

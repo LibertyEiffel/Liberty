@@ -4,22 +4,22 @@
 class TEST_OZ03
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_OZ03A; b: AUX_OZ03B
-		do
-			create a
-			create b
-			a := b
-			a.set_store(1.9)
-			if a.store = 1.9 then
-			else
-				io.put_string("Error in TEST_OZ03.%N")
-			end
-		end
+   make is
+      local
+         a: AUX_OZ03A; b: AUX_OZ03B
+      do
+         create a
+         create b
+         a := b
+         a.set_store(1.9)
+         if a.store = 1.9 then
+         else
+            io.put_string("Error in TEST_OZ03.%N")
+         end
+      end
 
 end -- class TEST_OZ03
 --

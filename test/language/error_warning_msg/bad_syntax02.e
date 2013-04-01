@@ -4,13 +4,13 @@
 class BAD_SYNTAX02
 -- From sz:510
 creation
-	make
+   make
 
 feature
-	make is
-		do
-			1
-		end
+   make is
+      do
+         1
+      end
 
 end -- class BAD_SYNTAX02
 --

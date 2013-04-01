@@ -2,7 +2,7 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_INHERIT14
-	-- Diamond test involving ANY
+   -- Diamond test involving ANY
 
 inherit
    AUX_INHERIT14A
@@ -13,7 +13,7 @@ creation make
 feature
 
    make is
-		do
+      do
       end;
 end -- class BAD_INHERIT14
 --

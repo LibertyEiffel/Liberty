@@ -9,14 +9,14 @@ feature
    
    make is
       do
-	 from
-	 variant
-	    True
-	 until
-	    True
-	 loop
+    from
+    variant
+       True
+    until
+       True
+    loop
 
-	 end;
+    end;
       end;
 
 end -- class BAD_LOOP2

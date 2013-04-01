@@ -4,22 +4,22 @@
 class TEST_FAST_ARRAY5
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			array: FAST_ARRAY[INTEGER]
-		do
-			create array.make(10)
-			array.set_all_with(1)
-			array.clear_count
-			array.resize(array.capacity)
-			assert(array.all_default)
-		end
+   make is
+      local
+         array: FAST_ARRAY[INTEGER]
+      do
+         create array.make(10)
+         array.set_all_with(1)
+         array.clear_count
+         array.resize(array.capacity)
+         assert(array.all_default)
+      end
 
 end -- class TEST_FAST_ARRAY5
 --

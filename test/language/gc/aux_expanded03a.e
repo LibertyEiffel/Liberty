@@ -4,7 +4,7 @@
 class AUX_EXPANDED03A[X]
 
 feature {ANY}
-	b: AUX_EXPANDED03B[X]
+   b: AUX_EXPANDED03B[X]
 
 end -- class AUX_EXPANDED03A
 --

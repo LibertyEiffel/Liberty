@@ -4,10 +4,10 @@
 class AUX_ANCHOR1A
 
 feature {ANY}
-	new_like_current: like Current is
-		do
-			create Result
-		end
+   new_like_current: like Current is
+      do
+         create Result
+      end
 
 end -- class AUX_ANCHOR1A
 --

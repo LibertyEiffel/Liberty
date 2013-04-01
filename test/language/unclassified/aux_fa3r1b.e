@@ -4,8 +4,8 @@
 class AUX_FA3R1B
 
 inherit
-	AUX_FA3B1
-		-- idem
+   AUX_FA3B1
+      -- idem
 
 end -- class AUX_FA3R1B
 --

@@ -4,40 +4,40 @@
 class TEST_EXPANDED33
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			list: LINKED_LIST[AUX_EXPANDED33]; it: ITERATOR[AUX_EXPANDED33]; x: AUX_EXPANDED33; y: AUX_EXPANDED33
-			i: INTEGER
-		do
-			create list.make
-			x.set(5)
-			y.set(10)
-			list.add_last(x)
-			list.add_last(y)
-			it := list.get_new_iterator
-			it.start
-			i := list.lower
-			list.item(i).set(1)
-			assert(list.item(i).item = 5) --original value not changed (expanded)
-			it.item.set(1)
-			assert(it.item.item = 5) --original value not changed (expanded)
-			it.next
-			i := i + 1
-			list.item(i).set(1)
-			assert(list.item(i).item = 10)
-			it.item.set(1)
-			assert(it.item.item = 10)
-			it.next
-			i := i + 1
-			assert(x.item = 5)
-			assert(y.item = 10)
-		end
+   make is
+      local
+         list: LINKED_LIST[AUX_EXPANDED33]; it: ITERATOR[AUX_EXPANDED33]; x: AUX_EXPANDED33; y: AUX_EXPANDED33
+         i: INTEGER
+      do
+         create list.make
+         x.set(5)
+         y.set(10)
+         list.add_last(x)
+         list.add_last(y)
+         it := list.get_new_iterator
+         it.start
+         i := list.lower
+         list.item(i).set(1)
+         assert(list.item(i).item = 5) --original value not changed (expanded)
+         it.item.set(1)
+         assert(it.item.item = 5) --original value not changed (expanded)
+         it.next
+         i := i + 1
+         list.item(i).set(1)
+         assert(list.item(i).item = 10)
+         it.item.set(1)
+         assert(it.item.item = 10)
+         it.next
+         i := i + 1
+         assert(x.item = 5)
+         assert(y.item = 10)
+      end
 
 end -- class TEST_EXPANDED33
 --

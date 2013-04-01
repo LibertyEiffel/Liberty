@@ -66,7 +66,7 @@
 #endif
 #if !defined(WIN32) && \
        (defined(WINVER) || defined(_WIN32_WINNT) || defined(_WIN32) || \
-	defined(__WIN32__) || defined(__TOS_WIN__) || defined(_MSC_VER))
+        defined(__WIN32__) || defined(__TOS_WIN__) || defined(_MSC_VER))
 #  define WIN32 1
 #endif
 #ifdef WIN32
@@ -97,6 +97,10 @@ typedef unsigned __int64 uint64_t;
 #  define INT16_C(c) c
 #  define INT32_C(c) c
 #  define INT64_C(c) c ## i64
+#  define UINT8_C(c) c ## u
+#  define UINT16_C(c) c ## u
+#  define UINT32_C(c) c ## u
+#  define UINT64_C(c) c ## ui64
 #elif defined(__WATCOMC__) && (__WATCOMC__ <= 1220) /* WATCOM 12.2 or lower */
 typedef signed char int8_t;
 typedef signed short int16_t;
@@ -114,6 +118,10 @@ typedef unsigned __int64 uint64_t;
 #  define INT16_C(c) c
 #  define INT32_C(c) c ## L
 #  define INT64_C(c) c ## i64
+#  define UINT8_C(c) c ## u
+#  define UINT16_C(c) c ## u
+#  define UINT32_C(c) c ## UL
+#  define UINT64_C(c) c ## ui64
 #elif defined(__BORLANDC__) && (__BORLANDC__ < 0x600) /* Borland before 6.0 */
 typedef signed char int8_t;
 typedef signed short int16_t;
@@ -131,6 +139,10 @@ typedef unsigned __int64 uint64_t;
 #  define INT16_C(c) c
 #  define INT32_C(c) c ## L
 #  define INT64_C(c) c ## i64
+#  define UINT8_C(c) c ## u
+#  define UINT16_C(c) c ## u
+#  define UINT32_C(c) c ## UL
+#  define UINT64_C(c) c ## ui64
 #elif defined(__FreeBSD__) && (__FreeBSD__ < 5) /* FreeBSD before 5.0 */ && !defined (_SYS_INTTYPES_H_)
 typedef signed char int8_t;
 typedef signed short int16_t;
@@ -182,8 +194,13 @@ typedef int_least8_t int8_t;
 #  define INT16_C(c) c
 #  define INT32_C(c) c ## L
 #  define INT64_C(c) c ## LL
+#  define UINT8_C(c) c ## u
+#  define UINT16_C(c) c ## u
+#  define UINT32_C(c) c ## UL
+#  define UINT64_C(c) c ## ULL
 #elif !defined(INT8_C)
 #  define INT8_C(c) c
+#  define UINT8_C(c) c ## u
 #endif
 #if !defined(INT16_MIN)
 #  define INT8_MIN (-INT8_C(127)-1)

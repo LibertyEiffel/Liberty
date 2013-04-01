@@ -802,6 +802,12 @@ feature {NULL_POINTER}
          stream.put_string(once "<null>")
       end
 
+feature {NATIVE_ARRAY_ITEM}
+   visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+      do
+         break --| **** TODO
+      end
+
 feature {NON_VOID_NO_DISPATCH}
    visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH) is
       local

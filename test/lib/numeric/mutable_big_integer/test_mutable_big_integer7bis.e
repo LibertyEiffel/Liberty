@@ -2,130 +2,130 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_MUTABLE_BIG_INTEGER7BIS
-	--
-	-- Testing feature `add' and `add_to'.
-	--
+   --
+   -- Testing feature `add' and `add_to'.
+   --
 
 insert
-	ANY
-	PLATFORM
+   ANY
+   PLATFORM
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			check_add(0, 0)
-			check_add(1, 0)
-			check_add(1, 1)
-			check_add(2, 0)
-			check_add(2, 1)
-			check_add(3, 0)
-			check_add(3, 1)
-			check_add(3, 2)
-			check_add(3, 3)
-			check_add(Maximum_integer - 3, 0)
-			check_add(Maximum_integer - 3, 1)
-			check_add(Maximum_integer - 3, 2)
-			check_add(Maximum_integer - 3, 3)
-			check_add(Maximum_integer, 0)
-			check_add(Maximum_integer, 1)
-			check_add(Maximum_integer, 2)
-			check_add(Maximum_integer, 3)
-			check_add(Maximum_integer, Maximum_integer.to_integer_64)
-			check_add(Maximum_integer, Maximum_integer.to_integer_64 + 1)
-			check_add(Maximum_integer, Maximum_integer.to_integer_64 + 2)
-			check_add(Maximum_integer, Maximum_integer.to_integer_64 + 3)
-			check_add(Maximum_integer, Maximum_integer.to_integer_64 + 4)
-			check_add_over64(Maximum_integer_64 - 3, 0)
-			check_add_over64(Maximum_integer_64 - 3, 1)
-			check_add_over64(Maximum_integer_64 - 3, 2)
-			check_add_over64(Maximum_integer_64 - 3, 3)
-		end
+   make is
+      do
+         check_add(0, 0)
+         check_add(1, 0)
+         check_add(1, 1)
+         check_add(2, 0)
+         check_add(2, 1)
+         check_add(3, 0)
+         check_add(3, 1)
+         check_add(3, 2)
+         check_add(3, 3)
+         check_add(Maximum_integer - 3, 0)
+         check_add(Maximum_integer - 3, 1)
+         check_add(Maximum_integer - 3, 2)
+         check_add(Maximum_integer - 3, 3)
+         check_add(Maximum_integer, 0)
+         check_add(Maximum_integer, 1)
+         check_add(Maximum_integer, 2)
+         check_add(Maximum_integer, 3)
+         check_add(Maximum_integer, Maximum_integer.to_integer_64)
+         check_add(Maximum_integer, Maximum_integer.to_integer_64 + 1)
+         check_add(Maximum_integer, Maximum_integer.to_integer_64 + 2)
+         check_add(Maximum_integer, Maximum_integer.to_integer_64 + 3)
+         check_add(Maximum_integer, Maximum_integer.to_integer_64 + 4)
+         check_add_over64(Maximum_integer_64 - 3, 0)
+         check_add_over64(Maximum_integer_64 - 3, 1)
+         check_add_over64(Maximum_integer_64 - 3, 2)
+         check_add_over64(Maximum_integer_64 - 3, 3)
+      end
 
-	count: INTEGER
+   count: INTEGER
 
-	assert (b: BOOLEAN) is
-		do
-			count := count + 1
-			if not b then
-				sedb_breakpoint
-				io.put_string("TEST_MUTABLE_BIG_INTEGER7bis : ERROR Test # ")
-				io.put_integer(count)
-				io.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         count := count + 1
+         if not b then
+            sedb_breakpoint
+            io.put_string("TEST_MUTABLE_BIG_INTEGER7bis : ERROR Test # ")
+            io.put_integer(count)
+            io.put_string("%N")
+         end
+      end
 
-	check_add (a, b: INTEGER_64) is
-		do
-			check_add2(a, b)
-			check_add2(b, a)
-			check_add2(a, a)
-			check_add2(b, b)
-			check_add2(-a, b)
-			check_add2(b, -a)
-			check_add2(a, -b)
-			check_add2(-b, a)
-			check_add2(-a, -b)
-			check_add2(-b, -a)
-		end
+   check_add (a, b: INTEGER_64) is
+      do
+         check_add2(a, b)
+         check_add2(b, a)
+         check_add2(a, a)
+         check_add2(b, b)
+         check_add2(-a, b)
+         check_add2(b, -a)
+         check_add2(a, -b)
+         check_add2(-b, a)
+         check_add2(-a, -b)
+         check_add2(-b, -a)
+      end
 
-	check_add_over64 (a, b: INTEGER_64) is
-		do
-			check_add2(a, b)
-			check_add2(b, a)
-			--check_add2(a, a)
-			--check_add2(b, b)
-			check_add2(-a, b)
-			check_add2(b, -a)
-			check_add2(a, -b)
-			check_add2(-b, a)
-			check_add2(-a, -b)
-			check_add2(-b, -a)
-		end
+   check_add_over64 (a, b: INTEGER_64) is
+      do
+         check_add2(a, b)
+         check_add2(b, a)
+         --check_add2(a, a)
+         --check_add2(b, b)
+         check_add2(-a, b)
+         check_add2(b, -a)
+         check_add2(a, -b)
+         check_add2(-b, a)
+         check_add2(-a, -b)
+         check_add2(-b, -a)
+      end
 
-	check_add2 (a, b: INTEGER_64) is
-		local
-			c, v: INTEGER_64; mbia, mbib, mbic: MUTABLE_BIG_INTEGER
-		do
-			-- test add
-			create mbia.from_integer_64(a)
-			create mbib.from_integer_64(b)
-			mbia.add(mbib)
-			c := a + b
-			v := mbia.to_integer_64
-			check
-				v = c
-			end
-			assert(v = c)
-			v := mbib.to_integer_64
-			check
-				v = b
-			end
-			assert(v = b)
-			-- test add_to
-			create mbia.from_integer_64(a)
-			create mbib.from_integer_64(b)
-			create mbic.from_integer(0)
-			mbia.add_to(mbib, mbic)
-			c := a + b
-			v := mbia.to_integer_64
-			check
-				v = a
-			end
-			assert(v = a)
-			v := mbib.to_integer_64
-			check
-				v = b
-			end
-			assert(v = b)
-			v := mbic.to_integer_64
-			check
-				v = c
-			end
-			assert(v = c)
-		end
+   check_add2 (a, b: INTEGER_64) is
+      local
+         c, v: INTEGER_64; mbia, mbib, mbic: MUTABLE_BIG_INTEGER
+      do
+         -- test add
+         create mbia.from_integer_64(a)
+         create mbib.from_integer_64(b)
+         mbia.add(mbib)
+         c := a + b
+         v := mbia.to_integer_64
+         check
+            v = c
+         end
+         assert(v = c)
+         v := mbib.to_integer_64
+         check
+            v = b
+         end
+         assert(v = b)
+         -- test add_to
+         create mbia.from_integer_64(a)
+         create mbib.from_integer_64(b)
+         create mbic.from_integer(0)
+         mbia.add_to(mbib, mbic)
+         c := a + b
+         v := mbia.to_integer_64
+         check
+            v = a
+         end
+         assert(v = a)
+         v := mbib.to_integer_64
+         check
+            v = b
+         end
+         assert(v = b)
+         v := mbic.to_integer_64
+         check
+            v = c
+         end
+         assert(v = c)
+      end
 
 end -- class TEST_MUTABLE_BIG_INTEGER7BIS
 --

@@ -4,26 +4,26 @@
 class TEST_ONCE1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	foo: INTEGER is
-		once
-			Result := 1
-		end
+   foo: INTEGER is
+      once
+         Result := 1
+      end
 
-	make is
-		local
-			aux: AUX_ONCE1
-		do
-			check
-				foo = 1
-			end
-			create aux
-			check
-				aux.foo = 2
-			end
-		end
+   make is
+      local
+         aux: AUX_ONCE1
+      do
+         check
+            foo = 1
+         end
+         create aux
+         check
+            aux.foo = 2
+         end
+      end
 
 end -- class TEST_ONCE1
 --

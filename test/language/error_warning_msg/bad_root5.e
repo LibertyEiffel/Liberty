@@ -4,12 +4,12 @@
 class BAD_ROOT5[E]
 
 create
-	make
+   make
 
 feature
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class BAD_ROOT5
 --

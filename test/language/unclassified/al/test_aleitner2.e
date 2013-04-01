@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ALEITNER2
-	-- From: "Andreas Leitner" <nozone@sbox.tu-graz.ac.at>
+   -- From: "Andreas Leitner" <nozone@sbox.tu-graz.ac.at>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			foo := "bar"
-		end
+   make is
+      do
+         foo := "bar"
+      end
 
-	foo: like foo2
+   foo: like foo2
 
-	foo2: like foo3
+   foo2: like foo3
 
-	foo3: STRING
+   foo3: STRING
 
 end -- class TEST_ALEITNER2
 --

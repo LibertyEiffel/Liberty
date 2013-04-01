@@ -2,26 +2,26 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_XC1
-	-- From a bug report of Xavier CREGUT
+   -- From a bug report of Xavier CREGUT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	f (x: AUX_XC1AA[STRING]) is
-		local
-			str: STRING
-		do
-			str := x.item
-		end
+   f (x: AUX_XC1AA[STRING]) is
+      local
+         str: STRING
+      do
+         str := x.item
+      end
 
-	make is
-		local
-			b: AUX_XC1BB
-		do
-			create b.make("Test")
-			f(b)
-		end
+   make is
+      local
+         b: AUX_XC1BB
+      do
+         create b.make("Test")
+         f(b)
+      end
 
 end -- class TEST_XC1
 --

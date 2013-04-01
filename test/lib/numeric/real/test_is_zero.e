@@ -2,64 +2,64 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_IS_ZERO
-	--
-	-- Of REAL_GENERAL.
-	--
+   --
+   -- Of REAL_GENERAL.
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			real_32: REAL_32; real_64: REAL_64; real_extended: REAL_EXTENDED
-		do
-			assert(real_64.is_zero)
-			real_64 := -real_64
-			assert(real_64.is_zero)
-			assert(infinity_64.is_infinity)
-			real_64 := 2.0 / infinity_64
-			assert(real_64.is_zero)
-			assert(real_32.is_zero)
-			real_32 := -real_32
-			assert(real_32.is_zero)
-			assert(infinity_32.is_infinity)
-			real_32 := {REAL_32 2.0} / infinity_32
-			assert(real_32.is_zero)
-			assert(real_extended.is_zero)
-			real_extended := -real_extended
-			assert(real_extended.is_zero)
-			assert(infinity_extended.is_infinity)
-			real_extended := {REAL_EXTENDED 2.0} / infinity_extended
-			assert(real_extended.is_zero)
-		end
+   make is
+      local
+         real_32: REAL_32; real_64: REAL_64; real_extended: REAL_EXTENDED
+      do
+         assert(real_64.is_zero)
+         real_64 := -real_64
+         assert(real_64.is_zero)
+         assert(infinity_64.is_infinity)
+         real_64 := 2.0 / infinity_64
+         assert(real_64.is_zero)
+         assert(real_32.is_zero)
+         real_32 := -real_32
+         assert(real_32.is_zero)
+         assert(infinity_32.is_infinity)
+         real_32 := {REAL_32 2.0} / infinity_32
+         assert(real_32.is_zero)
+         assert(real_extended.is_zero)
+         real_extended := -real_extended
+         assert(real_extended.is_zero)
+         assert(infinity_extended.is_infinity)
+         real_extended := {REAL_EXTENDED 2.0} / infinity_extended
+         assert(real_extended.is_zero)
+      end
 
-	infinity_64: REAL_64 is
-		do
-			Result := infinity_32
-		end
+   infinity_64: REAL_64 is
+      do
+         Result := infinity_32
+      end
 
-	infinity_32: REAL_32 is
-		local
-			x, y: REAL_32
-		do
-			x := {REAL_32 1.0}
-			Result := unchecked_c_divide(x, y)
-		end
+   infinity_32: REAL_32 is
+      local
+         x, y: REAL_32
+      do
+         x := {REAL_32 1.0}
+         Result := unchecked_c_divide(x, y)
+      end
 
-	infinity_extended: REAL_EXTENDED is
-		do
-			Result := infinity_32
-		end
+   infinity_extended: REAL_EXTENDED is
+      do
+         Result := infinity_32
+      end
 
-	unchecked_c_divide (x, y: REAL_32): REAL_32 is
-		external "C inline"
-		alias "($x/$y)"
-		end
-	
+   unchecked_c_divide (x, y: REAL_32): REAL_32 is
+      external "C inline"
+      alias "($x/$y)"
+      end
+   
 end -- class TEST_IS_ZERO
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

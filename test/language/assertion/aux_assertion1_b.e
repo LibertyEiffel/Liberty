@@ -4,16 +4,16 @@
 class AUX_ASSERTION1_B
 
 inherit
-	AUX_ASSERTION1_A
-		redefine set_attribute
-		end
+   AUX_ASSERTION1_A
+      redefine set_attribute
+      end
 
 feature {ANY}
-	set_attribute (attr: STRING) is
-		require else
-			attr.is_equal("ID")
-		do
-		end
+   set_attribute (attr: STRING) is
+      require else
+         attr.is_equal("ID")
+      do
+      end
 
 end -- class AUX_ASSERTION1_B
 --

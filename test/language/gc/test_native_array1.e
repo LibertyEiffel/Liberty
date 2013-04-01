@@ -4,27 +4,27 @@
 class TEST_NATIVE_ARRAY1
 
 creation {ANY}
-	make, make2
+   make, make2
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER; na: NATIVE_ARRAY[CHARACTER]; other: like Current
-		do
-			from
-				i := 1000000
-			until
-				i = 0
-			loop
-				create other.make2
-				na := na.calloc(1024)
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER; na: NATIVE_ARRAY[CHARACTER]; other: like Current
+      do
+         from
+            i := 1000000
+         until
+            i = 0
+         loop
+            create other.make2
+            na := na.calloc(1024)
+            i := i - 1
+         end
+      end
 
-	make2 is
-		do
-		end
+   make2 is
+      do
+      end
 
 end -- class TEST_NATIVE_ARRAY1
 --

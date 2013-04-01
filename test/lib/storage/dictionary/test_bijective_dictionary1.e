@@ -4,52 +4,52 @@
 class TEST_BIJECTIVE_DICTIONARY1
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	test_with (bd: BIJECTIVE_DICTIONARY[STRING, STRING]) is
-		local
-			bd_twin: like bd
-		do
-			bd_twin := bd.twin
-			assert(bd.at("k1").is_equal("v1"))
-			assert(bd.at("k2").is_equal("v2"))
-			assert(bd.at("k3").is_equal("v3"))
-			assert(bd.at("k4").is_equal("v4"))
-			assert(bd.at("k5").is_equal("v5"))
-			assert(bd.internal_key("k1").is_equal("k1"))
-			assert(bd.internal_key("k2").is_equal("k2"))
-			assert(bd.internal_key("k3").is_equal("k3"))
-			assert(bd.internal_key("k4").is_equal("k4"))
-			assert(bd.internal_key("k5").is_equal("k5"))
-			bd.put("v1", "k1")
-			assert(bd.count = 5)
-			bd.remove("k6")
-			assert(bd.count = 5)
-			bd.remove("k3")
-			assert(bd.count = 4)
-			assert(not bd.has("k3"))
-			assert(not bd.has_value("v3"))
-			bd.clear_count
-			assert(bd.count = 0)
-			assert(bd_twin.at("k1").is_equal("v1"))
-			assert(bd_twin.at("k2").is_equal("v2"))
-			assert(bd_twin.at("k3").is_equal("v3"))
-			assert(bd_twin.at("k4").is_equal("v4"))
-			assert(bd_twin.at("k5").is_equal("v5"))
-		end
+   test_with (bd: BIJECTIVE_DICTIONARY[STRING, STRING]) is
+      local
+         bd_twin: like bd
+      do
+         bd_twin := bd.twin
+         assert(bd.at("k1").is_equal("v1"))
+         assert(bd.at("k2").is_equal("v2"))
+         assert(bd.at("k3").is_equal("v3"))
+         assert(bd.at("k4").is_equal("v4"))
+         assert(bd.at("k5").is_equal("v5"))
+         assert(bd.internal_key("k1").is_equal("k1"))
+         assert(bd.internal_key("k2").is_equal("k2"))
+         assert(bd.internal_key("k3").is_equal("k3"))
+         assert(bd.internal_key("k4").is_equal("k4"))
+         assert(bd.internal_key("k5").is_equal("k5"))
+         bd.put("v1", "k1")
+         assert(bd.count = 5)
+         bd.remove("k6")
+         assert(bd.count = 5)
+         bd.remove("k3")
+         assert(bd.count = 4)
+         assert(not bd.has("k3"))
+         assert(not bd.has_value("v3"))
+         bd.clear_count
+         assert(bd.count = 0)
+         assert(bd_twin.at("k1").is_equal("v1"))
+         assert(bd_twin.at("k2").is_equal("v2"))
+         assert(bd_twin.at("k3").is_equal("v3"))
+         assert(bd_twin.at("k4").is_equal("v4"))
+         assert(bd_twin.at("k5").is_equal("v5"))
+      end
 
-	make is
-		do
-			test_with({HASHED_BIJECTIVE_DICTIONARY[STRING, STRING] << "v1", "k1";
-			                                                          "v2", "k2";
-			                                                          "v3", "k3";
-			                                                          "v4", "k4";
-			                                                          "v5", "k5" >> })
-		end
+   make is
+      do
+         test_with({HASHED_BIJECTIVE_DICTIONARY[STRING, STRING] << "v1", "k1";
+                                                                   "v2", "k2";
+                                                                   "v3", "k3";
+                                                                   "v4", "k4";
+                                                                   "v5", "k5" >> })
+      end
 
 end -- class TEST_BIJECTIVE_DICTIONARY1
 --

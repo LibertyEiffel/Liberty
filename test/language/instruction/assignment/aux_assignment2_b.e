@@ -4,18 +4,18 @@
 deferred class AUX_ASSIGNMENT2_B
 
 inherit
-	AUX_ASSIGNMENT2_A
+   AUX_ASSIGNMENT2_A
 
 feature {ANY}
-	foo (other: AUX_ASSIGNMENT2_A) is
-		do
-			anchor := other
-		end
+   foo (other: AUX_ASSIGNMENT2_A) is
+      do
+         anchor := other
+      end
 
-	crash_if_not_c is
-		do
-			crash
-		end
+   crash_if_not_c is
+      do
+         crash
+      end
 
 end -- class AUX_ASSIGNMENT2_B
 --

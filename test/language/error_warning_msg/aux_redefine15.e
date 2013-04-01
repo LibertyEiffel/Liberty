@@ -4,10 +4,10 @@
 class AUX_REDEFINE15
 
 feature
-	foo (bar: ARRAY[INTEGER_32]) is
-		do
-		end
-	
+   foo (bar: ARRAY[INTEGER_32]) is
+      do
+      end
+   
 end -- class AUX_REDEFINE15
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -4,38 +4,38 @@
 class TEST_FAST_HAS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[INTEGER]
-			fa: FAST_ARRAY[INTEGER]
-		do
-			-- Array
-			create a.make(1,20)
-			check
-				not a.fast_has(2)
-				a.fast_has(0)
-			end
-			create a.with_capacity(20, 1)
-			check
-				not a.fast_has(2)
-				not a.fast_has(0)
-			end
+   make is
+      local
+         a: ARRAY[INTEGER]
+         fa: FAST_ARRAY[INTEGER]
+      do
+         -- Array
+         create a.make(1,20)
+         check
+            not a.fast_has(2)
+            a.fast_has(0)
+         end
+         create a.with_capacity(20, 1)
+         check
+            not a.fast_has(2)
+            not a.fast_has(0)
+         end
 
-			-- Test fast_array
-			create fa.make(20)
-			check
-				not fa.fast_has(2)
-				fa.fast_has(0)
-			end
-			create fa.with_capacity(20)
-			check
-				not fa.fast_has(2)
-				not fa.fast_has(0)
-			end
-		end
+         -- Test fast_array
+         create fa.make(20)
+         check
+            not fa.fast_has(2)
+            fa.fast_has(0)
+         end
+         create fa.with_capacity(20)
+         check
+            not fa.fast_has(2)
+            not fa.fast_has(0)
+         end
+      end
 
 end -- class TEST_FAST_HAS
 --

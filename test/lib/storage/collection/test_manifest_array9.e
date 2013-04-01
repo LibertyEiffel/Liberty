@@ -2,48 +2,48 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_MANIFEST_ARRAY9
-	-- From: Benjamin Franksen <franksen@mail.bessy.de>
+   -- From: Benjamin Franksen <franksen@mail.bessy.de>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			t: TUPLE[INTEGER, STRING]
-		do
-			success := 1
-			error := 2
-			t := messages.item(0)
-			assert(t.first = 1)
-			assert(t.second.first = 'N')
-			t := messages.item(1)
-			assert(t.first = 2)
-			assert(t.second.first = 'U')
-		end
+   make is
+      local
+         t: TUPLE[INTEGER, STRING]
+      do
+         success := 1
+         error := 2
+         t := messages.item(0)
+         assert(t.first = 1)
+         assert(t.second.first = 'N')
+         t := messages.item(1)
+         assert(t.first = 2)
+         assert(t.second.first = 'U')
+      end
 
-	success: INTEGER
+   success: INTEGER
 
-	error: INTEGER
+   error: INTEGER
 
-	messages: ARRAY[TUPLE[INTEGER, STRING]] is
-		once
-			Result := {ARRAY[TUPLE[INTEGER, STRING]] 1, << [success, "Normal successful completion"], [error, "Unable to allocate additional storage"] >> }
-			Result.reindex(0)
-		end
+   messages: ARRAY[TUPLE[INTEGER, STRING]] is
+      once
+         Result := {ARRAY[TUPLE[INTEGER, STRING]] 1, << [success, "Normal successful completion"], [error, "Unable to allocate additional storage"] >> }
+         Result.reindex(0)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_MANIFEST_ARRAY9: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_MANIFEST_ARRAY9: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_MANIFEST_ARRAY9
 --

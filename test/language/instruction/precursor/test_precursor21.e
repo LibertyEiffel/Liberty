@@ -2,36 +2,36 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PRECURSOR21
-	--
-	-- The Precursor is some external feature.
+   --
+   -- The Precursor is some external feature.
 
 inherit
-	AUX_PRECURSOR21
-		redefine
-			foo
-		end
+   AUX_PRECURSOR21
+      redefine
+         foo
+      end
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {}
-	main
+   main
 
 feature {}
-	main is
-		local
-			pointer: POINTER
-		do
-			assert(pointer.is_null)
-			pointer := foo(3)
-			assert(pointer.is_not_null)
-			assert(not pointer.is_null)			
-		end
-	
-	foo (size: INTEGER): POINTER is
-		do
-			Result := Precursor(size)
-		end
+   main is
+      local
+         pointer: POINTER
+      do
+         assert(pointer.is_null)
+         pointer := foo(3)
+         assert(pointer.is_not_null)
+         assert(not pointer.is_null)         
+      end
+   
+   foo (size: INTEGER): POINTER is
+      do
+         Result := Precursor(size)
+      end
 
 end -- class TEST_PRECURSOR21
 --

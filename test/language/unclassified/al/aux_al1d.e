@@ -4,12 +4,12 @@
 class AUX_AL1D
 
 inherit
-	AUX_AL1C
-		redefine a
-		end
+   AUX_AL1C
+      redefine a
+      end
 
 feature {ANY}
-	a: AUX_AL1B
+   a: AUX_AL1B
 
 end -- class AUX_AL1D
 --

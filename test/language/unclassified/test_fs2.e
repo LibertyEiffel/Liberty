@@ -2,43 +2,43 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FS2
-	--
-	-- From a bug report of Fridtjof SIEBERT
-	--
+   --
+   -- From a bug report of Fridtjof SIEBERT
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	---- Original:
-	--array: ARRAY[expanded AUX_FS2];
-	array: ARRAY[AUX_FS2]
+   ---- Original:
+   --array: ARRAY[expanded AUX_FS2];
+   array: ARRAY[AUX_FS2]
 
-	make is
-		local
-			aux: AUX_FS2
-		do
-			---- Original:
-			-- aux: expanded AUX_FS2;
-			assert(aux.value = 1)
-			create array.make(1, 2)
-			assert(array.item(1).value = 1)
-			assert(array.item(1) = aux)
-		end
+   make is
+      local
+         aux: AUX_FS2
+      do
+         ---- Original:
+         -- aux: expanded AUX_FS2;
+         assert(aux.value = 1)
+         create array.make(1, 2)
+         assert(array.item(1).value = 1)
+         assert(array.item(1) = aux)
+      end
 
-	assert (bool: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not bool then
-				std_output.put_string("TEST_FS2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (bool: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not bool then
+            std_output.put_string("TEST_FS2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_FS2
 --

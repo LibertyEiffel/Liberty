@@ -4,7 +4,7 @@
 deferred class AUX_ASSIGNMENT_B
 
 inherit
-	AUX_ASSIGNMENT_A
+   AUX_ASSIGNMENT_A
 
 end -- class AUX_ASSIGNMENT_B
 --

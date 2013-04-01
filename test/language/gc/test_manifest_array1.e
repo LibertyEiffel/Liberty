@@ -4,22 +4,22 @@
 class TEST_MANIFEST_ARRAY1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER; ma: ARRAY[INTEGER]
-		do
-			from
-				i := 1000000
-			until
-				i = 0
-			loop
-				ma := {ARRAY[INTEGER_32] 1, << 1, 2, 3 >> }
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER; ma: ARRAY[INTEGER]
+      do
+         from
+            i := 1000000
+         until
+            i = 0
+         loop
+            ma := {ARRAY[INTEGER_32] 1, << 1, 2, 3 >> }
+            i := i - 1
+         end
+      end
 
 end -- class TEST_MANIFEST_ARRAY1
 --

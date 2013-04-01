@@ -13,9 +13,9 @@ feature
    
    make is 
       do 
-	 if Current.is_equal(Current) then
-	    make;
-	 end;
+    if Current.is_equal(Current) then
+       make;
+    end;
       end;
    
    is_equal(other: like Current): BOOLEAN is

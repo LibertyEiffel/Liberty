@@ -6,7 +6,7 @@ class BAD_CREATION6
 -- Because we must check that all creation procedures do exists.
 --
 creation
-	make
+   make
 feature
 end -- class BAD_CREATION6
 --

@@ -9,7 +9,7 @@ feature
    
    make is
       do
-	 foo(1,2);
+    foo(1,2);
       end;
    
    foo(bar, bar: INTEGER) is

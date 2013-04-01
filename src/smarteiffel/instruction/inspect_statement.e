@@ -48,7 +48,6 @@ feature {ANY}
       local
          exp: like expression; wl: like when_list; ec: like else_compound; i, i1, i2: INTEGER; wc1, wc2: WHEN_CLAUSE
          cc: CHARACTER_CONSTANT; ic: INTEGER_CONSTANT; selected: BOOLEAN; value: INTEGER
-         inspect_statement: OTHER_INSPECT_STATEMENT
       do
          if manifest_string_inspector /= Void then
             Result := manifest_string_inspector.simplify(type, Current)
@@ -173,9 +172,7 @@ feature {ANY}
                         if exp.side_effect_free(type) then
                            Result := wl.first.compound
                         else
-                           create inspect_statement.make(start_position, exp)
-                           inspect_statement.set_else_compound(start_position, wl.first.compound)
-                           Result := inspect_statement
+                           Result := current_or_twin_init(exp, Void, wl.first.compound)
                         end
                      else
                         Result := current_or_twin_init(exp, wl, ec)
@@ -189,8 +186,24 @@ feature {ANY}
       end
 
    frozen side_effect_free (type: TYPE): BOOLEAN is
+      local
+         i: INTEGER
       do
-         -- Yes, that could be better but unlikely to be True.
+         if expression.side_effect_free(type) then
+            from
+               if else_position.is_unknown then
+                  Result := True
+               else
+                  Result := else_compound.side_effect_free(type)
+               end
+               i := when_list.lower
+            until
+               not Result or else i > when_list.upper
+            loop
+               Result := when_list.item(i).side_effect_free(type)
+               i := i + 1
+            end
+         end
       end
 
    frozen use_current (type: TYPE): BOOLEAN is

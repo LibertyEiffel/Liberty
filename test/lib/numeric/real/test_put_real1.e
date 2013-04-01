@@ -2,24 +2,24 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PUT_REAL1
-	-- From a bug report of John TYRRELL
+   -- From a bug report of John TYRRELL
 
 insert
-	ARGUMENTS
+   ARGUMENTS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			b: BOOLEAN
-		do
-			b := argument_count > 0
-			if b then
-				io.put_real(3 / 3)
-			end
-		end
+   make is
+      local
+         b: BOOLEAN
+      do
+         b := argument_count > 0
+         if b then
+            io.put_real(3 / 3)
+         end
+      end
 
 end -- class TEST_PUT_REAL1
 --

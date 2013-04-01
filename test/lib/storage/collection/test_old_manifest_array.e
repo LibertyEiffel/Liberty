@@ -4,39 +4,39 @@
 class TEST_OLD_MANIFEST_ARRAY
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	foo: STRING is "foo"
+   foo: STRING is "foo"
 
-	bar: STRING is "bar"
+   bar: STRING is "bar"
 
-	make is
-		do
-			assert((
-			<<foo, bar>>).is_equal({ARRAY[STRING] 1, << foo, bar >> }))
-			assert((
-			<<1, 1000>>).is_equal({ARRAY[INTEGER_16] 1, << 1, 1000 >> }))
-			assert((
-			<<1.5, 100.7>>).is_equal({ARRAY[REAL] 1, << 1.5, 100.7 >> }))
-			assert((
-			<<cat, dog>>).is_equal({ARRAY[QUADRUPED] 1, << cat, dog >> }))
-			assert((
-			<<1, 2>>).item(1) = 1)
-		end
+   make is
+      do
+         assert((
+         <<foo, bar>>).is_equal({ARRAY[STRING] 1, << foo, bar >> }))
+         assert((
+         <<1, 1000>>).is_equal({ARRAY[INTEGER_16] 1, << 1, 1000 >> }))
+         assert((
+         <<1.5, 100.7>>).is_equal({ARRAY[REAL] 1, << 1.5, 100.7 >> }))
+         assert((
+         <<cat, dog>>).is_equal({ARRAY[QUADRUPED] 1, << cat, dog >> }))
+         assert((
+         <<1, 2>>).item(1) = 1)
+      end
 
-	cat: CAT is
-		once
-			create Result
-		end
+   cat: CAT is
+      once
+         create Result
+      end
 
-	dog: DOG is
-		once
-			create Result
-		end
+   dog: DOG is
+      once
+         create Result
+      end
 
 end -- class TEST_OLD_MANIFEST_ARRAY
 --

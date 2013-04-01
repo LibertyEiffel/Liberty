@@ -4,17 +4,17 @@
 expanded class AUX_VB1B
 
 insert
-	AUX_VB1A
-		redefine a_feature
-		end
+   AUX_VB1A
+      redefine a_feature
+      end
 
 feature {ANY}
-	pt2: INTEGER
+   pt2: INTEGER
 
-	a_feature: INTEGER is
-		do
-			Result := pt + pt2
-		end
+   a_feature: INTEGER is
+      do
+         Result := pt + pt2
+      end
 
 end -- class AUX_VB1B
 --

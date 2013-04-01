@@ -4,51 +4,51 @@
 class TEST_NATIVE_ARRAY8
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a, b: NATIVE_ARRAY[ANY]; cat: CAT; dog: DOG
-		do
-			create cat
-			create dog
-			a := a.calloc(2)
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** a.put(cat,0);
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** a.put(dog,1);
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(a.item(0) = cat);
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(a.item(1) = dog);
-			a := a.realloc(2, 1024)
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(a.item(0) = cat);
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(a.item(1) = dog);
-			b := b.calloc(2)
-			assert(b.item(0) = Void)
-			assert(b.item(1) = Void)
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** b.put(cat,0);
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** b.put(dog,1);
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(b.item(0) = cat);
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(b.item(1) = dog);
-			b := b.realloc(2, 1024)
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(b.item(0) = cat);
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(b.item(1) = dog);
-			assert(a.fast_memcmp(b, 2))
-			assert(a.memcmp(b, 2))
-		end
+   make is
+      local
+         a, b: NATIVE_ARRAY[ANY]; cat: CAT; dog: DOG
+      do
+         create cat
+         create dog
+         a := a.calloc(2)
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** a.put(cat,0);
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** a.put(dog,1);
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(a.item(0) = cat);
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(a.item(1) = dog);
+         a := a.realloc(2, 1024)
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(a.item(0) = cat);
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(a.item(1) = dog);
+         b := b.calloc(2)
+         assert(b.item(0) = Void)
+         assert(b.item(1) = Void)
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** b.put(cat,0);
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** b.put(dog,1);
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(b.item(0) = cat);
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(b.item(1) = dog);
+         b := b.realloc(2, 1024)
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(b.item(0) = cat);
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(b.item(1) = dog);
+         assert(a.fast_memcmp(b, 2))
+         assert(a.memcmp(b, 2))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_NATIVE_ARRAY8: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_NATIVE_ARRAY8: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_NATIVE_ARRAY8
 --

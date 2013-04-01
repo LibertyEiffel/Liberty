@@ -4,49 +4,49 @@
 class TEST_REAL2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	r1: REAL is -2.0
+   r1: REAL is -2.0
 
-	r2: REAL is 3.14
+   r2: REAL is 3.14
 
-	r3: REAL is -3.0
+   r3: REAL is -3.0
 
-	r4: REAL is 3.0
+   r4: REAL is 3.0
 
-	i1: INTEGER is -3
+   i1: INTEGER is -3
 
-	i2: INTEGER is 3
+   i2: INTEGER is 3
 
-	make is
-		do
-			assert(r1 = -2.0)
-			assert(r2 = 3.14)
-			assert(i1 = -3)
-			assert(i2 = 3)
-			assert(r3 = -3.0)
-			assert(r4 = 3.0)
+   make is
+      do
+         assert(r1 = -2.0)
+         assert(r2 = 3.14)
+         assert(i1 = -3)
+         assert(i2 = 3)
+         assert(r3 = -3.0)
+         assert(r4 = 3.0)
 
-			assert(0.0 ~= 0.0)
-			assert(0.1 ~= 0.1)
-			assert(0.2 ~= 0.2000000000000001)
-		end
+         assert(0.0 ~= 0.0)
+         assert(0.1 ~= 0.1)
+         assert(0.2 ~= 0.2000000000000001)
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_REAL2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_REAL2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_REAL2
 --

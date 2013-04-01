@@ -4,39 +4,39 @@
 expanded class AUX_AGENT_GC4
 
 feature {ANY}
-	im: INTEGER is 139968
+   im: INTEGER is 139968
 
-	ia: INTEGER is 3877
+   ia: INTEGER is 3877
 
-	ic: INTEGER is 29573
+   ic: INTEGER is 29573
 
-	inv_im: REAL is
-		once
-			Result := 1.0 / im
-		end
+   inv_im: REAL is
+      once
+         Result := 1.0 / im
+      end
 
-	last_integer: INTEGER
+   last_integer: INTEGER
 
-	next is
-		do
-			last_integer := (last_integer #* ia + ic) #\\ im
-		end
+   next is
+      do
+         last_integer := (last_integer #* ia + ic) #\\ im
+      end
 
-	last_real: REAL is
-		do
-			Result := inv_im * last_integer
-		end
+   last_real: REAL is
+      do
+         Result := inv_im * last_integer
+      end
 
-	test (chance: REAL): BOOLEAN is
-		do
-			next
-			Result := last_real > chance
-		end
+   test (chance: REAL): BOOLEAN is
+      do
+         next
+         Result := last_real > chance
+      end
 
-	set_seed (seed: INTEGER) is
-		do
-			last_integer := seed
-		end
+   set_seed (seed: INTEGER) is
+      do
+         last_integer := seed
+      end
 
 end -- class AUX_AGENT_GC4
 --

@@ -4,15 +4,15 @@
 class AUX_XC4_C
 
 inherit
-	AUX_XC4_B
-	AUX_XC4_A
-		undefine f
-		end
+   AUX_XC4_B
+   AUX_XC4_A
+      undefine f
+      end
 
 insert
-	AUX_XC4_A
-		rename f as std_f
-		end
+   AUX_XC4_A
+      rename f as std_f
+      end
 
 end -- class AUX_XC4_C
 --

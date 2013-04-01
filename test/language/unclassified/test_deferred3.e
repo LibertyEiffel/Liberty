@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_DEFERRED3
-	--
-	-- From a bug report of : Mostefa KASSAB
-	--
+   --
+   -- From a bug report of : Mostefa KASSAB
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			cltn: LINKED_LIST[INTEGER]
-		do
-			create {LINKED_LIST[INTEGER]} cltn.make
-			if cltn.upper = 3 then
-			end
-			cltn.add_first(2)
-		end
+   make is
+      local
+         cltn: LINKED_LIST[INTEGER]
+      do
+         create {LINKED_LIST[INTEGER]} cltn.make
+         if cltn.upper = 3 then
+         end
+         cltn.add_first(2)
+      end
 
 end -- class TEST_DEFERRED3
 --

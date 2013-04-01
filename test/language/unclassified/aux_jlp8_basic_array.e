@@ -4,56 +4,56 @@
 deferred class AUX_JLP8_BASIC_ARRAY[E]
 
 insert
-	ANY
+   ANY
 
 feature {ANY}
-	make (nb: INTEGER) is
-		deferred
-		end
+   make (nb: INTEGER) is
+      deferred
+      end
 
-	init (first, last: INTEGER) is
-		local
-			a_item: E; i: INTEGER
-		do
-			from
-				i := first
-			until
-				i > last
-			loop
-				put(a_item, i)
-				i := i + 1
-			end
-		end
+   init (first, last: INTEGER) is
+      local
+         a_item: E; i: INTEGER
+      do
+         from
+            i := first
+         until
+            i > last
+         loop
+            put(a_item, i)
+            i := i + 1
+         end
+      end
 
-	capacity: INTEGER is
-		deferred
-		end
+   capacity: INTEGER is
+      deferred
+      end
 
-	put (v: E; i: INTEGER) is
-		deferred
-		end
+   put (v: E; i: INTEGER) is
+      deferred
+      end
 
-	force (v: E; i: INTEGER) is
-		do
-			if i < capacity then
-				put(v, i)
-			else
-				resize(i + 1)
-				put(v, i)
-			end
-		end
+   force (v: E; i: INTEGER) is
+      do
+         if i < capacity then
+            put(v, i)
+         else
+            resize(i + 1)
+            put(v, i)
+         end
+      end
 
-	item (i: INTEGER): E is
-		deferred
-		end
+   item (i: INTEGER): E is
+      deferred
+      end
 
-	resize (new_size: INTEGER) is
-		deferred
-		end
+   resize (new_size: INTEGER) is
+      deferred
+      end
 
-	valid_index (i: INTEGER): BOOLEAN is
-		do
-		end
+   valid_index (i: INTEGER): BOOLEAN is
+      do
+      end
 
 end -- class AUX_JLP8_BASIC_ARRAY
 --

@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_AGENT19
-	
+   
 create
-	main
+   main
 
 feature
-	main is
-		local
-			agent1, agent2: PROCEDURE[STRING]
-		do
-			agent1 := agent foo(?)
-			agent2 := agent foo(?)
-		end
+   main is
+      local
+         agent1, agent2: PROCEDURE[STRING]
+      do
+         agent1 := agent foo(?)
+         agent2 := agent foo(?)
+      end
 
-	foo (arg: STRING) is
-		do
-		end
-	
+   foo (arg: STRING) is
+      do
+      end
+   
 end -- class BAD_AGENT19
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -4,38 +4,38 @@
 class TEST_PRE_ONCE5
 
 inherit
-	EIFFELTEST_TOOLS
-		redefine default_rescue
-		end
-	EXCEPTIONS
-		--SZ:224:
-		-- OK from debug_check to invariant_check
-		-- bug from ensure_check to boost
-		--
-		-- In fact, the bug is due to precomputed once sometime accessed thru
-		-- the standard routine as if it were not precomputed (flag is checked).
-		redefine default_rescue
-		end
+   EIFFELTEST_TOOLS
+      redefine default_rescue
+      end
+   EXCEPTIONS
+      --SZ:224:
+      -- OK from debug_check to invariant_check
+      -- bug from ensure_check to boost
+      --
+      -- In fact, the bug is due to precomputed once sometime accessed thru
+      -- the standard routine as if it were not precomputed (flag is checked).
+      redefine default_rescue
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux: AUX_PRE_ONCE5
-		do
-			-- This call simply calls raise("Some string")
-			create aux.make
-		end
+   make is
+      local
+         aux: AUX_PRE_ONCE5
+      do
+         -- This call simply calls raise("Some string")
+         create aux.make
+      end
 
-	default_rescue is
-		do
-			assert(is_developer_exception)
-			assert(developer_exception_name /= Void)
-			assert(("Some string").is_equal(developer_exception_name))
-			die(exit_success_code)
-		end
+   default_rescue is
+      do
+         assert(is_developer_exception)
+         assert(developer_exception_name /= Void)
+         assert(("Some string").is_equal(developer_exception_name))
+         die(exit_success_code)
+      end
 
 end -- class TEST_PRE_ONCE5
 --

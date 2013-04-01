@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PD01
-	-- From a bug report of Patrick Doyle
+   -- From a bug report of Patrick Doyle
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a: AUX_PD01
+   a: AUX_PD01
 
-	a_ref: AUX_PD01 is
-		do
-			Result := a
-		end
+   a_ref: AUX_PD01 is
+      do
+         Result := a
+      end
 
-	make is
-		do
-			check
-				a_ref = Void
-			end
-		end
+   make is
+      do
+         check
+            a_ref = Void
+         end
+      end
 
 end -- class TEST_PD01
 --

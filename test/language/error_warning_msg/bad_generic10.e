@@ -4,14 +4,14 @@
 class BAD_GENERIC10
 
 creation
-	make
+   make
 
 feature
-	make is
-		local
-			foo: LINKED_LIST[INTEGER->NUMERIC]
-		do
-		end
+   make is
+      local
+         foo: LINKED_LIST[INTEGER->NUMERIC]
+      do
+      end
 end -- class BAD_GENERIC10
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

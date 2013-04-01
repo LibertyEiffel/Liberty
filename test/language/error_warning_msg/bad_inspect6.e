@@ -9,12 +9,12 @@ feature
    
    make is
       local
-	 i: INTEGER
+    i: INTEGER
       do
-	 inspect
-	    i
-	 when wrong then
-	 end
+    inspect
+       i
+    when wrong then
+    end
       end
 end -- class BAD_INSPECT6
 --

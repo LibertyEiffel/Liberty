@@ -2,83 +2,83 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SUBSTITUTE_01
-	--
-	-- Testing:
-	--   prepare_substitution
-	--   substitute_for
-	--   substitute_all_for
+   --
+   -- Testing:
+   --   prepare_substitution
+   --   substitute_for
+   --   substitute_all_for
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			aa_matcher: REGULAR_EXPRESSION
-		do
-			create {AUX_SUBSTITUTE_01} aa_matcher
-			aa_matcher.prepare_substitution("\1bc")
-			assert(not aa_matcher.match(text1))
-			assert(aa_matcher.match(text2))
-			aa_matcher.substitute_for(text2)
-			assert(aa_matcher.last_substitution.is_equal(sub2))
-			assert(aa_matcher.match(text3))
-			aa_matcher.substitute_for(text3)
-			assert(aa_matcher.last_substitution.is_equal(sub3))
-			assert(aa_matcher.match(text4))
-			aa_matcher.substitute_for(text4)
-			assert(aa_matcher.last_substitution.is_equal(sub4))
-			assert(aa_matcher.match(text5))
-			aa_matcher.substitute_for(text5)
-			assert(aa_matcher.last_substitution.is_equal(sub5))
-			assert(aa_matcher.match(text6))
-			aa_matcher.substitute_for(text6)
-			assert(aa_matcher.last_substitution.is_equal(sub6))
-			aa_matcher.substitute_all_for(text1)
-			assert(aa_matcher.last_substitution.is_equal(text1))
-			aa_matcher.substitute_all_for(text2)
-			assert(aa_matcher.last_substitution.is_equal(sub2))
-			aa_matcher.substitute_all_for(text3)
-			assert(aa_matcher.last_substitution.is_equal(sub3))
-			aa_matcher.substitute_all_for(text4)
-			assert(aa_matcher.last_substitution.is_equal(sub4))
-			aa_matcher.substitute_all_for(text5)
-			assert(aa_matcher.last_substitution.is_equal(sub5))
-			aa_matcher.substitute_all_for(text6)
-			assert(aa_matcher.last_substitution.is_equal(suball6))
-			assert(aa_matcher.match_from(text6, 2))
-			aa_matcher.substitute_for(text6)
-			assert(aa_matcher.last_substitution.is_equal(subfrom6))
-		end
+   make is
+      local
+         aa_matcher: REGULAR_EXPRESSION
+      do
+         create {AUX_SUBSTITUTE_01} aa_matcher
+         aa_matcher.prepare_substitution("\1bc")
+         assert(not aa_matcher.match(text1))
+         assert(aa_matcher.match(text2))
+         aa_matcher.substitute_for(text2)
+         assert(aa_matcher.last_substitution.is_equal(sub2))
+         assert(aa_matcher.match(text3))
+         aa_matcher.substitute_for(text3)
+         assert(aa_matcher.last_substitution.is_equal(sub3))
+         assert(aa_matcher.match(text4))
+         aa_matcher.substitute_for(text4)
+         assert(aa_matcher.last_substitution.is_equal(sub4))
+         assert(aa_matcher.match(text5))
+         aa_matcher.substitute_for(text5)
+         assert(aa_matcher.last_substitution.is_equal(sub5))
+         assert(aa_matcher.match(text6))
+         aa_matcher.substitute_for(text6)
+         assert(aa_matcher.last_substitution.is_equal(sub6))
+         aa_matcher.substitute_all_for(text1)
+         assert(aa_matcher.last_substitution.is_equal(text1))
+         aa_matcher.substitute_all_for(text2)
+         assert(aa_matcher.last_substitution.is_equal(sub2))
+         aa_matcher.substitute_all_for(text3)
+         assert(aa_matcher.last_substitution.is_equal(sub3))
+         aa_matcher.substitute_all_for(text4)
+         assert(aa_matcher.last_substitution.is_equal(sub4))
+         aa_matcher.substitute_all_for(text5)
+         assert(aa_matcher.last_substitution.is_equal(sub5))
+         aa_matcher.substitute_all_for(text6)
+         assert(aa_matcher.last_substitution.is_equal(suball6))
+         assert(aa_matcher.match_from(text6, 2))
+         aa_matcher.substitute_for(text6)
+         assert(aa_matcher.last_substitution.is_equal(subfrom6))
+      end
 
-	text1: STRING is "Little message without the pattern."
+   text1: STRING is "Little message without the pattern."
 
-	text2: STRING is "aa apears one time in the begining."
+   text2: STRING is "aa apears one time in the begining."
 
-	text3: STRING is "The pattern aa in the middle."
+   text3: STRING is "The pattern aa in the middle."
 
-	text4: STRING is "Here in the end aa"
+   text4: STRING is "Here in the end aa"
 
-	text5: STRING is "aa"
+   text5: STRING is "aa"
 
-	text6: STRING is "aa pattern appears many times aa in the string."
+   text6: STRING is "aa pattern appears many times aa in the string."
 
-	sub2: STRING is "abc apears one time in the begining."
+   sub2: STRING is "abc apears one time in the begining."
 
-	sub3: STRING is "The pattern abc in the middle."
+   sub3: STRING is "The pattern abc in the middle."
 
-	sub4: STRING is "Here in the end abc"
+   sub4: STRING is "Here in the end abc"
 
-	sub5: STRING is "abc"
+   sub5: STRING is "abc"
 
-	sub6: STRING is "abc pattern appears many times aa in the string."
+   sub6: STRING is "abc pattern appears many times aa in the string."
 
-	suball6: STRING is "abc pattern appears many times abc in the string."
+   suball6: STRING is "abc pattern appears many times abc in the string."
 
-	subfrom6: STRING is "aa pattern appears many times abc in the string."
+   subfrom6: STRING is "aa pattern appears many times abc in the string."
 
 end -- class TEST_SUBSTITUTE_01
 --

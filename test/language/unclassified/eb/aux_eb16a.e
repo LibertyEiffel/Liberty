@@ -4,12 +4,12 @@
 class AUX_EB16A
 
 insert
-	ANY
+   ANY
 
 feature {ANY}
-	f: AUX_EB16A is
-		do
-		end
+   f: AUX_EB16A is
+      do
+      end
 
 end -- class AUX_EB16A
 --

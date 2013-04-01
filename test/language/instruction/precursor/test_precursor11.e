@@ -4,23 +4,23 @@
 class TEST_PRECURSOR11
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			a: AUX_PRECURSOR11A; b: AUX_PRECURSOR11B
-		do
-			create a
-			a.f
-			assert(a.array.last.is_equal("foo"))
-			create b
-			b.f
-			assert(b.array = Void)
-		end
+   make is
+      local
+         a: AUX_PRECURSOR11A; b: AUX_PRECURSOR11B
+      do
+         create a
+         a.f
+         assert(a.array.last.is_equal("foo"))
+         create b
+         b.f
+         assert(b.array = Void)
+      end
 
 end -- class TEST_PRECURSOR11
 --

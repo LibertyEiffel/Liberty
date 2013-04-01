@@ -18,12 +18,12 @@ feature
 
    make is
       do
-	 foo
+    foo
       end
 
    foo is
       do
-	  Precursor {AUX_PRECURSOR10} -- Is really ambiguous !
+     Precursor {AUX_PRECURSOR10} -- Is really ambiguous !
       end
    
 end -- class BAD_PRECURSOR10

@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_RENAME3
-	--
-	-- From a bug report of : Jean-Louis NeBUT
-	--
+   --
+   -- From a bug report of : Jean-Louis NeBUT
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	e: AUX_RENAME3B
+   e: AUX_RENAME3B
 
-	make is
-		do
-			create e.make
-		end
+   make is
+      do
+         create e.make
+      end
 
 end -- class TEST_RENAME3
 --

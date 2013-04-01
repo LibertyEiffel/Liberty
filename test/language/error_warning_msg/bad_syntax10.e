@@ -12,7 +12,7 @@ feature
 
    make is
       do
-			create text.make (<<G_TYPE_STRING>>)
+         create text.make (<<G_TYPE_STRING>>)
       end
 
 end -- class BAD_SYNTAX10

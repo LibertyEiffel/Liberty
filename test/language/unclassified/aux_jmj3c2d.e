@@ -4,23 +4,23 @@
 deferred class AUX_JMJ3C2D[T]
 
 inherit
-	COLLECTION2[T]
+   COLLECTION2[T]
 
 feature {ANY}
-	dimension (first_dim, second_dim, tile_width: INTEGER) is
-		require
-			positive_dim1: first_dim > 0
-			positive_dim2: second_dim > 0
-			non_negative_tile: tile_width >= 0
-		deferred
-		ensure
-			dim1 = first_dim + 2 * tile_width
-			dim2 = second_dim + 2 * tile_width
-		end
+   dimension (first_dim, second_dim, tile_width: INTEGER) is
+      require
+         positive_dim1: first_dim > 0
+         positive_dim2: second_dim > 0
+         non_negative_tile: tile_width >= 0
+      deferred
+      ensure
+         dim1 = first_dim + 2 * tile_width
+         dim2 = second_dim + 2 * tile_width
+      end
 
-	dim1, dim2: INTEGER is
-		deferred
-		end
+   dim1, dim2: INTEGER is
+      deferred
+      end
 
 end -- class AUX_JMJ3C2D
 --

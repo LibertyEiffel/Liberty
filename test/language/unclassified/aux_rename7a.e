@@ -4,31 +4,31 @@
 class AUX_RENAME7A[G]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make (x: like item) is
-		do
-			set_item(x)
-		end
+   make (x: like item) is
+      do
+         set_item(x)
+      end
 
 feature {ANY}
-	item: G
+   item: G
 
-	next_node: like Current
+   next_node: like Current
 
 feature {ANY}
-	set_item (x: like item) is
-		do
-			item := x
-		end
+   set_item (x: like item) is
+      do
+         item := x
+      end
 
-	set_next_node (x: like Current) is
-		do
-			next_node := x
-		ensure
-			node_set: next_node = x
-		end
+   set_next_node (x: like Current) is
+      do
+         next_node := x
+      ensure
+         node_set: next_node = x
+      end
 
 end -- class AUX_RENAME7A
 --

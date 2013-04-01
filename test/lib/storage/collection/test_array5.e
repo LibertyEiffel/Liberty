@@ -4,47 +4,47 @@
 class TEST_ARRAY5
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[INTEGER_8]
-		do
-			a := {ARRAY[INTEGER_8] 1, << 1 >> }
-			assert(a.lower = 1)
-			a := {ARRAY[INTEGER_8] 1, << 1, 2, 3, 4 >> }
-			assert(a.lower = 1)
-			assert(a.upper = 4)
-			a.remove_first
-			assert(a.lower = 2)
-			assert(a.first = 2)
-			assert(a.last = 4)
-			a.remove_first
-			assert(a.lower = 3)
-			assert(a.first = 3)
-			assert(a.last = 4)
-			a.remove_first
-			assert(a.lower = 4)
-			assert(a.first = 4)
-			assert(a.last = 4)
-			a.remove_first
-			assert(a.is_empty)
-		end
+   make is
+      local
+         a: ARRAY[INTEGER_8]
+      do
+         a := {ARRAY[INTEGER_8] 1, << 1 >> }
+         assert(a.lower = 1)
+         a := {ARRAY[INTEGER_8] 1, << 1, 2, 3, 4 >> }
+         assert(a.lower = 1)
+         assert(a.upper = 4)
+         a.remove_first
+         assert(a.lower = 2)
+         assert(a.first = 2)
+         assert(a.last = 4)
+         a.remove_first
+         assert(a.lower = 3)
+         assert(a.first = 3)
+         assert(a.last = 4)
+         a.remove_first
+         assert(a.lower = 4)
+         assert(a.first = 4)
+         assert(a.last = 4)
+         a.remove_first
+         assert(a.is_empty)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_ARRAY: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_ARRAY: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_ARRAY5
 --

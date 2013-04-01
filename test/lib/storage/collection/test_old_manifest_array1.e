@@ -4,16 +4,16 @@
 class TEST_OLD_MANIFEST_ARRAY1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			c: COLLECTION[STRING]
-		do
-			c :=
-			<<" foo", Void>>
-		end
+   make is
+      local
+         c: COLLECTION[STRING]
+      do
+         c :=
+         <<" foo", Void>>
+      end
 
 end -- class TEST_OLD_MANIFEST_ARRAY1
 --

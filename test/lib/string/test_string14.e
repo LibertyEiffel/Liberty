@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_STRING14
-	-- Bug from Philippe Ribet
+   -- Bug from Philippe Ribet
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			--*** RESTORE COMMENTED OUT CODE TO SHOW THE BUG
-			--	 s: STRING
-			--	 s := once "[
-			--			        do
-			--			           create tmp.make
-			--			        end
-			--
-			--			  end
-			--
-			--			  ]")
-		end
+   make is
+      do
+         --*** RESTORE COMMENTED OUT CODE TO SHOW THE BUG
+         --    s: STRING
+         --    s := once "[
+         --                 do
+         --                    create tmp.make
+         --                 end
+         --
+         --           end
+         --
+         --           ]")
+      end
 
 end -- class TEST_STRING14
 --

@@ -2,38 +2,38 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JLP7
-	-- From a bug report of Jean-Lin PACHERIE
+   -- From a bug report of Jean-Lin PACHERIE
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a: AUX_JLP7[REAL]
+   a: AUX_JLP7[REAL]
 
-	make is
-		local
-			i: INTEGER
-		do
-			create a
-			a.set_depth(2.0)
-			i := a.owner(5.0)
-			assert(i = 0)
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         create a
+         a.set_depth(2.0)
+         i := a.owner(5.0)
+         assert(i = 0)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_JLP7: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_JLP7: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_JLP7
 --

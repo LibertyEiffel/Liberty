@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_PRECURSOR19B
-	-- Written by Philippe Ribet
+   -- Written by Philippe Ribet
 
 inherit
-	AUX_PRECURSOR19A
-		redefine foo
-		end
+   AUX_PRECURSOR19A
+      redefine foo
+      end
 
 feature {ANY}
-	foo (i: INTEGER) is
-		do
-			Precursor(i * 2)
-		end
+   foo (i: INTEGER) is
+      do
+         Precursor(i * 2)
+      end
 
 end -- class AUX_PRECURSOR19B
 --

@@ -4,9 +4,9 @@
 class AUX_PH1H
 
 feature {}
-	f: INTEGER
+   f: INTEGER
 
-	h: INTEGER
+   h: INTEGER
 
 end -- class AUX_PH1H
 --

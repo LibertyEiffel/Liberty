@@ -2,28 +2,28 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_CREATE06
-	--SZ:108: create on user expanded class
+   --SZ:108: create on user expanded class
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux: AUX_CREATE06
-		do
-			assert(aux.value = 3)
-			aux.set_value(1)
-			assert(aux.value = 1)
-			create aux
-			assert(aux.value = 3)
-			aux.set_value(1)
-			aux := create {AUX_CREATE06}
-			assert(aux.value = 3)
-		end
+   make is
+      local
+         aux: AUX_CREATE06
+      do
+         assert(aux.value = 3)
+         aux.set_value(1)
+         assert(aux.value = 1)
+         create aux
+         assert(aux.value = 3)
+         aux.set_value(1)
+         aux := create {AUX_CREATE06}
+         assert(aux.value = 3)
+      end
 
 end -- class TEST_CREATE06
 --

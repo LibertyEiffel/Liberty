@@ -4,13 +4,13 @@
 class BAD_SYNTAX06
 
 create
-	main
-	
+   main
+   
 feature {}
-	main -- Yes, the "is" keyword is missing.
-		do
-		end
-	
+   main -- Yes, the "is" keyword is missing.
+      do
+      end
+   
 end -- class BAD_SYNTAX06
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

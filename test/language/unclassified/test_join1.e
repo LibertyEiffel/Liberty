@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JOIN1
-	-- From sz:360
-	-- When N abstract features are joined with 1 effective feature, it
-	-- should be sufficient for the effective feature to be a valid
-	-- redefinition of each of the N abstract features. The compiler
-	-- actually required each of the N+1 features to have exactly the
-	-- same signature.
+   -- From sz:360
+   -- When N abstract features are joined with 1 effective feature, it
+   -- should be sufficient for the effective feature to be a valid
+   -- redefinition of each of the N abstract features. The compiler
+   -- actually required each of the N+1 features to have exactly the
+   -- same signature.
 
 inherit
-	AUX_JOIN1A
-	AUX_JOIN1B
+   AUX_JOIN1A
+   AUX_JOIN1B
 
 creation {ANY}
-	default_create
+   default_create
 
 end -- class TEST_JOIN1
 --

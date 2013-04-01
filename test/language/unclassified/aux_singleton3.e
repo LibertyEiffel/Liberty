@@ -4,21 +4,21 @@
 class AUX_SINGLETON3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 feature {}
-	singleton_memory: AUX_SINGLETON3 is
-		once
-			Result := Current
-		end
+   singleton_memory: AUX_SINGLETON3 is
+      once
+         Result := Current
+      end
 
 invariant
-	Current = singleton_memory
+   Current = singleton_memory
 
 end -- class AUX_SINGLETON3
 --
