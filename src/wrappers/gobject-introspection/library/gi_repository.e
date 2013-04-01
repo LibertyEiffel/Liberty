@@ -11,11 +11,13 @@ inherit
 	C_OWNED
 		redefine default_create end 
 	-- Note: it actually is a G_OBJECT but it is almost not relevant for the use we are going to make of GIr
+	GI_INFO_FACTORY
 
 insert 
 	SINGLETON 
 		redefine default_create end 
 	GIREPOSITORY_EXTERNALS
+		redefine default_create end
 
 creation default_create 
 
@@ -49,7 +51,7 @@ feature
 		-- LD_LIBRARY_PATH and DT_RPATH in ELF systems). See the documentation
 		-- of your dynamic linker for full details.
 	do
-		g_irepository_prepend_library_path (a_directory.to_external)
+		g_irepository_prepend_search_path (a_directory.to_external)
 	end
 
  --   -----------------------------------------------------------------------------------------------------------------------
@@ -92,7 +94,7 @@ feature
  --
  --   -----------------------------------------------------------------------------------------------------------------------
  --
-	find_by_name (a_name_space, a_name: ABSTRACT_STRING): GI_BASE_INFO is
+	find_by_name (a_namespace, a_name: ABSTRACT_STRING): GI_BASE_INFO is
 		-- Searches for `a_name' entry in `a_namespace'. Before calling this function for a particular namespace, you must call
 		--  `load' once to load the namespace, or otherwise ensure the namespace has already been loaded.
  		
@@ -101,14 +103,11 @@ feature
 
 		-- Note: `load' feature is known as "require" in other languages. It has been renamed because "require" is a reserved word in Eiffel
 	require 
-		a_name_space /= Void
+		a_namespace /= Void
 		a_name /= Void
 	local p: POINTER
 	do
-		p := g_irepository_find_by_name (handle,a_namespace.to_external, a_name.to_external)
-		if p.is_not_null then
-			create Result.from_external_pointer(p)
-		end
+		Result := wrapper_or_void (g_irepository_find_by_name (handle,a_namespace.to_external, a_name.to_external))
 	end
 
 	load (a_name_space, a_version: ABSTRACT_STRING): GI_TYPELIB is
@@ -170,18 +169,12 @@ feature
 			-- TODO: STRING_ARRAY is extremely weak is  Zero-terminated string array of versioned dependencies. [transfer full]
 		end
  
- --   -----------------------------------------------------------------------------------------------------------------------
- --
- --  g_irepository_get_loaded_namespaces ()
- --
- -- gchar **            g_irepository_get_loaded_namespaces (GIRepository *repository);
- --
- --   Return the list of currently loaded namespaces.
- --
- --   repository : A GIRepository, may be NULL for the default. [allow-none]
- --   Returns :    List of namespaces. [element-type utf8][transfer full]
- --
- --   -----------------------------------------------------------------------------------------------------------------------
+ 	
+	loaded_namespaces: STRING_ARRAY is
+		-- The list of currently loaded namespaces (in UTF8).
+	do
+		create Result.from_external_null_array(g_irepository_get_loaded_namespaces (handle))
+	end
  --
  --  g_irepository_find_by_gtype ()
  --
@@ -199,37 +192,19 @@ feature
  --
  --   -----------------------------------------------------------------------------------------------------------------------
  --
- --  g_irepository_get_n_infos ()
- --
- -- gint                g_irepository_get_n_infos           (GIRepository *repository,
- --                                                          const gchar *namespace_);
- --
- --   This function returns the number of metadata entries in given namespace namespace_. The namespace must have already
- --   been loaded before calling this function.
- --
- --   repository : A GIRepository, may be NULL for the default. [allow-none]
- --   namespace_ : Namespace to inspect
- --   Returns :    number of metadata entries
- --
- --   -----------------------------------------------------------------------------------------------------------------------
- --
- --  g_irepository_get_info ()
- --
- -- GIBaseInfo *        g_irepository_get_info              (GIRepository *repository,
- --                                                          const gchar *namespace_,
- --                                                          gint index);
- --
- --   This function returns a particular metadata entry in the given namespace namespace_. The namespace must have already
- --   been loaded before calling this function. See g_irepository_get_n_infos() to find the maximum number of entries.
- --
- --   repository : A GIRepository, may be NULL for the default. [allow-none]
- --   namespace_ : Namespace to inspect
- --   index :      0-based offset into namespace metadata for entry
- --   Returns :    GIBaseInfo containing metadata. [transfer full]
- --
- --   -----------------------------------------------------------------------------------------------------------------------
- --
- --  g_irepository_get_typelib_path ()
+ 	namespace_iterator (a_namespace: ABSTRACT_STRING): GI_ITERATOR is
+		-- A newly allocated iterator over the
+		-- metadata features of an already
+		-- loaded `a_namespace'. 
+
+		-- Note: the underlying C implementation does not specify what's happen
+		-- if an unloaded namespace is specified. 
+	do
+		create Result.from_repository_and_namespace(Current,a_namespace)
+		-- Note: GI_ITERATOR is implemented using and wraps g_irepository_get_n_infos and g_irepository_get_info
+	end
+
+  --  g_irepository_get_typelib_path ()
  --
  -- const gchar *       g_irepository_get_typelib_path      (GIRepository *repository,
  --                                                          const gchar *namespace_);
