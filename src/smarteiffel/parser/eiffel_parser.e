@@ -3845,7 +3845,7 @@ feature {}
          --  ++
       local
          type_mark: TYPE_MARK; args: EFFECTIVE_ARG_LIST; sp: POSITION; eal: EFFECTIVE_ARG_LIST
-         delayed_call: FUNCTION_CALL; writable: EXPRESSION; ft: FEATURE_TEXT
+         delayed_call: FUNCTION_CALL; writable: EXPRESSION; ft: FEATURE_TEXT; ewc: EXPRESSION_WITH_COMMENT
       do
          if skip1('(') then
             Result := True
@@ -3972,6 +3972,13 @@ feature {}
             elseif a_expression then
                if delayed_call ?:= last_expression then
                   delayed_call ::= last_expression
+               elseif ewc ?:= last_expression then
+                  ewc ::= last_expression
+                  if delayed_call ?:= ewc.expression then
+                     delayed_call ::= ewc.expression
+                  end
+               end
+               if delayed_call /= Void then
                   create {AGENT_CREATION} last_expression.make(sp, delayed_call, Void)
                else
                   error_handler.add_position(last_expression.start_position)
