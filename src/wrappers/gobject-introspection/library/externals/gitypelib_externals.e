@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_typelib_new_from_const_memory (a_memory: POINTER; a_len: NATURAL_32; an_error: POINTER): POINTER is
+	g_typelib_new_from_const_memory (a_memory: POINTER; a_len: NATURAL_64; an_error: POINTER): POINTER is
  		-- g_typelib_new_from_const_memory
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_typelib_new_from_memory (a_memory: POINTER; a_len: NATURAL_32; an_error: POINTER): POINTER is
+	g_typelib_new_from_memory (a_memory: POINTER; a_len: NATURAL_64; an_error: POINTER): POINTER is
  		-- g_typelib_new_from_memory
 		external "plug_in"
 		alias "{

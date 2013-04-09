@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_irepository_find_by_gtype (a_repository: POINTER; a_gtype: NATURAL_32): POINTER is
+	g_irepository_find_by_gtype (a_repository: POINTER; a_gtype: NATURAL_64): POINTER is
  		-- g_irepository_find_by_gtype
 		external "plug_in"
 		alias "{
@@ -159,7 +159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_irepository_get_type: NATURAL_32 is
+	g_irepository_get_type: NATURAL_64 is
  		-- g_irepository_get_type
 		external "plug_in"
 		alias "{

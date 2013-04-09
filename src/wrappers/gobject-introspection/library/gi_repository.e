@@ -3,7 +3,7 @@ class GI_REPOSITORY
 
 	-- This type is a singleton: there is exactly one object of this type in a process
 
-	-- It provides information to all the features of libraries, classes and functions provided by
+	-- It provides information to all the features of libraries, classes and functions provided by the Glib-Object introspection infrastructure
 
 inherit 
 	WRAPPER

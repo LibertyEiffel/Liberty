@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_struct_info_get_alignment (an_info: POINTER): NATURAL_32 is
+	g_struct_info_get_alignment (an_info: POINTER): NATURAL_64 is
  		-- g_struct_info_get_alignment
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_struct_info_get_size (an_info: POINTER): NATURAL_32 is
+	g_struct_info_get_size (an_info: POINTER): NATURAL_64 is
  		-- g_struct_info_get_size
 		external "plug_in"
 		alias "{

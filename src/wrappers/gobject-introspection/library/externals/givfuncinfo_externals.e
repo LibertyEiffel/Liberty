@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	g_vfunc_info_get_address (an_info: POINTER; an_implementor_gtype: NATURAL_32; an_error: POINTER): POINTER is
+	g_vfunc_info_get_address (an_info: POINTER; an_implementor_gtype: NATURAL_64; an_error: POINTER): POINTER is
  		-- g_vfunc_info_get_address
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_vfunc_info_invoke (an_info: POINTER; an_implementor: NATURAL_32; an_in_args: POINTER; a_n_in_args: INTEGER_32; an_out_args: POINTER; a_n_out_args: INTEGER_32; a_return_value: POINTER; an_error: POINTER): INTEGER_32 is
+	g_vfunc_info_invoke (an_info: POINTER; an_implementor: NATURAL_64; an_in_args: POINTER; a_n_in_args: INTEGER_32; an_out_args: POINTER; a_n_out_args: INTEGER_32; a_return_value: POINTER; an_error: POINTER): INTEGER_32 is
  		-- g_vfunc_info_invoke
 		external "plug_in"
 		alias "{

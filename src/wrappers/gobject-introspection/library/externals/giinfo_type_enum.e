@@ -5,21 +5,10 @@ expanded class GIINFO_TYPE_ENUM
 
 -- TODO emit_description(class_descriptions.reference_at(an_enum_name))
 
-insert 
-	ENUM
-	GITYPEINFO_EXTERNALS undefine default_create end
-	
+insert ENUM
+
 creation default_create
-feature
-	to_string: FIXED_STRING is 
-		-- A string representation of the type
-		do
-			create Result.from_external(g_info_type_to_string(value))
-		ensure not_void: Result/=Void
-		end
-
 feature -- Validity
-
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gi_info_type_arg_low_level)  or else

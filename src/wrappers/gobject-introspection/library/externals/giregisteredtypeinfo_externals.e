@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	g_registered_type_info_get_g_type (an_info: POINTER): NATURAL_32 is
+	g_registered_type_info_get_g_type (an_info: POINTER): NATURAL_64 is
  		-- g_registered_type_info_get_g_type
 		external "plug_in"
 		alias "{

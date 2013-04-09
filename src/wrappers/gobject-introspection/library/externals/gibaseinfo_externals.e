@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_base_info_gtype_get_type: NATURAL_32 is
+	g_base_info_gtype_get_type: NATURAL_64 is
  		-- g_base_info_gtype_get_type
 		external "plug_in"
 		alias "{
