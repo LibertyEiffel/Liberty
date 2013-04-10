@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class EXT_LINKED_HASHED_DICTIONARY[V_, K_]
+class EXT_LINKED_HASHED_DICTIONARY[V_, K_ -> HASHABLE]
    --
    -- Associative memory. Values of type `V_' are stored using Keys of type `K_'.
    --
