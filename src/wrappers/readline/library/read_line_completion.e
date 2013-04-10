@@ -5,10 +5,16 @@ class READ_LINE_COMPLETION
 
 inherit
    READLINE_CECIL
+      undefine
+         is_equal, copy
+      end
 
 insert
    SINGLETON
    READLINE_EXTERNALS
+      undefine
+         is_equal, copy
+      end
    STRING_HANDLER
       undefine
          is_equal, copy
