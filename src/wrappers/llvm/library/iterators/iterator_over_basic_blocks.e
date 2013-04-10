@@ -4,57 +4,61 @@
 --
 class ITERATOR_OVER_BASIC_BLOCKS
 
-inherit 
-	BIDIRECTIONAL_ITERATOR[LLVM_BASIC_BLOCK]
-	WRAPPER_FACTORY[LLVM_BASIC_BLOCK]
+inherit
+   BIDIRECTIONAL_ITERATOR[LLVM_BASIC_BLOCK]
+   WRAPPER_FACTORY[LLVM_BASIC_BLOCK]
 insert CORE_EXTERNALS
 
 creation {LLVM_FUNCTION} from_function
 
 feature {LLVM_VALUE}
-	from_function (a_function: LLVM_VALUE) is
-		require a_function/=Void
-		do
-			function:=a_function
-		end
+   from_function (a_function: LLVM_VALUE) is
+      require a_function/=Void
+      do
+         function:=a_function
+      end
 
 feature {ANY}
-	function: LLVM_VALUE
+   function: LLVM_VALUE
 
-	start is
-		do
-			item := wrapper_or_void(llvmget_first_basic_block(function.handle))
-		end
-	
-	finish is
-		do
-			item := wrapper_or_void(llvmget_last_basic_block(function.handle))
-		end
+   start is
+      do
+         item := wrapper_or_void(llvmget_first_basic_block(function.handle))
+      end
 
-	next is
-		do
-			item := wrapper_or_void(llvmget_next_basic_block(item.handle))
-		end
-		
-	previous is
-		do
-			item := wrapper_or_void(llvmget_previous_basic_block(item.handle))
-		end
+   finish is
+      do
+         item := wrapper_or_void(llvmget_last_basic_block(function.handle))
+      end
 
-	is_off: BOOLEAN is
-		do
-			Result:=(item=Void)
-		end
+   next is
+      do
+         item := wrapper_or_void(llvmget_next_basic_block(item.handle))
+      end
 
-	item: LLVM_BASIC_BLOCK is attribute end
-feature 
-	wrapper (p: POINTER): LLVM_BASIC_BLOCK is
-		do
-			create Result.from_external_pointer(p)
-		end
+   previous is
+      do
+         item := wrapper_or_void(llvmget_previous_basic_block(item.handle))
+      end
+
+   is_off: BOOLEAN is
+      do
+         Result:=(item=Void)
+      end
+
+   item: LLVM_BASIC_BLOCK is attribute end
+
+   generation, iterable_generation: INTEGER is 0
+
+feature
+   wrapper (p: POINTER): LLVM_BASIC_BLOCK is
+      do
+         create Result.from_external_pointer(p)
+      end
+
 invariant function/=Void
 
-end -- class ITERATOR_OVER_BASIC_BLOCKS 
+end -- class ITERATOR_OVER_BASIC_BLOCKS
 
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
@@ -92,4 +96,3 @@ end -- class ITERATOR_OVER_BASIC_BLOCKS
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-

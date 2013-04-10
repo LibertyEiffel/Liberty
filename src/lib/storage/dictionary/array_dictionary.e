@@ -159,6 +159,11 @@ feature {ANY} -- To provide iterating facilities:
          Result := keys.new_iterator
       end
 
+   new_iterator: ITERATOR[TUPLE[V_, K_]] is
+      do
+         not_yet_implemented
+      end
+
 feature {ANY} -- Other features:
    internal_key (k: K_): K_ is
       do

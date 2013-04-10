@@ -8,33 +8,27 @@ deferred class BIDIRECTIONAL_ITERATOR[E_]
    -- not COMPARABLE. For example a two-way list of three-dimensional points
    -- may while the points are not naturally ordered.
 
-inherit ITERATOR[E_]
+inherit
+   ITERATOR[E_]
 
 feature {ANY}
    finish is
          -- Positions the iterator to the last object in the
          -- aggregate to be traversed.
       deferred
+      ensure
+         is_valid
       end
 
    previous is
          -- Positions the iterator to the previous object in the
          -- sequence.
       require
+         is_valid
          not is_off
       deferred
       end
-feature {}
-   iterable_generation:  INTEGER is
-      do
-		  emit_notice
-		  Result := generation
-      end
 
-	emit_notice is
-		once
-			print("Warning: BIDIRECTIONAL_ITERATORs feature iterable_generation is an hack! Please provide a sound implementation or check it is good. 2012-02-12 Paolo%N")
-		end
 end -- class BIDIRECTIONAL_ITERATOR
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.

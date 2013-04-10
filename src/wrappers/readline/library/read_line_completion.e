@@ -12,9 +12,6 @@ inherit
 insert
    SINGLETON
    READLINE_EXTERNALS
-      undefine
-         is_equal, copy
-      end
    STRING_HANDLER
       undefine
          is_equal, copy
