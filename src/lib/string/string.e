@@ -657,9 +657,9 @@ feature {ANY} -- Other features:
   precede_multiple (c: CHARACTER; n: INTEGER) is
           -- Prepend `n' times character `c' to Current.
 
- local
+      local
           old_upper, new_storage_lower: INTEGER
-  do
+      do
           -- Note: This command once had this precondition: "require n >= 0" As you
           -- can see this implementation does not actually need it.  In fact this
           -- command will not fail if n is negative. Perhaps it is a vestigial

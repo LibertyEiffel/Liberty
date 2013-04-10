@@ -198,7 +198,7 @@ feature {STRING_HANDLER}
             check
                not has_storage_signature
             end
-            new_capacity := needed_capacity.max(32)
+            new_capacity := needed_capacity
             storage := storage.calloc(new_capacity + storage_signature_count)
             capacity := new_capacity
             if storage_signature_count > 0 then
@@ -208,7 +208,7 @@ feature {STRING_HANDLER}
             check
                has_storage_signature implies check_storage_signature
             end
-            new_capacity := needed_capacity.max(capacity #* 2)
+            new_capacity := needed_capacity.max((capacity #* 2).max(32))
             storage := storage.realloc(capacity, new_capacity + storage_signature_count)
             capacity := new_capacity
             if storage_signature_count > 0 then
