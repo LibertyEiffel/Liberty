@@ -889,18 +889,20 @@ feature {}
          end
          if has_else then
             html.put_string(once ") or else (")
-            html.open_list
          end
-         from
-            i := ra.direct_parents_require.lower
-         until
-            i > ra.direct_parents_require.upper
-         loop
-            print_require(ra.direct_parents_require.item(i), for_feature)
-            i := i + 1
+         if ra.direct_parents_require /= Void then
+            html.open_list
+            from
+               i := ra.direct_parents_require.lower
+            until
+               i > ra.direct_parents_require.upper
+            loop
+               print_require(ra.direct_parents_require.item(i), for_feature)
+               i := i + 1
+            end
+            html.close_list
          end
          if has_else then
-            html.close_list
             html.put_string(once ")")
          end
       end
