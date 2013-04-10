@@ -1519,6 +1519,11 @@ feature {INTEGER_CONSTANT}
       do
       end
 
+feature {NATURAL_CONSTANT}
+   visit_natural_constant (visited: NATURAL_CONSTANT) is
+      do
+      end
+
 feature {FEATURE_NAME_LIST}
    visit_feature_name_list (visited: FEATURE_NAME_LIST) is
       local

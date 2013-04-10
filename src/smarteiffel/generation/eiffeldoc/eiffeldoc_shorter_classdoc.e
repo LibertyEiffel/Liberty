@@ -18,7 +18,7 @@ inherit
          visit_call_support, visit_written_current, visit_result, visit_e_old, visit_manifest_string,
          visit_effective_arg_list, visit_argument_name2, visit_built_in_eq_neq, visit_implicit_cast,
          visit_e_void, visit_e_true, visit_e_false, visit_character_constant, visit_integer_constant,
-         visit_real_constant, visit_create_expression
+         visit_natural_constant, visit_real_constant, visit_create_expression
       end
 
 insert
@@ -1214,6 +1214,12 @@ feature {CHARACTER_CONSTANT}
 
 feature {INTEGER_CONSTANT}
    visit_integer_constant (visited: INTEGER_CONSTANT) is
+      do
+         html.put_string(visited.to_string)
+      end
+
+feature {NATURAL_CONSTANT}
+   visit_natural_constant (visited: NATURAL_CONSTANT) is
       do
          html.put_string(visited.to_string)
       end
