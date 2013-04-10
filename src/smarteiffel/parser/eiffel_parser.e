@@ -1170,13 +1170,14 @@ feature {}
          end
       end
 
-   a_formal_arg_list is
+   a_formal_arg_list: BOOLEAN is
          --  ++ formal_arg_list -> ["(" {declaration_group ";" ...} ")"]
          --  ++ declaration_group -> {identifier "," ...}+ ":" type_mark
       local
          name: ARGUMENT_NAME1; name_list: ARRAY[ARGUMENT_NAME1]; declaration: DECLARATION
          list: ARRAY[DECLARATION]; state: INTEGER
       do
+         Result := True
          arguments := Void
          if skip1('(') then
             from
@@ -1263,7 +1264,7 @@ feature {}
             if state = 6 then
                error_handler.add_position(current_position)
                error_handler.append("Bad formal arguments list.")
-               error_handler.print_as_fatal_error
+               Result := False
             elseif list = Void then
                error_handler.add_position(current_position)
                error_handler.append(once "Empty formal argument list (deleted).")
@@ -4101,54 +4102,60 @@ feature {}
             tmp_feature.initialize
          end
 
-         a_formal_arg_list
-         if skip1(':') then
-            if a_type_mark then
-               inside_function_flag := True
-               tmp_feature.set_type(last_type_mark)
-            else
-               error_handler.add_position(current_position)
-               error_handler.append(em16)
-               error_handler.print_as_fatal_error
+         if not a_formal_arg_list then
+            error_handler.cancel
+         else
+            if skip1(':') then
+               if a_type_mark then
+                  inside_function_flag := True
+                  tmp_feature.set_type(last_type_mark)
+               else
+                  error_handler.add_position(current_position)
+                  error_handler.append(em16)
+                  error_handler.print_as_fatal_error
+               end
+            end
+
+            if a_keyword(fz_is) then
+               -- OK, really an inline agent; let's allocate resources (viz feature name)
+               inline_agent_counter := inline_agent_counter + 1
+               n := once ""
+               n.copy(once "_inline_agent")
+               inline_agent_counter.append_in(n)
+               create fn.simple_feature_name(n, token_buffer.start_position)
+               fn.set_is_frozen
+               tmp_feature.add_synonym(fn)
+
+               rpos := current_position
+               last_feature_declaration := a_routine
+               if (not {E_PROCEDURE} ?:= last_feature_declaration.anonymous_feature) and then (not {E_FUNCTION} ?:= last_feature_declaration.anonymous_feature) then
+                  error_handler.add_position(rpos)
+                  error_handler.append("Bad inline agent definition (%"do...end%" routine body expected).")
+                  error_handler.print_as_fatal_error
+               end
+               Result := tmp_feature.as_procedure_or_function
+               Result.set_inline_agent
+               inline_agents.add_last(Result)
+
+               -- must reset the outer feature before calling a_actuals, otherwise the actuals won't be
+               -- correctly set
+               tmp_feature.done
+               unused_tmp_features.push(tmp_feature)
+               tmp_feature := outer_feature
+               inside_function_flag := iff
+               inside_ensure_flag := ief
+               inside_rescue_flag := irf
+               arguments := a
+               local_vars := lv
+
+               last_expression := to_call(create {IMPLICIT_CURRENT}.make(spos), fn, a_actuals)
             end
          end
 
-         if a_keyword(fz_is) then
-            -- OK, really an inline agent; let's allocate resources (viz feature name)
-            inline_agent_counter := inline_agent_counter + 1
-            n := once ""
-            n.copy(once "_inline_agent")
-            inline_agent_counter.append_in(n)
-            create fn.simple_feature_name(n, token_buffer.start_position)
-            fn.set_is_frozen
-            tmp_feature.add_synonym(fn)
+         if Result = Void then
+            -- Not an inline agent, restore context
 
-            rpos := current_position
-            last_feature_declaration := a_routine
-            if (not {E_PROCEDURE} ?:= last_feature_declaration.anonymous_feature) and then (not {E_FUNCTION} ?:= last_feature_declaration.anonymous_feature) then
-               error_handler.add_position(rpos)
-               error_handler.append("Bad inline agent definition (%"do...end%" routine body expected).")
-               error_handler.print_as_fatal_error
-            end
-            Result := tmp_feature.as_procedure_or_function
-            Result.set_inline_agent
-            inline_agents.add_last(Result)
-
-            -- must reset the outer feature before calling a_actuals, otherwise the actuals won't be
-            -- correctly set
-            tmp_feature.done
-            unused_tmp_features.push(tmp_feature)
-            tmp_feature := outer_feature
-            inside_function_flag := iff
-            inside_ensure_flag := ief
-            inside_rescue_flag := irf
-            arguments := a
-            local_vars := lv
-
-            last_expression := to_call(create {IMPLICIT_CURRENT}.make(spos), fn, a_actuals)
-         else
-            column := c
-            line := l
+            go_back_at(l, c)
 
             tmp_feature.done
             unused_tmp_features.push(tmp_feature)
@@ -4404,7 +4411,9 @@ feature {}
             end
          end
          if Result then
-            a_formal_arg_list
+            if not a_formal_arg_list then
+               error_handler.print_as_fatal_error
+            end
             if skip1(':') then
                if a_type_mark then
                   inside_function_flag := True
