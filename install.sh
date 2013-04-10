@@ -377,18 +377,20 @@ function generate_wrappers()
 
 function compile_all()
 {
-    n=$(ls $LIBERTY_HOME/src/tools/main/*.ace | wc -l)
-    i=0
-    for f in $LIBERTY_HOME/src/tools/main/*.ace; do
-        ace=${f##*/} && ace=${ace%.ace}
-        progress 30 $i $n $ace
-        cd $LIBERTY_HOME/target/bin/${ace}.d
-        run ../se c -verbose ${ace}.ace
-        cd .. && test -e "$ace" || ln -s ${ace}.d/$ace .
-        i=$((i+1))
-    done
-    progress 30 $n $n "done."
-    echo
+    n=$(ls $LIBERTY_HOME/src/tools/main/*.ace 2>/dev/null | wc -l || echo 0)
+    if [ $n -gt 0 ]; then
+        i=0
+        for f in $LIBERTY_HOME/src/tools/main/*.ace; do
+            ace=${f##*/} && ace=${ace%.ace}
+            progress 30 $i $n $ace
+            cd $LIBERTY_HOME/target/bin/${ace}.d
+            run ../se c -verbose ${ace}.ace
+            cd .. && test -e "$ace" || ln -s ${ace}.d/$ace .
+            i=$((i+1))
+        done
+        progress 30 $n $n "done."
+        echo
+    fi
 }
 
 function make_doc()
@@ -591,11 +593,13 @@ function do_all()
 }
 
 if [ $# = 0 ]; then
-    if [ -d $LIBERTY_HOME/target ]; then
-        compile_all
-    else
-        do_all
-    fi
+    #if [ -d $LIBERTY_HOME/target ]; then
+    #    #compile_all
+    #else
+    #    do_all
+    #fi
+
+    do_all
 else
     while [ $# -gt 0 ]; do
         case x"$1" in
@@ -610,6 +614,9 @@ else
                 ;;
             x-bootstrap-se)
                 bootstrap
+                ;;
+            x-compile)
+                compile_all
                 ;;
             x-package)
                 do_pkg
