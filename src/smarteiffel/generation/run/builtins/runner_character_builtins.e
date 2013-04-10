@@ -60,7 +60,7 @@ feature {RUNNER_FACET}
          Result := smart_eiffel.type_character
       end
 
-end -- class RUNNER_BOOLEAN_BUILTINS
+end -- class RUNNER_CHARACTER_BUILTINS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

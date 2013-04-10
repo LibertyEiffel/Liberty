@@ -127,7 +127,7 @@ feature {}
 feature {RUNNER_FACET}
    type: TYPE
 
-end -- class RUNNER_MEMORY_BUILTINS
+end -- class RUNNER_PLATFORM_BUILTINS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
