@@ -541,11 +541,6 @@ feature {ARGUMENT_NAME2}
       do
       end
 
-feature {INTERNAL_LOCAL}
-   visit_internal_local (visited: INTERNAL_LOCAL) is
-      do
-      end
-
 feature {INTERNAL_LOCAL2}
    visit_internal_local2 (visited: INTERNAL_LOCAL2) is
       do
