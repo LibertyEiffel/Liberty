@@ -119,10 +119,10 @@ feature {CALL_0}
                   Result := smart_eiffel.get_inline_memo
                   Result.set_expression(create {INTEGER_CONSTANT}.with(v, call_site, integer_tm))
                else
-                  error_handler.append(once "New code for inline in EXTERNAL_FUNCTION ??")
-                  error_handler.add_position(sp)
-                  error_handler.add_position(target.start_position)
-                  error_handler.print_as_warning
+                  --| **** error_handler.append(once "New code for inline in EXTERNAL_FUNCTION ??")
+                  --| **** error_handler.add_position(sp)
+                  --| **** error_handler.add_position(target.start_position)
+                  --| **** error_handler.print_as_warning
                end
             end
          end
@@ -145,10 +145,10 @@ feature {CALL_0}
                   Result.set_expression(ic1)
                end
             else
-               error_handler.append(once "New code for inline in EXTERNAL_FUNCTION ??")
-               error_handler.add_position(sp)
-               error_handler.add_position(target.start_position)
-               error_handler.print_as_warning
+               --| **** error_handler.append(once "New code for inline in EXTERNAL_FUNCTION ??")
+               --| **** error_handler.add_position(sp)
+               --| **** error_handler.add_position(target.start_position)
+               --| **** error_handler.print_as_warning
             end
          end
          if Result /= Void then
@@ -809,9 +809,9 @@ feature {CALL_1}
                   Result := smart_eiffel.get_inline_memo
                   Result.set_expression(create {INTEGER_CONSTANT}.with(integer_64, call_site, integer_tm))
                else
-                  error_handler.append(once "New code for inline in EXTERNAL_FUNCTION ??")
-                  error_handler.add_position(call_site)
-                  error_handler.print_as_warning
+                  --| **** error_handler.append(once "New code for inline in EXTERNAL_FUNCTION ??")
+                  --| **** error_handler.add_position(call_site)
+                  --| **** error_handler.print_as_warning
                end
             end
          end
