@@ -135,7 +135,7 @@ feature {XML_PARSER}
          when "layout" then
             open_layout(update_type, update_ref.to_integer, layout, line, column)
          when "reference" then
-            open_reference(update_name, update_ref, layout, line, column)
+            open_reference(update_name, update_ref.to_integer, layout, line, column)
          when "embedded" then
             open_embedded(update_name, update_type, layout, line, column)
          when "basic" then
@@ -244,6 +244,11 @@ feature {} -- Internals
          update_value.clear_count
          update_capacity.clear_count
          update_version.clear_count
+      end
+
+   strings: STRING_RECYCLING_POOL is
+      once
+         create Result.make
       end
 
 feature {} -- Default transient objects

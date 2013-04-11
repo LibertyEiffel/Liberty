@@ -30,10 +30,10 @@ feature {REPOSITORY_IMPL}
    write_reference (ref: INTEGER; name: STRING) is
       do
          out_stream.put_string(once "<reference ref='")
-         out_stream.put_string(ref)
+         out_stream.put_integer(ref)
          if name /= Void then
             out_stream.put_string(once "' name='")
-            out_stream.put_integer(name)
+            out_stream.put_string(name)
          end
          out_stream.put_string(once "' transient='false'/>%N")
       end
