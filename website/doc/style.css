@@ -1,7 +1,7 @@
 @font-face {
 font-family: 'Linux Biolinum';
 local: 'Linux Biolinum';
-src: url('http://www.liberty-eiffel.org/fonts/LinBiolinum_R.woff ') format('woff');
+src: url('fonts/LinBiolinum_R.woff ') format('woff');
 font-weight: normal;
 font-style: normal;
 }
@@ -9,7 +9,7 @@ font-style: normal;
 @font-face {
 font-family: 'Linux Biolinum';
 local: 'Linux Biolinum';
-src: url('http://www.liberty-eiffel.org/fonts/LinBiolinum_RB.woff ') format('woff');
+src: url('fonts/LinBiolinum_RB.woff ') format('woff');
 font-weight: bold;
 font-style: normal;
 }
@@ -17,7 +17,7 @@ font-style: normal;
 @font-face {
 font-family: 'Linux Biolinum';
 local: 'Linux Biolinum';
-src: url('http://www.liberty-eiffel.org/fonts/LinBiolinum_RI.woff ') format('woff');
+src: url('fonts/LinBiolinum_RI.woff ') format('woff');
 font-weight: normal;
 font-style: italic;
 }
@@ -25,7 +25,7 @@ font-style: italic;
 @font-face {
 font-family: 'Linux Biolinum';
 local: 'Linux Biolinum';
-src: url('http://www.liberty-eiffel.org/fonts/LinBiolinum_RBI.woff ') format('woff');
+src: url('fonts/LinBiolinum_RBI.woff ') format('woff');
 font-weight: bold;
 font-style: italic;
 }
