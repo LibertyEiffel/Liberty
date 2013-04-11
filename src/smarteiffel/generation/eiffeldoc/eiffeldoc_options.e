@@ -173,10 +173,7 @@ feature {EIFFELDOC}
 
    command_usage: STRING is
       do
-         Result := once "[
-                         {-title title} {-home_address address}
-                         {-js file} {-css file} {-depends}
-                         ]"
+         Result := once "{-title title} {-home_address address} {-js file} {-css file} {-depends} "
       end
 
    command_help: STRING is

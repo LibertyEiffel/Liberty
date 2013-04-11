@@ -182,7 +182,7 @@ error() {
 
 run() {
     echo "$(date) - $@" >> $LOG
-    if eval "$@" >>$LOG 2>&1; then
+    if eval "$*" >>$LOG 2>&1; then
         status=0
     else
         s=$?

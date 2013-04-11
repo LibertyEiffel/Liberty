@@ -42,7 +42,7 @@ feature {ANY}
                         ]")
          Result.append("          ")
          Result.append(command_line_name)
-         Result.append(" -prune 'lib/vision'%N")
+         Result.append(" -prune 'lib/xml'%N")
          Result.append("[
 
                          -remote replace the generation of that class by the address of the class
@@ -55,7 +55,7 @@ feature {ANY}
                         ]")
          Result.append("          ")
          Result.append(command_line_name)
-         Result.append(" -remote 'lib' 'http://smarteiffel.loria.fr/libraries/'%N")
+         Result.append(" -remote 'lib' 'http://doc.liberty-eiffel.org/libraries/'%N")
          Result.append("[
 
                         The loadpath.se or the ACE file is not compulsory. When not set, the
