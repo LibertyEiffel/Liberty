@@ -108,9 +108,9 @@ feature -- Descriptions reading
 
 feature -- Outputting descriptions
 	emit_description_on (a_description: COLLECTION[STRING]; a_formatter: FORMATTER) is
-			-- Put 'a_description' on 'stream' formatting it as an Eiffel comment
-			-- with lines shorter that 'description_lenght' characters.  Nothing is
-			-- done when `a_description' is Void.
+			-- Put 'a_description' on 'a_formatter' formatting it as an Eiffel
+			-- comment with lines shorter that 'description_lenght' characters.
+			-- Nothing is done when `a_description' is Void.
 		require a_formatter/=Void
 		local word: STRING; iter: ITERATOR[STRING]; length,new_length: INTEGER
 		do

@@ -24,11 +24,10 @@ LIBRARIES=cairo \
 update: common/library/c_types.e $(LIBRARIES) 
 	@echo Clusters that will be updated: $^
 
-common/library/c_types.e : common/tools/c_type_builder
+common/library/c_types.e : common/tools/c_types_builder
 	common/tools/c_types_builder >$@
 
-	
-common/tools/c_type_builder: common/tools/c_types_builder.c
+common/tools/c_types_builder: common/tools/c_types_builder.c
 	cc $^ -o $@
 
 $(LIBRARIES) : common/library/c_types.e
