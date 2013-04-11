@@ -1328,6 +1328,7 @@ feature {}
                   html.put_entity(once "nbsp")
                   html.put_string(once "->")
                   html.put_entity(once "nbsp")
+                  arg.constraint.specialize_in(context.type)
                   put_class(arg.constraint.to_static(context.type).class_text, True)
                end
                i := i + 1
