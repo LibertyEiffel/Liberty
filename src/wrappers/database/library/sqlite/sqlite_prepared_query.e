@@ -25,7 +25,7 @@ insert
 			is_equal
 		end
 	
-creation  {SQLITE_DATABASE} make
+create  {SQLITE_DATABASE} make
 	
 feature {ANY}
 	last_result: SQLITE_RESULT_SET

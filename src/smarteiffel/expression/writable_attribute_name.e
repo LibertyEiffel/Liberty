@@ -16,7 +16,7 @@ inherit
 insert
    NAME
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

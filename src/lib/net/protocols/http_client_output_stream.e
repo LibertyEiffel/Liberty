@@ -11,7 +11,7 @@ class HTTP_CLIENT_OUTPUT_STREAM
 inherit
    FILTER_OUTPUT_STREAM
 
-creation {HTTP_PROTOCOL}
+create {HTTP_PROTOCOL}
    connect_to
 
 feature {HTTP_PROTOCOL}

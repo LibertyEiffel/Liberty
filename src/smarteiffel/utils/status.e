@@ -12,7 +12,7 @@ insert
       end
    SINGLETON
 
-creation {SMART_EIFFEL}
+create {SMART_EIFFEL}
    make
 
 feature {} -- Visitable attributes:

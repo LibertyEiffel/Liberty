@@ -7,7 +7,7 @@ class NCURSES_MENU[E_]
 inherit
    NCURSES_WIDGET
 
-creation{ANY}
+create{ANY}
    make
 
 feature {ANY}

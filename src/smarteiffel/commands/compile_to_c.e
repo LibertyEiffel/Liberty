@@ -9,7 +9,7 @@ class COMPILE_TO_C
 inherit
    COMMAND_LINE_TOOLS
 
-creation {}
+create {}
    make, make_shrink
 
 feature {ANY}

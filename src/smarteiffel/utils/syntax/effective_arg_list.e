@@ -17,7 +17,7 @@ insert
       undefine out_in_tagged_out_memory
       end
 
-creation {ANY}
+create {ANY}
    make_1, make_2, make_n
 
 feature {EFFECTIVE_ARG_LIST, EFFECTIVE_ARG_LIST_VISITOR}

@@ -6,7 +6,7 @@ inherit
          out_in_tagged_out_memory
       end
 
-creation {XML_DTD_ELEMENT}
+create {XML_DTD_ELEMENT}
    make
 
 feature {ANY}

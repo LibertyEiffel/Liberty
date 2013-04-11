@@ -14,13 +14,13 @@ inherit
 insert
    PLATFORM
 
-creation {ANY}
+create {ANY}
    make
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    special, hexadecimal
 
-creation {EIFFEL_PARSER, INTEGER_TYPE_MARK, CST_ATT_UNIQUE, EXTERNAL_FUNCTION}
+create {EIFFEL_PARSER, INTEGER_TYPE_MARK, CST_ATT_UNIQUE, EXTERNAL_FUNCTION}
    with
 
 feature {ANY}

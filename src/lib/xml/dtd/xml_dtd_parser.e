@@ -16,7 +16,7 @@ insert
       end
    URL_VALIDITY
 
-creation {XML_PARSER}
+create {XML_PARSER}
    make
 
 feature {XML_PARSER} -- Error reporting

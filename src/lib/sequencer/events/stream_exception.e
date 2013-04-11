@@ -9,7 +9,7 @@ class STREAM_EXCEPTION
 inherit
    EVENT_DESCRIPTOR
 
-creation {STREAM}
+create {STREAM}
    make
 
 feature {EVENTS_SET}

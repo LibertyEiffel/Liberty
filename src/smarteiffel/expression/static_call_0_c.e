@@ -13,7 +13,7 @@ insert
          c0c_accept
       end
 
-creation {INTROSPECTION_HANDLER}
+create {INTROSPECTION_HANDLER}
    make
 
 feature {ANY}

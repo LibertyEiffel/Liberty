@@ -8,7 +8,7 @@ insert
    ANY
    PLATFORM
 
-creation {LOOP_STACK}
+create {LOOP_STACK}
    make
 
 feature {LOOP_STACK}

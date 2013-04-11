@@ -18,7 +18,7 @@ inherit
 insert
    LLVM_GLOBALS
 
-creation {}
+create {}
    make
 
 feature {ANY}

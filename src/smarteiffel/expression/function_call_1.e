@@ -9,7 +9,7 @@ class FUNCTION_CALL_1
 inherit
    CALL_1
 
-creation {ANY}
+create {ANY}
    make
 
 create {MANIFEST_STRING_INSPECTOR, INSPECT_STATEMENT, BUILT_IN_EQ_NEQ}

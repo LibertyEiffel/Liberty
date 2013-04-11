@@ -25,9 +25,9 @@ inherit
 
 create {ANY} default_create, from_string
 
-creation {ZMQ_MESSAGE} from_message
+create {ZMQ_MESSAGE} from_message
 
-creation {ZMQ_SOCKET} from_external_pointer
+create {ZMQ_SOCKET} from_external_pointer
 
 feature {} -- Creation
 	from_message (a_message: ZMQ_MESSAGE) is

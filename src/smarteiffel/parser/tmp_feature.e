@@ -10,7 +10,7 @@ class TMP_FEATURE
 insert
    GLOBALS
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    initialize
 
 feature {EIFFEL_PARSER}

@@ -44,7 +44,7 @@ inherit
 
 create {ANY} make
 
-creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
 feature {} -- Creation
 

@@ -6,7 +6,7 @@ class NATIVE_C_PLUS_PLUS
 inherit
    NATIVE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

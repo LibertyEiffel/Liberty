@@ -9,7 +9,7 @@ class BIG_INTEGER_NUMBER
 inherit
    INTEGER_GENERAL_NUMBER
 
-creation {ANY}
+create {ANY}
    from_native_array
 
 feature {ANY}

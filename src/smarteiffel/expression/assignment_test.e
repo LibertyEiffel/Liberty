@@ -10,10 +10,10 @@ class ASSIGNMENT_TEST
 inherit
    EXPRESSION
 
-creation {EIFFEL_PARSER, INTROSPECTION_HANDLER}
+create {EIFFEL_PARSER, INTROSPECTION_HANDLER}
    with_writable, with_type_mark
 
-creation {ASSIGNMENT_TEST}
+create {ASSIGNMENT_TEST}
    make
 
 feature {ANY}

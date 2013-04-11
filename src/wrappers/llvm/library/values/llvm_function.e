@@ -50,8 +50,8 @@ inherit
 
 insert LLVM_VALUE_WRAPPER_FACTORY 
 
-creation {ANY} make 
-creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+create {ANY} make 
+create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
 feature {} -- Creation
 	make (a_return_type: LLVM_TYPE; some_parameters: WRAPPER_COLLECTION[LLVM_TYPE]) is

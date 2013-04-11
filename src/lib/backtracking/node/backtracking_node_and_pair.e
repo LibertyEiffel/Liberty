@@ -9,7 +9,7 @@ class BACKTRACKING_NODE_AND_PAIR
 inherit
    BACKTRACKING_NODE_BINARY
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

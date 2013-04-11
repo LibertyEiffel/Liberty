@@ -18,7 +18,7 @@ inherit CODE_PRINTER undefine is_equal end
 
 insert MULTIPROCESSING
 
-creation {LLVM_GLOBALS} make
+create {LLVM_GLOBALS} make
 
 feature {SMART_EIFFEL}
    compile is

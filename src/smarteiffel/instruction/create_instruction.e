@@ -15,10 +15,10 @@ inherit
 insert
    CREATE_SUPPORT
 
-creation {EIFFEL_PARSER, INTROSPECTION_HANDLER}
+create {EIFFEL_PARSER, INTROSPECTION_HANDLER}
    make
 
-creation   {INTROSPECTION_HANDLER}
+create   {INTROSPECTION_HANDLER}
    make_specialized, typed_internals
 
 feature {ANY}

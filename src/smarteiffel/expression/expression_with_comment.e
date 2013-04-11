@@ -9,7 +9,7 @@ class EXPRESSION_WITH_COMMENT
 inherit
    EXPRESSION
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make
 
 feature {ANY}

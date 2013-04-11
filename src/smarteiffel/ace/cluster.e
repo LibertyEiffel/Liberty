@@ -25,10 +25,10 @@ insert
       redefine is_equal
       end
 
-creation {CLASSES_TREE}
+create {CLASSES_TREE}
    make
 
-creation {SMART_EIFFEL}
+create {SMART_EIFFEL}
    for_pretty
 
 feature {ACE}

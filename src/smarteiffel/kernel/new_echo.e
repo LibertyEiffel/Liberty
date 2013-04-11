@@ -9,7 +9,7 @@ insert
          w_put_message
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

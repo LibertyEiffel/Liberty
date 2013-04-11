@@ -18,7 +18,7 @@ insert
    FFI_CIF_STRUCT
    FFI_EXTERNALS
 
-creation {ANY}
+create {ANY}
    prepare
 
 feature {ANY} -- Preparation of a call

@@ -9,7 +9,7 @@ inherit
 insert
    GRAPHIC
 
-creation {MAKE_RELEASE}
+create {MAKE_RELEASE}
    make
 
 feature {MAKE_RELEASE, MAKE_RELEASE_JOB}

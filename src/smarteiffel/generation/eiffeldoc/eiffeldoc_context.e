@@ -6,7 +6,7 @@ class EIFFELDOC_CONTEXT
    -- Shared context for all Eiffeldoc classes.
    --
 
-creation {EIFFELDOC}
+create {EIFFELDOC}
    make
 
 feature {EIFFELDOC}

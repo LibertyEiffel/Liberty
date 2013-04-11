@@ -8,7 +8,7 @@ inherit
       redefine base_feature
       end
 
-creation {WRITABLE_ATTRIBUTE}
+create {WRITABLE_ATTRIBUTE}
    for
 
 feature {ANY}

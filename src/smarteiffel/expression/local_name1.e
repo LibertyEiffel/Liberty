@@ -12,7 +12,7 @@ inherit
 insert
    LOCAL_NAME
 
-creation {TOKEN_BUFFER, INTROSPECTION_HANDLER}
+create {TOKEN_BUFFER, INTROSPECTION_HANDLER}
    make
 
 feature {ANY}

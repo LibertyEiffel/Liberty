@@ -9,7 +9,7 @@ insert
    FEATURE_STAMP_VISITOR
    INI_HANDLER
 
-creation {}
+create {}
    make
 
 feature {ANY}

@@ -9,7 +9,7 @@ class E_TRUE
 inherit
    BOOLEAN_CONSTANT
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

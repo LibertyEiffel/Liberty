@@ -16,7 +16,7 @@ inherit
       redefine written_declaration_type_mark
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

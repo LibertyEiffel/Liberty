@@ -14,10 +14,10 @@ inherit
          type_attribute_count, type_attribute_is_expanded, type_is_native_array, type_can_be_assigned_to_attribute
       end
 
-creation {}
+create {}
    for_object
 
-creation {INTERNALS_HANDLER}
+create {INTERNALS_HANDLER}
    make_blank
 
 feature {INTERNALS_HANDLER, INTERNALS} -- Getting information about the described object's type

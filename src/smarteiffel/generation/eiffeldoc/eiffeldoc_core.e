@@ -14,7 +14,7 @@ inherit
 insert
    EIFFELDOC_GLOBALS
 
-creation {EIFFELDOC}
+create {EIFFELDOC}
    make
 
 feature {EIFFELDOC}

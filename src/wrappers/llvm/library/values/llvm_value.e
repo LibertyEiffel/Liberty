@@ -67,7 +67,7 @@ inherit
 	LLVM_TYPE_FACTORY
 insert
 	CORE_EXTERNALS
-creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 feature {ANY} 
 	type: LLVM_TYPE is
 		do

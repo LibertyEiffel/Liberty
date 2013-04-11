@@ -24,10 +24,10 @@ insert
       undefine out_in_tagged_out_memory, copy, is_equal
       end
 
-creation {ANY}
+create {ANY}
    make, with_capacity
 
-creation {RING_ARRAY}
+create {RING_ARRAY}
    collection_make
 
 feature {}

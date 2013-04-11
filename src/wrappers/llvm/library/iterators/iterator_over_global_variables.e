@@ -9,7 +9,7 @@ inherit
 
 insert CORE_EXTERNALS
 
-creation {LLVM_MODULE} from_module
+create {LLVM_MODULE} from_module
 
 feature {LLVM_VALUE}
    from_module (a_module: like module) is

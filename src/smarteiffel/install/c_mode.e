@@ -9,7 +9,7 @@ class C_MODE
 inherit
    INSTALL_GLOBALS
 
-creation {INSTALL}
+create {INSTALL}
    from_template, no_template
 
 feature {INSTALL}

@@ -6,7 +6,7 @@ class LLVM_PLUGIN
 inherit
    PLUGIN
 
-creation {LLVM_PLUGIN_FACTORY}
+create {LLVM_PLUGIN_FACTORY}
    make
 
 feature {RUNNER_FACET}

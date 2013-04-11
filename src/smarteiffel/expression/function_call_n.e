@@ -10,7 +10,7 @@ class FUNCTION_CALL_N
 inherit
    FUNCTION_CALL
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

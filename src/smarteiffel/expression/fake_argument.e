@@ -9,7 +9,7 @@ class FAKE_ARGUMENT
 inherit
    EXPRESSION
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

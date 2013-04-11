@@ -22,7 +22,7 @@ insert
       redefine is_equal
       end
 
-creation {ANY}
+create {ANY}
    ordinary_name, simple_feature_name, infix_name, prefix_name, unknown_position
 
 feature {}

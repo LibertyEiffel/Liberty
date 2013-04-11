@@ -10,7 +10,7 @@ inherit
 insert
    CORE_EXTERNALS
 
-creation {ANY}
+create {ANY}
    from_module
 
 feature {LLVM_MODULE}

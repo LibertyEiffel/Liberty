@@ -10,7 +10,7 @@ inherit
    LLVM_VALUE_WRAPPER_FACTORY
 
 insert CORE_EXTERNALS
-creation {LLVM_FUNCTION} from_function
+create {LLVM_FUNCTION} from_function
 
 feature {LLVM_FUNCTION}
    from_function (a_function: LLVM_FUNCTION) is

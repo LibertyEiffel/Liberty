@@ -9,7 +9,7 @@ class CLEAN
 inherit
    COMMAND_LINE_TOOLS
 
-creation {}
+create {}
    make
 
 feature {ANY}

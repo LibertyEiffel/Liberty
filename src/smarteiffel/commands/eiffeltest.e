@@ -9,7 +9,7 @@ class EIFFELTEST
 insert
    COMMAND_LINE_TOOLS
 
-creation {}
+create {}
    main
 
 feature {ANY}

@@ -9,7 +9,7 @@ class BACKTRACKING_NODE_OR_LIST
 inherit
    BACKTRACKING_NODE_LIST
 
-creation {ANY}
+create {ANY}
    make, set_node
 
 feature {ANY}

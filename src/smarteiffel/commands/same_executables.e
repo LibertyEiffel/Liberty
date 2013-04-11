@@ -11,7 +11,7 @@ class SAME_EXECUTABLES
 insert
    ARGUMENTS
 
-creation {}
+create {}
    make
 
 feature {}

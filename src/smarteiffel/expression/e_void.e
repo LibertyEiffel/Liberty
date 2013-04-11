@@ -9,7 +9,7 @@ class E_VOID
 inherit
    MANIFEST_EXPRESSION
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

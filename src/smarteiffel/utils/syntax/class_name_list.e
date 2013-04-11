@@ -13,7 +13,7 @@ insert
       redefine is_equal
       end
 
-creation {ANY}
+create {ANY}
    make_1, merge
 
 feature {ANY}

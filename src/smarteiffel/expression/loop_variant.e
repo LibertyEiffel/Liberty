@@ -11,7 +11,7 @@ class LOOP_VARIANT
 inherit
    EXPRESSION
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make
 
 feature {ANY}

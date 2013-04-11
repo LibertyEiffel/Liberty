@@ -12,7 +12,7 @@ inherit
 insert
    GLOBALS
 
-creation {ANY}
+create {ANY}
    make_1, make_n
 
 feature {ANY}

@@ -6,7 +6,7 @@ class REGULAR_FILE
 inherit
    FILE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

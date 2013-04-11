@@ -8,7 +8,7 @@ class CLIENT_SOCKET_INPUT_OUTPUT_STREAM
 inherit
    SOCKET_INPUT_OUTPUT_STREAM
 
-creation {ACCESS}
+create {ACCESS}
    connect_to
 
 feature {ANY}

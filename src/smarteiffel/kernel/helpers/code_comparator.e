@@ -17,7 +17,7 @@ insert
       end
    SINGLETON
 
-creation {INSPECT_STATEMENT}
+create {INSPECT_STATEMENT}
    make
 
 feature {EFFECTIVE_ARG_LIST}

@@ -24,10 +24,10 @@ insert
          out_in_tagged_out_memory
       end
 
-creation {ANY}
+create {ANY}
    manifest_creation
 
-creation {PARSER_FACET}
+create {PARSER_FACET}
    with_capacity
 
 feature {ANY}

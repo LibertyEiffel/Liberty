@@ -12,7 +12,7 @@ class ID_PROVIDER
 insert
    GLOBALS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {C_PRETTY_PRINTER}

@@ -5,7 +5,7 @@ insert
 	ERRNO
 	ZMQ_EXTERNALS
 
-creation {ZMQ_STATUS, ZMQ_CONTEXT, ZMQ_SOCKET, ZMQ_MESSAGE} from_errno
+create {ZMQ_STATUS, ZMQ_CONTEXT, ZMQ_SOCKET, ZMQ_MESSAGE} from_errno
 feature {} -- Creation
 	from_errno is 
 		do

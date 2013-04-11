@@ -10,13 +10,13 @@ class WHEN_CLAUSE
 inherit
    INSTRUCTION
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    parser_make
 
-creation {ANY}
+create {ANY}
    make
 
-creation {INTROSPECTION_HANDLER}
+create {INTROSPECTION_HANDLER}
    make_strippable
 
 create {PROCEDURE_CALL, FUNCTION_CALL}

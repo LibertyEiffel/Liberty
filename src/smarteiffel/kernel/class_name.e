@@ -12,7 +12,7 @@ inherit
       end
    HASHABLE
 
-creation {ANY}
+create {ANY}
    make, unknown_position
 
 feature {ANY}

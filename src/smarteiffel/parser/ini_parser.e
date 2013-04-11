@@ -19,7 +19,7 @@ inherit
       redefine skip1
       end
 
-creation {GLOBALS}
+create {GLOBALS}
    serc, plugin
 
 feature {ANY}

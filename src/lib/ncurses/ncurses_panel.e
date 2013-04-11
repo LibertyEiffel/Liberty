@@ -7,7 +7,7 @@ class NCURSES_PANEL
 inherit
    NCURSES_WIDGET
 
-creation{ANY}
+create{ANY}
    make, no_tabs
 
 feature {ANY}

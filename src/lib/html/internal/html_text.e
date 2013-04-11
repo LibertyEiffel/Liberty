@@ -5,7 +5,7 @@ class HTML_TEXT
 inherit
    HTML_ELEMENT
 
-creation {HTML_PARSER}
+create {HTML_PARSER}
    make
 
 feature {ANY}

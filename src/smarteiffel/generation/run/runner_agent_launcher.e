@@ -6,7 +6,7 @@ class RUNNER_AGENT_LAUNCHER
 insert
    RUNNER_PROCESSOR_FACET
 
-creation {RUNNER_FEATURES}
+create {RUNNER_FEATURES}
    make
 
 feature {RUNNER_FACET}

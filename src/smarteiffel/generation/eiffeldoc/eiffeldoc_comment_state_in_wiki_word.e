@@ -12,7 +12,7 @@ class EIFFELDOC_COMMENT_STATE_IN_WIKI_WORD
 inherit
    EIFFELDOC_COMMENT_STATE
 
-creation {EIFFELDOC_CONTEXT}
+create {EIFFELDOC_CONTEXT}
    make
 
 feature {}

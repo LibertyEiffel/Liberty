@@ -13,7 +13,7 @@ inherit
 insert
    IF_SUPPORT
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

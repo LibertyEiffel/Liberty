@@ -9,7 +9,7 @@ class RETRY_INSTRUCTION
 inherit
    INSTRUCTION
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

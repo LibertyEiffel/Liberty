@@ -24,7 +24,7 @@ insert
       redefine is_equal
       end
 
-creation {EIFFEL_PARSER, CLASS_TEXT, CLASS_TEXT_VISITOR}
+create {EIFFEL_PARSER, CLASS_TEXT, CLASS_TEXT_VISITOR}
    make
 
 feature {ANY}

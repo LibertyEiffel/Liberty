@@ -22,7 +22,7 @@ insert
          last_line as gnu_lastline
       end
 
-creation {ANY}
+create {ANY}
    make, make_no_history
 
 feature {ANY}

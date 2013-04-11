@@ -6,7 +6,7 @@ class C_PLUGIN
 inherit
    PLUGIN
 
-creation {C_PLUGIN_FACTORY, FAKE_PLUGIN}
+create {C_PLUGIN_FACTORY, FAKE_PLUGIN}
    make
 
 feature {SYSTEM_TOOLS}

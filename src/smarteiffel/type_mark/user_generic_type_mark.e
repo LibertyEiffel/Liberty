@@ -12,7 +12,7 @@ inherit
          weak_reference_argument
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

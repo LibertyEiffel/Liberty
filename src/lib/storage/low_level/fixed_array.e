@@ -10,7 +10,7 @@ insert
       end
    TRAVERSABLE[E_]
 
-creation {ANY}
+create {ANY}
    default_create
 
 feature {FIXED_ARRAY}

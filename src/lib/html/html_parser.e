@@ -7,7 +7,7 @@ class HTML_PARSER
    -- is more laxist.
    --
 
-creation {ANY}
+create {ANY}
    parse
 
 feature {ANY}

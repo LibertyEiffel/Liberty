@@ -15,7 +15,7 @@ inherit
    EXPRESSION
    AGENT_LAUNCHER
 
-creation {CALL_1}
+create {CALL_1}
    make
 
 feature {ANY}

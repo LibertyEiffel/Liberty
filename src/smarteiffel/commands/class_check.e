@@ -12,7 +12,7 @@ class CLASS_CHECK
 inherit
    CLASS_CHECKER
 
-creation {}
+create {}
    make
 
 feature {ANY}

@@ -11,10 +11,10 @@ class IPV4_SOCKET
 inherit
    SOCKET_IMPL
 
-creation {SOCKET_HANDLER}
+create {SOCKET_HANDLER}
    make_tcp, make_udp
 
-creation {SOCKET_SERVER, SOCKET_HANDLER}
+create {SOCKET_SERVER, SOCKET_HANDLER}
    bind
 
 feature {SOCKET_HANDLER}

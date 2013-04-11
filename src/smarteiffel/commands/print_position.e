@@ -6,7 +6,7 @@ class PRINT_POSITION
 insert
    ARGUMENTS
 
-creation {}
+create {}
    make
 
 feature {ANY}

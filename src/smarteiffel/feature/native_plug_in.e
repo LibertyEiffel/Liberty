@@ -11,7 +11,7 @@ inherit
       redefine is_equal, hash_code
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {SMART_EIFFEL}

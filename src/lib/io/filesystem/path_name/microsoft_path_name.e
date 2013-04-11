@@ -11,7 +11,7 @@ inherit
       redefine copy, is_equal, is_separator, is_valid_file_name, join_element, end_join
       end
 
-creation {ANY}
+create {ANY}
    make_empty, make_root, make_current, make_from_string
 
 feature {ANY} -- Creation

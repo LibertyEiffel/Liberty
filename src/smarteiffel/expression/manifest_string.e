@@ -16,10 +16,10 @@ inherit
       end
    HASHABLE
 
-creation {PARSER}
+create {PARSER}
    make
 
-creation {TOKEN_BUFFER, INTROSPECTION_HANDLER}
+create {TOKEN_BUFFER, INTROSPECTION_HANDLER}
    from_identifier
 
 feature {ANY}

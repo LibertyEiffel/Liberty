@@ -11,7 +11,7 @@ class LIKE_ARGUMENT_TYPE_MARK
 inherit
    ANCHORED_TYPE_MARK
 
-creation {EIFFEL_PARSER, FORMAL_ARG_LIST}
+create {EIFFEL_PARSER, FORMAL_ARG_LIST}
    make
 
 feature {ANY}

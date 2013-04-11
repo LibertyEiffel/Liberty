@@ -9,7 +9,7 @@ class SERC_CHAIN
 inherit
    SE_CONFIG
 
-creation {SERC_FACTORY}
+create {SERC_FACTORY}
    make
 
 feature {ANY}

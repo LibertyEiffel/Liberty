@@ -1,6 +1,6 @@
 class LLVM_GLOBAL_VARIABLE
 inherit LLVM_GLOBAL_VALUE 
-creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 feature {ANY} -- Queries
 	initializer: LLVM_VALUE is
 		do

@@ -9,7 +9,7 @@ class ACE_CHECK
 inherit
    COMMAND_LINE_TOOLS
 
-creation {}
+create {}
    make
 
 feature {ANY}

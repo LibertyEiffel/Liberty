@@ -6,7 +6,7 @@ class XML_DTD_NODE
 insert
    RECYCLABLE
 
-creation {XML_DTD_VALIDATOR}
+create {XML_DTD_VALIDATOR}
    make
 
 feature {XML_DTD_VALIDATOR, XML_DTD_ELEMENT}

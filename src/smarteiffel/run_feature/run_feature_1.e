@@ -8,7 +8,7 @@ inherit
       redefine base_feature
       end
 
-creation {CST_ATT}
+create {CST_ATT}
    for
 
 feature {ANY}

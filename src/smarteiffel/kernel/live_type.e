@@ -23,7 +23,7 @@ insert
       redefine is_equal
       end
 
-creation {SMART_EIFFEL}
+create {SMART_EIFFEL}
    make
 
 feature {ANY}

@@ -9,7 +9,7 @@ class DEBUG_COMPOUND
 inherit
    INSTRUCTION
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make
 
 feature {ANY}

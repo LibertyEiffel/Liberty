@@ -19,7 +19,7 @@ insert
       redefine set_scanned_string, make
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY} -- common

@@ -12,10 +12,10 @@ inherit
 insert
    CREATE_SUPPORT
 
-creation {ANY}
+create {ANY}
    make
 
-creation {TYPE_MARK}
+create {TYPE_MARK}
    default_user_expanded
 
 feature {ANY}

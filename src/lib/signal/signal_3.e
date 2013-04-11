@@ -6,7 +6,7 @@ class SIGNAL_3[E, F, G]
    -- See tutorial/signal/signals.txt for usage
    --
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

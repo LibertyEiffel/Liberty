@@ -20,7 +20,7 @@ insert
       redefine copy, is_equal
       end
 
-creation {ANY}
+create {ANY}
    make, with_capacity
 
 feature {ANY}

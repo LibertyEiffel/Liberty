@@ -14,7 +14,7 @@ inherit
 insert
    PLATFORM
 
-creation {ANY}
+create {ANY}
    make, with_buffer_size, connect_to
 
 feature {ANY}

@@ -2,7 +2,7 @@ class LLVM_CONSTANT_VECTOR
 inherit 
 	LLVM_CONSTANT 
 		redefine type end
-creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 feature {ANY} 
 	type: LLVM_VECTOR_TYPE is
 		do

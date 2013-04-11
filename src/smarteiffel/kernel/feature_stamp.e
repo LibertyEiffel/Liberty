@@ -13,7 +13,7 @@ inherit
 insert
    GLOBALS
 
-creation {FEATURE_ACCUMULATOR}
+create {FEATURE_ACCUMULATOR}
    make
 
 feature {ANY}

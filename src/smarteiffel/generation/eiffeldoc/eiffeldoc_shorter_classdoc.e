@@ -27,7 +27,7 @@ insert
    AGENT_TYPE_MARKS
    EIFFELDOC_GLOBALS
 
-creation {EIFFELDOC_SHORTER}
+create {EIFFELDOC_SHORTER}
    make
 
 feature {}

@@ -9,10 +9,10 @@ class CALL_INFIX_GT
 inherit
    CALL_INFIX
 
-creation {EIFFEL_PARSER, EXTERNAL_PROCEDURE}
+create {EIFFEL_PARSER, EXTERNAL_PROCEDURE}
    make
 
-creation {AGENT_CREATION}
+create {AGENT_CREATION}
    with
 
 feature {ANY}

@@ -11,7 +11,7 @@ inherit
       redefine disconnect
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

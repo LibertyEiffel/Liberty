@@ -6,7 +6,7 @@ class WRITTEN_CURRENT
 inherit
    ABSTRACT_CURRENT
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

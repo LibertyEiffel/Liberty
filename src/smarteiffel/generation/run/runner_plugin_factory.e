@@ -6,7 +6,7 @@ class RUNNER_PLUGIN_FACTORY
 inherit
    PLUGIN_FACTORY
 
-creation {RUN}
+create {RUN}
    make
 
 feature {SYSTEM_TOOLS}

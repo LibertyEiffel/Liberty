@@ -10,7 +10,7 @@ inherit
    EXPRESSION
    TAGGED
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make
 
 feature {ANY}

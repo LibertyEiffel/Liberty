@@ -32,7 +32,7 @@ insert
 	GDK_WINDOW_EXTERNALS
 	GDK_MODIFIER_TYPE
 
-creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer, secondary_wrapper_from
+create {WRAPPER, WRAPPER_HANDLER} from_external_pointer, secondary_wrapper_from
 
 feature {ANY} -- size
 	struct_size: INTEGER is

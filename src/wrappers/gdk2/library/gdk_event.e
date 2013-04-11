@@ -82,7 +82,7 @@ insert
 		--  GdkEventGrabBroken        grab_broken;
 		--};
 
-creation {WRAPPER_HANDLER} from_external_pointer
+create {WRAPPER_HANDLER} from_external_pointer
 
 feature {ANY} 
 	from_external_pointer (a_pointer: POINTER) is

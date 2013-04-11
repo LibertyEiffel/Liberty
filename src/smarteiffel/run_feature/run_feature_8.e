@@ -8,7 +8,7 @@ inherit
       redefine base_feature
       end
 
-creation {EXTERNAL_FUNCTION}
+create {EXTERNAL_FUNCTION}
    for
 
 feature {ANY}

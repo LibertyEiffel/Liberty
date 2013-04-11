@@ -6,7 +6,7 @@ class CECIL_ENTRY
 inherit
    CODE
 
-creation {CECIL_FILE}
+create {CECIL_FILE}
    make
 
 feature {ANY}

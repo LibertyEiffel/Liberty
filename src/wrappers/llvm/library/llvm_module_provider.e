@@ -10,8 +10,8 @@ inherit
 
 insert CORE_EXTERNALS
 
-creation {ANY} from_module
-creation {WRAPPER} from_external_pointer
+create {ANY} from_module
+create {WRAPPER} from_external_pointer
 feature {ANY}
 	module: LLVM_MODULE 
 	-- The module owned by Current provider

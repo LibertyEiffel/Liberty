@@ -9,7 +9,7 @@ class QUOTED_PRINTABLE_OUTPUT_STREAM
 inherit
    FILTER_OUTPUT_STREAM
 
-creation {ANY}
+create {ANY}
    connect_to
 
 feature {}

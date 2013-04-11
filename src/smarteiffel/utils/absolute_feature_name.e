@@ -6,10 +6,10 @@ expanded class ABSOLUTE_FEATURE_NAME
 insert
    HASHABLE
 
-creation {TYPE}
+create {TYPE}
    make
 
-creation {ANY}
+create {ANY}
    default_create
 
 feature {ANY}

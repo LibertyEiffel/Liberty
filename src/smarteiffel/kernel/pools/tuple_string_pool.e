@@ -11,7 +11,7 @@ inherit
       export {INSPECT_STATEMENT_VISITOR} maxstate, unknown_state, tag_state
       end
 
-creation {ANY}
+create {ANY}
    from_collection
 
 feature {} -- State management:

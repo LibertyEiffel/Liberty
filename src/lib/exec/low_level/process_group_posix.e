@@ -12,7 +12,7 @@ insert
          Maximum_integer as capacity
       end
 
-creation {PROCESS_FACTORY}
+create {PROCESS_FACTORY}
    make
 
 feature {ANY}

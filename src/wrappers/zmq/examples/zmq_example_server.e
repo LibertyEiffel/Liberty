@@ -2,7 +2,7 @@ class ZMQ_EXAMPLE_SERVER
 	-- Port of the server of the simple example at http://www.zeromq.org/area:docs-v20
 insert 
 	UNISTD_EXTERNALS -- Some low-level Posix calls
-creation {} make
+create {} make
 feature {ANY}
 	context: ZMQ_CONTEXT
 	socket: ZMQ_REP_SOCKET

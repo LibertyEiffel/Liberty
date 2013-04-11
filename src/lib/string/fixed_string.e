@@ -13,10 +13,10 @@ inherit
          check_can_have_storage_signature
       end
 
-creation {ANY}
+create {ANY}
    make_from_string, copy, from_external_copy, from_external_sized_copy, from_external
 
-creation {FIXED_STRING}
+create {FIXED_STRING}
    make_from_fixed_string
 
 feature {ANY} -- Creation:

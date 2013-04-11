@@ -72,7 +72,7 @@ inherit
 	
 create {ANY} make_dmy, from_tuple, make
    
-creation {WRAPPER} from_external_pointer
+create {WRAPPER} from_external_pointer
    
 feature {} -- size
 	struct_size: INTEGER is

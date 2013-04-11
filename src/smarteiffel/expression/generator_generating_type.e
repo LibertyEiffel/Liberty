@@ -6,7 +6,7 @@ class GENERATOR_GENERATING_TYPE
 inherit
    EXPRESSION
 
-creation {INTROSPECTION_HANDLER}
+create {INTROSPECTION_HANDLER}
    make_generating_type, make_generator
 
 feature {ANY}

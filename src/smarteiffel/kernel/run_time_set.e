@@ -17,7 +17,7 @@ class RUN_TIME_SET
 insert
    GLOBALS
 
-creation {LIVE_TYPE}
+create {LIVE_TYPE}
    make
 
 feature {ANY} -- Basic accessing:

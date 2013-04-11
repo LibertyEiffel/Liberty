@@ -12,7 +12,7 @@ inherit
 insert
    EXEC_STREAM
 
-creation {PROCESS}
+create {PROCESS}
    make
 
 feature {ANY}

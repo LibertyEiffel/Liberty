@@ -13,7 +13,7 @@ inherit
 insert
    XML_NAMESPACES
 
-creation {ANY}
+create {ANY}
    connect_to, make
 
 feature {ANY}

@@ -22,8 +22,8 @@ class LLVM_BASIC_BLOCK
 	-- that basic blocks are "well formed".
 inherit LLVM_VALUE
 insert 	LLVM_VALUE_WRAPPER_FACTORY 
-creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
-creation {ANY} appended_in_context, inserted_in_context, appended_to, inserted_before
+create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+create {ANY} appended_in_context, inserted_in_context, appended_to, inserted_before
 feature {} -- Creation
 	appended_in_context (a_context: LLVM_CONTEXT; a_function: LLVM_FUNCTION; a_name: ABSTRACT_STRING) is
 	-- TODO: documentation

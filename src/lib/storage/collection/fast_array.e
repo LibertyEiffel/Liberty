@@ -32,7 +32,7 @@ insert
       redefine default_create
       end
 
-creation {ANY}
+create {ANY}
    default_create, make, with_capacity, from_collection, from_external, manifest_creation
 
 feature {ANY}

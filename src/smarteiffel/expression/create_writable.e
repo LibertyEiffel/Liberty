@@ -10,7 +10,7 @@ class CREATE_WRITABLE
 inherit
    EXPRESSION
 
-creation {CREATE_INSTRUCTION}
+create {CREATE_INSTRUCTION}
    make, make_specialized
 
 feature {CREATE_WRITABLE, CREATE_WRITABLE_VISITOR}

@@ -14,7 +14,7 @@ inherit
 insert
    AGENT_TYPE_MARKS
 
-creation {ANY}
+create {ANY}
    routine, procedure, function, predicate
 
 feature {ANY}

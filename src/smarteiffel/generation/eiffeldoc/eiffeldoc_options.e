@@ -8,7 +8,7 @@ insert
    ARGUMENTS
    EIFFELDOC_GLOBALS
 
-creation {EIFFELDOC}
+create {EIFFELDOC}
    make
 
 feature {ANY}

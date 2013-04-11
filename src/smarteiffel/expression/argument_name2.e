@@ -12,7 +12,7 @@ inherit
 insert
    ARGUMENT_NAME
 
-creation {ANY}
+create {ANY}
    refer_to
 
 feature {ANY}

@@ -18,7 +18,7 @@ class ZMQ_SUB_SOCKET
 	-- ZMQ_HWM option action       Drop
 
 inherit ZMQ_RECEIVING_SOCKET
-creation {ZMQ_CONTEXT} from_external_pointer
+create {ZMQ_CONTEXT} from_external_pointer
 feature {ANY} -- Message subscribing
 	subscribe_to_all is
 		do

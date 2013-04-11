@@ -16,7 +16,7 @@ inherit
 insert
    GLOBALS
 
-creation {SMART_EIFFEL}
+create {SMART_EIFFEL}
    make
 
 feature {}

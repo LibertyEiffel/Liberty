@@ -9,7 +9,7 @@ class TIMEOUT_EVENT
 inherit
    TIME_EVENT
 
-creation {TIME_EVENTS}
+create {TIME_EVENTS}
    make
 
 feature {TIME_EVENTS}

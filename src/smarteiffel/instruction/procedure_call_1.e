@@ -9,7 +9,7 @@ class PROCEDURE_CALL_1
 inherit
    PROCEDURE_CALL
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

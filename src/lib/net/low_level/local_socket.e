@@ -11,7 +11,7 @@ class LOCAL_SOCKET
 inherit
    SOCKET_IMPL
 
-creation {SOCKET_HANDLER}
+create {SOCKET_HANDLER}
    make, bind
 
 feature {SOCKET_HANDLER}

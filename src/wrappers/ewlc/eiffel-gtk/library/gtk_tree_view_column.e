@@ -47,7 +47,7 @@ insert
 	
 create {ANY} make, with_attributes
 	
-creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer, secondary_wrapper_from	
+create {WRAPPER, WRAPPER_HANDLER} from_external_pointer, secondary_wrapper_from	
 
 feature {} -- Creation
 

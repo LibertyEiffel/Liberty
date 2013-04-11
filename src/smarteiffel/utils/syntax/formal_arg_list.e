@@ -9,7 +9,7 @@ class FORMAL_ARG_LIST
 inherit
    DECLARATION_LIST
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

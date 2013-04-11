@@ -12,7 +12,7 @@ inherit
    INSTRUCTION
    AGENT_LAUNCHER
 
-creation {PROCEDURE_CALL_1}
+create {PROCEDURE_CALL_1}
    make
 
 feature {ANY}

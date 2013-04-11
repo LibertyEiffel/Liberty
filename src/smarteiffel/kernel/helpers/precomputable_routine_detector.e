@@ -33,7 +33,7 @@ insert
       end
    SINGLETON
 
-creation {ANY}
+create {ANY}
    make
 
 feature {BUILT_IN_EQ_NEQ}

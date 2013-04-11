@@ -11,10 +11,10 @@ class COMMENT
 inherit
    INSTRUCTION
 
-creation {ANY}
+create {ANY}
    make
 
-creation {CLASS_CHECKER}
+create {CLASS_CHECKER}
    from_string
 
 feature {ANY}

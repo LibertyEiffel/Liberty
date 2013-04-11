@@ -6,7 +6,7 @@ class AVL_SET[E_ -> COMPARABLE]
 inherit
    ABSTRACT_AVL_SET[E_]
 
-creation {ANY}
+create {ANY}
    make, from_collection, manifest_creation
 
 feature {}

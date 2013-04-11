@@ -6,7 +6,7 @@ class STRING_PRINTER
 inherit
    STRING_FORMATTER
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

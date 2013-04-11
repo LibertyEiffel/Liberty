@@ -23,7 +23,7 @@ insert
 	G_STRING_EXTERNALS
 	GLIB_STRING_UTILITY_FUNCTIONS
 	
-creation {ANY}
+create {ANY}
 	make, copy, make_empty, from_string
 	
 feature {C_HANDLE, G_STRING}

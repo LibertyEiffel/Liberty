@@ -16,7 +16,7 @@ inherit
       end
    HASHABLE
 
-creation {EIFFEL_PARSER, OLD_MANIFEST_ARRAY}
+create {EIFFEL_PARSER, OLD_MANIFEST_ARRAY}
    make
 
 feature {ANY}

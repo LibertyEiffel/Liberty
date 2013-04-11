@@ -15,7 +15,7 @@ inherit
 insert
    RUNNER_GLOBALS
 
-creation {}
+create {}
    make
 
 feature {ANY}

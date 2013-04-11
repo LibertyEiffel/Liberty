@@ -1,8 +1,8 @@
 class LLVM_VECTOR_TYPE
 	-- A type representing a vector
 inherit LLVM_SEQUENCE_TYPE
-creation {ANY} make
-creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+create {ANY} make
+create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
 feature {ANY} -- Creation
 	make (a_type: LLVM_TYPE; a_count: NATURAL_32) is

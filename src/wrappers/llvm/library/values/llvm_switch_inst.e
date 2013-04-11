@@ -3,7 +3,7 @@ class LLVM_SWITCH_INST
 
 inherit LLVM_TERMINATOR_INST
 insert CORE_EXTERNALS
-creation {LLVM_BUILDER} from_external_pointer
+create {LLVM_BUILDER} from_external_pointer
 feature {ANY} 
 	add_case (a_value: LLVM_VALUE; a_destionation: LLVM_BASIC_BLOCK) is
 		-- Add to Current the case for `a_value' that will execute `a_destionation'

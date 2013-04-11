@@ -11,7 +11,7 @@ inherit
       redefine disconnect
       end
 
-creation {ANY}
+create {ANY}
    connect_to
 
 feature {ANY}

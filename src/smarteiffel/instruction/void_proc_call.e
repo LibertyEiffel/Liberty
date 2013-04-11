@@ -10,7 +10,7 @@ class VOID_PROC_CALL
 inherit
    NON_WRITTEN_INSTRUCTION
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

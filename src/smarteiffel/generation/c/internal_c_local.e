@@ -12,7 +12,7 @@ class INTERNAL_C_LOCAL
 insert
    GLOBALS
 
-creation {INTERNAL_C_LOCAL_LIST}
+create {INTERNAL_C_LOCAL_LIST}
    make
 
 feature {}

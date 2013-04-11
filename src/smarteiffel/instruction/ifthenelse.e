@@ -15,13 +15,13 @@ inherit
 insert
    IF_SUPPORT
 
-creation {ANY}
+create {ANY}
    with_else
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    with_elseif
 
-creation {IFTHENELSE}
+create {IFTHENELSE}
    with_elseif_and_else
 
 feature {ANY}

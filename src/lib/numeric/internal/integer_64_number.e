@@ -11,7 +11,7 @@ class INTEGER_64_NUMBER
 inherit
    INTEGER_GENERAL_NUMBER
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

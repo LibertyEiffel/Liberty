@@ -13,7 +13,7 @@ class WHEN_ITEM_2
 inherit
    WHEN_ITEM
 
-creation {WHEN_CLAUSE}
+create {WHEN_CLAUSE}
    make
 
 feature {ANY}

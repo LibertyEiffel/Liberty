@@ -10,7 +10,7 @@ class FAKE_TUPLE
 inherit
    EXPRESSION
 
-creation {EFFECTIVE_ARG_LIST}
+create {EFFECTIVE_ARG_LIST}
    make
 
 feature {ANY}

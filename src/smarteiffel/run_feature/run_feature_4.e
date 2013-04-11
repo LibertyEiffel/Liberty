@@ -8,7 +8,7 @@ inherit
       redefine base_feature
       end
 
-creation {E_FUNCTION}
+create {E_FUNCTION}
    for
 
 feature {ANY}

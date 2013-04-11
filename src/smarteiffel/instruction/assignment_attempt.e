@@ -12,7 +12,7 @@ inherit
 insert
    PLATFORM
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

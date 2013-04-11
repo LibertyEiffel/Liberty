@@ -13,7 +13,7 @@ class OLD_MANIFEST_ARRAY
 inherit
    EXPRESSION
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make
 
 feature {ANY}

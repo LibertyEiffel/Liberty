@@ -11,7 +11,7 @@ class C_SPLITTER_LEGACY
 inherit
    C_SPLITTER_SPLIT
 
-creation {ACE, CLEAN}
+create {ACE, CLEAN}
    make
 
 feature {}

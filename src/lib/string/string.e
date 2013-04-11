@@ -9,7 +9,7 @@ class STRING
 inherit
    NATIVELY_STORED_STRING
 
-creation {ANY}
+create {ANY}
    with_capacity, make, copy, make_empty, make_filled, from_external, from_external_copy,
    from_external_sized, from_external_sized_copy, make_from_string
 

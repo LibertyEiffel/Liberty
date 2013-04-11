@@ -6,7 +6,7 @@ class CST_ATT_CHARACTER
 inherit
    CST_ATT
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

@@ -9,7 +9,7 @@ class BACKTRACKING_NODE_UNDER_CUT_POINT
 inherit
    BACKTRACKING_NODE_UNARY
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

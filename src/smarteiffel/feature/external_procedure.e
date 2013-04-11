@@ -8,10 +8,10 @@ inherit
       redefine hook_collect
       end
 
-creation {FEATURE_TEXT}
+create {FEATURE_TEXT}
    make
 
-creation {CLASS_TEXT}
+create {CLASS_TEXT}
    non_written
 
 feature {ANY}

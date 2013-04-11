@@ -26,7 +26,7 @@ insert
 	GLIB_STRING_UTILITY_FUNCTIONS undefine out_in_tagged_out_memory end 
 
 	
-creation {ANY}
+create {ANY}
 	make, copy, make_empty, from_string
 	
 feature {ANY}

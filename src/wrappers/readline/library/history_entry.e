@@ -8,7 +8,7 @@ inherit
 insert
 	HIST_ENTRY_STRUCT
 
-creation {READ_LINE_HISTORY} from_external_pointer
+create {READ_LINE_HISTORY} from_external_pointer
 feature {ANY} 
 	line: FIXED_STRING is
 		do

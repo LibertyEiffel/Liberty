@@ -12,10 +12,10 @@ inherit
          static_simplify
       end
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make
 
-creation {AGENT_CREATION}
+create {AGENT_CREATION}
    with
 
 feature {ANY}

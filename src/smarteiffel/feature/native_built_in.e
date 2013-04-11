@@ -8,7 +8,7 @@ inherit
       redefine side_effect_free
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

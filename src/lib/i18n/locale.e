@@ -9,7 +9,7 @@ insert
          out_in_tagged_out_memory, default_create
       end
 
-creation {ANY}
+create {ANY}
    default_create, make, make_language, make_country, make_encoding
 
 feature {ANY}

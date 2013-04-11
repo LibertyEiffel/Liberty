@@ -9,7 +9,7 @@ class ADDRESS_OF
 inherit
    EXPRESSION
 
-creation {ANY}
+create {ANY}
    with_local, with_feature_name
 
 feature {ANY}

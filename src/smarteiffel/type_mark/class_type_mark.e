@@ -8,7 +8,7 @@ inherit
       redefine resolve_in
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

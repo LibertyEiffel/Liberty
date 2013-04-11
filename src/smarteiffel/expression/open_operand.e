@@ -17,10 +17,10 @@ class OPEN_OPERAND
 inherit
    EXPRESSION
 
-creation {EIFFEL_PARSER, FORMAL_ARG_LIST}
+create {EIFFEL_PARSER, FORMAL_ARG_LIST}
    question_mark
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    type_holder
 
 feature {ANY}

@@ -8,7 +8,7 @@ inherit
       redefine resolve_in
       end
 
-creation {EIFFEL_PARSER, CREATE_INSTRUCTION}
+create {EIFFEL_PARSER, CREATE_INSTRUCTION}
    make
 
 feature {ANY}

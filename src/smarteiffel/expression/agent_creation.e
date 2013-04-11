@@ -22,7 +22,7 @@ class AGENT_CREATION
 inherit
    EXPRESSION
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make
 
 feature {ANY}

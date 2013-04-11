@@ -6,7 +6,7 @@ class FOREIGN_EXTERNAL_FUNCTION
 inherit
    FOREIGN_AGENT
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

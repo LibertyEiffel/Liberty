@@ -11,7 +11,7 @@ class MANIFEST_STRING_INSPECTOR
 insert
    GLOBALS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {INSPECT_STATEMENT_VISITOR}

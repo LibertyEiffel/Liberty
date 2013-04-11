@@ -14,7 +14,7 @@ insert
    NCURSES_TOOLS
    NCURSES_COLORS
 
-creation {MAKE_RELEASE}
+create {MAKE_RELEASE}
    make
 
 feature {LOOP_ITEM}

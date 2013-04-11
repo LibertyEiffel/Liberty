@@ -8,7 +8,7 @@ class LOCAL_SOCKET_SERVER
 inherit
    SOCKET_SERVER
 
-creation {ACCESS}
+create {ACCESS}
    make
 
 feature {}

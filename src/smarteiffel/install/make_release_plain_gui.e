@@ -6,7 +6,7 @@ class MAKE_RELEASE_PLAIN_GUI
 inherit
    MAKE_RELEASE_GUI
 
-creation {MAKE_RELEASE}
+create {MAKE_RELEASE}
    make
 
 feature {MAKE_RELEASE, MAKE_RELEASE_JOB}

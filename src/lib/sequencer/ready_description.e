@@ -10,7 +10,7 @@ inherit
          {ANY} after, at, when_data, is_data, when_free, is_free, when_connection, is_connection
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

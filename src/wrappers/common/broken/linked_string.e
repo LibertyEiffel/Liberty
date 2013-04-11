@@ -13,7 +13,7 @@ inherit
 			append_substring, make_from_string, reverse, ensure_capacity, from_external, to_external, recycle
 		end
 
-creation {ANY}
+create {ANY}
 	from_string, make, copy
 
 feature {ANY} -- Creation / Modification:

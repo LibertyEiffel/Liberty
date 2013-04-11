@@ -17,7 +17,7 @@ class WEAK_REFERENCE[G_]
 inherit
    ANY
 
-creation {ANY}
+create {ANY}
    set_item
 
 feature {ANY}

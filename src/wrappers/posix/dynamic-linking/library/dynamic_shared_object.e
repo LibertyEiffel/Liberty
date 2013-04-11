@@ -14,7 +14,7 @@ insert
 	DL_FLAGS
 	DLFCNEXTERNALS
 
-creation {DYNAMIC_LINKING_LOADER} from_external_pointer
+create {DYNAMIC_LINKING_LOADER} from_external_pointer
 
 feature {ANY} -- Command
 	set_flags (some_flags: INTEGER) is

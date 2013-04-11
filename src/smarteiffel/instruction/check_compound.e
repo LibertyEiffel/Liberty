@@ -9,7 +9,7 @@ class CHECK_COMPOUND
 inherit
    INSTRUCTION
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

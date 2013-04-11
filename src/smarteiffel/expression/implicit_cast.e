@@ -26,7 +26,7 @@ class IMPLICIT_CAST
 inherit
    EXPRESSION
 
-creation {ASSIGNMENT_HANDLER, IMPLICIT_CAST}
+create {ASSIGNMENT_HANDLER, IMPLICIT_CAST}
    make
 
 feature {ANY}

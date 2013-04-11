@@ -7,7 +7,7 @@ class BIJECTIVE_DICTIONARY_REVERSER[V_, K_]
 inherit
    BIJECTIVE_DICTIONARY[V_, K_]
 
-creation {ANY}
+create {ANY}
    from_bijective_dictionary
 
 feature {ANY}

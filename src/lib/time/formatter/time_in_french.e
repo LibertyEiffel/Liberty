@@ -9,7 +9,7 @@ class TIME_IN_FRENCH
 inherit
    TIME_FORMATTER
 
-creation {ANY}
+create {ANY}
    default_create, set_time
 
 feature {ANY}

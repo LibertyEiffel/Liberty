@@ -12,7 +12,7 @@ class REFERENCE[E_]
 inherit
    ANY
 
-creation {ANY}
+create {ANY}
    default_create, set_item
 
 feature {ANY}

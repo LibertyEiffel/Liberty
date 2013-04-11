@@ -26,7 +26,7 @@ insert
          out_in_tagged_out_memory
       end
 
-creation {ANY}
+create {ANY}
    using_history
 
 feature {ANY} -- TODO: State managing

@@ -14,7 +14,7 @@ inherit
 insert
    NATIVE_ARRAY_COLLECTOR[E_]
    
-creation {ANY}
+create {ANY}
    make, copy, from_collection3, from_collection, from_model
 
 feature {ANY}

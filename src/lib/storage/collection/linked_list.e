@@ -21,7 +21,7 @@ inherit
 insert
    LINKED_COLLECTION[E_]
 
-creation {ANY}
+create {ANY}
 	default_create, make, from_collection, manifest_creation
 
 feature {LINKED_LIST, ITERATOR_ON_LINKED_LIST}

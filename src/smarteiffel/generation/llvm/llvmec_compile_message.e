@@ -4,7 +4,7 @@ class LLVMEC_COMPILE_MESSAGE
         -- a class).
 inherit
         ZMQ_MESSAGE
-creation {LLVM_BYTECODE_EMITTER} to_compile_cluster
+create {LLVM_BYTECODE_EMITTER} to_compile_cluster
 feature {}
         to_compile_cluster (a_cluster: CLUSTER) is
                 require a_cluster/=Void

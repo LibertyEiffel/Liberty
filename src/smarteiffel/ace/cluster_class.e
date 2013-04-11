@@ -6,7 +6,7 @@ class CLUSTER_CLASS
 insert
    GLOBALS
 
-creation {CLUSTER_POOL_DATA}
+create {CLUSTER_POOL_DATA}
    make
 
 feature {ANY}

@@ -11,7 +11,7 @@ inherit
       redefine pretty_in, default_expression, resolve_in, class_text
       end
 
-creation {ANY}
+create {ANY}
    natural_8, natural_16, natural_32, natural_64
 
 feature {ANY}

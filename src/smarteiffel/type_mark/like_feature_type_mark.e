@@ -11,7 +11,7 @@ class LIKE_FEATURE_TYPE_MARK
 inherit
    ANCHORED_TYPE_MARK
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make
 
 feature {ANY}

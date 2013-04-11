@@ -15,12 +15,12 @@ inherit
 insert
    GLOBALS
 
-creation {TMP_FEATURE}
+create {TMP_FEATURE}
    writable_attribute, once_procedure, once_function, deferred_procedure, deferred_function, e_procedure,
    e_function,   external_procedure, external_function, string_constant, character_constant, boolean_constant,
    integer_constant, real_constant, unique_constant
 
-creation {CLASS_TEXT}
+create {CLASS_TEXT}
    non_written_one
 
 feature {ANY}

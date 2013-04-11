@@ -13,7 +13,7 @@ inherit
 		ARRAYED_COLLECTION_HANDLER redefine default_create end
 
 insert CORE_EXTERNALS redefine default_create end 
-creation {ANY} in_context, default_create, at_end_of
+create {ANY} in_context, default_create, at_end_of
 feature {ANY} -- Creation
 	in_context (a_context: LLVM_CONTEXT) is
 		-- Create an LLVM_BUILDER in `a_context'.

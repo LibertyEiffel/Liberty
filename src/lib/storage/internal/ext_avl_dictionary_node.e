@@ -9,7 +9,7 @@ class EXT_AVL_DICTIONARY_NODE[V_, K_]
 inherit
    ABSTRACT_AVL_DICTIONARY_NODE[V_, K_]
 
-creation {EXT_AVL_DICTIONARY}
+create {EXT_AVL_DICTIONARY}
    make
 
 feature {}

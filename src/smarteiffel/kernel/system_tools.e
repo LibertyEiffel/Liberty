@@ -25,10 +25,10 @@ insert
       undefine is_equal
       end
 
-creation {ANY}
+create {ANY}
    make
 
-creation {INSTALL_GLOBALS}
+create {INSTALL_GLOBALS}
    make_install
 
 feature {INSTALL_GLOBALS, SERC_FACTORY, C_SPLITTER} -- Currently handled system list:

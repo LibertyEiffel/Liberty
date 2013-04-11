@@ -9,7 +9,7 @@ inherit
       redefine out_in_tagged_out_memory, is_equal
       end
 
-creation {ANY}
+create {ANY}
    default_create
 
 feature {ANY}

@@ -8,7 +8,7 @@ class DICTIONARY_KEY_TRAVERSER[V_, K_]
 inherit
    TRAVERSABLE[K_]
 
-creation {ANY}
+create {ANY}
    from_dictionary
 
 feature {ANY}

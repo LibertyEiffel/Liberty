@@ -20,7 +20,7 @@ insert
       redefine is_equal
       end
 
-creation {STRING_ALIASER}
+create {STRING_ALIASER}
    make
 
 feature {ANY}

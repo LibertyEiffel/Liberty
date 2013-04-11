@@ -7,7 +7,7 @@ class ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS[V_, K_]
 inherit
    ITERATOR[V_]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}
