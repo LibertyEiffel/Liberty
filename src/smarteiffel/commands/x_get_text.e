@@ -77,7 +77,7 @@ feature {}
    find_get_text_seeds is
       local
          hs: HASHED_STRING; get_text_class_name: CLASS_NAME; get_text_type: TYPE; fn: FEATURE_NAME
-         pos_ref: POSITION_PRINTER; seed: FEATURE_STAMP; get_text_declaration: GET_TEXT_DECLARATION
+         seed: FEATURE_STAMP; get_text_declaration: GET_TEXT_DECLARATION
          number_get_text_declaration: NUMBER_GET_TEXT_DECLARATION
       do
 --         parser_buffer.load_file(once "get_text.se")
@@ -94,8 +94,7 @@ feature {}
          create fn.simple_feature_name(fz_get_text, get_text_class.name.start_position)
          seed := get_text_type.search(fn)
          if seed /= Void then
-            create pos_ref.set_position(seed.anonymous_feature(get_text_type).start_position)
-            echo.put_line(fz_found_at # fz_get_text # pos_ref)
+            echo.put_line(fz_found_at # fz_get_text # seed.anonymous_feature(get_text_type).start_position.out)
             create get_text_declaration.make(1, get_text_type)
             get_text_seeds.add(get_text_declaration, seed)
          else
@@ -105,8 +104,7 @@ feature {}
          create fn.simple_feature_name(fz_number_get_text, get_text_class.name.start_position)
          seed := get_text_type.search(fn)
          if seed /= Void then
-            pos_ref.set_position(seed.anonymous_feature(get_text_type).start_position)
-            echo.put_line(fz_found_at # fz_number_get_text # pos_ref)
+            echo.put_line(fz_found_at # fz_number_get_text # seed.anonymous_feature(get_text_type).start_position.out)
             create number_get_text_declaration.make(1, 2, get_text_type)
             get_text_seeds.add(number_get_text_declaration, seed)
          else
@@ -119,10 +117,8 @@ feature {}
          i, j: INTEGER; types: DICTIONARY[TYPE, HASHED_STRING]; type, declaration_type: TYPE
          seed, stamp: FEATURE_STAMP
          get_text_name: FEATURE_NAME
-         pos_ref: POSITION_PRINTER
       do
          create {HASHED_DICTIONARY[ABSTRACT_GET_TEXT_DECLARATION, FEATURE_STAMP]}get_text_declarations.make
-         create pos_ref
          types := smart_eiffel.type_dictionary
          from
             i := types.lower
@@ -142,8 +138,7 @@ feature {}
                   stamp := seed.resolve_static_binding_for(declaration_type, type)
                   get_text_declarations.put(get_text_seeds.item(j), stamp)
                   get_text_name := stamp.anonymous_feature(type).first_name
-                  pos_ref.set_position(get_text_name.start_position)
-                  echo.put_line(fz_found_as # fz_get_text # get_text_name.to_string # pos_ref)
+                  echo.put_line(fz_found_as # fz_get_text # get_text_name.to_string # get_text_name.start_position.out)
                end
                j := j + 1
             end

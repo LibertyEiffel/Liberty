@@ -361,7 +361,7 @@ feature {}
          show_nb(nb_errors, once " error")
       end
 
-feature {COMPILE_TO_C, RUN}
+feature {COMPILE_TO_C, RUN, llvmec}
    set_drop_comments is
       do
          drop_comments := True
