@@ -5,6 +5,9 @@ expanded class FIXED_ARRAY[E_]
 
 insert
    SAFE_EQUAL[E_]
+      undefine
+         out_in_tagged_out_memory
+      end
    TRAVERSABLE[E_]
 
 creation {ANY}
