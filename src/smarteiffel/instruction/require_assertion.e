@@ -18,11 +18,11 @@ insert
    TRAVERSABLE[ASSERTION_LIST]
       --*** Using traversable is very inefficient here (better implementation?)
 
-create {ANY}
-   {TMP_FEATURE}   make
+create {TMP_FEATURE}
+   make
 
-create {ANY}
-   {ANONYMOUS_FEATURE_MIXER} from_parents
+create {ANONYMOUS_FEATURE_MIXER}
+   from_parents
 
 feature {ANY}
    is_require_else: BOOLEAN
