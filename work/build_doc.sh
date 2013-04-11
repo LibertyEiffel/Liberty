@@ -8,10 +8,6 @@ fi
 root=$(cd $(dirname $(readlink -f $0))/..; pwd)
 doc_root=$root/website/doc
 export LOG=$doc_root/build_doc$(date +'-%Y%m%d-%H%M%S').log
-if [ x$1 == "x-plain" ]; then
-    plain=TRUE
-fi
-export plain=${plain:-FALSE}
 
 . $root/work/tools.sh
 
