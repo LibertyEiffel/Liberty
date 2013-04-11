@@ -1,9 +1,9 @@
 deferred class LLVM_INTRINSIC_INST
-	-- An LLVM_INTRINSIC_INST is used to inspect calls to intrinsic functions,
-	-- allowing the standard isa/dyncast/cast functionality to work with calls
-	-- to intrinsic functions.
+        -- An LLVM_INTRINSIC_INST is used to inspect calls to intrinsic functions,
+        -- allowing the standard isa/dyncast/cast functionality to work with calls
+        -- to intrinsic functions.
 inherit LLVM_INSTRUCTION
-end -- class LLVM_CALL_INST
+end -- class LLVM_INTRINSIC_INST
 
 -- Copyright 2009 Paolo Redaelli
 -- This file is part of LLVM wrappers for Liberty Eiffel.
@@ -20,4 +20,3 @@ end -- class LLVM_CALL_INST
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-
