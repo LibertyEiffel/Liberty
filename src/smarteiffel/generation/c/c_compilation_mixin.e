@@ -218,7 +218,7 @@ feature {}
    fe_c2c (rf: RUN_FEATURE) is
       do
          error_handler.add_position(rf.start_position)
-         error_handler.append("Command 'compile_to_c' cannot compile this code.")
+         error_handler.append(once "Command 'compile_to_c' cannot compile this code.")
          error_handler.print_as_fatal_error
       end
 

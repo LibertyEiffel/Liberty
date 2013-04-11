@@ -28,7 +28,7 @@ feature {ANY}
          else
             error_handler.add_position(start_position)
          end
-         error_handler.append("Deferred feature must not have rescue compound.")
+         error_handler.append(once "Deferred feature must not have rescue compound.")
          error_handler.print_as_fatal_error
       end
 
@@ -125,7 +125,7 @@ feature {}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       do
       end
-   
+
 end -- class DEFERRED_ROUTINE
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

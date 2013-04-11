@@ -120,9 +120,9 @@ feature {ANY}
             if fs = Void then
                error_handler.add_position(feature_name.start_position)
                error_handler.append(fz_vuar4)
-               error_handler.append(" Feature `")
+               error_handler.append(once " Feature `")
                error_handler.append(feature_name.to_string)
-               error_handler.append("' not found.")
+               error_handler.append(once "' not found.")
                error_handler.print_as_fatal_error
             end
             if calling_code /= Void then

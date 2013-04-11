@@ -28,7 +28,7 @@ feature {ANY}
       do
          fs := new_type.search(like_what)
          if fs = Void then
-            error_handler.append("Bad anchor. Unknown feature name.")
+            error_handler.append(once "Bad anchor. Unknown feature name.")
             error_handler.add_position(like_what.start_position)
             error_handler.print_as_fatal_error
          end
@@ -38,7 +38,7 @@ feature {ANY}
             result_tm := feature_accumulator.find_type_for(fs)
             if result_tm = Void then
                error_handler.append(like_what.to_string)
-               error_handler.append(" is a procedure. Anchored type is not valid.")
+               error_handler.append(once " is a procedure. Anchored type is not valid.")
                error_handler.add_position(start_position)
                error_handler.add_position(like_what.start_position)
                error_handler.print_as_fatal_error

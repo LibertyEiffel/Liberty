@@ -31,11 +31,7 @@ feature {ANY}
    pretty (indent_level: INTEGER) is
       do
          if is_omitted then
-            if pretty_printer.zen_mode then
-               -- No print.
-            else
-               pretty_printer.put_string(once "{ANY}")
-            end
+            pretty_printer.put_string(once "{ANY}")
          elseif class_name_list = Void then
             pretty_printer.put_string(once "{}")
          else

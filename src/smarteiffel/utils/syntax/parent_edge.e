@@ -241,18 +241,18 @@ feature {PARENT_LISTS}
                end
             else
                error_handler.add_position(start_position)
-               error_handler.append("You cannot inherit %"")
+               error_handler.append(once "You cannot inherit %"")
                error_handler.append(class_text_name)
-               error_handler.append("%" (forbidden or not yet implemented).")
+               error_handler.append(once "%" (forbidden or not yet implemented).")
                error_handler.print_as_fatal_error
             end
          end
          if type_mark.is_generic and then class_text.formal_generic_list = Void then
             error_handler.add_position(class_text.name.start_position)
             error_handler.add_position(start_position)
-            error_handler.append("Class ")
+            error_handler.append(once "Class ")
             error_handler.append(class_text.name.to_string)
-            error_handler.append(" is not generic.")
+            error_handler.append(once " is not generic.")
             error_handler.print_as_fatal_error
          end
          if rename_list /= Void then
@@ -267,18 +267,18 @@ feature {PARENT_LISTS}
                fn := redefine_list.item(i)
                if not written_site.proper_has(fn) then
                   error_handler.add_position(fn.start_position)
-                  error_handler.append("Redefinition of ")
+                  error_handler.append(once "Redefinition of ")
                   error_handler.add_feature_name(fn)
-                  error_handler.append(" not found in this class.")
+                  error_handler.append(once " not found in this class.")
                   error_handler.print_as_fatal_error
                end
                new_fn := get_name_in_child(fn)
                if new_fn /= Void then
                   error_handler.add_position(fn.start_position)
                   error_handler.add_position(rename_list.name_in_parent(new_fn).start_position)
-                  error_handler.append("Cannot redefine ")
+                  error_handler.append(once "Cannot redefine ")
                   error_handler.add_feature_name(fn)
-                  error_handler.append(" which is actually already renamed as ")
+                  error_handler.append(once " which is actually already renamed as ")
                   error_handler.add_feature_name(new_fn)
                   error_handler.print_as_fatal_error
                end
@@ -308,13 +308,13 @@ feature {PARENT_LISTS}
                fn := undefine_list.item(i)
                if (not is_target_of_rename(fn)) and then not parent_type.valid_feature_name(fn) then
                   error_handler.add_position(fn.start_position)
-                  error_handler.append("Cannot undefine ")
+                  error_handler.append(once "Cannot undefine ")
                   error_handler.add_feature_name(fn)
-                  error_handler.append(" because type ")
+                  error_handler.append(once " because type ")
                   error_handler.append(parent_type.name.to_string)
-                  error_handler.append(" does not have ")
+                  error_handler.append(once " does not have ")
                   error_handler.add_feature_name(fn)
-                  error_handler.append(".")
+                  error_handler.append(once ".")
                   error_handler.print_as_fatal_error
                end
                i := i + 1
@@ -332,13 +332,13 @@ feature {PARENT_LISTS}
                fn := redefine_list.item(i)
                if (not is_target_of_rename(fn)) and then not parent_type.valid_feature_name(fn) then
                   error_handler.add_position(fn.start_position)
-                  error_handler.append("Cannot redefine ")
+                  error_handler.append(once "Cannot redefine ")
                   error_handler.add_feature_name(fn)
-                  error_handler.append(" because type ")
+                  error_handler.append(once " because type ")
                   error_handler.append(parent_type.name.to_string)
-                  error_handler.append(" does not have ")
+                  error_handler.append(once " does not have ")
                   error_handler.add_feature_name(fn)
-                  error_handler.append(".")
+                  error_handler.append(once ".")
                   error_handler.print_as_fatal_error
                end
                i := i + 1

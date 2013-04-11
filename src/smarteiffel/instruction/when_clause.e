@@ -803,7 +803,7 @@ feature {EIFFEL_PARSER}
          when -1 then
             if {MANIFEST_STRING} ?:= allowed_constant then
                error_handler.add_position(allowed_constant.start_position)
-               error_handler.append("Cannot use here a manifest STRING because the previous one %
+               error_handler.append(once "Cannot use here a manifest STRING because the previous one %
                 %used in this %"inspect%" statement is not a manifest STRING.")
                error_handler.print_as_fatal_error
             else
@@ -814,7 +814,7 @@ feature {EIFFEL_PARSER}
                Result := 1
             else
                error_handler.add_position(allowed_constant.start_position)
-               error_handler.append("Must use here a manifest STRING because the previous one %
+               error_handler.append(once "Must use here a manifest STRING because the previous one %
                 %used in this %"inspect%" statement is a manifest STRING.")
                error_handler.print_as_fatal_error
             end
@@ -831,7 +831,7 @@ feature {}
       do
          if expression.is_manifest_string then
             error_handler.add_position(expression.start_position)
-            error_handler.append("Cannot use '..' with manifest strings.")
+            error_handler.append(once "Cannot use '..' with manifest strings.")
             error_handler.print_as_fatal_error
          end
       end

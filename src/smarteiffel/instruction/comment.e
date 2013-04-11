@@ -196,8 +196,8 @@ feature {CLASS_TEXT, COMMENT_VISITOR}
          if not list.item(1).has_substring(name.to_string) then
             error_handler.add_position(name.start_position)
             error_handler.add_position(start_position)
-            error_handler.append("Bad comment to end a class.")
-            error_handler.print_as_warning
+            error_handler.append(once "Bad comment to end a class.")
+            error_handler.print_as_style_warning
          end
       end
 

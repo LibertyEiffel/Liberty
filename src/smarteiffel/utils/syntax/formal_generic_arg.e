@@ -68,10 +68,10 @@ feature {FORMAL_GENERIC_LIST}
          if class_text /= Void then
             error_handler.add_position(name.start_position)
             error_handler.add_position(class_text.name.start_position)
-            error_handler.append("A formal generic argument must not use the name of some existing class.")
+            error_handler.append(once "A formal generic argument must not use the name of some existing class.")
             error_handler.print_as_error
             error_handler.add_position(name.start_position)
-            error_handler.append("You have to use another name for this formal generic argument. %
+            error_handler.append(once "You have to use another name for this formal generic argument. %
                                  %The common usage is to add an extra trailing underscore character %
                                  %(see for example COLLECTION, ARRAY or DICTIONARY).")
             error_handler.print_as_fatal_error

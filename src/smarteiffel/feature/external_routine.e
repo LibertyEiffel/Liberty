@@ -28,7 +28,7 @@ feature {ANY}
          else
             error_handler.add_position(start_position)
          end
-         error_handler.append("External feature must not have rescue compound.")
+         error_handler.append(once "External feature must not have rescue compound.")
          error_handler.print_as_fatal_error
       end
 

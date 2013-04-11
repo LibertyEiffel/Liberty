@@ -105,12 +105,12 @@ feature {FEATURE_CALL}
             exported := cl.gives_permission_to(type.class_text.name)
             if not exported then
                error_handler.add_position(start_position)
-               error_handler.append("Forbidden call (i.e. exportation rules violated) when the type of Current is ")
+               error_handler.append(once "Forbidden call (i.e. exportation rules violated) when the type of Current is ")
                error_handler.append(type.canonical_type_mark.written_mark)
-               error_handler.append(". (See the next error report for details.)")
+               error_handler.append(once ". (See the next error report for details.)")
                error_handler.print_as_error
                error_handler.add_position(af.start_position)
-               error_handler.append("This feature is only exported to ")
+               error_handler.append(once "This feature is only exported to ")
                error_handler.append(cl.eiffel_view)
                cl.locate_in_error_handler
                error_handler.extend('.')

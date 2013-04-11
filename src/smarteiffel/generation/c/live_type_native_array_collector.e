@@ -36,7 +36,7 @@ feature {LIVE_TYPE}
             else
                fs := live_type.type.feature_stamp_of(mark_item_name)
                if fs = Void then
-                  error_handler.append("Internal problem while searching for %"mark_item%".")
+                  error_handler.append(once "Internal problem while searching for %"mark_item%".")
                   error_handler.print_as_warning
                else
                   af := fs.anonymous_feature(live_type.type)
@@ -51,7 +51,7 @@ feature {LIVE_TYPE}
             -- Must collect `mark_native_arrays':
             fs := live_type.type.feature_stamp_of(mark_native_arrays_name)
             if fs = Void then
-               error_handler.append("Internal problem for %"mark_native_arrays%".")
+               error_handler.append(once "Internal problem for %"mark_native_arrays%".")
                error_handler.print_as_warning
             else
                live_type.collect(fs)

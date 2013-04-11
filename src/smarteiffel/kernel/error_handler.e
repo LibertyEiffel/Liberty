@@ -21,6 +21,9 @@ feature {ANY}
    no_warning: BOOLEAN
          -- To avoid warning messages.
 
+   style_warning: BOOLEAN
+         -- To display style warning messages.
+
    is_empty: BOOLEAN is
          -- True when nothing stored in `explanation' and `positions'.
       do
@@ -30,6 +33,11 @@ feature {ANY}
    set_no_warning is
       do
          no_warning := True
+      end
+
+   set_style_warning is
+      do
+         style_warning := True
       end
 
    append (s: STRING) is
@@ -142,6 +150,21 @@ feature {ANY}
          append(once " (The validation context is ")
          append(ct.written_mark)
          append(once " . The validation context is used to compute all anchored type marks.)")
+      end
+
+   print_as_style_warning is
+         -- Print `explanation' as a Warning report.
+         -- After printing, `explanation' and `positions' are reset.
+      require
+         not is_empty
+      do
+         if style_warning then
+            print_as_warning
+         else
+            cancel
+         end
+      ensure
+         warning_counter = old warning_counter + 1
       end
 
    print_as_warning is

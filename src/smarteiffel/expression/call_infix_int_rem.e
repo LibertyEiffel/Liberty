@@ -39,7 +39,7 @@ feature {ANY}
          else
             v2 := ic2.value_memory
             if v2 = 0 then
-               error_handler.append("Division by zero.")
+               error_handler.append(once "Division by zero.")
                error_handler.add_position(feature_name.start_position)
                error_handler.print_as_fatal_error
             end

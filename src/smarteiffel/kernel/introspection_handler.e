@@ -267,7 +267,7 @@ feature {EXTERNAL_ROUTINE}
          end
          if native_array_element_type.is_native_array then
             --|*** This message is pretty unhelpful. Where can I get useful start_positions? <FM-29/01/2007>
-            error_handler.append("NATIVE_ARRAY[NATIVE_ARRAY[...]] is not currently supported by the introspection system.")
+            error_handler.append(once "NATIVE_ARRAY[NATIVE_ARRAY[...]] is not currently supported by the introspection system.")
             error_handler.print_as_fatal_error
          end
          if n = as_type_attribute_count then

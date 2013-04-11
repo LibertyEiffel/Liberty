@@ -113,10 +113,10 @@ feature {ANY}
             create unicode_string.make(to_string.count * 2)
             utf8_parser.decode(to_string, unicode_string)
             if utf8_parser.first_error /= Void then
-               error_handler.append("Invalid unicode string at index ")
+               error_handler.append(once "Invalid unicode string at index ")
                error_handler.add_position(start_position)
                error_handler.append_integer(utf8_parser.first_error_index)
-               error_handler.append(" of this Unicode manifest string. ")
+               error_handler.append(once " of this Unicode manifest string. ")
                error_handler.append(utf8_parser.first_error)
                error_handler.print_as_error
             end

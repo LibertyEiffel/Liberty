@@ -80,19 +80,19 @@ feature {ANY}
                   end
                   if not selected then
                      if else_position.is_unknown then
-                        error_handler.append("In the context %"")
+                        error_handler.append(once "In the context %"")
                         error_handler.append(type.name.to_string)
-                        error_handler.append("%" (i.e. when the type of Current is %"")
+                        error_handler.append(once "%" (i.e. when the type of Current is %"")
                         error_handler.append(type.name.to_string)
-                        error_handler.append("%") this expression is the ")
+                        error_handler.append(once "%") this expression is the ")
                         if cc /= Void then
-                           error_handler.append("CHARACTER ")
+                           error_handler.append(once "CHARACTER ")
                            error_handler.append(cc.to_string)
                         else
-                           error_handler.append("INTEGER ")
+                           error_handler.append(once "INTEGER ")
                            error_handler.append(ic.to_string)
                         end
-                        error_handler.append(" but there is _no_ when clause selected. (Also note that there is %
+                        error_handler.append(once " but there is _no_ when clause selected. (Also note that there is %
                     %no else part for this inspect statment, hence this error message.)")
                         error_handler.add_position(expression.start_position)
                         error_handler.print_as_fatal_error
@@ -376,12 +376,12 @@ feature {ANY}
                end
             else
                error_handler.add_position(expression.start_position)
-               error_handler.append("For inspect statement, the expression type can be only INTEGER, %
+               error_handler.append(once "For inspect statement, the expression type can be only INTEGER, %
                                      %CHARACTER or STRING. (Actually ")
                error_handler.add_expression(expression)
-               error_handler.append(" is of type ")
+               error_handler.append(once " is of type ")
                error_handler.add_type(expression_type)
-               error_handler.append(" which is not allowed.)")
+               error_handler.append(once " which is not allowed.)")
                error_handler.print_as_error
             end
          end

@@ -32,7 +32,7 @@ feature {} -- Most of them are command flag names:
 
    fz_no_strip: STRING is "no_strip"
 
-   fz_no_style_warning: STRING is "no_style_warning"
+   fz_style_warning: STRING is "style_warning"
 
    fz_no_warning: STRING is "no_warning"
 

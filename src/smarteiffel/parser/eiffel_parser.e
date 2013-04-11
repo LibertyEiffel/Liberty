@@ -21,9 +21,6 @@ creation {ANY}
 feature {ANY}
    no_rescue: BOOLEAN
 
-   no_style_warning: BOOLEAN
-         -- When flag "-no_style_warning" is on.
-
    is_running: BOOLEAN
          -- True when the parser is running (i.e. parsing of the current class
          -- is not finished).
@@ -58,11 +55,11 @@ feature {SMART_EIFFEL}
          current_id := id_provider.item(cn, a_cluster)
          path := parser_buffer.path
          if nb_errors > 0 then
-            error_handler.append("Correct the previous error")
+            error_handler.append(once "Correct the previous error")
             if nb_errors > 1 then
                error_handler.extend('s')
             end
-            error_handler.append(" first.")
+            error_handler.append(once " first.")
             error_handler.print_as_fatal_error
          end
          debug
@@ -176,20 +173,15 @@ feature {SMART_EIFFEL}
             end
          end
          if cn = Void then
-            error_handler.append("Unable to find a class definition in %"")
+            error_handler.append(once "Unable to find a class definition in %"")
             error_handler.append(parser_buffer.path)
-            error_handler.append("%".")
+            error_handler.append(once "%".")
             error_handler.print_as_fatal_error
          end
          Result := analyse_class(cn, cluster)
       end
 
 feature {ACE, COMMAND_LINE_TOOLS}
-   set_no_style_warning is
-      do
-         no_style_warning := True
-      end
-
    set_no_rescue is
       do
          no_rescue := True
@@ -211,7 +203,7 @@ feature {CECIL_FILE}
          echo.put_string(once "%"%N")
          parser_buffer.load_file(a_path)
          if not parser_buffer.is_ready then
-            error_handler.append("Cannot open Cecil file (use -verbose flag for details).")
+            error_handler.append(once "Cannot open Cecil file (use -verbose flag for details).")
             error_handler.print_as_fatal_error
          end
          path := parser_buffer.hashed_path
@@ -239,7 +231,7 @@ feature {CECIL_FILE}
          end
          skip_comments
          if cc = end_of_text then
-            error_handler.append("Empty Cecil file (use -verbose flag for details).")
+            error_handler.append(once "Empty Cecil file (use -verbose flag for details).")
             error_handler.print_as_fatal_error
          end
       end
@@ -281,7 +273,7 @@ feature {CECIL_FILE}
             Result := last_feature_name
          else
             error_handler.add_position(current_position)
-            error_handler.append("Feature name expected here.")
+            error_handler.append(once "Feature name expected here.")
             error_handler.print_as_fatal_error
          end
       ensure
@@ -548,7 +540,7 @@ feature {}
                when 'A' .. 'Z', 'a' .. 'z' then
                   if not a_type_mark then
                      error_handler.add_position(current_position)
-                     error_handler.append("Type mark expected.")
+                     error_handler.append(once "Type mark expected.")
                      error_handler.print_as_fatal_error
                   end
                   type_mark := last_type_mark
@@ -556,7 +548,7 @@ feature {}
                   state := S_after_type_mark
                else
                   error_handler.add_position(current_position)
-                  error_handler.append("Error in manifest constant or %"?:=%" type test ?")
+                  error_handler.append(once "Error in manifest constant or %"?:=%" type test ?")
                   error_handler.print_as_fatal_error
                end
             when S_after_type_mark then
@@ -578,7 +570,7 @@ feature {}
                      state := S_finished_with_no_error_and_true
                   elseif syntax_flag = Instruction_syntax_flag then
                      error_handler.add_position(opening_curly_position)
-                     error_handler.append("Instruction expected.")
+                     error_handler.append(once "Instruction expected.")
                      error_handler.print_as_fatal_error
                   else
                      create {OPEN_OPERAND} last_expression.type_holder(pos(l, c), type_mark)
@@ -615,7 +607,7 @@ feature {}
                else
                   if type_mark.is_integer or else type_mark.is_real then
                      error_handler.add_position(current_position)
-                     error_handler.append("Error in constant or manifest creation.")
+                     error_handler.append(once "Error in constant or manifest creation.")
                      error_handler.print_as_fatal_error
                   else
                      state := S_inside_manifest_generic
@@ -633,7 +625,7 @@ feature {}
                      -- It is probably the first dot of ".." slice.
                      if pretty_view.first = '{' then
                         error_handler.add_position(current_position)
-                        error_handler.append("Error while reading an integer constant. Missing %"}%" ?")
+                        error_handler.append(once "Error while reading an integer constant. Missing %"}%" ?")
                         error_handler.print_as_fatal_error
                      end
                      if not normal_integer_view.is_integer_64 then
@@ -647,7 +639,7 @@ feature {}
                      if cc.is_letter then
                         if pretty_view.first = '{' then
                            error_handler.add_position(current_position)
-                           error_handler.append("Error while reading a number. Missing %"}%" ?")
+                           error_handler.append(once "Error while reading a number. Missing %"}%" ?")
                            error_handler.print_as_fatal_error
                         end
                         if not normal_integer_view.is_integer_64 then
@@ -667,7 +659,7 @@ feature {}
                when 'x' then
                   if first_digit_index /= pretty_view.count or else pretty_view.last /= '0' then
                      error_handler.add_position(current_position)
-                     error_handler.append("Erreur while reading a number.")
+                     error_handler.append(once "Erreur while reading a number.")
                      error_handler.print_as_fatal_error
                   end
                   pretty_view.extend(cc)
@@ -689,7 +681,7 @@ feature {}
                   state := S_just_after_the_e_of_exponent_part_of_a_real
                when 'a'..'d', 'f'..'v', 'y'..'z','A'..'D', 'F'..'V', 'Y'..'Z' then
                   error_handler.add_position(current_position)
-                  error_handler.append("Error while reading a number.")
+                  error_handler.append(once "Error while reading a number.")
                   error_handler.print_as_fatal_error
                else
                   if pretty_view.first /= '{' then
@@ -706,8 +698,8 @@ feature {}
             when S_inside_a_real_just_after_the_dot then
                if pretty_view.item(first_digit_index) = '0' and then   pretty_view.count - 1 /= first_digit_index then
                   error_handler.add_position(pos(line, column - pretty_view.count + first_digit_index - 1))
-                  error_handler.append("Removed that non-significant digit in integral part or real constant.")
-                  error_handler.print_as_warning
+                  error_handler.append(once "Removed that non-significant digit in integral part or real constant.")
+                  error_handler.print_as_style_warning
                   from
                   until
                      (pretty_view.item(first_digit_index) /= '0')
@@ -725,7 +717,7 @@ feature {}
                   next_char
                else
                   error_handler.add_position(current_position)
-                  error_handler.append("Error while reading fractional part of a real value (digit expected after the dot).")
+                  error_handler.append(once "Error while reading fractional part of a real value (digit expected after the dot).")
                   error_handler.print_as_error
                   pretty_view.extend('0')
                   state := S_finished_with_no_error_and_true
@@ -743,19 +735,19 @@ feature {}
                   state := S_just_after_the_e_of_exponent_part_of_a_real
                when 'a'..'d', 'f'..'z', 'A'..'D', 'F'..'Z' then
                   error_handler.add_position(current_position)
-                  error_handler.append("Error while reading a real. Missing separator after the value ?")
+                  error_handler.append(once "Error while reading a real. Missing separator after the value ?")
                   error_handler.print_as_fatal_error
                when '.' then
                   if pretty_view.first = '{' then
                      error_handler.add_position(current_position)
-                     error_handler.append("Error while reading a real. Missing %"}%" ?")
+                     error_handler.append(once "Error while reading a real. Missing %"}%" ?")
                      error_handler.print_as_fatal_error
                   end
                   create {REAL_CONSTANT} last_expression.make(pos(l, c), pretty_view.twin, Void)
                   state := S_finished_with_no_error_and_true
                when '_' then
                   error_handler.add_position(current_position)
-                  error_handler.append("Underscore notation _ not supported inside fractional part.")
+                  error_handler.append(once "Underscore notation _ not supported inside fractional part.")
                   error_handler.print_as_fatal_error
                else
                   if pretty_view.first /= '{' then
@@ -778,7 +770,7 @@ feature {}
                   state := S_inside_exponent_part_of_a_real
                else
                   error_handler.add_position(current_position)
-                  error_handler.append("Exponent part of a real value expected.")
+                  error_handler.append(once "Exponent part of a real value expected.")
                   error_handler.print_as_fatal_error
                end
             when S_inside_exponent_part_of_a_real then
@@ -799,7 +791,7 @@ feature {}
             when S_first_hexadecimal_digit then
                if sign_flag /= '%U' then
                   error_handler.add_position(current_position)
-                  error_handler.append("No sign allowed before an hexadecimal constant value.")
+                  error_handler.append(once "No sign allowed before an hexadecimal constant value.")
                   error_handler.print_as_fatal_error
                end
                pretty_view.extend(cc)
@@ -817,7 +809,7 @@ feature {}
                   next_char
                else
                   error_handler.add_position(current_position)
-                  error_handler.append("Error while reading hexadecimal value.")
+                  error_handler.append(once "Error while reading hexadecimal value.")
                   error_handler.print_as_fatal_error
                end
             when S_inside_hexadecimal then
@@ -829,7 +821,7 @@ feature {}
                   next_char
                when 'G' .. 'Z', 'g' .. 'z' then
                   error_handler.add_position(current_position)
-                  error_handler.append("Separator expected to end hexadecimal constant.")
+                  error_handler.append(once "Separator expected to end hexadecimal constant.")
                   error_handler.print_as_fatal_error
                else
                   digit_count := pretty_view.count - first_hexadecimal_digit_index + 1
@@ -837,7 +829,7 @@ feature {}
                      digit_count
                   when 2, 4, 8, 16 then
                   else
-                     error_handler.append("Incorrect hexadecimal notation. Wrong number of hexadecimal %
+                     error_handler.append(once "Incorrect hexadecimal notation. Wrong number of hexadecimal %
                                           %digits (")
                      error_handler.append_integer(digit_count)
                      error_handler.add_position(current_position)
@@ -870,7 +862,7 @@ feature {}
                   next_char
                   if type_mark = Void then
                      error_handler.add_position(current_position)
-                     error_handler.append("Error while reading real number.")
+                     error_handler.append(once "Error while reading real number.")
                      error_handler.print_as_fatal_error
                   elseif {REAL_TYPE_MARK} ?:= type_mark then
                      real_type_mark ::= type_mark
@@ -879,12 +871,12 @@ feature {}
                   else
                      error_handler.add_position(type_mark.start_position)
                      error_handler.add_position(current_position)
-                     error_handler.append("Manifest real value not compatible with this type.")
+                     error_handler.append(once "Manifest real value not compatible with this type.")
                      error_handler.print_as_fatal_error
                   end
                else
                   error_handler.add_position(current_position)
-                  error_handler.append("Error while reading a real. Missing %"}%" ?")
+                  error_handler.append(once "Error while reading a real. Missing %"}%" ?")
                   error_handler.print_as_fatal_error
                end
             when S_after_integer_waiting_the_closing_curly then
@@ -900,7 +892,7 @@ feature {}
                   next_char
                   if type_mark = Void then
                      error_handler.add_position(current_position)
-                     error_handler.append("Error while reading manifest number.")
+                     error_handler.append(once "Error while reading manifest number.")
                      error_handler.print_as_fatal_error
                   elseif {INTEGER_TYPE_MARK} ?:= type_mark then
                      integer_type_mark ::= type_mark
@@ -913,13 +905,13 @@ feature {}
                   else
                      error_handler.add_position(type_mark.start_position)
                      error_handler.add_position(current_position)
-                     error_handler.append("Manifest value not compatible with this type.")
+                     error_handler.append(once "Manifest value not compatible with this type.")
                      error_handler.print_as_fatal_error
                   end
                   state := S_finished_with_no_error_and_true
                else
                   error_handler.add_position(current_position)
-                  error_handler.append("Error while reading a number. Missing %"}%" ?")
+                  error_handler.append(once "Error while reading a number. Missing %"}%" ?")
                   error_handler.print_as_fatal_error
                end
             when S_after_hexadecimal_waiting_the_closing_curly then
@@ -935,7 +927,7 @@ feature {}
                   next_char
                   if type_mark = Void then
                      error_handler.add_position(current_position)
-                     error_handler.append("Error while reading hexadecimal number.")
+                     error_handler.append(once "Error while reading hexadecimal number.")
                      error_handler.print_as_fatal_error
                   elseif {INTEGER_TYPE_MARK} ?:= type_mark then
                      integer_type_mark ::= type_mark
@@ -944,25 +936,25 @@ feature {}
                      when 8 then
                         if digit_count /= 2 then
                            error_handler.add_position(type_mark.start_position)
-                           error_handler.append("Must use exactly 2 hexadecimal digits for INTEGER_8.")
+                           error_handler.append(once "Must use exactly 2 hexadecimal digits for INTEGER_8.")
                            error_handler.print_as_fatal_error
                         end
                      when 16 then
                         if digit_count /= 4 then
                            error_handler.add_position(type_mark.start_position)
-                           error_handler.append("Must use exactly 4 hexadecimal digits for INTEGER_16.")
+                           error_handler.append(once "Must use exactly 4 hexadecimal digits for INTEGER_16.")
                            error_handler.print_as_fatal_error
                         end
                      when 32 then
                         if digit_count /= 8 then
                            error_handler.add_position(type_mark.start_position)
-                           error_handler.append("Must use exactly 8 hexadecimal digits for INTEGER_32.")
+                           error_handler.append(once "Must use exactly 8 hexadecimal digits for INTEGER_32.")
                            error_handler.print_as_fatal_error
                         end
                      when 64 then
                         if digit_count /= 16 then
                            error_handler.add_position(type_mark.start_position)
-                           error_handler.append("Must use exactly 16 hexadecimal digits for INTEGER_64.")
+                           error_handler.append(once "Must use exactly 16 hexadecimal digits for INTEGER_64.")
                            error_handler.print_as_fatal_error
                         end
                      end
@@ -971,20 +963,20 @@ feature {}
                                                                            sign_flag = '-', value)
                   else
                      error_handler.add_position(type_mark.start_position)
-                     error_handler.append("Cannot use hexadecimal notation for this type.")
+                     error_handler.append(once "Cannot use hexadecimal notation for this type.")
                      error_handler.print_as_fatal_error
                   end
                   state := S_finished_with_no_error_and_true
                else
                   error_handler.add_position(current_position)
-                  error_handler.append("Error while reading an hexadecimal value. Missing %"}%" ?")
+                  error_handler.append(once "Error while reading an hexadecimal value. Missing %"}%" ?")
                   error_handler.print_as_fatal_error
                end
             when S_inside_manifest_generic then
                if cc = ',' then
                   error_handler.add_position(current_position)
-                  error_handler.append("Extra %",%" ignored.")
-                  error_handler.print_as_warning
+                  error_handler.append(once "Extra %",%" ignored.")
+                  error_handler.print_as_style_warning
                   if skip1(',') then end
                end
                from
@@ -1001,13 +993,13 @@ feature {}
                      optional_list.add_last(last_expression)
                      if not skip1(',') then
                         error_handler.add_position(current_position)
-                        error_handler.append("Missing %",%" added.")
+                        error_handler.append(once "Missing %",%" added.")
                         error_handler.print_as_warning
                      end
                   else
                      error_handler.add_position(type_mark.start_position)
                      error_handler.add_position(current_position)
-                     error_handler.append("Opening %"<<%" of manifest generic creation expected.")
+                     error_handler.append(once "Opening %"<<%" of manifest generic creation expected.")
                      error_handler.print_as_fatal_error
                   end
                end
@@ -1025,10 +1017,10 @@ feature {}
                         stop := True
                         if semicolon_count > 0 and then (item_list.count #\\ semicolon_count) > 0 then
                            error_handler.add_position(pos(start_line, start_column))
-                           error_handler.append("Missing items in manifest creation %"<< ... >>%" list. %
+                           error_handler.append(once "Missing items in manifest creation %"<< ... >>%" list. %
                                                 %The last bunch should have ")
                            error_handler.append(semicolon_count.to_string)
-                           error_handler.append(" items.")
+                           error_handler.append(once " items.")
                            error_handler.print_as_fatal_error
                         end
                      elseif cc = ';' then
@@ -1048,16 +1040,16 @@ feature {}
                      elseif semicolon_count > 0 then
                         if (item_list.count #\\ semicolon_count) > 0 then
                            error_handler.add_position(current_position)
-                           error_handler.append("Missing %",%" added.")
+                           error_handler.append(once "Missing %",%" added.")
                            error_handler.print_as_warning
                         else
                            error_handler.add_position(current_position)
-                           error_handler.append("Missing %";%" added.")
+                           error_handler.append(once "Missing %";%" added.")
                            error_handler.print_as_warning
                         end
                      else
                         error_handler.add_position(current_position)
-                        error_handler.append("Missing %",%" added.")
+                        error_handler.append(once "Missing %",%" added.")
                         error_handler.print_as_warning
                      end
                   elseif skip2('>', '>') then
@@ -1065,19 +1057,19 @@ feature {}
                   else
                      error_handler.add_position(type_mark.start_position)
                      error_handler.add_position(current_position)
-                     error_handler.append("Closing %">>%" of manifest generic creation expected.")
+                     error_handler.append(once "Closing %">>%" of manifest generic creation expected.")
                      error_handler.print_as_fatal_error
                   end
                end
                if item_list = Void then
                   error_handler.add_position(pos(l, c))
                   error_handler.add_position(current_position)
-                  error_handler.append("Empty list not allowed for manifest generic creation.")
+                  error_handler.append(once "Empty list not allowed for manifest generic creation.")
                   error_handler.print_as_fatal_error
                end
                if cc /= '}' then
                   error_handler.add_position(current_position)
-                  error_handler.append("Missing %"}%" to terminate manifest generic creation.")
+                  error_handler.append(once "Missing %"}%" to terminate manifest generic creation.")
                   error_handler.print_as_fatal_error
                end
                next_char
@@ -1102,10 +1094,10 @@ feature {}
                   skip_comments
                   if cc = '.' then
                      error_handler.add_position(current_position)
-                     error_handler.append("Removed unexpected blank space(s) just before this dot (assume %
+                     error_handler.append(once "Removed unexpected blank space(s) just before this dot (assume %
                          %you really want to call a function using the previous manifest expression %
                                           %as the target).")
-                     error_handler.print_as_warning
+                     error_handler.print_as_style_warning
                      next_char
                      manifest_just_after_a_dot(sign_flag, False, last_expression)
                   end
@@ -1118,15 +1110,15 @@ feature {}
                   skip_comments
                   if cc = '.' then
                      error_handler.add_position(current_position)
-                     error_handler.append("Removed unexpected blank space(s) just before this dot (assume %
+                     error_handler.append(once "Removed unexpected blank space(s) just before this dot (assume %
                          %you really want to call a procedure using the previous manifest expression %
                                           %as the target).")
-                     error_handler.print_as_warning
+                     error_handler.print_as_style_warning
                      next_char
                      manifest_just_after_a_dot(sign_flag, True, last_expression)
                   else
                      error_handler.add_position(pos(l, c))
-                     error_handler.append("This call has a result value (and you must use it).")
+                     error_handler.append(once "This call has a result value (and you must use it).")
                      error_handler.print_as_fatal_error
                   end
                end
@@ -1142,9 +1134,9 @@ feature {}
    integer_overflow_error (l, c: INTEGER; normal_integer_view: STRING) is
       do
          error_handler.add_position(pos(l, c))
-         error_handler.append("Overflow while reading integer constant. Value `")
+         error_handler.append(once "Overflow while reading integer constant. Value `")
          error_handler.append(normal_integer_view)
-         error_handler.append("' does not fit on INTEGER_64).")
+         error_handler.append(once "' does not fit on INTEGER_64).")
          error_handler.print_as_error
       end
 
@@ -1159,11 +1151,11 @@ feature {}
                Result := True
                if skip2(':', '=') or else skip3(':', ':', '=') or else skip2('?', '=') then
                   error_handler.add_position(pos(start_line, start_column))
-                  error_handler.append("Argument name ")
+                  error_handler.append(once "Argument name ")
                   error_handler.add_expression(last_expression)
-                  error_handler.append(" is not writable. Cannot use ")
+                  error_handler.append(once " is not writable. Cannot use ")
                   error_handler.add_expression(last_expression)
-                  error_handler.append(" for the left-hand side of an assignment.")
+                  error_handler.append(once " for the left-hand side of an assignment.")
                   error_handler.print_as_fatal_error
                end
             end
@@ -1221,7 +1213,7 @@ feature {}
                   elseif cc = ',' or else cc = ';' then
                      error_handler.add_position(current_position)
                      error_handler.append(em13)
-                     error_handler.print_as_warning
+                     error_handler.print_as_style_warning
                      ok := skip1(',') or else skip1(';')
                   else
                      state := 6
@@ -1263,12 +1255,12 @@ feature {}
             end
             if state = 6 then
                error_handler.add_position(current_position)
-               error_handler.append("Bad formal arguments list.")
+               error_handler.append(once "Bad formal arguments list.")
                Result := False
             elseif list = Void then
                error_handler.add_position(current_position)
                error_handler.append(once "Empty formal argument list (deleted).")
-               error_handler.print_as_warning
+               error_handler.print_as_style_warning
             else
                create arguments.make(list)
                tmp_feature.set_arguments(arguments)
@@ -1278,7 +1270,7 @@ feature {}
 
    error_handler_append_info_about_feature_name is
       do
-         error_handler.append("Cannot use an uppercase letter inside such an identifier. %
+         error_handler.append(once "Cannot use an uppercase letter inside such an identifier. %
          %Yes, this rule is strict, but it is better for all of us to be able %
          %to distinguish at a glance a CLASS_NAME from another name. %
          %Furthermore, it would be really too bad for example to use `IsEmpty' or %
@@ -1344,12 +1336,12 @@ feature {}
                   when "do", "once" then
                   else
                      error_handler.add_position(token_buffer.start_position)
-                     error_handler.append("Syntax error inside %"local%" variable list definition. %
+                     error_handler.append(once "Syntax error inside %"local%" variable list definition. %
                                           %Encountered keyword %"")
                      error_handler.append(token_buffer.buffer)
-                     error_handler.append("%" while waiting for some local variable name. Cannot use %"")
+                     error_handler.append(once "%" while waiting for some local variable name. Cannot use %"")
                      error_handler.append(token_buffer.buffer)
-                     error_handler.append("%" as a local variable name.")
+                     error_handler.append(once "%" as a local variable name.")
                      error_handler.print_as_fatal_error
                   end
                else
@@ -1397,7 +1389,7 @@ feature {}
                elseif cc = ',' or else cc = ';' then
                   error_handler.add_position(current_position)
                   error_handler.append(em13)
-                  error_handler.print_as_warning
+                  error_handler.print_as_style_warning
                   ok := skip1(',') or else skip1(';')
                else
                   state := 5
@@ -1441,18 +1433,18 @@ feature {}
                elseif cc = ',' or else cc = ';' then
                   error_handler.add_position(current_position)
                   error_handler.append(em13)
-                  error_handler.print_as_warning
+                  error_handler.print_as_style_warning
                   ok := skip1(',') or else skip1(';')
                elseif a_type_mark then
                   sp := last_type_mark.start_position
                   go_back_at(sp.line, sp.column)
                   error_handler.add_position(current_position)
-                  error_handler.append("Added missing %":%" semicolon before this type mark.")
+                  error_handler.append(once "Added missing %":%" semicolon before this type mark.")
                   error_handler.print_as_warning
                   state := S_waiting_for_a_type_mark
                else
                   error_handler.add_position(current_position)
-                  error_handler.append("Local variable name expected after comma inside local variable list.")
+                  error_handler.append(once "Local variable name expected after comma inside local variable list.")
                   error_handler.print_as_fatal_error
                end
             when S_waiting_for_a_type_mark then
@@ -1471,7 +1463,7 @@ feature {}
                   state := S_waiting_for_optional_colon
                else
                   error_handler.add_position(current_position)
-                  error_handler.append("Type mark expected after a colon mark inside a local variable list.")
+                  error_handler.append(once "Type mark expected after a colon mark inside a local variable list.")
                   error_handler.print_as_fatal_error
                end
             when S_waiting_for_optional_colon then
@@ -1505,7 +1497,7 @@ feature {}
                last_expression := token_buffer.to_local_name2(local_vars, rank)
                if inside_ensure_flag then
                   error_handler.add_position(last_expression.start_position)
-                  error_handler.append("Must not use local variable in ensure assertions (VEEN).")
+                  error_handler.append(once "Must not use local variable in ensure assertions (VEEN).")
                   error_handler.print_as_fatal_error
                end
                Result := True
@@ -1655,21 +1647,21 @@ feature {}
                         pretty_view.extend(cc); next_char
                         if not cc.is_hexadecimal_digit then
                            error_handler.add_position(current_position)
-                           error_handler.append("Hexadecimal digit expected while reading CHARACTER constant.")
+                           error_handler.append(once "Hexadecimal digit expected while reading CHARACTER constant.")
                            error_handler.print_as_error
                         end
                         ascii_code := cc.hexadecimal_value
                         pretty_view.extend(cc); next_char
                         if not cc.is_hexadecimal_digit then
                            error_handler.add_position(current_position)
-                           error_handler.append("Must use exactely two hexadecimal digit for a CHARACTER constant.")
+                           error_handler.append(once "Must use exactely two hexadecimal digit for a CHARACTER constant.")
                            error_handler.print_as_error
                         end
                         ascii_code := ascii_code * 16 + cc.hexadecimal_value
                         pretty_view.extend(cc); next_char
                         if cc /= '/' then
                            error_handler.add_position(current_position)
-                           error_handler.append("Slash %"/%" character expected after hexadecimal value in CHARACTER constant.")
+                           error_handler.append(once "Slash %"/%" character expected after hexadecimal value in CHARACTER constant.")
                            error_handler.print_as_error
                         end
                         if ascii_code > Maximum_character_code then
@@ -1694,7 +1686,7 @@ feature {}
                            pretty_view.extend(cc); next_char
                            if cc /= '/' then
                               error_handler.add_position(current_position)
-                              error_handler.append("Slash %"/%" character expected after decimal value in CHARACTER constant.")
+                              error_handler.append(once "Slash %"/%" character expected after decimal value in CHARACTER constant.")
                               error_handler.print_as_fatal_error
                            end
                            if ascii_code > Maximum_character_code then
@@ -1705,13 +1697,13 @@ feature {}
                         when '/' then
                         else
                            error_handler.add_position(current_position)
-                           error_handler.append("Slash %"/%" or decimal digit expected (inside CHARACTER constant).")
+                           error_handler.append(once "Slash %"/%" or decimal digit expected (inside CHARACTER constant).")
                            error_handler.print_as_fatal_error
                         end
                      when '/' then
                      else
                         error_handler.add_position(current_position)
-                        error_handler.append("Slash %"/%" or decimal digit expected (inside CHARACTER constant).")
+                        error_handler.append(once "Slash %"/%" or decimal digit expected (inside CHARACTER constant).")
                         error_handler.print_as_fatal_error
                      end
                      value := ascii_code.to_character
@@ -1722,7 +1714,7 @@ feature {}
                   end
                   if cc /= '/' then
                      error_handler.add_position(current_position)
-                     error_handler.append("Slash (%"/%") expected (inside CHARACTER constant).")
+                     error_handler.append(once "Slash (%"/%") expected (inside CHARACTER constant).")
                      error_handler.print_as_fatal_error
                   end
                else
@@ -1734,7 +1726,7 @@ feature {}
             when '%'' then
                -- ''
                error_handler.add_position(current_position)
-               error_handler.append("Bad empty character constant.")
+               error_handler.append(once "Bad empty character constant.")
                error_handler.print_as_fatal_error
             else
                -- Finally, the most common notation:
@@ -1743,7 +1735,7 @@ feature {}
             end
             if cc /= '%'' then
                error_handler.add_position(current_position)
-               error_handler.append("Bad character constant. Closing %"'%" expected.")
+               error_handler.append(once "Bad character constant. Closing %"'%" expected.")
                error_handler.print_as_fatal_error
             end
             pretty_view.extend(cc); next_char
@@ -1765,10 +1757,10 @@ feature {}
                   skip_comments
                   if cc = '.' then
                      error_handler.add_position(current_position)
-                     error_handler.append("Removed unexpected blank space(s) just before this dot (assume %
+                     error_handler.append(once "Removed unexpected blank space(s) just before this dot (assume %
                          %you really want to apply a function using the previous CHARACTER constant %
                          %as the target).")
-                     error_handler.print_as_warning
+                     error_handler.print_as_style_warning
                      next_char
                      just_after_a_dot(False, last_expression)
                   end
@@ -1781,10 +1773,10 @@ feature {}
                   skip_comments
                   if cc = '.' then
                      error_handler.add_position(current_position)
-                     error_handler.append("Removed unexpected blank space(s) just before this dot (assume %
+                     error_handler.append(once "Removed unexpected blank space(s) just before this dot (assume %
                          %you really want to apply a procedure using the previous CHARACTER constant %
                          %as the target).")
-                     error_handler.print_as_warning
+                     error_handler.print_as_style_warning
                      next_char
                      just_after_a_dot(True, last_expression)
                   end
@@ -1810,7 +1802,7 @@ feature {}
                Result := True
             else
                error_handler.add_position(last_expression.start_position)
-               error_handler.append("Such a constant cannot be used in %"when%" part of an inspect statement.")
+               error_handler.append(once "Such a constant cannot be used in %"when%" part of an inspect statement.")
                error_handler.print_as_fatal_error
             end
          elseif a_manifest_string(True) then
@@ -1818,11 +1810,11 @@ feature {}
             last_expression := last_manifest_string
          elseif a_keyword_void then
             error_handler.add_position(pos(start_line, start_column))
-            error_handler.append("Void is not a valid expression inside %"when%" part of an inspect statement.")
+            error_handler.append(once "Void is not a valid expression inside %"when%" part of an inspect statement.")
             error_handler.print_as_fatal_error
          else
             error_handler.add_position(current_position)
-            error_handler.append("Only simple and statically computable expression are allowed here %
+            error_handler.append(once "Only simple and statically computable expression are allowed here %
             %(inside %"when%" of %"inspect%" statement).")
             error_handler.print_as_fatal_error
          end
@@ -1890,31 +1882,31 @@ feature {}
                error_handler.add_position(last_class_name.start_position)
                error_handler.append(once "File %"")
                error_handler.append(bc.path)
-               error_handler.append("%" does not contain class %"")
+               error_handler.append(once "%" does not contain class %"")
                error_handler.append(cn.to_string)
                error_handler.append(once "%".")
                error_handler.print_as_fatal_error
             end
          elseif a_ordinary_feature_name_or_local_name then
             error_handler.add_position(token_buffer.start_position)
-            error_handler.append("You are using a case sensitive language in which all class names must use %
+            error_handler.append(once "You are using a case sensitive language in which all class names must use %
             %only upper case letters. This decision was made to make the code more readable and to allow %
             %better error messages as well as syntax error recovery. The name %"")
             error_handler.append(token_buffer.buffer)
-            error_handler.append("%" has been automatically replaced with %"")
+            error_handler.append(once "%" has been automatically replaced with %"")
             token_buffer.buffer.to_upper
             error_handler.append(token_buffer.buffer)
-            error_handler.append("%".")
+            error_handler.append(once "%".")
             error_handler.print_as_warning
             last_class_name := token_buffer.to_class_name
          else
             error_handler.add_position(current_position)
-            error_handler.append("Name of the current class expected.")
+            error_handler.append(once "Name of the current class expected.")
             error_handler.print_as_fatal_error
          end
          if cn.to_string.is_equal(once "NONE") then
             error_handler.add_position(cn.start_position)
-            error_handler.append("This name cannot be used as a valid class name. Sorry.")
+            error_handler.append(once "This name cannot be used as a valid class name.")
             error_handler.print_as_fatal_error
          end
       end
@@ -1983,7 +1975,7 @@ feature {}
             end
             if buffer.count = 1 and then buffer.first = '=' then
                error_handler.add_position(pos(l, c))
-               error_handler.append("The basic = operator cannot be redefined. (This is a %
+               error_handler.append(once "The basic = operator cannot be redefined. (This is a %
       %hard-coded builtin that we must trust.)")
                error_handler.print_as_fatal_error
             end
@@ -2077,7 +2069,7 @@ feature {}
          if a_keyword(fz_retry) then
             if not inside_rescue_flag then
                error_handler.add_position(pos(start_line, start_column))
-               error_handler.append("%"retry%" cannot be outside of a rescue clause.")
+               error_handler.append(once "%"retry%" cannot be outside of a rescue clause.")
                error_handler.print_as_error
             end
             create {RETRY_INSTRUCTION} last_instruction.make(pos(start_line, start_column))
@@ -2105,9 +2097,9 @@ feature {}
                end
             elseif a_expression then
                error_handler.add_position(last_expression.start_position)
-               error_handler.append("Cannot use ")
+               error_handler.append(once "Cannot use ")
                error_handler.add_expression(last_expression)
-               error_handler.append(" after the $ operator. ")
+               error_handler.append(once " after the $ operator. ")
                error_handler.append(fz_vuar4)
                error_handler.print_as_fatal_error
             else
@@ -2146,13 +2138,13 @@ feature {}
             if first_one = Void then
                error_handler.add_position(current_position)
                error_handler.append(once "Empty argument list (deleted).")
-               error_handler.print_as_warning
+               error_handler.print_as_style_warning
             else
                create Result.make_n(first_one, remainder)
             end
             if not skip1(')') then
                error_handler.add_position(current_position)
-               error_handler.append("')' expected to end arguments list.")
+               error_handler.append(once "')' expected to end arguments list.")
                error_handler.print_as_fatal_error
             end
          end
@@ -2172,7 +2164,7 @@ feature {}
             a_r10(do_instruction, target, sfn, eal)
          else
             error_handler.add_position(current_position)
-            error_handler.append("Simple identifier expected just after a dot. %
+            error_handler.append(once "Simple identifier expected just after a dot. %
                                  %Nothing else but a simple feature name is meaningful just after a dot.")
             error_handler.print_as_fatal_error
          end
@@ -2201,7 +2193,7 @@ feature {}
             else
                error_handler.add_position(sp)
                error_handler.add_position(current_position)
-               error_handler.append("Corresponding closing ')' expected here.")
+               error_handler.append(once "Corresponding closing ')' expected here.")
                error_handler.print_as_fatal_error
             end
          elseif a_keyword_precursor then
@@ -2213,7 +2205,7 @@ feature {}
             args := a_actuals
             if cc = '{' then
                error_handler.add_position(current_position)
-               error_handler.append("The type mark must be specified just after the %"Precursor%" keyword.")
+               error_handler.append(once "The type mark must be specified just after the %"Precursor%" keyword.")
                error_handler.print_as_fatal_error
             end
             if skip1('.') then
@@ -2223,7 +2215,7 @@ feature {}
             else
                create {PRECURSOR_INSTRUCTION} last_instruction.make(sp, type_mark, args)
                if inside_function_flag then
-                  error_handler.append("Inside a function, a Precursor call must be a function call %
+                  error_handler.append(once "Inside a function, a Precursor call must be a function call %
                   %(not a procedure call).")
                   error_handler.add_position(last_instruction.start_position)
                   error_handler.print_as_fatal_error
@@ -2233,7 +2225,7 @@ feature {}
             Result := True
             if skip2(':', '=') or else skip3(':', ':', '=') or else skip2('?', '=') then
                error_handler.add_position(pos(start_line, start_column))
-               error_handler.append("Entity `Current' is not writable. Cannot use `Current' for the %
+               error_handler.append(once "Entity `Current' is not writable. Cannot use `Current' for the %
                                     %left-hand side of an assignment.")
                error_handler.print_as_fatal_error
             else
@@ -2370,7 +2362,7 @@ feature {}
                if cc = ';' then
                   error_handler.add_position(current_position)
                   error_handler.append(em24)
-                  error_handler.print_as_warning
+                  error_handler.print_as_style_warning
                   ok := skip1(';')
                elseif last_comment /= Void then
                   create assertion.make(Void, Void, get_comment)
@@ -2643,7 +2635,7 @@ feature {}
             if not a_keyword(fz_end) then
                error_handler.add_position(sp)
                error_handler.add_position(current_position)
-               error_handler.append("Keyword %"end%" expected at the end of check clause.")
+               error_handler.append(once "Keyword %"end%" expected at the end of check clause.")
                error_handler.print_as_fatal_error
             end
             if hc /= Void or else al /= Void then
@@ -2686,7 +2678,7 @@ feature {}
                last_class_text.set_is_expanded
             elseif a_keyword(fz_separate) then
                error_handler.add_position(pos(start_line, start_column))
-               error_handler.append("Compiler limitation: separate classes are not supported. SCOOP attempt %
+               error_handler.append(once "Compiler limitation: separate classes are not supported. SCOOP attempt %
                %implementation currently abandoned (December 2006).")
                error_handler.print_as_fatal_error
             else
@@ -2696,7 +2688,7 @@ feature {}
          last_class_text.set_heading_comment1(get_comment)
          if not a_keyword(fz_class) then
             error_handler.add_position(current_position)
-            error_handler.append("Keyword %"class%" expected.")
+            error_handler.append(once "Keyword %"class%" expected.")
             error_handler.print_as_fatal_error
          end
          a_base_class_name1
@@ -2708,7 +2700,7 @@ feature {}
                last_class_text.set_obsolete_mark(last_manifest_string)
             else
                error_handler.add_position(current_position)
-               error_handler.append("Manifest string expected for %"obsolete%" clause.")
+               error_handler.append(once "Manifest string expected for %"obsolete%" clause.")
                error_handler.print_as_fatal_error
             end
          end
@@ -2745,14 +2737,14 @@ feature {}
                end
             elseif cc /= end_of_text then
                error_handler.add_position(current_position)
-               error_handler.append("End of text expected.")
+               error_handler.append(once "End of text expected.")
                error_handler.print_as_fatal_error
             end
          elseif a_non_allowed_very_strange_identifier then
             error_handler.print_as_fatal_error
          else
             error_handler.add_position(current_position)
-            error_handler.append("Keyword %"end%" expected at the end of a class.")
+            error_handler.append(once "Keyword %"end%" expected at the end of a class.")
             error_handler.print_as_fatal_error
          end
          if not inline_agents.is_empty then
@@ -2789,7 +2781,7 @@ feature {}
                   create {ARRAY_TYPE_MARK} last_type_mark.make(sp, last_type_mark)
                else
                   error_handler.add_position(current_position)
-                  error_handler.append("Bad use of predefined type ARRAY.")
+                  error_handler.append(once "Bad use of predefined type ARRAY.")
                   error_handler.print_as_fatal_error
                end
             when "NATIVE_ARRAY" then
@@ -2801,7 +2793,7 @@ feature {}
                   create {NATIVE_ARRAY_TYPE_MARK} last_type_mark.make(sp, last_type_mark)
                else
                   error_handler.add_position(current_position)
-                  error_handler.append("Bad use of predefined type NATIVE_ARRAY.")
+                  error_handler.append(once "Bad use of predefined type NATIVE_ARRAY.")
                   error_handler.print_as_fatal_error
                end
             when "BOOLEAN" then
@@ -2828,7 +2820,7 @@ feature {}
                create {NATURAL_TYPE_MARK} last_type_mark.natural_64(token_buffer.start_position)
             when "NONE" then
                error_handler.add_position(token_buffer.start_position)
-               error_handler.append("Since february 2006, for Liberty Eiffel release 2.3, the old legacy NONE type mark is %
+               error_handler.append(once "Since february 2006, for SmartEiffel release 2.3, the old legacy NONE type mark is %
                                     %obsolete. Keep in mind that an empty class name list like {} do indicate no %
                                     %exportation at all, hence making NONE unuseful and probably misleading for %
                                     %newcomers. So, just remove this NONE class name right now. Please update your code now.")
@@ -2850,7 +2842,7 @@ feature {}
                create {REAL_TYPE_MARK} last_type_mark.real_extended(token_buffer.start_position)
             when "DOUBLE" then
                error_handler.add_position(token_buffer.start_position)
-               error_handler.append("No more DOUBLE type mark (update your code). This DOUBLE type %
+               error_handler.append(once "No more DOUBLE type mark (update your code). This DOUBLE type %
                %mark is automatically replaced with REAL which is actually equivalent to REAL_64. %
                %Also consider to use REAL_32 or REAL_80 when you prefer. Also consider command pretty %
                %to replace automatically all DOUBLE with REAL.")
@@ -2860,7 +2852,7 @@ feature {}
                create {STRING_TYPE_MARK} last_type_mark.make(token_buffer.start_position)
             when "BIT" then
                error_handler.add_position(token_buffer.start_position)
-               error_handler.append("No more class BIT since release 2.1. Just use bit operations from %
+               error_handler.append(once "No more class BIT since release 2.1. Just use bit operations from %
                % INTEGER_8, INTEGER_16, INTEGER_32, INTEGER or INTEGER_64.")
                error_handler.print_as_fatal_error
             when "TUPLE" then
@@ -2882,7 +2874,7 @@ feature {}
                         end
                      else
                         error_handler.add_position(current_position)
-                        error_handler.append("Incorrect TUPLE (type expected).")
+                        error_handler.append(once "Incorrect TUPLE (type expected).")
                         error_handler.print_as_fatal_error
                      end
                   end
@@ -2909,7 +2901,7 @@ feature {}
                   -- Old style with unused base:
                   open_type_mark := last_type_mark
                   error_handler.add_position(base_type_mark.start_position)
-                  error_handler.append("The base type is no longer used. Class ROUTINE now has only one %
+                  error_handler.append(once "The base type is no longer used. Class ROUTINE now has only one %
                   %formal argument. Just remove this unused type mark.")
                   error_handler.print_as_warning
                end
@@ -2938,7 +2930,7 @@ feature {}
                   -- Old style with unused base:
                   open_type_mark := last_type_mark
                   error_handler.add_position(base_type_mark.start_position)
-                  error_handler.append("The base type is no longer used. Class PROCEDURE now has only one %
+                  error_handler.append(once "The base type is no longer used. Class PROCEDURE now has only one %
                   %formal argument. Just remove this unused type mark.")
                   error_handler.print_as_warning
                end
@@ -2967,7 +2959,7 @@ feature {}
                   -- Old style with unused base:
                   open_type_mark := last_type_mark
                   error_handler.add_position(base_type_mark.start_position)
-                  error_handler.append("The base type is no longer used. Class ROUTINE now has only one %
+                  error_handler.append(once "The base type is no longer used. Class ROUTINE now has only one %
                   %formal argument. Just remove this unused type mark.")
                   error_handler.print_as_warning
                end
@@ -3008,7 +3000,7 @@ feature {}
                   open_type_mark := result_type_mark
                   result_type_mark := last_type_mark
                   error_handler.add_position(base_type_mark.start_position)
-                  error_handler.append("The base type is no longer used. Class FUNCTION now has only two %
+                  error_handler.append(once "The base type is no longer used. Class FUNCTION now has only two %
                   %formal generic arguments. Just remove this unused type mark.")
                   error_handler.print_as_warning
                end
@@ -3045,7 +3037,7 @@ feature {}
                      elseif cc = ',' then
                         error_handler.add_position(current_position)
                         error_handler.append(em12)
-                        error_handler.print_as_warning
+                        error_handler.print_as_style_warning
                         ok := skip1(',')
                      elseif cc = ']' then
                         state := 2
@@ -3062,8 +3054,8 @@ feature {}
                      elseif cc = ']' then
                         if generic_list = Void then
                            error_handler.add_position(current_position)
-                           error_handler.append("Empty generic list (deleted).")
-                           error_handler.print_as_warning
+                           error_handler.append(once "Empty generic list (deleted).")
+                           error_handler.print_as_style_warning
                            create {CLASS_TYPE_MARK} last_type_mark.make(class_text_name)
                         else
                            create {USER_GENERIC_TYPE_MARK} last_type_mark.make(class_text_name, generic_list)
@@ -3080,9 +3072,9 @@ feature {}
                         error_handler.print_as_warning
                      else
                         error_handler.add_position(current_position)
-                        error_handler.append("Bad generic list. Expected ',' or ']', but found '")
+                        error_handler.append(once "Bad generic list. Expected ',' or ']', but found '")
                         error_handler.extend(cc)
-                        error_handler.append("' instead.")
+                        error_handler.append(once "' instead.")
                         error_handler.print_as_fatal_error
                      end
                   end
@@ -3099,7 +3091,7 @@ feature {}
             if last_class_name.to_string.is_equal(once "NONE") then
                if smart_eiffel.short_or_class_check_flag then
                   error_handler.add_position(token_buffer.start_position)
-                  error_handler.append("Since february 2006, for Liberty Eiffel release 2.3, the old legacy %
+                  error_handler.append(once "Since february 2006, for SmartEiffel release 2.3, the old legacy %
                                     %NONE type mark is obsolete. Keep in mind that an empty class name list %
                                     %like {} do indicate no exportation at all, hence making NONE unuseful %
                                     %and probably misleading for newcomers. So, just remove this NONE class %
@@ -3112,12 +3104,12 @@ feature {}
          elseif a_ordinary_feature_name_or_local_name then
             fn := token_buffer.to_feature_name
             error_handler.add_position(fn.start_position)
-            error_handler.append("A feature name cannot be used to indicate exportation status in a client list. %
+            error_handler.append(once "A feature name cannot be used to indicate exportation status in a client list. %
             %Only plain class names are allowed here (class names must use only uppercase letters).")
             error_handler.print_as_fatal_error
          elseif cc.is_letter or else cc.is_digit then
             error_handler.add_position(current_position)
-            error_handler.append("Inside a client list, only plain class names are allowed. %
+            error_handler.append(once "Inside a client list, only plain class names are allowed. %
             %(Class names must use only uppercase letters.)")
             error_handler.print_as_fatal_error
 
@@ -3148,7 +3140,7 @@ feature {}
                   elseif cc = ',' then
                      error_handler.add_position(current_position)
                      error_handler.append(em7)
-                     error_handler.print_as_warning
+                     error_handler.print_as_style_warning
                      ok := skip1(',')
                   else
                      state := 3
@@ -3161,12 +3153,12 @@ feature {}
                   elseif cc = ',' then
                      error_handler.add_position(current_position)
                      error_handler.append(em7)
-                     error_handler.print_as_warning
+                     error_handler.print_as_style_warning
                      ok := skip1(',')
                   elseif cc = '}' then
                      error_handler.add_position(current_position)
-                     error_handler.append(once "Unexpected bracket.")
-                     error_handler.print_as_warning
+                     error_handler.append(once "Unexpected bracket after a comma.")
+                     error_handler.print_as_style_warning
                      ok := skip1('}')
                      state := 4
                   else
@@ -3196,6 +3188,9 @@ feature {}
             end
             create Result.make(sp, list)
          else
+            error_handler.add_position(current_position)
+            error_handler.append(once "A missing client clause is interpreted as {ANY}. It is better to be explicit.")
+            error_handler.print_as_warning
             Result := omitted_client_list
          end
       ensure
@@ -3252,12 +3247,12 @@ feature {}
       do
          Result := a_compound1
          if not a_keyword(terminator) then
-            error_handler.append("In compound (")
+            error_handler.append(once "In compound (")
             error_handler.append(compound_of)
-            error_handler.append("). Instruction or keyword %"")
+            error_handler.append(once "). Instruction or keyword %"")
             error_handler.append(terminator)
             error_handler.add_position(current_position)
-            error_handler.append("%" expected.")
+            error_handler.append(once "%" expected.")
             error_handler.print_as_fatal_error
          end
       end
@@ -3278,13 +3273,13 @@ feature {}
             if not a_expression then
                error_handler.add_position(sp1)
                error_handler.add_position(current_position)
-               error_handler.append("Expression expected after the %"if%" keyword.")
+               error_handler.append(once "Expression expected after the %"if%" keyword.")
                error_handler.print_as_fatal_error
             end
             expression1 := last_expression
             if expression1.is_void then
                error_handler.add_position(expression1.start_position)
-               error_handler.append("Void is not a valid BOOLEAN expression (just after keyword %"if%").")
+               error_handler.append(once "Void is not a valid BOOLEAN expression (just after keyword %"if%").")
                error_handler.print_as_fatal_error
             end
             then_part1 := a_then_compound
@@ -3294,7 +3289,7 @@ feature {}
                   if not a_expression then
                      error_handler.add_position(sp2)
                      error_handler.add_position(current_position)
-                     error_handler.append("Expression expected after %"elseif%" keyword.")
+                     error_handler.append(once "Expression expected after %"elseif%" keyword.")
                      error_handler.print_as_fatal_error
                   end
                   expression2 := last_expression
@@ -3308,7 +3303,7 @@ feature {}
                   if not a_expression then
                      error_handler.add_position(sp2)
                      error_handler.add_position(current_position)
-                     error_handler.append("Expression expected after the %"elseif%" keyword.")
+                     error_handler.append(once "Expression expected after the %"elseif%" keyword.")
                      error_handler.print_as_fatal_error
                   end
                   expression2 := last_expression
@@ -3323,7 +3318,7 @@ feature {}
                elseif not a_keyword(fz_end) then
                   error_handler.add_position(sp1)
                   error_handler.add_position(current_position)
-                  error_handler.append("Added %"end%" to finish this %"if%" statement.")
+                  error_handler.append(once "Added %"end%" to finish this %"if%" statement.")
                   error_handler.print_as_warning
                end
                last_instruction := ifthenelse
@@ -3338,7 +3333,7 @@ feature {}
                if not a_keyword(fz_end) then
                   error_handler.add_position(sp1)
                   error_handler.add_position(current_position)
-                  error_handler.append("Keyword %"end%" added to finish this %"if%" statement.")
+                  error_handler.append(once "Keyword %"end%" added to finish this %"if%" statement.")
                   error_handler.print_as_warning
                end
                create {IFTHEN} last_instruction.make(sp1, expression1, then_part1)
@@ -3350,7 +3345,7 @@ feature {}
       do
          if expression.is_void then
             error_handler.add_position(expression.start_position)
-            error_handler.append("Void is not a valid BOOLEAN expression (just after keyword %"elseif%").")
+            error_handler.append(once "Void is not a valid BOOLEAN expression (just after keyword %"elseif%").")
             error_handler.print_as_fatal_error
          end
       end
@@ -3360,7 +3355,7 @@ feature {}
       do
          if not a_keyword(fz_then) then
             error_handler.add_position(current_position)
-            error_handler.append("Added missing %"then%" keyword.")
+            error_handler.append(once "Added missing %"then%" keyword.")
             error_handler.print_as_warning
          end
          Result := a_compound1
@@ -3381,13 +3376,13 @@ feature {}
                anchored_creation_check(type)
                if not skip1('!') then
                   error_handler.add_position(current_position)
-                  error_handler.append("Bad creation instruction ('!' expected).")
+                  error_handler.append(once "Bad creation instruction ('!' expected).")
                   error_handler.print_as_fatal_error
                end
             elseif skip1('!') then
             else
                error_handler.add_position(current_position)
-               error_handler.append("Bad creation instruction (type or '!' expected).")
+               error_handler.append(once "Bad creation instruction (type or '!' expected).")
                error_handler.print_as_fatal_error
             end
             writable := mandatory_writable
@@ -3420,18 +3415,18 @@ feature {}
             sp := pos(start_line, start_column)
             if not skip1('(') then
                error_handler.add_position(current_position)
-               error_handler.append("Missing '(' after `c_inline_c'.")
+               error_handler.append(once "Missing '(' after `c_inline_c'.")
                error_handler.print_as_fatal_error
             end
             if not a_manifest_string(True) then
                error_handler.add_position(current_position)
-               error_handler.append("Missing manifest STRING for `c_inline_c'.")
+               error_handler.append(once "Missing manifest STRING for `c_inline_c'.")
                error_handler.print_as_fatal_error
             end
             c_code := last_manifest_string.to_string
             if not skip1(')') then
                error_handler.add_position(current_position)
-               error_handler.append("Missing ')' to end `c_inline_c' call.")
+               error_handler.append(once "Missing ')' to end `c_inline_c' call.")
                error_handler.print_as_fatal_error
             end
             create {C_INLINE} last_instruction.make_c_inline_c(sp, c_code)
@@ -3449,18 +3444,18 @@ feature {}
             sp := pos(start_line, start_column)
             if not skip1('(') then
                error_handler.add_position(current_position)
-               error_handler.append("Missing '(' after `c_inline_h'.")
+               error_handler.append(once "Missing '(' after `c_inline_h'.")
                error_handler.print_as_fatal_error
             end
             if not a_manifest_string(True) then
                error_handler.add_position(current_position)
-               error_handler.append("Missing manifest STRING for `c_inline_h'.")
+               error_handler.append(once "Missing manifest STRING for `c_inline_h'.")
                error_handler.print_as_fatal_error
             end
             c_code := last_manifest_string.to_string
             if not skip1(')') then
                error_handler.add_position(current_position)
-               error_handler.append("Missing ')' to end `c_inline_h' call.")
+               error_handler.append(once "Missing ')' to end `c_inline_h' call.")
                error_handler.print_as_fatal_error
             end
             create {C_INLINE} last_instruction.make_c_inline_h(sp, c_code)
@@ -3488,7 +3483,7 @@ feature {}
                   end
                else
                   error_handler.add_position(current_position)
-                  error_handler.append("Bad create instruction (type expected).")
+                  error_handler.append(once "Bad create instruction (type expected).")
                   error_handler.print_as_fatal_error
                end
             end
@@ -3519,19 +3514,19 @@ feature {}
             sp := pos(start_line, start_column)
             if not skip1('{') then
                error_handler.add_position(current_position)
-               error_handler.append("Bad create expression ('{' expected).")
+               error_handler.append(once "Bad create expression ('{' expected).")
                error_handler.print_as_fatal_error
             end
             if not a_type_mark then
                error_handler.add_position(current_position)
-               error_handler.append("Bad create instruction (type expected).")
+               error_handler.append(once "Bad create instruction (type expected).")
                error_handler.print_as_fatal_error
             end
             type := last_type_mark
             anchored_creation_check(type)
             if not skip1('}') then
                error_handler.add_position(current_position)
-               error_handler.append("Bad create expression ('}' expected).")
+               error_handler.append(once "Bad create expression ('}' expected).")
                error_handler.print_as_fatal_error
             end
             if skip1('.') then
@@ -3559,7 +3554,7 @@ feature {}
          comments := get_comment
          if not a_feature_name_list then
             error_handler.add_position(sp)
-            error_handler.append("Actually, a creation list must not be empty. You must have at least the %
+            error_handler.append(once "Actually, a creation list must not be empty. You must have at least the %
                                  %`default_create' procedure inherited from ANY. The `default_create' indicates %
                                  %that one can also create an object with no creation procedure. %
                                  %The `default_create' has been added here automatically.")
@@ -3592,13 +3587,13 @@ feature {}
                end
                if list.is_empty then
                   error_handler.add_position(current_position)
-                  error_handler.append("Empty debug key list (deleted).")
-                  error_handler.print_as_warning
+                  error_handler.append(once "Empty debug key list (deleted).")
+                  error_handler.print_as_style_warning
                   list := Void
                end
                if not skip1(')') then
                   error_handler.add_position(current_position)
-                  error_handler.append("%")%" expected to end debug string list.")
+                  error_handler.append(once "%")%" expected to end debug string list.")
                   error_handler.print_as_fatal_error
                end
             end
@@ -3635,19 +3630,19 @@ feature {}
             if not skip2('>', '>') then
                if a_type_mark then
                   error_handler.add_position(last_type_mark.start_position)
-                  error_handler.append("A type mark is not a valid item for a manifest array. %
+                  error_handler.append(once "A type mark is not a valid item for a manifest array. %
                                        %Keep in mind that Liberty Eiffel is case-sensitive and that ")
                   error_handler.add_type_mark(last_type_mark)
-                  error_handler.append(" cannot be an expression. ")
+                  error_handler.append(once " cannot be an expression. ")
                else
                   error_handler.add_position(current_position)
                end
-               error_handler.append("End of manifest array expected.")
+               error_handler.append(once "End of manifest array expected.")
                error_handler.print_as_fatal_error
             end
             if list = Void then
                error_handler.add_position(current_position)
-               error_handler.append("Empty manifest array is not a valid notation. If you want to create %
+               error_handler.append(once "Empty manifest array is not a valid notation. If you want to create %
                %an empty ARRAY, just use an ordinary creation call of class ARRAY.")
                error_handler.print_as_fatal_error
             end
@@ -3783,9 +3778,9 @@ feature {}
                if last_expression.is_void then
                   error_handler.add_position(last_expression.start_position)
                   error_handler.add_position(op.start_position)
-                  error_handler.append("Void cannot be the target of prefix operator %"")
+                  error_handler.append(once "Void cannot be the target of prefix operator %"")
                   error_handler.append(op.to_string)
-                  error_handler.append("%".")
+                  error_handler.append(once "%".")
                   error_handler.print_as_fatal_error
                end
                create prefix_freeop.make(last_expression, op)
@@ -3811,14 +3806,14 @@ feature {}
             sp := pos(start_line, start_column)
             if not inside_ensure_flag then
                error_handler.add_position(sp)
-               error_handler.append("Expression %"old%" can be used in ensure clause only (VAOL.1).")
+               error_handler.append(once "Expression %"old%" can be used in ensure clause only (VAOL.1).")
                error_handler.print_as_error
             end
             if a_e10 then
                create {E_OLD} last_expression.make(sp, last_expression)
             else
                error_handler.add_position(current_position)
-               error_handler.append("Expression expected after %"old%".")
+               error_handler.append(once "Expression expected after %"old%".")
                error_handler.print_as_fatal_error
             end
          else
@@ -3855,12 +3850,12 @@ feature {}
                   a_r10(False, last_expression, Void, Void)
                else
                   error_handler.add_position(current_position)
-                  error_handler.append("')' expected in expression.")
+                  error_handler.append(once "')' expected in expression.")
                   error_handler.print_as_fatal_error
                end
             else
                error_handler.add_position(current_position)
-               error_handler.append("Expression expected.")
+               error_handler.append(once "Expression expected.")
                error_handler.print_as_fatal_error
             end
          elseif skip1('[') then
@@ -3879,7 +3874,7 @@ feature {}
             end
             if not skip1(']') then
                error_handler.add_position(current_position)
-               error_handler.append("End of TUPLE expression expected.")
+               error_handler.append(once "End of TUPLE expression expected.")
                error_handler.print_as_fatal_error
             end
             create {MANIFEST_TUPLE} last_expression.make(sp, eal)
@@ -3890,9 +3885,9 @@ feature {}
                if (start_line /= line) or else (column /= start_column + 4) then
                   -- I do not want to allow a blank space after the dot here.
                   error_handler.add_position(pos(start_line, start_column + 4))
-                  error_handler.append("Removed unexpected blank space(s) just before this dot (assume %
+                  error_handler.append(once "Removed unexpected blank space(s) just before this dot (assume %
                   %you really want to apply a function using the previous `True' constant as target).")
-                  error_handler.print_as_warning
+                  error_handler.print_as_style_warning
                end
                next_char
                just_after_a_dot(False, last_expression)
@@ -3904,9 +3899,9 @@ feature {}
                if (start_line /= line) or else (column /= start_column + 5) then
                   -- I do not want to allow a blank space after the dot here.
                   error_handler.add_position(pos(start_line, start_column + 5))
-                  error_handler.append("Removed unexpected blank space(s) just before this dot (assume %
+                  error_handler.append(once "Removed unexpected blank space(s) just before this dot (assume %
                   %you really want to apply a procedure to the previous `False' constant as target).")
-                  error_handler.print_as_warning
+                  error_handler.print_as_style_warning
                end
                next_char
                just_after_a_dot(False, last_expression)
@@ -3930,9 +3925,9 @@ feature {}
                skip_comments
                if cc = '.' then
                   error_handler.add_position(current_position)
-                  error_handler.append("Removed unexpected blank space(s) just before this dot (assume %
+                  error_handler.append(once "Removed unexpected blank space(s) just before this dot (assume %
                       %you really want to apply a function using the previous manifest STRING as target).")
-                  error_handler.print_as_warning
+                  error_handler.print_as_style_warning
                   if last_manifest_string.once_flag then
                      error_handler.add_position(current_position)
                      error_handler.append(em19)
@@ -3984,20 +3979,20 @@ feature {}
                else
                   error_handler.add_position(last_expression.start_position)
                   if {OPEN_OPERAND} ?:= last_expression then
-                     error_handler.append("Expression ")
+                     error_handler.append(once "Expression ")
                      error_handler.add_expression(last_expression)
-                     error_handler.append(" cannot be used just after agent keyword. The type of the %
+                     error_handler.append(once " cannot be used just after agent keyword. The type of the %
                      %target must be given. Consider using the curly braces notation, e.g. `{TARGET_TYPE}'.")
                   else
-                     error_handler.append("Expression ")
+                     error_handler.append(once "Expression ")
                      error_handler.add_expression(last_expression)
-                     error_handler.append(" cannot be used just after agent keyword (it does not denote a feature call).")
+                     error_handler.append(once " cannot be used just after agent keyword (it does not denote a feature call).")
                   end
                   error_handler.print_as_fatal_error
                end
             else
                error_handler.add_position(sp)
-               error_handler.append("Inline agent or expression expected after agent keyword.")
+               error_handler.append(once "Inline agent or expression expected after agent keyword.")
                error_handler.print_as_fatal_error
             end
          elseif a_keyword_current then
@@ -4130,7 +4125,7 @@ feature {}
                last_feature_declaration := a_routine
                if (not {E_PROCEDURE} ?:= last_feature_declaration.anonymous_feature) and then (not {E_FUNCTION} ?:= last_feature_declaration.anonymous_feature) then
                   error_handler.add_position(rpos)
-                  error_handler.append("Bad inline agent definition (%"do...end%" routine body expected).")
+                  error_handler.append(once "Bad inline agent definition (%"do...end%" routine body expected).")
                   error_handler.print_as_fatal_error
                end
                Result := tmp_feature.as_procedure_or_function
@@ -4186,7 +4181,7 @@ feature {}
       do
          if not a_manifest_string(True) then
             error_handler.add_position(current_position)
-            error_handler.append("Bad external clause (manifest string expected).")
+            error_handler.append(once "Bad external clause (manifest string expected).")
             error_handler.print_as_fatal_error
          end
          unused_once_warning_check
@@ -4206,7 +4201,7 @@ feature {}
          elseif mini_buffer.a_word(fz_smarteiffel) then
             create {NATIVE_BUILT_IN} Result.make(external_tag)
             error_handler.add_position(external_tag.start_position)
-            error_handler.append("Obsolete %"SmartEiffel%" external (use %"built_in%" or %"plug_in%" only).")
+            error_handler.append(once "Obsolete %"SmartEiffel%" external (use %"built_in%" or %"plug_in%" only).")
             error_handler.print_as_fatal_error
          else
             unknown_external_language(external_tag)
@@ -4218,7 +4213,7 @@ feature {}
          if a_keyword(fz_alias) then
             if not a_manifest_string(True) then
                error_handler.add_position(current_position)
-               error_handler.append("Bad external alias clause.")
+               error_handler.append(once "Bad external alias clause.")
                error_handler.print_as_fatal_error
             end
             unused_once_warning_check
@@ -4250,7 +4245,7 @@ feature {}
                elseif cc = ',' then
                   error_handler.add_position(current_position)
                   error_handler.append(em7)
-                  error_handler.print_as_warning
+                  error_handler.print_as_style_warning
                   ok := skip1(',')
                else
                   state := 3
@@ -4276,15 +4271,15 @@ feature {}
                elseif cc = ',' then
                   error_handler.add_position(current_position)
                   error_handler.append(em12)
-                  error_handler.print_as_warning
+                  error_handler.print_as_style_warning
                   ok := skip1(',')
                else
                   error_handler.add_position(current_position)
-                  error_handler.append("Feature name expected here.")
+                  error_handler.append(once "Feature name expected here.")
                   if a_class_name then
                      error_handler.print_as_error
                      error_handler.add_position(token_buffer.start_position)
-                     error_handler.append("This is not a feature name, but a class name.")
+                     error_handler.append(once "This is not a feature name, but a class name.")
                   end
                   error_handler.print_as_fatal_error
                end
@@ -4344,18 +4339,18 @@ feature {}
                tmp_feature.add_synonym(last_feature_name)
             else
                error_handler.add_position(current_position)
-               error_handler.append("Unable to find the feature name which is mandatory just %
+               error_handler.append(once "Unable to find the feature name which is mandatory just %
                                     %after the %"frozen%" keyword.")
                if a_class_name then
                   error_handler.print_as_error
                   error_handler.add_position(token_buffer.start_position)
-                  error_handler.append("This is not a feature name, but a class name.")
+                  error_handler.append(once "This is not a feature name, but a class name.")
                elseif a_expression then
                   error_handler.print_as_error
                   error_handler.add_position(last_expression.start_position)
-                  error_handler.append("Expression ")
+                  error_handler.append(once "Expression ")
                   error_handler.add_expression(last_expression)
-                  error_handler.append(" is not a feature name.")
+                  error_handler.append(once " is not a feature name.")
                end
                error_handler.print_as_fatal_error
             end
@@ -4380,18 +4375,18 @@ feature {}
                Result := True
             elseif a_expression then
                error_handler.add_position(last_expression.start_position)
-               error_handler.append("Syntax error while trying to parse the beginning of a new %
+               error_handler.append(once "Syntax error while trying to parse the beginning of a new %
                                     %feature definition. Expression ")
                error_handler.add_expression(last_expression)
-               error_handler.append(" is not a valid feature name to start a new feature definition. %
+               error_handler.append(once " is not a valid feature name to start a new feature definition. %
                                     %Parser lost. Sorry. Check before and after that point.")
                error_handler.print_as_fatal_error
             elseif a_class_name then
                error_handler.add_position(token_buffer.start_position)
-               error_handler.append("Syntax error while trying to parse the beginning of a new %
+               error_handler.append(once "Syntax error while trying to parse the beginning of a new %
                                     %feature definition. Feature name expected. Class name ")
                error_handler.append(token_buffer.buffer)
-               error_handler.append(" cannot be used as a feature name to start a new feature definition. %
+               error_handler.append(once " cannot be used as a feature name to start a new feature definition. %
                                     %Parser lost. Sorry. Check before and after that point.")
                error_handler.print_as_fatal_error
             end
@@ -4400,12 +4395,12 @@ feature {}
          loop
             if not a_possibly_frozen_feature_name then
                error_handler.add_position(current_position)
-               error_handler.append("Error inside feature name definition. Unable to find the synonymous name %
+               error_handler.append(once "Error inside feature name definition. Unable to find the synonymous name %
                                     %which must be just after the previous colon mark %",%".")
                if a_class_name then
                   error_handler.print_as_error
                   error_handler.add_position(token_buffer.start_position)
-                  error_handler.append("This is not a feature name, but a class name.")
+                  error_handler.append(once "This is not a feature name, but a class name.")
                end
                error_handler.print_as_fatal_error
             end
@@ -4452,22 +4447,22 @@ feature {}
                end
             elseif tmp_feature.arguments /= Void then
                error_handler.add_position(current_position)
-               error_handler.append("Syntax error while trying to parse the header of routine `")
+               error_handler.append(once "Syntax error while trying to parse the header of routine `")
                error_handler.append(tmp_feature.first_name.to_string)
-               error_handler.append("'. May be, you just miss to add the %"is%" keyword?")
+               error_handler.append(once "'. May be, you just miss to add the %"is%" keyword?")
                error_handler.print_as_fatal_error
             elseif tmp_feature.type = Void then
                error_handler.add_position(current_position)
                if a_keyword(fz_do) or else a_keyword(fz_once) then
-                  error_handler.append("Missing the %"is%" keyword?")
+                  error_handler.append(once "Missing the %"is%" keyword?")
                elseif a_type_mark then
-                  error_handler.append("Missing %":%" before the type mark?")
+                  error_handler.append(once "Missing %":%" before the type mark?")
                else
-                  error_handler.append("Bad procedure definition.")
+                  error_handler.append(once "Bad procedure definition.")
                end
-               error_handler.append(" Unable to parse definition of `")
+               error_handler.append(once " Unable to parse definition of `")
                error_handler.append(tmp_feature.first_name.to_string)
-               error_handler.append("'.")
+               error_handler.append(once "'.")
                error_handler.print_as_fatal_error
             else
                last_feature_declaration := tmp_feature.as_writable_attribute
@@ -4551,7 +4546,7 @@ feature {}
                      state := 2
                   else
                      error_handler.add_position(current_position)
-                     error_handler.append("Constraint Class name expected.")
+                     error_handler.append(once "Constraint Class name expected.")
                      error_handler.print_as_fatal_error
                   end
                end
@@ -4561,8 +4556,8 @@ feature {}
             when 4 then
                if formal_generic_list.count = 0 then
                   error_handler.add_position(formal_generic_list.start_position)
-                  error_handler.append("Empty formal generic list (deleted).")
-                  error_handler.print_as_warning
+                  error_handler.append(once "Empty formal generic list (deleted).")
+                  error_handler.print_as_style_warning
                   formal_generic_list := Void
                   last_class_text.set_formal_generic_list(Void)
                end
@@ -4667,19 +4662,19 @@ feature {}
                next_char
             else
                error_handler.add_position(current_position)
-               error_handler.append("Character '%%%"' inserted after %"infix%".")
+               error_handler.append(once "Character '%%%"' inserted after %"infix%".")
                error_handler.print_as_warning
             end
             if a_binary(sp) then
             elseif a_free_operator_definition(False) then
             else
                error_handler.add_position(current_position)
-               error_handler.append("Infix operator name expected.")
+               error_handler.append(once "Infix operator name expected.")
                error_handler.print_as_fatal_error
             end
             if not skip1('%"') then
                error_handler.add_position(current_position)
-               error_handler.append("Character '%%%"' inserted.")
+               error_handler.append(once "Character '%%%"' inserted.")
                error_handler.print_as_warning
             end
          end
@@ -4701,13 +4696,13 @@ feature {}
             inspect_start_position := pos(start_line, start_column)
             if not a_expression then
                error_handler.add_position(current_position)
-               error_handler.append("Expression expected (%"inspect ... %").")
+               error_handler.append(once "Expression expected (%"inspect ... %").")
                error_handler.print_as_fatal_error
             end
             inspect_expression := last_expression
             if inspect_expression.is_void then
                error_handler.add_position(inspect_expression.start_position)
-               error_handler.append("Void is not a valid BOOLEAN expression (just after keyword %"inspect%").")
+               error_handler.append(once "Void is not a valid BOOLEAN expression (just after keyword %"inspect%").")
                error_handler.print_as_fatal_error
             end
             from
@@ -4742,7 +4737,7 @@ feature {}
                inspect_statement.set_else_compound(else_start_position, else_compound)
             elseif not a_keyword(fz_end) then
                error_handler.add_position(current_position)
-               error_handler.append("Added %"end%" for inspect instruction.")
+               error_handler.append(once "Added %"end%" for inspect instruction.")
                error_handler.print_as_warning
             end
             last_instruction := inspect_statement
@@ -4798,9 +4793,9 @@ feature {}
                skip_comments
                if cc = '.' then
                   error_handler.add_position(current_position)
-                  error_handler.append("Removed unexpected blank space(s) just before this dot (assume %
+                  error_handler.append(once "Removed unexpected blank space(s) just before this dot (assume %
                       %you really want to apply a procedure using the previous STRING as target).")
-                  error_handler.print_as_warning
+                  error_handler.print_as_style_warning
                   if last_manifest_string.once_flag then
                      error_handler.add_position(current_position)
                      error_handler.append(em19)
@@ -4811,7 +4806,7 @@ feature {}
                else
                   error_handler.add_position(last_manifest_string.start_position)
                   error_handler.add_position(current_position)
-                  error_handler.append("Dot expected here because a manifest-string alone is not an instruction.")
+                  error_handler.append(once "Dot expected here because a manifest-string alone is not an instruction.")
                   error_handler.print_as_fatal_error
                end
             end
@@ -4821,7 +4816,7 @@ feature {}
             if (start_line /= line) or else (column /= start_column + 4) or else (cc /= '.') then
                -- I do not want to allow a blank space after the dot here.
                error_handler.add_position(last_expression.start_position)
-               error_handler.append("Instruction expected here. True alone is not an instruction.")
+               error_handler.append(once "Instruction expected here. True alone is not an instruction.")
                error_handler.print_as_fatal_error
             end
             next_char
@@ -4832,7 +4827,7 @@ feature {}
             if (start_line /= line) or else (column /= start_column + 5) or else (cc /= '.') then
                -- I do not want to allow a blank space after the dot here.
                error_handler.add_position(last_expression.start_position)
-               error_handler.append("Instruction expected here. False alone is not an instruction.")
+               error_handler.append(once "Instruction expected here. False alone is not an instruction.")
                error_handler.print_as_fatal_error
             end
             next_char
@@ -4889,7 +4884,7 @@ feature {}
                   create vc.make(vc1, tag_name, vc2, last_expression)
                else
                   error_handler.add_position(current_position)
-                  error_handler.append("Variant (INTEGER) Expression Expected.")
+                  error_handler.append(once "Variant (INTEGER) Expression Expected.")
                   error_handler.print_as_warning
                end
             end
@@ -4898,28 +4893,28 @@ feature {}
                   ue := last_expression
                   if ue.is_void then
                      error_handler.add_position(ue.start_position)
-                     error_handler.append("Void is not a valid BOOLEAN expression (just after keyword %"until%" of a loop).")
+                     error_handler.append(once "Void is not a valid BOOLEAN expression (just after keyword %"until%" of a loop).")
                      error_handler.print_as_fatal_error
                   end
                else
                   error_handler.add_position(current_position)
-                  error_handler.append("Boolean expression expected (until).")
+                  error_handler.append(once "Boolean expression expected (until).")
                   error_handler.print_as_fatal_error
                end
             else
                error_handler.add_position(current_position)
-               error_handler.append("Keyword %"until%" expected (in a loop).")
+               error_handler.append(once "Keyword %"until%" expected (in a loop).")
                error_handler.print_as_fatal_error
             end
             if cc = ';' then
                error_handler.add_position(current_position)
                error_handler.append(em24)
-               error_handler.print_as_warning
+               error_handler.print_as_style_warning
                ok := skip1(';')
             end
             if not a_keyword(fz_loop) then
                error_handler.add_position(current_position)
-               error_handler.append("Keyword %"loop%" expected (in a loop).")
+               error_handler.append(once "Keyword %"loop%" expected (in a loop).")
                error_handler.print_as_warning
             end
             lb := a_compound2(once "loop body", fz_end)
@@ -4952,7 +4947,7 @@ feature {}
                   elseif cc = ';' then
                      error_handler.add_position(current_position)
                      error_handler.append(em24)
-                     error_handler.print_as_warning
+                     error_handler.print_as_style_warning
                      ok := skip1(';')
                   else
                      if items /= Void then
@@ -5020,7 +5015,7 @@ feature {}
          keyword_position := pos(start_line, start_column)
          if a_keyword(fz_external) then
             if not (last_class_text.is_expanded or else last_class_text.is_deferred) then
-               error_handler.append("Classes with an external type must be expanded or deferred.")
+               error_handler.append(once "Classes with an external type must be expanded or deferred.")
                error_handler.add_position(keyword_position)
                error_handler.print_as_error
             end
@@ -5033,7 +5028,7 @@ feature {}
                keyword_position := pos(start_line, start_column)
                is_expanded := last_class_text.is_expanded
                if is_expanded then
-                  error_handler.append("An expanded class cannot inherit from other classes, it can only have an %"insert%" clause.")
+                  error_handler.append(once "An expanded class cannot inherit from other classes, it can only have an %"insert%" clause (replaced).")
                   error_handler.add_position(keyword_position)
                   error_handler.print_as_warning
                   create insert_list.with_capacity(4)
@@ -5054,7 +5049,7 @@ feature {}
                insert_flag := a_keyword(fz_insert)
             end
             if add_list.is_empty then
-               error_handler.append("No parent after %"inherit%" keyword (an empty list is not allowed here).")
+               error_handler.append(once "No parent after %"inherit%" keyword (an empty list is not allowed here).")
                error_handler.add_position(keyword_position)
                error_handler.print_as_fatal_error
             end
@@ -5078,7 +5073,7 @@ feature {}
                last_parent_edge.set_comment(get_comment)
             end
             if insert_list.is_empty then
-               error_handler.append("No parent after %"insert%" keyword (an empty list is not allowed here).")
+               error_handler.append(once "No parent after %"insert%" keyword (an empty list is not allowed here).")
                error_handler.add_position(keyword_position)
                error_handler.print_as_fatal_error
             end
@@ -5119,7 +5114,7 @@ feature {}
             Result := True
             if last_type_mark.is_formal_generic then
                error_handler.add_position(last_type_mark.start_position)
-               error_handler.append("Cannot use a formal generic argument as a valid parent.")
+               error_handler.append(once "Cannot use a formal generic argument as a valid parent.")
                error_handler.print_as_fatal_error
             end
             valid_parent_edge_type_check(last_type_mark)
@@ -5128,8 +5123,8 @@ feature {}
                a_rename_list
                if cc = ';' then
                   error_handler.add_position(current_position)
-                  error_handler.append("Unexpected %";%" to end rename list.")
-                  error_handler.print_as_warning
+                  error_handler.append(once "Unexpected %";%" to end rename list (deleted).")
+                  error_handler.print_as_style_warning
                   ok := skip1(';')
                end
                needs_end := True
@@ -5148,7 +5143,7 @@ feature {}
                needs_end := True
             end
             if a_keyword(once "select") then
-               error_handler.append("The old %"select%" option of the %"inherit%" clause is now obsolete. %
+               error_handler.append(once "The old %"select%" option of the %"inherit%" clause is now obsolete. %
                                     %You have to update your code with the new %"insert%" mechanism. %
                                     %With Liberty Eiffel, this can be achieve thanks to the new %"insert%" clause. %
                                     %The new %"insert%" clause comes just after the traditional %"inherit%" clause with %
@@ -5158,7 +5153,7 @@ feature {}
             end
             if a_keyword(fz_rename) or else a_keyword(fz_export) or else a_keyword(fz_undefine) or else a_keyword(fz_redefine) then
                error_handler.add_position(pos(start_line, start_column))
-               error_handler.append("Inheritance option not at a correct place. The correct order is: %"rename... export... %
+               error_handler.append(once "Inheritance option not at a correct place. The correct order is: %"rename... export... %
           %undefine... redefine...%".")
                error_handler.print_as_fatal_error
             end
@@ -5172,7 +5167,7 @@ feature {}
             end
             if needs_end then
                error_handler.add_position(current_position)
-               error_handler.append("Keyword %"end%" added to terminate inherit/insert parent.")
+               error_handler.append(once "Keyword %"end%" added to terminate inherit/insert parent.")
                error_handler.print_as_warning
             end
          end
@@ -5189,19 +5184,19 @@ feature {}
                next_char
             else
                error_handler.add_position(current_position)
-               error_handler.append("Character '%%%"' inserted after %"prefix%".")
+               error_handler.append(once "Character '%%%"' inserted after %"prefix%".")
                error_handler.print_as_warning
             end
             if a_unary then
             elseif a_free_operator_definition(True) then
             else
                error_handler.add_position(current_position)
-               error_handler.append("Prefix operator name expected.")
+               error_handler.append(once "Prefix operator name expected.")
                error_handler.print_as_fatal_error
             end
             if not skip1('%"') then
                error_handler.add_position(current_position)
-               error_handler.append("Character '%%%"' inserted.")
+               error_handler.append(once "Character '%%%"' inserted.")
                error_handler.print_as_warning
             end
          end
@@ -5248,13 +5243,13 @@ feature {}
                   last_parent_edge.add_rename(rename_pair)
                elseif a_expression then
                   error_handler.add_position(last_expression.start_position)
-                  error_handler.append("Cannot use ")
+                  error_handler.append(once "Cannot use ")
                   error_handler.add_expression(last_expression)
-                  error_handler.append(" to rename a feature. (Feature name expected.)")
+                  error_handler.append(once " to rename a feature. (Feature name expected.)")
                   error_handler.print_as_fatal_error
                else
                   error_handler.add_position(current_position)
-                  error_handler.append("Second identifier of a %"rename%" pair expected.")
+                  error_handler.append(once "Second identifier of a %"rename%" pair expected.")
                   error_handler.print_as_fatal_error
                end
             else
@@ -5281,7 +5276,7 @@ feature {}
                tmp_feature.set_obsolete_mark(last_manifest_string)
             else
                error_handler.add_position(current_position)
-               error_handler.append("Obsolete manifest string expected.")
+               error_handler.append(once "Obsolete manifest string expected.")
                error_handler.print_as_fatal_error
             end
          end
@@ -5322,13 +5317,13 @@ feature {}
          else
             error_handler.add_position(current_position)
             if skip2(':', '=') or else skip3(':', ':', '=') or else skip2('?', '=') then
-               error_handler.append("Such an expression cannot be on the left-hand side of an assignment %
+               error_handler.append(once "Such an expression cannot be on the left-hand side of an assignment %
                %operator. A dot can never be used for the left-hand side part of an assignment operator. %
                %Valid left-hand side can be Result, some local or the name of an attribute of Current. %
                %See also http://SmartEiffel/wiki/en/Syntax_diagrams#Writable.php for details.")
                error_handler.print_as_fatal_error
             else
-               error_handler.append("A routine must be ended with %"end%".")
+               error_handler.append(once "A routine must be ended with %"end%".")
                error_handler.print_as_warning
             end
          end
@@ -5362,7 +5357,7 @@ feature {}
             Result := tmp_feature.as_writable_attribute
          else
             error_handler.add_position(current_position)
-            error_handler.append("Routine body expected.")
+            error_handler.append(once "Routine body expected.")
             error_handler.print_as_fatal_error
          end
       end
@@ -5381,7 +5376,7 @@ feature {}
                a_r1(infix_implies)
             else
                error_handler.add_position(sp)
-               error_handler.append("Expression expected after 'implies'.")
+               error_handler.append(once "Expression expected after 'implies'.")
                error_handler.print_as_error
             end
          else
@@ -5642,9 +5637,9 @@ feature {}
             if left_part.is_void then
                error_handler.add_position(left_part.start_position)
                error_handler.add_position(last_feature_name.start_position)
-               error_handler.append("Void cannot be the left-hand side of infix operator %"")
+               error_handler.append(once "Void cannot be the left-hand side of infix operator %"")
                error_handler.append(last_feature_name.to_string)
-               error_handler.append("%".")
+               error_handler.append(once "%".")
                error_handler.print_as_fatal_error
             end
             infix_name := last_feature_name
@@ -5667,7 +5662,7 @@ feature {}
          if skip1('.') then
             if t /= Void and then t.is_void then
                error_handler.add_position(t.start_position)
-               error_handler.append("Void is not a valid target (i.e. just after a dot).")
+               error_handler.append(once "Void is not a valid target (i.e. just after a dot).")
                error_handler.print_as_fatal_error
             end
             just_after_a_dot(do_instruction, to_call(t, fn, eal))
@@ -5728,26 +5723,26 @@ feature {}
                end
             else
                error_handler.add_position(current_position)
-               error_handler.append("Anchor expected. An anchor could be `Current', %
+               error_handler.append(once "Anchor expected. An anchor could be `Current', %
                %a feature name or an argument name.")
                error_handler.print_as_fatal_error
             end
          elseif a_keyword(fz_expanded) then
             error_handler.add_position(pos(start_line, start_column))
             error_handler.add_position(current_position)
-            error_handler.append("No more %"expanded%" keyword allowed here. The obsolete %"expanded FOO%" %
+            error_handler.append(once "No more %"expanded%" keyword allowed here. The obsolete %"expanded FOO%" %
             %notation is no longer accepted.")
             error_handler.print_as_fatal_error
          elseif a_keyword(fz_reference) then
             error_handler.add_position(pos(start_line, start_column))
             error_handler.add_position(current_position)
-            error_handler.append("No more %"reference%" keyword allowed. The obsolete %"reference FOO%" %
+            error_handler.append(once "No more %"reference%" keyword allowed. The obsolete %"reference FOO%" %
             %notation is no longer accepted. Just use our REFERENCE class instead.")
             error_handler.print_as_fatal_error
          elseif a_keyword(fz_separate) then
             error_handler.add_position(pos(start_line, start_column))
-            error_handler.append("The SCOOP attempt implementation has been abandoned (December 2006). ")
-            error_handler.append("The %"separate%" keyword is still a reserved keyword in case of a new implementation attempt...")
+            error_handler.append(once "The SCOOP attempt implementation has been abandoned (December 2006). ")
+            error_handler.append(once "The %"separate%" keyword is still a reserved keyword in case of a new implementation attempt...")
             error_handler.print_as_fatal_error
          elseif a_formal_generic_type_mark then
             last_type_mark := last_formal_generic_type_mark
@@ -5774,7 +5769,7 @@ feature {}
       do
          if type_mark.is_anchored then
             error_handler.add_position(type_mark.start_position)
-            error_handler.append("Cannot use anchored type mark definition as a valid parent.")
+            error_handler.append(once "Cannot use anchored type mark definition as a valid parent.")
             error_handler.print_as_fatal_error
          elseif type_mark.is_formal_generic then
          elseif type_mark.is_generic then
@@ -5793,7 +5788,7 @@ feature {}
    inside_function_precursor_check (exp: EXPRESSION) is
       do
          if not inside_function_flag then
-            error_handler.append("Inside a procedure, a Precursor call must be a procedure call %
+            error_handler.append(once "Inside a procedure, a Precursor call must be a procedure call %
             %(not a function call).")
             error_handler.add_position(exp.start_position)
             error_handler.print_as_fatal_error
@@ -5842,7 +5837,7 @@ feature {}
                   if constant /= Void then
                      Result := when_clause.parser_add_value(Result, constant)
                   else
-                     error_handler.append("Empty %"when%" clause in %"inspect%" statement.")
+                     error_handler.append(once "Empty %"when%" clause in %"inspect%" statement.")
                      error_handler.add_position(pos(start_line, start_column))
                      error_handler.print_as_fatal_error
                   end
@@ -5854,7 +5849,7 @@ feature {}
                elseif cc = ',' then
                   error_handler.add_position(current_position)
                   error_handler.append(em7)
-                  error_handler.print_as_warning
+                  error_handler.print_as_style_warning
                   ok := skip1(',')
                else
                   error_handler.add_position(current_position)
@@ -5875,7 +5870,7 @@ feature {}
                      Result
                   when 1 then
                      error_handler.add_position(pos(start_line, start_column))
-                     error_handler.append("Inside an %"inspect%" statement for type STRING, %
+                     error_handler.append(once "Inside an %"inspect%" statement for type STRING, %
                                           %the slice notation %"..%" is not allowed.")
                      error_handler.print_as_fatal_error
                   when -1, 0 then
@@ -5967,17 +5962,17 @@ feature {}
             Result := last_expression
          elseif a_keyword_current then
             error_handler.add_position(pos(start_line, start_column))
-            error_handler.append("Writable entity expected here (`Current' is not writable).")
+            error_handler.append(once "Writable entity expected here (`Current' is not writable).")
             error_handler.print_as_fatal_error
          elseif a_ordinary_feature_name_or_local_name and then a_argument then
             error_handler.add_position(last_expression.start_position)
-            error_handler.append("Writable entity expected here. Argument ")
+            error_handler.append(once "Writable entity expected here. Argument ")
             error_handler.add_expression(last_expression)
-            error_handler.append(" is not writable.")
+            error_handler.append(once " is not writable.")
             error_handler.print_as_fatal_error
          else
             error_handler.add_position(current_position)
-            error_handler.append("Writable entity expected here.")
+            error_handler.append(once "Writable entity expected here.")
             error_handler.print_as_fatal_error
          end
       ensure
@@ -6006,7 +6001,7 @@ feature {}
       do
          if fn = Void then
             error_handler.add_position(current_position)
-            error_handler.append("An expression has a result value. This is not an instruction.")
+            error_handler.append(once "An expression has a result value. This is not an instruction.")
             error_handler.print_as_fatal_error
          elseif eal = Void then
             create {PROCEDURE_CALL_0} Result.make(t, fn)
@@ -6135,17 +6130,17 @@ feature {}
                end
             else
                error_handler.add_position(current_position)
-               error_handler.append("%"")
+               error_handler.append(once "%"")
                error_handler.append(token_buffer.buffer)
-               error_handler.append("%" is not valid identifier. For a better readability Liberty Eiffel _is_ case %
+               error_handler.append(once "%" is not valid identifier. For a better readability Liberty Eiffel _is_ case %
                %sensitive. Hence %"")
                error_handler.append(token_buffer.buffer)
-               error_handler.append("%" cannot be a valid class name (only upper case letters are allowed in class names). %"")
+               error_handler.append(once "%" cannot be a valid class name (only upper case letters are allowed in class names). %"")
                error_handler.append(token_buffer.buffer)
-               error_handler.append("%" cannot be a valid feature name or a valid local name (only lower case letters are %
+               error_handler.append(once "%" cannot be a valid feature name or a valid local name (only lower case letters are %
                %allowed here). Furthermore %"")
                error_handler.append(token_buffer.buffer)
-               error_handler.append("%" is not valid keyword.%"")
+               error_handler.append(once "%" is not valid keyword.%"")
                Result := True
             end
          end
@@ -6207,7 +6202,7 @@ feature {}
    unknown_external_language (external_tag: MANIFEST_STRING) is
       do
          error_handler.add_position(external_tag.start_position)
-         error_handler.append("Unknown external language specification.")
+         error_handler.append(once "Unknown external language specification.")
          error_handler.print_as_fatal_error
       end
 
@@ -6240,7 +6235,7 @@ feature {}
                -- to allow create {like Current}.
             else
                error_handler.add_position(type.start_position)
-               error_handler.append("Explicit creation/create type mark should not be anchored.")
+               error_handler.append(once "Explicit creation/create type mark should not be anchored.")
                error_handler.print_as_warning
             end
          end
@@ -6261,7 +6256,7 @@ feature {}
          if e1.is_current and then e2.is_void then
             error_handler.add_position(e1.start_position)
             error_handler.add_position(e2.start_position)
-            error_handler.append("In an object-oriented language, the receiver of a call is always associated to %
+            error_handler.append(once "In an object-oriented language, the receiver of a call is always associated to %
                                  %some existing object (i.e. `Current' is never Void). Hence, such a weird %
                                  %comparison is not allowed.")
             error_handler.print_as_fatal_error
@@ -6281,7 +6276,7 @@ feature {}
                error_handler.add_position(sp)
                error_handler.add_position(Result.start_position)
                error_handler.add_position(current_position)
-               error_handler.append("A Precursor type mark annotation must not be anchored.")
+               error_handler.append(once "A Precursor type mark annotation must not be anchored.")
                error_handler.print_as_fatal_error
             elseif not skip1('}') then
                error_handler.add_position(current_position)
@@ -6324,11 +6319,11 @@ feature {}
          just_after_a_dot(do_instruction, target)
          if target.extra_bracket_flag then
             error_handler.add_position(target.start_position)
-            error_handler.append("Because of the usual low priority of prefix minus, `-foo.bar' is %
+            error_handler.append(once "Because of the usual low priority of prefix minus, `-foo.bar' is %
             %actually equivalent to `-(foo.bar)'. In order to avoid a possible mistake here, it is mandatory %
             %for you to add extra parentheses here. You can wrap ")
             error_handler.add_expression(target)
-            error_handler.append(" or the whole expression as well. It's up to you to decide now.")
+            error_handler.append(once " or the whole expression as well. It's up to you to decide now.")
             error_handler.print_as_fatal_error
          end
       end
@@ -6339,7 +6334,7 @@ feature {}
             Result := True
          elseif a_keyword(once "void") then
             error_handler.add_position(pos(start_line, start_column))
-            error_handler.append("Replaced misspelled %"Void%".")
+            error_handler.append(once "Replaced misspelled %"Void%".")
             error_handler.print_as_warning
             Result := True
          end
@@ -6351,7 +6346,7 @@ feature {}
             Result := True
          elseif a_keyword(once "result") then
             error_handler.add_position(pos(start_line, start_column))
-            error_handler.append("Replaced misspelled %"Result%".")
+            error_handler.append(once "Replaced misspelled %"Result%".")
             error_handler.print_as_warning
             Result := True
          end
@@ -6363,7 +6358,7 @@ feature {}
             Result := True
          elseif a_keyword(once "current") then
             error_handler.add_position(pos(start_line, start_column))
-            error_handler.append("Replaced misspelled %"Current%".")
+            error_handler.append(once "Replaced misspelled %"Current%".")
             error_handler.print_as_warning
             Result := True
          end
@@ -6375,7 +6370,7 @@ feature {}
             Result := True
          elseif a_keyword(once "true") then
             error_handler.add_position(pos(start_line, start_column))
-            error_handler.append("Replaced misspelled %"True%".")
+            error_handler.append(once "Replaced misspelled %"True%".")
             error_handler.print_as_warning
             Result := True
          end
@@ -6387,7 +6382,7 @@ feature {}
             Result := True
          elseif a_keyword(once "false") then
             error_handler.add_position(pos(start_line, start_column))
-            error_handler.append("Replaced misspelled %"False%".")
+            error_handler.append(once "Replaced misspelled %"False%".")
             error_handler.print_as_warning
             Result := True
          end

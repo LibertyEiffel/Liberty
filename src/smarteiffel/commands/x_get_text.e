@@ -164,7 +164,7 @@ feature {}
          create root_name.unknown_position(hashed_root_class_name)
          root := smart_eiffel.class_text(root_name, True)
          if root = Void then
-            error_handler.append("Cannot load root class ")
+            error_handler.append(once "Cannot load root class ")
             error_handler.append(root_class_name)
             error_handler.extend('.')
             error_handler.print_as_error

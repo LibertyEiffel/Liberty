@@ -309,11 +309,11 @@ feature {ASSERTION}
          if expression /= Void then
             rt := expression.resolve_in(type)
             if not rt.is_boolean then
-               error_handler.append("An assertion must be a BOOLEAN expression.")
+               error_handler.append(once "An assertion must be a BOOLEAN expression.")
                error_handler.add_position(expression.start_position)
-               error_handler.append("(The type of this expression is actually ")
+               error_handler.append(once "(The type of this expression is actually ")
                error_handler.append(rt.name.to_string)
-               error_handler.append(".)")
+               error_handler.append(once ".)")
                error_handler.print_as_fatal_error
             end
          end

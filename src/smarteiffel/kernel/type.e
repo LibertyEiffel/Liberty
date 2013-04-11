@@ -54,7 +54,7 @@ feature {}
             if ctm.is_agent and then not ctm.generic_list.first.is_tuple then
                error_handler.add_position(ctm.start_position)
                error_handler.add_position(ctm.generic_list.first.start_position)
-               error_handler.append("TUPLE type expected for open arguments of agent type.")
+               error_handler.append(once "TUPLE type expected for open arguments of agent type.")
                error_handler.print_as_error
             end
          end
@@ -114,9 +114,9 @@ feature {}
                   --|*** attention: info non posee sur edge reverse
 
                   if parent_tm.is_expanded then
-                     error_handler.append("Expanded classes can be inserted only.")
+                     error_handler.append(once "Expanded classes can be inserted only.")
                      error_handler.add_position(a_parent_edge.start_position)
-                     error_handler.print_as_warning
+                     error_handler.print_as_error
                      if parents_edge.upper /= first_inherit_index then
                         parents_edge.swap(parents_edge.upper, first_inherit_index)
                         parents_edge_load.swap(parents_edge_load.upper, first_inherit_index)
@@ -398,10 +398,10 @@ feature {FEATURE_ACCUMULATOR}
             -- Checking infinite generic with a brute force idea:
             if canonical_type_mark.written_name.to_string.count > 16384 then
                error_handler.add_position(canonical_type_mark.start_position)
-               error_handler.append("Probably infinite or too long generic derivation of this type mark (see next warnings %
+               error_handler.append(once "Probably infinite or too long generic derivation of this type mark (see next warnings %
                           %to find the cause of the problem... and good luck).")
                error_handler.print_as_warning
-               error_handler.append("The huge generic derivation related to the previous warning is: ")
+               error_handler.append(once "The huge generic derivation related to the previous warning is: ")
                error_handler.append(canonical_type_mark.written_name.to_string)
                if error_handler.warning_counter > 10 then
                   error_handler.print_as_error
@@ -518,7 +518,7 @@ feature {ANY}
                error_handler.add_position(external_type.start_position)
                error_handler.add_position(et.start_position)
                error_handler.append(name.to_string)
-               error_handler.append(" has two conflicting external types")
+               error_handler.append(once " has two conflicting external types")
                error_handler.print_as_error
             end
          end
@@ -1038,11 +1038,11 @@ feature {CALL_0}
          af := find_anonymous_feature_for(fs, fn)
          cst_att ?= af
          if cst_att = Void then
-            error_handler.append("This call should be some constant feature call (i.e. a statically computable %
+            error_handler.append(once "This call should be some constant feature call (i.e. a statically computable %
                                  %value). (See the definition found in the next error message.)")
             error_handler.add_position(fn.start_position)
             error_handler.print_as_error
-            error_handler.append("This is not a constant feature.")
+            error_handler.append(once "This is not a constant feature.")
             error_handler.add_position(af.start_position)
             error_handler.print_as_fatal_error
          end
@@ -1066,7 +1066,7 @@ feature {}
             Result := feature_accumulator.anonymous_feature_for(fn)
          end
          if Result = Void then
-            error_handler.append("No feature found for this call.")
+            error_handler.append(once "No feature found for this call.")
             error_handler.add_position(fn.start_position)
             error_handler.print_as_fatal_error
          end
@@ -1182,10 +1182,10 @@ feature {TYPE}
       do
          error_handler.append(name.to_string)
          if Current = first then
-            error_handler.append(", ...")
+            error_handler.append(once ", ...")
             error_handler.print_as_fatal_error
          else
-            error_handler.append(", ")
+            error_handler.append(once ", ")
             from
                i := parents.lower
             until
@@ -1206,7 +1206,7 @@ feature {}
    frozen inline_dynamic_dispatch_must_be_done_once: BOOLEAN is
       do
          if inline_dynamic_dispatch_flag then
-            error_handler.append("Internal compiler error (TYPE.inline_dynamic_dispatch called twice.")
+            error_handler.append(once "Internal compiler error (TYPE.inline_dynamic_dispatch called twice.")
             error_handler.print_as_fatal_error
          else
             inline_dynamic_dispatch_flag := True
@@ -1241,13 +1241,13 @@ feature {}
                check
                   has_parent_cycle
                end
-               error_handler.append("Cyclic inheritance graph: ")
+               error_handler.append(once "Cyclic inheritance graph: ")
                error_handler.append(name.to_string)
-               error_handler.append(", ")
+               error_handler.append(once ", ")
                error_handler.add_position(parents_edge_load.item(i).start_position)
                parents.item(i).print_graph_cycle(Current)
                if not error_handler.is_empty then
-                  error_handler.append("The following path was misdetected as an inheritance cycle")
+                  error_handler.append(once "The following path was misdetected as an inheritance cycle")
                   error_handler.print_as_internal_error
                end
             end

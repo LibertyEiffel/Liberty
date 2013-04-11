@@ -40,8 +40,8 @@ feature {}
       end
 
    may_expand_var is
-         -- Expand an environment variable in curly brackets into 
-         -- buffer, if variable expansion is active. Else just append 
+         -- Expand an environment variable in curly brackets into
+         -- buffer, if variable expansion is active. Else just append
          -- '$' to buffer.
       deferred
       end
@@ -62,7 +62,7 @@ feature {}
    S_end_of_correct_manifest_string:     INTEGER_8 is 10
    S_error_in_manifest_string:           INTEGER_8 is 11
 
-   
+
    a_manifest_string (skip_comments_flag: BOOLEAN): BOOLEAN is
       local
          state, l, c: INTEGER; once_flag, unicode_flag, stop, source_view_flag: BOOLEAN
@@ -217,7 +217,7 @@ feature {}
                      error_handler.print_as_warning
                   else
                      error_handler.add_position(current_position)
-                     error_handler.append("In extended form of manifest string. Bad character after '%%'.")
+                     error_handler.append(once "In extended form of manifest string. Bad character after '%%'.")
                      error_handler.print_as_fatal_error
                   end
                when S_extended_form_at_beginning_of_line then
@@ -232,7 +232,7 @@ feature {}
                      error_handler.print_as_fatal_error
                   else
                      error_handler.add_position(current_position)
-                     error_handler.append("In extended form of manifest string. Bad character before '%%'.")
+                     error_handler.append(once "In extended form of manifest string. Bad character before '%%'.")
                      error_handler.print_as_fatal_error
                   end
                when S_inside_ascii_code_after_slash then
@@ -301,7 +301,7 @@ feature {}
                         error_handler.print_as_error
                      elseif digit_count.is_odd then
                         error_handler.add_position(current_position)
-                        error_handler.append("You must use an even number of hexadecimal %
+                        error_handler.append(once "You must use an even number of hexadecimal %
                         %digits to denote a sequence of CHARACTERs.")
                         error_handler.print_as_error
                      end
@@ -322,7 +322,7 @@ feature {}
                         error_handler.print_as_error
                      elseif digit_count > 8 then
                         error_handler.add_position(current_position)
-                        error_handler.append("Too long hexadecimal sequence %
+                        error_handler.append(once "Too long hexadecimal sequence %
                         %for a single unicode value.")
                         error_handler.print_as_error
                      else
@@ -332,7 +332,7 @@ feature {}
                            unicode_string_buffer.utf8_encode_in(buffer)
                         else
                            error_handler.add_position(current_position)
-                           error_handler.append("Invalid unicode notation (see also http://%
+                           error_handler.append(once "Invalid unicode notation (see also http://%
                                %www.unicode.org as well as feature %
                                                 %{UNICODE_STRING}.valid_unicode).")
                            error_handler.print_as_error
@@ -667,7 +667,7 @@ feature {}
    em1: STRING is "Underscore in fractionnal part must group 3 digits."
 
    em2: STRING is "Right hand side expression of := assignment expected here."
-   
+
    em3: STRING is "Index value expected (%"indexing ...%")."
 
    em4: STRING is "Error in inspect."
@@ -683,7 +683,7 @@ feature {}
    em9: STRING is "Underscore in number must group exactly 3 digits."
 
    em10: STRING is "Right hand side expression of ::= assignment expected here."
-   
+
    em11: STRING is "Bad clients list."
 
    em12: STRING is "Deleted extra comma."
@@ -701,9 +701,9 @@ feature {}
    em19: STRING is "Added missing brackets to enclose the previous %"once%" manifest STRING."
 
    em20: STRING is "Right hand side expression of ?= assignment expected here."
-   
+
    em21: STRING is "Expression expected after assignment test %"?:=%"."
-   
+
    em22: STRING is "Bad creation/create (writable expected)."
 
    em23: STRING is "Bad creation/create (procedure name expected)."

@@ -176,25 +176,25 @@ feature {}
          when 8 then
             if not vm.fit_natural_8 then
                error_handler.add_position(sp)
-               error_handler.append("Value `")
+               error_handler.append(once "Value `")
                error_handler.append(vm.to_string)
-               error_handler.append("' is out of NATURAL_8 range.")
+               error_handler.append(once "' is out of NATURAL_8 range.")
                error_handler.print_as_fatal_error
             end
          when 16 then
             if not vm.fit_natural_16 then
                error_handler.add_position(sp)
-               error_handler.append("Value `")
+               error_handler.append(once "Value `")
                error_handler.append(vm.to_string)
-               error_handler.append("' is out of NATURAL_16 range.")
+               error_handler.append(once "' is out of NATURAL_16 range.")
                error_handler.print_as_fatal_error
             end
          when 32 then
             if not vm.fit_natural_32 then
                error_handler.add_position(sp)
-               error_handler.append("Value `")
+               error_handler.append(once "Value `")
                error_handler.append(vm.to_string)
-               error_handler.append("' is out of NATURAL_32 range.")
+               error_handler.append(once "' is out of NATURAL_32 range.")
                error_handler.print_as_fatal_error
             end
          else

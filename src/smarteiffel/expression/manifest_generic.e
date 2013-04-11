@@ -247,18 +247,18 @@ feature {ANY}
             if class_to_create.is_deferred then
                error_handler.add_position(start_position)
                error_handler.add_position(class_to_create.name.start_position)
-               error_handler.append("Type ")
+               error_handler.append(once "Type ")
                error_handler.append(created_type.name.to_string)
-               error_handler.append(" is deferred. (Cannot create object.)")
+               error_handler.append(once " is deferred. (Cannot create object.)")
                error_handler.add_position(start_position)
                error_handler.print_as_fatal_error
             end
             creation_clause_list := class_to_create.creation_clause_list
             if creation_clause_list = Void then
                error_handler.add_position(start_position)
-               error_handler.append("Class ")
+               error_handler.append(once "Class ")
                error_handler.append(class_to_create.name.to_string)
-               error_handler.append(" not correctly equiped for manifest generic creation (`manifest_creation' %
+               error_handler.append(once " not correctly equiped for manifest generic creation (`manifest_creation' %
                                     %missing in the creation clause).")
                error_handler.print_as_fatal_error
             else
@@ -268,9 +268,9 @@ feature {ANY}
                   if creation_clause_list /= Void then
                      error_handler.add_position(creation_clause_list.start_position)
                   end
-                  error_handler.append("Class ")
+                  error_handler.append(once "Class ")
                   error_handler.append(class_to_create.name.to_string)
-                  error_handler.append(" not correctly equiped for manifest generic creation (`manifest_creation' %
+                  error_handler.append(once " not correctly equiped for manifest generic creation (`manifest_creation' %
                                        %missing in the creation clause).")
                   error_handler.print_as_fatal_error
                end
@@ -282,13 +282,13 @@ feature {ANY}
                if formal_arg_list.count > 1 then
                   error_handler.add_position(start_position)
                   error_handler.add_position(formal_arg_list.name(2).start_position)
-                  error_handler.append("Missing argument before << ... >> item list.")
+                  error_handler.append(once "Missing argument before << ... >> item list.")
                   error_handler.print_as_fatal_error
                end
             elseif formal_arg_list.count /= (optional_arguments.count + 1) then
                error_handler.add_position(optional_arguments.first.start_position)
                error_handler.add_position(af.start_position)
-               error_handler.append("Wrong number of arguments for manifest generic creation.")
+               error_handler.append(once "Wrong number of arguments for manifest generic creation.")
                error_handler.print_as_fatal_error
             end
             manifest_put_feature_stamp := created_type.feature_stamp_of(manifest_put_name)
@@ -303,9 +303,9 @@ feature {ANY}
                         error_handler.add_position(irregular_position)
                      end
                      error_handler.add_position(cst_att_boolean.value.start_position)
-                     error_handler.append("Must not use the %";%" (semicolon) separator for manifest ")
+                     error_handler.append(once "Must not use the %";%" (semicolon) separator for manifest ")
                      error_handler.append(created_type.class_text.name.to_string)
-                     error_handler.append(" creation.")
+                     error_handler.append(once " creation.")
                      error_handler.print_as_fatal_error
                   end
                else
@@ -314,7 +314,7 @@ feature {ANY}
                   end
                   if semicolon_count < 0 then
                      error_handler.add_position(irregular_position)
-                     error_handler.append("Unexpected %";%" (semicolon) separator in manifest generic expression. %
+                     error_handler.append(once "Unexpected %";%" (semicolon) separator in manifest generic expression. %
                                                           %Less items found in this bunch than in the previous one.")
                      error_handler.print_as_fatal_error
                   end
@@ -327,15 +327,15 @@ feature {ANY}
                   -- The most common correct situation.
                elseif semicolon_count < 0 then
                   error_handler.add_position(irregular_position)
-                  error_handler.append("Irregular number of items in bunches. The previous bunch is smaller.")
+                  error_handler.append(once "Irregular number of items in bunches. The previous bunch is smaller.")
                   error_handler.print_as_error
                   error_handler.add_position(start_position)
                   error_handler.add_position(integer_constant.start_position)
-                  error_handler.append("Actually, for class ")
+                  error_handler.append(once "Actually, for class ")
                   error_handler.append(created_type.class_text.name.to_string)
-                  error_handler.append(", each bunch must have exactly ")
+                  error_handler.append(once ", each bunch must have exactly ")
                   error_handler.append(integer_constant.value_memory.to_string)
-                  error_handler.append(" items.")
+                  error_handler.append(once " items.")
                   error_handler.print_as_fatal_error
                elseif semicolon_count = 0 and then item_list.count = integer_constant.value_memory then
                   -- Only one bunch is correct too.
@@ -346,12 +346,12 @@ feature {ANY}
                   end
                   error_handler.add_position(start_position)
                   error_handler.add_position(integer_constant.start_position)
-                  error_handler.append("Wrong usage of %";%" (semicolon) separator in manifest notation. %
+                  error_handler.append(once "Wrong usage of %";%" (semicolon) separator in manifest notation. %
                                                            %Each bunch-size must be a multiple of ")
                   error_handler.append(integer_constant.value_memory.to_string)
-                  error_handler.append(". (Actual bunch size is ")
+                  error_handler.append(once ". (Actual bunch size is ")
                   error_handler.append(semicolon_count.to_string)
-                  error_handler.append(".)")
+                  error_handler.append(once ".)")
                   error_handler.print_as_fatal_error
                end
             end
@@ -559,9 +559,9 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          if not tm.is_static then
             error_handler.add_position(tm.start_position)
             if tm.is_anchored then
-               error_handler.append("Cannot use anchored type for this form of creation.")
+               error_handler.append(once "Cannot use anchored type for this form of creation.")
             else
-               error_handler.append("Only static type can be used for this form of creation.")
+               error_handler.append(once "Only static type can be used for this form of creation.")
             end
             error_handler.print_as_fatal_error
          end
@@ -838,9 +838,9 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             if destination_type.is_expanded then
                error_handler.add_position(destination_type_mark.start_position)
                error_handler.add_position(e.start_position)
-               error_handler.append("Cannot pass Void into formal argument which is of type ")
+               error_handler.append(once "Cannot pass Void into formal argument which is of type ")
                error_handler.append(destination_type.name.to_string)
-               error_handler.append(".")
+               error_handler.append(once ".")
                error_handler.print_as_fatal_error
             end
             Result := e
@@ -850,13 +850,13 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             if not expression_type.can_be_assigned_to(destination_type) then
                error_handler.add_position(destination_type_mark.start_position)
                error_handler.add_position(e.start_position)
-               error_handler.append("Cannot pass ")
+               error_handler.append(once "Cannot pass ")
                error_handler.add_expression(e)
-               error_handler.append(" which is of type ")
+               error_handler.append(once " which is of type ")
                error_handler.append(expression_type.name.to_string)
-               error_handler.append(" into formal argument which is of type ")
+               error_handler.append(once " into formal argument which is of type ")
                error_handler.append(destination_type.name.to_string)
-               error_handler.append(".")
+               error_handler.append(once ".")
                error_handler.print_as_fatal_error
             end
             Result := assignment_handler.implicit_cast(Result, expression_type, destination_type)

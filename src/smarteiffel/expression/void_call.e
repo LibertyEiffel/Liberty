@@ -72,9 +72,9 @@ feature {ANY}
 
    safety_check (type: TYPE) is
       do
-         error_handler.append("Call on a Void target in the live code (when the type of Current is ")
+         error_handler.append(once "Call on a Void target in the live code (when the type of Current is ")
          error_handler.append(type.name.to_string)
-         error_handler.append(").")
+         error_handler.append(once ").")
          error_handler.add_position(start_position)
          error_handler.print_as_warning
       end

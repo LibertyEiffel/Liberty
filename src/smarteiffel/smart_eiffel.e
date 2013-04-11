@@ -141,32 +141,32 @@ feature {ANY}
       do
          error_handler.add_position(fn.start_position)
          if fn.is_infix_name then
-            error_handler.append("Unknown infix operator %"")
+            error_handler.append(once "Unknown infix operator %"")
             error_handler.append(fn.to_string)
-            error_handler.append("%" in type ")
+            error_handler.append(once "%" in type ")
          elseif fn.is_prefix_name then
-            error_handler.append("Unknown prefix operator %"")
+            error_handler.append(once "Unknown prefix operator %"")
             error_handler.append(fn.to_string)
-            error_handler.append("%" in type ")
+            error_handler.append(once "%" in type ")
          else
-            error_handler.append("Unknown feature `")
+            error_handler.append(once "Unknown feature `")
             error_handler.append(fn.to_string)
-            error_handler.append("' in type ")
+            error_handler.append(once "' in type ")
          end
          error_handler.add_type(target_type)
-         error_handler.append(".")
+         error_handler.append(once ".")
          if target_expression.is_implicit_current then
-            error_handler.append(" (For this call, the target is the implicit non written `Current' %
+            error_handler.append(once " (For this call, the target is the implicit non written `Current' %
                                  %which is of type ")
             error_handler.add_type(target_type)
-            error_handler.append(".)")
+            error_handler.append(once ".)")
          else
             error_handler.add_position(target_expression.start_position)
-            error_handler.append(" (For this call, the target ")
+            error_handler.append(once " (For this call, the target ")
             error_handler.add_expression(target_expression)
-            error_handler.append(" is of type ")
+            error_handler.append(once " is of type ")
             error_handler.add_type(target_type)
-            error_handler.append(".)")
+            error_handler.append(once ".)")
          end
          error_handler.print_as_fatal_error
       end
@@ -208,7 +208,7 @@ feature {RESULT, ONCE_FUNCTION}
    vffd7_fatal_error (sp: POSITION) is
       do
          error_handler.add_position(sp)
-         error_handler.append("Result type of a once function must not involve formal generic names nor anchored types (VFFD.8).")
+         error_handler.append(once "Result type of a once function must not involve formal generic names nor anchored types (VFFD.8).")
          error_handler.print_as_fatal_error
       end
 
@@ -569,19 +569,19 @@ feature {FUNCTION_CALL, PROCEDURE_CALL, PRECURSOR_CALL, AGENT_CREATION}
                formal := formal_args.count
                actual := actual_args.count
                if actual /= formal then
-                  error_handler.append("The feature called has ")
+                  error_handler.append(once "The feature called has ")
                   error_handler.append_integer(formal)
-                  error_handler.append(" formal argument")
+                  error_handler.append(once " formal argument")
                   if formal > 1 then
                      error_handler.extend('s')
                   end
-                  error_handler.append(" while the actual argument list has ")
+                  error_handler.append(once " while the actual argument list has ")
                   error_handler.append_integer(actual)
-                  error_handler.append(" argument")
+                  error_handler.append(once " argument")
                   if actual > 1 then
                      error_handler.extend('s')
                   end
-                  error_handler.append(".")
+                  error_handler.append(once ".")
                   error_handler.add_position(formal_args.start_position)
                   error_handler.add_position(actual_args.start_position)
                   error_handler.print_as_fatal_error
@@ -590,26 +590,26 @@ feature {FUNCTION_CALL, PROCEDURE_CALL, PRECURSOR_CALL, AGENT_CREATION}
                -- Well, false alarm, its just an AGENT_CREATION with an ommitted actual arguments list.
             else
                formal := formal_args.count
-               error_handler.append("The feature called has ")
+               error_handler.append(once "The feature called has ")
                error_handler.append_integer(formal)
-               error_handler.append(" formal argument")
+               error_handler.append(once " formal argument")
                if formal > 1 then
                   error_handler.extend('s')
                end
-               error_handler.append(" while there is no actual argument list in the call.")
+               error_handler.append(once " while there is no actual argument list in the call.")
                error_handler.add_position(formal_args.start_position)
                error_handler.add_position(call_site)
                error_handler.print_as_fatal_error
             end
          elseif actual_args /= Void then
             actual := actual_args.count
-            error_handler.append("The feature called has no formal argument while the actual argument list has ")
+            error_handler.append(once "The feature called has no formal argument while the actual argument list has ")
             error_handler.append_integer(actual)
-            error_handler.append(" argument")
+            error_handler.append(once " argument")
             if actual > 1 then
                error_handler.extend('s')
             end
-            error_handler.append(".")
+            error_handler.append(once ".")
             error_handler.add_position(af.start_position)
             error_handler.add_position(actual_args.start_position)
             error_handler.print_as_fatal_error
@@ -1216,17 +1216,17 @@ feature {ANY} -- To get a TYPE:
          end
          error_handler.add_position(class_name.start_position)
          if tuple_file_path = Void then
-            error_handler.append("Unable to load class %"")
+            error_handler.append(once "Unable to load class %"")
             error_handler.append(class_name.to_string)
-            error_handler.append("%".")
+            error_handler.append(once "%".")
          else
-            error_handler.append("No such TUPLE definition in file %"")
+            error_handler.append(once "No such TUPLE definition in file %"")
             error_handler.append(tuple_file_path)
-            error_handler.append("%".%NToo long TUPLE (the TUPLE you want has ")
+            error_handler.append(once "%".%NToo long TUPLE (the TUPLE you want has ")
             error_handler.append_integer(class_name.tuple_count)
-            error_handler.append(" formal generic arguments while the maximum allowed is ")
+            error_handler.append(once " formal generic arguments while the maximum allowed is ")
             error_handler.append_integer(max_tuple)
-            error_handler.append(").%N")
+            error_handler.append(once ").%N")
          end
          error_handler.print_as_fatal_error
       end
@@ -1274,11 +1274,11 @@ feature {INTROSPECTION_HANDLER}
          if type.has_simple_feature_name(hs) then
             Result := type.feature_stamp_of(hs)
          else
-            error_handler.append("Class ")
+            error_handler.append(once "Class ")
             error_handler.append(type.class_text.name.to_string)
-            error_handler.append(" must have a feature named `")
+            error_handler.append(once " must have a feature named `")
             error_handler.append(feature_name)
-            error_handler.append("'.")
+            error_handler.append(once "'.")
             error_handler.add_position(type.class_text.name.start_position)
             error_handler.print_as_fatal_error
          end
@@ -1330,11 +1330,11 @@ feature {TYPE}
       do
          long_name := t.long_name
          if type_dictionary.fast_has(long_name) then
-            error_handler.append("You seem to have too classes named ")
+            error_handler.append(once "You seem to have too classes named ")
             error_handler.append(t.canonical_type_mark.class_text_name.to_string)
-            error_handler.append(". Yours is in the cluster %"")
+            error_handler.append(once ". Yours is in the cluster %"")
             error_handler.append(t.class_text.cluster.directory_path)
-            error_handler.append("%". This is not possible as this class is basically used by Liberty Eiffel internals. Please pick another name.")
+            error_handler.append(once "%". This is not possible as this class is basically used by Liberty Eiffel internals. Please pick another name.")
             error_handler.print_as_fatal_error
          end
 
@@ -1479,15 +1479,15 @@ feature {FEATURE_CALL}
                   original.collected_feature_count /= redefined.collected_feature_count
                 then
                   error_handler.add_position(call_site)
-                  error_handler.append("Unsafe call site (see also next warning).")
+                  error_handler.append(once "Unsafe call site (see also next warning).")
                   error_handler.print_as_warning
-                  error_handler.append("Unsafe covariant redefinition of argument number ")
+                  error_handler.append(once "Unsafe covariant redefinition of argument number ")
                   error_handler.append_integer(a)
-                  error_handler.append(" (type %"")
+                  error_handler.append(once " (type %"")
                   error_handler.append(original.name.to_string)
-                  error_handler.append("%" redefined as %"")
+                  error_handler.append(once "%" redefined as %"")
                   error_handler.append(redefined.name.to_string)
-                  error_handler.append("%").")
+                  error_handler.append(once "%").")
                   error_handler.add_position(up_rf.base_feature.start_position)
                   error_handler.add_position(dyn_rf.base_feature.start_position)
                   error_handler.print_as_warning
@@ -1669,10 +1669,10 @@ feature {E_FUNCTION, CALL_INFIX_POWER}
                v1 := ic1.value_memory
                v2 := ic2.value_memory
                if v2 < 0 then
-                  error_handler.append("Exponent of infix %"^%" must be a positive INTEGER. %
+                  error_handler.append(once "Exponent of infix %"^%" must be a positive INTEGER. %
                                        %Exponent actual value is %"")
                   error_handler.append(v2.to_string)
-                  error_handler.append("%".")
+                  error_handler.append(once "%".")
                   error_handler.add_position(call_site)
                   error_handler.print_as_fatal_error
                end
@@ -1695,17 +1695,17 @@ feature {E_FUNCTION, CALL_INFIX_POWER}
                   end
                end
                if overflow then
-                  error_handler.append("Overflow while computing %"")
+                  error_handler.append(once "Overflow while computing %"")
                   error_handler.append(v1.to_string)
-                  error_handler.append("^")
+                  error_handler.append(once "^")
                   error_handler.append(v2.to_string)
-                  error_handler.append("%"")
+                  error_handler.append(once "%"")
                   error_handler.add_position(call_site)
                   error_handler.print_as_fatal_error
                end
                -- Now checking that the result is identical to what's actually in INTEGER_GENERAL:
                if r /= v1 ^ v2 then
-                  error_handler.append("Internal compiler error. Definition of infix %"^%" of %
+                  error_handler.append(once "Internal compiler error. Definition of infix %"^%" of %
                                        %INTEGER_GENERAL is not coherent with compiler builtin %
                                        %simplifications.")
                   error_handler.add_position(call_site)
@@ -1757,7 +1757,7 @@ feature {AGENT_CREATION}
          agent_creation /= Void
       do
          if agent_creation_error_trap.top /= agent_creation then
-            error_handler.append("Internal compiler error (set_agent_creation_error_trap).")
+            error_handler.append(once "Internal compiler error (set_agent_creation_error_trap).")
             error_handler.print_as_fatal_error
          end
          agent_creation_error_trap.pop
@@ -1808,7 +1808,7 @@ feature {}
          create root_name.unknown_position(hashed_root_class_name)
          root := class_text(root_name, True)
          if root = Void then
-            error_handler.append("Cannot load root class ")
+            error_handler.append(once "Cannot load root class ")
             error_handler.append(root_class_name)
             error_handler.append(once ". ")
             error_handler.print_as_error
@@ -1819,21 +1819,21 @@ feature {}
             error_handler.print_as_fatal_error
          elseif root.is_generic then
             error_handler.append(root.name.to_string)
-            error_handler.append(" cannot be a root class since it is a generic class.")
+            error_handler.append(once " cannot be a root class since it is a generic class.")
             error_handler.print_as_fatal_error
          else
             root_fn := root.root_creation_search(root_procedure_name)
             root_type := root.declaration_type_of_like_current
             if root_type.is_deferred then
                error_handler.append(root.name.to_string)
-               error_handler.append(" cannot be a root class since it is a deferred class.")
+               error_handler.append(once " cannot be a root class since it is a deferred class.")
                error_handler.print_as_warning
             end
             fs := root_type.lookup(root_fn)
             af := fs.anonymous_feature(root_type)
             if af.arguments /= Void then
                error_handler.add_position(af.start_position)
-               error_handler.append("The main procedure must not have arguments.")
+               error_handler.append(once "The main procedure must not have arguments.")
                error_handler.print_as_fatal_error
             end
          end

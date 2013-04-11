@@ -280,11 +280,11 @@ feature {}
          end
       end
 
-   is_no_style_warning_flag (flag: STRING): BOOLEAN is
+   is_style_warning_flag (flag: STRING): BOOLEAN is
       do
-         if flag_match(fz_no_style_warning, flag) then
+         if flag_match(fz_style_warning, flag) then
             Result := True
-            eiffel_parser.set_no_style_warning
+            error_handler.set_style_warning
          end
       end
 

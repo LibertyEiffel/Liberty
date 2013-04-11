@@ -268,7 +268,7 @@ feature {WHEN_ITEM_1}
          if occurrence_2.expression_value.in_range(lower_value, upper_value) then
             error_handler.add_position(start_position)
             error_handler.add_position(occurrence_2.start_position)
-            error_handler.append("The value is already part of previously encountered slice. (Wrong inspect statement.)")
+            error_handler.append(once "The value is already part of previously encountered slice. (Wrong inspect statement.)")
             error_handler.print_as_fatal_error
          end
       end
@@ -279,7 +279,7 @@ feature {WHEN_ITEM_2}
          if occurrence_2.lower_value.in_range(lower_value, upper_value) or else occurrence_2.upper_value.in_range(lower_value, upper_value) then
             error_handler.add_position(start_position)
             error_handler.add_position(occurrence_2.start_position)
-            error_handler.append("Overlapping slices. (Wrong inspect statement.)")
+            error_handler.append(once "Overlapping slices. (Wrong inspect statement.)")
             error_handler.print_as_fatal_error
          end
       end
@@ -289,11 +289,11 @@ feature {WHEN_ITEM_2}
          if lower_value >= upper_value then
             error_handler.add_position(lower.start_position)
             error_handler.add_position(upper.start_position)
-            error_handler.append("Not a good slice. The lower bound (")
+            error_handler.append(once "Not a good slice. The lower bound (")
             error_handler.append_integer(lower_value)
-            error_handler.append(") is not smaller than upper bound (")
+            error_handler.append(once ") is not smaller than upper bound (")
             error_handler.append_integer(upper_value)
-            error_handler.append(").")
+            error_handler.append(once ").")
             error_handler.print_as_fatal_error
          end
       end
@@ -308,7 +308,7 @@ feature {}
             Result := Current
          else
             error_handler.add_position(lower.start_position)
-            error_handler.append("Internal error inside WHEN_ITEM_2 (compiler error).")
+            error_handler.append(once "Internal error inside WHEN_ITEM_2 (compiler error).")
             error_handler.print_as_fatal_error
             Result := twin
             Result.init(l, u)

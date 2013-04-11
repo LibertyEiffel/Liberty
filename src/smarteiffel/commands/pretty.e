@@ -26,6 +26,10 @@ feature {ANY}
         -verbose            Display detailed information about what the programe is
                              doing
 
+      Warning levels:
+        -style_warning      Do print warnings about style violations
+        -no_warning         Don't print any warnings
+
       Style (default is -default):
         -zen                Print as little as possible ("Current" only when
                              necessary, no end comments, compact printing)
@@ -58,7 +62,7 @@ feature {}
          loop
             arg := argument(i)
             if is_some_flag(arg) then
-               if is_no_style_warning_flag(arg) then
+               if is_style_warning_flag(arg) then
                elseif is_no_warning_flag(arg) then
                elseif is_verbose_flag(arg) then
                elseif is_help_flag(arg) then
@@ -85,9 +89,9 @@ feature {}
                   pretty_printer.set_replacement_footer(copyright_footer_for_lib)
                else
                   error_handler.append(command_line_name)
-                  error_handler.append(": unknown flag: %"")
+                  error_handler.append(once ": unknown flag: %"")
                   error_handler.append(arg)
-                  error_handler.append("%"%N")
+                  error_handler.append(once "%"%N")
                   error_handler.print_as_fatal_error
                end
             elseif arg.has_suffix(eiffel_suffix) or else arg.has_suffix(once ".E") then
@@ -95,9 +99,9 @@ feature {}
                file_path_list.add_last(arg.twin)
             else
                error_handler.append(command_line_name)
-               error_handler.append(": wrong suffix for an eiffel source file: %"")
+               error_handler.append(once ": wrong suffix for an eiffel source file: %"")
                error_handler.append(arg)
-               error_handler.append("%".%N")
+               error_handler.append(once "%".%N")
                error_handler.print_as_fatal_error
             end
             i := i + 1
@@ -108,12 +112,12 @@ feature {}
          ace.command_line_parsed(command_line_name)
          if nb_errors > 0 then
             error_handler.append(command_line_name)
-            error_handler.append(": no pretty printing done.")
+            error_handler.append(once ": no pretty printing done.")
             error_handler.print_as_fatal_error
          end
          if file_path_list.is_empty then
             error_handler.append(command_line_name)
-            error_handler.append(": no eiffel source file path.")
+            error_handler.append(once ": no eiffel source file path.")
             error_handler.print_as_fatal_error
          end
          from
@@ -146,9 +150,9 @@ feature {}
       do
          if style /= Void and then not style.is_equal(arg) then
             error_handler.append(command_line_name)
-            error_handler.append(": format style is already set to %"")
+            error_handler.append(once ": format style is already set to %"")
             error_handler.append(style)
-            error_handler.append("%". Bad flag ")
+            error_handler.append(once "%". Bad flag ")
             error_handler.append(arg)
             error_handler.append(once ".")
             error_handler.print_as_fatal_error
@@ -169,9 +173,9 @@ feature {}
          echo.tfr_connect_or_exit(tmp_file_read, file_path)
          if echo.read_word_in(tmp_file_read) = Void then
             error_handler.append(command_line_name)
-            error_handler.append(": cannot read content of file %"")
+            error_handler.append(once ": cannot read content of file %"")
             error_handler.append(file_path)
-            error_handler.append("%".%N")
+            error_handler.append(once "%".%N")
             error_handler.print_as_fatal_error
          end
          tmp_file_read.disconnect
@@ -182,9 +186,9 @@ feature {}
          class_text := smart_eiffel.class_text_for_pretty(file_path, class_name)
          if class_text = Void then
             error_handler.append(command_line_name)
-            error_handler.append(": no pretty printing done for %"")
+            error_handler.append(once ": no pretty printing done for %"")
             error_handler.append(file_path)
-            error_handler.append("%".")
+            error_handler.append(once "%".")
             error_handler.print_as_fatal_error
          end
          backup_path := file_path.twin
@@ -192,17 +196,17 @@ feature {}
          backup_path.append(backup_suffix)
          if ft.is_readable(backup_path) then
             error_handler.append(command_line_name)
-            error_handler.append(": security backup file %"")
+            error_handler.append(once ": security backup file %"")
             error_handler.append(backup_path)
-            error_handler.append("%" already exists. Remove this file first and then run pretty again.")
+            error_handler.append(once "%" already exists. Remove this file first and then run pretty again.")
             error_handler.print_as_fatal_error
          end
          ft.rename_to(file_path, backup_path)
          if not ft.is_readable(backup_path) then
             error_handler.append(command_line_name)
-            error_handler.append(": cannot rename %"")
+            error_handler.append(once ": cannot rename %"")
             error_handler.append(file_path)
-            error_handler.append("%".")
+            error_handler.append(once "%".")
             error_handler.print_as_fatal_error
          end
          pretty_printer.connect_to(file_path)
@@ -213,10 +217,10 @@ feature {}
          class_text := smart_eiffel.class_text_for_pretty(file_path, class_name)
          if class_text = Void then
             error_handler.append(command_line_name)
-            error_handler.append(": error during `pretty' printing. Cannot parse output of pretty.%N")
-            error_handler.append("Backup file %"")
+            error_handler.append(once ": error during `pretty' printing. Cannot parse output of pretty.%N")
+            error_handler.append(once "Backup file %"")
             error_handler.append(backup_path)
-            error_handler.append("%" not removed.")
+            error_handler.append(once "%" not removed.")
             error_handler.print_as_fatal_error
          end
       end

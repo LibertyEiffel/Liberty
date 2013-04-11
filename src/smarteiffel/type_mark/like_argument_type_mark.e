@@ -69,7 +69,7 @@ feature {ANY}
    to_static (new_type: TYPE): TYPE_MARK is
       do
          if like_argument_computing then
-            error_handler.append("Unable to solve cyclic anchored types.")
+            error_handler.append(once "Unable to solve cyclic anchored types.")
             like_argument_computing := False
          else
             like_argument_computing := True

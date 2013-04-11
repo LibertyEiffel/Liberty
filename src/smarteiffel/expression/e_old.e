@@ -50,7 +50,7 @@ feature {ANY}
          else
             error_handler.add_position(vaol_check_memory.item.start_position)
             error_handler.add_position(start_position)
-            error_handler.append("Must not use old inside some old expression (VAOL.2).")
+            error_handler.append(once "Must not use old inside some old expression (VAOL.2).")
             error_handler.print_as_fatal_error
          end
          exp := expression.specialize_in(type)

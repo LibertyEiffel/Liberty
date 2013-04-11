@@ -424,9 +424,9 @@ feature {}
          else
             error_handler.add_position(rf8_memory.base_feature.start_position)
          end
-         error_handler.append("Bad external %"C++%" definition.%Nexternal %"")
+         error_handler.append(once "Bad external %"C++%" definition.%Nexternal %"")
          error_handler.append(tag)
-         error_handler.append("%"%N_________")
+         error_handler.append(once "%"%N_________")
          from
             Result := 1
          until
@@ -436,7 +436,7 @@ feature {}
             Result := Result + 1
          end
          error_handler.extend('^')
-         error_handler.append("%NSee SmartEiffel/tutorial/external/C++ directory %
+         error_handler.append(once "%NSee SmartEiffel/tutorial/external/C++ directory %
          %for more information.%N (Internal state = ")
          error_handler.append(state.to_string)
          error_handler.extend(')')

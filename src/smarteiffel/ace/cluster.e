@@ -62,7 +62,7 @@ feature {ACE, EIFFELDOC}
                error_handler.add_position(class_name.start_position)
                error_handler.append(once "Could not load class in cluster ")
                error_handler.append(directory_path)
-               error_handler.print_as_warning
+               error_handler.print_as_error
             end
          end
       end
@@ -326,7 +326,7 @@ feature {CLASSES_TREE, CLUSTER_VISITOR}
                txt.append("%N")
                if not parser_buffer_for(cn.hashed_name, True) then
                   error_handler.add_position(cn.start_position)
-                  error_handler.append("No such class in this cluster.")
+                  error_handler.append(once "No such class in this cluster.")
                   error_handler.print_as_error
                else
                   parser_buffer.release
@@ -374,11 +374,11 @@ feature {CLASSES_TREE, CLUSTER_VISITOR}
                         if entry /= Void then
                            if not entry.path.is_equal(file_name) then
                               -- because foo.e and FOO.E can coexist in the same directory
-                              error_handler.append("The definition of ")
+                              error_handler.append(once "The definition of ")
                               error_handler.append(class_name.to_string)
-                              error_handler.append(" in ")
+                              error_handler.append(once " in ")
                               error_handler.append(entry.path)
-                              error_handler.append(" is hiding the definition in ")
+                              error_handler.append(once " is hiding the definition in ")
                               error_handler.append(file_name)
                               error_handler.print_as_warning
                            end
@@ -407,11 +407,11 @@ feature {CLASSES_TREE, CLUSTER_VISITOR}
                fn := include_list.item(i)
                file_name_buffer.copy(fn)
                if not parser_buffer_load then
-                  error_handler.append("Cannot find include %"")
+                  error_handler.append(once "Cannot find include %"")
                   error_handler.append(fn)
-                  error_handler.append("%" in cluster %"")
+                  error_handler.append(once "%" in cluster %"")
                   error_handler.append(directory_path)
-                  error_handler.append("%" (check your ACE file).")
+                  error_handler.append(once "%" (check your ACE file).")
                   error_handler.print_as_fatal_error
                end
                smart_eiffel.parse_include(fn)
@@ -453,7 +453,7 @@ feature {ACE}
             error_handler.add_position(class_name.start_position)
             cn := option_assertion_level.internal_key(class_name)
             error_handler.add_position(cn.start_position)
-            error_handler.append("Same class name appears twice.")
+            error_handler.append(once "Same class name appears twice.")
             error_handler.print_as_fatal_error
          end
          option_assertion_level.put(level, class_name)

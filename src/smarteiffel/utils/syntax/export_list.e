@@ -82,13 +82,13 @@ feature {PARENT_EDGE}
                      not parent_type.valid_feature_name(fn)
                    then
                      error_handler.add_position(fn.start_position)
-                     error_handler.append("Cannot change exportation status of ")
+                     error_handler.append(once "Cannot change exportation status of ")
                      error_handler.add_feature_name(fn)
-                     error_handler.append(" because type ")
+                     error_handler.append(once " because type ")
                      error_handler.append(parent_type.name.to_string)
-                     error_handler.append(" does not have feature ")
+                     error_handler.append(once " does not have feature ")
                      error_handler.add_feature_name(fn)
-                     error_handler.append(".")
+                     error_handler.append(once ".")
                      error_handler.print_as_warning
                   end
                   list_idx := list_idx + 1
@@ -122,7 +122,7 @@ feature {}
                else
                   error_handler.add_position(for_all.start_position)
                   error_handler.add_position(ei.clients.start_position)
-                  error_handler.append("There should be at most one export clause with the %"all%" %
+                  error_handler.append(once "There should be at most one export clause with the %"all%" %
                                        %keyword in each parent clause. The client lists will be %
                                        %merged, but please fix the export clauses.")
                   error_handler.print_as_warning
@@ -142,10 +142,10 @@ feature {}
                   else
                      error_handler.add_position(permissions.internal_key(fn).start_position)
                      error_handler.add_position(fn.start_position)
-                     error_handler.append("Any given feature name should appear at most once in one %
+                     error_handler.append(once "Any given feature name should appear at most once in one %
                                           %export clause for each parent clause. Feature ")
                      error_handler.add_feature_name(fn)
-                     error_handler.append(" appears at least twice. The client lists will be merged, %
+                     error_handler.append(once " appears at least twice. The client lists will be merged, %
                                           %but please fix the export clauses.")
                      error_handler.print_as_warning
                      permissions.put(cl.merge_with(ei.clients), fn)

@@ -222,7 +222,7 @@ feature {}
       local
          i: INTEGER; type: TYPE; af: ANONYMOUS_FEATURE; rtm: STRING; rtma: FAST_ARRAY[STRING]
       do
-         error_handler.append("Infinite inlining loop (bad recursion ??). ")
+         error_handler.append(once "Infinite inlining loop (bad recursion ??). ")
          from
             i := top - 1
          until
@@ -241,13 +241,13 @@ feature {}
                   -- Already printed...
                else
                   rtma.add_last(rtm)
-                  error_handler.append(", ")
+                  error_handler.append(once ", ")
                   error_handler.append(rtm)
                end
             end
             i := i - 1
          end
-         error_handler.append(",...")
+         error_handler.append(once ",...")
          error_handler.print_as_fatal_error
       end
 

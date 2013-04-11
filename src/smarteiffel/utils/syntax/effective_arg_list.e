@@ -810,7 +810,7 @@ feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
                end
             else
                error_handler.add_position(first_one.start_position)
-               error_handler.append("Agent calls need a tuple!")
+               error_handler.append(once "Agent calls need a tuple!")
                error_handler.print_as_fatal_error
             end
          end
@@ -915,7 +915,7 @@ feature {}
             if formal_type.is_expanded then
                error_handler.add_position(exp.start_position)
                error_handler.add_position(formal_type_mark.start_position)
-               error_handler.append("Cannot pass Void as argument (the formal type is expanded).")
+               error_handler.append(once "Cannot pass Void as argument (the formal type is expanded).")
                error_handler.print_as_fatal_error
             else
                Result := e
@@ -932,13 +932,13 @@ feature {}
             if not actual_type.can_be_assigned_to(formal_type) then
                error_handler.add_position(e.start_position)
                error_handler.add_position(formal_type_mark.start_position)
-               error_handler.append("Cannot pass ")
+               error_handler.append(once "Cannot pass ")
                error_handler.add_expression(exp)
-               error_handler.append(" which is of type ")
+               error_handler.append(once " which is of type ")
                error_handler.append(actual_type.name.to_string)
-               error_handler.append(" into formal type ")
+               error_handler.append(once " into formal type ")
                error_handler.append(formal_type.name.to_string)
-               error_handler.append(".")
+               error_handler.append(once ".")
                error_handler.print_as_fatal_error
             end
             Result := assignment_handler.implicit_cast(e, actual_type, formal_type)

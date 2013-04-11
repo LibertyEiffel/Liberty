@@ -37,9 +37,9 @@ feature {ANY}
             v := ic.value_memory
             if v = Minimum_integer_64 then
                error_handler.add_position(feature_name.start_position)
-               error_handler.append("The value of ")
+               error_handler.append(once "The value of ")
                error_handler.add_expression(Current)
-               error_handler.append(" is 9223372036854775808 which is out of INTEGER_64 range.")
+               error_handler.append(once " is 9223372036854775808 which is out of INTEGER_64 range.")
                error_handler.print_as_fatal_error
             else
                create {INTEGER_CONSTANT} Result.make(-v, feature_name.start_position)

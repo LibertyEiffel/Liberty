@@ -62,7 +62,7 @@ feature {CALL_0}
                   when 8 then
                      if v = Minimum_integer_8 then
                         error_handler.add_position(call_site)
-                        error_handler.append("Overflow for opposite of Minimum_integer_8.")
+                        error_handler.append(once "Overflow for opposite of Minimum_integer_8.")
                      else
                         Result := smart_eiffel.get_inline_memo
                         Result.set_expression(create {INTEGER_CONSTANT}.with(-v, call_site, integer_tm))
@@ -70,7 +70,7 @@ feature {CALL_0}
                   when 16 then
                      if v = Minimum_integer_16 then
                         error_handler.add_position(call_site)
-                        error_handler.append("Overflow for opposite of Minimum_integer_16.")
+                        error_handler.append(once "Overflow for opposite of Minimum_integer_16.")
                      else
                         Result := smart_eiffel.get_inline_memo
                         Result.set_expression(create {INTEGER_CONSTANT}.with(-v, call_site, integer_tm))
@@ -78,7 +78,7 @@ feature {CALL_0}
                   when 32 then
                      if v = Minimum_integer_32 then
                         error_handler.add_position(call_site)
-                        error_handler.append("Overflow for opposite of Minimum_integer_32.")
+                        error_handler.append(once "Overflow for opposite of Minimum_integer_32.")
                      else
                         Result := smart_eiffel.get_inline_memo
                         Result.set_expression(create {INTEGER_CONSTANT}.with(-v, call_site, integer_tm))
@@ -86,7 +86,7 @@ feature {CALL_0}
                   when 64 then
                      if v = Minimum_integer_64 then
                         error_handler.add_position(call_site)
-                        error_handler.append("Overflow for opposite of Minimum_integer_64.")
+                        error_handler.append(once "Overflow for opposite of Minimum_integer_64.")
                      else
                         Result := smart_eiffel.get_inline_memo
                         Result.set_expression(create {INTEGER_CONSTANT}.with(-v, call_site, integer_tm))
@@ -96,9 +96,9 @@ feature {CALL_0}
                   v := ic1.value_memory
                   if not v.in_range(0, Maximum_character_code) then
                      error_handler.add_position(call_site)
-                     error_handler.append("Violated assertion (target value is ")
+                     error_handler.append(once "Violated assertion (target value is ")
                      error_handler.append_integer_64(v)
-                     error_handler.append(").")
+                     error_handler.append(once ").")
                      error_handler.print_as_error
                   else
                      Result := smart_eiffel.get_inline_memo
@@ -119,12 +119,10 @@ feature {CALL_0}
                   Result := smart_eiffel.get_inline_memo
                   Result.set_expression(create {INTEGER_CONSTANT}.with(v, call_site, integer_tm))
                else
-                  -- ***
-                  -- *** error_handler.append("New code for inline in EXTERNAL_FUNCTION ??")
-                  -- *** error_handler.add_position(sp)
-                  -- *** error_handler.add_position(target.start_position)
-                  -- *** error_handler.print_as_warning
-                  -- ***
+                  error_handler.append(once "New code for inline in EXTERNAL_FUNCTION ??")
+                  error_handler.add_position(sp)
+                  error_handler.add_position(target.start_position)
+                  error_handler.print_as_warning
                end
             end
          end
@@ -147,12 +145,10 @@ feature {CALL_0}
                   Result.set_expression(ic1)
                end
             else
-               -- ***
-               -- *** error_handler.append("New code for inline in EXTERNAL_FUNCTION ??")
-               -- *** error_handler.add_position(sp)
-               -- *** error_handler.add_position(target.start_position)
-               -- *** error_handler.print_as_warning
-               -- ***
+               error_handler.append(once "New code for inline in EXTERNAL_FUNCTION ??")
+               error_handler.add_position(sp)
+               error_handler.add_position(target.start_position)
+               error_handler.print_as_warning
             end
          end
          if Result /= Void then
@@ -233,13 +229,13 @@ feature {CALL_1}
                         Result.set_expression(create {INTEGER_CONSTANT}.with(integer_64, call_site, integer_tm))
                      else
                         error_handler.add_position(call_site)
-                        error_handler.append("Overflow of infix %"+%" with INTEGER_8 operands. (Adding ")
+                        error_handler.append(once "Overflow of infix %"+%" with INTEGER_8 operands. (Adding ")
                         error_handler.append_integer_64(ic1.value_memory)
-                        error_handler.append(" with ")
+                        error_handler.append(once " with ")
                         error_handler.append_integer_64(ic2.value_memory)
-                        error_handler.append(" would give ")
+                        error_handler.append(once " would give ")
                         error_handler.append_integer_64(integer_64)
-                        error_handler.append(" which is out of INTEGER_8 range.)")
+                        error_handler.append(once " which is out of INTEGER_8 range.)")
                         error_handler.print_as_error
                      end
                   when 16 then
@@ -249,13 +245,13 @@ feature {CALL_1}
                         Result.set_expression(create {INTEGER_CONSTANT}.with(integer_64, call_site, integer_tm))
                      else
                         error_handler.add_position(call_site)
-                        error_handler.append("Overflow of infix %"+%" with INTEGER_16 operands. (Adding ")
+                        error_handler.append(once "Overflow of infix %"+%" with INTEGER_16 operands. (Adding ")
                         error_handler.append_integer_64(ic1.value_memory)
-                        error_handler.append(" with ")
+                        error_handler.append(once " with ")
                         error_handler.append_integer_64(ic2.value_memory)
-                        error_handler.append(" would give ")
+                        error_handler.append(once " would give ")
                         error_handler.append_integer_64(integer_64)
-                        error_handler.append(" which is out of INTEGER_16 range.)")
+                        error_handler.append(once " which is out of INTEGER_16 range.)")
                         error_handler.print_as_error
                      end
                   when 32 then
@@ -265,13 +261,13 @@ feature {CALL_1}
                         Result.set_expression(create {INTEGER_CONSTANT}.with(integer_64, call_site, integer_tm))
                      else
                         error_handler.add_position(call_site)
-                        error_handler.append("Overflow of infix %"+%" with INTEGER_32 operands. (Adding ")
+                        error_handler.append(once "Overflow of infix %"+%" with INTEGER_32 operands. (Adding ")
                         error_handler.append_integer_64(ic1.value_memory)
-                        error_handler.append(" with ")
+                        error_handler.append(once " with ")
                         error_handler.append_integer_64(ic2.value_memory)
-                        error_handler.append(" would give ")
+                        error_handler.append(once " would give ")
                         error_handler.append_integer_64(integer_64)
-                        error_handler.append(" which is out of INTEGER_32 range.)")
+                        error_handler.append(once " which is out of INTEGER_32 range.)")
                         error_handler.print_as_error
                      end
                   when 64 then
@@ -281,13 +277,13 @@ feature {CALL_1}
                         Result.set_expression(create {INTEGER_CONSTANT}.with(number.to_integer_64, call_site, integer_tm))
                      else
                         error_handler.add_position(call_site)
-                        error_handler.append("Overflow of infix %"+%" with INTEGER_64 operands. (Adding ")
+                        error_handler.append(once "Overflow of infix %"+%" with INTEGER_64 operands. (Adding ")
                         error_handler.append_integer_64(ic1.value_memory)
-                        error_handler.append(" with ")
+                        error_handler.append(once " with ")
                         error_handler.append_integer_64(ic2.value_memory)
-                        error_handler.append(" would give ")
+                        error_handler.append(once " would give ")
                         error_handler.append(number.to_string)
-                        error_handler.append(" which is out of INTEGER_64 range.)")
+                        error_handler.append(once " which is out of INTEGER_64 range.)")
                         error_handler.print_as_error
                      end
                   end
@@ -315,13 +311,13 @@ feature {CALL_1}
                         Result.set_expression(create {INTEGER_CONSTANT}.with(integer_64, call_site, integer_tm))
                      else
                         error_handler.add_position(call_site)
-                        error_handler.append("Overflow of infix %"-%" with INTEGER_8 operands. (")
+                        error_handler.append(once "Overflow of infix %"-%" with INTEGER_8 operands. (")
                         error_handler.append_integer_64(ic1.value_memory)
-                        error_handler.append(" minus ")
+                        error_handler.append(once " minus ")
                         error_handler.append_integer_64(ic2.value_memory)
-                        error_handler.append(" gives ")
+                        error_handler.append(once " gives ")
                         error_handler.append_integer_64(integer_64)
-                        error_handler.append(" which is out of INTEGER_8 range.)")
+                        error_handler.append(once " which is out of INTEGER_8 range.)")
                         error_handler.print_as_error
                      end
                   when 16 then
@@ -331,13 +327,13 @@ feature {CALL_1}
                         Result.set_expression(create {INTEGER_CONSTANT}.with(integer_64, call_site, integer_tm))
                      else
                         error_handler.add_position(call_site)
-                        error_handler.append("Overflow of infix %"-%" with INTEGER_16 operands. (")
+                        error_handler.append(once "Overflow of infix %"-%" with INTEGER_16 operands. (")
                         error_handler.append_integer_64(ic1.value_memory)
-                        error_handler.append(" minus ")
+                        error_handler.append(once " minus ")
                         error_handler.append_integer_64(ic2.value_memory)
-                        error_handler.append(" gives ")
+                        error_handler.append(once " gives ")
                         error_handler.append_integer_64(integer_64)
-                        error_handler.append(" which is out of INTEGER_16 range.)")
+                        error_handler.append(once " which is out of INTEGER_16 range.)")
                         error_handler.print_as_error
                      end
                   when 32 then
@@ -347,13 +343,13 @@ feature {CALL_1}
                         Result.set_expression(create {INTEGER_CONSTANT}.with(integer_64, call_site, integer_tm))
                      else
                         error_handler.add_position(call_site)
-                        error_handler.append("Overflow of infix %"-%" with INTEGER_32 operands. (")
+                        error_handler.append(once "Overflow of infix %"-%" with INTEGER_32 operands. (")
                         error_handler.append_integer_64(ic1.value_memory)
-                        error_handler.append(" minus ")
+                        error_handler.append(once " minus ")
                         error_handler.append_integer_64(ic2.value_memory)
-                        error_handler.append(" gives ")
+                        error_handler.append(once " gives ")
                         error_handler.append_integer_64(integer_64)
-                        error_handler.append(" which is out of INTEGER_32 range.)")
+                        error_handler.append(once " which is out of INTEGER_32 range.)")
                         error_handler.print_as_error
                      end
                   when 64 then
@@ -363,13 +359,13 @@ feature {CALL_1}
                         Result.set_expression(create {INTEGER_CONSTANT}.with(number.to_integer_64, call_site, integer_tm))
                      else
                         error_handler.add_position(call_site)
-                        error_handler.append("Overflow of infix %"-%" with INTEGER_64 operands. (")
+                        error_handler.append(once "Overflow of infix %"-%" with INTEGER_64 operands. (")
                         error_handler.append_integer_64(ic1.value_memory)
-                        error_handler.append(" minus ")
+                        error_handler.append(once " minus ")
                         error_handler.append_integer_64(ic2.value_memory)
-                        error_handler.append(" gives ")
+                        error_handler.append(once " gives ")
                         error_handler.append(number.to_string)
-                        error_handler.append(" which is out of INTEGER_64 range.)")
+                        error_handler.append(once " which is out of INTEGER_64 range.)")
                         error_handler.print_as_error
                      end
                   end
@@ -397,13 +393,13 @@ feature {CALL_1}
                         Result.set_expression(create {INTEGER_CONSTANT}.with(number.to_integer_8, call_site, integer_tm))
                      else
                         error_handler.add_position(call_site)
-                        error_handler.append("Overflow of infix %"*%" with INTEGER_8 operands. (")
+                        error_handler.append(once "Overflow of infix %"*%" with INTEGER_8 operands. (")
                         error_handler.append_integer_64(ic1.value_memory)
-                        error_handler.append(" times ")
+                        error_handler.append(once " times ")
                         error_handler.append_integer_64(ic2.value_memory)
-                        error_handler.append(" gives ")
+                        error_handler.append(once " gives ")
                         error_handler.append(number.to_string)
-                        error_handler.append(" which is out of INTEGER_8 range.)")
+                        error_handler.append(once " which is out of INTEGER_8 range.)")
                         error_handler.print_as_error
                      end
                   when 16 then
@@ -412,13 +408,13 @@ feature {CALL_1}
                         Result.set_expression(create {INTEGER_CONSTANT}.with(number.to_integer_16, call_site, integer_tm))
                      else
                         error_handler.add_position(call_site)
-                        error_handler.append("Overflow of infix %"*%" with INTEGER_16 operands. (")
+                        error_handler.append(once "Overflow of infix %"*%" with INTEGER_16 operands. (")
                         error_handler.append_integer_64(ic1.value_memory)
-                        error_handler.append(" times ")
+                        error_handler.append(once " times ")
                         error_handler.append_integer_64(ic2.value_memory)
-                        error_handler.append(" gives ")
+                        error_handler.append(once " gives ")
                         error_handler.append(number.to_string)
-                        error_handler.append(" which is out of INTEGER_16 range.)")
+                        error_handler.append(once " which is out of INTEGER_16 range.)")
                         error_handler.print_as_error
                      end
                   when 32 then
@@ -427,13 +423,13 @@ feature {CALL_1}
                         Result.set_expression(create {INTEGER_CONSTANT}.with(number.to_integer_32, call_site, integer_tm))
                      else
                         error_handler.add_position(call_site)
-                        error_handler.append("Overflow of infix %"*%" with INTEGER_32 operands. (")
+                        error_handler.append(once "Overflow of infix %"*%" with INTEGER_32 operands. (")
                         error_handler.append_integer_64(ic1.value_memory)
-                        error_handler.append(" times ")
+                        error_handler.append(once " times ")
                         error_handler.append_integer_64(ic2.value_memory)
-                        error_handler.append(" gives ")
+                        error_handler.append(once " gives ")
                         error_handler.append(number.to_string)
-                        error_handler.append(" which is out of INTEGER_32 range.)")
+                        error_handler.append(once " which is out of INTEGER_32 range.)")
                         error_handler.print_as_error
                      end
                   when 64 then
@@ -442,22 +438,22 @@ feature {CALL_1}
                         Result.set_expression(create {INTEGER_CONSTANT}.with(number.to_integer_64, call_site, integer_tm))
                      else
                         error_handler.add_position(call_site)
-                        error_handler.append("Overflow of infix %"*%" with INTEGER_64 operands. (")
+                        error_handler.append(once "Overflow of infix %"*%" with INTEGER_64 operands. (")
                         error_handler.append_integer_64(ic1.value_memory)
-                        error_handler.append(" times ")
+                        error_handler.append(once " times ")
                         error_handler.append_integer_64(ic2.value_memory)
-                        error_handler.append(" gives ")
+                        error_handler.append(once " gives ")
                         error_handler.append(number.to_string)
-                        error_handler.append(" which is out of INTEGER_64 range.)")
+                        error_handler.append(once " which is out of INTEGER_64 range.)")
                         error_handler.print_as_error
                      end
                   end
                elseif name = as_sharp_slash_slash then
                   if ic2.value_memory = 0 then
                      error_handler.add_position(call_site)
-                     error_handler.append("Cannot divide ")
+                     error_handler.append(once "Cannot divide ")
                      error_handler.append_integer_64(ic1.value_memory)
-                     error_handler.append(" by 0.")
+                     error_handler.append(once " by 0.")
                      error_handler.print_as_error
                   else
                      integer_64 := ic1.value_memory #// ic2.value_memory
@@ -471,9 +467,9 @@ feature {CALL_1}
                   when 8 then
                      if not v2.in_range(0, 7) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0..7 because target type is INTEGER_8.")
+                        error_handler.append(once " which is out of range 0..7 because target type is INTEGER_8.")
                         error_handler.print_as_error
                      end
                      integer_8 := v1.to_integer_8.bit_shift_right(ic2.value_memory.to_integer_8)
@@ -482,9 +478,9 @@ feature {CALL_1}
                   when 16 then
                      if not v2.in_range(0, 15) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0..15 because target type is INTEGER_16.")
+                        error_handler.append(once " which is out of range 0..15 because target type is INTEGER_16.")
                         error_handler.print_as_error
                      end
                      integer_16 := v1.to_integer_16.bit_shift_right(ic2.value_memory.to_integer_8)
@@ -493,9 +489,9 @@ feature {CALL_1}
                   when 32 then
                      if not v2.in_range(0, 31) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0..31 because target type is INTEGER_31.")
+                        error_handler.append(once " which is out of range 0..31 because target type is INTEGER_31.")
                         error_handler.print_as_error
                      end
                      integer_32 := v1.to_integer_32.bit_shift_right(ic2.value_memory.to_integer_8)
@@ -504,9 +500,9 @@ feature {CALL_1}
                   when 64 then
                      if not v2.in_range(0, 63) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0 ..63 because target type is INTEGER_64.")
+                        error_handler.append(once " which is out of range 0 ..63 because target type is INTEGER_64.")
                         error_handler.print_as_error
                      end
                      integer_64 := v1.bit_shift_right(ic2.value_memory.to_integer_8)
@@ -520,9 +516,9 @@ feature {CALL_1}
                   when 8 then
                      if not v2.in_range(0, 7) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0..7 because target type is INTEGER_8.")
+                        error_handler.append(once " which is out of range 0..7 because target type is INTEGER_8.")
                         error_handler.print_as_error
                      end
                      integer_8 := v1.to_integer_8.bit_shift_right_unsigned(ic2.value_memory.to_integer_8)
@@ -531,9 +527,9 @@ feature {CALL_1}
                   when 16 then
                      if not v2.in_range(0, 15) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0..15 because target type is INTEGER_16.")
+                        error_handler.append(once " which is out of range 0..15 because target type is INTEGER_16.")
                         error_handler.print_as_error
                      end
                      integer_16 := v1.to_integer_16.bit_shift_right_unsigned(ic2.value_memory.to_integer_8)
@@ -542,9 +538,9 @@ feature {CALL_1}
                   when 32 then
                      if not v2.in_range(0, 31) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0..31 because target type is INTEGER_31.")
+                        error_handler.append(once " which is out of range 0..31 because target type is INTEGER_31.")
                         error_handler.print_as_error
                      end
                      integer_32 := v1.to_integer_32.bit_shift_right_unsigned(ic2.value_memory.to_integer_8)
@@ -553,9 +549,9 @@ feature {CALL_1}
                   when 64 then
                      if not v2.in_range(0, 63) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0 ..63 because target type is INTEGER_64.")
+                        error_handler.append(once " which is out of range 0 ..63 because target type is INTEGER_64.")
                         error_handler.print_as_error
                      end
                      integer_64 := v1.bit_shift_right_unsigned(ic2.value_memory.to_integer_8)
@@ -569,9 +565,9 @@ feature {CALL_1}
                   when 8 then
                      if not v2.in_range(0, 7) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0..7 because target type is INTEGER_8.")
+                        error_handler.append(once " which is out of range 0..7 because target type is INTEGER_8.")
                         error_handler.print_as_error
                      end
                      integer_8 := v1.to_integer_8.bit_shift_left(ic2.value_memory.to_integer_8)
@@ -580,9 +576,9 @@ feature {CALL_1}
                   when 16 then
                      if not v2.in_range(0, 15) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0..15 because target type is INTEGER_16.")
+                        error_handler.append(once " which is out of range 0..15 because target type is INTEGER_16.")
                         error_handler.print_as_error
                      end
                      integer_16 := v1.to_integer_16.bit_shift_left(ic2.value_memory.to_integer_8)
@@ -591,9 +587,9 @@ feature {CALL_1}
                   when 32 then
                      if not v2.in_range(0, 31) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0..31 because target type is INTEGER_31.")
+                        error_handler.append(once " which is out of range 0..31 because target type is INTEGER_31.")
                         error_handler.print_as_error
                      end
                      integer_32 := v1.to_integer_32.bit_shift_left(ic2.value_memory.to_integer_8)
@@ -602,9 +598,9 @@ feature {CALL_1}
                   when 64 then
                      if not v2.in_range(0, 63) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0 ..63 because target type is INTEGER_64.")
+                        error_handler.append(once " which is out of range 0 ..63 because target type is INTEGER_64.")
                         error_handler.print_as_error
                      end
                      integer_64 := v1.bit_shift_left(ic2.value_memory.to_integer_8)
@@ -618,9 +614,9 @@ feature {CALL_1}
                   when 8 then
                      if not v2.in_range(0, 7) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0..7 because target type is INTEGER_8.")
+                        error_handler.append(once " which is out of range 0..7 because target type is INTEGER_8.")
                         error_handler.print_as_error
                      end
                      integer_8 := v1.to_integer_8.bit_rotate_right(ic2.value_memory.to_integer_8)
@@ -629,9 +625,9 @@ feature {CALL_1}
                   when 16 then
                      if not v2.in_range(0, 15) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0..15 because target type is INTEGER_16.")
+                        error_handler.append(once " which is out of range 0..15 because target type is INTEGER_16.")
                         error_handler.print_as_error
                      end
                      integer_16 := v1.to_integer_16.bit_rotate_right(ic2.value_memory.to_integer_8)
@@ -640,9 +636,9 @@ feature {CALL_1}
                   when 32 then
                      if not v2.in_range(0, 31) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0..31 because target type is INTEGER_31.")
+                        error_handler.append(once " which is out of range 0..31 because target type is INTEGER_31.")
                         error_handler.print_as_error
                      end
                      integer_32 := v1.to_integer_32.bit_rotate_right(ic2.value_memory.to_integer_8)
@@ -651,9 +647,9 @@ feature {CALL_1}
                   when 64 then
                      if not v2.in_range(0, 63) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0 ..63 because target type is INTEGER_64.")
+                        error_handler.append(once " which is out of range 0 ..63 because target type is INTEGER_64.")
                         error_handler.print_as_error
                      end
                      integer_64 := v1.bit_rotate_right(ic2.value_memory.to_integer_8)
@@ -667,9 +663,9 @@ feature {CALL_1}
                   when 8 then
                      if not v2.in_range(0, 7) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0..7 because target type is INTEGER_8.")
+                        error_handler.append(once " which is out of range 0..7 because target type is INTEGER_8.")
                         error_handler.print_as_error
                      end
                      integer_8 := v1.to_integer_8.bit_rotate_left(ic2.value_memory.to_integer_8)
@@ -678,9 +674,9 @@ feature {CALL_1}
                   when 16 then
                      if not v2.in_range(0, 15) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0..15 because target type is INTEGER_16.")
+                        error_handler.append(once " which is out of range 0..15 because target type is INTEGER_16.")
                         error_handler.print_as_error
                      end
                      integer_16 := v1.to_integer_16.bit_rotate_left(ic2.value_memory.to_integer_8)
@@ -689,9 +685,9 @@ feature {CALL_1}
                   when 32 then
                      if not v2.in_range(0, 31) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0..31 because target type is INTEGER_31.")
+                        error_handler.append(once " which is out of range 0..31 because target type is INTEGER_31.")
                         error_handler.print_as_error
                      end
                      integer_32 := v1.to_integer_32.bit_rotate_left(ic2.value_memory.to_integer_8)
@@ -700,9 +696,9 @@ feature {CALL_1}
                   when 64 then
                      if not v2.in_range(0, 63) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range 0 ..63 because target type is INTEGER_64.")
+                        error_handler.append(once " which is out of range 0 ..63 because target type is INTEGER_64.")
                         error_handler.print_as_error
                      end
                      integer_64 := v1.bit_rotate_left(ic2.value_memory.to_integer_8)
@@ -716,9 +712,9 @@ feature {CALL_1}
                   when 8 then
                      if not v2.in_range(-7, 7) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range -7..7 because target type is INTEGER_8.")
+                        error_handler.append(once " which is out of range -7..7 because target type is INTEGER_8.")
                         error_handler.print_as_error
                      end
                      integer_8 := v1.to_integer_8.bit_rotate(ic2.value_memory.to_integer_8)
@@ -727,9 +723,9 @@ feature {CALL_1}
                   when 16 then
                      if not v2.in_range(-15, 15) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range -15..15 because target type is INTEGER_16.")
+                        error_handler.append(once " which is out of range -15..15 because target type is INTEGER_16.")
                         error_handler.print_as_error
                      end
                      integer_16 := v1.to_integer_16.bit_rotate(ic2.value_memory.to_integer_8)
@@ -738,9 +734,9 @@ feature {CALL_1}
                   when 32 then
                      if not v2.in_range(-31, 31) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range -31..31 because target type is INTEGER_31.")
+                        error_handler.append(once " which is out of range -31..31 because target type is INTEGER_31.")
                         error_handler.print_as_error
                      end
                      integer_32 := v1.to_integer_32.bit_rotate(ic2.value_memory.to_integer_8)
@@ -749,9 +745,9 @@ feature {CALL_1}
                   when 64 then
                      if not v2.in_range(-63, 63) then
                         error_handler.add_position(call_site)
-                        error_handler.append("Violated require assertion. Argument value is ")
+                        error_handler.append(once "Violated require assertion. Argument value is ")
                         error_handler.append_integer_64(v2)
-                        error_handler.append(" which is out of range -63 ..63 because target type is INTEGER_64.")
+                        error_handler.append(once " which is out of range -63 ..63 because target type is INTEGER_64.")
                         error_handler.print_as_error
                      end
                      integer_64 := v1.bit_rotate(ic2.value_memory.to_integer_8)
@@ -761,9 +757,9 @@ feature {CALL_1}
                elseif name = as_sharp_backslash_backslash then
                   if ic2.value_memory = 0 then
                      error_handler.add_position(call_site)
-                     error_handler.append("Cannot divide ")
+                     error_handler.append(once "Cannot divide ")
                      error_handler.append_integer_64(ic1.value_memory)
-                     error_handler.append(" by 0.")
+                     error_handler.append(once " by 0.")
                      error_handler.print_as_error
                   else
                      integer_64 := ic1.value_memory #\\ ic2.value_memory
@@ -813,11 +809,9 @@ feature {CALL_1}
                   Result := smart_eiffel.get_inline_memo
                   Result.set_expression(create {INTEGER_CONSTANT}.with(integer_64, call_site, integer_tm))
                else
-                  -- ***
-                  -- *** error_handler.append("New code for inline in EXTERNAL_FUNCTION ??")
-                  -- *** error_handler.add_position(call_site)
-                  -- *** error_handler.print_as_warning
-                  -- ***
+                  error_handler.append(once "New code for inline in EXTERNAL_FUNCTION ??")
+                  error_handler.add_position(call_site)
+                  error_handler.print_as_warning
                end
             end
          end

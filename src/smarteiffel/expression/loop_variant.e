@@ -235,13 +235,13 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          dt := expression.declaration_type
          if not dt.is_integer then
             error_handler.add_position(expression.start_position)
-            error_handler.append("Expression of the loop variant must be of INTEGER type. (The actual ")
+            error_handler.append(once "Expression of the loop variant must be of INTEGER type. (The actual ")
             error_handler.append(dt.name.to_string)
-            error_handler.append(" type is not allowed as a variant type.)")
+            error_handler.append(once " type is not allowed as a variant type.)")
             error_handler.print_as_error
             error_handler.add_position(start_position)
             error_handler.add_position(expression.start_position)
-            error_handler.append("Error in variant part of loop definition.")
+            error_handler.append(once "Error in variant part of loop definition.")
             error_handler.print_as_fatal_error
          end
       end

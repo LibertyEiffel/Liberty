@@ -164,7 +164,7 @@ feature
          if void_expression /= Void and then type_set_buffer.count = 0 then
             void_type := void_expression.resolve_in(type)
             error_handler.add_position(start_position)
-            error_handler.append("Cannot create an ARRAY with only `Void' items.")
+            error_handler.append(once "Cannot create an ARRAY with only `Void' items.")
             error_handler.print_as_fatal_error
          end
          if type_set_buffer.count = 0 then
@@ -175,7 +175,7 @@ feature
             items_type_mark := smallest_ancestor_from_type_set_buffer
             if items_type_mark = Void then
                error_handler.add_position(start_position)
-               error_handler.append("The old manifest ARRAY notation can only be used when the common %
+               error_handler.append(once "The old manifest ARRAY notation can only be used when the common %
                                     %type mark for all items of the manifest ARRAY exists, is not ambiguous %
                                     %and is easy to compute! By the way, it is not easy or possible to %
                                     %compute the most general type for the following set of types: {")
@@ -187,13 +187,13 @@ feature
                   error_handler.append(type_set_buffer.item(i).name.to_string)
                   i := i + 1
                   if i <= type_set_buffer.upper then
-                     error_handler.append(", ")
+                     error_handler.append(once ", ")
                   end
                end
-               error_handler.append("}. See the next error message.")
+               error_handler.append(once "}. See the next error message.")
                error_handler.print_as_error
                error_handler.add_position(start_position)
-               error_handler.append("This obsolete manifest ARRAY creation is no longer supported. %
+               error_handler.append(once "This obsolete manifest ARRAY creation is no longer supported. %
                                      %See our %"SmartEiffel/tutorial/manifest_notation.e%" %
                                      %in order to use the new notation.")
                error_handler.print_as_fatal_error
@@ -350,7 +350,7 @@ feature {}
          start_position := sp
          if l = Void then
             error_handler.add_position(sp)
-            error_handler.append("Empty manifest array not allowed. (If you really need to do it, just replace it %
+            error_handler.append(once "Empty manifest array not allowed. (If you really need to do it, just replace it %
                                  %with something like:%Ncreate {ARRAY[ANY]}.make(1, 0)")
             error_handler.print_as_fatal_error
          end

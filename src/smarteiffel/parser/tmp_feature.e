@@ -146,7 +146,7 @@ feature {EIFFEL_PARSER}
             create Result.boolean_constant(n, type, boolean_constant)
          else
             error_handler.add_position(type.start_position)
-            error_handler.append("The type of this constant feature should be BOOLEAN.")
+            error_handler.append(once "The type of this constant feature should be BOOLEAN.")
             error_handler.print_as_fatal_error
          end
       end
@@ -162,7 +162,7 @@ feature {EIFFEL_PARSER}
          constant_attribute_common_checks(value)
          if not type.is_character then
             error_handler.add_position(type.start_position)
-            error_handler.append("The type of this constant feature should be CHARACTER.")
+            error_handler.append(once "The type of this constant feature should be CHARACTER.")
             error_handler.print_as_fatal_error
          end
          create Result.character_constant(n, type, character_constant)
@@ -186,21 +186,21 @@ feature {EIFFEL_PARSER}
                   if not integer_constant.value_memory.fit_integer_8 then
                      error_handler.add_position(integer_type_mark.start_position)
                      error_handler.add_position(integer_constant.start_position)
-                     error_handler.append("Value out of INTEGER_8 range.")
+                     error_handler.append(once "Value out of INTEGER_8 range.")
                      error_handler.print_as_fatal_error
                   end
                when 16 then
                   if not integer_constant.value_memory.fit_integer_16 then
                      error_handler.add_position(integer_type_mark.start_position)
                      error_handler.add_position(integer_constant.start_position)
-                     error_handler.append("Value out of INTEGER_16 range.")
+                     error_handler.append(once "Value out of INTEGER_16 range.")
                      error_handler.print_as_fatal_error
                   end
                when 32 then
                   if not integer_constant.value_memory.fit_integer_32 then
                      error_handler.add_position(integer_type_mark.start_position)
                      error_handler.add_position(integer_constant.start_position)
-                     error_handler.append("Value out of INTEGER_32 range.")
+                     error_handler.append(once "Value out of INTEGER_32 range.")
                      error_handler.print_as_fatal_error
                   end
                when 64 then
@@ -211,7 +211,7 @@ feature {EIFFEL_PARSER}
                create Result.real_constant(n, type, integer_constant.to_real_constant)
             else
                error_handler.add_position(type.start_position)
-               error_handler.append("The type of this constant feature should be INTEGER or REAL.")
+               error_handler.append(once "The type of this constant feature should be INTEGER or REAL.")
                error_handler.print_as_fatal_error
             end
          elseif {REAL_CONSTANT} ?:= value then
@@ -221,14 +221,14 @@ feature {EIFFEL_PARSER}
                real_constant.set_result_type(type)
             else
                error_handler.add_position(type.start_position)
-               error_handler.append("The type of this constant feature should be REAL.")
+               error_handler.append(once "The type of this constant feature should be REAL.")
                error_handler.print_as_fatal_error
             end
          else
             error_handler.add_position(type.start_position)
-            error_handler.append("Cannot use type ")
+            error_handler.append(once "Cannot use type ")
             error_handler.append(type.written_name.to_string)
-            error_handler.append(" to define a constant.")
+            error_handler.append(once " to define a constant.")
             --|*** The error message should indicate the list of
             --| allowed types: CHARACTER, INTEGER, INTEGER_8/16/32/64, REAL, REAL_32/64/80/128/EXTENDED, STRING
             --| and UNICODE_STRING.
@@ -242,7 +242,7 @@ feature {EIFFEL_PARSER}
          constant_attribute_common_checks(value)
          if not type.is_string then
             error_handler.add_position(type.start_position)
-            error_handler.append("The type of this constant feature should be STRING.")
+            error_handler.append(once "The type of this constant feature should be STRING.")
             error_handler.print_as_fatal_error
          end
          create Result.string_constant(n, type, value)
@@ -289,7 +289,7 @@ feature {EIFFEL_PARSER}
          constant_attribute_common_checks(Void)
          if not type.is_integer then
             error_handler.add_position(names.first.start_position)
-            error_handler.append("Unique feature must have INTEGER type.")
+            error_handler.append(once "Unique feature must have INTEGER type.")
             error_handler.print_as_fatal_error
          end
          create Result.unique_constant(n, type)
@@ -302,29 +302,29 @@ feature {}
       do
          if type = Void or else arguments /= Void then
             if constant_expression /= Void then
-               error_handler.append("Using a static constant expression just after the %"is%" keyword %
+               error_handler.append(once "Using a static constant expression just after the %"is%" keyword %
                                     %is suitable only for a constant attribute definition. The constant %
                                     %found (i.e. ")
                error_handler.add_expression(constant_expression)
-               error_handler.append(") cannot be used as the definition of the feature ")
+               error_handler.append(once ") cannot be used as the definition of the feature ")
                error_handler.add_feature_name(names.first)
-               error_handler.append(".")
+               error_handler.append(once ".")
             else
-               error_handler.append("A %"unique%" definition is actually a constant attribute definition.")
+               error_handler.append(once "A %"unique%" definition is actually a constant attribute definition.")
             end
-            error_handler.append(" Actually, feature ")
+            error_handler.append(once " Actually, feature ")
             error_handler.add_feature_name(names.first)
             if type = Void then
-               error_handler.append(" has no result type")
+               error_handler.append(once " has no result type")
             else
-               error_handler.append(" has an argument list")
+               error_handler.append(once " has an argument list")
             end
-            error_handler.append(". Bad constant-attribute definition.")
+            error_handler.append(once ". Bad constant-attribute definition.")
             error_handler.add_position(names.first.start_position)
             error_handler.print_as_fatal_error
          elseif not type.is_static then
             error_handler.add_position(type.start_position)
-            error_handler.append("Must not use such a non-static type mark for a constant-attribute %
+            error_handler.append(once "Must not use such a non-static type mark for a constant-attribute %
                                  %definition.")
             error_handler.print_as_fatal_error
          end

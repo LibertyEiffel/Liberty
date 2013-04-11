@@ -70,11 +70,11 @@ feature {ANY}
          fs := type.search(feature_name)
          if fs = Void then
             error_handler.add_position(start_position)
-            error_handler.append("Attribute ")
+            error_handler.append(once "Attribute ")
             error_handler.add_expression(Current)
-            error_handler.append(" not found in type ")
+            error_handler.append(once " not found in type ")
             error_handler.add_type(type)
-            error_handler.append(".")
+            error_handler.append(once ".")
             error_handler.print_as_fatal_error
          end
          if feature_stamp = Void then
@@ -83,7 +83,7 @@ feature {ANY}
          type_mark := feature_accumulator.find_type_for(fs)
          if type_mark = Void then
             error_handler.add_position(start_position)
-            error_handler.append("This feature name is not an expression (no result and not writable).")
+            error_handler.append(once "This feature name is not an expression (no result and not writable).")
             error_handler.print_as_fatal_error
          end
          dt := type_mark.resolve_in(type)
@@ -121,15 +121,15 @@ feature {ANY}
          anonymous_feature := feature_stamp.anonymous_feature(type)
          if not writable_attribute ?:= anonymous_feature then
             error_handler.add_position(start_position)
-            error_handler.append("Feature found is not writable (i.e. not an attribute).")
+            error_handler.append(once "Feature found is not writable (i.e. not an attribute).")
             error_handler.print_as_error
             if anonymous_feature = Void then
                error_handler.print_as_fatal_error
             end
-            error_handler.append(" See also the next message for more information.")
+            error_handler.append(once " See also the next message for more information.")
             error_handler.print_as_error
             error_handler.add_position(anonymous_feature.start_position)
-            error_handler.append("Here is the corresponding feature definition (not an attribute).")
+            error_handler.append(once "Here is the corresponding feature definition (not an attribute).")
             error_handler.print_as_fatal_error
          end
          written_declaration_type_mark := anonymous_feature.result_type

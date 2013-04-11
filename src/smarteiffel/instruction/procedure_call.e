@@ -316,10 +316,10 @@ feature {}
          if af.result_type /= Void then
             error_handler.add_position(af.start_position)
             error_handler.add_position(feature_name.start_position)
-            error_handler.append("Feature found is not a procedure.")
+            error_handler.append(once "Feature found is not a procedure.")
             error_handler.print_as_error
             error_handler.add_position(feature_name.start_position)
-            error_handler.append("This call has a result value (and you must use it).")
+            error_handler.append(once "This call has a result value (and you must use it).")
             error_handler.print_as_fatal_error
          end
          smart_eiffel.argument_count_check(Void, feature_name.start_position, af, actual_args)

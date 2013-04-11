@@ -88,7 +88,7 @@ feature {EIFFEL_PARSER, CLASS_NAME_LIST_VISITOR}
          if i > 0 then
             error_handler.add_position(item(i).start_position)
             error_handler.add_position(cn.start_position)
-            error_handler.append("Same class name appears more than once.")
+            error_handler.append(once "Same class name appears more than once.")
             error_handler.print_as_warning
          end
          if remainder = Void then

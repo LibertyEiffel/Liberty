@@ -88,17 +88,17 @@ feature {ANY}
          if right_side.is_void then
             if lt.is_expanded then
                error_handler.add_position(right_side.start_position)
-               error_handler.append("Void cannot be assigned to an expanded entity.")
+               error_handler.append(once "Void cannot be assigned to an expanded entity.")
                if left_side.start_position.class_text /= type.class_text then
-                  error_handler.append(" Error detected while checking this code in the ")
+                  error_handler.append(once " Error detected while checking this code in the ")
                   error_handler.append(type.name.to_string)
-                  error_handler.append(" context.")
+                  error_handler.append(once " context.")
                end
-               error_handler.append(" Cannot assign Void into ")
+               error_handler.append(once " Cannot assign Void into ")
                error_handler.add_expression(left_side)
-               error_handler.append(" which is of type ")
+               error_handler.append(once " which is of type ")
                error_handler.append(lt.name.to_string)
-               error_handler.append(".")
+               error_handler.append(once ".")
                error_handler.print_as_fatal_error
             elseif l = left_side then
                Result := Current
@@ -220,19 +220,19 @@ feature {}
          error_handler.add_position(right_side.start_position)
          error_handler.add_position(left_side.start_position)
          if left_side.start_position.class_text /= context_type.class_text then
-            error_handler.append(" Error detected while checking this code in the ")
+            error_handler.append(once " Error detected while checking this code in the ")
             error_handler.append(context_type.name.to_string)
-            error_handler.append(" context.")
+            error_handler.append(once " context.")
          end
-         error_handler.append(" Cannot assign ")
+         error_handler.append(once " Cannot assign ")
          error_handler.add_expression(right_side)
-         error_handler.append(" which is of type ")
+         error_handler.append(once " which is of type ")
          error_handler.append(rt.name.to_string)
-         error_handler.append(" into ")
+         error_handler.append(once " into ")
          error_handler.add_expression(left_side)
-         error_handler.append(" which is of type ")
+         error_handler.append(once " which is of type ")
          error_handler.append(lt.name.to_string)
-         error_handler.append(".")
+         error_handler.append(once ".")
          error_handler.print_as_fatal_error
       end
 

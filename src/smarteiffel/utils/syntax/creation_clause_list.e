@@ -133,9 +133,9 @@ feature {CLASS_TEXT}
          if fn = Void then
             error_handler.add_position(start_position)
             error_handler.add_position(type.canonical_type_mark.start_position)
-            error_handler.append("Unable to find the default creation procedure for expanded type ")
+            error_handler.append(once "Unable to find the default creation procedure for expanded type ")
             error_handler.append(type.name.to_string)
-            error_handler.append(". An expanded type must have one unique creation procedure with no %
+            error_handler.append(once ". An expanded type must have one unique creation procedure with no %
                                  %argument: the creation procedure used for automatic initialization. %
                                  %Please, consider to add explicitely the `default_create' procedure %
                                  %from ANY or some other existing procedure with no arguments. %

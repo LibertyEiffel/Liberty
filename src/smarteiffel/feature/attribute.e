@@ -30,7 +30,7 @@ feature {ANY}
          else
             error_handler.add_position(start_position)
          end
-         error_handler.append("Attributes cannot have a rescue compound.")
+         error_handler.append(once "Attributes cannot have a rescue compound.")
          error_handler.print_as_fatal_error
       end
 
@@ -73,7 +73,7 @@ feature {}
       do
          error_handler.add_position(start_position)
          error_handler.add_position(fn.start_position)
-         error_handler.append("An attribute cannot be undefined.")
+         error_handler.append(once "An attribute cannot be undefined.")
          error_handler.print_as_error
          bc.fatal_undefine(fn)
       end

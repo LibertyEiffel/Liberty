@@ -303,10 +303,10 @@ feature {}
             else
                error_handler.add_position(af.start_position)
                error_handler.add_position(feature_name.start_position)
-               error_handler.append("Feature found is a procedure.")
+               error_handler.append(once "Feature found is a procedure.")
                error_handler.print_as_error
                error_handler.add_position(feature_name.start_position)
-               error_handler.append("This call has no result.")
+               error_handler.append(once "This call has no result.")
                error_handler.print_as_fatal_error
             end
          end

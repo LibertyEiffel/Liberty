@@ -53,15 +53,15 @@ feature {ANY}
       do
          debug ("run_feature_for")
             if not has_run_feature_for(t) then
-               error_handler.append("Feature ")
+               error_handler.append(once "Feature ")
                if anonymous_features.is_empty then
-                  error_handler.append(" ??? ")
+                  error_handler.append(once " ??? ")
                else
                   error_handler.append(anonymous_features.item(1).first_name.to_string)
                end
-               error_handler.append(" non collectee dans ")
+               error_handler.append(once " non collectee dans ")
                error_handler.append(t.name.to_string)
-               error_handler.append("... ca va planter.")
+               error_handler.append(once "... ca va planter.")
                error_handler.print_as_warning
                sedb_breakpoint
             end

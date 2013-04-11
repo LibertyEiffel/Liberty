@@ -289,13 +289,13 @@ feature {LOOP_INSTRUCTION}
          dt := until_expression.declaration_type
          if not dt.is_boolean then
             error_handler.add_position(until_expression.start_position)
-            error_handler.append("Expression of until must be of BOOLEAN type. (The actual ")
+            error_handler.append(once "Expression of until must be of BOOLEAN type. (The actual ")
             error_handler.append(dt.name.to_string)
-            error_handler.append(" type is not allowed.)")
+            error_handler.append(once " type is not allowed.)")
             error_handler.print_as_error
             error_handler.add_position(start_position)
             error_handler.add_position(until_expression.start_position)
-            error_handler.append("Error in until part of loop definition.")
+            error_handler.append(once "Error in until part of loop definition.")
             error_handler.print_as_fatal_error
          end
       end

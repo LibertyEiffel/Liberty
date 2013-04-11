@@ -57,18 +57,18 @@ feature {ANY}
          Result := Current
          if rank = 0 then
             error_handler.add_position(start_position)
-            error_handler.append("This ")
+            error_handler.append(once "This ")
             error_handler.add_expression(Current)
-            error_handler.append(" open operand expression is out of %"agent%" keyword scope.")
+            error_handler.append(once " open operand expression is out of %"agent%" keyword scope.")
             error_handler.print_as_fatal_error
          end
          if curly_type /= Void then
             curly_type.specialize_in(type)
          elseif rank = -1 then
             error_handler.add_position(start_position)
-            error_handler.append("This ")
+            error_handler.append(once "This ")
             error_handler.add_expression(Current)
-            error_handler.append(" open operand cannot be the target of an agent call.")
+            error_handler.append(once " open operand cannot be the target of an agent call.")
             error_handler.print_as_fatal_error
          end
       end

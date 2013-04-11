@@ -28,8 +28,8 @@ feature {ANY}
                              program is doing
 
       Warning levels:
-        -no_style_warning   Don't print warnings about style violations
-        -no_warning         Don't print any warnings (implies -no_style_warning)
+        -style_warning      Do print warnings about style violations
+        -no_warning         Don't print any warnings
 
         -sort               Sort features alphabetically
         -short              Don't include inherited features
@@ -191,7 +191,7 @@ feature {}
          elseif is_short_flag(arg) then
          elseif is_case_insensitive_flag(arg) then
          elseif is_no_warning_flag(arg) then
-         elseif is_no_style_warning_flag(arg) then
+         elseif is_style_warning_flag(arg) then
          elseif arg.item(1) = '-' then
             arg.remove_first
             set_format(arg)
@@ -203,7 +203,7 @@ feature {}
          end
       end
 
-   valid_argument_for_ace_mode: STRING is "Only the -client, -version, -help, -no_warning, and -no_style_warning are%N%
+   valid_argument_for_ace_mode: STRING is "Only the -client, -version, -help, -no_warning, and -style_warning are%N%
       %allowed in ACE file mode.%N"
 
 end -- class SHORT

@@ -51,14 +51,14 @@ feature {}
                if not wi1 ?:= val.item(j) then
                   error_handler.add_position(ei.start_position)
                   error_handler.add_position(val.item(j).start_position)
-                  error_handler.append("Using range inside inspect of type STRING is not possible.")
+                  error_handler.append(once "Using range inside inspect of type STRING is not possible.")
                   error_handler.print_as_fatal_error
                else
                   wi1 ::= val.item(j)
                   if not (ms ?:= wi1.expression) then
                      error_handler.add_position(ei.start_position)
                      error_handler.add_position(wi1.start_position)
-                     error_handler.append("Only manifest strings are accepted in %"when%" clauses of%
+                     error_handler.append(once "Only manifest strings are accepted in %"when%" clauses of%
                                           % %"inspect%" (in order to ensure that the STRING %
                                           %won't change at runtime). Note that even a constant of %
                                           %type STRING can have its content changed at runtime.")
@@ -69,9 +69,9 @@ feature {}
                      if headers.has(s) then
                         error_handler.add_position(ei.start_position)
                         error_handler.add_position(ms.start_position)
-                        error_handler.append("Second occurrence of this value (%"")
+                        error_handler.append(once "Second occurrence of this value (%"")
                         error_handler.append(s)
-                        error_handler.append("%") in the same inspect.")
+                        error_handler.append(once "%") in the same inspect.")
                         error_handler.print_as_fatal_error
                      elseif s.is_empty then
                         empty_position := ms.start_position

@@ -126,9 +126,9 @@ feature {FEATURE_CLAUSE}
                   fn1.is_equal(fn2)
                end
                error_handler.add_position(fn2.start_position)
-               error_handler.append("Double definition of feature ")
+               error_handler.append(once "Double definition of feature ")
                error_handler.append(fn1.to_string)
-               error_handler.append(".")
+               error_handler.append(once ".")
                error_handler.print_as_fatal_error
             end
             i := i + 1
