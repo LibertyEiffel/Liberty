@@ -89,10 +89,10 @@ feature {}
 
          bootstrap
          options.set_default_arguments
-         get_started
-         write_clusters
          options.generate_stylesheets
          options.generate_jsfile
+         get_started
+         write_clusters
       end
 
    get_started is
@@ -339,7 +339,7 @@ feature {} -- General HTML files
       ensure
          html.in_a_body
       end
-   
+
    close_root_block (html: EIFFELDOC_OUTPUT_STREAM) is
       require
          html /= Void and then html.in_a_body
@@ -395,7 +395,7 @@ feature {} -- General HTML files
             end
          end
 
-         close_root_block (html)
+         close_root_block(html)
          html.close
          html.disconnect
       end
