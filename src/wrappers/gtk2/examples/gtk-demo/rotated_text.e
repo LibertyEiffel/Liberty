@@ -23,7 +23,7 @@ class ROTATED_TEXT
 
 creation make
 
-feature
+feature {ANY}
 -- /* Rotated Text
 --  *
 --  * This demo shows how to use GDK and Pango to draw rotated and transformed

@@ -59,14 +59,14 @@ feature {} -- Creation
 			handle := memcpy (handle, a_ptr, struct_size)
 		end
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkRequisition)"
 		end
 
-feature
+feature {ANY}
 
 	is_equal (other: like Current): BOOLEAN is
 		do

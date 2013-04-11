@@ -24,7 +24,7 @@ deferred class PANGO_GLYPH
 
 inherit WRAPPER_HANDLER
 
-feature 
+feature {ANY} 
 --  #define     PANGO_SCALE
 --  #define     PANGO_PIXELS                    (d)
 --  #define     PANGO_PIXELS_FLOOR              (d)

@@ -4,7 +4,7 @@ expanded class XML_ERROR_DOMAIN
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = xml_from_none) or else 
@@ -38,7 +38,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_none is
 		do
 			value := xml_from_none
@@ -180,7 +180,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_none: BOOLEAN is
 		do
 			Result := (value=xml_from_none)

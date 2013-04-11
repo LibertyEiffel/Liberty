@@ -8,7 +8,7 @@ expanded class GTK_NUMBER_UP_LAYOUT_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = left_to_right_top_to_bottom_low_level)  or else
@@ -21,7 +21,7 @@ feature -- Validity
 				(a_value = bottom_to_top_right_to_left_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_left_to_right_top_to_bottom is
 		do
@@ -63,7 +63,7 @@ feature -- Setters
 			value := bottom_to_top_right_to_left_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	left_to_right_top_to_bottom: BOOLEAN is
 		do
 			Result := (value=left_to_right_top_to_bottom_low_level)

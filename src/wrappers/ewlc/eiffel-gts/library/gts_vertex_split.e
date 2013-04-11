@@ -48,7 +48,7 @@ feature {} -- Creation
 								 an_object.handle, another_object.handle))
 		end
 	
-feature
+feature {ANY}
 	collapse (an_heap: GTS_EXTENDED_BINARY_HEAP[GTS_EDGE]) is
 			-- Collapses the vertex split. Any new edge created during
 			-- the process will be of class of `item'. If `an_heap' is
@@ -99,7 +99,7 @@ feature
 									  default_pointer -- gpointer data
 									  );
 		end
-feature
+feature {ANY}
 	v1: GTS_VERTEX is
 			-- the first vertex of the edge collapsed by Current.
 		local a_pointer: POINTER

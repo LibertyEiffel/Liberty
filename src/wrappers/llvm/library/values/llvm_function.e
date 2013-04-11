@@ -138,7 +138,7 @@ feature {ANY} -- Iterating over blocks
 		end
 	end
 
-feature -- Parameters
+feature {ANY} -- Parameters
 	parameters_count: INTEGER is
 		-- The number of parameters. TODO: should be NATURAL
 		do

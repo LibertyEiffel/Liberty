@@ -4,7 +4,7 @@ expanded class SQL_CONDITION_OPERATOR
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = sql_eq) or else 
@@ -26,7 +26,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_eq is
 		do
 			value := sql_eq
@@ -108,7 +108,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_eq: BOOLEAN is
 		do
 			Result := (value=sql_eq)

@@ -25,7 +25,7 @@ insert GTK_TEXT_ITER redefine dispose end
 
 creation default_create, from_external_pointer
 
-feature 
+feature {ANY} 
 	dispose is do end
 
 	to_ref: GTK_TEXT_ITER is

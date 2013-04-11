@@ -10,7 +10,7 @@ feature {}
 			destroy_callback.connect (Current, agent on_destroy)
 		end
 
-feature -- callback
+feature {ANY} -- callback
 	destroy_callback: DESTROY_CALLBACK
 	on_destroy is
 		do

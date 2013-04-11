@@ -89,7 +89,7 @@ feature {} -- Creation
 			handle := gtk_tree_path_copy (a_path.handle)
 		end
 
-feature
+feature {ANY}
 
 	copy (a_path: like Current) is
 			-- Makes Current a copy of `a_path'.
@@ -163,10 +163,10 @@ feature
 			correct_result_count: Result.count = depth
 		end
 
-feature -- Disposing
+feature {ANY} -- Disposing
 
 
-feature -- Comparing
+feature {ANY} -- Comparing
 
 	compare (another: like Current): INTEGER is
 			-- Compares two paths. If Current appears before `another' in a tree, then
@@ -179,7 +179,7 @@ feature -- Comparing
 			Result:= gtk_tree_path_compare (handle, another.handle)
 		end
 
-feature -- Moving
+feature {ANY} -- Moving
 
 	next is
 			-- Moves the path to point to the next node at the current depth.
@@ -213,7 +213,7 @@ feature -- Moving
 			gtk_tree_path_down (handle)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 
 	is_ancestor_of (another: GTK_TREE_PATH): BOOLEAN is
 			-- Is `another' a descendant of Current path?
@@ -229,7 +229,7 @@ feature -- Queries
 			Result := (gtk_tree_path_is_descendant (handle,another.handle)).to_boolean
 		end
 	
-feature  -- struct size
+feature {ANY}  -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreePath)"

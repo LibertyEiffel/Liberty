@@ -8,7 +8,7 @@ expanded class GTKUNIT_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gtk_unit_inch_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = gtk_unit_points_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gtk_unit_inch is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := gtk_unit_points_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gtk_unit_inch: BOOLEAN is
 		do
 			Result := (value=gtk_unit_inch_low_level)

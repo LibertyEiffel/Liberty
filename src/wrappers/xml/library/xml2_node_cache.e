@@ -7,7 +7,7 @@ inherit
 	SINGLETON
 		redefine default_create end
 
-feature 	
+feature {ANY} 	
 	default_create is
 		do
 			create wrappers.make

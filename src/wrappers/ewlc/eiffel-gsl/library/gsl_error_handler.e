@@ -8,7 +8,7 @@ indexing
 
 expanded class GSL_ERROR_HANDLER
 	-- management of the error behaviour
-feature
+feature {ANY}
 	is_off: BOOLEAN is
 			-- is the GSL default error handler off?
 		do
@@ -59,7 +59,7 @@ feature
          end
       end
    
-feature -- directly usable externals
+feature {ANY} -- directly usable externals
    has_ieee_exception: BOOLEAN is
 		external "plug_in"
       alias "{

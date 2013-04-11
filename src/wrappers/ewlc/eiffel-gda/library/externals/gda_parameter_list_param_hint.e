@@ -4,7 +4,7 @@ expanded class GDA_PARAMETER_LIST_PARAM_HINT
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (some_flags: INTEGER): BOOLEAN is
 		do
 			Result := (some_flags & (gda_parameter_list_param_read_only | 
@@ -12,7 +12,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create is
 		-- Default creation feature; it leaves all the bits cleared.
 	do
@@ -39,7 +39,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gda_parameter_list_param_read_only: BOOLEAN is
 		do
 			Result := (value &gda_parameter_list_param_read_only).to_boolean

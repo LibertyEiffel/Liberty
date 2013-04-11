@@ -22,7 +22,7 @@ indexing
 deferred class DEMO
 inherit GTK_CONTAINER 
 
-feature 
+feature {ANY} 
 	name: STRING is 
 			-- Demo name
 		deferred 

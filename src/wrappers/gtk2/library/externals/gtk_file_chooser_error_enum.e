@@ -8,7 +8,7 @@ expanded class GTK_FILE_CHOOSER_ERROR_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = nonexistent_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = incomplete_hostname_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_nonexistent is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := incomplete_hostname_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	nonexistent: BOOLEAN is
 		do
 			Result := (value=nonexistent_low_level)

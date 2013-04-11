@@ -36,7 +36,7 @@ feature {} -- creation
 		do
 			print(a_window.title)
 		end
-feature
+feature {ANY}
 	eiffel_windows_count: INTEGER is 3
 	c_windows_count: INTEGER is 2
 	

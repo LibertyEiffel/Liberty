@@ -23,7 +23,7 @@ class MENUS
 
 creation make
 
-feature
+feature {ANY}
 	
 -- /* Menus
 --  *

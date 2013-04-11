@@ -4,7 +4,7 @@ expanded class SQL_TABLE_TYPE
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = sql_simple) or else 
@@ -13,7 +13,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_sql_simple is
 		do
 			value := sql_simple
@@ -30,7 +30,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_sql_simple: BOOLEAN is
 		do
 			Result := (value=sql_simple)

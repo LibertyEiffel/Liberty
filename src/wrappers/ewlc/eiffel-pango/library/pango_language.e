@@ -30,7 +30,7 @@ creation allocate, from_external_pointer
 
 feature {} -- Creation
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <pango/pango.h>"

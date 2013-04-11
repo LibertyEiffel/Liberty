@@ -4,7 +4,7 @@ expanded class GDA_OBJECT_REF_TYPE
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = reference_by_xml_id) or else 
@@ -12,7 +12,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_reference_by_xml_id is
 		do
 			value := reference_by_xml_id
@@ -24,7 +24,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_reference_by_xml_id: BOOLEAN is
 		do
 			Result := (value=reference_by_xml_id)

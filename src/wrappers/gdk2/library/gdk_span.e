@@ -25,7 +25,7 @@ inherit G_STRUCT
 
 creation from_external_pointer
 
-feature -- Getters
+feature {ANY} -- Getters
 	x: INTEGER is
 			-- x coordinate of the first pixel.
 		do
@@ -44,9 +44,9 @@ feature -- Getters
 			Result := get_width (handle)
 		end
 
-feature -- TODO: Setters (if needed)
+feature {ANY} -- TODO: Setters (if needed)
 	
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkSpan)"

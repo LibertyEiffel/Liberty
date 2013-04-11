@@ -110,14 +110,14 @@ feature {} -- Creation
 										  a_width, an_height, a_unit))
 		end	
 	
-feature -- Copying
+feature {ANY} -- Copying
 	copy (another: GTK_PAPER_SIZE) is
 			--   Copies an existing GtkPaperSize.
 		do
 			from_external_pointer(gtk_paper_size_copy(another.handle))
 		end	
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_equal (another: GTK_PAPER_SIZE): BOOLEAN is
 			-- Do Current and `another' represent the same paper size?
 		do
@@ -201,7 +201,7 @@ feature -- Queries
 			Result:=gtk_paper_size_get_default_right_margin(handle,unit)
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	set_unit (a_unit: INTEGER) is
 			-- Set the unit measure for all the further queries
 		do

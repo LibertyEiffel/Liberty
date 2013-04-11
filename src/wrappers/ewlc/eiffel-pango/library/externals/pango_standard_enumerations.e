@@ -23,7 +23,7 @@ deferred class PANGO_STANDARD_ENUMERATIONS
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 -- 	is_valid_ (a_ :INTEGER): BOOLEAN is
 -- 		do	
 -- 			Result:=()

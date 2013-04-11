@@ -61,7 +61,7 @@ feature {} -- Creation
 			from_external_pointer (pango_cairo_font_map_get_default)
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	set_resolution (a_dpi: REAL) is
 			-- Sets the resolution for the fontmap. This is a scale factor
@@ -75,7 +75,7 @@ feature -- Operations
 			pango_cairo_font_map_set_resolution (handle, a_dpi)
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	resolution: REAL is
 			-- Gets the resolution for the fontmap. See 'set_resolution'

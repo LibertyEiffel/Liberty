@@ -67,7 +67,7 @@ feature {} -- Creation
 		end
 		
 
-feature 
+feature {ANY} 
 	
 	set_label (a_label: STRING) is
 			-- Sets label as the label used for the tool button. The
@@ -211,13 +211,13 @@ feature
 			Result := factory.wrapper_or_void (gtk_tool_button_get_label_widget(handle))
 		end
 	
-feature --Properties 
+feature {ANY} --Properties 
 
 	-- Note: "icon-name", "icon-widget", "label", "label-widget",  "stock-id" 
 	-- and "use-underline" properties have proper, strongly-typed 
 	-- getter/setters features so they're not wrapped as properties
 
-feature -- The "clicked" signal
+feature {ANY} -- The "clicked" signal
 	clicked_signal_name: STRING is "clicked"
 
 	on_clicked is
@@ -244,7 +244,7 @@ feature -- The "clicked" signal
 			clicked_callback.connect (Current, a_procedure)
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkToolButton)"

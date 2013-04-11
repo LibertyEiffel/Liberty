@@ -8,7 +8,7 @@ expanded class PANGOFONTMASK_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (pango_font_mask_family_low_level | 
@@ -19,7 +19,7 @@ feature -- Validity
 				pango_font_mask_weight_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_pango_font_mask_family is
 		do
@@ -81,7 +81,7 @@ feature -- Setters
 			value := value.bit_xor(pango_font_mask_weight_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_pango_font_mask_family: BOOLEAN is
 		do
 			Result := (value=pango_font_mask_family_low_level)

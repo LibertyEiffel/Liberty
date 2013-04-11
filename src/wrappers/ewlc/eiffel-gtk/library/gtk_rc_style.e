@@ -29,7 +29,7 @@ insert
 
 creation from_external_pointer, make, copy
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
@@ -43,7 +43,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_rc_style_new)
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	copy (other: like Current) is
 		do

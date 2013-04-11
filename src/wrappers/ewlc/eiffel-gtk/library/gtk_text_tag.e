@@ -66,7 +66,7 @@ feature {} -- Creation
 			name.is_equal (a_name)
 		end
 
-feature
+feature {ANY}
 	priority: INTEGER is
 			-- the tag priority.
 		do
@@ -105,7 +105,7 @@ feature
 	--    iter :         location where the event was received
 	--    Returns :      result of signal emission (whether the event was handled)
 	
-feature -- TODO: Properties. Meanwhile you can use G_OBJECT.get_property/set_property
+feature {ANY} -- TODO: Properties. Meanwhile you can use G_OBJECT.get_property/set_property
 	
 	--    "background"           gchararray            : Write
 	
@@ -292,7 +292,7 @@ feature -- TODO: Properties. Meanwhile you can use G_OBJECT.get_property/set_pro
 
 --    -------------------------------------------------------------------------------------
 
-feature --   The "font" property
+feature {ANY} --   The "font" property
 
 	set_font (a_font: STRING) is
 		require
@@ -325,7 +325,7 @@ feature --   The "font" property
 
 --    -------------------------------------------------------------------------------------
 
-feature --   The "foreground" property          gchararray : Write
+feature {ANY} --   The "foreground" property          gchararray : Write
 
 	set_foreground (a_foreground: STRING) is
 			-- Foreground color as a string.
@@ -486,7 +486,7 @@ feature --   The "foreground" property          gchararray : Write
 
 --    -------------------------------------------------------------------------------------
 
-feature -- The "name" property
+feature {ANY} -- The "name" property
 
 	name: STRING is
 			-- Name used to refer to the text tag. Void for anonymous tags.
@@ -622,7 +622,7 @@ feature -- The "name" property
 
 --    -------------------------------------------------------------------------------------
 
-feature -- The "rise" property
+feature {ANY} -- The "rise" property
 	--    "rise"                 gint                  : Read / Write
 
 	rise: INTEGER is
@@ -650,7 +650,7 @@ feature -- The "rise" property
 
 --    -------------------------------------------------------------------------------------
 
-feature --   The "scale" property
+feature {ANY} --   The "scale" property
 	--    "scale"                gdouble               : Read / Write
 
 	scale: REAL is 
@@ -681,7 +681,7 @@ feature --   The "scale" property
 
 --    -------------------------------------------------------------------------------------
 
-feature --   The "size" property
+feature {ANY} --   The "size" property
 	--    "size"                 gint                  : Read / Write
 
 	set_size (a_size: INTEGER) is
@@ -759,7 +759,7 @@ feature --   The "size" property
 
 --    -------------------------------------------------------------------------------------
 
-feature --   The "style" property
+feature {ANY} --   The "style" property
 
 	set_style (a_style: INTEGER) is
 		require
@@ -875,7 +875,7 @@ feature --   The "style" property
 	
 --    -------------------------------------------------------------------------------------
 
-feature --   The "wrap-mode" property
+feature {ANY} --   The "wrap-mode" property
 	-- "wrap-mode" GtkWrapMode : Read / Write
 
 	wrap_mode: INTEGER is
@@ -894,7 +894,7 @@ feature --   The "wrap-mode" property
 			set_integer_property (wrap_mode_property_name, a_mode)
 		end
 
-feature --   The "wrap-mode-set" property
+feature {ANY} --   The "wrap-mode-set" property
 
 --    "wrap-mode-set"        gboolean              : Read / Write
 
@@ -902,7 +902,7 @@ feature --   The "wrap-mode-set" property
 
 --    Default value: FALSE
 
-feature -- TODO: Signals
+feature {ANY} -- TODO: Signals
 
 
 --  "event"     gboolean    user_function      (GtkTextTag  *texttag,
@@ -1060,7 +1060,7 @@ feature {} -- Properties names
 	wrap_mode_set_property_name: STRING is "wrap-mode-set"
 			-- gboolean : Read / Write
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextTag)"

@@ -60,7 +60,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_about_dialog_new)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	program_name: STRING is
 			-- the program name displayed in the about dialog.
 		do
@@ -127,7 +127,7 @@ feature -- Queries
 	-- about : 	a GtkAboutDialog
 	-- Returns : 	A NULL-terminated string array containing the authors. The array is owned by the about dialog and must not be modified.
 
-feature -- Setters
+feature {ANY} -- Setters
 	set_program_name (a_name: STRING) is
 			-- Sets the name to display in the about dialog. If this is
 			-- not set, it defaults to result of the C function-g_get_application_name().
@@ -397,7 +397,7 @@ feature -- Setters
 	-- first_property_name : 	the name of the first property
 	-- ... : 	value of first property, followed by more properties, NULL-terminated
 
-feature -- Property Details
+feature {ANY} -- Property Details
 	-- The "artists" property
 
 	--   "artists"              GStrv                 : Read / Write
@@ -536,7 +536,7 @@ feature -- Property Details
 	--   "website-label"        gchararray            : Read / Write
 	--   "wrap-license"         gboolean              : Read / Write
 
-feature
+feature {ANY}
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkAboutDialog)"

@@ -4,7 +4,7 @@ expanded class G_BOOKMARK_FILE_ERROR
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_bookmark_file_error_invalid_uri) or else 
@@ -18,7 +18,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_invalid_uri is
 		do
 			value := g_bookmark_file_error_invalid_uri
@@ -60,7 +60,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_invalid_uri: BOOLEAN is
 		do
 			Result := (value=g_bookmark_file_error_invalid_uri)

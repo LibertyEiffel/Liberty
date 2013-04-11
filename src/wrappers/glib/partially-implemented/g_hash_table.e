@@ -317,7 +317,7 @@ feature {ANY} -- Other features:
 	-- Returns : 	TRUE if a = b; FALSE otherwise.
 	-- g_hash_table_insert ()
 
-feature
+feature {ANY}
 
 	count: INTEGER is
 			-- the number of elements (key/value pairs) contained in the
@@ -470,7 +470,7 @@ feature {}
 
 	-- v : 	a string key.
 	-- Returns : 	a hash value corresponding to the key.
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"

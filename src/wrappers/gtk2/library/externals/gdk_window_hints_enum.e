@@ -8,7 +8,7 @@ expanded class GDK_WINDOW_HINTS_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := (a_value & (pos_low_level | 
@@ -21,7 +21,7 @@ feature -- Validity
 				user_size_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_pos is
 		do
@@ -103,7 +103,7 @@ feature -- Setters
 			value := value.bit_xor(user_size_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_pos: BOOLEAN is
 		do
 			Result := (value=pos_low_level)

@@ -4,7 +4,7 @@ expanded class XML_PARSER_OPTION
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (some_flags: INTEGER): BOOLEAN is
 		do
 			Result := (some_flags & (xml_parse_recover | 
@@ -27,7 +27,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create is
 		-- Default creation feature; it leaves all the bits cleared.
 	do
@@ -204,7 +204,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_recover: BOOLEAN is
 		do
 			Result := (value &xml_parse_recover).to_boolean

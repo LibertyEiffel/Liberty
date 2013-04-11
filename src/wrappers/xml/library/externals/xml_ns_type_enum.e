@@ -8,7 +8,7 @@ expanded class XML_NS_TYPE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = element_node_low_level)  or else
@@ -34,7 +34,7 @@ feature -- Validity
 				(a_value = docb_document_node_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_element_node is
 		do
@@ -141,7 +141,7 @@ feature -- Setters
 			value := docb_document_node_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	element_node: BOOLEAN is
 		do
 			Result := (value=element_node_low_level)

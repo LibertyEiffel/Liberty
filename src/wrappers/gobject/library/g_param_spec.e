@@ -50,7 +50,7 @@ insert
 
 creation from_external_pointer
 	
-feature -- Creation
+feature {ANY} -- Creation
 	from_external_pointer (a_ptr: POINTER) is
 			-- TODO: G_PARAM_SPEC should be deferred and its place should be taken by specialized heirs such as G_PARAM_SPEC_BOOLEAN
 		do
@@ -59,7 +59,7 @@ feature -- Creation
 			param_id := get_param_id (a_ptr)
 		end
 
-feature -- Flags
+feature {ANY} -- Flags
 
 	flags: INTEGER is
 		do
@@ -122,7 +122,7 @@ feature -- Flags
 		ensure definition: Result implies (is_readable and is_writable)
 		end
 
-feature
+feature {ANY}
 	set_default (a_value: G_VALUE) is
 			-- Sets `a_value' to its default value as specified in Current.
 		require valid_value: a_value /= Void
@@ -181,7 +181,7 @@ feature
 		end
 	
 
-feature -- queries
+feature {ANY} -- queries
 	name: STRING is
 			-- the name of a G_PARAM_SPEC
 		do
@@ -205,7 +205,7 @@ feature -- queries
 			create {CONST_STRING} Result.from_external(g_param_spec_get_blurb(handle))
 		end
 
-feature 
+feature {ANY} 
 	is_initialized: BOOLEAN is
 			-- Is hidden implementation data correctly initialized?
 		do
@@ -218,7 +218,7 @@ feature {WRAPPER} -- Implementation
 	param_id: INTEGER 
 			-- The parameter id to be passed to the property
 			-- setter/getter function
-feature -- name validity
+feature {ANY} -- name validity
 	is_a_valid_name (a_string: STRING): BOOLEAN is
 			-- Does `a_string' comply with the rules for G_PARAM_SPEC names?
 		do
@@ -265,7 +265,7 @@ feature {} -- Creation
 		ensure is_integer: is_integer
 		end
 
-feature -- Boolean parameter
+feature {ANY} -- Boolean parameter
 	is_boolean: BOOLEAN is
 			-- Is this a boolean parameter?
 		do
@@ -278,7 +278,7 @@ feature -- Boolean parameter
 			Result := default_gboolean(handle).to_boolean
 		end
 
-feature -- Integer parameter
+feature {ANY} -- Integer parameter
 	is_integer: BOOLEAN is
 			-- Is this an integer parameter?
 		do
@@ -334,14 +334,14 @@ feature {} -- Natural parameter
 			Result := get_max_uint (handle)
 		end
 
-feature -- TODO: INTEGER_64 (int64) parameter
+feature {ANY} -- TODO: INTEGER_64 (int64) parameter
 
-feature -- TODO: long parameter. Note: could it be the same of INTEGER_64?
+feature {ANY} -- TODO: long parameter. Note: could it be the same of INTEGER_64?
 
-feature -- TODO: unsigned long parameter. Note: could it be the same of an eventual NATURAL_64?
-feature -- TODO: NATURAL_64 (uint64) parameter
+feature {ANY} -- TODO: unsigned long parameter. Note: could it be the same of an eventual NATURAL_64?
+feature {ANY} -- TODO: NATURAL_64 (uint64) parameter
 
-feature -- TODO: REAL_32 (float) parameter
+feature {ANY} -- TODO: REAL_32 (float) parameter
 	is_real_32: BOOLEAN is
 			-- Is this an integer parameter?
 		do
@@ -369,7 +369,7 @@ feature -- TODO: REAL_32 (float) parameter
 			Result := get_max_float (handle)
 		end
 
-feature -- TODO: REAL_64 (double) parameter
+feature {ANY} -- TODO: REAL_64 (double) parameter
 	is_real_64: BOOLEAN is
 			-- Is this an real_64 parameter?
 		do
@@ -397,7 +397,7 @@ feature -- TODO: REAL_64 (double) parameter
 			Result := get_max_double (handle)
 		end
 
-feature -- TODO: enum parameter. Note: this need a wrapper for G_ENUM
+feature {ANY} -- TODO: enum parameter. Note: this need a wrapper for G_ENUM
 	is_enum: BOOLEAN is
 			-- Is this an enumeration (Enum in C) parameter?
 		do
@@ -405,9 +405,9 @@ feature -- TODO: enum parameter. Note: this need a wrapper for G_ENUM
 		end
 
 
-feature -- TODO: flags parameter. Note: this could need a wrapper for G_FLAG_CLASS and G_FLAG_VALUE
+feature {ANY} -- TODO: flags parameter. Note: this could need a wrapper for G_FLAG_CLASS and G_FLAG_VALUE
 
-feature -- TODO: STRING parameter
+feature {ANY} -- TODO: STRING parameter
 	is_string: BOOLEAN is
 			-- Is this a string parameter?
 		do
@@ -415,15 +415,15 @@ feature -- TODO: STRING parameter
 		end
 
 
-feature -- TODO: G_PARAM_SPEC parameter 
+feature {ANY} -- TODO: G_PARAM_SPEC parameter 
 	-- Note: call me dumb but it seems a little too recursive IMHO. Paolo 2006-06-28
-feature -- TODO: G_BOXED parameter. Note: this require a wrapper for G_BOXED
-feature -- TODO: POINTER parameter. Note: is this really needed? Paolo 2006-06-28
-feature -- TODO: G_OBJECT parameter
+feature {ANY} -- TODO: G_BOXED parameter. Note: this require a wrapper for G_BOXED
+feature {ANY} -- TODO: POINTER parameter. Note: is this really needed? Paolo 2006-06-28
+feature {ANY} -- TODO: G_OBJECT parameter
 
-feature -- TODO: UNICODE CHARACTER parameter
+feature {ANY} -- TODO: UNICODE CHARACTER parameter
 	
-feature -- CHARACTER parameter
+feature {ANY} -- CHARACTER parameter
 	is_character: BOOLEAN is
 			-- Is this a character parameter?
 		do
@@ -451,10 +451,10 @@ feature -- CHARACTER parameter
 			Result := max_char (handle).to_character
 		end
 	
-feature -- TODO: (if meaningful) unsigned char parameter
-feature -- TODO: G_VALUE_ARRAY parameter
-feature -- TODO: override parameter
-feature -- TODO: (if meaningful) G_TYPE parameter
+feature {ANY} -- TODO: (if meaningful) unsigned char parameter
+feature {ANY} -- TODO: G_VALUE_ARRAY parameter
+feature {ANY} -- TODO: override parameter
+feature {ANY} -- TODO: (if meaningful) G_TYPE parameter
 
 
 feature {} -- Unwrapped API
@@ -1040,7 +1040,7 @@ feature {} -- Unwrapped API
 --    owner_type : the owner to look for
 --    Returns :    a GList of all GParamSpecs owned by owner_type in the
 --                 poolGParamSpecs.
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C use <glib-object.h>"

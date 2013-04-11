@@ -47,7 +47,7 @@ feature {} -- creation
 --                                                         PangoRectangle *ink_rect,
 --                                                         PangoRectangle *logical_rect)
 
-feature -- struct size
+feature {ANY} -- struct size
 	struct_size: INTEGER is
 		external "C inline use <goocanvas-1.0/goocanvastext.h>"
 		alias "sizeof(GooCanvasText)"

@@ -29,7 +29,7 @@ insert
 
 creation from_external_pointer
 
-feature -- access
+feature {ANY} -- access
 
 	area: GDK_RECTANGLE is
 			-- bounding box of region. 

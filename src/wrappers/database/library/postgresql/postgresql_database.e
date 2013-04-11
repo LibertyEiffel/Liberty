@@ -37,14 +37,14 @@ feature {} -- size
 			end
 		end
 
-feature 
+feature {ANY} 
 	is_connected: BOOLEAN is
 			-- TODO: Dummy implementation
 		do
 			Result := handle.is_not_null
 		end
 
-feature -- Creation
+feature {ANY} -- Creation
 	connect (some_connection_informations: STRING) is
 			-- Makes a new connection to the database server.
 		
@@ -398,7 +398,7 @@ feature -- Creation
 
 --    --------------------------------------------------------------------------
 
-feature 
+feature {ANY} 
 	prepare_command (some_sql: STRING): PREPARED_COMMAND is
 		do
 		end
@@ -417,7 +417,7 @@ feature
 			not_yet_implemented
 		end
 
-feature -- Connection Status 
+feature {ANY} -- Connection Status 
 	-- These functions may be used to interrogate the status of an
 	-- existing database connection object.
 

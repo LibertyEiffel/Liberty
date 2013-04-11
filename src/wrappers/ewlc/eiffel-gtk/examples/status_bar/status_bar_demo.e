@@ -3,14 +3,14 @@ class STATUS_BAR_DEMO
 insert GTK
 creation make
 
-feature -- GUI elements
+feature {ANY} -- GUI elements
 	window: GTK_WINDOW
 	hbox: GTK_HBOX
 	vbox: GTK_VBOX
 	push_button,pop_button: GTK_BUTTON
 	statusbar: GTK_STATUS_BAR
 
-feature -- Initialisation
+feature {ANY} -- Initialisation
 	make is
 		do
 			gtk.initialize
@@ -42,8 +42,8 @@ feature -- Initialisation
 			gtk.run_main_loop
 		end
 
-feature counter: INTEGER
-feature -- Agents
+feature {ANY} counter: INTEGER
+feature {ANY} -- Agents
 
 	on_push_clicked (a_button: GTK_BUTTON) is
 		do
@@ -67,7 +67,7 @@ feature -- Agents
 			gtk.quit
 		end
 
-feature -- Constants
+feature {ANY} -- Constants
 	window_title: STRING is "Eiffel GTK Staturbar demo"
 	startup_message: STRING is  "Startup message"
 end

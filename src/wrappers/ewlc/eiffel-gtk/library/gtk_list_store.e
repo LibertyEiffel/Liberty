@@ -166,7 +166,7 @@ feature {} -- Unwrapped code
 	-- iter : 	A valid GtkTreeIter for the row being modified
 	-- var_args : 	va_list of column/value pairs
 
-feature -- Generic setter
+feature {ANY} -- Generic setter
 
 	set_value (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_value: G_VALUE) is
 			-- Sets the data in the cell specified by `an_iterator' and

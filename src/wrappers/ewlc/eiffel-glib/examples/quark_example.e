@@ -7,7 +7,7 @@ indexing
 class QUARK_EXAMPLE
 
 creation make
-feature
+feature {ANY}
 	quark, another, unexisting: G_QUARK
 	make is
 		do

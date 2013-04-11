@@ -32,12 +32,12 @@ insert
 	
 creation make
 
-feature -- Widgets
+feature {ANY} -- Widgets
 	buffer: GTK_TEXT_BUFFER
 
 	timer: G_TIMER
 	
-feature
+feature {ANY}
 	iterations_number: INTEGER_32
 	
 	make is
@@ -123,7 +123,7 @@ feature
 			print (timer.elapsed.out) print (" seconds.%N")
 		end 
 
-feature -- tags	
+feature {ANY} -- tags	
 	heading: GTK_TEXT_TAG is
 		once
 			create Result.with_name("heading")

@@ -8,7 +8,7 @@ expanded class GTK_CELL_RENDERER_STATE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := (a_value & (selected_low_level | 
@@ -17,7 +17,7 @@ feature -- Validity
 				focused_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_selected is
 		do
@@ -59,7 +59,7 @@ feature -- Setters
 			value := value.bit_xor(focused_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_selected: BOOLEAN is
 		do
 			Result := (value=selected_low_level)

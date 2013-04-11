@@ -27,7 +27,7 @@ insert
 	
 creation  {SQLITE_DATABASE} make
 	
-feature
+feature {ANY}
 	last_result: SQLITE_RESULT_SET
 
 	execute (some_parameters: TRAVERSABLE[ANY]) is

@@ -66,7 +66,7 @@ feature {} -- Creation
 										  null_or(a_parent)))
 		end
 
-feature
+feature {ANY}
 	set_page_setup (a_setup: GTK_PAGE_SETUP) is
 			--   Sets the page setup of the GtkPrintUnixDialog.
 		require setup_not_void: a_setup/=Void
@@ -141,7 +141,7 @@ feature
 			gtk_print_unix_dialog_set_manual_capabilities(handle,some_capabilities)
 		end
 	
-feature -- TODO: Properties
+feature {ANY} -- TODO: Properties
 	--   "current-page"         gint                  : Read / Write
 	--   "page-setup"           GtkPageSetup          : Read / Write
 	--   "print-settings"       GtkPrintSettings      : Read / Write
@@ -182,7 +182,7 @@ feature -- TODO: Properties
 	--
 	--   The GtkPrinter which is selected.
 
-feature
+feature {ANY}
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtkprintunixdialog.h>"

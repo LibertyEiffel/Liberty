@@ -43,7 +43,7 @@ insert G_ENUM_EXTERNALS
 	
 -- creation from_external_pointer
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GEnum)"
@@ -64,7 +64,7 @@ feature -- TODO: typedef struct {
 -- gint maximum; 	the largest possible value.
 -- guint n_values; 	the number of possible values.
 -- GEnumValue *values; 	an array of GEnumValue structs describing the individual values.
-feature
+feature {ANY}
 	value (an_index: INTEGER): G_ENUM_VALUE is
 			-- the GEnumValue for `an_index' value. Void if `an_index' 
 			-- is not a member of the enumeration

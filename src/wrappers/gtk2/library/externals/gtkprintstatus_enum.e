@@ -8,7 +8,7 @@ expanded class GTKPRINTSTATUS_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gtk_print_status_finished_low_level)  or else
@@ -22,7 +22,7 @@ feature -- Validity
 				(a_value = gtk_print_status_sending_data_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gtk_print_status_finished is
 		do
@@ -69,7 +69,7 @@ feature -- Setters
 			value := gtk_print_status_sending_data_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gtk_print_status_finished: BOOLEAN is
 		do
 			Result := (value=gtk_print_status_finished_low_level)

@@ -77,7 +77,7 @@ feature {} -- Creation
 		ensure no_text_only: not is_text_only
 		end
 
-feature -- Model-related features
+feature {ANY} -- Model-related features
 	wrap_width: INTEGER is
 			-- the wrap width which is used to determine the number of
 			-- columns for the popup menu. If the wrap width is larger
@@ -221,7 +221,7 @@ feature {} -- Simplified, text-only API creation
 		ensure text_only: is_text_only
 		end
 
-feature -- Simplified, text-only API
+feature {ANY} -- Simplified, text-only API
 
 	is_text_only: BOOLEAN
 	append_text (a_text: STRING) is
@@ -271,7 +271,7 @@ feature -- Simplified, text-only API
 			if ptr.is_not_null then create Result.from_external(ptr) end
 		end
 
-feature -- For accessibility technologies
+feature {ANY} -- For accessibility technologies
 	popup is
 			-- Pops up the menu or dropdown list of combo box. This
 			-- function is mostly intended for use by accessibility
@@ -363,7 +363,7 @@ feature -- For accessibility technologies
 	-- Returns : 	TRUE if the combo box grabs focus when it is clicked with the mouse.
 
 	-- Since 2.6
-feature -- Properties
+feature {ANY} -- Properties
 
 	-- "active" gint : Read / Write
 	-- "add-tearoffs" gboolean : Read / Write
@@ -470,7 +470,7 @@ feature -- Properties
 
 	-- Default value: FALSE
 
-feature -- The "changed" signal
+feature {ANY} -- The "changed" signal
 	changed_signal_name: STRING is "changed"
 
 	enable_on_changed is
@@ -502,7 +502,7 @@ feature -- The "changed" signal
 			changed_callback.connect (Current, a_procedure)
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkComboBox)"

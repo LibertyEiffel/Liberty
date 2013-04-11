@@ -58,7 +58,7 @@ feature {} -- Creation
 			-- G_OPTION_ARG_DOUBLE         gdouble
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	long_name: STRING is
 			-- The long name of an option can be used to specify it in a
 			-- commandline as --long_name. Every option must have a long
@@ -204,7 +204,7 @@ feature {} -- Structure getter/setter calls
 		external "C struct GOptionEntry set arg_description use <glib.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"
 		alias "sizeof(GOptionEntry)"

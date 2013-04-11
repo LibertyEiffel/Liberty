@@ -8,7 +8,7 @@ expanded class PANGOBIDITYPE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = pango_bidi_type_al_low_level)  or else
@@ -32,7 +32,7 @@ feature -- Validity
 				(a_value = pango_bidi_type_ws_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_pango_bidi_type_al is
 		do
@@ -129,7 +129,7 @@ feature -- Setters
 			value := pango_bidi_type_ws_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_pango_bidi_type_al: BOOLEAN is
 		do
 			Result := (value=pango_bidi_type_al_low_level)

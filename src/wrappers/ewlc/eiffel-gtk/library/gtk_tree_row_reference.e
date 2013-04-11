@@ -54,7 +54,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_tree_row_reference_new (a_model.handle, a_path.handle))
 		end
 
-feature
+feature {ANY}
 	copy (another: like Current) is
 			-- Create Current fron `another' GtkTreeRowReference.
 		do
@@ -88,7 +88,7 @@ feature
 	-- GtkTreeRowReference, or NULL -- gtk_tree_row_reference_get_model
 	-- ()
 	
-feature -- Queries
+feature {ANY} -- Queries
 	model: GTK_TREE_MODEL is
 			-- the model which reference is monitoring in order to
 			-- appropriately the path. Can be Void
@@ -115,7 +115,7 @@ feature -- Queries
 			Result := (gtk_tree_row_reference_valid(handle)).to_boolean
 		end
 
-feature -- Disposing
+feature {ANY} -- Disposing
 	dispose is
 		do
 			-- Free's reference. reference may be NULL.

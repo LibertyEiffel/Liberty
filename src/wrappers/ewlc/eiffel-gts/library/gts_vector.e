@@ -43,7 +43,7 @@ feature {} -- Creation
 			gts_vector_init(handle, a_point.handle, another_point.handle)
 		end
 
-feature
+feature {ANY}
 	infix "*" (another: GTS_VECTOR): REAL is
 			-- The scalar product between Current and `another'.
 		require another_not_void: another /= Void
@@ -69,7 +69,7 @@ feature
 			Result:=gts_vector_normalize(handle)
 		end
 
-feature -- Input Output
+feature {ANY} -- Input Output
 	print_on (a_file: OUTPUT_STREAM) is
 			-- Print Current to `a_file.
 		require

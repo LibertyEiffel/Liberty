@@ -29,7 +29,7 @@ insert
 
 creation make, from_external_pointer
 
-feature
+feature {ANY}
 	make is
 		do
 			handle := default_pointer
@@ -298,7 +298,7 @@ feature
 			create {ITERATOR_ON_G_SLIST_STRING} Result.make (Current) 
 		end
 
-feature -- Memory management
+feature {ANY} -- Memory management
 
 	dispose is
 		do

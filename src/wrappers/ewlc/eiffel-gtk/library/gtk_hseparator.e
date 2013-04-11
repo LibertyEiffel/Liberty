@@ -42,7 +42,7 @@ feature {} -- Creation
 		do
 			from_external_pointer(gtk_hseparator_new)
 		end
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkHseparator)"

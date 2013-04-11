@@ -43,7 +43,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_tool_item_new)
 		end
 
-feature
+feature {ANY}
 
 	set_homogeneous (a_setting: BOOLEAN) is
 			--Sets whether tool_item is to be allocated the same size as
@@ -261,7 +261,7 @@ feature
 	-- properties are not wrapped since there are strongly-typed,
 	-- specific feature calls to access and set them.
 
-feature -- TODO: Signals
+feature {ANY} -- TODO: Signals
 --
 --"create-menu-proxy"
 --            gboolean    user_function      (GtkToolItem *toolitem,
@@ -455,7 +455,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkToolItem)"

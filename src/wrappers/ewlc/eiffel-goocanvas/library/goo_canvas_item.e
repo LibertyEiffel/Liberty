@@ -31,7 +31,7 @@ insert
 	GOO_CANVAS_ITEM_EXTERNALS
 	
 
-feature -- signals
+feature {ANY} -- signals
 --"animation-finished"                             : Run Last
 --  "button-press-event"                             : Run Last
 --  "button-release-event"                           : Run Last

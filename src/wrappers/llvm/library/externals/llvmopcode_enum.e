@@ -8,7 +8,7 @@ expanded class LLVMOPCODE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = llvmadd_low_level)  or else
@@ -65,7 +65,7 @@ feature -- Validity
 				(a_value = llvmzext_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_llvmadd is
 		do
@@ -327,7 +327,7 @@ feature -- Setters
 			value := llvmzext_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_llvmadd: BOOLEAN is
 		do
 			Result := (value=llvmadd_low_level)

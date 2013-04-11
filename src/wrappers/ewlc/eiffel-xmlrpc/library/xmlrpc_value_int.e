@@ -44,7 +44,7 @@ feature {} -- Creation
 			end
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	read: INTEGER is
 		do

@@ -51,7 +51,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_separator_tool_item_new)
 		end
 
-feature 
+feature {ANY} 
 	set_draw (a_setting: BOOLEAN) is
 			-- When separator_tool_items is drawn as a vertical line, or
 			-- just blank.  Setting this FALSE along with `set_expand' is
@@ -68,7 +68,7 @@ feature
 		do
 			Result:=(gtk_separator_tool_item_get_draw(handle)).to_boolean
 		end
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkSeparatorToolItem)"

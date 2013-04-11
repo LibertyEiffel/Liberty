@@ -6,7 +6,7 @@ deferred class FFI_TYPES
 
 insert ANY undefine is_equal, copy end
 
-feature -- C type definitions (typedefs)
+feature {ANY} -- C type definitions (typedefs)
 	ffi_sarg: INTEGER_64 is
 		-- typedef ffi_sarg
 		-- Empty by design, used for anchored declarations.

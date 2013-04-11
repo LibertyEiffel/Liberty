@@ -34,7 +34,7 @@ insert
 	
 creation make
 	
-feature
+feature {ANY}
 	make (a_selection: GTK_TREE_SELECTION; a_function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]) is
 		require gtk_initialized: gtk.is_initialized
 		local array: NATIVE_ARRAY [POINTER]; callback_ptr: POINTER
@@ -63,7 +63,7 @@ feature {} --
 		alias "EiffelGtkTreeSelectionFunc"
 		end 
 
-feature
+feature {ANY}
 	callback (selection_ptr, model_ptr,path_ptr: POINTER; path_currently_selected: INTEGER): INTEGER is --; instance: POINTER) is
 		local
 			a_selection: GTK_TREE_SELECTION;

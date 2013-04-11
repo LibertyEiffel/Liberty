@@ -28,7 +28,7 @@ feature {} -- allocation
 	-- and/or will have pointers to it around that will outlive the
 	-- wrapper, please use SHARED_G_STRUCT
 
-feature -- Destroying
+feature {ANY} -- Destroying
 
 	dispose  is
 			-- Frees the external pointer. Shall be called just before 

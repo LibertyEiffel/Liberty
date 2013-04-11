@@ -4,7 +4,7 @@ expanded class XML_FEATURE
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = xml_with_thread) or else 
@@ -42,7 +42,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_thread is
 		do
 			value := xml_with_thread
@@ -204,7 +204,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_thread: BOOLEAN is
 		do
 			Result := (value=xml_with_thread)

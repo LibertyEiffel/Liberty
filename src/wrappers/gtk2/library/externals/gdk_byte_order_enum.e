@@ -8,14 +8,14 @@ expanded class GDK_BYTE_ORDER_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = lsb_first_low_level)  or else
 				(a_value = msb_first_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_lsb_first is
 		do
@@ -27,7 +27,7 @@ feature -- Setters
 			value := msb_first_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	lsb_first: BOOLEAN is
 		do
 			Result := (value=lsb_first_low_level)

@@ -50,12 +50,12 @@ feature {}
 			}"
 		end
 	
-feature 
+feature {ANY} 
 	result_set: SQLITE_RESULT_SET
 			-- the result is untyped: all values are returned as STRING
 			-- see prepared_query for alternatives
 
-feature
+feature {ANY}
 	connect (a_connection_string: STRING) is
 			-- Try to connect to an SQLite database. `last_action_result'
 			-- will hold the result of this feature call. `is_connected'
@@ -106,7 +106,7 @@ feature
 	last_action_result: INTEGER
 			-- the result code of the last call to sqlite3_-functions
 	
-feature -- Prepared queries and commands
+feature {ANY} -- Prepared queries and commands
 	prepare_command (some_sql: STRING): SQLITE_PREPARED_COMMAND is
 		do
 			create Result.make (Current, some_sql)

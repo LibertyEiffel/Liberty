@@ -8,7 +8,7 @@ expanded class XML_DOC_PROPERTIES_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := (a_value & (wellformed_low_level | 
@@ -20,7 +20,7 @@ feature -- Validity
 				html_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_wellformed is
 		do
@@ -92,7 +92,7 @@ feature -- Setters
 			value := value.bit_xor(html_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_wellformed: BOOLEAN is
 		do
 			Result := (value=wellformed_low_level)

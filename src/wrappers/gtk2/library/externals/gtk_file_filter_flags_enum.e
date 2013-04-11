@@ -8,7 +8,7 @@ expanded class GTK_FILE_FILTER_FLAGS_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := (a_value & (filename_low_level | 
@@ -16,7 +16,7 @@ feature -- Validity
 				mime_type_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_filename is
 		do
@@ -48,7 +48,7 @@ feature -- Setters
 			value := value.bit_xor(mime_type_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_filename: BOOLEAN is
 		do
 			Result := (value=filename_low_level)

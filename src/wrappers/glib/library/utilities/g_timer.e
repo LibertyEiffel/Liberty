@@ -18,7 +18,7 @@ feature {} --
 		alias "sizeof(GTimer)"
 		end
 
-feature -- Creation
+feature {ANY} -- Creation
 	default_create is --, make is
 			-- Creates a new timer, and starts timing
 		do
@@ -31,7 +31,7 @@ feature -- Creation
 			handle := default_pointer
 		end
 	
-feature
+feature {ANY}
 	start is
 			-- (Re)starts timing
 		do

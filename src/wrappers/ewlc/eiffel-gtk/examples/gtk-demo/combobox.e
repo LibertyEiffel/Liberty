@@ -23,7 +23,7 @@ class COMBOBOX
 
 creation make
 
-feature
+feature {ANY}
 -- /* Combo boxes 
 --  *
 --  * The ComboBox widget allows to select one option out of a list.

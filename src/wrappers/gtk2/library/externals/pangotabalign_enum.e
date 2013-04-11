@@ -8,20 +8,20 @@ expanded class PANGOTABALIGN_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = pango_tab_left_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_pango_tab_left is
 		do
 			value := pango_tab_left_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_pango_tab_left: BOOLEAN is
 		do
 			Result := (value=pango_tab_left_low_level)

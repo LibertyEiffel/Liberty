@@ -81,7 +81,7 @@ feature {} -- Creation
 	--
 	--   Since 1.2
 	--
-feature
+feature {ANY}
 	restrict_to_version (a_version: INTEGER) is
 			-- Restricts the generated SVG file to version. See
 			-- `versions' for a list of available version values that can

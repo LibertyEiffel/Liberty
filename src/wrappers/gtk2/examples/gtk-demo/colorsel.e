@@ -23,7 +23,7 @@ class COLORSEL
 	
 creation make
 
-feature
+feature {ANY}
 -- /* Color Selector
 --  *
 --  * GtkColorSelection lets the user choose a color. GtkColorSelectionDialog is

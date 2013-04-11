@@ -36,7 +36,7 @@ insert
 
 creation make, from_external_pointer
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererText)"
@@ -57,7 +57,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_cell_renderer_text_new)
 		end
 
-feature
+feature {ANY}
 	set_fixed_height_from_font (number_of_rows: INTEGER) is
 			-- Sets the height of a renderer to explicitly be determined
 			-- by the "font" and "y_pad" property set on it. Further
@@ -73,7 +73,7 @@ feature
 			gtk_cell_renderer_text_set_fixed_height_from_font (handle,number_of_rows)
 		end
 
-feature -- Property Details
+feature {ANY} -- Property Details
 -- The "attributes" property
 
 --   "attributes"           PangoAttrList         : Read / Write
@@ -287,7 +287,7 @@ feature -- Property Details
 
 -- Default value: FALSE
 
-feature -- The "style" property
+feature {ANY} -- The "style" property
 	--   "style"                PangoStyle            : Read / Write
 
 	style: INTEGER is
@@ -303,7 +303,7 @@ feature -- The "style" property
 			set_enum_property (style_property_name, a_style)
 		end
 
-feature -- The "style-set" property
+feature {ANY} -- The "style-set" property
 	--   "style-set"            gboolean              : Read / Write
 
 	is_style_set: BOOLEAN is
@@ -326,7 +326,7 @@ feature -- The "style-set" property
 		ensure disabled: not is_style_set
 		end
 
-feature -- The "text" property
+feature {ANY} -- The "text" property
 	--   "text"                 gchararray            : Read / Write
 	-- Default value: NULL
 
@@ -345,7 +345,7 @@ feature -- The "text" property
 		end
 
 
-feature -- The "underline" property
+feature {ANY} -- The "underline" property
 
 --   "underline"            PangoUnderline        : Read / Write
 
@@ -421,7 +421,7 @@ feature -- The "underline" property
 
 -- Since 2.8
 
-feature -- "edited"
+feature {ANY} -- "edited"
 
 	edited_signal_name: STRING is "edited"
 		-- "edited"
@@ -452,7 +452,7 @@ feature -- "edited"
 			edited_callback.connect (Current, a_procedure)
 		end
 
-feature -- Properties name strings
+feature {ANY} -- Properties name strings
 
 	alignment_property_name: STRING is "alignment"
 	attributes_property_name: STRING is "attributes"

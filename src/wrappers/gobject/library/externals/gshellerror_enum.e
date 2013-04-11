@@ -8,7 +8,7 @@ expanded class GSHELLERROR_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_shell_error_bad_quoting_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = g_shell_error_failed_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_shell_error_bad_quoting is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := g_shell_error_failed_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_shell_error_bad_quoting: BOOLEAN is
 		do
 			Result := (value=g_shell_error_bad_quoting_low_level)

@@ -13,7 +13,7 @@ insert G_SIGNAL_FLAGS
 
 creation allocate
 
-feature -- getters
+feature {ANY} -- getters
 	id: INTEGER is
 			-- The signal id of the queried signal; 0 if the queried
 			-- signal was unknown.

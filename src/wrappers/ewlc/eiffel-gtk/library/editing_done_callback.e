@@ -30,10 +30,10 @@ insert G_OBJECT_FACTORY [GTK_CELL_EDITABLE]
 
 creation make
 
-feature
+feature {ANY}
 	object: GTK_CELL_EDITABLE
 
-feature
+feature {ANY}
 	callback (instance: POINTER) is
 		do
 			debug

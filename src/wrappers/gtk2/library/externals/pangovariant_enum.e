@@ -8,14 +8,14 @@ expanded class PANGOVARIANT_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = pango_variant_normal_low_level)  or else
 				(a_value = pango_variant_small_caps_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_pango_variant_normal is
 		do
@@ -27,7 +27,7 @@ feature -- Setters
 			value := pango_variant_small_caps_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_pango_variant_normal: BOOLEAN is
 		do
 			Result := (value=pango_variant_normal_low_level)

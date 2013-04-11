@@ -22,7 +22,7 @@ indexing
 deferred class FIXED_SLIDER_LENGHT_PROPERTY
 
 inherit GTK_OBJECT -- WRAPPER
-feature -- TODO: The "fixed-slider-length" style property
+feature {ANY} -- TODO: The "fixed-slider-length" style property
 
 	is_slider_length_fixed: BOOLEAN is
 			-- Don't change slider size, just lock it to the minimum

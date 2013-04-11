@@ -16,7 +16,7 @@ creation
 	from_string,
 	try_string
 
-feature
+feature {ANY}
 	quark: INTEGER
 			-- Integer representation. TODO: Shall be instead a
 			-- NATURAL_32 since in C it's a guint32

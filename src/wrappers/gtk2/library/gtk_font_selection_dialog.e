@@ -50,7 +50,7 @@ creation make, from_external_pointer
 
 creation make
 
-feature -- Creation
+feature {ANY} -- Creation
 	make (a_title: STRING) is
 			-- Creates a new GtkFontSelectionDialog.
 		require
@@ -60,7 +60,7 @@ feature -- Creation
 			from_external_pointer (gtk_font_selection_dialog_new (a_title.to_external))
 		end
 
-feature
+feature {ANY}
 
 	font_name: STRING is
 			-- Gets the currently-selected font name. Note that this can be a
@@ -141,7 +141,7 @@ feature {} -- GtkFontSelectionDialog struct
 		external "C struct GtkFontSelectionDialog get cancel_button use <gtk/gtk.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

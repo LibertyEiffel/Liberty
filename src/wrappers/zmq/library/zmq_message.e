@@ -72,7 +72,7 @@ feature {ANY} -- Queries
 		Result := zmq_msg_size(handle)
 	end
 
-feature -- Convertions.
+feature {ANY} -- Convertions.
 	as_string_message: ZMQ_STRING_MESSAGE is
 		-- A string message with the same content of
 	do

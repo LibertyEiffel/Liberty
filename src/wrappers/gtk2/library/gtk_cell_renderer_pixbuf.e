@@ -39,7 +39,7 @@ insert GTK_CELL_RENDERER_PIXBUF_EXTERNALS
 
 creation make, from_external_pointer
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererPixbuf)"
@@ -59,7 +59,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_cell_renderer_pixbuf_new)
 		end
 
-feature -- Properties
+feature {ANY} -- Properties
 
 --   "follow-state"         gboolean              : Read / Write
 --   "icon-name"            gchararray            : Read / Write

@@ -34,7 +34,7 @@ deferred class PANGO_ATTR_TYPE
 inherit ANY undefine is_equal, copy end
 
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_pango_attribute_type (a_type :INTEGER): BOOLEAN is
 		do	
 			-- Note perhaps it would be "smarter" to rely on C enum
@@ -64,7 +64,7 @@ feature  -- enum
 						(a_type = pango_attr_strikethrough_color) or else
 						(a_type = pango_attr_absolute_size))
 		end
-feature 
+feature {ANY} 
    pango_attr_invalid: INTEGER is
 			-- invalid attribute
 		external "C macro use <pango/pango.h>"

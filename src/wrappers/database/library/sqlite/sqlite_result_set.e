@@ -15,6 +15,6 @@ inherit
 		end
 creation  make
 
-feature
+feature {ANY}
 -- feature get_new_iterator: ITERATOR [SQLITE_RESULT_ROW] is do end
 end

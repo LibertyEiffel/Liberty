@@ -28,7 +28,7 @@ inherit SHARED_C_STRUCT
 
 creation dummy, make, from_external_pointer
 
-feature -- Creation
+feature {ANY} -- Creation
 	tag_style (a_style_name: STRING): GTK_SOURCE_TAG_STYLE is
 			-- the tag associated with the given style_name in the style scheme.		require style_name_not_void: a_style_name/=Void
 		local p: POINTER
@@ -99,7 +99,7 @@ feature {} -- Unwrapped
 	-- } GtkSourceStyleSchemeClass;
 	--
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtksourceview/gtksourcestylescheme.h>"
 		alias "sizeof(GtkSourceStyleScheme)"

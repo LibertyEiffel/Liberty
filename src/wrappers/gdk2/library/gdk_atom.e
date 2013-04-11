@@ -31,7 +31,7 @@ insert WRAPPER
 
 creation initialize
 
-feature
+feature {ANY}
 	initialize is 
 			-- Empty initialization
 		do

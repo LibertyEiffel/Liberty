@@ -54,7 +54,7 @@ feature {} -- Creation
 			from_external_pointer(gts_surface_traverse_new(a_surface.handle,a_face.handle))
 		end
 
-feature
+feature {ANY}
 	start is
 		do
 			next

@@ -20,7 +20,7 @@ feature {LLVM_BASIC_BLOCK}
          block:=a_block
       end
 
-feature
+feature {ANY}
    block: LLVM_BASIC_BLOCK
 
    start is

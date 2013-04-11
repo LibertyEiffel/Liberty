@@ -8,7 +8,7 @@ expanded class NODEKIND_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = cstring_kind_low_level)  or else
@@ -26,7 +26,7 @@ feature -- Validity
 				(a_value = uhex_kind_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_cstring_kind is
 		do
@@ -93,7 +93,7 @@ feature -- Setters
 			value := uhex_kind_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_cstring_kind: BOOLEAN is
 		do
 			Result := (value=cstring_kind_low_level)

@@ -8,7 +8,7 @@ expanded class GTRAVERSEFLAGS_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_traverse_all_low_level)  or else
@@ -19,7 +19,7 @@ feature -- Validity
 				(a_value = g_traverse_non_leaves_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_traverse_all is
 		do
@@ -51,7 +51,7 @@ feature -- Setters
 			value := g_traverse_non_leaves_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_traverse_all: BOOLEAN is
 		do
 			Result := (value=g_traverse_all_low_level)

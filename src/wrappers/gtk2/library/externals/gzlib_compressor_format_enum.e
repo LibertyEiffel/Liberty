@@ -8,7 +8,7 @@ expanded class GZLIB_COMPRESSOR_FORMAT_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = zlib_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = raw_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_zlib is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := raw_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	zlib: BOOLEAN is
 		do
 			Result := (value=zlib_low_level)

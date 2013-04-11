@@ -36,7 +36,7 @@ insert
 	
 creation make, from_external_pointer
 	
-feature
+feature {ANY}
 	make (a_size: NATURAL_32) is
 			-- Creates a new G_STRING_CHUNK, with `a_size' the default
 			-- size of the blocks of memory which are allocated to store

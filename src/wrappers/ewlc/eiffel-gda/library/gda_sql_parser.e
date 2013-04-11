@@ -96,7 +96,7 @@ feature {} -- Creation
 			from_external_pointer(gda_sql_parser_new)
 		end
 
-feature 
+feature {ANY} 
 	statement_from_string (some_sql: STRING): GDA_STATEMENT is
 		-- a newly created GDA_STATEMENT parsed from the first SQL statement
 		-- contained in `some_sql'; if it contains more than one statement,
@@ -211,7 +211,7 @@ feature {} -- Unwrapped
 	--                               identify variables, will always return a
 	--                               statement of type GDA_SQL_STATEMENT_UNKNOW.
 	
-feature
+feature {ANY}
 	struct_size: INTEGER is
 		external "C inline use <sql-parser/gda-sql-parser.h>"
 		alias "sizeof(GdaSet)"

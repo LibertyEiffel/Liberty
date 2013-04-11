@@ -52,7 +52,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_cell_renderer_spin_new)
 		end
 	
-feature -- Properties getters
+feature {ANY} -- Properties getters
 	adjustment: GTK_ADJUSTMENT is
 			-- The adjustment that holds the value of the spin
 			-- button. This must be non-NULL for the cell renderer to be
@@ -78,7 +78,7 @@ feature -- Properties getters
 		ensure valid: Result.in_range(0,20)
 		end
 
-feature -- Properties setters
+feature {ANY} -- Properties setters
 	set_adjustment (an_adjustment: GTK_ADJUSTMENT) is
 		require adjustment_not_void: an_adjustment /= Void
 		do
@@ -98,7 +98,7 @@ feature -- Properties setters
 			set_property(digits_property_name, create {G_VALUE}.from_natural(some_digits))
 		end	
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererSpin)"

@@ -41,7 +41,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_vbox_new (an_homogeneous.to_integer, a_spacing))
 		end
 	
-feature -- struct size
+feature {ANY} -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkVBox)"

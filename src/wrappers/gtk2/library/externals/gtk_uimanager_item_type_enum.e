@@ -8,7 +8,7 @@ expanded class GTK_UIMANAGER_ITEM_TYPE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = auto_low_level)  or else
@@ -24,7 +24,7 @@ feature -- Validity
 				(a_value = popup_with_accels_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_auto is
 		do
@@ -81,7 +81,7 @@ feature -- Setters
 			value := popup_with_accels_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	auto: BOOLEAN is
 		do
 			Result := (value=auto_low_level)

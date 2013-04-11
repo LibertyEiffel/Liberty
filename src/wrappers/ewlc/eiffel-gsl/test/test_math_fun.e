@@ -9,7 +9,7 @@ insert
 creation 
 	make
 	
-feature
+feature {ANY}
 
 	make is
 		local

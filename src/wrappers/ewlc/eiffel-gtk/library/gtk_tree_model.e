@@ -108,7 +108,7 @@ insert
 	GTK_TREE_MODEL_EXTERNALS
 	GTK_TREE_MODEL_FLAGS
 
-feature
+feature {ANY}
 	flags: INTEGER is
 			-- The set of flags supported by Current's interface. The
 			-- flags are a bitwise combination of GtkTreeModelFlags. The
@@ -358,7 +358,7 @@ feature
 			end
 		end
 
-feature -- The "row-changed" signal
+feature {ANY} -- The "row-changed" signal
 	
 	-- void user_function (GtkTreeModel *treemodel, GtkTreePath *arg1,
 	-- GtkTreeIter *arg2, gpointer user_data) : Run last
@@ -391,7 +391,7 @@ feature -- The "row-changed" signal
 			row_changed_callback.connect (Current, a_procedure)
 		end
 
-feature -- The "row-deleted" signal
+feature {ANY} -- The "row-deleted" signal
 
 	row_deleted_signal_name: STRING is "row-deleted"
 		-- void user_function (GtkTreeModel *treemodel, GtkTreePath
@@ -420,7 +420,7 @@ feature -- The "row-deleted" signal
 			row_deleted_callback.connect (Current, a_procedure)
 		end
 
-feature -- TODO:  "row-has-child-toggled" signal
+feature {ANY} -- TODO:  "row-has-child-toggled" signal
 	row_has_child_toggled_signal_name: STRING is "row-has-child-toggled"
 			-- void user_function (GtkTreeModel *treemodel, GtkTreePath
 			-- *arg1, GtkTreeIter *arg2, gpointer user_data) : Run last
@@ -446,7 +446,7 @@ feature -- TODO:  "row-has-child-toggled" signal
 			row_has_child_toggled_callback.connect (Current, a_procedure)
 		end
 
-feature -- The "row-inserted" signal
+feature {ANY} -- The "row-inserted" signal
 
 	row_inserted_signal_name: STRING is "row-inserted"
 		-- "row-inserted"
@@ -479,7 +479,7 @@ feature -- The "row-inserted" signal
 			row_inserted_callback.connect (Current, a_procedure)
 		end
 
-feature -- The "rows-reordered" signal
+feature {ANY} -- The "rows-reordered" signal
 
 -- void        user_function                  (GtkTreeModel *treemodel,
 --                                             GtkTreePath  *arg1,

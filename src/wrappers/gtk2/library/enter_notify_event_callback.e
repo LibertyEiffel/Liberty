@@ -29,7 +29,7 @@ inherit
 
 creation make
 
-feature
+feature {ANY}
 
 	signal_name: STRING is "enter-notify-event"
 

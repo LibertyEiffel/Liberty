@@ -5,7 +5,7 @@ inherit LLVM_TYPE
 creation {ANY} make, in_context
 creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
-feature -- Creation 
+feature {ANY} -- Creation 
 	make is
 		do
 			handle:=llvmlabel_type

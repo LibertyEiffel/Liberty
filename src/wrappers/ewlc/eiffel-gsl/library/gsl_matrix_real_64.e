@@ -19,7 +19,7 @@ insert
 
 creation make, make_zero, make_identity, from_model, from_collection2, manifest_creation
 
-feature
+feature {ANY}
 	get_column (i: INTEGER_32): GSL_VECTOR_REAL_64 is
 		do
 			create Result.make(line_count)

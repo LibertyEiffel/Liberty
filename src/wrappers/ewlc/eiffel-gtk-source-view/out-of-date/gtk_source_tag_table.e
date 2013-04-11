@@ -40,7 +40,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_source_tag_table_new)
 		end
 
-feature
+feature {ANY}
 	add_tags (some_tags: G_SLIST[GTK_TEXT_TAG]) is
 			-- Adds a list of tag to the table. The added tags are assigned the
 			-- highest priority in the table.
@@ -60,7 +60,7 @@ feature
 			gtk_source_tag_table_remove_source_tags(handle)
 		end
 
-feature -- Signals
+feature {ANY} -- Signals
 	--   "changed"                                        : Run Last
 	--Signal Details
 	--
@@ -72,7 +72,7 @@ feature -- Signals
 	--   sourcetagtable : the object which received the signal.
 	--   user_data :      user data set when the signal handler was connected.
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtksourceview/gtksourcetagtable.h>"
 		alias "sizeof(GtkSourceTagTable)"

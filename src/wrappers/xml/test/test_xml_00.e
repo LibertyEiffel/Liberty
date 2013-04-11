@@ -7,7 +7,7 @@ insert
 	SYSTEM
 
 creation test
-feature
+feature {ANY}
 	filename: STRING is "test.xml"
 
 	test is

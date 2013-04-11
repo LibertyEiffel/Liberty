@@ -7,7 +7,7 @@ insert
 creation
 	make
 
-feature
+feature {ANY}
 
 	draw_normal_text (text: STRING; x, y: INTEGER) is
 		local
@@ -89,7 +89,7 @@ feature
 			surface.finish
 		end
 
-feature -- Implementation details
+feature {ANY} -- Implementation details
 
 	cairo: CAIRO_CONTEXT
 

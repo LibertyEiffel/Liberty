@@ -95,7 +95,7 @@ feature {} -- Initialization
 	-- Todo : GtkWidget*  gtk_image_new_from_animation ()
 	-- Todo : GtkWidget*  gtk_image_new_from_icon_name ()
 
-feature -- Access
+feature {ANY} -- Access
 
 	storage_type: INTEGER is
 		do
@@ -122,7 +122,7 @@ feature -- Access
 			end
 		end
 
-feature -- Element change
+feature {ANY} -- Element change
 	set_file (filename: STRING) is
 			-- Set the `gtk_image' displaying the file `filename'.
 			-- If the file isn't found or can't be loaded, the 
@@ -151,7 +151,7 @@ feature -- Element change
 			gtk_image_set_from_pixmap (handle, pixmap_ptr, mask_ptr)
 		end
 
-feature -- Status setting
+feature {ANY} -- Status setting
 	set_pixel_size (a_pixel_size : INTEGER) is
 			-- Sets the pixel size to use.
 		do
@@ -171,7 +171,7 @@ feature -- Status setting
 	-- Todo : void        gtk_image_set_from_icon_name ()
 	
 
-feature -- Status report
+feature {ANY} -- Status report
 
 	pixel_size : INTEGER is
 			-- Pixel size used.
@@ -179,7 +179,7 @@ feature -- Status report
 			Result := gtk_image_get_pixel_size (handle)
 		end
 
-feature
+feature {ANY}
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

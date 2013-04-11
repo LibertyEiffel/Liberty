@@ -8,7 +8,7 @@ expanded class GTOKENTYPE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_token_binary_low_level)  or else
@@ -37,7 +37,7 @@ feature -- Validity
 				(a_value = g_token_symbol_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_token_binary is
 		do
@@ -159,7 +159,7 @@ feature -- Setters
 			value := g_token_symbol_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_token_binary: BOOLEAN is
 		do
 			Result := (value=g_token_binary_low_level)

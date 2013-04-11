@@ -32,7 +32,7 @@ insert
 
 creation from_external_pointer
 
-feature 
+feature {ANY} 
 	root:  XML2_NODE is
 		do
 			Result:=cache.wrapper(xml_doc_get_root_element(handle))

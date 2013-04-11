@@ -8,7 +8,7 @@ expanded class GIOCONDITION_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := (a_value & (in_low_level | 
@@ -18,7 +18,7 @@ feature -- Validity
 				nval_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_in is
 		do
@@ -70,7 +70,7 @@ feature -- Setters
 			value := value.bit_xor(nval_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_in: BOOLEAN is
 		do
 			Result := (value=in_low_level)

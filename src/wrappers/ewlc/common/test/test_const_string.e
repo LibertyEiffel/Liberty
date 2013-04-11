@@ -5,7 +5,7 @@ inherit
 
 creation make
 
-feature
+feature {ANY}
 	make is
 		local
 			cs: CONST_STRING

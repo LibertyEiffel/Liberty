@@ -41,7 +41,7 @@ inherit
    
 creation make, from_external_pointer
 
-feature -- Creation
+feature {ANY} -- Creation
 	make is
 			-- Create a new empty attribute list with a reference count
 			-- of one.
@@ -58,7 +58,7 @@ feature -- Creation
 			create cache.make
 		end
 
-feature 
+feature {ANY} 
 	-- TODO: C implementation "redefines" `type' providing the
 	-- `pango_attr_list_get_type()', the GObject type for
 	-- PangoAttrList, wrapped by the macro PANGO_TYPE_ATTR_LIST; is it
@@ -180,7 +180,7 @@ feature
 		ensure freezed: is_freezed
 		end
 
-feature -- Unchangability 
+feature {ANY} -- Unchangability 
 	is_freezed: BOOLEAN
 
 feature {PANGO_ATTR_ITERATOR} -- Freezed setter
@@ -225,7 +225,7 @@ feature {} -- Unwrapped
 feature {PANGO_ATTR_ITERATOR}
 	cache: HASHED_DICTIONARY [PANGO_ATTRIBUTE, POINTER]
 	
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <pango/pango.h>"
 		alias "sizeof(PangoAttrList)"

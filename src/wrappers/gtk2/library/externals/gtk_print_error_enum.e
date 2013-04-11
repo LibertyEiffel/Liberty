@@ -8,7 +8,7 @@ expanded class GTK_PRINT_ERROR_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = general_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = invalid_file_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_general is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := invalid_file_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	general: BOOLEAN is
 		do
 			Result := (value=general_low_level)

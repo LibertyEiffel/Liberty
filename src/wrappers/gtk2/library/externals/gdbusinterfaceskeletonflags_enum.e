@@ -8,14 +8,14 @@ expanded class GDBUSINTERFACESKELETONFLAGS_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_dbus_interface_skeleton_flags_handle_method_invocations_in_thread_low_level)  or else
 				(a_value = g_dbus_interface_skeleton_flags_none_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_dbus_interface_skeleton_flags_handle_method_invocations_in_thread is
 		do
@@ -27,7 +27,7 @@ feature -- Setters
 			value := g_dbus_interface_skeleton_flags_none_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_dbus_interface_skeleton_flags_handle_method_invocations_in_thread: BOOLEAN is
 		do
 			Result := (value=g_dbus_interface_skeleton_flags_handle_method_invocations_in_thread_low_level)

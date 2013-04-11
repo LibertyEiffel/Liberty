@@ -91,7 +91,7 @@ feature {} -- Creation
 			from_external_pointer(gts_bbox_bboxes(gts_bbox_class,some_bounding_boxes.handle))
 		end
 
-feature 
+feature {ANY} 
 	set (a_bounded: GTS_OBJECT; an_x1, an_y1, a_z1, an_x2, an_y2, a_z2: REAL) is
 			-- Sets the fields of the bounding box.
 

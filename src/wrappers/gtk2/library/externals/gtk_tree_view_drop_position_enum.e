@@ -8,7 +8,7 @@ expanded class GTK_TREE_VIEW_DROP_POSITION_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = before_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = into_or_after_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_before is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := into_or_after_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	before: BOOLEAN is
 		do
 			Result := (value=before_low_level)

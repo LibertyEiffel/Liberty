@@ -8,14 +8,14 @@ expanded class GDK_WINDOW_CLASS_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = utput_low_level)  or else
 				(a_value = nly_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_utput is
 		do
@@ -27,7 +27,7 @@ feature -- Setters
 			value := nly_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	utput: BOOLEAN is
 		do
 			Result := (value=utput_low_level)

@@ -3,7 +3,7 @@ class DUMMY_MY_PLUGIN
 
 inherit MY_PLUGIN
 
-feature
+feature {ANY}
 	do_stuff is do end
 	put (a_string: STRING) is do end
 	add (an_integer: INTEGER) is do end

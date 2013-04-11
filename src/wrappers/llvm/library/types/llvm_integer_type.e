@@ -97,7 +97,7 @@ feature {} -- Creation in global context
 			handle := llvmint_type(a_bit_count)
 		end
 
-feature 
+feature {ANY} 
 	width: NATURAL_32 is
 		do
 			Result := llvmget_int_type_width(handle)

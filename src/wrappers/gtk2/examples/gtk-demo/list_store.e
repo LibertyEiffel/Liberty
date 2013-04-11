@@ -23,7 +23,7 @@ class LIST_STORE
 
 creation make
 
-feature
+feature {ANY}
 	-- /* Tree View/List Store
 --  *
 --  * The GtkListStore is used to store data in list form, to be used

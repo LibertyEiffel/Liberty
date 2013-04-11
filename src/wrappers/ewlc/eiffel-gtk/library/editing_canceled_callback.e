@@ -30,10 +30,10 @@ insert G_OBJECT_FACTORY [GTK_CELL_RENDERER]
 
 creation make
 
-feature
+feature {ANY}
 	object: GTK_CELL_RENDERER
 
-feature
+feature {ANY}
 	callback (instance: POINTER) is
 		do
 			debug

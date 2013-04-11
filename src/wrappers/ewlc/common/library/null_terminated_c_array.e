@@ -66,7 +66,7 @@ feature {} -- Creation
 			storage := storage.calloc(a_capacity+1)
 		end
 
-feature
+feature {ANY}
 	is_null_terminated: BOOLEAN is
 		do
 			-- 0 1 2 3 4

@@ -3,7 +3,7 @@ deferred class LLVM_SEQUENCE_TYPE
 inherit LLVM_TYPE
 insert LLVM_TYPE_FACTORY
 
-feature 
+feature {ANY} 
 	element_type: LLVM_TYPE is
 		-- The type of the elements of Current sequence.
 	do

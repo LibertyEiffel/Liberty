@@ -4,7 +4,7 @@ inherit
 		redefine with_label, on_clicked
 		end
 creation make,with_label
-feature
+feature {ANY}
 	on_clicked is
 		do
 			print ("Hello from `my-button'. I was called with the built-in clicked signal handler%N")

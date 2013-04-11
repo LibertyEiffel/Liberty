@@ -7,7 +7,7 @@ indexing
 
 class TEST_MATRIX
 creation  make
-feature
+feature {ANY}
 	make is
 		local
 			i,j: INTEGER

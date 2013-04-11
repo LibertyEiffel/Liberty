@@ -23,7 +23,7 @@ deferred class GTK_UNIT
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_gtk_unit (a_unit: INTEGER): BOOLEAN is
 		do	
 			Result:=((a_unit = gtk_unit_pixel) or else

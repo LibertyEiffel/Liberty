@@ -8,7 +8,7 @@ expanded class GDK_FUNCTION_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = copy_external_low_level)  or else
@@ -29,7 +29,7 @@ feature -- Validity
 				(a_value = set_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_copy_external is
 		do
@@ -111,7 +111,7 @@ feature -- Setters
 			value := set_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	copy_external: BOOLEAN is
 		do
 			Result := (value=copy_external_low_level)

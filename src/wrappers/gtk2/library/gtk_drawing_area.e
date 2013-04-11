@@ -96,7 +96,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_drawing_area_new)
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkDrawingArea)"

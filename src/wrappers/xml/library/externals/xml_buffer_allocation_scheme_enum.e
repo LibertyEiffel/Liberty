@@ -8,7 +8,7 @@ expanded class XML_BUFFER_ALLOCATION_SCHEME_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = doubleit_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = io_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_doubleit is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := io_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	doubleit: BOOLEAN is
 		do
 			Result := (value=doubleit_low_level)

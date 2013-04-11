@@ -7,7 +7,7 @@ inherit
 	
 creation make
 
-feature
+feature {ANY}
 	make is
 		do
 			Precursor
@@ -32,13 +32,13 @@ feature
 			print ("Quitting%N")
 			gtk.quit
 		end
-feature -- Widgets
+feature {ANY} -- Widgets
 	vbox: GTK_VBOX
 	expander: MY_EXPANDER
 	label: GTK_LABEL
 	statusbar: GTK_STATUS_BAR
 	
-feature -- Strings
+feature {ANY} -- Strings
 	label_string: STRING is "[
 									 See on the <b><big>statusbar</big> below</b> the signals emitted
 									 by the expander.

@@ -58,7 +58,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_toolbar_new)
 		end
 
-feature
+feature {ANY}
 	prepend (an_item: GTK_TOOL_ITEM) is
 			-- Prepend `an_item' into Current toolbar to the start of
 			-- the toolbar. 
@@ -233,7 +233,7 @@ feature
 			gtk_toolbar_unset_style (handle)
 		end
 
-feature -- Properties
+feature {ANY} -- Properties
 
 	--    "icon-size"            GtkIconSize           : Read / Write
 	--    "icon-size-set"        gboolean              : Read / Write
@@ -415,7 +415,7 @@ feature -- Properties
 
 	--    Default value: GTK_TOOLBAR_SPACE_LINE
 
-feature -- Signals
+feature {ANY} -- Signals
 
 	-- "focus-home-or-end" gboolean user_function (GtkToolbar *toolbar,
 	-- gboolean focus_home, gpointer user_data) : Run last / Action
@@ -512,7 +512,7 @@ feature -- Signals
 	--    style :     the new GtkToolbarStyle of the toolbar
 	--    user_data : user data set when the signal handler was connected.
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

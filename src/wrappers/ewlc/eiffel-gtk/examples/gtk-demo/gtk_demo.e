@@ -31,22 +31,22 @@ insert
 
 creation make
 
-feature -- Buffers
+feature {ANY} -- Buffers
 	info_buffer, source_buffer: GTK_TEXT_BUFFER
 	current_file: STRING
 
-feature -- column numbers
+feature {ANY} -- column numbers
   title_column: INTEGER is 0
   filename_column: INTEGER is 1
   italic_column: INTEGER is 2
   columns_number: INTEGER is 3
 
-feature -- labels text
+feature {ANY} -- labels text
 	window_title: STRING is "GTK+ Code Demos"
 	info_label_string: STRING is "_Info"
 	source_label_string: STRING is "_Source"
 	
-feature -- widgets
+feature {ANY} -- widgets
 	window: GTK_WINDOW is
 		once 
 			create Result.make -- a new toplevel window
@@ -478,7 +478,7 @@ feature {} -- Creation
 		ensure implemented: Result /= Void
 		end
 
-feature -- Demos
+feature {ANY} -- Demos
 	
 	model: GTK_TREE_STORE is
 		local
@@ -554,11 +554,11 @@ feature -- Demos
 		end
 
 
-feature 	-- demos singletons 
+feature {ANY} 	-- demos singletons 
 	application_window: APP_WINDOW is once create Result.make end
 	expander: EXPANDER is once create Result.make end
 	
-feature -- callbacks
+feature {ANY} -- callbacks
 	quit (an_object: GTK_OBJECT) is
 		do
 			print (once "Quitting Eiffel Gtk-demo applicaiton%N")

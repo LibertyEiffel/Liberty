@@ -40,7 +40,7 @@ inherit
 	G_FLAGS_EXTERNALS
 	C_STRUCT
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GFlags)"

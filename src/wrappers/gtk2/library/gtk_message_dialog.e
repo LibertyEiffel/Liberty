@@ -75,7 +75,7 @@ insert
 
 creation new, make, with_markup, from_external_pointer
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkMessageDialog)"
@@ -152,7 +152,7 @@ feature {} -- Creation
 			end
 		end
 
-feature -- Dialog's message
+feature {ANY} -- Dialog's message
 
 	set_markup (a_string: STRING) is
 			-- Sets the text of the message dialog to be `a_string',
@@ -210,7 +210,7 @@ feature -- Dialog's message
 			gtk_message_dialog_format_secondary_markup (handle, default_pointer)
 		end
 
-feature -- Property Details
+feature {ANY} -- Property Details
 -- The "buttons" property
 
 --   "buttons"              GtkButtonsType        : Write / Construct Only

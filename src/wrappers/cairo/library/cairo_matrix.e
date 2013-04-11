@@ -103,7 +103,7 @@ feature {} -- Creation
 			cairo_matrix_init_rotate(handle,some_radians)
 		end
 
-feature -- Access
+feature {ANY} -- Access
 	xx: REAL is
 			-- xx component of the affine transformation
 		do
@@ -140,7 +140,7 @@ feature -- Access
 			Result := cairo_matrix_get_y0(handle)
 		end
 
-feature
+feature {ANY}
 	translate (a_tx, a_ty: REAL) is
 			-- Applies a translation by `a_tx', `a_ty' to the
 			-- transformation in matrix. The effect of the new
@@ -226,7 +226,7 @@ feature
 			ensure not_void: Result/=Void
 		end
 
-feature -- Memory handling
+feature {ANY} -- Memory handling
 	dispose is
 		do
 			free(handle)

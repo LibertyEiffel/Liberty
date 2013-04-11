@@ -5,7 +5,7 @@ insert
 	GTK_STOCK_ITEMS
 creation make
 
-feature -- GUI elements
+feature {ANY} -- GUI elements
 	window: GTK_WINDOW
 	new_button, open_button,close_button,quit_button: GTK_TOOL_BUTTON
 	separator: GTK_SEPARATOR_TOOL_ITEM
@@ -15,7 +15,7 @@ feature -- GUI elements
 	radio1, radio2: GTK_RADIO_TOOL_BUTTON
 	toolbar: GTK_TOOLBAR
 
-feature -- Initialisation
+feature {ANY} -- Initialisation
 	make is
 		do
 			gtk.initialize
@@ -60,13 +60,13 @@ feature -- Initialisation
 			gtk.run_main_loop
 		end
 
-feature -- Agents
+feature {ANY} -- Agents
 	on_destroy (a_gtk_object: GTK_OBJECT) is
 		do
 			print ("on destroy has been called%N")
 			gtk.quit
 		end
 
-feature -- Constants
+feature {ANY} -- Constants
 	window_title: STRING is "Eiffel GTK Toolbar demo"
 end

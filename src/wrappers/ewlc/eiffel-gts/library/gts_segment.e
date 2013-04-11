@@ -54,7 +54,7 @@ feature {} -- Creation
 										  a_v1.handle, a_v2.handle))
 		end
 	
-feature
+feature {ANY}
 	v1: GTS_VERTEX is
 		local p: POINTER
 		do
@@ -79,7 +79,7 @@ feature
 			end
 		end
 
-feature
+feature {ANY}
 	is_equal (another: GTS_SEGMENT): BOOLEAN is
 		do
 			Result:=(gts_segments_are_identical(handle, another.handle).to_boolean)

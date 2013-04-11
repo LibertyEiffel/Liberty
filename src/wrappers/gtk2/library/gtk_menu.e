@@ -95,7 +95,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_menu_new)
 		end
 
-feature 
+feature {ANY} 
 	-- TODO: set_screen (a_screen: GDK_SCREEN) is Sets the GdkScreen on
 	-- which the menu will be displayed. If `a_screen0 is Void it
 	-- should be determined by the widget the menu is attached to.
@@ -424,7 +424,7 @@ feature
 
 	-- Since 2.4
 
-feature -- Properties
+feature {ANY} -- Properties
 	-- "tearoff-state" gboolean : Read / Write
 	-- "tearoff-title" gchararray : Read / Write
 	-- The "tearoff-state" property
@@ -448,7 +448,7 @@ feature -- Properties
 
 	-- Default value: ""
 
-feature -- Child Properties
+feature {ANY} -- Child Properties
 
 
 	-- "bottom-attach" gint : Read / Write
@@ -503,7 +503,7 @@ feature -- Child Properties
 
 	-- Default value: -1
 
-feature -- Style Properties
+feature {ANY} -- Style Properties
 	-- "horizontal-offset" gint : Read
 	-- "vertical-offset" gint : Read
 	-- "vertical-padding" gint : Read
@@ -550,7 +550,7 @@ feature -- Style Properties
 	-- gpointer user_data) : Run last / Action
 
 
-feature -- Signal Details
+feature {ANY} -- Signal Details
 
 	-- The "move-scroll" signal
 
@@ -561,7 +561,7 @@ feature -- Signal Details
 	-- menu : the object which received the signal.
 	-- arg1 :
 	-- user_data : user data set when the signal handler was connected.
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkMenu)"

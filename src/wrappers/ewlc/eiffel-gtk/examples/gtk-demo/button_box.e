@@ -23,7 +23,7 @@ class BUTTON_BOX
 
 creation make
 
-feature
+feature {ANY}
 -- /* Button Boxes
 --  *
 --  * The Button Box widgets are used to arrange buttons with padding.

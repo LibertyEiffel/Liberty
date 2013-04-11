@@ -65,7 +65,7 @@ feature {} -- Creation
 		from_external_pointer(gda_statement_new)
 	end
 
-feature	
+feature {ANY}	
 	copy (another: like Current) is
 		-- Creates a new GDA_STATEMENT from another.
 	do
@@ -85,7 +85,7 @@ feature
 		end
 	end
 
-feature 
+feature {ANY} 
 	to_string: STRING is
 		-- A string containing the serialized version of Current statement
 	require is_not_null
@@ -322,7 +322,7 @@ feature {} -- Unwrapped documentation of enumerations.
 	--         GDA_STATEMENT_PARAM_ERROR
 	-- } GdaStatementError;
 	--
-feature
+feature {ANY}
 	struct_size: INTEGER is
 		external "C inline use <libgda/libgda.h>"
 		alias "sizeof(GdaStatement)"

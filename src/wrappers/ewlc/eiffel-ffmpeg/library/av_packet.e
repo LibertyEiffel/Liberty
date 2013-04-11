@@ -39,7 +39,7 @@ feature {} -- Creation
 			av_init_packet (handle)
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	pts: INTEGER_64 is
 			-- presentation time stamp in time_base units
@@ -83,7 +83,7 @@ feature -- Access
 
 	error_code: INTEGER
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	duplicate is
 			-- Duplicate this packet's payload so it won't become invalid with
@@ -109,7 +109,7 @@ feature -- Operations
 			av_free_packet (handle)
 		end
 
-feature -- Destroying
+feature {ANY} -- Destroying
 
 	dispose  is
 		do
@@ -118,7 +118,7 @@ feature -- Destroying
 			handle:= default_pointer
 		end
 
-feature -- Size
+feature {ANY} -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <avformat.h>"

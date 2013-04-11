@@ -60,13 +60,13 @@ feature {} -- Creation
 		count := a_string.count
 		capacity := count
 	end
-feature
+feature {ANY}
 	update is
 		do
 			count := size.to_integer_32
 			capacity := count
 		end
-feature -- Specializing natively stored string
+feature {ANY} -- Specializing natively stored string
 	set_count (new_count: like count) is 
 		do
 			count := new_count 

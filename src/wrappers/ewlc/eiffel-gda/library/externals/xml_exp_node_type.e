@@ -4,7 +4,7 @@ expanded class XML_EXP_NODE_TYPE
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = xml_exp_empty) or else 
@@ -16,7 +16,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_empty is
 		do
 			value := xml_exp_empty
@@ -48,7 +48,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_empty: BOOLEAN is
 		do
 			Result := (value=xml_exp_empty)

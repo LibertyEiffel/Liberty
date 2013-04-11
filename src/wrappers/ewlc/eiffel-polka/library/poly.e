@@ -117,7 +117,7 @@ feature {} -- Creation
 			dimension = a_frame.columns - polka_dec
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	copy (other: like Current) is
 			-- Makes a copy of the polyhedron `other'.
@@ -154,7 +154,7 @@ feature -- Operations
 			poly_canonicalize (handle)
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	constraints: POLKA_MATRIX is
 			-- Return the matrix of constraints of the polyhedron,
@@ -238,7 +238,7 @@ feature -- Access
 			Result >= 0 -- FIXME: ?????
 		end
 
-feature -- Predicates
+feature {ANY} -- Predicates
 
 	is_minimal: BOOLEAN is
 			-- Says if the polyhedron is minimized. Doesn't imply any
@@ -330,7 +330,7 @@ feature -- Predicates
 			end
 		end
 
-feature -- Intersection and Convex Hull -- Strict version
+feature {ANY} -- Intersection and Convex Hull -- Strict version
 
 		-- These functions return polyhedra in minimal form and their
 		-- parameters are minimized when it is not already the case.
@@ -503,7 +503,7 @@ feature -- Intersection and Convex Hull -- Strict version
 			Result.dimension = dimension
 		end
 
-feature -- Intersection and Convex Hull -- Lazy version
+feature {ANY} -- Intersection and Convex Hull -- Lazy version
 
 		-- These functions are the lazy version of the preceding ones.
 		-- They return polyhedra in non minimal form and their parameters
@@ -518,7 +518,7 @@ feature -- Intersection and Convex Hull -- Lazy version
 			-- create Result.from_external_pointer (poly_add_frames_lazy (const poly_t* po, matrix_t* mat)
 			-- create Result.from_external_pointer (poly_add_frame_lazy (const poly_t* po, const pkint_t* tab)
 
-feature --  Linear transformations -- Single variable/expression
+feature {ANY} --  Linear transformations -- Single variable/expression
 
 	assign_variable (a_variable: INTEGER; an_assignment: ARRAY [PKINT]): like Current is
 			-- This function applies to the polyhedron the linear

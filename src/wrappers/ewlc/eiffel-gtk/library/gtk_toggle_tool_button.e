@@ -47,7 +47,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_toggle_tool_button_new_from_stock (a_stock_id.to_external))
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	set_active (is_active: BOOLEAN) is
 			-- Sets the status of the toggle tool button.
@@ -66,7 +66,7 @@ feature -- Operations
 			Result := gtk_toggle_tool_button_get_active (handle).to_boolean
 		end
 
-feature -- The "toggled" signal
+feature {ANY} -- The "toggled" signal
 
 	toggled_signal_name: STRING is "toggled"
 		--void                user_function           (GtkToggleToolButton *toggle_tool_button,

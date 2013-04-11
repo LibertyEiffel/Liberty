@@ -4,7 +4,7 @@ insert
 	G_KEY_FILE_FLAGS
 
 creation make
-feature
+feature {ANY}
 	make is
 		local
 			group, key: STRING

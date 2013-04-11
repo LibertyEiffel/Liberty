@@ -31,7 +31,7 @@ insert
 creation
 	from_external_pointer
 
-feature -- Access
+feature {ANY} -- Access
 
 	name: STRING is
 		do
@@ -45,7 +45,7 @@ feature -- Access
 			create {CONST_STRING} Result.from_external(av_input_format_get_name(handle))
 		end
 
-feature -- Size
+feature {ANY} -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <avformat.h>"

@@ -8,7 +8,7 @@ expanded class GDKCAPSTYLE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gdk_cap_butt_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = gdk_cap_round_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gdk_cap_butt is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := gdk_cap_round_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gdk_cap_butt: BOOLEAN is
 		do
 			Result := (value=gdk_cap_butt_low_level)

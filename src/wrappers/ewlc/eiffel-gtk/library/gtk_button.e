@@ -87,7 +87,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_button_new_from_stock (a_stock.to_external))
 		end
 
-feature
+feature {ANY}
 	pressed is
 		-- Emits a GtkButton::pressed signal to Current GtkButton.
 		do
@@ -118,7 +118,7 @@ feature
 			gtk_button_leave (handle)
 		end
 
-feature -- Button's relief
+feature {ANY} -- Button's relief
 	set_relief (a_relief: INTEGER) is
 			-- Sets the relief style of the edges of the given GtkButton
 			-- widget. Three styles exist, `gtk_relief_normal',
@@ -175,7 +175,7 @@ feature -- Button's relief
 		ensure relief_set: is_relief_none
 		end
 
-feature -- Label
+feature {ANY} -- Label
 
 	label: STRING is
 			-- the text from the label of the button, as set by
@@ -332,7 +332,7 @@ feature -- Label
 --			is_valid_gtk_position_type (Result)
 --		end
 
-feature -- Properties 
+feature {ANY} -- Properties 
 	focus_on_click: BOOLEAN is
 			-- Does the button grab focus when it is clicked with the
 			-- mouse?
@@ -342,7 +342,7 @@ feature -- Properties
 			Result:=boolean_property(focus_on_click_property_name)
 		end
 
-feature -- Properties setters
+feature {ANY} -- Properties setters
 	set_focus_on_click_bool (a_setting: BOOLEAN) is
 		do
 			set_boolean_property(focus_on_click_property_name, a_setting)
@@ -393,7 +393,7 @@ feature -- Properties setters
 
 -- Since 2.4
 
-feature -- Style Properties
+feature {ANY} -- Style Properties
 
 --   "child-displacement-x" gint                  : Read
 --   "child-displacement-y" gint                  : Read
@@ -436,7 +436,7 @@ feature -- Style Properties
 
 -- Since 2.6
 
-feature -- The "activate" signal
+feature {ANY} -- The "activate" signal
 	activate_signal_name: STRING is "activate"
 	enable_on_activate is
 			-- Connects "activate" signal to `on_activate' feature.
@@ -465,7 +465,7 @@ feature -- The "activate" signal
 			activate_callback.connect (Current, a_procedure)
 		end
 
-feature -- The "clicked" signal
+feature {ANY} -- The "clicked" signal
 	clicked_signal_name: STRING is "clicked"
 
 	on_clicked is
@@ -496,7 +496,7 @@ feature -- The "clicked" signal
 			create clicked_callback.make
 			clicked_callback.connect (Current, a_procedure)
 		end
-feature -- struct size
+feature {ANY} -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkButton)"

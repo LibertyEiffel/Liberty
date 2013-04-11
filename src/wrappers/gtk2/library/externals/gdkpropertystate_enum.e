@@ -8,14 +8,14 @@ expanded class GDKPROPERTYSTATE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gdk_property_delete_low_level)  or else
 				(a_value = gdk_property_new_value_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gdk_property_delete is
 		do
@@ -27,7 +27,7 @@ feature -- Setters
 			value := gdk_property_new_value_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gdk_property_delete: BOOLEAN is
 		do
 			Result := (value=gdk_property_delete_low_level)

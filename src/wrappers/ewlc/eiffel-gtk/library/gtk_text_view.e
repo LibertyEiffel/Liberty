@@ -68,7 +68,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_text_view_new_with_buffer (a_buffer.handle))
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 
 	has_scrolled: BOOLEAN
 			-- Has last `scroll_to_iter' have produced a scrolling?
@@ -79,7 +79,7 @@ feature -- Queries
 	was_iter_moved: BOOLEAN
 			--  was iter moved? Used in `forward_display_line'
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	set_buffer (a_buffer: GTK_TEXT_BUFFER) is
 			-- Sets `a_buffer' as the buffer being displayed.
@@ -97,7 +97,7 @@ feature -- Operations
 			buffer_is_set: buffer /= Void -- XXX: is this ok?
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	buffer: GTK_TEXT_BUFFER is
 			-- The GTK_TEXT_BUFFER being displayed by this text view.
@@ -125,7 +125,7 @@ feature {} -- Auxiliar
 		-- If you don't use this the GtkTextView seems to (sometimes) switch
 		-- it's buffer without warning, breaking callbacks and other code.
 
-feature -- Properties
+feature {ANY} -- Properties
 
 --  "accepts-tab"          gboolean              : Read / Write
 	--  "buffer"               GtkTextBuffer         : Read / Write
@@ -147,10 +147,10 @@ feature -- Properties
 --  "tabs"                 PangoTabArray         : Read / Write
 --  "wrap-mode"            GtkWrapMode           : Read / Write
 
-feature -- Style properties:
+feature {ANY} -- Style properties:
 --  "error-underline-color" GdkColor              : Read
 
-feature
+feature {ANY}
 	scroll_to_mark (a_mark: GTK_TEXT_MARK; within_margin: REAL;
 					  use_align: BOOLEAN; an_x_align, an_y_align: REAL) is
 			-- Scrolls Current so that `a_mark' is on the screen in the
@@ -421,7 +421,7 @@ feature
 			Result := gtk_text_view_get_border_window_size (handle, a_window_type)
 		end
 
-feature -- Iterator moving command
+feature {ANY} -- Iterator moving command
 	forward_display_line (an_iterator: GTK_TEXT_ITER) is
 			-- Moves `an_iterator' forward by one display (wrapped)
 			-- line. A display line is different from a
@@ -495,7 +495,7 @@ feature -- Iterator moving command
 			was_iter_moved:=gtk_text_view_backward_display_line_start(handle,an_iter.handle).to_boolean
 		end
 
-feature -- Iterator queries
+feature {ANY} -- Iterator queries
 
 	does_start_display_line (an_iter: GTK_TEXT_ITER): BOOLEAN is
 			-- Does `an_iter' begin a display (wrapped) line? See
@@ -595,7 +595,7 @@ feature -- Iterator queries
 
 -- 	-----------------------------------------------------------------------
 
-feature -- Wrap mode
+feature {ANY} -- Wrap mode
 
 	set_wrap_mode (a_mode: INTEGER) is
 			-- 	Sets the line wrapping for the view.
@@ -611,7 +611,7 @@ feature -- Wrap mode
 		ensure valid_mode: is_valid_gtk_wrap_mode (Result)
 		end
 
-feature -- Editabilty
+feature {ANY} -- Editabilty
 
 	set_editable is
 			-- Makes Current GtkTextView editable. You can override this
@@ -638,7 +638,7 @@ feature -- Editabilty
 			Result := (gtk_text_view_get_editable (handle).to_boolean)
 		end
 
-feature -- Cursor visibility
+feature {ANY} -- Cursor visibility
 
 	set_cursor_visible is
 			-- Displays the insertion point.
@@ -662,7 +662,7 @@ feature -- Cursor visibility
 			Result := gtk_text_view_get_cursor_visible (handle).to_boolean
 		end
 
-feature
+feature {ANY}
 
 	set_overwrite is
 			-- Turns the GtkTextView overwrite mode on.
@@ -686,7 +686,7 @@ feature
 		end
 
 
-feature -- Pixels above and below lines
+feature {ANY} -- Pixels above and below lines
 	set_pixels_above_lines (a_setting: INTEGER) is
 			-- Sets the default number of blank pixels above paragraphs
 			-- in text_view. Tags in the buffer may override the
@@ -886,7 +886,7 @@ feature -- Pixels above and below lines
 	-- 	The priority at which the text view validates onscreen lines in an idle
 	-- 	job in the background.
 
-feature -- TODO: Property Details
+feature {ANY} -- TODO: Property Details
 
 --   The "accepts-tab" property
 
@@ -1089,7 +1089,7 @@ feature {} -- TODO: Signals
 
 -- 	-----------------------------------------------------------------------
 
-feature --   The "insert-at-cursor" signal
+feature {ANY} --   The "insert-at-cursor" signal
 	connect_agent_to_insert_at_cursor_signal (a_procedure: PROCEDURE[ANY, TUPLE [STRING, GTK_TEXT_VIEW]]) is
 			-- 	textview :  the object which received the signal.
 			-- 	arg1 :
@@ -1105,7 +1105,7 @@ feature --   The "insert-at-cursor" signal
 	
 -- 	-----------------------------------------------------------------------
 
-feature -- The "move-cursor" signal
+feature {ANY} -- The "move-cursor" signal
 
 	connect_agent_to_move_cursor_signal (a_procedure: PROCEDURE[ANY, TUPLE [INTEGER, INTEGER, BOOLEAN, GTK_TEXT_VIEW]]) is
 			-- 	The ::move-cursor signal is a keybinding signal which gets emitted when
@@ -1171,7 +1171,7 @@ feature -- The "move-cursor" signal
 
 -- 	-----------------------------------------------------------------------
 
-feature -- The "paste-clipboard" signal
+feature {ANY} -- The "paste-clipboard" signal
 
 	connect_agent_to_paste_clipboard_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_TEXT_VIEW]]) is
 			-- The ::paste-clipboard signal is a keybinding signal which gets
@@ -1249,7 +1249,7 @@ feature -- The "paste-clipboard" signal
 -- 	textview :  the object which received the signal.
 -- 	user_data : user data set when the signal handler was connected.
 
-feature -- struct size
+feature {ANY} -- struct size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

@@ -84,7 +84,7 @@ inherit
 
 creation from_external
 
-feature 
+feature {ANY} 
 	from_external (a_c_string: POINTER) is
 		do
 			is_unchanged := True
@@ -129,7 +129,7 @@ feature
 			changeable: is_changed
 		end
 
-feature
+feature {ANY}
 	resize (new_count: INTEGER_32) is
 		do
 			if is_unchanged then modify end
@@ -373,7 +373,7 @@ feature
 			Precursor (n)
 		end
 
-feature -- commented out to achieve compatibility with both SE 2.2 and 2.3
+feature {ANY} -- commented out to achieve compatibility with both SE 2.2 and 2.3
 	--    remove_head (n: INTEGER_32) is
 	-- 		do
 	-- 			if is_unchanged then modify end
@@ -386,7 +386,7 @@ feature -- commented out to achieve compatibility with both SE 2.2 and 2.3
 	-- 			Precursor (n)
 	-- 		end
 
-feature 
+feature {ANY} 
 	remove_substring (start_index, end_index: INTEGER_32) is
 		do
 			if is_unchanged then modify end

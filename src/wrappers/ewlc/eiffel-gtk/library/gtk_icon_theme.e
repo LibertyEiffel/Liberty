@@ -121,7 +121,7 @@ feature {} -- Creation
 			store_eiffel_wrapper		
 		end
 
-feature
+feature {ANY}
 	set_screen (a_screen: GDK_SCREEN) is
 			-- Sets `a_screen' for an icon theme; the screen is used to
 			-- track the user's currently configured icon theme, which
@@ -581,7 +581,7 @@ feature
 
 --    Since 2.4
 
-feature --   The "changed" signal
+feature {ANY} --   The "changed" signal
 
 --  void        user_function                  (GtkIconTheme *icon_theme,
 --                                              gpointer      user_data)       : Run last
@@ -591,7 +591,7 @@ feature --   The "changed" signal
 
 --    icon_theme : the icon theme
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkIconTheme)"

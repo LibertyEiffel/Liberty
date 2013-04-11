@@ -29,7 +29,7 @@ insert
 
 creation from_external_pointer
 
-feature -- access
+feature {ANY} -- access
 
 	time: INTEGER is
 			-- the time of the event in milliseconds.

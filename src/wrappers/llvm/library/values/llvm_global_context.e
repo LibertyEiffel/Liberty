@@ -4,7 +4,7 @@ inherit LLVM_CONTEXT undefine copy, is_equal redefine default_create end
 insert SINGLETON redefine default_create end 
 
 creation  default_create
-feature
+feature {ANY}
 	default_create is
 		do
 			handle:=llvmget_global_context

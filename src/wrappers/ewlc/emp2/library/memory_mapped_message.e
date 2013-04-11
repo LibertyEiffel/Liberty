@@ -2,7 +2,7 @@ class MEMORY_MAPPED_MESSAGE
 
 inherit MESSAGE redefine port end
 
-feature
+feature {ANY}
 	port: MEMORY_MAPPED_MESSAGE_PORT
 
 	contained_in_message_port: BOOLEAN is

@@ -33,10 +33,10 @@ insert G_OBJECT_FACTORY [GTK_TEXT_BUFFER]
 
 creation make
 
-feature
+feature {ANY}
 	object: GTK_TEXT_BUFFER
 
-feature
+feature {ANY}
 
 	callback (iter, string: POINTER; len: INTEGER; instance: POINTER) is
 		local

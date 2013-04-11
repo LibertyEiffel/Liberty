@@ -138,7 +138,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_text_buffer_new(a_tag_table.handle))
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	set_text(a_text: STRING) is
 			-- Deletes current contents of buffer, and inserts `a_text'
@@ -151,7 +151,7 @@ feature -- Operations
 			gtk_text_buffer_set_text(handle, a_text.to_external, a_text.count)
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	text (a_start, an_end: GTK_TEXT_ITER; include_hidden_chars: BOOLEAN): STRING is
 			-- the text in the range [`a_start',`an_end'). Excludes
@@ -1112,7 +1112,7 @@ feature -- Access
 
 	-- Since 2.8
 	-- Signal Details
-feature  -- TODO: The "apply-tag" signal
+feature {ANY}  -- TODO: The "apply-tag" signal
 
 	-- void        user_function                  (GtkTextBuffer *textbuffer,
 	--                                             GtkTextTag    *arg1,
@@ -1127,7 +1127,7 @@ feature  -- TODO: The "apply-tag" signal
 	-- user_data : 	user data set when the signal handler was connected.
 
 
-feature -- The "begin-user-action" signal
+feature {ANY} -- The "begin-user-action" signal
 
 	begin_user_action_signal_name: STRING is "begin-user-action"
 		-- void        user_function                  (GtkTextBuffer *textbuffer,
@@ -1154,7 +1154,7 @@ feature -- The "begin-user-action" signal
 			begin_user_action_callback.connect (Current, a_procedure)
 		end
 
-feature -- The "changed" signal
+feature {ANY} -- The "changed" signal
 
 	changed_signal_name: STRING is "changed"
 
@@ -1178,7 +1178,7 @@ feature -- The "changed" signal
 			changed_callback.connect (Current, a_procedure)
 		end
 
-feature -- TODO: The "delete-range" signal
+feature {ANY} -- TODO: The "delete-range" signal
 
 	-- void        user_function                  (GtkTextBuffer *textbuffer,
 	--                                             GtkTextIter   *arg1,
@@ -1190,7 +1190,7 @@ feature -- TODO: The "delete-range" signal
 	-- arg2 :
 	-- user_data : 	user data set when the signal handler was connected.
 
-feature -- The "end-user-action" signal
+feature {ANY} -- The "end-user-action" signal
 
 	end_user_action_signal_name: STRING is "end-user-action"
 		-- void        user_function                  (GtkTextBuffer *textbuffer,
@@ -1217,7 +1217,7 @@ feature -- The "end-user-action" signal
 			end_user_action_callback.connect (Current, a_procedure)
 		end
 
-feature -- TODO: The "insert-child-anchor" signal
+feature {ANY} -- TODO: The "insert-child-anchor" signal
 
 	-- void        user_function                  (GtkTextBuffer      *textbuffer,
 	--                                             GtkTextIter        *arg1,
@@ -1229,7 +1229,7 @@ feature -- TODO: The "insert-child-anchor" signal
 	-- arg2 :
 	-- user_data : 	user data set when the signal handler was connected.
 
-feature  -- TODO: The "insert-pixbuf" signal
+feature {ANY}  -- TODO: The "insert-pixbuf" signal
 
 	-- void user_function (GtkTextBuffer *textbuffer, GtkTextIter
 	-- *arg1, GdkPixbuf *arg2, gpointer user_data) : Run last
@@ -1239,7 +1239,7 @@ feature  -- TODO: The "insert-pixbuf" signal
 	-- arg2 :
 	-- user_data : 	user data set when the signal handler was connected.
 
-feature  -- The "insert-text" signal
+feature {ANY}  -- The "insert-text" signal
 
 	connect_agent_to_insert_text_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TEXT_ITER, STRING, GTK_TEXT_BUFFER]]) is
 			-- textbuffer : 	the object which received the signal.
@@ -1255,7 +1255,7 @@ feature  -- The "insert-text" signal
 			insert_text_callback.connect (Current, a_procedure)
 		end
 
-feature  -- TODO: 	-- The "mark-deleted" signal
+feature {ANY}  -- TODO: 	-- The "mark-deleted" signal
 
 	-- void user_function (GtkTextBuffer *textbuffer, GtkTextMark
 	-- *arg1, gpointer user_data) : Run last
@@ -1264,7 +1264,7 @@ feature  -- TODO: 	-- The "mark-deleted" signal
 	-- arg1 :
 	-- user_data : 	user data set when the signal handler was connected.
 
-feature  -- TODO: -- The "mark-set" signal
+feature {ANY}  -- TODO: -- The "mark-set" signal
 
 	-- void user_function (GtkTextBuffer *textbuffer, GtkTextIter
 	-- *arg1, GtkTextMark *arg2, gpointer user_data) : Run last
@@ -1274,7 +1274,7 @@ feature  -- TODO: -- The "mark-set" signal
 	-- arg2 :
 	-- user_data : 	user data set when the signal handler was connected.
 
-feature  -- TODO: -- The "modified-changed" signal
+feature {ANY}  -- TODO: -- The "modified-changed" signal
 
 	-- void user_function (GtkTextBuffer *textbuffer, gpointer
 	-- user_data) : Run last
@@ -1282,7 +1282,7 @@ feature  -- TODO: -- The "modified-changed" signal
 	-- textbuffer : 	the object which received the signal.
 	-- user_data : 	user data set when the signal handler was connected.
 
-feature  -- TODO: -- The "remove-tag" signal
+feature {ANY}  -- TODO: -- The "remove-tag" signal
 
 	-- void user_function (GtkTextBuffer *textbuffer, GtkTextTag *arg1,
 	-- GtkTextIter *arg2, GtkTextIter *arg3, gpointer user_data) : Run
@@ -1299,7 +1299,7 @@ feature {} -- Implementation
 			-- Hidden reference to the Eiffel wrapper of the
 			-- GtkTextTagTable of Current. Handled by `tag_table'.
 
-feature -- struct size
+feature {ANY} -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextBuffer)"

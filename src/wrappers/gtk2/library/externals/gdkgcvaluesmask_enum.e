@@ -8,7 +8,7 @@ expanded class GDKGCVALUESMASK_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (gdk_gc_background_low_level | 
@@ -30,7 +30,7 @@ feature -- Validity
 				gdk_gc_ts_y_origin_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gdk_gc_background is
 		do
@@ -202,7 +202,7 @@ feature -- Setters
 			value := value.bit_xor(gdk_gc_ts_y_origin_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gdk_gc_background: BOOLEAN is
 		do
 			Result := (value=gdk_gc_background_low_level)

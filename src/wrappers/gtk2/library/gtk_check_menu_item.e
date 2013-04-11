@@ -61,7 +61,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_check_menu_item_new_with_mnemonic (a_label.to_external))
 		end
 	
-feature
+feature {ANY}
 	is_active: BOOLEAN is
 			-- Is the check menu item active? See `set_active'
 		do
@@ -152,7 +152,7 @@ feature
 
 	-- Signals
 
-feature -- Signals
+feature {ANY} -- Signals
 
 	toggle_signal_name: STRING is "toggle"
 
@@ -238,7 +238,7 @@ feature -- Signals
 
 	-- checkmenuitem : the object which received the signal.
 	-- user_data : user data set when the signal handler was connected.
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCheckMenuItem)"

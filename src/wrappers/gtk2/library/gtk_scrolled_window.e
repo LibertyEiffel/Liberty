@@ -90,7 +90,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_scrolled_window_new (null_or(an_horizontal_adjustment), null_or(a_vertical_adjustment)))
 		end
 
-feature -- Adjustments
+feature {ANY} -- Adjustments
 	horizontal_adjustment: GTK_ADJUSTMENT is
 			-- the horizontal scrollbar's adjustment, used to connect the
 			-- horizontal scrollbar to the child widget's horizontal
@@ -128,7 +128,7 @@ feature -- Adjustments
 		ensure adjustment_set: an_adjustment = vertical_adjustment
 		end
 
-feature -- TODO: Scrollbars
+feature {ANY} -- TODO: Scrollbars
 	
 -- gtk_scrolled_window_get_hscrollbar ()
 
@@ -170,7 +170,7 @@ feature -- TODO: Scrollbars
 		ensure -- TODO: h and v policy_set
 		end
 
-feature 
+feature {ANY} 
 	add_with_viewport (a_child: GTK_WIDGET) is
 			-- Adds children without native scrolling capabilities. This
 			-- is simply a convenience function; it is equivalent to
@@ -267,7 +267,7 @@ feature
 		ensure valid: is_valid_gtk_shadow_type (Result)
 		end
 	
-feature -- Properties
+feature {ANY} -- Properties
 
 --   "hadjustment"          GtkAdjustment         : Read / Write / Construct
 --   "hscrollbar-policy"    GtkPolicyType         : Read / Write
@@ -330,7 +330,7 @@ feature -- Properties
 
 -- Default value: 3
 
-feature -- scroll-child signal
+feature {ANY} -- scroll-child signal
 
 	scroll_child_signal_name: STRING is "scroll-child"
 		-- "scroll-child"
@@ -370,7 +370,7 @@ feature -- scroll-child signal
 			scroll_child_callback.connect (Current, a_function)
 		end
 
-feature -- Signals
+feature {ANY} -- Signals
 
 -- "move-focus-out"
 --             void        user_function      (GtkScrolledWindow *scrolledwindow,
@@ -391,7 +391,7 @@ feature -- Signals
 
 -- [5] The scrolled window installs GtkAdjustment objects in the child window's slots using the set_scroll_adjustments_signal, found in GtkWidgetClass. (Conceptually, these widgets implement a "Scrollable" interface; because GTK+ 1.2 lacked interface support in the object system, this interface is hackily implemented as a signal in GtkWidgetClass. The GTK+ 2.0 object system would allow a clean implementation, but it wasn't worth breaking the API.)
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

@@ -32,10 +32,10 @@ insert
 
 creation make
 
-feature
+feature {ANY}
 	object: W
 
-feature
+feature {ANY}
 	callback (instance: POINTER) is
 		do
 			debug

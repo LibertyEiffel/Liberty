@@ -486,7 +486,7 @@ feature {LLVM_MODULE_PROVIDER} -- Provider owning modules
 	ensure Result implies owner/=Void -- Note: this shall be more properly an invariant.
 	end
 	
-feature 
+feature {ANY} 
 	struct_size: like size_t is
 		do
 			not_yet_implemented

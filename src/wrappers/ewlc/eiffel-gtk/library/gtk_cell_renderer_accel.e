@@ -44,7 +44,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_cell_renderer_accel_new)
 		end
 	
-feature -- Properties
+feature {ANY} -- Properties
 	--   "accel-key"            guint                 : Read / Write
 	--   "accel-mode"           GtkCellRendererAccelMode  : Read / Write
 	--   "accel-mods"           GdkModifierType       : Read / Write
@@ -105,7 +105,7 @@ feature -- Properties
 	--
 	--   Since 2.10
 
-feature -- Signals
+feature {ANY} -- Signals
 
 	-- "accel-cleared"
 	--             void        user_function      (GtkCellRendererAccel *accel,
@@ -161,7 +161,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 		
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererAccel)"

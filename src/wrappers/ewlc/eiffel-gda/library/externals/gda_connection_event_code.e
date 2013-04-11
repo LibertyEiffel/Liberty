@@ -4,7 +4,7 @@ expanded class GDA_CONNECTION_EVENT_CODE
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_connection_event_code_constraint_violation) or else 
@@ -29,7 +29,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_constraint_violation is
 		do
 			value := gda_connection_event_code_constraint_violation
@@ -126,7 +126,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_constraint_violation: BOOLEAN is
 		do
 			Result := (value=gda_connection_event_code_constraint_violation)

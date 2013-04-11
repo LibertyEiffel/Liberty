@@ -24,7 +24,7 @@ deferred class GDK_WINDOW_EDGE
 	
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_window_edge (an_edge :INTEGER): BOOLEAN is
 		do	
 			Result:=((an_edge = gdk_window_edge_north_west) or else

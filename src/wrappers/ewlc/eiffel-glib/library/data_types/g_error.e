@@ -351,7 +351,7 @@ feature {} -- Creation
 			-- handle
 		end
 	
-feature -- Access
+feature {ANY} -- Access
 
 	domain: G_QUARK is
 		require not_null: is_not_null
@@ -377,7 +377,7 @@ feature -- Access
 			end
 		end
 	
-feature -- Comparation
+feature {ANY} -- Comparation
 
 	matches (a_domain: G_QUARK; a_code: INTEGER): BOOLEAN is
 			-- Returns True if error matches domain and code, False otherwise.
@@ -386,7 +386,7 @@ feature -- Comparation
 			Result := g_error_matches (handle, a_domain.quark, a_code).to_boolean
 		end
 
-feature -- Disposing
+feature {ANY} -- Disposing
 
 	dispose is
 			-- Frees a G_ERROR and associated resources.
@@ -404,7 +404,7 @@ feature -- Disposing
 			handle := default_pointer
 		end
 
-feature -- struct size
+feature {ANY} -- struct size
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"
 		alias "sizeof(GError)"

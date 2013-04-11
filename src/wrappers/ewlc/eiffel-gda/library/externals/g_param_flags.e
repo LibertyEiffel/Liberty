@@ -4,7 +4,7 @@ expanded class G_PARAM_FLAGS
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_param_readable) or else 
@@ -19,7 +19,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_readable is
 		do
 			value := g_param_readable
@@ -66,7 +66,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_readable: BOOLEAN is
 		do
 			Result := (value=g_param_readable)

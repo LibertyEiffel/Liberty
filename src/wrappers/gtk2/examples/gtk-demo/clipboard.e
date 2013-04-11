@@ -23,7 +23,7 @@ class CLIPBOARD
 
 creation make
 
-feature
+feature {ANY}
 -- /* Clipboard
 --  *
 --  * GtkClipboard is used for clipboard handling. This demo shows how to

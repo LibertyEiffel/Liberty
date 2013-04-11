@@ -28,7 +28,7 @@ deferred class SEPARATE
 
 inherit ANY redefine default_create end
 
-feature -- Creation
+feature {ANY} -- Creation
 	main is
 		deferred
 		end

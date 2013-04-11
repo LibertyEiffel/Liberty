@@ -48,7 +48,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_text_tag_table_new)
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	add (a_tag: GTK_TEXT_TAG) is
 			-- Add a tag to the table. The tag is assigned the highest priority in the table.
@@ -70,7 +70,7 @@ feature -- Operations
 			gtk_text_tag_table_remove (handle, a_tag.handle)
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	has (a_name: STRING): BOOLEAN is
 		do
@@ -107,7 +107,7 @@ feature -- Access
 		end
 
 
-feature -- TODO: Signals
+feature {ANY} -- TODO: Signals
 
 -- "tag-added" void        user_function      (GtkTextTagTable *texttagtable,
 --                                             GtkTextTag      *arg1,
@@ -152,7 +152,7 @@ feature -- TODO: Signals
 -- arg1 : 	
 -- user_data : 	user data set when the signal handler was connected.
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

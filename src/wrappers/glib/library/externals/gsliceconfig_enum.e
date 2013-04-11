@@ -8,7 +8,7 @@ expanded class GSLICECONFIG_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_slice_config_always_malloc_low_level)  or else
@@ -19,7 +19,7 @@ feature -- Validity
 				(a_value = g_slice_config_working_set_msecs_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_slice_config_always_malloc is
 		do
@@ -51,7 +51,7 @@ feature -- Setters
 			value := g_slice_config_working_set_msecs_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_slice_config_always_malloc: BOOLEAN is
 		do
 			Result := (value=g_slice_config_always_malloc_low_level)

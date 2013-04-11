@@ -2,7 +2,7 @@ class TEST_2
 
 creation make
 
-feature 
+feature {ANY} 
 	make is
 		do
 			from create separated

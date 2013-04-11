@@ -30,10 +30,10 @@ insert G_OBJECT_FACTORY [GTK_SCROLLED_WINDOW]
 
 creation make
 
-feature
+feature {ANY}
 	object: GTK_SCROLLED_WINDOW
 
-feature
+feature {ANY}
 
 	callback (scroll_type, a_bool: INTEGER; instance: POINTER): INTEGER is
 		do

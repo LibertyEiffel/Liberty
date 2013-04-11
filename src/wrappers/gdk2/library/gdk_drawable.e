@@ -42,7 +42,7 @@ inherit G_OBJECT
 
 insert GDK_DRAWABLE_EXTERNALS
 
-feature
+feature {ANY}
 	context: CAIRO_CONTEXT is
     	-- A (newly allocated) context for drawing to drawable. 
 	do

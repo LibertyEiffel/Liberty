@@ -4,7 +4,7 @@ expanded class G_KEY_FILE_FLAGS
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_key_file_none) or else 
@@ -13,7 +13,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_g_key_file_none is
 		do
 			value := g_key_file_none
@@ -30,7 +30,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_key_file_none: BOOLEAN is
 		do
 			Result := (value=g_key_file_none)

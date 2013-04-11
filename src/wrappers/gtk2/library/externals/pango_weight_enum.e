@@ -8,7 +8,7 @@ expanded class PANGO_WEIGHT_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = thin_low_level)  or else
@@ -24,7 +24,7 @@ feature -- Validity
 				(a_value = ultraheavy_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_thin is
 		do
@@ -81,7 +81,7 @@ feature -- Setters
 			value := ultraheavy_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	thin: BOOLEAN is
 		do
 			Result := (value=thin_low_level)

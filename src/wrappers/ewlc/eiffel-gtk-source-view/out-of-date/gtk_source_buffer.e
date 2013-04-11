@@ -61,7 +61,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_source_buffer_new_with_language (a_language.handle))
 		end
 
-feature -- Brackets checking
+feature {ANY} -- Brackets checking
 	are_brackets_checked: BOOLEAN is
 			-- Is bracket match highlighting activated for the source? 
 		do 
@@ -87,7 +87,7 @@ feature -- Brackets checking
 			gtk_source_buffer_set_bracket_match_style(handle, a_style)
 		end	
 
-feature -- Text highlighting
+feature {ANY} -- Text highlighting
 	is_highlighted: BOOLEAN is
 			-- Is text highlighting activated in the source buffer?
 		do
@@ -121,7 +121,7 @@ feature -- Text highlighting
 		ensure set: a_setting=is_highlighted
 		end
 
-feature -- Language
+feature {ANY} -- Language
 	language: GTK_SOURCE_LANGUAGE is
 			-- the language used for the source buffer. See `set_language'. Can be
 			-- Void
@@ -164,7 +164,7 @@ feature -- Language
 			gtk_source_buffer_set_escape_char(handle, an_escape_char)
 		end
 
-feature -- Undo-Redo
+feature {ANY} -- Undo-Redo
 	max_undo_levels: INTEGER is
 			-- the number of undo levels the buffer will track for buffer
 			-- edits.
@@ -248,7 +248,7 @@ feature -- Undo-Redo
 			gtk_source_buffer_end_not_undoable_action(handle)
 		end
 	
-feature -- Markers
+feature {ANY} -- Markers
 	create_marker (a_name, a_type: STRING; a_place: GTK_TEXT_ITER): GTK_SOURCE_MARKER is
 			-- Creates a marker in the buffer of type type. A marker is
 			-- semantically very similar to a GTK_TEXT_MARK, except it has a type
@@ -624,7 +624,7 @@ feature {} -- External calls
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtksourceview/gtksourcebuffer.h>"
 		alias "sizeof(GtkSourceBuffer)"

@@ -35,7 +35,7 @@ feature {} -- Creation
 			allocate
 		end
 	
-feature 
+feature {ANY} 
 	type: INTEGER is
 		do
 			Result:=get_type(handle)

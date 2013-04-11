@@ -9,7 +9,7 @@ insert
 	G_TYPE_EXTERNALS
 	G_PARAM_FLAGS
 creation make
-feature make is
+feature {ANY} make is
 		do
 			g_type_init
 			create bool.from_boolean (True)
@@ -34,7 +34,7 @@ feature make is
 			print (int_param.name + " has default " + int_param.default_integer.out + "%N")
 		end
 
-feature -- generic values
+feature {ANY} -- generic values
 	bool, int, uint, real, string: G_VALUE
 	int_param: G_PARAM_SPEC
 end

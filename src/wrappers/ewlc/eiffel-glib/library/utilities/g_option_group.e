@@ -174,7 +174,7 @@ feature {} -- Creation
 	--    group :  a GOptionGroup
 	--    domain : the domain to use
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"
 		alias "sizeof(GOptionGroup)"

@@ -62,7 +62,7 @@ feature {} -- Destruction
 			handle:= default_pointer
 		end
 
-feature -- Representation
+feature {ANY} -- Representation
 
 	is_valid: BOOLEAN is
 		require
@@ -72,7 +72,7 @@ feature -- Representation
 			Result := not env.fault_occurred
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	call (server_info: XMLRPC_SERVER_INFO; method_name: STRING;
 	      params: XMLRPC_VALUE_ARRAY): XMLRPC_VALUE is

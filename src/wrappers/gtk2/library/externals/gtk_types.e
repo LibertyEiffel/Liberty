@@ -6,7 +6,7 @@ deferred class GTK_TYPES
 
 insert ANY undefine is_equal, copy end
 
-feature -- C type definitions (typedefs)
+feature {ANY} -- C type definitions (typedefs)
 	gtk_tree_model_foreach_func: POINTER is
 		-- typedef GtkTreeModelForeachFunc
 		-- Empty by design, used for anchored declarations.

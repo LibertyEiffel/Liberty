@@ -7,7 +7,7 @@ indexing
 
 expanded class SQLITE_TYPE_CODES
 
-feature -- Type codes
+feature {ANY} -- Type codes
 	sqlite_integer: INTEGER is
 			-- #define SQLITE_INTEGER 1
 		external "plug_in"

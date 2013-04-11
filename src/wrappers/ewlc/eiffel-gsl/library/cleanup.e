@@ -4,7 +4,7 @@ inherit DISPOSABLE
 
 create make
 
-feature
+feature {ANY}
 	make(a_cleaner: PROCEDURE[TUPLE]) is
 		require
 			a_cleaner /= Void

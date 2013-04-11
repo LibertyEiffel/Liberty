@@ -120,7 +120,7 @@ feature {} -- Structure access
 		external "C struct GPtrArray get len use <glib.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"
 		alias "sizeof(GPtrArray)"

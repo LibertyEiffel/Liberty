@@ -8,7 +8,7 @@ expanded class GMOUNT_OPERATION_RESULT_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = handled_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = unhandled_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_handled is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := unhandled_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	handled: BOOLEAN is
 		do
 			Result := (value=handled_low_level)

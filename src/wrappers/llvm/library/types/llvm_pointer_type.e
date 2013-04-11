@@ -3,7 +3,7 @@ class LLVM_POINTER_TYPE
 inherit LLVM_SEQUENCE_TYPE
 
 creation make, from_external_pointer
-feature -- Creation 
+feature {ANY} -- Creation 
 	make (a_type: LLVM_TYPE) is
 		-- Creates a pointer type referring to `a_type'
 

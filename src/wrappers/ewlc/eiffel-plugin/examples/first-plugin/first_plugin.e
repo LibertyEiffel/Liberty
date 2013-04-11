@@ -5,7 +5,7 @@ inherit MY_PLUGIN
 
 creation make
 
-feature
+feature {ANY}
 	make is
 		do
 			value  := 17 000

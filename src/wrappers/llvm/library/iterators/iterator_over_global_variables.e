@@ -49,7 +49,7 @@ feature {ANY}
    item: LLVM_GLOBAL_VARIABLE is attribute end
 
    generation, iterable_generation: INTEGER is 0
-feature
+feature {ANY}
    wrapper (p: POINTER): LLVM_GLOBAL_VARIABLE is
       do
          create Result.from_external_pointer(p)

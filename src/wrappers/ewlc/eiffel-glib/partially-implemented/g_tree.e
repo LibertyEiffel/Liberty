@@ -259,7 +259,7 @@ feature {ANY} -- Removing:
 		end
 
 
-feature -- counting
+feature {ANY} -- counting
 	count: INTEGER_32 is
 		do
 			Result:=g_tree_nnodes(handle)
@@ -328,7 +328,7 @@ feature {} -- Implement manifest generic creation:
 			not_yet_implemented
 		end
 
-feature
+feature {ANY}
 	height: INTEGER is
 			-- The height of a G_TREE.
 		

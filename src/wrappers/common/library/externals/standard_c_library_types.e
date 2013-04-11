@@ -6,7 +6,7 @@ deferred class STANDARD_C_LIBRARY_TYPES
 
 insert ANY undefine is_equal, copy end
 
-feature -- C type definitions (typedefs)
+feature {ANY} -- C type definitions (typedefs)
 	timer_t: POINTER is
 		-- typedef timer_t
 		-- Empty by design, used for anchored declarations.

@@ -198,7 +198,7 @@ feature {} -- Creation
 	
 	-- Since 2.4
 
-feature
+feature {ANY}
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkFileChooserDialog)"

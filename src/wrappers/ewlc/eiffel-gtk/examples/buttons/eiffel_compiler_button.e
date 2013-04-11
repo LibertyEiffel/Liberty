@@ -5,7 +5,7 @@ inherit
 	
 creation with_label, with_label_from_widget
 	
-feature 
+feature {ANY} 
 	with_label (a_group: G_SLIST[GTK_RADIO_BUTTON]; a_label: STRING) is
 		do
 			Precursor (a_group, a_label)
@@ -17,7 +17,7 @@ feature
 			Precursor (a_widget, a_label)
 			connect  (Current, "toggled", $on_toggled)
 		end			
-feature -- Callback
+feature {ANY} -- Callback
 	on_toggled is
 		do
 			print ("Button `")

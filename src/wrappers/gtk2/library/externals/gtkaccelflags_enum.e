@@ -8,7 +8,7 @@ expanded class GTKACCELFLAGS_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gtk_accel_locked_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = gtk_accel_visible_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gtk_accel_locked is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := gtk_accel_visible_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gtk_accel_locked: BOOLEAN is
 		do
 			Result := (value=gtk_accel_locked_low_level)

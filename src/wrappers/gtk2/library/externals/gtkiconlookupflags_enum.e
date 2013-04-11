@@ -8,7 +8,7 @@ expanded class GTKICONLOOKUPFLAGS_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (gtk_icon_lookup_force_size_low_level | 
@@ -17,7 +17,7 @@ feature -- Validity
 				gtk_icon_lookup_use_builtin_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gtk_icon_lookup_force_size is
 		do
@@ -59,7 +59,7 @@ feature -- Setters
 			value := value.bit_xor(gtk_icon_lookup_use_builtin_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gtk_icon_lookup_force_size: BOOLEAN is
 		do
 			Result := (value=gtk_icon_lookup_force_size_low_level)

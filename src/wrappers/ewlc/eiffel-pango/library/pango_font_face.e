@@ -36,7 +36,7 @@ feature {} -- Creation
 --                                              int *n_sizes);
 -- PangoFontDescription* pango_font_face_describe
 --                                             (PangoFontFace *face);
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <pango/pango.h>"
 		alias "sizeof(PangoFontFace)"

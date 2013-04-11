@@ -57,7 +57,7 @@ feature {} -- Creation
 			-- cairo_font_options_status().
 		end
 
-feature -- Disposing
+feature {ANY} -- Disposing
 	dispose is
 			-- Destroys a cairo_font_options_t
 		do
@@ -67,7 +67,7 @@ feature -- Disposing
 			handle := default_pointer
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	status: INTEGER is
 			-- The status of this font options object 
@@ -117,7 +117,7 @@ feature -- Access
 			Result := cairo_font_options_get_hint_metrics (handle)
 		end
 
-feature -- Comparison
+feature {ANY} -- Comparison
 
 	copy (another: like Current) is
 			-- Allocates a new font options object copying the option values from
@@ -138,7 +138,7 @@ feature -- Comparison
 			Result := (cairo_font_options_equal (handle, another.handle).to_boolean)
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	merge (another: CAIRO_FONT_OPTIONS) is
 			-- Merges non-default options from other into options,

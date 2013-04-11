@@ -4,7 +4,7 @@ insert
 	EXCEPTIONS undefine copy, is_equal, default_create end
 	ERRNO undefine default_create end
 
-feature -- Status
+feature {ANY} -- Status
 	is_successful: BOOLEAN 
 	-- Was last command successful?
 
@@ -14,7 +14,7 @@ feature -- Status
 		end
 
 
-feature 
+feature {ANY} 
 	handle_return_value (a_return_value: INTEGER_32) is
 		do
 			if a_return_value/=0 then

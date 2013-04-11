@@ -33,7 +33,7 @@ feature {} -- Structure getter/setter calls
 	--   GtkBindingArg         *args;
 	-- } GtkBindingSignal;
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <$include>"
 		alias "sizeof($struct)"

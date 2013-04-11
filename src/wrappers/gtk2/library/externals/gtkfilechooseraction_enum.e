@@ -8,7 +8,7 @@ expanded class GTKFILECHOOSERACTION_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gtk_file_chooser_action_create_folder_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = gtk_file_chooser_action_select_folder_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gtk_file_chooser_action_create_folder is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := gtk_file_chooser_action_select_folder_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gtk_file_chooser_action_create_folder: BOOLEAN is
 		do
 			Result := (value=gtk_file_chooser_action_create_folder_low_level)

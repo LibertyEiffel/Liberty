@@ -39,7 +39,7 @@ creation
 	copy_from_pointer,
 	as_children_of
 
-feature -- Creation
+feature {ANY} -- Creation
 
 	make is
 		require
@@ -81,7 +81,7 @@ feature -- Creation
 							  a_parent.handle).to_boolean)
 		end
 
-feature
+feature {ANY}
 	is_valid: BOOLEAN
 			-- Is last action made on Current successful, making it valid?
 
@@ -215,7 +215,7 @@ feature {CALLBACK}
 			tree_model = a_model
 		end
 
-feature  -- struct size
+feature {ANY}  -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeIter)"
@@ -243,14 +243,14 @@ feature {}
 			end
 		end
 
-feature
+feature {ANY}
 	dispose is
 		do
 			if handle.is_not_null then gtk_tree_iter_free (handle) end
 			handle:= default_pointer
 		end
 
-feature
+feature {ANY}
 	stamp: INTEGER is
 			-- A unique stamp to catch invalid iterators
 		do

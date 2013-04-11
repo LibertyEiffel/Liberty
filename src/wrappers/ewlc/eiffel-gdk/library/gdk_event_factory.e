@@ -26,7 +26,7 @@ insert
 	GDK_EVENT_EXTERNALS
 	EXCEPTIONS
 
-feature
+feature {ANY}
 	wrapper (an_event_pointer: POINTER): GDK_EVENT is
 		local a_type: INTEGER
 		do

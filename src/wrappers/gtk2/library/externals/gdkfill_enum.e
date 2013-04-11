@@ -8,7 +8,7 @@ expanded class GDKFILL_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gdk_opaque_stippled_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = gdk_tiled_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gdk_opaque_stippled is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := gdk_tiled_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gdk_opaque_stippled: BOOLEAN is
 		do
 			Result := (value=gdk_opaque_stippled_low_level)

@@ -8,14 +8,14 @@ expanded class GDKINPUTCONDITION_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (gdk_input_exception_low_level | 
 				gdk_input_write_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gdk_input_exception is
 		do
@@ -37,7 +37,7 @@ feature -- Setters
 			value := value.bit_xor(gdk_input_write_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gdk_input_exception: BOOLEAN is
 		do
 			Result := (value=gdk_input_exception_low_level)

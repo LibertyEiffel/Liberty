@@ -34,7 +34,7 @@ insert CURL_LIST_EXTERNALS rename curl_slist_free_all as free end
 creation
 	null, from_external_pointer
 
-feature -- Size
+feature {ANY} -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <curl/curl.h>"
@@ -67,11 +67,11 @@ feature {WRAPPER, WRAPPER_HANDLER}
 	--			curl_slist_free_all (a_ptr)
 	--		end
 
-feature  -- Representation
+feature {ANY}  -- Representation
 
 	is_valid: BOOLEAN
 
-feature  -- Operations
+feature {ANY}  -- Operations
 
 	append (str: STRING) is
 			-- `append' appends a specified string to a linked list of

@@ -8,7 +8,7 @@ expanded class GTK_IMAGE_TYPE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = empty_low_level)  or else
@@ -22,7 +22,7 @@ feature -- Validity
 				(a_value = gicon_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_empty is
 		do
@@ -69,7 +69,7 @@ feature -- Setters
 			value := gicon_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	empty: BOOLEAN is
 		do
 			Result := (value=empty_low_level)

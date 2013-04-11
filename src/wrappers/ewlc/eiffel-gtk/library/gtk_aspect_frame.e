@@ -23,7 +23,7 @@ insert
 
 creation make, from_external_pointer
 
-feature 
+feature {ANY} 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkAspectFrame)"
@@ -64,7 +64,7 @@ feature {} -- Creation
 										 obey_child.to_integer)
 		end
 
-feature -- Property Details TODO
+feature {ANY} -- Property Details TODO
 	
 -- The "obey-child" property
 

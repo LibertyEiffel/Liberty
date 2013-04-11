@@ -4,7 +4,7 @@ expanded class G_REGEX_COMPILE_FLAGS
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_regex_caseless) or else 
@@ -24,7 +24,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_caseless is
 		do
 			value := g_regex_caseless
@@ -96,7 +96,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_caseless: BOOLEAN is
 		do
 			Result := (value=g_regex_caseless)

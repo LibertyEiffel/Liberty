@@ -49,14 +49,14 @@ insert
 
 creation from_external_pointer, secondary_wrapper_from
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkDragContext)"
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	finish (success, delete: BOOLEAN; time: INTEGER) is
 			-- Informs the drag source that the drop is finished, and
@@ -85,7 +85,7 @@ feature -- Operations
 			gdk_drag_status (handle, an_action, time)
 		end
 
-feature -- Representation
+feature {ANY} -- Representation
 
 	parent_instance: G_OBJECT is
 			-- the parent instance

@@ -30,10 +30,10 @@ insert G_OBJECT_FACTORY [GTK_TREE_VIEW]
 
 creation make
 
-feature
+feature {ANY}
 	object: GTK_TREE_VIEW
 
-feature
+feature {ANY}
 
 	callback (arg1, arg2, arg3: INTEGER; instance: POINTER): INTEGER is
 		require

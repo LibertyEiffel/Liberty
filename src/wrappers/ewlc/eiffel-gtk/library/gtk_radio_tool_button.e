@@ -83,7 +83,7 @@ feature {} -- Creation
 										 (a_radio.handle, a_stock_id.to_external))
 		end
 
-feature 
+feature {ANY} 
 	group: G_SLIST[GTK_RADIO_TOOL_BUTTON] is
 			-- the radio button group button belongs to. 
 
@@ -142,7 +142,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkRadioToolButton)"

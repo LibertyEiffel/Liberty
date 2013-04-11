@@ -23,7 +23,7 @@ class ICONVIEW
 
 creation make
 	
-feature
+feature {ANY}
 -- /* Icon View/Icon View Basics
 --  *
 --  * The GtkIconView widget is used to display and manipulate icons.  

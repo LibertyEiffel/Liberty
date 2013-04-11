@@ -4,7 +4,7 @@ expanded class GDA_DICT_CONSTRAINT_ERROR
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_dict_constraint_xml_save_error) or else 
@@ -12,7 +12,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_gda_dict_constraint_xml_save_error is
 		do
 			value := gda_dict_constraint_xml_save_error
@@ -24,7 +24,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gda_dict_constraint_xml_save_error: BOOLEAN is
 		do
 			Result := (value=gda_dict_constraint_xml_save_error)

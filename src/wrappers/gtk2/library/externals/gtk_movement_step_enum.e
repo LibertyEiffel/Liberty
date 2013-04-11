@@ -8,7 +8,7 @@ expanded class GTK_MOVEMENT_STEP_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = logical_positions_low_level)  or else
@@ -23,7 +23,7 @@ feature -- Validity
 				(a_value = horizontal_pages_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_logical_positions is
 		do
@@ -75,7 +75,7 @@ feature -- Setters
 			value := horizontal_pages_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	logical_positions: BOOLEAN is
 		do
 			Result := (value=logical_positions_low_level)

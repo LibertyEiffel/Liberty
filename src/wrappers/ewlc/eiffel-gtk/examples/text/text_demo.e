@@ -179,7 +179,7 @@ inherit
 	GTK
 	ANY
 creation make
-feature
+feature {ANY}
 	make is
 		do
 			gtk.initialize -- instead of "initialize_gtk"

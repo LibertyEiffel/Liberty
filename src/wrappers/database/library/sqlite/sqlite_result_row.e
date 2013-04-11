@@ -43,7 +43,7 @@ insert
 
 creation make
 
-feature -- Type queries
+feature {ANY} -- Type queries
 	is_integer (a_column: INTEGER): BOOLEAN is
 		do
 			Result := ( {REFERENCE[INTEGER]} ?:= item(a_column) )
@@ -64,7 +64,7 @@ feature -- Type queries
 			Result := False
 		end
 
-feature -- Column queries 
+feature {ANY} -- Column queries 
 	integer_item (a_column: INTEGER): INTEGER is
 		local
 			ri: REFERENCE[INTEGER]

@@ -89,7 +89,7 @@ feature {}
 			in_range_2: Result.item_1 < 1
 		end
 
-feature -- fast integer powers
+feature {ANY} -- fast integer powers
 	gsl_pow_int(x: REAL_64; n: INTEGER_32): REAL_64 is
       external "plug_in"
       alias "{
@@ -171,7 +171,7 @@ feature -- fast integer powers
       }"	
       end
 
-feature -- comparation
+feature {ANY} -- comparation
 	gsl_fcmp(x, y, epsilon: REAL_64): INTEGER_32 is
       external "plug_in"
       alias "{
@@ -182,7 +182,7 @@ feature -- comparation
       end
 
 	
-feature -- externals
+feature {ANY} -- externals
 	
 	gsl_frexp_external(x: REAL_64; e: POINTER): REAL_64 is
       external "plug_in"

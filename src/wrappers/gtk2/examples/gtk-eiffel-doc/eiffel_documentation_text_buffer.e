@@ -95,7 +95,7 @@ feature {GTK_EIFFEL_DOC} -- Creation
 			end
 		end
 	
-feature
+feature {ANY}
 	iter: GTK_TEXT_ITER
 			-- The insertion point used in all the features that add text
 			-- to the buffer.
@@ -452,7 +452,7 @@ feature
 		end
 
 	
-feature -- Visitor features. Mostly empty
+feature {ANY} -- Visitor features. Mostly empty
 	visit_class_name (visited: CLASS_NAME) is do raise(dead_code) end
 	visit_class_name_list (visited: CLASS_NAME_LIST) is do raise(dead_code) end
 	visit_class_text (visited: CLASS_TEXT) is do raise(dead_code) end
@@ -485,7 +485,7 @@ feature -- Visitor features. Mostly empty
 	
 	dead_code: STRING is "Visitor feature of an EIFFEL_DOCUMENTATION_TEXT_BUFFER invoked. They should never be invoked by design, since they're empty."
 
-feature -- Tags
+feature {ANY} -- Tags
 	add_tags is
 			-- Creates all the tags and add the them to the `tag_table'
 		do

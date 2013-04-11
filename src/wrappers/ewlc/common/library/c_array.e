@@ -59,7 +59,7 @@ feature {} --
 			-- no-where.
 		"Warning: C_ARRAY is going to create a new wrapper; if ITEM is deferred the program will almost surely crash. The actual ITEM must be made non-deferred.%N"
 
-feature
+feature {ANY}
 	item (i: INTEGER_32): ITEM is
 		local
 			ptr: POINTER
@@ -615,7 +615,7 @@ feature {ANY} -- Other features:
 			-- 			count = old count
 		end
 
-feature
+feature {ANY}
 	-- struct_size: INTEGER
 
 	count: INTEGER is

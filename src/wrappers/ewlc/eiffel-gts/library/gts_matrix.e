@@ -82,7 +82,7 @@ feature {} -- Creation
 			from_external_pointer(gts_matrix_scale(default_pointer, a_vector.handle))
 		end
 
-feature
+feature {ANY}
 	assign (a00, a01, a02, a03,
 			  a10, a11, a12, a13,
 			  a20, a21, a22, a23,
@@ -223,7 +223,7 @@ feature
 	-- 	c :        a GtsVector.
 	-- 	Returns :  the new number of constraints defined by A and b.
 
-feature
+feature {ANY}
 	print_on (a_file: OUTPUT_STREAM) is
 			-- Print Current to `a_file'.
 		do

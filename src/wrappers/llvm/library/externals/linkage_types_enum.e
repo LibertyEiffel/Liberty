@@ -8,7 +8,7 @@ expanded class LINKAGE_TYPES_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = external_linkage_low_level)  or else
@@ -27,7 +27,7 @@ feature -- Validity
 				(a_value = common_linkage_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_external_linkage is
 		do
@@ -99,7 +99,7 @@ feature -- Setters
 			value := common_linkage_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	external_linkage: BOOLEAN is
 		do
 			Result := (value=external_linkage_low_level)

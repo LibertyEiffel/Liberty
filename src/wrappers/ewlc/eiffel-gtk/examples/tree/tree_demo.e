@@ -294,13 +294,13 @@ insert
 	
 creation make
 	
-feature -- Columns
+feature {ANY} -- Columns
 	name_column_n: INTEGER is 0
 	nick_column_n: INTEGER is 1
 	flag_column_n: INTEGER is 1
 	columns_n: INTEGER is 3
 
-feature
+feature {ANY}
 	developers: FAST_ARRAY[TUPLE[STRING,STRING]] is
 		once
 			Result:= {FAST_ARRAY[TUPLE[STRING,STRING]]
@@ -316,7 +316,7 @@ feature
 		}
 		end
 
-feature 
+feature {ANY} 
 	model: GTK_TREE_STORE is
 			-- tree model with some data set
 		local
@@ -456,7 +456,7 @@ feature {}  -- Creation
 			gtk.run_main_loop
 		end
 
-feature
+feature {ANY}
 	traverse_model is
 		require valid_model: model /= Void
 		local iter:  GTK_TREE_ITER
@@ -485,7 +485,7 @@ feature
 			print ("From string: ") print (path.to_string) print ("%N")
 		end
 
-feature -- Agents
+feature {ANY} -- Agents
 	add_clicked (a_button: GTK_BUTTON) is
 		do
 
@@ -552,7 +552,7 @@ feature -- Agents
 			Result := True -- i.e. effectively select the picked button.
 		end
 								
-feature -- Constants
+feature {ANY} -- Constants
 	window_title: STRING is "GTK Trees!"
 			-- Text top level window title
 end

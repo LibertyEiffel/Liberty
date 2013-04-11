@@ -70,7 +70,7 @@ feature {} -- Creation
 			store_eiffel_wrapper
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkVScale)"

@@ -5,7 +5,7 @@ inherit
 
 creation make
 
-feature
+feature {ANY}
 	make is
 		local
 			n0: NATURAL_8

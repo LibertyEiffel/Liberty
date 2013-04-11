@@ -80,7 +80,7 @@ feature {} -- Creation
 -- 
 -- Since 2.6
 
-feature
+feature {ANY}
 
 	title: STRING is
 			-- Retrieves the title of the browse dialog used by button.

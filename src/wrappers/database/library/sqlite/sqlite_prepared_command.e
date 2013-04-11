@@ -19,7 +19,7 @@ inherit
 creation
 	{SQLITE_DATABASE} make
 
-feature
+feature {ANY}
 	execute (some_parameters: TRAVERSABLE[ANY]) is
 			-- Execute the current query with `some_parameters'
 		local 

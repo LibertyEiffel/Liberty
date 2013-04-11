@@ -8,7 +8,7 @@ expanded class LLVMINTPREDICATE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = llvmint_eq_low_level)  or else
@@ -23,7 +23,7 @@ feature -- Validity
 				(a_value = llvmint_ult_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_llvmint_eq is
 		do
@@ -75,7 +75,7 @@ feature -- Setters
 			value := llvmint_ult_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_llvmint_eq: BOOLEAN is
 		do
 			Result := (value=llvmint_eq_low_level)

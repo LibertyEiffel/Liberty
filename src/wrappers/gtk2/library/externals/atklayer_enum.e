@@ -8,7 +8,7 @@ expanded class ATKLAYER_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = atk_layer_background_low_level)  or else
@@ -21,7 +21,7 @@ feature -- Validity
 				(a_value = atk_layer_window_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_atk_layer_background is
 		do
@@ -63,7 +63,7 @@ feature -- Setters
 			value := atk_layer_window_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_atk_layer_background: BOOLEAN is
 		do
 			Result := (value=atk_layer_background_low_level)

@@ -35,7 +35,7 @@ inherit
 
 creation make
 	
-feature 
+feature {ANY} 
 	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING) is
 		do
 			Precursor (a_long_name,a_short_name, a_description)
@@ -43,7 +43,7 @@ feature
 			set_arg_data(handle, $hidden_value)
 		end
 
-feature
+feature {ANY}
 	item: BOOLEAN is 
 		do 
 			Result:=hidden_value.to_boolean 

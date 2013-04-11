@@ -30,11 +30,11 @@ insert G_OBJECT_FACTORY [GTK_FILE_CHOOSER]
 
 creation make
 
-feature
+feature {ANY}
 
 	object: GTK_FILE_CHOOSER
 
-feature
+feature {ANY}
 	callback (instance: POINTER) is
 		do
 			debug

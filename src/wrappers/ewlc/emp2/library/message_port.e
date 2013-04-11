@@ -21,7 +21,7 @@ indexing
 
 deferred class MESSAGE_PORT
 
-feature -- Sending message
+feature {ANY} -- Sending message
 	queue (a_message: MESSAGE) is 
 		-- Put `a_message' into the message port queue to be sent later.  See
 		-- `send'.

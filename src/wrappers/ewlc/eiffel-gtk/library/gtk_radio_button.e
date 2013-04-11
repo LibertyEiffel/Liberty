@@ -181,7 +181,7 @@ feature {} -- Creation
 										  (a_widget.handle, a_label.to_external))
 		end
 
-feature -- group
+feature {ANY} -- group
 	set_group (a_group: G_SLIST[GTK_RADIO_BUTTON]) is
 			-- Sets a Current's group to `a_group'. It should be noted
 			-- that this does not change the layout of your interface in
@@ -207,13 +207,13 @@ feature -- group
 			create {G_OBJECT_SLIST[GTK_RADIO_BUTTON]} Result.from_external_pointer (gtk_radio_button_get_group(handle))
 		end
 
-feature -- Property Details TODO
+feature {ANY} -- Property Details TODO
 -- The "group" property
 
 --   "group"                GtkRadioButton        : Write
 
 -- Sets a new group for a radio button.
-feature -- Signal Details TODO
+feature {ANY} -- Signal Details TODO
 -- The "group-changed" signal
 
 -- void        user_function                  (GtkRadioButton *style,

@@ -8,7 +8,7 @@ expanded class LLVMREAL_PREDICATE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = predicate_false_low_level)  or else
@@ -29,7 +29,7 @@ feature -- Validity
 				(a_value = predicate_true_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_predicate_false is
 		do
@@ -111,7 +111,7 @@ feature -- Setters
 			value := predicate_true_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	predicate_false: BOOLEAN is
 		do
 			Result := (value=predicate_false_low_level)

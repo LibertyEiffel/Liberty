@@ -8,7 +8,7 @@ indexing
 class TEST_ERROR
 creation  make
 
-feature
+feature {ANY}
 	make is
 		local
 			a, b: GSL_MATRIX_REAL_64

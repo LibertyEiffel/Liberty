@@ -26,7 +26,7 @@ inherit GDK_EVENT
 		
 creation  from_external_pointer
 
-feature
+feature {ANY}
 	x: INTEGER is
 			-- the new x coordinate of the window, relative to its 
 			-- parent.

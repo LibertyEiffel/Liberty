@@ -8,14 +8,14 @@ expanded class GDKPIXBUFALPHAMODE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gdk_pixbuf_alpha_bilevel_low_level)  or else
 				(a_value = gdk_pixbuf_alpha_full_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gdk_pixbuf_alpha_bilevel is
 		do
@@ -27,7 +27,7 @@ feature -- Setters
 			value := gdk_pixbuf_alpha_full_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gdk_pixbuf_alpha_bilevel: BOOLEAN is
 		do
 			Result := (value=gdk_pixbuf_alpha_bilevel_low_level)

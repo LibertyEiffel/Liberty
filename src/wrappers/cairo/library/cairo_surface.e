@@ -43,7 +43,7 @@ insert
 
 creation make_similar, from_external_pointer
 
-feature -- Creation
+feature {ANY} -- Creation
 
 	make_similar (another: CAIRO_SURFACE; a_content: INTEGER; a_width, an_height: INTEGER) is
 			-- Create a new surface that is as compatible as possible
@@ -77,7 +77,7 @@ feature -- Creation
 			-- an error state or any other error occurs.
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	finish is
 			-- Finishes the surface and drops all references to external
@@ -259,7 +259,7 @@ feature -- Operations
 			valid_result: is_valid_cairo_status (Result)
 		end
 
-feature -- Memory handling
+feature {ANY} -- Memory handling
 	ref is
 			-- Increases the reference count on surface by one. This
 			-- prevents surface from being destroyed until a matching

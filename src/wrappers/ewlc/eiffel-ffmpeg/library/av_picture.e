@@ -31,7 +31,7 @@ insert
 	AV_PICTURE_EXTERNALS
 	AV_PIXEL_FORMATS
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	convert (a_dest: AV_PICTURE; a_dest_pix_fmt, a_src_pix_fmt, a_width, a_height: INTEGER): BOOLEAN is
 		require
@@ -110,7 +110,7 @@ feature -- Operations
 			Result.in_range (0, 4)
 		end
 
-feature -- Size
+feature {ANY} -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <avcodec.h>"

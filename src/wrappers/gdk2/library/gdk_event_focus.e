@@ -28,7 +28,7 @@ insert
 
 creation from_external_pointer
 
-feature -- access
+feature {ANY} -- access
 
 	in: BOOLEAN is
 			-- True if the window has gained the keyboard focus,

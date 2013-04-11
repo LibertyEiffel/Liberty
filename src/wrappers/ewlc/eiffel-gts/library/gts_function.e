@@ -67,7 +67,7 @@ feature {}
 	-- crude hack
 	dispose is do end
 	
-feature 
+feature {ANY} 
 	is_equal (another: like Current): BOOLEAN is
 		do
 			not_yet_implemented

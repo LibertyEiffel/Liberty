@@ -3,7 +3,7 @@ indexing
 
 class GDK_KEY_SYMBOLS
 
-feature -- Constants
+feature {ANY} -- Constants
 	gdk_void_symbol: INTEGER is 16777215
 	gdk_back_space: INTEGER is 65288
 	gdk_tab: INTEGER is 65289

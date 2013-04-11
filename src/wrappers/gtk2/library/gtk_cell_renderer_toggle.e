@@ -53,7 +53,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_cell_renderer_toggle_new)
 		end
 
-feature 
+feature {ANY} 
 	is_radio_toggle: BOOLEAN is
 			-- Is Current cell rendering a radio toggle rather than a checkbox?
 		do
@@ -81,7 +81,7 @@ feature
 		ensure unset: not is_radio_toggle
 		end
 
-feature -- State
+feature {ANY} -- State
 	is_active: BOOLEAN is
 			-- Is the cell renderer is active? See 'set_active'.
 		do
@@ -106,7 +106,7 @@ feature -- State
 		ensure set: is_active
 		end
 
-feature -- TODO: Property Details
+feature {ANY} -- TODO: Property Details
 -- The "activatable" property
 
 --   "activatable"          gboolean              : Read / Write

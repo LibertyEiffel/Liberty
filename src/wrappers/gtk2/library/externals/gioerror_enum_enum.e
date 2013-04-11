@@ -8,7 +8,7 @@ expanded class GIOERROR_ENUM_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = failed_low_level)  or else
@@ -57,7 +57,7 @@ feature -- Validity
 				(a_value = proxy_not_allowed_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_failed is
 		do
@@ -279,7 +279,7 @@ feature -- Setters
 			value := proxy_not_allowed_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	failed: BOOLEAN is
 		do
 			Result := (value=failed_low_level)

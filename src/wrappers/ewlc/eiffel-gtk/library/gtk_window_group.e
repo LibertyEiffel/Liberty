@@ -49,7 +49,7 @@ feature {} -- Creation
 			gtk_window_group_remove_window (handle, a_window.handle)
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkWindowGroup)"

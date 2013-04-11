@@ -34,10 +34,10 @@ insert G_OBJECT_FACTORY [GTK_COLOR_BUTTON]
 
 creation make
 
-feature
+feature {ANY}
 	object: GTK_COLOR_BUTTON
 
-feature
+feature {ANY}
 
 	callback (instance: POINTER) is
 		do

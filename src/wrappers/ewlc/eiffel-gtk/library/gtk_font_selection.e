@@ -55,7 +55,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_font_selection_new)
 		end
 
-feature
+feature {ANY}
 	font_name: STRING is
 			-- The currently-selected font name. Note that this can be a
 			-- different string than what you set with `set_font_name',

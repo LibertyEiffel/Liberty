@@ -4,7 +4,7 @@ expanded class G_SLICE_CONFIG
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_slice_config_always_malloc) or else 
@@ -16,7 +16,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_always_malloc is
 		do
 			value := g_slice_config_always_malloc
@@ -48,7 +48,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_always_malloc: BOOLEAN is
 		do
 			Result := (value=g_slice_config_always_malloc)

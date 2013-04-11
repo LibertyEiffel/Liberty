@@ -134,7 +134,7 @@ feature {} -- External calls
 		external "C use <gtk/gtkpagesetupunixdialog.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtkpagesetupunixdialog.h>"
 		alias "sizeof(GtkPageSetupUnixDialog)"

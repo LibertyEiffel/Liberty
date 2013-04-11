@@ -34,9 +34,9 @@ creation from_external_pointer
 	-- TODO: make_medium,
 	-- TODO: make_large, make_x_large, make_xx_large
 
-feature  -- Creation
+feature {ANY}  -- Creation
 
-feature -- size
+feature {ANY} -- size
 		struct_size: INTEGER is
 		external "C inline use <pango/pango.h>"
 		alias "sizeof(PangoAttrSize)"

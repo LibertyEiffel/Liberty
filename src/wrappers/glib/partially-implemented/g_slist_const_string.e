@@ -29,7 +29,7 @@ inherit
 	
 creation make, from_external_pointer
 
-feature
+feature {ANY}
 		first: CONST_STRING is 
 		do
 			create Result.from_external (g_slist_get_data (handle))

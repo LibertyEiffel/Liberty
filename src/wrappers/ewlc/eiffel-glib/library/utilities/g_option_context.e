@@ -128,7 +128,7 @@ feature {} -- Creation
 			from_external_pointer(g_option_context_new(a_parameter.to_external))
 		end
 
-feature
+feature {ANY}
 	set_summary (a_summary: STRING) is
 			-- Adds a string to be displayed in --help output before the list of
 			-- options. This is typically a summary of the program functionality.
@@ -326,7 +326,7 @@ feature
 			Result:=g_option_context_get_ignore_unknown_options(handle).to_boolean
 		end
 
-feature -- group options
+feature {ANY} -- group options
 	add_main_entries (some_entries: COLLECTION[G_OPTION_ENTRY];
 							a_translaction_domain: STRING) is
 			-- A convenience feature which creates a main group if it doesn't
@@ -390,7 +390,7 @@ feature -- group options
 			-- a_group.set_shared -- avoid freeing the underlying C structure.
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"
 		alias "sizeof(GOptionContext)"

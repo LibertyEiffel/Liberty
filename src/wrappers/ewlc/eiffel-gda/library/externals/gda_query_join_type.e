@@ -4,7 +4,7 @@ expanded class GDA_QUERY_JOIN_TYPE
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_query_join_type_inner) or else 
@@ -16,7 +16,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_inner is
 		do
 			value := gda_query_join_type_inner
@@ -48,7 +48,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_inner: BOOLEAN is
 		do
 			Result := (value=gda_query_join_type_inner)

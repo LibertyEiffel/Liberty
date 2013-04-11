@@ -4,14 +4,14 @@ expanded class GDA_DATA_MODEL_QUERY_OPTIONS
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (some_flags: INTEGER): BOOLEAN is
 		do
 			Result := (some_flags & (gda_data_model_query_option_use_all_fields_if_no_pk)).to_boolean
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create is
 		-- Default creation feature; it leaves all the bits cleared.
 	do
@@ -28,7 +28,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gda_data_model_query_option_use_all_fields_if_no_pk: BOOLEAN is
 		do
 			Result := (value &gda_data_model_query_option_use_all_fields_if_no_pk).to_boolean

@@ -69,14 +69,14 @@ feature {} -- Initialization
 			from_external_pointer (gtk_progress_bar_new) 
 		end
 
-feature -- Element change
+feature {ANY} -- Element change
 	pulse is
 			-- Move the bar with `pulse_step'.
 		do
 			gtk_progress_bar_pulse(handle)
 		end
 
-feature -- Status setting
+feature {ANY} -- Status setting
 	set_text (a_text : STRING) is
 			-- Set the text to appear superimposed on the progress bar.
 		require
@@ -119,7 +119,7 @@ feature -- Status setting
 			gtk_progress_bar_set_ellipsize (handle, a_mode)
 		end
 
-feature -- Status report
+feature {ANY} -- Status report
 	text : STRING is
 			-- Text displayed superimposed on the progress bar.
 		local ptr: POINTER
@@ -180,7 +180,7 @@ feature {} -- Properties implementation
 		ensure not_void: Result /= Void
 		end
 	
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkProgressBar)"

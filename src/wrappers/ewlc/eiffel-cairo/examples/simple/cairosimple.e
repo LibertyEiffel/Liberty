@@ -6,7 +6,7 @@ insert
 creation
 	make
 
-feature
+feature {ANY}
 
 	pi: REAL is 3.14159265358979323846 -- PI
 

@@ -21,7 +21,7 @@ feature {} -- creation
 			window.show
 			run_gtk_main_loop
 		end
-feature -- foo
+feature {ANY} -- foo
 	window: GTK_WINDOW
 			-- the window
 	

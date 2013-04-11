@@ -27,13 +27,13 @@ inherit
 
 creation from_external_pointer
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GEnumValue)"
 		end
 
-feature 
+feature {ANY} 
 
 	value: INTEGER is
 		-- the enum value

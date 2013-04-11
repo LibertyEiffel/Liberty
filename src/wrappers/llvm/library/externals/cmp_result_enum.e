@@ -8,7 +8,7 @@ expanded class CMP_RESULT_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = less_than_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = unordered_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_less_than is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := unordered_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	less_than: BOOLEAN is
 		do
 			Result := (value=less_than_low_level)

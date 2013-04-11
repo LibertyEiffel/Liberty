@@ -187,7 +187,7 @@ feature {ANY} -- Modification:
          value_set: item (count) = c
       end
    
-feature -- Conversion to STRING
+feature {ANY} -- Conversion to STRING
 	to_string: STRING is
 			-- A string holding a copy of Current
 		do
@@ -201,7 +201,7 @@ feature -- Conversion to STRING
 			create Result.from_external (c_string)
 		end
 	
-feature  -- Disposing
+feature {ANY}  -- Disposing
 	dispose is
 		local
          p: POINTER

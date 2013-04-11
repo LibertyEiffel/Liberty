@@ -42,7 +42,7 @@ feature {} -- creation
 		external "C use <goocanvas-1.0/goocanvasrect.h>"
 		end
 
-feature -- struct size
+feature {ANY} -- struct size
 	struct_size: INTEGER is
 		external "C inline use <goocanvas-1.0/goocanvasrect.h>"
 		alias "sizeof(GooCanvasRect)"

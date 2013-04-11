@@ -34,13 +34,13 @@ insert
 
 creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer, secondary_wrapper_from
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkWindow)"
 		end
 
-feature
+feature {ANY}
 
 	set_cursor (a_cursor: GDK_CURSOR) is
 		require

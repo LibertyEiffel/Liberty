@@ -6,7 +6,7 @@ inherit
 creation 
 	make
 
-feature
+feature {ANY}
 	
 	bar: GTK_PROGRESS_BAR
 

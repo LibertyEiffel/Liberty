@@ -2,7 +2,7 @@ class G_UNICODE_STRING
 
 inherit WRAPPER
 
-feature 
+feature {ANY} 
 	--   g_unicode_canonical_ordering ()
 
 	--  void        g_unicode_canonical_ordering    (gunichar *string,

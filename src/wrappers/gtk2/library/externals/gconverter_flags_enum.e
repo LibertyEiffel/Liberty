@@ -8,7 +8,7 @@ expanded class GCONVERTER_FLAGS_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = no_flags_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = flush_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_no_flags is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := flush_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	no_flags: BOOLEAN is
 		do
 			Result := (value=no_flags_low_level)

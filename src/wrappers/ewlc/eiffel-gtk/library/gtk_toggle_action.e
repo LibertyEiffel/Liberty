@@ -44,7 +44,7 @@ feature {} -- Creation
 																		 a_tooltip.to_external,a_stock_id.to_external))
 		end
 
-feature
+feature {ANY}
 	action_toggled is
 			-- Emits the "toggled" signal on the toggle action.
 		do
@@ -94,14 +94,14 @@ feature
 			Result:=gtk_toggle_action_get_draw_as_radio(handle).to_boolean
 		end
 
-feature -- TODO: The "toggled" signal
+feature {ANY} -- TODO: The "toggled" signal
 
 -- void        user_function                  (GtkToggleAction *toggleaction,
 --                                             gpointer         user_data)         : Run first
 
 -- toggleaction : 	the object which received the signal.
 -- user_data : 	user data set when the signal handler was connected.
-feature -- struct size
+feature {ANY} -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkToggleAction)"

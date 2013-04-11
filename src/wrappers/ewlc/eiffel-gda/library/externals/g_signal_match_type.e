@@ -4,7 +4,7 @@ expanded class G_SIGNAL_MATCH_TYPE
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (some_flags: INTEGER): BOOLEAN is
 		do
 			Result := (some_flags & (g_signal_match_id | 
@@ -16,7 +16,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create is
 		-- Default creation feature; it leaves all the bits cleared.
 	do
@@ -83,7 +83,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_id: BOOLEAN is
 		do
 			Result := (value &g_signal_match_id).to_boolean

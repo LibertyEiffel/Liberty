@@ -7,7 +7,7 @@ indexing
 
 class TEST_VECTOR
 creation  make
-feature make is
+feature {ANY} make is
 		local
 			i: INTEGER
 		do

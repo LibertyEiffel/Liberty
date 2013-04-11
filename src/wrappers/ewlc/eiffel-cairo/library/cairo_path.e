@@ -484,7 +484,7 @@ feature {} -- Creation
 	--   dx : the X offset
 	--   dy : the Y offset
 
-feature -- Access
+feature {ANY} -- Access
 
 	status: INTEGER is
 		-- The current error status

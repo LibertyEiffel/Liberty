@@ -36,7 +36,7 @@ inherit
 	-- GtkComboBox, GtkIconView and GtkComboBoxEntry.
 	
 
-feature
+feature {ANY}
 	pack_start (a_cell_renderer: GTK_CELL_RENDERER; expand: BOOLEAN) is
 			-- Packs `a_cell_renderer' into the beginning of Current cell
 			-- layout. If expand is False, then the cell is allocated no
@@ -148,7 +148,7 @@ feature
 		do
 			gtk_cell_layout_clear_attributes(handle, a_cell_renderer.handle)	
 		end
-feature -- Precondition helping features
+feature {ANY} -- Precondition helping features
 	is_tuple_valid (item: TUPLE[STRING,INTEGER]): BOOLEAN is
 			-- Is `item' not Void and then the string contained not Void?
 		do

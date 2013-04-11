@@ -23,13 +23,13 @@ class DIALOG
 
 creation make, from_external_pointer
 
-feature -- Widgets
+feature {ANY} -- Widgets
 	window: GTK_WINDOW -- in C is GTK_WIDGET
 	entry1, entry2: GTK_ENTRY -- GtkWidget in C
 	dialog: GTK_MESSAGE_DIALOG
 	message_dialog_popped_out_counter: INTEGER
 
-feature -- Callbacks
+feature {ANY} -- Callbacks
 	message_dialog_clicked (a_button: GTK_BUTTON) is
 		local 
 		do

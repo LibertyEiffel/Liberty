@@ -8,7 +8,7 @@ expanded class GDKWINDOWATTRIBUTESTYPE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (gdk_wa_colormap_low_level | 
@@ -21,7 +21,7 @@ feature -- Validity
 				gdk_wa_y_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gdk_wa_colormap is
 		do
@@ -103,7 +103,7 @@ feature -- Setters
 			value := value.bit_xor(gdk_wa_y_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gdk_wa_colormap: BOOLEAN is
 		do
 			Result := (value=gdk_wa_colormap_low_level)

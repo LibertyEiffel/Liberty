@@ -46,7 +46,7 @@ deferred class G_TYPE
 
 insert G_TYPE_EXTERNALS
 
-feature
+feature {ANY}
 	-- Note: in libglib 2.9.1 "typedef gulong GType;" (Paolo
 	-- 2006-01-07)
 

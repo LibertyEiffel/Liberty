@@ -8,7 +8,7 @@ expanded class LOST_FRACTION_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = exactly_zero_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = more_than_half_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_exactly_zero is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := more_than_half_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	exactly_zero: BOOLEAN is
 		do
 			Result := (value=exactly_zero_low_level)

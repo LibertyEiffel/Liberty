@@ -142,7 +142,7 @@ feature {} -- Creation
 		end
 	end
 	
-feature
+feature {ANY}
 	open is
 		-- Tries to open the connection. `is_successful' will be True if the
 		-- connection is opened, and False otherwise and `error' is updated.

@@ -4,7 +4,7 @@ expanded class G_UNICODE_BREAK_TYPE
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_unicode_break_mandatory) or else 
@@ -46,7 +46,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_mandatory is
 		do
 			value := g_unicode_break_mandatory
@@ -228,7 +228,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_mandatory: BOOLEAN is
 		do
 			Result := (value=g_unicode_break_mandatory)

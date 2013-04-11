@@ -25,7 +25,7 @@ inherit GTK_TEXT_ITER
 
 creation from_external_pointer, from_iter
 
-feature 
+feature {ANY} 
 	from_iter (an_iterator: EXPANDED_GTK_TEXT_ITER) is
 		do
 			from_external_pointer(gtk_text_iter_copy(handle))

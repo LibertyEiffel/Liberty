@@ -138,7 +138,7 @@ feature {} -- Creation
 			store_eiffel_wrapper
 		end
 
-feature 
+feature {ANY} 
 	set_group (a_group: G_SLIST [GTK_RADIO_MENU_ITEM]) is
 			--    Sets the group of a radio menu item, or changes it.		
 		do
@@ -158,7 +158,7 @@ feature
 			-- Result.set_shared
 		end
 
-feature -- TODO:  The "group-changed" signal
+feature {ANY} -- TODO:  The "group-changed" signal
 	group_changed_signal_name: STRING is "group-changed"
 	
 	on_group_changed is do  end
@@ -168,7 +168,7 @@ feature -- TODO:  The "group-changed" signal
 			connect (Current, group_changed_signal_name, $on_group_changed)
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkRadioMenuItem)"

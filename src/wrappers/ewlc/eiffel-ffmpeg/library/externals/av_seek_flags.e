@@ -26,7 +26,7 @@ inherit
 	ANY
 		undefine copy, is_equal end
 
-feature
+feature {ANY}
 
 	is_valid_av_seek_flags (some_flags: INTEGER): BOOLEAN is
 		do

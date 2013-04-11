@@ -28,7 +28,7 @@ inherit PANGO_FONT_SET redefine struct_size end
 
 creation make, from_external_pointer
 
-feature
+feature {ANY}
 	make (a_language: PANGO_LANGUAGE) is
 			-- Creates a new PangoFontsetSimple for `a_language'.
 		require language_not_void: a_language/=Void
@@ -36,7 +36,7 @@ feature
 			from_external_pointer(pango_fontset_simple_new(a_language.handle))
 		end
 
-feature 
+feature {ANY} 
 	append (a_font: PANGO_FONT) is
 			-- Adds `a_font' to the fontset.
 		require font_not_void: a_font/=Void
@@ -69,7 +69,7 @@ feature {} -- External calls
 		external "C  use <pango.h>"
 		end
 	
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <pango.h>"
 		alias "sizeof(PangoFontSetSimple)"

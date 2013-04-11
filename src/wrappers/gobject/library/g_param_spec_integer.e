@@ -16,7 +16,7 @@ inherit
 creation
 	make, from_external_pointer
 	
-feature -- Creation
+feature {ANY} -- Creation
 
 	make (a_name,a_nick,a_blurb: STRING;
 			a_min,a_max,a_default: INTEGER; some_flags: INTEGER) is
@@ -32,7 +32,7 @@ feature -- Creation
 											a_min, a_max, a_default, some_flags))
 		end
 	
-feature
+feature {ANY}
 	struct_size: INTEGER is
 		external "C use <glib-object.h>"
 		alias "sizeof(GParamSpecInt)"

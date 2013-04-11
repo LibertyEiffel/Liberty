@@ -23,7 +23,7 @@ class HYPERTEXT
 
 creation make
 
-feature
+feature {ANY}
 -- /* Text Widget/Hypertext
 --  *
 --  * Usually, tags modify the appearance of text in the view, e.g. making it 

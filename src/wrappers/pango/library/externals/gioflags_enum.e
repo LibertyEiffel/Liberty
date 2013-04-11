@@ -8,7 +8,7 @@ expanded class GIOFLAGS_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = append_low_level)  or else
@@ -21,7 +21,7 @@ feature -- Validity
 				(a_value = set_mask_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_append is
 		do
@@ -63,7 +63,7 @@ feature -- Setters
 			value := set_mask_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_append: BOOLEAN is
 		do
 			Result := (value=append_low_level)

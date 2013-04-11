@@ -38,7 +38,7 @@ feature {} -- Creation
 feature {} -- Implementation
 	list: POINTER
 	current_element: POINTER
-feature -- Iterator's features
+feature {ANY} -- Iterator's features
 	start is
 		do
 			current_element := list

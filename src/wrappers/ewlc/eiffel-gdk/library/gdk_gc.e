@@ -49,14 +49,14 @@ feature {} -- Creation
 			from_external_pointer (gdk_gc_new (a_drawable.handle))
 		end
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkGc)"
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	set_rgb_fg_color (a_color: GDK_COLOR) is
 			-- Set the foreground color of a GC using an unallocated color.

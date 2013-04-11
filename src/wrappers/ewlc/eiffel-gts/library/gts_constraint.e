@@ -52,7 +52,7 @@ feature {} -- External calls
 		alias "sizeof(GtsConstraint)"
 		end
 
-feature -- Printing
+feature {ANY} -- Printing
 	fill_tagged_out_memory is
 		do
 			tagged_out_memory.append(once "{(")

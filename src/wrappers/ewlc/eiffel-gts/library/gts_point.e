@@ -42,7 +42,7 @@ feature {} -- Creation
 			from_external_pointer (gts_point_new (gts_point_class,0.0,0.0,0.0))
 		end
 	
-feature 
+feature {ANY} 
 	x: REAL is
 		do
 			Result := get_x (handle)
@@ -58,7 +58,7 @@ feature
 			Result := get_z (handle)
 		end
 
-feature 
+feature {ANY} 
 	set (an_x, an_y, a_z: REAL) is 
 			-- Sets the coordinates of Current point.
 		do
@@ -249,7 +249,7 @@ feature
 	--     Returns :  TRUE if p is inside the surface defined by tree, FALSE 
 	--     otherwise.
 
-feature -- Locating
+feature {ANY} -- Locating
 	container_face (a_surface: GTS_SURFACE; guess: GTS_FACE): GTS_FACE is
 			-- The face of the planar projection of surface containing
 			-- Current point. The planar projection of surface must

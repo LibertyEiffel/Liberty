@@ -30,10 +30,10 @@ insert G_OBJECT_FACTORY [GTK_WIDGET]
 
 creation make
 
-feature
+feature {ANY}
 	object: GTK_WIDGET
 
-feature
+feature {ANY}
 	callback (drag_context_ptr: POINTER; x, y, time: INTEGER; instance: POINTER): INTEGER is
 		-- require time >= 0
 		local drag_context: GDK_DRAG_CONTEXT

@@ -30,10 +30,10 @@ insert G_OBJECT_FACTORY [GTK_CELL_RENDERER_TEXT]
 
 creation make
 
-feature
+feature {ANY}
 	object: GTK_CELL_RENDERER_TEXT
 
-feature
+feature {ANY}
 	callback (arg1, arg2, instance: POINTER) is
 		local
 			str1, str2: STRING

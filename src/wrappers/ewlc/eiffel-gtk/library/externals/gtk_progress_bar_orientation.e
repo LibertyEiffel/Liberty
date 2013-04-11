@@ -25,7 +25,7 @@ deferred class GTK_PROGRESS_BAR_ORIENTATION
 	
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_gtk_progress_bar_orientation (an_orientation :INTEGER): BOOLEAN is
 		do	
 			Result:=((an_orientation =  gtk_progress_left_to_right) or else

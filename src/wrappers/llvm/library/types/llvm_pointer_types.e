@@ -4,7 +4,7 @@ deferred class LLVM_POINTER_TYPES
         obsolete "use LLVM_C_TYPES"
 
 insert ANY undefine copy, is_equal end
-feature --
+feature {ANY} --
         pointer(a_type: LLVM_TYPE): LLVM_POINTER_TYPE is
                 -- The type of a pointer to `a_type'; i.e. pointer(int_32) represents "int*".
         require a_type/=Void

@@ -1,6 +1,6 @@
 class FORKING
 creation make
-feature 
+feature {ANY} 
 	make is
 		do
 			print("Father genertaing 5 childred%N")

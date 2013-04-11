@@ -3,7 +3,7 @@ class ZMQ_EXAMPLE_SERVER
 insert 
 	UNISTD_EXTERNALS -- Some low-level Posix calls
 creation {} make
-feature
+feature {ANY}
 	context: ZMQ_CONTEXT
 	socket: ZMQ_REP_SOCKET
 	request, answer: ZMQ_STRING_MESSAGE

@@ -4,7 +4,7 @@ inherit GTK_WINDOW redefine make, on_destroy end
 
 creation make
 
-feature 
+feature {ANY} 
 	make is
 		do
 			Precursor
@@ -12,7 +12,7 @@ feature
 			-- create destroy_callback.make; destroy_callback.connect (Current, agent on_destroy)
 		end
 
-feature -- callback
+feature {ANY} -- callback
 	--	destroy_callback: DESTROY_CALLBACK
 	on_destroy is
 		local

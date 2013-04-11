@@ -58,7 +58,7 @@ feature {} -- Creation
 			from_external_pointer(g_pattern_spec_new(a_pattern.to_external))
 		end
 
-feature 
+feature {ANY} 
 	is_equal (another: like Current): BOOLEAN is
 			-- Compares Current and `another' patterns. Will they match
 			-- the same set of strings?
@@ -175,7 +175,7 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"
 		alias "sizeof(GPatternSpec)"

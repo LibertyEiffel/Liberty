@@ -8,7 +8,7 @@ expanded class GTLS_CERTIFICATE_FLAGS_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = unknown_ca_low_level)  or else
@@ -21,7 +21,7 @@ feature -- Validity
 				(a_value = validate_all_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_unknown_ca is
 		do
@@ -63,7 +63,7 @@ feature -- Setters
 			value := validate_all_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	unknown_ca: BOOLEAN is
 		do
 			Result := (value=unknown_ca_low_level)

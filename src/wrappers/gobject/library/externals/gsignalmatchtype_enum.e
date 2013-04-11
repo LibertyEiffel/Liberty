@@ -8,7 +8,7 @@ expanded class GSIGNALMATCHTYPE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (g_signal_match_closure_low_level | 
@@ -18,7 +18,7 @@ feature -- Validity
 				g_signal_match_unblocked_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_signal_match_closure is
 		do
@@ -70,7 +70,7 @@ feature -- Setters
 			value := value.bit_xor(g_signal_match_unblocked_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_signal_match_closure: BOOLEAN is
 		do
 			Result := (value=g_signal_match_closure_low_level)

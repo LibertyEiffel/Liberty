@@ -50,7 +50,7 @@ feature {} -- Creation
 			from_external_pointer(gdk_screen_get_default)
 		end
 
-feature
+feature {ANY}
 	--	default_colormap: GDK_COLORMAP is
 			-- the default colormap for screen.
 -- 		do
@@ -722,7 +722,7 @@ feature
 --    user_data : user data set when the signal handler was connected.
 
 
-feature 
+feature {ANY} 
 	struct_size: INTEGER is
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkScreen)"

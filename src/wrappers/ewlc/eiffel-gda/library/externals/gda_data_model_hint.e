@@ -4,7 +4,7 @@ expanded class GDA_DATA_MODEL_HINT
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_data_model_hint_start_batch_update) or else 
@@ -13,7 +13,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_gda_data_model_hint_start_batch_update is
 		do
 			value := gda_data_model_hint_start_batch_update
@@ -30,7 +30,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gda_data_model_hint_start_batch_update: BOOLEAN is
 		do
 			Result := (value=gda_data_model_hint_start_batch_update)

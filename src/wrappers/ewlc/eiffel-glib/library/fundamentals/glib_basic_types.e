@@ -25,7 +25,7 @@ deferred class GLIB_BASIC_TYPES
 
 insert ANY undefine is_equal, copy end
 
-feature -- Basic Types: standard GLib types, defined for ease-of-use and portability.
+feature {ANY} -- Basic Types: standard GLib types, defined for ease-of-use and portability.
 	--  #include <glib.h>
 
 	--  typedef     gboolean;
@@ -272,7 +272,7 @@ feature -- Basic Types: standard GLib types, defined for ease-of-use and portabi
 			-- Empty by design
 		end
 	
-feature -- Limits of Basic Types
+feature {ANY} -- Limits of Basic Types
 	-- Limits of Basic Types:  portable method of determining the limits of the standard types.
 	
 -- #include <glib.h>

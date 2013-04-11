@@ -44,7 +44,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_frame_new (a_label.to_external))
 		end
 
-feature -- label
+feature {ANY} -- label
 	label: STRING is
 			-- the text to use as the label of the frame
 		local ptr: POINTER
@@ -67,7 +67,7 @@ feature -- label
 		end
 
 
-feature -- label widget
+feature {ANY} -- label widget
 	-- TODO label_widget: GTK_WIDGET is -- The label widget for the frame.
 	
 	set_label_widget (a_widget: GTK_WIDGET) is
@@ -92,7 +92,7 @@ feature -- label widget
 			gtk_frame_set_label_align (handle,an_xalign,an_yalign)
 		end
 
-feature -- shadow
+feature {ANY} -- shadow
 	shadow_type: INTEGER is
 		do
 			Result := gtk_frame_get_shadow_type (handle)
@@ -106,7 +106,7 @@ feature -- shadow
 			gtk_frame_set_shadow_type (handle,a_shadow_type)
 		end
 
-feature -- Alignments
+feature {ANY} -- Alignments
 	alignments: TUPLE[REAL,REAL] is
 			-- the X and Y alignment of the frame's label.
 		local xal,yal: REAL_32
@@ -131,7 +131,7 @@ feature -- Alignments
 			-- TODO postcondition
 		end
 
-feature -- TODO Property Details
+feature {ANY} -- TODO Property Details
 -- The "label" property
 
 --   "label"                gchararray            : Read / Write

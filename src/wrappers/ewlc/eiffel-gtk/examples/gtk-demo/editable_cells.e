@@ -23,7 +23,7 @@ class EDITABLE_CELLS
 
 creation make
 
-feature
+feature {ANY}
 -- /* Tree View/Editable Cells
 --  *
 --  * This demo demonstrates the use of editable cells in a GtkTreeView. If

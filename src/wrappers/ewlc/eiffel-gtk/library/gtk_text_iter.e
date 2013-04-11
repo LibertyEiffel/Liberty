@@ -94,7 +94,7 @@ feature {} -- Disposing
 			handle := default_pointer
 		end
 
-feature
+feature {ANY}
 
 	buffer: GTK_TEXT_BUFFER is
 			-- the GtkTextBuffer this iterator is associated with.
@@ -509,7 +509,7 @@ feature
 			create Result.from_external_pointer(gtk_text_iter_get_language(handle))
 		end
 
-feature -- Iterator-like 
+feature {ANY} -- Iterator-like 
 	is_off: BOOLEAN is
 			-- Is iter the end iterator? End iterator is one past the
 			-- last dereferenceable iterator in the buffer. This feature
@@ -1148,7 +1148,7 @@ feature -- Iterator-like
 		ensure ordered: Current <= another
 		end
 
-feature -- Comparability
+feature {ANY} -- Comparability
 	is_equal (another: like Current): BOOLEAN is
 			-- Tests whether two iterators (Current and `another') are
 			-- equal, using the fastest possible mechanism. This function
@@ -1204,7 +1204,7 @@ feature -- Comparability
 			Result:=gtk_text_iter_compare(handle, another.handle)
 		end
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

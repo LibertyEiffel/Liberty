@@ -66,7 +66,7 @@ feature {} -- External calls
 		external "C use <cairo.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <cairo.h>"
 		alias "sizeof(cairo_font_face_t)"

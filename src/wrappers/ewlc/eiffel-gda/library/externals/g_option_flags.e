@@ -4,7 +4,7 @@ expanded class G_OPTION_FLAGS
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (some_flags: INTEGER): BOOLEAN is
 		do
 			Result := (some_flags & (g_option_flag_hidden | 
@@ -17,7 +17,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create is
 		-- Default creation feature; it leaves all the bits cleared.
 	do
@@ -94,7 +94,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_hidden: BOOLEAN is
 		do
 			Result := (value &g_option_flag_hidden).to_boolean

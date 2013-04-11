@@ -58,7 +58,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_action_group_new (a_name.to_external))
 		end
 
-feature 
+feature {ANY} 
 	name: CONST_STRING is
 			-- the name of the action group.
 		do
@@ -507,7 +507,7 @@ feature
 	--   Since 2.6
 
 
-feature -- TODO: Properties
+feature {ANY} -- TODO: Properties
 
 
 	--   "name"                 gchararray            : Read / Write / Construct Only
@@ -545,7 +545,7 @@ feature -- TODO: Properties
 	--   Default value: TRUE
 
 
-feature -- TODO: Signals
+feature {ANY} -- TODO: Signals
 
 
 	-- "connect-proxy"
@@ -656,7 +656,7 @@ feature -- TODO: Signals
 	--   user_data :    user data set when the signal handler was connected.
 
 	--   Since 2.4
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkActionGroup)"

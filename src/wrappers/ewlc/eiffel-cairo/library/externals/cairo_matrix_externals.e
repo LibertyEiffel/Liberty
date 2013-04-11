@@ -93,7 +93,7 @@ feature {} -- External calls
 		external "C use <pango.h>"
 		end
 
-feature -- Access to the matrix structure
+feature {ANY} -- Access to the matrix structure
 
 	cairo_matrix_get_xx (a_matrix: POINTER): REAL is
 		external "C struct cairo_matrix_t get xx use <cairo.h>"
@@ -119,7 +119,7 @@ feature -- Access to the matrix structure
 		external "C struct cairo_matrix_t get y0 use <cairo.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <cairo.h>"
 		alias "sizeof(cairo_matrix_t)"

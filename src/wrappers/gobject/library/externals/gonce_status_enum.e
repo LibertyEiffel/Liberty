@@ -8,7 +8,7 @@ expanded class GONCE_STATUS_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = notcalled_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = ready_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_notcalled is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := ready_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_notcalled: BOOLEAN is
 		do
 			Result := (value=notcalled_low_level)

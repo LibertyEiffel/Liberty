@@ -8,10 +8,10 @@ class GSLIST_EXAMPLE
 
 creation make
 
-feature
+feature {ANY}
 	list: G_SLIST[G_STRING]
 	first: G_STRING
-feature make is
+feature {ANY} make is
 		local i: ITERATOR [G_STRING]
 		do
 			create list.make_empty

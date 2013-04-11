@@ -47,7 +47,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_menu_bar_new)
 		end
 
-feature
+feature {ANY}
 	set_pack_direction (a_direction: INTEGER) is
 			-- 	Sets how items should be packed inside a menubar.
 		require
@@ -85,12 +85,12 @@ feature
 		ensure is_valid_gtk_pack_direction (Result)
 		end
 
-feature -- Properties
+feature {ANY} -- Properties
 
 	-- Note: "child-pack-direction" and "pack-direction" shall not be
 	-- wrapped since there already are functions accessing them. 
 
-feature -- Style Properties
+feature {ANY} -- Style Properties
 	-- 	"internal-padding"     gint                  : Read
 	-- 	"shadow-type"          GtkShadowType         : Read
 	
@@ -146,7 +146,7 @@ feature -- Style Properties
 
 -- 	GtkMenuShell, GtkMenu, GtkMenuItem
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkMenuBar)"

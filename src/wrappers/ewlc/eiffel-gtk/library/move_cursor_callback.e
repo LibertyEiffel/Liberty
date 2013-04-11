@@ -30,10 +30,10 @@ insert G_OBJECT_FACTORY [GTK_TEXT_VIEW]
 
 creation make
 
-feature
+feature {ANY}
 	object: GTK_TEXT_VIEW
 
-feature
+feature {ANY}
 	callback (step, count, extend_selection: INTEGER; instance: POINTER) is
 		do
 			-- The following is written with the implicit requirement 

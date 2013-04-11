@@ -28,7 +28,7 @@ inherit G_STRUCT
 
 creation from_external_pointer
 
-feature
+feature {ANY}
 	x1: INTEGER is
 			-- the x coordinate of the start point.
 		do
@@ -50,7 +50,7 @@ feature
 			Result := get_y2 (handle)
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkSegment)"

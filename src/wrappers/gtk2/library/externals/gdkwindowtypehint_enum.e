@@ -8,7 +8,7 @@ expanded class GDKWINDOWTYPEHINT_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gdk_window_type_hint_combo_low_level)  or else
@@ -27,7 +27,7 @@ feature -- Validity
 				(a_value = gdk_window_type_hint_utility_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gdk_window_type_hint_combo is
 		do
@@ -99,7 +99,7 @@ feature -- Setters
 			value := gdk_window_type_hint_utility_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gdk_window_type_hint_combo: BOOLEAN is
 		do
 			Result := (value=gdk_window_type_hint_combo_low_level)

@@ -8,7 +8,7 @@ expanded class GTK_CALENDAR_DISPLAY_OPTIONS_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := (a_value & (show_heading_low_level | 
@@ -18,7 +18,7 @@ feature -- Validity
 				show_details_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_show_heading is
 		do
@@ -70,7 +70,7 @@ feature -- Setters
 			value := value.bit_xor(show_details_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_show_heading: BOOLEAN is
 		do
 			Result := (value=show_heading_low_level)

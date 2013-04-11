@@ -4,7 +4,7 @@ expanded class XML_ELEMENT_CONTENT_TYPE
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = xml_element_content_pcdata) or else 
@@ -14,7 +14,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_pcdata is
 		do
 			value := xml_element_content_pcdata
@@ -36,7 +36,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_pcdata: BOOLEAN is
 		do
 			Result := (value=xml_element_content_pcdata)

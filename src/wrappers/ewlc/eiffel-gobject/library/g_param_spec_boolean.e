@@ -29,7 +29,7 @@ inherit
 
 creation make, from_external_pointer
 	
-feature -- Creation
+feature {ANY} -- Creation
 	make (a_name,a_nick,a_blurb: STRING; a_default: BOOLEAN; some_flags: INTEGER) is
 			-- Creates a new G_PARAM_SPEC_BOOLEAN.
 			-- `a_name' is the canonical name of the property specified,
@@ -48,7 +48,7 @@ feature -- Creation
 			param_id := get_param_id (handle)
 		end
 	
-feature
+feature {ANY}
 	struct_size: INTEGER is
 		external "C use <glib-object.h>"
 		alias "sizeof(GParamSpecInt)"

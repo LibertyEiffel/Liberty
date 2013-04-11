@@ -8,7 +8,7 @@ expanded class GDK_OWNER_CHANGE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = new_owner_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = close_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_new_owner is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := close_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	new_owner: BOOLEAN is
 		do
 			Result := (value=new_owner_low_level)

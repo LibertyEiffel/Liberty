@@ -34,7 +34,7 @@ insert
 
 creation make
 
-feature
+feature {ANY}
 
 	object: GTK_WIDGET
 

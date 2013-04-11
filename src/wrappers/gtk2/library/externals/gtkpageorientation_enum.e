@@ -8,7 +8,7 @@ expanded class GTKPAGEORIENTATION_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gtk_page_orientation_landscape_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = gtk_page_orientation_reverse_portrait_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gtk_page_orientation_landscape is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := gtk_page_orientation_reverse_portrait_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gtk_page_orientation_landscape: BOOLEAN is
 		do
 			Result := (value=gtk_page_orientation_landscape_low_level)

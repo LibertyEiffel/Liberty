@@ -28,7 +28,7 @@ inherit
 	
 creation  make, from_external_pointer
 
-feature 
+feature {ANY} 
 	make is
 		do
 			from_external_pointer(gts_fifo_new)
@@ -158,7 +158,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
  external "C inline use <gts.h>"
  alias "sizeof(GtsFifo)"

@@ -8,7 +8,7 @@ expanded class GTLS_ERROR_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = unavailable_low_level)  or else
@@ -20,7 +20,7 @@ feature -- Validity
 				(a_value = eof_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_unavailable is
 		do
@@ -57,7 +57,7 @@ feature -- Setters
 			value := eof_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	unavailable: BOOLEAN is
 		do
 			Result := (value=unavailable_low_level)

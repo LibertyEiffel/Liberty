@@ -8,7 +8,7 @@ expanded class LLVMCALL_CONV_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = ccall_conv_low_level)  or else
@@ -18,7 +18,7 @@ feature -- Validity
 				(a_value = x86fastcall_call_conv_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_ccall_conv is
 		do
@@ -45,7 +45,7 @@ feature -- Setters
 			value := x86fastcall_call_conv_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	ccall_conv: BOOLEAN is
 		do
 			Result := (value=ccall_conv_low_level)

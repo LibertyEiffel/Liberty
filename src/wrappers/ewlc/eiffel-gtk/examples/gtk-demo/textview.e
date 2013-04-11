@@ -36,23 +36,23 @@ insert
 	
 creation make
 
-feature -- Widgets
+feature {ANY} -- Widgets
 	buffer: GTK_TEXT_BUFFER
-feature 
+feature {ANY} 
 	make is 
 		do 
 			gtk.initialize_gtk
 			create buffer.make
 		end 
-feature  -- Callbacks
+feature {ANY}  -- Callbacks
 	-- easter_egg_callback (GtkWidget *button, Gpointer data);
 
-feature -- constants
+feature {ANY} -- constants
 	gray50_width: INTEGER is 2
 	gray50_height: INTEGER is 2
 			-- static char gray50_bits[] = {0x02, 0x01}; ???
 
-feature -- tags	
+feature {ANY} -- tags	
 	heading: GTK_TEXT_TAG is
 		once
 			create Result.with_name("heading")

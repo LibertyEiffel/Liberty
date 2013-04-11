@@ -5,7 +5,7 @@ insert READ_LINE
 
 creation make
 
-feature 
+feature {ANY} 
 	make is
 		do
 			prompt := "Liberty> "

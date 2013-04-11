@@ -30,10 +30,10 @@ insert G_OBJECT_FACTORY [GTK_CELL_RENDERER]
 
 creation make
 
-feature
+feature {ANY}
 	object: GTK_CELL_RENDERER
 
-feature
+feature {ANY}
 	callback (editable_ptr, path_ptr, instance: POINTER) is
 		local
 			cell_editable_factory: G_OBJECT_FACTORY[GTK_CELL_EDITABLE]

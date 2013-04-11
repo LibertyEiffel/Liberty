@@ -1,7 +1,7 @@
 class EXPANDER_DEMO
 insert GTK
 creation make
-feature
+feature {ANY}
 	make is
 		do
 			gtk.initialize

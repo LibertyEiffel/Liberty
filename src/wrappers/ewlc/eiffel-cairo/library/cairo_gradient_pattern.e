@@ -82,7 +82,7 @@ feature {} -- Creation
 			-- cairo_pattern_status().
 		end
 
-feature
+feature {ANY}
 	add_color_stop_rgb (an_offset, a_red, a_green, a_blue: REAL) is
 			-- Adds an opaque color stop to a gradient pattern. The
 			-- offset specifies the location along the gradient's control

@@ -103,7 +103,7 @@ feature {} -- Creation
 			handle.is_not_null
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	get_widget (name: STRING): POINTER is
 		obsolete "use get_xxx instead (where xxx is the widget name, like %"window%", %"button%", etc.)"
@@ -111,14 +111,14 @@ feature -- Access
 			Result := glade_xml_get_widget (handle, name.to_external)
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	signal_autoconnect is
 		do
 			glade_xml_signal_autoconnect (handle)
 		end
 
-feature -- struct size
+feature {ANY} -- struct size
 
 	struct_size: INTEGER is
 		external "C inline use <glade/glade.h>"

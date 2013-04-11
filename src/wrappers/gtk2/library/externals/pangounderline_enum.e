@@ -8,7 +8,7 @@ expanded class PANGOUNDERLINE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = pango_underline_double_low_level)  or else
@@ -18,7 +18,7 @@ feature -- Validity
 				(a_value = pango_underline_single_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_pango_underline_double is
 		do
@@ -45,7 +45,7 @@ feature -- Setters
 			value := pango_underline_single_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_pango_underline_double: BOOLEAN is
 		do
 			Result := (value=pango_underline_double_low_level)

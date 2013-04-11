@@ -94,7 +94,7 @@ feature {} -- Creation
 		ensure then text_only: is_text_only
 		end
 
-feature
+feature {ANY}
 	set_text_column (a_column: INTEGER) is
 			-- Sets the model column which entry box should use to get
 			-- strings from to be `a_column'.
@@ -110,7 +110,7 @@ feature
 		ensure valid: Result >= -1 
 		end
 
-feature
+feature {ANY}
 
 	entry: GTK_ENTRY is
 		do
@@ -123,7 +123,7 @@ feature
 feature {} -- Implementation
 	hidden_child_wrapper: GTK_ENTRY
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

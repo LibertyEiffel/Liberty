@@ -8,7 +8,7 @@ inherit WRAPPER_HANDLER -- to play with pointers
 
 creation make
 
-feature
+feature {ANY}
 	array: C_ARRAY[G_STRING]
 
 	make is

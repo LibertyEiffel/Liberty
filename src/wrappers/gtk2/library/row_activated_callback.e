@@ -29,10 +29,10 @@ inherit
 
 creation make
 
-feature
+feature {ANY}
 	object: GTK_TREE_VIEW
 
-feature
+feature {ANY}
 
 	callback (tree_path, tree_view_col, instance: POINTER) is
 		local

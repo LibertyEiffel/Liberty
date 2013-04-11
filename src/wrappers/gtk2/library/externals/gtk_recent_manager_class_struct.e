@@ -39,7 +39,7 @@ feature {} -- Low-level queries
 	-- Unwrappable field _gtk_recent2.
 	-- Unwrappable field _gtk_recent3.
 	-- Unwrappable field _gtk_recent4.
-feature -- Structure size
+feature {ANY} -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

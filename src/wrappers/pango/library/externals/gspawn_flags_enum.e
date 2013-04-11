@@ -8,7 +8,7 @@ expanded class GSPAWN_FLAGS_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := (a_value & (leave_descriptors_open_low_level | 
@@ -19,7 +19,7 @@ feature -- Validity
 				file_and_argv_zero_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_leave_descriptors_open is
 		do
@@ -81,7 +81,7 @@ feature -- Setters
 			value := value.bit_xor(file_and_argv_zero_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_leave_descriptors_open: BOOLEAN is
 		do
 			Result := (value=leave_descriptors_open_low_level)

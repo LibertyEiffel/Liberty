@@ -16,7 +16,7 @@ creation
 	from_string,
 	try_string
 
-feature
+feature {ANY}
 	quark: NATURAL_32 
 	-- The numeric representation of the quark.
 

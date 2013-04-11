@@ -8,7 +8,7 @@ expanded class LLVMVERIFIERFAILUREACTION_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = llvmabort_process_action_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = llvmreturn_status_action_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_llvmabort_process_action is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := llvmreturn_status_action_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_llvmabort_process_action: BOOLEAN is
 		do
 			Result := (value=llvmabort_process_action_low_level)

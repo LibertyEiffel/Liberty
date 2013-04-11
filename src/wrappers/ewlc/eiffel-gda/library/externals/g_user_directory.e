@@ -4,7 +4,7 @@ expanded class G_USER_DIRECTORY
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_user_directory_desktop) or else 
@@ -19,7 +19,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_directory_desktop is
 		do
 			value := g_user_directory_desktop
@@ -66,7 +66,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_directory_desktop: BOOLEAN is
 		do
 			Result := (value=g_user_directory_desktop)

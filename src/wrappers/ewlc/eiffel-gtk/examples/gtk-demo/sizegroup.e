@@ -23,7 +23,7 @@ class SIZEGROUP
 
 creation make
 
-feature
+feature {ANY}
 	
 -- /* Size Groups
 --  *

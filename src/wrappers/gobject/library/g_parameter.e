@@ -18,7 +18,7 @@ insert
 
 creation from_external_pointer
 	
-feature 
+feature {ANY} 
 	name: STRING is
 			-- the parameter name
 		do
@@ -34,7 +34,7 @@ feature
 	-- const gchar *name; 	the parameter name
 	-- GValue value; 	the parameter value
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GParameter)"

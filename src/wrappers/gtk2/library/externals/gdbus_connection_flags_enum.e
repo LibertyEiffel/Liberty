@@ -8,7 +8,7 @@ expanded class GDBUS_CONNECTION_FLAGS_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = none_low_level)  or else
@@ -19,7 +19,7 @@ feature -- Validity
 				(a_value = delay_message_processing_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_none is
 		do
@@ -51,7 +51,7 @@ feature -- Setters
 			value := delay_message_processing_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	none: BOOLEAN is
 		do
 			Result := (value=none_low_level)

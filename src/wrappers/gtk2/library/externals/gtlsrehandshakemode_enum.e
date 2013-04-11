@@ -8,7 +8,7 @@ expanded class GTLSREHANDSHAKEMODE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_tls_rehandshake_never_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = g_tls_rehandshake_unsafely_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_tls_rehandshake_never is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := g_tls_rehandshake_unsafely_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_tls_rehandshake_never: BOOLEAN is
 		do
 			Result := (value=g_tls_rehandshake_never_low_level)

@@ -22,7 +22,7 @@ indexing
 deferred class HAS_BACKWARD_STEPPER_PROPERTY
 
 inherit GTK_OBJECT 
-feature -- TODO: The  "has-backward-stepper" style property
+feature {ANY} -- TODO: The  "has-backward-stepper" style property
 
 	has_backward_stepper: BOOLEAN is
 			-- Is the standard backward arrow button displayed?  Default

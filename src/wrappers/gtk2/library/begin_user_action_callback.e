@@ -30,10 +30,10 @@ insert G_OBJECT_FACTORY [GTK_TEXT_BUFFER]
 
 creation make
 
-feature
+feature {ANY}
 	object: GTK_TEXT_BUFFER
 
-feature
+feature {ANY}
 	callback (instance: POINTER) is
 		do
 			debug

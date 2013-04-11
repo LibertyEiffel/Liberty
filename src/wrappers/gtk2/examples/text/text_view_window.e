@@ -4,7 +4,7 @@ inherit
 	GTK
 creation make
 
-feature
+feature {ANY}
 
 	make is
 		local
@@ -28,7 +28,7 @@ feature
 			enable_on_destroy
 		end
 
-feature -- Widgets
+feature {ANY} -- Widgets
 	text: GTK_TEXT_VIEW
 
 	some_string: STRING is "[
@@ -37,7 +37,7 @@ feature -- Widgets
 									You can put formatting and images inside it.
 									]"
 
-feature  -- Callbacks
+feature {ANY}  -- Callbacks
 	on_destroy is
 		do
 			print ("Text view demo ending%N")

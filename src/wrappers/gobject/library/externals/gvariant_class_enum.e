@@ -8,7 +8,7 @@ expanded class GVARIANT_CLASS_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = boolean_low_level)  or else
@@ -31,7 +31,7 @@ feature -- Validity
 				(a_value = dict_entry_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_boolean is
 		do
@@ -123,7 +123,7 @@ feature -- Setters
 			value := dict_entry_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_boolean: BOOLEAN is
 		do
 			Result := (value=boolean_low_level)

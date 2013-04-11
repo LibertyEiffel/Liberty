@@ -24,7 +24,7 @@ class FFMPEG_COMMON
 	-- before any work can be done with FFmpeg, and other features needed by
 	-- any FFmpeg program.
 
-feature
+feature {ANY}
 
 	ffmpeg_init is
 			-- call av_register_all and any other initialization for the video

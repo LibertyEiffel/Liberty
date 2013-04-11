@@ -54,7 +54,7 @@ feature {} --
 		ensure attribute_list_freezed: an_attribute_list.is_freezed
 		end
 	
-feature 
+feature {ANY} 
 	copy (another: like Current) is
 			--    Copy a PangoAttrIterator
 		do
@@ -162,7 +162,7 @@ feature
 			end
 		end
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

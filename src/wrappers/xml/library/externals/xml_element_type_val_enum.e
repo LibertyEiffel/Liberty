@@ -8,7 +8,7 @@ expanded class XML_ELEMENT_TYPE_VAL_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = undefined_low_level)  or else
@@ -18,7 +18,7 @@ feature -- Validity
 				(a_value = element_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_undefined is
 		do
@@ -45,7 +45,7 @@ feature -- Setters
 			value := element_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	undefined: BOOLEAN is
 		do
 			Result := (value=undefined_low_level)

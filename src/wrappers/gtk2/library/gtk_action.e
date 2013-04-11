@@ -82,7 +82,7 @@ feature {} -- Creation
 																a_tooltip.to_external, a_stock_id.to_external))
 		end
 
-feature
+feature {ANY}
 	name: STRING is
 			-- the name of the action.
 		do
@@ -253,7 +253,7 @@ feature
 
 	-- Since 2.4
 
-feature -- Sensitivity
+feature {ANY} -- Sensitivity
 	is_sensitive: BOOLEAN is
 			-- Is the action is effectively sensitive? TRUE if the action
 			-- and its associated action group are both sensitive.
@@ -287,7 +287,7 @@ feature -- Sensitivity
 		ensure potentially_insensitive: not is_potentially_sensitive
 		end
 	
-feature -- Visibility
+feature {ANY} -- Visibility
 	is_visible: BOOLEAN is
 			-- Is the action effectively visible? True if the action and
 			-- its associated action group are both visible.
@@ -320,7 +320,7 @@ feature -- Visibility
 			gtk_action_set_visible(handle,0)
 		ensure potentially_invisible: not is_potentially_visible
 		end
-feature -- Properties
+feature {ANY} -- Properties
 
 --   "action-group"         GtkActionGroup        : Read / Write
 --   "hide-if-empty"        gboolean              : Read / Write
@@ -447,7 +447,7 @@ feature -- Properties
 
 -- GtkActionGroup, GtkUIManager
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkAction)"

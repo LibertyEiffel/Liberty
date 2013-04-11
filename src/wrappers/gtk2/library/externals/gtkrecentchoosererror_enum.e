@@ -8,14 +8,14 @@ expanded class GTKRECENTCHOOSERERROR_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gtk_recent_chooser_error_invalid_uri_low_level)  or else
 				(a_value = gtk_recent_chooser_error_not_found_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gtk_recent_chooser_error_invalid_uri is
 		do
@@ -27,7 +27,7 @@ feature -- Setters
 			value := gtk_recent_chooser_error_not_found_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gtk_recent_chooser_error_invalid_uri: BOOLEAN is
 		do
 			Result := (value=gtk_recent_chooser_error_invalid_uri_low_level)

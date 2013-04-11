@@ -72,7 +72,7 @@ feature {} -- Creation
 		not is_successful implies error/=Void
 	end
 
-feature  -- Memory handling
+feature {ANY}  -- Memory handling
 	ref is
 			-- Increments the reference count of a GIOChannel.
 		local p: POINTER
@@ -92,7 +92,7 @@ feature  -- Memory handling
 			watch_list := Void
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	encoding: STRING is
 			-- Encoding for the input/output of the channel. The internal
@@ -134,7 +134,7 @@ feature -- Access
 	last_written: INTEGER
 		-- Number of bytes read/written by last operation
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	add_watch (condition: GIOCONDITION_ENUM; action: FUNCTION [TUPLE [G_IO_CHANNEL, INTEGER], BOOLEAN]) is
 			-- Adds into the main event loop with the default priority.
@@ -260,7 +260,7 @@ feature -- Operations
 -- g_io_channel_unix_new ()
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	file_descriptor: like gint is
 		-- the file descriptor of the GIOChannel. 
 	do

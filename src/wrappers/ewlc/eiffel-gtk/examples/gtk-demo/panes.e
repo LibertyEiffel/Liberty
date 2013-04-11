@@ -23,7 +23,7 @@ class PANES
 
 creation make
 
-feature 
+feature {ANY} 
 -- /* Paned Widgets
 --  *
 --  * The GtkHPaned and GtkVPaned Widgets divide their content

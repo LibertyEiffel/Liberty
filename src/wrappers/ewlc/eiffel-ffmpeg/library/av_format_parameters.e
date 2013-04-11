@@ -28,21 +28,21 @@ inherit
 creation
 	make, from_external_pointer
 
-feature -- Size
+feature {ANY} -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <avformat.h>"
 		alias "sizeof(AVFormatParameters)"
 		end
 
-feature
+feature {ANY}
 
 	make is
 		do
 			allocate
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	sample_rate: INTEGER is
 		do
@@ -69,7 +69,7 @@ feature -- Access
 			Result := av_format_parameters_get_initial_pause (handle).to_boolean
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	set_sample_rate (a_sample_rate: INTEGER) is
 		do

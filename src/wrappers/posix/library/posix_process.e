@@ -7,7 +7,7 @@ deferred class POSIX_PROCESS
 insert 
 	ERRNO
 	MULTIPROCESSING
-feature 
+feature {ANY} 
 	child_process_id: like process_id
 		-- The process ID of the child process
 

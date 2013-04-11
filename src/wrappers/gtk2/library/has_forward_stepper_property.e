@@ -22,7 +22,7 @@ indexing
 deferred class HAS_FORWARD_STEPPER_PROPERTY
 
 inherit GTK_OBJECT 
-feature -- TODO: The  "has-forward-stepper" style property
+feature {ANY} -- TODO: The  "has-forward-stepper" style property
 
 	has_forward_stepper: BOOLEAN is
 			-- Is the standard forward arrow button displayed?  Default

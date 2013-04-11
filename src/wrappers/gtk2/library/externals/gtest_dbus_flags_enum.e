@@ -8,20 +8,20 @@ expanded class GTEST_DBUS_FLAGS_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_test_dbus_none_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_test_dbus_none is
 		do
 			value := g_test_dbus_none_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	g_test_dbus_none: BOOLEAN is
 		do
 			Result := (value=g_test_dbus_none_low_level)

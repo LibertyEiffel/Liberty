@@ -10,7 +10,7 @@ insert
 	ANY -- To reobtain copy, default_create and is_equal.
 creation make
 
-feature -- Creating
+feature {ANY} -- Creating
 	make is
 		local res: FOREIGN_OBJECT; args: FOREIGN_PARAMETERS
 	do

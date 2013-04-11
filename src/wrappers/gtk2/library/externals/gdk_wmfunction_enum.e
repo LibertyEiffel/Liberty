@@ -8,7 +8,7 @@ expanded class GDK_WMFUNCTION_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := (a_value & (all_low_level | 
@@ -18,7 +18,7 @@ feature -- Validity
 				close_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_all is
 		do
@@ -70,7 +70,7 @@ feature -- Setters
 			value := value.bit_xor(close_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_all: BOOLEAN is
 		do
 			Result := (value=all_low_level)

@@ -539,7 +539,7 @@ feature {G_OBJECT} -- Type changing features
 			is_string: is_string
 		end
 
-feature
+feature {ANY}
 	struct_size: INTEGER is
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GValue)"

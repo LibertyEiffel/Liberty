@@ -8,7 +8,7 @@ expanded class GTK_PROGRESS_BAR_ORIENTATION_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = left_to_right_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = top_to_bottom_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_left_to_right is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := top_to_bottom_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	left_to_right: BOOLEAN is
 		do
 			Result := (value=left_to_right_low_level)

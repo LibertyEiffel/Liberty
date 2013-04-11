@@ -34,7 +34,7 @@ insert GTK_EVENT_BOX_EXTERNALS
 creation make, from_external_pointer
 
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkEventBox)"
@@ -47,7 +47,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_event_box_new)
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	set_above_child(above: BOOLEAN) is
 			-- Set whether the event box window is positioned above the

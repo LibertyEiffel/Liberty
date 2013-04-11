@@ -23,7 +23,7 @@ class ENTRY_COMPLETION
 
 creation make
 
-feature
+feature {ANY}
 -- /* Entry Completion
 --  *
 --  * GtkEntryCompletion provides a mechanism for adding support for

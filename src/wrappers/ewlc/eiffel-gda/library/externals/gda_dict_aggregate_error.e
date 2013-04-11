@@ -4,21 +4,21 @@ expanded class GDA_DICT_AGGREGATE_ERROR
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_dict_aggregate_xml_load_error))
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_gda_dict_aggregate_xml_load_error is
 		do
 			value := gda_dict_aggregate_xml_load_error
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gda_dict_aggregate_xml_load_error: BOOLEAN is
 		do
 			Result := (value=gda_dict_aggregate_xml_load_error)

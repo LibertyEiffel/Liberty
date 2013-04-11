@@ -45,7 +45,7 @@ insert
 
 creation make, from_external_pointer
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererCombo)"
@@ -65,7 +65,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_cell_renderer_combo_new)
 		end
 
-feature -- TODO: Property Details
+feature {ANY} -- TODO: Property Details
 -- The "has-entry" property
 
 --   "has-entry"            gboolean              : Read / Write

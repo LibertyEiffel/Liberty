@@ -4,7 +4,7 @@ expanded class GDA_DICT_CONSTRAINT_FK_ACTION
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = constraint_fk_action_cascade) or else 
@@ -15,7 +15,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_cascade is
 		do
 			value := constraint_fk_action_cascade
@@ -42,7 +42,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_cascade: BOOLEAN is
 		do
 			Result := (value=constraint_fk_action_cascade)

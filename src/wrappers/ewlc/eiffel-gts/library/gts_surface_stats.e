@@ -36,7 +36,7 @@ feature {} -- Creation
 			allocate
 		end
 	
-feature
+feature {ANY}
 	faces_count: INTEGER is
 			-- Number of faces.
 		do

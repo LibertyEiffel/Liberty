@@ -4,14 +4,14 @@ expanded class GDA_DICT_FIELD_ATTRIBUTE
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (some_flags: INTEGER): BOOLEAN is
 		do
 			Result := (some_flags & (field_auto_increment)).to_boolean
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create is
 		-- Default creation feature; it leaves all the bits cleared.
 	do
@@ -28,7 +28,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_field_auto_increment: BOOLEAN is
 		do
 			Result := (value &field_auto_increment).to_boolean

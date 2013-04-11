@@ -8,7 +8,7 @@ expanded class GTK_DIRECTION_TYPE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = tab_forward_low_level)  or else
@@ -19,7 +19,7 @@ feature -- Validity
 				(a_value = right_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_tab_forward is
 		do
@@ -51,7 +51,7 @@ feature -- Setters
 			value := right_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	tab_forward: BOOLEAN is
 		do
 			Result := (value=tab_forward_low_level)

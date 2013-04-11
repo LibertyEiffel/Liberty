@@ -4,7 +4,7 @@ expanded class G_KEY_FILE_ERROR
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_key_file_error_unknown_encoding) or else 
@@ -16,7 +16,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_unknown_encoding is
 		do
 			value := g_key_file_error_unknown_encoding
@@ -48,7 +48,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_unknown_encoding: BOOLEAN is
 		do
 			Result := (value=g_key_file_error_unknown_encoding)

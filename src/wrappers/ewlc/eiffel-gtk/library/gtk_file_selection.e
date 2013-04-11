@@ -125,7 +125,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_file_selection_new(a_title.to_external))
 		end
 
-feature
+feature {ANY}
 	set_filename (a_filename: STRING) is
 			-- Sets a default path for the file requestor. If filename includes a
 			-- directory path, then the requestor will open with that path as its

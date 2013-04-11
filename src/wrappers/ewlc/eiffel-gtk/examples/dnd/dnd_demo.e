@@ -10,7 +10,7 @@ insert
 creation
 	make
 
-feature
+feature {ANY}
 
 	on_delete_event (a_gtk_object: GTK_OBJECT) is
 		do

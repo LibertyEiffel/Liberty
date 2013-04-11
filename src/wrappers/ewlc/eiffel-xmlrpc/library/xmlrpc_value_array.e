@@ -40,7 +40,7 @@ feature {} -- Creation
 			end
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	add_last (val: XMLRPC_VALUE_ANY) is
 		do

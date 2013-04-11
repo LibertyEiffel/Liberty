@@ -4,7 +4,7 @@ expanded class G_UNICODE_SCRIPT
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_unicode_script_invalid_code) or else 
@@ -89,7 +89,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_invalid_code is
 		do
 			value := g_unicode_script_invalid_code
@@ -486,7 +486,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_invalid_code: BOOLEAN is
 		do
 			Result := (value=g_unicode_script_invalid_code)

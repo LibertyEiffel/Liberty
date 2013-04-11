@@ -30,9 +30,9 @@ inherit CALLBACK redefine object end
 insert G_OBJECT_FACTORY [GTK_TREE_MODEL]
 creation make
 
-feature object: GTK_TREE_MODEL
+feature {ANY} object: GTK_TREE_MODEL
 
-feature
+feature {ANY}
 	callback (path_ptr, iter_ptr, instance: POINTER) is
 		local a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER 
 		do

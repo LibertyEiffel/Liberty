@@ -90,7 +90,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_expander_new_with_mnemonic(a_label.to_external))
 		end
 
-feature 
+feature {ANY} 
 	set_expanded is
 			-- Reveales the child widget to be revealed
 		do
@@ -212,7 +212,7 @@ feature
 
 --    Since 2.4
 
-feature -- Properties
+feature {ANY} -- Properties
 	
 --    "expanded"             gboolean              : Read / Write / Construct
 --    "label"                gchararray            : Read / Write / Construct
@@ -287,7 +287,7 @@ feature -- Properties
 
 --    Default value: 2
 
-feature  --   The "activate" signal
+feature {ANY}  --   The "activate" signal
 	activate_signal_name: STRING is "activate"
 
 	on_activate is

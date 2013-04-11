@@ -32,10 +32,10 @@ insert
 
 creation make
 
-feature
+feature {ANY}
 	object: GTK_TREE_SELECTION
 
-feature
+feature {ANY}
 
 	callback (instance: POINTER) is
 		do

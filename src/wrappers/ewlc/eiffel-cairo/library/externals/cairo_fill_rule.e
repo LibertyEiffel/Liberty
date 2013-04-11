@@ -34,7 +34,7 @@ deferred class CAIRO_FILL_RULE
 	
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_fill_rule (a_rule: INTEGER): BOOLEAN is
 		do	
 			Result:=((a_rule = cairo_fill_rule_winding) or else

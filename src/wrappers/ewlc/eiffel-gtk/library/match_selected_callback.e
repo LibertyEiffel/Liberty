@@ -30,10 +30,10 @@ insert G_OBJECT_FACTORY [GTK_ENTRY_COMPLETION]
 
 creation make
 
-feature
+feature {ANY}
 	object: GTK_ENTRY_COMPLETION
 
-feature
+feature {ANY}
 	callback (model_ptr, iter_ptr, instance: POINTER): INTEGER is
 		local
 			an_iter: GTK_TREE_ITER

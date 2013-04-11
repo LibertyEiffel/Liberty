@@ -2,7 +2,7 @@ class THREAD_POOL_EXAMPLE
 inherit G_THREAD_POOL [DO_STUFF]
 creation main
 
-feature 
+feature {ANY} 
 	main is
 		-- Starting point
 	do

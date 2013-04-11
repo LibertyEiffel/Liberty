@@ -27,7 +27,7 @@ inherit
 
 creation from_external_pointer
 
-feature -- TODO: PangoFontMetrics structure access
+feature {ANY} -- TODO: PangoFontMetrics structure access
 
 	-- typedef struct {
 	--   guint ref_count;
@@ -58,7 +58,7 @@ feature -- TODO: PangoFontMetrics structure access
 
 	-- The GObject type for PangoFontMetrics.
 
-feature
+feature {ANY}
 	ref is
 			-- Increase the reference count of a font metrics structure
 			-- by one.
@@ -212,7 +212,7 @@ feature {} -- Creation
 		end
 
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <pango/pango.h>"
 		alias "sizeof(PangoFontMetrics)"

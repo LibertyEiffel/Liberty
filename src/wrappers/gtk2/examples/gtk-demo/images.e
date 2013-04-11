@@ -23,7 +23,7 @@ class IMAGES
 
 creation make
 
-feature
+feature {ANY}
 -- /* Images
 --  *
 --  * GtkImage is used to display an image; the image can be in a number of formats.

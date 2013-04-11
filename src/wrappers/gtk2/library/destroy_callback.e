@@ -30,10 +30,10 @@ insert G_OBJECT_FACTORY [GTK_OBJECT]
 
 creation make
 
-feature
+feature {ANY}
 	object: GTK_OBJECT
 
-feature
+feature {ANY}
 	callback (instance: POINTER) is --  
 		do
 			debug

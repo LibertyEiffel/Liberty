@@ -36,7 +36,7 @@ inherit
 insert
 	GTK_CELL_EDITABLE_EXTERNALS
 
-feature -- Editing
+feature {ANY} -- Editing
 	start_editing (a_gdkevent: GDK_EVENT) is
 			-- Begins editing on a cell_editable. `a_gdkevent' began the
 			-- editing process; it may be Void, in the instance that
@@ -72,7 +72,7 @@ feature -- Editing
 	-- celleditable : 	the object which received the signal.
 	-- user_data : 	user data set when the signal handler was connected.
 
-feature -- "editing-done"
+feature {ANY} -- "editing-done"
 
 	editing_done_signal_name: STRING is "editing-done"
 		-- "editing-done"

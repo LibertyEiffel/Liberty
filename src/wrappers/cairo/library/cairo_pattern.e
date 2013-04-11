@@ -85,7 +85,7 @@ feature {} -- Creation
 			-- cairo_pattern_status().
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	status: INTEGER is
 			-- Pattern status; useful to check whether an error has
@@ -189,7 +189,7 @@ feature -- Access
 			is_valid_extend (Result)
 		end
 
-feature -- Memory handling
+feature {ANY} -- Memory handling
 	unref is
 			-- Decreases the reference count on pattern by one. If the
 			-- result is zero, then pattern and all associated resources

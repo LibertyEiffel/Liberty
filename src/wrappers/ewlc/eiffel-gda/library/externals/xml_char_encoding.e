@@ -4,7 +4,7 @@ expanded class XML_CHAR_ENCODING
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = xml_char_encoding_error) or else 
@@ -34,7 +34,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_error is
 		do
 			value := xml_char_encoding_error
@@ -156,7 +156,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_error: BOOLEAN is
 		do
 			Result := (value=xml_char_encoding_error)

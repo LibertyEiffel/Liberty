@@ -32,7 +32,7 @@ insert
 
 creation make
 
-feature
+feature {ANY}
 	object: W
 
 	callback (instance: POINTER) is 

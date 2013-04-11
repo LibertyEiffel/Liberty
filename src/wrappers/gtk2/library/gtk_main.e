@@ -38,7 +38,7 @@ insert
 
 creation default_create
 
-feature -- Creation
+feature {ANY} -- Creation
 
 	default_create is
 		do
@@ -47,7 +47,7 @@ feature -- Creation
 			store_creation_agents
 		end
 
-feature -- Creation agents
+feature {ANY} -- Creation agents
 	-- Creation agents are functions that given a pointer returns an
 	-- Eiffel wrapper of a precise kind. They are usually stored into
 	store_creation_agents is
@@ -353,7 +353,7 @@ feature -- Creation agents
 	create_gtk_window (p: POINTER): GTK_WINDOW is do create Result.from_external_pointer(p) end
 	create_gtk_window_group (p: POINTER): GTK_WINDOW_GROUP is do create Result.from_external_pointer(p) end
 
-feature
+feature {ANY}
 
 	disable_setlocale is
 			-- Prevents initilize_gtk and similar call (wrappers of
@@ -667,7 +667,7 @@ feature
 
 -- See the GLib manual, especially GMainLoop and signal-related functions such as g_signal_connect().
 
-feature -- global windows features
+feature {ANY} -- global windows features
 	toplevels: G_LIST [GTK_WINDOW] is
 			-- A list of all existing toplevel windows.
 		do
@@ -770,7 +770,7 @@ feature -- global windows features
 			gtk_window_set_auto_startup_notification (0)
 		end
 
-feature -- Global error
+feature {ANY} -- Global error
 	error: G_ERROR
 			-- The error eventually set up by a GTK+ call.
 	
@@ -1928,7 +1928,7 @@ feature {} -- Unwrapped code from "Main loop and Events"
 	--   See the GLib manual, especially GMainLoop and signal-related functions
 	--   such as g_signal_connect().
 
-feature -- Version Information 
+feature {ANY} -- Version Information 
 	-- Variables and functions to check the GTK+ version.
 
 	-- GTK+ provides version information, primarily useful in configure

@@ -4,7 +4,7 @@ expanded class GDA_GRAPH_TYPE
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_graph_db_relations) or else 
@@ -13,7 +13,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_gda_graph_db_relations is
 		do
 			value := gda_graph_db_relations
@@ -30,7 +30,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gda_graph_db_relations: BOOLEAN is
 		do
 			Result := (value=gda_graph_db_relations)

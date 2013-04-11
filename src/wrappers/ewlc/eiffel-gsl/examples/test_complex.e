@@ -9,7 +9,7 @@ class TEST_COMPLEX
 	
 create make
 	
-feature make is
+feature {ANY} make is
 		local
 			c, d, e: GSL_COMPLEX_REAL_64
 		do

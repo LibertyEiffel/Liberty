@@ -4,7 +4,7 @@ expanded class GDA_QUERY_TYPE
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_query_type_select) or else 
@@ -18,7 +18,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_select_external is
 		do
 			value := gda_query_type_select
@@ -60,7 +60,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_select_external: BOOLEAN is
 		do
 			Result := (value=gda_query_type_select)

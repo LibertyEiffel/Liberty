@@ -24,7 +24,7 @@ indexing
 deferred class 
 	GOO
 	-- Access to GOO_LIBRARY singleton
-feature 
+feature {ANY} 
 	goo: GOO_LIBRARY is
 		once
 			create Result

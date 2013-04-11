@@ -31,7 +31,7 @@ insert
 creation
 	make, from_polygon, from_external_pointer, from_rectangle, copy, from_external_copy
 
-feature -- Creation
+feature {ANY} -- Creation
 	make is
 			-- Creates a new empty GdkRegion.
 		do
@@ -77,7 +77,7 @@ feature -- Creation
 			handle := default_pointer
 		end
 	
-feature -- Duplication
+feature {ANY} -- Duplication
 
 	copy (another: GDK_REGION) is
 			-- Copies region, creating an identical new region.
@@ -209,7 +209,7 @@ feature {} -- Unwrapped code
 -- source1 : 	a GdkRegion
 -- source2 : 	another GdkRegion
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkRegion)"

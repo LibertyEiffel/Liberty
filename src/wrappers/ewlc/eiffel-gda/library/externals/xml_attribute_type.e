@@ -4,7 +4,7 @@ expanded class XML_ATTRIBUTE_TYPE
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = xml_attribute_cdata) or else 
@@ -20,7 +20,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_cdata is
 		do
 			value := xml_attribute_cdata
@@ -72,7 +72,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_cdata: BOOLEAN is
 		do
 			Result := (value=xml_attribute_cdata)

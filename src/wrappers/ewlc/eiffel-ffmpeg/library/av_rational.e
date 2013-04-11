@@ -33,7 +33,7 @@ insert
 creation
 	from_external_pointer
 
-feature -- Access
+feature {ANY} -- Access
 
 	numerator: INTEGER is
 		do
@@ -50,7 +50,7 @@ feature -- Access
 			Result := numerator / denominator
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	set_numerator (a_num: INTEGER) is
 		do
@@ -62,7 +62,7 @@ feature -- Operations
 			av_rational_set_denominator (handle, a_den)
 		end
 
-feature -- Size
+feature {ANY} -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <rational.h>"

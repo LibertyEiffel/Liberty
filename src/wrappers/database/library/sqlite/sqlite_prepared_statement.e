@@ -30,7 +30,7 @@ insert
 			is_equal
 		end
 	
-feature -- size
+feature {ANY} -- size
 	struct_size: like size_t is
 		external "C inline "
 		alias "sizeof(sqlite3_stmt)"
@@ -46,7 +46,7 @@ feature {} -- Disposing
 			handle := default_pointer
 		end
 
-feature -- parameters validity
+feature {ANY} -- parameters validity
 	parameter_count: INTEGER is
 		do
 			Result := sqlite3_bind_parameter_count (handle)
@@ -142,7 +142,7 @@ feature {} -- Creation of heirs (command and query)
 			state: is_prepared or is_failed
 		end
 
-feature 
+feature {ANY} 
 	reset is
 			-- Reset the compiled SQL statement back to it's initial
 			-- state, ready to be re-executed. Any SQL statement
@@ -153,7 +153,7 @@ feature
 			res_code :=sqlite3_reset(handle)
 		end
 
-feature -- Statement state
+feature {ANY} -- Statement state
 	-- `step' sets `res_code' to `sqlite_row' if it is returning
 	-- a single row of the result set, `sqlite_done' if execution has
 	-- completed, either normally or due to an error. It might also

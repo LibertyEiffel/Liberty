@@ -5,7 +5,7 @@ inherit WRAPPER_FACTORY[LLVM_INSTRUCTION]
 insert	
 	CORE_EXTERNALS 
 	EXCEPTIONS undefine copy, is_equal end
-feature 
+feature {ANY} 
 	wrapper (p: POINTER): LLVM_INSTRUCTION is
 		do
 			not_yet_implemented -- The implementation will follow LLVM_VALUE_FACTORY style

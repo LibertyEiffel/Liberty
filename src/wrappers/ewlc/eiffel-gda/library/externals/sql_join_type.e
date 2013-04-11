@@ -4,7 +4,7 @@ expanded class SQL_JOIN_TYPE
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = sql_cross_join) or else 
@@ -15,7 +15,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_cross_join is
 		do
 			value := sql_cross_join
@@ -42,7 +42,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_cross_join: BOOLEAN is
 		do
 			Result := (value=sql_cross_join)

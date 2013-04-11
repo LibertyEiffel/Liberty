@@ -4,21 +4,21 @@ expanded class G_THREAD_ERROR
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_thread_error_again))
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_g_thread_error_again is
 		do
 			value := g_thread_error_again
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_thread_error_again: BOOLEAN is
 		do
 			Result := (value=g_thread_error_again)

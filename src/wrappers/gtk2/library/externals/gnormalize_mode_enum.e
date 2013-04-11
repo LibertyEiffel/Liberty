@@ -8,7 +8,7 @@ expanded class GNORMALIZE_MODE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = default_external_low_level)  or else
@@ -21,7 +21,7 @@ feature -- Validity
 				(a_value = nfkc_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_default_external is
 		do
@@ -63,7 +63,7 @@ feature -- Setters
 			value := nfkc_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	default_external: BOOLEAN is
 		do
 			Result := (value=default_external_low_level)

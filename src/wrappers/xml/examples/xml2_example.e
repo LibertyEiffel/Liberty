@@ -7,7 +7,7 @@ insert
 
 creation make
 
-feature 
+feature {ANY} 
 	make is
 		-- entry point
 	do

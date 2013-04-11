@@ -7,7 +7,7 @@ indexing
 class TIMER_EXAMPLE
 
 creation make
-feature
+feature {ANY}
 	timer: G_TIMER
 	make is
 		local t: REAL

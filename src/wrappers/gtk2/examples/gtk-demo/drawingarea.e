@@ -23,7 +23,7 @@ class DRAWINGAREA
 
 creation make
 
-feature
+feature {ANY}
 -- /* Drawing Area
 --  *
 --  * GtkDrawingArea is a blank area where you can draw custom displays

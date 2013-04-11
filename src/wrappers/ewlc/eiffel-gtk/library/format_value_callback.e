@@ -32,10 +32,10 @@ insert
 
 creation make
 
-feature
+feature {ANY}
 	object: GTK_SCALE
 
-feature
+feature {ANY}
 	callback (value: REAL; instance: POINTER): POINTER is
 		require
 			instance_not_null: instance.is_not_null

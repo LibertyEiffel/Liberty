@@ -8,7 +8,7 @@ expanded class GDK_AXIS_USE_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = ignore_low_level)  or else
@@ -21,7 +21,7 @@ feature -- Validity
 				(a_value = last_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_ignore is
 		do
@@ -63,7 +63,7 @@ feature -- Setters
 			value := last_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	ignore: BOOLEAN is
 		do
 			Result := (value=ignore_low_level)

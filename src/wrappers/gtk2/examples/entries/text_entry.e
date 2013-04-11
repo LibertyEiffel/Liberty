@@ -11,7 +11,7 @@ inherit
 		end
 	
 creation with_label
-feature with_label (a_label: STRING) is
+feature {ANY} with_label (a_label: STRING) is
 		require a_label/=Void
 		do
 			make
@@ -27,7 +27,7 @@ feature with_label (a_label: STRING) is
 			enable_on_paste_clipboard
 		end
 
-feature -- Callbacks
+feature {ANY} -- Callbacks
 	on_changed is
 		do
 			print ("Entry has changed; now it contains `") print(text) print ("'%N")

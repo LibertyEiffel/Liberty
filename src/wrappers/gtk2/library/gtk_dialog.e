@@ -181,7 +181,7 @@ feature {} -- Creation
 	-- ... : 	response ID for first button, then additional buttons, ending with NULL
 	-- Returns : 	a new GtkDialog
 
-feature -- Running dialog
+feature {ANY} -- Running dialog
 	run: INTEGER is
 			-- run the dialog until it emits the response signal, or is
 			-- destroyed. If the dialog is destroyed during the call to
@@ -315,7 +315,7 @@ feature -- Running dialog
 			gtk_dialog_add_action_widget (handle, a_widget.handle, a_response_id)
 		end
 
-feature -- Separator
+feature {ANY} -- Separator
 	has_separator: BOOLEAN is
 			-- Has the dialog a separator?
 		do
@@ -336,7 +336,7 @@ feature -- Separator
 		ensure has_separator_unset: has_separator = False
 		end
 
-feature -- default response
+feature {ANY} -- default response
 	
 	set_default_response (a_response_id: INTEGER) is
 			-- Sets the last widget in the dialog's action area with the
@@ -513,7 +513,7 @@ feature -- default response
 
 -- Add them to the action_area to get a response from the user.
 
-feature -- From ewg implementation
+feature {ANY} -- From ewg implementation
 	feature -- Adding stock buttons
 
 	add_reject_button (a_label: STRING) is
@@ -599,7 +599,7 @@ feature -- From ewg implementation
 	-- TODO: wrap gtk_alternative_dialog_button_order 
 	-- TODO: wrap gtk_dialog_set_alternative_button_order
 
-feature -- properties
+feature {ANY} -- properties
 	
 	action_area_border: INTEGER is
 			-- Width of border around the button area at the bottom of
@@ -632,7 +632,7 @@ feature -- properties
 		ensure positive_result: Result >= 0
 		end
 
-feature -- Dialog's parts
+feature {ANY} -- Dialog's parts
 
 	vbox: GTK_VBOX is
 			-- main part of the dialog box
@@ -727,7 +727,7 @@ feature {} -- property names strings
 	action_area_border_property_name: STRING is "action-area-border"
 	button_spacing_property_name: STRING is "button-spacing"
 	content_area_border_property_name: STRING is "content-area-border"
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkDialog)"

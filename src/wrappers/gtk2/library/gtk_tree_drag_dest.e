@@ -46,7 +46,7 @@ inherit G_OBJECT
 	-- GtkTreeModelFilter.
 
 	-- GtkTreeDragDest is implemented by GtkTreeStore and GtkListStore.
-feature -- 
+feature {ANY} -- 
 	is_last_action_successful: BOOLEAN
 		
 	receive_data (a_path: GTK_TREE_PATH; a_selection_data: GTK_SELECTION_DATA) is
@@ -88,7 +88,7 @@ feature --
 
 
 
-feature -- TODO: GtkTreeDragDestIface
+feature {ANY} -- TODO: GtkTreeDragDestIface
 
 	-- typedef struct {
 	--   GTypeInterface g_iface;

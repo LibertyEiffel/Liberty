@@ -31,14 +31,14 @@ feature {} -- Creation
 			handle := g_value_array_new (n_prealloced);
 		end
 
-feature 
+feature {ANY} 
 	dispose is 
 		do
 			g_value_array_free (handle)
 			handle:=default_pointer
 		end
 
-feature -- Duplication
+feature {ANY} -- Duplication
 	copy (a_source: like Current) is
 			-- Construct an exact copy of a GValueArray by duplicating
 			-- all its contents.
@@ -47,7 +47,7 @@ feature -- Duplication
 			handle := g_value_array_copy (a_source.handle)
 		end
 
-feature -- Array-like features
+feature {ANY} -- Array-like features
 	to_external: POINTER is
 			-- Gives C access into the internal `storage' of the G_VALUE_ARRAY.
 		do
@@ -194,7 +194,7 @@ feature {} -- GValueArray struct
 		external "C struct get values use <glib-object.h>"
 		end
 	
-feature -- Size
+feature {ANY} -- Size
 	struct_size: INTEGER is
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GValueArray)"

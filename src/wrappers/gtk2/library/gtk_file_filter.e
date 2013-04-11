@@ -75,7 +75,7 @@ feature {} -- Creation
 			make; add_mime_type(a_mime_type)
 		end
 	
-feature -- Filter name
+feature {ANY} -- Filter name
 	set_name (a_name: STRING) is
 			-- Sets the human-readable name of the filter; this is the
 			-- string that will be displayed in the file selector user
@@ -107,7 +107,7 @@ feature -- Filter name
 		end
 			
 
-feature -- Mime type filter
+feature {ANY} -- Mime type filter
 	add_mime_type (a_mime_type: STRING) is
 			-- Adds a rule allowing the given `a_mime_type' to filter.
 		require valid_mime_type: a_mime_type /= Void
@@ -115,7 +115,7 @@ feature -- Mime type filter
 			gtk_file_filter_add_mime_type   (handle, a_mime_type.to_external)
 		end
 
-feature -- Pattern filter
+feature {ANY} -- Pattern filter
 	add_pattern (a_pattern: STRING) is
 			-- Adds a rule allowing a shell style glob to a filter.
 		require pattern_not_void: a_pattern /= Void
@@ -123,7 +123,7 @@ feature -- Pattern filter
 			gtk_file_filter_add_pattern     (handle, a_pattern.to_external)
 		end
 
-feature -- Image filter
+feature {ANY} -- Image filter
 	add_pixbuf_formats is
 			-- Adds a rule allowing image files in the formats supported by GdkPixbuf.
 		do
@@ -174,7 +174,7 @@ feature -- Image filter
 -- filter : 	a GtkFileFilter
 -- filter_info : 	a GtkFileFilterInfo structure containing information about a file.
 -- Returns : 	TRUE if the file should be displayed
-feature
+feature {ANY}
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkFileFilter)"

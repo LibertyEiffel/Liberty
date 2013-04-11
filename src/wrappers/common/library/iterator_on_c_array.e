@@ -36,7 +36,7 @@ feature {} -- Creation and implementation
 	
 	array: C_ARRAY[ITEM]
 	
-feature -- 
+feature {ANY} -- 
 	start is
 		do
 			i:=array.lower

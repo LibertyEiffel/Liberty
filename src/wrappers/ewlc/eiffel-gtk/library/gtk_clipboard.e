@@ -272,7 +272,7 @@ feature {} -- Creation
 -- clipboard : 	a GtkClipboard
 -- gtk_clipboard_set_text ()
 
-feature
+feature {ANY}
 
 	set_text (text: STRING) is
 			-- Sets the contents of the clipboard to the given UTF-8 string. GTK+ will
@@ -642,7 +642,7 @@ feature {} -- External calls
 --                                              gint n_targets);
 -- void        gtk_clipboard_store             (GtkClipboard *clipboard);
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C use <gtk/gtk.h>"

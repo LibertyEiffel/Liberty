@@ -4,7 +4,7 @@ expanded class G_TEST_TRAP_FLAGS
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (some_flags: INTEGER): BOOLEAN is
 		do
 			Result := (some_flags & (g_test_trap_silence_stdout | 
@@ -13,7 +13,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create is
 		-- Default creation feature; it leaves all the bits cleared.
 	do
@@ -50,7 +50,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_test_trap_silence_stdout: BOOLEAN is
 		do
 			Result := (value &g_test_trap_silence_stdout).to_boolean

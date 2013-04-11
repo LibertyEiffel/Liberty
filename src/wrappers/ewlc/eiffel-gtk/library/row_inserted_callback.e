@@ -32,10 +32,10 @@ insert
 
 creation make
 
-feature
+feature {ANY}
 	object: GTK_TREE_MODEL
 
-feature
+feature {ANY}
 
 	callback (tree_path, tree_iter, instance: POINTER) is
 		local

@@ -47,7 +47,7 @@ inherit
 	-- GtkTreeDragSource is implemented by GtkTreeModelSort,
 	-- GtkTreeStore, GtkListStore and GtkTreeModelFilter.
 
-feature
+feature {ANY}
 
 	is_action_successful: BOOLEAN
 

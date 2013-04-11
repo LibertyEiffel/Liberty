@@ -66,7 +66,7 @@ feature {} -- Creation
 			-- matrix was NULL.
 		end
 
-feature
+feature {ANY}
 	copy (another: like Current) is
 			-- Copies a PangoMatrix.
 		do
@@ -124,7 +124,7 @@ feature
 			Result:=pango_matrix_get_font_scale_factor(handle)   
 		end
 
-feature -- TODO: Struct access
+feature {ANY} -- TODO: Struct access
 	--   PangoMatrix
 	
 	--  typedef struct {
@@ -174,7 +174,7 @@ feature {} -- External calls
 		external "C use <pango/pango.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <pango/pango.h>"
 		alias "sizeof(PangoMatrix)"

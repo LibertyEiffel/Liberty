@@ -25,14 +25,14 @@ inherit G_STRUCT
 
 creation from_external_pointer, from_external_copy, make
 
-feature --Creation
+feature {ANY} --Creation
 
 	make is
 		do
 			allocate
 		end
 
-feature
+feature {ANY}
 	x: INTEGER is
 			-- the x coordinate of the left edge of the rectangle.
 		do
@@ -57,7 +57,7 @@ feature
 			Result:=get_height(handle)
 		end
 	
-feature -- Union and intersection
+feature {ANY} -- Union and intersection
 
 	intersection (a_rectangle, another_rectangle: GDK_RECTANGLE): BOOLEAN is
 			-- Makes Current the intersection of two rectangles; Result
@@ -81,7 +81,7 @@ feature -- Union and intersection
 			gdk_rectangle_union (a_rectangle.handle, another_rectangle.handle, handle)
 		end
 	
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkRectangle)"

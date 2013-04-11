@@ -8,13 +8,13 @@ expanded class GTK_TOOL_PALETTE_DRAG_TARGETS_ENUM
 insert ENUM
 
 creation default_create
-feature -- Validity
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := (a_value & (items_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_items is
 		do
@@ -26,7 +26,7 @@ feature -- Setters
 			value := value.bit_xor(items_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_items: BOOLEAN is
 		do
 			Result := (value=items_low_level)

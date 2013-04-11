@@ -48,7 +48,7 @@ insert
 	GUNICODE_EXTERNALS
 	GLIB_TYPES
 
-feature -- Code	
+feature {ANY} -- Code	
 	code: NATURAL_32
 
 	set (a_code: NATURAL_32) is
@@ -57,7 +57,7 @@ feature -- Code
 		code := a_code
 	end
 
-feature 
+feature {ANY} 
 	is_valid: BOOLEAN is
 		-- Is Current a valid Unicode character? Some possible
 		-- values of `code' will not be valid. 0 is
@@ -180,7 +180,7 @@ feature
 		Result:=g_unichar_iswide_cjk(code).to_boolean
 	end
 
-feature -- Convertions
+feature {ANY} -- Convertions
 	to_upper: like Current is
 		--  Current character converted to uppercase. If it is not an lowercase
 		--  or titlecase character, or has no upper case equivalent the

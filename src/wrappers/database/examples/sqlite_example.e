@@ -2,7 +2,7 @@ class SQLITE_EXAMPLE
 
 creation  make
 
-feature 
+feature {ANY} 
 	make is
 		do
 			create database.connect ("test.sqlite")
@@ -41,7 +41,7 @@ feature
 				io.put_string ("%N")
 			end
 		end
-feature 
+feature {ANY} 
 	entries: ARRAY[FAST_ARRAY[ANY]] is
 		once
 			Result := << 

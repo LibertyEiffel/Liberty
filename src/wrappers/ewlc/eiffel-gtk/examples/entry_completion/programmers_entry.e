@@ -14,7 +14,7 @@ insert G_TYPES
 	
 creation make
 
-feature 
+feature {ANY} 
 	make is
 		do
 			with_model (programmers, name_column_n)
@@ -25,7 +25,7 @@ feature
 			entry.set_completion (completion)
 		end
 
-feature -- Programmers' model columns
+feature {ANY} -- Programmers' model columns
 	name_column_n: INTEGER is 0
 	proficiency_column_n: INTEGER is 1
 	columns_n: INTEGER is 2

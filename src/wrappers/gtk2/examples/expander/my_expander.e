@@ -6,7 +6,7 @@ inherit
 		redefine on_activate			
 		end
 creation make
-feature make (a_statusbar: GTK_STATUS_BAR) is
+feature {ANY} make (a_statusbar: GTK_STATUS_BAR) is
 		require valid_statusbar: a_statusbar/=Void
 		do
 			statusbar:= a_statusbar

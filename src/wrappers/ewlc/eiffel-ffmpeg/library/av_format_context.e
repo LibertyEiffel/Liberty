@@ -48,7 +48,7 @@ feature {} -- Creation
 								default_pointer, 0, parameters.handle)
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	open_input_file (a_filename: STRING) is
 			-- Open a media file as input.
@@ -145,7 +145,7 @@ feature -- Operations
 			end
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	error_code: INTEGER
 
@@ -300,7 +300,7 @@ feature -- Access
 		end
 
 
-feature -- Disposing
+feature {ANY} -- Disposing
 
 	dispose is
 		do
@@ -331,7 +331,7 @@ feature {} -- Representation
 
 	wrapped_streams: ARRAY [AV_STREAM]
 
-feature -- Size
+feature {ANY} -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <avformat.h>"

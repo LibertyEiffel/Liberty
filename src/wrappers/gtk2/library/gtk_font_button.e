@@ -55,7 +55,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_font_button_new_with_font(a_font_name.to_external))
 		end
 
-feature
+feature {ANY}
 
 	set_font_name (a_font_name: STRING) is
 			-- Sets or updates the currently-displayed font in font
@@ -189,7 +189,7 @@ feature
 	--   Since 2.4
 	--
 
-feature -- The "font-set" signal
+feature {ANY} -- The "font-set" signal
 
 	connect_agent_to_font_set_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_FONT_BUTTON]]) is
 			--   The ::font-set signal is emitted when the user selects a font. When

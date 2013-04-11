@@ -30,7 +30,7 @@ feature {} -- Creations
 			g_value_set_enum (handle, a_pango_style)
 		end
 
-feature -- Commands
+feature {ANY} -- Commands
 
 	set (a_pango_style: INTEGER) is
 		require

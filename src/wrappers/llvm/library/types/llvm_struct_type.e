@@ -16,7 +16,7 @@ inherit
 
 creation make, in_context, from_external_pointer
 
-feature -- Creation
+feature {ANY} -- Creation
 	make (some_elements: COLLECTION[LLVM_TYPE]; packed: BOOLEAN) is
 		require 
 			some_elements/=Void

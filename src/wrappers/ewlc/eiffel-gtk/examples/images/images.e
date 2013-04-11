@@ -6,7 +6,7 @@ inherit
 creation 
 	make
 
-feature
+feature {ANY}
 	
 	image: GTK_IMAGE
 

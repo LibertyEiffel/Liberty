@@ -49,7 +49,7 @@ insert
 
 creation make, from_external_pointer
 
-feature
+feature {ANY}
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkAdjustment)"
@@ -70,7 +70,7 @@ feature {} -- Creation
 										 a_step_increment, a_page_increment, a_page_size))
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	value: REAL_64 is
 			-- the current value of the adjustment. 
@@ -117,7 +117,7 @@ feature -- Access
 			Result := gtk_adjustment_get_step_increment (handle)
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	set_value (a_value: REAL_64) is
 			-- Sets the GtkAdjustment value. The value is clamped to lie

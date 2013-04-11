@@ -55,7 +55,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_tree_model_filter_new(handle,null_or(a_root)))
 		end
 
-feature 
+feature {ANY} 
 	-- TODO: gtk_tree_model_filter_set_visible_func ()
 
 	-- void        gtk_tree_model_filter_set_visible_func
@@ -181,7 +181,7 @@ feature
 			gtk_tree_model_filter_clear_cache(handle)
 		end
 
-feature -- TODO: Properties
+feature {ANY} -- TODO: Properties
 	-- The "child-model" property
 
 	--   "child-model"          GtkTreeModel          : Read / Write / Construct Only
@@ -229,7 +229,7 @@ feature {} -- Unwrapped features
 	-- column : 	the column whose display value is determined
 	-- data : 	user data given to gtk_tree_model_filter_set_modify_func()
 	
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeModelFilter)"

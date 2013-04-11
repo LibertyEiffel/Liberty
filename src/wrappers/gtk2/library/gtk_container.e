@@ -28,7 +28,7 @@ inherit GTK_WIDGET
 
 insert GTK_CONTAINER_EXTERNALS
 
-feature
+feature {ANY}
 	add (a_widget: GTK_WIDGET) is
 			-- Adds widget to container. Typically used for simple
 			-- containers such as GtkWindow, GtkFrame, or GtkButton; for

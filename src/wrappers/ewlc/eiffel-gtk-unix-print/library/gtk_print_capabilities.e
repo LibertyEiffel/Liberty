@@ -27,7 +27,7 @@ deferred class GTK_PRINT_CAPABILITIES
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	are_valid_print_capabilities (some_capabilities: INTEGER): BOOLEAN is
 		do	
 			Result:=((gtk_print_capability_page_set | gtk_print_capability_copies |

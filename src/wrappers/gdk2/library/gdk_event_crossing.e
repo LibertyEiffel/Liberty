@@ -32,7 +32,7 @@ insert
 
 creation from_external_pointer
 
-feature -- access
+feature {ANY} -- access
 
 	subwindow: GDK_WINDOW is
 			-- the window that was entered or left.

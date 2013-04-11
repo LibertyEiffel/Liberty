@@ -23,7 +23,7 @@ class CHANGEDISPLAY
 
 creation make
 
-feature
+feature {ANY}
 -- /* Change Display
 --  * 
 --  * Demonstrates migrating a window between different displays and

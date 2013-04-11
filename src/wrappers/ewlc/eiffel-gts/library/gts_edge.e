@@ -35,7 +35,7 @@ feature {} -- Creation
 															 a_vertex.handle, another_vertex.handle)) 
 		end
 
-feature
+feature {ANY}
 	replace (another: GTS_EDGE) is
 			-- Replaces Current with `another': for each triangle which
 			-- uses Current as an edge, it is replaced with

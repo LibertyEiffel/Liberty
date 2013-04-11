@@ -3,7 +3,7 @@ inherit G_POOLED_ROUTINE
 creation
 	make,
 	default_create
-feature 
+feature {ANY} 
 	make (an_i: INTEGER_32) is
 	local msg: STRING
 	do
