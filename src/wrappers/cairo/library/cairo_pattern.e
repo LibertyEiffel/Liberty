@@ -37,7 +37,7 @@ insert
 	CAIRO_FILTER
 	CAIRO_STATUS
 
-creation make_rgb, make_rgba, from_external_pointer
+create {ANY} make_rgb, make_rgba, from_external_pointer
 
 feature {} -- Creation
 	make_rgb (a_red, a_green, a_blue: REAL) is

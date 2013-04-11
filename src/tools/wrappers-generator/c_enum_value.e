@@ -11,7 +11,7 @@ insert
 	SHARED_COLLECTIONS
 	NAME_CONVERTER
 
-creation make
+create {ANY} make
 
 feature 
 	value: STRING is

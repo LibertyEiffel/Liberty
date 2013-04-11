@@ -27,7 +27,7 @@ insert
 	GSLIST_EXTERNALS
 	GSLIST_STRUCT
 
-creation make
+create {ANY} make
 	
 feature {} -- Creation
 	make (a_list: G_SLIST_STRING) is

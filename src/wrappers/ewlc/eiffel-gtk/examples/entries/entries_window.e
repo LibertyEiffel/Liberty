@@ -4,7 +4,7 @@ inherit
 insert
 	G_SIGNALS
 	GTK
-creation make
+create {ANY} make
 feature {ANY} make is
 		do
 			Precursor

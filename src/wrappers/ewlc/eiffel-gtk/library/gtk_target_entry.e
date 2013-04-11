@@ -47,7 +47,7 @@ inherit
 insert
 	GTK_TARGET_ENTRY_EXTERNALS
 
-creation from_external_pointer, make
+create {ANY} from_external_pointer, make
 
 feature {ANY} -- Creation
 

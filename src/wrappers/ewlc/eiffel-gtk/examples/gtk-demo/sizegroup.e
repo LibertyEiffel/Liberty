@@ -21,7 +21,7 @@ indexing
 
 class SIZEGROUP
 
-creation make
+create {ANY} make
 
 feature {ANY}
 	

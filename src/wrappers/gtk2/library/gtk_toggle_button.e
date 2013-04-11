@@ -68,7 +68,7 @@ insert
 	GTK_TOGGLE_BUTTON_EXTERNALS
 		-- TODO: GtkToggleButton implements AtkImplementorIface.
 
-creation make, with_label, with_mnemonic, from_external_pointer
+create {ANY} make, with_label, with_mnemonic, from_external_pointer
 
 feature {} -- Creation
 

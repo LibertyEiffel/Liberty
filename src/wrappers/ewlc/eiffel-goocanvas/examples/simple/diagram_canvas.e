@@ -4,7 +4,7 @@ class
 inherit
 	GOO_CANVAS redefine make, on_button_press_event end
 	
-create
+create {ANY}
 	make
 	
 feature {} -- creation

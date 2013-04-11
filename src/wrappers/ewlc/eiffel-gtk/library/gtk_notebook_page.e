@@ -27,7 +27,7 @@ inherit
 	C_STRUCT
 	C_OWNED
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY} -- size
 

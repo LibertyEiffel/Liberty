@@ -38,7 +38,7 @@ insert
 	EQUATION_EXTERNALS
    EIFFEL_OWNED
 
-creation	make
+create {ANY}	make
 
 feature {} -- Creation
 

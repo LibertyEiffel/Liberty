@@ -99,7 +99,7 @@ insert
 	GOPTION_CONTEXT_STRUCT
 	GOPTION_EXTERNALS
 
-creation with,make, from_external_pointer
+create {ANY} with,make, from_external_pointer
 
 feature {} -- Creation
 	with, make (a_parameter: ABSTRACT_STRING) is

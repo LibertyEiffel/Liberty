@@ -30,7 +30,7 @@ inherit 	G_LIST[GTK_TREE_PATH] redefine dispose end
 
 insert GTK_TREE_MODEL_EXTERNALS undefine fill_tagged_out_memory end
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {ANY} -- Disposing
 	dispose is 

@@ -3,7 +3,7 @@ class G_UTF8
 insert
 	G_UTF8_EXTERNALS
 
-creation
+create {ANY}
 	from_unicode_string
 
 feature {} -- Creation

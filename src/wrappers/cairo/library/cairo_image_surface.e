@@ -35,7 +35,7 @@ insert
 	CAIRO_FORMAT
 	CAIRO_IMAGE_SURFACE_EXTERNALS
 
-creation
+create {ANY}
 	make, for_data, from_png
 
 feature {} -- Creation

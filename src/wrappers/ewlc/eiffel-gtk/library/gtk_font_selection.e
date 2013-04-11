@@ -46,7 +46,7 @@ inherit
 
 insert GTK_FONT_SELECTION_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make is

@@ -48,7 +48,7 @@ insert
 	POLY_EXTERNALS
    EIFFEL_OWNED
 
-creation empty, universe, from_constraints, from_frame, copy, from_external_pointer
+create {ANY} empty, universe, from_constraints, from_frame, copy, from_external_pointer
 
 feature {} -- Creation
 

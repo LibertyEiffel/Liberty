@@ -38,7 +38,7 @@ insert
 		-- Implemented Interfaces
 		-- GtkColorButton implements AtkImplementorIface.
 
-creation
+create {ANY}
 	make, with_color,
 	from_external_pointer
 	

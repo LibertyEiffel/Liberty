@@ -31,7 +31,7 @@ inherit
 
 insert CURL_LIST_EXTERNALS rename curl_slist_free_all as free end
 
-creation
+create {ANY}
 	null, from_external_pointer
 
 feature {ANY} -- Size

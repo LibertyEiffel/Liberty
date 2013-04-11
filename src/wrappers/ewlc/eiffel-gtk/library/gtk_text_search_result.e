@@ -30,7 +30,7 @@ insert
 			is_equal
 		end
 	
-creation default_create, copy
+create {ANY} default_create, copy
 
 feature {} -- Creation
 	default_create is

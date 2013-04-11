@@ -115,7 +115,7 @@ insert
 	GTK_TEXT_BUFFER_EXTERNALS
 	G_SIGNALS
 
-creation
+create {ANY}
 	make, from_external_pointer, with_tag_table
 
 feature {} -- Creation

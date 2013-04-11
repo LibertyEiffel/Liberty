@@ -33,7 +33,7 @@ insert
 	AV_CODEC_FINDER 
 		undefine copy, is_equal end
 
-creation
+create {ANY}
 	make, from_external_pointer
 
 feature {} -- Creation

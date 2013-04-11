@@ -31,7 +31,7 @@ inherit
 
 insert CURL_HTTP_POST_EXTERNALS rename curl_formfree as free end
 
-creation
+create {ANY}
 	make, null--, from_external_pointer
 
 feature {ANY} -- Size

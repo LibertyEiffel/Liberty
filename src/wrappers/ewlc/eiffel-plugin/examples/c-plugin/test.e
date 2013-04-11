@@ -1,5 +1,5 @@
 class TEST
-creation make
+create {ANY} make
 feature {ANY}
 	make is
 		do

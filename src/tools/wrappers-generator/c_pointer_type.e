@@ -7,7 +7,7 @@ inherit
 	STORABLE_NODE
 	TYPED_NODE
 
-creation make
+create {ANY} make
 feature 
 	is_fundamental: BOOLEAN is True
 

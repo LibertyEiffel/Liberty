@@ -31,7 +31,7 @@ inherit
 insert
 	GOO_CANVAS_ITEM_SIMPLE_EXTERNALS
 	
-create
+create {ANY}
 	from_external_pointer
 	
 feature {ANY} 

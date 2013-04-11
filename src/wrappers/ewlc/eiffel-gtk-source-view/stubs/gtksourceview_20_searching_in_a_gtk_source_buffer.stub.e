@@ -29,7 +29,7 @@ inherit
 insert
 	GTKSOURCEVIEW_20_SEARCHING_IN_A_GTK_SOURCE_BUFFER_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 

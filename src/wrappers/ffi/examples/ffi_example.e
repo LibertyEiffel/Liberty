@@ -6,7 +6,7 @@ class FFI_EXAMPLE
 insert 
 	FFI_TYPES
 	ANY -- To reobtain copy, default_create and is_equal.
-creation make
+create {ANY} make
 
 feature {ANY} -- Creating
 	make is

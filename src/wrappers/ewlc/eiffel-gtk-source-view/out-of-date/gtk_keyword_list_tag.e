@@ -25,7 +25,7 @@ class GTK_KEYWORD_LIST_TAG
 
 inherit GTK_SOURCE_TAG
 
-creation dummy, make, from_external_pointer
+create {ANY} dummy, make, from_external_pointer
 	
 feature {} -- Creation
 	make 	(an_id, a_name: STRING; some_keywords: G_SLIST_STRING;

@@ -122,7 +122,7 @@ inherit
 	GTK_TREE_DRAG_SOURCE
 	GTK_TREE_SORTABLE
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {} 
 -- gtk_tree_model_sort_new_with_model ()

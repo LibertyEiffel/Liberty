@@ -38,7 +38,7 @@ inherit
 	-- GtkCheckMenuItem implements AtkImplementorIface.
 
 	
-creation make, with_label, with_mnemonic, from_external_pointer
+create {ANY} make, with_label, with_mnemonic, from_external_pointer
 
 feature {} -- Creation
 	make	is

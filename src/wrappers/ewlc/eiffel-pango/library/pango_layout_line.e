@@ -32,7 +32,7 @@ insert
 	PANGO_LAYOUT_LINE_EXTERNALS
 	G_OBJECT_FACTORY [PANGO_LAYOUT]
 
-creation
+create {ANY}
 	from_external_pointer
 
 feature {ANY} -- Access

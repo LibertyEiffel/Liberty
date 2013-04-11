@@ -41,7 +41,7 @@ insert
 			out_in_tagged_out_memory
 		end
 
-creation make
+create {ANY} make
 
 feature {ANY} -- Type queries
 	is_integer (a_column: INTEGER): BOOLEAN is

@@ -42,7 +42,7 @@ inherit
 			copy
 		end
 
-creation from_attribute_list, copy, from_external_pointer
+create {ANY} from_attribute_list, copy, from_external_pointer
 
 feature {} --
 	from_attribute_list (an_attribute_list: PANGO_ATTR_LIST) is

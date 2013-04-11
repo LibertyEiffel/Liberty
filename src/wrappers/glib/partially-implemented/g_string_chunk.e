@@ -34,7 +34,7 @@ insert
 	GSTRING_EXTERNALS
 	GSTRING_CHUNK_STRUCT
 	
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 	
 feature {ANY}
 	make (a_size: NATURAL_32) is

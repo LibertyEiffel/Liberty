@@ -40,7 +40,7 @@ insert
 	CAIRO_FONT_TYPE
 	CAIRO_STATUS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY} -- Memory handling
 	dispose is do unref end

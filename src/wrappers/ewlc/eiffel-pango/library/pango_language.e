@@ -26,7 +26,7 @@ inherit
 	C_STRUCT
 	C_OWNED
 
-creation allocate, from_external_pointer
+create {ANY} allocate, from_external_pointer
 
 feature {} -- Creation
 

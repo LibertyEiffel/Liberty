@@ -23,7 +23,7 @@ class GDK_SPAN
 
 inherit G_STRUCT
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY} -- Getters
 	x: INTEGER is

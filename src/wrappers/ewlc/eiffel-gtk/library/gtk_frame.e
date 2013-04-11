@@ -27,7 +27,7 @@ inherit
 insert
 	GTK_FRAME_EXTERNALS
 	
-creation from_label, from_external_pointer
+create {ANY} from_label, from_external_pointer
 
 feature {WRAPPER, WRAPPER_HANDLER} -- size
 	struct_size: INTEGER is

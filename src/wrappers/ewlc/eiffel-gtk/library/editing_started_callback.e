@@ -28,7 +28,7 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_FACTORY [GTK_CELL_RENDERER]
 
-creation make
+create {ANY} make
 
 feature {ANY}
 	object: GTK_CELL_RENDERER

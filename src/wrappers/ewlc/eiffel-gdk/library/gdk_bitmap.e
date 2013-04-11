@@ -24,7 +24,7 @@ class GDK_BITMAP
 inherit
 	GDK_DRAWABLE
 
-creation
+create {ANY}
 	from_external_pointer
 
 feature {ANY} -- size

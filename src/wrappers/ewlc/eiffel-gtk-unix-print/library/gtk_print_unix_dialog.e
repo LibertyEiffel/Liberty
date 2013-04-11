@@ -53,7 +53,7 @@ insert
 	GTK_PRINT_UNIX_DIALOG_EXTERNALS
 	GTK_PRINT_CAPABILITIES
 	
-creation dummy, make, from_external_pointer
+create {ANY} dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (a_title: STRING; a_parent: GTK_WINDOW) is

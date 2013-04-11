@@ -28,7 +28,7 @@ expanded class G_OPTION_ARG
 
 insert ENUM 
 
-creation default_create
+create {ANY} default_create
 
 feature {ANY}
 	default_create, set_none is

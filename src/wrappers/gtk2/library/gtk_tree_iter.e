@@ -32,7 +32,7 @@ insert
 	GTK_TREE_MODEL_EXTERNALS
 	GLIB_MEMORY_ALLOCATION
 
-creation
+create {ANY}
 	make,
 	make_from_model, from_model,
 	from_external_pointer,

@@ -30,7 +30,7 @@ inherit
 insert
 	G_OBJECT_FACTORY [GTK_TREE_MODEL]
 
-creation make
+create {ANY} make
 
 feature {ANY}
 	object: GTK_TREE_MODEL

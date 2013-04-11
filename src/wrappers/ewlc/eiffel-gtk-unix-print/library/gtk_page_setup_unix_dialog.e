@@ -41,7 +41,7 @@ inherit
 	
 	-- TODO: AtkImplementorIface
 
-creation dummy, make, from_external_pointer
+create {ANY} dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (a_title: STRING; a_parent: GTK_WINDOW) is

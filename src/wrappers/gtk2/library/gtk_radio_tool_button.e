@@ -33,7 +33,7 @@ inherit
 		end
 	-- GtkRadioToolButton implements AtkImplementorIface.
 	
-creation
+create {ANY}
 	from_group, from_stock, from_widget, from_external_pointer
 
 feature {} -- Creation

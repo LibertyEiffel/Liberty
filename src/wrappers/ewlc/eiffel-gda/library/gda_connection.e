@@ -40,7 +40,7 @@ insert
 	SHARED_G_ERROR
 	GDA_CONNECTION_EXTERNALS
 
-creation from_dsn, from_string, from_external_pointer
+create {ANY} from_dsn, from_string, from_external_pointer
 
 feature {} -- Creation
 	from_dsn (a_dsn, an_auth_string: STRING; some_options: GDA_CONNECTION_OPTIONS) is

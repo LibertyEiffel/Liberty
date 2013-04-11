@@ -34,7 +34,7 @@ insert
 	GDK_PIXBUF_EXTERNALS
 	GDK_COLORSPACE
 
-creation
+create {ANY}
 	make, from_external_pointer_no_ref, from_external_pointer,
 	from_file, from_file_at_size, from_file_at_scale,
 	from_drawable, from_pixbuf, from_data

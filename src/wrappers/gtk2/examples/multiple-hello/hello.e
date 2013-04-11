@@ -10,7 +10,7 @@ insert
 	GTK
 	EXCEPTIONS
 
-creation	make
+create {ANY}	make
 	
 feature {} -- creation
 	make is

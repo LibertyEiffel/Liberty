@@ -33,7 +33,7 @@ inherit
 insert
 	PANGO_CAIRO_FONT_MAP_EXTERNALS
 
-creation
+create {ANY}
 	make, make_default, from_external_pointer
 
 feature {} -- Creation

@@ -6,7 +6,7 @@ class PROCESS_SCHEDULER
 inherit
    PROCESS_RUNNER
 
-creation
+create {ANY}
    make
 
 feature {ANY}

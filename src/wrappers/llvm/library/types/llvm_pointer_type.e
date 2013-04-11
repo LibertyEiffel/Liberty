@@ -2,7 +2,7 @@ class LLVM_POINTER_TYPE
 	-- A type representing a pointer to a specified type
 inherit LLVM_SEQUENCE_TYPE
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 feature {ANY} -- Creation 
 	make (a_type: LLVM_TYPE) is
 		-- Creates a pointer type referring to `a_type'

@@ -32,7 +32,7 @@ inherit
 
 	--  TODO: GtkSourceView implements AtkImplementorIface.
 
-creation dummy, make, from_buffer, from_external_pointer
+create {ANY} dummy, make, from_buffer, from_external_pointer
 
 feature {} -- Creation
 	make is

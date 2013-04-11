@@ -27,7 +27,7 @@ class ROW_COLLAPSED_CALLBACK
 inherit
 	CALLBACK redefine object end
 
-creation make
+create {ANY} make
 
 feature {ANY}
 	object: GTK_TREE_VIEW

@@ -6,7 +6,7 @@ indexing
 
 class TIMER_EXAMPLE
 
-creation make
+create {ANY} make
 feature {ANY}
 	timer: G_TIMER
 	make is

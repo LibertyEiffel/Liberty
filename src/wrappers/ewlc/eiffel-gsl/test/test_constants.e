@@ -6,7 +6,7 @@ inherit
 insert
 	GSL_CONSTANTS
 	
-creation 
+create {ANY} 
 	make
 	
 feature {ANY}

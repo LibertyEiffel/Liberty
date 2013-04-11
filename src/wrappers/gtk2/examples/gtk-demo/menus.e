@@ -21,7 +21,7 @@ indexing
 
 class MENUS
 
-creation make
+create {ANY} make
 
 feature {ANY}
 	

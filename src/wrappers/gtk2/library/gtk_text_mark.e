@@ -48,7 +48,7 @@ class GTK_TEXT_MARK
 
 inherit G_OBJECT
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY}
 

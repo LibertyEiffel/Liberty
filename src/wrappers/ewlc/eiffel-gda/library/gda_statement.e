@@ -56,7 +56,7 @@ insert
 	GDA_STATEMENT_EXTERNALS
 	SHARED_G_ERROR
 
-creation make, copy, from_external_pointer
+create {ANY} make, copy, from_external_pointer
 
 feature {} -- Creation
 	make is

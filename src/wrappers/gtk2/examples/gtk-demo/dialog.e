@@ -21,7 +21,7 @@ indexing
 
 class DIALOG
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {ANY} -- Widgets
 	window: GTK_WINDOW -- in C is GTK_WIDGET

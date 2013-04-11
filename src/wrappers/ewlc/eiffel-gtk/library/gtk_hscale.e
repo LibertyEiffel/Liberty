@@ -35,7 +35,7 @@ insert
 		-- Implemented Interfaces: GtkHScale implements
 		-- AtkImplementorIface.
 
-creation
+create {ANY}
 	from_adjustment, with_range, from_external_pointer
 
 feature {} -- Creation

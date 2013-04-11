@@ -27,7 +27,7 @@ class
 inherit
 	GOO_CANVAS_ITEM_SIMPLE redefine struct_size end
 	
-create
+create {ANY}
 	make, from_external_pointer
 	
 feature {} -- creation

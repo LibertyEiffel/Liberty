@@ -83,7 +83,7 @@ insert
 	GTK_ACCEL_LABEL_EXTERNALS
 	G_OBJECT_FACTORY [GTK_WIDGET]
 	
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (a_label: STRING) is

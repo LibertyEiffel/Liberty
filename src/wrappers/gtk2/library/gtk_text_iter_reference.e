@@ -23,7 +23,7 @@ class GTK_TEXT_ITER_REFERENCE
 
 inherit GTK_TEXT_ITER
 
-creation from_external_pointer, from_iter
+create {ANY} from_external_pointer, from_iter
 
 feature {ANY} 
 	from_iter (an_iterator: EXPANDED_GTK_TEXT_ITER) is

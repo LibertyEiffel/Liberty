@@ -34,7 +34,7 @@ insert
 	PANGO_WRAP_MODE
 	PANGO_ALIGNMENT
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 

@@ -12,7 +12,7 @@ inherit
 		redefine 
 			copy
 		end
-creation
+create {ANY}
 	from_external_pointer, make
 
 feature {ANY} 

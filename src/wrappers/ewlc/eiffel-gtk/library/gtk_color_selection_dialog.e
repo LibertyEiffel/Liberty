@@ -36,7 +36,7 @@ inherit
 insert
 	GTK_COLOR_SELECTION_DIALOG_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (a_title: STRING) is

@@ -25,7 +25,7 @@ inherit
 	C_STRUCT
 	MIXED_MEMORY_HANDLING
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY} 
 	value: STRING is

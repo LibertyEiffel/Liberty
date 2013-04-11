@@ -39,7 +39,7 @@ insert
 	GTK_TEXT_WINDOW_TYPE
 	GTK_WRAP_MODE
 
-creation
+create {ANY}
 	make, make_with_buffer, from_external_pointer
 
 feature {} -- Creation

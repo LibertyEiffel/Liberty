@@ -27,7 +27,7 @@ insert
 		-- undefine copy 
 		-- end
 
-creation  make, from_external_pointer
+create {ANY}  make, from_external_pointer
 
 feature {ANY}
 	make is

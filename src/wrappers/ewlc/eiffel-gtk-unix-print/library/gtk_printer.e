@@ -50,7 +50,7 @@ insert
 	GTK_PRINTER_EXTERNALS
 		rename is_default as is_void end
 
-creation dummy, make, from_external_pointer
+create {ANY} dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (a_name: STRING; a_backend: GTK_PRINT_BACKEND; virtual: BOOLEAN) is

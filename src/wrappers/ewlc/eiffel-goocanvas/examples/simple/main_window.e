@@ -9,7 +9,7 @@ inherit
 insert
 	GDK
 	
-create
+create {ANY}
 	make
 	
 feature {ANY} make is

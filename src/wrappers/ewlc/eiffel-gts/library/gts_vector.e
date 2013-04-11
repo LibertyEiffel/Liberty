@@ -29,7 +29,7 @@ inherit
 		redefine print_on
 		end
 	
-creation  init, allocate, from_external_pointer
+create {ANY}  init, allocate, from_external_pointer
 
 feature {} -- Creation
 	init (a_point, another_point: GTS_POINT) is

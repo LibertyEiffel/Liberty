@@ -31,7 +31,7 @@ inherit
 insert
 	PANGO_CONTEXT_EXTERNALS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY} -- Operations
 

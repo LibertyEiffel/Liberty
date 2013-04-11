@@ -3,7 +3,7 @@ class TEST_COMPLEX01
 inherit
 	EIFFELTEST_TOOLS
 
-creation 
+create {ANY} 
 	make
 	
 feature {ANY}

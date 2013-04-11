@@ -22,7 +22,7 @@ insert
       end
    SINGLETON
 
-creation
+create {ANY}
    make
 
 feature {}

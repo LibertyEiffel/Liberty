@@ -30,7 +30,7 @@ inherit
 
 insert GTS_FACE_EXTERNALS
 	
-creation  from_edges, from_triangle, enclosing, from_external_pointer
+create {ANY}  from_edges, from_triangle, enclosing, from_external_pointer
 
 feature {} -- Creation
 	from_edges (first, second, third: GTS_EDGE) is

@@ -23,7 +23,7 @@ expanded class GTK_TEXT_ITER_EXPANDED
 
 insert GTK_TEXT_ITER
 
-creation default_create, from_external_pointer
+create {ANY} default_create, from_external_pointer
 
 feature {ANY} 
 	dispose is do end

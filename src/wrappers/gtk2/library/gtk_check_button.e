@@ -29,7 +29,7 @@ inherit
 insert
 	GTK_CHECK_BUTTON_EXTERNALS
 
-creation make,with_label,with_mnemonic, from_external_pointer
+create {ANY} make,with_label,with_mnemonic, from_external_pointer
 
 feature {} -- Creation
 

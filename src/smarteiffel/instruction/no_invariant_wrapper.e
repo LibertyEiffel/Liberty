@@ -6,7 +6,7 @@ inherit
          specialize_2_without_checks
       end
 
-creation
+create {ANY}
    make
 
 feature {ANY}

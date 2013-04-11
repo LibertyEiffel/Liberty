@@ -32,7 +32,7 @@ insert
 	GOO_CANVAS_EXTERNALS
 	GOO undefine copy, is_equal end
 
-create
+create {ANY}
 	make
 	
 feature {} -- Creation

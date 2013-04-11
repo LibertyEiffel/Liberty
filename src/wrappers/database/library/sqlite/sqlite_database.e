@@ -25,7 +25,7 @@ insert
 			is_equal
 		end
 	
-creation  connect
+create {ANY}  connect
 
 feature {}
 	dispose is

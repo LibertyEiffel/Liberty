@@ -24,7 +24,7 @@ class GDK_EVENT_CONFIGURE
 	
 inherit GDK_EVENT 
 		
-creation  from_external_pointer
+create {ANY}  from_external_pointer
 
 feature {ANY}
 	x: INTEGER is

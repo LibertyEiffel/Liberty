@@ -51,7 +51,7 @@ inherit C_STRUCT
 	
 insert WRAPPER_FACTORY [ITEM]
 
-creation make, empty, from_external_pointer 
+create {ANY} make, empty, from_external_pointer 
 
 feature {} -- Creation
 

@@ -27,7 +27,7 @@ class LEAVE_NOTIFY_EVENT_CALLBACK
 inherit
 	CROSSING_EVENT_CALLBACK
 
-creation make
+create {ANY} make
 
 feature {ANY}
 

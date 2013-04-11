@@ -31,7 +31,7 @@ insert
 	GTK
 	GTK_TREE_MODEL_EXTERNALS
 	
-creation make, copy, from_external_pointer
+create {ANY} make, copy, from_external_pointer
 
 feature {} -- size
 	struct_size: INTEGER is

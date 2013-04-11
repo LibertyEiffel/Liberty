@@ -28,7 +28,7 @@ insert
 	PANGO_CAIRO_RENDERER_EXTERNALS
 	WRAPPER_HANDLER
 
-creation for_cairo_context
+create {ANY} for_cairo_context
 
 feature {} -- Representation
 

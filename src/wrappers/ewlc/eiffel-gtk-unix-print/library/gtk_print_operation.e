@@ -98,7 +98,7 @@ insert
 		-- SHARED_G_ERROR
 	GTK -- to get error
 	
-creation dummy, make, from_external_pointer
+create {ANY} dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make is 

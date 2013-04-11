@@ -16,7 +16,7 @@ inherit
 
 	SQLITE_PREPARED_STATEMENT
 
-creation
+create {ANY}
 	{SQLITE_DATABASE} make
 
 feature {ANY}

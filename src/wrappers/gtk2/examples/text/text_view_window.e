@@ -2,7 +2,7 @@ class TEXT_VIEW_WINDOW
 inherit
 	GTK_WINDOW redefine make, on_destroy end
 	GTK
-creation make
+create {ANY} make
 
 feature {ANY}
 

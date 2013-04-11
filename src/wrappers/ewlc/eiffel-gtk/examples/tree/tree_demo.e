@@ -292,7 +292,7 @@ insert
 	GDK_TYPE_EXTERNALS -- To store GDK_PIXMAPS into the store. TODO:
 			-- give the end-user a better interface.
 	
-creation make
+create {ANY} make
 	
 feature {ANY} -- Columns
 	name_column_n: INTEGER is 0

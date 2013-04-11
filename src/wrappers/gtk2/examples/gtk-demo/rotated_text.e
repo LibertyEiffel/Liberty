@@ -21,7 +21,7 @@ indexing
 
 class ROTATED_TEXT
 
-creation make
+create {ANY} make
 
 feature {ANY}
 -- /* Rotated Text

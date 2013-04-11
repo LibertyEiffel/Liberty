@@ -30,7 +30,7 @@ inherit
 insert
 	PANGO_CAIRO_CONTEXT_EXTERNALS
 
-creation
+create {ANY}
 	from_external_pointer -- Only to be used by FontMaps
 
 feature {ANY} -- Operations

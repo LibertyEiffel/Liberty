@@ -91,7 +91,7 @@ insert
 	G_KEY_FILE_ERROR
 	G_KEY_FILE_FLAGS
 	
-creation make, load_from_file, from_external_pointer
+create {ANY} make, load_from_file, from_external_pointer
 
 feature {} -- Creation
 	make is

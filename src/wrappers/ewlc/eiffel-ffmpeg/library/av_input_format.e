@@ -28,7 +28,7 @@ inherit
 insert
 	AV_INPUT_FORMAT_EXTERNALS
 
-creation
+create {ANY}
 	from_external_pointer
 
 feature {ANY} -- Access

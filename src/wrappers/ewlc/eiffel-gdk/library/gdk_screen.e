@@ -37,7 +37,7 @@ insert
 	EXCEPTIONS
 		undefine copy, is_equal end
 	
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make is

@@ -30,7 +30,7 @@ inherit
 insert
 	AV_RATIONAL_EXTERNALS
 
-creation
+create {ANY}
 	from_external_pointer
 
 feature {ANY} -- Access

@@ -27,7 +27,7 @@ class GTK_IMAGE_MENU_ITEM
 inherit GTK_MENU_ITEM redefine make, struct_size, with_mnemonic, with_label end
 	--    GtkImageMenuItem implements AtkImplementorIface.
 
-creation make, from_stock, with_label, with_mnemonic, from_external_pointer
+create {ANY} make, from_stock, with_label, with_mnemonic, from_external_pointer
 
 feature {} -- Creation
 	make is

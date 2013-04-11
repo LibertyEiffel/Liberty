@@ -65,7 +65,7 @@ insert
 	CAIRO_FONT_WEIGHT
 	CAIRO_STATUS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (a_target: CAIRO_SURFACE) is

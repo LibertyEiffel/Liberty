@@ -30,7 +30,7 @@ inherit
 insert
 	_EXTERNALS
 
-creation dummy,
+create {ANY} dummy,
 
 feature {} -- Creation
 

@@ -30,7 +30,7 @@ insert
 	G_OBJECT_FACTORY[GTK_SCALE]
 	GLIB_STRING_UTILITY_FUNCTIONS
 
-creation make
+create {ANY} make
 
 feature {ANY}
 	object: GTK_SCALE

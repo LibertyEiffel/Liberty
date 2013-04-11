@@ -41,7 +41,7 @@ insert
 	CAIRO_STATUS
 	CAIRO_CONTENT
 
-creation make_similar, from_external_pointer
+create {ANY} make_similar, from_external_pointer
 
 feature {ANY} -- Creation
 

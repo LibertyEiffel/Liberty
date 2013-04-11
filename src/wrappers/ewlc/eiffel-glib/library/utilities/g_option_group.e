@@ -38,7 +38,7 @@ insert
 	SHARED_G_ERROR 
 	GLIB_COMMANDLINE_OPTION_PARSER_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (a_name, a_description, an_help_description: STRING) is

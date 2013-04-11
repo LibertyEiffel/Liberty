@@ -98,7 +98,7 @@ insert
 	GLIB_COMMANDLINE_OPTION_PARSER_EXTERNALS
 	ARGUMENTS  undefine is_equal, copy end
 
-creation with,make, from_external_pointer
+create {ANY} with,make, from_external_pointer
 
 feature {} -- Creation
 	with, make (a_parameter: STRING) is

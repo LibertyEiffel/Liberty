@@ -10,7 +10,7 @@ inherit
 
 insert WRAPPER_GENERATOR_EXCEPTIONS
 
-creation make
+create {ANY} make
 
 feature 
 	store is

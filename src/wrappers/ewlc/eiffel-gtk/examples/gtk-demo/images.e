@@ -21,7 +21,7 @@ indexing
 
 class IMAGES
 
-creation make
+create {ANY} make
 
 feature {ANY}
 -- /* Images

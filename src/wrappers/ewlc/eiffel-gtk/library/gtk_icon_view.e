@@ -39,7 +39,7 @@ insert
 	GTK_ICON_VIEW_DROP_POSITION
 	G_OBJECT_EXTERNALS
 
-creation
+create {ANY}
 	make, with_model, from_external_pointer
 
 feature {} -- Creation

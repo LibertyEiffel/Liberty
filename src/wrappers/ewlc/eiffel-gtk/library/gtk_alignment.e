@@ -28,7 +28,7 @@ inherit
 insert
 	GTK_ALIGNMENT_EXTERNALS
 	
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- size
 	struct_size: INTEGER is

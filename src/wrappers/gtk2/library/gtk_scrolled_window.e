@@ -65,7 +65,7 @@ insert
 	GTK_CORNER_TYPE
 	GTK_SHADOW_TYPE
 	
-creation make, make_default, from_external_pointer
+create {ANY} make, make_default, from_external_pointer
 
 feature {} -- Creation
 	make_default is

@@ -21,7 +21,7 @@ inherit
 insert
 	GTK_ASPECT_FRAME_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {ANY} 
 	struct_size: INTEGER is

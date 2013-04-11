@@ -28,7 +28,7 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_FACTORY [CLOSE_SIGNAL_RECEIVER]
 
-creation make
+create {ANY} make
 
 feature {ANY}
 	object: CLOSE_SIGNAL_RECEIVER

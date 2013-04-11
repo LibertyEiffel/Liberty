@@ -24,7 +24,7 @@ indexing
 
 class MATRIX_SIMPLE
 
-creation 
+create {ANY} 
 	make
 
 feature {} -- Creation

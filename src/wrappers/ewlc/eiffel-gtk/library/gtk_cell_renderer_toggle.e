@@ -31,7 +31,7 @@ inherit
 insert
 	GTK_CELL_RENDERER_TOGGLE_EXTERNALS
 	
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- size
 	struct_size: INTEGER is

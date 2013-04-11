@@ -3,7 +3,7 @@ class TEST_VECTOR04
 inherit
 	EIFFELTEST_TOOLS
 
-creation 
+create {ANY} 
 	make
 	
 feature {ANY}

@@ -33,7 +33,7 @@ inherit
 		-- Implemented Interfaces: GtkVscale implements
 		-- AtkImplementorIface.
 
-creation from_adjustment, with_range, from_external_pointer
+create {ANY} from_adjustment, with_range, from_external_pointer
 
 feature {} -- Creation
 	from_adjustment (an_adjustment: GTK_ADJUSTMENT) is

@@ -70,7 +70,7 @@ inherit
          free
       end
 	
-creation make_dmy, from_tuple, make
+create {ANY} make_dmy, from_tuple, make
    
 creation {WRAPPER} from_external_pointer
    

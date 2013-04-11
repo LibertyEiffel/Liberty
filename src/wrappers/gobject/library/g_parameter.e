@@ -16,7 +16,7 @@ inherit
 insert 
 	G_PARAMETER_EXTERNALS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 	
 feature {ANY} 
 	name: STRING is

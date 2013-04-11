@@ -1,6 +1,6 @@
 class DO_STUFF
 inherit G_POOLED_ROUTINE
-creation
+create {ANY}
 	make,
 	default_create
 feature {ANY} 

@@ -33,7 +33,7 @@ inherit
 insert
 	AV_STREAM_EXTERNALS
 
-creation
+create {ANY}
 	from_external_pointer
 
 feature {ANY} -- Access

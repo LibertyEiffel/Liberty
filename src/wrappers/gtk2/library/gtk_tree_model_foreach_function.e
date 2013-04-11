@@ -31,7 +31,7 @@ insert
 	ANY
 	GTK
 	
-creation make
+create {ANY} make
 	
 feature {ANY}
 	make (a_function: FUNCTION[TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER], BOOLEAN]) is

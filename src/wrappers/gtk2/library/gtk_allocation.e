@@ -35,7 +35,7 @@ class GTK_ALLOCATION
 inherit
 	G_STRUCT redefine is_equal end
 
-creation copy, copy_from_pointer
+create {ANY} copy, copy_from_pointer
 
 feature {} -- Creation
 

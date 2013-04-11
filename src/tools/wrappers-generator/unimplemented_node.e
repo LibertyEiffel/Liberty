@@ -2,7 +2,7 @@ class UNIMPLEMENTED_NODE
 	-- An "Unimplemented" node in the output of GccXml. 
 inherit GCCXML_NODE
 
-creation make
+create {ANY} make
 feature 
 end -- class UNIMPLEMENTED_NODE
 

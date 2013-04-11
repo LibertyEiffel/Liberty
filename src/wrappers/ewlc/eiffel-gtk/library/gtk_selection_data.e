@@ -27,7 +27,7 @@ inherit
 	C_STRUCT
 	C_OWNED
 
-creation from_external_pointer, make
+create {ANY} from_external_pointer, make
 
 feature {ANY} -- size
 	struct_size: INTEGER is

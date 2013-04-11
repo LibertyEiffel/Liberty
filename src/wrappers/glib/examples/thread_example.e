@@ -1,6 +1,6 @@
 class THREAD_EXAMPLE
 
-creation make
+create {ANY} make
 
 feature {ANY} 
 	make is

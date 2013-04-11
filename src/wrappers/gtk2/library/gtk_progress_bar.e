@@ -57,7 +57,7 @@ insert
 	GTK_PROGRESS_BAR_ORIENTATION
 	PANGO_ELLIPSIZE_MODE
 	
-creation
+create {ANY}
 	make, from_external_pointer
 
 feature {} -- Initialization

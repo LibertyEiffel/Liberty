@@ -46,7 +46,7 @@ insert
 	GTK_PAGE_ORIENTATION
 	GTK_PRINT_SETTINGS_EXTERNALS
 
-creation dummy, make, from_external_pointer
+create {ANY} dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make is

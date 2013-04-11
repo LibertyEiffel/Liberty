@@ -10,7 +10,7 @@ insert
 	EXCEPTIONS
 	FILE_TOOLS
 
-creation make
+create {ANY} make
 
 feature 
 	make (url: URL) is

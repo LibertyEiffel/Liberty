@@ -31,7 +31,7 @@ insert
 	AV_SEEK_FLAGS
 	AV_CODEC_TYPES
 
-creation
+create {ANY}
 	from_file
 
 feature {} -- Creation

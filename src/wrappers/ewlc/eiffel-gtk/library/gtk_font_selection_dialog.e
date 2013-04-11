@@ -43,12 +43,12 @@ inherit GTK_DIALOG
 insert
 	GTK_FONT_SELECTION_DIALOG_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 -- feature {} -- Creation
 
 
-creation make
+create {ANY} make
 
 feature {ANY} -- Creation
 	make (a_title: STRING) is

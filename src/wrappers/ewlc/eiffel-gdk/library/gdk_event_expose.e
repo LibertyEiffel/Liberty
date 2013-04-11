@@ -27,7 +27,7 @@ inherit
 insert
 	GDK_EVENT_EXPOSE_EXTERNALS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY} -- access
 

@@ -27,7 +27,7 @@ inherit G_OBJECT
 	
 insert GLIB_UNICODE_MANIPULATION_EXTERNALS
 
-creation dummy, from_external_pointer
+create {ANY} dummy, from_external_pointer
 
 feature {ANY} 
 	name: STRING is

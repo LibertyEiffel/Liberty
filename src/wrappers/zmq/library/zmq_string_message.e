@@ -23,7 +23,7 @@ inherit
 			storage
 		end
 
-creation default_create, from_string
+create {ANY} default_create, from_string
 
 creation {ZMQ_MESSAGE} from_message
 

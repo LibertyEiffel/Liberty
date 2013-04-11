@@ -50,7 +50,7 @@ inherit
 
 insert WRAPPER_HANDLER -- only to get null_or_string
 
-creation
+create {ANY}
 	-- make, with_capacity,	from_collection,
 	from_external_array,
 	from_external_null_array

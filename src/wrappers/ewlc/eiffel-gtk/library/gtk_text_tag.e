@@ -44,7 +44,7 @@ insert
 	PANGO_UNDERLINE
 	GTK
 
-creation make, with_name, from_external_pointer
+create {ANY} make, with_name, from_external_pointer
 
 feature {} -- Creation
 	make is

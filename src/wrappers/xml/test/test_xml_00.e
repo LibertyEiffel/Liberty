@@ -6,7 +6,7 @@ insert
 	FILE_TOOLS
 	SYSTEM
 
-creation test
+create {ANY} test
 feature {ANY}
 	filename: STRING is "test.xml"
 

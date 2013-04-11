@@ -7,7 +7,7 @@ insert
 	PANGO_CONSTANTS
 	PANGO_WRAP_MODE
 
-creation
+create {ANY}
 	make
 
 feature {ANY}

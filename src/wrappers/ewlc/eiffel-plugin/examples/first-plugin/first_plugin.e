@@ -3,7 +3,7 @@ class FIRST_PLUGIN
 
 inherit MY_PLUGIN
 
-creation make
+create {ANY} make
 
 feature {ANY}
 	make is

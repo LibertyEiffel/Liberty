@@ -8,7 +8,7 @@ inherit
 insert
 	XMLRPC_CLIENT_EXTERNALS
 
-creation
+create {ANY}
 	make
 
 feature {} -- Representation

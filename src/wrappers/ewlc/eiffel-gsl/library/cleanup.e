@@ -2,7 +2,7 @@ class CLEANUP
 
 inherit DISPOSABLE
 
-create make
+create {ANY} make
 
 feature {ANY}
 	make(a_cleaner: PROCEDURE[TUPLE]) is

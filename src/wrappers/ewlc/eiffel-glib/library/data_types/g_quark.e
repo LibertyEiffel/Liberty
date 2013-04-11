@@ -11,7 +11,7 @@ insert
 	ANY
 	G_QUARK_EXTERNALS
 	
-creation
+create {ANY}
 	default_create,
 	from_string,
 	try_string

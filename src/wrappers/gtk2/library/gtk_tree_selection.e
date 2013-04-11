@@ -52,7 +52,7 @@ insert
 	G_SIGNALS
 	GTK_TREE_SELECTION_EXTERNALS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY} -- selection mode
 	set_single_mode is

@@ -25,7 +25,7 @@ inherit
 	C_STRUCT
 	EIFFEL_OWNED
 
-creation
+create {ANY}
 	make, from_external_pointer
 
 feature {ANY} -- Size

@@ -27,7 +27,7 @@ insert
 	GDA_CONNECTION_OPTIONS_ENUM
 	SHARED_G_ERROR
 	
-creation make
+create {ANY} make
 
 feature {ANY} -- Commands
 

@@ -29,7 +29,7 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_FACTORY [GTK_TEXT_VIEW]
 
-creation make
+create {ANY} make
 
 feature {ANY}
 

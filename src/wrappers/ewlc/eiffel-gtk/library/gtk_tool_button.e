@@ -41,7 +41,7 @@ class GTK_TOOL_BUTTON
 inherit
 	GTK_TOOL_ITEM redefine struct_size end
 	
-create
+create {ANY}
 	from_external_pointer, from_stock, from_label
 
 

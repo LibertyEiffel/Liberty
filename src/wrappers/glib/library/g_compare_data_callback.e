@@ -23,7 +23,7 @@ class G_COMPARE_DATA_CALLBACK
 
 inherit GLIB_CALLBACK
 
-creation make
+create {ANY} make
 
 feature {} -- Creation
 	make (a_collection: WRAPPER_COLLECTION[COMPARABLE_C_STRUCT];

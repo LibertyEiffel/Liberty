@@ -6,7 +6,7 @@ inherit
 insert
 	PANGO_STYLE
 
-create make_pango_style, from_pango_style
+create {ANY} make_pango_style, from_pango_style
 
 feature {} -- Creations
 

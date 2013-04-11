@@ -7,7 +7,7 @@ insert
 	EXTERNAL_TOOL
 	GTK
 
-creation dummy, make
+create {ANY} dummy, make
 
 feature {ANY}
 	make is

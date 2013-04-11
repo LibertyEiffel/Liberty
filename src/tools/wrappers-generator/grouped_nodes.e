@@ -3,7 +3,7 @@ class GROUPED_NODES [NODE -> WRAPPER_FEATURE]
 
 inherit HASHED_DICTIONARY[LINKED_LIST[NODE], UNICODE_STRING]
 
-creation make
+create {ANY} make
 
 feature 
 	store (a_node: NODE) is

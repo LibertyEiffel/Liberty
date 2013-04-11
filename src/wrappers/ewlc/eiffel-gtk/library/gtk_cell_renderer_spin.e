@@ -43,7 +43,7 @@ inherit
 	GTK_CELL_RENDERER_TEXT
 		redefine make, struct_size end
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make is

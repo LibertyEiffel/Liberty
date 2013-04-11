@@ -2,7 +2,7 @@ class EXAMPLE
 
 inherit PLUGGABLE_FACTORY[MY_PLUGIN]
 
-creation make
+create {ANY} make
 
 feature {ANY} 
 	make is

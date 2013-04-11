@@ -91,7 +91,7 @@ insert
 	GKEYFILE_EXTERNALS
 	GKEY_FILE_STRUCT
 
-creation make, load_from_file, from_external_pointer
+create {ANY} make, load_from_file, from_external_pointer
 
 feature {} -- Creation
 	make is

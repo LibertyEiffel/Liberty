@@ -33,7 +33,7 @@ insert
 		rename gtk_tree_path_free as free
 		end
 
-creation
+create {ANY}
 	make, make_first, copy_from_pointer,
 	from_string, first, from_path, from_external_pointer
 

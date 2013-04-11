@@ -63,7 +63,7 @@ inherit
 insert
 	PKINT_EXTERNALS
 
-creation make, copy, from_natural, from_integer, from_string, from_external_pointer
+create {ANY} make, copy, from_natural, from_integer, from_string, from_external_pointer
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Creation
 

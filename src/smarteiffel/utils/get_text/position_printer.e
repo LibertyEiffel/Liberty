@@ -6,7 +6,7 @@ inherit
          print_on
       end
 
-creation
+create {ANY}
    set_position, default_create
 
 feature {ANY}

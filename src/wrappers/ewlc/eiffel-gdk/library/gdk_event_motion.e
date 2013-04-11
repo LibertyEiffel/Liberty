@@ -27,7 +27,7 @@ insert
 	GDK_EVENT_MOTION_EXTERNALS
 	GDK_MODIFIER_TYPE
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY} -- access
 

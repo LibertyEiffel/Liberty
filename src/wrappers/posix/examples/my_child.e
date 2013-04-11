@@ -1,6 +1,6 @@
 class MY_CHILD
 inherit POSIX_PROCESS
-creation start
+create {ANY} start
 feature {ANY} 
 	run is
 		do

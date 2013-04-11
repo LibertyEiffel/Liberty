@@ -10,7 +10,7 @@ class G_PARAM_SPEC_CHARACTER
 
 inherit G_PARAM_SPEC
 
-creation make
+create {ANY} make
 	
 feature {ANY} -- Creation
 

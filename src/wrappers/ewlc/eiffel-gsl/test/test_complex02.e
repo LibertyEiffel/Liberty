@@ -6,7 +6,7 @@ inherit
 insert
 	MATH_CONSTANTS
 
-creation 
+create {ANY} 
 	make
 	
 feature {ANY}

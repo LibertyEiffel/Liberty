@@ -45,7 +45,7 @@ insert
 	GTK_TREE_VIEW_COLUMN_SIZING
 	GTK_SORT_TYPE
 	
-creation make, with_attributes
+create {ANY} make, with_attributes
 	
 creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer, secondary_wrapper_from	
 

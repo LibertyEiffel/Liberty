@@ -5,7 +5,7 @@ insert
 	GTK
 	GDK_EVENT_MASK
 
-creation
+create {ANY}
 	make
 
 feature {ANY}

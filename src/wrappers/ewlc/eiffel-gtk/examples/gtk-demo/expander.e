@@ -27,7 +27,7 @@ insert
 	GTK_RESPONSE_TYPE
 	GTK_STOCK_ITEMS
 	
-creation make
+create {ANY} make
 
 feature {ANY}
 

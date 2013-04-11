@@ -21,7 +21,7 @@ indexing
 
 class DRAWINGAREA
 
-creation make
+create {ANY} make
 
 feature {ANY}
 -- /* Drawing Area

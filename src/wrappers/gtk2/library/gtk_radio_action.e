@@ -31,7 +31,7 @@ inherit
 		redefine struct_size
 		end
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {ANY}  -- Creation
 	make  (a_name, a_label, a_tooltip, a_stock_id: STRING; a_value: INTEGER) is

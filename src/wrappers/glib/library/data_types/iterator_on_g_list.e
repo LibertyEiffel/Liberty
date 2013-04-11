@@ -15,7 +15,7 @@ insert
    GLIST_STRUCT
    GLOBAL_CACHE
 	
-creation make
+create {ANY} make
 	
 feature {} -- Creation
 	make (a_list: G_LIST_TRAVERSABLE[ITEM]) is

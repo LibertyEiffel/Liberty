@@ -16,7 +16,7 @@ inherit
 insert
 	GSL_VECTOR_GENERAL[REAL_64]   
 	
-creation 
+create {ANY} 
 	make, make_zero, make_one, manifest_creation, from_collection
 
 feature {ANY}

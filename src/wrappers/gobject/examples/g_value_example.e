@@ -8,7 +8,7 @@ class G_VALUE_EXAMPLE
 insert
 	G_TYPE_EXTERNALS
 	G_PARAM_FLAGS
-creation make
+create {ANY} make
 feature {ANY} make is
 		do
 			g_type_init

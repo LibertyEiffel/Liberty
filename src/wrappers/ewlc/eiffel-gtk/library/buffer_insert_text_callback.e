@@ -31,7 +31,7 @@ inherit CALLBACK
 
 insert G_OBJECT_FACTORY [GTK_TEXT_BUFFER]
 
-creation make
+create {ANY} make
 
 feature {ANY}
 	object: GTK_TEXT_BUFFER

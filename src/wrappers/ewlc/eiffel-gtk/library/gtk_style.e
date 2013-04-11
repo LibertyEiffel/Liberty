@@ -32,7 +32,7 @@ insert
 	GTK_STATE_TYPE
 	GTK_STYLE_EXTERNALS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY} -- size
 

@@ -1,6 +1,6 @@
 class ENTRIES_DEMO
 insert GTK
-creation make
+create {ANY} make
 feature {ANY}
 	make is
 		do

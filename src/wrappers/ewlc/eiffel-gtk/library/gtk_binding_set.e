@@ -29,7 +29,7 @@ inherit
 
 insert GTK_BINDING_SET_EXTERNALS
 
-creation from_external_pointer --, make
+create {ANY} from_external_pointer --, make
 
 feature {} -- Creation
 	--  gtk_binding_set_new ()

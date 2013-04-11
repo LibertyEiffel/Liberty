@@ -9,7 +9,7 @@ inherit
 
 insert CORE_EXTERNALS
 
-creation from_block
+create {ANY} from_block
 
 feature {LLVM_BASIC_BLOCK}
    from_block (a_block: LLVM_BASIC_BLOCK) is

@@ -3,7 +3,7 @@ class TEST_NATURAL2
 inherit
    EIFFELTEST_TOOLS
 
-creation make
+create {ANY} make
 
 feature {ANY}
 	make is

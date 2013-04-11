@@ -3,7 +3,7 @@ class TOOL_BAR_DEMO
 insert 
 	GTK
 	GTK_STOCK_ITEMS
-creation make
+create {ANY} make
 
 feature {ANY} -- GUI elements
 	window: GTK_WINDOW

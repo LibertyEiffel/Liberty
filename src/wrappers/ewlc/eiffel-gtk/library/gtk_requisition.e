@@ -41,7 +41,7 @@ class GTK_REQUISITION
 inherit
 	G_STRUCT redefine is_equal end
 
-creation make, copy, copy_from_pointer, from_external_pointer
+create {ANY} make, copy, copy_from_pointer, from_external_pointer
 
 feature {} -- Creation
 

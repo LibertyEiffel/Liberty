@@ -32,7 +32,7 @@ class GTS_FUNCTION
 	
 inherit WRAPPER -- WRAPPER_HANDLER
 
-creation  make
+create {ANY}  make
 
 feature {GTS_OBJECT} -- Implementation
 	make (a_function: PREDICATE[ANY, TUPLE[GTS_OBJECT]]) is

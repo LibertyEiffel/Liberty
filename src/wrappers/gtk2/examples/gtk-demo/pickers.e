@@ -21,7 +21,7 @@ indexing
 
 class PICKERS
 
-creation make
+create {ANY} make
 	
 feature {ANY}
 -- /* Pickers 

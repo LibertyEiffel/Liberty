@@ -42,7 +42,7 @@ inherit
 insert 
 	GTK_SEPARATOR_TOOL_ITEM_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make is

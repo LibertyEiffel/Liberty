@@ -45,7 +45,7 @@ insert
 	GTK_PAPER_SIZE_EXTERNALS rename gtk_paper_size_free as free end
 	GTK_UNIT 
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (a_paper_name: STRING) is

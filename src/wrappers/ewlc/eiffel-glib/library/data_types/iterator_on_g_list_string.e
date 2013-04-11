@@ -26,7 +26,7 @@ inherit
 insert
 	G_SLIST_EXTERNALS
 	
-creation make
+create {ANY} make
 	
 feature {} -- Creation
 	make (a_list: G_LIST_STRING) is

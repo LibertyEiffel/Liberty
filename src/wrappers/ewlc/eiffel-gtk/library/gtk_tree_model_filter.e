@@ -45,7 +45,7 @@ inherit
 insert
 	G_TYPES
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (a_child_model: GTK_TREE_MODEL; a_root: GTK_TREE_PATH) is

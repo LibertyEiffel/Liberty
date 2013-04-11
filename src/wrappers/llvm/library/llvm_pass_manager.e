@@ -6,7 +6,7 @@ inherit
 
 insert CORE_EXTERNALS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY} 
 	struct_size: like size_t is

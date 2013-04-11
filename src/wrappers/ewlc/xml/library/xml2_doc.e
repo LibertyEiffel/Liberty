@@ -30,7 +30,7 @@ insert
 	LIBXML2_EXTERNALS
 	SHARED_XML2_NODE_CACHE	
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY} 
 	root:  XML2_NODE is

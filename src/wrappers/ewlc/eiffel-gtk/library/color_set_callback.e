@@ -32,7 +32,7 @@ inherit
 
 insert G_OBJECT_FACTORY [GTK_COLOR_BUTTON]
 
-creation make
+create {ANY} make
 
 feature {ANY}
 	object: GTK_COLOR_BUTTON

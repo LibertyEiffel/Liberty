@@ -45,7 +45,7 @@ insert
 	GTK
 	GTK_TEXT_SEARCH_FLAGS
 
-creation make, from_external_pointer, copy, from_external_copy
+create {ANY} make, from_external_pointer, copy, from_external_copy
 
 feature {} -- Creation
 	make is

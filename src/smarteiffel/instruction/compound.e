@@ -14,7 +14,7 @@ inherit
 insert
    TRAVERSABLE[INSTRUCTION]
 
-creation
+create {ANY}
    make_2, make_3, make_4, make_n
 
 creation   {CODE_ACCUMULATOR}

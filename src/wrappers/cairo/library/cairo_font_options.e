@@ -40,7 +40,7 @@ insert
 	CAIRO_FONT_OPTIONS_EXTERNALS
 	CAIRO_STATUS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 

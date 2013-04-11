@@ -21,7 +21,7 @@ indexing
 
 class ICONVIEW_EDIT
 
-creation make
+create {ANY} make
 	
 feature {ANY}
 -- /* Icon View/Editing and Drag-and-Drop

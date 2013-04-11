@@ -25,7 +25,7 @@ inherit C_STRUCT
 
 insert GTS_SURFACE_QUALITY_STATS_STRUCT
 
-creation  make, from_external_pointer
+create {ANY}  make, from_external_pointer
 
 feature {} -- Creation
 	make is

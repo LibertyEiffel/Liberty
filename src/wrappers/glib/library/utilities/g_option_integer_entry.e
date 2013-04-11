@@ -31,7 +31,7 @@ inherit
 	-- 	redefine fill_tagged_out_memory
 	-- 	end
 
-creation make
+create {ANY} make
 
 feature {ANY}
 	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING) is

@@ -64,7 +64,7 @@ inherit
 	
 insert GTK_SHADOW_TYPE
 	
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 	
 feature {ANY} -- size
 	struct_size: INTEGER is

@@ -73,7 +73,7 @@ insert
 	GLADE_GETTER [GTK_FONT_BUTTON]            rename get as get_font_button end
 	GLADE_GETTER [GTK_ALIGNMENT]              rename get as get_alignment end
 
-create
+create {ANY}
 	make, make_with_root
 
 feature {} -- Creation

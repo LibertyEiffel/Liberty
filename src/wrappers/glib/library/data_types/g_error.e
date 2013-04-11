@@ -264,7 +264,7 @@ insert
 	GERROR_EXTERNALS
 	GERROR_STRUCT
 
-creation
+create {ANY}
 	make, empty, from_external_pointer
 
 feature {} -- Creation

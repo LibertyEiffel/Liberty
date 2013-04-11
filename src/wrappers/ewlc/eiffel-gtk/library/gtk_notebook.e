@@ -41,7 +41,7 @@ insert
 	G_OBJECT_FACTORY [GTK_WIDGET]
 	GTK_NOTEBOOK_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {ANY} -- struct size
 	struct_size: INTEGER is

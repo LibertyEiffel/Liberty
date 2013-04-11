@@ -42,7 +42,7 @@ class GTK_HBUTTON_BOX
 inherit  GTK_BUTTON_BOX
 	--   GtkHButtonBox implements AtkImplementorIface.
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make is

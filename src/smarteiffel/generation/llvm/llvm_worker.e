@@ -19,7 +19,7 @@ insert
         LLVM_C_TYPES
         LLVM_VALUES_FACTORY
 
-creation communicating_over
+create {ANY} communicating_over
 
 feature {} -- Creation
         communicating_over (an_endpoint: ABSTRACT_STRING) is

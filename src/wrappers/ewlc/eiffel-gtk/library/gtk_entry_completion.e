@@ -56,7 +56,7 @@ insert
 	GTK_ENTRY_COMPLETION_EXTERNALS
 	G_OBJECT_FACTORY [GTK_TREE_MODEL]
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	

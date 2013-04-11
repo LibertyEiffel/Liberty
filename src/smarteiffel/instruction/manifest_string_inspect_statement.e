@@ -9,7 +9,7 @@ class MANIFEST_STRING_INSPECT_STATEMENT
 inherit
    INSPECT_STATEMENT
 
-creation
+create {ANY}
    with_when_list
 
 feature {ANY}

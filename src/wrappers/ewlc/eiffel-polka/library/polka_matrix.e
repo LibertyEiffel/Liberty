@@ -61,7 +61,7 @@ inherit
 insert
 	POLKA_MATRIX_EXTERNALS   
 
-creation make, copy, copy_from_pointer
+create {ANY} make, copy, copy_from_pointer
 
 feature {} -- Creation
 

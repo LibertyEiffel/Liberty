@@ -12,7 +12,7 @@ inherit
 	TYPED_NODE
 	STORABLE_NODE
 
-creation make 
+create {ANY} make 
 feature
 	store is
 		do

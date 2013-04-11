@@ -28,7 +28,7 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_FACTORY [GTK_WIDGET]
 
-create
+create {ANY}
 	make
 
 feature {ANY}

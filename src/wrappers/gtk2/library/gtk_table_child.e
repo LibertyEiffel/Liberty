@@ -27,7 +27,7 @@ inherit
 	C_STRUCT
 	EIFFEL_OWNED
 	-- TODO: wrap this structure for real	
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {} -- size
 	struct_size: INTEGER is

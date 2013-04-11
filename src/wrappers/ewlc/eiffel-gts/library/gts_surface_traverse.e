@@ -27,7 +27,7 @@ inherit
 	
 insert GTS_SURFACE_TRAVERSE_EXTERNALS
 
-creation  make, from_face, from_external_pointer
+create {ANY}  make, from_face, from_external_pointer
 
 feature {} -- Creation
 	make (a_surface: GTS_SURFACE) is

@@ -81,7 +81,7 @@ inherit
 	-- insert WRAPPER_HANDLER undefine --- is_equal,
 	-- copy,fill_tagged_out_memory, out_in_tagged_out_memory end
 
-creation from_external
+create {ANY} from_external
 
 feature {ANY} 
 	from_external (a_c_string: POINTER) is

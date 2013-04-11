@@ -4,7 +4,7 @@ inherit
 	C_STRUCT
 	EIFFEL_OWNED
 	
-create
+create {ANY}
 	make
 
 feature {} -- Creation

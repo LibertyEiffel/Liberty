@@ -90,7 +90,7 @@ class GTK_PRINT_CONTEXT
 
 inherit SHARED_C_STRUCT
 
-creation dummy, from_external_pointer
+create {ANY} dummy, from_external_pointer
 
 feature {} -- Creation
 

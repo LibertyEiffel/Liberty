@@ -16,7 +16,7 @@ inherit
 		-- or better it feels mostly unEiffelish to me. Paolo 2005-06-12
 	
 	WRAPPER_HANDLER -- required to check for some bug in the implementation and accessing wrappers' handles
-creation make
+create {ANY} make
 	
 feature {ANY} -- Columns
 	name_column_n: INTEGER is 0

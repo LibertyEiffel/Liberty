@@ -28,7 +28,7 @@ insert
 	GDK_FILL_RULE -- 	redefine copy end
 	GDK_OVERLAP_TYPE -- redefine copy end
 
-creation
+create {ANY}
 	make, from_polygon, from_external_pointer, from_rectangle, copy, from_external_copy
 
 feature {ANY} -- Creation

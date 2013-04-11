@@ -31,7 +31,7 @@ insert
 	GTK_IMAGE_TYPE
 	GTK_ICON_SIZE
 
-creation
+create {ANY}
 	make, from_file, from_external_pointer, from_pixbuf, from_pixmap, from_stock
 
 feature {} -- Initialization

@@ -27,7 +27,7 @@ class FOCUS_OUT_EVENT_CALLBACK
 inherit
 	FOCUS_EVENT_CALLBACK
 
-creation make
+create {ANY} make
 
 feature {ANY}
 

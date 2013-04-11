@@ -51,7 +51,7 @@ insert
 	GTK_IMAGE_TYPE
 		--GTK_STATUS_ICON_EXTERNALS
 
-creation
+create {ANY}
 	make,
 	make_from_pixbuf,
 	make_from_file,

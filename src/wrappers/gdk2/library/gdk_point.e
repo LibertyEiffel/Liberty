@@ -22,7 +22,7 @@ class GDK_POINT
 
 inherit G_STRUCT
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY} -- size
 	struct_size: INTEGER is

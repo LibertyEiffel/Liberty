@@ -71,7 +71,7 @@ insert
 	GTK_PAGE_SETUP_EXTERNALS
 	GTK_PAGE_ORIENTATION
 
-creation make, copy, from_external_pointer
+create {ANY} make, copy, from_external_pointer
 
 feature {} -- Creation
 	make is

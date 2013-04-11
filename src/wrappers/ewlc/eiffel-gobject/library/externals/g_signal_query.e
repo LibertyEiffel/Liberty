@@ -11,7 +11,7 @@ inherit G_STRUCT
 
 insert G_SIGNAL_FLAGS
 
-creation allocate
+create {ANY} allocate
 
 feature {ANY} -- getters
 	id: INTEGER is

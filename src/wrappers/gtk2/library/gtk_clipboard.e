@@ -87,7 +87,7 @@ class GTK_CLIPBOARD
 	
 inherit G_OBJECT 
 
-creation
+create {ANY}
 	make, from_external_pointer
 
 feature {} -- Creation

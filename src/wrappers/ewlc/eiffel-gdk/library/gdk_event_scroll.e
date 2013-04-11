@@ -28,7 +28,7 @@ insert
 	GDK_MODIFIER_TYPE
 	GDK_SCROLL_DIRECTION
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY} -- access
 

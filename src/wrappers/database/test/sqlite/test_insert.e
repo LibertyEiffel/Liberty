@@ -14,7 +14,7 @@ inherit
 insert
 	FILE_TOOLS
 
-creation 
+create {ANY} 
 	make
 	
 feature {ANY}

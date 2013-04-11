@@ -36,7 +36,7 @@ insert
 		-- Implemented Interfaces
 		-- GtkFileChooserButton implements GtkFileChooser and AtkImplementorIface.
 
-creation
+create {ANY}
 	from_title,
 	from_external_pointer
 

@@ -7,7 +7,7 @@ indexing
 
 class TEST_COMPLEX
 	
-create make
+create {ANY} make
 	
 feature {ANY} make is
 		local

@@ -27,7 +27,7 @@ inherit
 insert
 	GTK_RC_EXTERNALS
 
-creation from_external_pointer, make, copy
+create {ANY} from_external_pointer, make, copy
 
 feature {ANY} -- size
 

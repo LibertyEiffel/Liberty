@@ -22,7 +22,7 @@ class GTK_TEXT_ATTRIBUTES
 	
 inherit G_STRUCT
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 	-- TODO: wrap this structure for real
 

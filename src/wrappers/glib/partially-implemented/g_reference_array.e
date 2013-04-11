@@ -77,7 +77,7 @@ insert
 	WRAPPER_FACTORY [ITEM] -- undefine fill_tagged_out_memory end
 	G_PTR_ARRAY_EXTERNALS undefine fill_tagged_out_memory end
 	
-creation empty, with_capacity, from_external_pointer
+create {ANY} empty, with_capacity, from_external_pointer
 
 feature {ANY} 
 	empty is

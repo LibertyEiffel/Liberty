@@ -9,7 +9,7 @@ class MANIFEST_TUPLE
 inherit
    EXPRESSION
 
-creation make
+create {ANY} make
 
 feature {ANY}
    start_position: POSITION

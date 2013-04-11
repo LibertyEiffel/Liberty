@@ -35,7 +35,7 @@ class GTK_LAYOUT
 inherit GTK_CONTAINER
    -- GtkLayout implements AtkImplementorIface.
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (an_h_adjustment, a_v_adjustment: GTK_ADJUSTMENT) is

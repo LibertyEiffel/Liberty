@@ -6,7 +6,7 @@ indexing
 
 class GSLIST_EXAMPLE
 
-creation make
+create {ANY} make
 
 feature {ANY}
 	list: G_SLIST[G_STRING]

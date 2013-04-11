@@ -7,7 +7,7 @@ expanded class XML_BUFFER_ALLOCATION_SCHEME_ENUM
 
 insert ENUM
 
-creation default_create
+create {ANY} default_create
 feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do

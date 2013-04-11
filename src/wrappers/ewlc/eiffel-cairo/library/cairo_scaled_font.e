@@ -30,7 +30,7 @@ class CAIRO_SCALED_FONT
 	-- TODO: mostly unimplemented
 inherit C_STRUCT
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {} -- Creation
 

@@ -28,7 +28,7 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_FACTORY [O]
 
-creation make
+create {ANY} make
 
 feature {ANY}
 	object: O

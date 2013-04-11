@@ -25,7 +25,7 @@ class GTK_CELL_RENDERER_PROGRESS
 
 inherit GTK_CELL_RENDERER
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- size
 	struct_size: INTEGER is

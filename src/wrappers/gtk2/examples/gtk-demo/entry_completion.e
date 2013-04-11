@@ -21,7 +21,7 @@ indexing
 
 class ENTRY_COMPLETION
 
-creation make
+create {ANY} make
 
 feature {ANY}
 -- /* Entry Completion

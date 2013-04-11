@@ -46,7 +46,7 @@ inherit
 insert
 	GTK_CALENDAR_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {ANY} -- size
 	struct_size: INTEGER is

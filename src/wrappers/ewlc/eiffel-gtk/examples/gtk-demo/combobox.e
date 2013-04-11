@@ -21,7 +21,7 @@ indexing
 
 class COMBOBOX
 
-creation make
+create {ANY} make
 
 feature {ANY}
 -- /* Combo boxes 

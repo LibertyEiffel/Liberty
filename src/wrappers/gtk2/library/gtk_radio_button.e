@@ -86,7 +86,7 @@ insert
 	GTK_RADIO_BUTTON_EXTERNALS
 		-- GtkRadioButton implements AtkImplementorIface.	
 
-creation
+create {ANY}
 	in_a_new_group,
 	from_group,
 	from_widget,

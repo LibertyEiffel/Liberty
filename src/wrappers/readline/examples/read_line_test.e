@@ -3,7 +3,7 @@ class READ_LINE_TEST
 inherit ANY 
 insert READ_LINE
 
-creation make
+create {ANY} make
 
 feature {ANY} 
 	make is

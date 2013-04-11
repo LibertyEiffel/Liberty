@@ -26,7 +26,7 @@ inherit
 	STREAM_HANDLER undefine copy,is_equal,print_on end
 	WRAPPER_FACTORY[ITEM] undefine print_on end
 	
-creation  make, from_external_pointer
+create {ANY}  make, from_external_pointer
 
 feature {ANY} 
 	make is

@@ -35,7 +35,7 @@ inherit
 
 insert GTK_CELL_RENDERER_ACCEL_MODE
 	
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make is

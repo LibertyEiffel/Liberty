@@ -37,7 +37,7 @@ insert
 		-- Implemented Interfaces GtkButton implements
 		-- AtkImplementorIface.
 
-creation
+create {ANY}
 	make,
 	with_label,
 	with_mnemonic,

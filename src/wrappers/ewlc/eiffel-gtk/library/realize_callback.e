@@ -32,7 +32,7 @@ inherit
 insert
 	G_OBJECT_FACTORY [GTK_WIDGET]
 
-creation make
+create {ANY} make
 
 feature {ANY}
 

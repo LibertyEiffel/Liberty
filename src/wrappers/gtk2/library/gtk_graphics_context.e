@@ -31,7 +31,7 @@ class GTK_GRAPHICS_CONTEXT
 
 inherit C_STRUCT
 	
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {} -- Creation
 	-- TODO: implement creation

@@ -33,7 +33,7 @@ inherit
 	-- while the option entry at C level in an integer. rename item as
 	-- hidden_boolean export {} hidden_boolean redefine set_item end
 
-creation make
+create {ANY} make
 	
 feature {ANY} 
 	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING) is

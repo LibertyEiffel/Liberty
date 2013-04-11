@@ -1,6 +1,6 @@
 class TABLE_DEMO
 inherit GTK_MAIN
-creation make
+create {ANY} make
 feature {ANY}
 	make is
 		do

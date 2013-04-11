@@ -27,7 +27,7 @@ inherit G_OBJECT
 
 -- insert GTK_PRINT_BACKEND_EXTERNALS
 
-creation dummy, from_external_pointer
+create {ANY} dummy, from_external_pointer
 
 feature {ANY} -- TODO: Properties
 	

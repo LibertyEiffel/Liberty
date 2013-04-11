@@ -9,7 +9,7 @@ class OTHER_INSPECT_STATEMENT
 inherit
    INSPECT_STATEMENT
 
-creation
+create {ANY}
    make, with_when_list, make_strippable
 
 feature {ANY}

@@ -22,7 +22,7 @@ class GTK_TEXT_APPEARANCE
 
 inherit G_STRUCT
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 	-- TODO: wrap this structure for real
 feature {ANY} -- size

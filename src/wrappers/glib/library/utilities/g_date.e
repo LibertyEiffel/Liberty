@@ -67,7 +67,7 @@ inherit
 
 insert GDATE_STRUCT	
 
-creation make_dmy, from_tuple, make
+create {ANY} make_dmy, from_tuple, make
    
 creation {WRAPPER} from_external_pointer
    

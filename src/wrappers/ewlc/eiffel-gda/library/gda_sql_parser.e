@@ -87,7 +87,7 @@ insert
 	GDA_SQL_PARSER_EXTERNALS
 	SHARED_G_ERROR
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make is

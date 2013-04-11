@@ -10,7 +10,7 @@ inherit
 
 insert LLVM_TYPE_FACTORY
 
-creation from_type, from_external_pointer
+create {ANY} from_type, from_external_pointer
 
 feature {ANY} 
 	from_type (a_type: LLVM_TYPE) is

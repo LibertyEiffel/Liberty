@@ -9,7 +9,7 @@ class BUILT_IN_EQ_NEQ
 inherit
    EXPRESSION
 
-creation
+create {ANY}
    make_eq, make_neq
 
 feature {ANY}

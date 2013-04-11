@@ -30,7 +30,7 @@ insert
 	GDK_CROSSING_MODE
 	GDK_NOTIFY_TYPE
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY} -- access
 

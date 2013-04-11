@@ -28,7 +28,7 @@ class GTK_VSCROLLBAR
 inherit GTK_SCROLLBAR
 	-- GtkHScrollbar implements AtkImplementorIface.
 	
-creation make, with_adjustment, from_external_pointer
+create {ANY} make, with_adjustment, from_external_pointer
 
 feature {} -- Creation
 	make is

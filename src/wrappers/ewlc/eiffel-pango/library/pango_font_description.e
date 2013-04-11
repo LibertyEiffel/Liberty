@@ -44,7 +44,7 @@ insert
 	PANGO_FONT_MASK
 	PANGO_STRETCH
 
-creation
+create {ANY}
 	make, from_string, from_external_pointer
 
 feature {} -- Creation

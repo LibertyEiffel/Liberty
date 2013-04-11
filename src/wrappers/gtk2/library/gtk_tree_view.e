@@ -30,7 +30,7 @@ insert
 	GTK_TREE_VIEW_EXTERNALS
 	GTK_TREE_VIEW_DROP_POSITION
 
-creation make, with_model, from_external_pointer
+create {ANY} make, with_model, from_external_pointer
 
 feature {} -- Creation
 	make is

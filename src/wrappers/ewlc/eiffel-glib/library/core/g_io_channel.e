@@ -14,7 +14,7 @@ inherit
 insert
 	G_IO_CONDITIONS
 
-create
+create {ANY}
 	from_unix_fd, from_win32_fd, from_win32_socket
 
 feature {} -- Creation

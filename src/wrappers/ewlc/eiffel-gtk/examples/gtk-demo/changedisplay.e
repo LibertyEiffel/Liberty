@@ -21,7 +21,7 @@ indexing
 
 class CHANGEDISPLAY
 
-creation make
+create {ANY} make
 
 feature {ANY}
 -- /* Change Display

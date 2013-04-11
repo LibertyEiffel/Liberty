@@ -57,7 +57,7 @@ inherit
 	
 	-- TODO: GtkRadioMenuItem implements AtkImplementorIface.
 
-creation 
+create {ANY} 
 	from_group, with_group_label, with_mnemonic, from_widget,
 	with_label_from_widget, with_mnemonic_from_widget,
 	from_external_pointer

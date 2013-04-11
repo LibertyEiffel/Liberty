@@ -25,7 +25,7 @@ inherit
 	C_STRUCT
 	REFERENCE_COUNTED
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY} -- TODO: PangoFontMetrics structure access
 

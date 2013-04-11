@@ -18,7 +18,7 @@ inherit
 		redefine copy
 		end
 	
-creation make
+create {ANY} make
 
 feature {} -- Creation
 	make (n_prealloced: INTEGER) is

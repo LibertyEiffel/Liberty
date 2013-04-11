@@ -14,7 +14,7 @@ inherit
 	G_TYPES
 	WRAPPER_HANDLER
 
-creation make
+create {ANY} make
 
 feature {ANY} -- Columns
 

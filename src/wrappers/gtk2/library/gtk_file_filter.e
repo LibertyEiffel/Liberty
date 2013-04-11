@@ -45,7 +45,7 @@ insert
 	GTK_FILE_FILTER_INFO_EXTERNALS
 	GTK_FILE_FILTER_FLAGS
 
-creation make, with_pattern, with_mime_type, from_external_pointer
+create {ANY} make, with_pattern, with_mime_type, from_external_pointer
 
 feature {} -- Creation
 	make is

@@ -129,7 +129,7 @@ inherit
 insert
 	GTK_FILE_CHOOSER_DIALOG_EXTERNALS
 
-creation
+create {ANY}
 	make_open, make_save, from_external_pointer
 
 feature {} -- Creation

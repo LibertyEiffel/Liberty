@@ -1,6 +1,6 @@
 class TEST_2
 
-creation make
+create {ANY} make
 
 feature {ANY} 
 	make is

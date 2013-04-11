@@ -3,7 +3,7 @@
 expanded class GDA_PARAMETER_LIST_PARAM_HINT
 insert ENUM
 
-creation default_create
+create {ANY} default_create
 feature {ANY} -- Validity
 	is_valid_value (some_flags: INTEGER): BOOLEAN is
 		do

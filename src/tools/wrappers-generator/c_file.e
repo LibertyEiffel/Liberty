@@ -12,7 +12,7 @@ insert
 	FILE_TOOLS
 	COLLECTION_SORTER[WRAPPER_FEATURE]
 
-creation make
+create {ANY} make
 
 feature 
 	store is

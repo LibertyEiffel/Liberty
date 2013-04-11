@@ -17,7 +17,7 @@ insert
 	GIOCHANNEL_EXTERNALS
 	GIOCHANNEL_STRUCT
 
-create
+create {ANY}
 	from_unix_fd --, from_win32_fd, from_win32_socket
 
 feature {} -- Creation

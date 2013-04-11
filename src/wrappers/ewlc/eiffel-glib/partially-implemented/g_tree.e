@@ -40,7 +40,7 @@ insert
 	G_TREE_EXTERNALS
 		--	GLIB_TYPE_CONVERSION_MACROS -- Temporary
 	
-creation  with_comparer, from_external_pointer
+create {ANY}  with_comparer, from_external_pointer
 
 feature {} -- Creation
 	make (a_key_factory: CACHING_FACTORY[KEY]; a_value_factory: CACHING_FACTORY[VALUE]) is

@@ -20,7 +20,7 @@ inherit
 insert 
 	COLLECTION_SORTER [C_ENUM_VALUE]
 
-creation make
+create {ANY} make
 
 feature 
     store is

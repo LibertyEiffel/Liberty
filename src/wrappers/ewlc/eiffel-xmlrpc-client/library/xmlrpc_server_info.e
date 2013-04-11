@@ -8,7 +8,7 @@ inherit
 insert
 	XMLRPC_SERVER_INFO_EXTERNALS
 
-creation
+create {ANY}
 	from_url, from_server_info, make
 
 feature {ANY} -- Size

@@ -27,7 +27,7 @@ class GDK_TRAPEZOID
 
 inherit G_STRUCT
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY}
 

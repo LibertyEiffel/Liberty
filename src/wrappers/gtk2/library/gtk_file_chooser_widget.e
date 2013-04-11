@@ -39,7 +39,7 @@ inherit
 insert
 	GTK_FILE_CHOOSER_WIDGET_EXTERNALS
 
-creation
+create {ANY}
 	make,
 	with_backend,
 	from_external_pointer

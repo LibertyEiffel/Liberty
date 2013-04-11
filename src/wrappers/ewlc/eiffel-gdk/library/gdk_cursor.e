@@ -31,7 +31,7 @@ inherit
 insert
 	GDK_CURSOR_EXTERNALS
 
-creation from_type, from_external_cursor
+create {ANY} from_type, from_external_cursor
 
 feature {ANY} -- size
 

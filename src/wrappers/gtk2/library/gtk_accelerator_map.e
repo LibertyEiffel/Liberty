@@ -40,7 +40,7 @@ inherit
 insert 
 		GTK_ACCEL_MAPS_EXTERNALS redefine default_create end
 
-creation default_create
+create {ANY} default_create
 
 feature {ANY} 
 	default_create is

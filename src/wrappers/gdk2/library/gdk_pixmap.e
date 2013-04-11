@@ -23,7 +23,7 @@ class GDK_PIXMAP
 
 inherit GDK_DRAWABLE
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY} -- size
 

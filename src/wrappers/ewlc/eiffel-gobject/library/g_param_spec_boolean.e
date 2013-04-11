@@ -27,7 +27,7 @@ inherit
 			struct_size
 		end	
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 	
 feature {ANY} -- Creation
 	make (a_name,a_nick,a_blurb: STRING; a_default: BOOLEAN; some_flags: INTEGER) is

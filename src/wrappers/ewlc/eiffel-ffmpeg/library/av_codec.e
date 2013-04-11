@@ -33,7 +33,7 @@ insert
 	AV_CODEC_EXTERNALS
 	AV_CODEC_IDS
 
-creation
+create {ANY}
 	from_external_pointer
 
 feature {ANY} -- Operations

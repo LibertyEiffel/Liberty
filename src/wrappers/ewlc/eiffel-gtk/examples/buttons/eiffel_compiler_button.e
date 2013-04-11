@@ -3,7 +3,7 @@ inherit
 	GTK_RADIO_BUTTON redefine with_label,with_label_from_widget, on_toggled end
 	G_SIGNALS
 	
-creation with_label, with_label_from_widget
+create {ANY} with_label, with_label_from_widget
 	
 feature {ANY} 
 	with_label (a_group: G_SLIST[GTK_RADIO_BUTTON]; a_label: STRING) is

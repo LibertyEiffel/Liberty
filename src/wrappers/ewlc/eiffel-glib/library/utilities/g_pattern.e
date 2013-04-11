@@ -42,7 +42,7 @@ inherit
 		C_STRUCT redefine is_equal, free end
 		EIFFEL_OWNED redefine free end
 
-creation make
+create {ANY} make
 
 creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 

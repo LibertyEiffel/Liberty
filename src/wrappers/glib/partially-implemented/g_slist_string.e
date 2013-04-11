@@ -29,7 +29,7 @@ insert
 	GSLIST_EXTERNALS undefine fill_tagged_out_memory, out_in_tagged_out_memory end
 	GSLIST_STRUCT undefine fill_tagged_out_memory, out_in_tagged_out_memory end
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {ANY}
 	make is

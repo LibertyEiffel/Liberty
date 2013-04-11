@@ -31,7 +31,7 @@ inherit
 	-- inheriting clauses may be needed: undefine copy redefine is_equal,
 	-- item, set_item, fill_tagged_out_memory end
 
-creation make
+create {ANY} make
 	
 feature {ANY} 
 	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING) is

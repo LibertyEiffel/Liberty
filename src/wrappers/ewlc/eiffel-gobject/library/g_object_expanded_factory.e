@@ -27,6 +27,6 @@ insert
 	G_OBJECT_FACTORY[ITEM]
 	ANY
 
-creation default_create
+create {ANY} default_create
 
 end -- class G_OBJECT_EXPANDED_FACTORY

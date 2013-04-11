@@ -47,7 +47,7 @@ insert
 	GDK_DRAG_CONTEXT_EXTERNALS
 	GDK_DRAG_ACTION
 
-creation from_external_pointer, secondary_wrapper_from
+create {ANY} from_external_pointer, secondary_wrapper_from
 
 feature {ANY} -- size
 

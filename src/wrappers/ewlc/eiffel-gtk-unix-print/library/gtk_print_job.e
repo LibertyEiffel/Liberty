@@ -39,7 +39,7 @@ insert
 	GTK
 	GTK_PRINT_STATUS
 	
-creation dummy, make, from_external_pointer
+create {ANY} dummy, make, from_external_pointer
 
 feature {} -- Creation 
 	make (a_title: STRING; a_printer: GTK_PRINTER; some_settings: GTK_PRINT_SETTINGS; a_page_setup: GTK_PAGE_SETUP) is

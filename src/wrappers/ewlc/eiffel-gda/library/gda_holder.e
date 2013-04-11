@@ -36,7 +36,7 @@ insert
 	GDA_HOLDER_EXTERNALS
 	SHARED_G_ERROR
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (a_type: like g_type) is

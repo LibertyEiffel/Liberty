@@ -2,7 +2,7 @@ class WORDS
 	-- An hashed set of words, usually read from a file
 
 inherit HASHED_SET[STRING]
-creation make
+create {ANY} make
 
 feature 
 	add_from_file (a_file_name: STRING) is

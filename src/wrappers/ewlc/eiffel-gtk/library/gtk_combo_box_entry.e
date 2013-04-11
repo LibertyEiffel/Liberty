@@ -58,7 +58,7 @@ inherit
 insert
 	GTK_COMBO_BOX_ENTRY_EXTERNALS
 
-creation make, with_model, with_text_only, from_external_pointer
+create {ANY} make, with_model, with_text_only, from_external_pointer
 
 feature {} -- Creation
 

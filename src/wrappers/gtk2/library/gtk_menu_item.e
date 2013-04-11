@@ -35,7 +35,7 @@ inherit
 insert
 	G_OBJECT_FACTORY  [GTK_WIDGET]
 
-creation make, with_label, with_mnemonic, from_external_pointer
+create {ANY} make, with_label, with_mnemonic, from_external_pointer
 
 feature {} -- Creation
 	make is

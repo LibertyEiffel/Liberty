@@ -20,7 +20,7 @@ inherit
 		end
 	C_STRUCT
 	
-creation  connect
+create {ANY}  connect
 
 feature {} -- size
 	struct_size: INTEGER is

@@ -32,7 +32,7 @@ inherit
 insert
 	GTK_TOGGLE_TOOL_BUTTON_EXTERNALS
 
-create
+create {ANY}
 	from_external_pointer, make
 
 feature {} -- Creation

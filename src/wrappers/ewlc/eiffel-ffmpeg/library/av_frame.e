@@ -28,7 +28,7 @@ inherit
 insert
 	AV_FRAME_EXTERNALS
 
-creation
+create {ANY}
 	make
 
 feature {} -- Creation

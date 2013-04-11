@@ -85,7 +85,7 @@ insert
 	G_OBJECT_FACTORY [GTK_WIDGET]
 	GTK_MENU_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make is 

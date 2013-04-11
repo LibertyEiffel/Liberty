@@ -23,7 +23,7 @@ class GDK_RECTANGLE
 
 inherit G_STRUCT
 
-creation from_external_pointer, from_external_copy, make
+create {ANY} from_external_pointer, from_external_copy, make
 
 feature {ANY} --Creation
 

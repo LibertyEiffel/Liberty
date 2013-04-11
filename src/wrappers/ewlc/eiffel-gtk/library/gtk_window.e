@@ -33,7 +33,7 @@ insert
 	GTK_WINDOW_EXTERNALS
 	GTK_WINDOW_TYPE
 
-creation
+create {ANY}
 	make, make_toplevel, from_external_pointer
 
 feature {} -- Creation

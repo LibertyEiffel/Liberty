@@ -36,7 +36,7 @@ inherit GTK_MENU_ITEM redefine make, struct_size end
 
 -- TODO: GtkTearoffMenuItem implements AtkImplementorIface.
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 

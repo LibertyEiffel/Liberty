@@ -26,7 +26,7 @@ class GDK_SEGMENT
 
 inherit G_STRUCT
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY}
 	x1: INTEGER is

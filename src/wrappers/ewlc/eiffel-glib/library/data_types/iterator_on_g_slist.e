@@ -28,7 +28,7 @@ insert
 	G_SLIST_EXTERNALS
    GLOBAL_CACHE
 	
-creation make
+create {ANY} make
 	
 feature {} -- Creation
 	make (a_list: G_SLIST_TRAVERSABLE[ITEM]) is

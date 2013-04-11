@@ -3,7 +3,7 @@
 expanded class GDA_QUERY_TARGET_ERROR
 insert ENUM
 
-creation default_create
+create {ANY} default_create
 feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do

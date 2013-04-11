@@ -12,10 +12,10 @@ class ASSIGNMENT
 inherit
    INSTRUCTION
 
-creation
+create {ANY}
    make
 
-creation
+create {ANY}
    inline_make
 
 feature {ANY}

@@ -73,7 +73,7 @@ inherit
 insert
 	GTK_MESSAGE_DIALOG_EXTERNALS
 
-creation new, make, with_markup, from_external_pointer
+create {ANY} new, make, with_markup, from_external_pointer
 
 feature {ANY} -- size
 	struct_size: INTEGER is

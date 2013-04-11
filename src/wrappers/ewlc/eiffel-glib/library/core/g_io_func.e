@@ -7,7 +7,7 @@ inherit
 insert
 	G_IO_CONDITIONS
 
-create
+create {ANY}
 	make
 
 feature {} -- Creation

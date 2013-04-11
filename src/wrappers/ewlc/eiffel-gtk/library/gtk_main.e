@@ -36,7 +36,7 @@ insert
 	GTK_MAIN_EXTERNALS redefine default_create end
 	POINTER_HANDLING redefine default_create end
 
-creation default_create
+create {ANY} default_create
 
 feature {ANY} -- Creation
 

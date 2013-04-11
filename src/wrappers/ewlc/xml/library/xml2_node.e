@@ -31,7 +31,7 @@ insert
 	SHARED_XML2_NODE_CACHE
 	LIBXML2_EXTERNALS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {ANY} -- Name and attributes
 	name: STRING is

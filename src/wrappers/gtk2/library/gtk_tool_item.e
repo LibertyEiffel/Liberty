@@ -33,7 +33,7 @@ inherit
 	GTK_BIN
 	--GtkToolItem implements AtkImplementorIface.
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 

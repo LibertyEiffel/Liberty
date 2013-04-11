@@ -28,7 +28,7 @@ insert
 	AV_PACKET_EXTERNALS
 	AV_ERROR_CODES
 
-creation
+create {ANY}
 	make, from_external_pointer
 
 feature {} -- Creation

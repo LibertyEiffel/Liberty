@@ -27,7 +27,7 @@ inherit
 			first,last,item
 		end
 	
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {ANY}
 		first: CONST_STRING is 

@@ -46,7 +46,7 @@ insert
 	GTK_MENU_TOOL_BUTTON_EXTERNALS
 	GTK_MENU_EXTERNALS -- to access gtk_is_menu
 
-creation from_label, from_stock, from_external_pointer
+create {ANY} from_label, from_stock, from_external_pointer
 
 feature {} -- Creation
 	from_label (an_icon_widget: GTK_WIDGET; a_label: STRING) is

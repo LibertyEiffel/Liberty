@@ -21,7 +21,7 @@ indexing
 
 class BUTTON_BOX
 
-creation make
+create {ANY} make
 
 feature {ANY}
 -- /* Button Boxes

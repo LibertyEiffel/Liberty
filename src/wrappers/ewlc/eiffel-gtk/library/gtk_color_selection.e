@@ -40,7 +40,7 @@ inherit GTK_VBOX
 insert
 	GTK_COLOR_SELECTION_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {ANY} -- size
 

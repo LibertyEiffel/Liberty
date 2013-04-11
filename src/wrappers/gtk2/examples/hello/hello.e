@@ -8,7 +8,7 @@ class HELLO
 
 insert GTK_MAIN
 	
-creation	make
+create {ANY}	make
 	
 feature {ANY}
 	on_clicked (a_button: GTK_BUTTON) is
