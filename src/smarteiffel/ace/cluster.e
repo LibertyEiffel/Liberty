@@ -82,7 +82,8 @@ feature {CLASSES_TREE}
       do
          Result := class_text_map.count
       end
-feature
+
+feature {ANY}
    for_all (action: PROCEDURE[TUPLE[CLASS_TEXT]]) is
       local
          i: INTEGER

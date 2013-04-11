@@ -4,14 +4,14 @@
 class LLVM_BYTECODE_EMITTER
    --
    -- Singleton in charge of emitting Low Level Virtual Machine bytecode.
- 
+
    -- This singleton is shared via the LLVM_GLOBALS.`llvm_bytecode_emitter' once function.
 
    -- This object in the main process do not actually emit any code but forks
    -- several times and tells its children to compile clusters.
-   
-	-- In each process this object will be an actual singleton yet the compiler
-	-- will be made up by several processes.
+
+        -- In each process this object will be an actual singleton yet the compiler
+        -- will be made up by several processes.
 
 
 inherit CODE_PRINTER undefine is_equal end
@@ -23,7 +23,7 @@ creation {LLVM_GLOBALS} make
 feature {SMART_EIFFEL}
    compile is
          -- Entry point of actual bytecode generation.
-	 local workers_count: INTEGER
+         local workers_count: INTEGER
       do
          if nb_errors = 0 then
             check
@@ -34,60 +34,60 @@ feature {SMART_EIFFEL}
                smart_eiffel.is_ready
             end
             smart_eiffel.customize_runtime
-			-- Now we are ready.
+                        -- Now we are ready.
 
-			-- Let's have an aggressive parallel attitute. We now have
-			-- everything parsed up and understood.  Some children are spawned,
-			-- one or more per core available. Once they are all ready we can
-			-- send them messages to process each cluster"
-			workers_count := (2*processors_count + 1); 
-			("Creating #(1) workers processes over #(2) cores.%N" # &workers_count # &processors_count).print_on(std_error)
-			create workers.with_capacity(workers_count) 
-			socket_path := "ipc:///tmp/liberty-llvm-compiler-"+process_id.out
-			controller_path := "ipc:///tmp/liberty-llvm-compiler-controller-"+process_id.out
-			workers_count.times(agent is do
-				workers.add_last(create {LLVM_WORKER}.communicating_over(socket_path))
-			end)
-			
-			-- For each cluster send a command message on the push socket to
-			-- compile it.  The usage of a plain string message is deliberate,
-			-- conscious design choice that will let us scale to multi-machine,
-			-- multi-architecture without any fuss. It is true that it requires
-			-- some parsing which may sound costly yet.
-			-- In a fully distributed compiler each worker would receive a
-			-- "huge" message containing all the tree it should compile.
-			-- Currently we stay on a single machine so we may rely on the fact
-			-- that forked children processes share all the memory content of
-			-- their father at creation/fork time.
-			create messaging_context
-			socket := messaging_context.new_push_socket;
-			socket.bind(socket_path)
+                        -- Let's have an aggressive parallel attitute. We now have
+                        -- everything parsed up and understood.  Some children are spawned,
+                        -- one or more per core available. Once they are all ready we can
+                        -- send them messages to process each cluster"
+                        workers_count := (2*processors_count + 1);
+                        ("Creating #(1) workers processes over #(2) cores.%N" # &workers_count # &processors_count).print_on(std_error)
+                        create workers.with_capacity(workers_count)
+                        socket_path := "ipc:///tmp/liberty-llvm-compiler-"+process_id.out
+                        controller_path := "ipc:///tmp/liberty-llvm-compiler-controller-"+process_id.out
+                        workers_count.times(agent is do
+                                workers.add_last(create {LLVM_WORKER}.communicating_over(socket_path))
+                        end)
 
-			-- Wait for all the workers to become ready... or perhaps its
-			-- better to have a "ready or not here I come!" attitude
-			-- controller := messaging_context.new_push_socket;
-			-- controller.connect(controller_path)
+                        -- For each cluster send a command message on the push socket to
+                        -- compile it.  The usage of a plain string message is deliberate,
+                        -- conscious design choice that will let us scale to multi-machine,
+                        -- multi-architecture without any fuss. It is true that it requires
+                        -- some parsing which may sound costly yet.
+                        -- In a fully distributed compiler each worker would receive a
+                        -- "huge" message containing all the tree it should compile.
+                        -- Currently we stay on a single machine so we may rely on the fact
+                        -- that forked children processes share all the memory content of
+                        -- their father at creation/fork time.
+                        create messaging_context
+                        socket := messaging_context.new_push_socket;
+                        socket.bind(socket_path)
 
-			-- Tell 
-			(1|..|ace.cluster_count).do_all (agent (an_index: INTEGER_32) is 
-			local message: ZMQ_STRING_MESSAGE
-			do
-				create message.from_string("compile-cluster "| &an_index)
-				print("Posting message `"+message+"'%N") 
-				socket.post(message)
-			end)
-			-- Granularity at cluster level may be too coarse, perhaps it may
-			-- be  better to do it at class level
+                        -- Wait for all the workers to become ready... or perhaps its
+                        -- better to have a "ready or not here I come!" attitude
+                        -- controller := messaging_context.new_push_socket;
+                        -- controller.connect(controller_path)
+
+                        -- Tell
+                        (1|..|ace.cluster_count).do_all (agent (an_index: INTEGER_32) is
+                        local message: ZMQ_STRING_MESSAGE
+                        do
+                                create message.from_string("compile-cluster "| &an_index)
+                                print("Posting message `"+message+"'%N")
+                                socket.post(message)
+                        end)
+                        -- Granularity at cluster level may be too coarse, perhaps it may
+                        -- be  better to do it at class level
          end
       end
-	
-	socket_pathi, controller_path: ABSTRACT_STRING
-	messaging_context: ZMQ_CONTEXT
-	socket: ZMQ_PUSH_SOCKET
-	controller: ZMQ_PUSH_SOCKET
-	workers: FAST_ARRAY[LLVM_WORKER]
 
-feature 
+        socket_pathi, controller_path: ABSTRACT_STRING
+        messaging_context: ZMQ_CONTEXT
+        socket: ZMQ_PUSH_SOCKET
+        controller: ZMQ_PUSH_SOCKET
+        workers: FAST_ARRAY[LLVM_WORKER]
+
+feature {ANY}
    get_started is
       require
          smart_eiffel.status.is_safety_checking
@@ -99,10 +99,10 @@ feature
       do
       end
 
-	is_equal (another: like Current): BOOLEAN is
-		do
-			Result := to_pointer = another.to_pointer
-		end
+        is_equal (another: like Current): BOOLEAN is
+                do
+                        Result := to_pointer = another.to_pointer
+                end
 end -- class LLVM_BYTECODE_EMITTER
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

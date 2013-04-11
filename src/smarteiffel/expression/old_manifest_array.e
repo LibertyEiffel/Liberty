@@ -16,7 +16,7 @@ inherit
 creation {EIFFEL_PARSER}
    make
 
-feature
+feature {ANY}
    start_position: POSITION
          -- Of first character of the first < character.
 
