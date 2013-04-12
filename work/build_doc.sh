@@ -48,7 +48,7 @@ done | while read i section args; do
     run se doc -verbose -title "Section:\\\\ $section" \
         -wiki_prefix "http://wiki.liberty-eiffel.org/" -home_address "http://doc.liberty-eiffel.org/" \
         -js "$root/resources/eiffeldoc/eiffeldoc.js" -css "$root/resources/eiffeldoc/eiffeldoc.css" \
-        -prune test $args
+        -prune test -prune Local $args
 done
 
 status=$(grep '^se failed with status' $LOG | awk 'BEGIN {i = 0} {i += $NF} END {print i}')
