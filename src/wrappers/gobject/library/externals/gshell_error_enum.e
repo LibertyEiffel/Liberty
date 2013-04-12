@@ -3,54 +3,52 @@
 
 expanded class GSHELL_ERROR_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = bad_quoting_low_level)  or else
-				(a_value = empty_string_low_level)  or else
-				(a_value = failed_low_level) )
+creation default_create
+feature -- Validity
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = g_shell_error_bad_quoting_low_level)  or else
+				(a_value = g_shell_error_empty_string_low_level)  or else
+				(a_value = g_shell_error_failed_low_level) )
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
-	set_bad_quoting is
+	set_g_shell_error_bad_quoting is
 		do
-			value := bad_quoting_low_level
+			value := g_shell_error_bad_quoting_low_level
 		end
 
-	set_empty_string is
+	set_g_shell_error_empty_string is
 		do
-			value := empty_string_low_level
+			value := g_shell_error_empty_string_low_level
 		end
 
-	set_failed is
+	set_g_shell_error_failed is
 		do
-			value := failed_low_level
+			value := g_shell_error_failed_low_level
 		end
 
-feature {ANY} -- Queries
-	is_bad_quoting: BOOLEAN is
+feature -- Queries
+	is_g_shell_error_bad_quoting: BOOLEAN is
 		do
-			Result := (value=bad_quoting_low_level)
+			Result := (value=g_shell_error_bad_quoting_low_level)
 		end
 
-	is_empty_string: BOOLEAN is
+	is_g_shell_error_empty_string: BOOLEAN is
 		do
-			Result := (value=empty_string_low_level)
+			Result := (value=g_shell_error_empty_string_low_level)
 		end
 
-	is_failed: BOOLEAN is
+	is_g_shell_error_failed: BOOLEAN is
 		do
-			Result := (value=failed_low_level)
+			Result := (value=g_shell_error_failed_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	bad_quoting_low_level: INTEGER is
+	g_shell_error_bad_quoting_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -59,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	empty_string_low_level: INTEGER is
+	g_shell_error_empty_string_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	failed_low_level: INTEGER is
+	g_shell_error_failed_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

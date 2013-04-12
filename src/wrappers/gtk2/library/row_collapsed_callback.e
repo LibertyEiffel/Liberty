@@ -59,7 +59,7 @@ feature {ANY}
 		end
 
 	connect (an_object: GTK_TREE_VIEW;
-				a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_ITER, GTK_TREE_PATH, GTK_TREE_VIEW]]) is
+				a_procedure: PROCEDURE [TUPLE[GTK_TREE_ITER, GTK_TREE_PATH, GTK_TREE_VIEW]]) is
 		do
 			debug
 				print ("ROW_COLLAPSED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -79,6 +79,6 @@ feature {ANY}
 
 	signal_name: STRING is "row-collapsed"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_ITER, GTK_TREE_PATH, GTK_TREE_VIEW]]
+	procedure: PROCEDURE [TUPLE[GTK_TREE_ITER, GTK_TREE_PATH, GTK_TREE_VIEW]]
 
 end

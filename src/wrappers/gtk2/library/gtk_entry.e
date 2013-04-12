@@ -414,7 +414,7 @@ feature {ANY} -- The "activate" signal
 			connect (Current, activate_signal_name, $on_activate)
 		end
 
-	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_ENTRY]]) is
+	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANYTUPLE[GTK_ENTRY]]) is
 		require
 			valid_procedure: a_procedure /= Void
 		local
@@ -442,7 +442,7 @@ feature {ANY} -- The "backspace" signal
 		end
 
 	-- TODO: implement connect_agent_to_backspace_signal (a_procedure:
-	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
+	-- PROCEDURE [ANYTUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
 	-- inspiration.
 
 feature {ANY} -- The "copy-clipboard" signal
@@ -461,7 +461,7 @@ feature {ANY} -- The "copy-clipboard" signal
 		end
 
 	-- TODO: implement connect_agent_to_backspace_signal (a_procedure:
-	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
+	-- PROCEDURE [ANYTUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
 	-- inspiration.
 
 feature {ANY} -- The "cut-clipboard" signal
@@ -480,7 +480,7 @@ feature {ANY} -- The "cut-clipboard" signal
 		end
 
 	-- TODO: implement connect_agent_to_cut_clipboard_signal (a_procedure:
-	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
+	-- PROCEDURE [ANYTUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
 	-- inspiration.
 
 feature {ANY} -- The "delete-from-cursor" signal
@@ -534,7 +534,7 @@ feature {ANY} -- The "paste-clipboard" signal
 		end
 
 	-- TODO: implement connect_agent_to_paste_clipboard_signal (a_procedure:
-	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
+	-- PROCEDURE [ANYTUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
 	-- inspiration.
 
 feature {ANY} -- The "populate-popup" signal
@@ -555,7 +555,7 @@ feature {ANY} -- The "populate-popup" signal
 		end
 
 	-- TODO: implement connect_agent_to_populate_popup_signal (a_procedure:
-	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
+	-- PROCEDURE [ANYTUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
 	-- inspiration.
 
 feature {} -- populate-popup signal implementation

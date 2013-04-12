@@ -52,7 +52,7 @@ feature {ANY}
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [ANY, TUPLE[GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
+	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [TUPLE[GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
 		do
 			debug
 				print ("DRAG_END_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -72,5 +72,5 @@ feature {ANY}
 
 		signal_name: STRING is "drag-end"
 
-	procedure: PROCEDURE [ANY, TUPLE[GDK_DRAG_CONTEXT, GTK_WIDGET]]
+	procedure: PROCEDURE [TUPLE[GDK_DRAG_CONTEXT, GTK_WIDGET]]
 end

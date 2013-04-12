@@ -33,7 +33,7 @@ insert
 	GDK
 	PANGO
 	ARGUMENTS redefine default_create end
-	GTK_MAIN_EXTERNALS redefine default_create end
+	GTKWINDOW_EXTERNALS redefine default_create end
 	POINTER_HANDLING redefine default_create end
 
 create {ANY} default_create
@@ -443,12 +443,6 @@ feature {ANY}
 			std_error.put_string (once "Exiting gtk_main%N")
 		end
 
-	gtk_nesting_level: INTEGER is
-		obsolete "use nesting level instead"
-		do
-			Result := nesting_level
-		end
-
 	nesting_level: INTEGER is
 			-- the nesting level of the current invocation of the main
 			-- loop. This can be useful when calling gtk_quit_add().
@@ -456,23 +450,11 @@ feature {ANY}
 			Result := gtk_main_level
 		end
 
-	gtk_quit is
-		obsolete "use quit instead"
-		do
-			quit
-		end
-
 	quit is
 			-- Makes the innermost invocation of the main loop return
 			-- when it regains control.
 		do
 			gtk_main_quit
-		end
-
-	gtk_main_iteration is
-		obsolete "use main_iteration"
-		do
-			main_iteration
 		end
 
 	main_iteration is
@@ -485,12 +467,6 @@ feature {ANY}
 		do
 			-- TODO: expose called_on_innermost_mainloop in an intelligent way
 			called_on_innermost_mainloop := gtk_main_iteration_external
-		end
-
-	gtk_main_iteration_not_blocking is
-		obsolete "use not_blocking_main_iteration"
-		do
-			not_blocking_main_iteration
 		end
 
 	not_blocking_main_iteration is
@@ -778,34 +754,6 @@ feature {} -- External calls for global windows features
 	ref_all_toplevels (toplevel_list: POINTER) is
 		external "C inline use <gtk/gtk.h>"
 		alias "g_list_foreach ($toplevel_list, (GFunc)g_object_ref, NULL)"
-		end
-
-	gtk_window_list_toplevels: POINTER is -- GList* 
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_window_get_default_icon_list: POINTER is -- GList* 
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_window_set_default_icon_list(a_glist: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_window_set_default_icon (a_gdkpixbuf_icon: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_window_set_default_icon_from_file (filename_str, gerror_handle: POINTER): INTEGER is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_window_set_default_icon_name (name_str: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_window_set_auto_startup_notification (gboolean_setting: INTEGER) is
-		external "C use <gtk/gtk.h>"
 		end
 
 feature {} -- Unwrapped code from "Main loop and Events"

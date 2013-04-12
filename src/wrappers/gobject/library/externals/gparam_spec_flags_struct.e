@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_flags_struct_set_default_value (a_structure: POINTER; a_value: NATURAL_32) is
+	gparam_spec_flags_struct_set_default_value (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for default_value field of GPARAM_SPEC_FLAGS_STRUCT structure.
 			-- TODO: setter description
 
@@ -47,7 +47,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_flags_struct_get_default_value (a_structure: POINTER): NATURAL_32 is
+	gparam_spec_flags_struct_get_default_value (a_structure: POINTER): NATURAL is
 			-- Query for default_value field of GPARAM_SPEC_FLAGS_STRUCT structure.
 			-- TODO: getter description
 
@@ -59,7 +59,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-feature {ANY} -- Structure size
+feature -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

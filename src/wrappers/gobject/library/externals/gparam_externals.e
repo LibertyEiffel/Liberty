@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_param_spec_get_qdata (a_pspec: POINTER; a_quark: NATURAL_32): POINTER is
+	g_param_spec_get_qdata (a_pspec: POINTER; a_quark: NATURAL): POINTER is
  		-- g_param_spec_get_qdata
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_param_spec_internal (a_param_type: NATURAL_64; a_name: POINTER; a_nick: POINTER; a_blurb: POINTER; a_flags: INTEGER): POINTER is
+	g_param_spec_internal (a_param_type: like long_unsigned; a_name: POINTER; a_nick: POINTER; a_blurb: POINTER; a_flags: INTEGER): POINTER is
  		-- g_param_spec_internal
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_param_spec_pool_insert (a_pool: POINTER; a_pspec: POINTER; an_owner_type: NATURAL_64) is
+	g_param_spec_pool_insert (a_pool: POINTER; a_pspec: POINTER; an_owner_type: like long_unsigned) is
  		-- g_param_spec_pool_insert
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_param_spec_pool_list (a_pool: POINTER; an_owner_type: NATURAL_64; a_n_pspecs_p: POINTER): POINTER is
+	g_param_spec_pool_list (a_pool: POINTER; an_owner_type: like long_unsigned; a_n_pspecs_p: POINTER): POINTER is
  		-- g_param_spec_pool_list
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_param_spec_pool_list_owned (a_pool: POINTER; an_owner_type: NATURAL_64): POINTER is
+	g_param_spec_pool_list_owned (a_pool: POINTER; an_owner_type: like long_unsigned): POINTER is
  		-- g_param_spec_pool_list_owned
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_param_spec_pool_lookup (a_pool: POINTER; a_param_name: POINTER; an_owner_type: NATURAL_64; a_walk_ancestors: INTEGER_32): POINTER is
+	g_param_spec_pool_lookup (a_pool: POINTER; a_param_name: POINTER; an_owner_type: like long_unsigned; a_walk_ancestors: INTEGER): POINTER is
  		-- g_param_spec_pool_lookup
 		external "plug_in"
 		alias "{
@@ -109,7 +109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_param_spec_pool_new (a_type_prefixing: INTEGER_32): POINTER is
+	g_param_spec_pool_new (a_type_prefixing: INTEGER): POINTER is
  		-- g_param_spec_pool_new
 		external "plug_in"
 		alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_param_spec_set_qdata (a_pspec: POINTER; a_quark: NATURAL_32; a_data: POINTER) is
+	g_param_spec_set_qdata (a_pspec: POINTER; a_quark: NATURAL; a_data: POINTER) is
  		-- g_param_spec_set_qdata
 		external "plug_in"
 		alias "{
@@ -159,7 +159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_param_spec_set_qdata_full (a_pspec: POINTER; a_quark: NATURAL_32; a_data: POINTER; a_destroy: POINTER) is
+	g_param_spec_set_qdata_full (a_pspec: POINTER; a_quark: NATURAL; a_data: POINTER; a_destroy: POINTER) is
  		-- g_param_spec_set_qdata_full
 		external "plug_in"
 		alias "{
@@ -179,7 +179,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_param_spec_steal_qdata (a_pspec: POINTER; a_quark: NATURAL_32): POINTER is
+	g_param_spec_steal_qdata (a_pspec: POINTER; a_quark: NATURAL): POINTER is
  		-- g_param_spec_steal_qdata
 		external "plug_in"
 		alias "{
@@ -199,7 +199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_param_type_register_static (a_name: POINTER; a_pspec_info: POINTER): NATURAL_64 is
+	g_param_type_register_static (a_name: POINTER; a_pspec_info: POINTER): like long_unsigned is
  		-- g_param_type_register_static
 		external "plug_in"
 		alias "{
@@ -210,7 +210,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function _g_param_type_register_static_constant skipped.
-	g_param_value_convert (a_pspec: POINTER; a_src_value: POINTER; a_dest_value: POINTER; a_strict_validation: INTEGER_32): INTEGER_32 is
+	g_param_value_convert (a_pspec: POINTER; a_src_value: POINTER; a_dest_value: POINTER; a_strict_validation: INTEGER): INTEGER is
  		-- g_param_value_convert
 		external "plug_in"
 		alias "{
@@ -220,7 +220,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_param_value_defaults (a_pspec: POINTER; a_value: POINTER): INTEGER_32 is
+	g_param_value_defaults (a_pspec: POINTER; a_value: POINTER): INTEGER is
  		-- g_param_value_defaults
 		external "plug_in"
 		alias "{
@@ -240,7 +240,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_param_value_validate (a_pspec: POINTER; a_value: POINTER): INTEGER_32 is
+	g_param_value_validate (a_pspec: POINTER; a_value: POINTER): INTEGER is
  		-- g_param_value_validate
 		external "plug_in"
 		alias "{
@@ -250,7 +250,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_param_values_cmp (a_pspec: POINTER; a_value1: POINTER; a_value2: POINTER): INTEGER_32 is
+	g_param_values_cmp (a_pspec: POINTER; a_value1: POINTER; a_value2: POINTER): INTEGER is
  		-- g_param_values_cmp
 		external "plug_in"
 		alias "{

@@ -15,7 +15,8 @@ feature
 	do
 		create file.connect_to(a_file_name)
 		if file.is_connected then
-			from file.read_line until file.end_of_input
+			from file.read_line 
+			until file.end_of_input
 			loop
 				line := file.last_string
 				if line/=Void then 

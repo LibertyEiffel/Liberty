@@ -314,7 +314,7 @@ feature {ANY} -- "editing-canceled"
 		do
 		end
 
-	connect_agent_to_editing_canceled_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_CELL_RENDERER]]) is
+	connect_agent_to_editing_canceled_signal (a_procedure: PROCEDURE [ANYTUPLE [GTK_CELL_RENDERER]]) is
 			-- renderer : 	the object which received the signal
 		require
 			valid_procedure: a_procedure /= Void
@@ -370,7 +370,7 @@ feature {ANY} -- "editing-started"
 		do
 		end
 
-	connect_agent_to_editing_started_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_CELL_EDITABLE,
+	connect_agent_to_editing_started_signal (a_procedure: PROCEDURE [ANYTUPLE [GTK_CELL_EDITABLE,
 																										 STRING, GTK_CELL_RENDERER]]) is
 			-- renderer : 	the object which received the signal
 			-- editable : 	the GtkCellEditable

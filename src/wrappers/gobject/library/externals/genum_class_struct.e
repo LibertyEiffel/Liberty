@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	genum_class_struct_set_minimum (a_structure: POINTER; a_value: INTEGER_32) is
+	genum_class_struct_set_minimum (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for minimum field of GENUM_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	genum_class_struct_set_maximum (a_structure: POINTER; a_value: INTEGER_32) is
+	genum_class_struct_set_maximum (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for maximum field of GENUM_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	genum_class_struct_set_n_values (a_structure: POINTER; a_value: NATURAL_32) is
+	genum_class_struct_set_n_values (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for n_values field of GENUM_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -59,7 +59,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field g_type_class.
-	genum_class_struct_get_minimum (a_structure: POINTER): INTEGER_32 is
+	genum_class_struct_get_minimum (a_structure: POINTER): INTEGER is
 			-- Query for minimum field of GENUM_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -71,7 +71,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	genum_class_struct_get_maximum (a_structure: POINTER): INTEGER_32 is
+	genum_class_struct_get_maximum (a_structure: POINTER): INTEGER is
 			-- Query for maximum field of GENUM_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -83,7 +83,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	genum_class_struct_get_n_values (a_structure: POINTER): NATURAL_32 is
+	genum_class_struct_get_n_values (a_structure: POINTER): NATURAL is
 			-- Query for n_values field of GENUM_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -107,7 +107,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-feature {ANY} -- Structure size
+feature -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

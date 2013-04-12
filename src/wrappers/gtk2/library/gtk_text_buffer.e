@@ -1145,7 +1145,7 @@ feature {ANY} -- The "begin-user-action" signal
 		do
 		end
 
-	connect_agent_to_begin_user_action_signal (a_procedure: PROCEDURE [ANY, TUPLE[like Current]]) is
+	connect_agent_to_begin_user_action_signal (a_procedure: PROCEDURE [ANYTUPLE[like Current]]) is
 			-- textbuffer : 	the object which received the signal.
 		require valid_procedure: a_procedure /= Void
 		local begin_user_action_callback: BEGIN_USER_ACTION_CALLBACK
@@ -1170,7 +1170,7 @@ feature {ANY} -- The "changed" signal
 		do
 		end
 
-	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[like Current]]) is
+	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANYTUPLE[like Current]]) is
 		require valid_procedure: a_procedure /= Void
 		local changed_callback: CHANGED_CALLBACK [like Current]
 		do
@@ -1208,7 +1208,7 @@ feature {ANY} -- The "end-user-action" signal
 		do
 		end
 
-	connect_agent_to_end_user_action_signal (a_procedure: PROCEDURE [ANY, TUPLE[like Current]]) is
+	connect_agent_to_end_user_action_signal (a_procedure: PROCEDURE [ANYTUPLE[like Current]]) is
 			-- textbuffer : 	the object which received the signal.
 		require valid_procedure: a_procedure /= Void
 		local end_user_action_callback: END_USER_ACTION_CALLBACK
@@ -1241,7 +1241,7 @@ feature {ANY}  -- TODO: The "insert-pixbuf" signal
 
 feature {ANY}  -- The "insert-text" signal
 
-	connect_agent_to_insert_text_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TEXT_ITER, STRING, GTK_TEXT_BUFFER]]) is
+	connect_agent_to_insert_text_signal (a_procedure: PROCEDURE [ANYTUPLE[GTK_TEXT_ITER, STRING, GTK_TEXT_BUFFER]]) is
 			-- textbuffer : 	the object which received the signal.
 			-- arg1 :
 			-- arg2 :

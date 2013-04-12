@@ -378,7 +378,7 @@ feature {ANY} -- The "match-selected" signal
 			connect (Current, match_selected_signal_name, $on_match_selected)
 		end
 
-	connect_agent_to_match_selected_signal (a_function: FUNCTION [ANY, TUPLE [GTK_TREE_MODEL, GTK_TREE_ITER, GTK_ENTRY_COMPLETION], BOOLEAN]) is
+	connect_agent_to_match_selected_signal (a_function: FUNCTION [ANYTUPLE [GTK_TREE_MODEL, GTK_TREE_ITER, GTK_ENTRY_COMPLETION], BOOLEAN]) is
 			-- widget : 	 the object which received the signal
 			-- model : 	the GtkTreeModel containing the matches
 			-- iter : 	a GtkTreeIter positioned at the selected match

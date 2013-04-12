@@ -30,7 +30,8 @@ inherit G_OBJECT
 
 insert
 	GTK_STATE_TYPE
-	GTK_STYLE_EXTERNALS
+	GTKSTYLE_STRUCT
+	GTKSTYLE_EXTERNALS
 
 create {ANY} from_external_pointer
 

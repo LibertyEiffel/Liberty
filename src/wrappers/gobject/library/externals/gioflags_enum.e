@@ -3,12 +3,10 @@
 
 expanded class GIOFLAGS_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
-create {ANY} default_create
-feature {ANY} -- Validity
+creation default_create
+feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_io_flag_append_low_level)  or else
@@ -21,7 +19,7 @@ feature {ANY} -- Validity
 				(a_value = g_io_flag_set_mask_low_level) )
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_g_io_flag_append is
 		do
@@ -63,7 +61,7 @@ feature {ANY} -- Setters
 			value := g_io_flag_set_mask_low_level
 		end
 
-feature {ANY} -- Queries
+feature -- Queries
 	is_g_io_flag_append: BOOLEAN is
 		do
 			Result := (value=g_io_flag_append_low_level)

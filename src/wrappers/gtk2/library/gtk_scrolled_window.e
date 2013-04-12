@@ -355,7 +355,7 @@ feature {ANY} -- scroll-child signal
 		do
 		end
 
-	connect_agent_to_scroll_child_signal (a_function: FUNCTION[ANY, TUPLE [INTEGER, BOOLEAN, GTK_SCROLLED_WINDOW],
+	connect_agent_to_scroll_child_signal (a_function: FUNCTION [ANYTUPLE [INTEGER, BOOLEAN, GTK_SCROLLED_WINDOW],
 																				  BOOLEAN]) is
 			-- scrolledwindow : 	the object which received the signal.
 			-- arg1 : 	

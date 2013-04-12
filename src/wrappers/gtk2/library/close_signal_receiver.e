@@ -37,7 +37,7 @@ feature {ANY} -- The "close" signal
 		do
 		end
 
-	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[CLOSE_SIGNAL_RECEIVER]]) is
+	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANYTUPLE[CLOSE_SIGNAL_RECEIVER]]) is
 		require
 			valid_procedure: a_procedure /= Void
 		local close_callback: CLOSE_CALLBACK

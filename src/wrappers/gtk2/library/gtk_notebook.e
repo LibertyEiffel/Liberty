@@ -795,7 +795,7 @@ feature {ANY} --   The "change-current-page" signal
 			connect (Current, change_current_page_signal_name, $on_change_current_page)
 		end
 
-	connect_agent_to_change_current_page_signal (a_procedure: PROCEDURE [ANY, TUPLE[INTEGER, GTK_NOTEBOOK]]) is
+	connect_agent_to_change_current_page_signal (a_procedure: PROCEDURE [ANYTUPLE[INTEGER, GTK_NOTEBOOK]]) is
 			--  void        user_function                  (GtkNotebook *notebook,
 			--                                              gint         arg1,
 			--                                              gpointer     user_data)      : Run last / Action
@@ -828,7 +828,7 @@ feature {ANY} --   The "switch-page" signal
 			connect (Current, switch_page_signal_name, $on_switch_page)
 		end
 
-	connect_agent_to_switch_page_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_NOTEBOOK_PAGE, INTEGER, GTK_NOTEBOOK]]) is
+	connect_agent_to_switch_page_signal (a_procedure: PROCEDURE [ANYTUPLE[GTK_NOTEBOOK_PAGE, INTEGER, GTK_NOTEBOOK]]) is
 			--  void        user_function                  (GtkNotebook     *notebook,
 			--                                              GtkNotebookPage *page,
 			--                                              guint            page_num,

@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	g_enum_complete_type_info (a_g_enum_type: NATURAL_64; an_info: POINTER; a_const_values: POINTER) is
+	g_enum_complete_type_info (a_g_enum_type: like long_unsigned; an_info: POINTER; a_const_values: POINTER) is
  		-- g_enum_complete_type_info
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_enum_get_value (an_enum_class: POINTER; a_value: INTEGER_32): POINTER is
+	g_enum_get_value (an_enum_class: POINTER; a_value: INTEGER): POINTER is
  		-- g_enum_get_value
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_enum_register_static (a_name: POINTER; a_const_static_values: POINTER): NATURAL_64 is
+	g_enum_register_static (a_name: POINTER; a_const_static_values: POINTER): like long_unsigned is
  		-- g_enum_register_static
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_flags_complete_type_info (a_g_flags_type: NATURAL_64; an_info: POINTER; a_const_values: POINTER) is
+	g_flags_complete_type_info (a_g_flags_type: like long_unsigned; an_info: POINTER; a_const_values: POINTER) is
  		-- g_flags_complete_type_info
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_flags_get_first_value (a_flags_class: POINTER; a_value: NATURAL_32): POINTER is
+	g_flags_get_first_value (a_flags_class: POINTER; a_value: NATURAL): POINTER is
  		-- g_flags_get_first_value
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_flags_register_static (a_name: POINTER; a_const_static_values: POINTER): NATURAL_64 is
+	g_flags_register_static (a_name: POINTER; a_const_static_values: POINTER): like long_unsigned is
  		-- g_flags_register_static
 		external "plug_in"
 		alias "{
@@ -109,7 +109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_get_enum (a_value: POINTER): INTEGER_32 is
+	g_value_get_enum (a_value: POINTER): INTEGER is
  		-- g_value_get_enum
 		external "plug_in"
 		alias "{
@@ -119,7 +119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_get_flags (a_value: POINTER): NATURAL_32 is
+	g_value_get_flags (a_value: POINTER): NATURAL is
  		-- g_value_get_flags
 		external "plug_in"
 		alias "{
@@ -129,7 +129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_set_enum (a_value: POINTER; a_v_enum: INTEGER_32) is
+	g_value_set_enum (a_value: POINTER; a_v_enum: INTEGER) is
  		-- g_value_set_enum
 		external "plug_in"
 		alias "{
@@ -139,7 +139,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_set_flags (a_value: POINTER; a_v_flags: NATURAL_32) is
+	g_value_set_flags (a_value: POINTER; a_v_flags: NATURAL) is
  		-- g_value_set_flags
 		external "plug_in"
 		alias "{

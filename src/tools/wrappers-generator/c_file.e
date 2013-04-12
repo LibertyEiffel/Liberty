@@ -95,7 +95,8 @@ feature
 			create path.make_from_string(c_string_name)
 			create cached_eiffel_name.copy(path.last)
 			cached_eiffel_name.remove_tail(path.extension.count)
-			insert_underscores(cached_eiffel_name)
+			-- camelcase_translator.substitute_all_in(cached_eiffel_name) -- insert_underscores(cached_eiffel_name)
+
 			-- Remove trailing underscores
 			from until cached_eiffel_name.first/='_'
 			loop cached_eiffel_name.remove_first 

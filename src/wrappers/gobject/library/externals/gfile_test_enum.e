@@ -3,103 +3,92 @@
 
 expanded class GFILE_TEST_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := (a_value & (is_regular_low_level | 
-				is_dir_low_level | 
-				is_executable_low_level | 
-				exists_low_level)).to_boolean
+creation default_create
+feature -- Validity
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := (a_value & (g_file_test_exists_low_level | 
+				g_file_test_is_executable_low_level | 
+				g_file_test_is_regular_low_level | 
+				g_file_test_is_symlink_low_level)).to_boolean
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
-	set_is_regular is
+	set_g_file_test_exists is
 		do
-			value := value.bit_or(is_regular_low_level)
+			value := value.bit_or(g_file_test_exists_low_level)
 		end
 
-	unset_is_regular is
+	unset_g_file_test_exists is
 		do
-			value := value.bit_xor(is_regular_low_level)
+			value := value.bit_xor(g_file_test_exists_low_level)
 		end
 
-	set_is_dir is
+	set_g_file_test_is_executable is
 		do
-			value := value.bit_or(is_dir_low_level)
+			value := value.bit_or(g_file_test_is_executable_low_level)
 		end
 
-	unset_is_dir is
+	unset_g_file_test_is_executable is
 		do
-			value := value.bit_xor(is_dir_low_level)
+			value := value.bit_xor(g_file_test_is_executable_low_level)
 		end
 
-	set_is_executable is
+	set_g_file_test_is_regular is
 		do
-			value := value.bit_or(is_executable_low_level)
+			value := value.bit_or(g_file_test_is_regular_low_level)
 		end
 
-	unset_is_executable is
+	unset_g_file_test_is_regular is
 		do
-			value := value.bit_xor(is_executable_low_level)
+			value := value.bit_xor(g_file_test_is_regular_low_level)
 		end
 
-	set_exists is
+	set_g_file_test_is_symlink is
 		do
-			value := value.bit_or(exists_low_level)
+			value := value.bit_or(g_file_test_is_symlink_low_level)
 		end
 
-	unset_exists is
+	unset_g_file_test_is_symlink is
 		do
-			value := value.bit_xor(exists_low_level)
+			value := value.bit_xor(g_file_test_is_symlink_low_level)
 		end
 
-feature {ANY} -- Queries
-	is_is_regular: BOOLEAN is
+feature -- Queries
+	is_g_file_test_exists: BOOLEAN is
 		do
-			Result := (value=is_regular_low_level)
+			Result := (value=g_file_test_exists_low_level)
 		end
 
-	is_is_dir: BOOLEAN is
+	is_g_file_test_is_executable: BOOLEAN is
 		do
-			Result := (value=is_dir_low_level)
+			Result := (value=g_file_test_is_executable_low_level)
 		end
 
-	is_is_executable: BOOLEAN is
+	is_g_file_test_is_regular: BOOLEAN is
 		do
-			Result := (value=is_executable_low_level)
+			Result := (value=g_file_test_is_regular_low_level)
 		end
 
-	is_exists: BOOLEAN is
+	is_g_file_test_is_symlink: BOOLEAN is
 		do
-			Result := (value=exists_low_level)
+			Result := (value=g_file_test_is_symlink_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	is_regular_low_level: INTEGER is
+	g_file_test_exists_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module: "plugin"
- 			feature_name: "G_FILE_TEST_IS_REGULAR"
+ 			feature_name: "G_FILE_TEST_EXISTS"
  			}"
  		end
 
-	is_dir_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module: "plugin"
- 			feature_name: "G_FILE_TEST_IS_DIR"
- 			}"
- 		end
-
-	is_executable_low_level: INTEGER is
+	g_file_test_is_executable_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,12 +97,21 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	exists_low_level: INTEGER is
+	g_file_test_is_regular_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module: "plugin"
- 			feature_name: "G_FILE_TEST_EXISTS"
+ 			feature_name: "G_FILE_TEST_IS_REGULAR"
+ 			}"
+ 		end
+
+	g_file_test_is_symlink_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module: "plugin"
+ 			feature_name: "G_FILE_TEST_IS_SYMLINK"
  			}"
  		end
 

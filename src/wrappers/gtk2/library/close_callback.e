@@ -55,7 +55,7 @@ feature {ANY}
 			Result.is_not_null
 		end
 
-	connect (an_object: CLOSE_SIGNAL_RECEIVER; a_procedure: PROCEDURE [ANY, TUPLE[CLOSE_SIGNAL_RECEIVER]]) is
+	connect (an_object: CLOSE_SIGNAL_RECEIVER; a_procedure: PROCEDURE [TUPLE[CLOSE_SIGNAL_RECEIVER]]) is
 		do
 			debug
 				print ("CLOSE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -75,5 +75,5 @@ feature {ANY}
 
 		signal_name: STRING is "close"
 
-	procedure: PROCEDURE [ANY, TUPLE[CLOSE_SIGNAL_RECEIVER]]
+	procedure: PROCEDURE [TUPLE[CLOSE_SIGNAL_RECEIVER]]
 end

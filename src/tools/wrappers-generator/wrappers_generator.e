@@ -26,9 +26,18 @@ feature {ANY}
 				tree.read_avoided_from(avoided)
 			end
 			if file_exists(moved) and then is_file(moved) then
-			log(once "Reading symbols to be moved/renamed from '@(1)'.%N",<<moved>>)
+				log(once "Reading symbols to be moved/renamed from '@(1)'.%N",<<moved>>)
 				tree.read_moved_from(moved)
 			end
+			if file_exists(flags) and then is_file(flags) then
+				log(once "Reading enumerations that will be forcefully wrapped as flags from '@(1)'.%N",<<flags>>)
+				tree.read_flags_from(flags)
+			end
+			if file_exists(descriptions) and then is_file(descriptions) then
+				log(once "Reading descriptions flags from '@(1)'.%N",<<descriptions>>)
+				tree.read_descriptions_from(descriptions)
+			end
+
 			log_string(once "Making wrappers.%N")
 			tree.emit_wrappers
 			-- tree.namespaces.do_all(agent {GCCXML_NODE}.emit_wrappers)
@@ -55,10 +64,17 @@ feature {ANY}
 		-- possibly while being renamed - into a different class from the
 		-- default one; each symbol is coupled with its final place and name.
 
+	flags: STRING
+		-- The name of the file containing symbols that will be forcefully
+		-- wrapped as flags.
+
+	descriptions: STRING
+		-- The name of the file that contains the descriptions of the features.
+
 	process_arguments is
 		-- Process arguments. If some argument is not understood `print_usage' is invoked and the program exits. 
 		local
-			arg, descriptions, flags, gccxml_prefix: STRING;
+			arg, gccxml_prefix: STRING;
 			i: INTEGER
 		do
 			check
@@ -159,15 +175,6 @@ feature {ANY}
 						std_error.put_new_line
 					end
 				end
-				if file_exists(flags) then 
-					log(once "TODO: Reading enumerations that will be forcefully wrapped as flags from '@(1)'.%N",<<flags>>)
-					-- maker.read_flags_from(flags)
-				end
- 				if file_exists(descriptions) then
-					log(once "TODO: Reading descriptions flags from '@(1)'.%N",<<descriptions>>)
-					-- maker.read_descriptions_from(descriptions)
-				end
-
 			end
 		end
 

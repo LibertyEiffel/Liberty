@@ -7,9 +7,8 @@ inherit
 	WRAPPER_HANDLER
 		undefine null_or end
 
-insert G_SIGNAL_EXTERNALS
-feature {ANY}
-
+insert GSIGNAL_EXTERNALS
+feature {ANY} 
 	query (an_id: INTEGER): G_SIGNAL_QUERY is
 			-- Queries the signal system for in-depth information about a
 			-- specific signal. This function will fill in a

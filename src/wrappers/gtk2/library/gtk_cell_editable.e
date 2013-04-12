@@ -89,7 +89,7 @@ feature {ANY} -- "editing-done"
 		do
 		end
 
-	connect_agent_to_editing_done_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_CELL_EDITABLE]]) is
+	connect_agent_to_editing_done_signal (a_procedure: PROCEDURE [ANYTUPLE [GTK_CELL_EDITABLE]]) is
 			-- celleditable : 	the object which received the signal.
 		require
 			valid_procedure: a_procedure /= Void

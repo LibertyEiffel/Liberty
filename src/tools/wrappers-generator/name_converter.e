@@ -73,6 +73,14 @@ feature {} -- Auxiliary features
 		end
 	end
 	
+	camelcase_translator: REGULAR_EXPRESSION is
+		-- Insert an underscore ('_') between any lowercase letter followed by an uppercase one
+		local builder: REGULAR_EXPRESSION_BUILDER
+		once
+			Result := builder.convert_perl_pattern ("([a-z])([A-Z])");
+			Result.prepare_substitution("\1_\2")
+		end
+
 	multiple_underscores_remover: REGULAR_EXPRESSION is
 			-- Replace all multiple occurences of underscore "_" with a single one
 		local builder: REGULAR_EXPRESSION_BUILDER
@@ -131,6 +139,7 @@ feature {} -- Auxiliary features
 		-- Remove spurious underscores at the end
 		from until Result.last/='_' loop Result.remove_last end
 		check Result.last.code /= 0 end
+		insert_underscores(Result)
 		if a_suffix/=Void then
 			Result.append(a_suffix)
 		end

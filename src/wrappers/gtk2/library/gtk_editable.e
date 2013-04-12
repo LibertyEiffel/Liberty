@@ -219,7 +219,7 @@ feature {ANY} -- The "changed" signal
 		do
 		end
 
-	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_EDITABLE]]) is
+	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANYTUPLE[GTK_EDITABLE]]) is
 		require valid_procedure: a_procedure /= Void
 		local changed_callback: CHANGED_CALLBACK [like Current]
 		do
@@ -283,7 +283,7 @@ feature {ANY} -- The "insert-text" signal
 			connect (Current, insert_text_signal_name, $on_insert_text)
 		end
 
-	connect_agent_to_insert_text_signal (a_procedure: PROCEDURE [ANY, TUPLE [STRING, INTEGER, REFERENCE [INTEGER], GTK_EDITABLE]]) is
+	connect_agent_to_insert_text_signal (a_procedure: PROCEDURE [ANYTUPLE [STRING, INTEGER, REFERENCE [INTEGER], GTK_EDITABLE]]) is
 			-- editable : 	the object which received the signal.
 			-- new_text : 	the new text to insert.
 			-- new_text_length : 	the length of the new text, in bytes,

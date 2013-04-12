@@ -290,7 +290,7 @@ feature {ANY} -- The "change-value" signal
 		do
 		end
 
-	connect_agent_to_change_value_signal (a_function: FUNCTION[ANY, TUPLE [REAL, INTEGER, GTK_RANGE], BOOLEAN]) is
+	connect_agent_to_change_value_signal (a_function: FUNCTION [ANYTUPLE [REAL, INTEGER, GTK_RANGE], BOOLEAN]) is
 			-- range : the range that received the signal.
 			-- scroll: the type of scroll action that was performed.
 			-- value : the new value resulting from the scroll action.
@@ -338,7 +338,7 @@ feature {ANY} -- The "value-changed" signal
 			connect (Current, value_changed_signal_name, $on_value_changed)
 		end
 
-	connect_agent_to_value_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_RANGE]]) is
+	connect_agent_to_value_changed_signal (a_procedure: PROCEDURE [ANYTUPLE[GTK_RANGE]]) is
 		require valid_procedure: a_procedure /= Void
 		local value_changed_callback: VALUE_CHANGED_CALLBACK
 		do

@@ -78,5 +78,5 @@ feature {ANY}
 
 		signal_name: STRING is "insert-text"
 
-	procedure: PROCEDURE [ANY, TUPLE [STRING, INTEGER, REFERENCE [INTEGER], GTK_EDITABLE]]
+	procedure: PROCEDURE [TUPLE [STRING, INTEGER, REFERENCE [INTEGER], GTK_EDITABLE]]
 end

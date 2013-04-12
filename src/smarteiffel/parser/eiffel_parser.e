@@ -4198,11 +4198,6 @@ feature {}
             create {NATIVE_C_PLUS_PLUS} Result.make(external_tag)
          elseif mini_buffer.a_keyword(once "C") then
             create {NATIVE_C} Result.make(external_tag)
-         elseif mini_buffer.a_word(fz_smarteiffel) then
-            create {NATIVE_BUILT_IN} Result.make(external_tag)
-            error_handler.add_position(external_tag.start_position)
-            error_handler.append(once "Obsolete %"SmartEiffel%" external (use %"built_in%" or %"plug_in%" only).")
-            error_handler.print_as_fatal_error
          else
             unknown_external_language(external_tag)
          end

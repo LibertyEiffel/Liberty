@@ -3,25 +3,23 @@
 
 expanded class GTHREAD_ERROR_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = g_thread_error_again_low_level) )
+creation default_create
+feature -- Validity
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = g_thread_error_again_low_level) )
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_g_thread_error_again is
 		do
 			value := g_thread_error_again_low_level
 		end
 
-feature {ANY} -- Queries
+feature -- Queries
 	is_g_thread_error_again: BOOLEAN is
 		do
 			Result := (value=g_thread_error_again_low_level)

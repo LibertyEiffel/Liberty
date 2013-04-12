@@ -56,10 +56,8 @@ feature -- Descriptions reading
 	end
 
 	read_description (a_described: STRING; a_description: COLLECTION[STRING]) is
-		-- Looks if `a_described' could be a class name (i.e. "CLASS_NAME_01") or a
-		-- class with a feature name ("ANOTHER_CLASS.my_feature_12_foo"); adds
-		-- `a_description' into `class_descriptions' in the former case and into
-		-- `feature_descriptions' in the latter.
+		-- When `a_described' is a valid class name (i.e. "CLASS_NAME_01") `a_description' is added into `class_descriptions'; when `a_described' is a valid class name with a feature name with a dot in the middle (like "ANOTHER_CLASS.my_feature_12_foo"); adds
+		-- `a_description' is added into `feature_descriptions' in the latter.
 
 		-- Leading and trailing spaces are removed from `a_described'; comments -
 		-- starting with "--" are skipped; See `read_comments' for further
@@ -110,9 +108,9 @@ feature -- Descriptions reading
 
 feature -- Outputting descriptions
 	emit_description_on (a_description: COLLECTION[STRING]; a_formatter: FORMATTER) is
-			-- Put 'a_description' on 'stream' formatting it as an Eiffel comment
-			-- with lines shorter that 'description_lenght' characters.  Nothing is
-			-- done when `a_description' is Void.
+			-- Put 'a_description' on 'a_formatter' formatting it as an Eiffel
+			-- comment with lines shorter that 'description_lenght' characters.
+			-- Nothing is done when `a_description' is Void.
 		require a_formatter/=Void
 		local word: STRING; iter: ITERATOR[STRING]; length,new_length: INTEGER
 		do

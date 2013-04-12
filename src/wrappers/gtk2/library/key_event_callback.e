@@ -56,7 +56,7 @@ feature {ANY}
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [GDK_EVENT_KEY, GTK_WIDGET], BOOLEAN]) is
+	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANYTUPLE [GDK_EVENT_KEY, GTK_WIDGET], BOOLEAN]) is
 		do
 			handler_id := g_signal_connect_closure (an_object.handle,
 																 signal_name.to_external,
@@ -66,6 +66,6 @@ feature {ANY}
 			function := a_function
 		end
 
-	function: FUNCTION [ANY, TUPLE [GDK_EVENT_KEY, GTK_WIDGET], BOOLEAN]
+	function: FUNCTION [ANYTUPLE [GDK_EVENT_KEY, GTK_WIDGET], BOOLEAN]
 
 end -- class KEY_EVENT_CALLBACK

@@ -3,200 +3,162 @@
 
 expanded class GDATE_MONTH_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = bad_month_low_level)  or else
-				(a_value = january_low_level)  or else
-				(a_value = february_low_level)  or else
-				(a_value = march_low_level)  or else
-				(a_value = april_low_level)  or else
-				(a_value = may_low_level)  or else
-				(a_value = june_low_level)  or else
-				(a_value = july_low_level)  or else
-				(a_value = august_low_level)  or else
-				(a_value = september_low_level)  or else
-				(a_value = october_low_level)  or else
-				(a_value = november_low_level)  or else
-				(a_value = december_low_level) )
+creation default_create
+feature -- Validity
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = g_date_april_low_level)  or else
+				(a_value = g_date_august_low_level)  or else
+				(a_value = g_date_bad_month_low_level)  or else
+				(a_value = g_date_december_low_level)  or else
+				(a_value = g_date_february_low_level)  or else
+				(a_value = g_date_january_low_level)  or else
+				(a_value = g_date_july_low_level)  or else
+				(a_value = g_date_june_low_level)  or else
+				(a_value = g_date_march_low_level)  or else
+				(a_value = g_date_may_low_level)  or else
+				(a_value = g_date_november_low_level)  or else
+				(a_value = g_date_october_low_level)  or else
+				(a_value = g_date_september_low_level) )
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
-	set_bad_month is
+	set_g_date_april is
 		do
-			value := bad_month_low_level
+			value := g_date_april_low_level
 		end
 
-	set_january is
+	set_g_date_august is
 		do
-			value := january_low_level
+			value := g_date_august_low_level
 		end
 
-	set_february is
+	set_g_date_bad_month is
 		do
-			value := february_low_level
+			value := g_date_bad_month_low_level
 		end
 
-	set_march is
+	set_g_date_december is
 		do
-			value := march_low_level
+			value := g_date_december_low_level
 		end
 
-	set_april is
+	set_g_date_february is
 		do
-			value := april_low_level
+			value := g_date_february_low_level
 		end
 
-	set_may is
+	set_g_date_january is
 		do
-			value := may_low_level
+			value := g_date_january_low_level
 		end
 
-	set_june is
+	set_g_date_july is
 		do
-			value := june_low_level
+			value := g_date_july_low_level
 		end
 
-	set_july is
+	set_g_date_june is
 		do
-			value := july_low_level
+			value := g_date_june_low_level
 		end
 
-	set_august is
+	set_g_date_march is
 		do
-			value := august_low_level
+			value := g_date_march_low_level
 		end
 
-	set_september is
+	set_g_date_may is
 		do
-			value := september_low_level
+			value := g_date_may_low_level
 		end
 
-	set_october is
+	set_g_date_november is
 		do
-			value := october_low_level
+			value := g_date_november_low_level
 		end
 
-	set_november is
+	set_g_date_october is
 		do
-			value := november_low_level
+			value := g_date_october_low_level
 		end
 
-	set_december is
+	set_g_date_september is
 		do
-			value := december_low_level
+			value := g_date_september_low_level
 		end
 
-feature {ANY} -- Queries
-	is_bad_month: BOOLEAN is
+feature -- Queries
+	is_g_date_april: BOOLEAN is
 		do
-			Result := (value=bad_month_low_level)
+			Result := (value=g_date_april_low_level)
 		end
 
-	is_january: BOOLEAN is
+	is_g_date_august: BOOLEAN is
 		do
-			Result := (value=january_low_level)
+			Result := (value=g_date_august_low_level)
 		end
 
-	is_february: BOOLEAN is
+	is_g_date_bad_month: BOOLEAN is
 		do
-			Result := (value=february_low_level)
+			Result := (value=g_date_bad_month_low_level)
 		end
 
-	is_march: BOOLEAN is
+	is_g_date_december: BOOLEAN is
 		do
-			Result := (value=march_low_level)
+			Result := (value=g_date_december_low_level)
 		end
 
-	is_april: BOOLEAN is
+	is_g_date_february: BOOLEAN is
 		do
-			Result := (value=april_low_level)
+			Result := (value=g_date_february_low_level)
 		end
 
-	is_may: BOOLEAN is
+	is_g_date_january: BOOLEAN is
 		do
-			Result := (value=may_low_level)
+			Result := (value=g_date_january_low_level)
 		end
 
-	is_june: BOOLEAN is
+	is_g_date_july: BOOLEAN is
 		do
-			Result := (value=june_low_level)
+			Result := (value=g_date_july_low_level)
 		end
 
-	is_july: BOOLEAN is
+	is_g_date_june: BOOLEAN is
 		do
-			Result := (value=july_low_level)
+			Result := (value=g_date_june_low_level)
 		end
 
-	is_august: BOOLEAN is
+	is_g_date_march: BOOLEAN is
 		do
-			Result := (value=august_low_level)
+			Result := (value=g_date_march_low_level)
 		end
 
-	is_september: BOOLEAN is
+	is_g_date_may: BOOLEAN is
 		do
-			Result := (value=september_low_level)
+			Result := (value=g_date_may_low_level)
 		end
 
-	is_october: BOOLEAN is
+	is_g_date_november: BOOLEAN is
 		do
-			Result := (value=october_low_level)
+			Result := (value=g_date_november_low_level)
 		end
 
-	is_november: BOOLEAN is
+	is_g_date_october: BOOLEAN is
 		do
-			Result := (value=november_low_level)
+			Result := (value=g_date_october_low_level)
 		end
 
-	is_december: BOOLEAN is
+	is_g_date_september: BOOLEAN is
 		do
-			Result := (value=december_low_level)
+			Result := (value=g_date_september_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	bad_month_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_DATE_BAD_MONTH"
- 			}"
- 		end
-
-	january_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_DATE_JANUARY"
- 			}"
- 		end
-
-	february_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_DATE_FEBRUARY"
- 			}"
- 		end
-
-	march_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_DATE_MARCH"
- 			}"
- 		end
-
-	april_low_level: INTEGER is
+	g_date_april_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -205,34 +167,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	may_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_DATE_MAY"
- 			}"
- 		end
-
-	june_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_DATE_JUNE"
- 			}"
- 		end
-
-	july_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_DATE_JULY"
- 			}"
- 		end
-
-	august_low_level: INTEGER is
+	g_date_august_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -241,25 +176,79 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	september_low_level: INTEGER is
+	g_date_bad_month_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "G_DATE_SEPTEMBER"
+ 			feature_name: "G_DATE_BAD_MONTH"
  			}"
  		end
 
-	october_low_level: INTEGER is
+	g_date_december_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "G_DATE_OCTOBER"
+ 			feature_name: "G_DATE_DECEMBER"
  			}"
  		end
 
-	november_low_level: INTEGER is
+	g_date_february_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_DATE_FEBRUARY"
+ 			}"
+ 		end
+
+	g_date_january_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_DATE_JANUARY"
+ 			}"
+ 		end
+
+	g_date_july_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_DATE_JULY"
+ 			}"
+ 		end
+
+	g_date_june_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_DATE_JUNE"
+ 			}"
+ 		end
+
+	g_date_march_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_DATE_MARCH"
+ 			}"
+ 		end
+
+	g_date_may_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_DATE_MAY"
+ 			}"
+ 		end
+
+	g_date_november_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -268,12 +257,21 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	december_low_level: INTEGER is
+	g_date_october_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "G_DATE_DECEMBER"
+ 			feature_name: "G_DATE_OCTOBER"
+ 			}"
+ 		end
+
+	g_date_september_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_DATE_SEPTEMBER"
  			}"
  		end
 

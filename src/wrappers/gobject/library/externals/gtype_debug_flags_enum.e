@@ -3,65 +3,72 @@
 
 expanded class GTYPE_DEBUG_FLAGS_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = none_low_level)  or else
-				(a_value = objects_low_level)  or else
-				(a_value = signals_low_level)  or else
-				(a_value = mask_low_level) )
+creation default_create
+feature -- Validity
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = g_type_debug_mask_low_level)  or else
+				(a_value = g_type_debug_none_low_level)  or else
+				(a_value = g_type_debug_objects_low_level)  or else
+				(a_value = g_type_debug_signals_low_level) )
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
-	set_none is
+	set_g_type_debug_mask is
 		do
-			value := none_low_level
+			value := g_type_debug_mask_low_level
 		end
 
-	set_objects is
+	set_g_type_debug_none is
 		do
-			value := objects_low_level
+			value := g_type_debug_none_low_level
 		end
 
-	set_signals is
+	set_g_type_debug_objects is
 		do
-			value := signals_low_level
+			value := g_type_debug_objects_low_level
 		end
 
-	set_mask is
+	set_g_type_debug_signals is
 		do
-			value := mask_low_level
+			value := g_type_debug_signals_low_level
 		end
 
-feature {ANY} -- Queries
-	is_none: BOOLEAN is
+feature -- Queries
+	is_g_type_debug_mask: BOOLEAN is
 		do
-			Result := (value=none_low_level)
+			Result := (value=g_type_debug_mask_low_level)
 		end
 
-	is_objects: BOOLEAN is
+	is_g_type_debug_none: BOOLEAN is
 		do
-			Result := (value=objects_low_level)
+			Result := (value=g_type_debug_none_low_level)
 		end
 
-	is_signals: BOOLEAN is
+	is_g_type_debug_objects: BOOLEAN is
 		do
-			Result := (value=signals_low_level)
+			Result := (value=g_type_debug_objects_low_level)
 		end
 
-	is_mask: BOOLEAN is
+	is_g_type_debug_signals: BOOLEAN is
 		do
-			Result := (value=mask_low_level)
+			Result := (value=g_type_debug_signals_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	none_low_level: INTEGER is
+	g_type_debug_mask_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TYPE_DEBUG_MASK"
+ 			}"
+ 		end
+
+	g_type_debug_none_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -70,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	objects_low_level: INTEGER is
+	g_type_debug_objects_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -79,21 +86,12 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	signals_low_level: INTEGER is
+	g_type_debug_signals_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_TYPE_DEBUG_SIGNALS"
- 			}"
- 		end
-
-	mask_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TYPE_DEBUG_MASK"
  			}"
  		end
 

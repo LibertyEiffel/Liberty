@@ -490,7 +490,7 @@ feature {ANY} -- The "changed" signal
 		do
 		end
 
-	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_COMBO_BOX]]) is
+	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANYTUPLE[GTK_COMBO_BOX]]) is
 			-- widget : 	the object which received the signal
 			-- user_data : 	user data set when the signal handler was connected.
 		require

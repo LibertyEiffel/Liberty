@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gtype_interface_struct_set_g_type (a_structure: POINTER; a_value: NATURAL_32) is
+	gtype_interface_struct_set_g_type (a_structure: POINTER; a_value: like long_unsigned) is
 			-- Setter for g_type field of GTYPE_INTERFACE_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_interface_struct_set_g_instance_type (a_structure: POINTER; a_value: NATURAL_32) is
+	gtype_interface_struct_set_g_instance_type (a_structure: POINTER; a_value: like long_unsigned) is
 			-- Setter for g_instance_type field of GTYPE_INTERFACE_STRUCT structure.
 			-- TODO: setter description
 
@@ -34,7 +34,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	gtype_interface_struct_get_g_type (a_structure: POINTER): NATURAL_32 is
+	gtype_interface_struct_get_g_type (a_structure: POINTER): like long_unsigned is
 			-- Query for g_type field of GTYPE_INTERFACE_STRUCT structure.
 			-- TODO: getter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_interface_struct_get_g_instance_type (a_structure: POINTER): NATURAL_32 is
+	gtype_interface_struct_get_g_instance_type (a_structure: POINTER): like long_unsigned is
 			-- Query for g_instance_type field of GTYPE_INTERFACE_STRUCT structure.
 			-- TODO: getter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-feature {ANY} -- Structure size
+feature -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

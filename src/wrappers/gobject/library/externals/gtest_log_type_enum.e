@@ -3,140 +3,129 @@
 
 expanded class GTEST_LOG_TYPE_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = none_low_level)  or else
-				(a_value = error_low_level)  or else
-				(a_value = start_binary_low_level)  or else
-				(a_value = list_case_low_level)  or else
-				(a_value = skip_case_low_level)  or else
-				(a_value = start_case_low_level)  or else
-				(a_value = stop_case_low_level)  or else
-				(a_value = min_result_low_level)  or else
-				(a_value = max_result_low_level)  or else
-				(a_value = message_low_level) )
+creation default_create
+feature -- Validity
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = g_test_log_error_low_level)  or else
+				(a_value = g_test_log_list_case_low_level)  or else
+				(a_value = g_test_log_max_result_low_level)  or else
+				(a_value = g_test_log_message_low_level)  or else
+				(a_value = g_test_log_min_result_low_level)  or else
+				(a_value = g_test_log_none_low_level)  or else
+				(a_value = g_test_log_skip_case_low_level)  or else
+				(a_value = g_test_log_start_binary_low_level)  or else
+				(a_value = g_test_log_start_case_low_level)  or else
+				(a_value = g_test_log_stop_case_low_level) )
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
-	set_none is
+	set_g_test_log_error is
 		do
-			value := none_low_level
+			value := g_test_log_error_low_level
 		end
 
-	set_error is
+	set_g_test_log_list_case is
 		do
-			value := error_low_level
+			value := g_test_log_list_case_low_level
 		end
 
-	set_start_binary is
+	set_g_test_log_max_result is
 		do
-			value := start_binary_low_level
+			value := g_test_log_max_result_low_level
 		end
 
-	set_list_case is
+	set_g_test_log_message is
 		do
-			value := list_case_low_level
+			value := g_test_log_message_low_level
 		end
 
-	set_skip_case is
+	set_g_test_log_min_result is
 		do
-			value := skip_case_low_level
+			value := g_test_log_min_result_low_level
 		end
 
-	set_start_case is
+	set_g_test_log_none is
 		do
-			value := start_case_low_level
+			value := g_test_log_none_low_level
 		end
 
-	set_stop_case is
+	set_g_test_log_skip_case is
 		do
-			value := stop_case_low_level
+			value := g_test_log_skip_case_low_level
 		end
 
-	set_min_result is
+	set_g_test_log_start_binary is
 		do
-			value := min_result_low_level
+			value := g_test_log_start_binary_low_level
 		end
 
-	set_max_result is
+	set_g_test_log_start_case is
 		do
-			value := max_result_low_level
+			value := g_test_log_start_case_low_level
 		end
 
-	set_message is
+	set_g_test_log_stop_case is
 		do
-			value := message_low_level
+			value := g_test_log_stop_case_low_level
 		end
 
-feature {ANY} -- Queries
-	is_none: BOOLEAN is
+feature -- Queries
+	is_g_test_log_error: BOOLEAN is
 		do
-			Result := (value=none_low_level)
+			Result := (value=g_test_log_error_low_level)
 		end
 
-	is_error: BOOLEAN is
+	is_g_test_log_list_case: BOOLEAN is
 		do
-			Result := (value=error_low_level)
+			Result := (value=g_test_log_list_case_low_level)
 		end
 
-	is_start_binary: BOOLEAN is
+	is_g_test_log_max_result: BOOLEAN is
 		do
-			Result := (value=start_binary_low_level)
+			Result := (value=g_test_log_max_result_low_level)
 		end
 
-	is_list_case: BOOLEAN is
+	is_g_test_log_message: BOOLEAN is
 		do
-			Result := (value=list_case_low_level)
+			Result := (value=g_test_log_message_low_level)
 		end
 
-	is_skip_case: BOOLEAN is
+	is_g_test_log_min_result: BOOLEAN is
 		do
-			Result := (value=skip_case_low_level)
+			Result := (value=g_test_log_min_result_low_level)
 		end
 
-	is_start_case: BOOLEAN is
+	is_g_test_log_none: BOOLEAN is
 		do
-			Result := (value=start_case_low_level)
+			Result := (value=g_test_log_none_low_level)
 		end
 
-	is_stop_case: BOOLEAN is
+	is_g_test_log_skip_case: BOOLEAN is
 		do
-			Result := (value=stop_case_low_level)
+			Result := (value=g_test_log_skip_case_low_level)
 		end
 
-	is_min_result: BOOLEAN is
+	is_g_test_log_start_binary: BOOLEAN is
 		do
-			Result := (value=min_result_low_level)
+			Result := (value=g_test_log_start_binary_low_level)
 		end
 
-	is_max_result: BOOLEAN is
+	is_g_test_log_start_case: BOOLEAN is
 		do
-			Result := (value=max_result_low_level)
+			Result := (value=g_test_log_start_case_low_level)
 		end
 
-	is_message: BOOLEAN is
+	is_g_test_log_stop_case: BOOLEAN is
 		do
-			Result := (value=message_low_level)
+			Result := (value=g_test_log_stop_case_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	none_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TEST_LOG_NONE"
- 			}"
- 		end
-
-	error_low_level: INTEGER is
+	g_test_log_error_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -145,16 +134,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	start_binary_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TEST_LOG_START_BINARY"
- 			}"
- 		end
-
-	list_case_low_level: INTEGER is
+	g_test_log_list_case_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -163,43 +143,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	skip_case_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TEST_LOG_SKIP_CASE"
- 			}"
- 		end
-
-	start_case_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TEST_LOG_START_CASE"
- 			}"
- 		end
-
-	stop_case_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TEST_LOG_STOP_CASE"
- 			}"
- 		end
-
-	min_result_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TEST_LOG_MIN_RESULT"
- 			}"
- 		end
-
-	max_result_low_level: INTEGER is
+	g_test_log_max_result_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -208,12 +152,66 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	message_low_level: INTEGER is
+	g_test_log_message_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_TEST_LOG_MESSAGE"
+ 			}"
+ 		end
+
+	g_test_log_min_result_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TEST_LOG_MIN_RESULT"
+ 			}"
+ 		end
+
+	g_test_log_none_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TEST_LOG_NONE"
+ 			}"
+ 		end
+
+	g_test_log_skip_case_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TEST_LOG_SKIP_CASE"
+ 			}"
+ 		end
+
+	g_test_log_start_binary_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TEST_LOG_START_BINARY"
+ 			}"
+ 		end
+
+	g_test_log_start_case_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TEST_LOG_START_CASE"
+ 			}"
+ 		end
+
+	g_test_log_stop_case_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TEST_LOG_STOP_CASE"
  			}"
  		end
 

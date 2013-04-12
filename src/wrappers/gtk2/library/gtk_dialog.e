@@ -671,7 +671,7 @@ feature {ANY} -- Dialog's parts
 -- 		do
 -- 		end
 
--- 	connect_agent_to_close_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_DIALOG]]) is
+-- 	connect_agent_to_close_signal (a_procedure: PROCEDURE [ANYTUPLE[GTK_DIALOG]]) is
 -- 		require
 -- 			valid_procedure: a_procedure /= Void
 -- 			wrapper_is_stored: is_eiffel_wrapper_stored

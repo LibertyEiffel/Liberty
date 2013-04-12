@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gtype_module_struct_set_use_count (a_structure: POINTER; a_value: NATURAL_32) is
+	gtype_module_struct_set_use_count (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for use_count field of GTYPE_MODULE_STRUCT structure.
 			-- TODO: setter description
 
@@ -59,7 +59,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field parent_instance.
-	gtype_module_struct_get_use_count (a_structure: POINTER): NATURAL_32 is
+	gtype_module_struct_get_use_count (a_structure: POINTER): NATURAL is
 			-- Query for use_count field of GTYPE_MODULE_STRUCT structure.
 			-- TODO: getter description
 
@@ -107,7 +107,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-feature {ANY} -- Structure size
+feature -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

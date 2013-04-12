@@ -56,7 +56,7 @@ feature {ANY}
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_SCALE; a_function: FUNCTION[ANY, TUPLE [REAL, GTK_SCALE], STRING]) is
+	connect (an_object: GTK_SCALE; a_function: FUNCTION [ANYTUPLE [REAL, GTK_SCALE], STRING]) is
 		do
 			debug
 				print ("FORMAT_VALUE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -76,6 +76,6 @@ feature {ANY}
 
 	signal_name: STRING is "format-value"
 
-	function: FUNCTION[ANY, TUPLE [REAL, GTK_SCALE], STRING]
+	function: FUNCTION [ANYTUPLE [REAL, GTK_SCALE], STRING]
 
 end

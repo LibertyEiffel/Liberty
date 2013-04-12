@@ -75,5 +75,5 @@ feature {ANY}
 
 		signal_name: STRING is "clicked"
 
-	procedure: PROCEDURE [ANY, TUPLE[O]]
+	procedure: PROCEDURE [TUPLE[O]]
 end

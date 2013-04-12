@@ -53,7 +53,7 @@ feature {ANY}
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
+	connect (an_object: GTK_WIDGET; a_function: FUNCTION [TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
 																							INTEGER, GTK_WIDGET], BOOLEAN]) is
 		do
 			debug
@@ -74,6 +74,6 @@ feature {ANY}
 
 		signal_name: STRING is "drag-drop"
 
-	function: FUNCTION [ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER, INTEGER, GTK_WIDGET], BOOLEAN]
+	function: FUNCTION [TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER, INTEGER, GTK_WIDGET], BOOLEAN]
 
 end

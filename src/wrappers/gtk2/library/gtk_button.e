@@ -455,7 +455,7 @@ feature {ANY} -- The "activate" signal
 		do
 		end
 
-	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
+	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANYTUPLE[GTK_BUTTON]]) is
 		require
 			valid_procedure: a_procedure /= Void
 		local
@@ -488,7 +488,7 @@ feature {ANY} -- The "clicked" signal
 			connect (Current, clicked_signal_name, $on_clicked)
 		end
 
-	connect_agent_to_clicked_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
+	connect_agent_to_clicked_signal (a_procedure: PROCEDURE [ANYTUPLE[GTK_BUTTON]]) is
 			-- button : 	the object that received the signal
 		require valid_procedure: a_procedure /= Void
 		local clicked_callback: CLICKED_CALLBACK [like Current]

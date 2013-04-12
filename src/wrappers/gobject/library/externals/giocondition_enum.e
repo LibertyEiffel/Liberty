@@ -3,12 +3,10 @@
 
 expanded class GIOCONDITION_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
-create {ANY} default_create
-feature {ANY} -- Validity
+creation default_create
+feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (g_io_err_low_level | 
@@ -18,7 +16,7 @@ feature {ANY} -- Validity
 				g_io_pri_low_level)).to_boolean
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_g_io_err is
 		do
@@ -70,7 +68,7 @@ feature {ANY} -- Setters
 			value := value.bit_xor(g_io_pri_low_level)
 		end
 
-feature {ANY} -- Queries
+feature -- Queries
 	is_g_io_err: BOOLEAN is
 		do
 			Result := (value=g_io_err_low_level)

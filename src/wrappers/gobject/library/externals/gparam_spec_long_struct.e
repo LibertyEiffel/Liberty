@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gparam_spec_long_struct_set_minimum (a_structure: POINTER; a_value: INTEGER_32) is
+	gparam_spec_long_struct_set_minimum (a_structure: POINTER; a_value: like long) is
 			-- Setter for minimum field of GPARAM_SPEC_LONG_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_long_struct_set_maximum (a_structure: POINTER; a_value: INTEGER_32) is
+	gparam_spec_long_struct_set_maximum (a_structure: POINTER; a_value: like long) is
 			-- Setter for maximum field of GPARAM_SPEC_LONG_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_long_struct_set_default_value (a_structure: POINTER; a_value: INTEGER_32) is
+	gparam_spec_long_struct_set_default_value (a_structure: POINTER; a_value: like long) is
 			-- Setter for default_value field of GPARAM_SPEC_LONG_STRUCT structure.
 			-- TODO: setter description
 
@@ -47,7 +47,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field parent_instance.
-	gparam_spec_long_struct_get_minimum (a_structure: POINTER): INTEGER_32 is
+	gparam_spec_long_struct_get_minimum (a_structure: POINTER): like long is
 			-- Query for minimum field of GPARAM_SPEC_LONG_STRUCT structure.
 			-- TODO: getter description
 
@@ -59,7 +59,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_long_struct_get_maximum (a_structure: POINTER): INTEGER_32 is
+	gparam_spec_long_struct_get_maximum (a_structure: POINTER): like long is
 			-- Query for maximum field of GPARAM_SPEC_LONG_STRUCT structure.
 			-- TODO: getter description
 
@@ -71,7 +71,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_long_struct_get_default_value (a_structure: POINTER): INTEGER_32 is
+	gparam_spec_long_struct_get_default_value (a_structure: POINTER): like long is
 			-- Query for default_value field of GPARAM_SPEC_LONG_STRUCT structure.
 			-- TODO: getter description
 
@@ -83,7 +83,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-feature {ANY} -- Structure size
+feature -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

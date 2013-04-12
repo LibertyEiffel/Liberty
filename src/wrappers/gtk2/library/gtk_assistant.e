@@ -409,7 +409,7 @@ feature {ANY} -- The "apply" signal
 		do
 		end
 
-	connect_agent_to_apply_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_ASSISTANT]]) is
+	connect_agent_to_apply_signal (a_procedure: PROCEDURE [ANYTUPLE[GTK_ASSISTANT]]) is
 		require
 			valid_procedure: a_procedure /= Void
 		local

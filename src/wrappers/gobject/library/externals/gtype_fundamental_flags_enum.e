@@ -3,69 +3,67 @@
 
 expanded class GTYPE_FUNDAMENTAL_FLAGS_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := (a_value & (classed_low_level | 
-				derivable_low_level | 
-				deep_derivable_low_level)).to_boolean
+creation default_create
+feature -- Validity
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := (a_value & (g_type_flag_classed_low_level | 
+				g_type_flag_derivable_low_level | 
+				g_type_flag_instantiatable_low_level)).to_boolean
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
-	set_classed is
+	set_g_type_flag_classed is
 		do
-			value := value.bit_or(classed_low_level)
+			value := value.bit_or(g_type_flag_classed_low_level)
 		end
 
-	unset_classed is
+	unset_g_type_flag_classed is
 		do
-			value := value.bit_xor(classed_low_level)
+			value := value.bit_xor(g_type_flag_classed_low_level)
 		end
 
-	set_derivable is
+	set_g_type_flag_derivable is
 		do
-			value := value.bit_or(derivable_low_level)
+			value := value.bit_or(g_type_flag_derivable_low_level)
 		end
 
-	unset_derivable is
+	unset_g_type_flag_derivable is
 		do
-			value := value.bit_xor(derivable_low_level)
+			value := value.bit_xor(g_type_flag_derivable_low_level)
 		end
 
-	set_deep_derivable is
+	set_g_type_flag_instantiatable is
 		do
-			value := value.bit_or(deep_derivable_low_level)
+			value := value.bit_or(g_type_flag_instantiatable_low_level)
 		end
 
-	unset_deep_derivable is
+	unset_g_type_flag_instantiatable is
 		do
-			value := value.bit_xor(deep_derivable_low_level)
+			value := value.bit_xor(g_type_flag_instantiatable_low_level)
 		end
 
-feature {ANY} -- Queries
-	is_classed: BOOLEAN is
+feature -- Queries
+	is_g_type_flag_classed: BOOLEAN is
 		do
-			Result := (value=classed_low_level)
+			Result := (value=g_type_flag_classed_low_level)
 		end
 
-	is_derivable: BOOLEAN is
+	is_g_type_flag_derivable: BOOLEAN is
 		do
-			Result := (value=derivable_low_level)
+			Result := (value=g_type_flag_derivable_low_level)
 		end
 
-	is_deep_derivable: BOOLEAN is
+	is_g_type_flag_instantiatable: BOOLEAN is
 		do
-			Result := (value=deep_derivable_low_level)
+			Result := (value=g_type_flag_instantiatable_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	classed_low_level: INTEGER is
+	g_type_flag_classed_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -74,7 +72,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	derivable_low_level: INTEGER is
+	g_type_flag_derivable_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -83,12 +81,12 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	deep_derivable_low_level: INTEGER is
+	g_type_flag_instantiatable_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module: "plugin"
- 			feature_name: "G_TYPE_FLAG_DEEP_DERIVABLE"
+ 			feature_name: "G_TYPE_FLAG_INSTANTIATABLE"
  			}"
  		end
 

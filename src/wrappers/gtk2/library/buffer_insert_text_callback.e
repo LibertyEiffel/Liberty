@@ -62,7 +62,7 @@ feature {ANY}
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_TEXT_BUFFER; a_procedure: PROCEDURE [ANY, TUPLE[GTK_TEXT_ITER, STRING, GTK_TEXT_BUFFER]]) is
+	connect (an_object: GTK_TEXT_BUFFER; a_procedure: PROCEDURE [TUPLE[GTK_TEXT_ITER, STRING, GTK_TEXT_BUFFER]]) is
 		do
 			handler_id := g_signal_connect_closure (an_object.handle,
 													 signal_name.to_external,
@@ -74,6 +74,6 @@ feature {ANY}
 
 	signal_name: STRING is "insert-text"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_TEXT_ITER, STRING, GTK_TEXT_BUFFER]]
+	procedure: PROCEDURE [TUPLE[GTK_TEXT_ITER, STRING, GTK_TEXT_BUFFER]]
 
 end -- class BUFFER_INSERT_TEXT_CALLBACK

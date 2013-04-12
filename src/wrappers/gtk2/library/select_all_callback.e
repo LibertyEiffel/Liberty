@@ -63,6 +63,6 @@ feature {ANY}
 
 	signal_name: STRING is "select-all"
 
-	procedure: PROCEDURE [ANY, TUPLE [like object, BOOLEAN]]
+	procedure: PROCEDURE [TUPLE [like object, BOOLEAN]]
 
 end -- class SELECT_ALL_CALLBACK

@@ -53,7 +53,7 @@ feature {ANY}
 			Result.is_not_null
 		end
 
-	connect (an_object: O; a_procedure: PROCEDURE [ANY, TUPLE[O]]) is
+	connect (an_object: O; a_procedure: PROCEDURE [TUPLE[O]]) is
 		do
 			debug
 				print ("CHANGED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -73,5 +73,5 @@ feature {ANY}
 
 	signal_name: STRING is "changed"
 
-	procedure: PROCEDURE [ANY, TUPLE[O]]
+	procedure: PROCEDURE [TUPLE[O]]
 end

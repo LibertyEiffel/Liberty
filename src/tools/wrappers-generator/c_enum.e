@@ -70,7 +70,7 @@ feature
             buffer.append(expanded_class)
             buffer.append(eiffel_name)
             buffer.append_new_line
-            buffer.append(once "%N-- TODO emit_description(class_descriptions.reference_at(an_enum_name))%N")
+            emit_description_on(class_descriptions.reference_at(c_string_name),buffer)
             buffer.append(once "%Ninsert ENUM%N%Ncreation default_create%N")
             buffer.print_on(output)
         end

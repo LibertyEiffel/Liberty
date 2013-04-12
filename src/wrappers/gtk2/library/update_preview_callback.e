@@ -54,7 +54,7 @@ feature {ANY}
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_FILE_CHOOSER; a_procedure: PROCEDURE [ANY, TUPLE[GTK_FILE_CHOOSER]]) is
+	connect (an_object: GTK_FILE_CHOOSER; a_procedure: PROCEDURE [TUPLE[GTK_FILE_CHOOSER]]) is
 		do
 			debug
 				print ("UPDATE_PREVIEW_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -74,6 +74,6 @@ feature {ANY}
 
 	signal_name: STRING is "update-preview"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_FILE_CHOOSER]]
+	procedure: PROCEDURE [TUPLE[GTK_FILE_CHOOSER]]
 
 end

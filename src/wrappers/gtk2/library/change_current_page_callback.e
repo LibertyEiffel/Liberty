@@ -52,7 +52,7 @@ feature {ANY}
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_NOTEBOOK; a_procedure: PROCEDURE [ANY, TUPLE[INTEGER, GTK_NOTEBOOK]]) is
+	connect (an_object: GTK_NOTEBOOK; a_procedure: PROCEDURE [TUPLE[INTEGER, GTK_NOTEBOOK]]) is
 		do
 			debug
 				print ("CHANGE_CURRENT_PAGE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -72,5 +72,5 @@ feature {ANY}
 
 		signal_name: STRING is "change-current-page"
 
-	procedure: PROCEDURE [ANY, TUPLE[INTEGER, GTK_NOTEBOOK]]
+	procedure: PROCEDURE [TUPLE[INTEGER, GTK_NOTEBOOK]]
 end

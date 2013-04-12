@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gtype_query_struct_set_type (a_structure: POINTER; a_value: NATURAL_32) is
+	gtype_query_struct_set_type (a_structure: POINTER; a_value: like long_unsigned) is
 			-- Setter for type field of GTYPE_QUERY_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_query_struct_set_class_size (a_structure: POINTER; a_value: NATURAL_32) is
+	gtype_query_struct_set_class_size (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for class_size field of GTYPE_QUERY_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_query_struct_set_instance_size (a_structure: POINTER; a_value: NATURAL_32) is
+	gtype_query_struct_set_instance_size (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for instance_size field of GTYPE_QUERY_STRUCT structure.
 			-- TODO: setter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	gtype_query_struct_get_type (a_structure: POINTER): NATURAL_32 is
+	gtype_query_struct_get_type (a_structure: POINTER): like long_unsigned is
 			-- Query for type field of GTYPE_QUERY_STRUCT structure.
 			-- TODO: getter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_query_struct_get_class_size (a_structure: POINTER): NATURAL_32 is
+	gtype_query_struct_get_class_size (a_structure: POINTER): NATURAL is
 			-- Query for class_size field of GTYPE_QUERY_STRUCT structure.
 			-- TODO: getter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_query_struct_get_instance_size (a_structure: POINTER): NATURAL_32 is
+	gtype_query_struct_get_instance_size (a_structure: POINTER): NATURAL is
 			-- Query for instance_size field of GTYPE_QUERY_STRUCT structure.
 			-- TODO: getter description
 
@@ -106,7 +106,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-feature {ANY} -- Structure size
+feature -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

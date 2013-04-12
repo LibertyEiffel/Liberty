@@ -59,7 +59,7 @@ feature {ANY}
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_function: FUNCTION[ANY, TUPLE [GTK_WIDGET, GDK_EVENT], BOOLEAN]) is
+	connect (an_object: GTK_WIDGET; a_function: FUNCTION[TUPLE [GTK_WIDGET, GDK_EVENT], BOOLEAN]) is
 		do
 			debug
 				print ("DELETE_EVENT_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -79,5 +79,5 @@ feature {ANY}
 
 		signal_name: STRING is "delete-event"
 
-	function: FUNCTION[ANY, TUPLE [GTK_WIDGET, GDK_EVENT], BOOLEAN]
+	function: FUNCTION [TUPLE [GTK_WIDGET, GDK_EVENT], BOOLEAN]
 end

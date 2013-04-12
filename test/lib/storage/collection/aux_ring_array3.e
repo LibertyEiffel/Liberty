@@ -8,7 +8,7 @@ inherit
 
 insert
    EIFFELTEST_TOOLS
-      undefine copy, is_equal, fill_tagged_out_memory, out_in_tagged_out_memory
+      undefine copy, default_create, is_equal, fill_tagged_out_memory, out_in_tagged_out_memory
       end
 
 creation {ANY}

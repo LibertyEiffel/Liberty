@@ -191,7 +191,7 @@ feature {ANY}
 
 feature {ANY} -- The "font-set" signal
 
-	connect_agent_to_font_set_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_FONT_BUTTON]]) is
+	connect_agent_to_font_set_signal (a_procedure: PROCEDURE [ANYTUPLE[GTK_FONT_BUTTON]]) is
 			--   The ::font-set signal is emitted when the user selects a font. When
 			--   handling this signal, use `font_name()' to find out
 			--   which font was just selected.

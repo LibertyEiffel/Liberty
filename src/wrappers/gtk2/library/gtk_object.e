@@ -96,7 +96,7 @@ inherit
 
 insert
 	GTK -- that provides the gtk singleton.
-	GTK_OBJECT_EXTERNALS
+	GTKOBJECT_EXTERNALS
 
 feature {ANY}
 	sink  is

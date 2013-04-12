@@ -85,7 +85,7 @@ feature {ANY} -- The "toggled" signal
 			connect (Current, toggled_signal_name, $on_toggled)
 		end
 
-	connect_agent_to_toggled_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TOGGLE_TOOL_BUTTON]]) is
+	connect_agent_to_toggled_signal (a_procedure: PROCEDURE [ANYTUPLE[GTK_TOGGLE_TOOL_BUTTON]]) is
 			-- togglebutton : 	the object which received the signal.
 		require valid_procedure: a_procedure /= Void
 		local toggled_callback: TOGGLED_CALLBACK [like Current]

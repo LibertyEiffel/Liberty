@@ -5,6 +5,7 @@ class GCCXML_TREE
 inherit XML_TREE redefine make, new_node, open_node end
 
 insert 
+	DESCRIPTIONS
 	SHARED_COLLECTIONS
 	SHARED_SETTINGS
 	EXCEPTIONS

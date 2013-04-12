@@ -168,7 +168,7 @@ feature {ANY} -- Signals
 			connect (Current, toggle_signal_name, $on_toggle)
 		end
 
-	connect_agent_to_toggle_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_CHECK_MENU_ITEM]]) is
+	connect_agent_to_toggle_signal (a_procedure: PROCEDURE [ANYTUPLE[GTK_CHECK_MENU_ITEM]]) is
 		require
 			valid_procedure: a_procedure /= Void
 		local

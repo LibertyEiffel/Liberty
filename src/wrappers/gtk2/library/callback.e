@@ -64,7 +64,7 @@ feature {ANY}
 	-- 			-- routine:=a_routine
 	-- 		end
 
-	-- routine: FUNCTION [ANY, TUPLE , BOOLEAN]
+	-- routine: FUNCTION [TUPLE , BOOLEAN]
 
 	signal_name: STRING is
 			-- The name of the signal that Current callback will connect to.

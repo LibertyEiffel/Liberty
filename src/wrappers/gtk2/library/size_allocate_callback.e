@@ -56,7 +56,7 @@ feature {ANY}
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [ANY, TUPLE[GTK_ALLOCATION, GTK_WIDGET]]) is
+	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [TUPLE[GTK_ALLOCATION, GTK_WIDGET]]) is
 		do
 			debug
 				print ("SIZE_ALLOCATE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -76,5 +76,5 @@ feature {ANY}
 
 		signal_name: STRING is "size-allocate"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_ALLOCATION, GTK_WIDGET]]
+	procedure: PROCEDURE [TUPLE[GTK_ALLOCATION, GTK_WIDGET]]
 end

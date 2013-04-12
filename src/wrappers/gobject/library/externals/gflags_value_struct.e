@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gflags_value_struct_set_value (a_structure: POINTER; a_value: NATURAL_32) is
+	gflags_value_struct_set_value (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for value field of GFLAGS_VALUE_STRUCT structure.
 			-- TODO: setter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	gflags_value_struct_get_value (a_structure: POINTER): NATURAL_32 is
+	gflags_value_struct_get_value (a_structure: POINTER): NATURAL is
 			-- Query for value field of GFLAGS_VALUE_STRUCT structure.
 			-- TODO: getter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-feature {ANY} -- Structure size
+feature -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

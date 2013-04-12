@@ -56,7 +56,7 @@ feature {ANY}
 			Result.is_not_null
 		end
 
-	connect (an_object: W; a_procedure: PROCEDURE [ANY, TUPLE[W]]) is
+	connect (an_object: W; a_procedure: PROCEDURE [TUPLE[W]]) is
 		do
 			debug
 				print ("ACTIVATE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -76,6 +76,6 @@ feature {ANY}
 
 	signal_name: STRING is "activate"
 
-	procedure: PROCEDURE [ANY, TUPLE[W]]
+	procedure: PROCEDURE [TUPLE[W]]
 
 end
