@@ -3,7 +3,7 @@
 --
 class TEST_AGENT_GC
 
-inherit
+insert
    ARGUMENTS
    EIFFELTEST_TOOLS
 

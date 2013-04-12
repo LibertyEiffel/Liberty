@@ -6,6 +6,9 @@ class AUX_DISPOSE1
 inherit
    DISPOSABLE
 
+insert
+   EIFFELTEST_TOOLS
+
 creation {ANY}
    make
 
@@ -23,10 +26,8 @@ feature {ANY}
 
    dispose is
       do
-         dispose_count.increment
-         if dispose_done_for_current then
-            std_error.put_string("Error in TEST_DISPOSE1%N")
-         end
+         dispose_count.next
+         assert(not dispose_done_for_current)
          dispose_done_for_current := True
       end
 

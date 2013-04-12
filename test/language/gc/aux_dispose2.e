@@ -21,7 +21,7 @@ feature {ANY}
 
    dispose is
       do
-         dispose_count.increment
+         dispose_count.next
       end
 
 end -- class AUX_DISPOSE2
