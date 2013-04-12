@@ -421,7 +421,7 @@ feature {FEATURE_CALL, WRITABLE_ATTRIBUTE_NAME, MANIFEST_STRING_POOL, CREATION_C
          fs.anonymous_feature(type).result_type /= Void implies Result = fs.anonymous_feature(type).result_type.resolve_in(type)
       end
 
-feature {LOCAL_VAR_LIST, INTERNAL_LOCAL_LIST, ANONYMOUS_FEATURE}
+feature {LOCAL_VAR_LIST, ANONYMOUS_FEATURE}
    collect_local_expanded (type: TYPE) is
          -- Make live the given `type'.
       require

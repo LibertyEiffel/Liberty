@@ -42,7 +42,7 @@ feature {ANY}
                         ]")
          Result.append("          ")
          Result.append(command_line_name)
-         Result.append(" -prune 'lib/vision'%N")
+         Result.append(" -prune 'lib/xml'%N")
          Result.append("[
 
                          -remote replace the generation of that class by the address of the class
@@ -55,7 +55,7 @@ feature {ANY}
                         ]")
          Result.append("          ")
          Result.append(command_line_name)
-         Result.append(" -remote 'lib' 'http://smarteiffel.loria.fr/libraries/'%N")
+         Result.append(" -remote 'lib' 'http://doc.liberty-eiffel.org/libraries/'%N")
          Result.append("[
 
                         The loadpath.se or the ACE file is not compulsory. When not set, the
@@ -89,10 +89,10 @@ feature {}
 
          bootstrap
          options.set_default_arguments
-         get_started
-         write_clusters
          options.generate_stylesheets
          options.generate_jsfile
+         get_started
+         write_clusters
       end
 
    get_started is
@@ -339,7 +339,7 @@ feature {} -- General HTML files
       ensure
          html.in_a_body
       end
-   
+
    close_root_block (html: EIFFELDOC_OUTPUT_STREAM) is
       require
          html /= Void and then html.in_a_body
@@ -395,7 +395,7 @@ feature {} -- General HTML files
             end
          end
 
-         close_root_block (html)
+         close_root_block(html)
          html.close
          html.disconnect
       end

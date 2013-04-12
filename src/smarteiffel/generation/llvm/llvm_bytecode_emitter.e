@@ -81,7 +81,7 @@ feature {SMART_EIFFEL}
          end
       end
 
-        socket_pathi, controller_path: ABSTRACT_STRING
+        socket_path, controller_path: ABSTRACT_STRING
         messaging_context: ZMQ_CONTEXT
         socket: ZMQ_PUSH_SOCKET
         controller: ZMQ_PUSH_SOCKET
