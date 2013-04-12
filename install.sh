@@ -412,18 +412,18 @@ function make_doc()
 function do_pkg_tools()
 {
     PUBLIC=$DESTDIR/usr/bin
-    PRIVATE=$DESTDIR/usr/share/libertyeiffel/bin
+    PRIVATE=$DESTDIR/usr/lib/liberty-eiffel/bin
     ETC=$DESTDIR/etc/serc
-    SHORT=$DESTDIR/usr/share/libertyeiffel/short
-    SYS=$DESTDIR/usr/share/libertyeiffel/sys
-    SITE_LISP=$DESTDIR/usr/share/emacs/site-lisp/libertyeiffel
+    SHORT=$DESTDIR/usr/share/liberty-eiffel/short
+    SYS=$DESTDIR/usr/share/liberty-eiffel/sys
+    SITE_LISP=$DESTDIR/usr/share/emacs/site-lisp/liberty-eiffel
 
     install -d -m 0755 -o root -g root $PUBLIC $PRIVATE $ETC $SITE_LISP
 
     install -m 0755 -o root -g root $LIBERTY_HOME/target/bin/se $PUBLIC/
     install -m 0644 -o root -g root $LIBERTY_HOME/work/eiffel.el $SITE_LISP/
 
-    for tool in compile compile_to_c clean pretty short find ace_check class_check eiffeldoc eiffeltest extract_internals
+    for tool in compile compile_to_c clean pretty short find ace_check class_check eiffeldoc eiffeltest extract_internals mocker
     do
         bin=$LIBERTY_HOME/target/bin/${tool}.d/$tool
         if test -e $bin; then
@@ -439,9 +439,9 @@ function do_pkg_tools()
 
     cat >$ETC/liberty.se <<EOF
 [General]
-bin: /usr/share/libertyeiffel/bin
-sys: /usr/share/libertyeiffel/sys
-short: /usr/share/libertyeiffel/short
+bin: /usr/share/liberty-eiffel/bin
+sys: /usr/share/liberty-eiffel/sys
+short: /usr/share/liberty-eiffel/short
 os: UNIX
 flavor: Linux
 tag: 3
@@ -467,9 +467,9 @@ x_int: extract_internals
 
 [boost]
 c_compiler_type: gcc
-c_compiler_options: -pipe -O1
+c_compiler_options: -pipe -O2 -fno-gcse
 cpp_compiler_type: g++
-cpp_compiler_options: -pipe -O1
+cpp_compiler_options: -pipe -O2 -fno-gcse
 
 [no_check]
 c_compiler_type: gcc
@@ -521,7 +521,7 @@ EOF
 
 function do_pkg_tools_src()
 {
-    SRC=$DESTDIR/usr/share/libertyeiffel/src/
+    SRC=$DESTDIR/usr/share/liberty-eiffel/src/
     ETC=$DESTDIR/etc/serc
 
     install -d -m 0755 -o root -g root $SRC $ETC
@@ -531,7 +531,7 @@ function do_pkg_tools_src()
 
 cat > $ETC/liberty_tools.se <<EOF
 [Environment]
-path_tools: /usr/share/libertyeiffel/src/tools/
+path_tools: /usr/share/liberty-eiffel/src/tools/
 
 [Loadpath]
 tools: ${path_tools}loadpath.se
@@ -540,7 +540,7 @@ EOF
 
 function do_pkg_core_libs()
 {
-    SRC=$DESTDIR/usr/share/libertyeiffel/src/
+    SRC=$DESTDIR/usr/share/liberty-eiffel/src/
     ETC=$DESTDIR/etc/serc
 
     install -d -m 0755 -o root -g root $SRC $ETC
@@ -550,7 +550,7 @@ function do_pkg_core_libs()
 
 cat > $ETC/liberty_core.se <<EOF
 [Environment]
-path_liberty: /usr/share/libertyeiffel/src/core/
+path_liberty: /usr/share/liberty-eiffel/src/core/
 
 [Loadpath]
 liberty: ${path_liberty}loadpath.se
@@ -559,7 +559,7 @@ EOF
 
 function do_pkg_tools_doc()
 {
-    DOC=$DESTDIR/usr/share/doc/libertyeiffel/
+    DOC=$DESTDIR/usr/share/doc/liberty-eiffel/
     install -d -m 0755 -o root -g root $DOC
     cp -a $LIBERTY_HOME/target/doc/tools $DOC/
     chown -R root:root $DOC
@@ -567,7 +567,7 @@ function do_pkg_tools_doc()
 
 function do_pkg_core_doc()
 {
-    DOC=$DESTDIR/usr/share/doc/libertyeiffel/
+    DOC=$DESTDIR/usr/share/doc/liberty-eiffel/
     install -d -m 0755 -o root -g root $DOC
     cp -a $LIBERTY_HOME/target/doc/core $DOC/
     chown -R root:root $DOC
@@ -575,6 +575,11 @@ function do_pkg_core_doc()
 
 function do_pkg()
 {
+    if [ x$DESTDIR == x ]; then
+        echo "No DESTDIR, please call from debian helper tools" >&2
+        exit 1
+    fi
+    echo do_pkg: DESTDIR=$DESTDIR
     do_pkg_tools
     do_pkg_tools_src
     do_pkg_tools_doc
