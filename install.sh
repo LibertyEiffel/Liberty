@@ -402,10 +402,12 @@ function make_doc()
         done
 
         cd $LIBERTY_HOME/target/doc/tools
-        se doc $LIBERTY_HOME/src/smarteiffel/loadpath.se
+        se doc -prune liberty:lib -prune tutorial -prune liberty:wrappers -prune test &
 
         cd $LIBERTY_HOME/target/doc/core
-        se doc $LIBERTY_HOME/src/lib/loadpath.se
+        se doc -prune tools -prune tutorial -prune liberty -prune test &
+
+        wait
     )
 }
 
@@ -418,7 +420,7 @@ function do_pkg_tools()
     SYS=$DESTDIR/usr/share/liberty-eiffel/sys
     SITE_LISP=$DESTDIR/usr/share/emacs/site-lisp/liberty-eiffel
 
-    install -d -m 0755 -o root -g root $PUBLIC $PRIVATE $ETC $SITE_LISP
+    install -d -m 0755 -o root -g root $PUBLIC $PRIVATE $ETC $SHORT $SYS $SITE_LISP
 
     install -m 0755 -o root -g root $LIBERTY_HOME/target/bin/se $PUBLIC/
     install -m 0644 -o root -g root $LIBERTY_HOME/work/eiffel.el $SITE_LISP/
@@ -439,7 +441,7 @@ function do_pkg_tools()
 
     cat >$ETC/liberty.se <<EOF
 [General]
-bin: /usr/share/liberty-eiffel/bin
+bin: /usr/lib/liberty-eiffel/bin
 sys: /usr/share/liberty-eiffel/sys
 short: /usr/share/liberty-eiffel/short
 os: UNIX
