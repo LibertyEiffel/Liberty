@@ -11,7 +11,6 @@ export LOG=$doc_root/build_doc$(date +'-%Y%m%d-%H%M%S').log
 
 . $root/work/tools.sh
 
-
 title Cleanup
 rm -rf $doc_root/build_doc-*.log $doc_root/api
 
@@ -51,6 +50,14 @@ done | while read i section args; do
         -js "$root/resources/eiffeldoc/eiffeldoc.js" -css "$root/resources/eiffeldoc/eiffeldoc.css" \
         -prune test $args
 done
+
+status=$(grep '^se failed with status' $LOG | awk '{i += $NF} END {print i}')
+
+if [ $status -gt 0 ]; then
+    progress 30 $n $n Failed.
+    echo
+    exit $status
+fi
 
 progress 30 $n $n Done.
 echo
