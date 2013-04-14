@@ -51,13 +51,8 @@ done | while read i section args; do
         -prune test -prune Local $args
 done
 
-status=$(grep '^se failed with status' $LOG | awk 'BEGIN {i = 0} {i += $NF} END {print i}')
+status=$(grep '^se failed with status' $LOG | awk 'BEGIN {i = 0} {if (NF > 0) {i += $NF} else {i++}} END {printf("%d\n", i)}')
 
-if [ $status -gt 0 ]; then
-    progress 30 $n $n Failed.
-    echo
-    exit $status
-fi
-
-progress 30 $n $n Done.
+progress 30 $n $n "Finished with status $status."
 echo
+exit $status
