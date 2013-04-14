@@ -27,14 +27,14 @@ feature {ANY}
          assert(tfr.last_string.is_equal("%" -- ICI"))
          tfr.skip_separators
          last_character := tfr.last_character
-         assert(tfr.last_character = '%T')
+         assert(tfr.last_character = ' ')
          tfr.read_word
          assert(tfr.last_string.is_equal(")"))
          tfr.skip_separators
          last_character := tfr.last_character
-         assert(tfr.last_character = '%T')
+         assert(tfr.last_character = ' ')
          tfr.skip_separators
-         assert(tfr.last_character = '%T')
+         assert(tfr.last_character = ' ')
          -- TEST01:12
          tfr.reach_and_skip("TEST01:")
          assert(tfr.last_character = ':')
