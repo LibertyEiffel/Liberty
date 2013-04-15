@@ -26,13 +26,20 @@ feature {ANY}
          Result := socket.is_connected
       end
 
+   is_remote_connected: BOOLEAN is
+      do
+         Result := socket.is_remote_connected
+      end
+
    can_read_character: BOOLEAN is
          -- Can be ''temporarily'' False because the socket does not yet have available data
       do
          if delay_read then
             delayed_read
          end
-         Result := not end_of_stream or else in_buffer.valid_index(next_index)
+         if is_remote_connected then
+            Result := not end_of_stream or else in_buffer.valid_index(next_index)
+         end
       end
 
    can_read_line: BOOLEAN is
@@ -45,7 +52,9 @@ feature {ANY}
          if delay_read then
             delayed_read
          end
-         Result := index > in_buffer.lower or else beginning_of_stream
+         if is_remote_connected then
+            Result := index > in_buffer.lower or else beginning_of_stream
+         end
       end
 
    valid_last_character: BOOLEAN is
@@ -53,7 +62,9 @@ feature {ANY}
          if delay_read then
             delayed_read
          end
-         Result := in_buffer.valid_index(index) or else beginning_of_stream
+         if is_remote_connected then
+            Result := in_buffer.valid_index(index) or else beginning_of_stream
+         end
       end
 
    end_of_input: BOOLEAN is
@@ -86,8 +97,10 @@ feature {}
          delay_read
       do
          delay_read := False
-         ensure_read
-         index := next_index
+         if is_remote_connected then
+            ensure_read
+            index := next_index
+         end
       ensure
          not delay_read
       end
@@ -120,7 +133,7 @@ feature {FILTER_INPUT_STREAM}
          from
             filtered_read_character
          until
-            end_of_input or else filtered_last_character = '%N'
+            end_of_input or else not valid_last_character or else filtered_last_character = '%N'
          loop
             inspect
                filtered_last_character
@@ -146,21 +159,23 @@ feature {FILTER_INPUT_STREAM}
          if delay_read then
             delayed_read
          end
-         index := next_index
-         n := in_buffer.count - index + 1
-         if limit < n then
-            n := limit
+         if is_remote_connected then
+            index := next_index
+            n := in_buffer.count - index + 1
+            if limit < n then
+               n := limit
+            end
+            buffer.ensure_capacity(buffer.count + n)
+            from
+               i := 0
+            until
+               i >= n
+            loop
+               buffer.extend(in_buffer.item(i + index))
+               i := i + 1
+            end
+            index := index + n
          end
-         buffer.ensure_capacity(buffer.count + n)
-         from
-            i := 0
-         until
-            i >= n
-         loop
-            buffer.extend(in_buffer.item(i + index))
-            i := i + 1
-         end
-         index := index + n
       end
 
 feature {FILTER_OUTPUT_STREAM}
@@ -202,6 +217,8 @@ feature {}
          -- read data is not yet consumed. Set `next_index' to the index of the next character to be read.
       require
          not delay_read
+      local
+         last_read: STRING
       do
          if next_index = index then
             -- It means that a real read operation was performed, or the stream is newly connected.
@@ -213,33 +230,39 @@ feature {}
                next_index := index + 1
             elseif socket.is_connected then
                socket.read
-               if not socket.is_connected or else socket.last_read.is_empty then
+               if socket.is_connected then
+                  last_read := socket.last_read
+                  if last_read.is_empty then
+                     end_of_stream := True
+                     --next_index := index + 1
+                  else
+                     end_of_stream := False
+                     -- Remove all previously read characters but the last one (to be able to unread once).
+                     -- Do it in the most efficient way.
+                     if in_buffer.count > 0 then
+                        beginning_of_stream := False
+                        in_buffer.put(in_buffer.last, in_buffer.lower)
+                        in_buffer.set_count(1)
+                        next_index := in_buffer.lower + 1
+                     else
+                        check
+                           beginning_of_stream
+                        end
+                        next_index := in_buffer.lower
+                        -- Small optimization to avoid having a buffer twice too big just because we will keep one
+                        -- old character around for unread. Since the buffer is brand new the capacity will be the
+                        -- given one:
+                        in_buffer.ensure_capacity(socket.default_buffer_size + 1)
+                     end
+                     in_buffer.append(last_read)
+                  end
+               else
                   end_of_stream := True
                   --next_index := index + 1
-               else
-                  end_of_stream := False
-                  -- Remove all previously read characters but the last one (to be able to unread once).
-                  -- Do it in the most efficient way.
-                  if in_buffer.count > 0 then
-                     beginning_of_stream := False
-                     in_buffer.put(in_buffer.last, in_buffer.lower)
-                     in_buffer.set_count(1)
-                     next_index := in_buffer.lower + 1
-                  else
-                     check
-                        beginning_of_stream
-                     end
-                     next_index := in_buffer.lower
-                     -- Small optimization to avoid having a buffer twice too big just because we will keep one
-                     -- old character around for unread. Since the buffer is brand new the capacity will be the
-                     -- given one:
-                     in_buffer.ensure_capacity(socket.default_buffer_size + 1)
-                  end
-                  in_buffer.append(socket.last_read)
                end
             else
                end_of_stream := True
-               next_index := index + 1
+               --next_index := index + 1
             end
          end
       ensure

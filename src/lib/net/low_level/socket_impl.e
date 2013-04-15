@@ -17,7 +17,7 @@ insert
    LOGGING
 
 feature {SOCKET_HANDLER}
-   is_connected: BOOLEAN
+   is_connected, is_remote_connected: BOOLEAN
    error: STRING
 
    read is
@@ -26,6 +26,9 @@ feature {SOCKET_HANDLER}
             delayed_read
          end
          delay_read := True
+         if not is_remote_connected then
+            disconnect
+         end
       end
 
    last_read: STRING is
@@ -34,6 +37,9 @@ feature {SOCKET_HANDLER}
             delayed_read
          end
          Result := last_delayed_read
+         if not is_remote_connected then
+            disconnect
+         end
       end
 
    write (data: STRING) is
@@ -49,6 +55,7 @@ feature {SOCKET_HANDLER}
 
    disconnect is
       do
+         is_remote_connected := False
          net_shutdown(fd)
          net_disconnect(fd)
          is_connected := False
@@ -69,6 +76,7 @@ feature {}
       do
          if a_fd >= 0 then
             is_connected := True
+            is_remote_connected := True
             fd := a_fd
          else
             error := last_error
@@ -119,7 +127,7 @@ feature {}
             debug ("socket")
                log.trace.put_line(once "error while reading from socket: socket was disconnected")
             end
-            disconnect
+            is_remote_connected := False
          end
          if count > 0 then
             last_delayed_read.resize(count)

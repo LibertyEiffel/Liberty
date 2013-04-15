@@ -88,7 +88,9 @@ feature {LOOP_ITEM}
                on_reply.call([port, command, reply])
                reply := Void
                command := Void
-               channel.disconnect -- ???
+               if channel.is_connected then
+                  channel.disconnect -- ???
+               end
                if commands.is_empty(Current) then
                   done := True
                else

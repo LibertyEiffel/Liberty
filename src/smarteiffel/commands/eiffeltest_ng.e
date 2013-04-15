@@ -40,13 +40,15 @@ feature {}
    main is
       local
          conductor: EIFFELTEST_CLIENT_CONDUCTOR
+         jobs: INTEGER
       do
          log.info.put_line(once "Starting eiffeltest for directory %"#(1)%"." # directory_path)
 
          if version_flag or else help_flag then
             -- We just finish here.
          else
-            create conductor.make(system_tools.config.jobs.to_real_32.sqrt.ceiling.force_to_integer_32, force_flag, directory_path)
+            jobs := 2 -- system_tools.config.jobs.to_real_32.sqrt.ceiling.force_to_integer_32
+            create conductor.make(jobs, force_flag, directory_path)
             conductor.run
             if not conductor.success then
                die_with_code(exit_failure_code)

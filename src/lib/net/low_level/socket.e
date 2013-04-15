@@ -17,6 +17,12 @@ feature {SOCKET_HANDLER}
 
    is_connected: BOOLEAN is
       deferred
+      ensure
+         Result implies is_remote_connected
+      end
+
+   is_remote_connected: BOOLEAN is
+      deferred
       end
 
    error: STRING is
@@ -48,6 +54,7 @@ feature {SOCKET_HANDLER}
       deferred
       ensure
          not is_connected
+         not is_remote_connected
       end
 
    clear is

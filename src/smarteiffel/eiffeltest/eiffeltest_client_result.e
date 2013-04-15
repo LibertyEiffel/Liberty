@@ -33,7 +33,6 @@ feature {ANY}
 
    set_reply (a_reply: like reply) is
       require
-         reply = Void
          a_reply /= Void
       do
          reply := a_reply
