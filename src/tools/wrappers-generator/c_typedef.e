@@ -21,9 +21,40 @@ feature
 
 	wrapper_type: STRING is
 		do
-			if referree.has_wrapper 
-				then Result := referree.wrapper_type
-			else not_yet_implemented
+			inspect c_string_name -- First handle standardized typedefs that are provided by anchored queries in C_TYPES 
+			when "int8_t" then Result := "like int8_t"
+			when "uint8_t" then Result := "like uint8_t"
+			when "int16_t" then Result := "like int16_t"
+			when "uint16_t" then Result := "like uint16_t"
+			when "int32_t" then Result := "like int32_t"
+			when "uint32_t" then Result := "like uint32_t"
+			when "int64_t" then Result := "like int64_t"
+			when "uint64_t" then Result := "like uint64_t"
+			when "intptr_t" then Result := "like intptr_t"
+			when "uintptr_t" then Result := "like uintptr_t"
+			when "int_least8_t" then Result := "like int_least8_t"
+			when "uint_least8_t" then Result := "like uint_least8_t"
+			when "int_least16_t" then Result := "like int_least16_t"
+			when "uint_least16_t" then Result := "like uint_least16_t"
+			when "int_least32_t" then Result := "like int_least32_t"
+			when "uint_least32_t" then Result := "like uint_least32_t"
+			when "int_least64_t" then Result := "like int_least64_t"
+			when "uint_least64_t" then Result := "like uint_least64_t"
+			when "int_fast8_t" then Result := "like int_fast8_t"
+			when "uint_fast8_t" then Result := "like uint_fast8_t"
+			when "int_fast16_t" then Result := "like int_fast16_t"
+			when "uint_fast16_t" then Result := "like uint_fast16_t"
+			when "int_fast32_t" then Result := "like int_fast32_t"
+			when "uint_fast32_t" then Result := "like uint_fast32_t"
+			when "int_fast64_t" then Result := "like int_fast64_t"
+			when "uint_fast64_t" then Result := "like uint_fast64_t"
+			when "intmax_t" then Result := "like intmax_t"
+			when "uintmax_t" then Result := "like uintmax_t"
+			else
+				if referree.has_wrapper 
+					then Result := referree.wrapper_type
+					else not_yet_implemented
+					end
 			end
 		end
 
