@@ -40,10 +40,16 @@ feature {}
       do
          log.info.put_line(once "Server #(1) starting..." # port.out)
          create stack.make
-         create socket.make(port, agent stack.add_job, agent stack.break)
+         stack.add_job(waitpid)
+         create socket.make(port, waitpid, agent stack.add_job, agent stack.break)
          stack.add_job(socket)
          log.info.put_line(once "Server #(1) started." # port.out)
          stack.run
+      end
+
+   waitpid: EIFFELTEST_WAITPID is
+      once
+         create Result.make
       end
 
    make is

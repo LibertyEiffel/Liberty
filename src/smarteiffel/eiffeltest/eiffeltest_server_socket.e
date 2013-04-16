@@ -59,13 +59,15 @@ feature {ANY}
       end
 
 feature {}
-   make (a_port: INTEGER; a_on_connect: like on_connect; a_on_disconnect: like on_disconnect) is
+   make (a_port: INTEGER; a_waitpid: like waitpid; a_on_connect: like on_connect; a_on_disconnect: like on_disconnect) is
       require
+         a_waitpid /= Void
          a_on_disconnect /= Void
       do
          port := a_port
          on_connect := a_on_connect
          on_disconnect := a_on_disconnect
+         waitpid := a_waitpid
          restart
       ensure
          port = a_port
@@ -78,10 +80,13 @@ feature {}
    on_connect: PROCEDURE[TUPLE[JOB]]
    on_disconnect: PROCEDURE[TUPLE]
 
+   waitpid: EIFFELTEST_WAITPID
+
 invariant
    done or else server /= Void
    on_connect /= Void
    on_disconnect /= Void
+   waitpid /= Void
 
 end -- class EIFFELTEST_SERVER_SOCKET
 --
