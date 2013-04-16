@@ -547,7 +547,7 @@ se c -ensure_check
       local
          tfr: TEXT_FILE_READ
       do
-         test_log.put_line(once "Server #(1): loading excluded patterns from #(2)" # port.out # filepath)
+         test_log.put_line(once "Loading excluded patterns from #(1)" # filepath)
          create tfr.connect_to(filepath)
          if tfr.is_connected then
             create excluded_patterns.make(0)

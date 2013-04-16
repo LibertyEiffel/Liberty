@@ -440,9 +440,7 @@ feature {LOG_CONFIGURATION}
          if loading then
             load_queue.add_last([a_stream, when_error, a_path_resolver, a_load_completion])
          else
-            if not default_loaded then
-               load_default
-            end
+            load_default
             loading := True
             from
                load_(a_stream, when_error, a_path_resolver, a_load_completion)
@@ -463,10 +461,7 @@ feature {LOG_CONFIGURATION}
       local
          i: INTEGER; parent: LOGGER; parent_tag: FIXED_STRING
       do
-         if not default_loaded then
-            load_default
-         end
-
+         load_default
          Result := loggers.fast_reference_at(a_tag)
          if Result = Void then
             i := a_tag.first_index_of('[')
@@ -573,15 +568,11 @@ feature {}
       end
 
    load_default is
-      require
-         not default_loaded
       local
          in: TEXT_FILE_READ
          o: LOG_OUTPUT
          root0: like root
-      do
-         default_loaded := True
-
+      once
          -- This very basic initialization ensures that a root always exists, which is useful while parsing
          -- the log file (the parsing engine itself uses the logging framework...)
          create o.make(agent pass_through(std_output), "root".intern)
@@ -599,8 +590,6 @@ feature {}
                die_with_code(1)
             end
          end
-      ensure
-         default_loaded
       end
 
    last_class_name: STRING
@@ -641,8 +630,6 @@ feature {}
       do
          Result := a_output
       end
-
-   default_loaded: BOOLEAN
 
 end -- class LOG_INTERNAL_CONF
 --
