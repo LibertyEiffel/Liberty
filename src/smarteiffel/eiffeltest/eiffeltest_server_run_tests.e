@@ -8,6 +8,11 @@ inherit
 
 insert
    LOGGING
+   PROCESS_WAIT
+      rename
+         in as waitpid_in,
+         job as waitpid_job
+      end
 
 create {ANY}
    make
@@ -15,14 +20,18 @@ create {ANY}
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET) is
       do
-         log.trace.put_line(once "Server #(1): prepare tests runner" # port.out)
-         events.expect(stream.event_can_write)
+         if pid = 0 then
+            log.trace.put_line(once "Server #(1): prepare tests runner" # port.out)
+            events.expect(stream.event_can_write)
+         end
       end
 
    is_ready (events: EVENTS_SET): BOOLEAN is
       do
-         Result := events.event_occurred(stream.event_can_write)
-         log.trace.put_line(once "Server #(1): is_ready tests runner: #(2)" # port.out # Result.out)
+         if pid = 0 then
+            Result := events.event_occurred(stream.event_can_write)
+            log.trace.put_line(once "Server #(1): is_ready tests runner: #(2)" # port.out # Result.out)
+         end
       end
 
    continue is
@@ -681,6 +690,7 @@ feature {}
          log.trace.put_line(once "Server #(1): loading tests for #(2)" # port.out # path)
          bd.change_current_working_directory(path)
          load_tests
+         waitpid_job.set_action(agent on_pid, agent on_timeout)
       ensure
          port = a_port
          path = a_path
@@ -701,6 +711,16 @@ feature {}
       once
          create Result.make
       end
+
+   on_pid (a_pid, a_status: INTEGER) is
+      do
+      end
+
+   on_timeout is
+      do
+      end
+
+   pid: INTEGER
 
 invariant
    path /= Void
