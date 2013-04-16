@@ -166,6 +166,14 @@ EIF_BOOLEAN basic_exec_win32_any_finished(HANDLE*handles, DWORD count, se_exec_d
   }
   return success;
 }
+
+EIF_INTEGER basic_exec_waitpid_fd(void) {
+   return -1;
+}
+
+EIF_INTEGER basic_exec_waitpid_read_buffer(void*) {
+   return -1;
+}
 #else
 EIF_INTEGER basic_exec_win32_get_character (void *h) {
   return 0;
@@ -186,11 +194,3 @@ EIF_BOOLEAN basic_exec_win32_execute(se_exec_data_t*data, char*args, EIF_BOOLEAN
   return 0;
 }
 #endif
-
-EIF_INTEGER basic_exec_waitpid_fd(void) {
-   return -1;
-}
-
-EIF_INTEGER basic_exec_waitpid_read_buffer(void*) {
-   return -1;
-}

@@ -189,24 +189,6 @@ void basic_exec_posix_wait_any(se_exec_data_t*data) {
 void basic_exec_posix_any_finished(se_exec_data_t*data) {
   data->id = waitpid(-1, &data->status, WNOHANG);
 }
-#else
-EIF_INTEGER basic_exec_posix_get_character (EIF_INTEGER fd) {
-  return 0;
-}
-
-void basic_exec_posix_put_character(EIF_INTEGER fd, EIF_CHARACTER c) {
-}
-
-void basic_exec_posix_wait_any(se_exec_data_t*data) {
-}
-
-void basic_exec_posix_any_finished(se_exec_data_t*data) {
-}
-
-EIF_BOOLEAN basic_exec_posix_execute(se_exec_data_t*data, char*prog, char**args, EIF_BOOLEAN keep_env, char**add_env, int* in_fd, int* out_fd, int* err_fd) {
-  return 0;
-}
-#endif
 
 /*
  * See http://stackoverflow.com/questions/282176/waitpid-equivalent-with-timeout
@@ -217,9 +199,9 @@ static int waitpid_selfpipe[2];
 
 static void waitpid_sigh(int n, siginfo_t *info, void *unused) {
    char line[128];
-   int n;
-   n = sprintf(line, "%lld %d\n", (long long)(info->si_pid), info->si_status);
-   write(waitpid_selfpipe[1], line, n + 1);
+   int len;
+   len = sprintf(line, "%lld %d\n", (long long)(info->si_pid), info->si_status);
+   write(waitpid_selfpipe[1], line, len + 1);
 }
 
 EIF_INTEGER basic_exec_waitpid_fd(void) {
@@ -253,3 +235,21 @@ EIF_INTEGER basic_exec_waitpid_read_buffer(void*data) {
    }
    return result;
 }
+#else
+EIF_INTEGER basic_exec_posix_get_character (EIF_INTEGER fd) {
+  return 0;
+}
+
+void basic_exec_posix_put_character(EIF_INTEGER fd, EIF_CHARACTER c) {
+}
+
+void basic_exec_posix_wait_any(se_exec_data_t*data) {
+}
+
+void basic_exec_posix_any_finished(se_exec_data_t*data) {
+}
+
+EIF_BOOLEAN basic_exec_posix_execute(se_exec_data_t*data, char*prog, char**args, EIF_BOOLEAN keep_env, char**add_env, int* in_fd, int* out_fd, int* err_fd) {
+  return 0;
+}
+#endif
