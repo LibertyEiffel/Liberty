@@ -184,7 +184,10 @@ feature {ANY}
 feature {SERC_FACTORY}
    add (a_config: SE_CONFIG) is
       do
-         config.add_last(a_config)
+         config.add_first(a_config)
+      ensure
+         config.count = old config.count + 1
+         config.first = a_config
       end
 
    is_empty: BOOLEAN is
@@ -193,11 +196,11 @@ feature {SERC_FACTORY}
       end
 
 feature {}
-   config: FAST_ARRAY[SE_CONFIG]
+   config: RING_ARRAY[SE_CONFIG]
 
    make is
       do
-         create config.make(0)
+         create config.make(1, 0)
       end
 
 invariant
