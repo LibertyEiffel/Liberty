@@ -13,23 +13,19 @@ feature {ANY}
          basic_directory: BASIC_DIRECTORY; chain: SERC_CHAIN; s: STRING
       once
          create chain.make
-         s := seconf_env
-         if s /= Void then
-            add_to_chain(chain, s)
-         end
          basic_directory.ensure_system_notation
 
          if basic_directory.unix_notation or else basic_directory.cygwin_notation then
-            s := home_env
-            if s /= Void then
-               s.append(once "/.serc")
-               add_to_chain(chain, s)
-            end
             if (create {FILE_TOOLS}).is_readable(once "/sys/rc") then
                system_tools.set_system_name(system_tools.elate_system)
                add_to_chain(chain, once "/lang/eiffel/.serc")
             end
             add_to_chain(chain, once "/etc/serc")
+            s := home_env
+            if s /= Void then
+               s.append(once "/.serc")
+               add_to_chain(chain, s)
+            end
          elseif basic_directory.windows_notation then
             s := userprofile_env
             if s /= Void then
@@ -40,6 +36,11 @@ feature {ANY}
          elseif basic_directory.macintosh_notation then
          elseif basic_directory.amiga_notation then
          elseif basic_directory.openvms_notation then
+         end
+
+         s := seconf_env
+         if s /= Void then
+            add_to_chain(chain, s)
          end
 
          if not chain.is_empty then
