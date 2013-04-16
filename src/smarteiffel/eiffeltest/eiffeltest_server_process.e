@@ -9,26 +9,50 @@ insert
          in as waitpid_in,
          job as waitpid_job
       redefine
-         default_create
+         default_create, copy, is_equal
       end
 
 feature {}
    default_create is
       do
          process := Void
-         cmd := Void
          cleanup := Void
+         cmd := Void
+      end
+
+feature {ANY}
+   copy (other: like Current) is
+      do
+         process := other.process
+         cleanup := other.cleanup
+         cmd := other.cmd
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := process = other.process
+            and then cleanup = other.cleanup
+            and then cmd = other.cmd
       end
 
 feature {EIFFELTEST_SERVER_RUN_TESTS}
    id: INTEGER is
+      require
+         is_running
       do
          Result := process.id
       end
 
    is_finished: BOOLEAN is
+      require
+         is_running
       do
          Result := process.is_finished
+      end
+
+   is_running: BOOLEAN is
+      do
+         Result := process /= Void
       end
 
    on_done (a_status: INTEGER) is
@@ -49,7 +73,7 @@ feature {EIFFELTEST_SERVER_RUN_TESTS}
          --| **** TODO: cross-platform
          pid := process.id
          c_inline_h("#include <signal.h>%N")
-         c_inline_c("kill(_pid, 9);%N")
+         c_inline_c("kill(_pid, 15);%N")
          if cleanup /= Void then
             cleanup.call([-1])
          end
@@ -57,7 +81,7 @@ feature {EIFFELTEST_SERVER_RUN_TESTS}
 
    set (a_cmd: like cmd; a_cleanup: like cleanup): like Current is
       require
-         not running
+         not is_running
       do
          cmd := a_cmd
          cleanup := a_cleanup
@@ -65,23 +89,25 @@ feature {EIFFELTEST_SERVER_RUN_TESTS}
       ensure
          Result.cmd = a_cmd
          Result.cleanup = a_cleanup
-         not Result.running
+         not Result.is_running
       end
 
    run: like Current is
       require
-         not running
+         not is_running
       do
-         waitpid_job.trigger(1000) --| **** intentionally short for test, obviously needs to be changed
+         waitpid_job.trigger(1000000) --| **** intentionally short for test, obviously needs to be changed
          process := process_factory.execute_command_line(cmd)
          Result := Current
       ensure
-         Result.running
+         Result.is_running
       end
+
+feature {EIFFELTEST_SERVER_RUN_TESTS, EIFFELTEST_SERVER_PROCESS}
+   cmd: STRING
 
 feature {EIFFELTEST_SERVER_PROCESS}
    process: PROCESS
-   cmd: STRING
    cleanup: PROCEDURE[TUPLE[INTEGER]]
 
    process_factory: PROCESS_FACTORY is

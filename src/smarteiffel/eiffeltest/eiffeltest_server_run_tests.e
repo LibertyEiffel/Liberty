@@ -19,10 +19,17 @@ create {ANY}
 
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET) is
+      local
+         t: TIME_EVENTS
       do
+         log.trace.put_line(once "Server #(1): prepare tests runner (queue: #(2))" # port.out # process_list.count.out)
          if process_list.is_empty then
-            log.trace.put_line(once "Server #(1): prepare tests runner" # port.out)
             events.expect(stream.event_can_write)
+         else
+            log.trace.put_line(once "Server #(1): queued command is running: #(2)" # port.out # process_list.first.is_running.out)
+            if not process_list.first.is_running then
+               events.expect(t.timeout(0))
+            end
          end
       end
 
@@ -30,10 +37,10 @@ feature {LOOP_ITEM}
       do
          if process_list.is_empty then
             Result := events.event_occurred(stream.event_can_write)
-            log.trace.put_line(once "Server #(1): is_ready tests runner: #(2)" # port.out # Result.out)
          else
-            Result := True
+            Result := not process_list.first.is_running
          end
+         log.trace.put_line(once "Server #(1): is_ready tests runner: #(2)" # port.out # Result.out)
       end
 
    continue is
@@ -46,6 +53,7 @@ feature {LOOP_ITEM}
             process := process_list.first
             process_list.remove_first
             process_list.add_first(process.run)
+            log.info.put_line(once "Server #(1): running queued command: #(2)" # port.out # process.cmd)
          elseif not good_tests.is_empty then
             test_file := good_tests.first
             good_tests.remove_first
@@ -736,7 +744,7 @@ feature {}
             exit_status := system.execute_command(cmd)
             cleanup_execute_command(exit_status, log_line, cmd, bad_file_flag, Void)
          else
-            log.info.put_line(once "Server #(1): queuing timeboxed command: #(2)" # port.out # cmd)
+            log.info.put_line(once "Server #(1): queueing timeboxed command: #(2)" # port.out # cmd)
             if running_level = 0 then
                process_list.add_last(process.set(cmd, agent cleanup_execute_command(?, log_line, cmd, bad_file_flag, when_done)))
             else
