@@ -59,7 +59,7 @@ feature {}
          bd: BASIC_DIRECTORY; conf_file_name: STRING
       do
          parse_arguments
-         bd.compute_file_path_with(bd.current_working_directory, "eiffeltest_server-#(3).log" # port.out)
+         bd.compute_file_path_with(bd.current_working_directory, "eiffeltest_server-#(1).log" # port.out)
          conf_file_name := bd.last_entry.twin
          create conf.from_string("[
          log configuration
