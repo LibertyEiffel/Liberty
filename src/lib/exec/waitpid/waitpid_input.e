@@ -13,14 +13,16 @@ class WAITPID_INPUT
 
 inherit
    TERMINAL_INPUT_STREAM
+      undefine
+         is_equal
       redefine
-         can_unread_character, can_disconnect, valid_last_character
+         can_disconnect, valid_last_character
       end
 
 insert
    SINGLETON
 
-create {ANY}
+create {PROCESS_WAIT}
    make
 
 feature {ANY}
