@@ -50,14 +50,17 @@ feature {}
       local
          log_conf: LOG_CONFIGURATION
          conf: STRING_INPUT_STREAM
+         bd: BASIC_DIRECTORY; conf_file_name: STRING
       do
          parse_arguments
-         create conf.from_string(once "[
+         bd.compute_file_path_with(bd.current_working_directory, "eiffeltest_server-#(3).log" # port.out)
+         conf_file_name := bd.last_entry.twin
+         create conf.from_string("[
          log configuration
          root #(1)
          output
             default is
-               file "eiffeltest_server-#(3).log"
+               file "#(3)"
                rotated each day keeping 5
             end
          logger
@@ -66,7 +69,7 @@ feature {}
                level #(2)
             end
          end
-         ]" # generating_type # level # port.out)
+         ]" # generating_type # level # conf_file_name)
          log_conf.load(conf, Void, Void, agent main)
       end
 
