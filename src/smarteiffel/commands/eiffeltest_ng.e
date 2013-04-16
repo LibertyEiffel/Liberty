@@ -47,7 +47,7 @@ feature {}
          if version_flag or else help_flag then
             -- We just finish here.
          else
-            jobs := 2 -- system_tools.config.jobs.to_real_32.sqrt.ceiling.force_to_integer_32
+            jobs := (system_tools.config.jobs + 1).to_real_32.sqrt.floor.force_to_integer_32
             create conductor.make(jobs, force_flag, directory_path)
             conductor.run
             if not conductor.success then

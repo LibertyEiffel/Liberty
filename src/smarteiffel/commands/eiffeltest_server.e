@@ -57,7 +57,7 @@ feature {}
          root #(1)
          output
             default is
-               file "eiffeltest_server:#(3).log"
+               file "eiffeltest_server-#(3).log"
                rotated each day keeping 5
             end
          logger
