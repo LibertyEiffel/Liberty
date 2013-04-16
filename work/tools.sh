@@ -16,7 +16,7 @@ if [ x$plain == x ]; then
 elif [ x"$(tty)" == "not a tty" ]; then
     plain=TRUE
 fi
-if [ $plain != FALSE ]; then
+if [ $plain != TRUE ]; then
     eval `tset -s`
     tput init
 fi
@@ -38,7 +38,7 @@ underline() {
 }
 
 foreground() {
-    if test $plain = FALSE; then
+    if test $plain != TRUE; then
         case $1 in
             black)
                 tput setaf 0
@@ -69,7 +69,7 @@ foreground() {
 }
 
 background() {
-    if test $plain = FALSE; then
+    if test $plain != TRUE; then
         case $1 in
             black)
                 tput setab 0
@@ -163,14 +163,14 @@ progress() {
 }
 
 error_message() {
-    if test $plain = FALSE; then
+    if test $plain != TRUE; then
         tput el
         tput setaf 1
         tput bold
     fi
     echo "$1" | tee -a $LOG
     echo "$2" | tee -a $LOG
-    if test $plain = FALSE; then
+    if test $plain != TRUE; then
         tput setaf 0
         tput sgr0
     fi
