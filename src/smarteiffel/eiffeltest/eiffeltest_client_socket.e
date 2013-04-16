@@ -195,7 +195,11 @@ feature {}
             set_done(proc.status)
          else
             channel := access.stream
-            log.info.put_line(once "Facade #(1): openned channel, is_connected: #(2)" # port.out # channel.is_connected.out)
+            if channel = Void then
+               log.info.put_line(once "Facade #(1): channel not opened" # port.out # channel.is_connected.out)
+            else
+               log.info.put_line(once "Facade #(1): openned channel, is_connected: #(2)" # port.out # channel.is_connected.out)
+            end
          end
       end
 
