@@ -37,7 +37,7 @@ EIF_BOOLEAN basic_exec_win32_execute(se_exec_data_t*data, char*args, EIF_BOOLEAN
 
   ZeroMemory( &start_info, sizeof(STARTUPINFO) );
 
-  start_info.cb = sizeof(STARTUPINFO); 
+  start_info.cb = sizeof(STARTUPINFO);
   if(in_h) {
     start_info.hStdInput = in_h[0];
     SetHandleInformation(in_h[1], HANDLE_FLAG_INHERIT, 0);
@@ -62,14 +62,14 @@ EIF_BOOLEAN basic_exec_win32_execute(se_exec_data_t*data, char*args, EIF_BOOLEAN
   start_info.dwFlags |= STARTF_USESTDHANDLES;
 
   if(CreateProcess(NULL, args,
-		   NULL,				/* process security attributes		*/
-		   NULL,				/* primary thread security attributes	*/
-		   TRUE,				/* handles are inherited		*/
-		   0,					/* creation flags			*/
-		   keep_env?NULL:envp(),
-		   NULL,				/* use parent's current directory	*/
-		   &start_info,				/* STARTUPINFO pointer			*/
-		   &data->process_information)) {	/* receives PROCESS_INFORMATION		*/
+                   NULL,                                /* process security attributes          */
+                   NULL,                                /* primary thread security attributes   */
+                   TRUE,                                /* handles are inherited                */
+                   0,                                   /* creation flags                       */
+                   keep_env?NULL:envp(),
+                   NULL,                                /* use parent's current directory       */
+                   &start_info,                         /* STARTUPINFO pointer                  */
+                   &data->process_information)) {       /* receives PROCESS_INFORMATION         */
     CloseHandle(data->process_information.hThread);
     data->running = 1;
     result = 1;
@@ -83,12 +83,12 @@ EIF_BOOLEAN basic_exec_win32_execute(se_exec_data_t*data, char*args, EIF_BOOLEAN
 
 EIF_BOOLEAN basic_exec_init_pipe(HANDLE*pipe) {
   SECURITY_ATTRIBUTES security_attributes;
-  
-  // Set the bInheritHandle flag so pipe handles are inherited. 
 
-  security_attributes.nLength = sizeof(SECURITY_ATTRIBUTES); 
-  security_attributes.bInheritHandle = TRUE; 
-  security_attributes.lpSecurityDescriptor = NULL; 
+  // Set the bInheritHandle flag so pipe handles are inherited.
+
+  security_attributes.nLength = sizeof(SECURITY_ATTRIBUTES);
+  security_attributes.bInheritHandle = TRUE;
+  security_attributes.lpSecurityDescriptor = NULL;
 
   return CreatePipe(pipe, pipe+1, &security_attributes, 0);
 }
@@ -186,3 +186,11 @@ EIF_BOOLEAN basic_exec_win32_execute(se_exec_data_t*data, char*args, EIF_BOOLEAN
   return 0;
 }
 #endif
+
+EIF_INTEGER basic_exec_waitpid_fd(void) {
+   return -1;
+}
+
+EIF_INTEGER basic_exec_waitpid_read_buffer(void*) {
+   return -1;
+}

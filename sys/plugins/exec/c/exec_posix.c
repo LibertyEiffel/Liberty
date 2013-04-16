@@ -82,41 +82,41 @@ EIF_BOOLEAN basic_exec_posix_execute(se_exec_data_t*data, char*prog, char**args,
       return 1;
     } else {
       if (add_env == NULL && keep_env) {
-	execvp(prog, args); /* NO RETURN in child */
-	se_print_run_time_stack();
-	exit(1);
+        execvp(prog, args); /* NO RETURN in child */
+        se_print_run_time_stack();
+        exit(1);
       }else{
-	char** new_env;
-	char** old_env;
-	int old_size, add_size;
-	int src, dest = 0;
-	if(keep_env){
-	  old_env = environ;
-	}else{
-	  old_env = envp();
-	}
-	old_size = arr_size(old_env);
-	add_size = arr_size(add_env);
-	new_env = malloc(sizeof(void*) * (old_size + add_size));
+        char** new_env;
+        char** old_env;
+        int old_size, add_size;
+        int src, dest = 0;
+        if(keep_env){
+          old_env = environ;
+        }else{
+          old_env = envp();
+        }
+        old_size = arr_size(old_env);
+        add_size = arr_size(add_env);
+        new_env = malloc(sizeof(void*) * (old_size + add_size));
 
-	/* we first copy the pointers from the old env */
-	for(src = 0; src < old_size; src++){
-	  new_env[dest++] = old_env[src];
-	}
+        /* we first copy the pointers from the old env */
+        for(src = 0; src < old_size; src++){
+          new_env[dest++] = old_env[src];
+        }
 
-	/* now the ones from add_env */
-	for(src = 0; src < add_size; src++){
-	  int override = find_variable(old_env, add_env[src]);
-	  if (override >= 0){
-	    new_env[override] = add_env[src];
-	  }else{
-	    new_env[dest++] = add_env[src];
-	  }
-	}
+        /* now the ones from add_env */
+        for(src = 0; src < add_size; src++){
+          int override = find_variable(old_env, add_env[src]);
+          if (override >= 0){
+            new_env[override] = add_env[src];
+          }else{
+            new_env[dest++] = add_env[src];
+          }
+        }
 
-	execve(prog, args, new_env); /* NO RETURN in child */
-	se_print_run_time_stack();
-	exit(1);
+        execve(prog, args, new_env); /* NO RETURN in child */
+        se_print_run_time_stack();
+        exit(1);
       }
     }
   }
@@ -207,3 +207,49 @@ EIF_BOOLEAN basic_exec_posix_execute(se_exec_data_t*data, char*prog, char**args,
   return 0;
 }
 #endif
+
+/*
+ * See http://stackoverflow.com/questions/282176/waitpid-equivalent-with-timeout
+ *
+ * (with specific adaptation to Liberty Eiffel)
+ */
+static int waitpid_selfpipe[2];
+
+static void waitpid_sigh(int n, siginfo_t *info, void *unused) {
+   char line[128];
+   int n;
+   n = sprintf(line, "%lld %d\n", (long long)(info->si_pid), info->si_status);
+   write(waitpid_selfpipe[1], line, n + 1);
+}
+
+EIF_INTEGER basic_exec_waitpid_fd(void) {
+   static init = 0;
+   static struct sigaction act;
+   if (!init) {
+      init = 1;
+      if (pipe(waitpid_selfpipe) == -1) {
+         waitpid_selfpipe[0] = -1;
+      }
+      else {
+         fcntl(waitpid_selfpipe[0], F_SETFL, fcntl(waitpid_selfpipe[0], F_GETFL) | O_NONBLOCK);
+         fcntl(waitpid_selfpipe[1], F_SETFL, fcntl(waitpid_selfpipe[1], F_GETFL) | O_NONBLOCK);
+         memset(&act, 0, sizeof(act));
+         act.sa_flags = SA_SIGINFO;
+         act.sa_sigaction = waitpid_sigh;
+         sigaction(SIGCHLD, &act, NULL);
+      }
+   }
+   return waitpid_selfpipe[0];
+}
+
+EIF_INTEGER basic_exec_waitpid_read_buffer(void*data) {
+   char *buffer = (char*)data;
+   int result = 0;
+   int n;
+   while (buffer[result] != '\n') {
+      n = read(waitpid_selfpipe[0], buffer+result, 1);
+      if (n < 0) break;
+      result += n;
+   }
+   return result;
+}
