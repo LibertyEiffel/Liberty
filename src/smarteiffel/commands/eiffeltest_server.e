@@ -13,6 +13,11 @@ class EIFFELTEST_SERVER
 insert
    COMMAND_LINE_TOOLS
    LOGGING
+   PROCESS_WAIT
+      rename
+         in as waitpid_in,
+         job as waitpid_job
+      end
 
 create {}
    make
@@ -40,16 +45,11 @@ feature {}
       do
          log.info.put_line(once "Server #(1) starting..." # port.out)
          create stack.make
-         stack.add_job(waitpid)
-         create socket.make(port, waitpid, agent stack.add_job, agent stack.break)
+         stack.add_job(waitpid_job)
+         create socket.make(port, agent stack.add_job, agent stack.break)
          stack.add_job(socket)
          log.info.put_line(once "Server #(1) started." # port.out)
          stack.run
-      end
-
-   waitpid: EIFFELTEST_WAITPID is
-      once
-         create Result.make
       end
 
    make is

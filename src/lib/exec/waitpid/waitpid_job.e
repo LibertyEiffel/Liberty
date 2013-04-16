@@ -25,10 +25,12 @@ feature {ANY}
          done := True
       end
 
-   set_timeout (a_timeout: like timeout) is
-         -- Set a timeout if >= 0, unset otherwise
+   trigger (a_timeout: like timeout) is
+      require
+         timeout >= -1 -- where -1 means no timeout
       do
          timeout := a_timeout
+         running := True
       ensure
          timeout = a_timeout
       end
@@ -66,20 +68,24 @@ feature {LOOP_ITEM}
       local
          t: TIME_EVENTS
       do
-         if timeout >= 0 then
-            timeout_event := t.timeout(timeout)
-            events.expect(timeout_event)
+         if running then
+            if timeout >= 0 then
+               timeout_event := t.timeout(timeout)
+               events.expect(timeout_event)
+            end
+            events.expect(in.event_can_read)
          end
-         events.expect(in.event_can_read)
       end
 
    is_ready (events: EVENTS_SET): BOOLEAN is
       do
-         if timeout_event /= Void and then events.event_occurred(timeout_event) then
-            Result := True
-         else
-            Result := events.event_occurred(in.event_can_read)
-            timeout_event := Void
+         if running then
+            if timeout_event /= Void and then events.event_occurred(timeout_event) then
+               Result := True
+            else
+               Result := events.event_occurred(in.event_can_read)
+               timeout_event := Void
+            end
          end
       end
 
@@ -115,6 +121,7 @@ feature {LOOP_ITEM}
                i := i + 1
             end
          end
+         running := False
       end
 
    done: BOOLEAN
@@ -132,6 +139,7 @@ feature {}
 
    timeout_event: EVENT_DESCRIPTOR
    actions: HASHED_DICTIONARY[WAITPID_ACTION, FIXED_STRING]
+   running: BOOLEAN
 
 end -- WAITPID_JOB
 --
