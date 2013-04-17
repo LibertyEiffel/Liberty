@@ -33,7 +33,9 @@ feature {ANY}
       require
          timeout >= -1 -- where -1 means no timeout
       do
-         log.trace.put_line(once "waitpid trigger: timeout=#(1)" # a_timeout.out)
+         debug ("waitpid")
+            log.trace.put_line(once "waitpid trigger: timeout=#(1)" # a_timeout.out)
+         end
          timeout := a_timeout
          running := True
       ensure
@@ -48,7 +50,9 @@ feature {ANY}
       local
          action: WAITPID_ACTION
       do
-         log.trace.put_line(once "waitpid set action #(1)" # a_tag)
+         debug ("waitpid")
+            log.trace.put_line(once "waitpid set action #(1)" # a_tag)
+         end
          action.set(a_on_waitpid, a_on_timeout)
          actions.fast_put(action, a_tag.intern)
       ensure
@@ -59,7 +63,9 @@ feature {ANY}
       require
          a_tag /= Void
       do
-         log.trace.put_line(once "waitpid unset action #(1)" # a_tag)
+         debug ("waitpid")
+            log.trace.put_line(once "waitpid unset action #(1)" # a_tag)
+         end
          actions.fast_remove(a_tag.intern)
       ensure
          not has_action(a_tag)
@@ -75,7 +81,9 @@ feature {LOOP_ITEM}
       local
          t: TIME_EVENTS
       do
-         log.trace.put_line(once "waitpid prepare: running=#(1)" # running.out)
+         debug ("waitpid")
+            log.trace.put_line(once "waitpid prepare: running=#(1)" # running.out)
+         end
          if running then
             if timeout >= 0 then
                timeout_event := t.timeout(timeout)
@@ -95,7 +103,9 @@ feature {LOOP_ITEM}
                timeout_event := Void
             end
          end
-         log.trace.put_line(once "waitpid is_ready: #(1)" # Result.out)
+         debug ("waitpid")
+            log.trace.put_line(once "waitpid is_ready: #(1)" # Result.out)
+         end
       end
 
    continue is

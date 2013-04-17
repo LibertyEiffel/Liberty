@@ -51,8 +51,8 @@ feature {LOOP_ITEM}
          if not process_list.is_empty then
             running_level := running_level + 1
             process := process_list.first
-            process_list.remove_first
-            process_list.add_first(process.run)
+            process.run
+            process_list.put(process, process_list.lower) -- because process is expanded
             log.info.put_line(once "Server #(1): running queued command: #(2)" # port.out # process.cmd)
          elseif not good_tests.is_empty then
             test_file := good_tests.first
@@ -745,10 +745,11 @@ feature {}
             cleanup_execute_command(exit_status, log_line, cmd, bad_file_flag, Void)
          else
             log.info.put_line(once "Server #(1): queueing timeboxed command: #(2)" # port.out # cmd)
+            process.set(port, cmd, agent cleanup_execute_command(?, log_line, cmd, bad_file_flag, when_done))
             if running_level = 0 then
-               process_list.add_last(process.set(cmd, agent cleanup_execute_command(?, log_line, cmd, bad_file_flag, when_done)))
+               process_list.add_last(process)
             else
-               process_list.add(process.set(cmd, agent cleanup_execute_command(?, log_line, cmd, bad_file_flag, when_done)), running_level + process_list.lower)
+               process_list.add(process, running_level + process_list.lower)
             end
          end
       end

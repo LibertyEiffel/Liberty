@@ -4,6 +4,10 @@
 expanded class EIFFELTEST_SERVER_PROCESS
 
 insert
+   LOGGING
+      redefine
+         default_create, copy, is_equal
+      end
    PROCESS_WAIT
       rename
          in as waitpid_in,
@@ -50,16 +54,16 @@ feature {EIFFELTEST_SERVER_RUN_TESTS}
          Result := process.is_finished
       end
 
-   is_running: BOOLEAN is
-      do
-         Result := process /= Void
-      end
-
    on_done (a_status: INTEGER) is
+      local
+         status: INTEGER
       do
+         log.info.put_line(once "Server #(1): timeboxed command finished: #(2)" # port.out # cmd)
+         process.wait
+         status := process.status
          check
             process.is_finished
-            a_status = process.status
+            a_status = status
          end
          if cleanup /= Void then
             cleanup.call([a_status])
@@ -68,47 +72,72 @@ feature {EIFFELTEST_SERVER_RUN_TESTS}
 
    on_timeout is
       local
-         pid: INTEGER
+         pid, status: INTEGER
       do
+         log.info.put_line(once "Server #(1): timeboxed command timed out: #(2)" # port.out # cmd)
          --| **** TODO: cross-platform
          pid := process.id
          c_inline_h("#include <signal.h>%N")
          c_inline_c("kill(_pid, 15);%N")
+         log.info.put_line(once "Server #(1): timeboxed command killed: #(2)" # port.out # pid.out)
+         process.wait
+         status := process.status
          if cleanup /= Void then
             cleanup.call([-1])
          end
       end
 
-   set (a_cmd: like cmd; a_cleanup: like cleanup): like Current is
+   set (a_port: like port; a_cmd: like cmd; a_cleanup: like cleanup) is
       require
+         a_port > 0
+         not is_set
          not is_running
       do
+         log.info.put_line(once "Server #(1): preparing timeboxed command: #(2)" # a_port.out # a_cmd)
+         port := a_port
          cmd := a_cmd
          cleanup := a_cleanup
-         Result := Current
       ensure
-         Result.cmd = a_cmd
-         Result.cleanup = a_cleanup
-         not Result.is_running
+         port = a_port
+         cmd = a_cmd
+         cleanup = a_cleanup
+         is_set
+         not is_running
       end
 
-   run: like Current is
+   run is
       require
+         is_set
          not is_running
+      local
+         split: FAST_ARRAY[STRING]
       do
-         waitpid_job.trigger(1000000) --| **** intentionally short for test, obviously needs to be changed
-         process := process_factory.execute_command_line(cmd)
-         Result := Current
+         log.info.put_line(once "Server #(1): now running timeboxed command: #(2)" # port.out # cmd)
+         create split.make(0)
+         cmd.split_in(split)
+         waitpid_job.trigger(1000) --| **** intentionally short for test, obviously needs to be changed
+         process := process_factory.execute(split.first, split)
       ensure
-         Result.is_running
+         is_running
       end
 
 feature {EIFFELTEST_SERVER_RUN_TESTS, EIFFELTEST_SERVER_PROCESS}
    cmd: STRING
 
+   is_running: BOOLEAN is
+      do
+         Result := process /= Void
+      end
+
+   is_set: BOOLEAN is
+      do
+         Result := port > 0
+      end
+
 feature {EIFFELTEST_SERVER_PROCESS}
    process: PROCESS
    cleanup: PROCEDURE[TUPLE[INTEGER]]
+   port: INTEGER
 
    process_factory: PROCESS_FACTORY is
       once
