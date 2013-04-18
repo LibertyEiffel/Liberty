@@ -44,7 +44,7 @@ feature {LOOP_ITEM}
    done: BOOLEAN is
       do
          Result := path /= Void
-         log.info.put_line(once "Server #(1): connection done: #(2)" # port.out # Result.out)
+         log.trace.put_line(once "Server #(1): connection done: #(2)" # port.out # Result.out)
       end
 
    restart is

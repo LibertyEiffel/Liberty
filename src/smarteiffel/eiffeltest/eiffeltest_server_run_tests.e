@@ -26,8 +26,10 @@ feature {LOOP_ITEM}
          if process_list.is_empty then
             events.expect(stream.event_can_write)
          else
-            log.trace.put_line(once "Server #(1): queued command is running: #(2)" # port.out # process_list.first.is_running.out)
-            if not process_list.first.is_running then
+            if process_list.first.is_running then
+               log.trace.put_line(once "Server #(1): queued command is running: #(2)" # port.out # process_list.first.cmd)
+            else
+               log.trace.put_line(once "Server #(1): queued command is waiting: #(2)" # port.out # process_list.first.cmd)
                events.expect(t.timeout(0))
             end
          end
@@ -76,7 +78,7 @@ feature {LOOP_ITEM}
    done: BOOLEAN is
       do
          Result := not stream.is_connected
-         log.info.put_line(once "Server #(1): tests runner done: #(2)" # port.out # Result.out)
+         log.trace.put_line(once "Server #(1): tests runner done: #(2)" # port.out # Result.out)
       end
 
    restart is
@@ -360,7 +362,7 @@ feature {} -- Good tests: tests that must pass
          if excluded_execution_of(log_line,
                                   agent execute_command(log_line, exe_path, False,
                                                         agent cleanup_running_of(test_file, exe_name, options, when_done, True),
-                                                        10_000) --| **** TODO: customizable timeout. For now: 10s
+                                                        60_000) --| **** TODO: customizable timeout. For now: 1 minute
                                   )
          then
             -- Well, the `log_line' is filtered by the "excluded.lst" file.
@@ -758,8 +760,10 @@ feature {}
             end
             process.set(port, timeout, cmd, agent cleanup_execute_command(?, log_line, cmd, bad_file_flag, when_done))
             if running_level = 0 then
+               log.trace.put_line(once "Server #(1): no process running, queuing at the end" # port.out)
                process_list.add_last(process)
             else
+               log.trace.put_line(once "Server #(1): a process is running, queuing at #(2)" # port.out # running_level.out)
                process_list.add(process, running_level + process_list.lower)
             end
          end
@@ -828,6 +832,7 @@ feature {}
       end
 
    on_pid (a_pid, a_status: INTEGER) is
+         -- This feature is called on behalf of the waitpid job
       local
          process: EIFFELTEST_SERVER_PROCESS
       do
@@ -839,6 +844,7 @@ feature {}
       end
 
    on_timeout is
+         -- This feature is called on behalf of the waitpid job
       local
          process: EIFFELTEST_SERVER_PROCESS
       do
@@ -851,6 +857,7 @@ feature {}
 
    unqueue_process is
       do
+         log.trace.put_line(once "Server #(1): unqueueing process: #(2)" # port.out # process_list.first.cmd)
          process_pool.recycle(process_list.first)
          process_list.remove_first
          running_level := running_level - 1
