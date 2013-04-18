@@ -177,6 +177,13 @@ feature {}
    command: FIXED_STRING
    reply: STRING
 
+   pid: INTEGER is
+      do
+         if proc /= Void then
+            Result := proc.id
+         end
+      end
+
    commands: EIFFELTEST_COMMAND_PROVIDER
 
    on_reply: PROCEDURE[TUPLE[INTEGER, FIXED_STRING, STRING]]
