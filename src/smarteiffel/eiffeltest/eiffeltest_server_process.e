@@ -59,10 +59,13 @@ feature {EIFFELTEST_SERVER_RUN_TESTS}
 
    on_done (a_status: INTEGER) is
       do
-         process.wait
-         log.info.put_line(once "Server #(1): timeboxed command finished (status #(3)): #(2)" # port.out # cmd # a_status.out)
-         if cleanup /= Void then
-            cleanup.call([a_status])
+         if not done then
+            done := True
+            process.wait
+            log.info.put_line(once "Server #(1): timeboxed command finished (status #(3)): #(2)" # port.out # cmd # a_status.out)
+            if cleanup /= Void then
+               cleanup.call([a_status])
+            end
          end
       end
 
@@ -70,27 +73,30 @@ feature {EIFFELTEST_SERVER_RUN_TESTS}
       local
          mypid, pid, status: INTEGER
       do
-         if process.is_finished then
-            status := process.status
-            log.info.put_line(once "Server #(1): timeboxed command timed out but finished (status #(3)): #(2)" # port.out # cmd # status.out)
-         else
-            log.info.put_line(once "Server #(1): timeboxed command timed out: #(2)" # port.out # cmd)
-            --| **** TODO: cross-platform
-            c_inline_c("_mypid = getpid();%N")
-            pid := process.id
-            log.trace.put_line(once "Server #(1): killing timeboxed command: #(2) (#(3))" # port.out # pid.out # mypid.out)
-            if pid /= mypid then
-               c_inline_h("#include <signal.h>%N")
-               c_inline_c("kill(_pid, 15);%N")
-               process.wait
+         if not done then
+            done := True
+            if process.is_finished then
                status := process.status
+               log.info.put_line(once "Server #(1): timeboxed command timed out but finished (status #(3)): #(2)" # port.out # cmd # status.out)
             else
-               log.warning.put_line(once "Server #(1): pid is 0!!" # port.out)
-               status := -1
+               log.info.put_line(once "Server #(1): timeboxed command timed out: #(2)" # port.out # cmd)
+               --| **** TODO: cross-platform
+               c_inline_c("_mypid = getpid();%N")
+               pid := process.id
+               log.trace.put_line(once "Server #(1): killing timeboxed command: #(2) (#(3))" # port.out # pid.out # mypid.out)
+               if pid /= mypid then
+                  c_inline_h("#include <signal.h>%N")
+                  c_inline_c("kill(_pid, 15);%N")
+                  process.wait
+                  status := process.status
+               else
+                  log.warning.put_line(once "Server #(1): pid is 0!!" # port.out)
+                  status := -1
+               end
             end
-         end
-         if cleanup /= Void then
-            cleanup.call([status])
+            if cleanup /= Void then
+               cleanup.call([status])
+            end
          end
       end
 
@@ -105,6 +111,7 @@ feature {EIFFELTEST_SERVER_RUN_TESTS}
          timeout := a_timeout
          cmd := a_cmd
          cleanup := a_cleanup
+         done := False
       ensure
          port = a_port
          timeout = a_timeout
@@ -154,6 +161,7 @@ feature {EIFFELTEST_SERVER_PROCESS}
    cleanup: PROCEDURE[TUPLE[INTEGER]]
    port: INTEGER
    timeout: INTEGER
+   done: BOOLEAN
 
    process_factory_: PROCESS_FACTORY is
       once
