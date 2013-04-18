@@ -177,7 +177,7 @@ feature {} -- Good tests: tests that must pass
                cmd := strings.new
                cmd.copy(once "se mock ")
                cmd.append(tfr.last_string)
-               if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False, Void)) then
+               if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False, Void, 0)) then
                   strings.recycle(cmd)
                   test_log.put_line(once "**** Warning: mock generation skipped (by excluded.lst). Expect problems.")
                end
@@ -253,7 +253,7 @@ feature {} -- Good tests: tests that must pass
             tfr.disconnect
          end
 
-         if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False, agent run_file_check_with(options, cmd, exe_name, cecil_flag, test_file))) then
+         if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False, agent run_file_check_with(options, cmd, exe_name, cecil_flag, test_file), -1)) then
             -- Command skipped.
             strings.recycle(cmd)
             strings.recycle(exe_name)
@@ -304,7 +304,7 @@ feature {} -- Good tests: tests that must pass
 
             exe_name := change_exe_name(test_file)
 
-            if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False, agent run_ace_test(test_file, cmd, exe_name))) then
+            if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False, agent run_ace_test(test_file, cmd, exe_name), -1)) then
                -- Command skipped.
                strings.recycle(cmd)
                strings.recycle(exe_name)
@@ -357,7 +357,9 @@ feature {} -- Good tests: tests that must pass
 
          if excluded_execution_of(log_line,
                                   agent execute_command(log_line, exe_path, False,
-                                                        agent cleanup_running_of(test_file, exe_name, options, when_done, True)))
+                                                        agent cleanup_running_of(test_file, exe_name, options, when_done, True),
+                                                        10_000) --| **** TODO: customizable timeout. For now: 10s
+                                  )
          then
             -- Well, the `log_line' is filtered by the "excluded.lst" file.
             strings.recycle(exe_path)
@@ -384,7 +386,7 @@ feature {} -- Good tests: tests that must pass
          cmd := strings.new
          cmd.copy(once "se clean ")
          cmd.append(test_file)
-         if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False, Void)) then
+         if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False, Void, 0)) then
             strings.recycle(cmd)
          end
 
@@ -432,7 +434,7 @@ feature {} -- Bad tests: tests that must fail
          cmd.append(exe_name)
          cmd.append(once " -output_error_warning_on ")
          cmd.append(new)
-         if excluded_execution_of(cmd, agent execute_command(cmd, cmd, True, agent run_bad_test(new, msg, exe_name, bad_file))) then
+         if excluded_execution_of(cmd, agent execute_command(cmd, cmd, True, agent run_bad_test(new, msg, exe_name, bad_file), -1)) then
             -- Command skipped.
             strings.recycle(cmd)
             strings.recycle(new)
@@ -488,7 +490,7 @@ feature {} -- Bad tests: tests that must fail
             cmd := strings.new
             cmd.copy(once "se clean ")
             cmd.append(bad_file)
-            if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False, Void)) then
+            if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False, Void, 0)) then
                strings.recycle(cmd)
             end
          end
@@ -737,7 +739,7 @@ feature {}
          end
       end
 
-   execute_command (log_line, cmd: STRING; bad_file_flag: BOOLEAN; when_done: PROCEDURE[TUPLE]) is
+   execute_command (log_line, cmd: STRING; bad_file_flag: BOOLEAN; when_done: PROCEDURE[TUPLE]; timeout: INTEGER) is
       local
          system: SYSTEM; exit_status: INTEGER
          process: EIFFELTEST_SERVER_PROCESS
@@ -752,7 +754,7 @@ feature {}
             if process = Void then
                create process
             end
-            process.set(port, -1, cmd, agent cleanup_execute_command(?, log_line, cmd, bad_file_flag, when_done))
+            process.set(port, timeout, cmd, agent cleanup_execute_command(?, log_line, cmd, bad_file_flag, when_done))
             if running_level = 0 then
                process_list.add_last(process)
             else
