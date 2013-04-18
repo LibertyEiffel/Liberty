@@ -34,7 +34,7 @@ feature {LOOP_ITEM}
             timeout := t.timeout(500)
             events.expect(timeout)
          else
-            timeout := t.timeout(5000)
+            timeout := t.timeout(60_000)
             events.expect(timeout)
             if busy then
                events.expect(channel.event_can_read)
