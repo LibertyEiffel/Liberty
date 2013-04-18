@@ -86,10 +86,11 @@ feature {EIFFELTEST_SERVER_RUN_TESTS}
                status := process.status
             else
                log.warning.put_line(once "Server #(1): pid is 0!!" # port.out)
+               status := -1
             end
          end
          if cleanup /= Void then
-            cleanup.call([-1])
+            cleanup.call([status])
          end
       end
 
