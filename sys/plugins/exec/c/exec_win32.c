@@ -167,6 +167,9 @@ EIF_BOOLEAN basic_exec_win32_any_finished(HANDLE*handles, DWORD count, se_exec_d
   return success;
 }
 
+void basic_exec_waitpid_init(EIF_OBJECT obj) {
+}
+
 EIF_INTEGER basic_exec_waitpid_fd(void) {
    return -1;
 }

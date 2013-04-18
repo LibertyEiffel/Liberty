@@ -8,7 +8,8 @@ class WAITPID_INPUT
    --
    -- If this stream is created then exiting children will send data in this channel.
    --
-   -- Each child sends exactly one line, containing the child pid and its exit status separated by a space.
+   -- Each child sends exactly one empty line, plus "out-of-band" information containing the child pid and its
+   -- exit status.
    --
 
 inherit
@@ -21,6 +22,10 @@ inherit
 
 insert
    SINGLETON
+   LOGGING
+      undefine
+         is_equal
+      end
 
 create {PROCESS_WAIT}
    make
@@ -45,6 +50,31 @@ feature {ANY}
       end
 
    end_of_input: BOOLEAN is False
+
+   pid: INTEGER is
+      require
+         has_oob_info
+      do
+         Result := oob_info_pid.first
+      end
+
+   status: INTEGER is
+      require
+         has_oob_info
+      do
+         Result := oob_info_status.first
+      end
+
+   has_oob_info: BOOLEAN is
+      do
+         Result := not oob_info_status.is_empty
+      end
+
+   drop_oop_info is
+      do
+         oob_info_pid.remove_first
+         oob_info_status.remove_first
+      end
 
 feature {FILTER}
    filtered_descriptor: INTEGER is
@@ -84,10 +114,25 @@ feature {}
    make is
       do
          buffer := buffer.calloc(128)
+         create oob_info_pid.make(1, 0)
+         create oob_info_status.make(1, 0)
+         basic_exec_waitpid_init(Current)
       end
 
    buffer: NATIVE_ARRAY[CHARACTER]
    index, upper: INTEGER
+
+   oob_info_pid: RING_ARRAY[INTEGER]
+   oob_info_status: RING_ARRAY[INTEGER]
+
+   set_oob_info (a_pid, a_status: INTEGER) is
+      do
+         debug ("waitpid")
+            log.trace.put_line("OOB info: pid=#(1) status=#(2)" # a_pid.out # a_status.out)
+         end
+         oob_info_pid.add_last(a_pid)
+         oob_info_status.add_last(a_status)
+      end
 
    read_buffer is
       do
@@ -113,9 +158,19 @@ feature {}
          }"
       end
 
+   basic_exec_waitpid_init (obj: WAITPID_INPUT) is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "exec"
+         feature_name: "basic_exec_waitpid_init"
+         }"
+      end
+
 invariant
    upper >= -1
-   index.in_range(0, upper+1)
+   index.in_range(0, upper + 1)
+   oob_info_pid.count = oob_info_status.count
 
 end -- WAITPID_INPUT
 --

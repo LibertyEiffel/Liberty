@@ -37,9 +37,10 @@ feature {ANY}
             log.trace.put_line(once "waitpid trigger: timeout=#(1)" # a_timeout.out)
          end
          timeout := a_timeout
-         running := True
+         triggered := True
       ensure
          timeout = a_timeout
+         triggered
       end
 
    timeout: INTEGER
@@ -82,9 +83,11 @@ feature {LOOP_ITEM}
          t: TIME_EVENTS
       do
          debug ("waitpid")
-            log.trace.put_line(once "waitpid prepare: running=#(1)" # running.out)
+            log.trace.put_line(once "waitpid prepare: triggered=#(1) -- timeout=#(2)" # triggered.out # timeout.out)
          end
-         if running then
+         if triggered or running then
+            running := True
+            triggered := False
             if timeout >= 0 then
                timeout_event := t.timeout(timeout)
                events.expect(timeout_event)
@@ -98,22 +101,32 @@ feature {LOOP_ITEM}
          if running then
             if timeout_event /= Void and then events.event_occurred(timeout_event) then
                Result := True
+               debug ("waitpid")
+                  log.trace.put_line(once "waitpid is_ready (timeout)")
+               end
             else
                Result := events.event_occurred(in.event_can_read)
                timeout_event := Void
+               debug ("waitpid")
+                  if Result then
+                     log.trace.put_line(once "waitpid is_ready (waitpid input)")
+                  end
+               end
             end
-         end
-         debug ("waitpid")
-            log.trace.put_line(once "waitpid is_ready: #(1)" # Result.out)
          end
       end
 
    continue is
       local
          i, pid, status: INTEGER
-         s, buffer: STRING
       do
+         check
+            running
+         end
          if timeout_event /= Void then
+            debug ("waitpid")
+               log.trace.put_line(once "waitpid continue (timeout)")
+            end
             from
                i := actions.lower
             until
@@ -122,25 +135,37 @@ feature {LOOP_ITEM}
                actions.item(i).fire_timeout
                i := i + 1
             end
+            running := False
+            timeout_event := Void
          else
-            in.read_line
-            s := in.last_string
-            buffer := once ""
-            i := s.first_index_of(' ')
-            buffer.copy_substring(s, s.lower, i - 1)
-            pid := buffer.to_integer
-            buffer.copy_substring(s, i + 1, s.upper)
-            status := buffer.to_integer
             from
-               i := actions.lower
+               in.read_character
+               debug ("waitpid")
+                  log.trace.put_line(once "waitpid continue (waitpid input)")
+               end
             until
-               i > actions.upper
+               not in.has_oob_info
             loop
-               actions.item(i).fire_waitpid(pid, status)
-               i := i + 1
+               running := False
+               pid := in.pid
+               status := in.status
+               debug ("waitpid")
+                  log.trace.put_line(once "waitpid continue (waitpid input: pid=#(1) status=#(2))" # pid.out # status.out)
+               end
+               in.drop_oop_info
+               from
+                  i := actions.lower
+               until
+                  i > actions.upper
+               loop
+                  actions.item(i).fire_waitpid(pid, status)
+                  i := i + 1
+               end
             end
          end
-         running := False
+         debug ("waitpid")
+            log.trace.put_line(once "waitpid continue (done)")
+         end
       end
 
    done: BOOLEAN
@@ -158,7 +183,7 @@ feature {}
 
    timeout_event: EVENT_DESCRIPTOR
    actions: HASHED_DICTIONARY[WAITPID_ACTION, FIXED_STRING]
-   running: BOOLEAN
+   triggered, running: BOOLEAN
 
 end -- WAITPID_JOB
 --

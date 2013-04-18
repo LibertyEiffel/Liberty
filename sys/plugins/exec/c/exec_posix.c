@@ -196,12 +196,14 @@ void basic_exec_posix_any_finished(se_exec_data_t*data) {
  * (with specific adaptation to Liberty Eiffel)
  */
 static int waitpid_selfpipe[2];
+static EIF_OBJECT waitpid_input;
 
-static void waitpid_sigh(int n, siginfo_t *info, void *unused) {
-   char line[128];
-   int len;
-   len = sprintf(line, "%lld %d\n", (long long)(info->si_pid), info->si_status);
-   write(waitpid_selfpipe[1], line, len + 1);
+static void waitpid_sigh(int n) {
+   write(waitpid_selfpipe[1], "", 1);
+}
+
+void basic_exec_waitpid_init(EIF_OBJECT obj) {
+   waitpid_input = obj;
 }
 
 EIF_INTEGER basic_exec_waitpid_fd(void) {
@@ -216,8 +218,7 @@ EIF_INTEGER basic_exec_waitpid_fd(void) {
          fcntl(waitpid_selfpipe[0], F_SETFL, fcntl(waitpid_selfpipe[0], F_GETFL) | O_NONBLOCK);
          fcntl(waitpid_selfpipe[1], F_SETFL, fcntl(waitpid_selfpipe[1], F_GETFL) | O_NONBLOCK);
          memset(&act, 0, sizeof(act));
-         act.sa_flags = SA_SIGINFO;
-         act.sa_sigaction = waitpid_sigh;
+         act.sa_handler = waitpid_sigh;
          sigaction(SIGCHLD, &act, NULL);
       }
    }
@@ -225,15 +226,18 @@ EIF_INTEGER basic_exec_waitpid_fd(void) {
 }
 
 EIF_INTEGER basic_exec_waitpid_read_buffer(void*data) {
+   static char dummy[4096];
    char *buffer = (char*)data;
-   int result = 0;
-   int n;
-   while (buffer[result] != '\n') {
-      n = read(waitpid_selfpipe[0], buffer+result, 1);
-      if (n < 0) break;
-      result += n;
+   int pid, status;
+
+   while (read(waitpid_selfpipe[0], dummy, sizeof(dummy)) > 0);
+
+   while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
+      oob_info(waitpid_input, pid, status);
    }
-   return result;
+
+   buffer[0] = 0;
+   return 1;
 }
 #else
 EIF_INTEGER basic_exec_posix_get_character (EIF_INTEGER fd) {

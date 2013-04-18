@@ -49,11 +49,13 @@ feature {LOOP_ITEM}
          process: EIFFELTEST_SERVER_PROCESS
       do
          if not process_list.is_empty then
-            running_level := running_level + 1
+            check
+               not process_list.first.is_running
+            end
             process := process_list.first
-            process.run
-            process_list.put(process, process_list.lower) -- because process is expanded
+            running_level := running_level + 1
             log.info.put_line(once "Server #(1): running queued command: #(2)" # port.out # process.cmd)
+            process.run
          elseif not good_tests.is_empty then
             test_file := good_tests.first
             good_tests.remove_first
@@ -367,6 +369,7 @@ feature {} -- Good tests: tests that must pass
       local
          log_line, cmd: STRING; dummy: BOOLEAN
       do
+         log_line := once ".........................................................."
          if was_run and then file_tools.file_exists(once "profile.se") then
             log_line.copy(once "Removing %"profile.se%" of %"")
             if options /= Void then
@@ -745,7 +748,11 @@ feature {}
             cleanup_execute_command(exit_status, log_line, cmd, bad_file_flag, Void)
          else
             log.info.put_line(once "Server #(1): queueing timeboxed command: #(2)" # port.out # cmd)
-            process.set(port, cmd, agent cleanup_execute_command(?, log_line, cmd, bad_file_flag, when_done))
+            --process := process_pool.item
+            if process = Void then
+               create process
+            end
+            process.set(port, -1, cmd, agent cleanup_execute_command(?, log_line, cmd, bad_file_flag, when_done))
             if running_level = 0 then
                process_list.add_last(process)
             else
@@ -817,20 +824,30 @@ feature {}
       end
 
    on_pid (a_pid, a_status: INTEGER) is
+      local
+         process: EIFFELTEST_SERVER_PROCESS
       do
-         if process_list.first.id = a_pid then
-            process_list.first.on_done(a_status)
-            process_list.remove_first
-            running_level := running_level - 1
-            if process_list.is_empty then
-               test_log.put_line(once "----------------------------------------------------------------")
-            end
+         process := process_list.first
+         if process.is_running and then process.id = a_pid then
+            process.on_done(a_status)
+            unqueue_process
          end
       end
 
    on_timeout is
+      local
+         process: EIFFELTEST_SERVER_PROCESS
       do
-         process_list.first.on_timeout
+         process := process_list.first
+         if process.is_running then
+            process.on_timeout
+            unqueue_process
+         end
+      end
+
+   unqueue_process is
+      do
+         process_pool.recycle(process_list.first)
          process_list.remove_first
          running_level := running_level - 1
          if process_list.is_empty then
@@ -839,6 +856,11 @@ feature {}
       end
 
    strings: STRING_RECYCLING_POOL is
+      once
+         create Result.make
+      end
+
+   process_pool: RECYCLING_POOL[EIFFELTEST_SERVER_PROCESS] is
       once
          create Result.make
       end

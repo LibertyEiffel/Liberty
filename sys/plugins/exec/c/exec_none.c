@@ -49,6 +49,9 @@ void basic_exec_put_character(EIF_INTEGER fd, EIF_CHARACTER c) {
 void basic_exec_cleanup(se_exec_data_t*data, int status) {
 }
 
+void basic_exec_waitpid_init(EIF_OBJECT obj) {
+}
+
 EIF_INTEGER basic_exec_waitpid_fd(void) {
    return -1;
 }
