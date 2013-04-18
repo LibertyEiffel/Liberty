@@ -29,18 +29,45 @@ feature {ANY}
          done := True
       end
 
+   arm (a_timeout: like timeout) is
+      require
+         timeout >= -1
+      do
+         debug ("waitpid")
+            log.trace.put_line(once "waitpid arm: timeout=#(1)" # a_timeout.out)
+         end
+         timeout := a_timeout
+         armed := True
+         triggered := False
+      ensure
+         timeout = a_timeout
+         armed
+         not triggered
+      end
+
+   disarm is
+      require
+         armed
+      do
+         armed := False
+      ensure
+         not armed
+      end
+
    trigger (a_timeout: like timeout) is
       require
-         timeout >= -1 -- where -1 means no timeout
+         timeout >= -1
       do
          debug ("waitpid")
             log.trace.put_line(once "waitpid trigger: timeout=#(1)" # a_timeout.out)
          end
          timeout := a_timeout
          triggered := True
+         armed := False
       ensure
          timeout = a_timeout
          triggered
+         not armed
       end
 
    timeout: INTEGER
@@ -83,9 +110,9 @@ feature {LOOP_ITEM}
          t: TIME_EVENTS
       do
          debug ("waitpid")
-            log.trace.put_line(once "waitpid prepare: triggered=#(1) -- timeout=#(2)" # triggered.out # timeout.out)
+            log.trace.put_line(once "waitpid prepare: triggered=#(1) armed=#(2) running=#(3) -- timeout=#(4)" # triggered.out # armed.out # running.out # timeout.out)
          end
-         if triggered or running then
+         if triggered or armed or running then
             running := True
             triggered := False
             if timeout >= 0 then
@@ -183,7 +210,7 @@ feature {}
 
    timeout_event: EVENT_DESCRIPTOR
    actions: HASHED_DICTIONARY[WAITPID_ACTION, FIXED_STRING]
-   triggered, running: BOOLEAN
+   triggered, armed, running: BOOLEAN
 
 end -- WAITPID_JOB
 --

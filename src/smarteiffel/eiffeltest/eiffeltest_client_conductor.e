@@ -30,7 +30,7 @@ feature {ANY}
 
             stack.add_job(waitpid_job)
             start_servers
-            waitpid_job.trigger(-1)
+            waitpid_job.arm(-1)
             stack.run
          end
       end
@@ -94,7 +94,6 @@ feature {}
       do
          log.warning.put_line(once "Server #(1): passed away (status #(2))" # port.out # status.out)
          test_results.at(port).set_done(status)
-         waitpid_job.trigger(-1)
       end
 
 feature {}
