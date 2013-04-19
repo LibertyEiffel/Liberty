@@ -59,7 +59,7 @@ feature {}
             port := 17380 + i
             log.info.put_line(once "Starting server ##(1) on port #(2)" # i.out # port.out)
             create server.make(port, commands, agent on_reply(port, ?, ?, ?), agent on_done(port, ?, ?))
-            waitpid_job.set_action(port.out, agent on_killed(port, ?, ?), Void)
+            waitpid_job.set_action(port.out, agent on_killed(server, ?, ?), Void)
             test_results.add(create {EIFFELTEST_CLIENT_RESULT}.make, port)
             servers_list.add_last(server)
             stack.add_job(server)
@@ -93,12 +93,14 @@ feature {}
          end
       end
 
-   on_killed (port, pid, status: INTEGER) is
+   on_killed (server: EIFFELTEST_CLIENT_SOCKET; pid, status: INTEGER) is
       do
-         log.warning.put_line(once "Server #(1): passed away (status #(2))" # port.out # status.out)
-         test_results.at(port).set_done(status)
-         if not test_results.exists_item(agent {EIFFELTEST_CLIENT_RESULT}.done) then
-            waitpid_job.disarm
+         if pid = server.pid then
+            log.warning.put_line(once "Server #(1): passed away (status #(2))" # server.port.out # status.out)
+            test_results.at(port).set_done(status)
+            if not test_results.exists_item(agent {EIFFELTEST_CLIENT_RESULT}.done) then
+               waitpid_job.disarm
+            end
          end
       end
 
