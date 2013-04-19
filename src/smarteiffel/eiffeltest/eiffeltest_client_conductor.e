@@ -85,7 +85,7 @@ feature {}
          if expected_port = actual_port then
             log.info.put_line(once "Server #(1): exit (status #(2))" # actual_port.out # status.out)
             test_results.at(actual_port).set_done(status)
-            if not test_results.exists_item(agent {EIFFELTEST_CLIENT_RESULT}.done) then
+            if test_results.for_all_items(agent {EIFFELTEST_CLIENT_RESULT}.done) then
                waitpid_job.disarm
             end
          else
