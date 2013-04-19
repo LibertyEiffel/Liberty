@@ -15,9 +15,9 @@ creation {ANY}
 feature {ANY}
    make is
       do
-         assert(assert_counter.value = 0)
+         assert(assert_counter.item = 0)
          Precursor
-         assert(assert_counter.value = 4)
+         assert(assert_counter.item = 4)
       end
 
 end -- class TEST_PRECURSOR17
