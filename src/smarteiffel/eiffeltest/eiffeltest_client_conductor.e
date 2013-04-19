@@ -94,11 +94,16 @@ feature {}
       end
 
    on_killed (server: EIFFELTEST_CLIENT_SOCKET; pid, status: INTEGER) is
+      local
+         test_result: EIFFELTEST_CLIENT_RESULT
       do
          if pid = server.pid then
-            log.warning.put_line(once "Server #(1): passed away (status #(2))" # server.port.out # status.out)
-            test_results.at(port).set_done(status)
-            if not test_results.exists_item(agent {EIFFELTEST_CLIENT_RESULT}.done) then
+            test_result := test_results.at(server.port)
+            if not test_result.done then
+               log.warning.put_line(once "Server #(1): passed away (status #(2))" # server.port.out # status.out)
+               test_result.set_done(status)
+            end
+            if test_results.for_all_items(agent {EIFFELTEST_CLIENT_RESULT}.done) then
                waitpid_job.disarm
             end
          end

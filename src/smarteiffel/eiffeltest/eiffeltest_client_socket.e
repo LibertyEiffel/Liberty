@@ -24,6 +24,11 @@ feature {ANY}
          Result := port
       end
 
+   pid: INTEGER is
+      do
+         Result := proc.id
+      end
+
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET) is
       local
@@ -178,13 +183,6 @@ feature {}
    command: FIXED_STRING
    reply: STRING
 
-   pid: INTEGER is
-      do
-         if proc /= Void then
-            Result := proc.id
-         end
-      end
-
    commands: EIFFELTEST_COMMAND_PROVIDER
 
    on_reply: PROCEDURE[TUPLE[INTEGER, FIXED_STRING, STRING]]
@@ -235,6 +233,7 @@ invariant
    on_reply /= Void
    on_done /= Void
    commands /= Void
+   proc /= Void
 
 end -- class EIFFELTEST_CLIENT_SOCKET
 --
