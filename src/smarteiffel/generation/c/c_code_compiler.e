@@ -872,6 +872,12 @@ feature {}
          all_check := ace.all_check
          function_body.append(once "/*[manifest INSPECT*/%N")
 
+         function_body.append(once "if (NULL==(")
+         cpp.inspect_local_compile_to_c(type)
+         function_body.append(once ")){%N")
+         exceptions_handler.bad_inspect_value(inspect_statement.start_position)
+         function_body.append(once "}else{%N")
+
          storage_internal_c_local := cpp.pending_c_function_lock_local(smart_eiffel.type_native_array_character, once "storage")
          storage_internal_c_local.append_in(function_body)
          function_body.append(once "/*storage*/=((")
@@ -995,7 +1001,7 @@ feature {}
             function_body.append(once "default:;%N")
             exceptions_handler.bad_inspect_value(inspect_statement.start_position)
          end
-         function_body.append(once "}/*manifest INSPECT]*/%N")
+         function_body.append(once "}}/*manifest INSPECT]*/%N")
          storage_internal_c_local.unlock
          count_internal_c_local.unlock
          state_internal_c_local.unlock
