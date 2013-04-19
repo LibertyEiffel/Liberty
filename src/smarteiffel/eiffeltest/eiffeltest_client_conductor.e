@@ -85,6 +85,9 @@ feature {}
          if expected_port = actual_port then
             log.info.put_line(once "Server #(1): exit (status #(2))" # actual_port.out # status.out)
             test_results.at(actual_port).set_done(status)
+            if not test_results.exists_item(agent {EIFFELTEST_CLIENT_RESULT}.done) then
+               waitpid_job.disarm
+            end
          else
             log.error.put_line(once "Unexpected port mismatch #(1) /= #(2)" # expected_port.out # actual_port.out)
          end
@@ -94,6 +97,9 @@ feature {}
       do
          log.warning.put_line(once "Server #(1): passed away (status #(2))" # port.out # status.out)
          test_results.at(port).set_done(status)
+         if not test_results.exists_item(agent {EIFFELTEST_CLIENT_RESULT}.done) then
+            waitpid_job.disarm
+         end
       end
 
 feature {}

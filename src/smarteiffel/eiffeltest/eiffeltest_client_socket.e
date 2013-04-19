@@ -92,7 +92,8 @@ feature {LOOP_ITEM}
                   channel.disconnect -- ???
                end
                if commands.is_empty(Current) then
-                  done := True
+                  log.info.put_line(once "Facade #(1): no more commands" # port.out)
+                  set_done(0)
                else
                   open_channel
                end
@@ -226,6 +227,7 @@ feature {}
          log.info.put_line(once "Facade #(1): done: #(2)" # port.out # status.out)
          on_done.call([port, status])
          log.trace.put_line(once "Facade #(1): finished" # port.out)
+         done := True
       end
 
 invariant
