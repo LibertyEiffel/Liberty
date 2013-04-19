@@ -56,7 +56,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect1.e -o test_inspect1.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect1.e -o test_inspect1.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect1.e -o test_inspect1.exe
 Running (-require_check) "test_inspect1.exe".
 se clean test_inspect1.e
@@ -176,7 +176,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect10.e -o test_inspect10.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect10.e -o test_inspect10.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect10.e -o test_inspect10.exe
 Running (-require_check) "test_inspect10.exe".
 se clean test_inspect10.e
@@ -296,7 +296,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect11.e -o test_inspect11.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect11.e -o test_inspect11.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect11.e -o test_inspect11.exe
 Running (-require_check) "test_inspect11.exe".
 se clean test_inspect11.e
@@ -416,7 +416,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect12.e -o test_inspect12.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect12.e -o test_inspect12.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect12.e -o test_inspect12.exe
 Running (-require_check) "test_inspect12.exe".
 se clean test_inspect12.e
@@ -534,7 +534,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect13.e -o test_inspect13.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect13.e -o test_inspect13.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect13.e -o test_inspect13.exe
 Running (-require_check) "test_inspect13.exe".
 se clean test_inspect13.e
@@ -597,10 +597,16 @@ Excluded command: "se c -profile -flat_check -loop_check test_inspect13.e -o tes
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -all_check test_inspect13.e -o test_inspect13.exe".
 By excluded.lst:  "se c -profile".
-Excluded command: "se c -no_split -boost test_inspect13.e -o test_inspect13.exe".
-By excluded.lst:  "se c -no_split -boost test_inspect13.e".
-Excluded command: "se c -no_split -no_gc -boost test_inspect13.e -o test_inspect13.exe".
-By excluded.lst:  "se c -no_split -no_gc -boost test_inspect13.e".
+se c -no_split -boost test_inspect13.e -o test_inspect13.exe
+Running (-no_split -boost) "test_inspect13.exe".
+Abnormal exit status of "Running (-no_split -boost) "test_inspect13.exe".".
+se clean test_inspect13.e
+Removing (-no_split -boost) "test_inspect13.exe".
+se c -no_split -no_gc -boost test_inspect13.e -o test_inspect13.exe
+Running (-no_split -no_gc -boost) "test_inspect13.exe".
+Abnormal exit status of "Running (-no_split -no_gc -boost) "test_inspect13.exe".".
+se clean test_inspect13.e
+Removing (-no_split -no_gc -boost) "test_inspect13.exe".
 Excluded command: "se c -boost test_inspect14.e -o test_inspect14.exe".
 By excluded.lst:  "se c -boost test_inspect14.e".
 se c -flat_check -all_check -debug test_inspect14.e -o test_inspect14.exe
@@ -648,7 +654,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect14.e -o test_inspect14.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect14.e -o test_inspect14.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect14.e -o test_inspect14.exe
 Running (-require_check) "test_inspect14.exe".
 se clean test_inspect14.e
@@ -711,10 +717,14 @@ Excluded command: "se c -profile -flat_check -loop_check test_inspect14.e -o tes
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -all_check test_inspect14.e -o test_inspect14.exe".
 By excluded.lst:  "se c -profile".
-Excluded command: "se c -no_split -boost test_inspect14.e -o test_inspect14.exe".
-By excluded.lst:  "se c -no_split -boost test_inspect14.e".
+se c -no_split -boost test_inspect14.e -o test_inspect14.exe
+Running (-no_split -boost) "test_inspect14.exe".
+Abnormal exit status of "Running (-no_split -boost) "test_inspect14.exe".".
+se clean test_inspect14.e
+Removing (-no_split -boost) "test_inspect14.exe".
 se c -no_split -no_gc -boost test_inspect14.e -o test_inspect14.exe
 Running (-no_split -no_gc -boost) "test_inspect14.exe".
+Abnormal exit status of "Running (-no_split -no_gc -boost) "test_inspect14.exe".".
 se clean test_inspect14.e
 Removing (-no_split -no_gc -boost) "test_inspect14.exe".
 se c -boost test_inspect15.e -o test_inspect15.exe
@@ -766,7 +776,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect15.e -o test_inspect15.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect15.e -o test_inspect15.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect15.e -o test_inspect15.exe
 Running (-require_check) "test_inspect15.exe".
 se clean test_inspect15.e
@@ -886,7 +896,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect16.e -o test_inspect16.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect16.e -o test_inspect16.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect16.e -o test_inspect16.exe
 Running (-require_check) "test_inspect16.exe".
 se clean test_inspect16.e
@@ -1006,7 +1016,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect17.e -o test_inspect17.exe -fsigned-char".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect17.e -o test_inspect17.exe -fsigned-char".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect17.e -o test_inspect17.exe -fsigned-char
 Running (-require_check) "test_inspect17.exe".
 se clean test_inspect17.e
@@ -1126,7 +1136,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect18.e -o test_inspect18.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect18.e -o test_inspect18.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect18.e -o test_inspect18.exe
 Running (-require_check) "test_inspect18.exe".
 se clean test_inspect18.e
@@ -1246,7 +1256,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect19.e -o test_inspect19.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect19.e -o test_inspect19.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect19.e -o test_inspect19.exe
 Running (-require_check) "test_inspect19.exe".
 se clean test_inspect19.e
@@ -1366,7 +1376,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect2.e -o test_inspect2.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect2.e -o test_inspect2.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect2.e -o test_inspect2.exe
 Running (-require_check) "test_inspect2.exe".
 se clean test_inspect2.e
@@ -1486,7 +1496,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect3.e -o test_inspect3.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect3.e -o test_inspect3.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect3.e -o test_inspect3.exe
 Running (-require_check) "test_inspect3.exe".
 se clean test_inspect3.e
@@ -1606,7 +1616,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect4.e -o test_inspect4.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect4.e -o test_inspect4.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect4.e -o test_inspect4.exe
 Running (-require_check) "test_inspect4.exe".
 se clean test_inspect4.e
@@ -1726,7 +1736,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect5.e -o test_inspect5.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect5.e -o test_inspect5.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect5.e -o test_inspect5.exe
 Running (-require_check) "test_inspect5.exe".
 se clean test_inspect5.e
@@ -1846,7 +1856,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect6.e -o test_inspect6.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect6.e -o test_inspect6.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect6.e -o test_inspect6.exe
 Running (-require_check) "test_inspect6.exe".
 se clean test_inspect6.e
@@ -1966,7 +1976,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect7.e -o test_inspect7.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect7.e -o test_inspect7.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect7.e -o test_inspect7.exe
 Running (-require_check) "test_inspect7.exe".
 se clean test_inspect7.e
@@ -2086,7 +2096,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect8.e -o test_inspect8.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect8.e -o test_inspect8.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect8.e -o test_inspect8.exe
 Running (-require_check) "test_inspect8.exe".
 se clean test_inspect8.e
@@ -2206,7 +2216,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inspect9.e -o test_inspect9.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inspect9.e -o test_inspect9.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inspect9.e -o test_inspect9.exe
 Running (-require_check) "test_inspect9.exe".
 se clean test_inspect9.e

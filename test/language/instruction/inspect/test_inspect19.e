@@ -5,23 +5,26 @@ class TEST_INSPECT19
 -- Bug discovered in source code from Guillaume Lemaitre.
 -- Bug isolated by Philippe Ribet
 --
--- Bug exposed in simplify code, so only when compiled with -boost 
+-- Bug exposed in simplify code, so only when compiled with -boost
 -- flag. This code result in compiler crash.
 --
--- WARNING: this bug is very volatile. It disapears with very small 
--- changes like switching inherited class names, removing the 
--- AUX_INSPECT19 class, removing one inspect case (probably changed 
+-- WARNING: this bug is very volatile. It disapears with very small
+-- changes like switching inherited class names, removing the
+-- AUX_INSPECT19 class, removing one inspect case (probably changed
 -- into "if").
 --
--- It looks like argument() is inlined into arguments.item() but some 
--- preliminary step may be wrong. It fails to find type of arguments. 
+-- It looks like argument() is inlined into arguments.item() but some
+-- preliminary step may be wrong. It fails to find type of arguments.
 -- Then it could not find 'item' in ANY. Not sure...
 
 inherit
-   ARGUMENTS
    AUX_INSPECT19
 
-create make
+insert
+   ARGUMENTS
+
+create {}
+   make
 
 feature {}
    make is
