@@ -18,31 +18,24 @@ feature {ANY}
 
    dog: DOG
 
-   any: ANY
-
-   array_integer: ARRAY[INTEGER]
-
-   array_any: ARRAY[ANY]
+   any_string: ABSTRACT_STRING
 
    make is
       do
-         any := "foo"
-         assert(any /= Void)
-         string ?= any
+         any_string := "foo"
+         assert(any_string /= Void)
+         string ?= any_string
          assert(string /= Void)
-         assert(any = string)
-         cat ?= any
+         assert(any_string = string)
+         create dog
+         animal := dog
+         assert(dog = animal)
+         cat ?= animal
          assert(cat = Void)
          create cat
-         any := cat
-         assert(cat = any)
-         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** dog ?= any
-         assert(dog = Void)
-         cat ?= any
-         assert(cat = any)
          animal := cat
-         cat ?= animal
          assert(cat = animal)
+         cat ?= animal
          assert(cat /= Void)
          animal := Void
          cat ?= animal
