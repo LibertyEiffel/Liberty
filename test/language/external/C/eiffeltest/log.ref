@@ -56,7 +56,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_external_c01.e -o test_external_c01.exe glu_external_c01.c".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_external_c01.e -o test_external_c01.exe glu_external_c01.c".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_external_c01.e -o test_external_c01.exe glu_external_c01.c
 Running (-require_check) "test_external_c01.exe".
 se clean test_external_c01.e
