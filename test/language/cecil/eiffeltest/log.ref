@@ -64,7 +64,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se
 Running (-require_check) "test_01.exe".
 se clean test_01.e
@@ -195,7 +195,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se
 Running (-require_check) "test_02.exe".
 se clean test_02.e
@@ -326,7 +326,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c
 Running (-require_check) "test_03.exe".
 se clean test_03.e
@@ -457,7 +457,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning
 Running (-require_check) "test_05.exe".
 se clean test_05.e
@@ -588,7 +588,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning
 Running (-require_check) "test_06.exe".
 se clean test_06.e
