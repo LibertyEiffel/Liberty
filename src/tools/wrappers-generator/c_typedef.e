@@ -13,44 +13,33 @@ creation make
 feature 
 	store is
 		do
-			typedefs.add_first(Current)
+			if not standard_typedefs.has(c_string_name) then
+				-- Current typedef is not a standard one and requires a query for anchored declarations.
+				typedefs.add_first(Current)
+			end
 			types.fast_put(Current,id)
 			check is_named end
 			symbols.put(Current,c_string_name)
 		end
+	
+	standard_typedefs: SET[STRING] is
+		-- The standard typedefs defined by the C language.
+	once
+		Result := {HASHED_SET[STRING] << "int8_t", "uint8_t", "int16_t", "uint16_t",
+		"int32_t", "uint32_t", "int64_t", "uint64_t",
+		"intptr_t", "uintptr_t",
+		"int_least8_t", "uint_least8_t", "int_least16_t", "uint_least16_t",
+		"int_least32_t", "uint_least32_t", "int_least64_t", "uint_least64_t",
+		"int_fast8_t", "uint_fast8_t", "int_fast16_t", "uint_fast16_t",
+		"int_fast32_t", "uint_fast32_t", "int_fast64_t", "uint_fast64_t",
+		"intmax_t", "uintmax_t",
+		"size_t", "ssize_t", "ptrdiff_t">>}
+	end
 
 	wrapper_type: STRING is
 		do
-			inspect c_string_name -- First handle standardized typedefs that are provided by anchored queries in C_TYPES 
-			when "int8_t" then Result := "like int8_t"
-			when "uint8_t" then Result := "like uint8_t"
-			when "int16_t" then Result := "like int16_t"
-			when "uint16_t" then Result := "like uint16_t"
-			when "int32_t" then Result := "like int32_t"
-			when "uint32_t" then Result := "like uint32_t"
-			when "int64_t" then Result := "like int64_t"
-			when "uint64_t" then Result := "like uint64_t"
-			when "intptr_t" then Result := "like intptr_t"
-			when "uintptr_t" then Result := "like uintptr_t"
-			when "int_least8_t" then Result := "like int_least8_t"
-			when "uint_least8_t" then Result := "like uint_least8_t"
-			when "int_least16_t" then Result := "like int_least16_t"
-			when "uint_least16_t" then Result := "like uint_least16_t"
-			when "int_least32_t" then Result := "like int_least32_t"
-			when "uint_least32_t" then Result := "like uint_least32_t"
-			when "int_least64_t" then Result := "like int_least64_t"
-			when "uint_least64_t" then Result := "like uint_least64_t"
-			when "int_fast8_t" then Result := "like int_fast8_t"
-			when "uint_fast8_t" then Result := "like uint_fast8_t"
-			when "int_fast16_t" then Result := "like int_fast16_t"
-			when "uint_fast16_t" then Result := "like uint_fast16_t"
-			when "int_fast32_t" then Result := "like int_fast32_t"
-			when "uint_fast32_t" then Result := "like uint_fast32_t"
-			when "int_fast64_t" then Result := "like int_fast64_t"
-			when "uint_fast64_t" then Result := "like uint_fast64_t"
-			when "intmax_t" then Result := "like intmax_t"
-			when "uintmax_t" then Result := "like uintmax_t"
-			else
+			if standard_typedefs.has(c_string_name) then Result := once "like "+c_string_name
+			else 
 				if referree.has_wrapper 
 					then Result := referree.wrapper_type
 					else not_yet_implemented
