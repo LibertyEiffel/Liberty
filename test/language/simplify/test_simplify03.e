@@ -18,47 +18,47 @@ feature {}
    make is
       do
          assert_counter.reset
-         assert(assert_counter.value = 0)
+         assert(assert_counter.item = 0)
          -- The generated C code is now a very simple sequence of assert calls  :-)
          if once_counter = Void then
             c_inline_c("*NoCcodeGenerated01")
          else
-            assert(assert_counter.value = 1)
+            assert(assert_counter.item = 1)
          end
          if once_counter /= Void then
-            assert(assert_counter.value = 2)
+            assert(assert_counter.item = 2)
          else
             c_inline_c("*NoCcodeGenerated02")
          end
          if once_string = Void then
             c_inline_c("*NoCcodeGenerated03")
          else
-            assert(assert_counter.value = 3)
+            assert(assert_counter.item = 3)
          end
          if once_string.lower = 0 then
             c_inline_c("*NoCcodeGenerated04")
          else
-            assert(assert_counter.value = 4)
+            assert(assert_counter.item = 4)
          end
          if once_make_1 = Void then
             c_inline_c("*NoCcodeGenerated05")
          else
-            assert(assert_counter.value = 5)
+            assert(assert_counter.item = 5)
          end
          if once_make_2 = Void then
             c_inline_c("*NoCcodeGenerated06")
          else
-            assert(assert_counter.value = 6)
+            assert(assert_counter.item = 6)
          end
          if once_make_like_string = Void then
             c_inline_c("*NoCcodeGenerated07")
          else
-            assert(assert_counter.value = 7)
+            assert(assert_counter.item = 7)
          end
          if once_make_tuple.count /= 2 then
             c_inline_c("*NoCcodeGenerated08")
          else
-            assert(assert_counter.value = 8)
+            assert(assert_counter.item = 8)
          end
       end
 
