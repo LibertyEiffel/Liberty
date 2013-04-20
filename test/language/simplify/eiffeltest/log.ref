@@ -806,9 +806,7 @@ Running (-no_split -no_gc -boost) "test_simplify07.exe".
 se clean test_simplify07.e
 Removing (-no_split -no_gc -boost) "test_simplify07.exe".
 se c -boost test_simplify08.e -o test_simplify08.exe
-Running (-boost) "test_simplify08.exe".
-se clean test_simplify08.e
-Removing (-boost) "test_simplify08.exe".
+Abnormal exit status of "se c -boost test_simplify08.e -o test_simplify08.exe".
 Excluded command: "se c -flat_check -all_check -debug test_simplify08.e -o test_simplify08.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -no_check test_simplify08.e -o test_simplify08.exe".
@@ -824,13 +822,9 @@ By excluded.lst:  "-loop_check".
 Excluded command: "se c -flat_check -all_check test_simplify08.e -o test_simplify08.exe".
 By excluded.lst:  "-all_check".
 se c -no_gc -boost test_simplify08.e -o test_simplify08.exe
-Running (-no_gc -boost) "test_simplify08.exe".
-se clean test_simplify08.e
-Removing (-no_gc -boost) "test_simplify08.exe".
+Abnormal exit status of "se c -no_gc -boost test_simplify08.e -o test_simplify08.exe".
 se c -no_gc -boost -debug test_simplify08.e -o test_simplify08.exe
-Running (-no_gc -boost -debug) "test_simplify08.exe".
-se clean test_simplify08.e
-Removing (-no_gc -boost -debug) "test_simplify08.exe".
+Abnormal exit status of "se c -no_gc -boost -debug test_simplify08.e -o test_simplify08.exe".
 Excluded command: "se c -no_gc -no_check test_simplify08.e -o test_simplify08.exe".
 By excluded.lst:  "-no_check".
 Excluded command: "se c -no_gc -flat_check -require_check test_simplify08.e -o test_simplify08.exe".
@@ -866,10 +860,7 @@ By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify08.e -o test_simplify08.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify08.e -o test_simplify08.exe
-Running (-profile -boost) "test_simplify08.exe".
-Removing "profile.se" of "-profile -boost test_simplify08.exe".
-se clean test_simplify08.e
-Removing (-profile -boost) "test_simplify08.exe".
+Abnormal exit status of "se c -profile -boost test_simplify08.e -o test_simplify08.exe".
 Excluded command: "se c -profile -all_check -debug test_simplify08.e -o test_simplify08.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -no_check test_simplify08.e -o test_simplify08.exe".
@@ -885,10 +876,7 @@ By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -all_check test_simplify08.e -o test_simplify08.exe".
 By excluded.lst:  "-all_check".
 se c -profile -no_gc -boost test_simplify08.e -o test_simplify08.exe
-Running (-profile -no_gc -boost) "test_simplify08.exe".
-Removing "profile.se" of "-profile -no_gc -boost test_simplify08.exe".
-se clean test_simplify08.e
-Removing (-profile -no_gc -boost) "test_simplify08.exe".
+Abnormal exit status of "se c -profile -no_gc -boost test_simplify08.e -o test_simplify08.exe".
 Excluded command: "se c -profile -no_gc -no_check test_simplify08.e -o test_simplify08.exe".
 By excluded.lst:  "-no_check".
 Excluded command: "se c -profile -no_gc -require_check test_simplify08.e -o test_simplify08.exe".
@@ -912,13 +900,9 @@ By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -flat_check -all_check test_simplify08.e -o test_simplify08.exe".
 By excluded.lst:  "-all_check".
 se c -no_split -boost test_simplify08.e -o test_simplify08.exe
-Running (-no_split -boost) "test_simplify08.exe".
-se clean test_simplify08.e
-Removing (-no_split -boost) "test_simplify08.exe".
+Abnormal exit status of "se c -no_split -boost test_simplify08.e -o test_simplify08.exe".
 se c -no_split -no_gc -boost test_simplify08.e -o test_simplify08.exe
-Running (-no_split -no_gc -boost) "test_simplify08.exe".
-se clean test_simplify08.e
-Removing (-no_split -no_gc -boost) "test_simplify08.exe".
+Abnormal exit status of "se c -no_split -no_gc -boost test_simplify08.e -o test_simplify08.exe".
 se c -boost test_simplify09.e -o test_simplify09.exe
 Running (-boost) "test_simplify09.exe".
 se clean test_simplify09.e
@@ -2403,6 +2387,7 @@ se clean test_simplify21.e
 Removing (-no_split -no_gc -boost) "test_simplify21.exe".
 --------------------------------------------------------------------------------
 Launching "se test" on "inlining" subdirectory.
+Abnormal exit status of "Launching "se test" on "inlining" subdirectory.".
 --------------------------------------------------------------------------------
 All entries of the "excluded.lst" file are used (good).
 --------------------------------------------------------------------------------
