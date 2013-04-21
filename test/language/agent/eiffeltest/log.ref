@@ -3,8 +3,8 @@ The "log.new" file must be identical to the "log.ref" file.
 The reference file is "log.ref" and this file must be created manually.
 If you confirm that "log.new" is correct, just overwrite "log.ref" with "log.new".
 --------------------------------------------------------------------------------
-Found 68 test_* file(s).
-Found 0 bad_* file(s).
+Found 70 test_* file(s).
+Found 1 bad_* file(s).
 No subdirectory.
 --------------------------------------------------------------------------------
 se c -boost test_agent01.e -o test_agent01.exe
@@ -56,7 +56,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent01.e -o test_agent01.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent01.e -o test_agent01.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent01.e -o test_agent01.exe
 Running (-require_check) "test_agent01.exe".
 se clean test_agent01.e
@@ -176,7 +176,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent02.e -o test_agent02.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent02.e -o test_agent02.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent02.e -o test_agent02.exe
 Running (-require_check) "test_agent02.exe".
 se clean test_agent02.e
@@ -296,7 +296,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent03.e -o test_agent03.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent03.e -o test_agent03.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent03.e -o test_agent03.exe
 Running (-require_check) "test_agent03.exe".
 se clean test_agent03.e
@@ -416,7 +416,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent04.e -o test_agent04.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent04.e -o test_agent04.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent04.e -o test_agent04.exe
 Running (-require_check) "test_agent04.exe".
 se clean test_agent04.e
@@ -536,7 +536,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent05.e -o test_agent05.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent05.e -o test_agent05.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent05.e -o test_agent05.exe
 Running (-require_check) "test_agent05.exe".
 se clean test_agent05.e
@@ -656,7 +656,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent06.e -o test_agent06.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent06.e -o test_agent06.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent06.e -o test_agent06.exe
 Running (-require_check) "test_agent06.exe".
 se clean test_agent06.e
@@ -776,7 +776,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent07.e -o test_agent07.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent07.e -o test_agent07.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent07.e -o test_agent07.exe
 Running (-require_check) "test_agent07.exe".
 se clean test_agent07.e
@@ -896,7 +896,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent08.e -o test_agent08.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent08.e -o test_agent08.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent08.e -o test_agent08.exe
 Running (-require_check) "test_agent08.exe".
 se clean test_agent08.e
@@ -1016,7 +1016,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent09.e -o test_agent09.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent09.e -o test_agent09.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent09.e -o test_agent09.exe
 Running (-require_check) "test_agent09.exe".
 se clean test_agent09.e
@@ -1136,7 +1136,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent10.e -o test_agent10.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent10.e -o test_agent10.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent10.e -o test_agent10.exe
 Running (-require_check) "test_agent10.exe".
 se clean test_agent10.e
@@ -1256,7 +1256,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent11.e -o test_agent11.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent11.e -o test_agent11.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent11.e -o test_agent11.exe
 Running (-require_check) "test_agent11.exe".
 se clean test_agent11.e
@@ -1376,7 +1376,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent12.e -o test_agent12.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent12.e -o test_agent12.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent12.e -o test_agent12.exe
 Running (-require_check) "test_agent12.exe".
 se clean test_agent12.e
@@ -1496,7 +1496,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent13.e -o test_agent13.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent13.e -o test_agent13.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent13.e -o test_agent13.exe
 Running (-require_check) "test_agent13.exe".
 se clean test_agent13.e
@@ -1616,7 +1616,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent14.e -o test_agent14.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent14.e -o test_agent14.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent14.e -o test_agent14.exe
 Running (-require_check) "test_agent14.exe".
 se clean test_agent14.e
@@ -1736,7 +1736,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent15.e -o test_agent15.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent15.e -o test_agent15.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent15.e -o test_agent15.exe
 Running (-require_check) "test_agent15.exe".
 se clean test_agent15.e
@@ -1856,7 +1856,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent16.e -o test_agent16.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent16.e -o test_agent16.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent16.e -o test_agent16.exe
 Running (-require_check) "test_agent16.exe".
 se clean test_agent16.e
@@ -1976,7 +1976,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent17.e -o test_agent17.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent17.e -o test_agent17.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent17.e -o test_agent17.exe
 Running (-require_check) "test_agent17.exe".
 se clean test_agent17.e
@@ -2096,7 +2096,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent18.e -o test_agent18.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent18.e -o test_agent18.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent18.e -o test_agent18.exe
 Running (-require_check) "test_agent18.exe".
 se clean test_agent18.e
@@ -2216,7 +2216,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent19.e -o test_agent19.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent19.e -o test_agent19.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent19.e -o test_agent19.exe
 Running (-require_check) "test_agent19.exe".
 se clean test_agent19.e
@@ -2336,7 +2336,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent20.e -o test_agent20.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent20.e -o test_agent20.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent20.e -o test_agent20.exe
 Running (-require_check) "test_agent20.exe".
 se clean test_agent20.e
@@ -2456,7 +2456,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent21.e -o test_agent21.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent21.e -o test_agent21.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent21.e -o test_agent21.exe
 Running (-require_check) "test_agent21.exe".
 se clean test_agent21.e
@@ -2576,7 +2576,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent22.e -o test_agent22.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent22.e -o test_agent22.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent22.e -o test_agent22.exe
 Running (-require_check) "test_agent22.exe".
 se clean test_agent22.e
@@ -2696,7 +2696,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent23.e -o test_agent23.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent23.e -o test_agent23.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent23.e -o test_agent23.exe
 Running (-require_check) "test_agent23.exe".
 se clean test_agent23.e
@@ -2816,7 +2816,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent24.e -o test_agent24.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent24.e -o test_agent24.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent24.e -o test_agent24.exe
 Running (-require_check) "test_agent24.exe".
 se clean test_agent24.e
@@ -2936,7 +2936,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent25.e -o test_agent25.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent25.e -o test_agent25.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent25.e -o test_agent25.exe
 Running (-require_check) "test_agent25.exe".
 se clean test_agent25.e
@@ -3056,7 +3056,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent26.e -o test_agent26.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent26.e -o test_agent26.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent26.e -o test_agent26.exe
 Running (-require_check) "test_agent26.exe".
 se clean test_agent26.e
@@ -3176,7 +3176,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent27.e -o test_agent27.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent27.e -o test_agent27.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent27.e -o test_agent27.exe
 Running (-require_check) "test_agent27.exe".
 se clean test_agent27.e
@@ -3296,7 +3296,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent28.e -o test_agent28.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent28.e -o test_agent28.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent28.e -o test_agent28.exe
 Running (-require_check) "test_agent28.exe".
 se clean test_agent28.e
@@ -3416,7 +3416,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent29.e -o test_agent29.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent29.e -o test_agent29.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent29.e -o test_agent29.exe
 Running (-require_check) "test_agent29.exe".
 se clean test_agent29.e
@@ -3536,7 +3536,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent30.e -o test_agent30.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent30.e -o test_agent30.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent30.e -o test_agent30.exe
 Running (-require_check) "test_agent30.exe".
 se clean test_agent30.e
@@ -3656,7 +3656,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent31.e -o test_agent31.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent31.e -o test_agent31.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent31.e -o test_agent31.exe
 Running (-require_check) "test_agent31.exe".
 se clean test_agent31.e
@@ -3776,7 +3776,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent32.e -o test_agent32.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent32.e -o test_agent32.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent32.e -o test_agent32.exe
 Running (-require_check) "test_agent32.exe".
 se clean test_agent32.e
@@ -3896,7 +3896,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent33.e -o test_agent33.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent33.e -o test_agent33.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent33.e -o test_agent33.exe
 Running (-require_check) "test_agent33.exe".
 se clean test_agent33.e
@@ -4016,7 +4016,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent34.e -o test_agent34.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent34.e -o test_agent34.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent34.e -o test_agent34.exe
 Running (-require_check) "test_agent34.exe".
 se clean test_agent34.e
@@ -4136,7 +4136,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent35.e -o test_agent35.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent35.e -o test_agent35.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent35.e -o test_agent35.exe
 Running (-require_check) "test_agent35.exe".
 se clean test_agent35.e
@@ -4256,7 +4256,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent36.e -o test_agent36.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent36.e -o test_agent36.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent36.e -o test_agent36.exe
 Running (-require_check) "test_agent36.exe".
 se clean test_agent36.e
@@ -4376,7 +4376,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent37.e -o test_agent37.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent37.e -o test_agent37.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent37.e -o test_agent37.exe
 Running (-require_check) "test_agent37.exe".
 se clean test_agent37.e
@@ -4496,7 +4496,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent38.e -o test_agent38.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent38.e -o test_agent38.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent38.e -o test_agent38.exe
 Running (-require_check) "test_agent38.exe".
 se clean test_agent38.e
@@ -4616,7 +4616,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent39.e -o test_agent39.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent39.e -o test_agent39.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent39.e -o test_agent39.exe
 Running (-require_check) "test_agent39.exe".
 se clean test_agent39.e
@@ -4736,7 +4736,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent40.e -o test_agent40.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent40.e -o test_agent40.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent40.e -o test_agent40.exe
 Running (-require_check) "test_agent40.exe".
 se clean test_agent40.e
@@ -4856,7 +4856,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent41.e -o test_agent41.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent41.e -o test_agent41.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent41.e -o test_agent41.exe
 Running (-require_check) "test_agent41.exe".
 se clean test_agent41.e
@@ -4976,7 +4976,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent42.e -o test_agent42.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent42.e -o test_agent42.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent42.e -o test_agent42.exe
 Running (-require_check) "test_agent42.exe".
 se clean test_agent42.e
@@ -5096,7 +5096,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent43.e -o test_agent43.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent43.e -o test_agent43.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent43.e -o test_agent43.exe
 Running (-require_check) "test_agent43.exe".
 se clean test_agent43.e
@@ -5216,7 +5216,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent44.e -o test_agent44.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent44.e -o test_agent44.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent44.e -o test_agent44.exe
 Running (-require_check) "test_agent44.exe".
 se clean test_agent44.e
@@ -5336,7 +5336,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent45.e -o test_agent45.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent45.e -o test_agent45.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent45.e -o test_agent45.exe
 Running (-require_check) "test_agent45.exe".
 se clean test_agent45.e
@@ -5456,7 +5456,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent46.e -o test_agent46.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent46.e -o test_agent46.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent46.e -o test_agent46.exe
 Running (-require_check) "test_agent46.exe".
 se clean test_agent46.e
@@ -5576,7 +5576,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent47.e -o test_agent47.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent47.e -o test_agent47.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent47.e -o test_agent47.exe
 Running (-require_check) "test_agent47.exe".
 se clean test_agent47.e
@@ -5696,7 +5696,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent48.e -o test_agent48.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent48.e -o test_agent48.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent48.e -o test_agent48.exe
 Running (-require_check) "test_agent48.exe".
 se clean test_agent48.e
@@ -5816,7 +5816,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent49.e -o test_agent49.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent49.e -o test_agent49.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent49.e -o test_agent49.exe
 Running (-require_check) "test_agent49.exe".
 se clean test_agent49.e
@@ -5936,7 +5936,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent50.e -o test_agent50.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent50.e -o test_agent50.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent50.e -o test_agent50.exe
 Running (-require_check) "test_agent50.exe".
 se clean test_agent50.e
@@ -6056,7 +6056,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent51.e -o test_agent51.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent51.e -o test_agent51.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent51.e -o test_agent51.exe
 Running (-require_check) "test_agent51.exe".
 se clean test_agent51.e
@@ -6176,7 +6176,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent52.e -o test_agent52.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent52.e -o test_agent52.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent52.e -o test_agent52.exe
 Running (-require_check) "test_agent52.exe".
 se clean test_agent52.e
@@ -6296,7 +6296,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent53.e -o test_agent53.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent53.e -o test_agent53.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent53.e -o test_agent53.exe
 Running (-require_check) "test_agent53.exe".
 se clean test_agent53.e
@@ -6416,7 +6416,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent54.e -o test_agent54.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent54.e -o test_agent54.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent54.e -o test_agent54.exe
 Running (-require_check) "test_agent54.exe".
 se clean test_agent54.e
@@ -6536,7 +6536,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent55.e -o test_agent55.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent55.e -o test_agent55.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent55.e -o test_agent55.exe
 Running (-require_check) "test_agent55.exe".
 se clean test_agent55.e
@@ -6656,7 +6656,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent56.e -o test_agent56.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent56.e -o test_agent56.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent56.e -o test_agent56.exe
 Running (-require_check) "test_agent56.exe".
 se clean test_agent56.e
@@ -6776,7 +6776,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent57.e -o test_agent57.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent57.e -o test_agent57.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent57.e -o test_agent57.exe
 Running (-require_check) "test_agent57.exe".
 se clean test_agent57.e
@@ -6896,7 +6896,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent58.e -o test_agent58.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent58.e -o test_agent58.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent58.e -o test_agent58.exe
 Running (-require_check) "test_agent58.exe".
 se clean test_agent58.e
@@ -7016,7 +7016,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent59.e -o test_agent59.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent59.e -o test_agent59.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent59.e -o test_agent59.exe
 Running (-require_check) "test_agent59.exe".
 se clean test_agent59.e
@@ -7136,7 +7136,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent60.e -o test_agent60.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent60.e -o test_agent60.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent60.e -o test_agent60.exe
 Running (-require_check) "test_agent60.exe".
 se clean test_agent60.e
@@ -7256,7 +7256,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent61.e -o test_agent61.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent61.e -o test_agent61.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent61.e -o test_agent61.exe
 Running (-require_check) "test_agent61.exe".
 se clean test_agent61.e
@@ -7376,7 +7376,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent62.e -o test_agent62.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent62.e -o test_agent62.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent62.e -o test_agent62.exe
 Running (-require_check) "test_agent62.exe".
 se clean test_agent62.e
@@ -7496,7 +7496,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent63.e -o test_agent63.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent63.e -o test_agent63.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent63.e -o test_agent63.exe
 Running (-require_check) "test_agent63.exe".
 se clean test_agent63.e
@@ -7616,7 +7616,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent64.e -o test_agent64.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent64.e -o test_agent64.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent64.e -o test_agent64.exe
 Running (-require_check) "test_agent64.exe".
 se clean test_agent64.e
@@ -7736,7 +7736,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent66.e -o test_agent66.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent66.e -o test_agent66.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent66.e -o test_agent66.exe
 Running (-require_check) "test_agent66.exe".
 se clean test_agent66.e
@@ -7856,7 +7856,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_agent67.e -o test_agent67.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_agent67.e -o test_agent67.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_agent67.e -o test_agent67.exe
 Running (-require_check) "test_agent67.exe".
 se clean test_agent67.e
@@ -7927,6 +7927,246 @@ se c -no_split -no_gc -boost test_agent67.e -o test_agent67.exe
 Running (-no_split -no_gc -boost) "test_agent67.exe".
 se clean test_agent67.e
 Removing (-no_split -no_gc -boost) "test_agent67.exe".
+se c -boost test_agent68.e -o test_agent68.exe
+Running (-boost) "test_agent68.exe".
+se clean test_agent68.e
+Removing (-boost) "test_agent68.exe".
+se c -flat_check -all_check -debug test_agent68.e -o test_agent68.exe
+Running (-flat_check -all_check -debug) "test_agent68.exe".
+se clean test_agent68.e
+Removing (-flat_check -all_check -debug) "test_agent68.exe".
+se c -no_check test_agent68.e -o test_agent68.exe
+Running (-no_check) "test_agent68.exe".
+se clean test_agent68.e
+Removing (-no_check) "test_agent68.exe".
+se c -flat_check -require_check test_agent68.e -o test_agent68.exe
+Running (-flat_check -require_check) "test_agent68.exe".
+se clean test_agent68.e
+Removing (-flat_check -require_check) "test_agent68.exe".
+se c -flat_check -ensure_check test_agent68.e -o test_agent68.exe
+Running (-flat_check -ensure_check) "test_agent68.exe".
+se clean test_agent68.e
+Removing (-flat_check -ensure_check) "test_agent68.exe".
+se c -flat_check -invariant_check test_agent68.e -o test_agent68.exe
+Running (-flat_check -invariant_check) "test_agent68.exe".
+se clean test_agent68.e
+Removing (-flat_check -invariant_check) "test_agent68.exe".
+se c -flat_check -loop_check test_agent68.e -o test_agent68.exe
+Running (-flat_check -loop_check) "test_agent68.exe".
+se clean test_agent68.e
+Removing (-flat_check -loop_check) "test_agent68.exe".
+se c -flat_check -all_check test_agent68.e -o test_agent68.exe
+Running (-flat_check -all_check) "test_agent68.exe".
+se clean test_agent68.e
+Removing (-flat_check -all_check) "test_agent68.exe".
+Excluded command: "se c -no_gc -boost test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -boost -debug test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -no_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -require_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -ensure_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -invariant_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -loop_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -all_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -all_check -debug test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -all_check -debug".
+se c -require_check test_agent68.e -o test_agent68.exe
+Running (-require_check) "test_agent68.exe".
+se clean test_agent68.e
+Removing (-require_check) "test_agent68.exe".
+Excluded command: "se c -ensure_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -all_check".
+Excluded command: "se c -no_gc -require_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -ensure_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -invariant_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -loop_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -all_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -profile -boost test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -debug test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -boost test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -no_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -require_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -ensure_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -invariant_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -loop_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -all_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -require_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -ensure_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -invariant_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -loop_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -all_check test_agent68.e -o test_agent68.exe".
+By excluded.lst:  "se c -profile".
+se c -no_split -boost test_agent68.e -o test_agent68.exe
+Running (-no_split -boost) "test_agent68.exe".
+se clean test_agent68.e
+Removing (-no_split -boost) "test_agent68.exe".
+se c -no_split -no_gc -boost test_agent68.e -o test_agent68.exe
+Running (-no_split -no_gc -boost) "test_agent68.exe".
+se clean test_agent68.e
+Removing (-no_split -no_gc -boost) "test_agent68.exe".
+se c -boost test_agent69.e -o test_agent69.exe
+Running (-boost) "test_agent69.exe".
+se clean test_agent69.e
+Removing (-boost) "test_agent69.exe".
+se c -flat_check -all_check -debug test_agent69.e -o test_agent69.exe
+Running (-flat_check -all_check -debug) "test_agent69.exe".
+se clean test_agent69.e
+Removing (-flat_check -all_check -debug) "test_agent69.exe".
+se c -no_check test_agent69.e -o test_agent69.exe
+Running (-no_check) "test_agent69.exe".
+se clean test_agent69.e
+Removing (-no_check) "test_agent69.exe".
+se c -flat_check -require_check test_agent69.e -o test_agent69.exe
+Running (-flat_check -require_check) "test_agent69.exe".
+se clean test_agent69.e
+Removing (-flat_check -require_check) "test_agent69.exe".
+se c -flat_check -ensure_check test_agent69.e -o test_agent69.exe
+Running (-flat_check -ensure_check) "test_agent69.exe".
+se clean test_agent69.e
+Removing (-flat_check -ensure_check) "test_agent69.exe".
+se c -flat_check -invariant_check test_agent69.e -o test_agent69.exe
+Running (-flat_check -invariant_check) "test_agent69.exe".
+se clean test_agent69.e
+Removing (-flat_check -invariant_check) "test_agent69.exe".
+se c -flat_check -loop_check test_agent69.e -o test_agent69.exe
+Running (-flat_check -loop_check) "test_agent69.exe".
+se clean test_agent69.e
+Removing (-flat_check -loop_check) "test_agent69.exe".
+se c -flat_check -all_check test_agent69.e -o test_agent69.exe
+Running (-flat_check -all_check) "test_agent69.exe".
+se clean test_agent69.e
+Removing (-flat_check -all_check) "test_agent69.exe".
+Excluded command: "se c -no_gc -boost test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -boost -debug test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -no_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -require_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -ensure_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -invariant_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -loop_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -all_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -all_check -debug test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -all_check -debug".
+se c -require_check test_agent69.e -o test_agent69.exe
+Running (-require_check) "test_agent69.exe".
+se clean test_agent69.e
+Removing (-require_check) "test_agent69.exe".
+Excluded command: "se c -ensure_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -all_check".
+Excluded command: "se c -no_gc -require_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -ensure_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -invariant_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -loop_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -all_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -profile -boost test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -debug test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -boost test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -no_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -require_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -ensure_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -invariant_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -loop_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -all_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -require_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -ensure_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -invariant_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -loop_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -all_check test_agent69.e -o test_agent69.exe".
+By excluded.lst:  "se c -profile".
+se c -no_split -boost test_agent69.e -o test_agent69.exe
+Running (-no_split -boost) "test_agent69.exe".
+se clean test_agent69.e
+Removing (-no_split -boost) "test_agent69.exe".
+se c -no_split -no_gc -boost test_agent69.e -o test_agent69.exe
+Running (-no_split -no_gc -boost) "test_agent69.exe".
+se clean test_agent69.e
+Removing (-no_split -no_gc -boost) "test_agent69.exe".
 se c -boost test_sz513.e -o test_sz513.exe
 Running (-boost) "test_sz513.exe".
 se clean test_sz513.e
@@ -7976,7 +8216,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_sz513.e -o test_sz513.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_sz513.e -o test_sz513.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_sz513.e -o test_sz513.exe
 Running (-require_check) "test_sz513.exe".
 se clean test_sz513.e
@@ -8096,7 +8336,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_sz550.e -o test_sz550.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_sz550.e -o test_sz550.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_sz550.e -o test_sz550.exe
 Running (-require_check) "test_sz550.exe".
 se clean test_sz550.e
@@ -8167,6 +8407,8 @@ se c -no_split -no_gc -boost test_sz550.e -o test_sz550.exe
 Running (-no_split -no_gc -boost) "test_sz550.exe".
 se clean test_sz550.e
 Removing (-no_split -no_gc -boost) "test_sz550.exe".
+--------------------------------------------------------------------------------
+se c bad_agent01.e -o bad_agent01.exe -output_error_warning_on bad_agent01.new
 --------------------------------------------------------------------------------
 All entries of the "excluded.lst" file are used (good).
 --------------------------------------------------------------------------------
