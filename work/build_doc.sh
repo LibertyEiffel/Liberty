@@ -46,7 +46,13 @@ done | while read i section args; do
     test -d $s || mkdir -p $s
     cd $s
     run se doc -verbose -title "Section:\\\\ $section" \
-        -wiki_prefix "http://wiki.liberty-eiffel.org/" -home_address "http://doc.liberty-eiffel.org/" \
+        -wiki_prefix "http://wiki.liberty-eiffel.org/" \
+        -menu_separator '"\\|\\ "' -ariadne_separator '"\\>\\ "' \
+        -menu "http://www.liberty-eiffel.org" '"Liberty\\ Eiffel"' \
+        -menu "http://et.liberty-eiffel.org" '"Automated\\ Tests"' \
+        -menu "http://wiki.liberty-eiffel.org" '"Wiki"' \
+        -menu "https://github.com/LibertyEiffel/Liberty" '"Github\\ repo"' \
+        -menu "http://doc.liberty-eiffel.org" '"Documentation"' \
         -js "$root/resources/eiffeldoc/eiffeldoc.js" -css "$root/resources/eiffeldoc/eiffeldoc.css" \
         -prune test -prune Local $args
 done

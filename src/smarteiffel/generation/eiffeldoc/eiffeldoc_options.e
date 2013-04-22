@@ -13,10 +13,15 @@ create {EIFFELDOC}
 
 feature {ANY}
    title: STRING
-   home_address: STRING
    css: STRING
    js: STRING
    depends: BOOLEAN
+
+   menu: LINKED_HASHED_DICTIONARY[STRING, STRING]
+         -- the menu entries, ordered by cli apparition
+
+   menu_separator, ariadne_separator: STRING
+
    wiki_prefix: STRING
 
 feature {EIFFELDOC, EIFFELDOC_SHORTER}
@@ -39,7 +44,23 @@ feature {EIFFELDOC, EIFFELDOC_SHORTER, EIFFELDOC_SHORTER_SOURCEDOC, EIFFELDOC_SH
          html.open_list
       end
 
-   add_tab (html: HTML_OUTPUT_STREAM; name, address: STRING) is
+   add_menu_tabs (html: HTML_OUTPUT_STREAM) is
+      local
+         i: INTEGER; separator: STRING
+      do
+         from
+            separator := once ""
+            i := menu.lower
+         until
+            i > menu.upper
+         loop
+            add_tab(html, menu.key(i), menu.item(i), separator)
+            separator := menu_separator
+            i := i + 1
+         end
+      end
+
+   add_tab (html: HTML_OUTPUT_STREAM; name, address, separator: STRING) is
       require
          html /= Void
          name /= Void
@@ -47,10 +68,14 @@ feature {EIFFELDOC, EIFFELDOC_SHORTER, EIFFELDOC_SHORTER_SOURCEDOC, EIFFELDOC_SH
          if address = Void then
             html.with_attribute(once "class", once "selected")
             html.open_list_item
+            html.put_string(separator)
+            html.open_div
             html.put_string(name)
+            html.close_div
             html.close_list_item
          else
             html.open_list_item
+            html.put_string(separator)
             html.open_anchor_address(address, Void)
             html.put_string(name)
             html.close_anchor
@@ -137,26 +162,50 @@ feature {EIFFELDOC}
             if i + 1 <= argument_count then
                title := argument(i + 1)
                Result := 2
+            else
+               std_error.put_line(once "**** Invalid title argument")
             end
-         elseif eiffeldoc.flag_match(once "home_address", arg) then
+         elseif eiffeldoc.flag_match(once "menu", arg) then
+            if i + 2 <= argument_count then
+               menu.put(argument(i + 1), argument(i + 2))
+               Result := 3
+            else
+               std_error.put_line(once "**** Invalid menu arguments")
+            end
+         elseif eiffeldoc.flag_match(once "menu_separator", arg) then
             if i + 1 <= argument_count then
-               home_address := argument(i + 1)
+               menu_separator := argument(i + 1)
                Result := 2
+            else
+               std_error.put_line(once "**** Invalid menu_separator argument")
+            end
+         elseif eiffeldoc.flag_match(once "ariadne_separator", arg) then
+            if i + 1 <= argument_count then
+               ariadne_separator := argument(i + 1)
+               Result := 2
+            else
+               std_error.put_line(once "**** Invalid ariadne_separator argument")
             end
          elseif eiffeldoc.flag_match(once "css", arg) then
             if i + 1 <= argument_count then
                css := argument(i + 1)
                Result := 2
+            else
+               std_error.put_line(once "**** Invalid css argument")
             end
          elseif eiffeldoc.flag_match(once "js", arg) then
             if i + 1 <= argument_count then
                js := argument(i + 1)
                Result := 2
+            else
+               std_error.put_line(once "**** Invalid js argument")
             end
          elseif eiffeldoc.flag_match(once "wiki_prefix", arg) then
             if i + 1 <= argument_count then
                wiki_prefix := argument(i + 1)
                Result := 2
+            else
+               std_error.put_line(once "**** Invalid wiki_prefix argument")
             end
          elseif eiffeldoc.flag_match(once "depends", arg) then
             depends := True
@@ -173,27 +222,33 @@ feature {EIFFELDOC}
 
    command_usage: STRING is
       do
-         Result := once "{-title title} {-home_address address} {-js file} {-css file} {-depends} "
+         Result := once "{-title title} {-menu address title}... {-js file} {-css file} {-depends} "
       end
 
    command_help: STRING is
       do
          Result := once "[
-                         -title            the title of the generated documentation
+                         -title             the title of the generated documentation
 
-                         -home_address     address of the 'go home' upper-left link
+                         -js                the javascript file to use
 
-                         -js               the javascript file to use
+                         -css               the stylesheet to use
 
-                         -css              the stylesheet to use
+                         -menu              a menu item (in the header Ariadne thread)
+                                            - its address
+                                            - its displayed title
+                                            There may be more than one menu item; the ordering is
+                                            implied by the command line.
 
-                         -wiki_prefix      prefix of generated wiki URLs (the wiki word is
-                                           added as a suffix to make the whole URL)
+                         -menu_separator    a text that will be put between the menu items
 
-                         -depends          generate dependant classes even if their cluster is
-                                           pruned
+                         -ariadne_separator a text that will be put between the ariadne thread items
 
-                         If -home_address is not given, the 'go home' upper link won't be generated.
+                         -depends           generate dependant classes even if their cluster is
+                                            pruned
+
+                         -wiki_prefix       the wiki home URL for wiki words
+
                          If a proper JavaScript file is not given with the -js flag, the 'navigation'
                          will not be possible (except for browser which are not CSS compliant).
 
@@ -299,6 +354,9 @@ feature {}
    make (e: EIFFELDOC) is
       do
          eiffeldoc := e
+         menu_separator := once ""
+         ariadne_separator := once ""
+         create menu.make
       end
 
    eiffeldoc: EIFFELDOC

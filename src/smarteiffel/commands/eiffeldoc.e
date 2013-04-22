@@ -137,6 +137,7 @@ feature {}
             if flag_match(once "prune", argument(i)) then
                -- prune this cluster
                if i + 1 > argument_count then
+                  std_error.put_line(once "**** Missing prune argument")
                   std_error.put_string(usage)
                   die_with_code(1)
                end
@@ -144,6 +145,7 @@ feature {}
                i := i + 2
             elseif flag_match(once "remote", argument(i)) then
                if i + 2 > argument_count then
+                  std_error.put_line(once "**** Missing remote argument")
                   std_error.put_string(usage)
                   die_with_code(1)
                end
@@ -178,6 +180,8 @@ feature {}
                   if i = argument_count and then set_loadpath(argument(i)) then
                      i := i + 1
                   else
+                     std_error.put_string(once "**** Invalid extra argument: ")
+                     std_error.put_line(argument(i))
                      std_error.put_string(usage)
                      die_with_code(1)
                   end
@@ -315,13 +319,8 @@ feature {} -- General HTML files
 
          -- make tabs
          options.open_tabs(html)
-         if options.home_address /= Void then
-            options.add_tab(html, home_link_name, options.home_address)
-         end
-         if options.wiki_prefix /= Void then
-            options.add_tab(html, wiki_link_name, options.wiki_prefix)
-         end
-         options.add_tab(html, classes_and_clusters_list_link_name, Void)
+         options.add_menu_tabs(html)
+         options.add_tab(html, classes_and_clusters_list_link_name, Void, options.ariadne_separator)
          options.close_tabs(html)
 
          -- open general block

@@ -178,20 +178,21 @@ feature {}
       local
          i: INTEGER
          cn: CLASS_NAME
+         sep: STRING
       do
          html.open_anchor_name(top_anchor_name)
          html.close_anchor
 
          -- make tabs
          options.open_tabs(html)
-         if options.home_address /= Void then
-            options.add_tab(html, home_link_name, options.home_address)
+         options.add_menu_tabs(html)
+         if options.menu.is_empty then
+            sep := once ""
+         else
+            sep := options.ariadne_separator
          end
-         if options.wiki_prefix /= Void then
-            options.add_tab(html, wiki_link_name, options.wiki_prefix)
-         end
-         options.add_tab(html, classes_and_clusters_list_link_name, index_filename)
-         options.add_tab(html, class_information_link_name, Void)
+         options.add_tab(html, classes_and_clusters_list_link_name, index_filename, sep)
+         options.add_tab(html, class_information_link_name, Void, options.ariadne_separator)
          options.close_tabs(html)
 
          -- open general block
