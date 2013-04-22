@@ -10,15 +10,23 @@ insert
 feature {ANY}
    config: SE_CONFIG is
       local
-         basic_directory: BASIC_DIRECTORY; chain: SERC_CHAIN; s: STRING
+         basic_directory: BASIC_DIRECTORY; chain: SERC_CHAIN; s: STRING; def: SERC_DEFAULTS
+         file_tools: FILE_TOOLS
       once
          create chain.make
+         create def.make
          basic_directory.ensure_system_notation
 
          if basic_directory.unix_notation or else basic_directory.cygwin_notation then
-            if (create {FILE_TOOLS}).is_readable(once "/sys/rc") then
+            if file_tools.is_readable(once "/sys/rc") then
                system_tools.set_system_name(system_tools.elate_system)
+               def.set_os(system_tools.elate_system)
                add_to_chain(chain, once "/lang/eiffel/.serc")
+            else
+               def.set_os(system_tools.unix_system)
+               if file_tools.is_readable(once "/etc/issue") then
+                  def.set_flavor(once "Linux")
+               end
             end
             add_to_chain(chain, once "/etc/serc")
             s := home_env
@@ -33,9 +41,13 @@ feature {ANY}
                add_to_chain(chain, s)
             end
             add_to_chain(chain, once "C:\SE.CFG")
+            def.set_os(system_tools.windows_system)
          elseif basic_directory.macintosh_notation then
+            def.set_os(system_tools.macintosh_system)
          elseif basic_directory.amiga_notation then
+            def.set_os(system_tools.amiga_system)
          elseif basic_directory.openvms_notation then
+            def.set_os(system_tools.open_vms_system)
          end
 
          s := seconf_env
@@ -43,14 +55,13 @@ feature {ANY}
             add_to_chain(chain, s)
          end
 
-         if not chain.is_empty then
-            Result := chain
-         end
+         chain.add(def)
+         Result := chain
       end
 
 feature {SYSTEM_TOOLS, INSTALL_GLOBALS}
    seconf_env: STRING is
-         -- The value of the Liberty Eiffel environment variable, if defined.
+         -- The value of the SmartEiffel environment variable, if defined.
       once
          Result := env(fz_seconf)
       end
