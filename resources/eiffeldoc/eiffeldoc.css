@@ -104,6 +104,7 @@ ul.menu > li > a:hover {
     margin-bottom: 1em;
     display: table;
     width: 100%;
+    cursor: pointer;
 }
 
 .all_clusters_head_layout {
@@ -160,6 +161,7 @@ ul.menu > li > a:hover {
 .letter_cluster_head {
     display: table;
     width: 100%;
+    cursor: pointer;
 }
 
 .letter_cluster_head_layout {
@@ -220,6 +222,7 @@ ul.menu > li > a:hover {
     margin-bottom: 1em;
     display: table;
     width: 100%;
+    cursor: pointer;
 }
 
 .cluster_head_layout {
@@ -275,6 +278,7 @@ ul.menu > li > a:hover {
     display: table;
     width: 100%;
     margin-bottom: 1em;
+    cursor: pointer;
 }
 
 .sub_cluster_head_layout {
@@ -334,6 +338,7 @@ ul.menu > li > a:hover {
 .cluster_comments_head {
     display: table;
     width: 100%;
+    cursor: pointer;
 }
 
 .cluster_comments_head_layout {
@@ -392,6 +397,7 @@ ul.menu > li > a:hover {
 .cluster_classes_head {
     display: table;
     width: 100%;
+    cursor: pointer;
 }
 
 .cluster_classes_head_layout {
@@ -452,6 +458,7 @@ ul.menu > li > a:hover {
 
 .points_of_view_head {
     display: table;
+    cursor: pointer;
 }
 
 .points_of_view_head_layout {
@@ -502,6 +509,7 @@ ul.menu > li > a:hover {
     margin-bottom: 1em;
     display: table;
     width: 100%;
+    cursor: pointer;
 }
 
 .summary_head_layout {
@@ -566,6 +574,7 @@ ul.menu > li > a:hover {
     margin-bottom: 1em;
     display: table;
     width: 100%;
+    cursor: pointer;
 }
 
 .overview_head_layout {
@@ -642,6 +651,7 @@ ul.menu > li > a:hover {
     margin-bottom: 1em;
     display: table;
     width: 100%;
+    cursor: pointer;
 }
 
 .feature_head_layout {
@@ -741,6 +751,7 @@ ul.menu > li > a:hover {
     margin-bottom: 1em;
     display: table;
     width: 100%;
+    cursor: pointer;
 }
 
 .invariant_head_layout {
