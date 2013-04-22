@@ -16,7 +16,7 @@ create {ANY}
    make
 
 feature {ANY}
-   left_side: INSTRUCTION
+   left_side: PROCEDURE_CALL
 
    right_side: EXPRESSION
 
@@ -24,14 +24,33 @@ feature {ANY}
 
    side_effect_free (type: TYPE): BOOLEAN is
       do
+         check False end
       end
 
    simplify (type: TYPE): INSTRUCTION is
+      local
+         fs_assigned: FEATURE_STAMP; af_assigned, af_assigner: ANONYMOUS_FEATURE
+         r: EXPRESSION
+         lt, rt: TYPE
       do
+         lt := left_side.target.resolve_in(type)
+         r := right_side.simplify(type)
+         rt := r.resolve_in(type)
+         fs_assigned := left_side.feature_stamp
+         check
+            fs_assigned.has_anonymous_feature_for(lt)
+         end
+         af_assigned := fs_assigned.anonymous_feature(lt)
+         af_assigner := af_assigned.assigner
+         if af_assigner = Void then
+            not_yet_implemented --| **** should never happen?
+         end
+         not_yet_implemented
       end
 
    use_current (type: TYPE): BOOLEAN is
       do
+         Result := left_side.use_current(type) or else right_side.use_current(type)
       end
 
    start_position: POSITION is
@@ -40,18 +59,42 @@ feature {ANY}
       end
 
    specialize_in (type: TYPE): like Current is
+      local
+         l: PROCEDURE_CALL; r: EXPRESSION
       do
-         not_yet_implemented
+         l := left_side.specialize_in(type)
+         r := right_side.specialize_in(type)
+         if r = right_side and then l = left_side then
+            Result := Current
+         else
+            create Result.make(l, r)
+         end
       end
 
    specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+      local
+         l: PROCEDURE_CALL; r: EXPRESSION
       do
-         not_yet_implemented
+         l := left_side.specialize_thru(parent_type, parent_edge, new_type)
+         r := right_side.specialize_thru(parent_type, parent_edge, new_type)
+         if r = right_side and then l = left_side then
+            Result := Current
+         else
+            create Result.make(l, r)
+         end
       end
 
    specialize_2 (type: TYPE): like Current is
+      local
+         l: PROCEDURE_CALL; r: EXPRESSION
       do
-         not_yet_implemented
+         l ::= left_side.specialize_2(type)
+         r := right_side.specialize_2(type)
+         if r = right_side and then l = left_side then
+            Result := Current
+         else
+            create Result.make(l, r)
+         end
       end
 
    has_been_specialized: BOOLEAN is
@@ -85,7 +128,7 @@ feature {ANY}
 feature {}
    make (ls: like left_side; rs: like right_side) is
          -- Note: this creation procedure is for example called by the `eiffel_parser' which is in charge
-         -- of checking that `ls' is actually a writable entity. (See also `inline_make'.)
+         -- of checking that `ls' is actually a writable entity.
       require
          not ls.start_position.is_unknown
          rs /= Void

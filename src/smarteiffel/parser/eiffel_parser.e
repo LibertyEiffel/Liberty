@@ -4426,7 +4426,7 @@ feature {}
             end
             if a_keyword(fz_assign) then
                if a_feature_name then
-                  tmp_feature.set_assigner(last_feature_name)
+                  tmp_feature.set_assigned(last_feature_name)
                else
                   error_handler.add_position(current_position)
                   error_handler.append(once "Expected a feature name to assign.")

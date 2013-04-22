@@ -261,6 +261,15 @@ feature {TYPE}
                not fs.has_anonymous_feature_for(context_type)
             end
             fs.add_anonymous_feature(m.build_definition, context_type)
+            i := i + 1
+         end
+         from
+            i := features.lower
+         until
+            i > features.upper
+         loop
+            m := features.item(i)
+            collect_assigner(m)
             free.add_last(m)
             i := i + 1
          end
@@ -283,6 +292,71 @@ feature {TYPE}
       ensure
          current_fn = Void
          context_type = Void
+      end
+
+   collect_assigner (m: ANONYMOUS_FEATURE_MIXER) is
+         -- If the feature declares an assigner, find the corresponding assigned feature and links to it
+      local
+         assigned: FEATURE_NAME
+         fs_assigned, fs_assigner: FEATURE_STAMP
+         af_assigned, af_assigner: ANONYMOUS_FEATURE
+         arg_assigned, arg_assigner: FORMAL_ARG_LIST
+      do
+         assigned := m.build_definition.feature_text.assigned
+         if assigned /= Void then
+            fs_assigned := context_type.lookup(assigned)
+            if fs_assigned = Void or else not fs_assigned.has_anonymous_feature_for(context_type) then
+               error_handler.add_position(assigned.start_position)
+               error_handler.append(once "Assigned feature not found in type")
+               error_handler.append(context_type.name.to_string)
+               error_handler.append(once ".")
+               error_handler.print_as_fatal_error
+            end
+
+            fs_assigner := context_type.lookup(m.feature_name)
+            check
+               by_design: fs_assigner.has_anonymous_feature_for(context_type)
+            end
+            af_assigned := fs_assigned.anonymous_feature(context_type)
+            arg_assigned := af_assigned.arguments
+            af_assigner := fs_assigner.anonymous_feature(context_type)
+            arg_assigner := af_assigner.arguments
+            if af_assigned.result_type = Void then
+               error_handler.add_position(assigned.start_position)
+               error_handler.append(once "Assigned feature is not a query in type")
+               error_handler.append(context_type.name.to_string)
+               error_handler.append(once ".")
+               error_handler.print_as_fatal_error
+            elseif af_assigner.result_type /= Void then
+               error_handler.add_position(assigned.start_position)
+               error_handler.append(once "Assigner feature is not a command in type ")
+               error_handler.append(context_type.name.to_string)
+               error_handler.append(once ".")
+               error_handler.print_as_fatal_error
+            end
+            if arg_assigned.count + 1 /= arg_assigner.count then
+               error_handler.add_position(assigned.start_position)
+               error_handler.append(once "The feature ")
+               error_handler.append(fs_assigner.name.to_string)
+               error_handler.append(once " cannot be an assigner of the feature ")
+               error_handler.append(fs_assigned.name.to_string)
+               error_handler.append(once " in type ")
+               error_handler.append(context_type.name.to_string)
+               error_handler.append(once ". The assigner feature is expected to have exactly one more argument than the assigned feature.")
+               error_handler.print_as_fatal_error
+            elseif af_assigned.result_type /= arg_assigner.name(1).result_type then
+               error_handler.add_position(assigned.start_position)
+               error_handler.append(once "The feature ")
+               error_handler.append(fs_assigner.name.to_string)
+               error_handler.append(once " cannot be an assigner of the feature ")
+               error_handler.append(fs_assigned.name.to_string)
+               error_handler.append(once " in type ")
+               error_handler.append(context_type.name.to_string)
+               error_handler.append(once ". The type of the first argument of the assigner feature is expected to be the same as the type of the assigned feature.")
+               error_handler.print_as_fatal_error
+            end
+            af_assigned.set_assigner(af_assigner)
+         end
       end
 
    is_known (fn: FEATURE_NAME): BOOLEAN is
