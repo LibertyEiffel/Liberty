@@ -255,19 +255,19 @@ EOF
             progress 30 2 $MAXTOOLCOUNT "T2: $cmd"
             run $cmd || exit 1
         done
-        progress 30 1 $MAXTOOLCOUNT "T2: save"
+        progress 30 2 $MAXTOOLCOUNT "T2: save"
         mkdir T2
         cp -a compile_to_c* T2/
-        progress 30 1 $MAXTOOLCOUNT "T2: check"
+        progress 30 2 $MAXTOOLCOUNT "T2: check"
         if grep "$CC" compile_to_c.make >/dev/null 2>&1; then
             rm compile_to_c.make
             cp -a compile_to_c.new compile_to_c
             progress 30 3 $MAXTOOLCOUNT "T3: compile_to_c"
             run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c.new || exit 1
-            progress 30 1 $MAXTOOLCOUNT "T3: save"
+            progress 30 3 $MAXTOOLCOUNT "T3: save"
             mkdir T3
             cp -a compile_to_c* T3/
-            progress 30 1 $MAXTOOLCOUNT "T3: check"
+            progress 30 3 $MAXTOOLCOUNT "T3: check"
             if grep "^$CC" compile_to_c.make >/dev/null 2>&1; then
                 echo
                 cat compile_to_c.make >> $LOG
@@ -395,20 +395,11 @@ function compile_all()
 
 function make_doc()
 {
-    (
-        test -d $LIBERTY_HOME/target/doc && rm -rf $LIBERTY_HOME/target/doc
-        for doc in tools core; do
-            mkdir -p $LIBERTY_HOME/target/doc/$doc
-        done
+    export DOC_ROOT=$LIBERTY_HOME/target/doc/
+    test -d $DOC_ROOT && rm -rf $DOC_ROOT
+    mkdir -p $DOC_ROOT
 
-        cd $LIBERTY_HOME/target/doc/tools
-        se doc -prune liberty:lib -prune tutorial -prune liberty:wrappers -prune test &
-
-        cd $LIBERTY_HOME/target/doc/core
-        se doc -prune tools -prune tutorial -prune liberty -prune test &
-
-        wait
-    )
+    $LIBERTY_HOME/work/build_doc.sh
 }
 
 function do_pkg_tools()
@@ -563,7 +554,7 @@ function do_pkg_tools_doc()
 {
     DOC=$DESTDIR/usr/share/doc/liberty-eiffel/
     install -d -m 0755 -o root -g root $DOC
-    cp -a $LIBERTY_HOME/target/doc/tools $DOC/
+    cp -a $LIBERTY_HOME/target/doc/api/smarteiffel $DOC/tools
     chown -R root:root $DOC
 }
 
@@ -571,7 +562,7 @@ function do_pkg_core_doc()
 {
     DOC=$DESTDIR/usr/share/doc/liberty-eiffel/
     install -d -m 0755 -o root -g root $DOC
-    cp -a $LIBERTY_HOME/target/doc/core $DOC/
+    cp -a $LIBERTY_HOME/target/doc/api/liberty $DOC/core
     chown -R root:root $DOC
 }
 
