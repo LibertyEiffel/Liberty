@@ -492,6 +492,12 @@ feature {ASSIGNMENT}
          visited.right_side.accept(Current)
       end
 
+feature {ASSIGNMENT_CALL_ASSIGNER}
+   visit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER) is
+      do
+         not_yet_implemented
+      end
+
 feature {ASSIGNMENT_ATTEMPT}
    visit_assignment_attempt (visited: ASSIGNMENT_ATTEMPT) is
       do

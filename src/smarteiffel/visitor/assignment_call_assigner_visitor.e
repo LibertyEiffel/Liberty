@@ -1,33 +1,19 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class INSTRUCTION_VISITOR
+deferred class ASSIGNMENT_CALL_ASSIGNER_VISITOR
 
 inherit
-   AGENT_INSTRUCTION_VISITOR
-   ASSERTION_LIST_VISITOR
-   ASSIGNMENT_ATTEMPT_VISITOR
-   ASSIGNMENT_CALL_ASSIGNER_VISITOR
-   ASSIGNMENT_VISITOR
-   CHECK_COMPOUND_VISITOR
-   C_INLINE_VISITOR
-   COMMENT_VISITOR
-   COMPOUND_VISITOR
-   CREATE_INSTRUCTION_VISITOR
-   DEBUG_COMPOUND_VISITOR
-   IFTHENELSE_VISITOR
-   IFTHEN_VISITOR
-   INSPECT_STATEMENT_VISITOR
-   LOOP_INSTRUCTION_VISITOR
-   NO_INVARIANT_WRAPPER_VISITOR
-   NON_WRITTEN_INSTRUCTION_VISITOR
-   PRECURSOR_INSTRUCTION_VISITOR
-   PROCEDURE_CALL_VISITOR
-   REQUIRE_ASSERTION_VISITOR
-   RETRY_INSTRUCTION_VISITOR
-   WHEN_CLAUSE_VISITOR
+   VISITOR
 
-end -- class INSTRUCTION_VISITOR
+feature {ASSIGNMENT_CALL_ASSIGNER}
+   visit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER) is
+      require
+         visited /= Void
+      deferred
+      end
+
+end -- class ASSIGNMENT_CALL_ASSIGNER_VISITOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

@@ -2180,10 +2180,10 @@ feature {}
          --  ++                       writable ":=" expression |
          --  ++                       writable "?=" expression |
          --  ++                       writable "::=" expression |
-         --  ++                       identifier procedure_call
+         --  ++                       identifier procedure_call [":=" expression ]
          --  ++
       local
-         type_mark: TYPE_MARK; args: EFFECTIVE_ARG_LIST; sp: POSITION; writable: EXPRESSION
+         type_mark: TYPE_MARK; args: EFFECTIVE_ARG_LIST; sp: POSITION; writable: EXPRESSION; pc: PROCEDURE_CALL
       do
          if skip1('(') and then a_expression then
             Result := True
@@ -2328,6 +2328,16 @@ feature {}
                   end
                else
                   a_procedure_call
+                  if skip2(':', '=') then
+                     pc ::= last_instruction
+                     if a_expression then
+                        create {ASSIGNMENT_CALL_ASSIGNER} last_instruction.make(pc, last_expression)
+                     else
+                        error_handler.add_position(current_position)
+                        error_handler.append(em2)
+                        error_handler.print_as_fatal_error
+                     end
+                  end
                end
             end
          elseif a_manifest_or_type_test(Instruction_syntax_flag) then
@@ -4414,6 +4424,15 @@ feature {}
                   error_handler.print_as_fatal_error
                end
             end
+            if a_keyword(fz_assign) then
+               if a_feature_name then
+                  tmp_feature.set_assigner(last_feature_name)
+               else
+                  error_handler.add_position(current_position)
+                  error_handler.append(once "Expected a feature name to assign.")
+                  error_handler.print_as_fatal_error
+               end
+            end
             if a_keyword(fz_is) then
                if a_keyword(fz_unique) then
                   last_feature_declaration := tmp_feature.as_unique_constant
@@ -5661,13 +5680,11 @@ feature {}
                error_handler.print_as_fatal_error
             end
             just_after_a_dot(do_instruction, to_call(t, fn, eal))
+         elseif do_instruction then
+            last_instruction := to_proc_call(t, fn, eal)
          else
-            if do_instruction then
-               last_instruction := to_proc_call(t, fn, eal)
-            else
-               last_expression := to_call(t, fn, eal)
-               last_instruction := Void
-            end
+            last_expression := to_call(t, fn, eal)
+            last_instruction := Void
          end
       end
 

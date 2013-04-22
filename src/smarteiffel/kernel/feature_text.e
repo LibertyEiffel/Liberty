@@ -30,6 +30,9 @@ feature {ANY}
    names: FEATURE_NAME_LIST
          -- All the names of the feature.
 
+   assigner: FEATURE_NAME
+         -- The assigner name
+
    arguments: FORMAL_ARG_LIST
          -- Arguments if any.
 
@@ -209,7 +212,7 @@ feature {}
       end
 
    once_procedure (n: like names; a: like arguments; om: like obsolete_mark; hc: like header_comment
-      ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION) is
+                   ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION; aa: like assigner) is
       require
          n /= Void
       do
@@ -217,16 +220,18 @@ feature {}
          arguments := a
          obsolete_mark := om
          header_comment := hc
+         assigner := aa
          create {ONCE_PROCEDURE} anonymous_feature.make(a, om, hc, ra, local_vars, routine_body)
       ensure
          names = n
          arguments = a
          obsolete_mark = om
          header_comment = hc
+         assigner = aa
       end
 
    once_function (n: like names; a: like arguments; rt: like result_type; om: like obsolete_mark
-      hc: like header_comment; ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION) is
+                  hc: like header_comment; ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION) is
       require
          n /= Void
          rt /= Void
@@ -246,7 +251,7 @@ feature {}
       end
 
    e_procedure (n: like names; a: like arguments; om: like obsolete_mark; hc: like header_comment
-      ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION) is
+                ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION; aa: like assigner) is
       require
          n /= Void
       do
@@ -254,16 +259,18 @@ feature {}
          arguments := a
          obsolete_mark := om
          header_comment := hc
+         assigner := aa
          create {E_PROCEDURE} anonymous_feature.make(a, om, hc, ra, local_vars, routine_body)
       ensure
          names = n
          arguments = a
          obsolete_mark = om
          header_comment = hc
+         assigner = aa
       end
 
    e_function (n: like names; a: like arguments; rt: like result_type; om: like obsolete_mark
-      hc: like header_comment; ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION) is
+               hc: like header_comment; ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION) is
       require
          n /= Void
          rt /= Void
@@ -283,7 +290,7 @@ feature {}
       end
 
    deferred_procedure (n: like names; a: like arguments; om: like obsolete_mark; hc: like header_comment
-      ra: like require_assertion) is
+                       ra: like require_assertion; aa: like assigner) is
       require
          n /= Void
       do
@@ -291,16 +298,18 @@ feature {}
          arguments := a
          obsolete_mark := om
          header_comment := hc
+         assigner := aa
          create {DEFERRED_PROCEDURE} anonymous_feature.make(a, om, hc, ra)
       ensure
          names = n
          arguments = a
          obsolete_mark = om
          header_comment = hc
+         assigner = aa
       end
 
    deferred_function (n: like names; a: like arguments; rt: like result_type; om: like obsolete_mark
-      hc: like header_comment; ra: like require_assertion) is
+                      hc: like header_comment; ra: like require_assertion) is
       require
          n /= Void
          rt /= Void
@@ -320,7 +329,7 @@ feature {}
       end
 
    external_procedure (n: like names; a: like arguments; om: like obsolete_mark; hc: like header_comment
-      ra: like require_assertion; native: NATIVE; alias_tag: MANIFEST_STRING) is
+                       ra: like require_assertion; native: NATIVE; alias_tag: MANIFEST_STRING; aa: like assigner) is
       require
          n /= Void
       do
@@ -328,16 +337,18 @@ feature {}
          arguments := a
          obsolete_mark := om
          header_comment := hc
+         assigner := aa
          create {EXTERNAL_PROCEDURE} anonymous_feature.make(a, om, hc, ra, native, alias_tag)
       ensure
          names = n
          arguments = a
          obsolete_mark = om
          header_comment = hc
+         assigner = aa
       end
 
    external_function (n: like names; a: like arguments; rt: like result_type; om: like obsolete_mark
-      hc: like header_comment; ra: like require_assertion; native: NATIVE; alias_tag: MANIFEST_STRING) is
+                      hc: like header_comment; ra: like require_assertion; native: NATIVE; alias_tag: MANIFEST_STRING) is
       require
          n /= Void
          rt /= Void
@@ -465,8 +476,8 @@ feature {}
 
 invariant
    names /= Void
-
    anonymous_feature /= Void
+   assigner /= Void implies result_type = Void
 
 end -- class FEATURE_TEXT
 --
