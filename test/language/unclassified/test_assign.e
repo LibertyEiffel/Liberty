@@ -9,7 +9,7 @@ create {}
 feature {}
    make is
       local
-         a: AUX_DESIGN
+         a: AUX_ASSIGN
       do
          create a
          a.item := 4

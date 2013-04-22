@@ -2183,7 +2183,7 @@ feature {}
          --  ++                       identifier procedure_call [":=" expression ]
          --  ++
       local
-         type_mark: TYPE_MARK; args: EFFECTIVE_ARG_LIST; sp: POSITION; writable: EXPRESSION; pc: PROCEDURE_CALL
+         type_mark: TYPE_MARK; args: EFFECTIVE_ARG_LIST; sp: POSITION; writable: EXPRESSION
       do
          if skip1('(') and then a_expression then
             Result := True
@@ -2297,9 +2297,11 @@ feature {}
                   end
                else
                   a_r10(True, writable, Void, Void)
+                  a_assignment_call_assigner
                end
             elseif a_argument then
                a_r10(True, last_expression, Void, Void)
+               a_assignment_call_assigner
             else
                writable := token_buffer.to_writable_attribute_name
                if skip2(':', '=') then
@@ -2328,16 +2330,6 @@ feature {}
                   end
                else
                   a_procedure_call
-                  if skip2(':', '=') then
-                     pc ::= last_instruction
-                     if a_expression then
-                        create {ASSIGNMENT_CALL_ASSIGNER} last_instruction.make(pc, last_expression)
-                     else
-                        error_handler.add_position(current_position)
-                        error_handler.append(em2)
-                        error_handler.print_as_fatal_error
-                     end
-                  end
                end
             end
          elseif a_manifest_or_type_test(Instruction_syntax_flag) then
@@ -2345,6 +2337,22 @@ feature {}
          end
       ensure
          Result implies last_instruction /= Void
+      end
+
+   a_assignment_call_assigner is
+      local
+         pc: PROCEDURE_CALL
+      do
+         if skip2(':', '=') then
+            pc ::= last_instruction
+            if a_expression then
+               create {ASSIGNMENT_CALL_ASSIGNER} last_instruction.make(pc, last_expression)
+            else
+               error_handler.add_position(current_position)
+               error_handler.append(em2)
+               error_handler.print_as_fatal_error
+            end
+         end
       end
 
    a_assertion_buffer: FAST_ARRAY[ASSERTION] is
@@ -5226,6 +5234,7 @@ feature {}
          sfn := token_buffer.to_feature_name
          create implicit_current.make(sfn.start_position)
          a_r10(True, implicit_current, sfn, a_actuals)
+         a_assignment_call_assigner
       end
 
    a_rename_list is
