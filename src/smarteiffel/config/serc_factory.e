@@ -6,9 +6,10 @@ expanded class SERC_FACTORY
 insert
    GLOBALS
    DIRECTORY_NOTATION_HANDLER
+   SYSTEM_TOOLS_CONSTANTS
 
 feature {ANY}
-   config: SE_CONFIG is
+   config (st: like system_tools): SE_CONFIG is
       local
          basic_directory: BASIC_DIRECTORY; chain: SERC_CHAIN; s: STRING; def: SERC_DEFAULTS
          file_tools: FILE_TOOLS
@@ -19,11 +20,11 @@ feature {ANY}
 
          if basic_directory.unix_notation or else basic_directory.cygwin_notation then
             if file_tools.is_readable(once "/sys/rc") then
-               system_tools.set_system_name(system_tools.elate_system)
-               def.set_os(system_tools.elate_system)
+               st.set_system_name(elate_system)
+               def.set_os(elate_system)
                add_to_chain(chain, once "/lang/eiffel/.serc")
             else
-               def.set_os(system_tools.unix_system)
+               def.set_os(unix_system)
                if file_tools.is_readable(once "/etc/issue") then
                   def.set_flavor(once "Linux")
                end
@@ -41,13 +42,13 @@ feature {ANY}
                add_to_chain(chain, s)
             end
             add_to_chain(chain, once "C:\SE.CFG")
-            def.set_os(system_tools.windows_system)
+            def.set_os(windows_system)
          elseif basic_directory.macintosh_notation then
-            def.set_os(system_tools.macintosh_system)
+            def.set_os(macintosh_system)
          elseif basic_directory.amiga_notation then
-            def.set_os(system_tools.amiga_system)
+            def.set_os(amiga_system)
          elseif basic_directory.openvms_notation then
-            def.set_os(system_tools.open_vms_system)
+            def.set_os(open_vms_system)
          end
 
          s := seconf_env

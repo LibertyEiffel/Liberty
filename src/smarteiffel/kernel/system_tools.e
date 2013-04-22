@@ -24,66 +24,15 @@ insert
    ACE_HANDLER
       undefine is_equal
       end
+   SYSTEM_TOOLS_CONSTANTS
+      undefine is_equal
+      end
 
 create {ANY}
    make
 
 create {INSTALL_GLOBALS}
    make_install
-
-feature {INSTALL_GLOBALS, SERC_FACTORY, C_SPLITTER} -- Currently handled system list:
-   unix_system: STRING is "UNIX"
-
-   windows_system: STRING is "Windows"
-
-   cygwin_system: STRING is "Cygwin"
-
-   beos_system: STRING is "BeOS"
-
-   macintosh_system: STRING is "Macintosh"
-
-   amiga_system: STRING is "Amiga"
-
-   dos_system: STRING is "DOS"
-
-   os2_system: STRING is "OS2"
-
-   open_vms_system: STRING is "OpenVMS"
-
-   elate_system: STRING is "Elate"
-
-feature {INSTALL_GLOBALS} -- Currently handled C/C++ compiler list:
-   gcc: STRING is "gcc"
-
-   gpp: STRING is "g++"
-
-   distcc: STRING is "distcc"
-
-   lcc_win32: STRING is "lcc-win32"
-
-   cc: STRING is "cc"
-
-   cc_pp: STRING is "CC"
-
-   wcl386: STRING is "wcl386"
-
-   bcc32: STRING is "bcc32"
-
-   cl: STRING is "cl"
-
-   sas_c: STRING is "sc"
-
-   dice: STRING is "dice"
-
-   vbcc: STRING is "vbcc"
-
-   ccc: STRING is "ccc"
-
-   vpcc: STRING is "vpcc"
-
-   open_vms_cc: STRING is "OpenVMS_CC"
-
-   tcc: STRING is "tcc"
 
 feature {INSTALL_GLOBALS, C_MODE, SERC_FACTORY}
    system_list: FAST_ARRAY[STRING] is
@@ -299,7 +248,7 @@ feature {}
          rcf: SERC_FACTORY
          s: STRING
       once
-         config := rcf.config
+         config := rcf.config(Current)
          if config /= Void then
             if not is_install then
                bin_directory := config.bin
