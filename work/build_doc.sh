@@ -6,13 +6,14 @@ if [ x$1 = x-plain ]; then
 fi
 
 root=$(cd $(dirname $(readlink -f $0))/..; pwd)
-doc_root=$root/website/doc
-export LOG=$doc_root/build_doc$(date +'-%Y%m%d-%H%M%S').log
+DOC_ROOT=${DOC_ROOT:-$root/website/doc}
+export DOC_ROOT
+export LOG=$DOC_ROOT/build_doc$(date +'-%Y%m%d-%H%M%S').log
 
 . $root/work/tools.sh
 
 title Cleanup
-rm -rf $doc_root/build_doc-*.log $doc_root/api
+rm -rf $DOC_ROOT/build_doc-*.log $DOC_ROOT/api
 
 title Building
 eval $(
@@ -42,7 +43,7 @@ typeset | grep ^sedoc_url_ | awk -F= '{print $1}' | awk -F_ '{print $3}' | while
     index=$((index + 1))
 done | while read i section args; do
     progress 30 $i $n $section
-    s=$doc_root/api/$section
+    s=$DOC_ROOT/api/$section
     test -d $s || mkdir -p $s
     cd $s
     run se doc -verbose -title "Section:\\\\ $section" \
