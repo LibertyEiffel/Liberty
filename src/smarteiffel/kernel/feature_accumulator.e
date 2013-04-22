@@ -333,8 +333,10 @@ feature {TYPE}
                error_handler.append(context_type.name.to_string)
                error_handler.append(once ".")
                error_handler.print_as_fatal_error
-            end
-            if arg_assigned.count + 1 /= arg_assigner.count then
+            elseif (arg_assigner = Void)
+               or else (arg_assigned = Void and then arg_assigner.count /= 1)
+               or else (arg_assigned /= Void and then arg_assigned.count + 1 /= arg_assigner.count)
+            then
                error_handler.add_position(assigned.start_position)
                error_handler.append(once "The feature ")
                error_handler.append(fs_assigner.name.to_string)
