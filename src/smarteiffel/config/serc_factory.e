@@ -16,6 +16,7 @@ feature {ANY}
       once
          create chain.make
          create def.make
+         chain.add(def)
          basic_directory.ensure_system_notation
 
          if basic_directory.unix_notation or else basic_directory.cygwin_notation then
@@ -56,7 +57,6 @@ feature {ANY}
             add_to_chain(chain, s)
          end
 
-         chain.add(def)
          Result := chain
       end
 
