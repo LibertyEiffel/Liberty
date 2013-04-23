@@ -29,9 +29,7 @@ feature {ANY}
 
    simplify (type: TYPE): INSTRUCTION is
       do
-         if specialized_actual_calls /= Void then
-            Result := specialized_actual_calls.fast_reference_at(type).simplify(type)
-         end
+         check False end
       end
 
    use_current (type: TYPE): BOOLEAN is
@@ -70,25 +68,68 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_2 (type: TYPE): INSTRUCTION is
       local
          l: PROCEDURE_CALL; r: EXPRESSION
+         target_type: TYPE; fn: FEATURE_NAME
+         fs_assigned: FEATURE_STAMP; af_assigned, af_assigner: ANONYMOUS_FEATURE
+         pc_arguments, arguments: EFFECTIVE_ARG_LIST
+         args: FAST_ARRAY[EXPRESSION]; i: INTEGER
+         collected_actual_call: PROCEDURE_CALL
       do
          l ::= left_side.specialize_2(type)
          r := right_side.specialize_2(type)
-         if r = right_side and then l = left_side then
-            Result := Current
-         else
-            create Result.make(l, r)
+         target_type := l.target.resolve_in(type)
+         fs_assigned := l.feature_stamp
+         check
+            fs_assigned.has_anonymous_feature_for(target_type)
          end
+         af_assigned := fs_assigned.anonymous_feature(target_type)
+         af_assigner := af_assigned.assigner
+         if af_assigner = Void then
+            not_yet_implemented --| **** should never happen?
+         end
+         fn := af_assigner.names.first
+
+         echo.put_string(once "Replacing assign to {")
+         echo.put_string(target_type.canonical_type_mark.written_mark)
+         echo.put_string(once "}.")
+         echo.put_string(l.feature_name.to_string)
+         echo.put_string(once " by a call to {")
+         echo.put_string(target_type.canonical_type_mark.written_mark)
+         echo.put_string(once "}.")
+         echo.put_line(fn.to_string)
+
+         pc_arguments := l.arguments
+         if pc_arguments = Void then
+            create arguments.make_1(r)
+            create {PROCEDURE_CALL_1} collected_actual_call.make(l.target, fn, arguments)
+         else
+            create args.with_capacity(pc_arguments.count)
+            from
+               i := 1
+            until
+               i > pc_arguments.count
+            loop
+               args.add_last(pc_arguments.expression(i))
+               i := i + 1
+            end
+            create arguments.make_n(r, args)
+            create {PROCEDURE_CALL_N} collected_actual_call.make(l.target, fn, arguments)
+         end
+
+         Result := collected_actual_call.specialize_2(type)
+         smart_eiffel.magic_count_increment
       end
 
    has_been_specialized: BOOLEAN is
       do
+         Result := left_side.has_been_specialized and then right_side.has_been_specialized
       end
 
    safety_check (type: TYPE) is
       do
+         check False end
       end
 
    pretty (indent_level: INTEGER) is
@@ -102,55 +143,11 @@ feature {ANY}
       end
 
    collect (t: TYPE): TYPE is
-      local
-         fs_assigned: FEATURE_STAMP; af_assigned, af_assigner: ANONYMOUS_FEATURE
-         lt, rt: TYPE; fn: FEATURE_NAME
-         pc_arguments, arguments: EFFECTIVE_ARG_LIST
-         args: FAST_ARRAY[EXPRESSION]; i: INTEGER
-         collected_actual_call: PROCEDURE_CALL; specialized_actual_call: INSTRUCTION
       do
-         if specialized_actual_calls = Void then
-            create specialized_actual_calls.make
-         end
-         specialized_actual_call := specialized_actual_calls.fast_reference_at(t)
-         if specialized_actual_call = Void then
-            lt := left_side.target.resolve_in(t)
-            rt := right_side.collect(t)
-            fs_assigned := left_side.feature_stamp
-            check
-               fs_assigned.has_anonymous_feature_for(lt)
-            end
-            af_assigned := fs_assigned.anonymous_feature(lt)
-            af_assigner := af_assigned.assigner
-            if af_assigner = Void then
-               not_yet_implemented --| **** should never happen?
-            end
-            fn := af_assigner.names.first
-
-            pc_arguments := left_side.arguments
-            if pc_arguments = Void then
-               create arguments.make_1(right_side)
-               create {PROCEDURE_CALL_1} collected_actual_call.make(left_side.target, fn, arguments)
-            else
-               create args.with_capacity(pc_arguments.count)
-               from
-                  i := 1
-               until
-                  i > pc_arguments.count
-               loop
-                  args.add_last(pc_arguments.expression(i))
-                  i := i + 1
-               end
-               create arguments.make_n(right_side, args)
-               create {PROCEDURE_CALL_N} collected_actual_call.make(left_side.target, fn, arguments)
-            end
-            specialized_actual_call := collected_actual_call.specialize_2(t)
-            specialized_actual_calls.add(specialized_actual_call, t)
-         end
-         Result := specialized_actual_call.collect(t)
+         check False end
       end
 
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): INSTRUCTION is
       do
          check False end
       end
@@ -169,8 +166,6 @@ feature {}
          left_side = ls
          right_side = rs
       end
-
-   specialized_actual_calls: HASHED_DICTIONARY[INSTRUCTION, TYPE]
 
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
