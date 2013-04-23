@@ -16,7 +16,7 @@ inherit
    MAP[V_, K_]
 
 feature {ANY} -- Adding:
-   put (v: V_; k: K_) is
+   put (v: V_; k: K_) assign at is
          -- Change some existing entry or `add' the new one. If there is as yet no key `k' in the dictionary,
          -- enter it with item `v'. Otherwise overwrite the item associated with key `k'.
          -- As the `put' procedure actually uses `is_equal', you may consider to use `fast_put' for expanded
@@ -30,7 +30,7 @@ feature {ANY} -- Adding:
          v = at(k)
       end
 
-   fast_put (v: V_; k: K_) is
+   fast_put (v: V_; k: K_) assign fast_at is
          -- Same job as `put', but uses basic `=' for comparison.
          -- If you are sure that `k' is not an existing entry, please consider using `add'
          -- to get very best performances.

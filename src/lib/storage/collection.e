@@ -45,7 +45,7 @@ feature {ANY} -- Accessing:
       end
 
 feature {ANY} -- Writing:
-   put (element: like item; i: INTEGER) is
+   put (element: like item; i: INTEGER) assign item is
          -- Make `element' the item at index `i'.
          --
          -- See also `lower', `upper', `valid_index', `item', `swap', `force'.
@@ -192,7 +192,7 @@ feature {ANY} -- Adding:
             add_last(other.item(i))
             i := i + 1
          end
-		 -- Note: AFAIK it could also be implemented with other.do_all(agent add_last). Paolo 2011-08-12
+                 -- Note: AFAIK it could also be implemented with other.do_all(agent add_last). Paolo 2011-08-12
       ensure
          count = other.count + old count
       end

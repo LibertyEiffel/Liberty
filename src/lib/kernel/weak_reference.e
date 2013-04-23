@@ -24,7 +24,7 @@ feature {ANY}
    item: G_
          -- Return a (strong) reference to the object
 
-   set_item (i: like item) is
+   set_item (i: like item) assign item is
          -- Set the object to be weak referenced
       do
          item := i
