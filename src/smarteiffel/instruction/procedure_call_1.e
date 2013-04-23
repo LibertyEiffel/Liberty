@@ -210,7 +210,7 @@ feature {}
       require
          t /= Void
          fn /= Void
-         a /= Void
+         a.count = 1
          not fn.start_position.is_unknown
       do
          target := t

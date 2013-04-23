@@ -306,12 +306,12 @@ feature {}
       do
          echo.put_string("Total time spent in parser: ")
          ts := total_time
-         h := ts // (24 * 60 * 60 * 1000000)
-         ts := ts - h * (24 * 60 * 60 * 1000000)
-         m := ts // (60 * 60 * 1000000)
-         ts := ts - m * (60 * 60 * 1000000)
-         s := ts // (60 * 1000000)
-         ts := ts - s * (60 * 1000000)
+         h := ts // (60 * 60 * 1000000)
+         ts := ts - h * (60 * 60 * 1000000)
+         m := ts // (60 * 1000000)
+         ts := ts - m * (60 * 1000000)
+         s := ts // (1000000)
+         ts := ts - s * (1000000)
          u := ts
          echo_num(h, 2)
          echo.put_character(':')
@@ -2346,6 +2346,7 @@ feature {}
          if skip2(':', '=') then
             pc ::= last_instruction
             if a_expression then
+               pc.set_assigned_to
                create {ASSIGNMENT_CALL_ASSIGNER} last_instruction.make(pc, last_expression)
             else
                error_handler.add_position(current_position)

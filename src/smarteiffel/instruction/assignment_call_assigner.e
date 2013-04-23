@@ -28,24 +28,10 @@ feature {ANY}
       end
 
    simplify (type: TYPE): INSTRUCTION is
-      local
-         fs_assigned: FEATURE_STAMP; af_assigned, af_assigner: ANONYMOUS_FEATURE
-         r: EXPRESSION
-         lt, rt: TYPE
       do
-         lt := left_side.target.resolve_in(type)
-         r := right_side.simplify(type)
-         rt := r.resolve_in(type)
-         fs_assigned := left_side.feature_stamp
-         check
-            fs_assigned.has_anonymous_feature_for(lt)
+         if specialized_actual_calls /= Void then
+            Result := specialized_actual_calls.fast_reference_at(type).simplify(type)
          end
-         af_assigned := fs_assigned.anonymous_feature(lt)
-         af_assigner := af_assigned.assigner
-         if af_assigner = Void then
-            not_yet_implemented --| **** should never happen?
-         end
-         not_yet_implemented
       end
 
    use_current (type: TYPE): BOOLEAN is
@@ -116,13 +102,57 @@ feature {ANY}
       end
 
    collect (t: TYPE): TYPE is
+      local
+         fs_assigned: FEATURE_STAMP; af_assigned, af_assigner: ANONYMOUS_FEATURE
+         lt, rt: TYPE; fn: FEATURE_NAME
+         pc_arguments, arguments: EFFECTIVE_ARG_LIST
+         args: FAST_ARRAY[EXPRESSION]; i: INTEGER
+         collected_actual_call: PROCEDURE_CALL; specialized_actual_call: INSTRUCTION
       do
-         not_yet_implemented
+         if specialized_actual_calls = Void then
+            create specialized_actual_calls.make
+         end
+         specialized_actual_call := specialized_actual_calls.fast_reference_at(t)
+         if specialized_actual_call = Void then
+            lt := left_side.target.resolve_in(t)
+            rt := right_side.collect(t)
+            fs_assigned := left_side.feature_stamp
+            check
+               fs_assigned.has_anonymous_feature_for(lt)
+            end
+            af_assigned := fs_assigned.anonymous_feature(lt)
+            af_assigner := af_assigned.assigner
+            if af_assigner = Void then
+               not_yet_implemented --| **** should never happen?
+            end
+            fn := af_assigner.names.first
+
+            pc_arguments := left_side.arguments
+            if pc_arguments = Void then
+               create arguments.make_1(right_side)
+               create {PROCEDURE_CALL_1} collected_actual_call.make(left_side.target, fn, arguments)
+            else
+               create args.with_capacity(pc_arguments.count)
+               from
+                  i := 1
+               until
+                  i > pc_arguments.count
+               loop
+                  args.add_last(pc_arguments.expression(i))
+                  i := i + 1
+               end
+               create arguments.make_n(right_side, args)
+               create {PROCEDURE_CALL_N} collected_actual_call.make(left_side.target, fn, arguments)
+            end
+            specialized_actual_call := collected_actual_call.specialize_2(t)
+            specialized_actual_calls.add(specialized_actual_call, t)
+         end
+         Result := specialized_actual_call.collect(t)
       end
 
    adapt_for (t: TYPE): like Current is
       do
-         not_yet_implemented
+         check False end
       end
 
 feature {}
@@ -139,6 +169,8 @@ feature {}
          left_side = ls
          right_side = rs
       end
+
+   specialized_actual_calls: HASHED_DICTIONARY[INSTRUCTION, TYPE]
 
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
