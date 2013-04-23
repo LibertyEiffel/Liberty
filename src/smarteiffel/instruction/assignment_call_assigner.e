@@ -16,7 +16,7 @@ create {ANY}
    make
 
 feature {ANY}
-   left_side: PROCEDURE_CALL
+   left_side: FUNCTION_CALL
 
    right_side: EXPRESSION
 
@@ -44,7 +44,7 @@ feature {ANY}
 
    specialize_in (type: TYPE): like Current is
       local
-         l: PROCEDURE_CALL; r: EXPRESSION
+         l: FUNCTION_CALL; r: EXPRESSION
       do
          l := left_side.specialize_in(type)
          r := right_side.specialize_in(type)
@@ -57,7 +57,7 @@ feature {ANY}
 
    specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
       local
-         l: PROCEDURE_CALL; r: EXPRESSION
+         l: FUNCTION_CALL; r: EXPRESSION
       do
          l := left_side.specialize_thru(parent_type, parent_edge, new_type)
          r := right_side.specialize_thru(parent_type, parent_edge, new_type)
@@ -70,7 +70,7 @@ feature {ANY}
 
    specialize_2 (type: TYPE): INSTRUCTION is
       local
-         l: PROCEDURE_CALL; r: EXPRESSION
+         l: FUNCTION_CALL; r: EXPRESSION
          target_type: TYPE; fn: FEATURE_NAME
          fs_assigned: FEATURE_STAMP; af_assigned, af_assigner: ANONYMOUS_FEATURE
          pc_arguments, arguments: EFFECTIVE_ARG_LIST
@@ -124,7 +124,7 @@ feature {ANY}
 
    has_been_specialized: BOOLEAN is
       do
-         Result := left_side.has_been_specialized and then right_side.has_been_specialized
+         check not Result end
       end
 
    safety_check (type: TYPE) is

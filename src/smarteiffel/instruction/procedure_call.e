@@ -303,16 +303,6 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          end
       end
 
-feature {EIFFEL_PARSER}
-   is_assigned_to: BOOLEAN
-
-   set_assigned_to is
-      do
-         is_assigned_to := True
-      ensure
-         is_assigned_to
-      end
-
 feature {}
    frozen afd_check_hook is
       do
@@ -323,7 +313,7 @@ feature {}
       require
          af /= Void
       do
-         if af.result_type /= Void and then not is_assigned_to then
+         if af.result_type /= Void then
             error_handler.add_position(af.start_position)
             error_handler.add_position(feature_name.start_position)
             error_handler.append(once "Feature found is not a procedure.")

@@ -1,4 +1,4 @@
-class AUX_ASSIGN
+class AUX_ASSIGN01
 
 feature {ANY}
    item: INTEGER

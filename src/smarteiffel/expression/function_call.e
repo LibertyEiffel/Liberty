@@ -286,6 +286,16 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          end
       end
 
+feature {EIFFEL_PARSER}
+   is_assigned_to: BOOLEAN
+
+   set_assigned_to is
+      do
+         is_assigned_to := True
+      ensure
+         is_assigned_to
+      end
+
 feature {}
    declaration_type_memory: TYPE
 

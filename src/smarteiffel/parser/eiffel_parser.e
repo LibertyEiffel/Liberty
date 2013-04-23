@@ -2180,7 +2180,7 @@ feature {}
          --  ++                       writable ":=" expression |
          --  ++                       writable "?=" expression |
          --  ++                       writable "::=" expression |
-         --  ++                       identifier procedure_call [":=" expression ]
+         --  ++                       identifier procedure_call
          --  ++
       local
          type_mark: TYPE_MARK; args: EFFECTIVE_ARG_LIST; sp: POSITION; writable: EXPRESSION
@@ -2297,11 +2297,9 @@ feature {}
                   end
                else
                   a_r10(True, writable, Void, Void)
-                  a_assignment_call_assigner
                end
             elseif a_argument then
                a_r10(True, last_expression, Void, Void)
-               a_assignment_call_assigner
             else
                writable := token_buffer.to_writable_attribute_name
                if skip2(':', '=') then
@@ -2339,15 +2337,39 @@ feature {}
          Result implies last_instruction /= Void
       end
 
-   a_assignment_call_assigner is
+   a_assignment_call_assigner (is_expression: BOOLEAN): BOOLEAN is
       local
-         pc: PROCEDURE_CALL
+         pc: PROCEDURE_CALL; fc: FUNCTION_CALL
       do
+         if is_expression then
+            if fc ?:= last_expression then
+               fc ::= last_expression
+            end
+         else
+            if pc ?:= last_instruction then
+               pc ::= last_instruction
+               if pc.arguments = Void then
+                  create {FUNCTION_CALL_0} fc.make(pc.target, pc.feature_name)
+               elseif pc.arguments.count = 1 then
+                  create {FUNCTION_CALL_1} fc.make(pc.target, pc.feature_name, pc.arguments)
+               else
+                  create {FUNCTION_CALL_N} fc.make(pc.target, pc.feature_name, pc.arguments)
+               end
+            end
+         end
          if skip2(':', '=') then
-            pc ::= last_instruction
-            if a_expression then
-               pc.set_assigned_to
-               create {ASSIGNMENT_CALL_ASSIGNER} last_instruction.make(pc, last_expression)
+            if fc = Void then
+               if is_expression then
+                  error_handler.add_position(last_expression.start_position)
+               else
+                  error_handler.add_position(last_instruction.start_position)
+               end
+               error_handler.append(once "Left hand side expression of := assignment must be a feature call.")
+               error_handler.print_as_fatal_error
+            elseif a_expression then
+               fc.set_assigned_to
+               create {ASSIGNMENT_CALL_ASSIGNER} last_instruction.make(fc, last_expression)
+               Result := True
             else
                error_handler.add_position(current_position)
                error_handler.append(em2)
@@ -4771,8 +4793,12 @@ feature {}
          --  ++ instruction -> check | debug | conditionnal | retry |
          --  ++                inspect | loop | old_creation |
          --  ++                c_inline_c | c_inline_h |
-         --  ++                create_instruction | assignment_or_procedure_call
+         --  ++                create_instruction |
+         --  ++                assignment_or_procedure_call [":=" expression ]
+         --  ++                expresison [":=" expression ]
          --  ++
+      local
+         dummy: BOOLEAN
       do
          last_instruction := get_comment
          if last_instruction /= Void then
@@ -4797,6 +4823,7 @@ feature {}
          elseif a_c_inline_h then
             Result := True
          elseif a_assignment_or_procedure_call then
+            dummy := a_assignment_call_assigner(False)
             Result := True
          elseif a_retry then
             Result := True
@@ -4855,6 +4882,8 @@ feature {}
             end
             next_char
             just_after_a_dot(True, last_expression)
+         elseif a_expression then
+            Result := a_assignment_call_assigner(True)
          else
             check
                not Result
@@ -5235,7 +5264,6 @@ feature {}
          sfn := token_buffer.to_feature_name
          create implicit_current.make(sfn.start_position)
          a_r10(True, implicit_current, sfn, a_actuals)
-         a_assignment_call_assigner
       end
 
    a_rename_list is
