@@ -346,6 +346,42 @@ feature {} -- General HTML files
          html.close_div
       end
 
+   display_name (cluster: STRING): STRING is
+      require
+         cluster /= Void
+      local
+         i, j: INTEGER
+      do
+         Result := once ""
+         Result.clear_count
+         from
+            i := cluster.first_index_of(':')
+            if cluster.valid_index(i) then
+               i := i + 1
+            else
+               i := cluster.lower
+            end
+         until
+            i > cluster.upper
+         loop
+            from
+               j := cluster.substring_index(once "loadpath.se:", i)
+               if not cluster.valid_index(j) then
+                  j := cluster.upper + 1
+               end
+            invariant
+               i <= cluster.upper
+               i <= j
+            until
+               i = j
+            loop
+               Result.extend(cluster.item(i))
+               i := i + 1
+            end
+            i := i + 12 -- "loadpath.se".count
+         end
+      end
+
    write_clusters is
       local
          i: INTEGER
@@ -370,7 +406,7 @@ feature {} -- General HTML files
                cluster := clusters.item(i)
                html_parser := cluster_html.reference_at(cluster)
 
-               open_block(html, css_cluster, cluster, cluster)
+               open_block(html, css_cluster, display_name(cluster), cluster)
                open_expand_block(html, css_cluster, cluster, False)
 
                if html_parser /= Void then
