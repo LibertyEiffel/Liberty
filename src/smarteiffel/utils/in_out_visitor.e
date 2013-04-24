@@ -2420,6 +2420,26 @@ feature {}
       do
       end
 
+feature {ASSIGNMENT_CALL_ASSIGNER}
+   visit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER) is
+      do
+         if enter_assignment_call_assigner(visited) then
+            visited.left_side.accept(Current)
+            visited.right_side.accept(Current)
+            exit_assignment_call_assigner(visited)
+         end
+      end
+
+feature {}
+   enter_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER): BOOLEAN is
+      do
+         Result := True
+      end
+
+   exit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER) is
+      do
+      end
+
 feature {ASSIGNMENT_ATTEMPT}
    visit_assignment_attempt (visited: ASSIGNMENT_ATTEMPT) is
       do
