@@ -1,6 +1,12 @@
 class TYPEDEFS
-	-- A dictionary of C_TYPEDEFs accessible by their name, that will be wrapped together as dummy queries into a deferred class 
+	-- A dictionary of C_TYPEDEFs accessible by their names
 	
+	-- The contained typedefs will be wrapped together as dummy queries into a deferred class 
+	
+	-- When the wrappers generator command is invoked with the proper flag
+	-- ("--standard-typedefs" ) it will also emit the queries for C types that
+	-- have different sizes on different architectures and for the type
+	-- definition of C99 standard.
 
 	-- Each query is named like a C typedef and its Result type is the
 	-- Eiffel equivalent of the fundamental type the typedef refers to.
@@ -14,6 +20,7 @@ class TYPEDEFS
 
 	-- Those queries shall never be invoked but rather used in other
 	-- features as anchors like: do_stuff (a_size: like gsize)
+
 
 inherit LINKED_LIST[C_TYPEDEF] 
 
@@ -36,6 +43,10 @@ feature {ANY}
 			file.put_string(settings.typedefs) 
 			file.put_new_line
 			file.put_string(inherits_string)
+			if settings.are_standard_typedefs_emitted then
+				file.put_string(typedefs_features_header)
+				emit_standard_typedefs
+			end
 			file.put_string(typedefs_features_header)
 			do_all(agent {C_TYPEDEF}.wrap_on(file))
 			file.put_string(footer)

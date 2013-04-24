@@ -44,18 +44,6 @@ feature -- Syntactic sugar
 			Result := settings.global
 		end
 
-	-- TODO: reimplement on_standard_output: BOOLEAN is
-	-- 	-- Shall the wrappers be outputted on standard output?
-	-- do
-	-- 	Result := directory=Void
-	-- end
-
-
-	-- TODO: reimplement directory: STRING is
-	-- 	do
-	-- 		Result := settings.directory
-	-- 	end
-
 feature {} -- Type mangling
 	dequalify (an_id: UNICODE_STRING): UNICODE_STRING is
 		-- `an_id' without the type qualifier used by GccXml to mark the

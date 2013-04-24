@@ -98,6 +98,7 @@ feature {ANY}
 					arg := argument(i)
 					if arg.is_equal(once "--local") then settings.set_global(False)
 					elseif arg.is_equal(once "--global") then settings.set_global(True)
+					elseif arg.is_equal(once "--standard-typedefs") then settings.set_standard_typedefs(True)
 					elseif arg.is_equal(once "--apply-patches") then not_yet_implemented
 					elseif arg.is_equal(once "--descriptions") then
 						i := i + 1
@@ -261,6 +262,12 @@ feature {ANY}
 			%		`CLASS.feature description' Trailing and leading spaces are trimmed; line%N%
 			%		starting with `--' are ignored. If this option is not given the program%N%
 			%		will look into file %"descriptions%".%N%
+			%%N%
+			%	--standard-typedefs%N%
+			%		Emit dummy queries useful for anchored declarations (i.e. %"like long%")%N%
+			%		for C types that can have diffent sizes on different architectures and for%N%
+			%		the typedefs defined in the C99 standard.%N%
+			%		%N%
 			%%N%
 			%	--avoided a_file_name%N%
 			%		Do not wrap the symbols found in `a_file_name'. If this option is not %N%

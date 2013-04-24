@@ -19,6 +19,9 @@ feature {ANY} -- Queries
 	-- named like typedefs, useful for anchored declarations (i.e.
 	-- "gsize: INTEGER_32 is do end")
 
+	are_standard_typedefs_emitted: BOOLEAN 
+		-- Are the C99 standard typedefs and those of types with non-constant size emitted?
+
 	last_error: STRING
 
 feature {ANY} -- Setters
@@ -26,7 +29,6 @@ feature {ANY} -- Setters
 		do
 			verbose := a_value
 		end
-		
 
 	set_global (a_value: BOOLEAN) is
 		do
@@ -39,6 +41,8 @@ feature {ANY} -- Setters
 -- 		end
 	
 	set_typedefs (a_typedefs: STRING) is do typedefs:=a_typedefs end
+
+	set_standard_typedefs (a_value: BOOLEAN) is do are_standard_typedefs_emitted := a_value end
 
 	set_error (an_error: STRING) is
 		do

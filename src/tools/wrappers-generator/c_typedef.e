@@ -13,10 +13,10 @@ creation make
 feature 
 	store is
 		do
-			if not standard_typedefs.has(c_string_name) then
-				-- Current typedef is not a standard one and requires a query for anchored declarations.
-				typedefs.add_first(Current)
-			end
+			-- if not standard_typedefs.has(c_string_name) then
+			-- Current typedef is not a standard one and requires a query for anchored declarations.
+			typedefs.add_first(Current)
+			-- end
 			types.fast_put(Current,id)
 			check is_named end
 			symbols.put(Current,c_string_name)
