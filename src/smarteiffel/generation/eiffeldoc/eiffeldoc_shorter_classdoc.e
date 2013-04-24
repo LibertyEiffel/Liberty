@@ -619,7 +619,7 @@ feature {}
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       local
          ref: STRING; i: INTEGER
-         name: STRING
+         name, assign_anchor: STRING
       do
          name := once ""
          name.clear_count
@@ -659,6 +659,19 @@ feature {}
             html.put_string(once ": ")
             put_type_mark(af.result_type)
          end
+         if af.feature_text.assigned /= Void then
+            html.put_string(once " assign ")
+            assign_anchor := once ""
+            assign_anchor.copy(once "#")
+            af.feature_text.assigned.complete_name_in(assign_anchor)
+            html.with_attribute(once "class", once "feature_link")
+            html.with_attribute(once "href", filtered_attribute(assign_anchor))
+            html.open_anchor
+            assign_anchor.clear_count
+            af.feature_text.assigned.complete_name_in(assign_anchor)
+            html.put_string(assign_anchor)
+            html.close_anchor
+         end
          if af.header_comment /= Void then
             html.put_break
             set_suffixed_attribute(once "class", css_overview, css_comment_suffix, html)
@@ -674,7 +687,7 @@ feature {}
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       local
          i: INTEGER
-         feature_name, id: STRING
+         feature_name, id, assign_anchor: STRING
          require_not_empty, ensure_not_empty, need_blank: BOOLEAN
       do
          check
@@ -717,6 +730,19 @@ feature {}
          if af.result_type /= Void then
             html.put_string(once ": ")
             put_type_mark(af.result_type)
+         end
+         if af.feature_text.assigned /= Void then
+            html.put_string(once " assign ")
+            assign_anchor := once ""
+            assign_anchor.copy(once "#")
+            af.feature_text.assigned.complete_name_in(assign_anchor)
+            html.with_attribute(once "class", once "feature_link")
+            html.with_attribute(once "href", filtered_attribute(assign_anchor))
+            html.open_anchor
+            assign_anchor.clear_count
+            af.feature_text.assigned.complete_name_in(assign_anchor)
+            html.put_string(assign_anchor)
+            html.close_anchor
          end
 
          if fn.is_frozen then
