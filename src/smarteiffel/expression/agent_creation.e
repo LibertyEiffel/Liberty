@@ -91,7 +91,7 @@ feature {ANY}
    specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
       local
          i: INTEGER; o1, o2: OPEN_OPERAND; l: like open_operand_list
-         function_call: FUNCTION_CALL
+         c: like code
       do
          Result := Current
          if open_operand_list /= Void then
@@ -121,16 +121,14 @@ feature {ANY}
             end
          end
 
-         -- At this step, syntactically, the following forced assignment is correct:
-         function_call ::= code
-         function_call := function_call.specialize_thru(parent_type, parent_edge, new_type)
-         if function_call = code then
+         c := code.specialize_thru(parent_type, parent_edge, new_type)
+         if c = code then
             -- No need to notify OPEN_OPERAND objects.
          else
             if Result = Current then
                Result := twin
             end
-            Result.set_code(function_call)
+            Result.set_code(c)
          end
       end
 
