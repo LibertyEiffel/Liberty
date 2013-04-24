@@ -4,7 +4,7 @@
 deferred class HOARD[E_]
    --
    -- A hoard of objects is a collation of many objects sharing the same type. This meta type defines some
-   -- traversal features using agents, as long as very simple hoard properties: `count' and `is_empty'.
+   -- traversal features using agents, as well as very simple hoard properties: `count' and `is_empty'.
    --
 
 feature {ANY} -- Counting:
