@@ -64,15 +64,15 @@ feature {ANY}
          Result := current_or_twin_init(t, ft)
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          t: like target; ft: like fake_tuple
       do
-         t := target.specialize_2(type)
-         ft := fake_tuple.specialize_2(type)
+         t := target.specialize_and_check(type)
+         ft := fake_tuple.specialize_and_check(type)
          ft := ft.implicit_cast(type, t.resolve_in(type).open_arguments)
          Result := current_or_twin_init(t, ft)
-         Result.specialize_2_check(type)
+         Result.specialize_check(type)
       end
 
    resolve_in (type: TYPE): TYPE is
@@ -199,8 +199,8 @@ feature {}
          agent_type := at
          written_link := wl
          target := t
-         fake_tuple := args.to_fake_tuple.specialize_2(type)
-         specialize_2_check(type)
+         fake_tuple := args.to_fake_tuple.specialize_and_check(type)
+         specialize_check(type)
          fake_tuple := fake_tuple.implicit_cast(type, at.open_arguments)
       ensure
          agent_type = at

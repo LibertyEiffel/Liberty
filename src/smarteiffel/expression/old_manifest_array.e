@@ -115,7 +115,7 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): MANIFEST_GENERIC is
+   specialize_and_check (type: TYPE): MANIFEST_GENERIC is
          -- Transformation into the canonical form.
       local
          i: INTEGER; exp1, exp2: EXPRESSION; l: like list
@@ -123,14 +123,14 @@ feature {ANY}
          optional_list: FAST_ARRAY[EXPRESSION]; unknown_position: POSITION
          void_expression: E_VOID; void_type: TYPE
       do
-         -- First applying `specialize_2' for all items of the `list':
+         -- First applying `specialize_and_check' for all items of the `list':
          from
             i := list.lower
          until
             exp1 /= exp2 or else i > list.upper
          loop
             exp1 := list.item(i)
-            exp2 := exp1.specialize_2(type)
+            exp2 := exp1.specialize_and_check(type)
             i := i + 1
          end
          if exp1 = exp2 then
@@ -142,7 +142,7 @@ feature {ANY}
             until
                i > l.upper
             loop
-               l.put(list.item(i).specialize_2(type), i)
+               l.put(list.item(i).specialize_and_check(type), i)
                i := i + 1
             end
          end
@@ -207,7 +207,7 @@ feature {ANY}
          create optional_list.with_capacity(1)
          optional_list.add_last(create {INTEGER_CONSTANT}.make(1, start_position))
          create Result.make(start_position, array_type_mark, optional_list, l, 0, unknown_position)
-         Result.specialize_2_from_old_manifest_array(type)
+         Result.specialize_and_check_from_old_manifest_array(type)
       end
 
    use_current (type: TYPE): BOOLEAN is

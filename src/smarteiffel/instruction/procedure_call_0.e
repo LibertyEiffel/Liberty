@@ -91,7 +91,7 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
          ----------- Duplicate code call_0/proc_call_0  -----------
          --|*** Except for the `procedure_and_argument_count_check' call (Dom. march 28th 2004) ***
       local
@@ -99,7 +99,7 @@ feature {ANY}
       do
          if target.is_current then
             check
-               target = target.specialize_2(type)
+               target = target.specialize_and_check(type)
                feature_stamp.has_anonymous_feature_for(type)
             end
             target_type := type
@@ -107,7 +107,7 @@ feature {ANY}
             procedure_and_argument_count_check(af, Void)
             Result := Current
          else
-            t := target.specialize_2(type)
+            t := target.specialize_and_check(type)
             target_type := t.resolve_in(type)
             target_declaration_type := t.declaration_type
             fs := target_declaration_type.search(feature_name) -- *** OBSOLETE *** Dom march 15th 2006 ***

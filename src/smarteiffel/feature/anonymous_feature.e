@@ -565,7 +565,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
       end
 
 feature {FEATURE_STAMP, PRECURSOR_CALL}
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       require
          has_been_specialized
          not smart_eiffel.status.is_specializing

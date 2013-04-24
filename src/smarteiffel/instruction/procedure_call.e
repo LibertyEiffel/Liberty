@@ -70,7 +70,7 @@ feature {CREATE_SUPPORT}
          proc_type: TYPE; fs: FEATURE_STAMP
       do
          check
-            -- Already checked during `specialize_2':
+            -- Already checked during `specialize_and_check':
             target_type.valid_feature_name(feature_name)
          end
          fs := target_type.lookup(feature_name)

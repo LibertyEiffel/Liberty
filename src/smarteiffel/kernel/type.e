@@ -430,7 +430,7 @@ feature {FEATURE_ACCUMULATOR}
          end
       end
 
-   specialize_2 is
+   specialize_and_check is
       local
          i: INTEGER
       do
@@ -439,11 +439,11 @@ feature {FEATURE_ACCUMULATOR}
          until
             i > feature_stamps.count
          loop
-            feature_stamps.item(i).specialize_2(Current)
+            feature_stamps.item(i).specialize_and_check(Current)
             i := i + 1
          end
          if class_invariant /= Void and then class_text.invariant_check then
-            class_invariant := class_invariant.specialize_2(Current)
+            class_invariant := class_invariant.specialize_and_check(Current)
          end
          class_text.creation_list_check(Current)
          class_text.check_level_2(Current)

@@ -143,30 +143,30 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          it: like initialize; li: like loop_invariant; lv: like loop_variant; ue: like until_expression
          lb: like loop_body
       do
          if initialize /= Void then
-            it := initialize.specialize_2(type)
+            it := initialize.specialize_and_check(type)
          end
          if loop_invariant /= Void then
-            li := loop_invariant.specialize_2(type)
+            li := loop_invariant.specialize_and_check(type)
          end
          if loop_variant /= Void then
-            lv := loop_variant.specialize_2(type)
+            lv := loop_variant.specialize_and_check(type)
          end
-         ue := until_expression.specialize_2(type)
+         ue := until_expression.specialize_and_check(type)
          if loop_body /= Void then
-            lb := loop_body.specialize_2(type)
+            lb := loop_body.specialize_and_check(type)
          end
          if it /= initialize or else li /= loop_invariant or else lv /= loop_variant or else ue /= until_expression or else lb /= loop_body then
             create Result.make(start_position, it, li, lv, ue, lb)
          else
             Result := Current
          end
-         Result.specialize_2_check(type)
+         Result.specialize_check(type)
       end
 
    has_been_specialized: BOOLEAN is
@@ -282,7 +282,7 @@ feature {ANY}
       end
 
 feature {LOOP_INSTRUCTION}
-   specialize_2_check (type: TYPE) is
+   specialize_check (type: TYPE) is
       local
          dt: TYPE
       do

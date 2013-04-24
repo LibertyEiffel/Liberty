@@ -165,18 +165,18 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          exp: like expression
       do
-         exp := expression.specialize_2(type)
+         exp := expression.specialize_and_check(type)
          if exp /= expression then
             Result := twin
             Result.init(exp)
          else
             Result := Current
          end
-         Result.specialize_2_check(type)
+         Result.specialize_check(type)
       end
 
    has_been_specialized: BOOLEAN is
@@ -228,7 +228,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          expression.inline_dynamic_dispatch_(code_accumulator, type)
       end
 
-   specialize_2_check (type: TYPE) is
+   specialize_check (type: TYPE) is
       local
          dt: TYPE
       do

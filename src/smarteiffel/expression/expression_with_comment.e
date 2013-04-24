@@ -39,11 +39,11 @@ feature {ANY}
          Result := expression.has_been_specialized
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          e: like expression
       do
-         e := expression.specialize_2(type)
+         e := expression.specialize_and_check(type)
          Result := current_or_twin_init(e)
       end
 

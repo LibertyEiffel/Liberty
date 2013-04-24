@@ -68,7 +68,7 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): INSTRUCTION is
+   specialize_and_check (type: TYPE): INSTRUCTION is
       local
          l: FUNCTION_CALL; r: EXPRESSION
          target_type: TYPE; fn: FEATURE_NAME
@@ -77,8 +77,8 @@ feature {ANY}
          args: FAST_ARRAY[EXPRESSION]; i: INTEGER
          collected_actual_call: PROCEDURE_CALL
       do
-         l ::= left_side.specialize_2(type)
-         r := right_side.specialize_2(type)
+         l ::= left_side.specialize_and_check(type)
+         r := right_side.specialize_and_check(type)
          target_type := l.target.resolve_in(type)
          fs_assigned := l.feature_stamp
          check
@@ -118,7 +118,7 @@ feature {ANY}
             create {PROCEDURE_CALL_N} collected_actual_call.make(l.target, fn, arguments)
          end
 
-         Result := collected_actual_call.specialize_2(type)
+         Result := collected_actual_call.specialize_and_check(type)
          smart_eiffel.magic_count_increment
       end
 

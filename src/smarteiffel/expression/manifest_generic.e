@@ -232,7 +232,7 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          oa: like optional_arguments; il: like item_list; af: ANONYMOUS_FEATURE
          cst_att_boolean: CST_ATT_BOOLEAN; cst_att_integer: CST_ATT_INTEGER
@@ -357,9 +357,9 @@ feature {ANY}
             end
          end -- of checks which are done only once.
          if optional_arguments /= Void then
-            oa := optional_arguments_specialize_2(type)
+            oa := optional_arguments_specialize_and_check(type)
          end
-         il := item_list_specialize_2(type)
+         il := item_list_specialize_and_check(type)
          if oa = optional_arguments and then il = item_list then
             Result := Current
          else
@@ -518,8 +518,8 @@ feature {MANIFEST_GENERIC}
       end
 
 feature {OLD_MANIFEST_ARRAY}
-   specialize_2_from_old_manifest_array (type: TYPE) is
-         -- Finish initialization of `Current' in order to reach a normal `specialize_2' state.
+   specialize_and_check_from_old_manifest_array (type: TYPE) is
+         -- Finish initialization of `Current' in order to reach a normal `specialize_and_check' state.
          -- Here `Current' is the canonical form of some OLD_MANIFEST_ARRAY.
       do
          created_type := type_mark.resolve_in(type)
@@ -643,7 +643,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          Result.count = l.count
       end
 
-   optional_arguments_specialize_2 (type: TYPE): FAST_ARRAY[EXPRESSION] is
+   optional_arguments_specialize_and_check (type: TYPE): FAST_ARRAY[EXPRESSION] is
       require
          not optional_arguments.is_empty
       local
@@ -661,7 +661,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             exp1 := Result.item(list_idx)
             destination_type_mark := formal_arg_list.type_mark(fal_idx)
             destination_type := destination_type_mark.resolve_in(created_type)
-            exp2 := specialize_2_check(exp1, type, destination_type_mark, destination_type)
+            exp2 := specialize_check(exp1, type, destination_type_mark, destination_type)
             if exp1 /= exp2 then
                if Result = optional_arguments then
                   Result := Result.twin
@@ -787,7 +787,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          end
       end
 
-   item_list_specialize_2 (type: TYPE): like item_list is
+   item_list_specialize_and_check (type: TYPE): like item_list is
       require
          type /= Void
       local
@@ -809,7 +809,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
                exp1 := Result.item(list_idx)
                destination_type_mark := formal_arg_list.type_mark(fal_idx)
                destination_type := destination_type_mark.resolve_in(created_type)
-               exp2 := specialize_2_check(exp1, type, destination_type_mark, destination_type)
+               exp2 := specialize_check(exp1, type, destination_type_mark, destination_type)
                if exp1 /= exp2 then
                   if Result = item_list then
                      Result := Result.twin
@@ -822,7 +822,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          end
       end
 
-   specialize_2_check (e: EXPRESSION; type: TYPE;
+   specialize_check (e: EXPRESSION; type: TYPE;
                        destination_type_mark: TYPE_MARK; destination_type: TYPE): EXPRESSION is
       require
          e /= Void
@@ -833,7 +833,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       do
          if e.is_void then
             check
-               e = e.specialize_2(type)
+               e = e.specialize_and_check(type)
             end
             if destination_type.is_expanded then
                error_handler.add_position(destination_type_mark.start_position)
@@ -845,7 +845,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             end
             Result := e
          else
-            Result := e.specialize_2(type)
+            Result := e.specialize_and_check(type)
             expression_type := Result.resolve_in(type)
             if not expression_type.can_be_assigned_to(destination_type) then
                error_handler.add_position(destination_type_mark.start_position)

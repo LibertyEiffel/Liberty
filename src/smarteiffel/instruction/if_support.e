@@ -27,7 +27,7 @@ feature {ANY}
    end_mark_comment: BOOLEAN is True
 
 feature {IF_SUPPORT}
-   frozen specialize_2_check_ (type: TYPE) is
+   frozen specialize_check_ (type: TYPE) is
       local
          dt: TYPE
       do

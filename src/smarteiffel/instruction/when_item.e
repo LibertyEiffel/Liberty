@@ -97,7 +97,7 @@ feature {WHEN_CLAUSE}
          Result.has_been_specialized
       end
 
-   specialize_2_character (type: TYPE): like Current is
+   specialize_and_check_character (type: TYPE): like Current is
          --|*** May become a procedure because this is always static ???
          --|*** (Dom. 20 dec 2003)
       require
@@ -109,7 +109,7 @@ feature {WHEN_CLAUSE}
          Result.has_been_specialized
       end
 
-   specialize_2_integer (type: TYPE): like Current is
+   specialize_and_check_integer (type: TYPE): like Current is
          --|*** May become a procedure because this is always static ???
          --|*** (Dom. 20 dec 2003)
       require

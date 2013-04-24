@@ -119,7 +119,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
       end
 
 feature {FEATURE_STAMP, PRECURSOR_CALL}
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          rb: like routine_body; rc: like rescue_compound; ra: like require_assertion
          ea: like ensure_assertion
@@ -129,17 +129,17 @@ feature {FEATURE_STAMP, PRECURSOR_CALL}
             ea := ensure_assertion
          else
             if require_assertion /= Void then
-               ra ::= require_assertion.specialize_2(type)
+               ra ::= require_assertion.specialize_and_check(type)
             end
             if ensure_assertion /= Void then
-               ea := ensure_assertion.specialize_2(type)
+               ea := ensure_assertion.specialize_and_check(type)
             end
          end
          if routine_body /= Void then
-            rb := routine_body.specialize_2(type)
+            rb := routine_body.specialize_and_check(type)
          end
          if rescue_compound /= Void then
-            rc := rescue_compound.specialize_2(type)
+            rc := rescue_compound.specialize_and_check(type)
          end
          if rb = routine_body and then rc = rescue_compound and then ra = require_assertion and then ea = ensure_assertion then
             Result := Current

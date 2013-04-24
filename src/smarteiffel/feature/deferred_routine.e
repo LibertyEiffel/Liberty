@@ -54,7 +54,7 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          ra: like require_assertion; ea: like ensure_assertion
       do
@@ -62,10 +62,10 @@ feature {ANY}
             Result := Current
          else
             if require_assertion /= Void then
-               ra ::= require_assertion.specialize_2(type)
+               ra ::= require_assertion.specialize_and_check(type)
             end
             if ensure_assertion /= Void then
-               ea := ensure_assertion.specialize_2(type)
+               ea := ensure_assertion.specialize_and_check(type)
             end
             if ra = require_assertion and then ea = ensure_assertion then
                Result := Current

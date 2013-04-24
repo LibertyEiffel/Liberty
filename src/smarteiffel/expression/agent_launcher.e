@@ -48,7 +48,7 @@ feature {ANY}
       end
 
 feature {AGENT_LAUNCHER}
-   specialize_2_check (type: TYPE) is
+   specialize_check (type: TYPE) is
       local
          i, count: INTEGER; expression: EXPRESSION; formal, actual: TYPE; open: ARRAY[TYPE]
       do

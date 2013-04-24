@@ -33,7 +33,7 @@ feature {}
          create {HASHED_DICTIONARY[ANONYMOUS_FEATURE_MIXER, FEATURE_NAME]} features_dictionary.with_capacity(1024)
          create free.with_capacity(1024)
          create pending_list.with_capacity(128)
-         create specialize_2_list.with_capacity(128)
+         create specialize_and_check_list.with_capacity(128)
          create {HASHED_SET[ABSOLUTE_FEATURE_NAME]} seeds_of_current_feature.make
          create {HASHED_DICTIONARY[FEATURE_STAMP, ABSOLUTE_FEATURE_NAME]} seeds.make
          create {HASHED_SET[ABSOLUTE_FEATURE_NAME]} insert_seeds_of_current_feature.make
@@ -286,7 +286,7 @@ feature {TYPE}
             echo.put_string(once ").%N")
          end
          smart_eiffel.status.end_specializing(context_type)
-         specialize_2_list.add(context_type)
+         specialize_and_check_list.add(context_type)
          context_type := Void
          waiting_type := waiting_type - 1
       ensure
@@ -423,17 +423,17 @@ feature {}
             pending_list.remove
             type.do_collect
          end
-         if waiting_type = 0 and then not specialize_2_in_progress then
+         if waiting_type = 0 and then not specialize_and_check_in_progress then
             from
-               specialize_2_in_progress := True
+               specialize_and_check_in_progress := True
             until
-               specialize_2_list.is_empty
+               specialize_and_check_list.is_empty
             loop
-               type := specialize_2_list.first
-               specialize_2_list.remove
-               type.specialize_2
+               type := specialize_and_check_list.first
+               specialize_and_check_list.remove
+               type.specialize_and_check
             end
-            specialize_2_in_progress := False
+            specialize_and_check_in_progress := False
          end
       end
 
@@ -467,9 +467,9 @@ feature {TYPE}
       end
 
 feature {}
-   pending_list, specialize_2_list: QUEUE[TYPE]
+   pending_list, specialize_and_check_list: QUEUE[TYPE]
 
-   specialize_2_in_progress: BOOLEAN
+   specialize_and_check_in_progress: BOOLEAN
 
    initial_state: INTEGER_8 is 0
 

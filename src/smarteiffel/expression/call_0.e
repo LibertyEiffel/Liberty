@@ -66,7 +66,7 @@ feature {ANY}
             end
          else
             t := target.specialize_thru(parent_type, parent_edge, new_type)
-            -- fs determined by specialize_2
+            -- fs determined by specialize_and_check
          end
          Result := current_or_twin_init(t, fs)
       ensure then
@@ -76,7 +76,7 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
          --|*** PH/Dom(22/01/04) Improvement: save the result of
          --|"target.declaration_type.search(feature_name)" because it
          --|will not change. Hope the memory penalty is not too big
@@ -89,7 +89,7 @@ feature {ANY}
       do
          if target.is_current then
             check
-               target = target.specialize_2(type)
+               target = target.specialize_and_check(type)
                feature_stamp.has_anonymous_feature_for(type)
             end
             target_type := type
@@ -97,7 +97,7 @@ feature {ANY}
             function_and_argument_count_check(af, Void)
             Result := Current
          else
-            t := target.specialize_2(type)
+            t := target.specialize_and_check(type)
             target_declaration_type := t.declaration_type
             fs := target_declaration_type.search(feature_name) -- *** OBSOLETE *** Dom march 15th 2006 ***
             if fs = Void then

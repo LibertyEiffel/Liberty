@@ -34,7 +34,7 @@ feature {ANY}
       do
          target_type := target.resolve_in(type)
          tm := feature_stamp.anonymous_feature(target_type).result_type
-         -- If the next call fails, then check if specialize_2 has been called!
+         -- If the next call fails, then check if specialize_and_check has been called!
          Result := tm.resolve_in(target_type)
       end
 

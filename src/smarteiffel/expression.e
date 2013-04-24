@@ -10,7 +10,7 @@ inherit
    CODE
 
 feature {ANY}
-   specialize_2 (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION is
       deferred
       end
 
@@ -102,7 +102,7 @@ feature {ANY}
          -- in mind that the `resolve_in' function must not be called from some `specialize_in' or
          -- `specialize_thru' function (those functions are used when *one* TYPE is created and current
          -- expression may refer to TYPEs not yet created). Hence, `resolve_in' calls are likely to occurs
-         -- during the `specialize_2' process or later if it is necessary, but `specialize_2' *must* have
+         -- during the `specialize_and_check' process or later if it is necessary, but `specialize_and_check' *must* have
          -- been called on `Current' expression before `resolve_in' is called. One may also know that
          -- `resolve_in' function may be called one or more times or may not be called at all. (Note that
          -- the require assertion is checking that we are not currently doing some `specialize_in' or

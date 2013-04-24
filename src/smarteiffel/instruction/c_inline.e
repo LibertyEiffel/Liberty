@@ -38,7 +38,7 @@ feature {ANY}
          Result := True
       end
 
-   specialize_2 (type: TYPE): INSTRUCTION is
+   specialize_and_check (type: TYPE): INSTRUCTION is
       do
          Result := Current
       end

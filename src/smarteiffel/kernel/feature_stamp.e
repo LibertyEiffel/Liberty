@@ -568,7 +568,7 @@ feature {TYPE}
          end
       end
 
-   specialize_2 (t: TYPE) is
+   specialize_and_check (t: TYPE) is
       require
          has_type(t)
          has_anonymous_feature_for(t)
@@ -576,7 +576,7 @@ feature {TYPE}
          af1, af2: ANONYMOUS_FEATURE
       do
          af1 := anonymous_features.fast_at(t)
-         af2 := af1.specialize_2(t)
+         af2 := af1.specialize_and_check(t)
          if af1 /= af2 then
             anonymous_features.fast_put(af2, t)
          end

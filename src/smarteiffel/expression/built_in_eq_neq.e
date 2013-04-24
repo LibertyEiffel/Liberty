@@ -165,18 +165,18 @@ feature {ANY}
          Result := current_or_twin_init(ls, rs)
       end
 
-   specialize_2 (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION is
       local
          ls: like left_side; rs: like right_side
       do
-         ls := left_side.specialize_2(type)
-         rs := right_side.specialize_2(type)
+         ls := left_side.specialize_and_check(type)
+         rs := right_side.specialize_and_check(type)
          if ls.is_void then
             void_comparison_check(type, ls.start_position, rs)
          elseif rs.is_void then
             void_comparison_check(type, ls.start_position, ls)
          else
-            specialize_2_standard_comparison_check(ls, rs, type)
+            specialize_and_check_standard_comparison_check(ls, rs, type)
          end
          Result := specialized(ls, rs, type, True)
       end
@@ -296,7 +296,7 @@ feature {}
                   create {CALL_PREFIX_NOT} Result.make(start_position, Result)
                end
                if specialize_more then
-                  Result := Result.specialize_2(type)
+                  Result := Result.specialize_and_check(type)
                end
             else
                Result := current_or_twin_init(ls, rs)
@@ -552,7 +552,7 @@ feature {}
          end
       end
 
-   specialize_2_standard_comparison_check (t, arg: EXPRESSION; type: TYPE) is
+   specialize_and_check_standard_comparison_check (t, arg: EXPRESSION; type: TYPE) is
       require
          not t.is_void
          not arg.is_void

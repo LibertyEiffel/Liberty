@@ -13,7 +13,7 @@ feature {}
    frozen collect (type: TYPE): TYPE is
       require
          type.feature_collection_done
-         specialize_2_done: feature_stamp /= Void
+         specialize_and_check_done: feature_stamp /= Void
       local
          target_type, sub_type, covariant_type: TYPE; rts: RUN_TIME_SET; af: ANONYMOUS_FEATURE
          i: INTEGER; buffer: STRING
@@ -78,7 +78,7 @@ feature {FEATURE_CALL}
       end
 
    frozen standard_check_export_and_obsolete_calls (type, target_type: TYPE; af: ANONYMOUS_FEATURE) is
-         -- Called by `specialize_2' when `feature_stamp' has been defined
+         -- Called by `specialize_and_check' when `feature_stamp' has been defined
       require
          type /= Void
          target_type = target.resolve_in(type)

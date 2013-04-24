@@ -228,17 +228,17 @@ feature {WHEN_CLAUSE, WHEN_ITEM}
          Result := current_or_twin_init(lower.specialize_thru(parent_type, parent_edge, new_type), upper.specialize_thru(parent_type, parent_edge, new_type))
       end
 
-   specialize_2_character (type: TYPE): like Current is
+   specialize_and_check_character (type: TYPE): like Current is
       do
-         Result := current_or_twin_init(lower.specialize_2(type), upper.specialize_2(type))
+         Result := current_or_twin_init(lower.specialize_and_check(type), upper.specialize_and_check(type))
          Result.set_lower_upper_manifest_expression(type)
          Result.set_values_character
          Result.lower_upper_value_check
       end
 
-   specialize_2_integer (type: TYPE): like Current is
+   specialize_and_check_integer (type: TYPE): like Current is
       do
-         Result := current_or_twin_init(lower.specialize_2(type), upper.specialize_2(type))
+         Result := current_or_twin_init(lower.specialize_and_check(type), upper.specialize_and_check(type))
          Result.set_lower_upper_manifest_expression(type)
          Result.set_values_integer
          Result.lower_upper_value_check

@@ -40,13 +40,13 @@ feature {ANY}
          end
       end
 
-   frozen specialize_2 (type: TYPE): like Current is
+   frozen specialize_and_check (type: TYPE): like Current is
       local
          saf: like specialized_anonymous_feature; args: like arguments
       do
-         saf := specialized_anonymous_feature.specialize_2(type)
+         saf := specialized_anonymous_feature.specialize_and_check(type)
          if arguments /= Void then
-            args := arguments.specialize_2(type, saf, type, True)
+            args := arguments.specialize_and_check(type, saf, type, True)
             check
                specialized_anonymous_feature.arguments.count = args.count
             end

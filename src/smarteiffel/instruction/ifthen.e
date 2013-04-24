@@ -105,16 +105,16 @@ feature {ANY}
          Result := current_or_twin_init(e, tc)
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          e: like expression; tc: like then_compound
       do
-         e := expression.specialize_2(type)
+         e := expression.specialize_and_check(type)
          if then_compound /= Void then
-            tc := then_compound.specialize_2(type)
+            tc := then_compound.specialize_and_check(type)
          end
          Result := current_or_twin_init(e, tc)
-         Result.specialize_2_check_(type)
+         Result.specialize_check_(type)
       end
 
    has_been_specialized: BOOLEAN is

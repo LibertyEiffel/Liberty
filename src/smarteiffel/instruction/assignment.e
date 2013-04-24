@@ -79,11 +79,11 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          l, r, rhs: EXPRESSION; lt, rt: TYPE; written_site: STRING
       do
-         l := left_side.specialize_2(type)
+         l := left_side.specialize_and_check(type)
          lt := l.resolve_in(type)
          if right_side.is_void then
             if lt.is_expanded then
@@ -106,7 +106,7 @@ feature {ANY}
                create Result.make(l, right_side)
             end
          else
-            r := right_side.specialize_2(type)
+            r := right_side.specialize_and_check(type)
             rt := r.resolve_in(type)
             -- Theoretically, validity checking should be done only once using the sole `declaration_type'.
             -- In practice, using the `declaration_type' needs more computation ... and this solution appears
