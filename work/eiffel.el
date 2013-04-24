@@ -676,7 +676,7 @@ Does not include `is'.  See `eif-all-keywords'.")
 ;; eif-{beginning,end}-of-feature.
 
 (defconst eif-routine-begin-regexp
-  "\\([a-z_][a-zA-Z_0-9]*\\)\\s-*\\(([^)]*)\\)?\\s-*\\(:\\s-*[A-Z][A-Za-z0-9_]*\\(\\s-*\\[[^\\]]*\\]\\)?\\)?\\s-*\\<is\\>\\s-*\\(--.*\\)?$"
+  "\\([a-z_][a-zA-Z_0-9]*\\)\\s-*\\(([^)]*)\\)?\\s-*\\(:\\s-*[A-Z][A-Za-z0-9_]*\\(\\s-*\\[[^\\]]*\\]\\)?\\)?\\s-*\\(assign\\s-*[a-z0-9_]+\\)\\s-*\\<is\\>\\s-*\\(--.*\\)?$"
   "Regexp matching the beginning of an Eiffel routine declaration.")
 
 (defconst eif-attribute-regexp
@@ -1006,11 +1006,10 @@ Returns the same thing as \\[compile-internal] - the compilation buffer."
          (buf (get-buffer-create (concat "*Eiffel - short " class "*"))))
 
     (shell-command (concat eif-se-command " short " class) buf)
-    (save-excursion
-      (set-buffer buf)
+    (with-current-buffer buf
       (let ((font-lock-defaults eiffel-font-lock-defaults))
         (font-lock-fontify-buffer))
-      (toggle-read-only 1))))
+      (read-only-mode 1))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -2552,7 +2551,7 @@ Sort by position if sort-method is 0. Sort by name if sort-method is 1."
     (insert pname " is\n")
     (indent-to (* 3 eif-indent-increment))
     (insert "-- \n")
-    (mapcar '(lambda (keyword)
+    (mapc #'(lambda (keyword)
                (indent-to (* 2 eif-indent-increment))
                (insert keyword "\n"))
             '("require" "local" "do" "ensure" "end"))
@@ -2571,7 +2570,7 @@ Sort by position if sort-method is 0. Sort by name if sort-method is 1."
     (insert fname ": " type " is\n")
     (indent-to (* 3 eif-indent-increment))
     (insert "-- \n")
-    (mapcar '(lambda (keyword)
+    (mapc #'(lambda (keyword)
                (indent-to (* 2 eif-indent-increment))
                (insert keyword "\n"))
             '("require" "local" "do" "ensure" "end"))
@@ -2602,7 +2601,7 @@ Sort by position if sort-method is 0. Sort by name if sort-method is 1."
 (defun eif-if ()
   "Insert an 'if' statement template."
   (interactive)
-  (mapcar '(lambda (s)
+  (mapc #'(lambda (s)
              (insert s))
           '("if  then" "\n\nelse" "\n\nend" "\n"))
   (re-search-backward " then" nil t)
@@ -2627,17 +2626,17 @@ Sort by position if sort-method is 0. Sort by name if sort-method is 1."
           (insert lower)
           (insert "\ninvariant")
           (insert "\nvariant\n")
-          (if (>= (string-to-int incr) 0)
+          (if (>= (string-to-number incr) 0)
               (insert "(" upper " - " lower " + " incr ") - " varname)
             (insert varname " - (" upper " - " lower " + " (abs incr) ")")
             )
           (insert "\nuntil\n" varname)
-          (if (>= (string-to-int incr) 0)
+          (if (>= (string-to-number incr) 0)
             (insert " > " upper)
             (insert " < " upper)
             )
           (insert "\nloop\n\n" varname " := " varname)
-          (if (>= (string-to-int incr) 0)
+          (if (>= (string-to-number incr) 0)
               (insert " + " incr)
             (insert " - " (abs incr))
             )
@@ -2652,7 +2651,7 @@ Sort by position if sort-method is 0. Sort by name if sort-method is 1."
 
       ;; ELSE -- No variable: general loop
       (let ()
-       (mapcar '(lambda (s)
+       (mapc #'(lambda (s)
                   (insert s))
                '("from" "\n\ninvariant" "\n\nvariant"
                  "\n\nuntil" "\n\nloop\n" "\nend")
@@ -2673,7 +2672,7 @@ Sort by position if sort-method is 0. Sort by name if sort-method is 1."
     (insert "set_" aname " (v: like " aname ") is")
     (eif-indent-line)
     (insert "\n-- ")
-    (mapcar '(lambda (s)
+    (mapc #'(lambda (s)
                (insert s)
                (eif-indent-line))
             (list (concat "Set value of `" aname "'.")
@@ -2689,7 +2688,7 @@ Sort by position if sort-method is 0. Sort by name if sort-method is 1."
 (defun eif-inspect ()
   "Insert an 'inspect-when' statement template."
   (interactive)
-  (mapcar '(lambda (s)
+  (mapc #'(lambda (s)
              (insert s)
              (eif-indent-line))
           '("inspect " "\n\nwhen  then" "\n\nelse" "\n\nend" "\n"))
