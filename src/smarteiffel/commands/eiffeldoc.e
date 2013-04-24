@@ -346,14 +346,14 @@ feature {} -- General HTML files
          html.close_div
       end
 
-   display_name (cluster: STRING): STRING is
+   display_name (tag, cluster: STRING): STRING is
       require
          cluster /= Void
       local
          i, j: INTEGER
       do
          Result := once ""
-         Result.clear_count
+         Result.copy(tag)
          from
             i := cluster.first_index_of(':')
             if cluster.valid_index(i) then
@@ -406,7 +406,7 @@ feature {} -- General HTML files
                cluster := clusters.item(i)
                html_parser := cluster_html.reference_at(cluster)
 
-               open_block(html, css_cluster, display_name(cluster), cluster)
+               open_block(html, css_cluster, display_name(once "Cluster ", cluster), cluster)
                open_expand_block(html, css_cluster, cluster, False)
 
                if html_parser /= Void then
@@ -452,7 +452,7 @@ feature {} -- General HTML files
             current_cluster := clusters.item(Result)
             html_parser := cluster_html.reference_at(current_cluster)
 
-            open_block(html, css_sub_cluster, current_cluster, current_cluster)
+            open_block(html, css_sub_cluster, display_name(once "Subcluster ", current_cluster), current_cluster)
             open_expand_block(html, css_sub_cluster, current_cluster, False)
 
             if html_parser /= Void then
