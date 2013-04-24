@@ -983,12 +983,6 @@ feature {ANY} -- Concatenation
 
     arg (an_index: INTEGER; a_value: ABSTRACT_STRING): ABSTRACT_STRING is
         -- A copy of Current with the placeholder "#(an_index)" is replaced (if present) with the content of `a_value'.
-
-        -- TODO: current implementation is incomplete as it does not allow
-        -- multiple occurrences of the placeholder. This limitation will be
-        -- removed later (or stating it as «require
-        -- substring_occurrences("#("+a_value.out+")")=1» with an eventual
-        -- `substring_occurrences')
     local
          i, backtrack_i: INTEGER
          index: INTEGER
@@ -1056,8 +1050,7 @@ feature {ANY} -- Concatenation
             print("%""+Current+"%"arg("+an_index.out+",%""+a_value+"%")=%""+Result+"%"%N")
         end
     ensure
-        definition: has_substring("#("+an_index.out+")") implies Result.has_substring(a_value)
-        -- TODO: when implementation will replace multiple occurences of placeholder add «and not Result.has_substring("#("+an_index.out+")")» to the above postcondition
+        definition: has_substring("#("+an_index.out+")") implies Result.has_substring(a_value) and not Result.has_substring("#("+an_index.out+")")
         substitution_not_made: not has_substring("#("+an_index.out+")") implies Current.is_equal(Result)
     end
 
@@ -1100,6 +1093,33 @@ feature {ANY} -- Printing:
       deferred
       end
 
+feature {ANY} -- String replacing
+	replacing (an_old, a_new: ABSTRACT_STRING): STRING is
+		-- A string copied from Current with all occurrences of `an_old' string replaced with `a_new'.
+	local cut_from, cut_to, oldsize: INTEGER
+	do
+		UNFINISHED!
+		-- Size of Result will be usually similar to those of Current:
+		create Result.with_capacity(Current.count)
+		-- will limit reallocations compared to a plain create Result.make_empty
+		oldsize := an_old.count
+		-- Append the part before the first occurrence of `an_old'
+		cut_from := lower
+		cut_to := first_substring_index(an_old) - 1
+		if valid_index(cut_to) then -- There is something before `a_new' to be copied
+			Result.append_substring(Current,lower,cut_to)
+		end
+		from cut_to := Result.upper; cut_to:=substring_index(cut_from,cut_to)
+		until not valid_index(cut_to)
+		loop
+			Result.append_substring(Current,cut_from,cut_to)
+			cut_from := cut_to+1
+			cut_to:= substring_index(an_old,cut_from)
+		end
+		-- append the remaining part 
+		Result.append_substring(Current,cut_to+1,upper)
+	end
+
 feature {ANY} -- Other features:
    first: CHARACTER is
          -- Access to the very `first' character.
@@ -1129,7 +1149,8 @@ feature {ANY} -- Other features:
       end
 
    substring_index (other: ABSTRACT_STRING; start_index: INTEGER): INTEGER is
-         -- Position of first occurrence of `other' at or after `start_index', 0 if none.
+         -- Position of first occurrence of `other' at or after `start_index'.
+		 -- If the is no occurrence Result will be an invalid index, usually 0 when lower is 1.
          --
          -- See also `substring', `first_substring_index'.
       require
