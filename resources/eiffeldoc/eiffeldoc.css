@@ -25,10 +25,21 @@ a.new:visited,
 
 .class_link {
     color: #0d0d6a;
+    font-weight: bold;
 }
 
 .feature_link {
     color: #0d0d6a;
+    font-style: italic;
+}
+
+.wiki_link {
+    color: #0d0d6a;
+}
+
+tt.wiki_class_name {
+    font-family: 'Linux Biolinum',Verdana,Helvetica;
+    font-weight: bold;
 }
 
 .nav_link {
