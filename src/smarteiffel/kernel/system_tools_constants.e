@@ -3,7 +3,7 @@
 --
 class SYSTEM_TOOLS_CONSTANTS
 
-feature {INSTALL_GLOBALS, SERC_FACTORY, C_SPLITTER} -- Currently handled system list:
+feature {SERC_FACTORY, C_SPLITTER} -- Currently handled system list:
    unix_system: STRING is "UNIX"
 
    windows_system: STRING is "Windows"
@@ -24,7 +24,7 @@ feature {INSTALL_GLOBALS, SERC_FACTORY, C_SPLITTER} -- Currently handled system 
 
    elate_system: STRING is "Elate"
 
-feature {INSTALL_GLOBALS} -- Currently handled C/C++ compiler list:
+feature {} -- Currently handled C/C++ compiler list:
    gcc: STRING is "gcc"
 
    gpp: STRING is "g++"

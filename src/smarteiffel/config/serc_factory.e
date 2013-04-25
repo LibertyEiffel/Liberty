@@ -60,7 +60,7 @@ feature {ANY}
          Result := chain
       end
 
-feature {SYSTEM_TOOLS, INSTALL_GLOBALS}
+feature {SYSTEM_TOOLS}
    seconf_env: STRING is
          -- The value of the SmartEiffel environment variable, if defined.
       once
