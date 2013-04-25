@@ -346,11 +346,11 @@ feature {} -- General HTML files
          html.close_div
       end
 
-   display_name (tag, cluster: STRING): STRING is
+   display_name (tag, cluster, default_cluster_name: STRING): STRING is
       require
          cluster /= Void
       local
-         i, j: INTEGER
+         i, j: INTEGER; done: BOOLEAN
       do
          Result := once ""
          Result.copy(tag)
@@ -380,6 +380,33 @@ feature {} -- General HTML files
             end
             i := i + 12 -- "loadpath.se".count
          end
+
+         check
+            Result.has_prefix(tag)
+         end
+         from
+            done := Result.count = tag.count
+         variant
+            Result.count
+         until
+            done
+         loop
+            inspect
+               Result.last
+            when '/', '.' then
+               Result.remove_last
+               done := Result.count = tag.count
+            else
+               done := True
+            end
+         end
+         if Result.count = tag.count then
+            if default_cluster_name = Void then
+               Result := once "/"
+            else
+               Result := default_cluster_name
+            end
+         end
       end
 
    write_clusters is
@@ -406,7 +433,7 @@ feature {} -- General HTML files
                cluster := clusters.item(i)
                html_parser := cluster_html.reference_at(cluster)
 
-               open_block(html, css_cluster, display_name(once "Cluster ", cluster), cluster)
+               open_block(html, css_cluster, display_name(once "Cluster ", cluster, once "Root cluster"), cluster)
                open_expand_block(html, css_cluster, cluster, False)
 
                if html_parser /= Void then
@@ -452,7 +479,7 @@ feature {} -- General HTML files
             current_cluster := clusters.item(Result)
             html_parser := cluster_html.reference_at(current_cluster)
 
-            open_block(html, css_sub_cluster, display_name(once "Subcluster ", current_cluster), current_cluster)
+            open_block(html, css_sub_cluster, display_name(once "Subcluster ", current_cluster, Void), current_cluster)
             open_expand_block(html, css_sub_cluster, current_cluster, False)
 
             if html_parser /= Void then
