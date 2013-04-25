@@ -2254,7 +2254,9 @@ feature {AGENT_EXPRESSION}
             visited.written_link.accept(Current)
             visited.agent_type.accept(Current)
             visited.target.accept(Current)
-            visited.agent_args.accept(Current)
+            if visited.agent_args /= Void then
+               visited.agent_args.accept(Current)
+            end
             exit_agent_expression(visited)
          end
       end
