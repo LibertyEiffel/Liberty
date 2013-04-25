@@ -402,7 +402,7 @@ feature {} -- General HTML files
          end
          if Result.count = tag.count then
             if default_cluster_name = Void then
-               Result := once "/"
+               Result.extend('/')
             else
                Result := default_cluster_name
             end
