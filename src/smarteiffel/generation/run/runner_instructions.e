@@ -54,7 +54,7 @@ feature {ASSIGNMENT_ATTEMPT}
 feature {ASSIGNMENT}
    visit_assignment (visited: ASSIGNMENT) is
       do
-         processor.assignment.assign(visited)
+         processor.assignment.do_assign(visited)
       end
 
 feature {CHECK_COMPOUND}
