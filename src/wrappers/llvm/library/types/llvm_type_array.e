@@ -1,7 +1,7 @@
 class LLVM_TYPE_ARRAY
-	-- A C_ARRAY of LLVM_TYPEs.
+-- A C_ARRAY of LLVM_TYPEs.
 
-inherit  C_ARRAY[LLVM_TYPE] 
+inherit  C_ARRAY[LLVM_TYPE]
 insert   LLVM_TYPE_FACTORY undefine out_in_tagged_out_memory end
 create {ANY} manifest_creation, from_external_array
 end -- class LLVM_TYPE_ARRAY
@@ -19,4 +19,3 @@ end -- class LLVM_TYPE_ARRAY
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-
