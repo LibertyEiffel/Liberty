@@ -332,12 +332,6 @@ feature {REAL_CONSTANT}
          trace.append(visited.normalized_view)
       end
 
-feature {RUN_TIME_ERROR}
-   visit_run_time_error (visited: RUN_TIME_ERROR) is
-      do
-         trace_result := False
-      end
-
 feature {VOID_CALL}
    visit_void_call (visited: VOID_CALL) is
       do
