@@ -611,7 +611,7 @@ feature {}
          if parent_fn.is_frozen then
             if parent_fn.is_equal(current_fn) then
                current_fn := parent_fn
-            else
+            elseif not current_fn.is_frozen then
                current_fn := current_fn.twin
                current_fn.set_is_frozen
             end
