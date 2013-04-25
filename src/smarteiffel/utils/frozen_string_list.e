@@ -184,7 +184,7 @@ feature {} -- Some other names:
 
    fz_system_se: STRING is "system.se"
 
-feature {INSTALL} -- The known keys of the INI file:
+feature {} -- The known keys of the INI file:
    fz_conf_general: STRING is "General"
 
    fz_conf_loadpath: STRING is "Loadpath"
