@@ -12,7 +12,7 @@ create {EIFFELDOC}
    make
 
 feature {ANY}
-   title: STRING
+   title, short_title: STRING
    css: STRING
    js: STRING
    depends: BOOLEAN
@@ -165,6 +165,13 @@ feature {EIFFELDOC}
             else
                std_error.put_line(once "**** Invalid title argument")
             end
+         elseif eiffeldoc.flag_match(once "short_title", arg) then
+            if i + 1 <= argument_count then
+               short_title := argument(i + 1)
+               Result := 2
+            else
+               std_error.put_line(once "**** Invalid title argument")
+            end
          elseif eiffeldoc.flag_match(once "menu", arg) then
             if i + 2 <= argument_count then
                menu.put(argument(i + 1), argument(i + 2))
@@ -217,6 +224,9 @@ feature {EIFFELDOC}
       do
          if title = Void then
             title := once "Generated Documentation"
+         end
+         if short_title = Void then
+            short_title := once "Clusters"
          end
       end
 

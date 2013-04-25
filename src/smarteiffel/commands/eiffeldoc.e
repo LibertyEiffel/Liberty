@@ -320,7 +320,7 @@ feature {} -- General HTML files
          -- make tabs
          options.open_tabs(html)
          options.add_menu_tabs(html)
-         options.add_tab(html, classes_and_clusters_list_link_name, Void, options.ariadne_separator)
+         options.add_tab(html, options.short_title, Void, options.ariadne_separator)
          options.close_tabs(html)
 
          -- open general block
@@ -332,7 +332,7 @@ feature {} -- General HTML files
          -- write name
          set_suffixed_attribute(once "class", css_root, css_name_suffix, html)
          html.open_span
-         html.put_string(classes_and_clusters_list_page_title)
+         html.put_string(options.title)
          html.close_span
          html.close_div
       ensure
