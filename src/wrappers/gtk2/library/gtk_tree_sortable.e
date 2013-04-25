@@ -38,7 +38,7 @@ insert
 	GTK_SORT_TYPE
 	GTK_TREE_SORTABLE_EXTERNALS
 		
-feature 
+feature {ANY} 
 
 -- GtkTreeIterCompareFunc ()
 

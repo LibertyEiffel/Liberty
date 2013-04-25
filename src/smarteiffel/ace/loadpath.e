@@ -6,7 +6,7 @@ class LOADPATH
 inherit
    CLUSTERS
 
-creation {CLASSES_TREE_FACTORY}
+create {CLASSES_TREE_FACTORY}
    make
 
 feature {ANY}
@@ -47,18 +47,18 @@ feature {} -- Open loadpath files
          if Result.is_connected then
             connected.put(Result, path)
          else
-            error_handler.append("Unknown loadpath")
+            error_handler.append(once "Unknown loadpath")
             if loadpath /= Void then
-               error_handler.append(" in ")
+               error_handler.append(once " in ")
                error_handler.append(loadpath.path)
             else
-               error_handler.append(" (not in a loadpath)")
+               error_handler.append(once " (not in a loadpath)")
             end
-            error_handler.append(": %"")
+            error_handler.append(once ": %"")
             error_handler.append(path)
-            error_handler.append("%" (resolved as %"")
+            error_handler.append(once "%" (resolved as %"")
             error_handler.append(sp)
-            error_handler.append("%").")
+            error_handler.append(once "%").")
             error_handler.print_as_warning
             Result := Void
          end
@@ -107,17 +107,17 @@ feature {} -- Open loadpath files
       do
          p := tree.parent
          if p = Current then
-            error_handler.append("%T%"")
+            error_handler.append(once "%T%"")
             error_handler.append(path)
-            error_handler.append("%"%N")
+            error_handler.append(once "%"%N")
          elseif (p /= Void) then
             show_cycle(p)
          end
          if l ?:= tree then
             l ::= tree
-            error_handler.append("%T%"")
+            error_handler.append(once "%T%"")
             error_handler.append(l.path)
-            error_handler.append("%"%N")
+            error_handler.append(once "%"%N")
          end
       end
 
@@ -217,11 +217,11 @@ feature {}
                      end
                   end
                   if sp = Void then
-                     error_handler.append("Unknown loadpath in ")
+                     error_handler.append(once "Unknown loadpath in ")
                      error_handler.append(path)
-                     error_handler.append(": %"")
+                     error_handler.append(once ": %"")
                      error_handler.append(tfr.last_string)
-                     error_handler.append("%".")
+                     error_handler.append(once "%".")
                      error_handler.print_as_warning
                   else
                      check
@@ -242,7 +242,7 @@ feature {}
             if classeses.is_empty and then not discard_silently then
                error_handler.append(once "Empty loadpath: %"")
                error_handler.append(path)
-               error_handler.append("%".")
+               error_handler.append(once "%".")
                error_handler.print_as_warning
             end
          end

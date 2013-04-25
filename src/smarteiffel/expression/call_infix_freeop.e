@@ -9,10 +9,10 @@ class CALL_INFIX_FREEOP
 inherit
    CALL_INFIX
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make
 
-creation {AGENT_CREATION, CALL_INFIX}
+create {AGENT_CREATION, CALL_INFIX}
    with
 
 feature {ANY}

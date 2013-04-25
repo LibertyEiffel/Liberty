@@ -61,7 +61,7 @@ feature {}
             -- There was a problem: display the error message and exit
             handle_error(errors.last_error)
          else
-            create server.make(serv, access.read_sync)
+            create server.make(serv, True)
             -- Some hook agents. Those hooks do all the real job! (look below)
             server.when_connect(agent handle_connect)
             server.when_shutdown(agent handle_shutdown)

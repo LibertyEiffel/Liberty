@@ -10,7 +10,7 @@ inherit
    EXPRESSION
    PRECURSOR_CALL
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

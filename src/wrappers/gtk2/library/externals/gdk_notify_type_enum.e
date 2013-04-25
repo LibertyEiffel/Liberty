@@ -7,8 +7,8 @@ expanded class GDK_NOTIFY_TYPE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = ancestor_low_level)  or else
@@ -19,7 +19,7 @@ feature -- Validity
 				(a_value = unknown_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_ancestor is
 		do
@@ -51,7 +51,7 @@ feature -- Setters
 			value := unknown_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	ancestor: BOOLEAN is
 		do
 			Result := (value=ancestor_low_level)

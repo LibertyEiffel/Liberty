@@ -31,9 +31,9 @@ inherit
 		redefine struct_size
 		end
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
-feature  -- Creation
+feature {ANY}  -- Creation
 	make  (a_name, a_label, a_tooltip, a_stock_id: STRING; a_value: INTEGER) is
 			-- Creates a new GtkRadioAction object. To add the action to
 			-- a GtkActionGroup and set the accelerator for the action,
@@ -43,7 +43,7 @@ feature  -- Creation
 			from_external_pointer (gtk_radio_action_new (a_name.to_external, a_label.to_external,
 																		a_tooltip.to_external, a_stock_id.to_external, a_value))
 		end
-feature
+feature {ANY}
 	group: G_SLIST [GTK_RADIO_ACTION] is
 			-- the list representing the radio group for this
 			-- object. Note that the returned list is only valid until
@@ -76,7 +76,7 @@ feature
 			Result := gtk_radio_action_get_current_value(handle)
 		end
 
-feature -- Properties
+feature {ANY} -- Properties
 
 --   "group"                GtkRadioAction        : Write
 --   "value"                gint                  : Read / Write
@@ -118,7 +118,7 @@ feature -- Properties
 -- user_data : 	user data set when the signal handler was connected.
 
 -- Since 2.4
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

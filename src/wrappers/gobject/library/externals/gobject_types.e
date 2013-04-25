@@ -14,6 +14,13 @@ feature -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
+	ginstance_init_func: POINTER is
+		-- typedef GInstanceInitFunc
+		-- Empty by design, used for anchored declarations.
+	do
+	ensure Result.is_default
+	end
+
 	gobject_set_property_func: POINTER is
 		-- typedef GObjectSetPropertyFunc
 		-- Empty by design, used for anchored declarations.
@@ -21,7 +28,7 @@ feature -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
-	gtype: NATURAL_64 is
+	gtype: like long_unsigned is
 		-- typedef GType
 		-- Empty by design, used for anchored declarations.
 	do
@@ -105,8 +112,8 @@ feature -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
-	ginstance_init_func: POINTER is
-		-- typedef GInstanceInitFunc
+	gtype_plugin_unuse: POINTER is
+		-- typedef GTypePluginUnuse
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
@@ -114,13 +121,6 @@ feature -- C type definitions (typedefs)
 
 	gtype_class_cache_func: POINTER is
 		-- typedef GTypeClassCacheFunc
-		-- Empty by design, used for anchored declarations.
-	do
-	ensure Result.is_default
-	end
-
-	gtype_plugin_unuse: POINTER is
-		-- typedef GTypePluginUnuse
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default

@@ -23,7 +23,7 @@ class GTK_WINDOW_GROUP
 
 inherit G_OBJECT 
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 
@@ -49,7 +49,7 @@ feature {} -- Creation
 			gtk_window_group_remove_window (handle, a_window.handle)
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkWindowGroup)"

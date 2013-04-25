@@ -32,9 +32,9 @@ inherit
 
 insert GLIB_STRING_CHUNK_EXTERNALS
 	
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 	
-feature
+feature {ANY}
 	make (a_size: INTEGER) is
 			-- Creates a new G_STRING_CHUNK, with `a_size' the default
 			-- size of the blocks of memory which are allocated to store

@@ -31,10 +31,10 @@ insert
       undefine default_create, out_in_tagged_out_memory, copy, is_equal
       end
 
-creation {ANY}
+create {ANY}
    make
 
-creation {RECYCLING_POOL}
+create {RECYCLING_POOL}
    collection_make
 
 feature {ANY}

@@ -40,7 +40,7 @@ insert
 	G_TREE_EXTERNALS
 		--	GLIB_TYPE_CONVERSION_MACROS -- Temporary
 	
-creation  with_comparer, from_external_pointer
+create {ANY}  with_comparer, from_external_pointer
 
 feature {} -- Creation
 	make (a_key_factory: CACHING_FACTORY[KEY]; a_value_factory: CACHING_FACTORY[VALUE]) is
@@ -259,7 +259,7 @@ feature {ANY} -- Removing:
 		end
 
 
-feature -- counting
+feature {ANY} -- counting
 	count: INTEGER_32 is
 		do
 			Result:=g_tree_nnodes(handle)
@@ -328,7 +328,7 @@ feature {} -- Implement manifest generic creation:
 			not_yet_implemented
 		end
 
-feature
+feature {ANY}
 	height: INTEGER is
 			-- The height of a G_TREE.
 		

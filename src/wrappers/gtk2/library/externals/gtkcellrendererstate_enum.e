@@ -7,8 +7,8 @@ expanded class GTKCELLRENDERERSTATE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (gtk_cell_renderer_focused_low_level | 
@@ -17,7 +17,7 @@ feature -- Validity
 				gtk_cell_renderer_sorted_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gtk_cell_renderer_focused is
 		do
@@ -59,7 +59,7 @@ feature -- Setters
 			value := value.bit_xor(gtk_cell_renderer_sorted_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gtk_cell_renderer_focused: BOOLEAN is
 		do
 			Result := (value=gtk_cell_renderer_focused_low_level)

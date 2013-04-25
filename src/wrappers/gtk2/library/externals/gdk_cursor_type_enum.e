@@ -7,8 +7,8 @@ expanded class GDK_CURSOR_TYPE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = x_cursor_low_level)  or else
@@ -93,7 +93,7 @@ feature -- Validity
 				(a_value = cursor_is_pixmap_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_x_cursor is
 		do
@@ -495,7 +495,7 @@ feature -- Setters
 			value := cursor_is_pixmap_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	x_cursor: BOOLEAN is
 		do
 			Result := (value=x_cursor_low_level)

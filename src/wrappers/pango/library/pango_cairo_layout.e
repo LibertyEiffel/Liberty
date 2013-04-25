@@ -32,7 +32,7 @@ insert
 	PANGO_CAIRO_LAYOUT_EXTERNALS
 	WRAPPER_HANDLER
 
-creation
+create {ANY}
 	for_cairo, make
 
 feature {} -- Creation
@@ -59,7 +59,7 @@ feature {} -- Creation
 			from_external_pointer (pango_cairo_create_layout (a_cairo.handle))
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	show_on_cairo (a_cairo: CAIRO_CONTEXT) is
 			-- Draws a PangoLayoutLine in the specified CAIRO_CONTEXT. The

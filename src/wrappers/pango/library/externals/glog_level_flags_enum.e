@@ -7,8 +7,8 @@ expanded class GLOG_LEVEL_FLAGS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = flag_recursion_low_level)  or else
@@ -22,7 +22,7 @@ feature -- Validity
 				(a_value = level_mask_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_flag_recursion is
 		do
@@ -69,7 +69,7 @@ feature -- Setters
 			value := level_mask_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_flag_recursion: BOOLEAN is
 		do
 			Result := (value=flag_recursion_low_level)

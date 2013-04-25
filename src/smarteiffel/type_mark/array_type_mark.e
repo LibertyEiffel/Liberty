@@ -14,7 +14,7 @@ inherit
          canonical_long_name
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

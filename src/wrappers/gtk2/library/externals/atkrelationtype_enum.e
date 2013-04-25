@@ -7,8 +7,8 @@ expanded class ATKRELATIONTYPE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = atk_relation_controlled_by_low_level)  or else
@@ -31,7 +31,7 @@ feature -- Validity
 				(a_value = atk_relation_subwindow_of_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_atk_relation_controlled_by is
 		do
@@ -123,7 +123,7 @@ feature -- Setters
 			value := atk_relation_subwindow_of_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_atk_relation_controlled_by: BOOLEAN is
 		do
 			Result := (value=atk_relation_controlled_by_low_level)

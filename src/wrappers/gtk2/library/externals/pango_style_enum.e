@@ -7,8 +7,8 @@ expanded class PANGO_STYLE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = normal_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = italic_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_normal is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := italic_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	normal: BOOLEAN is
 		do
 			Result := (value=normal_low_level)

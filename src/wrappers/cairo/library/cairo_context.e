@@ -65,7 +65,7 @@ insert
 	CAIRO_FONT_WEIGHT
 	CAIRO_STATUS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (a_target: CAIRO_SURFACE) is
@@ -93,7 +93,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Creation
 			ref
 		end
 
-feature -- State and memory handling
+feature {ANY} -- State and memory handling
 	dispose is do unref end
 
 	ref is
@@ -408,7 +408,7 @@ feature -- State and memory handling
 			Result := cairo_get_antialias (handle);
 		end
 
-feature -- Dashing
+feature {ANY} -- Dashing
 
 	disable_dashes is
 			-- Disable dashing
@@ -852,7 +852,7 @@ feature -- Dashing
 			cairo_show_page (handle)
 		end
 
-feature -- Path managing
+feature {ANY} -- Path managing
 	get_path: CAIRO_PATH is
 			-- Creates a copy of the current path and returns it to the
 			-- user as a cairo_path_t. See cairo_path_data_t for hints on
@@ -1199,7 +1199,7 @@ feature -- Path managing
 			cairo_rel_move_to(handle, dx, dy)
 		end
 
-feature --   Transformations, manipulating the current transformation matrix
+feature {ANY} --   Transformations, manipulating the current transformation matrix
 	translate (an_x, an_y: REAL) is
 			-- Modifies the current transformation matrix (CTM) by
 			-- translating the user-space origin by (`an_x',`an_y'). This
@@ -1275,7 +1275,7 @@ feature --   Transformations, manipulating the current transformation matrix
 			cairo_identity_matrix (handle)
 		end
 
-feature --   Text -- Rendering text and sets of glyphs
+feature {ANY} --   Text -- Rendering text and sets of glyphs
 	select_font_face (a_family: STRING; a_slant, a_weight: INTEGER) is
 			-- Selects a family and style of font from a simplified
 			-- description as a family name, slant and weight. This

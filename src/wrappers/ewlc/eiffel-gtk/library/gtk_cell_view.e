@@ -33,7 +33,7 @@ inherit
 		end
 		-- GtkCellView also implements AtkImplementorIface.
 		
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 
@@ -70,7 +70,7 @@ feature {} -- Creation
 			store_eiffel_wrapper
 		end
 
-feature
+feature {ANY}
 	set_model (a_model: GTK_TREE_MODEL) is
 			-- Sets the model for cell_view. If Current already has a
 			-- model set, it will remove it before setting the new model.
@@ -143,7 +143,7 @@ feature
 			-- longer needed.
 		end
 
-feature 	-- The "background" property
+feature {ANY} 	-- The "background" property
 	set_backgroud_color_name (a_color_name: STRING) is
 		do
 			set_string_property (background_property_name, a_color_name)
@@ -167,7 +167,7 @@ feature 	-- The "background" property
 
 	-- Default value: FALSE
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellView)"

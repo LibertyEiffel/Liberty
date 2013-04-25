@@ -81,9 +81,9 @@ inherit
 	-- insert WRAPPER_HANDLER undefine --- is_equal,
 	-- copy,fill_tagged_out_memory, out_in_tagged_out_memory end
 
-creation from_external
+create {ANY} from_external
 
-feature 
+feature {ANY} 
 	from_external (a_c_string: POINTER) is
 		do
 			is_unchanged := True
@@ -128,7 +128,7 @@ feature
 			changeable: is_changed
 		end
 
-feature
+feature {ANY}
 	resize (new_count: INTEGER_32) is
 		do
 			if is_unchanged then modify end
@@ -372,7 +372,7 @@ feature
 			not_yet_implemented
 		end
 
-feature -- commented out to achieve compatibility with both SE 2.2 and 2.3
+feature {ANY} -- commented out to achieve compatibility with both SE 2.2 and 2.3
 	--    remove_head (n: INTEGER_32) is
 	-- 		do
 	-- 			if is_unchanged then modify end
@@ -385,7 +385,7 @@ feature -- commented out to achieve compatibility with both SE 2.2 and 2.3
 	-- 			Precursor (n)
 	-- 		end
 
-feature 
+feature {ANY} 
 	remove_substring (start_index, end_index: INTEGER_32) is
 		do
 			if is_unchanged then modify end

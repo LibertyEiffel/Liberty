@@ -2,10 +2,10 @@ class LLVM_CONSTANT_INT
 	-- An integer constant
 
 inherit LLVM_CONSTANT
-creation {ANY} integer_32, from_integer, from_string
-creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+create {ANY} integer_32, from_integer, from_string
+create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
-feature -- Creation
+feature {ANY} -- Creation
 	integer_32 (a_value: INTEGER_32) is
 		-- Creates a 32-bit integer constant with `a_value'. 
 

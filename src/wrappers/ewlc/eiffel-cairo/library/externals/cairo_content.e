@@ -36,7 +36,7 @@ deferred class CAIRO_CONTENT
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 
 	is_valid_content (a_content: INTEGER): BOOLEAN is
 		do

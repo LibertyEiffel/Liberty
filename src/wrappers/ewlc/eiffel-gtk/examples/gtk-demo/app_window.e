@@ -30,9 +30,9 @@ insert
 	GTK_MESSAGE_TYPE
 	GTK_BUTTONS_TYPE
 	
-creation make
+create {ANY} make
 
-feature 
+feature {ANY} 
 	name: STRING is "Appliction main window"
 
 	description: STRING is "Demonstrates a typical application window with menubar, toolbar, statusbar."
@@ -41,7 +41,7 @@ feature
 
 	title_string: STRING is "Application Window"
 
-feature -- Creation
+feature {ANY} -- Creation
 	make is
 			-- local
 			-- table, statusbar, contents, sw, bar: GTK_WIDGET;
@@ -206,7 +206,7 @@ feature -- Creation
 			load_source_code
 		end
 	
-feature -- Actions
+feature {ANY} -- Actions
 
 	activate_action (an_action: GTK_ACTION) is
 		local dialog: GTK_WIDGET

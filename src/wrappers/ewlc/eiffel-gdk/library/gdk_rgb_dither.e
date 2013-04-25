@@ -30,7 +30,7 @@ inherit ANY undefine is_equal, copy end
 
 
 
-feature  -- enum
+feature {ANY}  -- enum
 
 	is_valid_rgb_dither (a_dither :INTEGER): BOOLEAN is
 		do

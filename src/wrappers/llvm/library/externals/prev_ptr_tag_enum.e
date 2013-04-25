@@ -7,8 +7,8 @@ expanded class PREV_PTR_TAG_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = zero_digit_tag_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = full_stop_tag_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_zero_digit_tag is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := full_stop_tag_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	zero_digit_tag: BOOLEAN is
 		do
 			Result := (value=zero_digit_tag_low_level)

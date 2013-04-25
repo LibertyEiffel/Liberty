@@ -3,147 +3,118 @@
 
 expanded class GOPTION_ARG_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = none_low_level)  or else
-				(a_value = string_low_level)  or else
-				(a_value = int_low_level)  or else
-				(a_value = callback_low_level)  or else
-				(a_value = filename_low_level)  or else
-				(a_value = string_array_low_level)  or else
-				(a_value = filename_array_low_level)  or else
-				(a_value = double_low_level)  or else
-				(a_value = int64_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = g_option_arg_callback_low_level)  or else
+				(a_value = g_option_arg_double_low_level)  or else
+				(a_value = g_option_arg_filename_low_level)  or else
+				(a_value = g_option_arg_filename_array_low_level)  or else
+				(a_value = g_option_arg_int_low_level)  or else
+				(a_value = g_option_arg_int64_low_level)  or else
+				(a_value = g_option_arg_none_low_level)  or else
+				(a_value = g_option_arg_string_low_level)  or else
+				(a_value = g_option_arg_string_array_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_none is
+	set_g_option_arg_callback is
 		do
-			value := none_low_level
+			value := g_option_arg_callback_low_level
 		end
 
-	set_string is
+	set_g_option_arg_double is
 		do
-			value := string_low_level
+			value := g_option_arg_double_low_level
 		end
 
-	set_int is
+	set_g_option_arg_filename is
 		do
-			value := int_low_level
+			value := g_option_arg_filename_low_level
 		end
 
-	set_callback is
+	set_g_option_arg_filename_array is
 		do
-			value := callback_low_level
+			value := g_option_arg_filename_array_low_level
 		end
 
-	set_filename is
+	set_g_option_arg_int is
 		do
-			value := filename_low_level
+			value := g_option_arg_int_low_level
 		end
 
-	set_string_array is
+	set_g_option_arg_int64 is
 		do
-			value := string_array_low_level
+			value := g_option_arg_int64_low_level
 		end
 
-	set_filename_array is
+	set_g_option_arg_none is
 		do
-			value := filename_array_low_level
+			value := g_option_arg_none_low_level
 		end
 
-	set_double is
+	set_g_option_arg_string is
 		do
-			value := double_low_level
+			value := g_option_arg_string_low_level
 		end
 
-	set_int64 is
+	set_g_option_arg_string_array is
 		do
-			value := int64_low_level
+			value := g_option_arg_string_array_low_level
 		end
 
 feature -- Queries
-	is_none: BOOLEAN is
+	is_g_option_arg_callback: BOOLEAN is
 		do
-			Result := (value=none_low_level)
+			Result := (value=g_option_arg_callback_low_level)
 		end
 
-	is_string: BOOLEAN is
+	is_g_option_arg_double: BOOLEAN is
 		do
-			Result := (value=string_low_level)
+			Result := (value=g_option_arg_double_low_level)
 		end
 
-	is_int: BOOLEAN is
+	is_g_option_arg_filename: BOOLEAN is
 		do
-			Result := (value=int_low_level)
+			Result := (value=g_option_arg_filename_low_level)
 		end
 
-	is_callback: BOOLEAN is
+	is_g_option_arg_filename_array: BOOLEAN is
 		do
-			Result := (value=callback_low_level)
+			Result := (value=g_option_arg_filename_array_low_level)
 		end
 
-	is_filename: BOOLEAN is
+	is_g_option_arg_int: BOOLEAN is
 		do
-			Result := (value=filename_low_level)
+			Result := (value=g_option_arg_int_low_level)
 		end
 
-	is_string_array: BOOLEAN is
+	is_g_option_arg_int64: BOOLEAN is
 		do
-			Result := (value=string_array_low_level)
+			Result := (value=g_option_arg_int64_low_level)
 		end
 
-	is_filename_array: BOOLEAN is
+	is_g_option_arg_none: BOOLEAN is
 		do
-			Result := (value=filename_array_low_level)
+			Result := (value=g_option_arg_none_low_level)
 		end
 
-	is_double: BOOLEAN is
+	is_g_option_arg_string: BOOLEAN is
 		do
-			Result := (value=double_low_level)
+			Result := (value=g_option_arg_string_low_level)
 		end
 
-	is_int64: BOOLEAN is
+	is_g_option_arg_string_array: BOOLEAN is
 		do
-			Result := (value=int64_low_level)
+			Result := (value=g_option_arg_string_array_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	none_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_OPTION_ARG_NONE"
- 			}"
- 		end
-
-	string_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_OPTION_ARG_STRING"
- 			}"
- 		end
-
-	int_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_OPTION_ARG_INT"
- 			}"
- 		end
-
-	callback_low_level: INTEGER is
+	g_option_arg_callback_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -152,34 +123,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	filename_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_OPTION_ARG_FILENAME"
- 			}"
- 		end
-
-	string_array_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_OPTION_ARG_STRING_ARRAY"
- 			}"
- 		end
-
-	filename_array_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_OPTION_ARG_FILENAME_ARRAY"
- 			}"
- 		end
-
-	double_low_level: INTEGER is
+	g_option_arg_double_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -188,12 +132,66 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	int64_low_level: INTEGER is
+	g_option_arg_filename_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_OPTION_ARG_FILENAME"
+ 			}"
+ 		end
+
+	g_option_arg_filename_array_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_OPTION_ARG_FILENAME_ARRAY"
+ 			}"
+ 		end
+
+	g_option_arg_int_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_OPTION_ARG_INT"
+ 			}"
+ 		end
+
+	g_option_arg_int64_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_OPTION_ARG_INT64"
+ 			}"
+ 		end
+
+	g_option_arg_none_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_OPTION_ARG_NONE"
+ 			}"
+ 		end
+
+	g_option_arg_string_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_OPTION_ARG_STRING"
+ 			}"
+ 		end
+
+	g_option_arg_string_array_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_OPTION_ARG_STRING_ARRAY"
  			}"
  		end
 

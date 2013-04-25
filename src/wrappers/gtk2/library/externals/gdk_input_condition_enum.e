@@ -7,15 +7,15 @@ expanded class GDK_INPUT_CONDITION_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := (a_value & (read_low_level | 
 				exception_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_read is
 		do
@@ -37,7 +37,7 @@ feature -- Setters
 			value := value.bit_xor(exception_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_read: BOOLEAN is
 		do
 			Result := (value=read_low_level)

@@ -13,10 +13,10 @@ inherit
       redefine refresh_later
       end
 
-creation {ANY}
+create {ANY}
    make_pad
 
-creation {NCURSES_PAD}
+create {NCURSES_PAD}
    make_sub_pad
 
 feature {ANY}

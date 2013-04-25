@@ -9,7 +9,7 @@ class NATIVE_ARRAY_ITEM
 inherit
    NON_WRITTEN_EXPRESSION
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

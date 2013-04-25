@@ -3,7 +3,7 @@ class LIBGLADE_EXAMPLE
 inherit
 	GTK
 	
-creation
+create {ANY}
 	make
 	
 feature {NONE} -- creation
@@ -19,12 +19,12 @@ feature {NONE} -- creation
 			gtk.run_main_loop
 		end
 
-feature -- Widgets
+feature {ANY} -- Widgets
 
 	window: GTK_WINDOW
 			-- the window
 
-feature -- Signal handlers
+feature {ANY} -- Signal handlers
 
 	quit (w: GTK_WIDGET; e: GDK_EVENT): BOOLEAN is
 		do

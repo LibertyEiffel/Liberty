@@ -26,7 +26,7 @@ class IMPLICIT_CAST
 inherit
    EXPRESSION
 
-creation {ASSIGNMENT_HANDLER, IMPLICIT_CAST}
+create {ASSIGNMENT_HANDLER, IMPLICIT_CAST}
    make
 
 feature {ANY}
@@ -130,11 +130,11 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION is
       local
          e: like expression
       do
-         e := expression.specialize_2(type)
+         e := expression.specialize_and_check(type)
          if type.is_integer then
             -- Because INTEGER_GENERAL is a very special case, we have to unwrap the IMPLICIT_CAST
             -- in order to give another chance for expression to match with INTEGER_8 / 16 / 32 / 64:

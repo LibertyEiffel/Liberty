@@ -18,7 +18,7 @@ insert
       undefine out_in_tagged_out_memory
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -95,7 +95,7 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          i: INTEGER; a1, a2: ASSERTION; l: like list
       do
@@ -108,7 +108,7 @@ feature {ANY}
                a1 /= a2 or else i > list.upper
             loop
                a1 := list.item(i)
-               a2 := a1.specialize_2(type)
+               a2 := a1.specialize_and_check(type)
                i := i + 1
             end
             if a1 = a2 then
@@ -122,7 +122,7 @@ feature {ANY}
                until
                   i > list.upper
                loop
-                  l.put(list.item(i).specialize_2(type), i)
+                  l.put(list.item(i).specialize_and_check(type), i)
                   i := i + 1
                end
             end

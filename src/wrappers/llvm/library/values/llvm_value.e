@@ -67,8 +67,8 @@ inherit
 	LLVM_TYPE_FACTORY
 insert
 	CORE_EXTERNALS
-creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
-feature 
+create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+feature {ANY} 
 	type: LLVM_TYPE is
 		do
 			Result:=type_wrapper(llvmtype_of(handle))
@@ -165,7 +165,7 @@ feature {ANY} -- Type-related queries
 	--is_vaarg_inst: BOOLEAN is do Result:=llvmis_avaarg_inst(handle).is_not_null end
 	--is_zext_inst: BOOLEAN is do Result:=llvmis_azext_inst(handle).is_not_null end
 
-feature -- Convertions into specific values.
+feature {ANY} -- Convertions into specific values.
 
 	as_basic_block: LLVM_BASIC_BLOCK is
 	require is_basic_block
@@ -674,7 +674,7 @@ feature -- Convertions into specific values.
 --	end
 --
 
-feature -- TODO: Important Public Members of the Value class
+feature {ANY} -- TODO: Important Public Members of the Value class
 -- Value::use_iterator - Typedef for iterator over the use-list
 -- Value::use_const_iterator - Typedef for const_iterator over the use-list
 -- unsigned use_size() - Returns the number of users of the value.

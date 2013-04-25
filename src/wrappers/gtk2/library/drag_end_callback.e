@@ -28,12 +28,12 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_FACTORY [GTK_WIDGET]
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	object: GTK_WIDGET
 
-feature
+feature {ANY}
 	callback (drag_context_ptr, instance: POINTER) is
 		local drag_context: GDK_DRAG_CONTEXT
 		do

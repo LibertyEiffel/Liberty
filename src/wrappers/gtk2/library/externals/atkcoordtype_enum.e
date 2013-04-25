@@ -7,15 +7,15 @@ expanded class ATKCOORDTYPE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = atk_xy_screen_low_level)  or else
 				(a_value = atk_xy_window_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_atk_xy_screen is
 		do
@@ -27,7 +27,7 @@ feature -- Setters
 			value := atk_xy_window_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_atk_xy_screen: BOOLEAN is
 		do
 			Result := (value=atk_xy_screen_low_level)

@@ -23,7 +23,7 @@ deferred class CAIRO_PATH_DATA_TYPE
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_path_data_type (a_type: INTEGER): BOOLEAN is
 		do	
 			Result:=((a_type = cairo_path_move_to) or else

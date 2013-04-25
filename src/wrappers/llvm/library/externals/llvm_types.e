@@ -6,7 +6,7 @@ deferred class LLVM_TYPES
 
 insert ANY undefine is_equal, copy end
 
-feature -- C type definitions (typedefs)
+feature {ANY} -- C type definitions (typedefs)
 	llvmexecution_engine_ref: POINTER is
 		-- typedef LLVMExecutionEngineRef
 		-- Empty by design, used for anchored declarations.

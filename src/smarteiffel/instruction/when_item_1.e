@@ -13,7 +13,7 @@ class WHEN_ITEM_1
 inherit
    WHEN_ITEM
 
-creation {WHEN_CLAUSE}
+create {WHEN_CLAUSE}
    make
 
 feature {ANY}
@@ -44,7 +44,7 @@ feature {WHEN_ITEM_1}
          if expression_value = occurrence_2.expression_value then
             error_handler.add_position(start_position)
             error_handler.add_position(occurrence_2.start_position)
-            error_handler.append("Second occurrence for this value in the same inspect. (Wrong inspect statement.)")
+            error_handler.append(once "Second occurrence for this value in the same inspect. (Wrong inspect statement.)")
             error_handler.print_as_fatal_error
          end
       end
@@ -55,7 +55,7 @@ feature {WHEN_ITEM_2}
          if expression_value.in_range(occurrence_2.lower_value, occurrence_2.upper_value) then
             error_handler.add_position(start_position)
             error_handler.add_position(occurrence_2.start_position)
-            error_handler.append("The slice includes an already encountered value. (Wrong inspect statement.)")
+            error_handler.append(once "The slice includes an already encountered value. (Wrong inspect statement.)")
             error_handler.print_as_fatal_error
          end
       end
@@ -205,16 +205,16 @@ feature {WHEN_CLAUSE, WHEN_ITEM}
          Result := current_or_twin_init(expression.specialize_thru(parent_type, parent_edge, new_type))
       end
 
-   specialize_2_character (type: TYPE): like Current is
+   specialize_and_check_character (type: TYPE): like Current is
       do
-         Result := current_or_twin_init(expression.specialize_2(type))
+         Result := current_or_twin_init(expression.specialize_and_check(type))
          Result.set_manifest_expression(type)
          Result.set_expression_value_character
       end
 
-   specialize_2_integer (type: TYPE): like Current is
+   specialize_and_check_integer (type: TYPE): like Current is
       do
-         Result := current_or_twin_init(expression.specialize_2(type))
+         Result := current_or_twin_init(expression.specialize_and_check(type))
          Result.set_manifest_expression(type)
          Result.set_expression_value_integer
       end
@@ -266,7 +266,7 @@ feature {}
             Result := Current
          else
             error_handler.add_position(expression.start_position)
-            error_handler.append("Internal error inside WHEN_ITEM_1 (compiler error).")
+            error_handler.append(once "Internal error inside WHEN_ITEM_1 (compiler error).")
             error_handler.print_as_fatal_error
             Result := twin
             Result.init(exp)

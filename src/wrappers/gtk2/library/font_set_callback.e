@@ -32,12 +32,12 @@ inherit
 
 insert G_OBJECT_FACTORY [GTK_FONT_BUTTON]
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	object: GTK_FONT_BUTTON
 
-feature
+feature {ANY}
 	callback (instance: POINTER) is
 		do
 			check has_eiffel_wrapper_stored (instance) end

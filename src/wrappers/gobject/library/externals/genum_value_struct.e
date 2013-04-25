@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	genum_value_struct_set_value (a_structure: POINTER; a_value: INTEGER_32) is
+	genum_value_struct_set_value (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for value field of GENUM_VALUE_STRUCT structure.
 			-- TODO: setter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	genum_value_struct_get_value (a_structure: POINTER): INTEGER_32 is
+	genum_value_struct_get_value (a_structure: POINTER): INTEGER is
 			-- Query for value field of GENUM_VALUE_STRUCT structure.
 			-- TODO: getter description
 

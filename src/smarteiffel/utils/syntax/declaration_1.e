@@ -10,7 +10,7 @@ class DECLARATION_1
 inherit
    DECLARATION
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

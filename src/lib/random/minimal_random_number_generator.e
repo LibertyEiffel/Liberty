@@ -9,7 +9,7 @@ class MINIMAL_RANDOM_NUMBER_GENERATOR
 inherit
    RANDOM_NUMBER_GENERATOR
 
-creation {ANY}
+create {ANY}
    make, with_seed
 
 feature {}

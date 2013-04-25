@@ -51,9 +51,9 @@ insert
 		GLIST_EXTERNALS undefine default_create end -- used in matching
 		GLIST_STRUCT undefine default_create, struct_size end -- used in matching
 
-creation  from_external_pointer
+create {ANY}  from_external_pointer
 
-feature
+feature {ANY}
 	default_create is
 		do
 			from_external_pointer(g_completion_new (default_pointer))

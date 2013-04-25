@@ -56,7 +56,7 @@ feature {} -- Creation
 			storage := storage.calloc(a_capacity)
 		end
 
-feature
+feature {ANY}
 	item (i: INTEGER_32): ITEM is
 		local
 			ptr: POINTER
@@ -587,7 +587,7 @@ feature {ANY} -- Other features:
 			-- 			count = old count
 		end
 
-feature
+feature {ANY}
 	-- struct_size: INTEGER
 
 	count: INTEGER is
@@ -633,7 +633,7 @@ feature {} -- Implement manifest generic creation (very low-level):
 			put(element, index)
 		end
 
-feature -- TODO: unimplemented 
+feature {ANY} -- TODO: unimplemented 
 	clear_all is do not_yet_implemented end
 	fast_has (an_item: ITEM): BOOLEAN is do not_yet_implemented end 
 	has (an_item: ITEM): BOOLEAN is do not_yet_implemented end 

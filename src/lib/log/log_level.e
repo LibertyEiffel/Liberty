@@ -3,7 +3,7 @@
 --
 class LOG_LEVEL
 
-creation {LOG_LEVELS}
+create {LOG_LEVELS}
    make
 
 feature {ANY}

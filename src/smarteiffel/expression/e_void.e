@@ -9,7 +9,7 @@ class E_VOID
 inherit
    MANIFEST_EXPRESSION
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -101,7 +101,7 @@ feature {ANY}
          Result := Current
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       do
          Result := Current
       end

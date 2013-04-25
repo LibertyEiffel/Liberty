@@ -6,7 +6,7 @@ class HASHED_SET[E_ -> HASHABLE]
 inherit
    ABSTRACT_HASHED_SET[E_]
 
-creation {ANY}
+create {ANY}
    make, with_capacity, from_collection, manifest_creation
 
 feature {}

@@ -8,7 +8,7 @@ class XML_COMPOSITE_NODE
 inherit
    XML_NODE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

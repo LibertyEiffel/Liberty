@@ -10,7 +10,7 @@ class DESCENDING_PARSER
 inherit
    ABSTRACT_PARSER[DESCENDING_PARSE_CONTEXT]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

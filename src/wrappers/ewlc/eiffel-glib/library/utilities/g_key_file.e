@@ -91,7 +91,7 @@ insert
 	G_KEY_FILE_ERROR
 	G_KEY_FILE_FLAGS
 	
-creation make, load_from_file, from_external_pointer
+create {ANY} make, load_from_file, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -167,7 +167,7 @@ feature {} -- Creation
 			create full_path.from_external(full_path_ptr)
 		end
 	
-feature
+feature {ANY}
 	full_path: STRING
 			-- The full path of the key file. Set by `load_from_data_dirs'
 	
@@ -246,7 +246,7 @@ feature
 			Result.from_external(keys_ptr)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	-- Note: there are not preconditions like "require
 	-- is_integer(a_group,a_key)" in a `integer_value' query because
 	-- the underlying GKeyFile API does not allow to implement it
@@ -590,7 +590,7 @@ feature -- Queries
 			if ptr.is_not_null then create Result.from_external(ptr) end
 		end
 	
-feature -- Setting commands
+feature {ANY} -- Setting commands
 
 	-- Note: g_key_file_set_value seems to be a perfect duplicate of
 	-- g_key_file_set_string. Therefore I haven't wrapped it into an 
@@ -794,7 +794,7 @@ feature -- Setting commands
 			 error.reference)
 		end
 	
-feature -- Removing
+feature {ANY} -- Removing
 	remove_group (a_group: STRING) is
 			-- Removes `a_group' from the key file. `error' is updated.
 		require group_not_void: a_group/=Void
@@ -1091,7 +1091,7 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"
 		alias "sizeof(GKeyFile)"

@@ -12,7 +12,7 @@ insert
       end
    SINGLETON
 
-creation {SMART_EIFFEL}
+create {SMART_EIFFEL}
    make
 
 feature {} -- Visitable attributes:
@@ -56,10 +56,10 @@ feature {}
    --
    -- `specializing_one_type'
    -- Particular phase when one type is being created (and specialized). This include `specialize_in' and
-   -- `specialize_thru' but not `specialize_2'.
+   -- `specialize_thru' but not `specialize_and_check'.
    --
    -- `specializing_2'
-   -- Particular phase when `specialize_2' is being performed on one type. After this phase, `resolve_in'
+   -- Particular phase when `specialize_and_check' is being performed on one type. After this phase, `resolve_in'
    -- can be used on the `type'.
    --
    -- `collecting_features'
@@ -335,7 +335,7 @@ feature {ANY} -- State checking
       end
 
    is_specializing_2: BOOLEAN is
-         -- True if the system is calling `specialize_2' on the newly created type
+         -- True if the system is calling `specialize_and_check' on the newly created type
       do
          Result := phase = specializing_2
       end

@@ -71,7 +71,7 @@ insert
 	GTK_PAGE_SETUP_EXTERNALS
 	GTK_PAGE_ORIENTATION
 
-creation make, copy, from_external_pointer
+create {ANY} make, copy, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -80,14 +80,14 @@ feature {} -- Creation
 			from_external_pointer(gtk_page_setup_new)
 		end
 	
-feature -- Copying
+feature {ANY} -- Copying
 	copy (another: GTK_PAGE_SETUP) is
 			--   Copies a GtkPageSetup.
 		do
 			from_external_pointer(gtk_page_setup_copy(another.handle))
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	orientation: INTEGER is
 			-- The page orientation of the GtkPageSetup.
 		do
@@ -164,7 +164,7 @@ feature -- Queries
 			Result:=gtk_page_setup_get_page_height(handle, unit)
 		end	
 
-feature -- Setters
+feature {ANY} -- Setters
 	set_orientation (an_orientation: INTEGER) is
 			--   Sets the page orientation of the GtkPageSetup.
 		require valid: is_valid_gtk_page_orientation(an_orientation)

@@ -21,9 +21,9 @@ indexing
 
 class PIXBUFS
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 -- /* Pixbufs
 --  *
 --  * A GdkPixbuf represents an image, normally in RGB or RGBA format.

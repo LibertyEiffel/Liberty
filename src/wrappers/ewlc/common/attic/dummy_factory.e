@@ -24,7 +24,7 @@ class DUMMY_FACTORY [ITEM->SHARED_C_STRUCT]
 	
 inherit WRAPPER_FACTORY[ITEM]
 
-creation default_create
+create {ANY} default_create
 	
 feature {WRAPPER,WRAPPER_HANDLER} -- Implementation
 	wrapper (a_pointer: POINTER): ITEM is

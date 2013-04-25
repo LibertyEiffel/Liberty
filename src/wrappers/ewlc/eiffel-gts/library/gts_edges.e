@@ -25,10 +25,10 @@ inherit G_LIST [GTS_EDGE]
 
 insert GTS_EDGE_EXTERNALS
 
-creation  make, from_external_pointer
+create {ANY}  make, from_external_pointer
 
 feature {} -- Creation
-feature -- Edges related functions
+feature {ANY} -- Edges related functions
 	merge is
 			-- For each edge check if it is duplicated (as returned by
 			-- GTS_EDGE.duplicated); in this case it is replaced it by

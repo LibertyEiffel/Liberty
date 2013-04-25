@@ -3,7 +3,7 @@
 --
 class FOREIGN_DLL
 
-creation {FOREIGN_DLL_LOADER}
+create {FOREIGN_DLL_LOADER}
    make
 
 feature {ANY}

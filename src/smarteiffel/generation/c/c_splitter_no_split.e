@@ -9,7 +9,7 @@ class C_SPLITTER_NO_SPLIT
 inherit
    C_SPLITTER
 
-creation {ACE, CLEAN}
+create {ACE, CLEAN}
    make
 
 feature {CLEAN}

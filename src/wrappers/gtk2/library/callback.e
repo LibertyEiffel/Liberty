@@ -30,7 +30,7 @@ inherit
 
 insert G_SIGNAL_EXTERNALS
 
-feature
+feature {ANY}
 	make is
 		do
 			-- Using the _swap version is the key here. When the callback

@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	g_gtype_get_type: NATURAL_64 is
+	g_gtype_get_type: like long_unsigned is
  		-- g_gtype_get_type
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_pointer_type_register_static (a_name: POINTER): NATURAL_64 is
+	g_pointer_type_register_static (a_name: POINTER): like long_unsigned is
  		-- g_pointer_type_register_static
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_get_boolean (a_value: POINTER): INTEGER_32 is
+	g_value_get_boolean (a_value: POINTER): INTEGER is
  		-- g_value_get_boolean
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_get_double (a_value: POINTER): REAL_64 is
+	g_value_get_double (a_value: POINTER): REAL is
  		-- g_value_get_double
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_get_gtype (a_value: POINTER): NATURAL_64 is
+	g_value_get_gtype (a_value: POINTER): like long_unsigned is
  		-- g_value_get_gtype
 		external "plug_in"
 		alias "{
@@ -109,7 +109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_get_int (a_value: POINTER): INTEGER_32 is
+	g_value_get_int (a_value: POINTER): INTEGER is
  		-- g_value_get_int
 		external "plug_in"
 		alias "{
@@ -129,7 +129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_get_long (a_value: POINTER): INTEGER_64 is
+	g_value_get_long (a_value: POINTER): like long is
  		-- g_value_get_long
 		external "plug_in"
 		alias "{
@@ -179,7 +179,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_get_uint (a_value: POINTER): NATURAL_32 is
+	g_value_get_uint (a_value: POINTER): NATURAL is
  		-- g_value_get_uint
 		external "plug_in"
 		alias "{
@@ -199,7 +199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_get_ulong (a_value: POINTER): NATURAL_64 is
+	g_value_get_ulong (a_value: POINTER): like long_unsigned is
  		-- g_value_get_ulong
 		external "plug_in"
 		alias "{
@@ -219,7 +219,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_set_boolean (a_value: POINTER; a_v_boolean: INTEGER_32) is
+	g_value_set_boolean (a_value: POINTER; a_v_boolean: INTEGER) is
  		-- g_value_set_boolean
 		external "plug_in"
 		alias "{
@@ -239,7 +239,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_set_double (a_value: POINTER; a_v_double: REAL_64) is
+	g_value_set_double (a_value: POINTER; a_v_double: REAL) is
  		-- g_value_set_double
 		external "plug_in"
 		alias "{
@@ -259,7 +259,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_set_gtype (a_value: POINTER; a_v_gtype: NATURAL_64) is
+	g_value_set_gtype (a_value: POINTER; a_v_gtype: like long_unsigned) is
  		-- g_value_set_gtype
 		external "plug_in"
 		alias "{
@@ -269,7 +269,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_set_int (a_value: POINTER; a_v_int: INTEGER_32) is
+	g_value_set_int (a_value: POINTER; a_v_int: INTEGER) is
  		-- g_value_set_int
 		external "plug_in"
 		alias "{
@@ -289,7 +289,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_set_long (a_value: POINTER; a_v_long: INTEGER_64) is
+	g_value_set_long (a_value: POINTER; a_v_long: like long) is
  		-- g_value_set_long
 		external "plug_in"
 		alias "{
@@ -359,7 +359,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_set_uint (a_value: POINTER; a_v_uint: NATURAL_32) is
+	g_value_set_uint (a_value: POINTER; a_v_uint: NATURAL) is
  		-- g_value_set_uint
 		external "plug_in"
 		alias "{
@@ -379,7 +379,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_set_ulong (a_value: POINTER; a_v_ulong: NATURAL_64) is
+	g_value_set_ulong (a_value: POINTER; a_v_ulong: like long_unsigned) is
  		-- g_value_set_ulong
 		external "plug_in"
 		alias "{

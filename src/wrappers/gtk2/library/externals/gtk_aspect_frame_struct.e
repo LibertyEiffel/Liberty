@@ -108,7 +108,7 @@ feature {} -- Low-level queries
 		end
 
 	-- Unwrappable field center_allocation.
-feature -- Structure size
+feature {ANY} -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

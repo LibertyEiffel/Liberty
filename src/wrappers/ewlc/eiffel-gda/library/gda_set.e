@@ -38,7 +38,7 @@ insert
 	GDA_SET_EXTERNALS
 	SHARED_G_ERROR
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (some_holders: G_SLIST[GDA_HOLDER]) is
@@ -50,7 +50,7 @@ feature {} -- Creation
 		from_external_pointer(gda_set_new (some_holders.handle))
 	end
 
-feature
+feature {ANY}
 	copy (another: like Current) is
 		--
 	do
@@ -94,7 +94,7 @@ feature
 	--   set :     a GdaSet object
 	--   Returns : a new string
 	--
-feature
+feature {ANY}
 	holder (an_id: STRING): GDA_HOLDER is
 		-- The GDA_HOLDER with `an_id'; Void if cannot be found.
 	require an_id/=Void
@@ -377,7 +377,7 @@ feature {} -- Unwrapped
 	--   ... :       value, of the correct type, depending on the requested
 	--               holder's type
 	--   Returns :   TRUE if no error occurred and the value was set correctly
-feature
+feature {ANY}
 	struct_size: INTEGER is
 		external "C inline use <libgda/libgda.h>"
 		alias "sizeof(GdaSet)"

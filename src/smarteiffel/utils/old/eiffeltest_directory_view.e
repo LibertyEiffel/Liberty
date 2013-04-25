@@ -6,7 +6,7 @@ inherit
       redefine set_container, container
       end
    
-creation {EIFFELTEST}
+create {EIFFELTEST}
    make
 
 feature {ANY}

@@ -7,14 +7,14 @@ expanded class GTYPEFLAGS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (g_type_flag_abstract_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_type_flag_abstract is
 		do
@@ -26,7 +26,7 @@ feature -- Setters
 			value := value.bit_xor(g_type_flag_abstract_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_type_flag_abstract: BOOLEAN is
 		do
 			Result := (value=g_type_flag_abstract_low_level)

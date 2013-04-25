@@ -1,6 +1,6 @@
 class MY_SEP
 inherit SEPARATE
-feature 
+feature {ANY} 
 	main is
 		local rem: INTEGER
 		do

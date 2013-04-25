@@ -7,15 +7,15 @@ expanded class GDKWINDOWCLASS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gdk_input_only_low_level)  or else
 				(a_value = gdk_input_output_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gdk_input_only is
 		do
@@ -27,7 +27,7 @@ feature -- Setters
 			value := gdk_input_output_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gdk_input_only: BOOLEAN is
 		do
 			Result := (value=gdk_input_only_low_level)

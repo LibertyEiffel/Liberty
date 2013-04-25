@@ -31,7 +31,7 @@ inherit G_OBJECT
 
 insert GTK
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -46,7 +46,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_text_child_anchor_new)
 		end
 
-feature
+feature {ANY}
 	widgets: G_LIST [GTK_WIDGET] is
 			-- a list of all widgets anchored at this child anchor.
 		do
@@ -64,7 +64,7 @@ feature
 			Result := gtk_text_child_anchor_get_deleted(handle).to_boolean
 		end
 	
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextChildAnchor)"

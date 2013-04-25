@@ -36,7 +36,7 @@ insert
 		-- Implemented Interfaces
 		-- GtkFileChooserButton implements GtkFileChooser and AtkImplementorIface.
 
-creation
+create {ANY}
 	from_title,
 	from_external_pointer
 
@@ -80,7 +80,7 @@ feature {} -- Creation
 -- 
 -- Since 2.6
 
-feature
+feature {ANY}
 
 	title: STRING is
 			-- Retrieves the title of the browse dialog used by button.

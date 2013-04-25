@@ -7,8 +7,8 @@ expanded class GDKDRAGACTION_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (gdk_action_ask_low_level | 
@@ -18,7 +18,7 @@ feature -- Validity
 				gdk_action_private_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gdk_action_ask is
 		do
@@ -70,7 +70,7 @@ feature -- Setters
 			value := value.bit_xor(gdk_action_private_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gdk_action_ask: BOOLEAN is
 		do
 			Result := (value=gdk_action_ask_low_level)

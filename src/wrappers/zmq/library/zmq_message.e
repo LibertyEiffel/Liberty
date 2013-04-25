@@ -13,7 +13,7 @@ insert
 	EXCEPTIONS undefine copy, default_create, is_equal end
 	ERRNO redefine default_create end
 
-creation {ANY} copy,default_create, with_size
+create {ANY} copy,default_create, with_size
 
 feature {} -- Creation
 	default_create is
@@ -72,7 +72,7 @@ feature {ANY} -- Queries
 		Result := zmq_msg_size(handle)
 	end
 
-feature -- Convertions.
+feature {ANY} -- Convertions.
 	as_string_message: ZMQ_STRING_MESSAGE is
 		-- A string message with the same content of
 	do

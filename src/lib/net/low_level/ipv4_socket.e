@@ -11,10 +11,10 @@ class IPV4_SOCKET
 inherit
    SOCKET_IMPL
 
-creation {SOCKET_HANDLER}
+create {SOCKET_HANDLER}
    make_tcp, make_udp
 
-creation {SOCKET_SERVER, SOCKET_HANDLER}
+create {SOCKET_SERVER, SOCKET_HANDLER}
    bind
 
 feature {SOCKET_HANDLER}
@@ -36,6 +36,7 @@ feature {SOCKET_SERVER, SOCKET_HANDLER}
             end
             common_make(bind_values.item(0), bind_values.item(1), bind_values.item(2), bind_values.item(3), bind_values.item(4), a_sync)
             is_connected := True
+            is_remote_connected := True
             delay_read := False
          else
             error := last_error

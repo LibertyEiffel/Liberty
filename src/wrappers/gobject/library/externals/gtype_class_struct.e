@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gtype_class_struct_set_g_type (a_structure: POINTER; a_value: NATURAL_32) is
+	gtype_class_struct_set_g_type (a_structure: POINTER; a_value: like long_unsigned) is
 			-- Setter for g_type field of GTYPE_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -22,7 +22,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	gtype_class_struct_get_g_type (a_structure: POINTER): NATURAL_32 is
+	gtype_class_struct_get_g_type (a_structure: POINTER): like long_unsigned is
 			-- Query for g_type field of GTYPE_CLASS_STRUCT structure.
 			-- TODO: getter description
 

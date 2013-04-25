@@ -7,9 +7,9 @@ insert
 	EXTERNAL_TOOL
 	GTK
 
-creation dummy, make
+create {ANY} dummy, make
 
-feature
+feature {ANY}
 	make is
 		do
 			bootstrap
@@ -20,7 +20,7 @@ feature
 			gtk.run_main_loop
 		end
 
-feature
+feature {ANY}
 	window: GTK_WINDOW
 	buffer: GTK_SOURCE_BUFFER
 

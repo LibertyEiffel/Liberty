@@ -13,10 +13,10 @@ inherit
          set_end_comment
       end
    
-creation {FEATURE_TEXT}
+create {FEATURE_TEXT}
    make
 
-creation {WRITABLE_ATTRIBUTE}
+create {WRITABLE_ATTRIBUTE}
    with
 
 feature {ANY}

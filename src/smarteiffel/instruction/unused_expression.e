@@ -10,7 +10,7 @@ class UNUSED_EXPRESSION
 inherit
    NON_WRITTEN_INSTRUCTION
 
-creation
+create {ANY}
    make
 
 feature {ANY}

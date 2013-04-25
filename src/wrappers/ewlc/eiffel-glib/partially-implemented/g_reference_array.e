@@ -77,9 +77,9 @@ insert
 	WRAPPER_FACTORY [ITEM] -- undefine fill_tagged_out_memory end
 	G_PTR_ARRAY_EXTERNALS undefine fill_tagged_out_memory end
 	
-creation empty, with_capacity, from_external_pointer
+create {ANY} empty, with_capacity, from_external_pointer
 
-feature 
+feature {ANY} 
 	empty is
 			-- Creates a new empty array.		
 		do
@@ -100,7 +100,7 @@ feature
 		ensure is_empty
 		end
 
-feature -- Indexing:
+feature {ANY} -- Indexing:
 	lower: INTEGER_32 is 0 
 		-- Minimum index.  See also `upper', `valid_index', `item'.
 
@@ -110,7 +110,7 @@ feature -- Indexing:
 			Result:=count-1
 		end
 
-feature -- Counting:
+feature {ANY} -- Counting:
 	count: INTEGER_32 is
 			-- Number of available indices See also `is_empty',
 			-- `lower', `upper'. 
@@ -124,7 +124,7 @@ feature -- Counting:
 			Result := (count = 0)
 		end
 
-feature -- Accessing:
+feature {ANY} -- Accessing:
 	item (index: INTEGER_32): ITEM is
 			-- Item at the corresponding `index'.  See also `lower',
 			-- `upper', `valid_index'.
@@ -154,13 +154,13 @@ feature -- Accessing:
 			Result:=item(upper)
 		end
 
-feature   -- Other features:
+feature {ANY}   -- Other features:
 	get_new_iterator: ITERATOR[ITEM] is
 		obsolete "Currently unimplemented!"
 		do
 			-- create {G_ARRAY_ITERATOR[ITEM]} Result.from_array(Current)
 		end
-feature    -- Writing:
+feature {ANY}    -- Writing:
 	put (element: ITEM; an_index: INTEGER_32) is
 			-- Make `element' the item at `an_index'.  See also `lower',
 			-- `upper', `valid_index', `item', `swap', `force'.
@@ -211,7 +211,7 @@ feature    -- Writing:
 			end
 		end
 
-feature -- Adding:
+feature {ANY} -- Adding:
 	add_first (element: ITEM) is
 			-- Add a new item in first position : `count' is increased by
 			-- one and all other items are shifted right.  See also
@@ -262,7 +262,7 @@ feature -- Adding:
 			end
 		end
 
-feature -- Modification:
+feature {ANY} -- Modification:
 	force (element: E_; index: INTEGER_32) is
 			-- Make `element' the item at `index', enlarging the
 			-- collection if necessary (new bounds except `index' are
@@ -297,7 +297,7 @@ feature -- Modification:
 			end
 		end
 
-feature -- Removing:
+feature {ANY} -- Removing:
 	remove_first is
 			-- Remove the `first' element of the collection.
 		local removed: POINTER
@@ -363,7 +363,7 @@ feature -- Removing:
 			p := g_ptr_array_free (handle, 1)
 		end
 	
-feature -- Looking and Searching:
+feature {ANY} -- Looking and Searching:
 	has (x: ITEM): BOOLEAN is
 			-- Look for `x' using `is_equal' for comparison.
 
@@ -538,7 +538,7 @@ feature -- Looking and Searching:
 			end
 		end
 
-feature -- Looking and comparison:
+feature {ANY} -- Looking and comparison:
 	is_equal (other: like Current): BOOLEAN is
 			-- Do both collections have the same `lower', `upper', and items?
 			-- The basic `=' is used for comparison of items.
@@ -638,7 +638,7 @@ feature -- Looking and comparison:
 		end
 	
 
-feature -- Agents based features:
+feature {ANY} -- Agents based features:
 	--    do_all (action: ROUTINE[TUPLE[ANY]]) is
 	-- 			-- Apply `action' to every item of `Current'.
 		
@@ -715,7 +715,7 @@ feature -- Agents based features:
 		ensure set: count=a_length
 		end
 
-feature -- Unwrapped code
+feature {ANY} -- Unwrapped code
 
 -- g_ptr_array_remove ()
 

@@ -7,8 +7,8 @@ expanded class GFILESYSTEM_PREVIEW_TYPE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = if_always_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = never_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_if_always is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := never_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	if_always: BOOLEAN is
 		do
 			Result := (value=if_always_low_level)

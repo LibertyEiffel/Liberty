@@ -28,7 +28,7 @@ deferred class CAIRO_FILTER
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_filter (a_filter: INTEGER): BOOLEAN is
 		do
 			Result := ((a_filter = cairo_filter_fast) or else

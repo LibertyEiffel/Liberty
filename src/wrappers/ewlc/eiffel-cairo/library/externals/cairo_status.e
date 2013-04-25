@@ -35,7 +35,7 @@ inherit ANY undefine is_equal, copy end
 	-- New entries may be added in future versions. Use 'status_to_string' to
 	-- get a human-readable representation of an error message.
 
-feature
+feature {ANY}
 
 	is_valid_cairo_status (a_status: INTEGER): BOOLEAN is
 		do
@@ -188,7 +188,7 @@ feature
 			-- Don't call this method directly, use status_to_string instead!
 		external "C use <cairo.h>"
 		end
-feature -- Access
+feature {ANY} -- Access
 
 	status_to_string (a_status: INTEGER): STRING is
 			-- Provides a human-readable description of a cairo_status.

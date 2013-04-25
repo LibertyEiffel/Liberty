@@ -7,8 +7,8 @@ expanded class GMARKUP_ERROR_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = bad_utf8_low_level)  or else
@@ -20,7 +20,7 @@ feature -- Validity
 				(a_value = missing_attribute_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_bad_utf8 is
 		do
@@ -57,7 +57,7 @@ feature -- Setters
 			value := missing_attribute_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	bad_utf8: BOOLEAN is
 		do
 			Result := (value=bad_utf8_low_level)

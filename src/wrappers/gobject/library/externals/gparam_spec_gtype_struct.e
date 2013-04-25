@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gparam_spec_gtype_struct_set_is_a_type (a_structure: POINTER; a_value: NATURAL_32) is
+	gparam_spec_gtype_struct_set_is_a_type (a_structure: POINTER; a_value: like long_unsigned) is
 			-- Setter for is_a_type field of GPARAM_SPEC_GTYPE_STRUCT structure.
 			-- TODO: setter description
 
@@ -23,7 +23,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field parent_instance.
-	gparam_spec_gtype_struct_get_is_a_type (a_structure: POINTER): NATURAL_32 is
+	gparam_spec_gtype_struct_get_is_a_type (a_structure: POINTER): like long_unsigned is
 			-- Query for is_a_type field of GPARAM_SPEC_GTYPE_STRUCT structure.
 			-- TODO: getter description
 

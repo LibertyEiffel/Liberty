@@ -26,7 +26,7 @@ deferred class FREEZABLE
 
 insert ANY undefine copy, is_equal, fill_tagged_out_memory end
 
-feature
+feature {ANY}
 	freeze is
 		-- Forbid further changes to Current until thaw is invoked
 	do

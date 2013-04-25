@@ -7,15 +7,15 @@ expanded class GDK_PIXBUF_ALPHA_MODE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = bilevel_low_level)  or else
 				(a_value = full_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_bilevel is
 		do
@@ -27,7 +27,7 @@ feature -- Setters
 			value := full_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	bilevel: BOOLEAN is
 		do
 			Result := (value=bilevel_low_level)

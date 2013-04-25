@@ -30,7 +30,7 @@ deferred class GTS_BOOLEAN_OPERATION
 
 	-- insert FOO_EXTERNALS
 
-feature 
+feature {ANY} 
 
 
 --   gts_surface_inter_class ()

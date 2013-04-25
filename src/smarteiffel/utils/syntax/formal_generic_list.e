@@ -14,7 +14,7 @@ inherit
 insert
    GLOBALS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -109,16 +109,16 @@ feature {TYPE, GENERIC_TYPE_MARK}
                   elseif actual_type.insert_inherit_test(formal_type) = unrelated_code then
                      error_handler.add_position(actual_position)
                      error_handler.add_position(formal.start_position)
-                     error_handler.append("Actual generic derivation ")
+                     error_handler.append(once "Actual generic derivation ")
                      error_handler.append(actual_type.name.to_string)
-                     error_handler.append(" must insert ")
+                     error_handler.append(once " must insert ")
                      error_handler.append(formal_type.name.to_string)
-                     error_handler.append(" which is the generic constraint.")
+                     error_handler.append(once " which is the generic constraint.")
                      error_handler.print_as_error
                      --
                      error_handler.add_position(actual_position)
                      error_handler.add_position(list.item(i).start_position)
-                     error_handler.append(" Constraint Generic Violation.")
+                     error_handler.append(once " Constraint Generic Violation.")
                      error_handler.print_as_fatal_error
                   end
                end
@@ -161,7 +161,7 @@ feature {EIFFEL_PARSER}
             if n1 = n2 then
                error_handler.add_position(fga.start_position)
                error_handler.add_position(fga2.start_position)
-               error_handler.append("Formal generic name appears twice in %
+               error_handler.append(once "Formal generic name appears twice in %
                 %formal generic list (VCFG.2).")
                error_handler.print_as_fatal_error
             end

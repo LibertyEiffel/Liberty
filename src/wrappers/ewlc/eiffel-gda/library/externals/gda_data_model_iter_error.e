@@ -3,22 +3,22 @@
 expanded class GDA_DATA_MODEL_ITER_ERROR
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_data_model_iter_what_error))
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_gda_data_model_iter_what_error is
 		do
 			value := gda_data_model_iter_what_error
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gda_data_model_iter_what_error: BOOLEAN is
 		do
 			Result := (value=gda_data_model_iter_what_error)

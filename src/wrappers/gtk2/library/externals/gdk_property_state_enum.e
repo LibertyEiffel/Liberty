@@ -7,15 +7,15 @@ expanded class GDK_PROPERTY_STATE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = new_value_low_level)  or else
 				(a_value = delete_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_new_value is
 		do
@@ -27,7 +27,7 @@ feature -- Setters
 			value := delete_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	new_value: BOOLEAN is
 		do
 			Result := (value=new_value_low_level)

@@ -22,7 +22,7 @@ inherit
 insert
    GLOBALS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -148,9 +148,9 @@ feature {CREATION_CLAUSE_LIST}
             if fn.to_string = as_manifest_creation then
                if type.is_expanded and then not type.is_native_array then
                   error_handler.add_position(start_position)
-                  error_handler.append("Manifest generic creation not yet implemented for expanded types (")
+                  error_handler.append(once "Manifest generic creation not yet implemented for expanded types (")
                   error_handler.append(type.name.to_string)
-                  error_handler.append(" is expanded).")
+                  error_handler.append(once " is expanded).")
                   error_handler.print_as_fatal_error
                end
                check_manifest_make(type, fn)
@@ -160,21 +160,21 @@ feature {CREATION_CLAUSE_LIST}
                fs := type.lookup(fn)
                if fs = Void then
                   error_handler.add_position(fn.start_position)
-                  error_handler.append("Creation procedure not found.")
+                  error_handler.append(once "Creation procedure not found.")
                   error_handler.print_as_fatal_error
                end
                af := fs.anonymous_feature(type)
                if af.result_type /= Void then
                   error_handler.add_position(fn.start_position)
                   error_handler.add_position(af.start_position)
-                  error_handler.append("Invalid creation procedure. A function is not allowed %
+                  error_handler.append(once "Invalid creation procedure. A function is not allowed %
                                        %as a creation procedure.")
                   error_handler.print_as_error
                end
                if {ONCE_PROCEDURE} ?:= af then
                   error_handler.add_position(fn.start_position)
                   error_handler.add_position(af.start_position)
-                  error_handler.append("Invalid creation procedure. A %"once%" procedure is not allowed %
+                  error_handler.append(once "Invalid creation procedure. A %"once%" procedure is not allowed %
                                        %as a creation procedure.")
                   error_handler.print_as_error
                end
@@ -216,9 +216,9 @@ feature {CREATION_CLAUSE_LIST}
                         af := fs.anonymous_feature(type)
                         error_handler.add_position(af.start_position)
                      end
-                     error_handler.append("Found two possible default creation procedures for expanded type ")
+                     error_handler.append(once "Found two possible default creation procedures for expanded type ")
                      error_handler.append(type.name.to_string)
-                     error_handler.append(". An expanded type must have one unique creation procedure with no %
+                     error_handler.append(once ". An expanded type must have one unique creation procedure with no %
                                           %argument: the creation procedure used for automatic initialization.")
                      error_handler.print_as_fatal_error
                   end
@@ -264,29 +264,29 @@ feature {}
          end
          if af = Void then
             error_handler.add_position(fn.start_position)
-            error_handler.append("Class ")
+            error_handler.append(once "Class ")
             error_handler.append(t.class_text.name.to_string)
-            error_handler.append(" not correctly equiped for manifest generic creation (missing definition %
+            error_handler.append(once " not correctly equiped for manifest generic creation (missing definition %
                                  %of feature `manifest_make').")
             error_handler.print_as_fatal_error
          end
          if af.result_type /= Void then
             error_handler.add_position(fn.start_position)
             error_handler.add_position(af.start_position)
-            error_handler.append("Feature `manifest_make' must be a procedure.")
+            error_handler.append(once "Feature `manifest_make' must be a procedure.")
             error_handler.print_as_fatal_error
          end
          formal_arg_list := af.arguments
          if formal_arg_list = Void then
             error_handler.add_position(fn.start_position)
             error_handler.add_position(af.start_position)
-            error_handler.append("Feature `manifest_make' must have at least one INTEGER argument.")
+            error_handler.append(once "Feature `manifest_make' must have at least one INTEGER argument.")
             error_handler.print_as_fatal_error
          end
          if not formal_arg_list.type_mark(1).resolve_in(t).is_integer then
             error_handler.add_position(fn.start_position)
             error_handler.add_position(af.start_position)
-            error_handler.append("First argument of `manifest_make' must be an INTEGER.")
+            error_handler.append(once "First argument of `manifest_make' must be an INTEGER.")
             error_handler.print_as_fatal_error
          end
       end
@@ -301,30 +301,30 @@ feature {}
          end
          if af = Void then
             error_handler.add_position(fn.start_position)
-            error_handler.append("Class ")
+            error_handler.append(once "Class ")
             error_handler.append(t.class_text.name.to_string)
-            error_handler.append(" not correctly equiped for manifest generic creation (missing definition %
+            error_handler.append(once " not correctly equiped for manifest generic creation (missing definition %
                                  %of feature `manifest_put').")
             error_handler.print_as_fatal_error
          end
          if af.result_type /= Void then
             error_handler.add_position(fn.start_position)
             error_handler.add_position(af.start_position)
-            error_handler.append("Feature `manifest_put' must be a procedure.")
+            error_handler.append(once "Feature `manifest_put' must be a procedure.")
             error_handler.print_as_fatal_error
          end
          formal_arg_list := af.arguments
          if formal_arg_list = Void or else formal_arg_list.count < 2 then
             error_handler.add_position(fn.start_position)
             error_handler.add_position(af.start_position)
-            error_handler.append("Feature `manifest_put' must have at least two argument and the first %
+            error_handler.append(once "Feature `manifest_put' must have at least two argument and the first %
                                  %one must be an INTEGER argument.")
             error_handler.print_as_fatal_error
          end
          if not formal_arg_list.type_mark(1).resolve_in(t).is_integer then
             error_handler.add_position(fn.start_position)
             error_handler.add_position(af.start_position)
-            error_handler.append("First argument of `manifest_put' must be an INTEGER.")
+            error_handler.append(once "First argument of `manifest_put' must be an INTEGER.")
             error_handler.print_as_fatal_error
          end
       end
@@ -340,9 +340,9 @@ feature {}
          end
          if af = Void then
             error_handler.add_position(fn.start_position)
-            error_handler.append("Class ")
+            error_handler.append(once "Class ")
             error_handler.append(t.class_text.name.to_string)
-            error_handler.append(" not correctly equiped for manifest generic creation (missing definition %
+            error_handler.append(once " not correctly equiped for manifest generic creation (missing definition %
                                  %of feature `manifest_semicolon_check').")
             error_handler.print_as_fatal_error
          end
@@ -351,13 +351,13 @@ feature {}
             integer_constant ::= cst_att_integer.value
             if integer_constant.value_memory <= 1 then
                error_handler.add_position(integer_constant.start_position)
-               error_handler.append("Invalid manifest equipment (must be greater than 1).")
+               error_handler.append(once "Invalid manifest equipment (must be greater than 1).")
                error_handler.print_as_fatal_error
             end
          elseif not {CST_ATT_BOOLEAN} ?:= af then
             error_handler.add_position(start_position)
             error_handler.add_position(af.start_position)
-            error_handler.append("Feature `manifest_semicolon_check' must be a constant (INTEGER or BOOLEAN).")
+            error_handler.append(once "Feature `manifest_semicolon_check' must be a constant (INTEGER or BOOLEAN).")
             error_handler.print_as_fatal_error
          end
       end

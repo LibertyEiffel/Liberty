@@ -7,8 +7,8 @@ expanded class ROUNDINGMODE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = rm_nearest_ties_to_away_low_level)  or else
@@ -18,7 +18,7 @@ feature -- Validity
 				(a_value = rm_toward_zero_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_rm_nearest_ties_to_away is
 		do
@@ -45,7 +45,7 @@ feature -- Setters
 			value := rm_toward_zero_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_rm_nearest_ties_to_away: BOOLEAN is
 		do
 			Result := (value=rm_nearest_ties_to_away_low_level)

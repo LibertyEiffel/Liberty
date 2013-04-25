@@ -3,8 +3,8 @@
 expanded class G_SPAWN_ERROR
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_spawn_error_fork) or else 
@@ -30,7 +30,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_fork is
 		do
 			value := g_spawn_error_fork
@@ -132,7 +132,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_fork: BOOLEAN is
 		do
 			Result := (value=g_spawn_error_fork)

@@ -56,7 +56,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_infinite_inlining01.e -o test_infinite_inlining01.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_infinite_inlining01.e -o test_infinite_inlining01.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_infinite_inlining01.e -o test_infinite_inlining01.exe
 Running (-require_check) "test_infinite_inlining01.exe".
 se clean test_infinite_inlining01.e
@@ -176,7 +176,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_infinite_inlining02.e -o test_infinite_inlining02.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_infinite_inlining02.e -o test_infinite_inlining02.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_infinite_inlining02.e -o test_infinite_inlining02.exe
 Running (-require_check) "test_infinite_inlining02.exe".
 se clean test_infinite_inlining02.e
@@ -296,7 +296,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_infinite_inlining03.e -o test_infinite_inlining03.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_infinite_inlining03.e -o test_infinite_inlining03.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_infinite_inlining03.e -o test_infinite_inlining03.exe
 Running (-require_check) "test_infinite_inlining03.exe".
 se clean test_infinite_inlining03.e
@@ -416,7 +416,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_infinite_inlining04.e -o test_infinite_inlining04.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_infinite_inlining04.e -o test_infinite_inlining04.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_infinite_inlining04.e -o test_infinite_inlining04.exe
 Running (-require_check) "test_infinite_inlining04.exe".
 se clean test_infinite_inlining04.e
@@ -536,7 +536,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inlining1.e -o test_inlining1.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inlining1.e -o test_inlining1.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inlining1.e -o test_inlining1.exe
 Running (-require_check) "test_inlining1.exe".
 se clean test_inlining1.e
@@ -656,7 +656,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inlining10.e -o test_inlining10.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inlining10.e -o test_inlining10.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inlining10.e -o test_inlining10.exe
 Running (-require_check) "test_inlining10.exe".
 se clean test_inlining10.e
@@ -776,7 +776,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inlining11.e -o test_inlining11.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inlining11.e -o test_inlining11.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inlining11.e -o test_inlining11.exe
 Running (-require_check) "test_inlining11.exe".
 se clean test_inlining11.e
@@ -896,7 +896,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inlining12.e -o test_inlining12.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inlining12.e -o test_inlining12.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inlining12.e -o test_inlining12.exe
 Running (-require_check) "test_inlining12.exe".
 se clean test_inlining12.e
@@ -1016,7 +1016,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inlining13.e -o test_inlining13.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inlining13.e -o test_inlining13.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inlining13.e -o test_inlining13.exe
 Running (-require_check) "test_inlining13.exe".
 se clean test_inlining13.e
@@ -1136,7 +1136,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inlining2.e -o test_inlining2.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inlining2.e -o test_inlining2.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inlining2.e -o test_inlining2.exe
 Running (-require_check) "test_inlining2.exe".
 se clean test_inlining2.e
@@ -1256,7 +1256,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inlining3.e -o test_inlining3.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inlining3.e -o test_inlining3.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inlining3.e -o test_inlining3.exe
 Running (-require_check) "test_inlining3.exe".
 se clean test_inlining3.e
@@ -1376,7 +1376,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inlining4.e -o test_inlining4.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inlining4.e -o test_inlining4.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inlining4.e -o test_inlining4.exe
 Running (-require_check) "test_inlining4.exe".
 se clean test_inlining4.e
@@ -1496,7 +1496,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inlining5.e -o test_inlining5.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inlining5.e -o test_inlining5.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inlining5.e -o test_inlining5.exe
 Running (-require_check) "test_inlining5.exe".
 se clean test_inlining5.e
@@ -1616,7 +1616,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inlining6.e -o test_inlining6.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inlining6.e -o test_inlining6.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inlining6.e -o test_inlining6.exe
 Running (-require_check) "test_inlining6.exe".
 se clean test_inlining6.e
@@ -1736,7 +1736,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inlining7.e -o test_inlining7.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inlining7.e -o test_inlining7.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inlining7.e -o test_inlining7.exe
 Running (-require_check) "test_inlining7.exe".
 se clean test_inlining7.e
@@ -1856,7 +1856,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inlining8.e -o test_inlining8.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inlining8.e -o test_inlining8.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inlining8.e -o test_inlining8.exe
 Running (-require_check) "test_inlining8.exe".
 se clean test_inlining8.e
@@ -1976,7 +1976,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_inlining9.e -o test_inlining9.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_inlining9.e -o test_inlining9.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_inlining9.e -o test_inlining9.exe
 Running (-require_check) "test_inlining9.exe".
 se clean test_inlining9.e

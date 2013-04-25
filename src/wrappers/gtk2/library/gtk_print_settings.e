@@ -46,7 +46,7 @@ insert
 	GTK_PAGE_ORIENTATION
 	GTK_PRINT_SETTINGS_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -55,14 +55,14 @@ feature {} -- Creation
 			from_external_pointer(gtk_print_settings_new)
 		end
 	
-feature -- Copying
+feature {ANY} -- Copying
 	copy (another: GTK_PRINT_SETTINGS) is
 			--   Copies a GtkPrintSettings object.
 		do
 			from_external_pointer(gtk_print_settings_copy(another.handle))
 		end
 
-feature -- Dictionary like behaviour
+feature {ANY} -- Dictionary like behaviour
 	-- TODO: make it a real DICTIONARY
 	
 	has (a_key: STRING): BOOLEAN is
@@ -109,7 +109,7 @@ feature -- Dictionary like behaviour
 	--   func :      the function to call
 	--   user_data : user data for func
 
-feature
+feature {ANY}
 	unit: INTEGER -- The unit used in queries
 	
 	set_unit (a_unit: INTEGER) is

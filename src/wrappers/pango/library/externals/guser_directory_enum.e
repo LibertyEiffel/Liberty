@@ -7,8 +7,8 @@ expanded class GUSER_DIRECTORY_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = directory_desktop_low_level)  or else
@@ -22,7 +22,7 @@ feature -- Validity
 				(a_value = n_directories_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_directory_desktop is
 		do
@@ -69,7 +69,7 @@ feature -- Setters
 			value := n_directories_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_directory_desktop: BOOLEAN is
 		do
 			Result := (value=directory_desktop_low_level)

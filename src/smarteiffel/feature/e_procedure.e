@@ -10,7 +10,7 @@ inherit
          inline_instruction_0, inline_instruction_1, inline_instruction_n
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

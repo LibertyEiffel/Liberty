@@ -9,7 +9,7 @@ deferred class G_SIGNAL_INVOCATION_HINT
 
 inherit ANY undefine is_equal, copy end
 
-feature -- setters and getters
+feature {ANY} -- setters and getters
 	
 -- GSignalInvocationHint
 

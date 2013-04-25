@@ -3,8 +3,8 @@
 expanded class GDA_TRANSACTION_STATUS_EVENT_TYPE
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_transaction_status_event_savepoint) or else 
@@ -13,7 +13,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_gda_transaction_status_event_savepoint is
 		do
 			value := gda_transaction_status_event_savepoint
@@ -30,7 +30,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gda_transaction_status_event_savepoint: BOOLEAN is
 		do
 			Result := (value=gda_transaction_status_event_savepoint)

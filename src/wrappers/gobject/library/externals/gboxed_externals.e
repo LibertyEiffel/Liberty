@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	g_boxed_copy (a_boxed_type: NATURAL_64; a_src_boxed: POINTER): POINTER is
+	g_boxed_copy (a_boxed_type: like long_unsigned; a_src_boxed: POINTER): POINTER is
  		-- g_boxed_copy
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_boxed_free (a_boxed_type: NATURAL_64; a_boxed: POINTER) is
+	g_boxed_free (a_boxed_type: like long_unsigned; a_boxed: POINTER) is
  		-- g_boxed_free
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_boxed_type_register_static (a_name: POINTER; a_boxed_copy: POINTER; a_boxed_free: POINTER): NATURAL_64 is
+	g_boxed_type_register_static (a_name: POINTER; a_boxed_copy: POINTER; a_boxed_free: POINTER): like long_unsigned is
  		-- g_boxed_type_register_static
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_closure_get_type: NATURAL_64 is
+	g_closure_get_type: like long_unsigned is
  		-- g_closure_get_type
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_get_type: NATURAL_64 is
+	g_value_get_type: like long_unsigned is
  		-- g_value_get_type
 		external "plug_in"
 		alias "{

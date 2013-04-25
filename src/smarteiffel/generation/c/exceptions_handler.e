@@ -9,7 +9,7 @@ class EXCEPTIONS_HANDLER
 insert
    GLOBALS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

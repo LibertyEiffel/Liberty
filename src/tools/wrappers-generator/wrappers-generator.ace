@@ -11,23 +11,23 @@ default -- section of the system
    debug (no);
    trace (no);
    collect (yes);
-   no_style_warning (no);
+   style_warning (yes);
    no_warning (no);
    verbose (yes);
    manifest_string_trace (no); -- yes);
-   high_memory_compiler (yes);	
+   high_memory_compiler (yes);
    profile (no);
 
 cluster -- section
    wrappers_generator: "${path_liberty}/src/tools/wrappers-generator/loadpath.se"
-	default
-		assertion (all)
-	end 
+        default
+                assertion (all)
+        end
 
    legacy_unicode: "${path_liberty}/src/tools/wrappers-generator/unicode"
-	-- default
-	-- 	assertion (boost)
-	-- end 
+        -- default
+        --      assertion (boost)
+        -- end
 
 
    lib: "${path_liberty}/src/lib/loadpath.se"

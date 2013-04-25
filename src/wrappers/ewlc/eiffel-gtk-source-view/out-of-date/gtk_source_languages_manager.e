@@ -25,7 +25,7 @@ class GTK_SOURCE_LANGUAGES_MANAGER
 
 inherit G_OBJECT
 
-creation dummy, make, from_external_pointer
+create {ANY} dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -34,7 +34,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_source_languages_manager_new)
 		end
 
-feature
+feature {ANY}
 	available_languages: G_SLIST[GTK_SOURCE_LANGUAGE] is
 			-- A list of available languages.
 		do
@@ -96,7 +96,7 @@ feature {} -- External calls
 		external "C use  <gtksourceview/gtksourcelanguagesmanager.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtksourceview/gtksourcelanguagesmanager.h>"
 		alias "sizeof(GtkSourceLanguagesManager)"

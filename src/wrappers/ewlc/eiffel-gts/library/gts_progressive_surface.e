@@ -40,7 +40,7 @@ insert
 	GTS_PROGRESSIVE_SURFACE_EXTERNALS
 	GTS_PSURFACE_STRUCT
 	
-creation  make, from_external_pointer
+create {ANY}  make, from_external_pointer
 
 feature {} -- Creation
 	make is

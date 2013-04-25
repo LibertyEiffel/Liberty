@@ -27,7 +27,7 @@ deferred class GDK_GRAVITY
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_gravity (a_gravity :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_gravity = gdk_gravity_north_west) or else

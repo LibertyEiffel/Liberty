@@ -21,7 +21,7 @@ indexing
 class PLUGGABLE
 	-- 
 
-feature 
+feature {ANY} 
 	initialize (a_plugin_name: STRING) is
 		-- Tries to load the `a_plugin_name'
 		require a_plugin_name/=Void

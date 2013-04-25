@@ -26,7 +26,7 @@ insert
          is_equal
       end
 
-creation {TCP_PROTOCOL}
+create {TCP_PROTOCOL}
    set_uri
 
 feature {TCP_PROTOCOL}

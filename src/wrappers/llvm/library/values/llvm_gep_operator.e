@@ -3,7 +3,7 @@ class LLVM_GEP_OPERATOR
 
 inherit LLVM_OPERATOR
 
-creation {LLVM_BUILDER} from_external_pointer
+create {LLVM_BUILDER} from_external_pointer
 
 end -- class LLVM_GEP_OPERATOR
 

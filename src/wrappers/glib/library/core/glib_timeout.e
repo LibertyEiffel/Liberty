@@ -28,12 +28,12 @@ inherit ANY undefine is_equal, copy end
 
 
 
-feature -- Access
+feature {ANY} -- Access
 
 	enabled: BOOLEAN
 			-- Periodical events are being called
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	enable (interval: INTEGER_32) is
 			-- Start periodic event call every `interval' ms

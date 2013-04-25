@@ -9,7 +9,7 @@ class BUILT_IN_EQ_NEQ
 inherit
    EXPRESSION
 
-creation
+create {ANY}
    make_eq, make_neq
 
 feature {ANY}
@@ -165,18 +165,18 @@ feature {ANY}
          Result := current_or_twin_init(ls, rs)
       end
 
-   specialize_2 (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION is
       local
          ls: like left_side; rs: like right_side
       do
-         ls := left_side.specialize_2(type)
-         rs := right_side.specialize_2(type)
+         ls := left_side.specialize_and_check(type)
+         rs := right_side.specialize_and_check(type)
          if ls.is_void then
             void_comparison_check(type, ls.start_position, rs)
          elseif rs.is_void then
             void_comparison_check(type, ls.start_position, ls)
          else
-            specialize_2_standard_comparison_check(ls, rs, type)
+            specialize_and_check_standard_comparison_check(ls, rs, type)
          end
          Result := specialized(ls, rs, type, True)
       end
@@ -296,7 +296,7 @@ feature {}
                   create {CALL_PREFIX_NOT} Result.make(start_position, Result)
                end
                if specialize_more then
-                  Result := Result.specialize_2(type)
+                  Result := Result.specialize_and_check(type)
                end
             else
                Result := current_or_twin_init(ls, rs)
@@ -530,20 +530,20 @@ feature {}
          if void_position.class_text = type.class_text then
             dt := expression.declaration_type
             if dt.is_expanded then
-               error_handler.append("Such a weird comparison with Void is not allowed because it would be always ")
+               error_handler.append(once "Such a weird comparison with Void is not allowed because it would be always ")
                if eq_flag then
                   error_handler.append(fz_false)
                else
                   error_handler.append(fz_true)
                end
-               error_handler.append(". (See explaination below.)")
+               error_handler.append(once ". (See explaination below.)")
                error_handler.add_position(operator_position)
                error_handler.print_as_error
-               error_handler.append("The declaration type of ")
+               error_handler.append(once "The declaration type of ")
                error_handler.add_expression(expression)
-               error_handler.append(" is obviously expanded (i.e. the written type mark is %"")
+               error_handler.append(once " is obviously expanded (i.e. the written type mark is %"")
                error_handler.append(dt.name.to_string)
-               error_handler.append("%"). You can use the Void comparison only when other type mark is a reference type or, %
+               error_handler.append(once "%"). You can use the Void comparison only when other type mark is a reference type or, %
                %if it is an expanded type, it must be an anchor or some formal generic argument. %
                %Fix this error first.")
                error_handler.add_position(start_position)
@@ -552,7 +552,7 @@ feature {}
          end
       end
 
-   specialize_2_standard_comparison_check (t, arg: EXPRESSION; type: TYPE) is
+   specialize_and_check_standard_comparison_check (t, arg: EXPRESSION; type: TYPE) is
       require
          not t.is_void
          not arg.is_void
@@ -567,21 +567,21 @@ feature {}
                -- Relaxed rule to share more code in INTEGER_* and REAL_*.
             else
                sedb_breakpoint
-               error_handler.append("Cannot compare an expanded expression with a reference expression.")
+               error_handler.append(once "Cannot compare an expanded expression with a reference expression.")
                error_handler.add_position(operator_position)
-               error_handler.append(" Expression ")
+               error_handler.append(once " Expression ")
                error_handler.add_expression(left_side)
-               error_handler.append(" is of type ")
+               error_handler.append(once " is of type ")
                error_handler.append(t1.name.to_string)
-               error_handler.append(" while expression ")
+               error_handler.append(once " while expression ")
                error_handler.add_expression(right_side)
-               error_handler.append(" is of type ")
+               error_handler.append(once " is of type ")
                error_handler.append(t2.name.to_string)
-               error_handler.append(".")
+               error_handler.append(once ".")
                if type.class_text /= left_side.start_position.class_text then
-                  error_handler.append(" (Error occurs while checking the code in ")
+                  error_handler.append(once " (Error occurs while checking the code in ")
                   error_handler.append(type.name.to_string)
-                  error_handler.append(" context.)")
+                  error_handler.append(once " context.)")
                end
                error_handler.print_as_fatal_error
             end
@@ -590,16 +590,16 @@ feature {}
             -- (We only allow reasonable comparisons.)
          elseif t1.is_expanded or else t2.is_expanded then
             error_handler.add_position(operator_position)
-            error_handler.append("An expanded value can be compared only with the same other expanded %
+            error_handler.append(once "An expanded value can be compared only with the same other expanded %
                                  %value. Expression ")
             error_handler.add_expression(left_side)
-            error_handler.append(" is of type ")
+            error_handler.append(once " is of type ")
             error_handler.append(t1.name.to_string)
-            error_handler.append(" while expression ")
+            error_handler.append(once " while expression ")
             error_handler.add_expression(right_side)
-            error_handler.append(" is of type ")
+            error_handler.append(once " is of type ")
             error_handler.append(t2.name.to_string)
-            error_handler.append(". Comparison not allowed (VWEQ).")
+            error_handler.append(once ". Comparison not allowed (VWEQ).")
             error_handler.print_as_fatal_error
          else
             if type.class_text = operator_position.class_text then
@@ -609,21 +609,21 @@ feature {}
             end
             if error_flag then
                error_handler.add_position(operator_position)
-               error_handler.append("Invalid comparison of expression ")
+               error_handler.append(once "Invalid comparison of expression ")
                error_handler.add_expression(left_side)
-               error_handler.append(" which is of type ")
+               error_handler.append(once " which is of type ")
                error_handler.append(t1.name.to_string)
-               error_handler.append(" with expression ")
+               error_handler.append(once " with expression ")
                error_handler.add_expression(right_side)
-               error_handler.append(" which is of type ")
+               error_handler.append(once " which is of type ")
                error_handler.append(t2.name.to_string)
-               error_handler.append(". (This would always yield to a ")
+               error_handler.append(once ". (This would always yield to a ")
                if eq_flag then
-                  error_handler.append("False")
+                  error_handler.append(once "False")
                else
-                  error_handler.append("True")
+                  error_handler.append(once "True")
                end
-               error_handler.append(" result.) (VWEQ)")
+               error_handler.append(once " result.) (VWEQ)")
                error_handler.print_as_fatal_error
             end
          end

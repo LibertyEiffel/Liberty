@@ -19,6 +19,8 @@ feature {} -- The keywords section:
 
    fz_assertion_flat_check: STRING is "assertion_flat_check"
 
+   fz_assign: STRING is "assign"
+
    fz_begin_c_compile: STRING is "# Beginning of parallelizable section"
 
    fz_boost: STRING is "boost"

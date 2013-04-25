@@ -30,7 +30,7 @@ inherit
 insert
 	GTS_TOKEN_TYPE
 	
-creation  make, from_standard_input, from_external_pointer
+create {ANY}  make, from_standard_input, from_external_pointer
 
 feature {} -- Creation
 	make (a_file: INPUT_STREAM) is
@@ -44,7 +44,7 @@ feature {} -- Creation
 			from_external_pointer(gts_file_new(std_input.stream_pointer))
 		end
 	
-feature
+feature {ANY}
 
 	next_token is
 			-- Reads next token and updates token and delim fields.
@@ -308,7 +308,7 @@ feature {}
 		end
 
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"
 		alias "sizeof(	GtsFile)"

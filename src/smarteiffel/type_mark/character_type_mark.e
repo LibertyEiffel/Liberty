@@ -11,7 +11,7 @@ inherit
       redefine resolve_in, default_expression
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

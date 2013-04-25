@@ -6,7 +6,7 @@ class SE_C_MODE
    -- C mode as used by the compiler itself (different from C_MODE which is used by the installer)
    --
 
-creation {SERC}
+create {SERC}
    make
 
 feature {SYSTEM_TOOLS, COMMAND_LINE_TOOLS}

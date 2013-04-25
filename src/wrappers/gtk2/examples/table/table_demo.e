@@ -1,7 +1,7 @@
 class TABLE_DEMO
 inherit GTK_MAIN
-creation make
-feature
+create {ANY} make
+feature {ANY}
 	make is
 		do
 			initialize_gtk								

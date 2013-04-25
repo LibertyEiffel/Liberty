@@ -41,9 +41,9 @@ insert
 	G_OBJECT_FACTORY [GTK_WIDGET]
 	GTK_NOTEBOOK_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
-feature -- struct size
+feature {ANY} -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkNotebook)"
@@ -57,7 +57,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_notebook_new)
 		end
 
-feature -- page handling
+feature {ANY} -- page handling
 	last_appended_page_index: INTEGER
 			-- Index of the last appended/inserted page
 
@@ -516,7 +516,7 @@ feature -- page handling
 			gtk_notebook_set_current_page (handle, a_page_num)
 		end
 
-feature -- Properties
+feature {ANY} -- Properties
 --    "enable-popup"         gboolean              : Read / Write
 --    "homogeneous"          gboolean              : Read / Write
 --    "page"                 gint                  : Read / Write
@@ -763,7 +763,7 @@ feature -- Properties
 --    Default value: FALSE
 
 --    Since 2.4
-feature -- Signals
+feature {ANY} -- Signals
 
 --  "focus-tab" gboolean    user_function      (GtkNotebook    *notebook,
 --                                              GtkNotebookTab *arg1,
@@ -778,7 +778,7 @@ feature -- Signals
 --                                              gpointer     user_data)      : Run last / Action
 -- Signal Details
 
-feature --   The "change-current-page" signal
+feature {ANY} --   The "change-current-page" signal
 	change_current_page_signal_name: STRING is "change-current-page"
 		--  "change-current-page"
 		--              void        user_function      (GtkNotebook *notebook,
@@ -809,7 +809,7 @@ feature --   The "change-current-page" signal
 			change_current_page_callback.connect (Current, a_procedure)
 		end
 
-feature --   The "switch-page" signal
+feature {ANY} --   The "switch-page" signal
 	switch_page_signal_name: STRING is "switch-page"
 		--  "switch-page"
 		--              void        user_function      (GtkNotebook     *notebook,

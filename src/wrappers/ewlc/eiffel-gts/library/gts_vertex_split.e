@@ -34,7 +34,7 @@ insert
 	GTS_VERTEX_SPLIT_EXTERNALS
 	GTS_EDGE_EXTERNALS
 	
-creation  make, from_external_pointer
+create {ANY}  make, from_external_pointer
 
 feature {} -- Creation
 	make (a_vertex: GTS_VERTEX; an_object, another_object: GTS_OBJECT) is
@@ -48,7 +48,7 @@ feature {} -- Creation
 								 an_object.handle, another_object.handle))
 		end
 	
-feature
+feature {ANY}
 	collapse (an_heap: GTS_EXTENDED_BINARY_HEAP[GTS_EDGE]) is
 			-- Collapses the vertex split. Any new edge created during
 			-- the process will be of class of `item'. If `an_heap' is
@@ -99,7 +99,7 @@ feature
 									  default_pointer -- gpointer data
 									  );
 		end
-feature
+feature {ANY}
 	v1: GTS_VERTEX is
 			-- the first vertex of the edge collapsed by Current.
 		local a_pointer: POINTER

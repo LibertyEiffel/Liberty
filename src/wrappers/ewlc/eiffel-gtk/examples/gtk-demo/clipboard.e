@@ -21,9 +21,9 @@ indexing
 
 class CLIPBOARD
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 -- /* Clipboard
 --  *
 --  * GtkClipboard is used for clipboard handling. This demo shows how to

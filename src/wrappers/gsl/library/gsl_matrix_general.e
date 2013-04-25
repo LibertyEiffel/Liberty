@@ -30,7 +30,7 @@ insert
 			out, copy, is_equal, fill_tagged_out_memory
 		end
 
-feature -- Creating
+feature {ANY} -- Creating
 	make_zero  (rows, columns: INTEGER) is
 			-- Creates a matrix of size `rows' by `columns' and
 			-- initializes all the elements of the matrix to zero.
@@ -165,7 +165,7 @@ feature {} -- Disposing
 			-- destroyed from now on.
 		end
 	
-feature -- Accessing
+feature {ANY} -- Accessing
 	item(i, j: INTEGER): TYPE_ is
 			-- the (i,j)-th element of Current matrix m
 		do
@@ -236,7 +236,7 @@ feature -- Accessing
 			valid_count2: count2 = columns
 		end
 
-feature -- Initializing matrix elements
+feature {ANY} -- Initializing matrix elements
 	set_all_with (an_x: TYPE_) is
 			-- sets all the elements of Current matrix to the value `an_x'.
 		do
@@ -259,7 +259,7 @@ feature -- Initializing matrix elements
 			gsl_matrix_set_identity (handle)
 		end
 
-feature -- Copying matrices
+feature {ANY} -- Copying matrices
 	copy (other: like Current) is
 			-- copies the elements of the `other' matrix into the
 			-- Current.
@@ -286,7 +286,7 @@ feature -- Copying matrices
 			handle_code(gsl_matrix_swap (handle, other.handle))
 		end
 	
-feature -- Copying rows and columns
+feature {ANY} -- Copying rows and columns
 	copy_row_on (i: INTEGER; a_vector: GSL_VECTOR_GENERAL[TYPE_]) is
 			-- Copies the elements of the i-th row of Current matrix m
 			-- into `a_vector'. The length of the vector must be the
@@ -359,7 +359,7 @@ feature -- Copying rows and columns
 			handle_code(gsl_matrix_set_col (handle, i, a_vector.handle))
 		end
 	
-feature -- Exchanging rows and columns
+feature {ANY} -- Exchanging rows and columns
 
 	swap_rows (i, j: INTEGER) is
 			-- exchanges the i-th and j-th rows of the Current matrix in-place.
@@ -407,7 +407,7 @@ feature -- Exchanging rows and columns
 			True
 		end
 	
-feature -- Matrix operations
+feature {ANY} -- Matrix operations
 
 	plus (other: like Current) is
 			-- adds the elements of `other' matrix (b) to the elements of
@@ -516,7 +516,7 @@ feature {ANY} -- matrix vector operations (BLAS 2)
 			vec_size: Result.count = count1
 		end
 	
-feature -- Finding maximum and minimum elements of matrices
+feature {ANY} -- Finding maximum and minimum elements of matrices
 	max: TYPE_ is
 			-- the maximum value in the matrix m.
 		do
@@ -566,7 +566,7 @@ feature -- Finding maximum and minimum elements of matrices
 			Result := [[mn_r, mn_c], [mx_r, mx_c]]
 		end
 	
-feature -- Matrix properties, looking and comparison:
+feature {ANY} -- Matrix properties, looking and comparison:
 	all_default: BOOLEAN is
 			-- Are  all the elements of the matrix zero?
 		do

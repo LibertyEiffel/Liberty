@@ -6,7 +6,7 @@ class XMLNS_COMPOSITE_NODE
 inherit
    XMLNS_NODE
 
-creation {XMLNS_TREE}
+create {XMLNS_TREE}
    make
 
 feature {ANY}

@@ -7,8 +7,8 @@ expanded class GSOCKET_PROTOCOL_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = unknown_low_level)  or else
@@ -18,7 +18,7 @@ feature -- Validity
 				(a_value = sctp_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_unknown is
 		do
@@ -45,7 +45,7 @@ feature -- Setters
 			value := sctp_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	unknown: BOOLEAN is
 		do
 			Result := (value=unknown_low_level)

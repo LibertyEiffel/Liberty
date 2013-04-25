@@ -7,8 +7,8 @@ expanded class GTK_RC_FLAGS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := (a_value & (fg_low_level | 
@@ -16,7 +16,7 @@ feature -- Validity
 				base_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_fg is
 		do
@@ -48,7 +48,7 @@ feature -- Setters
 			value := value.bit_xor(base_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_fg: BOOLEAN is
 		do
 			Result := (value=fg_low_level)

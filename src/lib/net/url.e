@@ -26,10 +26,10 @@ insert
          copy, is_equal, out_in_tagged_out_memory
       end
 
-creation {ANY}
+create {ANY}
    absolute, relative
 
-creation {STREAM}
+create {STREAM}
    from_stream
 
 feature {ANY}

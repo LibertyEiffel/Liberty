@@ -5,3 +5,5 @@ se c -all_check
 se c -loop_check
 se c -invariant_check
 se c -ensure_check
+se c -boost test_inspect13.e
+se c -boost test_inspect14.e

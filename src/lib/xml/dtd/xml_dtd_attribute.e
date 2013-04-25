@@ -5,7 +5,7 @@ insert
       rename default as any_default
       end
 
-creation {XML_DTD_ELEMENT}
+create {XML_DTD_ELEMENT}
    make
 
 feature {XML_DTD_ELEMENT} -- validation

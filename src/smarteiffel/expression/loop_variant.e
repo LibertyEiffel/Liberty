@@ -11,7 +11,7 @@ class LOOP_VARIANT
 inherit
    EXPRESSION
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make
 
 feature {ANY}
@@ -165,18 +165,18 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          exp: like expression
       do
-         exp := expression.specialize_2(type)
+         exp := expression.specialize_and_check(type)
          if exp /= expression then
             Result := twin
             Result.init(exp)
          else
             Result := Current
          end
-         Result.specialize_2_check(type)
+         Result.specialize_check(type)
       end
 
    has_been_specialized: BOOLEAN is
@@ -228,20 +228,20 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          expression.inline_dynamic_dispatch_(code_accumulator, type)
       end
 
-   specialize_2_check (type: TYPE) is
+   specialize_check (type: TYPE) is
       local
          dt: TYPE
       do
          dt := expression.declaration_type
          if not dt.is_integer then
             error_handler.add_position(expression.start_position)
-            error_handler.append("Expression of the loop variant must be of INTEGER type. (The actual ")
+            error_handler.append(once "Expression of the loop variant must be of INTEGER type. (The actual ")
             error_handler.append(dt.name.to_string)
-            error_handler.append(" type is not allowed as a variant type.)")
+            error_handler.append(once " type is not allowed as a variant type.)")
             error_handler.print_as_error
             error_handler.add_position(start_position)
             error_handler.add_position(expression.start_position)
-            error_handler.append("Error in variant part of loop definition.")
+            error_handler.append(once "Error in variant part of loop definition.")
             error_handler.print_as_fatal_error
          end
       end

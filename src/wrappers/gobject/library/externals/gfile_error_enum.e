@@ -3,314 +3,294 @@
 
 expanded class GFILE_ERROR_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = exist_low_level)  or else
-				(a_value = isdir_low_level)  or else
-				(a_value = acces_low_level)  or else
-				(a_value = nametoolong_low_level)  or else
-				(a_value = noent_low_level)  or else
-				(a_value = notdir_low_level)  or else
-				(a_value = nxio_low_level)  or else
-				(a_value = nodev_low_level)  or else
-				(a_value = rofs_low_level)  or else
-				(a_value = txtbsy_low_level)  or else
-				(a_value = fault_low_level)  or else
-				(a_value = loop_external_low_level)  or else
-				(a_value = nospc_low_level)  or else
-				(a_value = nomem_low_level)  or else
-				(a_value = mfile_low_level)  or else
-				(a_value = nfile_low_level)  or else
-				(a_value = badf_low_level)  or else
-				(a_value = inval_low_level)  or else
-				(a_value = pipe_low_level)  or else
-				(a_value = again_low_level)  or else
-				(a_value = intr_low_level)  or else
-				(a_value = io_low_level)  or else
-				(a_value = perm_low_level)  or else
-				(a_value = nosys_low_level)  or else
-				(a_value = failed_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = g_file_error_acces_low_level)  or else
+				(a_value = g_file_error_again_low_level)  or else
+				(a_value = g_file_error_badf_low_level)  or else
+				(a_value = g_file_error_exist_low_level)  or else
+				(a_value = g_file_error_failed_low_level)  or else
+				(a_value = g_file_error_fault_low_level)  or else
+				(a_value = g_file_error_intr_low_level)  or else
+				(a_value = g_file_error_inval_low_level)  or else
+				(a_value = g_file_error_io_low_level)  or else
+				(a_value = g_file_error_isdir_low_level)  or else
+				(a_value = g_file_error_loop_low_level)  or else
+				(a_value = g_file_error_mfile_low_level)  or else
+				(a_value = g_file_error_nametoolong_low_level)  or else
+				(a_value = g_file_error_nfile_low_level)  or else
+				(a_value = g_file_error_nodev_low_level)  or else
+				(a_value = g_file_error_noent_low_level)  or else
+				(a_value = g_file_error_nomem_low_level)  or else
+				(a_value = g_file_error_nospc_low_level)  or else
+				(a_value = g_file_error_nosys_low_level)  or else
+				(a_value = g_file_error_notdir_low_level)  or else
+				(a_value = g_file_error_nxio_low_level)  or else
+				(a_value = g_file_error_perm_low_level)  or else
+				(a_value = g_file_error_pipe_low_level)  or else
+				(a_value = g_file_error_rofs_low_level)  or else
+				(a_value = g_file_error_txtbsy_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_exist is
+	set_g_file_error_acces is
 		do
-			value := exist_low_level
+			value := g_file_error_acces_low_level
 		end
 
-	set_isdir is
+	set_g_file_error_again is
 		do
-			value := isdir_low_level
+			value := g_file_error_again_low_level
 		end
 
-	set_acces is
+	set_g_file_error_badf is
 		do
-			value := acces_low_level
+			value := g_file_error_badf_low_level
 		end
 
-	set_nametoolong is
+	set_g_file_error_exist is
 		do
-			value := nametoolong_low_level
+			value := g_file_error_exist_low_level
 		end
 
-	set_noent is
+	set_g_file_error_failed is
 		do
-			value := noent_low_level
+			value := g_file_error_failed_low_level
 		end
 
-	set_notdir is
+	set_g_file_error_fault is
 		do
-			value := notdir_low_level
+			value := g_file_error_fault_low_level
 		end
 
-	set_nxio is
+	set_g_file_error_intr is
 		do
-			value := nxio_low_level
+			value := g_file_error_intr_low_level
 		end
 
-	set_nodev is
+	set_g_file_error_inval is
 		do
-			value := nodev_low_level
+			value := g_file_error_inval_low_level
 		end
 
-	set_rofs is
+	set_g_file_error_io is
 		do
-			value := rofs_low_level
+			value := g_file_error_io_low_level
 		end
 
-	set_txtbsy is
+	set_g_file_error_isdir is
 		do
-			value := txtbsy_low_level
+			value := g_file_error_isdir_low_level
 		end
 
-	set_fault is
+	set_g_file_error_loop is
 		do
-			value := fault_low_level
+			value := g_file_error_loop_low_level
 		end
 
-	set_loop_external is
+	set_g_file_error_mfile is
 		do
-			value := loop_external_low_level
+			value := g_file_error_mfile_low_level
 		end
 
-	set_nospc is
+	set_g_file_error_nametoolong is
 		do
-			value := nospc_low_level
+			value := g_file_error_nametoolong_low_level
 		end
 
-	set_nomem is
+	set_g_file_error_nfile is
 		do
-			value := nomem_low_level
+			value := g_file_error_nfile_low_level
 		end
 
-	set_mfile is
+	set_g_file_error_nodev is
 		do
-			value := mfile_low_level
+			value := g_file_error_nodev_low_level
 		end
 
-	set_nfile is
+	set_g_file_error_noent is
 		do
-			value := nfile_low_level
+			value := g_file_error_noent_low_level
 		end
 
-	set_badf is
+	set_g_file_error_nomem is
 		do
-			value := badf_low_level
+			value := g_file_error_nomem_low_level
 		end
 
-	set_inval is
+	set_g_file_error_nospc is
 		do
-			value := inval_low_level
+			value := g_file_error_nospc_low_level
 		end
 
-	set_pipe is
+	set_g_file_error_nosys is
 		do
-			value := pipe_low_level
+			value := g_file_error_nosys_low_level
 		end
 
-	set_again is
+	set_g_file_error_notdir is
 		do
-			value := again_low_level
+			value := g_file_error_notdir_low_level
 		end
 
-	set_intr is
+	set_g_file_error_nxio is
 		do
-			value := intr_low_level
+			value := g_file_error_nxio_low_level
 		end
 
-	set_io is
+	set_g_file_error_perm is
 		do
-			value := io_low_level
+			value := g_file_error_perm_low_level
 		end
 
-	set_perm is
+	set_g_file_error_pipe is
 		do
-			value := perm_low_level
+			value := g_file_error_pipe_low_level
 		end
 
-	set_nosys is
+	set_g_file_error_rofs is
 		do
-			value := nosys_low_level
+			value := g_file_error_rofs_low_level
 		end
 
-	set_failed is
+	set_g_file_error_txtbsy is
 		do
-			value := failed_low_level
+			value := g_file_error_txtbsy_low_level
 		end
 
 feature -- Queries
-	is_exist: BOOLEAN is
+	is_g_file_error_acces: BOOLEAN is
 		do
-			Result := (value=exist_low_level)
+			Result := (value=g_file_error_acces_low_level)
 		end
 
-	is_isdir: BOOLEAN is
+	is_g_file_error_again: BOOLEAN is
 		do
-			Result := (value=isdir_low_level)
+			Result := (value=g_file_error_again_low_level)
 		end
 
-	is_acces: BOOLEAN is
+	is_g_file_error_badf: BOOLEAN is
 		do
-			Result := (value=acces_low_level)
+			Result := (value=g_file_error_badf_low_level)
 		end
 
-	is_nametoolong: BOOLEAN is
+	is_g_file_error_exist: BOOLEAN is
 		do
-			Result := (value=nametoolong_low_level)
+			Result := (value=g_file_error_exist_low_level)
 		end
 
-	is_noent: BOOLEAN is
+	is_g_file_error_failed: BOOLEAN is
 		do
-			Result := (value=noent_low_level)
+			Result := (value=g_file_error_failed_low_level)
 		end
 
-	is_notdir: BOOLEAN is
+	is_g_file_error_fault: BOOLEAN is
 		do
-			Result := (value=notdir_low_level)
+			Result := (value=g_file_error_fault_low_level)
 		end
 
-	is_nxio: BOOLEAN is
+	is_g_file_error_intr: BOOLEAN is
 		do
-			Result := (value=nxio_low_level)
+			Result := (value=g_file_error_intr_low_level)
 		end
 
-	is_nodev: BOOLEAN is
+	is_g_file_error_inval: BOOLEAN is
 		do
-			Result := (value=nodev_low_level)
+			Result := (value=g_file_error_inval_low_level)
 		end
 
-	is_rofs: BOOLEAN is
+	is_g_file_error_io: BOOLEAN is
 		do
-			Result := (value=rofs_low_level)
+			Result := (value=g_file_error_io_low_level)
 		end
 
-	is_txtbsy: BOOLEAN is
+	is_g_file_error_isdir: BOOLEAN is
 		do
-			Result := (value=txtbsy_low_level)
+			Result := (value=g_file_error_isdir_low_level)
 		end
 
-	is_fault: BOOLEAN is
+	is_g_file_error_loop: BOOLEAN is
 		do
-			Result := (value=fault_low_level)
+			Result := (value=g_file_error_loop_low_level)
 		end
 
-	is_loop_external: BOOLEAN is
+	is_g_file_error_mfile: BOOLEAN is
 		do
-			Result := (value=loop_external_low_level)
+			Result := (value=g_file_error_mfile_low_level)
 		end
 
-	is_nospc: BOOLEAN is
+	is_g_file_error_nametoolong: BOOLEAN is
 		do
-			Result := (value=nospc_low_level)
+			Result := (value=g_file_error_nametoolong_low_level)
 		end
 
-	is_nomem: BOOLEAN is
+	is_g_file_error_nfile: BOOLEAN is
 		do
-			Result := (value=nomem_low_level)
+			Result := (value=g_file_error_nfile_low_level)
 		end
 
-	is_mfile: BOOLEAN is
+	is_g_file_error_nodev: BOOLEAN is
 		do
-			Result := (value=mfile_low_level)
+			Result := (value=g_file_error_nodev_low_level)
 		end
 
-	is_nfile: BOOLEAN is
+	is_g_file_error_noent: BOOLEAN is
 		do
-			Result := (value=nfile_low_level)
+			Result := (value=g_file_error_noent_low_level)
 		end
 
-	is_badf: BOOLEAN is
+	is_g_file_error_nomem: BOOLEAN is
 		do
-			Result := (value=badf_low_level)
+			Result := (value=g_file_error_nomem_low_level)
 		end
 
-	is_inval: BOOLEAN is
+	is_g_file_error_nospc: BOOLEAN is
 		do
-			Result := (value=inval_low_level)
+			Result := (value=g_file_error_nospc_low_level)
 		end
 
-	is_pipe: BOOLEAN is
+	is_g_file_error_nosys: BOOLEAN is
 		do
-			Result := (value=pipe_low_level)
+			Result := (value=g_file_error_nosys_low_level)
 		end
 
-	is_again: BOOLEAN is
+	is_g_file_error_notdir: BOOLEAN is
 		do
-			Result := (value=again_low_level)
+			Result := (value=g_file_error_notdir_low_level)
 		end
 
-	is_intr: BOOLEAN is
+	is_g_file_error_nxio: BOOLEAN is
 		do
-			Result := (value=intr_low_level)
+			Result := (value=g_file_error_nxio_low_level)
 		end
 
-	is_io: BOOLEAN is
+	is_g_file_error_perm: BOOLEAN is
 		do
-			Result := (value=io_low_level)
+			Result := (value=g_file_error_perm_low_level)
 		end
 
-	is_perm: BOOLEAN is
+	is_g_file_error_pipe: BOOLEAN is
 		do
-			Result := (value=perm_low_level)
+			Result := (value=g_file_error_pipe_low_level)
 		end
 
-	is_nosys: BOOLEAN is
+	is_g_file_error_rofs: BOOLEAN is
 		do
-			Result := (value=nosys_low_level)
+			Result := (value=g_file_error_rofs_low_level)
 		end
 
-	is_failed: BOOLEAN is
+	is_g_file_error_txtbsy: BOOLEAN is
 		do
-			Result := (value=failed_low_level)
+			Result := (value=g_file_error_txtbsy_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	exist_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_EXIST"
- 			}"
- 		end
-
-	isdir_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_ISDIR"
- 			}"
- 		end
-
-	acces_low_level: INTEGER is
+	g_file_error_acces_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -319,151 +299,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nametoolong_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_NAMETOOLONG"
- 			}"
- 		end
-
-	noent_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_NOENT"
- 			}"
- 		end
-
-	notdir_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_NOTDIR"
- 			}"
- 		end
-
-	nxio_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_NXIO"
- 			}"
- 		end
-
-	nodev_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_NODEV"
- 			}"
- 		end
-
-	rofs_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_ROFS"
- 			}"
- 		end
-
-	txtbsy_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_TXTBSY"
- 			}"
- 		end
-
-	fault_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_FAULT"
- 			}"
- 		end
-
-	loop_external_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_LOOP"
- 			}"
- 		end
-
-	nospc_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_NOSPC"
- 			}"
- 		end
-
-	nomem_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_NOMEM"
- 			}"
- 		end
-
-	mfile_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_MFILE"
- 			}"
- 		end
-
-	nfile_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_NFILE"
- 			}"
- 		end
-
-	badf_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_BADF"
- 			}"
- 		end
-
-	inval_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_INVAL"
- 			}"
- 		end
-
-	pipe_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_PIPE"
- 			}"
- 		end
-
-	again_low_level: INTEGER is
+	g_file_error_again_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -472,7 +308,43 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	intr_low_level: INTEGER is
+	g_file_error_badf_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_BADF"
+ 			}"
+ 		end
+
+	g_file_error_exist_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_EXIST"
+ 			}"
+ 		end
+
+	g_file_error_failed_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_FAILED"
+ 			}"
+ 		end
+
+	g_file_error_fault_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_FAULT"
+ 			}"
+ 		end
+
+	g_file_error_intr_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -481,7 +353,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	io_low_level: INTEGER is
+	g_file_error_inval_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_INVAL"
+ 			}"
+ 		end
+
+	g_file_error_io_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -490,16 +371,88 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	perm_low_level: INTEGER is
+	g_file_error_isdir_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_PERM"
+ 			feature_name: "G_FILE_ERROR_ISDIR"
  			}"
  		end
 
-	nosys_low_level: INTEGER is
+	g_file_error_loop_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_LOOP"
+ 			}"
+ 		end
+
+	g_file_error_mfile_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_MFILE"
+ 			}"
+ 		end
+
+	g_file_error_nametoolong_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_NAMETOOLONG"
+ 			}"
+ 		end
+
+	g_file_error_nfile_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_NFILE"
+ 			}"
+ 		end
+
+	g_file_error_nodev_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_NODEV"
+ 			}"
+ 		end
+
+	g_file_error_noent_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_NOENT"
+ 			}"
+ 		end
+
+	g_file_error_nomem_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_NOMEM"
+ 			}"
+ 		end
+
+	g_file_error_nospc_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_NOSPC"
+ 			}"
+ 		end
+
+	g_file_error_nosys_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -508,12 +461,57 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	failed_low_level: INTEGER is
+	g_file_error_notdir_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "G_FILE_ERROR_FAILED"
+ 			feature_name: "G_FILE_ERROR_NOTDIR"
+ 			}"
+ 		end
+
+	g_file_error_nxio_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_NXIO"
+ 			}"
+ 		end
+
+	g_file_error_perm_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_PERM"
+ 			}"
+ 		end
+
+	g_file_error_pipe_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_PIPE"
+ 			}"
+ 		end
+
+	g_file_error_rofs_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_ROFS"
+ 			}"
+ 		end
+
+	g_file_error_txtbsy_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_TXTBSY"
  			}"
  		end
 

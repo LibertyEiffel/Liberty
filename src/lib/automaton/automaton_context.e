@@ -3,7 +3,7 @@
 --
 class AUTOMATON_CONTEXT[E_]
 
-creation {AUTOMATON}
+create {AUTOMATON}
    make
 
 feature {ANY} -- user data

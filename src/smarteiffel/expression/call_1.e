@@ -97,14 +97,14 @@ feature {ANY}
          else
             t := target.specialize_thru(parent_type, parent_edge, new_type)
             Result := current_or_twin_init(t, arg, Void)
-            -- fs determined by specialize_2
+            -- fs determined by specialize_and_check
          end
       ensure then
          target.is_current = old target.is_current
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target or else Result.arguments /= arguments
       end
 
-   specialize_2 (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION is
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
          ---------------except AGENT_INSTRUCTION stuff ------------------------------
          --|*** Except for the `function_and_argument_count_check' call (Dom. march 28th 2004) ***
@@ -113,7 +113,7 @@ feature {ANY}
          target_type, target_declaration_type, argument_type: TYPE;
          a1: like arg1; like_current_result: like Current
       do
-         t := target.specialize_2(type)
+         t := target.specialize_and_check(type)
          target_type := t.resolve_in(type)
 
          if feature_name.name.to_string = as_item and then target_type.is_agent then
@@ -127,7 +127,7 @@ feature {ANY}
          else
             arg := arguments
             a1 := arg1
-            a1 := a1.specialize_2(type)
+            a1 := a1.specialize_and_check(type)
             if a1 /= arg1 then
                arg := arg.twin
                arg.put(a1, 1)
@@ -167,7 +167,7 @@ feature {ANY}
             af := fs.anonymous_feature(target_type)
             function_and_argument_count_check(af, arguments)
 
-            arg := arg.specialize_2(type, af, target_type, target.is_current)
+            arg := arg.specialize_and_check(type, af, target_type, target.is_current)
             check
                arg.count = arguments.count
             end

@@ -16,7 +16,7 @@ inherit
       redefine written_declaration_type_mark
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -98,7 +98,7 @@ feature {ANY}
          Result := current_or_twin_init(tmm)
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       do
          Result := Current
       end

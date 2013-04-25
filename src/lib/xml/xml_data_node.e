@@ -8,7 +8,7 @@ class XML_DATA_NODE
 inherit
    XML_NODE
 
-creation {XML_TREE}
+create {XML_TREE}
    make
 
 feature {ANY}

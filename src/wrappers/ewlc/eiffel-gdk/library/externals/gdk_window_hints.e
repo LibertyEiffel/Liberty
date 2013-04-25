@@ -34,7 +34,7 @@ deferred class GDK_WINDOW_HINTS
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_window_hint (an_hint :INTEGER): BOOLEAN is
 		do	
 			Result:=((an_hint = gdk_hint_pos) or else

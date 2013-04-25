@@ -30,7 +30,7 @@ class CAIRO_SCALED_FONT
 	-- TODO: mostly unimplemented
 inherit C_STRUCT
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {} -- Creation
 
@@ -326,10 +326,10 @@ feature {} -- Creation
 	--
 	--   Since 1.2
 
-feature -- Memory handling 
+feature {ANY} -- Memory handling 
 	dispose is do free(handle) end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <cairo.h>"
 		alias "sizeof(cairo_scaled_font_t)"

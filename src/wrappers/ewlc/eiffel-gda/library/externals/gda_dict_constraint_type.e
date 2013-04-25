@@ -3,8 +3,8 @@
 expanded class GDA_DICT_CONSTRAINT_TYPE
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = constraint_primary_key) or else 
@@ -18,7 +18,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_primary_key is
 		do
 			value := constraint_primary_key
@@ -60,7 +60,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_primary_key: BOOLEAN is
 		do
 			Result := (value=constraint_primary_key)

@@ -14,7 +14,7 @@ inherit
 insert
    AGENT_TYPE_MARKS
 
-creation {ANY}
+create {ANY}
    routine, procedure, function, predicate
 
 feature {ANY}
@@ -213,18 +213,18 @@ feature {}
       do
          if not new_open.is_tuple then
             error_handler.add_position(written_open.start_position)
-            error_handler.append("TUPLE type expected for open arguments of agent type. %
+            error_handler.append(once "TUPLE type expected for open arguments of agent type. %
              %(See also the next fatal error message.)")
             error_handler.print_as_error
             error_handler.add_position(written_open.start_position)
             if not written_open.is_static then
-               error_handler.append("When the context of the validation is ")
+               error_handler.append(once "When the context of the validation is ")
                error_handler.append(context.name.to_string)
-               error_handler.append(", this type mark is not a TUPLE. (This is actually ")
+               error_handler.append(once ", this type mark is not a TUPLE. (This is actually ")
                error_handler.append(new_open.name.to_string)
-               error_handler.append(".)")
+               error_handler.append(once ".)")
             else
-               error_handler.append("This type mark is not a TUPLE type mark.")
+               error_handler.append(once "This type mark is not a TUPLE type mark.")
             end
             error_handler.print_as_fatal_error
          end

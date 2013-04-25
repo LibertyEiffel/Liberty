@@ -7,8 +7,8 @@ expanded class GDBUSMESSAGEFLAGS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_dbus_message_flags_no_auto_start_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = g_dbus_message_flags_none_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_dbus_message_flags_no_auto_start is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := g_dbus_message_flags_none_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_dbus_message_flags_no_auto_start: BOOLEAN is
 		do
 			Result := (value=g_dbus_message_flags_no_auto_start_low_level)

@@ -21,9 +21,9 @@ indexing
 
 class TREE_STORE
 
-creation make
+create {ANY} make
 
-feature  -- Creation
+feature {ANY}  -- Creation
 -- /* Tree View/Tree Store
 --  *
 --  * The GtkTreeStore is used to store data in tree form, to be

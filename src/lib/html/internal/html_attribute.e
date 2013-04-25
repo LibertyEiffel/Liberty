@@ -2,7 +2,7 @@
 --
 class HTML_ATTRIBUTE
 
-creation {HTML_NODE}
+create {HTML_NODE}
    make
 
 feature {ANY}

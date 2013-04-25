@@ -16,7 +16,7 @@ insert
       undefine out
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

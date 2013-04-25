@@ -12,7 +12,7 @@ inherit
          resolve_in
       end
 
-creation {EIFFEL_PARSER, FORMAL_GENERIC_ARG}
+create {EIFFEL_PARSER, FORMAL_GENERIC_ARG}
    make
 
 feature {ANY}

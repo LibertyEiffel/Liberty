@@ -27,9 +27,9 @@ insert
 	GTK_RESPONSE_TYPE
 	GTK_STOCK_ITEMS
 	
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 
 	name: STRING is "Expander"
 	
@@ -37,12 +37,12 @@ feature
 
 	filename: STRING is "expander.e"
 	
-feature -- widgets
+feature {ANY} -- widgets
 	vbox: GTK_VBOX
 	label: GTK_LABEL
 	expander: GTK_EXPANDER
 	
-feature
+feature {ANY}
 	make is
 		do
 			if window=Void then

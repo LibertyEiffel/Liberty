@@ -8,7 +8,7 @@ class INLINE_MEMO
    -- even, if the result of the inlining is a Void value!
    --
 
-creation {SMART_EIFFEL}
+create {SMART_EIFFEL}
    make
 
 feature {ANY}

@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_string_struct_set_null_fold_if_empty (a_structure: POINTER; a_value: NATURAL_32) is
+	gparam_spec_string_struct_set_null_fold_if_empty (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for null_fold_if_empty field of GPARAM_SPEC_STRING_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_string_struct_set_ensure_non_null (a_structure: POINTER; a_value: NATURAL_32) is
+	gparam_spec_string_struct_set_ensure_non_null (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for ensure_non_null field of GPARAM_SPEC_STRING_STRUCT structure.
 			-- TODO: setter description
 
@@ -131,7 +131,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_string_struct_get_null_fold_if_empty (a_structure: POINTER): NATURAL_32 is
+	gparam_spec_string_struct_get_null_fold_if_empty (a_structure: POINTER): NATURAL is
 			-- Query for null_fold_if_empty field of GPARAM_SPEC_STRING_STRUCT structure.
 			-- TODO: getter description
 
@@ -143,7 +143,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_string_struct_get_ensure_non_null (a_structure: POINTER): NATURAL_32 is
+	gparam_spec_string_struct_get_ensure_non_null (a_structure: POINTER): NATURAL is
 			-- Query for ensure_non_null field of GPARAM_SPEC_STRING_STRUCT structure.
 			-- TODO: getter description
 

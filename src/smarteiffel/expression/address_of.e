@@ -9,7 +9,7 @@ class ADDRESS_OF
 inherit
    EXPRESSION
 
-creation {ANY}
+create {ANY}
    with_local, with_feature_name
 
 feature {ANY}
@@ -120,9 +120,9 @@ feature {ANY}
             if fs = Void then
                error_handler.add_position(feature_name.start_position)
                error_handler.append(fz_vuar4)
-               error_handler.append(" Feature `")
+               error_handler.append(once " Feature `")
                error_handler.append(feature_name.to_string)
-               error_handler.append("' not found.")
+               error_handler.append(once "' not found.")
                error_handler.print_as_fatal_error
             end
             if calling_code /= Void then
@@ -173,7 +173,7 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          af: ANONYMOUS_FEATURE; cst: CST_ATT; target: IMPLICIT_CURRENT; cc: like calling_code
       do
@@ -189,10 +189,10 @@ feature {ANY}
             if calling_code = Void then
                create target.make(feature_name.start_position)
                calling_code := feature_stamp.fake_feature_call(start_position, target, type)
-               calling_code := calling_code.specialize_in(type).specialize_2(type)
+               calling_code := calling_code.specialize_in(type).specialize_and_check(type)
                Result := Current
             else
-               cc := calling_code.specialize_2(type)
+               cc := calling_code.specialize_and_check(type)
                if cc = calling_code then
                   Result := Current
                else

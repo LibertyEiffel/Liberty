@@ -15,7 +15,7 @@ insert
       end
    SINGLETON
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY} -- Initializing the `parser_buffer':
@@ -66,9 +66,9 @@ feature {ANY} -- Initializing the `parser_buffer':
             end
             tmp_file_read.disconnect
             if count <= 0 and then not is_install then
-               error_handler.append("File %"")
+               error_handler.append(once "File %"")
                error_handler.append(path)
-               error_handler.append("%" seems to be empty.")
+               error_handler.append(once "%" seems to be empty.")
                error_handler.print_as_fatal_error
             end
          else

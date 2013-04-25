@@ -41,7 +41,7 @@ inherit
 		rename make as make_button end
 		-- TODO: GtkLinkButton implements AtkImplementorIface.
 	
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (an_uri: STRING) is
@@ -64,7 +64,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_link_button_new_with_label (an_uri.to_external, a_label.to_external))
 		end
 	
-feature
+feature {ANY}
 	uri: STRING is
 			-- the URI of the link button.
 		do

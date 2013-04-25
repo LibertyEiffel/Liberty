@@ -6,7 +6,7 @@ class TYPED_EIFFEL_IMAGE[E_]
 inherit
    EIFFEL_IMAGE
 
-creation {EIFFEL_GRAMMAR}
+create {EIFFEL_GRAMMAR}
    make
 
 feature {ANY}

@@ -14,7 +14,7 @@ insert
       redefine is_equal
       end
 
-creation {ASSIGNMENT_HANDLER}
+create {ASSIGNMENT_HANDLER}
    make
 
 feature {ANY}

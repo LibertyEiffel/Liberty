@@ -11,7 +11,7 @@ inherit
 insert
    GLOBALS
 
-creation {ANY}
+create {ANY}
    make_all, make
 
 feature {ANY}

@@ -3,8 +3,8 @@
 expanded class GDA_QUERY_CONDITION_TYPE
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_query_condition_node_and) or else 
@@ -28,7 +28,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_node_and is
 		do
 			value := gda_query_condition_node_and
@@ -120,7 +120,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_node_and: BOOLEAN is
 		do
 			Result := (value=gda_query_condition_node_and)

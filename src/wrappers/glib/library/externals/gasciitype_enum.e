@@ -7,8 +7,8 @@ expanded class GASCIITYPE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (g_ascii_alnum_low_level | 
@@ -23,7 +23,7 @@ feature -- Validity
 				g_ascii_xdigit_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_ascii_alnum is
 		do
@@ -125,7 +125,7 @@ feature -- Setters
 			value := value.bit_xor(g_ascii_xdigit_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_ascii_alnum: BOOLEAN is
 		do
 			Result := (value=g_ascii_alnum_low_level)

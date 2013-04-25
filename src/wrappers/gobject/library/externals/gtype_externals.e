@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_add_class_private (a_class_type: NATURAL_64; a_private_size: NATURAL_64) is
+	g_type_add_class_private (a_class_type: like long_unsigned; a_private_size: NATURAL) is
  		-- g_type_add_class_private
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_add_interface_dynamic (an_instance_type: NATURAL_64; an_interface_type: NATURAL_64; a_plugin: POINTER) is
+	g_type_add_interface_dynamic (an_instance_type: like long_unsigned; an_interface_type: like long_unsigned; a_plugin: POINTER) is
  		-- g_type_add_interface_dynamic
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_add_interface_static (an_instance_type: NATURAL_64; an_interface_type: NATURAL_64; an_info: POINTER) is
+	g_type_add_interface_static (an_instance_type: like long_unsigned; an_interface_type: like long_unsigned; an_info: POINTER) is
  		-- g_type_add_interface_static
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_check_class_cast (a_g_class: POINTER; an_is_a_type: NATURAL_64): POINTER is
+	g_type_check_class_cast (a_g_class: POINTER; an_is_a_type: like long_unsigned): POINTER is
  		-- g_type_check_class_cast
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_check_class_is_a (a_g_class: POINTER; an_is_a_type: NATURAL_64): INTEGER_32 is
+	g_type_check_class_is_a (a_g_class: POINTER; an_is_a_type: like long_unsigned): INTEGER is
  		-- g_type_check_class_is_a
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_check_instance (an_instance: POINTER): INTEGER_32 is
+	g_type_check_instance (an_instance: POINTER): INTEGER is
  		-- g_type_check_instance
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_check_instance_cast (an_instance: POINTER; an_iface_type: NATURAL_64): POINTER is
+	g_type_check_instance_cast (an_instance: POINTER; an_iface_type: like long_unsigned): POINTER is
  		-- g_type_check_instance_cast
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_check_instance_is_a (an_instance: POINTER; an_iface_type: NATURAL_64): INTEGER_32 is
+	g_type_check_instance_is_a (an_instance: POINTER; an_iface_type: like long_unsigned): INTEGER is
  		-- g_type_check_instance_is_a
 		external "plug_in"
 		alias "{
@@ -109,7 +109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_check_is_value_type (a_type: NATURAL_64): INTEGER_32 is
+	g_type_check_is_value_type (a_type: like long_unsigned): INTEGER is
  		-- g_type_check_is_value_type
 		external "plug_in"
 		alias "{
@@ -119,7 +119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_check_value (a_value: POINTER): INTEGER_32 is
+	g_type_check_value (a_value: POINTER): INTEGER is
  		-- g_type_check_value
 		external "plug_in"
 		alias "{
@@ -129,7 +129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_check_value_holds (a_value: POINTER; a_type: NATURAL_64): INTEGER_32 is
+	g_type_check_value_holds (a_value: POINTER; a_type: like long_unsigned): INTEGER is
  		-- g_type_check_value_holds
 		external "plug_in"
 		alias "{
@@ -139,7 +139,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_children (a_type: NATURAL_64; a_n_children: POINTER): POINTER is
+	g_type_children (a_type: like long_unsigned; a_n_children: POINTER): POINTER is
  		-- g_type_children
 		external "plug_in"
 		alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_class_add_private (a_g_class: POINTER; a_private_size: NATURAL_64) is
+	g_type_class_add_private (a_g_class: POINTER; a_private_size: NATURAL) is
  		-- g_type_class_add_private
 		external "plug_in"
 		alias "{
@@ -159,7 +159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_class_get_private (a_klass: POINTER; a_private_type: NATURAL_64): POINTER is
+	g_type_class_get_private (a_klass: POINTER; a_private_type: like long_unsigned): POINTER is
  		-- g_type_class_get_private
 		external "plug_in"
 		alias "{
@@ -169,7 +169,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_class_peek (a_type: NATURAL_64): POINTER is
+	g_type_class_peek (a_type: like long_unsigned): POINTER is
  		-- g_type_class_peek
 		external "plug_in"
 		alias "{
@@ -189,7 +189,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_class_peek_static (a_type: NATURAL_64): POINTER is
+	g_type_class_peek_static (a_type: like long_unsigned): POINTER is
  		-- g_type_class_peek_static
 		external "plug_in"
 		alias "{
@@ -199,7 +199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_class_ref (a_type: NATURAL_64): POINTER is
+	g_type_class_ref (a_type: like long_unsigned): POINTER is
  		-- g_type_class_ref
 		external "plug_in"
 		alias "{
@@ -229,7 +229,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_create_instance (a_type: NATURAL_64): POINTER is
+	g_type_create_instance (a_type: like long_unsigned): POINTER is
  		-- g_type_create_instance
 		external "plug_in"
 		alias "{
@@ -240,7 +240,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' variable _g_type_debug_flags skipped.
-	g_type_default_interface_peek (a_g_type: NATURAL_64): POINTER is
+	g_type_default_interface_peek (a_g_type: like long_unsigned): POINTER is
  		-- g_type_default_interface_peek
 		external "plug_in"
 		alias "{
@@ -250,7 +250,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_default_interface_ref (a_g_type: NATURAL_64): POINTER is
+	g_type_default_interface_ref (a_g_type: like long_unsigned): POINTER is
  		-- g_type_default_interface_ref
 		external "plug_in"
 		alias "{
@@ -270,13 +270,23 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_depth (a_type: NATURAL_64): NATURAL_32 is
+	g_type_depth (a_type: like long_unsigned): NATURAL is
  		-- g_type_depth
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "g_type_depth"
+		}"
+		end
+
+	g_type_ensure (a_type: like long_unsigned) is
+ 		-- g_type_ensure
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_type_ensure"
 		}"
 		end
 
@@ -290,7 +300,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_from_name (a_name: POINTER): NATURAL_64 is
+	g_type_from_name (a_name: POINTER): like long_unsigned is
  		-- g_type_from_name
 		external "plug_in"
 		alias "{
@@ -300,7 +310,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_fundamental (a_type_id: NATURAL_64): NATURAL_64 is
+	g_type_fundamental (a_type_id: like long_unsigned): like long_unsigned is
  		-- g_type_fundamental
 		external "plug_in"
 		alias "{
@@ -310,7 +320,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_fundamental_next: NATURAL_64 is
+	g_type_fundamental_next: like long_unsigned is
  		-- g_type_fundamental_next
 		external "plug_in"
 		alias "{
@@ -320,7 +330,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_get_plugin (a_type: NATURAL_64): POINTER is
+	g_type_get_plugin (a_type: like long_unsigned): POINTER is
  		-- g_type_get_plugin
 		external "plug_in"
 		alias "{
@@ -330,7 +340,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_get_qdata (a_type: NATURAL_64; a_quark: NATURAL_32): POINTER is
+	g_type_get_qdata (a_type: like long_unsigned; a_quark: NATURAL): POINTER is
  		-- g_type_get_qdata
 		external "plug_in"
 		alias "{
@@ -360,7 +370,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_instance_get_private (an_instance: POINTER; a_private_type: NATURAL_64): POINTER is
+	g_type_instance_get_private (an_instance: POINTER; a_private_type: like long_unsigned): POINTER is
  		-- g_type_instance_get_private
 		external "plug_in"
 		alias "{
@@ -370,7 +380,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_interface_add_prerequisite (an_interface_type: NATURAL_64; a_prerequisite_type: NATURAL_64) is
+	g_type_interface_add_prerequisite (an_interface_type: like long_unsigned; a_prerequisite_type: like long_unsigned) is
  		-- g_type_interface_add_prerequisite
 		external "plug_in"
 		alias "{
@@ -380,7 +390,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_interface_get_plugin (an_instance_type: NATURAL_64; an_interface_type: NATURAL_64): POINTER is
+	g_type_interface_get_plugin (an_instance_type: like long_unsigned; an_interface_type: like long_unsigned): POINTER is
  		-- g_type_interface_get_plugin
 		external "plug_in"
 		alias "{
@@ -390,7 +400,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_interface_peek (an_instance_class: POINTER; an_iface_type: NATURAL_64): POINTER is
+	g_type_interface_peek (an_instance_class: POINTER; an_iface_type: like long_unsigned): POINTER is
  		-- g_type_interface_peek
 		external "plug_in"
 		alias "{
@@ -410,7 +420,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_interface_prerequisites (an_interface_type: NATURAL_64; a_n_prerequisites: POINTER): POINTER is
+	g_type_interface_prerequisites (an_interface_type: like long_unsigned; a_n_prerequisites: POINTER): POINTER is
  		-- g_type_interface_prerequisites
 		external "plug_in"
 		alias "{
@@ -420,7 +430,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_interfaces (a_type: NATURAL_64; a_n_interfaces: POINTER): POINTER is
+	g_type_interfaces (a_type: like long_unsigned; a_n_interfaces: POINTER): POINTER is
  		-- g_type_interfaces
 		external "plug_in"
 		alias "{
@@ -430,7 +440,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_is_a (a_type: NATURAL_64; an_is_a_type: NATURAL_64): INTEGER_32 is
+	g_type_is_a (a_type: like long_unsigned; an_is_a_type: like long_unsigned): INTEGER is
  		-- g_type_is_a
 		external "plug_in"
 		alias "{
@@ -440,7 +450,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_name (a_type: NATURAL_64): POINTER is
+	g_type_name (a_type: like long_unsigned): POINTER is
  		-- g_type_name
 		external "plug_in"
 		alias "{
@@ -470,7 +480,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_next_base (a_leaf_type: NATURAL_64; a_root_type: NATURAL_64): NATURAL_64 is
+	g_type_next_base (a_leaf_type: like long_unsigned; a_root_type: like long_unsigned): like long_unsigned is
  		-- g_type_next_base
 		external "plug_in"
 		alias "{
@@ -480,7 +490,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_parent (a_type: NATURAL_64): NATURAL_64 is
+	g_type_parent (a_type: like long_unsigned): like long_unsigned is
  		-- g_type_parent
 		external "plug_in"
 		alias "{
@@ -490,7 +500,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_qname (a_type: NATURAL_64): NATURAL_32 is
+	g_type_qname (a_type: like long_unsigned): NATURAL is
  		-- g_type_qname
 		external "plug_in"
 		alias "{
@@ -500,7 +510,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_query (a_type: NATURAL_64; a_query: POINTER) is
+	g_type_query (a_type: like long_unsigned; a_query: POINTER) is
  		-- g_type_query
 		external "plug_in"
 		alias "{
@@ -510,7 +520,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_register_dynamic (a_parent_type: NATURAL_64; a_type_name: POINTER; a_plugin: POINTER; a_flags: INTEGER): NATURAL_64 is
+	g_type_register_dynamic (a_parent_type: like long_unsigned; a_type_name: POINTER; a_plugin: POINTER; a_flags: INTEGER): like long_unsigned is
  		-- g_type_register_dynamic
 		external "plug_in"
 		alias "{
@@ -520,7 +530,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_register_fundamental (a_type_id: NATURAL_64; a_type_name: POINTER; an_info: POINTER; a_finfo: POINTER; a_flags: INTEGER): NATURAL_64 is
+	g_type_register_fundamental (a_type_id: like long_unsigned; a_type_name: POINTER; an_info: POINTER; a_finfo: POINTER; a_flags: INTEGER): like long_unsigned is
  		-- g_type_register_fundamental
 		external "plug_in"
 		alias "{
@@ -530,7 +540,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_register_static (a_parent_type: NATURAL_64; a_type_name: POINTER; an_info: POINTER; a_flags: INTEGER): NATURAL_64 is
+	g_type_register_static (a_parent_type: like long_unsigned; a_type_name: POINTER; an_info: POINTER; a_flags: INTEGER): like long_unsigned is
  		-- g_type_register_static
 		external "plug_in"
 		alias "{
@@ -540,7 +550,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_register_static_simple (a_parent_type: NATURAL_64; a_type_name: POINTER; a_class_size: NATURAL_32; a_class_init: POINTER; an_instance_size: NATURAL_32; an_instance_init: POINTER; a_flags: INTEGER): NATURAL_64 is
+	g_type_register_static_simple (a_parent_type: like long_unsigned; a_type_name: POINTER; a_class_size: NATURAL; a_class_init: POINTER; an_instance_size: NATURAL; an_instance_init: POINTER; a_flags: INTEGER): like long_unsigned is
  		-- g_type_register_static_simple
 		external "plug_in"
 		alias "{
@@ -570,7 +580,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_set_qdata (a_type: NATURAL_64; a_quark: NATURAL_32; a_data: POINTER) is
+	g_type_set_qdata (a_type: like long_unsigned; a_quark: NATURAL; a_data: POINTER) is
  		-- g_type_set_qdata
 		external "plug_in"
 		alias "{
@@ -580,7 +590,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_test_flags (a_type: NATURAL_64; a_flags: NATURAL_32): INTEGER_32 is
+	g_type_test_flags (a_type: like long_unsigned; a_flags: NATURAL): INTEGER is
  		-- g_type_test_flags
 		external "plug_in"
 		alias "{
@@ -590,7 +600,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_value_table_peek (a_type: NATURAL_64): POINTER is
+	g_type_value_table_peek (a_type: like long_unsigned): POINTER is
  		-- g_type_value_table_peek
 		external "plug_in"
 		alias "{

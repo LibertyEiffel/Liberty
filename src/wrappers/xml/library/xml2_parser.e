@@ -1,7 +1,7 @@
 deferred class XML2_PARSER
 
 insert LIBXML2_EXTERNALS
-feature 
+feature {ANY} 
 	parse_file (an_xml_file: STRING): XML2_DOC is
 		-- parse the XML file named `an_xml_file' and build a tree. Automatic
 		-- support for ZLIB/Compress compressed document is provided by default

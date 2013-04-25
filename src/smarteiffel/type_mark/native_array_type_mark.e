@@ -12,7 +12,7 @@ inherit
          typed_internals_type_mark, canonical_long_name
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

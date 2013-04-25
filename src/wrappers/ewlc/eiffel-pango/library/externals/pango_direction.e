@@ -38,7 +38,7 @@ deferred class PANGO_DIRECTION
 
 inherit ANY undefine is_equal, copy end
 
-feature -- enum
+feature {ANY} -- enum
 
 	is_valid_pango_direction (a_direction: INTEGER) : BOOLEAN is
 		do

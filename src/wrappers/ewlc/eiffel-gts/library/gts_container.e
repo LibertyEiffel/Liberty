@@ -91,7 +91,7 @@ feature {} -- Creation
 --     klass :
 --     Returns :
 
-feature
+feature {ANY}
 	add (an_item: GTS_CONTAINEE) is
 		require item_not_void: an_item /= Void
 		do

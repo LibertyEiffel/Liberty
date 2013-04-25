@@ -98,7 +98,7 @@ insert
 
 	POINTER_HANDLING -- to get `address_of' and `content_of'
 
-feature
+feature {ANY}
 
 	store_eiffel_wrapper is
 			-- Store a pointer to Current into the underlying
@@ -256,7 +256,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Object creation
 			if not is_eiffel_wrapper_stored then store_eiffel_wrapper end
 		end
 
-feature -- Disposing
+feature {ANY} -- Disposing
 
 	dispose is
 			-- Dispose the g_object, calling unref and setting its handle to default_pointer.
@@ -292,7 +292,7 @@ feature {} -- Disposing helper
 			Result := (g_is_object (handle) /= 0)
 		end
 
-feature -- Reference count
+feature {ANY} -- Reference count
 
 	ref is
 			-- Increases the reference count of object.
@@ -311,7 +311,7 @@ feature -- Reference count
 			g_object_unref (handle)
 		end
 
-feature -- Data storing and retrieving
+feature {ANY} -- Data storing and retrieving
 
 	get_data (a_key: STRING): ANY is
 			-- Gets a named field from the objects table of associations (see
@@ -354,7 +354,7 @@ feature -- Data storing and retrieving
 			if ptr.is_not_null then Result:=ptr.to_any end
 		end
 
-feature -- Quark-based data storing and retrieving
+feature {ANY} -- Quark-based data storing and retrieving
 
 	has_qdata (a_key: G_QUARK): BOOLEAN is
 			-- Is `a_key' field present in table of associations (see
@@ -386,7 +386,7 @@ feature -- Quark-based data storing and retrieving
 			g_object_set_qdata (handle,a_key.quark, data.to_pointer)
 		end
 
-feature -- Properties notifying
+feature {ANY} -- Properties notifying
 
 	notify (a_property_name: STRING) is
 		-- Emits a "notify" signal for the property `a_property_name' on
@@ -412,7 +412,7 @@ feature -- Properties notifying
 			g_object_thaw_notify (handle)
 		end
 
-feature -- Properties query
+feature {ANY} -- Properties query
 
 	find_property (a_property_name: STRING): G_PARAM_SPEC is
 			-- Find the parameter's spec for `a_property_name'. Void if
@@ -464,7 +464,7 @@ feature -- Properties query
 			-- end
 		end
 
-feature -- Property getter/setter
+feature {ANY} -- Property getter/setter
 
 	set_properties (some_properties: COLLECTION [TUPLE[STRING,G_VALUE]]) is
 		require
@@ -685,7 +685,7 @@ feature -- Property getter/setter
 			correct_type: Result.is_a (find_property(a_property_name).value_gtype)
 		end
 
-feature -- String property
+feature {ANY} -- String property
 
 	set_string_property (a_property_name, a_string: STRING) is
 		require
@@ -711,7 +711,7 @@ feature -- String property
 			Result := hidden_gvalue.string
 		end
 
-feature -- integer property
+feature {ANY} -- integer property
 
 	set_integer_property (a_property_name: STRING; a_value: INTEGER) is
 			-- Set property with `a_name' to `a_value'
@@ -737,7 +737,7 @@ feature -- integer property
 			g_object_get_property (handle,a_property_name.to_external,hidden_gvalue.handle)
 			Result := hidden_gvalue.integer
 		end
-feature -- double/REAL_64 property
+feature {ANY} -- double/REAL_64 property
 
 	set_real_64_property, set_double_property (a_property_name: STRING; a_value: REAL_64) is
 			-- Set property with `a_name' to `a_value'
@@ -790,7 +790,7 @@ feature -- double/REAL_64 property
 			Result := hidden_gvalue.real_64
 		end
 		
-feature -- float/REAL_32 property
+feature {ANY} -- float/REAL_32 property
 
 	set_real_32_property, set_float_property (a_property_name: STRING; a_value: REAL_32) is
 			-- Set property with `a_name' to `a_value'
@@ -843,7 +843,7 @@ feature -- float/REAL_32 property
 			Result := hidden_gvalue.real_32
 		end
 	
-feature -- boolean property
+feature {ANY} -- boolean property
 
 	set_boolean_property (a_property_name: STRING; a_value: BOOLEAN) is
 			-- Set boolean property with `a_name' to `a_value'
@@ -895,7 +895,7 @@ feature -- boolean property
 			Result := hidden_gvalue.boolean
 		end
 
-feature -- enum property
+feature {ANY} -- enum property
 	set_enum_property (a_property_name: STRING; a_value: INTEGER) is
 			-- Set the enumeration property with `a_name' to `a_value'. 
 		require

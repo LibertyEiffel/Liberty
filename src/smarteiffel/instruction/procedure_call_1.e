@@ -9,7 +9,7 @@ class PROCEDURE_CALL_1
 inherit
    PROCEDURE_CALL
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -81,7 +81,7 @@ feature {ANY}
             else
                Result := twin
                Result.init(t, arg, Void)
-               -- fs determined by specialize_2
+               -- fs determined by specialize_and_check
             end
          end
       ensure then
@@ -89,7 +89,7 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target or else Result.arguments /= arguments
       end
 
-   specialize_2 (type: TYPE): INSTRUCTION is
+   specialize_and_check (type: TYPE): INSTRUCTION is
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
          ---------------except AGENT_INSTRUCTION stuff ------------------------------
          --|*** Except for the `procedure_and_argument_count_check' call (Dom. march 28th 2004) ***
@@ -97,7 +97,7 @@ feature {ANY}
          fs: like feature_stamp; af: ANONYMOUS_FEATURE; arg: like arguments; t: like target
          target_type, target_declaration_type: TYPE; like_current_result: like Current
       do
-         t := target.specialize_2(type)
+         t := target.specialize_and_check(type)
          if target.is_current then
             target_type := type
             fs := feature_stamp
@@ -115,7 +115,7 @@ feature {ANY}
          if feature_name.name.to_string = as_call and then target_type.is_agent then
             create {AGENT_INSTRUCTION} Result.make(type, Current, target_type, t, arguments)
          else
-            arg := arguments.specialize_2(type, af, target_type, target.is_current)
+            arg := arguments.specialize_and_check(type, af, target_type, target.is_current)
             check
                arg.count = arguments.count
             end
@@ -210,7 +210,7 @@ feature {}
       require
          t /= Void
          fn /= Void
-         a /= Void
+         a.count = 1
          not fn.start_position.is_unknown
       do
          target := t

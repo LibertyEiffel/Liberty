@@ -7,8 +7,8 @@ expanded class GUNIXSOCKETADDRESSTYPE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_unix_socket_address_abstract_low_level)  or else
@@ -18,7 +18,7 @@ feature -- Validity
 				(a_value = g_unix_socket_address_path_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_unix_socket_address_abstract is
 		do
@@ -45,7 +45,7 @@ feature -- Setters
 			value := g_unix_socket_address_path_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_unix_socket_address_abstract: BOOLEAN is
 		do
 			Result := (value=g_unix_socket_address_abstract_low_level)

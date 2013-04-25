@@ -206,6 +206,6 @@ feature {}
 --   GooCanvasItem *child,
 --   va_list var_args);
 	
-feature
+feature {ANY}
 	handle : POINTER is deferred end
 end

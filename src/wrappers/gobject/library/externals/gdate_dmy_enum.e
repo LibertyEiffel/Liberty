@@ -3,54 +3,52 @@
 
 expanded class GDATE_DMY_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = day_low_level)  or else
-				(a_value = month_low_level)  or else
-				(a_value = year_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = g_date_day_low_level)  or else
+				(a_value = g_date_month_low_level)  or else
+				(a_value = g_date_year_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_day is
+	set_g_date_day is
 		do
-			value := day_low_level
+			value := g_date_day_low_level
 		end
 
-	set_month is
+	set_g_date_month is
 		do
-			value := month_low_level
+			value := g_date_month_low_level
 		end
 
-	set_year is
+	set_g_date_year is
 		do
-			value := year_low_level
+			value := g_date_year_low_level
 		end
 
 feature -- Queries
-	is_day: BOOLEAN is
+	is_g_date_day: BOOLEAN is
 		do
-			Result := (value=day_low_level)
+			Result := (value=g_date_day_low_level)
 		end
 
-	is_month: BOOLEAN is
+	is_g_date_month: BOOLEAN is
 		do
-			Result := (value=month_low_level)
+			Result := (value=g_date_month_low_level)
 		end
 
-	is_year: BOOLEAN is
+	is_g_date_year: BOOLEAN is
 		do
-			Result := (value=year_low_level)
+			Result := (value=g_date_year_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	day_low_level: INTEGER is
+	g_date_day_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -59,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	month_low_level: INTEGER is
+	g_date_month_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	year_low_level: INTEGER is
+	g_date_year_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

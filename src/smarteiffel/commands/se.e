@@ -10,7 +10,7 @@ insert
    GLOBALS
    COMMAND_LINE_TOOLS
 
-creation {}
+create {}
    make
 
 feature {ANY}

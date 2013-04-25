@@ -7,8 +7,8 @@ expanded class GDK_STATUS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = ok_low_level)  or else
@@ -18,7 +18,7 @@ feature -- Validity
 				(a_value = error_mem_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_ok is
 		do
@@ -45,7 +45,7 @@ feature -- Setters
 			value := error_mem_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	ok: BOOLEAN is
 		do
 			Result := (value=ok_low_level)

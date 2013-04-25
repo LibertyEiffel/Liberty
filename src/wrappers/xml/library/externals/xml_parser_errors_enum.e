@@ -7,8 +7,8 @@ expanded class XML_PARSER_ERRORS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = err_ok_low_level)  or else
@@ -744,7 +744,7 @@ feature -- Validity
 				(a_value = i18n_no_output_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_err_ok is
 		do
@@ -4401,7 +4401,7 @@ feature -- Setters
 			value := i18n_no_output_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	err_ok: BOOLEAN is
 		do
 			Result := (value=err_ok_low_level)

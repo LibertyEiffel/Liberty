@@ -28,7 +28,7 @@ insert
 	GTS_SURFACE_STATS_STRUCT
 		-- redefine copy end
 	
-creation  make, from_external_pointer
+create {ANY}  make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -36,7 +36,7 @@ feature {} -- Creation
 			allocate
 		end
 	
-feature
+feature {ANY}
 	faces_count: INTEGER is
 			-- Number of faces.
 		do

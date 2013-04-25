@@ -3,109 +3,107 @@
 
 expanded class GDATE_WEEKDAY_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = bad_weekday_low_level)  or else
-				(a_value = monday_low_level)  or else
-				(a_value = tuesday_low_level)  or else
-				(a_value = wednesday_low_level)  or else
-				(a_value = thursday_low_level)  or else
-				(a_value = friday_low_level)  or else
-				(a_value = saturday_low_level)  or else
-				(a_value = sunday_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = g_date_bad_weekday_low_level)  or else
+				(a_value = g_date_friday_low_level)  or else
+				(a_value = g_date_monday_low_level)  or else
+				(a_value = g_date_saturday_low_level)  or else
+				(a_value = g_date_sunday_low_level)  or else
+				(a_value = g_date_thursday_low_level)  or else
+				(a_value = g_date_tuesday_low_level)  or else
+				(a_value = g_date_wednesday_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_bad_weekday is
+	set_g_date_bad_weekday is
 		do
-			value := bad_weekday_low_level
+			value := g_date_bad_weekday_low_level
 		end
 
-	set_monday is
+	set_g_date_friday is
 		do
-			value := monday_low_level
+			value := g_date_friday_low_level
 		end
 
-	set_tuesday is
+	set_g_date_monday is
 		do
-			value := tuesday_low_level
+			value := g_date_monday_low_level
 		end
 
-	set_wednesday is
+	set_g_date_saturday is
 		do
-			value := wednesday_low_level
+			value := g_date_saturday_low_level
 		end
 
-	set_thursday is
+	set_g_date_sunday is
 		do
-			value := thursday_low_level
+			value := g_date_sunday_low_level
 		end
 
-	set_friday is
+	set_g_date_thursday is
 		do
-			value := friday_low_level
+			value := g_date_thursday_low_level
 		end
 
-	set_saturday is
+	set_g_date_tuesday is
 		do
-			value := saturday_low_level
+			value := g_date_tuesday_low_level
 		end
 
-	set_sunday is
+	set_g_date_wednesday is
 		do
-			value := sunday_low_level
+			value := g_date_wednesday_low_level
 		end
 
 feature -- Queries
-	is_bad_weekday: BOOLEAN is
+	is_g_date_bad_weekday: BOOLEAN is
 		do
-			Result := (value=bad_weekday_low_level)
+			Result := (value=g_date_bad_weekday_low_level)
 		end
 
-	is_monday: BOOLEAN is
+	is_g_date_friday: BOOLEAN is
 		do
-			Result := (value=monday_low_level)
+			Result := (value=g_date_friday_low_level)
 		end
 
-	is_tuesday: BOOLEAN is
+	is_g_date_monday: BOOLEAN is
 		do
-			Result := (value=tuesday_low_level)
+			Result := (value=g_date_monday_low_level)
 		end
 
-	is_wednesday: BOOLEAN is
+	is_g_date_saturday: BOOLEAN is
 		do
-			Result := (value=wednesday_low_level)
+			Result := (value=g_date_saturday_low_level)
 		end
 
-	is_thursday: BOOLEAN is
+	is_g_date_sunday: BOOLEAN is
 		do
-			Result := (value=thursday_low_level)
+			Result := (value=g_date_sunday_low_level)
 		end
 
-	is_friday: BOOLEAN is
+	is_g_date_thursday: BOOLEAN is
 		do
-			Result := (value=friday_low_level)
+			Result := (value=g_date_thursday_low_level)
 		end
 
-	is_saturday: BOOLEAN is
+	is_g_date_tuesday: BOOLEAN is
 		do
-			Result := (value=saturday_low_level)
+			Result := (value=g_date_tuesday_low_level)
 		end
 
-	is_sunday: BOOLEAN is
+	is_g_date_wednesday: BOOLEAN is
 		do
-			Result := (value=sunday_low_level)
+			Result := (value=g_date_wednesday_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	bad_weekday_low_level: INTEGER is
+	g_date_bad_weekday_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -114,43 +112,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	monday_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_DATE_MONDAY"
- 			}"
- 		end
-
-	tuesday_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_DATE_TUESDAY"
- 			}"
- 		end
-
-	wednesday_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_DATE_WEDNESDAY"
- 			}"
- 		end
-
-	thursday_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_DATE_THURSDAY"
- 			}"
- 		end
-
-	friday_low_level: INTEGER is
+	g_date_friday_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -159,7 +121,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	saturday_low_level: INTEGER is
+	g_date_monday_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_DATE_MONDAY"
+ 			}"
+ 		end
+
+	g_date_saturday_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -168,12 +139,39 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	sunday_low_level: INTEGER is
+	g_date_sunday_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_DATE_SUNDAY"
+ 			}"
+ 		end
+
+	g_date_thursday_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_DATE_THURSDAY"
+ 			}"
+ 		end
+
+	g_date_tuesday_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_DATE_TUESDAY"
+ 			}"
+ 		end
+
+	g_date_wednesday_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_DATE_WEDNESDAY"
  			}"
  		end
 

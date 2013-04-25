@@ -3,54 +3,52 @@
 
 expanded class GSEEK_TYPE_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = cur_low_level)  or else
-				(a_value = set_low_level)  or else
-				(a_value = end_external_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = g_seek_cur_low_level)  or else
+				(a_value = g_seek_end_low_level)  or else
+				(a_value = g_seek_set_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_cur is
+	set_g_seek_cur is
 		do
-			value := cur_low_level
+			value := g_seek_cur_low_level
 		end
 
-	set_set is
+	set_g_seek_end is
 		do
-			value := set_low_level
+			value := g_seek_end_low_level
 		end
 
-	set_end_external is
+	set_g_seek_set is
 		do
-			value := end_external_low_level
+			value := g_seek_set_low_level
 		end
 
 feature -- Queries
-	is_cur: BOOLEAN is
+	is_g_seek_cur: BOOLEAN is
 		do
-			Result := (value=cur_low_level)
+			Result := (value=g_seek_cur_low_level)
 		end
 
-	is_set: BOOLEAN is
+	is_g_seek_end: BOOLEAN is
 		do
-			Result := (value=set_low_level)
+			Result := (value=g_seek_end_low_level)
 		end
 
-	is_end_external: BOOLEAN is
+	is_g_seek_set: BOOLEAN is
 		do
-			Result := (value=end_external_low_level)
+			Result := (value=g_seek_set_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	cur_low_level: INTEGER is
+	g_seek_cur_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -59,21 +57,21 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	set_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_SEEK_SET"
- 			}"
- 		end
-
-	end_external_low_level: INTEGER is
+	g_seek_end_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_SEEK_END"
+ 			}"
+ 		end
+
+	g_seek_set_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_SEEK_SET"
  			}"
  		end
 

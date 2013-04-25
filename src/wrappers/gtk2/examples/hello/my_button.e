@@ -3,8 +3,8 @@ inherit
 	GTK_BUTTON
 		redefine with_label, on_clicked
 		end
-creation make,with_label
-feature
+create {ANY} make,with_label
+feature {ANY}
 	on_clicked is
 		do
 			print ("Hello from `my-button'. I was called with the built-in clicked signal handler%N")

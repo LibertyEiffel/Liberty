@@ -3,286 +3,250 @@
 
 expanded class GSPAWN_ERROR_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = fork_low_level)  or else
-				(a_value = read_low_level)  or else
-				(a_value = chdir_low_level)  or else
-				(a_value = acces_low_level)  or else
-				(a_value = perm_low_level)  or else
-				(a_value = a_2big_low_level)  or else
-				(a_value = noexec_low_level)  or else
-				(a_value = nametoolong_low_level)  or else
-				(a_value = noent_low_level)  or else
-				(a_value = nomem_low_level)  or else
-				(a_value = notdir_low_level)  or else
-				(a_value = loop_external_low_level)  or else
-				(a_value = txtbusy_low_level)  or else
-				(a_value = io_low_level)  or else
-				(a_value = nfile_low_level)  or else
-				(a_value = mfile_low_level)  or else
-				(a_value = inval_low_level)  or else
-				(a_value = isdir_low_level)  or else
-				(a_value = libbad_low_level)  or else
-				(a_value = failed_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = g_spawn_error_2big_low_level)  or else
+				(a_value = g_spawn_error_acces_low_level)  or else
+				(a_value = g_spawn_error_chdir_low_level)  or else
+				(a_value = g_spawn_error_failed_low_level)  or else
+				(a_value = g_spawn_error_fork_low_level)  or else
+				(a_value = g_spawn_error_inval_low_level)  or else
+				(a_value = g_spawn_error_io_low_level)  or else
+				(a_value = g_spawn_error_isdir_low_level)  or else
+				(a_value = g_spawn_error_libbad_low_level)  or else
+				(a_value = g_spawn_error_loop_low_level)  or else
+				(a_value = g_spawn_error_mfile_low_level)  or else
+				(a_value = g_spawn_error_nametoolong_low_level)  or else
+				(a_value = g_spawn_error_nfile_low_level)  or else
+				(a_value = g_spawn_error_noent_low_level)  or else
+				(a_value = g_spawn_error_noexec_low_level)  or else
+				(a_value = g_spawn_error_nomem_low_level)  or else
+				(a_value = g_spawn_error_notdir_low_level)  or else
+				(a_value = g_spawn_error_perm_low_level)  or else
+				(a_value = g_spawn_error_read_low_level)  or else
+				(a_value = g_spawn_error_too_big_low_level)  or else
+				(a_value = g_spawn_error_txtbusy_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_fork is
+	set_g_spawn_error_2big is
 		do
-			value := fork_low_level
+			value := g_spawn_error_2big_low_level
 		end
 
-	set_read is
+	set_g_spawn_error_acces is
 		do
-			value := read_low_level
+			value := g_spawn_error_acces_low_level
 		end
 
-	set_chdir is
+	set_g_spawn_error_chdir is
 		do
-			value := chdir_low_level
+			value := g_spawn_error_chdir_low_level
 		end
 
-	set_acces is
+	set_g_spawn_error_failed is
 		do
-			value := acces_low_level
+			value := g_spawn_error_failed_low_level
 		end
 
-	set_perm is
+	set_g_spawn_error_fork is
 		do
-			value := perm_low_level
+			value := g_spawn_error_fork_low_level
 		end
 
-	set_a_2big is
+	set_g_spawn_error_inval is
 		do
-			value := a_2big_low_level
+			value := g_spawn_error_inval_low_level
 		end
 
-	set_noexec is
+	set_g_spawn_error_io is
 		do
-			value := noexec_low_level
+			value := g_spawn_error_io_low_level
 		end
 
-	set_nametoolong is
+	set_g_spawn_error_isdir is
 		do
-			value := nametoolong_low_level
+			value := g_spawn_error_isdir_low_level
 		end
 
-	set_noent is
+	set_g_spawn_error_libbad is
 		do
-			value := noent_low_level
+			value := g_spawn_error_libbad_low_level
 		end
 
-	set_nomem is
+	set_g_spawn_error_loop is
 		do
-			value := nomem_low_level
+			value := g_spawn_error_loop_low_level
 		end
 
-	set_notdir is
+	set_g_spawn_error_mfile is
 		do
-			value := notdir_low_level
+			value := g_spawn_error_mfile_low_level
 		end
 
-	set_loop_external is
+	set_g_spawn_error_nametoolong is
 		do
-			value := loop_external_low_level
+			value := g_spawn_error_nametoolong_low_level
 		end
 
-	set_txtbusy is
+	set_g_spawn_error_nfile is
 		do
-			value := txtbusy_low_level
+			value := g_spawn_error_nfile_low_level
 		end
 
-	set_io is
+	set_g_spawn_error_noent is
 		do
-			value := io_low_level
+			value := g_spawn_error_noent_low_level
 		end
 
-	set_nfile is
+	set_g_spawn_error_noexec is
 		do
-			value := nfile_low_level
+			value := g_spawn_error_noexec_low_level
 		end
 
-	set_mfile is
+	set_g_spawn_error_nomem is
 		do
-			value := mfile_low_level
+			value := g_spawn_error_nomem_low_level
 		end
 
-	set_inval is
+	set_g_spawn_error_notdir is
 		do
-			value := inval_low_level
+			value := g_spawn_error_notdir_low_level
 		end
 
-	set_isdir is
+	set_g_spawn_error_perm is
 		do
-			value := isdir_low_level
+			value := g_spawn_error_perm_low_level
 		end
 
-	set_libbad is
+	set_g_spawn_error_read is
 		do
-			value := libbad_low_level
+			value := g_spawn_error_read_low_level
 		end
 
-	set_failed is
+	set_g_spawn_error_too_big is
 		do
-			value := failed_low_level
+			value := g_spawn_error_too_big_low_level
+		end
+
+	set_g_spawn_error_txtbusy is
+		do
+			value := g_spawn_error_txtbusy_low_level
 		end
 
 feature -- Queries
-	is_fork: BOOLEAN is
+	is_g_spawn_error_2big: BOOLEAN is
 		do
-			Result := (value=fork_low_level)
+			Result := (value=g_spawn_error_2big_low_level)
 		end
 
-	is_read: BOOLEAN is
+	is_g_spawn_error_acces: BOOLEAN is
 		do
-			Result := (value=read_low_level)
+			Result := (value=g_spawn_error_acces_low_level)
 		end
 
-	is_chdir: BOOLEAN is
+	is_g_spawn_error_chdir: BOOLEAN is
 		do
-			Result := (value=chdir_low_level)
+			Result := (value=g_spawn_error_chdir_low_level)
 		end
 
-	is_acces: BOOLEAN is
+	is_g_spawn_error_failed: BOOLEAN is
 		do
-			Result := (value=acces_low_level)
+			Result := (value=g_spawn_error_failed_low_level)
 		end
 
-	is_perm: BOOLEAN is
+	is_g_spawn_error_fork: BOOLEAN is
 		do
-			Result := (value=perm_low_level)
+			Result := (value=g_spawn_error_fork_low_level)
 		end
 
-	is_a_2big: BOOLEAN is
+	is_g_spawn_error_inval: BOOLEAN is
 		do
-			Result := (value=a_2big_low_level)
+			Result := (value=g_spawn_error_inval_low_level)
 		end
 
-	is_noexec: BOOLEAN is
+	is_g_spawn_error_io: BOOLEAN is
 		do
-			Result := (value=noexec_low_level)
+			Result := (value=g_spawn_error_io_low_level)
 		end
 
-	is_nametoolong: BOOLEAN is
+	is_g_spawn_error_isdir: BOOLEAN is
 		do
-			Result := (value=nametoolong_low_level)
+			Result := (value=g_spawn_error_isdir_low_level)
 		end
 
-	is_noent: BOOLEAN is
+	is_g_spawn_error_libbad: BOOLEAN is
 		do
-			Result := (value=noent_low_level)
+			Result := (value=g_spawn_error_libbad_low_level)
 		end
 
-	is_nomem: BOOLEAN is
+	is_g_spawn_error_loop: BOOLEAN is
 		do
-			Result := (value=nomem_low_level)
+			Result := (value=g_spawn_error_loop_low_level)
 		end
 
-	is_notdir: BOOLEAN is
+	is_g_spawn_error_mfile: BOOLEAN is
 		do
-			Result := (value=notdir_low_level)
+			Result := (value=g_spawn_error_mfile_low_level)
 		end
 
-	is_loop_external: BOOLEAN is
+	is_g_spawn_error_nametoolong: BOOLEAN is
 		do
-			Result := (value=loop_external_low_level)
+			Result := (value=g_spawn_error_nametoolong_low_level)
 		end
 
-	is_txtbusy: BOOLEAN is
+	is_g_spawn_error_nfile: BOOLEAN is
 		do
-			Result := (value=txtbusy_low_level)
+			Result := (value=g_spawn_error_nfile_low_level)
 		end
 
-	is_io: BOOLEAN is
+	is_g_spawn_error_noent: BOOLEAN is
 		do
-			Result := (value=io_low_level)
+			Result := (value=g_spawn_error_noent_low_level)
 		end
 
-	is_nfile: BOOLEAN is
+	is_g_spawn_error_noexec: BOOLEAN is
 		do
-			Result := (value=nfile_low_level)
+			Result := (value=g_spawn_error_noexec_low_level)
 		end
 
-	is_mfile: BOOLEAN is
+	is_g_spawn_error_nomem: BOOLEAN is
 		do
-			Result := (value=mfile_low_level)
+			Result := (value=g_spawn_error_nomem_low_level)
 		end
 
-	is_inval: BOOLEAN is
+	is_g_spawn_error_notdir: BOOLEAN is
 		do
-			Result := (value=inval_low_level)
+			Result := (value=g_spawn_error_notdir_low_level)
 		end
 
-	is_isdir: BOOLEAN is
+	is_g_spawn_error_perm: BOOLEAN is
 		do
-			Result := (value=isdir_low_level)
+			Result := (value=g_spawn_error_perm_low_level)
 		end
 
-	is_libbad: BOOLEAN is
+	is_g_spawn_error_read: BOOLEAN is
 		do
-			Result := (value=libbad_low_level)
+			Result := (value=g_spawn_error_read_low_level)
 		end
 
-	is_failed: BOOLEAN is
+	is_g_spawn_error_too_big: BOOLEAN is
 		do
-			Result := (value=failed_low_level)
+			Result := (value=g_spawn_error_too_big_low_level)
+		end
+
+	is_g_spawn_error_txtbusy: BOOLEAN is
+		do
+			Result := (value=g_spawn_error_txtbusy_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	fork_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_SPAWN_ERROR_FORK"
- 			}"
- 		end
-
-	read_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_SPAWN_ERROR_READ"
- 			}"
- 		end
-
-	chdir_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_SPAWN_ERROR_CHDIR"
- 			}"
- 		end
-
-	acces_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_SPAWN_ERROR_ACCES"
- 			}"
- 		end
-
-	perm_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_SPAWN_ERROR_PERM"
- 			}"
- 		end
-
-	a_2big_low_level: INTEGER is
+	g_spawn_error_2big_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -291,97 +255,43 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	noexec_low_level: INTEGER is
+	g_spawn_error_acces_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "G_SPAWN_ERROR_NOEXEC"
+ 			feature_name: "G_SPAWN_ERROR_ACCES"
  			}"
  		end
 
-	nametoolong_low_level: INTEGER is
+	g_spawn_error_chdir_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "G_SPAWN_ERROR_NAMETOOLONG"
+ 			feature_name: "G_SPAWN_ERROR_CHDIR"
  			}"
  		end
 
-	noent_low_level: INTEGER is
+	g_spawn_error_failed_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "G_SPAWN_ERROR_NOENT"
+ 			feature_name: "G_SPAWN_ERROR_FAILED"
  			}"
  		end
 
-	nomem_low_level: INTEGER is
+	g_spawn_error_fork_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "G_SPAWN_ERROR_NOMEM"
+ 			feature_name: "G_SPAWN_ERROR_FORK"
  			}"
  		end
 
-	notdir_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_SPAWN_ERROR_NOTDIR"
- 			}"
- 		end
-
-	loop_external_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_SPAWN_ERROR_LOOP"
- 			}"
- 		end
-
-	txtbusy_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_SPAWN_ERROR_TXTBUSY"
- 			}"
- 		end
-
-	io_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_SPAWN_ERROR_IO"
- 			}"
- 		end
-
-	nfile_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_SPAWN_ERROR_NFILE"
- 			}"
- 		end
-
-	mfile_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_SPAWN_ERROR_MFILE"
- 			}"
- 		end
-
-	inval_low_level: INTEGER is
+	g_spawn_error_inval_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -390,7 +300,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	isdir_low_level: INTEGER is
+	g_spawn_error_io_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_SPAWN_ERROR_IO"
+ 			}"
+ 		end
+
+	g_spawn_error_isdir_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -399,7 +318,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	libbad_low_level: INTEGER is
+	g_spawn_error_libbad_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -408,12 +327,111 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	failed_low_level: INTEGER is
+	g_spawn_error_loop_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "G_SPAWN_ERROR_FAILED"
+ 			feature_name: "G_SPAWN_ERROR_LOOP"
+ 			}"
+ 		end
+
+	g_spawn_error_mfile_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_SPAWN_ERROR_MFILE"
+ 			}"
+ 		end
+
+	g_spawn_error_nametoolong_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_SPAWN_ERROR_NAMETOOLONG"
+ 			}"
+ 		end
+
+	g_spawn_error_nfile_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_SPAWN_ERROR_NFILE"
+ 			}"
+ 		end
+
+	g_spawn_error_noent_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_SPAWN_ERROR_NOENT"
+ 			}"
+ 		end
+
+	g_spawn_error_noexec_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_SPAWN_ERROR_NOEXEC"
+ 			}"
+ 		end
+
+	g_spawn_error_nomem_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_SPAWN_ERROR_NOMEM"
+ 			}"
+ 		end
+
+	g_spawn_error_notdir_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_SPAWN_ERROR_NOTDIR"
+ 			}"
+ 		end
+
+	g_spawn_error_perm_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_SPAWN_ERROR_PERM"
+ 			}"
+ 		end
+
+	g_spawn_error_read_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_SPAWN_ERROR_READ"
+ 			}"
+ 		end
+
+	g_spawn_error_too_big_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_SPAWN_ERROR_TOO_BIG"
+ 			}"
+ 		end
+
+	g_spawn_error_txtbusy_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_SPAWN_ERROR_TXTBUSY"
  			}"
  		end
 

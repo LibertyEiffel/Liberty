@@ -10,10 +10,10 @@ class ASSIGNMENT_TEST
 inherit
    EXPRESSION
 
-creation {EIFFEL_PARSER, INTROSPECTION_HANDLER}
+create {EIFFEL_PARSER, INTROSPECTION_HANDLER}
    with_writable, with_type_mark
 
-creation {ASSIGNMENT_TEST}
+create {ASSIGNMENT_TEST}
    make
 
 feature {ANY}
@@ -164,54 +164,54 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          lw: like left_writable; rs: like right_side; l_dt, r_dt: TYPE
       do
          if left_writable /= Void then
-            lw := left_writable.specialize_2(type)
+            lw := left_writable.specialize_and_check(type)
          end
-         rs := right_side.specialize_2(type)
+         rs := right_side.specialize_and_check(type)
          if left_type_mark /= Void then
             l_dt := left_type_mark.resolve_in(type)
          else
             l_dt := lw.declaration_type
          end
          if l_dt.is_expanded then
-            error_handler.append("The left-hand side of an assignment attempt must not be expanded. %
+            error_handler.append(once "The left-hand side of an assignment attempt must not be expanded. %
                                  %(Actually, the left-hand side is of type ")
             error_handler.add_type(l_dt)
-            error_handler.append(".) Invalid assignment test.")
+            error_handler.append(once ".) Invalid assignment test.")
             error_handler.add_position(start_position)
             error_handler.print_as_fatal_error
          elseif rs.is_void then
             error_handler.add_position(right_side.start_position)
-            error_handler.append("Void must not be the right-hand side of an assignment test (always True).")
+            error_handler.append(once "Void must not be the right-hand side of an assignment test (always True).")
             error_handler.print_as_fatal_error
          else
             r_dt := rs.declaration_type
             if not l_dt.can_be_assigned_to(r_dt) then
                error_handler.add_position(start_position)
                error_handler.add_position(right_side.start_position)
-               error_handler.append("Invalid assignment test. The left-hand side expression must conforms %
+               error_handler.append(once "Invalid assignment test. The left-hand side expression must conforms %
                                     %with the right-hand side. The left-hand side is of type ")
                error_handler.append(l_dt.name.to_string)
-               error_handler.append(" while expression ")
+               error_handler.append(once " while expression ")
                error_handler.add_expression(right_side)
-               error_handler.append(" is of type ")
+               error_handler.append(once " is of type ")
                error_handler.append(r_dt.name.to_string)
-               error_handler.append(".")
+               error_handler.append(once ".")
                error_handler.print_as_fatal_error
             elseif r_dt.can_be_assigned_to(l_dt) and then static_left_type_mark(lw) then
                error_handler.add_position(start_position)
                error_handler.add_position(right_side.start_position)
-               error_handler.append("Expression ")
+               error_handler.append(once "Expression ")
                error_handler.add_expression(right_side)
-               error_handler.append(" which is of type ")
+               error_handler.append(once " which is of type ")
                error_handler.append(r_dt.name.to_string)
-               error_handler.append(" can be normally assigned into the left-hand side which is of type ")
+               error_handler.append(once " can be normally assigned into the left-hand side which is of type ")
                error_handler.append(l_dt.name.to_string)
-               error_handler.append(". (This assignment test is always True.)")
+               error_handler.append(once ". (This assignment test is always True.)")
                error_handler.print_as_warning
             end
          end

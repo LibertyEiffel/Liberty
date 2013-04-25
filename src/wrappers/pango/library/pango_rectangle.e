@@ -27,9 +27,9 @@ inherit
 
 insert PANGO_RECTANGLE_EXTERNALS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
-feature -- Access
+feature {ANY} -- Access
 
 	x: INTEGER is
 		do
@@ -51,7 +51,7 @@ feature -- Access
 			Result := pango_rectangle_get_height (handle)
 		end
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <pango/pango-types.h>"

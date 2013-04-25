@@ -26,9 +26,9 @@ inherit GDK_EVENT
 insert
 	GDK_EVENT_FOCUS_EXTERNALS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
-feature -- access
+feature {ANY} -- access
 
 	in: BOOLEAN is
 			-- True if the window has gained the keyboard focus,

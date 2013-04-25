@@ -7,8 +7,8 @@ expanded class TYPE_ID_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = void_ty_id_low_level)  or else
@@ -32,7 +32,7 @@ feature -- Validity
 				(a_value = first_derived_ty_id_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_void_ty_id is
 		do
@@ -129,7 +129,7 @@ feature -- Setters
 			value := first_derived_ty_id_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	void_ty_id: BOOLEAN is
 		do
 			Result := (value=void_ty_id_low_level)

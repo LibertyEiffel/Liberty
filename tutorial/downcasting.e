@@ -4,7 +4,7 @@ class DOWNCASTING
 -- of a general type into some more specific one).
 --
 
-creation
+create {ANY}
    make
 
 feature {}

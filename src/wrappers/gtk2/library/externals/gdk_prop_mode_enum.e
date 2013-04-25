@@ -7,8 +7,8 @@ expanded class GDK_PROP_MODE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = replace_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = append_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_replace is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := append_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	replace: BOOLEAN is
 		do
 			Result := (value=replace_low_level)

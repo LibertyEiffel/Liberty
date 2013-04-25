@@ -8,7 +8,7 @@ inherit
 			dispose, from_external_pointer
 		end
 
-creation {WRAPPER} from_external_pointer
+create {WRAPPER} from_external_pointer
 
 feature {WRAPPER, WRAPPER_HANDLER}
 	from_external_pointer (a_pointer: POINTER) is

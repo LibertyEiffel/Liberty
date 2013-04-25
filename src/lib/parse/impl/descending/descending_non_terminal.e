@@ -23,7 +23,7 @@ class DESCENDING_NON_TERMINAL
 inherit
    PARSE_NON_TERMINAL[DESCENDING_PARSE_CONTEXT]
 
-creation {ANY}
+create {ANY}
    manifest_creation
 
 feature {ANY}

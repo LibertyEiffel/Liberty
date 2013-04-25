@@ -7,8 +7,8 @@ expanded class CASTOPS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = bit_cast_low_level)  or else
@@ -27,7 +27,7 @@ feature -- Validity
 				(a_value = zext_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_bit_cast is
 		do
@@ -99,7 +99,7 @@ feature -- Setters
 			value := zext_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_bit_cast: BOOLEAN is
 		do
 			Result := (value=bit_cast_low_level)

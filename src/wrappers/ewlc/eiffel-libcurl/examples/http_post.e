@@ -28,7 +28,7 @@ class HTTP_POST
 inherit
 	CURL_EXAMPLE redefine make end
 
-creation
+create {ANY}
 	make
 
 feature {} -- Creation

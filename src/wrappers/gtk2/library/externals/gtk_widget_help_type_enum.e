@@ -7,15 +7,15 @@ expanded class GTK_WIDGET_HELP_TYPE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = tooltip_low_level)  or else
 				(a_value = whats_this_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_tooltip is
 		do
@@ -27,7 +27,7 @@ feature -- Setters
 			value := whats_this_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	tooltip: BOOLEAN is
 		do
 			Result := (value=tooltip_low_level)

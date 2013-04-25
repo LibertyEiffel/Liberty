@@ -6,7 +6,7 @@ class SEDB_PROCESS
 inherit
    JOB
 
-creation {SEDB_RUNNER}
+create {SEDB_RUNNER}
    make
 
 feature {LOOP_ITEM}

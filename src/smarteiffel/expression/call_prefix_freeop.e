@@ -9,10 +9,10 @@ class CALL_PREFIX_FREEOP
 inherit
    CALL_PREFIX
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make
 
-creation {CALL_PREFIX}
+create {CALL_PREFIX}
    with
 
 feature {ANY}

@@ -9,7 +9,7 @@ inherit
          ffi_call, types
       end
 
-creation {FOREIGN_DLL}
+create {FOREIGN_DLL}
    make
 
 feature {}

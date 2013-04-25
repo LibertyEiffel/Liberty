@@ -11,7 +11,7 @@ inherit
       redefine can_unread_character, end_of_input
       end
 
-creation {ANY}
+create {ANY}
    connect_to
 
 feature {ANY}

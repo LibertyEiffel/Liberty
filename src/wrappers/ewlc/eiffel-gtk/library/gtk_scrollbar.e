@@ -35,7 +35,7 @@ deferred class GTK_SCROLLBAR
 
 inherit GTK_RANGE
 
-feature -- The "fixed-slider-length" style property
+feature {ANY} -- The "fixed-slider-length" style property
 
 	is_slider_length_fixed: BOOLEAN is
 			-- Don't change slider size, just lock it to the minimum
@@ -56,7 +56,7 @@ feature {} -- "fixed-slider-lenght" Implementation
 			  fixed_slider_lenght_property_property_name.to_external))
 		end
 
-feature -- The "has-backward-stepper" style property
+feature {ANY} -- The "has-backward-stepper" style property
 
 	has_backward_stepper: BOOLEAN is
 			-- Is the standard backward arrow button displayed?  Default
@@ -77,7 +77,7 @@ feature {} -- "has-backward-stepper" Implementation
 			  has_backward_stepper_property_property_name.to_external))
 		end
 
-feature -- The "has-forward-stepper" style property
+feature {ANY} -- The "has-forward-stepper" style property
 
 	has_forward_stepper: BOOLEAN is
 			-- Is the standard forward arrow button displayed?  Default
@@ -98,21 +98,21 @@ feature {} -- "has-forward-stepper" Implementation
 			  has_forward_stepper_property_property_name.to_external))
 		end
 
-feature -- TODO: The "has-secondary-backward-stepper" style property
+feature {ANY} -- TODO: The "has-secondary-backward-stepper" style property
 
 --   "has-secondary-backward-stepper" gboolean              : Read
 
 -- Display a second backward arrow button on the opposite end of the scrollbar.
 
 -- Default value: FALSE
-feature -- TODO: The "has-secondary-forward-stepper" style property
+feature {ANY} -- TODO: The "has-secondary-forward-stepper" style property
 
 --   "has-secondary-forward-stepper" gboolean              : Read
 
 -- Display a secondary forward arrow button on the opposite end of the scrollbar.
 
 -- Default value: FALSE
-feature -- TODO: The "min-slider-length" style property
+feature {ANY} -- TODO: The "min-slider-length" style property
 
 --   "min-slider-length"    gint                  : Read
 

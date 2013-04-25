@@ -38,7 +38,7 @@ insert
 		-- Implemented Interfaces
 		-- GtkColorButton implements AtkImplementorIface.
 
-creation
+create {ANY}
 	make, with_color,
 	from_external_pointer
 	
@@ -66,7 +66,7 @@ feature {} -- Creation
 -- 
 -- Since 2.4
 
-feature
+feature {ANY}
 
 	set_color (a_color: GDK_COLOR) is
 			-- Sets the current color to be a_color.
@@ -147,7 +147,7 @@ feature
 	-- The selected color.
 
 	
-feature -- The "color-set" signal
+feature {ANY} -- The "color-set" signal
 
 	connect_agent_to_color_set_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_COLOR_BUTTON]]) is
 			-- The ::color-set signal is emitted when the user selects a color.

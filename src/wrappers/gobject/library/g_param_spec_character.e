@@ -10,9 +10,9 @@ class G_PARAM_SPEC_CHARACTER
 
 inherit G_PARAM_SPEC
 
-creation make
+create {ANY} make
 	
-feature -- Creation
+feature {ANY} -- Creation
 
 	make (a_name,a_nick,a_blurb: STRING;
 			a_min,a_max,a_default: CHARACTER; some_flags: INTEGER) is

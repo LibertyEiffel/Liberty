@@ -9,7 +9,7 @@ insert
          default_create, is_equal
       end
 
-creation {PACKRAT_INTERNAL}
+create {PACKRAT_INTERNAL}
    default_create
 
 feature {PACKRAT_INTERNAL}

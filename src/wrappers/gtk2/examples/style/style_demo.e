@@ -7,10 +7,10 @@ insert
 	PANGO_CONSTANTS
 	PANGO_WRAP_MODE
 
-creation
+create {ANY}
 	make
 
-feature
+feature {ANY}
 
 	on_delete_event (a_gtk_object: GTK_OBJECT) is
 		do

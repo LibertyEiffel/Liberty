@@ -23,7 +23,7 @@ class CAIRO_SURFACE_PATTERN
 
 inherit CAIRO_PATTERN
 
-creation from_surface, from_external_pointer
+create {ANY} from_surface, from_external_pointer
 
 feature {} -- Creation
 	from_surface (a_surface: CAIRO_SURFACE) is

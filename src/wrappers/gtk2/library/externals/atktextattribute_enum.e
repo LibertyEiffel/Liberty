@@ -7,8 +7,8 @@ expanded class ATKTEXTATTRIBUTE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = atk_text_attr_bg_color_low_level)  or else
@@ -42,7 +42,7 @@ feature -- Validity
 				(a_value = atk_text_attr_wrap_mode_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_atk_text_attr_bg_color is
 		do
@@ -189,7 +189,7 @@ feature -- Setters
 			value := atk_text_attr_wrap_mode_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_atk_text_attr_bg_color: BOOLEAN is
 		do
 			Result := (value=atk_text_attr_bg_color_low_level)

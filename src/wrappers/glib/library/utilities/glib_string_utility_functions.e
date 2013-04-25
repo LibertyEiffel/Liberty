@@ -63,7 +63,7 @@ insert
 		-- For achored declaration of low-level types, i.e. gsize
 	GSTRFUNCS_EXTERNALS
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	string_escape (a_source, some_exceptions: STRING): STRING is
 			-- Escapes the special characters '\b', '\f', '\n', '\r', '\t', '\' and '"'

@@ -11,6 +11,11 @@ class EIFFELTEST_CLIENT_CONDUCTOR
 
 insert
    LOGGING
+   PROCESS_WAIT
+      rename
+         in as waitpid_in,
+         job as waitpid_job
+      end
 
 create {ANY}
    make
@@ -23,7 +28,9 @@ feature {ANY}
                servers_count := commands.count
             end
 
+            stack.add_job(waitpid_job)
             start_servers
+            waitpid_job.arm(-1)
             stack.run
          end
       end
@@ -52,6 +59,7 @@ feature {}
             port := 17380 + i
             log.info.put_line(once "Starting server ##(1) on port #(2)" # i.out # port.out)
             create server.make(port, commands, agent on_reply(port, ?, ?, ?), agent on_done(port, ?, ?))
+            waitpid_job.set_action(port.out, agent on_killed(server, ?, ?), Void)
             test_results.add(create {EIFFELTEST_CLIENT_RESULT}.make, port)
             servers_list.add_last(server)
             stack.add_job(server)
@@ -75,10 +83,29 @@ feature {}
    on_done (expected_port, actual_port, status: INTEGER) is
       do
          if expected_port = actual_port then
-            log.info.put_line(once "Server #(1): exit #(2)" # actual_port.out # status.out)
+            log.info.put_line(once "Server #(1): exit (status #(2))" # actual_port.out # status.out)
             test_results.at(actual_port).set_done(status)
+            if test_results.for_all_items(agent {EIFFELTEST_CLIENT_RESULT}.done) then
+               waitpid_job.disarm
+            end
          else
             log.error.put_line(once "Unexpected port mismatch #(1) /= #(2)" # expected_port.out # actual_port.out)
+         end
+      end
+
+   on_killed (server: EIFFELTEST_CLIENT_SOCKET; pid, status: INTEGER) is
+      local
+         test_result: EIFFELTEST_CLIENT_RESULT
+      do
+         if pid = server.pid then
+            test_result := test_results.at(server.port)
+            if not test_result.done then
+               log.warning.put_line(once "Server #(1): passed away (status #(2))" # server.port.out # status.out)
+               test_result.set_done(status)
+            end
+            if test_results.for_all_items(agent {EIFFELTEST_CLIENT_RESULT}.done) then
+               waitpid_job.disarm
+            end
          end
       end
 

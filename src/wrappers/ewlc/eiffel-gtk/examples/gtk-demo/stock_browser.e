@@ -21,9 +21,9 @@ indexing
 
 class STOCK_BROWSER
 
-creation make
+create {ANY} make
 
-feature 
+feature {ANY} 
 -- /* Stock Item and Icon Browser
 --  *
 --  * This source code for this demo doesn't demonstrate anything

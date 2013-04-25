@@ -7,15 +7,15 @@ expanded class GIOMODULESCOPEFLAGS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_io_module_scope_block_duplicates_low_level)  or else
 				(a_value = g_io_module_scope_none_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_io_module_scope_block_duplicates is
 		do
@@ -27,7 +27,7 @@ feature -- Setters
 			value := g_io_module_scope_none_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_io_module_scope_block_duplicates: BOOLEAN is
 		do
 			Result := (value=g_io_module_scope_block_duplicates_low_level)

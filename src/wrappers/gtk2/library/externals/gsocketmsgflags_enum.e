@@ -7,8 +7,8 @@ expanded class GSOCKETMSGFLAGS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_socket_msg_dontroute_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = g_socket_msg_peek_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_socket_msg_dontroute is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := g_socket_msg_peek_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_socket_msg_dontroute: BOOLEAN is
 		do
 			Result := (value=g_socket_msg_dontroute_low_level)

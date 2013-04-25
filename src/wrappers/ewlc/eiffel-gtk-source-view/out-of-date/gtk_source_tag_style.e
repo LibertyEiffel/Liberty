@@ -25,7 +25,7 @@ class GTK_SOURCE_TAG_STYLE
 
 inherit SHARED_C_STRUCT redefine copy, free end
 
-creation dummy, from_external_pointer
+create {ANY} dummy, from_external_pointer
 
 feature {} -- Creation
 	--
@@ -54,7 +54,7 @@ feature {} -- Creation
 	--
 	--   Returns : a new GtkSourceTagStyle.
 
-feature
+feature {ANY}
 	copy (another: like Current) is
 			-- Makes a copy of the given style.
 		do
@@ -121,7 +121,7 @@ feature {} --  enum GtkSourceTagStyleMask
 	--         GTK_SOURCE_TAG_STYLE_USE_FOREGROUND = 1 < < 1      /*< nick=use_foreground >*/
 	-- } GtkSourceTagStyleMask;
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtksourceview/gtksourcetagstyle.h>"
 		alias "sizeof(GtkSourceTagStyle)"

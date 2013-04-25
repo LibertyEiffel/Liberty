@@ -1,7 +1,7 @@
 class MENU_DEMO
 insert GTK 
-creation make
-feature
+create {ANY} make
+feature {ANY}
 	make is
 		local label: STRING
 		do
@@ -54,7 +54,7 @@ feature
 			gtk.run_main_loop 
 		end
 
-feature -- Widgets
+feature {ANY} -- Widgets
 	window: GTK_WINDOW
 	menu_bar: GTK_MENU_BAR
 	
@@ -66,7 +66,7 @@ feature -- Widgets
 	file_menu_separator: GTK_SEPARATOR_MENU_ITEM
 
 	view_all_menu, view_some_menu: GTK_MENU_ITEM
-feature -- Labels
+feature {ANY} -- Labels
 	window_title: STRING is "Menu demo"
 	
 	file_label: STRING is "File"

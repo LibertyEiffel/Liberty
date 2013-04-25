@@ -14,7 +14,7 @@ inherit
 insert
 	G_IO_CONDITIONS
 
-create
+create {ANY}
 	from_unix_fd, from_win32_fd, from_win32_socket
 
 feature {} -- Creation
@@ -104,7 +104,7 @@ feature {} -- Creation
 -- GSource*    g_io_create_watch               (GIOChannel *channel,
 --                                              GIOCondition condition);
 
-feature  -- Memory handling
+feature {ANY}  -- Memory handling
 	ref is
 			-- Increments the reference count of a GIOChannel.
 		local p: POINTER
@@ -124,7 +124,7 @@ feature  -- Memory handling
 			watch_list := Void
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	encoding: STRING is
 			-- Encoding for the input/output of the channel. The internal
@@ -170,7 +170,7 @@ feature -- Access
 	last_written: INTEGER
 		-- Number of bytes read/written by last operation
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	add_watch (condition: INTEGER; action: FUNCTION [TUPLE [G_IO_CHANNEL, INTEGER], BOOLEAN]) is
 			-- Adds into the main event loop with the default priority.

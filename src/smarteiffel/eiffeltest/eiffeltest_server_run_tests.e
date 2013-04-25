@@ -8,49 +8,77 @@ inherit
 
 insert
    LOGGING
+   PROCESS_WAIT
+      rename
+         in as waitpid_in,
+         job as waitpid_job
+      end
 
 create {ANY}
    make
 
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET) is
+      local
+         t: TIME_EVENTS
       do
-         log.trace.put_line(once "Server #(1): prepare tests runner" # port.out)
-         events.expect(stream.event_can_write)
+         log.trace.put_line(once "Server #(1): prepare tests runner (queue: #(2))" # port.out # process_list.count.out)
+         if process_list.is_empty then
+            events.expect(stream.event_can_write)
+         else
+            if process_list.first.is_running then
+               log.trace.put_line(once "Server #(1): queued command is running: #(2)" # port.out # process_list.first.cmd)
+            else
+               log.trace.put_line(once "Server #(1): queued command is waiting: #(2)" # port.out # process_list.first.cmd)
+               events.expect(t.timeout(0))
+            end
+         end
       end
 
    is_ready (events: EVENTS_SET): BOOLEAN is
       do
-         Result := events.event_occurred(stream.event_can_write)
+         if process_list.is_empty then
+            Result := events.event_occurred(stream.event_can_write)
+         else
+            Result := not process_list.first.is_running
+         end
          log.trace.put_line(once "Server #(1): is_ready tests runner: #(2)" # port.out # Result.out)
       end
 
    continue is
       local
          test_file: FIXED_STRING
+         process: EIFFELTEST_SERVER_PROCESS
       do
-         if not good_tests.is_empty then
+         if not process_list.is_empty then
+            check
+               not process_list.first.is_running
+            end
+            process := process_list.first
+            running_level := running_level + 1
+            log.info.put_line(once "Server #(1): running queued command: #(2)" # port.out # process.cmd)
+            process.run
+         elseif not good_tests.is_empty then
             test_file := good_tests.first
             good_tests.remove_first
             log.info.put_line(once "Server #(1): testing 'good test' #(2)" # port.out # test_file)
             check_good_test(test_file)
-            test_log.put_line(once "----------------------------------------------------------------")
          elseif not bad_tests.is_empty then
             test_file := bad_tests.first
             bad_tests.remove_first
             log.info.put_line(once "Server #(1): testing 'bad test' #(2)" # port.out # test_file)
             check_bad_test(test_file)
-            test_log.put_line(once "----------------------------------------------------------------")
          else
             log.trace.put_line(once "Server #(1): disconnecting" # port.out)
             disconnect
+            waitpid_job.unset_action(port.out)
          end
       end
 
    done: BOOLEAN is
       do
          Result := not stream.is_connected
-         log.info.put_line(once "Server #(1): tests runner done: #(2)" # port.out # Result.out)
+         log.trace.put_line(once "Server #(1): tests runner done: #(2)" # port.out # Result.out)
       end
 
    restart is
@@ -137,8 +165,7 @@ feature {} -- Good tests: tests that must pass
          cmd, mock: STRING
          tfr: TEXT_FILE_READ
       do
-         mock := once "................"
-         mock.make_from_string(test_file)
+         mock := test_file.out
          mock.remove_suffix(once ".e")
          mock.append(once ".mock")
 
@@ -149,8 +176,11 @@ feature {} -- Good tests: tests that must pass
             until
                tfr.end_of_input
             loop
-               cmd := once "se mock " + tfr.last_string
-               if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False)) then
+               cmd := strings.new
+               cmd.copy(once "se mock ")
+               cmd.append(tfr.last_string)
+               if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False, Void, 0)) then
+                  strings.recycle(cmd)
                   test_log.put_line(once "**** Warning: mock generation skipped (by excluded.lst). Expect problems.")
                end
                tfr.read_line
@@ -166,12 +196,12 @@ feature {} -- Good tests: tests that must pass
          test_file.has_suffix(once ".e")
       local
          cmd, exe_name, c_glu, cecil, extra_options: STRING
-         dummy, cecil_flag: BOOLEAN
+         cecil_flag: BOOLEAN
          tfr: TEXT_FILE_READ
       do
          exe_name := change_exe_name(test_file)
 
-         cmd := once "................"
+         cmd := strings.new
          cmd.copy(once "se c ")
          cmd.append(options)
          cmd.extend(' ')
@@ -225,17 +255,34 @@ feature {} -- Good tests: tests that must pass
             tfr.disconnect
          end
 
-         if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False)) then
+         if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False, agent run_file_check_with(options, cmd, exe_name, cecil_flag, test_file), -1)) then
             -- Command skipped.
-         elseif not file_tools.file_exists(exe_name) then
+            strings.recycle(cmd)
+            strings.recycle(exe_name)
+         end
+      end
+
+   run_file_check_with (options, cmd, exe_name: STRING; cecil_flag: BOOLEAN; test_file: FIXED_STRING) is
+      local
+         cleanup: PROCEDURE[TUPLE]
+      do
+         if not file_tools.file_exists(exe_name) then
             test_log.put_line(once "**** Error: could not compile %"#(1)%" using command:%N#(2)" # test_file # cmd)
             status := status + 1
          else
-            running_of(test_file, exe_name, options)
             if cecil_flag then
-               dummy := excluded_execution_of(once "Removing (#(1)) %"cecil.h%" file." # options,
-                                              agent file_tools.delete(once "cecil.h"))
+               cleanup := agent (options, exe_name: STRING) is
+                          local
+                             dummy: BOOLEAN
+                          do
+                             dummy := excluded_execution_of(once "Removing (#(1)) %"cecil.h%" file." # options,
+                                                            agent file_tools.delete(once "cecil.h"))
+                             strings.recycle(exe_name)
+                          end (options, exe_name)
+            else
+               cleanup := agent strings.recycle(exe_name)
             end
+            running_of(test_file, exe_name, options, cleanup)
          end
       end
 
@@ -255,28 +302,36 @@ feature {} -- Good tests: tests that must pass
          ace_file.append(once ".ace")
          if file_tools.file_exists(ace_file) then
             Result := True
-            cmd := once "................"
+            cmd := strings.new
             cmd.copy(once "se c ")
             cmd.append(ace_file)
 
             exe_name := change_exe_name(test_file)
 
-            if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False)) then
+            if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False, agent run_ace_test(test_file, cmd, exe_name), -1)) then
                -- Command skipped.
-            elseif not file_tools.file_exists(exe_name) then
-               test_log.put_line(once "**** Error: could not compile %"#(1)%" using command:%N#(2)" # test_file # cmd)
-               status := status + 1
-            else
-               running_of(test_file, exe_name, Void)
+               strings.recycle(cmd)
+               strings.recycle(exe_name)
             end
          end
+      end
+
+   run_ace_test (test_file: FIXED_STRING; cmd, exe_name: STRING) is
+      do
+         if file_tools.file_exists(exe_name) then
+            running_of(test_file, exe_name, Void, Void)
+         else
+            test_log.put_line(once "**** Error: could not compile %"#(1)%" using command:%N#(2)" # test_file # cmd)
+            status := status + 1
+         end
+         strings.recycle(exe_name)
       end
 
    change_exe_name (test_file: FIXED_STRING): STRING is
       require
          test_file.has_suffix(once ".e")
       do
-         Result := once "................"
+         Result := strings.new
          Result.make_from_string(test_file)
          Result.remove_tail(2)
          Result.append(once ".exe")
@@ -284,9 +339,9 @@ feature {} -- Good tests: tests that must pass
          not Result.is_empty
       end
 
-   running_of (test_file: FIXED_STRING; exe_name: STRING; options: STRING) is
+   running_of (test_file: FIXED_STRING; exe_name: STRING; options: STRING; when_done: PROCEDURE[TUPLE]) is
       local
-         log_line, exe_path, cmd: STRING; dummy: BOOLEAN
+         log_line, exe_path: STRING
          bd: BASIC_DIRECTORY
       do
          log_line := once ".........................................................."
@@ -300,13 +355,28 @@ feature {} -- Good tests: tests that must pass
          log_line.append(exe_name)
          log_line.append(once "%".")
 
-         exe_path := once "........................................................."
+         exe_path := strings.new
          bd.compute_absolute_file_path_with(exe_name)
          exe_path.copy(bd.last_entry)
 
-         if excluded_execution_of(log_line, agent execute_command(log_line, exe_path, False)) then
+         if excluded_execution_of(log_line,
+                                  agent execute_command(log_line, exe_path, False,
+                                                        agent cleanup_running_of(test_file, exe_name, options, when_done, True),
+                                                        60_000) --| **** TODO: customizable timeout. For now: 1 minute
+                                  )
+         then
             -- Well, the `log_line' is filtered by the "excluded.lst" file.
-         elseif file_tools.file_exists(once "profile.se") then
+            strings.recycle(exe_path)
+            cleanup_running_of(test_file, exe_name, options, when_done, False)
+         end
+      end
+
+   cleanup_running_of (test_file: FIXED_STRING; exe_name: STRING; options: STRING; when_done: PROCEDURE[TUPLE]; was_run: BOOLEAN) is
+      local
+         log_line, cmd: STRING; dummy: BOOLEAN
+      do
+         log_line := once ".........................................................."
+         if was_run and then file_tools.file_exists(once "profile.se") then
             log_line.copy(once "Removing %"profile.se%" of %"")
             if options /= Void then
                log_line.append(options)
@@ -317,10 +387,12 @@ feature {} -- Good tests: tests that must pass
             dummy := excluded_execution_of(log_line, agent file_tools.delete(once "profile.se"))
          end
 
-         cmd := once "................"
+         cmd := strings.new
          cmd.copy(once "se clean ")
          cmd.append(test_file)
-         dummy := excluded_execution_of(cmd, agent execute_command(cmd, cmd, False))
+         if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False, Void, 0)) then
+            strings.recycle(cmd)
+         end
 
          log_line.copy(once "Removing ")
          if options /= Void then
@@ -333,6 +405,10 @@ feature {} -- Good tests: tests that must pass
          log_line.append(exe_name)
          log_line.append(once "%".")
          dummy := excluded_execution_of(log_line, agent file_tools.delete(exe_name))
+
+         if when_done /= Void then
+            when_done.call([])
+         end
       end
 
 feature {} -- Bad tests: tests that must fail
@@ -341,30 +417,41 @@ feature {} -- Bad tests: tests that must fail
          bad_file.has_prefix(once "bad")
          bad_file.has_suffix(once ".e")
       local
-         cmd, exe_name, msg, new, h_file: STRING; dummy: BOOLEAN
+         cmd, exe_name, msg, new: STRING
       do
          exe_name := change_exe_name(bad_file)
 
-         msg := once "................"
+         msg := strings.new
          msg.make_from_string(bad_file)
          msg.remove_tail(2)
          msg.append(once ".msg")
 
-         new := once "................"
+         new := strings.new
          new.make_from_string(bad_file)
          new.remove_tail(2)
          new.append(once ".new")
 
-         cmd := once "................"
+         cmd := strings.new
          cmd.copy(once "se c ")
          cmd.append(bad_file)
          cmd.append(once " -o ")
          cmd.append(exe_name)
          cmd.append(once " -output_error_warning_on ")
          cmd.append(new)
-         if excluded_execution_of(cmd, agent execute_command(cmd, cmd, True)) then
+         if excluded_execution_of(cmd, agent execute_command(cmd, cmd, True, agent run_bad_test(new, msg, exe_name, bad_file), -1)) then
             -- Command skipped.
-         elseif not file_tools.file_exists(new) then
+            strings.recycle(cmd)
+            strings.recycle(new)
+            strings.recycle(msg)
+            strings.recycle(exe_name)
+         end
+      end
+
+   run_bad_test (new, msg, exe_name: STRING; bad_file: FIXED_STRING) is
+      local
+         dummy: BOOLEAN
+      do
+         if not file_tools.file_exists(new) then
             test_log.put_line(once "**** Error: Unable to locate the new error/warning file #(1) for test #(2)" # new # bad_file)
             status := status + 1
          elseif not file_tools.file_exists(msg) then
@@ -381,11 +468,22 @@ feature {} -- Bad tests: tests that must fail
             end
          end
 
+         strings.recycle(new)
+         strings.recycle(msg)
+
          if file_tools.file_exists(exe_name) then
             -- May be we got only warnings:
-            running_of(bad_file, exe_name, Void)
+            running_of(bad_file, exe_name, Void, agent cleanup_bad_test(bad_file))
+         else
+            cleanup_bad_test(bad_file)
          end
+         strings.recycle(exe_name)
+      end
 
+   cleanup_bad_test (bad_file: FIXED_STRING) is
+      local
+         cmd, h_file: STRING
+      do
          -- Because the error may occurs during C code generation, we also check test for
          -- the existance of the corresponding *.h file:
          h_file := once "....."
@@ -393,10 +491,12 @@ feature {} -- Bad tests: tests that must fail
          h_file.remove_last
          h_file.add_last('h')
          if file_tools.file_exists(h_file) then
-            cmd := once "................"
+            cmd := strings.new
             cmd.copy(once "se clean ")
             cmd.append(bad_file)
-            dummy := excluded_execution_of(cmd, agent execute_command(cmd, cmd, False))
+            if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False, Void, 0)) then
+               strings.recycle(cmd)
+            end
          end
       end
 
@@ -547,7 +647,7 @@ se c -ensure_check
       local
          tfr: TEXT_FILE_READ
       do
-         test_log.put_line(once "Server #(1): loading excluded patterns from #(2)" # port.out # filepath)
+         test_log.put_line(once "Loading excluded patterns from #(1)" # filepath)
          create tfr.connect_to(filepath)
          if tfr.is_connected then
             create excluded_patterns.make(0)
@@ -643,26 +743,50 @@ feature {}
          end
       end
 
-   execute_command (log_line, cmd: STRING; bad_file_flag: BOOLEAN) is
+   execute_command (log_line, cmd: STRING; bad_file_flag: BOOLEAN; when_done: PROCEDURE[TUPLE]; timeout: INTEGER) is
       local
          system: SYSTEM; exit_status: INTEGER
+         process: EIFFELTEST_SERVER_PROCESS
       do
-         log.info.put_line(once "Server #(1): executing command: #(2)" # port.out # cmd)
-         exit_status := system.execute_command(cmd) --|**** TODO: time box
-         if exit_status = exit_success_code then
-            log.trace.put_line(once "Server #(1): command successful: #(2)" # port.out # cmd)
+         if when_done = Void then
+            log.info.put_line(once "Server #(1): executing command now: #(2)" # port.out # cmd)
+            exit_status := system.execute_command(cmd)
+            cleanup_execute_command(exit_status, log_line, cmd, bad_file_flag, Void)
          else
-            if bad_file_flag then
-               -- A bad `exit_status' is just normal.
+            log.info.put_line(once "Server #(1): queueing timeboxed command: #(2)" # port.out # cmd)
+            --process := process_pool.item
+            if process = Void then
+               create process
+            end
+            process.set(port, timeout, cmd, agent cleanup_execute_command(?, log_line, cmd, bad_file_flag, when_done))
+            if running_level = 0 then
+               log.trace.put_line(once "Server #(1): no process running, queuing at the end" # port.out)
+               process_list.add_last(process)
             else
-               log.error.put_line(once "Status #(1) while running: #(2)" # exit_status.out # log_line)
-               test_log.put_line(once "**** Error: status #(1) while running: #(2)" # exit_status.out # log_line)
-               if not log_line.is_equal(cmd) then
-                  test_log.put_line("     Command was: #(1)" # cmd)
-               end
-               status := status + 1
+               log.trace.put_line(once "Server #(1): a process is running, queuing at #(2)" # port.out # running_level.out)
+               process_list.add(process, running_level + process_list.lower)
             end
          end
+      end
+
+   cleanup_execute_command (exit_status: INTEGER; log_line, cmd: STRING; bad_file_flag: BOOLEAN; when_done: PROCEDURE[TUPLE]) is
+      do
+         if exit_status = exit_success_code then
+            log.trace.put_line(once "Server #(1): command successful: #(2)" # port.out # cmd)
+         elseif bad_file_flag then
+            -- A bad `exit_status' is just normal.
+         else
+            log.error.put_line(once "Status #(1) while running: #(2)" # exit_status.out # log_line)
+            test_log.put_line(once "**** Error: status #(1) while running: #(2)" # exit_status.out # log_line)
+            if not log_line.is_equal(cmd) then
+               test_log.put_line("     Command was: #(1)" # cmd)
+            end
+            status := status + 1
+         end
+         if when_done /= Void then
+            when_done.call([])
+         end
+         strings.recycle(cmd)
       end
 
 feature {}
@@ -681,6 +805,8 @@ feature {}
          log.trace.put_line(once "Server #(1): loading tests for #(2)" # port.out # path)
          bd.change_current_working_directory(path)
          load_tests
+         waitpid_job.set_action(port.out, agent on_pid, agent on_timeout)
+         create process_list.make(1, 0)
       ensure
          port = a_port
          path = a_path
@@ -697,7 +823,55 @@ feature {}
 
    file_tools: FILE_TOOLS
 
+   process_list: RING_ARRAY[EIFFELTEST_SERVER_PROCESS]
+   running_level: INTEGER
+
    error_message_comparator: ERROR_MESSAGE_COMPARATOR is
+      once
+         create Result.make
+      end
+
+   on_pid (a_pid, a_status: INTEGER) is
+         -- This feature is called on behalf of the waitpid job
+      local
+         process: EIFFELTEST_SERVER_PROCESS
+      do
+         process := process_list.first
+         if process.is_running and then process.id = a_pid then
+            process.on_done(a_status)
+            unqueue_process
+         end
+      end
+
+   on_timeout is
+         -- This feature is called on behalf of the waitpid job
+      local
+         process: EIFFELTEST_SERVER_PROCESS
+      do
+         process := process_list.first
+         if process.is_running then
+            process.on_timeout
+            unqueue_process
+         end
+      end
+
+   unqueue_process is
+      do
+         log.trace.put_line(once "Server #(1): unqueueing process: #(2)" # port.out # process_list.first.cmd)
+         process_pool.recycle(process_list.first)
+         process_list.remove_first
+         running_level := running_level - 1
+         if process_list.is_empty then
+            test_log.put_line(once "----------------------------------------------------------------")
+         end
+      end
+
+   strings: STRING_RECYCLING_POOL is
+      once
+         create Result.make
+      end
+
+   process_pool: RECYCLING_POOL[EIFFELTEST_SERVER_PROCESS] is
       once
          create Result.make
       end

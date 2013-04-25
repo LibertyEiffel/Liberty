@@ -40,7 +40,7 @@ insert
 	SHARED_G_ERROR
 	GDA_CONNECTION_EXTERNALS
 
-creation from_dsn, from_string, from_external_pointer
+create {ANY} from_dsn, from_string, from_external_pointer
 
 feature {} -- Creation
 	from_dsn (a_dsn, an_auth_string: STRING; some_options: GDA_CONNECTION_OPTIONS) is
@@ -142,7 +142,7 @@ feature {} -- Creation
 		end
 	end
 	
-feature
+feature {ANY}
 	open is
 		-- Tries to open the connection. `is_successful' will be True if the
 		-- connection is opened, and False otherwise and `error' is updated.

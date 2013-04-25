@@ -56,7 +56,7 @@ inherit
 
 insert G_OBJECT_FACTORY [GTK_WIDGET]
 
-feature
+feature {ANY}
 	add1 (a_child: GTK_WIDGET) is
 			-- Adds a child to the top or left pane with default
 			-- parameters. This is equivalent to pack1 (a_child, False,
@@ -117,7 +117,7 @@ feature
 			Result := wrapper_or_void(gtk_paned_get_child1(handle))
 		end
 
-feature -- Divider position
+feature {ANY} -- Divider position
 	unset_position is
 			-- Unsets the position of the divider between the two panes.
 		do
@@ -138,7 +138,7 @@ feature -- Divider position
 			Result := gtk_paned_get_position (handle)
 		end
 
-feature -- Properties
+feature {ANY} -- Properties
 
 --   "max-position"         gint                  : Read
 --   "min-position"         gint                  : Read
@@ -221,7 +221,7 @@ feature -- Properties
 -- Allowed values: >= 0
 
 -- Default value: 5
-feature -- Signal Details
+feature {ANY} -- Signal Details
 -- The "accept-position" signal
 
 -- gboolean    user_function                  (GtkPaned *paned,

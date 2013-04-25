@@ -15,7 +15,7 @@ insert
 	GMESSAGES_EXTERNALS
 	WRAPPER_HANDLER
 	
-feature
+feature {ANY}
 	log (a_domain, a_message: STRING; a_log_level: GLOG_LEVEL_FLAGS_ENUM) is
 		-- Logs an error or debugging message. If `a_log_level' has been set as
 		-- fatal, the `abort' function is called to terminate the program.

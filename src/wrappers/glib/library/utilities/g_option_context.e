@@ -99,7 +99,7 @@ insert
 	GOPTION_CONTEXT_STRUCT
 	GOPTION_EXTERNALS
 
-creation with,make, from_external_pointer
+create {ANY} with,make, from_external_pointer
 
 feature {} -- Creation
 	with, make (a_parameter: ABSTRACT_STRING) is
@@ -129,7 +129,7 @@ feature {} -- Creation
 			from_external_pointer(g_option_context_new(a_parameter.to_external))
 		end
 
-feature
+feature {ANY}
 	set_summary (a_summary: ABSTRACT_STRING) is
 			-- Adds a string to be displayed in --help output before the list of
 			-- options. This is typically a summary of the program functionality.
@@ -320,7 +320,7 @@ feature
 			Result:=g_option_context_get_ignore_unknown_options(handle).to_boolean
 		end
 
-feature -- group options
+feature {ANY} -- group options
 	add_main_entries (some_entries: COLLECTION[G_OPTION_ENTRY];
 							a_translaction_domain: STRING) is
 			-- A convenience feature which creates a main group if it doesn't

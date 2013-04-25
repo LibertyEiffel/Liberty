@@ -23,7 +23,7 @@ deferred class CLOSE_SIGNAL_RECEIVER
 
 inherit GTK_WIDGET
 
-feature -- The "close" signal
+feature {ANY} -- The "close" signal
 	close_signal_name: STRING is "close"
 	
 	enable_on_close is

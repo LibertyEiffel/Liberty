@@ -20,10 +20,10 @@ inherit
       redefine is_equal
       end
 
-creation {}
+create {}
    for_object
 
-creation {INTERNALS_HANDLER} -- Actual creation is performed by ANY.to_internals
+create {INTERNALS_HANDLER} -- Actual creation is performed by ANY.to_internals
    make_blank
 
 feature {INTERNALS_HANDLER, INTERNALS} -- Getting information about the described object's type

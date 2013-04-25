@@ -39,7 +39,7 @@ insert
 	GTK_ICON_VIEW_DROP_POSITION
 	G_OBJECT_EXTERNALS
 
-creation
+create {ANY}
 	make, with_model, from_external_pointer
 
 feature {} -- Creation
@@ -63,7 +63,7 @@ feature {} -- Creation
 --                                              GtkTreePath *path,
 --                                              gpointer data);
 
-feature -- Access
+feature {ANY} -- Access
 
 	model: GTK_TREE_MODEL is
 			-- the model the GtkIconView is based on. Void if the model is
@@ -87,7 +87,7 @@ feature -- Access
 			Result := gtk_icon_view_get_pixbuf_column (handle)
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	set_model (a_model: GTK_TREE_MODEL) is
 			-- Sets the model for a GtkIconView. If the Current icon view
@@ -958,7 +958,7 @@ feature -- Operations
 
 	-- Since 2.6
 	
-feature -- TODO: Style Properties
+feature {ANY} -- TODO: Style Properties
 
 --   "selection-box-alpha"  guchar                : Read
 --   "selection-box-color"  GdkColor              : Read
@@ -977,7 +977,7 @@ feature -- TODO: Style Properties
 
 -- Color of the selection box.
 
-feature -- TODO: Signals
+feature {ANY} -- TODO: Signals
 
 -- "activate-cursor-item"
 --             gboolean    user_function      (GtkIconView *iconview,
@@ -1089,7 +1089,7 @@ feature -- TODO: Signals
 -- iconview : 	the object which received the signal.
 -- user_data : 	user data set when the signal handler was connected.
 
-feature
+feature {ANY}
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

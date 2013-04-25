@@ -9,7 +9,7 @@ class EIFFELDOC_SHORTER
 insert
    EIFFELDOC_GLOBALS
 
-creation {EIFFELDOC_CORE}
+create {EIFFELDOC_CORE}
    make
 
 feature {EIFFELDOC_CORE}

@@ -7,10 +7,10 @@ insert
 	GDK_DRAG_ACTION
 	GDK_MODIFIER_TYPE
 
-creation
+create {ANY}
 	make
 
-feature
+feature {ANY}
 
 	on_delete_event (a_gtk_object: GTK_OBJECT) is
 		do

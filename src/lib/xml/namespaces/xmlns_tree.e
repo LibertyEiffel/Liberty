@@ -8,7 +8,7 @@ class XMLNS_TREE
 inherit
    XMLNS_CALLBACKS
 
-creation {ANY}
+create {ANY}
    make, with_error_handler
 
 feature {ANY}

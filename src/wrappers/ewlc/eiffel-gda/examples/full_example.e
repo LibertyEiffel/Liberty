@@ -27,9 +27,9 @@ insert
 	GDA_CONNECTION_OPTIONS_ENUM
 	SHARED_G_ERROR
 	
-creation make
+create {ANY} make
 
-feature -- Commands
+feature {ANY} -- Commands
 
 	default_buffer_size: INTEGER is 1024
 
@@ -251,7 +251,7 @@ feature -- Commands
         -- }
 		end  
 
-feature -- Queries
+feature {ANY} -- Queries
 	client: GDA_CLIENT is
 		once 
 			create Result.make
@@ -304,7 +304,7 @@ feature -- Queries
 				end
 			end
 
-feature -- Constants
+feature {ANY} -- Constants
 	database_name: STRING is "eiffel-gda-example"
 	provider: STRING is "SQLite"
 	connection_string: STRING is "DB_NAME=example;DB_DIR=."

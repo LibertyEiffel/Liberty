@@ -7,15 +7,15 @@ expanded class GTK_ATTACH_OPTIONS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := (a_value & (expand_low_level | 
 				fill_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_expand is
 		do
@@ -37,7 +37,7 @@ feature -- Setters
 			value := value.bit_xor(fill_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_expand: BOOLEAN is
 		do
 			Result := (value=expand_low_level)

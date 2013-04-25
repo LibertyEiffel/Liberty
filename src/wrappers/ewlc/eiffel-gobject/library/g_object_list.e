@@ -27,6 +27,6 @@ inherit
 	G_LIST[ITEM]
 	G_OBJECT_FACTORY[ITEM] undefine fill_tagged_out_memory end
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 end -- class G_OBJECT_LIST

@@ -23,7 +23,7 @@ class GTS_CONSTRAINT
 
 inherit GTS_EDGE redefine make, struct_size, fill_tagged_out_memory end
 
-creation  make, from_external_pointer
+create {ANY}  make, from_external_pointer
 
 feature {} -- Creation
 	make (a_vertex, another_vertex: GTS_VERTEX) is
@@ -52,7 +52,7 @@ feature {} -- External calls
 		alias "sizeof(GtsConstraint)"
 		end
 
-feature -- Printing
+feature {ANY} -- Printing
 	fill_tagged_out_memory is
 		do
 			tagged_out_memory.append(once "{(")

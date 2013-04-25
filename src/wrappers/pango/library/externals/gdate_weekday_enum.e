@@ -7,8 +7,8 @@ expanded class GDATE_WEEKDAY_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = bad_weekday_low_level)  or else
@@ -21,7 +21,7 @@ feature -- Validity
 				(a_value = sunday_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_bad_weekday is
 		do
@@ -63,7 +63,7 @@ feature -- Setters
 			value := sunday_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_bad_weekday: BOOLEAN is
 		do
 			Result := (value=bad_weekday_low_level)

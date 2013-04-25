@@ -3,211 +3,217 @@
 
 expanded class GREGEX_COMPILE_FLAGS_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = caseless_low_level)  or else
-				(a_value = multiline_low_level)  or else
-				(a_value = dotall_low_level)  or else
-				(a_value = extended_low_level)  or else
-				(a_value = anchored_low_level)  or else
-				(a_value = dollar_endonly_low_level)  or else
-				(a_value = ungreedy_low_level)  or else
-				(a_value = raw_low_level)  or else
-				(a_value = no_auto_capture_low_level)  or else
-				(a_value = optimize_low_level)  or else
-				(a_value = dupnames_low_level)  or else
-				(a_value = newline_cr_low_level)  or else
-				(a_value = newline_lf_low_level)  or else
-				(a_value = newline_crlf_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = g_regex_anchored_low_level)  or else
+				(a_value = g_regex_bsr_anycrlf_low_level)  or else
+				(a_value = g_regex_caseless_low_level)  or else
+				(a_value = g_regex_dollar_endonly_low_level)  or else
+				(a_value = g_regex_dotall_low_level)  or else
+				(a_value = g_regex_dupnames_low_level)  or else
+				(a_value = g_regex_extended_low_level)  or else
+				(a_value = g_regex_firstline_low_level)  or else
+				(a_value = g_regex_javascript_compat_low_level)  or else
+				(a_value = g_regex_multiline_low_level)  or else
+				(a_value = g_regex_newline_anycrlf_low_level)  or else
+				(a_value = g_regex_newline_cr_low_level)  or else
+				(a_value = g_regex_newline_crlf_low_level)  or else
+				(a_value = g_regex_newline_lf_low_level)  or else
+				(a_value = g_regex_no_auto_capture_low_level)  or else
+				(a_value = g_regex_optimize_low_level)  or else
+				(a_value = g_regex_raw_low_level)  or else
+				(a_value = g_regex_ungreedy_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_caseless is
+	set_g_regex_anchored is
 		do
-			value := caseless_low_level
+			value := g_regex_anchored_low_level
 		end
 
-	set_multiline is
+	set_g_regex_bsr_anycrlf is
 		do
-			value := multiline_low_level
+			value := g_regex_bsr_anycrlf_low_level
 		end
 
-	set_dotall is
+	set_g_regex_caseless is
 		do
-			value := dotall_low_level
+			value := g_regex_caseless_low_level
 		end
 
-	set_extended is
+	set_g_regex_dollar_endonly is
 		do
-			value := extended_low_level
+			value := g_regex_dollar_endonly_low_level
 		end
 
-	set_anchored is
+	set_g_regex_dotall is
 		do
-			value := anchored_low_level
+			value := g_regex_dotall_low_level
 		end
 
-	set_dollar_endonly is
+	set_g_regex_dupnames is
 		do
-			value := dollar_endonly_low_level
+			value := g_regex_dupnames_low_level
 		end
 
-	set_ungreedy is
+	set_g_regex_extended is
 		do
-			value := ungreedy_low_level
+			value := g_regex_extended_low_level
 		end
 
-	set_raw is
+	set_g_regex_firstline is
 		do
-			value := raw_low_level
+			value := g_regex_firstline_low_level
 		end
 
-	set_no_auto_capture is
+	set_g_regex_javascript_compat is
 		do
-			value := no_auto_capture_low_level
+			value := g_regex_javascript_compat_low_level
 		end
 
-	set_optimize is
+	set_g_regex_multiline is
 		do
-			value := optimize_low_level
+			value := g_regex_multiline_low_level
 		end
 
-	set_dupnames is
+	set_g_regex_newline_anycrlf is
 		do
-			value := dupnames_low_level
+			value := g_regex_newline_anycrlf_low_level
 		end
 
-	set_newline_cr is
+	set_g_regex_newline_cr is
 		do
-			value := newline_cr_low_level
+			value := g_regex_newline_cr_low_level
 		end
 
-	set_newline_lf is
+	set_g_regex_newline_crlf is
 		do
-			value := newline_lf_low_level
+			value := g_regex_newline_crlf_low_level
 		end
 
-	set_newline_crlf is
+	set_g_regex_newline_lf is
 		do
-			value := newline_crlf_low_level
+			value := g_regex_newline_lf_low_level
+		end
+
+	set_g_regex_no_auto_capture is
+		do
+			value := g_regex_no_auto_capture_low_level
+		end
+
+	set_g_regex_optimize is
+		do
+			value := g_regex_optimize_low_level
+		end
+
+	set_g_regex_raw is
+		do
+			value := g_regex_raw_low_level
+		end
+
+	set_g_regex_ungreedy is
+		do
+			value := g_regex_ungreedy_low_level
 		end
 
 feature -- Queries
-	is_caseless: BOOLEAN is
+	is_g_regex_anchored: BOOLEAN is
 		do
-			Result := (value=caseless_low_level)
+			Result := (value=g_regex_anchored_low_level)
 		end
 
-	is_multiline: BOOLEAN is
+	is_g_regex_bsr_anycrlf: BOOLEAN is
 		do
-			Result := (value=multiline_low_level)
+			Result := (value=g_regex_bsr_anycrlf_low_level)
 		end
 
-	is_dotall: BOOLEAN is
+	is_g_regex_caseless: BOOLEAN is
 		do
-			Result := (value=dotall_low_level)
+			Result := (value=g_regex_caseless_low_level)
 		end
 
-	is_extended: BOOLEAN is
+	is_g_regex_dollar_endonly: BOOLEAN is
 		do
-			Result := (value=extended_low_level)
+			Result := (value=g_regex_dollar_endonly_low_level)
 		end
 
-	is_anchored: BOOLEAN is
+	is_g_regex_dotall: BOOLEAN is
 		do
-			Result := (value=anchored_low_level)
+			Result := (value=g_regex_dotall_low_level)
 		end
 
-	is_dollar_endonly: BOOLEAN is
+	is_g_regex_dupnames: BOOLEAN is
 		do
-			Result := (value=dollar_endonly_low_level)
+			Result := (value=g_regex_dupnames_low_level)
 		end
 
-	is_ungreedy: BOOLEAN is
+	is_g_regex_extended: BOOLEAN is
 		do
-			Result := (value=ungreedy_low_level)
+			Result := (value=g_regex_extended_low_level)
 		end
 
-	is_raw: BOOLEAN is
+	is_g_regex_firstline: BOOLEAN is
 		do
-			Result := (value=raw_low_level)
+			Result := (value=g_regex_firstline_low_level)
 		end
 
-	is_no_auto_capture: BOOLEAN is
+	is_g_regex_javascript_compat: BOOLEAN is
 		do
-			Result := (value=no_auto_capture_low_level)
+			Result := (value=g_regex_javascript_compat_low_level)
 		end
 
-	is_optimize: BOOLEAN is
+	is_g_regex_multiline: BOOLEAN is
 		do
-			Result := (value=optimize_low_level)
+			Result := (value=g_regex_multiline_low_level)
 		end
 
-	is_dupnames: BOOLEAN is
+	is_g_regex_newline_anycrlf: BOOLEAN is
 		do
-			Result := (value=dupnames_low_level)
+			Result := (value=g_regex_newline_anycrlf_low_level)
 		end
 
-	is_newline_cr: BOOLEAN is
+	is_g_regex_newline_cr: BOOLEAN is
 		do
-			Result := (value=newline_cr_low_level)
+			Result := (value=g_regex_newline_cr_low_level)
 		end
 
-	is_newline_lf: BOOLEAN is
+	is_g_regex_newline_crlf: BOOLEAN is
 		do
-			Result := (value=newline_lf_low_level)
+			Result := (value=g_regex_newline_crlf_low_level)
 		end
 
-	is_newline_crlf: BOOLEAN is
+	is_g_regex_newline_lf: BOOLEAN is
 		do
-			Result := (value=newline_crlf_low_level)
+			Result := (value=g_regex_newline_lf_low_level)
+		end
+
+	is_g_regex_no_auto_capture: BOOLEAN is
+		do
+			Result := (value=g_regex_no_auto_capture_low_level)
+		end
+
+	is_g_regex_optimize: BOOLEAN is
+		do
+			Result := (value=g_regex_optimize_low_level)
+		end
+
+	is_g_regex_raw: BOOLEAN is
+		do
+			Result := (value=g_regex_raw_low_level)
+		end
+
+	is_g_regex_ungreedy: BOOLEAN is
+		do
+			Result := (value=g_regex_ungreedy_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	caseless_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_REGEX_CASELESS"
- 			}"
- 		end
-
-	multiline_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_REGEX_MULTILINE"
- 			}"
- 		end
-
-	dotall_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_REGEX_DOTALL"
- 			}"
- 		end
-
-	extended_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_REGEX_EXTENDED"
- 			}"
- 		end
-
-	anchored_low_level: INTEGER is
+	g_regex_anchored_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -216,7 +222,25 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	dollar_endonly_low_level: INTEGER is
+	g_regex_bsr_anycrlf_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_REGEX_BSR_ANYCRLF"
+ 			}"
+ 		end
+
+	g_regex_caseless_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_REGEX_CASELESS"
+ 			}"
+ 		end
+
+	g_regex_dollar_endonly_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -225,43 +249,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ungreedy_low_level: INTEGER is
+	g_regex_dotall_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "G_REGEX_UNGREEDY"
+ 			feature_name: "G_REGEX_DOTALL"
  			}"
  		end
 
-	raw_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_REGEX_RAW"
- 			}"
- 		end
-
-	no_auto_capture_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_REGEX_NO_AUTO_CAPTURE"
- 			}"
- 		end
-
-	optimize_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_REGEX_OPTIMIZE"
- 			}"
- 		end
-
-	dupnames_low_level: INTEGER is
+	g_regex_dupnames_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -270,7 +267,52 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	newline_cr_low_level: INTEGER is
+	g_regex_extended_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_REGEX_EXTENDED"
+ 			}"
+ 		end
+
+	g_regex_firstline_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_REGEX_FIRSTLINE"
+ 			}"
+ 		end
+
+	g_regex_javascript_compat_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_REGEX_JAVASCRIPT_COMPAT"
+ 			}"
+ 		end
+
+	g_regex_multiline_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_REGEX_MULTILINE"
+ 			}"
+ 		end
+
+	g_regex_newline_anycrlf_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_REGEX_NEWLINE_ANYCRLF"
+ 			}"
+ 		end
+
+	g_regex_newline_cr_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -279,7 +321,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	newline_lf_low_level: INTEGER is
+	g_regex_newline_crlf_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_REGEX_NEWLINE_CRLF"
+ 			}"
+ 		end
+
+	g_regex_newline_lf_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -288,12 +339,39 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	newline_crlf_low_level: INTEGER is
+	g_regex_no_auto_capture_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "G_REGEX_NEWLINE_CRLF"
+ 			feature_name: "G_REGEX_NO_AUTO_CAPTURE"
+ 			}"
+ 		end
+
+	g_regex_optimize_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_REGEX_OPTIMIZE"
+ 			}"
+ 		end
+
+	g_regex_raw_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_REGEX_RAW"
+ 			}"
+ 		end
+
+	g_regex_ungreedy_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_REGEX_UNGREEDY"
  			}"
  		end
 

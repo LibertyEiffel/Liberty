@@ -12,7 +12,7 @@ inherit
       redefine put, add, new_iterator_on_keys, create_with_capacity, copy, clear_count, clear_count_and_capacity
       end
 
-creation {ANY}
+create {ANY}
    make, with_capacity
 
 feature {ANY}

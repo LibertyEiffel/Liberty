@@ -3,14 +3,11 @@
 --
 class HIERARCHIC_GRAPH_NODE[E_ -> HASHABLE]
 
-inherit
-   HASHABLE
-
 insert
-   ANY
+   HASHABLE
    PLATFORM
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

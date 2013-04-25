@@ -16,14 +16,14 @@ inherit
 		-- or better it feels mostly unEiffelish to me. Paolo 2005-06-12
 	
 	WRAPPER_HANDLER -- required to check for some bug in the implementation and accessing wrappers' handles
-creation make
+create {ANY} make
 	
-feature -- Columns
+feature {ANY} -- Columns
 	name_column_n: INTEGER is 0
 	age_column_n: INTEGER is 1
 	columns_n: INTEGER is 2
 
-feature 
+feature {ANY} 
 	model: GTK_LIST_STORE is -- GTK_TREE_MODEL is
 			-- tree model with some data set
 		local
@@ -111,7 +111,7 @@ feature {}  -- Creation
 			gtk.run_main_loop
 		end
 
-feature
+feature {ANY}
 	traverse_model is
 		require valid_model: model /= Void
 		local iter:  GTK_TREE_ITER
@@ -140,7 +140,7 @@ feature
 			print ("From string: ") print (path.to_string) print ("%N")
 		end
 
-feature -- Agents
+feature {ANY} -- Agents
 	on_destroy (a_gtk_object: GTK_OBJECT) is
 		do
 			print ("Tree demo is quitting.%N")
@@ -184,7 +184,7 @@ feature -- Agents
 			Result := True
 		end
 								
-feature -- Constants
+feature {ANY} -- Constants
 	window_title: STRING is "GTK Trees!"
 			-- Text top level window title
 end

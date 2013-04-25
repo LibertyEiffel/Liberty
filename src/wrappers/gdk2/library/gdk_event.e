@@ -82,9 +82,9 @@ insert
 		--  GdkEventGrabBroken        grab_broken;
 		--};
 
-creation {WRAPPER_HANDLER} from_external_pointer
+create {WRAPPER_HANDLER} from_external_pointer
 
-feature 
+feature {ANY} 
 	from_external_pointer (a_pointer: POINTER) is
 		do
 			Precursor(a_pointer)
@@ -101,7 +101,7 @@ feature
 				std_error.put_line("from pointer "+a_pointer.out)
 			end
 		end
-feature
+feature {ANY}
 	
 	type, event_type: INTEGER is
 		do
@@ -150,7 +150,7 @@ feature
 			Result := (event_type = gdk_event_expose)
 		end
 
-feature -- Common fields 
+feature {ANY} -- Common fields 
 	window: GDK_WINDOW is
 			-- the window which received the event.
 		local
@@ -168,7 +168,7 @@ feature -- Common fields
 			Result := gdk_event_any_get_send_event (handle).to_boolean
 		end
 
-feature -- Memory handling
+feature {ANY} -- Memory handling
 
 	dispose is
 		do

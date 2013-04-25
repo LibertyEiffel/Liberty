@@ -9,7 +9,7 @@ class DEBUG_COMPOUND
 inherit
    INSTRUCTION
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make
 
 feature {ANY}
@@ -55,14 +55,14 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          c: like compound
       do
          if compound = Void then
             Result := Current
          else
-            c := compound.specialize_2(type)
+            c := compound.specialize_and_check(type)
             Result := current_or_twin_init(c)
          end
       end

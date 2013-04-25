@@ -3,52 +3,54 @@
 --
 class ITERATOR_OVER_INSTRUCTIONS
 
-inherit 
-	BIDIRECTIONAL_ITERATOR[LLVM_INSTRUCTION]
-	LLVM_INSTRUCTION_FACTORY
+inherit
+   BIDIRECTIONAL_ITERATOR[LLVM_INSTRUCTION]
+   LLVM_INSTRUCTION_FACTORY
 
 insert CORE_EXTERNALS
 
-creation from_block
+create {ANY} from_block
 
 feature {LLVM_BASIC_BLOCK}
-	from_block (a_block: LLVM_BASIC_BLOCK) is
-		require 
-			a_block/=Void
-			not a_block.is_deleted
-		do
-			block:=a_block
-		end
+   from_block (a_block: LLVM_BASIC_BLOCK) is
+      require
+         a_block/=Void
+         not a_block.is_deleted
+      do
+         block:=a_block
+      end
 
-feature 
-	block: LLVM_BASIC_BLOCK
+feature {ANY}
+   block: LLVM_BASIC_BLOCK
 
-	start is
-		do
-			item := wrapper_or_void(llvmget_first_instruction(block.handle))
-		end
-	
-	finish is
-		do
-			item := wrapper_or_void(llvmget_last_instruction(block.handle))
-		end
+   start is
+      do
+         item := wrapper_or_void(llvmget_first_instruction(block.handle))
+      end
 
-	next is
-		do
-			item := wrapper_or_void(llvmget_next_instruction(item.handle))
-		end
-		
-	previous is
-		do
-			item := wrapper_or_void(llvmget_previous_instruction(item.handle))
-		end
+   finish is
+      do
+         item := wrapper_or_void(llvmget_last_instruction(block.handle))
+      end
 
-	is_off: BOOLEAN is
-		do
-			Result:=(item=Void)
-		end
+   next is
+      do
+         item := wrapper_or_void(llvmget_next_instruction(item.handle))
+      end
 
-	item: LLVM_INSTRUCTION is attribute end
+   previous is
+      do
+         item := wrapper_or_void(llvmget_previous_instruction(item.handle))
+      end
+
+   is_off: BOOLEAN is
+      do
+         Result:=(item=Void)
+      end
+
+   item: LLVM_INSTRUCTION is attribute end
+
+   generation, iterable_generation: INTEGER is 0
 
 invariant block/=Void
 
@@ -90,4 +92,3 @@ end -- class ITERATOR_OVER_INSTRUCTIONS
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-

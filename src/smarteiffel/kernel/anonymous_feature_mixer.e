@@ -14,7 +14,7 @@ class ANONYMOUS_FEATURE_MIXER
 insert
    GLOBALS
 
-creation {FEATURE_ACCUMULATOR}
+create {FEATURE_ACCUMULATOR}
    make
 
 feature {FEATURE_ACCUMULATOR}
@@ -161,13 +161,13 @@ feature {FEATURE_ACCUMULATOR}
                   error_handler.add_position(parents_af.item(i).start_position)
                   error_handler.add_position(parents_edges.item(i).start_position)
                   error_handler.add_position(build_definition.start_position)
-                  error_handler.append("Signature (adapted in the type ")
+                  error_handler.append(once "Signature (adapted in the type ")
                   error_handler.append(context_type.name.to_string)
-                  error_handler.append(") of the concrete feature (inherited from type ")
+                  error_handler.append(once ") of the concrete feature (inherited from type ")
                   error_handler.append(body_type.name.to_string)
-                  error_handler.append(") is not compatible with the deferred one comming from parent type ")
+                  error_handler.append(once ") is not compatible with the deferred one comming from parent type ")
                   error_handler.append(parents_type.item(i).name.to_string)
-                  error_handler.append(".")
+                  error_handler.append(once ".")
                   error_handler.print_as_fatal_error
                end
                i := i + 1
@@ -189,7 +189,7 @@ feature {FEATURE_ACCUMULATOR}
                      error_handler.add_position(parents_af.item(i).start_position)
                      error_handler.add_position(parents_edges.item(i).start_position)
                      error_handler.add_position(build_definition.start_position)
-                     error_handler.append("Signature of the redefined feature is not valid.")
+                     error_handler.append(once "Signature of the redefined feature is not valid.")
                      error_handler.print_as_fatal_error
                   end
                   i := i + 1
@@ -294,13 +294,13 @@ feature {FEATURE_ACCUMULATOR}
                      build_definition.require_assertion /= Void and then
                      not build_definition.require_assertion.is_require_else
                    then
-                     error_handler.append("Keyword %"require%" replaced with %"require else%" because there is an inherited require assertion.")
+                     error_handler.append(once "Keyword %"require%" replaced with %"require else%" because there is an inherited require assertion.")
                      error_handler.add_position(build_definition.require_assertion.start_position)
                      error_handler.print_as_warning
                   elseif local_require.direct_parents_require = Void and then
                      local_require.is_require_else
                    then
-                     error_handler.append("Keyword %"require else%" replaced with %"require%" (There is no inherited require assertion here).")
+                     error_handler.append(once "Keyword %"require else%" replaced with %"require%" (There is no inherited require assertion here).")
                      error_handler.add_position(build_definition.require_assertion.start_position)
                      error_handler.print_as_warning
                   end
@@ -314,11 +314,11 @@ feature {FEATURE_ACCUMULATOR}
                      build_definition.ensure_assertion /= Void and then
                      not build_definition.ensure_assertion.is_ensure_then
                    then
-                     error_handler.append("Keyword %"ensure%" replaced with %"ensure then%" because there is an inherited ensure assertion.")
+                     error_handler.append(once "Keyword %"ensure%" replaced with %"ensure then%" because there is an inherited ensure assertion.")
                      error_handler.add_position(build_definition.ensure_assertion.start_position)
                      error_handler.print_as_warning
                   elseif new_ensure = build_definition.ensure_assertion and then new_ensure.is_ensure_then then
-                     error_handler.append("Keyword %"ensure then%" replaced with %"ensure%" (There is no inherited ensure assertion here).")
+                     error_handler.append(once "Keyword %"ensure then%" replaced with %"ensure%" (There is no inherited ensure assertion here).")
                      error_handler.add_position(build_definition.ensure_assertion.start_position)
                      error_handler.print_as_warning
                   end
@@ -354,11 +354,11 @@ feature {FEATURE_ACCUMULATOR}
          if ace.relax then
             -- The deferred feature warning will be made later if the feature is actually in the live code.
          elseif not context_type.is_deferred and then build_definition.is_deferred then
-            error_handler.append("Feature ")
+            error_handler.append(once "Feature ")
             error_handler.add_feature_name(feature_name)
-            error_handler.append(" is deferred in type ")
+            error_handler.append(once " is deferred in type ")
             error_handler.append(context_type.name.to_string)
-            error_handler.append(". This type should be marked as deferred.")
+            error_handler.append(once ". This type should be marked as deferred.")
             error_handler.print_as_warning
          end
          -- Reckon the authorized clients list
@@ -451,9 +451,9 @@ feature {}
                tmp_clients := parent_edge.exports_for(feature_name)
                if tmp_clients /= Void  and then not tmp_clients.wider_than(Result) then
                   error_handler.add_position(tmp_clients.start_position)
-                  error_handler.append("The final client list for ")
+                  error_handler.append(once "The final client list for ")
                   error_handler.append(feature_name.to_string)
-                  error_handler.append(" is different from the one explicitly listed here.")
+                  error_handler.append(once " is different from the one explicitly listed here.")
                   error_handler_show_resulting_client_list(Result)
                end
                i := i + 1
@@ -475,16 +475,16 @@ feature {}
             end
             if local_definition then
                error_handler.add_position(Result.start_position)
-               error_handler.append("The %"feature%" clause declares a narrower client list than")
+               error_handler.append(once "The %"feature%" clause declares a narrower client list than")
             else
-               error_handler.append("The client list computed from the %"export%" clauses is narrower than %
+               error_handler.append(once "The client list computed from the %"export%" clauses is narrower than %
                                     %the one from")
             end
-            error_handler.append(" the conforming parent(s) for ")
+            error_handler.append(once " the conforming parent(s) for ")
             error_handler.add_type(context_type)
             error_handler.extend('.')
             error_handler.add_feature_name(feature_name)
-            error_handler.append(". This can lead to catcalls!")
+            error_handler.append(once ". This can lead to catcalls!")
             error_handler_show_resulting_client_list(Result)
          else
             -- Unrelated parent export and local export.
@@ -496,15 +496,15 @@ feature {}
             end
             if local_definition then
                error_handler.add_position(Result.start_position)
-               error_handler.append("The %"feature%" clause declares a client list that")
+               error_handler.append(once "The %"feature%" clause declares a client list that")
             else
-               error_handler.append("The client list computed from the %"export%" clauses")
+               error_handler.append(once "The client list computed from the %"export%" clauses")
             end
-            error_handler.append(" misses some clients of the conforming parent(s) for ")
+            error_handler.append(once " misses some clients of the conforming parent(s) for ")
             error_handler.add_type(context_type)
             error_handler.extend('.')
             error_handler.add_feature_name(feature_name)
-            error_handler.append(". This can lead to catcalls!")
+            error_handler.append(once ". This can lead to catcalls!")
             error_handler_show_resulting_client_list(Result)
          end
       ensure
@@ -520,7 +520,7 @@ feature {PRECURSOR_CALL}
          i, j: INTEGER; specialized_parent: CLASS_TEXT; old_af: ANONYMOUS_FEATURE; can_twin: BOOLEAN
       do
          if parents_af.is_empty then
-            error_handler.append("Precursor call is allowed only when the enclosing routine is redefined.")
+            error_handler.append(once "Precursor call is allowed only when the enclosing routine is redefined.")
             error_handler.add_position(pc.start_position)
             error_handler.print_as_fatal_error
          end
@@ -536,9 +536,9 @@ feature {PRECURSOR_CALL}
                i := i + 1
             end
             if i > parents_type.upper then
-               error_handler.append("The type ")
+               error_handler.append(once "The type ")
                error_handler.append(pc.parent.written_name.to_string)
-               error_handler.append(" is not a valid ancestor for this method.")
+               error_handler.append(once " is not a valid ancestor for this method.")
                error_handler.add_position(pc.parent.start_position)
                error_handler.print_as_fatal_error
             end
@@ -552,18 +552,18 @@ feature {PRECURSOR_CALL}
                j := j + 1
             end
             if j <= parents_type.upper then
-               error_handler.append("This Precursor call is ambiguous because the type ")
+               error_handler.append(once "This Precursor call is ambiguous because the type ")
                error_handler.append(pc.parent.written_name.to_string)
-               error_handler.append(" is inherited more than once.")
+               error_handler.append(once " is inherited more than once.")
                error_handler.add_position(pc.parent.start_position)
                error_handler.add_position(parents_edges.item(i).start_position)
                error_handler.add_position(parents_edges.item(j).start_position)
                error_handler.print_as_error
                error_handler.add_position(pc.parent.start_position)
-               error_handler.append("To fix this ambiguous Precursor call you have to remove direct repeated inheritance. %
+               error_handler.append(once "To fix this ambiguous Precursor call you have to remove direct repeated inheritance. %
                 %You may thus consider to add a new class which inherit ")
                error_handler.append(pc.parent.written_name.to_string)
-               error_handler.append(" in order to use it as a unique parent qualifier.")
+               error_handler.append(once " in order to use it as a unique parent qualifier.")
                error_handler.print_as_fatal_error
             end
             specialized_parent := parents_type.item(i).class_text
@@ -578,7 +578,7 @@ feature {PRECURSOR_CALL}
                i := i + 1
             end
             if i > parents_af.upper then
-               error_handler.append("All ancestors are deferred, hence making this Precursor call not valid.")
+               error_handler.append(once "All ancestors are deferred, hence making this Precursor call not valid.")
                error_handler.add_position(pc.start_position)
                error_handler.print_as_fatal_error
             end
@@ -592,7 +592,7 @@ feature {PRECURSOR_CALL}
                j := j + 1
             end
             if j <= parents_af.upper then
-               error_handler.append("Multiple Precursor found (must use Precursor {...} ancestor selection).")
+               error_handler.append(once "Multiple Precursor found (must use Precursor {...} ancestor selection).")
                error_handler.add_position(pc.start_position)
                error_handler.add_position(parents_edges.item(i).start_position)
                error_handler.add_position(parents_edges.item(j).start_position)
@@ -613,7 +613,7 @@ feature {PRECURSOR_CALL}
 
          -- specialize_thru of the parent feature
          if build_definition.is_deferred then
-            error_handler.append("The Precursor routine is a deferred routine.")
+            error_handler.append(once "The Precursor routine is a deferred routine.")
             error_handler.add_position(Result.start_position)
             error_handler.add_position(parents_edges.item(i).start_position)
             error_handler.add_position(pc.start_position)
@@ -690,7 +690,7 @@ feature {}
          else
             b := once "{ANY}"
          end
-         error_handler.append(" The final export list is ")
+         error_handler.append(once " The final export list is ")
          error_handler.append(b)
          error_handler.extend('.')
          error_handler.print_as_warning

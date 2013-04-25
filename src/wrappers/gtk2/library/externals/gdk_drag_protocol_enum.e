@@ -7,8 +7,8 @@ expanded class GDK_DRAG_PROTOCOL_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = motif_low_level)  or else
@@ -20,7 +20,7 @@ feature -- Validity
 				(a_value = local_external_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_motif is
 		do
@@ -57,7 +57,7 @@ feature -- Setters
 			value := local_external_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	motif: BOOLEAN is
 		do
 			Result := (value=motif_low_level)

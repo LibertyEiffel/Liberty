@@ -27,7 +27,7 @@ class
 inherit
 	GOO_CANVAS_GROUP redefine struct_size, make end
 	
-create
+create {ANY}
 	make, from_external_pointer
 	
 feature {} -- creation
@@ -41,7 +41,7 @@ feature {} -- creation
 		external "C use <goocanvas-1.0/goocanvastable.h>"
 		end
 
-feature -- struct size
+feature {ANY} -- struct size
 	struct_size: INTEGER is
 		external "C inline use <goocanvas-1.0/goocanvastable.h>"
 		alias "sizeof(GooCanvasTable)"

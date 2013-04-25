@@ -7,12 +7,12 @@ indexing
 
 class TREE_EXAMPLE
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	tree: G_TREE[G_DATE, G_STRING]
 	first: G_STRING
-feature
+feature {ANY}
 	make is
 		do
 			setup

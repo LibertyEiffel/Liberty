@@ -3,54 +3,52 @@
 
 expanded class GONCE_STATUS_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = notcalled_low_level)  or else
-				(a_value = progress_low_level)  or else
-				(a_value = ready_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = g_once_status_notcalled_low_level)  or else
+				(a_value = g_once_status_progress_low_level)  or else
+				(a_value = g_once_status_ready_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_notcalled is
+	set_g_once_status_notcalled is
 		do
-			value := notcalled_low_level
+			value := g_once_status_notcalled_low_level
 		end
 
-	set_progress is
+	set_g_once_status_progress is
 		do
-			value := progress_low_level
+			value := g_once_status_progress_low_level
 		end
 
-	set_ready is
+	set_g_once_status_ready is
 		do
-			value := ready_low_level
+			value := g_once_status_ready_low_level
 		end
 
 feature -- Queries
-	is_notcalled: BOOLEAN is
+	is_g_once_status_notcalled: BOOLEAN is
 		do
-			Result := (value=notcalled_low_level)
+			Result := (value=g_once_status_notcalled_low_level)
 		end
 
-	is_progress: BOOLEAN is
+	is_g_once_status_progress: BOOLEAN is
 		do
-			Result := (value=progress_low_level)
+			Result := (value=g_once_status_progress_low_level)
 		end
 
-	is_ready: BOOLEAN is
+	is_g_once_status_ready: BOOLEAN is
 		do
-			Result := (value=ready_low_level)
+			Result := (value=g_once_status_ready_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	notcalled_low_level: INTEGER is
+	g_once_status_notcalled_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -59,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	progress_low_level: INTEGER is
+	g_once_status_progress_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ready_low_level: INTEGER is
+	g_once_status_ready_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

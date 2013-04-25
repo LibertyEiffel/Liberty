@@ -29,7 +29,7 @@ inherit
 insert
 	GTK_CHECK_BUTTON_EXTERNALS
 
-creation make,with_label,with_mnemonic, from_external_pointer
+create {ANY} make,with_label,with_mnemonic, from_external_pointer
 
 feature {} -- Creation
 
@@ -53,13 +53,13 @@ feature {} -- Creation
 		do
 			from_external_pointer (gtk_check_button_new_with_mnemonic (a_label.to_external))
 		end
-feature
+feature {ANY}
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCheckButton)"
 		end
 
-feature -- Style Properties TODO
+feature {ANY} -- Style Properties TODO
 -- The "indicator-size" style property
 
 --   "indicator-size"       gint                  : Read

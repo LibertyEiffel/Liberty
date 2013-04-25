@@ -23,7 +23,7 @@ insert
          restore_default_error
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

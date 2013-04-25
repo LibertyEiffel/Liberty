@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gobject_struct_set_ref_count (a_structure: POINTER; a_value: NATURAL_32) is
+	gobject_struct_set_ref_count (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for ref_count field of GOBJECT_STRUCT structure.
 			-- TODO: setter description
 
@@ -35,7 +35,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field g_type_instance.
-	gobject_struct_get_ref_count (a_structure: POINTER): NATURAL_32 is
+	gobject_struct_get_ref_count (a_structure: POINTER): NATURAL is
 			-- Query for ref_count field of GOBJECT_STRUCT structure.
 			-- TODO: getter description
 

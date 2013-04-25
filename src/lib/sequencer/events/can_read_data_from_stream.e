@@ -9,7 +9,7 @@ class CAN_READ_DATA_FROM_STREAM
 inherit
    EVENT_DESCRIPTOR
 
-creation {INPUT_STREAM}
+create {INPUT_STREAM}
    make
 
 feature {EVENTS_SET}

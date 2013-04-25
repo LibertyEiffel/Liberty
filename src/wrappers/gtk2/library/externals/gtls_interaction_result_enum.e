@@ -7,8 +7,8 @@ expanded class GTLS_INTERACTION_RESULT_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = unhandled_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = failed_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_unhandled is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := failed_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	unhandled: BOOLEAN is
 		do
 			Result := (value=unhandled_low_level)

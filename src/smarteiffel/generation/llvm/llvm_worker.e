@@ -19,7 +19,7 @@ insert
         LLVM_C_TYPES
         LLVM_VALUES_FACTORY
 
-creation communicating_over
+create {ANY} communicating_over
 
 feature {} -- Creation
         communicating_over (an_endpoint: ABSTRACT_STRING) is
@@ -30,7 +30,7 @@ feature {} -- Creation
                 start -- this will fork a new process and invoke `run'
         end
 
-feature -- Commands
+feature {ANY} -- Commands
         run is
                 local command: ZMQ_STRING_MESSAGE
                 do
@@ -53,7 +53,7 @@ feature -- Commands
                         ("Worker #(1) ending%N" # & pid ).print_on(std_error)
                 end
 
-feature -- Implementation
+feature {ANY} -- Implementation
         process (a_command: ZMQ_STRING_MESSAGE) is
                 require a_command/=Void
                 local words: COLLECTION[STRING]; index: INTEGER; cluster: CLUSTER
@@ -116,7 +116,7 @@ feature -- Implementation
                         end
                 end
 
-feature -- Attributes compiling
+feature {ANY} -- Attributes compiling
         visit_cst_att_boolean (visited: CST_ATT_BOOLEAN) is do not_yet_implemented end
         visit_cst_att_character (a_cst_att_char: CST_ATT_CHARACTER) is do not_yet_implemented end
         visit_cst_att_integer (visited: CST_ATT_INTEGER) is do not_yet_implemented end
@@ -125,7 +125,7 @@ feature -- Attributes compiling
         visit_cst_att_unique (a_unique_cst_att: CST_ATT_UNIQUE) is do not_yet_implemented end
         visit_writable_attribute (visited: WRITABLE_ATTRIBUTE) is do not_yet_implemented end
 
-feature -- Functions and procedures compiling
+feature {ANY} -- Functions and procedures compiling
         visit_deferred_function (visited: DEFERRED_FUNCTION) is do not_yet_implemented end
         visit_deferred_procedure (a_deferred_procedure: DEFERRED_PROCEDURE) is do not_yet_implemented end
         visit_e_function (visited: E_FUNCTION) is do not_yet_implemented end
@@ -135,13 +135,13 @@ feature -- Functions and procedures compiling
         visit_once_function (an_once_function: ONCE_FUNCTION) is do not_yet_implemented end
         visit_once_procedure (an_once_procedure: ONCE_PROCEDURE) is do not_yet_implemented end
 
-feature -- Native features compiling
+feature {ANY} -- Native features compiling
         visit_native_built_in (visited: NATIVE_BUILT_IN) is do not_yet_implemented end
         visit_native_c (visited: NATIVE_C) is do not_yet_implemented end
         visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS) is do not_yet_implemented end
         visit_native_plug_in (visited: NATIVE_PLUG_IN) is do not_yet_implemented end
 
-feature -- Instructions compiling
+feature {ANY} -- Instructions compiling
         visit_agent_instruction (visited: AGENT_INSTRUCTION) is do not_yet_implemented end
         visit_assertion_list (visited: ASSERTION_LIST) is do not_yet_implemented end
         visit_assignment (visited: ASSIGNMENT) is do not_yet_implemented end
@@ -179,13 +179,13 @@ feature -- Instructions compiling
         visit_unused_expression (visited: UNUSED_EXPRESSION) is do not_yet_implemented end
         visit_void_proc_call (visited: VOID_PROC_CALL) is do not_yet_implemented end
 
-feature -- Prefix compiling
+feature {ANY} -- Prefix compiling
         visit_call_prefix_freeop (visited: CALL_PREFIX_FREEOP) is do not_yet_implemented end
         visit_call_prefix_minus (visited: CALL_PREFIX_MINUS) is do not_yet_implemented end
         visit_call_prefix_not (visited: CALL_PREFIX_NOT) is do not_yet_implemented end
         visit_call_prefix_plus (visited: CALL_PREFIX_PLUS) is do not_yet_implemented end
 
-feature -- Infix Compiling
+feature {ANY} -- Infix Compiling
         visit_call_infix_and_then (visited: CALL_INFIX_AND_THEN) is do not_yet_implemented end
         visit_call_infix_and (visited: CALL_INFIX_AND) is do not_yet_implemented end
         visit_call_infix_div (visited: CALL_INFIX_DIV) is do not_yet_implemented end
@@ -205,7 +205,7 @@ feature -- Infix Compiling
         visit_call_infix_times (visited: CALL_INFIX_TIMES) is do not_yet_implemented end
         visit_call_infix_xor (visited: CALL_INFIX_XOR) is do not_yet_implemented end
 
-feature -- Expression compiling
+feature {ANY} -- Expression compiling
         visit_address_of (visited: ADDRESS_OF) is do not_yet_implemented end
         visit_agent_creation (visited: AGENT_CREATION) is do not_yet_implemented end
         visit_argument_name2 (visited: ARGUMENT_NAME2) is do not_yet_implemented end
@@ -247,13 +247,14 @@ feature -- Expression compiling
         visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is do not_yet_implemented end
    visit_written_current (visited: WRITTEN_CURRENT) is do not_yet_implemented end
 
-feature -- Manifest expressions
+feature {ANY} -- Manifest expressions
         visit_e_void (visited: E_VOID) is do not_yet_implemented end
    visit_manifest_string (visited: MANIFEST_STRING) is do not_yet_implemented end
    visit_manifest_generic (visited: MANIFEST_GENERIC) is do not_yet_implemented end
         visit_manifest_tuple (visited: MANIFEST_TUPLE) is do not_yet_implemented end
         visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY) is do not_yet_implemented end
-feature -- Constant expression
+
+feature {ANY} -- Constant expression
         visit_character_constant (visited: CHARACTER_CONSTANT) is do not_yet_implemented end
         visit_integer_constant (visited: INTEGER_CONSTANT) is do not_yet_implemented end
         visit_real_constant (a_real_constant: REAL_CONSTANT) is
@@ -269,13 +270,14 @@ feature -- Constant expression
                         end
                 end
 
-feature -- InterProcess Communication
+feature {ANY} -- InterProcess Communication
         endpoint: ABSTRACT_STRING
         context: ZMQ_CONTEXT
         socket: ZMQ_PULL_SOCKET
 
         pid: like process_id
-feature -- Low-Level Virtual Machine data
+
+feature {ANY} -- Low-Level Virtual Machine data
         calling_convention: LLVMCALLCONV_ENUM
         module: LLVM_MODULE
         builder: LLVM_BUILDER

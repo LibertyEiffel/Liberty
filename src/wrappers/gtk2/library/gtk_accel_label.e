@@ -83,7 +83,7 @@ insert
 	GTK_ACCEL_LABEL_EXTERNALS
 	G_OBJECT_FACTORY [GTK_WIDGET]
 	
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (a_label: STRING) is
@@ -93,7 +93,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_accel_label_new(a_label.to_external))
 		end
 
-feature 
+feature {ANY} 
 	-- TODO: void gtk_accel_label_set_accel_closure (GtkAccelLabel
 	-- *accel_label, GClosure *accel_closure);
 
@@ -142,7 +142,7 @@ feature
 			end
 		end
 
-feature -- TODO, if necessary: Properties
+feature {ANY} -- TODO, if necessary: Properties
 	
 	--   "accel-closure"        GClosure              : Read / Write
 	--   "accel-widget"         GtkWidget             : Read / Write
@@ -160,7 +160,7 @@ feature -- TODO, if necessary: Properties
 
 	-- The widget to be monitored for accelerator changes.
 	
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkAccelLabel)"

@@ -28,9 +28,9 @@ insert
 	GDK_EVENT_BUTTON_EXTERNALS
 	GDK_MODIFIER_TYPE
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
-feature -- access
+feature {ANY} -- access
 
 	time: INTEGER is
 			-- the time of the event in milliseconds.

@@ -63,7 +63,7 @@ insert
 	GUNICODE_MACROS
 	GMEM_EXTERNALS
 
-creation {ANY}
+create {ANY}
 	make, copy, make_empty, make_filled, from_utf8
 
 feature {ANY}

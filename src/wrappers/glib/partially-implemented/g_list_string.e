@@ -22,9 +22,9 @@ insert
 	GLIST_EXTERNALS undefine fill_tagged_out_memory end
 	GLIST_STRUCT
 
-creation  make, from_external_pointer
+create {ANY}  make, from_external_pointer
 
-feature
+feature {ANY}
 	make is
 		do
 			handle := default_pointer
@@ -297,7 +297,7 @@ feature
 		ensure valid: Result/=Void
 		end
 
-feature -- Memory management
+feature {ANY} -- Memory management
 
 	dispose is
 		do

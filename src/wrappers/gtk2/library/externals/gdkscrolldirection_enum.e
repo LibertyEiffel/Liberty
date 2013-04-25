@@ -7,8 +7,8 @@ expanded class GDKSCROLLDIRECTION_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gdk_scroll_down_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = gdk_scroll_up_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gdk_scroll_down is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := gdk_scroll_up_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gdk_scroll_down: BOOLEAN is
 		do
 			Result := (value=gdk_scroll_down_low_level)

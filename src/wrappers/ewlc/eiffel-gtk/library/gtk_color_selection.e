@@ -40,23 +40,23 @@ inherit GTK_VBOX
 insert
 	GTK_COLOR_SELECTION_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkColorSelection)"
 		end
 
-feature
+feature {ANY}
 	make is
 			-- Creates a new GtkColorSelection.
 		do
 			from_external_pointer(gtk_color_selection_new)
 		end
 
-feature
+feature {ANY}
 	current_color: GDK_COLOR is
 			-- Returns the current color in the GTK_COLOR_SELECTION widget
 		do
@@ -205,7 +205,7 @@ feature
 	-- n_colors : 	
 	-- 
 	-- Since 2.2
-feature -- Properties
+feature {ANY} -- Properties
 	--   "current-alpha"        guint                 : Read / Write
 	--   "current-color"        GdkColor              : Read / Write
 	--   "has-opacity-control"  gboolean              : Read / Write
@@ -240,7 +240,7 @@ feature -- Properties
 	-- 
 	-- Default value: FALSE
 	-- 
-feature -- The "color-changed" signal
+feature {ANY} -- The "color-changed" signal
 	-- void user_function (GtkColorSelection *colorselection, gpointer
 	-- user_data) : Run first
 

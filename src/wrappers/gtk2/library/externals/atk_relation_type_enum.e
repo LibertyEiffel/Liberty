@@ -7,8 +7,8 @@ expanded class ATK_RELATION_TYPE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = null_low_level)  or else
@@ -31,7 +31,7 @@ feature -- Validity
 				(a_value = last_defined_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_null is
 		do
@@ -123,7 +123,7 @@ feature -- Setters
 			value := last_defined_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	null: BOOLEAN is
 		do
 			Result := (value=null_low_level)

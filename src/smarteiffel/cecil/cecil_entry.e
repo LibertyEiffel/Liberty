@@ -6,7 +6,7 @@ class CECIL_ENTRY
 inherit
    CODE
 
-creation {CECIL_FILE}
+create {CECIL_FILE}
    make
 
 feature {ANY}
@@ -58,7 +58,7 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION is
       do
          check
             False
@@ -99,7 +99,7 @@ feature {ANY}
          if is_creation then
             if target_type.canonical_type_mark.class_text_name.to_string = as_typed_internals then
                error_handler.add_position(target_type_mark.start_position)
-               error_handler.append("The type for a creation procedure cannot be INTERNALS.%N")
+               error_handler.append(once "The type for a creation procedure cannot be INTERNALS.%N")
                error_handler.print_as_fatal_error
             end
             if target_type.is_deferred then
@@ -156,24 +156,24 @@ feature {CECIL_FILE}
          if not target_type.valid_feature_name(feature_name) then
             error_handler.add_position(target_type_mark.start_position)
             error_handler.add_position(feature_name.start_position)
-            error_handler.append("Unknown feature name ")
+            error_handler.append(once "Unknown feature name ")
             error_handler.append(feature_name.to_string)
-            error_handler.append(" in type ")
+            error_handler.append(once " in type ")
             error_handler.append(target_type.name.to_string)
-            error_handler.append(".")
+            error_handler.append(once ".")
             error_handler.print_as_error
-            error_handler.append("Error while loading features of cecil path file %"")
+            error_handler.append(once "Error while loading features of cecil path file %"")
             error_handler.append(cecil_file.path)
-            error_handler.append("%".")
+            error_handler.append(once "%".")
             error_handler.print_as_fatal_error
          end
          if is_creation then
             if target_type_mark.class_text.creation_clause_list = Void then
                fs := any_default_create_fs.resolve_static_binding_for(smart_eiffel.type_any, target_type)
                if not fs.name.is_equal(feature_name) then
-                  error_handler.append("Type ")
+                  error_handler.append(once "Type ")
                   error_handler.append(target_type.name.to_string)
-                  error_handler.append(" has no creation list. You must use the default creation method %
+                  error_handler.append(once " has no creation list. You must use the default creation method %
                                        %(named `default_create' in class ANY, or just omit the method name).")
                   error_handler.add_position(target_type_mark.start_position)
                   error_handler.add_position(feature_name.start_position)

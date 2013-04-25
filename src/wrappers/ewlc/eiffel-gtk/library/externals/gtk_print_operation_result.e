@@ -23,7 +23,7 @@ deferred class GTK_PRINT_OPERATION_RESULT
 	--   A value of this type is returned by GTK_PRINT_OPERATION's `run'.
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_gtk_print_operation_result (a_result :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_result = gtk_print_operation_result_error) or else

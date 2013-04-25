@@ -46,7 +46,7 @@ insert
 	GTK_MENU_TOOL_BUTTON_EXTERNALS
 	GTK_MENU_EXTERNALS -- to access gtk_is_menu
 
-creation from_label, from_stock, from_external_pointer
+create {ANY} from_label, from_stock, from_external_pointer
 
 feature {} -- Creation
 	from_label (an_icon_widget: GTK_WIDGET; a_label: STRING) is
@@ -67,7 +67,7 @@ feature {} -- Creation
 										 (a_stock_id.to_external))
 		end
 
-feature
+feature {ANY}
 	set_menu (a_menu: GTK_MENU) is
 			-- Sets the GtkMenu that is popped up when the user clicks on
 			-- the arrow. If `a_menu' is Void, the arrow button becomes
@@ -109,7 +109,7 @@ feature
 			 a_tip_text.to_external, a_tip_private.to_external)
 		end	
 
-feature --TODO: --Signals
+feature {ANY} --TODO: --Signals
 
 	-- "show-menu" void        user_function      (GtkMenuToolButton *menutoolbutton,
 	--                                             gpointer           user_data)           : Run first
@@ -124,7 +124,7 @@ feature --TODO: --Signals
 	--   user_data :      user data set when the signal handler was connected.
 	--
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkMenuToolButton)"

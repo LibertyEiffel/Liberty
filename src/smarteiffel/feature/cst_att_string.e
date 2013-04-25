@@ -6,10 +6,10 @@ class CST_ATT_STRING
 inherit
    CST_ATT
 
-creation {ANY}
+create {ANY}
    make
 
-creation {CST_ATT_STRING}
+create {CST_ATT_STRING}
    with
 
 feature {ANY}

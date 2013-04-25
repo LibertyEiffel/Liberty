@@ -39,7 +39,7 @@ insert
 	GDA_BATCH_EXTERNALS
 	SHARED_G_ERROR
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -48,7 +48,7 @@ feature {} -- Creation
 		from_external_pointer(gda_batch_new)
 	end
 
-feature
+feature {ANY}
 	copy (another: like Current) is
 		-- Creates a copy of another.
 	do
@@ -103,7 +103,7 @@ feature
 		(handle, address_of(out_params), 
 		error.reference).to_boolean 
 	end
-feature --  The "changed" signal
+feature {ANY} --  The "changed" signal
 	--
 	-- void                user_function                      (GdaBatch *gdabatch,
 	--                                                         GObject  *arg1,
@@ -113,7 +113,7 @@ feature --  The "changed" signal
 	--   arg1 :
 	--   user_data : user data set when the signal handler was connected.
 
-feature
+feature {ANY}
 	struct_size: INTEGER is
 		external "C inline use <libgda/libgda.h>"
 		alias "sizeof(GdaBatch)"

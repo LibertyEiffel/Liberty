@@ -30,7 +30,7 @@ inherit
          default_create
       end
 
-feature 
+feature {ANY} 
 	is_valid_state: BOOLEAN is 
 			-- Is the value of the enumeration valid?
 		do

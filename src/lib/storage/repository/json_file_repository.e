@@ -15,7 +15,7 @@ feature {ANY} -- Updating and committing
    commit is
       do
          commit_stream.connect_to(filename)
-         write_to_stream(commit_stream)
+         write_to_stream(out_stream)
          commit_stream.disconnect
       end
 
@@ -70,7 +70,7 @@ feature {ANY} -- Creation
          end
 
          if commit_stream /= Void then
-            create out_stream.make(commit_stream)
+            create out_stream.make(commit_stream, version)
          end
       end
 

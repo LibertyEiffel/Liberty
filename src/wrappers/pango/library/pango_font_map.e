@@ -33,7 +33,7 @@ inherit
 insert
 	PANGO_FONT_MAP_EXTERNALS
 
-feature
+feature {ANY}
 
 	get_shape_engine_type: STRING is
 			-- Returns the render ID for shape engines for this fontmap.

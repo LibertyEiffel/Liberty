@@ -11,7 +11,7 @@ inherit
       redefine static_simplify
       end
 
-creation {ANY}
+create {ANY}
    make, with
 
 feature {ANY}

@@ -14,7 +14,7 @@ feature {ANY}
          from
             create aux.make
          until
-            aux.dispose_count.value > 10
+            aux.dispose_count.item > 10
          loop
             create aux.make
          end

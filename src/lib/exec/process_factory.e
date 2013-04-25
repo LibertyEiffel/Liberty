@@ -17,7 +17,7 @@ insert
          default_create
       end
 
-creation {ANY}
+create {ANY}
    default_create
 
 feature {ANY}

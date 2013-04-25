@@ -7,8 +7,8 @@ expanded class GTK_TREE_VIEW_COLUMN_SIZING_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = grow_only_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = fixed_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_grow_only is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := fixed_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	grow_only: BOOLEAN is
 		do
 			Result := (value=grow_only_low_level)

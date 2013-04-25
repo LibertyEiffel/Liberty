@@ -6,7 +6,7 @@ class GENERATOR_GENERATING_TYPE
 inherit
    EXPRESSION
 
-creation {INTROSPECTION_HANDLER}
+create {INTROSPECTION_HANDLER}
    make_generating_type, make_generator
 
 feature {ANY}
@@ -50,7 +50,7 @@ feature {ANY}
          Result := Current
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       do
          Result := Current
       end

@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_array_get_nth (a_value_array: POINTER; an_index: NATURAL_32): POINTER is
+	g_value_array_get_nth (a_value_array: POINTER; an_index: NATURAL): POINTER is
  		-- g_value_array_get_nth
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_array_get_type: NATURAL_64 is
+	g_value_array_get_type: like long_unsigned is
  		-- g_value_array_get_type
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_array_insert (a_value_array: POINTER; an_index: NATURAL_32; a_value: POINTER): POINTER is
+	g_value_array_insert (a_value_array: POINTER; an_index: NATURAL; a_value: POINTER): POINTER is
  		-- g_value_array_insert
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_array_new (a_n_prealloced: NATURAL_32): POINTER is
+	g_value_array_new (a_n_prealloced: NATURAL): POINTER is
  		-- g_value_array_new
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_array_remove (a_value_array: POINTER; an_index: NATURAL_32): POINTER is
+	g_value_array_remove (a_value_array: POINTER; an_index: NATURAL): POINTER is
  		-- g_value_array_remove
 		external "plug_in"
 		alias "{

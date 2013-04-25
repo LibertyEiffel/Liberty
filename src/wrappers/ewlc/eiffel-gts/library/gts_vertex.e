@@ -36,7 +36,7 @@ insert
 
 	SHARED_GTS
 
-creation  make, from_external_pointer
+create {ANY}  make, from_external_pointer
 
 feature {} -- Creation
 	make (an_x, an_y, a_z: REAL) is 
@@ -45,7 +45,7 @@ feature {} -- Creation
 			from_external_pointer (gts_vertex_new (gts_vertex_class,
 																an_x,an_y,a_z))
 		end
-feature 
+feature {ANY} 
 	is_unattached: BOOLEAN is
 			-- Is Current GTS_VERTEX not the endpoint of any GtsSegment?
 		do
@@ -183,7 +183,7 @@ feature {} -- size
 		alias "sizeof(GtsVertex)"
 		end
 
-feature
+feature {ANY}
 	fill_tagged_out_memory is
 		do
 			tagged_out_memory.append(once "(")

@@ -9,7 +9,7 @@ class LINKED_LIST_NODE[E_]
 inherit
    ANY_LINKED_LIST_NODE
 
-creation {LINKED_LIST}
+create {LINKED_LIST}
    make
 
 feature {LINKED_LIST_NODE, ITERATOR_ON_LINKED_LIST, LINKED_LIST}

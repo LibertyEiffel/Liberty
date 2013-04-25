@@ -7,15 +7,15 @@ expanded class GTK_ENTRY_ICON_POSITION_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = primary_low_level)  or else
 				(a_value = secondary_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_primary is
 		do
@@ -27,7 +27,7 @@ feature -- Setters
 			value := secondary_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	primary: BOOLEAN is
 		do
 			Result := (value=primary_low_level)

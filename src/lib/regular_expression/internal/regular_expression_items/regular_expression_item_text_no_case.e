@@ -9,7 +9,7 @@ class REGULAR_EXPRESSION_ITEM_TEXT_NO_CASE
 inherit
    REGULAR_EXPRESSION_ITEM
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

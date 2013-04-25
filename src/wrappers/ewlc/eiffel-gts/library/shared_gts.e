@@ -27,7 +27,7 @@ insert
 	GTS_EDGE_EXTERNALS undefine fill_tagged_out_memory end
 	WRAPPER_HANDLER
 	
-feature 
+feature {ANY} 
 
 	vertices_from_segments (some_segments: G_SLIST[GTS_SEGMENT]): G_SLIST[GTS_VERTEX] is
 			-- a list of the vertices of `some_segments'. Each element in the list
@@ -64,7 +64,7 @@ feature
 			segment_factory)
 		end
 
-feature -- Edge features
+feature {ANY} -- Edge features
 	edges_from_vertices (some_vertices: G_SLIST[GTS_VERTEX]; a_parent: GTS_SURFACE): G_SLIST[GTS_EDGE] is
 			-- a list of unique GtsEdge which have one of their vertices
 			-- in `some_vertices' and are used by a face of `a_parent'.
@@ -77,7 +77,7 @@ feature -- Edge features
 			edge_factory)
 		end
 
-feature -- Triangle related 
+feature {ANY} -- Triangle related 
 	are_folded (some_triangles: G_SLIST[GTS_TRIANGLE]; a_vertex, another_vertex: GTS_VERTEX; a_max: REAL): BOOLEAN is
 			-- Does any pair of `some_triangles' make an angle larger
 			-- than a maximum value? All triangles must share `a_vertex'
@@ -102,7 +102,7 @@ feature -- Triangle related
 			triangle_factory)
 		end
 	
-feature -- Face related
+feature {ANY} -- Face related
 	faces_from_edges (some_edges: G_SLIST[GTS_EDGE]; a_surface: GTS_SURFACE): G_SLIST[GTS_EDGE] is
 			-- A list of unique faces which belong to `a_surface' and
 			-- have one of their edges in `some_edges'.

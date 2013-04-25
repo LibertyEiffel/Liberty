@@ -514,10 +514,10 @@ feature {ANY}
                Result := bcn.class_text
                class_text_memory := Result
             else
-               error_handler.append("Cannot find Base Class for ")
+               error_handler.append(once "Cannot find Base Class for ")
                error_handler.add_position(start_position)
                error_handler.add_type_mark(Current)
-               error_handler.append(".")
+               error_handler.append(once ".")
                error_handler.print_as_fatal_error
             end
          end

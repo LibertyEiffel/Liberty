@@ -29,9 +29,9 @@ insert WRAPPER
 	-- here I use only the plain wrapper because memory handling in C is
 	-- automatic and it does not matter how an atom is actually implemented.
 
-creation initialize
+create {ANY} initialize
 
-feature
+feature {ANY}
 	initialize is 
 			-- Empty initialization
 		do

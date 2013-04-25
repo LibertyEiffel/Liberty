@@ -9,7 +9,7 @@ class RETRY_INSTRUCTION
 inherit
    INSTRUCTION
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -33,7 +33,7 @@ feature {ANY}
 
    has_been_specialized: BOOLEAN is True
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       do
          Result := Current
       end

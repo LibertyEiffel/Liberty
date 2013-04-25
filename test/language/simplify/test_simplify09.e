@@ -26,7 +26,7 @@ feature {ANY}
          else
             c_inline_c("simplify error #2 in boost_simplify09")
          end
-         assert(assert_counter.value = 2)
+         assert(assert_counter.item = 2)
       end
 
 end -- class TEST_SIMPLIFY09

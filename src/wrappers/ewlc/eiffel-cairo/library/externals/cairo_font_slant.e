@@ -25,7 +25,7 @@ deferred class CAIRO_FONT_SLANT
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_font_slant (a_slant: INTEGER): BOOLEAN is
 		do
 			Result := ((a_slant = cairo_font_slant_normal) or else

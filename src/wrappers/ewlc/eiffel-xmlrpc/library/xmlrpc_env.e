@@ -32,10 +32,10 @@ inherit
 insert
 	XMLRPC_ENV_EXTERNALS
 
-creation
+create {ANY}
 	make
 
-feature -- Size
+feature {ANY} -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <xmlrpc-c/base.h>"
@@ -50,7 +50,7 @@ feature {} -- Creation
 			xmlrpc_env_init (handle)
 		end
 
-feature -- Destruction
+feature {ANY} -- Destruction
 
 	dispose is
 		do
@@ -58,7 +58,7 @@ feature -- Destruction
 			Precursor
 		end
 
-feature
+feature {ANY}
 
 	fault_occurred: BOOLEAN is
 		do

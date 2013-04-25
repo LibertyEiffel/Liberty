@@ -29,7 +29,7 @@ deferred class CAIRO_LINE_JOIN
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 
 	is_valid_line_join (a_join :INTEGER): BOOLEAN is
 		do

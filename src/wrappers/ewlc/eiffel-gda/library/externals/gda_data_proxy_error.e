@@ -3,8 +3,8 @@
 expanded class GDA_DATA_PROXY_ERROR
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_data_proxy_commit_error) or else 
@@ -15,7 +15,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_commit_error is
 		do
 			value := gda_data_proxy_commit_error
@@ -42,7 +42,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_commit_error: BOOLEAN is
 		do
 			Result := (value=gda_data_proxy_commit_error)

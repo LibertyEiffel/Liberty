@@ -7,9 +7,9 @@ indexing
 
 class TEST_COMPLEX
 	
-create make
+create {ANY} make
 	
-feature make is
+feature {ANY} make is
 		local
 			c, d, e: GSL_COMPLEX_REAL_64
 		do

@@ -3,7 +3,7 @@ class LLVM_EXTRACT_VALUE_INST
 
 inherit LLVM_UNARY_INST
 
-creation {LLVM_BUILDER} from_external_pointer
+create {LLVM_BUILDER} from_external_pointer
 
 end -- class LLVM_EXTRACT_VALUE_INST
 

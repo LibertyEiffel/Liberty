@@ -17,7 +17,7 @@ insert
       redefine is_equal
       end
 
-creation {REPOSITORY_TRANSIENT}
+create {REPOSITORY_TRANSIENT}
    make, set
 
 feature {ANY}

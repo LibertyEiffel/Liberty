@@ -7,15 +7,15 @@ expanded class GRESOURCEERROR_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_resource_error_internal_low_level)  or else
 				(a_value = g_resource_error_not_found_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_resource_error_internal is
 		do
@@ -27,7 +27,7 @@ feature -- Setters
 			value := g_resource_error_not_found_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_resource_error_internal: BOOLEAN is
 		do
 			Result := (value=g_resource_error_internal_low_level)

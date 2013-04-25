@@ -43,7 +43,7 @@ insert
 		end
 	GSLIST_STRUCT
 
-feature
+feature {ANY}
 	-- At C level a NULL pointer is considered to be the empty list so
 	-- you simply set a GSList* to NULL.
 

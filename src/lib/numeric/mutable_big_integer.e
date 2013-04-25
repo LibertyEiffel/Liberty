@@ -25,7 +25,7 @@ insert
       redefine copy, fill_tagged_out_memory, out_in_tagged_out_memory, is_equal
       end
 
-creation {ANY}
+create {ANY}
    from_integer, from_integer_64, from_string, copy
 
 feature {ANY} -- Creation / initialization from INTEGER_32 or INTEGER_64:

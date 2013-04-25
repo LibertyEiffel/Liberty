@@ -16,7 +16,7 @@ insert
 	ANY undefine copy,is_equal,fill_tagged_out_memory end
 	GTK_STANDARD_ENUMERATIONS undefine fill_tagged_out_memory end
 
-feature -- Gtk 
+feature {ANY} -- Gtk 
 
 	gtk: GTK_MAIN is
 		once

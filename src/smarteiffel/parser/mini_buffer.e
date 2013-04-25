@@ -296,7 +296,7 @@ feature {ANY}
          stop: BOOLEAN; external_cast: STRING
       do
          if item /= '(' then
-            error_handler.append("Bad external signature (missing opening %"(%" delimiter.")
+            error_handler.append(once "Bad external signature (missing opening %"(%" delimiter.")
             error_handler.print_as_fatal_error
          end
          from
@@ -308,7 +308,7 @@ feature {ANY}
             stop
          loop
             if is_off then
-               error_handler.append("Bad external signature (missing %")%" delimiter.")
+               error_handler.append(once "Bad external signature (missing %")%" delimiter.")
                error_handler.print_as_fatal_error
             elseif item = ',' then
                next
@@ -335,9 +335,9 @@ feature {NATIVE_PLUG_IN}
       do
          error_handler.add_position(manifest_string.start_position)
          error_handler.append(msg)
-         error_handler.append(" (See next message to locate the error.)")
+         error_handler.append(once " (See next message to locate the error.)")
          error_handler.print_as_error
-         error_handler.append("Correct part: %"")
+         error_handler.append(once "Correct part: %"")
          from
             i := 1
          until
@@ -346,17 +346,17 @@ feature {NATIVE_PLUG_IN}
             error_handler.extend(to_string.item(i))
             i := i + 1
          end
-         error_handler.append("%"")
+         error_handler.append(once "%"")
          error_handler.print_as_error
          from
-            error_handler.append("Remainder: %"")
+            error_handler.append(once "Remainder: %"")
          until
             i > to_string.count
          loop
             error_handler.extend(to_string.item(i))
             i := i + 1
          end
-         error_handler.append("%"")
+         error_handler.append(once "%"")
          error_handler.print_as_fatal_error
       end
 

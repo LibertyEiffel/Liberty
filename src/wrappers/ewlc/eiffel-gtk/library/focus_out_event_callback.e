@@ -27,9 +27,9 @@ class FOCUS_OUT_EVENT_CALLBACK
 inherit
 	FOCUS_EVENT_CALLBACK
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 
 	signal_name: STRING is "focus-out-event"
 

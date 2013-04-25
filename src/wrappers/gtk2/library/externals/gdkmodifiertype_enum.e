@@ -7,8 +7,8 @@ expanded class GDKMODIFIERTYPE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gdk_button1_mask_low_level)  or else
@@ -31,7 +31,7 @@ feature -- Validity
 				(a_value = gdk_super_mask_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gdk_button1_mask is
 		do
@@ -123,7 +123,7 @@ feature -- Setters
 			value := gdk_super_mask_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gdk_button1_mask: BOOLEAN is
 		do
 			Result := (value=gdk_button1_mask_low_level)

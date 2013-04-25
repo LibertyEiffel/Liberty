@@ -25,7 +25,7 @@ inherit WRAPPER_HANDLER
 
 insert GTS_POINT_EXTERNALS
 
-feature 
+feature {ANY} 
 	orientation (p1,p2,p3: GTS_POINT): REAL is
 			-- Checks for orientation of the projection of three points
 			-- on the (x,y) plane. The result is an approximation of

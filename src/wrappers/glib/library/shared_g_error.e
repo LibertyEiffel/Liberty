@@ -28,7 +28,7 @@ inherit ANY undefine is_equal, copy end
 
 insert POINTER_HANDLING
 	
-feature
+feature {ANY}
 	error: G_ERROR is 
 			-- 
 		once 

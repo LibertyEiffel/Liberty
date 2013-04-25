@@ -20,7 +20,7 @@ insert
 	ZMQ_EXTERNALS undefine default_create end
 	ZMQ_SOCKET_TYPES undefine default_create end
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {} -- Creation
 	default_create is
 		-- Context creation; currently only non-threaded programs are handled.
@@ -34,7 +34,7 @@ feature {} -- Disposing
 			res := zmq_term(handle)
 			-- TODO: handle return value
 		end
-feature -- Comparison and copying
+feature {ANY} -- Comparison and copying
 
 	-- Since a ZMQ_CONTEXT is entirely opaque object they are not
 	-- distinguishable so is_equal is always True. Copying just create another
@@ -50,7 +50,7 @@ feature -- Comparison and copying
 			default_create	
 		end
 
-feature -- Request-reply pattern
+feature {ANY} -- Request-reply pattern
 
 	-- The request-reply pattern is used for sending requests from a client to
 	-- one or more instances of a service, and receiving subsequent replies to
@@ -151,7 +151,7 @@ feature -- Request-reply pattern
 -- 	   ZMQ_HWM option action       Drop
 -- 
 -- 
-feature -- Publish-subscribe pattern
+feature {ANY} -- Publish-subscribe pattern
 
 	-- The publish-subscribe pattern is used for one-to-many distribution of
 	-- data from a single publisher to multiple subscribers in a fan out
@@ -184,7 +184,7 @@ feature -- Publish-subscribe pattern
 	end
 
 
-feature --    Pipeline pattern
+feature {ANY} --    Pipeline pattern
 	
 	-- The pipeline pattern is used for distributing data to nodes arranged in
 	-- a pipeline. Data always flows down the pipeline, and each stage of the
@@ -250,7 +250,7 @@ feature --    Pipeline pattern
 	end
 
 
-feature -- Exclusive pair pattern
+feature {ANY} -- Exclusive pair pattern
 
 --        The exclusive pair pattern is used to connect a peer to precisely one other peer. This
 --        pattern is used for inter-thread communication across the inproc transport.

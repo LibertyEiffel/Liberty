@@ -23,7 +23,7 @@ deferred class PLUGGABLE_FACTORY [ITEM->PLUGGABLE]
 
 inherit FACTORY[ITEM] 
 
-feature -- Creation
+feature {ANY} -- Creation
 	get_new_pluggable (a_plugin_name: STRING): ITEM is
 		require a_plugin_name/=Void
 		local ptr: POINTER

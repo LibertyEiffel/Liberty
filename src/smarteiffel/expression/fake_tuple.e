@@ -10,7 +10,7 @@ class FAKE_TUPLE
 inherit
    EXPRESSION
 
-creation {EFFECTIVE_ARG_LIST}
+create {EFFECTIVE_ARG_LIST}
    make
 
 feature {ANY}
@@ -100,7 +100,7 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          i: INTEGER; e1, e2: EXPRESSION; l: like list
       do
@@ -112,7 +112,7 @@ feature {ANY}
                e1 /= e2 or else i > list.upper
             loop
                e1 := list.item(i)
-               e2 := e1.specialize_2(type)
+               e2 := e1.specialize_and_check(type)
                i := i + 1
             end
             if e1 = e2 then
@@ -126,7 +126,7 @@ feature {ANY}
                until
                   i > l.upper
                loop
-                  l.put(l.item(i).specialize_2(type), i)
+                  l.put(l.item(i).specialize_and_check(type), i)
                   i := i + 1
                end
             end

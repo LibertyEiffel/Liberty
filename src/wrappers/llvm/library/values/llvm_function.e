@@ -50,8 +50,8 @@ inherit
 
 insert LLVM_VALUE_WRAPPER_FACTORY 
 
-creation {ANY} make 
-creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+create {ANY} make 
+create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
 feature {} -- Creation
 	make (a_return_type: LLVM_TYPE; some_parameters: WRAPPER_COLLECTION[LLVM_TYPE]) is
@@ -138,7 +138,7 @@ feature {ANY} -- Iterating over blocks
 		end
 	end
 
-feature -- Parameters
+feature {ANY} -- Parameters
 	parameters_count: INTEGER is
 		-- The number of parameters. TODO: should be NATURAL
 		do

@@ -19,7 +19,7 @@ inherit
       redefine skip1
       end
 
-creation {GLOBALS}
+create {GLOBALS}
    serc, plugin
 
 feature {ANY}
@@ -207,7 +207,7 @@ feature {} -- Parser:
                      stop := True
                   when end_of_text then
                      error_handler.add_position(pos(l, c))
-                     error_handler.append("Bad Environment variable.%N%
+                     error_handler.append(once "Bad Environment variable.%N%
                                           %(Closing %"}%" not found.)")
                      error_handler.print_as_fatal_error
                   else
@@ -226,7 +226,7 @@ feature {} -- Parser:
                   when ')' then
                      if cmd.is_empty then
                         error_handler.add_position(pos(l, c))
-                        error_handler.append("Bad program.%N%
+                        error_handler.append(once "Bad program.%N%
                                              %(No program name found.)")
                         error_handler.print_as_fatal_error
                      else
@@ -253,9 +253,9 @@ feature {} -- Parser:
                            process.wait
                         else
                            error_handler.add_position(pos(l, c))
-                           error_handler.append("Could not execute '")
+                           error_handler.append(once "Could not execute '")
                            error_handler.append(cmd)
-                           error_handler.append("'. Maybe the program name is incorrect, or process execution %
+                           error_handler.append(once "'. Maybe the program name is incorrect, or process execution %
                                                 %is not yet supported on this platform.")
                            error_handler.print_as_fatal_error
                         end
@@ -266,7 +266,7 @@ feature {} -- Parser:
                      next_char
                   when end_of_text then
                      error_handler.add_position(pos(l, c))
-                     error_handler.append("Bad program.%N%
+                     error_handler.append(once "Bad program.%N%
                                           %(Closing %")%" not found.)")
                      error_handler.print_as_fatal_error
                   else

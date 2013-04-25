@@ -4,8 +4,8 @@ inherit
 insert
 	G_SIGNALS
 	GTK
-creation make
-feature make is
+create {ANY} make
+feature {ANY} make is
 		do
 			Precursor
 			check is_entries_window_a_g_object: g_is_object (handle) /= 0 end
@@ -41,9 +41,9 @@ feature make is
 
 			enable_on_destroy
 		end
-feature -- labels
+feature {ANY} -- labels
 	title_string: STRING is "Entries demo"
-feature -- Widgets
+feature {ANY} -- Widgets
 	vbox: GTK_VBOX
 	entry_box, integer_spin_box, real_spin_box: GTK_HBOX
 	entry_label, integer_spin_label, real_spin_label: GTK_LABEL
@@ -51,7 +51,7 @@ feature -- Widgets
 	integer_spin: INTEGER_SPIN
 	real_spin: REAL_SPIN
 	
-feature -- Callbacks
+feature {ANY} -- Callbacks
 	on_destroy is
 		do
 			print ("Entries demo ending%N")

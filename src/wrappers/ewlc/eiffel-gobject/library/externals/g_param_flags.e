@@ -9,7 +9,7 @@ deferred class G_PARAM_FLAGS
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	are_valid_param_flags (some_flags :INTEGER): BOOLEAN is
 		do	
 			Result:=(some_flags & (g_param_readable | g_param_writable |

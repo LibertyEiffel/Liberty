@@ -26,7 +26,7 @@ inherit
 	WRAPPER_HANDLER -- to access from_external_pointer features of the created wrappers
 	SHARED_CREATION_DICTIONARY 
 	ANY -- because in the previose classes we undefined copy and is_equal.
-feature
+feature {ANY}
 	register_creation_agents is
 		-- Store creation agents for GooCanvas classes after having done it for all its preconditions.
 	do

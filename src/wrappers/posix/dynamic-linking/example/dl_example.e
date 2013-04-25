@@ -5,7 +5,7 @@ class DL_EXAMPLE
 
 insert DYNAMIC_LINKING_LOADER; DL_FLAGS
 
-creation {ANY} make
+create {ANY} make
 
 feature {ANY}
 	lib: STRING is "libglib-2.0.so" 

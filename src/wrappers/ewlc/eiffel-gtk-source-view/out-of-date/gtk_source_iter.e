@@ -43,7 +43,7 @@ feature {} --  Search flags (enum GtkSourceSearchFlags)
 		alias "GTK_SOURCE_SEARCH_CASE_INSENSITIVE"
 		end
        
-feature -- Searching
+feature {ANY} -- Searching
 	backward_search (an_iter, a_limit: GTK_TEXT_ITER; a_string: STRING; some_flags: INTEGER): GTK_TEXT_SEARCH_RESULT is
 			-- Search `a_string' backward, case insensitively, starting from
 			-- `an_iter', ending at `a_limit'. If `a_limit' is Void search is

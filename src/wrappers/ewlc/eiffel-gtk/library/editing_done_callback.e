@@ -28,12 +28,12 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_FACTORY [GTK_CELL_EDITABLE]
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	object: GTK_CELL_EDITABLE
 
-feature
+feature {ANY}
 	callback (instance: POINTER) is
 		do
 			debug

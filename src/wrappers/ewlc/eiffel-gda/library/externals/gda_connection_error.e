@@ -3,8 +3,8 @@
 expanded class GDA_CONNECTION_ERROR
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_connection_dsn_not_found_error) or else 
@@ -21,7 +21,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_dsn_not_found_error is
 		do
 			value := gda_connection_dsn_not_found_error
@@ -78,7 +78,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_dsn_not_found_error: BOOLEAN is
 		do
 			Result := (value=gda_connection_dsn_not_found_error)

@@ -28,12 +28,12 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_FACTORY [GTK_EDITABLE]
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	object: GTK_EDITABLE
 
-feature
+feature {ANY}
 	callback (new_text: POINTER; new_text_length: INTEGER; position: POINTER; instance: POINTER) is
 		local
 			new_text_obj: STRING

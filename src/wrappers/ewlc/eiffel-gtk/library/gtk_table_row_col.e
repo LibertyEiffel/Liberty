@@ -24,7 +24,7 @@ indexing
 class GTK_TABLE_ROW_COL
 inherit G_STRUCT
 	
-creation from_external_pointer
+create {ANY} from_external_pointer
 	
 	-- TODO: wrap this structure for real
 	

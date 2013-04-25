@@ -6,7 +6,7 @@ class C_PLUGIN
 inherit
    PLUGIN
 
-creation {C_PLUGIN_FACTORY, FAKE_PLUGIN}
+create {C_PLUGIN_FACTORY, FAKE_PLUGIN}
    make
 
 feature {SYSTEM_TOOLS}
@@ -156,11 +156,11 @@ feature {NATIVE_PLUG_IN}
             end
             if not ok then
                error_handler.add_position(start_position)
-               error_handler.append("No support found for this external %"plug_in%" (plugin: %"")
+               error_handler.append(once "No support found for this external %"plug_in%" (plugin: %"")
                error_handler.append(name)
-               error_handler.append("%" at ")
+               error_handler.append(once "%" at ")
                error_handler.append(path)
-               error_handler.append("). No description file found.")
+               error_handler.append(once "). No description file found.")
                error_handler.add_position(position)
                error_handler.print_as_fatal_error
             end
@@ -249,13 +249,13 @@ feature {}
          end
          -- sanity checks
          if c_sources = Void and then c_headers = Void then
-            error_handler.append("The plugin ")
+            error_handler.append(once "The plugin ")
             error_handler.append(a_name)
-            error_handler.append(" at ")
+            error_handler.append(once " at ")
             error_handler.append(a_path)
-            error_handler.append(" defined in ")
+            error_handler.append(once " defined in ")
             error_handler.append(position.path)
-            error_handler.append(" does not provide any .h or .c file, nor a cecil.se file!")
+            error_handler.append(once " does not provide any .h or .c file, nor a cecil.se file!")
             error_handler.print_as_fatal_error
          end
       end

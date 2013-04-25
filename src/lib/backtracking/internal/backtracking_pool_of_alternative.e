@@ -9,7 +9,7 @@ class BACKTRACKING_POOL_OF_ALTERNATIVE
 inherit
    ABSTRACT_BACKTRACKING_POOL[BACKTRACKING_ALTERNATIVE]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

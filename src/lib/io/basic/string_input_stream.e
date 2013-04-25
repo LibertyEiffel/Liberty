@@ -12,7 +12,7 @@ inherit
          valid_last_character, dispose
       end
 
-creation {ANY}
+create {ANY}
    from_string
 
 feature {ANY}

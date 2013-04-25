@@ -27,9 +27,9 @@ class ENTER_NOTIFY_EVENT_CALLBACK
 inherit
 	CROSSING_EVENT_CALLBACK
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 
 	signal_name: STRING is "enter-notify-event"
 

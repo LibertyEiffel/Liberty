@@ -33,7 +33,7 @@ inherit
 			clear_all,
 			append_collection
 	  end
-feature
+feature {ANY}
 	put (an_item: like first; i: INTEGER) is
          --
       do

@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_value_array_struct_set_fixed_n_elements (a_structure: POINTER; a_value: NATURAL_32) is
+	gparam_spec_value_array_struct_set_fixed_n_elements (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for fixed_n_elements field of GPARAM_SPEC_VALUE_ARRAY_STRUCT structure.
 			-- TODO: setter description
 
@@ -47,7 +47,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_value_array_struct_get_fixed_n_elements (a_structure: POINTER): NATURAL_32 is
+	gparam_spec_value_array_struct_get_fixed_n_elements (a_structure: POINTER): NATURAL is
 			-- Query for fixed_n_elements field of GPARAM_SPEC_VALUE_ARRAY_STRUCT structure.
 			-- TODO: getter description
 

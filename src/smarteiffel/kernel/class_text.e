@@ -24,7 +24,7 @@ insert
       redefine is_equal
       end
 
-creation {EIFFEL_PARSER, CLASS_TEXT, CLASS_TEXT_VISITOR}
+create {EIFFEL_PARSER, CLASS_TEXT, CLASS_TEXT_VISITOR}
    make
 
 feature {ANY}
@@ -443,12 +443,12 @@ feature {CREATE_SUPPORT, MANIFEST_GENERIC, CECIL_ENTRY}
          if cc = Void then
             if procedure_name.to_string /= as_manifest_creation then
                error_handler.add_position(call_site)
-               error_handler.append("Procedure %"")
+               error_handler.append(once "Procedure %"")
                error_handler.append(procedure_name.to_string)
                error_handler.append(once "%" does not belong to a creation clause of ")
                error_handler.append(name.to_string)
                error_handler.add_position(procedure_name.start_position)
-               error_handler.append(". This creation call is thus not allowed.")
+               error_handler.append(once ". This creation call is thus not allowed.")
                error_handler.print_as_error
             end
          else
@@ -463,7 +463,7 @@ feature {CREATE_SUPPORT, MANIFEST_GENERIC, CECIL_ENTRY}
                if not Result then
                   error_handler.add_position(call_site)
                   error_handler.add_position(procedure_name.start_position)
-                  error_handler.append("Forbidden creation call (i.e. exportation rules violated). %
+                  error_handler.append(once "Forbidden creation call (i.e. exportation rules violated). %
                                        %Creation is only allowed from ")
                   error_handler.append(cl.eiffel_view)
                   cl.locate_in_error_handler
@@ -502,7 +502,7 @@ feature {TYPE}
             if is_deferred then
                error_handler.add_type_mark(type.canonical_type_mark)
                error_handler.add_position(type.canonical_type_mark.start_position)
-               error_handler.append(" is invalid. A deferred class must not be expanded.")
+               error_handler.append(once " is invalid. A deferred class must not be expanded.")
                error_handler.print_as_fatal_error
             end
             if creation_clause_list /= Void then
@@ -785,7 +785,7 @@ feature {EIFFEL_PARSER}
          if is_deferred and then creation_clause_list /= Void then
             error_handler.add_position(name.start_position)
             error_handler.add_position(creation_clause_list.start_position)
-            error_handler.append("Deferred class should not have creation clause (VGCP.1).")
+            error_handler.append(once "Deferred class should not have creation clause (VGCP.1).")
             error_handler.print_as_warning
          end
          sedb_trace := ace.trace_of(Current)
@@ -833,9 +833,9 @@ feature {SMART_EIFFEL}
          Result := creation_clause_list.root_creation_search(a_name)
          if Result = Void then
             error_handler.add_position(name.start_position)
-            error_handler.append("Bad root procedure name (%"")
+            error_handler.append(once "Bad root procedure name (%"")
             error_handler.append(a_name)
-            error_handler.append("%" is not a creation procedure of this class).")
+            error_handler.append(once "%" is not a creation procedure of this class).")
             error_handler.print_as_fatal_error
          end
       ensure
@@ -917,11 +917,11 @@ feature {FEATURE_NAME, ANONYMOUS_FEATURE}
    fatal_undefine (fn: FEATURE_NAME) is
          --|*** PH(31/03/04) May be this should be removed
       do
-         error_handler.append("Problem with undefine of %"")
+         error_handler.append(once "Problem with undefine of %"")
          error_handler.append(fn.to_string)
-         error_handler.append("%" in %"")
+         error_handler.append(once "%" in %"")
          error_handler.append(name.to_string)
-         error_handler.append("%".")
+         error_handler.append(once "%".")
          error_handler.add_position(parent_lists.undefine_position_of(fn))
          error_handler.print_as_fatal_error
       end
@@ -938,32 +938,32 @@ feature {TYPE, TYPE_MARK}
                   not actual_list.is_empty
                end
                error_handler.add_position(usage_position)
-               error_handler.append("Class ")
+               error_handler.append(once "Class ")
                error_handler.append(name.to_string)
-               error_handler.append(" is not a generic class. (See file %"")
+               error_handler.append(once " is not a generic class. (See file %"")
                error_handler.append(path)
-               error_handler.append("%".)")
+               error_handler.append(once "%".)")
                error_handler.print_as_fatal_error
             end
          elseif actual_list = Void then
             error_handler.add_position(usage_position)
             error_handler.add_position(formal_generic_list.start_position)
-            error_handler.append("Class ")
+            error_handler.append(once "Class ")
             error_handler.append(name.to_string)
-            error_handler.append(" is a generic class (missing actual generic")
+            error_handler.append(once " is a generic class (missing actual generic")
             if formal_generic_list.count > 1 then
                error_handler.extend('s')
             end
-            error_handler.append(").")
+            error_handler.append(once ").")
             error_handler.print_as_fatal_error
          elseif formal_generic_list.count /= actual_list.count then
             error_handler.add_position(usage_position)
             error_handler.add_position(formal_generic_list.start_position)
-            error_handler.append("Wrong number of generic argument")
+            error_handler.append(once "Wrong number of generic argument")
             if formal_generic_list.count > 1 then
                error_handler.extend('s')
             end
-            error_handler.append(" (compare usage and definition below).")
+            error_handler.append(once " (compare usage and definition below).")
             error_handler.print_as_fatal_error
          end
       end
@@ -1042,7 +1042,7 @@ feature {}
    error_vtec1 is
       do
          error_handler.add_position(name.start_position)
-         error_handler.append("A class cannot be expanded and deferred (VTEC.1).")
+         error_handler.append(once "A class cannot be expanded and deferred (VTEC.1).")
          error_handler.print_as_error
       end
 
@@ -1070,7 +1070,7 @@ feature {}
       do
          if creation_clause_list = Void then
             error_handler.add_position(name.start_position)
-            error_handler.append("Bad root class (this class has no creation clause).")
+            error_handler.append(once "Bad root class (this class has no creation clause).")
             error_handler.print_as_fatal_error
          end
       end
@@ -1111,7 +1111,7 @@ feature {}
       do
          error_handler.add_position(super.start_position)
          error_handler.add_position(redef.start_position)
-         error_handler.append("Bad redefinition. ")
+         error_handler.append(once "Bad redefinition. ")
          error_handler.append(msg)
          error_handler.print_as_fatal_error
       end

@@ -9,7 +9,7 @@ inherit
 	TYPED_NODE
 	WRAPPER_CLASS
 
-creation make
+create {ANY} make
 
 feature 
 	store is

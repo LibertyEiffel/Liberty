@@ -3,7 +3,7 @@ deferred class SHARED_CREATION_DICTIONARY
 
 inherit ANY undefine is_equal, copy end
 
-feature
+feature {ANY}
 	creation_agents_by_type: HASHED_DICTIONARY[FUNCTION[TUPLE[POINTER],G_OBJECT],INTEGER_32] is
 		-- A dictionary of agent funtions that return a G_OBJECT.
 		-- Key shall be the GType of the G_OBJECT returned by the

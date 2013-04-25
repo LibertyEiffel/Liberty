@@ -69,7 +69,7 @@ feature {} -- Structure getter/setter calls
 		external "C struct cairo_glyph_t set y use <pango.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <pango.h>"
 		alias "sizeof(cairo_glyph_t)"

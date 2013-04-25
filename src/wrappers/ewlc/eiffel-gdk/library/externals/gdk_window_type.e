@@ -24,7 +24,7 @@ deferred class GDK_WINDOW_TYPE
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_window_type (a_type: INTEGER): BOOLEAN is
 		do	
 			Result:=((a_type = gdk_window_root) or else

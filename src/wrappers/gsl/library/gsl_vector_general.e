@@ -235,7 +235,7 @@ feature {ANY} -- public interface
          swapped2: (old Current).is_equal(other)
 		end
 
-feature -- finding minima and maxima
+feature {ANY} -- finding minima and maxima
    max: TYPE_ is
          -- return the maximal element in `Current'
 		do
@@ -283,7 +283,7 @@ feature -- finding minima and maxima
          Result := [mn, mx]
       end
    
-feature -- vector operations (element wise)
+feature {ANY} -- vector operations (element wise)
 	scale (x: TYPE_) is
          -- multiply all elements of `Current' with `x'
 		do

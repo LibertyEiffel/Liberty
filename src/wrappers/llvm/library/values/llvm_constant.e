@@ -20,7 +20,7 @@ deferred class LLVM_CONSTANT
 	-- clients don't have to worry about the lifetime of the objects.
 inherit LLVM_USER
 insert CORE_EXTERNALS
-feature 
+feature {ANY} 
 	null_from (a_type: LLVM_TYPE) is
 	-- Create a null constant of `a_type'
 	require a_type/=Void
@@ -35,7 +35,7 @@ feature
 		handle:=llvmget_undef(a_type.handle)
 	end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_constant: BOOLEAN is 
 		-- TODO: as far as I understand this feature shall belong to LLVM_VALUE. 
 	do

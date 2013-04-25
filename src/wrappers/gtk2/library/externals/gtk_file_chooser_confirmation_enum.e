@@ -7,8 +7,8 @@ expanded class GTK_FILE_CHOOSER_CONFIRMATION_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = confirm_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = select_again_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_confirm is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := select_again_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	confirm: BOOLEAN is
 		do
 			Result := (value=confirm_low_level)

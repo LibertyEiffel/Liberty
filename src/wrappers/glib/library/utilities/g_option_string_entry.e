@@ -27,9 +27,9 @@ inherit
 
 	-- TODO: REFERENCE[STRING]
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING) is
 		local t: like argument_type
 		do
@@ -40,7 +40,7 @@ feature
 			goption_entry_struct_set_arg_data(handle, item.to_external)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	item: STRING
 
 	set_item (a_value: like item) is

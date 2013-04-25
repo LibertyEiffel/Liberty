@@ -25,7 +25,7 @@ inherit G_OBJECT
 
 -- insert FOO_EXTERNALS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {} -- Creation
 	
@@ -38,7 +38,7 @@ feature {} -- Creation
 --                                              PangoFontFace ***faces,
 --                                              int *n_faces);
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <pango/pango.h>"
 		alias "sizeof(PangoFontFamily)"

@@ -7,8 +7,8 @@ expanded class GTK_DEBUG_FLAG_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := (a_value & (misc_low_level | 
@@ -24,7 +24,7 @@ feature -- Validity
 				builder_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_misc is
 		do
@@ -136,7 +136,7 @@ feature -- Setters
 			value := value.bit_xor(builder_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_misc: BOOLEAN is
 		do
 			Result := (value=misc_low_level)

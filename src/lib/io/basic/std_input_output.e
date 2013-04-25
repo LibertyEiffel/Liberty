@@ -11,7 +11,7 @@ inherit
       redefine dispose
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

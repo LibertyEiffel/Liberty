@@ -33,7 +33,7 @@ insert
       end
    SINGLETON
 
-creation {ANY}
+create {ANY}
    make
 
 feature {BUILT_IN_EQ_NEQ}
@@ -490,6 +490,12 @@ feature {ASSIGNMENT}
    visit_assignment (visited: ASSIGNMENT) is
       do
          visited.right_side.accept(Current)
+      end
+
+feature {ASSIGNMENT_CALL_ASSIGNER}
+   visit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER) is
+      do
+         not_yet_implemented
       end
 
 feature {ASSIGNMENT_ATTEMPT}

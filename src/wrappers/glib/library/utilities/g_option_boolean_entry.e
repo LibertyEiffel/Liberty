@@ -31,9 +31,9 @@ inherit
 	-- inheriting clauses may be needed: undefine copy redefine is_equal,
 	-- item, set_item, fill_tagged_out_memory end
 
-creation make
+create {ANY} make
 	
-feature 
+feature {ANY} 
 	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING) is
 		local t: like argument_type
 		do
@@ -43,7 +43,7 @@ feature
 			goption_entry_struct_set_arg_data(handle, $hidden_value)
 		end
 
-feature
+feature {ANY}
 	-- is_equal (another: like Current): BOOLEAN is
 	-- 	do
 	-- 		Result := item=another.item

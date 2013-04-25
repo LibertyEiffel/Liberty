@@ -3,10 +3,10 @@ class TEST_MATRIX02
 inherit
 	EIFFELTEST_TOOLS
 
-creation 
+create {ANY} 
 	make
 	
-feature
+feature {ANY}
 
 	make is
 		local

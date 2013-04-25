@@ -30,7 +30,7 @@ deferred class CAIRO_ANTIALIAS_TYPE
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 
 	is_valid_antialias_type (a_type: INTEGER): BOOLEAN is
 		do

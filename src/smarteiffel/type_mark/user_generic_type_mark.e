@@ -12,7 +12,7 @@ inherit
          weak_reference_argument
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -61,7 +61,7 @@ feature {TYPE}
                error_handler.add_type_mark(tm)
                error_handler.add_position(tm.start_position)
                error_handler.add_position(start_position)
-               error_handler.append(" is expanded. The generic argument of WEAK_REFERENCE must not be %
+               error_handler.append(once " is expanded. The generic argument of WEAK_REFERENCE must not be %
                 %expanded. (It does not makes sense to do so.)")
                error_handler.print_as_fatal_error
             end

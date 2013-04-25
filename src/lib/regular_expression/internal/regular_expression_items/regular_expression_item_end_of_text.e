@@ -9,7 +9,7 @@ class REGULAR_EXPRESSION_ITEM_END_OF_TEXT
 inherit
    REGULAR_EXPRESSION_ITEM
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

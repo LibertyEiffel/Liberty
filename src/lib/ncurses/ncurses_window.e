@@ -16,13 +16,13 @@ inherit
 insert
    LOGGING
 
-creation {ANY}
+create {ANY}
    make
 
-creation {NCURSES_WINDOW}
+create {NCURSES_WINDOW}
    make_sub_window
 
-creation {NCURSES}
+create {NCURSES}
    make_root_window
 
 feature {ANY} -- Writing:

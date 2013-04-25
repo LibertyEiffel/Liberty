@@ -4,10 +4,10 @@ insert
 	CAIRO_FORMAT
 	PANGO_CONSTANTS
 
-creation
+create {ANY}
 	make
 
-feature
+feature {ANY}
 
 	draw_text is
 		local
@@ -59,7 +59,7 @@ feature
 			surface.finish
 		end
 
-feature -- Implementation details
+feature {ANY} -- Implementation details
 
 	pi: REAL is 3.14159265358979323846 -- PI
 

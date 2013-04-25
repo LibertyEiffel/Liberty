@@ -10,7 +10,7 @@ class CLUSTER_POOL_DATA
 insert
    GLOBALS
 
-creation {CLUSTER}
+create {CLUSTER}
    make
 
 feature {CLUSTER}

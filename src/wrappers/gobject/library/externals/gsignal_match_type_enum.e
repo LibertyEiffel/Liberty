@@ -3,110 +3,99 @@
 
 expanded class GSIGNAL_MATCH_TYPE_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := (a_value & (id_low_level | 
-				closure_low_level | 
-				func_low_level | 
-				data_low_level | 
-				unblocked_low_level)).to_boolean
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := (a_value & (g_signal_match_closure_low_level | 
+				g_signal_match_detail_low_level | 
+				g_signal_match_func_low_level | 
+				g_signal_match_id_low_level | 
+				g_signal_match_unblocked_low_level)).to_boolean
 		end
 
 feature -- Setters
 	default_create,
-	set_id is
+	set_g_signal_match_closure is
 		do
-			value := value.bit_or(id_low_level)
+			value := value.bit_or(g_signal_match_closure_low_level)
 		end
 
-	unset_id is
+	unset_g_signal_match_closure is
 		do
-			value := value.bit_xor(id_low_level)
+			value := value.bit_xor(g_signal_match_closure_low_level)
 		end
 
-	set_closure is
+	set_g_signal_match_detail is
 		do
-			value := value.bit_or(closure_low_level)
+			value := value.bit_or(g_signal_match_detail_low_level)
 		end
 
-	unset_closure is
+	unset_g_signal_match_detail is
 		do
-			value := value.bit_xor(closure_low_level)
+			value := value.bit_xor(g_signal_match_detail_low_level)
 		end
 
-	set_func is
+	set_g_signal_match_func is
 		do
-			value := value.bit_or(func_low_level)
+			value := value.bit_or(g_signal_match_func_low_level)
 		end
 
-	unset_func is
+	unset_g_signal_match_func is
 		do
-			value := value.bit_xor(func_low_level)
+			value := value.bit_xor(g_signal_match_func_low_level)
 		end
 
-	set_data is
+	set_g_signal_match_id is
 		do
-			value := value.bit_or(data_low_level)
+			value := value.bit_or(g_signal_match_id_low_level)
 		end
 
-	unset_data is
+	unset_g_signal_match_id is
 		do
-			value := value.bit_xor(data_low_level)
+			value := value.bit_xor(g_signal_match_id_low_level)
 		end
 
-	set_unblocked is
+	set_g_signal_match_unblocked is
 		do
-			value := value.bit_or(unblocked_low_level)
+			value := value.bit_or(g_signal_match_unblocked_low_level)
 		end
 
-	unset_unblocked is
+	unset_g_signal_match_unblocked is
 		do
-			value := value.bit_xor(unblocked_low_level)
+			value := value.bit_xor(g_signal_match_unblocked_low_level)
 		end
 
 feature -- Queries
-	is_id: BOOLEAN is
+	is_g_signal_match_closure: BOOLEAN is
 		do
-			Result := (value=id_low_level)
+			Result := (value=g_signal_match_closure_low_level)
 		end
 
-	is_closure: BOOLEAN is
+	is_g_signal_match_detail: BOOLEAN is
 		do
-			Result := (value=closure_low_level)
+			Result := (value=g_signal_match_detail_low_level)
 		end
 
-	is_func: BOOLEAN is
+	is_g_signal_match_func: BOOLEAN is
 		do
-			Result := (value=func_low_level)
+			Result := (value=g_signal_match_func_low_level)
 		end
 
-	is_data: BOOLEAN is
+	is_g_signal_match_id: BOOLEAN is
 		do
-			Result := (value=data_low_level)
+			Result := (value=g_signal_match_id_low_level)
 		end
 
-	is_unblocked: BOOLEAN is
+	is_g_signal_match_unblocked: BOOLEAN is
 		do
-			Result := (value=unblocked_low_level)
+			Result := (value=g_signal_match_unblocked_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	id_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module: "plugin"
- 			feature_name: "G_SIGNAL_MATCH_ID"
- 			}"
- 		end
-
-	closure_low_level: INTEGER is
+	g_signal_match_closure_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -115,7 +104,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	func_low_level: INTEGER is
+	g_signal_match_detail_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module: "plugin"
+ 			feature_name: "G_SIGNAL_MATCH_DETAIL"
+ 			}"
+ 		end
+
+	g_signal_match_func_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -124,16 +122,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	data_low_level: INTEGER is
+	g_signal_match_id_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module: "plugin"
- 			feature_name: "G_SIGNAL_MATCH_DATA"
+ 			feature_name: "G_SIGNAL_MATCH_ID"
  			}"
  		end
 
-	unblocked_low_level: INTEGER is
+	g_signal_match_unblocked_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

@@ -6,8 +6,8 @@ indexing
 
 class STRING_EXAMPLE
 
-creation make
-feature
+create {ANY} make
+feature {ANY}
 	string: G_STRING
 	make is
 		local i: INTEGER; c: CHARACTER

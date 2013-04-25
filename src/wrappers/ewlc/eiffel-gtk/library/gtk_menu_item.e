@@ -35,7 +35,7 @@ inherit
 insert
 	G_OBJECT_FACTORY  [GTK_WIDGET]
 
-creation make, with_label, with_mnemonic, from_external_pointer
+create {ANY} make, with_label, with_mnemonic, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -65,7 +65,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_menu_item_new_with_mnemonic (a_label.to_external))
 		end
 
-feature 
+feature {ANY} 
 	set_right_justified is
 			-- Makes the menu item appears justified at the right
 			-- side of a menu bar. This was traditionally done for "Help"
@@ -243,7 +243,7 @@ feature
 
 --    Default value: 5
 
-feature -- Signals
+feature {ANY} -- Signals
 
 	activate_signal_name: STRING is "activate"
 
@@ -352,7 +352,7 @@ feature -- Signals
 
 -- References
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkMenuItem)"

@@ -1,6 +1,6 @@
 class MY_WINDOW
 inherit GTK_WINDOW redefine make, on_destroy end
-creation make
+create {ANY} make
 feature {}
 	make is
 		do
@@ -10,7 +10,7 @@ feature {}
 			destroy_callback.connect (Current, agent on_destroy)
 		end
 
-feature -- callback
+feature {ANY} -- callback
 	destroy_callback: DESTROY_CALLBACK
 	on_destroy is
 		do

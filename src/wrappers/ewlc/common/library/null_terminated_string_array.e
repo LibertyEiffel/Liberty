@@ -28,7 +28,7 @@ class NULL_TERMINATED_STRING_ARRAY
 
 inherit  STRING_ARRAY --  redefine with_capacity end
 								 
-creation from_collection, from_external --, with_capacity
+create {ANY} from_collection, from_external --, with_capacity
 
 feature {} -- Creation
 	-- Note: space allocated in storage must always be capacity+1 large, to
@@ -53,7 +53,7 @@ feature {} -- Creation
 	-- storage:=storage.calloc(a_capacity+1) create
 	-- strings.make(a_capacity+1) end
 
-feature
+feature {ANY}
 	is_null_terminated: BOOLEAN is
 		do
 			-- 0 1 2 3 4

@@ -21,9 +21,9 @@ indexing
 
 class EDITABLE_CELLS
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 -- /* Tree View/Editable Cells
 --  *
 --  * This demo demonstrates the use of editable cells in a GtkTreeView. If

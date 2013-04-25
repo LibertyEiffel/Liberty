@@ -35,7 +35,7 @@ inherit GTS_OBJECT redefine struct_size end
 
 insert GTS_POINT_EXTERNALS
 	
-creation  from_edges, enclosing, from_external_pointer
+create {ANY}  from_edges, enclosing, from_external_pointer
 
 feature {} -- Creation
 	from_edges (first,second,third: GTS_EDGE) is
@@ -68,7 +68,7 @@ feature {} -- Creation
 			from_external_pointer(gts_triangle_enclosing (gts_triangle_class, some_points.handle, a_scale))
 		end
 
-feature 
+feature {ANY} 
 	set_edges (first,second,third: GTS_EDGE) is
 			-- Sets the edge of triangle to `first', `second' and `third'
 			--  while checking that they define a valid triangle.
@@ -220,7 +220,7 @@ feature {} -- Implementation
 			edges_stored: stored_edges /= Void
 		end
 
-feature 
+feature {ANY} 
 	vertices: TUPLE [GTS_VERTEX, GTS_VERTEX, GTS_VERTEX] is
 		local v1,v2,v3: POINTER
 		do

@@ -14,7 +14,7 @@ insert
 	DL_FLAGS
 	DLFCNEXTERNALS
 
-creation {DYNAMIC_LINKING_LOADER} from_external_pointer
+create {DYNAMIC_LINKING_LOADER} from_external_pointer
 
 feature {ANY} -- Command
 	set_flags (some_flags: INTEGER) is
@@ -97,7 +97,7 @@ feature {ANY} -- Error handling
 		end
 	end
 
-feature -- Disposing
+feature {ANY} -- Disposing
 	dispose is
 		-- Invokes dlclose; it decrements the reference count on the dynamic library  handle  handle.   If  the  reference
 		-- count drops to zero and no other loaded libraries use symbols in it, then the dynamic library is unloaded.

@@ -129,7 +129,7 @@ inherit
 insert
 	GTK_FILE_CHOOSER_DIALOG_EXTERNALS
 
-creation
+create {ANY}
 	make_open, make_save, from_external_pointer
 
 feature {} -- Creation
@@ -198,7 +198,7 @@ feature {} -- Creation
 	
 	-- Since 2.4
 
-feature
+feature {ANY}
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkFileChooserDialog)"

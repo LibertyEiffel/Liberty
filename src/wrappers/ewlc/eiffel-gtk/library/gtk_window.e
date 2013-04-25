@@ -33,7 +33,7 @@ insert
 	GTK_WINDOW_EXTERNALS
 	GTK_WINDOW_TYPE
 
-creation
+create {ANY}
 	make, make_toplevel, from_external_pointer
 
 feature {} -- Creation
@@ -47,7 +47,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_window_new (gtk_window_toplevel))
 		end
 
-feature
+feature {ANY}
 
 	set_title (a_title: STRING) is
 		require
@@ -58,7 +58,7 @@ feature
 
 	-- TODO: wrap gtk_window_set_wmclass ()
 
-feature -- Resizability
+feature {ANY} -- Resizability
 
 	set_resizable is
 			-- Makes current window resizable by the user.
@@ -105,7 +105,7 @@ feature -- Resizability
 			is_default_activated := gtk_window_activate_default (handle).to_boolean
 		end
 
-feature -- Window modal mode
+feature {ANY} -- Window modal mode
 
 	set_modal is
 			-- Sets a window modal. Modal windows prevent interaction
@@ -130,7 +130,7 @@ feature -- Window modal mode
 			Result:=gtk_window_get_modal (handle).to_boolean
 		end
 
-feature -- Window size
+feature {ANY} -- Window size
 
 	set_default_size (a_width, an_height: INTEGER) is
 			-- Sets the default size of a window. If the window's
@@ -177,7 +177,7 @@ feature -- Window size
 	-- geometry_widget, geometry: POINTER; gdkwindowhints_geom_mask:
 	-- INTEGER) which require wrapping of GdkGeometry
 
-feature -- Window "gravity"
+feature {ANY} -- Window "gravity"
 
 	-- TODO implement set_gravity_[north/south/east/west] etc
 
@@ -201,7 +201,7 @@ feature -- Window "gravity"
 		ensure  valid_gravity: is_valid_gravity (Result)
 		end
 
-feature -- Window position
+feature {ANY} -- Window position
 
 	no_position is
 			-- No influence is made on placement.
@@ -244,7 +244,7 @@ feature -- Window position
 			gtk_window_set_position (handle,a_position)
 		end
 
-feature -- Transiency
+feature {ANY} -- Transiency
 
 	set_transient_for (a_parent: GTK_WINDOW) is
 			-- Dialog windows should be set transient for the main
@@ -265,7 +265,7 @@ feature -- Transiency
 			gtk_window_set_transient_for (handle,a_parent.handle)
 		end
 
-feature -- window lifecycle
+feature {ANY} -- window lifecycle
 
 	set_destroy_with_parent is
 			-- destroying the transient parent of Current window will
@@ -287,7 +287,7 @@ feature -- window lifecycle
 	
 	-- TODO: wrap GdkScreen* gtk_window_get_screen (GtkWindow *window);
 
-feature -- various queries
+feature {ANY} -- various queries
 
 	is_active: BOOLEAN is
 			-- Is current window part of the current active toplevel?
@@ -354,7 +354,7 @@ feature -- various queries
 			end
 		end
 
-feature -- Focusing
+feature {ANY} -- Focusing
 	unset_focus is
 			-- Unsets the focus widget for this window. 
 		do
@@ -1668,7 +1668,7 @@ feature -- Focusing
 -- -- widget : 	
 -- -- user_data : 	user data set when the signal handler was connected.
 -- -- << GtkMessageDialog 	GtkWindowGroup >>
-feature -- struct size
+feature {ANY} -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkWindow)"

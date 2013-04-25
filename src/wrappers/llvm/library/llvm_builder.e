@@ -13,8 +13,8 @@ inherit
 		ARRAYED_COLLECTION_HANDLER redefine default_create end
 
 insert CORE_EXTERNALS redefine default_create end 
-creation {ANY} in_context, default_create, at_end_of
-feature -- Creation
+create {ANY} in_context, default_create, at_end_of
+feature {ANY} -- Creation
 	in_context (a_context: LLVM_CONTEXT) is
 		-- Create an LLVM_BUILDER in `a_context'.
 	require a_context/=Void
@@ -37,7 +37,7 @@ feature -- Creation
 		position_at_end_of(a_block)
 	end
 
-feature -- Positioning
+feature {ANY} -- Positioning
 	set_position (a_block: LLVM_BASIC_BLOCK; an_instruction: LLVM_VALUE) is
 		-- TODO: description
 	require
@@ -544,7 +544,7 @@ feature {ANY} -- Arithmetic
 		Result.type ~ a_left.type 
 	end
 
-feature -- Logical operators
+feature {ANY} -- Logical operators
 	logical_and (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
 		-- An "and" instruction, the bitwise logical and of `a_left' and `a_right'.
 		require 
@@ -793,7 +793,7 @@ feature {ANY} -- Memory
 	-- LLVMValueRef LLVMBuildGlobalStringPtr(LLVMBuilderRef B, const char *Str,
 	--                                       const char *Name);
 	-- 
-feature -- Casts
+feature {ANY} -- Casts
 	trunc (a_value: LLVM_VALUE; a_destination_type: LLVM_INTEGER_TYPE; a_name: ABSTRACT_STRING): LLVM_TRUNC_INST is
 		-- A "trunc" instruction; `a_value' an integer type larger than
 		-- `a_destination_type' will be truncated to the size of
@@ -907,7 +907,7 @@ feature -- Casts
 -- LLVMValueRef LLVMBuildFPCast(LLVMBuilderRef, LLVMValueRef Val,
 --                              LLVMTypeRef DestTy, const char *Name);
 -- 
-feature -- Comparisons
+feature {ANY} -- Comparisons
 	icmp (a_predicate: LLVMINTPREDICATE_ENUM; a_left,a_right: LLVM_VALUE;a_name: ABSTRACT_STRING): LLVM_ICMP_INST is
 		-- An 'icmp' instruction that will return a boolean value or a vector of boolean values based on comparison of its two integer, integer vector, or pointer operands. `a_predicate' is the condition code indicating the kind of comparison to perform. In LLVM assembler it is not a value, but a keyword. The possible condition code are:
 
@@ -973,7 +973,7 @@ feature -- Comparisons
 		Result/=Void
 	end
 
-feature -- Miscellaneous instructions
+feature {ANY} -- Miscellaneous instructions
 
 	-- LLVMValueRef LLVMBuildPhi(LLVMBuilderRef, LLVMTypeRef Ty, const char *Name);
 

@@ -3,10 +3,10 @@ class NO_INVARIANT_WRAPPER
 inherit
    INSTRUCTION
       redefine
-         specialize_2_without_checks
+         specialize_without_checks
       end
 
-creation
+create {ANY}
    make
 
 feature {ANY}
@@ -41,24 +41,24 @@ feature {ANY}
          Result := current_or_twin_init(new_compound)
       end
 
-   specialize_2 (type: TYPE): INSTRUCTION is
+   specialize_and_check (type: TYPE): INSTRUCTION is
       local
          new_compound: like compound
       do
-         new_compound := compound.specialize_2(type)
+         new_compound := compound.specialize_and_check(type)
          Result := current_or_twin_init(new_compound)
       end
 
-   specialize_2_without_checks (type: TYPE): INSTRUCTION is
+   specialize_without_checks (type: TYPE): INSTRUCTION is
       local
          new_compound: like compound
          ci: CREATE_INSTRUCTION
       do
          if ci ?:= compound then
             ci ::= compound
-            new_compound := ci.specialize_2_without_checks(type)
+            new_compound := ci.specialize_without_checks(type)
          else
-            new_compound := compound.specialize_2(type)
+            new_compound := compound.specialize_and_check(type)
          end
          Result := current_or_twin_init(new_compound)
       end

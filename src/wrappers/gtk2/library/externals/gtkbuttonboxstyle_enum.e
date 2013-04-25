@@ -7,8 +7,8 @@ expanded class GTKBUTTONBOXSTYLE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gtk_buttonbox_center_low_level)  or else
@@ -19,7 +19,7 @@ feature -- Validity
 				(a_value = gtk_buttonbox_start_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gtk_buttonbox_center is
 		do
@@ -51,7 +51,7 @@ feature -- Setters
 			value := gtk_buttonbox_start_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gtk_buttonbox_center: BOOLEAN is
 		do
 			Result := (value=gtk_buttonbox_center_low_level)

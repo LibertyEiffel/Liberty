@@ -47,9 +47,9 @@ inherit
 
 insert G_COMPLETION_EXTERNALS redefine default_create end 
 
-creation  from_external_pointer
+create {ANY}  from_external_pointer
 
-feature
+feature {ANY}
 	default_create is
 		do
 			from_external_pointer(g_completion_new (default_pointer))

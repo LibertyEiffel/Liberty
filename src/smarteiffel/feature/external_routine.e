@@ -28,7 +28,7 @@ feature {ANY}
          else
             error_handler.add_position(start_position)
          end
-         error_handler.append("External feature must not have rescue compound.")
+         error_handler.append(once "External feature must not have rescue compound.")
          error_handler.print_as_fatal_error
       end
 
@@ -119,13 +119,13 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): E_ROUTINE is
+   specialize_and_check (type: TYPE): E_ROUTINE is
       local
          ra: like require_assertion; ea: like ensure_assertion; rb: like routine_body
       do
          if routine_body /= Void then
             if class_text_name.to_string = as_internals_handler then
-               -- specialize_2 is deferred until the adapt phase
+               -- specialize_and_check is deferred until the adapt phase
                check
                   first_name.to_string = as_internals_from_generating_type
                      or first_name.to_string = as_valid_generating_type_for_internals
@@ -134,17 +134,17 @@ feature {ANY}
                end
                rb := routine_body
             elseif not type.is_deferred then
-               rb := routine_body.specialize_2_without_checks(type)
+               rb := routine_body.specialize_without_checks(type)
             else
                rb := routine_body
             end
          end
          if not ace.boost then
             if require_assertion /= Void then
-               ra ::= require_assertion.specialize_2(type)
+               ra ::= require_assertion.specialize_and_check(type)
             end
             if ensure_assertion /= Void then
-               ea := ensure_assertion.specialize_2(type)
+               ea := ensure_assertion.specialize_and_check(type)
             end
          end
          Result := current_or_twin_init(local_vars, rb, is_generated_eiffel, ea, ra, True)

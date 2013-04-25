@@ -8,7 +8,7 @@ inherit
       redefine base_feature
       end
 
-creation {DEFERRED_ROUTINE}
+create {DEFERRED_ROUTINE}
    for
 
 feature {ANY}

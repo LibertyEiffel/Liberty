@@ -44,7 +44,7 @@ insert
 	PANGO_FONT_MASK
 	PANGO_STRETCH
 
-creation
+create {ANY}
 	make, from_string, from_external_pointer
 
 feature {} -- Creation
@@ -73,7 +73,7 @@ feature {} -- Creation
 			from_external_pointer (pango_font_description_from_string (a_string.to_external))
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	hash: INTEGER is
 			-- Computes a hash of a PangoFontDescription structure suitable to
@@ -210,7 +210,7 @@ feature -- Access
 			create Result.from_external (pango_font_description_to_filename (handle))
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	set_family (a_family: STRING) is
 			-- Sets the family name field of a font description. The family name
@@ -312,7 +312,7 @@ feature -- Operations
 													replace_existing.to_integer)
 		end
 
-feature -- Copying and comparison
+feature {ANY} -- Copying and comparison
 
 	is_equal (other: PANGO_FONT_DESCRIPTION): BOOLEAN is
 			-- Compares two font descriptions for equality. Two font
@@ -332,7 +332,7 @@ feature -- Copying and comparison
 			from_external_pointer (pango_font_description_copy (a_font_description.handle))
 		end
 
-feature -- Disposing
+feature {ANY} -- Disposing
 
 	free (a_ptr: POINTER)  is
 			-- Frees a font description.
@@ -802,7 +802,7 @@ feature -- Disposing
 
 -- Since 1.4
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <pango/pango.h>"
 		alias "sizeof(PangoFontDescription)"

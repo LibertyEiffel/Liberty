@@ -12,7 +12,7 @@ insert
       undefine is_equal
       end
 
-creation
+create {ANY}
    make
 
 feature {}

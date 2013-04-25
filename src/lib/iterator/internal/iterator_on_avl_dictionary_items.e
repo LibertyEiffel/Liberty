@@ -6,7 +6,7 @@ inherit
 insert
    AVL_TREE_ITERATOR[K_]
 
-creation {ABSTRACT_AVL_DICTIONARY}
+create {ABSTRACT_AVL_DICTIONARY}
    make
 
 feature {ANY}

@@ -50,7 +50,7 @@ inherit
 
 insert WRAPPER_HANDLER -- only to get null_or_string
 
-creation
+create {ANY}
 	-- make, with_capacity,	from_collection,
 	from_external_array,
 	from_external_null_array
@@ -67,7 +67,7 @@ feature {STRING_ARRAY, WRAPPER_HANDLER} -- Implementation
 	storage: NATIVE_ARRAY[POINTER]
 	strings: FAST_ARRAY[STRING]
 
-feature	-- 
+feature {ANY}	-- 
 	capacity: INTEGER is do Result := strings.capacity end
 
 	lower: INTEGER is do Result := strings.lower end
@@ -151,7 +151,7 @@ feature {ANY} -- Writing:
 			-- i<lower loop storage.put(p,i) strings.put(v,i) i:=i-1 end
 		end
 
-feature -- Accessing
+feature {ANY} -- Accessing
 	item (an_index: INTEGER): STRING is
 		local p: POINTER
 		do

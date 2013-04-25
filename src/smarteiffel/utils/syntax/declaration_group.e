@@ -23,7 +23,7 @@ class DECLARATION_GROUP
 inherit
    DECLARATION
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make
 
 feature {ANY}

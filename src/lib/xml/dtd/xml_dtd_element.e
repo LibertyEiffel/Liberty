@@ -12,7 +12,7 @@ insert
          out_in_tagged_out_memory
       end
 
-creation {XML_DTD_VALIDATOR}
+create {XML_DTD_VALIDATOR}
    make
 
 feature {ANY}

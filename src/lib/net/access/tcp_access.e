@@ -12,7 +12,7 @@ inherit
 insert
    SOCKET_PLUG_IN
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

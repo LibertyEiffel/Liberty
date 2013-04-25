@@ -12,7 +12,7 @@ inherit
 insert
    NATIVE_ARRAY_COLLECTOR[E_]
 
-creation {ANY}
+create {ANY}
    make, copy, from_collection2, from_collection, from_model, manifest_creation
 
 feature {ANY}

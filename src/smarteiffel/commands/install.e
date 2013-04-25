@@ -17,7 +17,7 @@ inherit
 insert
    INSTALL_GLOBALS
 
-creation {}
+create {}
    make
 
 feature {ANY}

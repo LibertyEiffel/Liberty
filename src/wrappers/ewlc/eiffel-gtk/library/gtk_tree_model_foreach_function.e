@@ -31,9 +31,9 @@ insert
 	ANY
 	GTK
 	
-creation make
+create {ANY} make
 	
-feature
+feature {ANY}
 	make (a_function: FUNCTION[TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER], BOOLEAN]) is
 		require gtk_initialized: gtk.is_initialized
 		do
@@ -48,7 +48,7 @@ feature {} --
 		alias "EiffelGtkTreeForeachFunc"
 		end 
 
-feature
+feature {ANY}
 	callback (model_ptr, path_ptr, iter_ptr, data: POINTER): INTEGER is 
 		local 
 			a_model: GTK_TREE_MODEL; 

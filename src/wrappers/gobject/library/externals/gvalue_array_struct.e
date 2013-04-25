@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gvalue_array_struct_set_n_values (a_structure: POINTER; a_value: NATURAL_32) is
+	gvalue_array_struct_set_n_values (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for n_values field of GVALUE_ARRAY_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gvalue_array_struct_set_n_prealloced (a_structure: POINTER; a_value: NATURAL_32) is
+	gvalue_array_struct_set_n_prealloced (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for n_prealloced field of GVALUE_ARRAY_STRUCT structure.
 			-- TODO: setter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	gvalue_array_struct_get_n_values (a_structure: POINTER): NATURAL_32 is
+	gvalue_array_struct_get_n_values (a_structure: POINTER): NATURAL is
 			-- Query for n_values field of GVALUE_ARRAY_STRUCT structure.
 			-- TODO: getter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gvalue_array_struct_get_n_prealloced (a_structure: POINTER): NATURAL_32 is
+	gvalue_array_struct_get_n_prealloced (a_structure: POINTER): NATURAL is
 			-- Query for n_prealloced field of GVALUE_ARRAY_STRUCT structure.
 			-- TODO: getter description
 

@@ -9,7 +9,7 @@ class PLAIN_WINDOW_EXAMPLE
 inherit
 	GTK_MAIN
 	
-creation
+create {ANY}
 	make
 	
 feature {} -- creation
@@ -21,7 +21,7 @@ feature {} -- creation
 			window.show
 			run_gtk_main_loop
 		end
-feature -- foo
+feature {ANY} -- foo
 	window: GTK_WINDOW
 			-- the window
 	

@@ -2,9 +2,9 @@ class EXAMPLE
 
 inherit PLUGGABLE_FACTORY[MY_PLUGIN]
 
-creation make
+create {ANY} make
 
-feature 
+feature {ANY} 
 	make is
 		do
 			my_plugin := get_new_pluggable("my-plugin.so")

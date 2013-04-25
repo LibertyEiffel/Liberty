@@ -54,7 +54,7 @@ feature {} -- External calls
 	-- guint       gtk_binding_parse_binding       (GScanner *scanner);
 
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkBindingSet)"

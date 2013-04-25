@@ -15,15 +15,17 @@ expanded class POSITION
 
 insert
    COMPARABLE
-      redefine is_equal
+      redefine is_equal, out_in_tagged_out_memory
       end
    GLOBALS
-      redefine is_equal
+      redefine is_equal, out_in_tagged_out_memory
       end
    PLATFORM
-      redefine is_equal
+      redefine is_equal, out_in_tagged_out_memory
       end
    HASHABLE
+      redefine out_in_tagged_out_memory
+      end
 
 feature {ANY}
    hash_code: INTEGER is
@@ -231,6 +233,11 @@ feature {ANY}
          end
       ensure
          Result = (path = other.path and line = other.line)
+      end
+
+   out_in_tagged_out_memory is
+      do
+         append_in(tagged_out_memory)
       end
 
 feature {EIFFEL_PARSER, CLASS_TEXT}

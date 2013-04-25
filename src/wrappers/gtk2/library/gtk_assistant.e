@@ -41,7 +41,7 @@ insert
 	G_OBJECT_FACTORY [GTK_WIDGET]
 	GTK_ASSISTANT_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -50,7 +50,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_assistant_new)
 		end
 	
-feature
+feature {ANY}
 	current_page: INTEGER is
 			-- The index (starting from 0) of the current page in the
 			-- assistant, if the assistant has no pages, it will be -1.
@@ -274,7 +274,7 @@ feature
 			gtk_assistant_update_buttons_state(handle)
 		end
 
-feature -- Child Properties
+feature {ANY} -- Child Properties
 	--    "complete"             gboolean              : Read / Write
 	--    "header-image"         GdkPixbuf             : Read / Write
 	--    "page-type"            GtkAssistantPageType  : Read / Write
@@ -382,7 +382,7 @@ feature -- Child Properties
 
 	-- Signal Details
 
-feature -- The "apply" signal
+feature {ANY} -- The "apply" signal
 
 	apply_signal_name: STRING is "apply"
 
@@ -419,7 +419,7 @@ feature -- The "apply" signal
 			apply_callback.connect (Current, a_procedure)
 		end
 
-feature --   The "cancel" signal
+feature {ANY} --   The "cancel" signal
 
 	-- void user_function (GtkAssistant *assistant, gpointer user_data)
 	-- : Run last
@@ -434,7 +434,7 @@ feature --   The "cancel" signal
 
 	--    --------------------------------------------------------------------------
 
-feature --   The "close" signal
+feature {ANY} --   The "close" signal
 
 	-- void user_function (GtkAssistant *assistant, gpointer user_data)
 	-- : Run last
@@ -451,7 +451,7 @@ feature --   The "close" signal
 
 	--    --------------------------------------------------------------------------
 
-feature --   The "prepare" signal
+feature {ANY} --   The "prepare" signal
 
 	-- void user_function (GtkAssistant *assistant, GtkWidget *page,
 	-- gpointer user_data) : Run last

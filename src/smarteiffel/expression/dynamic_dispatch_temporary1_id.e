@@ -15,7 +15,7 @@ class DYNAMIC_DISPATCH_TEMPORARY1_ID
 inherit
    NON_WRITTEN_EXPRESSION
 
-creation
+create {ANY}
    make
 
 feature {ANY}

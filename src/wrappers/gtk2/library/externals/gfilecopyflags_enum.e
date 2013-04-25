@@ -7,8 +7,8 @@ expanded class GFILECOPYFLAGS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_file_copy_all_metadata_low_level)  or else
@@ -20,7 +20,7 @@ feature -- Validity
 				(a_value = g_file_copy_target_default_perms_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_file_copy_all_metadata is
 		do
@@ -57,7 +57,7 @@ feature -- Setters
 			value := g_file_copy_target_default_perms_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_file_copy_all_metadata: BOOLEAN is
 		do
 			Result := (value=g_file_copy_all_metadata_low_level)

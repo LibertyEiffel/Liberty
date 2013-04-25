@@ -3,8 +3,8 @@
 expanded class XLINK_ACTUATE
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = xlink_actuate_none) or else 
@@ -13,7 +13,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_xlink_actuate_none is
 		do
 			value := xlink_actuate_none
@@ -30,7 +30,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_xlink_actuate_none: BOOLEAN is
 		do
 			Result := (value=xlink_actuate_none)

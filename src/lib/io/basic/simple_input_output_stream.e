@@ -11,7 +11,7 @@ class SIMPLE_INPUT_OUTPUT_STREAM
 inherit
    TERMINAL_INPUT_OUTPUT_STREAM
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

@@ -51,7 +51,7 @@ insert
 	GTK_IMAGE_TYPE
 		--GTK_STATUS_ICON_EXTERNALS
 
-creation
+create {ANY}
 	make,
 	make_from_pixbuf,
 	make_from_file,
@@ -105,7 +105,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_status_icon_new_from_icon_name(an_icon_name.to_external))
 		end
 
-feature
+feature {ANY}
 	set_from_pixbuf (a_pixbuf: GDK_PIXBUF) is
 			-- Display `a_pixbuf' See `make_from_pixbuf' for details.
 		require pixbuf_not_void: a_pixbuf /= Void
@@ -291,7 +291,7 @@ feature
 	-- orientation : 	return location for the orientation of the panel in which the status icon is embedded, or NULL. A panel at the top or bottom of the screen is horizontal, a panel at the left or right is vertical.
 	-- Returns : 	TRUE if the location information has been filled in
 
-feature -- TODO: Signals
+feature {ANY} -- TODO: Signals
 -- The "activate" signal
 
 -- void        user_function                  (GtkStatusIcon *status_icon,
@@ -358,7 +358,7 @@ feature -- TODO: Signals
 --                                             gint           size,
 --                                             gpointer       user_data)        : Run last
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkStatusIcon)"

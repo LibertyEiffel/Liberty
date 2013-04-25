@@ -6,7 +6,7 @@ class PROCESS_GROUP_NONE
 inherit
    PROCESS_GROUP
 
-creation {PROCESS_FACTORY}
+create {PROCESS_FACTORY}
    make
 
 feature {ANY}

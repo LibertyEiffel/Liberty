@@ -13,7 +13,7 @@ obsolete "In release 2.3, the new name for this class is MINIMAL_RANDOM_NUMBER_G
 inherit
    GEN_RAND
 
-creation {ANY}
+create {ANY}
    make, with_seed
 
 feature {ANY}

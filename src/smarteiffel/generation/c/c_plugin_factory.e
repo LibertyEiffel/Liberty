@@ -6,7 +6,7 @@ class C_PLUGIN_FACTORY
 inherit
    PLUGIN_FACTORY
 
-creation {COMPILE_TO_C}
+create {COMPILE_TO_C}
    make
 
 feature {SYSTEM_TOOLS}

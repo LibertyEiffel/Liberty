@@ -6,7 +6,7 @@ class SEDB_RUNNER
 inherit
    JOB
 
-creation {SE_DEBUG}
+create {SE_DEBUG}
    run
 
 feature {LOOP_ITEM}

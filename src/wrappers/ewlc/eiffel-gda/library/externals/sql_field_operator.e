@@ -3,8 +3,8 @@
 expanded class SQL_FIELD_OPERATOR
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = sql_plus) or else 
@@ -14,7 +14,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_plus is
 		do
 			value := sql_plus
@@ -36,7 +36,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_plus: BOOLEAN is
 		do
 			Result := (value=sql_plus)

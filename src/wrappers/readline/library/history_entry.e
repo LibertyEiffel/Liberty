@@ -8,8 +8,8 @@ inherit
 insert
 	HIST_ENTRY_STRUCT
 
-creation {READ_LINE_HISTORY} from_external_pointer
-feature 
+create {READ_LINE_HISTORY} from_external_pointer
+feature {ANY} 
 	line: FIXED_STRING is
 		do
 			create Result.from_external(hist_entry_struct_get_line(handle))

@@ -15,7 +15,7 @@ insert
 	ZMQ_EXTERNALS
 	ZMQ_STATUS
 
-feature 
+feature {ANY} 
 	from_external_pointer (a_pointer: POINTER) is
 		do
 			handle:=a_pointer
@@ -107,7 +107,7 @@ feature {ANY} -- Binding
 		if is_unsuccessful then throw(zmq_exception) end
 	end
 
-feature -- Options
+feature {ANY} -- Options
 	type: INTEGER_32 is
 		-- The type of Current socket. It is specified at creation time and cannot be modified afterwards.
 		

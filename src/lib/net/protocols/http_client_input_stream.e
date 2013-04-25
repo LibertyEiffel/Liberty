@@ -14,7 +14,7 @@ inherit
          end_of_input
       end
 
-creation {HTTP_PROTOCOL}
+create {HTTP_PROTOCOL}
    connect_to
 
 feature {ANY}

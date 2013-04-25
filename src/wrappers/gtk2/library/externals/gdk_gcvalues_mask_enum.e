@@ -7,8 +7,8 @@ expanded class GDK_GCVALUES_MASK_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := (a_value & (foreground_low_level | 
@@ -30,7 +30,7 @@ feature -- Validity
 				join_style_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_foreground is
 		do
@@ -202,7 +202,7 @@ feature -- Setters
 			value := value.bit_xor(join_style_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_foreground: BOOLEAN is
 		do
 			Result := (value=foreground_low_level)

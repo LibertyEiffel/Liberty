@@ -4,7 +4,7 @@ inherit
    ITERATOR[Y_]
    ANY_COROUTINE_ITERATOR
 
-creation {COROUTINE}
+create {COROUTINE}
    make
 
 feature {ANY}

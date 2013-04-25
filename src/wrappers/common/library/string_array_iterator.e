@@ -23,7 +23,7 @@ class STRING_ARRAY_ITERATOR
 
 inherit ITERATOR[STRING]
 
-creation make
+create {ANY} make
 
 feature {} -- Implementation and creation
 	make (an_array: STRING_ARRAY) is

@@ -13,6 +13,11 @@ class EIFFELTEST_SERVER
 insert
    COMMAND_LINE_TOOLS
    LOGGING
+   PROCESS_WAIT
+      rename
+         in as waitpid_in,
+         job as waitpid_job
+      end
 
 create {}
    make
@@ -40,6 +45,7 @@ feature {}
       do
          log.info.put_line(once "Server #(1) starting..." # port.out)
          create stack.make
+         stack.add_job(waitpid_job)
          create socket.make(port, agent stack.add_job, agent stack.break)
          stack.add_job(socket)
          log.info.put_line(once "Server #(1) started." # port.out)
@@ -50,14 +56,17 @@ feature {}
       local
          log_conf: LOG_CONFIGURATION
          conf: STRING_INPUT_STREAM
+         bd: BASIC_DIRECTORY; conf_file_name: STRING
       do
          parse_arguments
-         create conf.from_string(once "[
+         bd.compute_file_path_with(bd.current_working_directory, "eiffeltest_server-#(1).log" # port.out)
+         conf_file_name := bd.last_entry.twin
+         create conf.from_string("[
          log configuration
          root #(1)
          output
             default is
-               file "eiffeltest_server:#(3).log"
+               file "#(3)"
                rotated each day keeping 5
             end
          logger
@@ -66,7 +75,7 @@ feature {}
                level #(2)
             end
          end
-         ]" # generating_type # level # port.out)
+         ]" # generating_type # level # conf_file_name)
          log_conf.load(conf, Void, Void, agent main)
       end
 

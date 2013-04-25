@@ -3,8 +3,8 @@
 expanded class GDA_RENDERER_OPTIONS
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (some_flags: INTEGER): BOOLEAN is
 		do
 			Result := (some_flags & (gda_renderer_extra_pretty_sql | 
@@ -16,7 +16,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create is
 		-- Default creation feature; it leaves all the bits cleared.
 	do
@@ -83,7 +83,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_extra_pretty_sql: BOOLEAN is
 		do
 			Result := (value &gda_renderer_extra_pretty_sql).to_boolean

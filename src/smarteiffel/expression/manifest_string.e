@@ -16,10 +16,10 @@ inherit
       end
    HASHABLE
 
-creation {PARSER}
+create {PARSER}
    make
 
-creation {TOKEN_BUFFER, INTROSPECTION_HANDLER}
+create {TOKEN_BUFFER, INTROSPECTION_HANDLER}
    from_identifier
 
 feature {ANY}
@@ -105,7 +105,7 @@ feature {ANY}
          Result := Current
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          utf8_parser: UTF8_PARSER
       do
@@ -113,10 +113,10 @@ feature {ANY}
             create unicode_string.make(to_string.count * 2)
             utf8_parser.decode(to_string, unicode_string)
             if utf8_parser.first_error /= Void then
-               error_handler.append("Invalid unicode string at index ")
+               error_handler.append(once "Invalid unicode string at index ")
                error_handler.add_position(start_position)
                error_handler.append_integer(utf8_parser.first_error_index)
-               error_handler.append(" of this Unicode manifest string. ")
+               error_handler.append(once " of this Unicode manifest string. ")
                error_handler.append(utf8_parser.first_error)
                error_handler.print_as_error
             end

@@ -441,7 +441,7 @@ feature {} -- External calls using glib.h
 		external "C use <glib.h>"
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	string_escape (a_source, some_exceptions: STRING): STRING is
 			-- Escapes the special characters '\b', '\f', '\n', '\r', '\t', '\' and '"'

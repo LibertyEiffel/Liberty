@@ -12,7 +12,7 @@ inherit
 insert
    PLATFORM
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -153,72 +153,72 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          l, r: EXPRESSION; l_dt, r_dt: TYPE
       do
-         l := left_side.specialize_2(type)
-         r := right_side.specialize_2(type)
+         l := left_side.specialize_and_check(type)
+         r := right_side.specialize_and_check(type)
          l_dt := l.declaration_type
          r_dt := r.declaration_type
          if r.is_void then
             error_handler.add_position(right_side.start_position)
-            error_handler.append("Void cannot be the right-hand side of a ")
+            error_handler.append(once "Void cannot be the right-hand side of a ")
             if forced_flag then
-               error_handler.append("::= assignment (a forced assignment).")
+               error_handler.append(once "::= assignment (a forced assignment).")
             else
-               error_handler.append("?=  assignment (an assignment attempt).")
+               error_handler.append(once "?=  assignment (an assignment attempt).")
             end
             error_handler.print_as_fatal_error
          elseif l_dt.is_expanded then
-            error_handler.append("The left-hand side of ")
+            error_handler.append(once "The left-hand side of ")
             if forced_flag then
-               error_handler.append("::=")
+               error_handler.append(once "::=")
             else
-               error_handler.append("?=")
+               error_handler.append(once "?=")
             end
-            error_handler.append(" must not be expanded. (")
+            error_handler.append(once " must not be expanded. (")
             error_handler.add_expression(left_side)
-            error_handler.append(" is of type ")
+            error_handler.append(once " is of type ")
             error_handler.add_type(l_dt)
-            error_handler.append(".)")
+            error_handler.append(once ".)")
             error_handler.add_position(start_position)
             error_handler.print_as_fatal_error
          elseif not l_dt.can_be_assigned_to(r_dt) then
             error_handler.add_position(left_side.start_position)
             error_handler.add_position(right_side.start_position)
-            error_handler.append("Invalid ")
+            error_handler.append(once "Invalid ")
             if forced_flag then
-               error_handler.append("forced assignment (%"::=%").")
+               error_handler.append(once "forced assignment (%"::=%").")
             else
-               error_handler.append("assignment attempt (%"?=%").")
+               error_handler.append(once "assignment attempt (%"?=%").")
             end
-            error_handler.append(" The left-hand side expression must conform to the right-hand side. The expression ")
+            error_handler.append(once " The left-hand side expression must conform to the right-hand side. The expression ")
             error_handler.add_expression(left_side)
-            error_handler.append(" is of type ")
+            error_handler.append(once " is of type ")
             error_handler.append(l_dt.name.to_string)
-            error_handler.append(" while the expression ")
+            error_handler.append(once " while the expression ")
             error_handler.add_expression(right_side)
-            error_handler.append(" is of type ")
+            error_handler.append(once " is of type ")
             error_handler.append(r_dt.name.to_string)
-            error_handler.append(".")
+            error_handler.append(once ".")
             error_handler.print_as_fatal_error
          elseif r_dt.can_be_assigned_to(l_dt) and then left_side.written_declaration_type_mark.is_static then
             error_handler.add_position(left_side.start_position)
             error_handler.add_position(right_side.start_position)
-            error_handler.append("The expression ")
+            error_handler.append(once "The expression ")
             error_handler.add_expression(right_side)
-            error_handler.append(" which is of type ")
+            error_handler.append(once " which is of type ")
             error_handler.append(r_dt.name.to_string)
-            error_handler.append(" can be assigned into ")
+            error_handler.append(once " can be assigned into ")
             error_handler.add_expression(left_side)
-            error_handler.append(" which is of type ")
+            error_handler.append(once " which is of type ")
             error_handler.append(l_dt.name.to_string)
-            error_handler.append(" by using an ordinary %":=%" assignment ")
+            error_handler.append(once " by using an ordinary %":=%" assignment ")
             if forced_flag then
-               error_handler.append(" (%"::=%" is not necessary).")
+               error_handler.append(once " (%"::=%" is not necessary).")
             else
-               error_handler.append(" (%"?=%" is not necessary).")
+               error_handler.append(once " (%"?=%" is not necessary).")
             end
             error_handler.print_as_warning
          end

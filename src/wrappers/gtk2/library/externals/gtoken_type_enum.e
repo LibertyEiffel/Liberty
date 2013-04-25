@@ -7,8 +7,8 @@ expanded class GTOKEN_TYPE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = eof_low_level)  or else
@@ -37,7 +37,7 @@ feature -- Validity
 				(a_value = last_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_eof is
 		do
@@ -159,7 +159,7 @@ feature -- Setters
 			value := last_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	eof: BOOLEAN is
 		do
 			Result := (value=eof_low_level)

@@ -8,7 +8,7 @@ inherit
       redefine parse_extended_pattern
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {} -- parsing

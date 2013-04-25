@@ -1,7 +1,7 @@
 deferred class SHARED_LLVM
 	-- The shared objects of Low Level Virtual Machine infrastructure.
 
-feature 
+feature {ANY} 
 	global_context: LLVM_GLOBAL_CONTEXT is
 		-- The global context
 		once

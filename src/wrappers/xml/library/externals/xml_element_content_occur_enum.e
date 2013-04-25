@@ -7,8 +7,8 @@ expanded class XML_ELEMENT_CONTENT_OCCUR_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = once_external_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = plus_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_once_external is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := plus_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	once_external: BOOLEAN is
 		do
 			Result := (value=once_external_low_level)

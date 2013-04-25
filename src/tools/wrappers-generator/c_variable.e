@@ -7,7 +7,7 @@ inherit
 	TYPED_NODE
 	WRAPPER_FEATURE
 
-creation make
+create {ANY} make
 feature 
 	store is
 		do

@@ -7,15 +7,15 @@ expanded class GTEST_TRAP_FLAGS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := (a_value & (silence_stdout_low_level | 
 				inherit_stdin_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_silence_stdout is
 		do
@@ -37,7 +37,7 @@ feature -- Setters
 			value := value.bit_xor(inherit_stdin_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_silence_stdout: BOOLEAN is
 		do
 			Result := (value=silence_stdout_low_level)

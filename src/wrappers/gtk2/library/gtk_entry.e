@@ -35,7 +35,7 @@ insert
 	G_OBJECT_FACTORY [GTK_MENU]
 	GTK_ENTRY_EXTERNALS
 	
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 	
 feature {} -- Creation
 	make is
@@ -44,7 +44,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_entry_new)
 		end
 
-feature
+feature {ANY}
 	set_text (a_text: STRING) is
 			-- Sets the text in the widget to the given value, replacing
 			-- the current contents.
@@ -64,7 +64,7 @@ feature
 			-- freed, modified or stored.
 		end
 
-feature -- visibility
+feature {ANY} -- visibility
 	set_contents_visible is
 			-- Makes the contents of the entry visible.
 		do
@@ -102,7 +102,7 @@ feature -- visibility
 		do
 			gtk_entry_set_invisible_char (handle, a_unicode)
 		end
-feature -- maximum lenght
+feature {ANY} -- maximum lenght
 
 	max_length: INTEGER is
 			-- the maximum allowed length of the text in entry; 0 if
@@ -147,7 +147,7 @@ feature -- maximum lenght
 			gtk_entry_set_has_frame (handle, 0)
 		end
 
-feature -- 
+feature {ANY} -- 
 
 	width_chars: INTEGER is
 			-- number of chars to request space for, or negative if unset
@@ -194,7 +194,7 @@ feature --
 			Result := gtk_entry_get_invisible_char (handle)
 		end
 
-feature -- Alignment
+feature {ANY} -- Alignment
 	set_alignment (an_x_align: REAL) is
 			-- Sets the alignment for the contents of the entry. This
 			-- controls the horizontal positioning of the contents when
@@ -298,7 +298,7 @@ feature -- Alignment
 			create Result.from_external_pointer (gtk_entry_get_completion (handle))
 		end
 
-feature -- Property Details
+feature {ANY} -- Property Details
 	-- The "activates-default" property
 	
 	--   "activates-default"    gboolean              : Read / Write
@@ -399,7 +399,7 @@ feature -- Property Details
 -- Since 2.4
 -- Signal Details
 
-feature -- The "activate" signal
+feature {ANY} -- The "activate" signal
 
 	activate_signal_name: STRING is "activate"
 
@@ -424,7 +424,7 @@ feature -- The "activate" signal
 			activate_callback.connect (Current, a_procedure)
 		end
 
-feature -- The "backspace" signal
+feature {ANY} -- The "backspace" signal
 
 	backspace_signal_name: STRING is "backspace"
 
@@ -445,7 +445,7 @@ feature -- The "backspace" signal
 	-- PROCEDURE [ANYTUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
 	-- inspiration.
 
-feature -- The "copy-clipboard" signal
+feature {ANY} -- The "copy-clipboard" signal
 
 	copy_clipboard_signal_name: STRING is "copy-clipboard"
 
@@ -464,7 +464,7 @@ feature -- The "copy-clipboard" signal
 	-- PROCEDURE [ANYTUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
 	-- inspiration.
 
-feature -- The "cut-clipboard" signal
+feature {ANY} -- The "cut-clipboard" signal
 
 	cut_clipboard_signal_name: STRING is "cut-clipboard"
 
@@ -483,7 +483,7 @@ feature -- The "cut-clipboard" signal
 	-- PROCEDURE [ANYTUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
 	-- inspiration.
 
-feature -- The "delete-from-cursor" signal
+feature {ANY} -- The "delete-from-cursor" signal
 
 -- void        user_function                  (GtkEntry     *entry,
 --                                             GtkDeleteType arg1,
@@ -494,7 +494,7 @@ feature -- The "delete-from-cursor" signal
 -- arg1 : 	
 -- arg2 : 	
 -- user_data : 	user data set when the signal handler was connected.
-feature -- The "insert-at-cursor" signal
+feature {ANY} -- The "insert-at-cursor" signal
 
 -- void        user_function                  (GtkEntry *entry,
 --                                             gchar    *arg1,
@@ -504,7 +504,7 @@ feature -- The "insert-at-cursor" signal
 -- arg1 : 	
 	-- user_data : 	user data set when the signal handler was connected.
 	
-feature -- The "move-cursor" signal
+feature {ANY} -- The "move-cursor" signal
 
 -- void        user_function                  (GtkEntry       *entry,
 --                                             GtkMovementStep arg1,
@@ -518,7 +518,7 @@ feature -- The "move-cursor" signal
 -- arg3 : 	
 -- user_data : 	user data set when the signal handler was connected.
 
-feature -- The "paste-clipboard" signal
+feature {ANY} -- The "paste-clipboard" signal
 
 	paste_clipboard_signal_name: STRING is "paste-clipboard"
 
@@ -537,7 +537,7 @@ feature -- The "paste-clipboard" signal
 	-- PROCEDURE [ANYTUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
 	-- inspiration.
 
-feature -- The "populate-popup" signal
+feature {ANY} -- The "populate-popup" signal
 
 	populate_popup_signal_name: STRING is "populate-popup"
 
@@ -576,14 +576,14 @@ feature {} -- populate-popup signal implementation
 	-- user_data : 	user data set when the signal handler was 
 	-- connected.
 
-feature -- The "toggle-overwrite" signal
+feature {ANY} -- The "toggle-overwrite" signal
 
 -- void        user_function                  (GtkEntry *entry,
 --                                             gpointer  user_data)      : Run last / Action
 
 -- entry : 	the object which received the signal.
 -- user_data : 	user data set when the signal handler was connected.
-feature -- struct size
+feature {ANY} -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkEntry)"

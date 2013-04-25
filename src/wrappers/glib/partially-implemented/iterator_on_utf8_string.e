@@ -9,7 +9,7 @@ insert
 	GUNICODE_EXTERNALS
 	-- GUNICODE_MACROS
 
-creation {UTF8_STRING}
+create {UTF8_STRING}
 	make
 
 feature {}

@@ -9,7 +9,7 @@ class FILE_RESOURCE_LOCATOR
 inherit
    RESOURCE_LOCATOR
 
-creation {FILE_PROTOCOL}
+create {FILE_PROTOCOL}
    set_uri
 
 feature {FILE_PROTOCOL}

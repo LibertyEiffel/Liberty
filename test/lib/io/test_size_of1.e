@@ -17,7 +17,7 @@ feature {}
          i: INTEGER
       do
          i := file_tools.size_of("test_size_of1.e")
-         assert(i = 1825)
+         assert(i = 1875)
          i := file_tools.size_of("does_not_exists")
          assert(i < 0)
       end

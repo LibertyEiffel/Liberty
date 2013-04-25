@@ -31,7 +31,7 @@ deferred class LLVM_INSTRUCTION
 
 inherit LLVM_USER
 
-feature -- TODO: Important Public Members of the Instruction class
+feature {ANY} -- TODO: Important Public Members of the Instruction class
 	parent: LLVM_BASIC_BLOCK is
 		-- The parent block containing Current instruction
 	do

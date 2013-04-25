@@ -12,7 +12,7 @@ insert
          is_equal
       end
 
-creation {RUNNER_PLUGIN_FACTORY, FAKE_PLUGIN}
+create {RUNNER_PLUGIN_FACTORY, FAKE_PLUGIN}
    make
 
 feature {RUNNER_FACET}

@@ -26,7 +26,7 @@ inherit LINKED_LIST[C_TYPEDEF]
 
 insert SHARED_SETTINGS
 
-creation make
+create {ANY} make
 
 feature {ANY} 
 	emit_wrappers is

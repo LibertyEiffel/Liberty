@@ -32,7 +32,7 @@ deferred class CAIRO_EXTEND
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 
 	is_valid_extend (an_extend: INTEGER): BOOLEAN is
 		do

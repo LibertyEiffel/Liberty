@@ -12,7 +12,7 @@ deferred class LLVM_USER
 	-- This connection provides the use-def information in LLVM.
 
 inherit LLVM_VALUE
-feature -- TODO:Important Public Members of the User class
+feature {ANY} -- TODO:Important Public Members of the User class
 -- The User class exposes the operand list in two ways: through an index access interface and through an iterator based interface.
 -- 
 -- operand (an_index: NATURAL_32): LLVM_VALUE is Value *getOperand(unsigned i)

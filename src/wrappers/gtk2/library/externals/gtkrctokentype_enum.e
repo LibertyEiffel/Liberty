@@ -7,8 +7,8 @@ expanded class GTKRCTOKENTYPE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gtk_rc_token_active_low_level)  or else
@@ -53,7 +53,7 @@ feature -- Validity
 				(a_value = gtk_rc_token_ythickness_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gtk_rc_token_active is
 		do
@@ -255,7 +255,7 @@ feature -- Setters
 			value := gtk_rc_token_ythickness_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gtk_rc_token_active: BOOLEAN is
 		do
 			Result := (value=gtk_rc_token_active_low_level)

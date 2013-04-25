@@ -7,8 +7,8 @@ expanded class GTKRECENTMANAGERERROR_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gtk_recent_manager_error_invalid_encoding_low_level)  or else
@@ -20,7 +20,7 @@ feature -- Validity
 				(a_value = gtk_recent_manager_error_write_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gtk_recent_manager_error_invalid_encoding is
 		do
@@ -57,7 +57,7 @@ feature -- Setters
 			value := gtk_recent_manager_error_write_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gtk_recent_manager_error_invalid_encoding: BOOLEAN is
 		do
 			Result := (value=gtk_recent_manager_error_invalid_encoding_low_level)

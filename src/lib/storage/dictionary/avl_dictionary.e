@@ -12,7 +12,7 @@ class AVL_DICTIONARY[V_, K_ -> COMPARABLE]
 inherit
    ABSTRACT_AVL_DICTIONARY[V_, K_]
 
-creation {ANY}
+create {ANY}
    make, manifest_creation
 
 feature {}

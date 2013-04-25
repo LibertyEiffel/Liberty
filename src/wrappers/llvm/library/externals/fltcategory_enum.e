@@ -7,8 +7,8 @@ expanded class FLTCATEGORY_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = fc_infinity_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = fc_zero_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_fc_infinity is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := fc_zero_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_fc_infinity: BOOLEAN is
 		do
 			Result := (value=fc_infinity_low_level)

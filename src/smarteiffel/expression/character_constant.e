@@ -9,10 +9,10 @@ class CHARACTER_CONSTANT
 inherit
    BASE_TYPE_CONSTANT
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make
 
-creation {ANY}
+create {ANY}
    with
 
 feature {ANY}

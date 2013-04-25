@@ -33,10 +33,10 @@ insert
 	AV_CODEC_EXTERNALS
 	AV_CODEC_IDS
 
-creation
+create {ANY}
 	from_external_pointer
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	open (a_context: AV_CODEC_CONTEXT): BOOLEAN is
 		require
@@ -46,7 +46,7 @@ feature -- Operations
 			Result := a_context.open (Current)
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	name: STRING is
 		do
@@ -54,7 +54,7 @@ feature -- Access
 		end
 
 
-feature -- Size
+feature {ANY} -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <avformat.h>"

@@ -13,9 +13,9 @@ creation {ANY}
 feature {ANY}
    make is
       local
-         toto: STRING
+         toto: STRING; e: like exception
       do
-         -- A Void STRING must never pass an inspect
+         -- A Void STRING must never pass an inspect (crash -- note: -boost yields a segfault)
          inspect
             toto
          when "toto" then
@@ -23,7 +23,8 @@ feature {ANY}
          else
          end
       rescue
-         assert(exception = Incorrect_inspect_value)
+         e := exception
+         assert(e = Incorrect_inspect_value)
          toto := "foo"
          retry
       end

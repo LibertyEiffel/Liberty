@@ -6,7 +6,7 @@ class C_SPLITTER_LEGACY_ITERATOR
 inherit
    ITERATOR[STRING]
 
-creation {C_SPLITTER_LEGACY}
+create {C_SPLITTER_LEGACY}
    make
 
 feature {ANY}

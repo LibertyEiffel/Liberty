@@ -31,9 +31,9 @@ inherit
 insert
 	GDK_CURSOR_EXTERNALS
 
-creation from_type, from_external_cursor
+create {ANY} from_type, from_external_cursor
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gdk/gdk.h>"
@@ -61,7 +61,7 @@ feature {} -- Creation
 			dummy := gdk_cursor_ref (a_cursor)
 		end
 
-feature -- Disposing
+feature {ANY} -- Disposing
 
 	dispose is
 		do
@@ -69,7 +69,7 @@ feature -- Disposing
 			handle:= default_pointer -- null
 		end
 
-feature
+feature {ANY}
 
 --typedef struct {
 --  GdkCursorType type;

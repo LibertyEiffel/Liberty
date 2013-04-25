@@ -60,7 +60,7 @@ feature {} -- Creation
 			-- G_OPTION_ARG_DOUBLE         gdouble
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	long_name: FIXED_STRING is
 			-- The long name of an option can be used to specify it in a
 			-- commandline as --long_name. Every option must have a long

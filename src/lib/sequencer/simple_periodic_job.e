@@ -10,7 +10,7 @@ class SIMPLE_PERIODIC_JOB
 inherit
    PERIODIC_JOB
 
-creation {ANY}
+create {ANY}
    set_work
 
 feature {ANY}

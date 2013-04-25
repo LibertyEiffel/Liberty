@@ -24,6 +24,11 @@ feature {ANY}
          Result := port
       end
 
+   pid: INTEGER is
+      do
+         Result := proc.id
+      end
+
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET) is
       local
@@ -34,7 +39,7 @@ feature {LOOP_ITEM}
             timeout := t.timeout(500)
             events.expect(timeout)
          else
-            timeout := t.timeout(5000)
+            timeout := t.timeout(60_000)
             events.expect(timeout)
             if busy then
                events.expect(channel.event_can_read)
@@ -88,9 +93,12 @@ feature {LOOP_ITEM}
                on_reply.call([port, command, reply])
                reply := Void
                command := Void
-               channel.disconnect -- ???
+               if channel.is_connected then
+                  channel.disconnect -- ???
+               end
                if commands.is_empty(Current) then
-                  done := True
+                  log.info.put_line(once "Facade #(1): no more commands" # port.out)
+                  set_done(0)
                else
                   open_channel
                end
@@ -193,7 +201,11 @@ feature {}
             set_done(proc.status)
          else
             channel := access.stream
-            log.info.put_line(once "Facade #(1): openned channel, is_connected: #(2)" # port.out # channel.is_connected.out)
+            if channel = Void then
+               log.info.put_line(once "Facade #(1): channel not opened" # port.out # channel.is_connected.out)
+            else
+               log.info.put_line(once "Facade #(1): openned channel, is_connected: #(2)" # port.out # channel.is_connected.out)
+            end
          end
       end
 
@@ -213,6 +225,7 @@ feature {}
          log.info.put_line(once "Facade #(1): done: #(2)" # port.out # status.out)
          on_done.call([port, status])
          log.trace.put_line(once "Facade #(1): finished" # port.out)
+         done := True
       end
 
 invariant
@@ -220,6 +233,7 @@ invariant
    on_reply /= Void
    on_done /= Void
    commands /= Void
+   proc /= Void
 
 end -- class EIFFELTEST_CLIENT_SOCKET
 --

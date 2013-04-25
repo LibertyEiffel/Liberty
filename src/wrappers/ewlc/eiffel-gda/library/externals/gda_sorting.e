@@ -3,8 +3,8 @@
 expanded class GDA_SORTING
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_sorting_ascending) or else 
@@ -12,7 +12,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_gda_sorting_ascending is
 		do
 			value := gda_sorting_ascending
@@ -24,7 +24,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gda_sorting_ascending: BOOLEAN is
 		do
 			Result := (value=gda_sorting_ascending)

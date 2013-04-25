@@ -7,8 +7,8 @@ expanded class GTKPROGRESSBARORIENTATION_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gtk_progress_bottom_to_top_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = gtk_progress_top_to_bottom_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gtk_progress_bottom_to_top is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := gtk_progress_top_to_bottom_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gtk_progress_bottom_to_top: BOOLEAN is
 		do
 			Result := (value=gtk_progress_bottom_to_top_low_level)

@@ -1,6 +1,6 @@
 class EXTERNAL_TYPE
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make
 
 feature {ANY}

@@ -17,7 +17,7 @@ feature {ANY}
          -- instruction was parsed after the other. The `eiffel_parser_stamp' is used to `unlock'
          -- temporary INTERNAL_C_LOCAL.
 
-   specialize_2 (type: TYPE): INSTRUCTION is
+   specialize_and_check (type: TYPE): INSTRUCTION is
       deferred
       end
 

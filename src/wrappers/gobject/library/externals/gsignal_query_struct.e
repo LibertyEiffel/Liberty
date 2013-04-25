@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gsignal_query_struct_set_signal_id (a_structure: POINTER; a_value: NATURAL_32) is
+	gsignal_query_struct_set_signal_id (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for signal_id field of GSIGNAL_QUERY_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gsignal_query_struct_set_itype (a_structure: POINTER; a_value: NATURAL_32) is
+	gsignal_query_struct_set_itype (a_structure: POINTER; a_value: like long_unsigned) is
 			-- Setter for itype field of GSIGNAL_QUERY_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gsignal_query_struct_set_return_type (a_structure: POINTER; a_value: NATURAL_32) is
+	gsignal_query_struct_set_return_type (a_structure: POINTER; a_value: like long_unsigned) is
 			-- Setter for return_type field of GSIGNAL_QUERY_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gsignal_query_struct_set_n_params (a_structure: POINTER; a_value: NATURAL_32) is
+	gsignal_query_struct_set_n_params (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for n_params field of GSIGNAL_QUERY_STRUCT structure.
 			-- TODO: setter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	gsignal_query_struct_get_signal_id (a_structure: POINTER): NATURAL_32 is
+	gsignal_query_struct_get_signal_id (a_structure: POINTER): NATURAL is
 			-- Query for signal_id field of GSIGNAL_QUERY_STRUCT structure.
 			-- TODO: getter description
 
@@ -118,7 +118,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gsignal_query_struct_get_itype (a_structure: POINTER): NATURAL_32 is
+	gsignal_query_struct_get_itype (a_structure: POINTER): like long_unsigned is
 			-- Query for itype field of GSIGNAL_QUERY_STRUCT structure.
 			-- TODO: getter description
 
@@ -142,7 +142,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gsignal_query_struct_get_return_type (a_structure: POINTER): NATURAL_32 is
+	gsignal_query_struct_get_return_type (a_structure: POINTER): like long_unsigned is
 			-- Query for return_type field of GSIGNAL_QUERY_STRUCT structure.
 			-- TODO: getter description
 
@@ -154,7 +154,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gsignal_query_struct_get_n_params (a_structure: POINTER): NATURAL_32 is
+	gsignal_query_struct_get_n_params (a_structure: POINTER): NATURAL is
 			-- Query for n_params field of GSIGNAL_QUERY_STRUCT structure.
 			-- TODO: getter description
 

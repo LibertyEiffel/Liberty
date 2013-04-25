@@ -9,7 +9,7 @@ inherit
    REGULAR_EXPRESSION_ITEM
    REGULAR_EXPRESSION_ITEM_GLOBALS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

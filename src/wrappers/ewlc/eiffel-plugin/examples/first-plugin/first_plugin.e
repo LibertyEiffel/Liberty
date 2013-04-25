@@ -3,9 +3,9 @@ class FIRST_PLUGIN
 
 inherit MY_PLUGIN
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	make is
 		do
 			value  := 17 000

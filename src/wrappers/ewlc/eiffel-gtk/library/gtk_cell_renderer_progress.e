@@ -25,7 +25,7 @@ class GTK_CELL_RENDERER_PROGRESS
 
 inherit GTK_CELL_RENDERER
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- size
 	struct_size: INTEGER is
@@ -40,12 +40,12 @@ feature {} -- Creation
 			from_external_pointer (gtk_cell_renderer_progress_new)
 		end 
 
-feature -- Properties
+feature {ANY} -- Properties
 			
 --   "text"                 gchararray            : Read / Write
 --   "value"                gint                  : Read / Write
 -- Property Details
-feature -- The "text" property
+feature {ANY} -- The "text" property
 	text: STRING is
 			-- The "text" property determines the label which will be
 			-- drawn over the progress bar. Setting this property to Void
@@ -64,7 +64,7 @@ feature -- The "text" property
 			set_property (text_property_name, create {G_VALUE}.from_string(a_text))
 		end
 
-feature -- The "value" property
+feature {ANY} -- The "value" property
 	value: INTEGER is
 			-- The "value" property determines the percentage to which
 			-- the progress bar will be "filled in".

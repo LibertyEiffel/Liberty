@@ -7,8 +7,8 @@ expanded class PANGO_WRAP_MODE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = word_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = word_char_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_word is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := word_char_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	word: BOOLEAN is
 		do
 			Result := (value=word_low_level)

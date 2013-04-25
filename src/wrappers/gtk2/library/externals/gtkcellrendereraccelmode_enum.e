@@ -7,15 +7,15 @@ expanded class GTKCELLRENDERERACCELMODE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gtk_cell_renderer_accel_mode_gtk_low_level)  or else
 				(a_value = gtk_cell_renderer_accel_mode_other_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gtk_cell_renderer_accel_mode_gtk is
 		do
@@ -27,7 +27,7 @@ feature -- Setters
 			value := gtk_cell_renderer_accel_mode_other_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gtk_cell_renderer_accel_mode_gtk: BOOLEAN is
 		do
 			Result := (value=gtk_cell_renderer_accel_mode_gtk_low_level)

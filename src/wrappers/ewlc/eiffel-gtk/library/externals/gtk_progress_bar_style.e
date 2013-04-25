@@ -25,7 +25,7 @@ deferred class GTK_PROGRESS_BAR_STYLE
 	
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_gtk_progress_bar_style (a_style :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_style = gtk_progress_continuous) or else

@@ -12,7 +12,7 @@ class EXT_AVL_SET_NODE[E_]
 inherit
    ABSTRACT_AVL_SET_NODE[E_]
 
-creation {EXT_AVL_SET}
+create {EXT_AVL_SET}
    make
 
 feature {}

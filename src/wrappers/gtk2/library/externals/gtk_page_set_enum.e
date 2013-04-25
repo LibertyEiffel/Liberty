@@ -7,8 +7,8 @@ expanded class GTK_PAGE_SET_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = all_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = odd_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_all is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := odd_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	all: BOOLEAN is
 		do
 			Result := (value=all_low_level)

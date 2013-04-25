@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gsignal_invocation_hint_struct_set_signal_id (a_structure: POINTER; a_value: NATURAL_32) is
+	gsignal_invocation_hint_struct_set_signal_id (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for signal_id field of GSIGNAL_INVOCATION_HINT_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gsignal_invocation_hint_struct_set_detail (a_structure: POINTER; a_value: NATURAL_32) is
+	gsignal_invocation_hint_struct_set_detail (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for detail field of GSIGNAL_INVOCATION_HINT_STRUCT structure.
 			-- TODO: setter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	gsignal_invocation_hint_struct_get_signal_id (a_structure: POINTER): NATURAL_32 is
+	gsignal_invocation_hint_struct_get_signal_id (a_structure: POINTER): NATURAL is
 			-- Query for signal_id field of GSIGNAL_INVOCATION_HINT_STRUCT structure.
 			-- TODO: getter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gsignal_invocation_hint_struct_get_detail (a_structure: POINTER): NATURAL_32 is
+	gsignal_invocation_hint_struct_get_detail (a_structure: POINTER): NATURAL is
 			-- Query for detail field of GSIGNAL_INVOCATION_HINT_STRUCT structure.
 			-- TODO: getter description
 

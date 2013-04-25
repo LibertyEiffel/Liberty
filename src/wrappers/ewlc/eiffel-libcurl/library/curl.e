@@ -33,10 +33,10 @@ inherit
 insert
 	CURL_EXTERNALS
 		
-creation
+create {ANY}
 	make
 
-feature -- Size
+feature {ANY} -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <curl/curl.h>"
@@ -118,7 +118,7 @@ feature {} -- Destruction
 			handle := default_pointer
 		end
 
-feature -- Representation
+feature {ANY} -- Representation
 
 	is_valid: BOOLEAN is
 		do
@@ -195,7 +195,7 @@ feature {} -- Representation
 			end
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	set_write_callback (a_function: FUNCTION [ANY, TUPLE [NATIVE_ARRAY [CHARACTER], INTEGER, INTEGER], INTEGER]) is
 		require
@@ -235,7 +235,7 @@ feature -- Operations
 			error_code := curl_easy_perform (handle)
 		end
 
-feature -- set_option_xxx (option: INTEGER; x: XXX)
+feature {ANY} -- set_option_xxx (option: INTEGER; x: XXX)
 
 		-- curl_easy_setopt() is used to tell libcurl how to behave. By using the
 		-- appropriate options to curl_easy_setopt, you can change libcurl's
@@ -378,7 +378,7 @@ feature -- set_option_xxx (option: INTEGER; x: XXX)
 			is_valid
 		end
 
-feature -- get_info_XXX (info: INTEGER): XXX
+feature {ANY} -- get_info_XXX (info: INTEGER): XXX
 
 		-- Request internal information from the curl session with this function.
 		-- The third argument MUST be a pointer to a long, a pointer to a char *, a

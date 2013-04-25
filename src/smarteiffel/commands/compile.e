@@ -9,7 +9,7 @@ class COMPILE
 inherit
    COMMAND_LINE_TOOLS
 
-creation {}
+create {}
    make
 
 feature {ANY}
@@ -33,8 +33,8 @@ feature {ANY}
                              compiler is doing
 
       Warning levels:
-        -no_style_warning   Don't print warnings about style violations
-        -no_warning         Don't print any warnings (implies -no_style_warning)
+        -style_warning      Do print warnings about style violations
+        -no_warning         Don't print any warnings
 
       Optimization and debugging levels (specify at most one; default is -all_check):
         -boost              Enable all optimizations,
@@ -104,10 +104,6 @@ feature {}
             system_tools.append_command_path_to(command, once "compile_to_c")
          end
          max_process_count := system_tools.config.jobs
-         if max_process_count = 0 then
-            -- not defined in ini file
-            max_process_count := 1
-         end
          if ace_file_mode then
             from
                argi := 1
@@ -355,7 +351,7 @@ feature {}
    is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
       do
          Result := is_version_flag(arg)
-            or else is_no_style_warning_flag(arg)
+            or else is_style_warning_flag(arg)
             or else is_no_warning_flag(arg)
             or else is_verbose_flag(arg)
             or else is_relax_flag(arg)

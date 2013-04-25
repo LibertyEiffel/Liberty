@@ -3,153 +3,131 @@
 
 expanded class GSPAWN_FLAGS_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := (a_value & (leave_descriptors_open_low_level | 
-				search_path_low_level | 
-				stdout_to_dev_null_low_level | 
-				stderr_to_dev_null_low_level | 
-				child_inherits_stdin_low_level | 
-				file_and_argv_zero_low_level)).to_boolean
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := (a_value & (g_spawn_child_inherits_stdin_low_level | 
+				g_spawn_file_and_argv_zero_low_level | 
+				g_spawn_leave_descriptors_open_low_level | 
+				g_spawn_search_path_low_level | 
+				g_spawn_search_path_from_envp_low_level | 
+				g_spawn_stderr_to_dev_null_low_level | 
+				g_spawn_stdout_to_dev_null_low_level)).to_boolean
 		end
 
 feature -- Setters
 	default_create,
-	set_leave_descriptors_open is
+	set_g_spawn_child_inherits_stdin is
 		do
-			value := value.bit_or(leave_descriptors_open_low_level)
+			value := value.bit_or(g_spawn_child_inherits_stdin_low_level)
 		end
 
-	unset_leave_descriptors_open is
+	unset_g_spawn_child_inherits_stdin is
 		do
-			value := value.bit_xor(leave_descriptors_open_low_level)
+			value := value.bit_xor(g_spawn_child_inherits_stdin_low_level)
 		end
 
-	set_search_path is
+	set_g_spawn_file_and_argv_zero is
 		do
-			value := value.bit_or(search_path_low_level)
+			value := value.bit_or(g_spawn_file_and_argv_zero_low_level)
 		end
 
-	unset_search_path is
+	unset_g_spawn_file_and_argv_zero is
 		do
-			value := value.bit_xor(search_path_low_level)
+			value := value.bit_xor(g_spawn_file_and_argv_zero_low_level)
 		end
 
-	set_stdout_to_dev_null is
+	set_g_spawn_leave_descriptors_open is
 		do
-			value := value.bit_or(stdout_to_dev_null_low_level)
+			value := value.bit_or(g_spawn_leave_descriptors_open_low_level)
 		end
 
-	unset_stdout_to_dev_null is
+	unset_g_spawn_leave_descriptors_open is
 		do
-			value := value.bit_xor(stdout_to_dev_null_low_level)
+			value := value.bit_xor(g_spawn_leave_descriptors_open_low_level)
 		end
 
-	set_stderr_to_dev_null is
+	set_g_spawn_search_path is
 		do
-			value := value.bit_or(stderr_to_dev_null_low_level)
+			value := value.bit_or(g_spawn_search_path_low_level)
 		end
 
-	unset_stderr_to_dev_null is
+	unset_g_spawn_search_path is
 		do
-			value := value.bit_xor(stderr_to_dev_null_low_level)
+			value := value.bit_xor(g_spawn_search_path_low_level)
 		end
 
-	set_child_inherits_stdin is
+	set_g_spawn_search_path_from_envp is
 		do
-			value := value.bit_or(child_inherits_stdin_low_level)
+			value := value.bit_or(g_spawn_search_path_from_envp_low_level)
 		end
 
-	unset_child_inherits_stdin is
+	unset_g_spawn_search_path_from_envp is
 		do
-			value := value.bit_xor(child_inherits_stdin_low_level)
+			value := value.bit_xor(g_spawn_search_path_from_envp_low_level)
 		end
 
-	set_file_and_argv_zero is
+	set_g_spawn_stderr_to_dev_null is
 		do
-			value := value.bit_or(file_and_argv_zero_low_level)
+			value := value.bit_or(g_spawn_stderr_to_dev_null_low_level)
 		end
 
-	unset_file_and_argv_zero is
+	unset_g_spawn_stderr_to_dev_null is
 		do
-			value := value.bit_xor(file_and_argv_zero_low_level)
+			value := value.bit_xor(g_spawn_stderr_to_dev_null_low_level)
+		end
+
+	set_g_spawn_stdout_to_dev_null is
+		do
+			value := value.bit_or(g_spawn_stdout_to_dev_null_low_level)
+		end
+
+	unset_g_spawn_stdout_to_dev_null is
+		do
+			value := value.bit_xor(g_spawn_stdout_to_dev_null_low_level)
 		end
 
 feature -- Queries
-	is_leave_descriptors_open: BOOLEAN is
+	is_g_spawn_child_inherits_stdin: BOOLEAN is
 		do
-			Result := (value=leave_descriptors_open_low_level)
+			Result := (value=g_spawn_child_inherits_stdin_low_level)
 		end
 
-	is_search_path: BOOLEAN is
+	is_g_spawn_file_and_argv_zero: BOOLEAN is
 		do
-			Result := (value=search_path_low_level)
+			Result := (value=g_spawn_file_and_argv_zero_low_level)
 		end
 
-	is_stdout_to_dev_null: BOOLEAN is
+	is_g_spawn_leave_descriptors_open: BOOLEAN is
 		do
-			Result := (value=stdout_to_dev_null_low_level)
+			Result := (value=g_spawn_leave_descriptors_open_low_level)
 		end
 
-	is_stderr_to_dev_null: BOOLEAN is
+	is_g_spawn_search_path: BOOLEAN is
 		do
-			Result := (value=stderr_to_dev_null_low_level)
+			Result := (value=g_spawn_search_path_low_level)
 		end
 
-	is_child_inherits_stdin: BOOLEAN is
+	is_g_spawn_search_path_from_envp: BOOLEAN is
 		do
-			Result := (value=child_inherits_stdin_low_level)
+			Result := (value=g_spawn_search_path_from_envp_low_level)
 		end
 
-	is_file_and_argv_zero: BOOLEAN is
+	is_g_spawn_stderr_to_dev_null: BOOLEAN is
 		do
-			Result := (value=file_and_argv_zero_low_level)
+			Result := (value=g_spawn_stderr_to_dev_null_low_level)
+		end
+
+	is_g_spawn_stdout_to_dev_null: BOOLEAN is
+		do
+			Result := (value=g_spawn_stdout_to_dev_null_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	leave_descriptors_open_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module: "plugin"
- 			feature_name: "G_SPAWN_LEAVE_DESCRIPTORS_OPEN"
- 			}"
- 		end
-
-	search_path_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module: "plugin"
- 			feature_name: "G_SPAWN_SEARCH_PATH"
- 			}"
- 		end
-
-	stdout_to_dev_null_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module: "plugin"
- 			feature_name: "G_SPAWN_STDOUT_TO_DEV_NULL"
- 			}"
- 		end
-
-	stderr_to_dev_null_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module: "plugin"
- 			feature_name: "G_SPAWN_STDERR_TO_DEV_NULL"
- 			}"
- 		end
-
-	child_inherits_stdin_low_level: INTEGER is
+	g_spawn_child_inherits_stdin_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -158,12 +136,57 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	file_and_argv_zero_low_level: INTEGER is
+	g_spawn_file_and_argv_zero_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module: "plugin"
  			feature_name: "G_SPAWN_FILE_AND_ARGV_ZERO"
+ 			}"
+ 		end
+
+	g_spawn_leave_descriptors_open_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module: "plugin"
+ 			feature_name: "G_SPAWN_LEAVE_DESCRIPTORS_OPEN"
+ 			}"
+ 		end
+
+	g_spawn_search_path_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module: "plugin"
+ 			feature_name: "G_SPAWN_SEARCH_PATH"
+ 			}"
+ 		end
+
+	g_spawn_search_path_from_envp_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module: "plugin"
+ 			feature_name: "G_SPAWN_SEARCH_PATH_FROM_ENVP"
+ 			}"
+ 		end
+
+	g_spawn_stderr_to_dev_null_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module: "plugin"
+ 			feature_name: "G_SPAWN_STDERR_TO_DEV_NULL"
+ 			}"
+ 		end
+
+	g_spawn_stdout_to_dev_null_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module: "plugin"
+ 			feature_name: "G_SPAWN_STDOUT_TO_DEV_NULL"
  			}"
  		end
 

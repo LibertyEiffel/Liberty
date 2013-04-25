@@ -3,10 +3,10 @@ class IMAGES
 inherit 
 	GTK_MAIN
 
-creation 
+create {ANY} 
 	make
 
-feature
+feature {ANY}
 	
 	image: GTK_IMAGE
 

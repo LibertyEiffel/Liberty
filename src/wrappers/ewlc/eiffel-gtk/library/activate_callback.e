@@ -30,9 +30,9 @@ inherit
 insert
 	G_OBJECT_FACTORY [W]
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	object: W
 
 	callback (instance: POINTER) is 

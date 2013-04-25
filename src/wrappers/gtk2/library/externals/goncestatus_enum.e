@@ -7,8 +7,8 @@ expanded class GONCESTATUS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_once_status_notcalled_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = g_once_status_ready_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_once_status_notcalled is
 		do
@@ -33,7 +33,7 @@ feature -- Setters
 			value := g_once_status_ready_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_once_status_notcalled: BOOLEAN is
 		do
 			Result := (value=g_once_status_notcalled_low_level)

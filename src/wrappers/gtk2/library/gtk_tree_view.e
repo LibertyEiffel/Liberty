@@ -30,7 +30,7 @@ insert
 	GTK_TREE_VIEW_EXTERNALS
 	GTK_TREE_VIEW_DROP_POSITION
 
-creation make, with_model, from_external_pointer
+create {ANY} make, with_model, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -49,7 +49,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_tree_view_new_with_model (a_model.handle))
 		end
 
-feature
+feature {ANY}
 	model: GTK_TREE_MODEL is
 			-- The model the GtkTreeView is based on. Void if the model
 			-- is unset.
@@ -73,7 +73,7 @@ feature
 			gtk_tree_view_set_model (handle, default_pointer)
 		end
 
-feature
+feature {ANY}
 	selection: GTK_TREE_SELECTION is
 			-- the GtkTreeSelection associated with tree view.
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_TREE_SELECTION]
@@ -684,7 +684,7 @@ feature
 	-- wy : 	return location for widget Y coordinate
 	-- gtk_tree_view_enable_model_drag_dest ()
 
-feature -- Drag n' Drop
+feature {ANY} -- Drag n' Drop
 
 	enable_model_drag_dest (a_target: GTK_TARGET_ENTRY; some_actions: INTEGER) is
 			-- Turns Current into a drop destination for automatic DND.
@@ -800,7 +800,7 @@ feature -- Drag n' Drop
 			create Result.from_external_pointer (c_ptr)
 		end
 
-feature -- Search
+feature {ANY} -- Search
 
 	-- gtk_tree_view_set_enable_search ()
 
@@ -1250,7 +1250,7 @@ feature -- Search
 	-- user_data : 	user data set when the signal handler was connected.
 	-- Returns : 	
 
-feature -- "unselect-all" signal
+feature {ANY} -- "unselect-all" signal
 	unselect_all_signal_name: STRING is "unselect-all"
 		-- "unselect-all"
 		--             gboolean    user_function      (GtkTreeView *treeview,
@@ -1537,7 +1537,7 @@ feature -- "unselect-all" signal
 	--             void        user_function      (GtkTreeView *treeview,
 	--                                             gpointer user_data);
 
-feature -- The "cursor_changed" signal
+feature {ANY} -- The "cursor_changed" signal
 	-- "cursor-changed"
 	--             void        user_function      (GtkTreeView *treeview,
 	--                                             gpointer user_data);
@@ -1563,7 +1563,7 @@ feature -- The "cursor_changed" signal
 			cursor_changed_callback.connect (Current, a_procedure)
 		end
 
-feature -- "expand-collapse-cursor-row"
+feature {ANY} -- "expand-collapse-cursor-row"
 	expand_collapse_cursor_row_signal_name: STRING is "expand-collapse-cursor-row"
 			--             gboolean    user_function      (GtkTreeView *treeview,
 			--                                             gboolean     arg1,
@@ -1604,7 +1604,7 @@ feature -- "expand-collapse-cursor-row"
 	--                                             gint arg2,
 	--                                             gpointer user_data);
 
-feature -- The "row_activated" signal
+feature {ANY} -- The "row_activated" signal
 	row_activated_signal_name: STRING is "row-activated"
 		-- "row-activated"
 		--             void        user_function      (GtkTreeView *treeview,
@@ -1633,7 +1633,7 @@ feature -- The "row_activated" signal
 			row_activated_callback.connect (Current, a_procedure)
 		end
 
-feature -- The "row_collapsed" signal
+feature {ANY} -- The "row_collapsed" signal
 	row_collapsed_signal_name: STRING is "row-collapsed"
 			--             void        user_function      (GtkTreeView *treeview,
 			--                                             GtkTreeIter *arg1,
@@ -1661,7 +1661,7 @@ feature -- The "row_collapsed" signal
 			row_collapsed_callback.connect (Current, a_procedure)
 		end
 
-feature -- The "row_expanded" signal
+feature {ANY} -- The "row_expanded" signal
 	row_expanded_signal_name: STRING is "row-expanded"
 			--             void        user_function      (GtkTreeView *treeview,
 			--                                             GtkTreeIter *arg1,
@@ -1689,7 +1689,7 @@ feature -- The "row_expanded" signal
 			row_expanded_callback.connect (Current, a_procedure)
 		end
 
-feature
+feature {ANY}
 	-- "select-all"
 	--             gboolean    user_function      (GtkTreeView *treeview,
 	--                                             gpointer user_data);
@@ -2899,7 +2899,7 @@ feature
 	-- See Also
 
 	-- GtkTreeViewColumn, GtkTreeSelection, GtkTreeDnd, GtkTreeMode, GtkTreeSortable, GtkTreeModelSort, GtkListStore, GtkTreeStore, GtkCellRenderer, GtkCellEditable, GtkCellRendererPixbuf, GtkCellRendererText, GtkCellRendererToggle
-feature -- struct size
+feature {ANY} -- struct size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

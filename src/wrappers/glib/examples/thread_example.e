@@ -1,8 +1,8 @@
 class THREAD_EXAMPLE
 
-creation make
+create {ANY} make
 
-feature 
+feature {ANY} 
 	make is
 		do
 			print("Creating threads...%N")

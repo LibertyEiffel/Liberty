@@ -12,7 +12,7 @@ insert
 	GSL_ERROR_CODES
 	EXCEPTIONS export {} all end
 
-feature
+feature {ANY}
 	err_code: INTEGER_32
 		-- error code
 

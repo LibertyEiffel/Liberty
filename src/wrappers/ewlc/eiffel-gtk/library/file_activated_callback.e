@@ -28,13 +28,13 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_FACTORY [GTK_FILE_CHOOSER]
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 
 	object: GTK_FILE_CHOOSER
 
-feature
+feature {ANY}
 	callback (instance: POINTER) is
 		do
 			debug

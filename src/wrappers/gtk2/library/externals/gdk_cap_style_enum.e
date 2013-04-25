@@ -7,8 +7,8 @@ expanded class GDK_CAP_STYLE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = not_last_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = projecting_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_not_last is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := projecting_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	not_last: BOOLEAN is
 		do
 			Result := (value=not_last_low_level)

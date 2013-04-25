@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_fits_pointer (a_value: POINTER): INTEGER_32 is
+	g_value_fits_pointer (a_value: POINTER): INTEGER is
  		-- g_value_fits_pointer
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_init (a_value: POINTER; a_g_type: NATURAL_64): POINTER is
+	g_value_init (a_value: POINTER; a_g_type: like long_unsigned): POINTER is
  		-- g_value_init
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_register_transform_func (a_src_type: NATURAL_64; a_dest_type: NATURAL_64; a_transform_func: POINTER) is
+	g_value_register_transform_func (a_src_type: like long_unsigned; a_dest_type: like long_unsigned; a_transform_func: POINTER) is
  		-- g_value_register_transform_func
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_transform (a_src_value: POINTER; a_dest_value: POINTER): INTEGER_32 is
+	g_value_transform (a_src_value: POINTER; a_dest_value: POINTER): INTEGER is
  		-- g_value_transform
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_type_compatible (a_src_type: NATURAL_64; a_dest_type: NATURAL_64): INTEGER_32 is
+	g_value_type_compatible (a_src_type: like long_unsigned; a_dest_type: like long_unsigned): INTEGER is
  		-- g_value_type_compatible
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_type_transformable (a_src_type: NATURAL_64; a_dest_type: NATURAL_64): INTEGER_32 is
+	g_value_type_transformable (a_src_type: like long_unsigned; a_dest_type: like long_unsigned): INTEGER is
  		-- g_value_type_transformable
 		external "plug_in"
 		alias "{

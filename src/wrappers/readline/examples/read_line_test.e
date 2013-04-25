@@ -3,9 +3,9 @@ class READ_LINE_TEST
 inherit ANY 
 insert READ_LINE
 
-creation make
+create {ANY} make
 
-feature 
+feature {ANY} 
 	make is
 		do
 			prompt := "Liberty> "

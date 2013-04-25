@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gparam_spec_unichar_struct_set_default_value (a_structure: POINTER; a_value: NATURAL_32) is
+	gparam_spec_unichar_struct_set_default_value (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for default_value field of GPARAM_SPEC_UNICHAR_STRUCT structure.
 			-- TODO: setter description
 
@@ -23,7 +23,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field parent_instance.
-	gparam_spec_unichar_struct_get_default_value (a_structure: POINTER): NATURAL_32 is
+	gparam_spec_unichar_struct_get_default_value (a_structure: POINTER): NATURAL is
 			-- Query for default_value field of GPARAM_SPEC_UNICHAR_STRUCT structure.
 			-- TODO: getter description
 

@@ -9,7 +9,7 @@ inherit
          generate_default_config
       end
 
-creation {MAKE_RELEASE}
+create {MAKE_RELEASE}
    make
 
 feature {LOOP_ITEM}

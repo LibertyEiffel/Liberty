@@ -33,7 +33,7 @@ insert
 	AV_CODEC_FINDER 
 		undefine copy, is_equal end
 
-creation
+create {ANY}
 	make, from_external_pointer
 
 feature {} -- Creation
@@ -44,7 +44,7 @@ feature {} -- Creation
 			handle := avcodec_alloc_context
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	type: INTEGER is
 		do
@@ -175,7 +175,7 @@ feature -- Access
 			is_valid_av_pixel_format (Result)
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	close: BOOLEAN is
 		do
@@ -273,7 +273,7 @@ feature -- Operations
 			internal_got_picture := got_picture_int.to_boolean
 		end
 
-feature -- Disposing
+feature {ANY} -- Disposing
 
 	dispose is
 		do
@@ -289,7 +289,7 @@ feature {} -- Internal
 
 	internal_got_picture: BOOLEAN
 
-feature -- Size
+feature {ANY} -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <avformat.h>"

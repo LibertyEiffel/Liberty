@@ -32,7 +32,7 @@ class GTS_FUNCTION
 	
 inherit WRAPPER -- WRAPPER_HANDLER
 
-creation  make
+create {ANY}  make
 
 feature {GTS_OBJECT} -- Implementation
 	make (a_function: PREDICATE[ANY, TUPLE[GTS_OBJECT]]) is
@@ -67,7 +67,7 @@ feature {}
 	-- crude hack
 	dispose is do end
 	
-feature 
+feature {ANY} 
 	is_equal (another: like Current): BOOLEAN is
 		do
 			not_yet_implemented

@@ -7,8 +7,8 @@ expanded class GTKPACKDIRECTION_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gtk_pack_direction_btt_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = gtk_pack_direction_ttb_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gtk_pack_direction_btt is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := gtk_pack_direction_ttb_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gtk_pack_direction_btt: BOOLEAN is
 		do
 			Result := (value=gtk_pack_direction_btt_low_level)

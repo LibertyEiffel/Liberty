@@ -11,10 +11,10 @@ class COMMENT
 inherit
    INSTRUCTION
 
-creation {ANY}
+create {ANY}
    make
 
-creation {CLASS_CHECKER}
+create {CLASS_CHECKER}
    from_string
 
 feature {ANY}
@@ -75,7 +75,7 @@ feature {ANY}
          Result := Current
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       do
          Result := Current
       end
@@ -196,8 +196,8 @@ feature {CLASS_TEXT, COMMENT_VISITOR}
          if not list.item(1).has_substring(name.to_string) then
             error_handler.add_position(name.start_position)
             error_handler.add_position(start_position)
-            error_handler.append("Bad comment to end a class.")
-            error_handler.print_as_warning
+            error_handler.append(once "Bad comment to end a class.")
+            error_handler.print_as_style_warning
          end
       end
 

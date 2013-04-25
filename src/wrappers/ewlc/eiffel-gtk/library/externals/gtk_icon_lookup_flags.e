@@ -23,7 +23,7 @@ deferred class GTK_ICON_LOOKUP_FLAGS
 	--    Used to specify options for gtk_icon_theme_lookup_icon()
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	are_valid_lookup_flags (some_flags: INTEGER): BOOLEAN is
 		do	
 			Result:=(some_flags & (gtk_icon_lookup_no_svg |

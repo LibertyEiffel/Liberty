@@ -12,7 +12,7 @@ inherit
 insert
    GLOBALS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -61,12 +61,12 @@ feature {CECIL_POOL}
             c_name := eiffel_parser.parse_c_name
             type_mark := eiffel_parser.parse_type_mark
             if not type_mark.is_static then
-               error_handler.append("All type marks used in a cecil file have to be static (no anchors).")
+               error_handler.append(once "All type marks used in a cecil file have to be static (no anchors).")
                error_handler.add_position(type_mark.start_position)
                error_handler.print_as_fatal_error
             end
             if type_mark.is_agent or else type_mark.is_tuple then
-               error_handler.append("Cannot use agents type marks or TUPLE type marks inside cecil %
+               error_handler.append(once "Cannot use agents type marks or TUPLE type marks inside cecil %
                                     %files (Liberty Eiffel limitation, sorry). To work around, just use %
                 %an extra Eiffel routine/object to perform agent or TUPLE %
                 %manipulation in pure Eiffel.")

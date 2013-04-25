@@ -23,7 +23,7 @@ deferred class GTK_PAPER_SIZES
 
 inherit ANY undefine is_equal, copy end
 
-feature -- Paper sizes
+feature {ANY} -- Paper sizes
 	--	a3_paper_name: STRING is
 			
 	--

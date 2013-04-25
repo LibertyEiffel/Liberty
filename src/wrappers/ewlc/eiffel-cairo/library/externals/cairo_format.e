@@ -30,7 +30,7 @@ deferred class CAIRO_FORMAT
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_cairo_format (a_format: INTEGER): BOOLEAN is
 		do
 			Result := ((a_format = cairo_format_argb32) or else

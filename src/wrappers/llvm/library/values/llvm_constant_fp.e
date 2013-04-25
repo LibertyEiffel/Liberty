@@ -5,10 +5,10 @@ inherit LLVM_CONSTANT
 
 insert CORE_EXTERNALS
 
-creation {ANY} from_real, from_string
-creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+create {ANY} from_real, from_string
+create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
-feature -- Creation 
+feature {ANY} -- Creation 
 	from_real (a_type: LLVM_REAL_TYPE; a_value: REAL_64) is
 		-- Create a floating point constant of `a_type' with `a_value'
 	require a_type/=Void

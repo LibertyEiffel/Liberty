@@ -2,8 +2,8 @@ class BUTTONS_WINDOW
 inherit
 	GTK_WINDOW redefine make, on_destroy end
 	GTK
-creation make
-feature make is
+create {ANY} make
+feature {ANY} make is
 		do
 			Precursor
 			set_title (once "Buttons demo")
@@ -34,7 +34,7 @@ feature make is
 			-- radio1.set_active	radio2.set_inactive	radio3.set_inactive
 		end
 
-feature -- Widgets
+feature {ANY} -- Widgets
 	main_label: GTK_LABEL
 	hbox: GTK_HBOX
 	vbox: GTK_VBOX
@@ -43,13 +43,13 @@ feature -- Widgets
 	flag: GTK_CHECK_BUTTON
 	toggle: GTK_TOGGLE_BUTTON
 
-feature -- Strings
+feature {ANY} -- Strings
 	main_label_string: STRING is "[
 											<b><big>Eiffel wrappers for GTK</big> are a work in progress</b>.
 											We need volunteers. Would help us?
 											]"
 											
-feature  -- Callbacks
+feature {ANY}  -- Callbacks
 	smarteiffel_choosen: TOGGLED_CALLBACK[GTK_RADIO_BUTTON]
 
 	on_destroy is

@@ -10,7 +10,7 @@ class SHORT_PRINTER
 insert
    GLOBALS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

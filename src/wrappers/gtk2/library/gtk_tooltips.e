@@ -57,7 +57,7 @@ inherit
 insert
 	GTK_TOOLTIPS_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 
@@ -69,7 +69,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_tooltips_new)
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	enable is
 			-- Allows the user to see your tooltips as they navigate your
@@ -110,7 +110,7 @@ feature -- Operations
 										 a_tip_private.to_external)
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTooltips)"

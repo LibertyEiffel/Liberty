@@ -3,52 +3,58 @@
 --
 class ITERATOR_OVER_MODULE_FUNCTIONS
 
-inherit 
-	BIDIRECTIONAL_ITERATOR[LLVM_FUNCTION]
-	LLVM_FUNCTION_FACTORY
+inherit
+   BIDIRECTIONAL_ITERATOR[LLVM_FUNCTION]
+   LLVM_FUNCTION_FACTORY
 
-insert CORE_EXTERNALS
+insert
+   CORE_EXTERNALS
 
-creation from_module
+create {ANY}
+   from_module
 
 feature {LLVM_MODULE}
-	from_module (a_module: LLVM_MODULE) is
-		require a_module/=Void
-		do
-			module:=a_module
-		end
+   from_module (a_module: LLVM_MODULE) is
+      require
+         a_module /= Void
+      do
+         module := a_module
+      end
 
-feature 
-	module: LLVM_MODULE
+feature {ANY}
+   module: LLVM_MODULE
 
-	start is
-		do
-			item := function_wrapper_or_void(llvmget_first_function(module.handle))
-		end
-	
-	finish is
-		do
-			item := function_wrapper_or_void(llvmget_last_function(module.handle))
-		end
+   start is
+      do
+         item := function_wrapper_or_void(llvmget_first_function(module.handle))
+      end
 
-	next is
-		do
-			item := function_wrapper_or_void(llvmget_next_function(module.handle))
-		end
-		
-	previous is
-		do
-			item := function_wrapper_or_void(llvmget_previous_function(module.handle))
-		end
+   finish is
+      do
+         item := function_wrapper_or_void(llvmget_last_function(module.handle))
+      end
 
-	is_off: BOOLEAN is
-		do
-			Result:=(item=Void)
-		end
+   next is
+      do
+         item := function_wrapper_or_void(llvmget_next_function(module.handle))
+      end
 
-	item: LLVM_FUNCTION is attribute end
+   previous is
+      do
+         item := function_wrapper_or_void(llvmget_previous_function(module.handle))
+      end
 
-invariant module/=Void
+   is_off: BOOLEAN is
+      do
+         Result:=(item=Void)
+      end
+
+   item: LLVM_FUNCTION
+
+   generation, iterable_generation: INTEGER is 0
+
+invariant
+   module /= Void
 
 end -- class ITERATOR_OVER_MODULE_FUNCTIONS
 
@@ -88,4 +94,3 @@ end -- class ITERATOR_OVER_MODULE_FUNCTIONS
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-

@@ -28,12 +28,12 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_FACTORY [GTK_TREE_VIEW]
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	object: GTK_TREE_VIEW
 
-feature
+feature {ANY}
 	callback (instance: POINTER): INTEGER is
 		require
 			instance_not_null: instance.is_not_null

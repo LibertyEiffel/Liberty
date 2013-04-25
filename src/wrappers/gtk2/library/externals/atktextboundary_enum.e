@@ -7,8 +7,8 @@ expanded class ATKTEXTBOUNDARY_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = atk_text_boundary_char_low_level)  or else
@@ -20,7 +20,7 @@ feature -- Validity
 				(a_value = atk_text_boundary_word_start_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_atk_text_boundary_char is
 		do
@@ -57,7 +57,7 @@ feature -- Setters
 			value := atk_text_boundary_word_start_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_atk_text_boundary_char: BOOLEAN is
 		do
 			Result := (value=atk_text_boundary_char_low_level)

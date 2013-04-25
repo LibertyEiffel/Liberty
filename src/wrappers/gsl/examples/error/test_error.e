@@ -6,9 +6,9 @@ indexing
 	revision: "$Revision:$"
 
 class TEST_ERROR
-creation  make
+create {ANY}  make
 
-feature
+feature {ANY}
 	make is
 		local
 			a, b: GSL_MATRIX_REAL_64

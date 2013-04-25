@@ -27,9 +27,9 @@ class BUTTON_PRESS_EVENT_CALLBACK
 inherit
 	BUTTON_EVENT_CALLBACK
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 
 	signal_name: STRING is "button-press-event"
 

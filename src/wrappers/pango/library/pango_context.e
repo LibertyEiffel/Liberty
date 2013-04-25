@@ -31,16 +31,16 @@ inherit
 insert
 	PANGO_CONTEXT_EXTERNALS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	set_default_matrix is
 		do
 			pango_context_set_matrix (handle, default_pointer)
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(PangoContext)"

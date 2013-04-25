@@ -45,9 +45,9 @@ insert
 	GTK_TREE_VIEW_COLUMN_SIZING
 	GTK_SORT_TYPE
 	
-creation make, with_attributes
+create {ANY} make, with_attributes
 	
-creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer, secondary_wrapper_from	
+create {WRAPPER, WRAPPER_HANDLER} from_external_pointer, secondary_wrapper_from	
 
 feature {} -- Creation
 
@@ -87,7 +87,7 @@ feature {} -- Creation
 			set_attributes (a_renderer, some_attributes)
 		end
 
-feature
+feature {ANY}
 	pack_start (a_cell: GTK_CELL_RENDERER; does_expand: BOOLEAN) is
 			-- Packs `a_cell' into the beginning of the column. If
 			-- `does_expand' is False, then the cell is allocated no more
@@ -188,7 +188,7 @@ feature
 			gtk_tree_view_column_clear_attributes (handle, a_cell_renderer.handle)
 		end
 
-feature -- Spacing
+feature {ANY} -- Spacing
 	set_spacing (a_spacing: INTEGER) is
 			-- Sets the spacing field of tree_column, which is the number
 			-- of pixels to place between cell renderers packed into it.
@@ -202,7 +202,7 @@ feature -- Spacing
 			Result := gtk_tree_view_column_get_spacing (handle)
 		end
 	
-feature -- Visibility
+feature {ANY} -- Visibility
 	set_visible is
 			-- Makes the column visible
 		do
@@ -223,7 +223,7 @@ feature -- Visibility
 			Result := (gtk_tree_view_column_get_visible (handle)).to_boolean
 		end
 
-feature -- Resizability
+feature {ANY} -- Resizability
 	set_resizable is
 		-- Allow the user to explicitly resize the column by grabbing
 		-- the outer edge of the column button. If sizing mode of
@@ -248,7 +248,7 @@ feature -- Resizability
 		end
 
 
-feature -- Sizing
+feature {ANY} -- Sizing
 
 	set_sizing (a_type: INTEGER) is
 			-- Sets the growth behavior of tree_column to `a_type'.
@@ -299,7 +299,7 @@ feature -- Sizing
 			Result := (sizing_type = gtk_tree_view_column_fixed)
 		end
 
-feature -- Width
+feature {ANY} -- Width
 	width: INTEGER is
 			-- the current size of tree column in pixels.
 		do
@@ -375,7 +375,7 @@ feature -- Width
 			Result :=  gtk_tree_view_column_get_max_width (handle)
 		end
 
-feature
+feature {ANY}
 	clicked is
 			-- Emits the "clicked" signal on the column. It will only
 			-- work if tree_column is clickable.
@@ -400,7 +400,7 @@ feature
 		ensure not_void: Result/=Void
 		end
 
-feature -- Expandability
+feature {ANY} -- Expandability
 	set_expand is
 			-- Sets the column to take available extra space. This space
 			-- is shared equally amongst all columns that have the expand
@@ -426,7 +426,7 @@ feature -- Expandability
 			Result := gtk_tree_view_column_get_expand (handle).to_boolean
 		end
 
-feature -- Clickability
+feature {ANY} -- Clickability
 	set_clickable is
 			-- Sets the header to be active if active. When the header is
 			-- active, then it can take keyboard focus, and can be
@@ -490,7 +490,7 @@ feature -- Clickability
 		ensure valid: Result.in_range ({REAL_32 0.0}, {REAL_32 1.0})
 		end
 
-feature -- Reorderability
+feature {ANY} -- Reorderability
 
 	set_reorderable is
 			-- The column can be reordered by the end user dragging the header.
@@ -661,7 +661,7 @@ feature -- Reorderability
 			gtk_tree_view_column_queue_resize(handle)
 		end
 
-feature -- TODO: Properties and signals
+feature {ANY} -- TODO: Properties and signals
 	--   "alignment"            gfloat                : Read / Write
 	--   "clickable"            gboolean              : Read / Write
 	--   "expand"               gboolean              : Read / Write
@@ -814,7 +814,7 @@ feature -- TODO: Properties and signals
 
 	-- treeviewcolumn : 	the object which received the signal.
 	-- user_data : 	user data set when the signal handler was connected.
-feature -- struct size
+feature {ANY} -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeViewColumn)"

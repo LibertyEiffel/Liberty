@@ -413,7 +413,7 @@ feature {} -- External calls
 	-- #define     GTK_PRINT_SETTINGS_OUTPUT_URI
 	-- #define     GTK_PRINT_SETTINGS_WIN32_DRIVER_EXTRA
 	-- #define     GTK_PRINT_SETTINGS_WIN32_DRIVER_VERSION
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkPrintSettings)"

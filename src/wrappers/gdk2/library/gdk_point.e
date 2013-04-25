@@ -22,15 +22,15 @@ class GDK_POINT
 
 inherit G_STRUCT
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkPoint)"
 		end
 
-feature -- Getters
+feature {ANY} -- Getters
 	x: INTEGER is
 			-- x coordinate of the point
 		do
@@ -43,7 +43,7 @@ feature -- Getters
 			Result := get_y (handle)
 		end
 
-feature -- TODO: Setters (if needed)
+feature {ANY} -- TODO: Setters (if needed)
 	
 feature {} -- Struct accesing
 

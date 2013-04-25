@@ -9,8 +9,8 @@ inherit
 		redefine dispose, default_create
 		end
 insert CORE_EXTERNALS undefine default_create end
-creation {ANY} default_create, make
-creation {WRAPPER,WRAPPER_HANDLER} from_external_pointer
+create {ANY} default_create, make
+create {WRAPPER,WRAPPER_HANDLER} from_external_pointer
 feature {} -- Creation
 	make is
 		do

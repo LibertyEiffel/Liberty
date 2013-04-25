@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gflags_class_struct_set_mask (a_structure: POINTER; a_value: NATURAL_32) is
+	gflags_class_struct_set_mask (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for mask field of GFLAGS_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gflags_class_struct_set_n_values (a_structure: POINTER; a_value: NATURAL_32) is
+	gflags_class_struct_set_n_values (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for n_values field of GFLAGS_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -47,7 +47,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field g_type_class.
-	gflags_class_struct_get_mask (a_structure: POINTER): NATURAL_32 is
+	gflags_class_struct_get_mask (a_structure: POINTER): NATURAL is
 			-- Query for mask field of GFLAGS_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -59,7 +59,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gflags_class_struct_get_n_values (a_structure: POINTER): NATURAL_32 is
+	gflags_class_struct_get_n_values (a_structure: POINTER): NATURAL is
 			-- Query for n_values field of GFLAGS_CLASS_STRUCT structure.
 			-- TODO: getter description
 

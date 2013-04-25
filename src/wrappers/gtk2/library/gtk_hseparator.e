@@ -34,7 +34,7 @@ class GTK_HSEPARATOR
 inherit GTK_SEPARATOR
 	--   GtkHSeparator implements AtkImplementorIface.
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -42,7 +42,7 @@ feature {} -- Creation
 		do
 			from_external_pointer(gtk_hseparator_new)
 		end
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkHseparator)"

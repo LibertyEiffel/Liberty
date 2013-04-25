@@ -27,7 +27,7 @@ feature {USER_INTERFACE}
          set_idle_timeout(application.idle_timeout)
          ncurses.set_cursor_visibility(ncurses.invisible_cursor_mode)
          ncurses.set_echoing_policy(False)
-         ncurses.get_root_window.set_autoscroll_policy(True).
+         ncurses.get_root_window.set_autoscroll_policy(True)
          ncurses.when_key_pressed(agent application.key_pressed)
          ncurses.when_resized(agent application.resized)
 

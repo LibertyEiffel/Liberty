@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	g_binding_flags_get_type: NATURAL_64 is
+	g_binding_flags_get_type: like long_unsigned is
  		-- g_binding_flags_get_type
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_binding_get_type: NATURAL_64 is
+	g_binding_get_type: like long_unsigned is
  		-- g_binding_get_type
 		external "plug_in"
 		alias "{

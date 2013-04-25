@@ -9,7 +9,7 @@ class COMPILE_TO_C
 inherit
    COMMAND_LINE_TOOLS
 
-creation {}
+create {}
    make, make_shrink
 
 feature {ANY}
@@ -34,8 +34,8 @@ feature {ANY}
                              doing
 
       Warning and Error levels:
-        -no_style_warning   Don't print warnings about style violations
-        -no_warning         Don't print any warnings (implies -no_style_warning)
+        -style_warning      Do print warnings about style violations
+        -no_warning         Don't print any warnings
         -relax              Performs less checks by considering less dead code, hence
                              using less memory and less compilation time. Useful to
                              prototype or to deliver safe code. (Useful too for very
@@ -151,7 +151,7 @@ feature {}
                argi := argi + 1
             elseif is_case_insensitive_flag(arg) then
                argi := argi + 1
-            elseif is_no_style_warning_flag(arg) then
+            elseif is_style_warning_flag(arg) then
                argi := argi + 1
             elseif is_no_warning_flag(arg) then
                argi := argi + 1
@@ -271,7 +271,7 @@ feature {}
 
    is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
       do
-         if is_version_flag(arg) or else is_no_style_warning_flag(arg) or else is_no_warning_flag(arg) or else is_verbose_flag(arg) or else is_relax_flag(arg) then
+         if is_version_flag(arg) or else is_style_warning_flag(arg) or else is_no_warning_flag(arg) or else is_verbose_flag(arg) or else is_relax_flag(arg) then
             Result := True
          end
       end

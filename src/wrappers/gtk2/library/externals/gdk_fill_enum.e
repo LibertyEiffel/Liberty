@@ -7,8 +7,8 @@ expanded class GDK_FILL_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = solid_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = opaque_stippled_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_solid is
 		do
@@ -39,7 +39,7 @@ feature -- Setters
 			value := opaque_stippled_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	solid: BOOLEAN is
 		do
 			Result := (value=solid_low_level)

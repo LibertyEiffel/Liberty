@@ -6,7 +6,7 @@ deferred class PANGO_TYPES
 
 insert ANY undefine is_equal, copy end
 
-feature -- C type definitions (typedefs)
+feature {ANY} -- C type definitions (typedefs)
 	pango_fontset_foreach_func: POINTER is
 		-- typedef PangoFontsetForeachFunc
 		-- Empty by design, used for anchored declarations.

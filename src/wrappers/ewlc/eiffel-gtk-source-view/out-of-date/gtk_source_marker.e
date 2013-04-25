@@ -25,9 +25,9 @@ class GTK_SOURCE_MARKER
 
 inherit SHARED_C_STRUCT
 
-creation dummy, make, from_external_pointer
+create {ANY} dummy, make, from_external_pointer
 
-feature
+feature {ANY}
 	set_marker_type (a_type: STRING) is
 		require type_not_void: a_type/=Void
 		do
@@ -122,7 +122,7 @@ feature {} -- External calls
 		external "C use <gtksourceview/gtksourcemarker.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkSourceMarker)"

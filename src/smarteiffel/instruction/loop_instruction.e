@@ -9,7 +9,7 @@ class LOOP_INSTRUCTION
 inherit
    INSTRUCTION
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -143,30 +143,30 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          it: like initialize; li: like loop_invariant; lv: like loop_variant; ue: like until_expression
          lb: like loop_body
       do
          if initialize /= Void then
-            it := initialize.specialize_2(type)
+            it := initialize.specialize_and_check(type)
          end
          if loop_invariant /= Void then
-            li := loop_invariant.specialize_2(type)
+            li := loop_invariant.specialize_and_check(type)
          end
          if loop_variant /= Void then
-            lv := loop_variant.specialize_2(type)
+            lv := loop_variant.specialize_and_check(type)
          end
-         ue := until_expression.specialize_2(type)
+         ue := until_expression.specialize_and_check(type)
          if loop_body /= Void then
-            lb := loop_body.specialize_2(type)
+            lb := loop_body.specialize_and_check(type)
          end
          if it /= initialize or else li /= loop_invariant or else lv /= loop_variant or else ue /= until_expression or else lb /= loop_body then
             create Result.make(start_position, it, li, lv, ue, lb)
          else
             Result := Current
          end
-         Result.specialize_2_check(type)
+         Result.specialize_check(type)
       end
 
    has_been_specialized: BOOLEAN is
@@ -282,20 +282,20 @@ feature {ANY}
       end
 
 feature {LOOP_INSTRUCTION}
-   specialize_2_check (type: TYPE) is
+   specialize_check (type: TYPE) is
       local
          dt: TYPE
       do
          dt := until_expression.declaration_type
          if not dt.is_boolean then
             error_handler.add_position(until_expression.start_position)
-            error_handler.append("Expression of until must be of BOOLEAN type. (The actual ")
+            error_handler.append(once "Expression of until must be of BOOLEAN type. (The actual ")
             error_handler.append(dt.name.to_string)
-            error_handler.append(" type is not allowed.)")
+            error_handler.append(once " type is not allowed.)")
             error_handler.print_as_error
             error_handler.add_position(start_position)
             error_handler.add_position(until_expression.start_position)
-            error_handler.append("Error in until part of loop definition.")
+            error_handler.append(once "Error in until part of loop definition.")
             error_handler.print_as_fatal_error
          end
       end

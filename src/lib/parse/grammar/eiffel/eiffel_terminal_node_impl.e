@@ -6,7 +6,7 @@ class EIFFEL_TERMINAL_NODE_IMPL
 inherit
    EIFFEL_TERMINAL_NODE
 
-creation {EIFFEL_NODE_FACTORY}
+create {EIFFEL_NODE_FACTORY}
    make
 
 feature {ANY}

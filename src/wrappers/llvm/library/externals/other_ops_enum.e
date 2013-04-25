@@ -7,8 +7,8 @@ expanded class OTHER_OPS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = other_ops_begin_low_level)  or else
@@ -28,7 +28,7 @@ feature -- Validity
 				(a_value = other_ops_end_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_other_ops_begin is
 		do
@@ -105,7 +105,7 @@ feature -- Setters
 			value := other_ops_end_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	other_ops_begin: BOOLEAN is
 		do
 			Result := (value=other_ops_begin_low_level)

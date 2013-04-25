@@ -21,9 +21,9 @@ indexing
 
 class COMBOBOX
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 -- /* Combo boxes 
 --  *
 --  * The ComboBox widget allows to select one option out of a list.

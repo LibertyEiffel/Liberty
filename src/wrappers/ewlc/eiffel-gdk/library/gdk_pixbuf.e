@@ -34,7 +34,7 @@ insert
 	GDK_PIXBUF_EXTERNALS
 	GDK_COLORSPACE
 
-creation
+create {ANY}
 	make, from_external_pointer_no_ref, from_external_pointer,
 	from_file, from_file_at_size, from_file_at_scale,
 	from_drawable, from_pixbuf, from_data
@@ -188,7 +188,7 @@ feature {} -- Creation
 			end
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	last_error: G_ERROR
 
@@ -206,7 +206,7 @@ feature -- Access
 			Result := gdk_pixbuf_get_height (handle)
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	render_pixmap_and_mask (alpha_threshold: INTEGER): TUPLE[GDK_PIXMAP, GDK_BITMAP] is
 			-- Creates a pixmap and a mask bitmap, and renders a pixbuf
@@ -330,7 +330,7 @@ feature -- Operations
 -- Since 2.4
 -- 
 
-feature -- Properties
+feature {ANY} -- Properties
 
 	bits_per_sample: INTEGER is
 		do
@@ -426,7 +426,7 @@ feature -- Properties
 -- 
 -- Default value: 3
 
-feature -- Disposing
+feature {ANY} -- Disposing
 
 	dispose is
 		do
@@ -448,7 +448,7 @@ feature -- Disposing
 			g_object_set_qdata (handle, eiffel_key.quark, default_pointer)
 		end
 
-feature -- Error reporting
+feature {ANY} -- Error reporting
 
 	is_valid: BOOLEAN is
 		do
@@ -468,13 +468,13 @@ feature {} -- Error reporting
 			Result := invalid_pixbuf.handle
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkPixbuf)"
 		end
 
-feature -- Scaling
+feature {ANY} -- Scaling
 
 	scale_simple (a_width, a_height, a_interp_type: INTEGER): GDK_PIXBUF is
 			-- Create a new GDK_PIXBUF containing a copy of Current scaled to

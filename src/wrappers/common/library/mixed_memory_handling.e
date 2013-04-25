@@ -34,7 +34,7 @@ insert
          from_external_pointer
       end
 	STDLIB_EXTERNALS   
-feature 
+feature {ANY} 
 	dispose is
 			-- Action to be executed just before garbage collection
 			-- reclaims an object; if not shared frees the memory pointed

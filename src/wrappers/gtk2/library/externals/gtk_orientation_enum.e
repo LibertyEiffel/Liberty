@@ -7,15 +7,15 @@ expanded class GTK_ORIENTATION_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = horizontal_low_level)  or else
 				(a_value = vertical_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_horizontal is
 		do
@@ -27,7 +27,7 @@ feature -- Setters
 			value := vertical_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	horizontal: BOOLEAN is
 		do
 			Result := (value=horizontal_low_level)

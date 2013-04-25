@@ -7,8 +7,8 @@ expanded class GDKAXISUSE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gdk_axis_ignore_low_level)  or else
@@ -21,7 +21,7 @@ feature -- Validity
 				(a_value = gdk_axis_ytilt_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gdk_axis_ignore is
 		do
@@ -63,7 +63,7 @@ feature -- Setters
 			value := gdk_axis_ytilt_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gdk_axis_ignore: BOOLEAN is
 		do
 			Result := (value=gdk_axis_ignore_low_level)

@@ -28,7 +28,7 @@ insert
 			is_equal
 		end
 
-feature -- Easy to use setters
+feature {ANY} -- Easy to use setters
 	
 	-- Note: wrapping gtk_list/tree_store_set is problematic since it's
 	-- a variadic function but also its not-variadic variant
@@ -113,7 +113,7 @@ feature -- Easy to use setters
 			set_value (an_iterator, a_column, a_value)
 		end
 
-feature -- Generic setter
+feature {ANY} -- Generic setter
 	set_value (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_value: G_VALUE) is
 		deferred
 		end

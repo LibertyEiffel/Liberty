@@ -54,7 +54,7 @@ deferred class G_CLOSURE
 inherit
 	C_STRUCT
 
-feature -- Callback pointer
+feature {ANY} -- Callback pointer
 	callback_pointer: POINTER is 
 					-- The address of the actual Eiffel callback feature
 			-- `function'. Even if the body of this feature is common to
@@ -75,7 +75,7 @@ feature -- Callback pointer
 	
 	object: G_OBJECT
 
-feature -- Creation
+feature {ANY} -- Creation
 	link_to (an_object: like object) is
 			-- Creates a new closure which invokes 'callback'
 			
@@ -166,7 +166,7 @@ feature -- Creation
 	
 	-- 	--------------------------------------------------------------------------------------------------------
 	
-feature -- Reference counting and memory handling
+feature {ANY} -- Reference counting and memory handling
 	ref is
 		local ptr: POINTER
 		do
@@ -247,7 +247,7 @@ feature -- Reference counting and memory handling
 			handle:=default_pointer
 		end
 
-feature -- Invoking
+feature {ANY} -- Invoking
 
 	invoke (some_parameters: G_VALUE_ARRAY): G_VALUE is
 			-- Invokes the closure, i.e. executes the callback
@@ -784,7 +784,7 @@ feature -- Invoking
 --  #define g_cclosure_marshal_BOOL__FLAGS
 
 -- 	Another name for g_cclosure_marshal_BOOLEAN__FLAGS().
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GCLosure)"
@@ -1076,7 +1076,7 @@ feature {}-- GClosure struct
 		external "C struct get is_invalid use <glib-object.h>"
 		end
 	
-feature -- GCClosure struct
+feature {ANY} -- GCClosure struct
 	-- typedef struct { GClosure closure; callback: POINTER; }
 	-- GCClosure;
 	

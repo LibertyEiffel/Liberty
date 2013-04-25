@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	g_cclosure_marshal_generic (a_closure: POINTER; a_return_gvalue: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+	g_cclosure_marshal_generic (a_closure: POINTER; a_return_gvalue: POINTER; a_n_param_values: NATURAL; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
  		-- g_cclosure_marshal_generic
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_cclosure_marshal_generic_va (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args_list: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+	g_cclosure_marshal_generic_va (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args_list: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER; a_param_types: POINTER) is
  		-- g_cclosure_marshal_generic_va
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_closure_invoke (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER) is
+	g_closure_invoke (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL; a_param_values: POINTER; an_invocation_hint: POINTER) is
  		-- g_closure_invoke
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_closure_new_simple (a_sizeof_closure: NATURAL_32; a_data: POINTER): POINTER is
+	g_closure_new_simple (a_sizeof_closure: NATURAL; a_data: POINTER): POINTER is
  		-- g_closure_new_simple
 		external "plug_in"
 		alias "{
@@ -179,7 +179,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_signal_type_cclosure_new (an_itype: NATURAL_64; a_struct_offset: NATURAL_32): POINTER is
+	g_signal_type_cclosure_new (an_itype: like long_unsigned; a_struct_offset: NATURAL): POINTER is
  		-- g_signal_type_cclosure_new
 		external "plug_in"
 		alias "{

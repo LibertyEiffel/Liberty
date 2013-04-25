@@ -17,9 +17,9 @@ inherit
 insert
 	GTK_RESPONSE_TYPE
 	
-creation make
+create {ANY} make
 
-feature -- dialogs
+feature {ANY} -- dialogs
 	dialog: GTK_DIALOG
 	label: GTK_LABEL
 	message: GTK_MESSAGE_DIALOG
@@ -28,7 +28,7 @@ feature -- dialogs
 	answer: INTEGER
 			-- answer code of the last dialog run
 	
-feature -- Initialisation
+feature {ANY} -- Initialisation
 	
 	make is
 		do

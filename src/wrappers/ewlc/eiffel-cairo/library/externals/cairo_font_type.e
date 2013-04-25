@@ -54,7 +54,7 @@ deferred class CAIRO_FONT_TYPE
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_font_type (a_type: INTEGER): BOOLEAN is
 		do
 			Result := ((a_type = cairo_font_type_toy) or else

@@ -90,7 +90,7 @@ class GTK_PRINT_CONTEXT
 
 inherit G_OBJECT
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {} -- Creation
 
@@ -230,7 +230,7 @@ feature {} -- External calls
 		external "C inline use <gtk/gtk.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkPrintContext)"

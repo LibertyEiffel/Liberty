@@ -7,15 +7,15 @@ expanded class GTK_SPIN_BUTTON_UPDATE_POLICY_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = always_low_level)  or else
 				(a_value = if_valid_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_always is
 		do
@@ -27,7 +27,7 @@ feature -- Setters
 			value := if_valid_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	always: BOOLEAN is
 		do
 			Result := (value=always_low_level)

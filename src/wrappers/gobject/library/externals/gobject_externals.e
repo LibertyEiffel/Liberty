@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_closure_new_object (a_sizeof_closure: NATURAL_32; an_object: POINTER): POINTER is
+	g_closure_new_object (a_sizeof_closure: NATURAL; an_object: POINTER): POINTER is
  		-- g_closure_new_object
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_initially_unowned_get_type: NATURAL_64 is
+	g_initially_unowned_get_type: like long_unsigned is
  		-- g_initially_unowned_get_type
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_class_install_properties (an_oclass: POINTER; a_n_pspecs: NATURAL_32; a_pspecs: POINTER) is
+	g_object_class_install_properties (an_oclass: POINTER; a_n_pspecs: NATURAL; a_pspecs: POINTER) is
  		-- g_object_class_install_properties
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_class_install_property (an_oclass: POINTER; a_property_id: NATURAL_32; a_pspec: POINTER) is
+	g_object_class_install_property (an_oclass: POINTER; a_property_id: NATURAL; a_pspec: POINTER) is
  		-- g_object_class_install_property
 		external "plug_in"
 		alias "{
@@ -119,7 +119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_class_override_property (an_oclass: POINTER; a_property_id: NATURAL_32; a_name: POINTER) is
+	g_object_class_override_property (an_oclass: POINTER; a_property_id: NATURAL; a_name: POINTER) is
  		-- g_object_class_override_property
 		external "plug_in"
 		alias "{
@@ -129,7 +129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_compat_control (a_what: NATURAL_64; a_data: POINTER): NATURAL_64 is
+	g_object_compat_control (a_what: NATURAL; a_data: POINTER): NATURAL is
  		-- g_object_compat_control
 		external "plug_in"
 		alias "{
@@ -156,6 +156,26 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "g_object_disconnect"
+		}"
+		end
+
+	g_object_dup_data (an_object: POINTER; a_key: POINTER; a_dup_func: POINTER; an_user_data: POINTER): POINTER is
+ 		-- g_object_dup_data
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_object_dup_data"
+		}"
+		end
+
+	g_object_dup_qdata (an_object: POINTER; a_quark: NATURAL; a_dup_func: POINTER; an_user_data: POINTER): POINTER is
+ 		-- g_object_dup_qdata
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_object_dup_qdata"
 		}"
 		end
 
@@ -209,7 +229,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_get_qdata (an_object: POINTER; a_quark: NATURAL_32): POINTER is
+	g_object_get_qdata (an_object: POINTER; a_quark: NATURAL): POINTER is
  		-- g_object_get_qdata
 		external "plug_in"
 		alias "{
@@ -219,7 +239,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_get_type: NATURAL_64 is
+	g_object_get_type: like long_unsigned is
  		-- g_object_get_type
 		external "plug_in"
 		alias "{
@@ -269,7 +289,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_is_floating (an_object: POINTER): INTEGER_32 is
+	g_object_is_floating (an_object: POINTER): INTEGER is
  		-- g_object_is_floating
 		external "plug_in"
 		alias "{
@@ -279,7 +299,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_new (an_object_type: NATURAL_64; a_first_property_name: POINTER): POINTER is
+	g_object_new (an_object_type: like long_unsigned; a_first_property_name: POINTER): POINTER is
  		-- g_object_new (variadic call) 
 		external "plug_in"
 		alias "{
@@ -289,7 +309,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_new_valist (an_object_type: NATURAL_64; a_first_property_name: POINTER; a_var_args: POINTER): POINTER is
+	g_object_new_valist (an_object_type: like long_unsigned; a_first_property_name: POINTER; a_var_args: POINTER): POINTER is
  		-- g_object_new_valist
 		external "plug_in"
 		alias "{
@@ -299,7 +319,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_newv (an_object_type: NATURAL_64; a_n_parameters: NATURAL_32; a_parameters: POINTER): POINTER is
+	g_object_newv (an_object_type: like long_unsigned; a_n_parameters: NATURAL; a_parameters: POINTER): POINTER is
  		-- g_object_newv
 		external "plug_in"
 		alias "{
@@ -369,6 +389,26 @@ feature {} -- External calls
 		}"
 		end
 
+	g_object_replace_data (an_object: POINTER; a_key: POINTER; an_oldval: POINTER; a_newval: POINTER; a_destroy: POINTER; an_old_destroy: POINTER): INTEGER is
+ 		-- g_object_replace_data
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_object_replace_data"
+		}"
+		end
+
+	g_object_replace_qdata (an_object: POINTER; a_quark: NATURAL; an_oldval: POINTER; a_newval: POINTER; a_destroy: POINTER; an_old_destroy: POINTER): INTEGER is
+ 		-- g_object_replace_qdata
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_object_replace_qdata"
+		}"
+		end
+
 	g_object_run_dispose (an_object: POINTER) is
  		-- g_object_run_dispose
 		external "plug_in"
@@ -419,7 +459,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_set_qdata (an_object: POINTER; a_quark: NATURAL_32; a_data: POINTER) is
+	g_object_set_qdata (an_object: POINTER; a_quark: NATURAL; a_data: POINTER) is
  		-- g_object_set_qdata
 		external "plug_in"
 		alias "{
@@ -429,7 +469,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_set_qdata_full (an_object: POINTER; a_quark: NATURAL_32; a_data: POINTER; a_destroy: POINTER) is
+	g_object_set_qdata_full (an_object: POINTER; a_quark: NATURAL; a_data: POINTER; a_destroy: POINTER) is
  		-- g_object_set_qdata_full
 		external "plug_in"
 		alias "{
@@ -459,7 +499,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_steal_qdata (an_object: POINTER; a_quark: NATURAL_32): POINTER is
+	g_object_steal_qdata (an_object: POINTER; a_quark: NATURAL): POINTER is
  		-- g_object_steal_qdata
 		external "plug_in"
 		alias "{
@@ -519,7 +559,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_signal_connect_object (an_instance: POINTER; a_detailed_signal: POINTER; a_c_handler: POINTER; a_gobject: POINTER; a_connect_flags: INTEGER): NATURAL_64 is
+	g_signal_connect_object (an_instance: POINTER; a_detailed_signal: POINTER; a_c_handler: POINTER; a_gobject: POINTER; a_connect_flags: INTEGER): like long_unsigned is
  		-- g_signal_connect_object
 		external "plug_in"
 		alias "{

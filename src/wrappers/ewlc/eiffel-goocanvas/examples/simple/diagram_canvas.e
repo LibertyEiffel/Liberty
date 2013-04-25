@@ -4,7 +4,7 @@ class
 inherit
 	GOO_CANVAS redefine make, on_button_press_event end
 	
-create
+create {ANY}
 	make
 	
 feature {} -- creation
@@ -14,7 +14,7 @@ feature {} -- creation
 			enable_on_button_press_event
 		end
 	
-feature
+feature {ANY}
 	on_button_press_event (event: GDK_EVENT_BUTTON; a_widget: GTK_WIDGET): BOOLEAN is
 		do
 			print ("pressed %N")

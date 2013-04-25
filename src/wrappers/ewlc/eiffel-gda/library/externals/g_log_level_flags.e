@@ -3,8 +3,8 @@
 expanded class G_LOG_LEVEL_FLAGS
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_log_flag_recursion) or else 
@@ -19,7 +19,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_flag_recursion is
 		do
 			value := g_log_flag_recursion
@@ -66,7 +66,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_flag_recursion: BOOLEAN is
 		do
 			Result := (value=g_log_flag_recursion)

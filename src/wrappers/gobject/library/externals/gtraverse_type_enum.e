@@ -3,65 +3,63 @@
 
 expanded class GTRAVERSE_TYPE_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = in_order_low_level)  or else
-				(a_value = pre_order_low_level)  or else
-				(a_value = post_order_low_level)  or else
-				(a_value = level_order_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = g_in_order_low_level)  or else
+				(a_value = g_level_order_low_level)  or else
+				(a_value = g_post_order_low_level)  or else
+				(a_value = g_pre_order_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_in_order is
+	set_g_in_order is
 		do
-			value := in_order_low_level
+			value := g_in_order_low_level
 		end
 
-	set_pre_order is
+	set_g_level_order is
 		do
-			value := pre_order_low_level
+			value := g_level_order_low_level
 		end
 
-	set_post_order is
+	set_g_post_order is
 		do
-			value := post_order_low_level
+			value := g_post_order_low_level
 		end
 
-	set_level_order is
+	set_g_pre_order is
 		do
-			value := level_order_low_level
+			value := g_pre_order_low_level
 		end
 
 feature -- Queries
-	is_in_order: BOOLEAN is
+	is_g_in_order: BOOLEAN is
 		do
-			Result := (value=in_order_low_level)
+			Result := (value=g_in_order_low_level)
 		end
 
-	is_pre_order: BOOLEAN is
+	is_g_level_order: BOOLEAN is
 		do
-			Result := (value=pre_order_low_level)
+			Result := (value=g_level_order_low_level)
 		end
 
-	is_post_order: BOOLEAN is
+	is_g_post_order: BOOLEAN is
 		do
-			Result := (value=post_order_low_level)
+			Result := (value=g_post_order_low_level)
 		end
 
-	is_level_order: BOOLEAN is
+	is_g_pre_order: BOOLEAN is
 		do
-			Result := (value=level_order_low_level)
+			Result := (value=g_pre_order_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	in_order_low_level: INTEGER is
+	g_in_order_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -70,16 +68,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	pre_order_low_level: INTEGER is
+	g_level_order_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "G_PRE_ORDER"
+ 			feature_name: "G_LEVEL_ORDER"
  			}"
  		end
 
-	post_order_low_level: INTEGER is
+	g_post_order_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -88,12 +86,12 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	level_order_low_level: INTEGER is
+	g_pre_order_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "G_LEVEL_ORDER"
+ 			feature_name: "G_PRE_ORDER"
  			}"
  		end
 

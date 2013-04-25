@@ -32,9 +32,9 @@ inherit
 			dispose
 		end
 
-creation  make, copy, from_external_pointer
+create {ANY}  make, copy, from_external_pointer
 
-feature -- Copying
+feature {ANY} -- Copying
 
 	copy (another: like Current) is
 			-- Copies a queue. Note that is a shallow copy. If the elements in the
@@ -53,7 +53,7 @@ feature {} -- Creation
 
 	-- TODO: 	with_capacity (needed_capacity: INTEGER) is
 
-feature
+feature {ANY}
 	dispose is
 			-- Frees the memory allocated for the GQueue.
 		do
@@ -173,7 +173,7 @@ feature
 			-- or NULL if the queue is empty.
 		end
 
-feature -- Other features
+feature {ANY} -- Other features
 	pop_nth (an_index: INTEGER): ITEM is
 			-- Removes the element of queue at `an_index'. Void if is_empty
 		require 

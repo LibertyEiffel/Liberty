@@ -47,7 +47,7 @@ deferred class GDK_SELECTION
 insert
 	WRAPPER_HANDLER
 
-feature -- Constants
+feature {ANY} -- Constants
 
 	primary: GDK_ATOM is
 			-- A GdkAtom representing the PRIMARY selection.

@@ -22,10 +22,10 @@ class GTK_TEXT_APPEARANCE
 
 inherit G_STRUCT
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 	-- TODO: wrap this structure for real
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextAppearance)"

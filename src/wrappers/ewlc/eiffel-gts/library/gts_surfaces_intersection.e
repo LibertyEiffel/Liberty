@@ -25,7 +25,7 @@ inherit C_STRUCT
 
 insert GTS_BOOLEAN_OPERATIONS_ENUM
 
-creation  from_external_pointer
+create {ANY}  from_external_pointer
 
 feature {} -- Creation
 --	make (s1,s2: GTS_SURFACE; 

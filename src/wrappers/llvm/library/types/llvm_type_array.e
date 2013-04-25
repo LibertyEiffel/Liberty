@@ -3,7 +3,7 @@ class LLVM_TYPE_ARRAY
 
 inherit  C_ARRAY[LLVM_TYPE] 
 insert   LLVM_TYPE_FACTORY undefine out_in_tagged_out_memory end
-creation manifest_creation, from_external_array
+create {ANY} manifest_creation, from_external_array
 end -- class LLVM_TYPE_ARRAY
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

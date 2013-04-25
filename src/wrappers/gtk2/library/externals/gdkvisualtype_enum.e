@@ -7,8 +7,8 @@ expanded class GDKVISUALTYPE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gdk_visual_direct_color_low_level)  or else
@@ -19,7 +19,7 @@ feature -- Validity
 				(a_value = gdk_visual_true_color_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gdk_visual_direct_color is
 		do
@@ -51,7 +51,7 @@ feature -- Setters
 			value := gdk_visual_true_color_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gdk_visual_direct_color: BOOLEAN is
 		do
 			Result := (value=gdk_visual_direct_color_low_level)

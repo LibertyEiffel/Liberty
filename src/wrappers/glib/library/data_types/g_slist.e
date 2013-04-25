@@ -32,7 +32,7 @@ inherit
 			clear_all
 		end
 
-feature
+feature {ANY}
 	put (an_item: like first; i: INTEGER) is
 		require
 			valid_item: an_item /= Void 

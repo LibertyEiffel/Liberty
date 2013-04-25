@@ -25,11 +25,11 @@ inherit
 	C_STRUCT
 	MIXED_MEMORY_HANDLING
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {} -- Creation
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <pango/pango.h>"

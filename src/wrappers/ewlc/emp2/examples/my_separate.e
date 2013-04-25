@@ -2,7 +2,7 @@ class MY_SEPARATE
 	-- An example for SEPARATE objects
 inherit SEPARATE
 
-feature 
+feature {ANY} 
 	main is
 		local rem: INTEGER
 		do

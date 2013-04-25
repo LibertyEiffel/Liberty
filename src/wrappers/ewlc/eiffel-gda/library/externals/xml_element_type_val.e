@@ -3,8 +3,8 @@
 expanded class XML_ELEMENT_TYPE_VAL
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = xml_element_type_undefined) or else 
@@ -15,7 +15,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_undefined is
 		do
 			value := xml_element_type_undefined
@@ -42,7 +42,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_undefined: BOOLEAN is
 		do
 			Result := (value=xml_element_type_undefined)

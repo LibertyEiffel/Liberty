@@ -7,8 +7,8 @@ expanded class LLVMTYPEKIND_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = llvmarray_type_kind_low_level)  or else
@@ -29,7 +29,7 @@ feature -- Validity
 				(a_value = llvmx86_mmxtype_kind_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_llvmarray_type_kind is
 		do
@@ -111,7 +111,7 @@ feature -- Setters
 			value := llvmx86_mmxtype_kind_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_llvmarray_type_kind: BOOLEAN is
 		do
 			Result := (value=llvmarray_type_kind_low_level)

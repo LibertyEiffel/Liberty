@@ -3,393 +3,283 @@
 
 expanded class GTOKEN_TYPE_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = eof_low_level)  or else
-				(a_value = left_paren_low_level)  or else
-				(a_value = right_paren_low_level)  or else
-				(a_value = left_curly_low_level)  or else
-				(a_value = right_curly_low_level)  or else
-				(a_value = left_brace_low_level)  or else
-				(a_value = right_brace_low_level)  or else
-				(a_value = equal_sign_low_level)  or else
-				(a_value = comma_low_level)  or else
-				(a_value = none_low_level)  or else
-				(a_value = error_low_level)  or else
-				(a_value = char_low_level)  or else
-				(a_value = binary_low_level)  or else
-				(a_value = octal_low_level)  or else
-				(a_value = int_low_level)  or else
-				(a_value = hex_low_level)  or else
-				(a_value = float_low_level)  or else
-				(a_value = string_low_level)  or else
-				(a_value = symbol_low_level)  or else
-				(a_value = identifier_low_level)  or else
-				(a_value = identifier_null_low_level)  or else
-				(a_value = comment_single_low_level)  or else
-				(a_value = comment_multi_low_level)  or else
-				(a_value = last_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = g_token_binary_low_level)  or else
+				(a_value = g_token_char_low_level)  or else
+				(a_value = g_token_comma_low_level)  or else
+				(a_value = g_token_comment_multi_low_level)  or else
+				(a_value = g_token_comment_single_low_level)  or else
+				(a_value = g_token_eof_low_level)  or else
+				(a_value = g_token_equal_sign_low_level)  or else
+				(a_value = g_token_error_low_level)  or else
+				(a_value = g_token_float_low_level)  or else
+				(a_value = g_token_hex_low_level)  or else
+				(a_value = g_token_identifier_low_level)  or else
+				(a_value = g_token_identifier_null_low_level)  or else
+				(a_value = g_token_int_low_level)  or else
+				(a_value = g_token_last_low_level)  or else
+				(a_value = g_token_left_brace_low_level)  or else
+				(a_value = g_token_left_curly_low_level)  or else
+				(a_value = g_token_left_paren_low_level)  or else
+				(a_value = g_token_none_low_level)  or else
+				(a_value = g_token_octal_low_level)  or else
+				(a_value = g_token_right_brace_low_level)  or else
+				(a_value = g_token_right_curly_low_level)  or else
+				(a_value = g_token_right_paren_low_level)  or else
+				(a_value = g_token_string_low_level)  or else
+				(a_value = g_token_symbol_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_eof is
+	set_g_token_binary is
 		do
-			value := eof_low_level
+			value := g_token_binary_low_level
 		end
 
-	set_left_paren is
+	set_g_token_char is
 		do
-			value := left_paren_low_level
+			value := g_token_char_low_level
 		end
 
-	set_right_paren is
+	set_g_token_comma is
 		do
-			value := right_paren_low_level
+			value := g_token_comma_low_level
 		end
 
-	set_left_curly is
+	set_g_token_comment_multi is
 		do
-			value := left_curly_low_level
+			value := g_token_comment_multi_low_level
 		end
 
-	set_right_curly is
+	set_g_token_comment_single is
 		do
-			value := right_curly_low_level
+			value := g_token_comment_single_low_level
 		end
 
-	set_left_brace is
+	set_g_token_eof is
 		do
-			value := left_brace_low_level
+			value := g_token_eof_low_level
 		end
 
-	set_right_brace is
+	set_g_token_equal_sign is
 		do
-			value := right_brace_low_level
+			value := g_token_equal_sign_low_level
 		end
 
-	set_equal_sign is
+	set_g_token_error is
 		do
-			value := equal_sign_low_level
+			value := g_token_error_low_level
 		end
 
-	set_comma is
+	set_g_token_float is
 		do
-			value := comma_low_level
+			value := g_token_float_low_level
 		end
 
-	set_none is
+	set_g_token_hex is
 		do
-			value := none_low_level
+			value := g_token_hex_low_level
 		end
 
-	set_error is
+	set_g_token_identifier is
 		do
-			value := error_low_level
+			value := g_token_identifier_low_level
 		end
 
-	set_char is
+	set_g_token_identifier_null is
 		do
-			value := char_low_level
+			value := g_token_identifier_null_low_level
 		end
 
-	set_binary is
+	set_g_token_int is
 		do
-			value := binary_low_level
+			value := g_token_int_low_level
 		end
 
-	set_octal is
+	set_g_token_last is
 		do
-			value := octal_low_level
+			value := g_token_last_low_level
 		end
 
-	set_int is
+	set_g_token_left_brace is
 		do
-			value := int_low_level
+			value := g_token_left_brace_low_level
 		end
 
-	set_hex is
+	set_g_token_left_curly is
 		do
-			value := hex_low_level
+			value := g_token_left_curly_low_level
 		end
 
-	set_float is
+	set_g_token_left_paren is
 		do
-			value := float_low_level
+			value := g_token_left_paren_low_level
 		end
 
-	set_string is
+	set_g_token_none is
 		do
-			value := string_low_level
+			value := g_token_none_low_level
 		end
 
-	set_symbol is
+	set_g_token_octal is
 		do
-			value := symbol_low_level
+			value := g_token_octal_low_level
 		end
 
-	set_identifier is
+	set_g_token_right_brace is
 		do
-			value := identifier_low_level
+			value := g_token_right_brace_low_level
 		end
 
-	set_identifier_null is
+	set_g_token_right_curly is
 		do
-			value := identifier_null_low_level
+			value := g_token_right_curly_low_level
 		end
 
-	set_comment_single is
+	set_g_token_right_paren is
 		do
-			value := comment_single_low_level
+			value := g_token_right_paren_low_level
 		end
 
-	set_comment_multi is
+	set_g_token_string is
 		do
-			value := comment_multi_low_level
+			value := g_token_string_low_level
 		end
 
-	set_last is
+	set_g_token_symbol is
 		do
-			value := last_low_level
+			value := g_token_symbol_low_level
 		end
 
 feature -- Queries
-	is_eof: BOOLEAN is
+	is_g_token_binary: BOOLEAN is
 		do
-			Result := (value=eof_low_level)
+			Result := (value=g_token_binary_low_level)
 		end
 
-	is_left_paren: BOOLEAN is
+	is_g_token_char: BOOLEAN is
 		do
-			Result := (value=left_paren_low_level)
+			Result := (value=g_token_char_low_level)
 		end
 
-	is_right_paren: BOOLEAN is
+	is_g_token_comma: BOOLEAN is
 		do
-			Result := (value=right_paren_low_level)
+			Result := (value=g_token_comma_low_level)
 		end
 
-	is_left_curly: BOOLEAN is
+	is_g_token_comment_multi: BOOLEAN is
 		do
-			Result := (value=left_curly_low_level)
+			Result := (value=g_token_comment_multi_low_level)
 		end
 
-	is_right_curly: BOOLEAN is
+	is_g_token_comment_single: BOOLEAN is
 		do
-			Result := (value=right_curly_low_level)
+			Result := (value=g_token_comment_single_low_level)
 		end
 
-	is_left_brace: BOOLEAN is
+	is_g_token_eof: BOOLEAN is
 		do
-			Result := (value=left_brace_low_level)
+			Result := (value=g_token_eof_low_level)
 		end
 
-	is_right_brace: BOOLEAN is
+	is_g_token_equal_sign: BOOLEAN is
 		do
-			Result := (value=right_brace_low_level)
+			Result := (value=g_token_equal_sign_low_level)
 		end
 
-	is_equal_sign: BOOLEAN is
+	is_g_token_error: BOOLEAN is
 		do
-			Result := (value=equal_sign_low_level)
+			Result := (value=g_token_error_low_level)
 		end
 
-	is_comma: BOOLEAN is
+	is_g_token_float: BOOLEAN is
 		do
-			Result := (value=comma_low_level)
+			Result := (value=g_token_float_low_level)
 		end
 
-	is_none: BOOLEAN is
+	is_g_token_hex: BOOLEAN is
 		do
-			Result := (value=none_low_level)
+			Result := (value=g_token_hex_low_level)
 		end
 
-	is_error: BOOLEAN is
+	is_g_token_identifier: BOOLEAN is
 		do
-			Result := (value=error_low_level)
+			Result := (value=g_token_identifier_low_level)
 		end
 
-	is_char: BOOLEAN is
+	is_g_token_identifier_null: BOOLEAN is
 		do
-			Result := (value=char_low_level)
+			Result := (value=g_token_identifier_null_low_level)
 		end
 
-	is_binary: BOOLEAN is
+	is_g_token_int: BOOLEAN is
 		do
-			Result := (value=binary_low_level)
+			Result := (value=g_token_int_low_level)
 		end
 
-	is_octal: BOOLEAN is
+	is_g_token_last: BOOLEAN is
 		do
-			Result := (value=octal_low_level)
+			Result := (value=g_token_last_low_level)
 		end
 
-	is_int: BOOLEAN is
+	is_g_token_left_brace: BOOLEAN is
 		do
-			Result := (value=int_low_level)
+			Result := (value=g_token_left_brace_low_level)
 		end
 
-	is_hex: BOOLEAN is
+	is_g_token_left_curly: BOOLEAN is
 		do
-			Result := (value=hex_low_level)
+			Result := (value=g_token_left_curly_low_level)
 		end
 
-	is_float: BOOLEAN is
+	is_g_token_left_paren: BOOLEAN is
 		do
-			Result := (value=float_low_level)
+			Result := (value=g_token_left_paren_low_level)
 		end
 
-	is_string: BOOLEAN is
+	is_g_token_none: BOOLEAN is
 		do
-			Result := (value=string_low_level)
+			Result := (value=g_token_none_low_level)
 		end
 
-	is_symbol: BOOLEAN is
+	is_g_token_octal: BOOLEAN is
 		do
-			Result := (value=symbol_low_level)
+			Result := (value=g_token_octal_low_level)
 		end
 
-	is_identifier: BOOLEAN is
+	is_g_token_right_brace: BOOLEAN is
 		do
-			Result := (value=identifier_low_level)
+			Result := (value=g_token_right_brace_low_level)
 		end
 
-	is_identifier_null: BOOLEAN is
+	is_g_token_right_curly: BOOLEAN is
 		do
-			Result := (value=identifier_null_low_level)
+			Result := (value=g_token_right_curly_low_level)
 		end
 
-	is_comment_single: BOOLEAN is
+	is_g_token_right_paren: BOOLEAN is
 		do
-			Result := (value=comment_single_low_level)
+			Result := (value=g_token_right_paren_low_level)
 		end
 
-	is_comment_multi: BOOLEAN is
+	is_g_token_string: BOOLEAN is
 		do
-			Result := (value=comment_multi_low_level)
+			Result := (value=g_token_string_low_level)
 		end
 
-	is_last: BOOLEAN is
+	is_g_token_symbol: BOOLEAN is
 		do
-			Result := (value=last_low_level)
+			Result := (value=g_token_symbol_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	eof_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_EOF"
- 			}"
- 		end
-
-	left_paren_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_LEFT_PAREN"
- 			}"
- 		end
-
-	right_paren_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_RIGHT_PAREN"
- 			}"
- 		end
-
-	left_curly_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_LEFT_CURLY"
- 			}"
- 		end
-
-	right_curly_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_RIGHT_CURLY"
- 			}"
- 		end
-
-	left_brace_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_LEFT_BRACE"
- 			}"
- 		end
-
-	right_brace_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_RIGHT_BRACE"
- 			}"
- 		end
-
-	equal_sign_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_EQUAL_SIGN"
- 			}"
- 		end
-
-	comma_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_COMMA"
- 			}"
- 		end
-
-	none_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_NONE"
- 			}"
- 		end
-
-	error_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_ERROR"
- 			}"
- 		end
-
-	char_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_CHAR"
- 			}"
- 		end
-
-	binary_low_level: INTEGER is
+	g_token_binary_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -398,88 +288,25 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	octal_low_level: INTEGER is
+	g_token_char_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "G_TOKEN_OCTAL"
+ 			feature_name: "G_TOKEN_CHAR"
  			}"
  		end
 
-	int_low_level: INTEGER is
+	g_token_comma_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "G_TOKEN_INT"
+ 			feature_name: "G_TOKEN_COMMA"
  			}"
  		end
 
-	hex_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_HEX"
- 			}"
- 		end
-
-	float_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_FLOAT"
- 			}"
- 		end
-
-	string_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_STRING"
- 			}"
- 		end
-
-	symbol_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_SYMBOL"
- 			}"
- 		end
-
-	identifier_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_IDENTIFIER"
- 			}"
- 		end
-
-	identifier_null_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_IDENTIFIER_NULL"
- 			}"
- 		end
-
-	comment_single_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_TOKEN_COMMENT_SINGLE"
- 			}"
- 		end
-
-	comment_multi_low_level: INTEGER is
+	g_token_comment_multi_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -488,12 +315,183 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	last_low_level: INTEGER is
+	g_token_comment_single_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_COMMENT_SINGLE"
+ 			}"
+ 		end
+
+	g_token_eof_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_EOF"
+ 			}"
+ 		end
+
+	g_token_equal_sign_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_EQUAL_SIGN"
+ 			}"
+ 		end
+
+	g_token_error_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_ERROR"
+ 			}"
+ 		end
+
+	g_token_float_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_FLOAT"
+ 			}"
+ 		end
+
+	g_token_hex_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_HEX"
+ 			}"
+ 		end
+
+	g_token_identifier_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_IDENTIFIER"
+ 			}"
+ 		end
+
+	g_token_identifier_null_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_IDENTIFIER_NULL"
+ 			}"
+ 		end
+
+	g_token_int_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_INT"
+ 			}"
+ 		end
+
+	g_token_last_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_TOKEN_LAST"
+ 			}"
+ 		end
+
+	g_token_left_brace_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_LEFT_BRACE"
+ 			}"
+ 		end
+
+	g_token_left_curly_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_LEFT_CURLY"
+ 			}"
+ 		end
+
+	g_token_left_paren_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_LEFT_PAREN"
+ 			}"
+ 		end
+
+	g_token_none_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_NONE"
+ 			}"
+ 		end
+
+	g_token_octal_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_OCTAL"
+ 			}"
+ 		end
+
+	g_token_right_brace_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_RIGHT_BRACE"
+ 			}"
+ 		end
+
+	g_token_right_curly_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_RIGHT_CURLY"
+ 			}"
+ 		end
+
+	g_token_right_paren_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_RIGHT_PAREN"
+ 			}"
+ 		end
+
+	g_token_string_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_STRING"
+ 			}"
+ 		end
+
+	g_token_symbol_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_SYMBOL"
  			}"
  		end
 

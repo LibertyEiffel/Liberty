@@ -9,7 +9,7 @@ class C_INLINE
 inherit
    INSTRUCTION
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make_c_inline_c, make_c_inline_h
 
 feature {ANY}
@@ -38,7 +38,7 @@ feature {ANY}
          Result := True
       end
 
-   specialize_2 (type: TYPE): INSTRUCTION is
+   specialize_and_check (type: TYPE): INSTRUCTION is
       do
          Result := Current
       end

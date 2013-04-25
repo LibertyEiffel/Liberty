@@ -39,7 +39,7 @@ insert
 	GTK
 	GTK_PRINT_STATUS
 	
-creation dummy, make, from_external_pointer
+create {ANY} dummy, make, from_external_pointer
 
 feature {} -- Creation 
 	make (a_title: STRING; a_printer: GTK_PRINTER; some_settings: GTK_PRINT_SETTINGS; a_page_setup: GTK_PAGE_SETUP) is
@@ -54,7 +54,7 @@ feature {} -- Creation
 																 some_settings.handle, a_page_setup.handle))
 		end
 	
-feature
+feature {ANY}
 	settings: GTK_PRINT_SETTINGS is
 			-- the GtkPrintSettings of the print job.
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_PRINT_SETTINGS]
@@ -159,7 +159,7 @@ feature
 			Result:=gtk_print_job_get_track_print_status(handle).to_boolean
 		end
 	
-feature -- TODO: Properties
+feature {ANY} -- TODO: Properties
 	--
 	--
 	--   "page-setup"           GtkPageSetup          : Read / Write / Construct Only
@@ -213,7 +213,7 @@ feature -- TODO: Properties
 	--   Default value: FALSE
 	--
 
-feature -- TODO: Signals
+feature {ANY} -- TODO: Signals
 	-- "status-changed"
 	--             void        user_function      (GtkPrintJob *job,
 	--                                             gpointer     user_data)      : Run last
@@ -305,7 +305,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkPrintJob)"

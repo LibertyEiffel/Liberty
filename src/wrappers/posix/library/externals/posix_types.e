@@ -6,7 +6,7 @@ deferred class POSIX_TYPES
 
 insert ANY undefine is_equal, copy end
 
-feature -- C type definitions (typedefs)
+feature {ANY} -- C type definitions (typedefs)
 	in_port_t: NATURAL_16 is
 		-- typedef in_port_t
 		-- Empty by design, used for anchored declarations.

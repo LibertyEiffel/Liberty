@@ -8,7 +8,7 @@ inherit
       redefine base_feature
       end
 
-creation {ONCE_PROCEDURE}
+create {ONCE_PROCEDURE}
    for
 
 feature {ANY}

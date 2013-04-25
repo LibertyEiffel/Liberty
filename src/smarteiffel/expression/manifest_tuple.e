@@ -9,7 +9,7 @@ class MANIFEST_TUPLE
 inherit
    EXPRESSION
 
-creation make
+create {ANY} make
 
 feature {ANY}
    start_position: POSITION
@@ -125,7 +125,7 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          cx: like create_expression; eal: like effective_arg_list; i: INTEGER
          expression: EXPRESSION; void_type: TYPE
@@ -154,7 +154,7 @@ feature {ANY}
                end
                i := i + 1
             end
-            eal := effective_arg_list.specialize_2_on_expressions(type)
+            eal := effective_arg_list.specialize_and_check_on_expressions(type)
             if create_expression = Void then
                cx := create_expression_for(type, eal)
                create_expression := cx
@@ -168,7 +168,7 @@ feature {ANY}
                cx := create_expression_for(type, eal)
             end
          end
-         cx := cx.specialize_2(type)
+         cx := cx.specialize_and_check(type)
          Result := current_or_twin_init(eal, cx)
       ensure then
          Result.create_expression /= Void
@@ -323,7 +323,7 @@ feature {}
 
    create_expression_for (type: TYPE; eal: EFFECTIVE_ARG_LIST): CREATE_EXPRESSION is
          -- Create the corresponding TUPLE create expression knowing that `eal' has already got its
-         -- `specialize_2' call using `type'.
+         -- `specialize_and_check' call using `type'.
       require
          type /= Void
          eal.count >= 1

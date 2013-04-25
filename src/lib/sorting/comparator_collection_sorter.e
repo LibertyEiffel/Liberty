@@ -30,7 +30,7 @@ insert
       redefine default_create
       end
 
-creation {ANY}
+create {ANY}
    default_create, with_comparator
 
 feature {ANY}

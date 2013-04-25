@@ -9,7 +9,7 @@ inherit
 insert
    HTML_HANDLER
 
-creation {EIFFELDOC}
+create {EIFFELDOC}
    make
 
 feature {HTML_ELEMENT}

@@ -7,8 +7,8 @@ expanded class GDK_GRAVITY_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = north_west_low_level)  or else
@@ -23,7 +23,7 @@ feature -- Validity
 				(a_value = static_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_north_west is
 		do
@@ -75,7 +75,7 @@ feature -- Setters
 			value := static_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	north_west: BOOLEAN is
 		do
 			Result := (value=north_west_low_level)

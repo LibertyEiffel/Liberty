@@ -101,14 +101,17 @@ feature {ANY}
          Result := first_name.start_position
       end
 
+   assigner: ANONYMOUS_FEATURE
+         -- If this feature can be assigned to, the assigner feature.
+
    frozen obsolete_warning_check (type: TYPE; caller: POSITION) is
       do
          if obsolete_mark /= Void and then not obsolete_warning_check_memory.has(caller) then
             obsolete_warning_check_memory.add(caller)
             error_handler.add_position(caller)
-            error_handler.append("While checking this call in ")
+            error_handler.append(once "While checking this call in ")
             error_handler.append(type.name.to_string)
-            error_handler.append(" context, it appears to be a call to an obsolete feature:%N")
+            error_handler.append(once " context, it appears to be a call to an obsolete feature:%N")
             error_handler.append(obsolete_mark.to_string)
             error_handler.add_position(obsolete_mark.start_position)
             error_handler.print_as_warning
@@ -313,7 +316,7 @@ feature {}
       do
          if inline_dynamic_dispatch_flag then
             error_handler.add_position(start_position)
-            error_handler.append("Internal compiler warning (ANONYMOUS_FEATURE.inline_dynamic_dispatch called twice).")
+            error_handler.append(once "Internal compiler warning (ANONYMOUS_FEATURE.inline_dynamic_dispatch called twice).")
             error_handler.print_as_warning
          else
             inline_dynamic_dispatch_flag := True
@@ -434,9 +437,9 @@ feature {ANONYMOUS_FEATURE_MIXER}
                error_handler.add_position(parent_edge.start_position)
                error_handler.add_position(other.start_position)
                --|*** how to add position for other.inherit?
-               error_handler.append(" These two inherited features have the same name in type `")
+               error_handler.append(once " These two inherited features have the same name in type `")
                error_handler.append(new_type.name.to_string)
-               error_handler.append("' but different signatures. According to the join rule, %
+               error_handler.append(once "' but different signatures. According to the join rule, %
                 %the signatures have to be identical in the final class.")
                error_handler.print_as_fatal_error
             end
@@ -562,7 +565,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
       end
 
 feature {FEATURE_STAMP, PRECURSOR_CALL}
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       require
          has_been_specialized
          not smart_eiffel.status.is_specializing
@@ -589,7 +592,7 @@ feature {ANONYMOUS_FEATURE}
             if result_type /= Void then
                Result := result_type.same_signature_type(other.result_type, into)
                if not Result then
-                  error_handler.append("Different result types.")
+                  error_handler.append(once "Different result types.")
                end
             end
             if Result and then arguments /= other.arguments then
@@ -616,7 +619,7 @@ feature {ANONYMOUS_FEATURE}
                      i := i + 1
                   end
                   if not Result then
-                     error_handler.append("Different arguments types.")
+                     error_handler.append(once "Different arguments types.")
                   end
                end
             end
@@ -842,30 +845,30 @@ feature {}
          redefinition_resolved := redefinition_type_mark.resolve_in(new_type)
          error_handler.add_position(parent_type_mark.start_position)
          error_handler.add_position(redefinition_type_mark.start_position)
-         error_handler.append("Type ")
+         error_handler.append(once "Type ")
          error_handler.append(redefinition_resolved.name.to_string)
-         error_handler.append(" is not a valid redefinition for ")
+         error_handler.append(once " is not a valid redefinition for ")
          error_handler.append(parent_resolved.name.to_string)
-         error_handler.append(". Signature of the redefined feature is not valid.")
+         error_handler.append(once ". Signature of the redefined feature is not valid.")
          if (not parent_type_mark.is_static) or (not redefinition_type_mark.is_static) then
-            error_handler.append(" (More explaination below.)")
+            error_handler.append(once " (More explaination below.)")
          end
          error_handler.print_as_error
          if not parent_type_mark.is_static then
             error_handler.add_position(parent_type_mark.start_position)
-            error_handler.append("In the parent context (i.e in ")
+            error_handler.append(once "In the parent context (i.e in ")
             error_handler.append(parent_type.name.to_string)
-            error_handler.append(") this type mark is resolved as ")
+            error_handler.append(once ") this type mark is resolved as ")
             error_handler.append(parent_resolved.name.to_string)
-            error_handler.append(".")
+            error_handler.append(once ".")
             error_handler.print_as_error
          end
          if not redefinition_type_mark.is_static then
-            error_handler.append("In the redefinition context (i.e in ")
+            error_handler.append(once "In the redefinition context (i.e in ")
             error_handler.append(new_type.name.to_string)
-            error_handler.append(") this type mark is resolved as ")
+            error_handler.append(once ") this type mark is resolved as ")
             error_handler.append(redefinition_resolved.name.to_string)
-            error_handler.append(".")
+            error_handler.append(once ".")
             error_handler.print_as_error
          end
       ensure
@@ -913,6 +916,13 @@ feature {FEATURE_ACCUMULATOR}
          end
       ensure
          Result /= Void
+      end
+
+   set_assigner (a_assigner: like assigner) is
+      do
+         assigner := a_assigner
+      ensure
+         assigner = a_assigner
       end
 
 feature {FEATURE_TEXT}

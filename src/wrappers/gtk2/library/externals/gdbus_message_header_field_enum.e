@@ -7,8 +7,8 @@ expanded class GDBUS_MESSAGE_HEADER_FIELD_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = invalid_low_level)  or else
@@ -23,7 +23,7 @@ feature -- Validity
 				(a_value = num_unix_fds_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_invalid is
 		do
@@ -75,7 +75,7 @@ feature -- Setters
 			value := num_unix_fds_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	invalid: BOOLEAN is
 		do
 			Result := (value=invalid_low_level)

@@ -3,7 +3,7 @@ class C_ELLIPSIS
 
 inherit C_FUNCTION_ARGUMENT
 
-creation make
+create {ANY} make
 
 feature
 	is_ellipsis: BOOLEAN is True

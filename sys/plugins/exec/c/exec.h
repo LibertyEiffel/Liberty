@@ -163,3 +163,7 @@ extern EIF_INTEGER basic_exec_win32_get_character (void*h);
 #define basic_exec_win32_get_in_handle(pipe) NULL
 #define basic_exec_win32_get_out_handle(pipe) NULL
 #endif
+
+extern void basic_exec_waitpid_init(EIF_OBJECT);
+extern EIF_INTEGER basic_exec_waitpid_fd(void);
+extern EIF_INTEGER basic_exec_waitpid_read_buffer(void*);

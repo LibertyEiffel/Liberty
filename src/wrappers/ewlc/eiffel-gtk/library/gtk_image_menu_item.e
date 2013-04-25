@@ -27,7 +27,7 @@ class GTK_IMAGE_MENU_ITEM
 inherit GTK_MENU_ITEM redefine make, struct_size, with_mnemonic, with_label end
 	--    GtkImageMenuItem implements AtkImplementorIface.
 
-creation make, from_stock, with_label, with_mnemonic, from_external_pointer
+create {ANY} make, from_stock, with_label, with_mnemonic, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -74,7 +74,7 @@ feature {} -- Creation
 			store_eiffel_wrapper
 		end
 
-feature
+feature {ANY}
 	set_image (a_widget: GTK_WIDGET) is
 			-- Sets the image of image menu item to `a_widget'. Note that
 			-- it depends on the show-menu-images setting whether the
@@ -92,7 +92,7 @@ feature
 			Result := factory.wrapper_or_void (gtk_image_menu_item_get_image (handle))
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkImageMenuItem)"

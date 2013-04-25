@@ -6,7 +6,7 @@ inherit
 insert
 	PANGO_STYLE
 
-create make_pango_style, from_pango_style
+create {ANY} make_pango_style, from_pango_style
 
 feature {} -- Creations
 
@@ -30,7 +30,7 @@ feature {} -- Creations
 			g_value_set_enum (handle, a_pango_style)
 		end
 
-feature -- Commands
+feature {ANY} -- Commands
 
 	set (a_pango_style: INTEGER) is
 		require

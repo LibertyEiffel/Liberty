@@ -12,7 +12,7 @@ inherit
       redefine pretty_in, default_expression, resolve_in, class_text
       end
 
-creation {ANY}
+create {ANY}
    integer_8, integer_16, integer_32, integer_64, integer
 
 feature {ANY}

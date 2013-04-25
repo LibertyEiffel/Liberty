@@ -129,7 +129,7 @@ feature {} -- external calls
 		external "C use <glib.h>"
 		end
 
-feature -- Accessing GSList structure
+feature {ANY} -- Accessing GSList structure
 	g_slist_get_data (a_gslist: POINTER): POINTER is
 		external "C struct GSList get data use <glib.h>"
 		end

@@ -32,7 +32,7 @@ inherit
 
 	--  TODO: GtkSourceView implements AtkImplementorIface.
 
-creation dummy, make, from_buffer, from_external_pointer
+create {ANY} dummy, make, from_buffer, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -51,7 +51,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_source_view_new_with_buffer(a_buffer.handle))
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	set_show_line_numbers (a_setting: BOOLEAN) is
 			-- If `a_setting' is line numbers will be displayed beside the text.
 		do
@@ -146,7 +146,7 @@ feature -- Setters
 		ensure set: a_setting = is_smart_home_end_set
 		end
 
-feature -- Getters
+feature {ANY} -- Getters
 	are_line_numbers_shown: BOOLEAN is
 			-- Are line numbers displayed beside the text? Default 
 			-- value: False 
@@ -229,7 +229,7 @@ feature -- Getters
 			Result:=gtk_source_view_get_smart_home_end(handle).to_boolean
 		end
 
-feature -- Style Properties
+feature {ANY} -- Style Properties
 	right_margin_line_alpha: INTEGER_32 is
 			-- The ::right-margin-line-alpha determines the alpha
 			-- component with which the vertical line will be drawn. 0
@@ -300,7 +300,7 @@ feature {} -- Style properties labels
 	right_margin_overlay_color_property_name: STRING is "right-margin-overlay-color"
 	right_margin_overlay_toggle_property_name: STRING is "right-margin-overlay-toggle"
 
-feature -- Signals
+feature {ANY} -- Signals
 	--   "redo"                                           : Run Last / Action
 	--   "undo"                                           : Run Last / Action
 
@@ -461,7 +461,7 @@ feature {} -- External calls
 		end
 
 	
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtksourceview/gtksourceview.h>"
 		alias "sizeof(GtkSourceView)"

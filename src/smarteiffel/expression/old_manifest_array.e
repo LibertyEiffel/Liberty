@@ -13,10 +13,10 @@ class OLD_MANIFEST_ARRAY
 inherit
    EXPRESSION
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make
 
-feature
+feature {ANY}
    start_position: POSITION
          -- Of first character of the first < character.
 
@@ -115,7 +115,7 @@ feature
          end
       end
 
-   specialize_2 (type: TYPE): MANIFEST_GENERIC is
+   specialize_and_check (type: TYPE): MANIFEST_GENERIC is
          -- Transformation into the canonical form.
       local
          i: INTEGER; exp1, exp2: EXPRESSION; l: like list
@@ -123,14 +123,14 @@ feature
          optional_list: FAST_ARRAY[EXPRESSION]; unknown_position: POSITION
          void_expression: E_VOID; void_type: TYPE
       do
-         -- First applying `specialize_2' for all items of the `list':
+         -- First applying `specialize_and_check' for all items of the `list':
          from
             i := list.lower
          until
             exp1 /= exp2 or else i > list.upper
          loop
             exp1 := list.item(i)
-            exp2 := exp1.specialize_2(type)
+            exp2 := exp1.specialize_and_check(type)
             i := i + 1
          end
          if exp1 = exp2 then
@@ -142,7 +142,7 @@ feature
             until
                i > l.upper
             loop
-               l.put(list.item(i).specialize_2(type), i)
+               l.put(list.item(i).specialize_and_check(type), i)
                i := i + 1
             end
          end
@@ -164,7 +164,7 @@ feature
          if void_expression /= Void and then type_set_buffer.count = 0 then
             void_type := void_expression.resolve_in(type)
             error_handler.add_position(start_position)
-            error_handler.append("Cannot create an ARRAY with only `Void' items.")
+            error_handler.append(once "Cannot create an ARRAY with only `Void' items.")
             error_handler.print_as_fatal_error
          end
          if type_set_buffer.count = 0 then
@@ -175,7 +175,7 @@ feature
             items_type_mark := smallest_ancestor_from_type_set_buffer
             if items_type_mark = Void then
                error_handler.add_position(start_position)
-               error_handler.append("The old manifest ARRAY notation can only be used when the common %
+               error_handler.append(once "The old manifest ARRAY notation can only be used when the common %
                                     %type mark for all items of the manifest ARRAY exists, is not ambiguous %
                                     %and is easy to compute! By the way, it is not easy or possible to %
                                     %compute the most general type for the following set of types: {")
@@ -187,13 +187,13 @@ feature
                   error_handler.append(type_set_buffer.item(i).name.to_string)
                   i := i + 1
                   if i <= type_set_buffer.upper then
-                     error_handler.append(", ")
+                     error_handler.append(once ", ")
                   end
                end
-               error_handler.append("}. See the next error message.")
+               error_handler.append(once "}. See the next error message.")
                error_handler.print_as_error
                error_handler.add_position(start_position)
-               error_handler.append("This obsolete manifest ARRAY creation is no longer supported. %
+               error_handler.append(once "This obsolete manifest ARRAY creation is no longer supported. %
                                      %See our %"SmartEiffel/tutorial/manifest_notation.e%" %
                                      %in order to use the new notation.")
                error_handler.print_as_fatal_error
@@ -207,7 +207,7 @@ feature
          create optional_list.with_capacity(1)
          optional_list.add_last(create {INTEGER_CONSTANT}.make(1, start_position))
          create Result.make(start_position, array_type_mark, optional_list, l, 0, unknown_position)
-         Result.specialize_2_from_old_manifest_array(type)
+         Result.specialize_and_check_from_old_manifest_array(type)
       end
 
    use_current (type: TYPE): BOOLEAN is
@@ -350,7 +350,7 @@ feature {}
          start_position := sp
          if l = Void then
             error_handler.add_position(sp)
-            error_handler.append("Empty manifest array not allowed. (If you really need to do it, just replace it %
+            error_handler.append(once "Empty manifest array not allowed. (If you really need to do it, just replace it %
                                  %with something like:%Ncreate {ARRAY[ANY]}.make(1, 0)")
             error_handler.print_as_fatal_error
          end

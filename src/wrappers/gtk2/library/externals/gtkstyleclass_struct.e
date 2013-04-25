@@ -718,7 +718,7 @@ feature {} -- Low-level queries
 	-- Unwrappable field _gtk_reserved9.
 	-- Unwrappable field _gtk_reserved10.
 	-- Unwrappable field _gtk_reserved11.
-feature -- Structure size
+feature {ANY} -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

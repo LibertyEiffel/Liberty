@@ -69,7 +69,7 @@ insert
 		-- Known Implementations: GtkEditable is implemented by
 		-- GtkEntry, GtkOldEditable, GtkSpinButton and GtkText.
 
-feature
+feature {ANY}
 	select_region (a_start, an_end: INTEGER) is
 			-- Selects a region of text. The characters that are selected
 			-- are those characters at positions from `a_start' up to,
@@ -204,7 +204,7 @@ feature
 			Result := (gtk_editable_get_editable(handle)).to_boolean
 		end
 
-feature -- The "changed" signal
+feature {ANY} -- The "changed" signal
 	changed_signal_name: STRING is "changed"
 	enable_on_changed is
 			-- Connects "changed" signal to `on_changed' feature.
@@ -236,7 +236,7 @@ feature -- The "changed" signal
 	-- editable : 	the object which received the signal.
 	-- user_data : 	user data set when the signal handler was connected.
 
-feature -- The "delete-text" signal
+feature {ANY} -- The "delete-text" signal
 
 	-- void user_function (GtkEditable *editable, gint `a_start', gint
 	-- `an_end', gpointer user_data);
@@ -255,7 +255,7 @@ feature -- The "delete-text" signal
 	-- user_data : 	user data set when the signal handler was connected.
 	
 
-feature -- The "insert-text" signal
+feature {ANY} -- The "insert-text" signal
 
 	insert_text_signal_name: STRING is "insert-text"
 		-- 		"insert-text"

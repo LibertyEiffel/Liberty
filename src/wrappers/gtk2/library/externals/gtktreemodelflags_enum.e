@@ -7,14 +7,14 @@ expanded class GTKTREEMODELFLAGS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (gtk_tree_model_iters_persist_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gtk_tree_model_iters_persist is
 		do
@@ -26,7 +26,7 @@ feature -- Setters
 			value := value.bit_xor(gtk_tree_model_iters_persist_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gtk_tree_model_iters_persist: BOOLEAN is
 		do
 			Result := (value=gtk_tree_model_iters_persist_low_level)

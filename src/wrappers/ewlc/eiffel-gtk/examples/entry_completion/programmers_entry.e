@@ -12,9 +12,9 @@ insert G_TYPES
 	-- since it requires explicit reference to g_type_*; it's ugly, or
 	-- better it feels mostly unEiffelish to me. Paolo 2006-05-30
 	
-creation make
+create {ANY} make
 
-feature 
+feature {ANY} 
 	make is
 		do
 			with_model (programmers, name_column_n)
@@ -25,7 +25,7 @@ feature
 			entry.set_completion (completion)
 		end
 
-feature -- Programmers' model columns
+feature {ANY} -- Programmers' model columns
 	name_column_n: INTEGER is 0
 	proficiency_column_n: INTEGER is 1
 	columns_n: INTEGER is 2

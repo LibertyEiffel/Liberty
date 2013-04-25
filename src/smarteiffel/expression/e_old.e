@@ -10,7 +10,7 @@ inherit
    EXPRESSION
    TAGGED
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make
 
 feature {ANY}
@@ -50,7 +50,7 @@ feature {ANY}
          else
             error_handler.add_position(vaol_check_memory.item.start_position)
             error_handler.add_position(start_position)
-            error_handler.append("Must not use old inside some old expression (VAOL.2).")
+            error_handler.append(once "Must not use old inside some old expression (VAOL.2).")
             error_handler.print_as_fatal_error
          end
          exp := expression.specialize_in(type)
@@ -66,11 +66,11 @@ feature {ANY}
          Result := current_or_twin_init(exp)
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          exp: like expression
       do
-         exp := expression.specialize_2(type)
+         exp := expression.specialize_and_check(type)
          Result := current_or_twin_init(exp)
       end
 

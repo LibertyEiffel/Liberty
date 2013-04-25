@@ -40,9 +40,9 @@ inherit
 insert 
 		GTK_ACCEL_MAPS_EXTERNALS redefine default_create end
 
-creation default_create
+create {ANY} default_create
 
-feature 
+feature {ANY} 
 	default_create is
 		-- Create the singleton global GTK_ACCELERATOR_MAP object. This object
 		-- is useful only for notification of changes to the accelerator map

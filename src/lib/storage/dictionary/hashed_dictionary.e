@@ -11,10 +11,10 @@ class HASHED_DICTIONARY[V_, K_ -> HASHABLE]
 inherit
    ABSTRACT_HASHED_DICTIONARY[V_, K_]
 
-creation {ANY}
+create {ANY}
    make, with_capacity, manifest_creation
 
-creation {ABSTRACT_HASHED_DICTIONARY}
+create {ABSTRACT_HASHED_DICTIONARY}
    special_common_dictionary
 
 feature {}
