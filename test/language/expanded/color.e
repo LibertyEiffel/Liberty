@@ -8,7 +8,7 @@ insert
       redefine out
       end
 
-creation {ANY}
+create {ANY}
    default_create, make_rgb
 
 feature {ANY}

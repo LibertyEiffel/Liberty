@@ -25,6 +25,7 @@ feature {ANY}
             end
             i := i - 1
          end
+
          a1.set_all_with(elt)
          from
             i := a1.upper
@@ -36,6 +37,7 @@ feature {ANY}
             end
             i := i - 1
          end
+
          create a2.make(3)
          elt.set_all_with(1.5)
          from
@@ -48,6 +50,7 @@ feature {ANY}
             end
             i := i - 1
          end
+
          a2.set_all_with(elt)
          from
             i := a2.upper

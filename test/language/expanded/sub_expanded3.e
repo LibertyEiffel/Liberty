@@ -6,7 +6,7 @@ expanded class SUB_EXPANDED3
 insert
    EXPANDED3
 
-creation {ANY}
+create {ANY}
    make
 
 end -- class SUB_EXPANDED3

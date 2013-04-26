@@ -12,8 +12,7 @@ create {}
 feature {}
    make is
       local
-         a, b: AUX_EXPANDED41
-         ar1, ar2: FAST_ARRAY[AUX_EXPANDED41]
+         a, b: AUX_EXPANDED41; ar1, ar2: FAST_ARRAY[AUX_EXPANDED41]
       do
          assert(a.id /= b.id)
          assert(a = b)
