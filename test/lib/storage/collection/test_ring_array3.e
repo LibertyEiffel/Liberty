@@ -5,7 +5,7 @@ class TEST_RING_ARRAY3
    -- From a bug report of Jean-Marc JEZEQUEL
    -- (test ported from FAST_ARRAY to RING_ARRAY)
 
-creation {}
+create {}
    make
 
 feature {}

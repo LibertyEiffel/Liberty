@@ -6,7 +6,7 @@ class TEST_MUTABLE_BIG_INTEGER8
    -- Testing features `shift_left' and `shift_right'.
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

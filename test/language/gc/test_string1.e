@@ -6,7 +6,7 @@ class TEST_STRING1
 insert
    MEMORY
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

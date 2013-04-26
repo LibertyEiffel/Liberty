@@ -3,7 +3,7 @@
 --
 class TEST_POWER
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

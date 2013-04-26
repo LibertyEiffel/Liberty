@@ -6,7 +6,7 @@ class TEST_VERBATIM_STRING2
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    run
 
 feature {}

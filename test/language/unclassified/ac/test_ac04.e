@@ -4,7 +4,7 @@
 class TEST_AC04
    -- From a bug report of Alex Cozzi
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

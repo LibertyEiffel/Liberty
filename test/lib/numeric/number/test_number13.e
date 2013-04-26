@@ -9,7 +9,7 @@ insert
    PLATFORM
    NUMBER_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

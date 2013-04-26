@@ -5,7 +5,7 @@ insert
    EIFFELTEST_TOOLS
    COMMAND_LINE_ARGUMENT_FACTORY
 
-creation {}
+create {}
    make
 
 feature {}

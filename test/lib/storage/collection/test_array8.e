@@ -9,10 +9,10 @@ inherit
       rename make as make_array
       end
 
-creation {ANY}
+create {}
    make
 
-creation {ARRAY}
+create {}
    make_array
 
 feature {}

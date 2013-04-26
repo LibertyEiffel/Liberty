@@ -6,7 +6,7 @@ class TEST_RENAME9
 inherit
    AUX_RENAME9C
 
-creation {ANY}
+create {}
    make, default_create
 
 end -- class TEST_RENAME9

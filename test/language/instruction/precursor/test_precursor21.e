@@ -14,7 +14,7 @@ inherit
 insert
    EIFFELTEST_TOOLS
 
-creation {}
+create {}
    main
 
 feature {}

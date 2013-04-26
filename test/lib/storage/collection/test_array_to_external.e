@@ -3,7 +3,7 @@
 --
 class TEST_ARRAY_TO_EXTERNAL
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

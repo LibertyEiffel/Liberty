@@ -3,7 +3,7 @@
 --
 class TEST_SUBSTRING
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

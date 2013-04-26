@@ -3,7 +3,7 @@
 --
 class TEST_REVERSE_BUBBLE_SORT3
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -2,7 +2,7 @@ class TEST_WMH01
 -- From a bug report of "Wai Ming, HO" <waimingh@irisa.fr>
 insert
    EIFFELTEST_TOOLS
-creation make
+create {}
 feature
    make is
       local

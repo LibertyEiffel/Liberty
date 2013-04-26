@@ -4,7 +4,7 @@
 class TEST_STRING14
    -- Bug from Philippe Ribet
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

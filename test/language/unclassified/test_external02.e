@@ -4,7 +4,7 @@
 class TEST_EXTERNAL02
    --SZ:543: wrong generated C code
 
-creation {ANY}
+create {}
    main
 
 feature {ANY}

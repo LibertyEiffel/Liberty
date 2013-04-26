@@ -5,7 +5,7 @@ class TEST_VB1
    -- From: Vincent Bousquet
    -- From: "Christel Blossier" <cblossier@netcourrier.com>
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

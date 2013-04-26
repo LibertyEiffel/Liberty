@@ -6,7 +6,7 @@ class TEST_FILE_EXISTS
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    main
 
 feature {}

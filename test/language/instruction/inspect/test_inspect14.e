@@ -6,7 +6,7 @@ class TEST_INSPECT14
 insert
    EXCEPTIONS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

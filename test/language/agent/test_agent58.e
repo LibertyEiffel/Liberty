@@ -4,7 +4,7 @@
 class TEST_AGENT58
    -- SZ:539:
 
-creation {ANY}
+create {}
    make
 
 feature {}

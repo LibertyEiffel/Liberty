@@ -9,7 +9,7 @@ inherit
       rename twin as mon_twin
       end
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

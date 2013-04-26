@@ -4,7 +4,7 @@
 class TEST_PARAM
    -- From a bug report of Christophe REMY
 
-creation {ANY}
+create {}
    make
 
 feature {}

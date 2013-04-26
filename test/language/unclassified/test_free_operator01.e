@@ -4,7 +4,7 @@
 class TEST_FREE_OPERATOR01
    -- From sz:438
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

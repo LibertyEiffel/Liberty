@@ -2,7 +2,7 @@ class TEST_COPY_EXPANDED
 	-- Test the copying of an expanded object which have redefined the copy feature
 insert EIFFELTEST_TOOLS
 
-creation make
+create {}
 
 feature make is
 		do

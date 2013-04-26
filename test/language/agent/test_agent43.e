@@ -5,7 +5,7 @@ class TEST_AGENT43
    -- SZ:296:
    -- reference with agents
 
-creation {ANY}
+create {}
    make
 
 feature {}

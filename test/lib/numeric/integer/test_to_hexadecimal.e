@@ -3,7 +3,7 @@
 --
 class TEST_TO_HEXADECIMAL
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

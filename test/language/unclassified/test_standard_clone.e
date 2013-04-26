@@ -6,7 +6,7 @@ class TEST_STANDARD_CLONE
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

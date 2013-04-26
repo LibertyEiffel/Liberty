@@ -3,7 +3,7 @@ class TEST_LINKED_HASHED_DICTIONARY
 insert
    EIFFELTEST_TOOLS
 
-creation {}
+create {}
    make
 
 feature {}

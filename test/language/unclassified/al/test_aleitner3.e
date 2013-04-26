@@ -4,7 +4,7 @@
 class TEST_ALEITNER3
    -- From: "Andreas Leitner" <nozone@sbox.tu-graz.ac.at>
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -9,7 +9,7 @@ inherit
       rename b as e
       end
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

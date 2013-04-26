@@ -6,7 +6,7 @@ class TEST_REQ3
    -- To correct a bug in the compiler with new lookup
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

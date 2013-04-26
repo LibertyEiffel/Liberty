@@ -13,7 +13,7 @@ inherit
    AUX_JOIN1A
    AUX_JOIN1B
 
-creation {ANY}
+create {}
    default_create
 
 end -- class TEST_JOIN1

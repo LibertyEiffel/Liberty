@@ -5,7 +5,7 @@ class TEST_05
    -- SZ:175: This code is valid. Class AUX05_A is not alive but alive
    -- descendant class exist.
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

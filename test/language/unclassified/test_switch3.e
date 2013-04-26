@@ -4,7 +4,7 @@
 class TEST_SWITCH3
    -- Testing stupid switch on NATIVE_ARRAY.
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -6,7 +6,7 @@ class TEST_ENDIAN02
 inherit
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

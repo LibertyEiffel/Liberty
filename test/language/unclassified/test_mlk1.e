@@ -6,7 +6,7 @@ class TEST_MLK1
    -- Test for Memory Leaks
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

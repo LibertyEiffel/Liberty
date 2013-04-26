@@ -1,6 +1,6 @@
 class TEST_WJ01
 -- From: Gabriel Weiﬂelberg <gabriel.weisselberg@brokat-le.com>
-creation make
+create {}
 
 feature
 

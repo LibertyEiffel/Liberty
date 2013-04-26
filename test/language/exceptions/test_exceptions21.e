@@ -9,7 +9,7 @@ inherit
       redefine dummy
       end
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

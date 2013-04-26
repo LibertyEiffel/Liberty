@@ -8,7 +8,7 @@ insert
    EIFFELTEST_TOOLS
    ASSERTION_CONSTANTS
 
-creation {ANY}
+create {}
    main
 
 feature {ANY}

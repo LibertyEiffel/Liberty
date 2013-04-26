@@ -3,7 +3,7 @@ class TEST_AUTOMATON_01
 insert
    EIFFELTEST_TOOLS
 
-creation {}
+create {}
    make
 
 feature {}

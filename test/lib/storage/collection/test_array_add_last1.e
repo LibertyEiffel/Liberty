@@ -3,7 +3,7 @@
 --
 class TEST_ARRAY_ADD_LAST1
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

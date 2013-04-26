@@ -6,7 +6,7 @@ class TEST_ARRAY7
 inherit
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {}

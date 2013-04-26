@@ -6,7 +6,7 @@ class TEST_BINARY_FILE_WRITE
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -6,7 +6,7 @@ class TEST_REDEFINE1
 inherit
    ANY
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

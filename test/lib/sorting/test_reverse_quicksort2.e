@@ -3,7 +3,7 @@
 --
 class TEST_REVERSE_QUICKSORT2
 
-creation {ANY}
+create {}
    make
 
 feature {}

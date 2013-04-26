@@ -6,7 +6,7 @@ class TEST_PRE_ONCE7
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {}

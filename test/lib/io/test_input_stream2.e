@@ -8,7 +8,7 @@ insert
    SYSTEM
    DIRECTORY_NOTATION_HANDLER
 
-creation {ANY}
+create {}
    make
 
 feature {}

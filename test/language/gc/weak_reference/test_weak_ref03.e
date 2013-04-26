@@ -7,7 +7,7 @@ class TEST_WEAK_REF03
 inherit
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {}

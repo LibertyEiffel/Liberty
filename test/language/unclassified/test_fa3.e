@@ -6,7 +6,7 @@ class TEST_FA3
    -- From a bug report of Franck ARNAUD
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

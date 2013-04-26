@@ -4,7 +4,7 @@
 class TEST_JK01
    -- From: Jeroen Kolner <mpt96jko@student.hk-r.se>
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -3,7 +3,7 @@
 --
 class TEST_NATIVE_ARRAY1
 
-creation {ANY}
+create {}
    make, make2
 
 feature {ANY}

@@ -4,7 +4,7 @@
 class TEST_PD04
    -- From a bug report of Patrick Doyle
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

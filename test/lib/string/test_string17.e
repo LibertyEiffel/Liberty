@@ -1,7 +1,7 @@
 class TEST_STRING17 
    -- Test append after removing a charater at beginning and at the end of the string
 insert EIFFELTEST_TOOLS
-creation make
+create {}
 feature 
    make is
       do

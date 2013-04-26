@@ -3,7 +3,7 @@
 --
 class TEST_INLINING13
 
-creation {ANY}
+create {}
    make
 
 feature {}

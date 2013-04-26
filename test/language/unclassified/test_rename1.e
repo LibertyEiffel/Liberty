@@ -8,7 +8,7 @@ inherit
       rename is_equal as dummy_equal
       end
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

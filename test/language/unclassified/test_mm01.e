@@ -6,7 +6,7 @@ class TEST_MM01
    -- SZ:413: From mwm-keyword-se.f78c7c@mired.org (Mike Meyer)
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

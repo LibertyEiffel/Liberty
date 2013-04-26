@@ -5,7 +5,7 @@ class TEST_GENERIC10
    -- From: Patrick Cloarec <cloarec@in2p3.fr>
    -- Joli bug !!!
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -10,7 +10,7 @@ insert
          label_assert as assert
       end
 
-creation {}
+create {}
    make
 
 feature {}

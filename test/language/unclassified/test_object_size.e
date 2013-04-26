@@ -3,7 +3,7 @@
 --
 class TEST_OBJECT_SIZE
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

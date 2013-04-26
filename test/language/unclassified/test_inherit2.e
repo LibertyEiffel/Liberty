@@ -14,7 +14,7 @@ insert
       rename reset as aa_reset
       end
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

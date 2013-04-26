@@ -4,7 +4,7 @@
 class TEST_ALG15
    -- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

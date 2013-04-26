@@ -6,7 +6,7 @@ class TEST_BIJECTIVE_DICTIONARY2
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {}

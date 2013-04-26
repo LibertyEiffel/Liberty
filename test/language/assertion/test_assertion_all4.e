@@ -9,7 +9,7 @@ class TEST_ASSERTION_ALL4
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    main
 
 feature {ANY}

@@ -7,7 +7,7 @@ class TEST_NUMBER71
 insert
    NUMBER_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

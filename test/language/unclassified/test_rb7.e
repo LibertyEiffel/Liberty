@@ -3,7 +3,7 @@
 --
 class TEST_RB7
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

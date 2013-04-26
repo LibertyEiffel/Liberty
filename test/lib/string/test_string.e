@@ -3,7 +3,7 @@ class TEST_STRING
 insert
    EIFFELTEST_TOOLS
 
-creation make
+create {}
 
 feature
    make is

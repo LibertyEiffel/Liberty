@@ -4,7 +4,7 @@
 class TEST_06
    -- SZ:175: Second attempt to reproduce the bug.
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

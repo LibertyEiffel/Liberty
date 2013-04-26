@@ -6,7 +6,7 @@ class TEST_ENVIRONMENT_VARIABLE
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    main
 
 feature {}

@@ -3,7 +3,7 @@
 class TEST_ID_FILE
    -- There is a spurious class (called 'SPROCKET') in the .id file, but that shouldn't cause a fatal error.
 
-creation {ANY}
+create {}
    default_create
 
 end -- class TEST_ID_FILE

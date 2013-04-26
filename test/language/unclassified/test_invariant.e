@@ -3,7 +3,7 @@
 --
 class TEST_INVARIANT
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

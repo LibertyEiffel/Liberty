@@ -7,7 +7,7 @@ class TEST
    -- test1.c: In function ‘se_string’:
    -- test1.c:3299:2: error: ‘T7’ has no member named ‘_storage_lower’
 
-creation make
+create {}
 feature 
    make is
       -- Testing

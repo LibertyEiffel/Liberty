@@ -5,7 +5,7 @@ insert
    EIFFELTEST_TOOLS
    COMMAND_LINE_ARGUMENT_CUSTOM_FACTORY[AUX_CLI_07_CUSTOM_OPTION]
 
-creation {}
+create {}
    make
 
 feature {}

@@ -6,7 +6,7 @@ class TEST_REQ2
    -- To correct a bug find by Cyril ADRIAN.
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

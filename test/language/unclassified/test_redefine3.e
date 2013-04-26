@@ -4,7 +4,7 @@
 class TEST_REDEFINE3
    -- From a bug report of Oscar N. Bria
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

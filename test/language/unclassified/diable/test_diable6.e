@@ -4,7 +4,7 @@
 class TEST_DIABLE6
    -- From a bug report of Jean-Marc JEZEQUEL
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

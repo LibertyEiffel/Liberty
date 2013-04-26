@@ -11,7 +11,7 @@ class TEST_SUBSTITUTE_01
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {}

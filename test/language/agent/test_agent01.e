@@ -6,7 +6,7 @@ class TEST_AGENT01
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {}

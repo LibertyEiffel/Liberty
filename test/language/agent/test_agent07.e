@@ -3,7 +3,7 @@
 --
 class TEST_AGENT07
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

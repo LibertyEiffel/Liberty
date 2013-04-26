@@ -8,7 +8,7 @@ inherit
       -- SZ:262: ensure violation for once method. This code is not able to
       -- reproduce the bug...
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -1,5 +1,5 @@
 class TEST_LAZY_STRING
-creation make
+create {}
 feature 
    make is
       do

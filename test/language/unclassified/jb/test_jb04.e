@@ -9,7 +9,7 @@ inherit
       rename identity as aux_jbo4_identity
       end
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

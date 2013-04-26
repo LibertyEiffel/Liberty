@@ -6,7 +6,7 @@ class TEST_AGENT16
    -- From a bug report of roy.maclean@om.com
    --
 
-creation {ANY}
+create {}
    make
 
 feature {}

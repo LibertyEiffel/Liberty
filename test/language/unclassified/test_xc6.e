@@ -6,7 +6,7 @@ class TEST_XC6
    -- From a bug report of Xavier CREGUT
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

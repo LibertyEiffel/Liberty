@@ -9,7 +9,7 @@ inherit
       rename make as array_make
       end
 
-creation {ANY}
+create {}
    make, array_make
 
 feature {ANY}

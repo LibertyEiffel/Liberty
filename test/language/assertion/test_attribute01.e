@@ -6,7 +6,7 @@ class TEST_ATTRIBUTE01
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    main
 
 feature {ANY}

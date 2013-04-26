@@ -4,7 +4,7 @@
 class TEST_AGENT38
    --Test code reduced from code given in SZ:269:
 
-creation {ANY}
+create {}
    make
 
 feature {}

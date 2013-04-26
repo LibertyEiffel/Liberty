@@ -6,7 +6,7 @@ class TEST_SIMPLIFY04
    -- All expressions of this test are finally constants.
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -6,7 +6,7 @@ class TEST_PRECURSOR08
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {}

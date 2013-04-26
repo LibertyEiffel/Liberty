@@ -5,7 +5,7 @@ class TEST_AGENT42
    -- SZ:295:
    -- expanded -> reference automatic conversion
 
-creation {ANY}
+create {}
    make
 
 feature {}

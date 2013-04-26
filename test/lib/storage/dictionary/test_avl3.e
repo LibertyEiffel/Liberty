@@ -4,7 +4,7 @@
 class TEST_AVL3
    -- From Simon Frost on the mailing list (sdfrost@ucsd.edu)
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -4,7 +4,7 @@
 class TEST_BH02
    -- From a bug report of Bob Hutchison
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

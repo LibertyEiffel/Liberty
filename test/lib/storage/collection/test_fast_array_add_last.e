@@ -5,7 +5,7 @@ class TEST_FAST_ARRAY_ADD_LAST
 
 insert EIFFELTEST_TOOLS
 
-creation {ANY} make
+create {}
 
 feature {ANY}
    fai: FAST_ARRAY[INTEGER]

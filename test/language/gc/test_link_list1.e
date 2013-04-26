@@ -3,7 +3,7 @@
 --
 class TEST_LINK_LIST1
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

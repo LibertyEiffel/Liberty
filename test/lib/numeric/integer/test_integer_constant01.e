@@ -9,7 +9,7 @@ class TEST_INTEGER_CONSTANT01
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

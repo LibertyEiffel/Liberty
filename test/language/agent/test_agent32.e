@@ -8,7 +8,7 @@ inherit
       --SZ:114: the compiler gets confused. It consider bar return
       --type being the return type of foo!
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

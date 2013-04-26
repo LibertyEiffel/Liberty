@@ -6,7 +6,7 @@ class TEST_SIMPLIFY19
 inherit
    AUX_SIMPLIFY19
 
-creation {ANY}
+create {}
    make
 
 feature {}

@@ -12,7 +12,7 @@ inherit
       redefine f
       end
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

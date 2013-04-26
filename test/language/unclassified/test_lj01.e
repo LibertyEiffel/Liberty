@@ -4,7 +4,7 @@
 class TEST_LJ01
    -- From a bug report of Loryn Jenkins.
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

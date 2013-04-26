@@ -3,7 +3,7 @@
 --
 class TEST_INSPECT8
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -7,7 +7,7 @@ class TEST_MUTABLE_BIG_INTEGER22
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

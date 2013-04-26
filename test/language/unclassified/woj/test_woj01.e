@@ -1,6 +1,6 @@
 class TEST_WOJ01
 -- From: Wolfgang Jansen <wolfgang@agnld.uni-potsdam.de>
-creation make
+create {}
    
 feature
    

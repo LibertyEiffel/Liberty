@@ -7,7 +7,7 @@ class TEST_JF2
    -- Really interresting syntactic bug (length of line ????).
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

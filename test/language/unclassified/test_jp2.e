@@ -5,7 +5,7 @@ class TEST_JP2
    -- From a bug report privat@lirmm.fr (Jean Privat)
    -- SZ:31:
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

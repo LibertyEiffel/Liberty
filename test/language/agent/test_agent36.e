@@ -6,7 +6,7 @@ class TEST_AGENT36
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make, empty_make
 
 feature {ANY}

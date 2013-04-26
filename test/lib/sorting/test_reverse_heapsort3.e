@@ -3,7 +3,7 @@
 --
 class TEST_REVERSE_HEAPSORT3
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

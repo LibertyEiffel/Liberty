@@ -4,7 +4,7 @@
 class TEST_ASSERTION_TAGS1
    -- From : bstefani@synergyinc.com
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

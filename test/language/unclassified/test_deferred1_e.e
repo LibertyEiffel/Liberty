@@ -6,7 +6,7 @@ class TEST_DEFERRED1_E
 inherit
    AUX_DEFERRED1_D
 
-creation {ANY}
+create {}
    make
 
 end -- class TEST_DEFERRED1_E

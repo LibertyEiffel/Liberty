@@ -6,7 +6,7 @@ class TEST_SIMPLIFY06
    -- Access to dead attribute.
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -3,7 +3,7 @@
 --
 class TEST_INTEGER2
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

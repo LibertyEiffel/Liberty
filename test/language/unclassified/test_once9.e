@@ -8,7 +8,7 @@ class TEST_ONCE9
 insert
    ARGUMENTS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

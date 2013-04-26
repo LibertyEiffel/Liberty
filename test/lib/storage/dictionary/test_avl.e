@@ -6,7 +6,7 @@ class TEST_AVL
 inherit
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {}
