@@ -574,8 +574,22 @@ feature {PRETTY, PRETTY_PRINTER_HANDLER}
       require
          out_stream_flag
          out_stream.is_connected
+      local
+         i: INTEGER; c: CHARACTER
       do
-         out_stream.put_string(buffer)
+         from
+            i := buffer.lower
+         until
+            i > buffer.upper
+         loop
+            c := buffer.item(i)
+            if c = '%T' then
+               out_stream.put_string(once "   ")
+            else
+               out_stream.put_character(c)
+            end
+            i := i + 1
+         end
          if buffer.last /= '%N' then
             out_stream.put_character('%N')
          end
