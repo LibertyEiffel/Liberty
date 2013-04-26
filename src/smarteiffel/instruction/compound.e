@@ -308,7 +308,15 @@ feature {ANY}
                   -- The following comment is associated to the current `instruction'.
                   pretty_printer.prepare_for_same_line_comment
                   comment.pretty(indent_level)
+                  instruction := comment
                   i := i + 1
+               end
+            end
+
+            if i <= list.upper then
+               if list.item(i).start_position.line > instruction.start_position.line + 1 then
+                  -- keep grouped lines together
+                  pretty_printer.put_character('%N')
                end
             end
          end
