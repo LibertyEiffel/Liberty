@@ -575,17 +575,28 @@ feature {PRETTY, PRETTY_PRINTER_HANDLER}
          out_stream_flag
          out_stream.is_connected
       local
-         i: INTEGER; c: CHARACTER
+         i: INTEGER; c: CHARACTER; indent: BOOLEAN
       do
          from
             i := buffer.lower
+            indent := True
          until
             i > buffer.upper
          loop
             c := buffer.item(i)
-            if c = '%T' then
-               out_stream.put_string(once "   ")
+            inspect
+               c
+            when '%T' then
+               if indent then
+                  out_stream.put_string(once "   ")
+               else
+                  out_stream.put_character('%T')
+               end
+            when '%N' then
+               indent := True
+               out_stream.put_character(c)
             else
+               indent := False
                out_stream.put_character(c)
             end
             i := i + 1
