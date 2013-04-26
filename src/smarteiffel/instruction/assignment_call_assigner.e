@@ -133,8 +133,30 @@ feature {ANY}
       end
 
    pretty (indent_level: INTEGER) is
+      local
+         semi_colon_flag: BOOLEAN; expression_with_comment: EXPRESSION_WITH_COMMENT
       do
-         not_yet_implemented
+         pretty_printer.set_indent_level(indent_level)
+         semi_colon_flag := pretty_printer.semi_colon_flag
+         left_side.pretty(indent_level)
+         pretty_printer.put_string(once " := ")
+         pretty_printer.set_semi_colon_flag(False)
+         expression_with_comment ?= right_side
+         if expression_with_comment /= Void and then
+            expression_with_comment.comment.start_position.line > expression_with_comment.expression.start_position.line
+         then
+            -- The comment is actually for the next instruction.
+            expression_with_comment.expression.pretty(indent_level)
+            pretty_printer.set_indent_level(indent_level)
+            expression_with_comment.comment.pretty(indent_level)
+         else
+            right_side.pretty(indent_level)
+         end
+         pretty_printer.set_semi_colon_flag(semi_colon_flag)
+         if semi_colon_flag then
+            pretty_printer.put_character(';')
+         end
+         pretty_printer.set_indent_level(0)
       end
 
    accept (visitor: ASSIGNMENT_CALL_ASSIGNER_VISITOR) is
