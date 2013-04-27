@@ -20,6 +20,7 @@ indexing
 			]"
 
 class STRING_ARRAY 
+	-- An array of C strings. Wraps 'char **'.
 
 	-- Note: the only implemented features are:
 
@@ -45,6 +46,8 @@ class STRING_ARRAY
 inherit
 	COLLECTION [STRING]
 		redefine
+			is_equal_map,
+			all_default,
 			swap 
 		end
 
