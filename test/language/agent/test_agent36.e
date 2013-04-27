@@ -7,7 +7,10 @@ insert
    EIFFELTEST_TOOLS
 
 create {}
-   make, empty_make
+   make
+
+create {TEST_AGENT36}
+   empty_make
 
 feature {ANY}
    make is
