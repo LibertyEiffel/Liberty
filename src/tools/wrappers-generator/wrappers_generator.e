@@ -265,7 +265,7 @@ feature {ANY}
 			%%N%
 			%	--standard-typedefs%N%
 			%		Emit dummy queries useful for anchored declarations (i.e. %"like long%")%N%
-			%		for C types that can have diffent sizes on different architectures and for%N%
+			%		for C types that can have different sizes on different architectures and for%N%
 			%		the typedefs defined in the C99 standard.%N%
 			%		%N%
 			%%N%

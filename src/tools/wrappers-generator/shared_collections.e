@@ -1,5 +1,11 @@
 deferred class SHARED_COLLECTIONS
 	-- Shared collections of various kinds of XML nodes
+insert ANY 
+	undefine 
+		copy, 
+		is_equal,
+		out_in_tagged_out_memory
+	end
 
 feature
 	files: HASHED_DICTIONARY[C_FILE, UNICODE_STRING] is once create Result.make end

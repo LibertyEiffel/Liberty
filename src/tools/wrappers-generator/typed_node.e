@@ -3,7 +3,6 @@ deferred class TYPED_NODE
 inherit GCCXML_NODE
 insert SHARED_COLLECTIONS
 feature 
-
 	type: UNICODE_STRING is 
 		do 
 			Result:=attribute_at(once U"type") 
@@ -39,7 +38,7 @@ feature
 	deferred
 	end
 
-	end -- class TYPED_NODE
+end -- class TYPED_NODE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
