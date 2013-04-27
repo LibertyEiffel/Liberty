@@ -6,8 +6,8 @@ indexing
 	revision: "$Revision:$"
 
 class TEST_MATRIX
-creation  make
-feature
+create {ANY}  make
+feature {ANY}
 	make is
 		local
 			i,j: INTEGER

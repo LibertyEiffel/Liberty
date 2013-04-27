@@ -1,8 +1,8 @@
 class LLVM_OPAQUE_TYPE
 
 inherit LLVM_TYPE
-creation make, in_context, from_external_pointer
-feature -- Creation 
+create {ANY} make, in_context, from_external_pointer
+feature {ANY} -- Creation 
 	make is
 		do
 			handle:=llvmopaque_type

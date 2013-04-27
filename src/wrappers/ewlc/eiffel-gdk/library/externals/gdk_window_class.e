@@ -23,7 +23,7 @@ deferred class GDK_WINDOW_CLASS
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_window_class (a_class: INTEGER): BOOLEAN is
 		do	
 			Result:=((a_class = gdk_input_output) or else

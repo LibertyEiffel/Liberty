@@ -3,7 +3,7 @@
 --
 class PARSE_ACTION
 
-creation {PARSER_FACET}
+create {PARSER_FACET}
    make
 
 feature {ANY}

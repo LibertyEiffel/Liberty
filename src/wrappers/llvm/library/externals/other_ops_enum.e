@@ -5,6 +5,7 @@ expanded class OTHER_OPS_ENUM
 
 insert ENUM
 
+<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -12,6 +13,14 @@ feature -- Validity
             Result := ((a_value = call_low_level)  or else
 				(a_value = extract_element_low_level)  or else
 				(a_value = extract_value_low_level)  or else
+=======
+create {ANY} default_create
+feature {ANY} -- Validity
+	is_valid_value (a_value: INTEGER): BOOLEAN is
+		do
+			Result := ((a_value = other_ops_begin_low_level)  or else
+				(a_value = icmp_low_level)  or else
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 				(a_value = fcmp_low_level)  or else
 				(a_value = icmp_low_level)  or else
 				(a_value = insert_element_low_level)  or else
@@ -26,7 +35,7 @@ feature -- Validity
 				(a_value = vaarg_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_call is
 		do
@@ -103,8 +112,13 @@ feature -- Setters
 			value := vaarg_low_level
 		end
 
+<<<<<<< HEAD
 feature -- Queries
 	is_call: BOOLEAN is
+=======
+feature {ANY} -- Queries
+	other_ops_begin: BOOLEAN is
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=call_low_level)
 		end

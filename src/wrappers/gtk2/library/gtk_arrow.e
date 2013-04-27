@@ -38,7 +38,7 @@ class GTK_ARROW
 inherit GTK_MISC
 	--   GtkArrow implements AtkImplementorIface.
 	
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (a_type, a_shadow: INTEGER) is
@@ -49,7 +49,7 @@ feature {} -- Creation
 		do
 			from_external_pointer(gtk_arrow_new(a_type, a_shadow))
 		end
-feature
+feature {ANY}
 	set(a_type, a_shadow: INTEGER) is
 			--   Sets the direction and style of the GtkArrow.
 		require
@@ -59,7 +59,7 @@ feature
 			gtk_arrow_set(handle,a_type,a_shadow)
 		end
 	
-feature -- TODO: Property Details
+feature {ANY} -- TODO: Property Details
 	--
 	--  The "arrow-type" property
 	--
@@ -95,7 +95,7 @@ feature {} -- External calls
 		external "C  use <gtk/gtk.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkArrow)"

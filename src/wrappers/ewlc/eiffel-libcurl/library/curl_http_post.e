@@ -31,10 +31,10 @@ inherit
 
 insert CURL_HTTP_POST_EXTERNALS rename curl_formfree as free end
 
-creation
+create {ANY}
 	make, null--, from_external_pointer
 
-feature -- Size
+feature {ANY} -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <curl/curl.h>"
@@ -65,7 +65,7 @@ feature {} -- Representation
 
 	last_item: CURL_HTTP_POST
 
-feature -- Representation
+feature {ANY} -- Representation
 
 	is_valid: BOOLEAN is
 		do
@@ -74,7 +74,7 @@ feature -- Representation
 
 	error_code: INTEGER
 
-feature
+feature {ANY}
 
 	set_name_and_content (name, content: STRING) is
 		require

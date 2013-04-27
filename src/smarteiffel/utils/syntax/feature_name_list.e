@@ -12,7 +12,7 @@ inherit
 insert
    GLOBALS
 
-creation {ANY}
+create {ANY}
    make_1, make_n
 
 feature {ANY}
@@ -312,7 +312,7 @@ feature {}
       do
          error_handler.add_position(fn1.start_position)
          error_handler.add_position(fn2.start_position)
-         error_handler.append("Same feature name appears twice.")
+         error_handler.append(once "Same feature name appears twice.")
          error_handler.print_as_fatal_error
       end
 

@@ -24,7 +24,7 @@ deferred class CAIRO_LINE_CAP
 	
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_line_cap (a_cap: INTEGER): BOOLEAN is
 		do	
 			Result:=((a_cap =	cairo_line_cap_butt) or else

@@ -20,7 +20,7 @@ insert
       redefine with_seed, last_integer, last_real
       end
 
-creation {ANY}
+create {ANY}
    make, with_seed
 
 feature {}

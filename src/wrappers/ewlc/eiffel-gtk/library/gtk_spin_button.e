@@ -92,7 +92,7 @@ inherit
 		-- GtkEditable.
 insert GTK_SPIN_BUTTON_EXTERNALS
 	
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (an_adjustment: GTK_ADJUSTMENT; a_climb_rate: REAL; some_digits: INTEGER) is
@@ -132,7 +132,7 @@ feature {} -- Creation
 			store_eiffel_wrapper
 		end
 
-feature -- Configuration
+feature {ANY} -- Configuration
 	configure  (an_adjustment: GTK_ADJUSTMENT; a_climb_rate: REAL; some_digits: INTEGER) is
 			-- Changes the properties of an existing spin button. `an_adjustment'
 			-- is the GtkAdjustment object that this spin button should
@@ -202,7 +202,7 @@ feature -- Configuration
 			gtk_spin_button_set_value (handle, a_value)
 		end
 	
-feature -- update policy
+feature {ANY} -- update policy
 	
 	set_always_update_policy is
 			-- Sets the update behavior of a spin button: when refreshing your
@@ -238,7 +238,7 @@ feature -- update policy
 	-- Returns : 	the current update policy
 	
 
-feature
+feature {ANY}
 	allow_non_numeric is
 			-- Allow the user to type non-numeric text into the spin button.
 		do
@@ -257,7 +257,7 @@ feature
 			Result:=(gtk_spin_button_get_numeric (handle)).to_boolean
 		end
 
-feature  -- Spinning
+feature {ANY}  -- Spinning
 	spin (a_direction: INTEGER; an_increment: INTEGER) is
 			-- Increment or decrement a spin button's value in a specified direction by a specified amount.
 			-- `a_direction' is a GtkSpinType indicating the direction to spin.
@@ -267,7 +267,7 @@ feature  -- Spinning
 			gtk_spin_button_spin (handle, a_direction, an_increment)
 		end
 
-feature -- Wrapping
+feature {ANY} -- Wrapping
 	set_wrap is
 			-- Makes the spin button value wraps around to the opposite limit when
 			-- the upper or lower limit of the range is exceeded.
@@ -288,7 +288,7 @@ feature -- Wrapping
 			Result:=(gtk_spin_button_get_wrap (handle)).to_boolean
 		end
 
-feature -- Snapping
+feature {ANY} -- Snapping
 	set_snap_to_ticks is
 			-- At every update corrects the values to the nearest step increment
 			-- when a spin button is activated after providing an invalid value.
@@ -302,7 +302,7 @@ feature -- Snapping
 			gtk_spin_button_set_snap_to_ticks (handle, 1)
 		end
 	
-feature
+feature {ANY}
 	update is
 			-- Manually force an update of the spin button.
 		do
@@ -351,7 +351,7 @@ feature
 			Result := gtk_spin_button_get_value (handle)
 		end
 	
-feature -- TODO Properties
+feature {ANY} -- TODO Properties
 -- The "adjustment" property
 
 --   "adjustment"           GtkAdjustment         : Read / Write

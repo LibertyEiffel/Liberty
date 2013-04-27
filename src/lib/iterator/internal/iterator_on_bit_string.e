@@ -7,7 +7,7 @@ class ITERATOR_ON_BIT_STRING
 inherit
    ITERATOR[BOOLEAN]
 
-creation {BIT_STRING}
+create {BIT_STRING}
    make
 
 feature {}

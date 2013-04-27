@@ -5,6 +5,7 @@ expanded class FLT_CATEGORY_ENUM
 
 insert ENUM
 
+<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -13,9 +14,19 @@ feature -- Validity
 				(a_value = fc_na_n_low_level)  or else
 				(a_value = fc_normal_low_level)  or else
 				(a_value = fc_zero_low_level) )
+=======
+create {ANY} default_create
+feature {ANY} -- Validity
+	is_valid_value (a_value: INTEGER): BOOLEAN is
+		do
+			Result := ((a_value = infinity_low_level)  or else
+				(a_value = na_n_low_level)  or else
+				(a_value = normal_low_level)  or else
+				(a_value = zero_low_level) )
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_fc_infinity is
 		do
@@ -37,8 +48,13 @@ feature -- Setters
 			value := fc_zero_low_level
 		end
 
+<<<<<<< HEAD
 feature -- Queries
 	is_fc_infinity: BOOLEAN is
+=======
+feature {ANY} -- Queries
+	infinity: BOOLEAN is
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=fc_infinity_low_level)
 		end

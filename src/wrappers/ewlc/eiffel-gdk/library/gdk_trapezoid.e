@@ -27,9 +27,9 @@ class GDK_TRAPEZOID
 
 inherit G_STRUCT
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
-feature
+feature {ANY}
 
 	y1: REAL is
 			-- the y coordinate of the start point.
@@ -62,7 +62,7 @@ feature
 			Result := get_x22 (handle)
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkSegment)"

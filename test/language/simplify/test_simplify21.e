@@ -6,7 +6,7 @@ class TEST_SIMPLIFY21
 insert
    PLATFORM
    EIFFELTEST_TOOLS
-   
+
 creation {ANY}
    make
 
@@ -19,43 +19,43 @@ feature {}
          else
             c_inline_c("*** WrongCcode #1 in TEST_SIMPLIFY21 ***")
          end
-         
+
          if Maximum_integer_8 + Minimum_integer_8 = -1 then
             assert(True)
          else
             c_inline_c("*** WrongCcode #2 in TEST_SIMPLIFY21 ***")
          end
-         
+
          if -32768 + 32767 = -1 then
             assert(True)
          else
             c_inline_c("*** WrongCcode #3 in TEST_SIMPLIFY21 ***")
          end
-         
+
          if Maximum_integer_16 + Minimum_integer_16 = -1 then
             assert(True)
          else
             c_inline_c("*** WrongCcode #4 in TEST_SIMPLIFY21 ***")
          end
-         
+
          if -2147483648 + 2147483647  = -1 then
             assert(True)
          else
             c_inline_c("*** WrongCcode #5 in TEST_SIMPLIFY21 ***")
          end
-         
+
          if Maximum_integer_32 + Minimum_integer_32 = -1 then
             assert(True)
          else
             c_inline_c("*** WrongCcode #6 in TEST_SIMPLIFY21 ***")
          end
-         
+
          if 9223372036854775807 + Minimum_integer_64 = -1 then
             assert(True)
          else
             c_inline_c("*** WrongCcode #7 in TEST_SIMPLIFY21 ***")
          end
-         
+
          if Maximum_integer_64 + Minimum_integer_64 = -1 then
             assert(True)
          else
@@ -68,43 +68,43 @@ feature {}
          else
             c_inline_c("*** WrongCcode #9 in TEST_SIMPLIFY21 ***")
          end
-         
+
          if Maximum_integer_8 - Maximum_integer_8 = 0 then
             assert(True)
          else
             c_inline_c("*** WrongCcode #10 in TEST_SIMPLIFY21 ***")
          end
-         
+
          if 32767 - 32767 - 32767 = - 32767  then
             assert(True)
          else
             c_inline_c("*** WrongCcode #11 in TEST_SIMPLIFY21 ***")
          end
-         
+
          if Maximum_integer_16 - Maximum_integer_16 = 0 then
             assert(True)
          else
             c_inline_c("*** WrongCcode #12 in TEST_SIMPLIFY21 ***")
          end
-         
+
          if 2147483647 - 2147483647 - 2147483647 = - 2147483647 then
             assert(True)
          else
             c_inline_c("*** WrongCcode #13 in TEST_SIMPLIFY21 ***")
          end
-         
+
          if Maximum_integer_32 - Maximum_integer_32 = 0 then
             assert(True)
          else
             c_inline_c("*** WrongCcode #14 in TEST_SIMPLIFY21 ***")
          end
-         
+
          if 9223372036854775807 - 9223372036854775807 - 9223372036854775807 = - 9223372036854775807 then
             assert(True)
          else
             c_inline_c("*** WrongCcode #15 in TEST_SIMPLIFY21 ***")
          end
-         
+
          if Maximum_integer_64 - Maximum_integer_64 = 0 then
             assert(True)
          else
@@ -117,7 +117,7 @@ feature {}
          else
             c_inline_c("*** WrongCcode #17 in TEST_SIMPLIFY21 ***")
          end
-         
+
          if {INTEGER_16 2} * Minimum_integer_8 = -256 then
             assert(True)
          else
@@ -135,14 +135,14 @@ feature {}
          else
             c_inline_c("*** WrongCcode #20 in TEST_SIMPLIFY21 ***")
          end
-         
+
          -- Testing {INTEGER_*}.to_character:
          if 32.to_character = ' ' then
             assert(True)
          else
             c_inline_c("*** WrongCcode #20 in TEST_SIMPLIFY21 ***")
          end
-         
+
          -- Testing {INTEGER_*}.bit_shift_right:
          if 2.bit_shift_right(1) = 1 then
             assert(True)
@@ -184,7 +184,7 @@ feature {}
          else
             c_inline_c("*** WrongCcode #28 in TEST_SIMPLIFY21 ***")
          end
-         
+
          -- Testing {INTEGER_*}.bit_not:
          if 0.bit_not = -1 then
             assert(True)
@@ -201,7 +201,7 @@ feature {}
          else
             c_inline_c("*** WrongCcode #31 in TEST_SIMPLIFY21 ***")
          end
-         
+
          if {INTEGER_64 0}.bit_not = {INTEGER_64 -1} then
             assert(True)
          else
@@ -301,8 +301,8 @@ feature {}
          else
             c_inline_c("*** WrongCcode #50 in TEST_SIMPLIFY21 ***")
          end
-         
-         assert(assert_counter.value = 51)
+
+         assert(assert_counter.item = 51)
       end
 
 end -- class TEST_SIMPLIFY21

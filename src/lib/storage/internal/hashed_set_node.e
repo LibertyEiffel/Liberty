@@ -9,7 +9,7 @@ class HASHED_SET_NODE[E_]
 inherit
    ANY_HASHED_SET_NODE
 
-creation {ABSTRACT_HASHED_SET}
+create {ABSTRACT_HASHED_SET}
    make
 
 feature {ABSTRACT_HASHED_SET}

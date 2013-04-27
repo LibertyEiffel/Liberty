@@ -76,7 +76,7 @@ feature {} -- Creation
 		))
 	end
 
-feature -- Commands
+feature {ANY} -- Commands
 	push (some_data: like new_routine) is
 		-- Inserts data into the list of tasks to be executed by pool. When the
 		-- number of currently running threads is lower than the maximal
@@ -111,7 +111,7 @@ feature -- Commands
 		)
 	end
 
-feature -- Disposing
+feature {ANY} -- Disposing
 	dispose is
 		--Frees all resources allocated for pool.
 
@@ -157,7 +157,7 @@ feature -- Disposing
 		g_thread_pool_set_max_idle_time (an_interval)
 	end
 
-feature -- Queries
+feature {ANY} -- Queries
 	exit_immidiatly: BOOLEAN is
 		-- 
 		attribute

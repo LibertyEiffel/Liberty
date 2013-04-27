@@ -25,7 +25,7 @@ deferred class GTK_PRINT_STATUS
 	
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_gtk_print_status (a_status: INTEGER): BOOLEAN is
 		do	
 			Result:=((a_status = gtk_print_status_initial) or else

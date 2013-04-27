@@ -9,7 +9,7 @@ class BACKTRACKING_POOL_OF_SEQUENCE_LIST
 inherit
    ABSTRACT_BACKTRACKING_POOL[BACKTRACKING_SEQUENCE_LIST]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

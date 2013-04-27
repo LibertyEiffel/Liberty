@@ -10,7 +10,7 @@ deferred class  GDK_OVERLAP_TYPE
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_overlap_type (a_type :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_type = gdk_overlap_rectangle_in) or else

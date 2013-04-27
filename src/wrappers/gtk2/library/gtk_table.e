@@ -65,7 +65,7 @@ inherit GTK_CONTAINER -- rename make as make_c_struct end
 
 insert GTK_ATTACH_OPTIONS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (rows, columns: INTEGER; homogeneous: BOOLEAN) is
@@ -91,7 +91,7 @@ feature {} -- Creation
 			store_eiffel_wrapper
 		end
 	
-feature
+feature {ANY}
 	resize (rows, columns: INTEGER) is
 			-- If you need to change a table's size after it has been created, this
 			-- function allows you to do so.
@@ -458,7 +458,7 @@ feature
 
 --    Default value: 0
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTable)"

@@ -5,11 +5,19 @@ expanded class LINKAGE_TYPES_ENUM
 
 insert ENUM
 
+<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = appending_linkage_low_level)  or else
+=======
+create {ANY} default_create
+feature {ANY} -- Validity
+	is_valid_value (a_value: INTEGER): BOOLEAN is
+		do
+			Result := ((a_value = external_linkage_low_level)  or else
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 				(a_value = available_externally_linkage_low_level)  or else
 				(a_value = common_linkage_low_level)  or else
 				(a_value = dllexport_linkage_low_level)  or else
@@ -27,7 +35,7 @@ feature -- Validity
 				(a_value = weak_odrlinkage_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_appending_linkage is
 		do
@@ -109,8 +117,13 @@ feature -- Setters
 			value := weak_odrlinkage_low_level
 		end
 
+<<<<<<< HEAD
 feature -- Queries
 	is_appending_linkage: BOOLEAN is
+=======
+feature {ANY} -- Queries
+	external_linkage: BOOLEAN is
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=appending_linkage_low_level)
 		end

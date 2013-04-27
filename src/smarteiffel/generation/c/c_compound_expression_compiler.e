@@ -13,9 +13,10 @@ inherit
 insert
    C_EXPRESSION_COMPILATION_MIXIN[EXPRESSION]
       rename
-         compile as compile_
+         compile as compile_,
+         compile_expression as compile_expression_
       export {}
-         compile_
+         compile_, compile_expression_
       redefine
          visit_abstract_current,
          visit_address_of,
@@ -95,22 +96,37 @@ create {C_PRETTY_PRINTER}
 
 feature {ANY}
    compile (a_continue: like continue; expression: EXPRESSION; a_finish: like finish; a_type: like type) is
+      do
+         do_compile(a_continue, expression, False, a_finish, a_type)
+      end
+
+   compile_expression (a_continue: like continue; expression: EXPRESSION; a_finish: like finish; a_type: like type) is
+      do
+         do_compile(a_continue, expression, True, a_finish, a_type)
+      end
+
+feature {}
+   do_compile (a_continue: like continue; expression: EXPRESSION; a_is_expression: BOOLEAN; a_finish: like finish; a_type: like type) is
       local
          old_continue, old_finish: STRING
+         old_is_expression: BOOLEAN
       do
          old_continue := continue
          old_finish := finish
+         old_is_expression := is_expression
          continue := a_continue
          finish := a_finish
+         is_expression := a_is_expression
 
          compile_(expression, a_type)
 
+         is_expression := old_is_expression
          continue := old_continue
          finish := old_finish
       end
 
-feature {}
    continue, finish: STRING
+   is_expression: BOOLEAN
 
 feature {}
    visit_abstract_current (visited: ABSTRACT_CURRENT) is
@@ -565,18 +581,45 @@ feature {COMPOUND_EXPRESSION}
       local
          i: INTEGER; exp: EXPRESSION
       do
-         from
-            i := visited.list.lower
-         until
-            i = visited.list.upper
-         loop
-            compile_code(visited.list.item(i))
-            i := i + 1
+         if is_expression then
+            function_body.extend('(')
+            from
+               i := visited.list.lower
+            until
+               i = visited.list.upper
+            loop
+               if i > visited.list.lower then
+                  function_body.extend(',')
+               end
+               function_body.extend('(')
+               compile_code_as_expression(visited.list.item(i))
+               function_body.extend(')')
+               i := i + 1
+            end
+            if i > visited.list.lower then
+               function_body.extend(',')
+            end
+            function_body.extend('(')
+            function_body.append(continue)
+            exp ::= visited.list.last
+            compile_expression_(exp)
+            function_body.append(finish)
+            function_body.extend(')')
+            function_body.extend(')')
+         else
+            from
+               i := visited.list.lower
+            until
+               i = visited.list.upper
+            loop
+               compile_code(visited.list.item(i))
+               i := i + 1
+            end
+            function_body.append(continue)
+            exp ::= visited.list.last
+            compile_expression_(exp)
+            function_body.append(finish)
          end
-         function_body.append(continue)
-         exp ::= visited.list.last
-         compile_expression(exp)
-         function_body.append(finish)
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}

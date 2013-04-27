@@ -9,7 +9,7 @@ class FRACTION_WITH_BIG_INTEGER_NUMBER
 inherit
    FRACTION_GENERAL_NUMBER
 
-creation {ANY}
+create {ANY}
    make, make_simply
 
 feature {ANY}

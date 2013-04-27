@@ -13,6 +13,6 @@ inherit
 	DUMMY_FACTORY [ITEM]
 	CACHING_FACTORY [ITEM]
 
-creation default_create
+create {ANY} default_create
 	
 end

@@ -21,9 +21,9 @@ indexing
 
 class PICKERS
 
-creation make
+create {ANY} make
 	
-feature
+feature {ANY}
 -- /* Pickers 
 --  *
 --  * These widgets are mainly intended for use in preference dialogs.

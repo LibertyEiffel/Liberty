@@ -3,8 +3,8 @@
 expanded class GDA_DELIMITER_STATEMENT_TYPE
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_delimiter_sql_select) or else 
@@ -18,7 +18,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_sql_select is
 		do
 			value := gda_delimiter_sql_select
@@ -60,7 +60,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_sql_select: BOOLEAN is
 		do
 			Result := (value=gda_delimiter_sql_select)

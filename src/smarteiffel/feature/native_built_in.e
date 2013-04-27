@@ -8,7 +8,7 @@ inherit
       redefine side_effect_free
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -58,9 +58,9 @@ feature {}
    fe_nyi (rf: RUN_FEATURE) is
       do
          error_handler.add_position(rf.start_position)
-         error_handler.append("Sorry, but this feature is not yet implemented for Current type ")
+         error_handler.append(once "Sorry, but this feature is not yet implemented for Current type ")
          error_handler.append(rf.type_of_current.name.to_string)
-         error_handler.append(".")
+         error_handler.append(once ".")
          error_handler.print_as_fatal_error
       end
 

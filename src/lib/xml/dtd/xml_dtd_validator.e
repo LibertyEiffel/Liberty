@@ -15,7 +15,7 @@ insert
    XML_DTD_MEMORY
    RECYCLABLE
 
-creation {XML_DTD_MEMORY}
+create {XML_DTD_MEMORY}
    make
 
 feature {XML_PARSER}

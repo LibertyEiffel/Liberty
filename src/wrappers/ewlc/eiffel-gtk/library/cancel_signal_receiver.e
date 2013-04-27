@@ -23,7 +23,7 @@ deferred class CANCEL_SIGNAL_RECEIVER
 
 inherit GTK_WIDGET
 
-feature -- The "cancel" signal
+feature {ANY} -- The "cancel" signal
 	cancel_signal_name: STRING is "cancel"	
 
 	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[CANCEL_SIGNAL_RECEIVER]]) is

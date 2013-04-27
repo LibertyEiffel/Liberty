@@ -12,7 +12,7 @@ inherit
          connect_to as reconnect_to
       end
 
-creation {ANY}
+create {ANY}
    connect_to
 
 feature {}

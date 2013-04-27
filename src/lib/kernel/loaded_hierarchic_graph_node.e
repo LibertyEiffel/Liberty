@@ -8,7 +8,7 @@ inherit
       redefine make, add_parent, add_child, remove_parent, remove_child
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

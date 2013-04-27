@@ -17,7 +17,7 @@ insert
       undefine out_in_tagged_out_memory
       end
 
-creation {ANY}
+create {ANY}
    make_1, make_2, make_n
 
 feature {EFFECTIVE_ARG_LIST, EFFECTIVE_ARG_LIST_VISITOR}
@@ -156,12 +156,12 @@ feature {ANY}
          Result.has_been_specialized
       end
 
-   specialize_2 (t: TYPE; af: ANONYMOUS_FEATURE; target_type: TYPE; is_current: BOOLEAN): like Current is
+   specialize_and_check (t: TYPE; af: ANONYMOUS_FEATURE; target_type: TYPE; is_current: BOOLEAN): like Current is
          -- Checks the validity of argument passing (i.e. assignments) from the effective arguments list into
          -- the formal arguments list from `af'.
          --
          --|*** Change exportation to verify what's follow:
-         --| (Must be called specialize_2 of call_proc_call and precursor_call and AGENT_CREATION as well).
+         --| (Must be called specialize_and_check of call_proc_call and precursor_call and AGENT_CREATION as well).
          --|*** (Dom. feb 7th 2004)
          --|
          --|***
@@ -182,7 +182,7 @@ feature {ANY}
          -- Because `smart_eiffel.argument_count_check' has already been called.
             i = count
          end
-         e2 := specialize_2_basic(t, first_one, fal.type_mark(1), target_type)
+         e2 := specialize_and_check_basic(t, first_one, fal.type_mark(1), target_type)
          if first_one /= e2 then
             Result := twin
             Result.set_first_one(e2)
@@ -194,7 +194,7 @@ feature {ANY}
                   e1 /= e2 or else i > remainder.upper
                loop
                   e1 := remainder.item(i)
-                  e2 := specialize_2_basic(t, e1, fal.type_mark(i + 2), target_type)
+                  e2 := specialize_and_check_basic(t, e1, fal.type_mark(i + 2), target_type)
                   i := i + 1
                end
                if e1 /= e2 then
@@ -205,7 +205,7 @@ feature {ANY}
                   until
                      i > rem.upper
                   loop
-                     e2 := specialize_2_basic(t, remainder.item(i), fal.type_mark(i + 2), target_type)
+                     e2 := specialize_and_check_basic(t, remainder.item(i), fal.type_mark(i + 2), target_type)
                      rem.put(e2, i)
                      i := i + 1
                   end
@@ -221,7 +221,7 @@ feature {ANY}
                   e1 /= e2 or else i > remainder.upper
                loop
                   e1 := remainder.item(i)
-                  e2 := specialize_2_basic(t, e1, fal.type_mark(i + 2), target_type)
+                  e2 := specialize_and_check_basic(t, e1, fal.type_mark(i + 2), target_type)
                   i := i + 1
                end
                if e1 /= e2 then
@@ -233,7 +233,7 @@ feature {ANY}
                   until
                      i > rem.upper
                   loop
-                     e2 := specialize_2_basic(t, remainder.item(i), fal.type_mark(i + 2), target_type)
+                     e2 := specialize_and_check_basic(t, remainder.item(i), fal.type_mark(i + 2), target_type)
                      rem.put(e2, i)
                      i := i + 1
                   end
@@ -562,7 +562,7 @@ feature {CODE}
       end
 
 feature {CREATE_EXPRESSION, MANIFEST_TUPLE}
-   specialize_2_on_expressions (type: TYPE): like Current is
+   specialize_and_check_on_expressions (type: TYPE): like Current is
       require
          type /= Void
          has_been_specialized
@@ -571,7 +571,7 @@ feature {CREATE_EXPRESSION, MANIFEST_TUPLE}
          i: INTEGER; fo: like first_one; rem: like remainder; exp1, exp2: EXPRESSION
       do
          Result := Current
-         fo := first_one.specialize_2(type)
+         fo := first_one.specialize_and_check(type)
          if fo /= first_one then
             Result := twin
             Result.set_first_one(fo)
@@ -584,7 +584,7 @@ feature {CREATE_EXPRESSION, MANIFEST_TUPLE}
                until
                   i > remainder.upper
                loop
-                  rem.put(remainder.item(i).specialize_2(type), i)
+                  rem.put(remainder.item(i).specialize_and_check(type), i)
                   i := i + 1
                end
             end
@@ -596,7 +596,7 @@ feature {CREATE_EXPRESSION, MANIFEST_TUPLE}
                   exp1 /= exp2 or else i > remainder.upper
                loop
                   exp1 := remainder.item(i)
-                  exp2 := exp1.specialize_2(type)
+                  exp2 := exp1.specialize_and_check(type)
                   i := i + 1
                end
                if exp1 /= exp2 then
@@ -608,7 +608,7 @@ feature {CREATE_EXPRESSION, MANIFEST_TUPLE}
                   until
                      i > rem.upper
                   loop
-                     rem.put(remainder.item(i).specialize_2(type), i)
+                     rem.put(remainder.item(i).specialize_and_check(type), i)
                      i := i + 1
                   end
                end
@@ -810,7 +810,7 @@ feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
                end
             else
                error_handler.add_position(first_one.start_position)
-               error_handler.append("Agent calls need a tuple!")
+               error_handler.append(once "Agent calls need a tuple!")
                error_handler.print_as_fatal_error
             end
          end
@@ -900,14 +900,14 @@ feature {}
          create Result.with_capacity(10)
       end
 
-   specialize_2_basic (t: TYPE; exp: EXPRESSION; formal_type_mark: TYPE_MARK; target_type: TYPE): EXPRESSION is
+   specialize_and_check_basic (t: TYPE; exp: EXPRESSION; formal_type_mark: TYPE_MARK; target_type: TYPE): EXPRESSION is
          -- `exp' is interpreted in `t', `formal_type_mark' in `target_type'
       require
          exp.has_been_specialized
       local
          e: EXPRESSION; actual_type, formal_type: TYPE; open_operand: OPEN_OPERAND
       do
-         e := exp.specialize_2(t)
+         e := exp.specialize_and_check(t)
          formal_type := formal_type_mark.resolve_in(target_type)
          if e.is_void then
             -- Well, this special case for Void because Void has not TYPE. We just need to check that the
@@ -915,7 +915,7 @@ feature {}
             if formal_type.is_expanded then
                error_handler.add_position(exp.start_position)
                error_handler.add_position(formal_type_mark.start_position)
-               error_handler.append("Cannot pass Void as argument (the formal type is expanded).")
+               error_handler.append(once "Cannot pass Void as argument (the formal type is expanded).")
                error_handler.print_as_fatal_error
             else
                Result := e
@@ -932,13 +932,13 @@ feature {}
             if not actual_type.can_be_assigned_to(formal_type) then
                error_handler.add_position(e.start_position)
                error_handler.add_position(formal_type_mark.start_position)
-               error_handler.append("Cannot pass ")
+               error_handler.append(once "Cannot pass ")
                error_handler.add_expression(exp)
-               error_handler.append(" which is of type ")
+               error_handler.append(once " which is of type ")
                error_handler.append(actual_type.name.to_string)
-               error_handler.append(" into formal type ")
+               error_handler.append(once " into formal type ")
                error_handler.append(formal_type.name.to_string)
-               error_handler.append(".")
+               error_handler.append(once ".")
                error_handler.print_as_fatal_error
             end
             Result := assignment_handler.implicit_cast(e, actual_type, formal_type)

@@ -28,12 +28,12 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_FACTORY [GTK_NOTEBOOK]
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	object: GTK_NOTEBOOK
 
-feature
+feature {ANY}
 	callback (arg1: INTEGER; instance: POINTER) is
 		do
 			debug

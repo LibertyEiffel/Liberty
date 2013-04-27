@@ -17,7 +17,7 @@ inherit
          group
       end
 
-creation {ANY}
+create {ANY}
    execute, execute_command_line, make
 
 feature {ANY}

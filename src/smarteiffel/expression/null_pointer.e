@@ -9,7 +9,7 @@ class NULL_POINTER
 inherit
    NON_WRITTEN_EXPRESSION
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

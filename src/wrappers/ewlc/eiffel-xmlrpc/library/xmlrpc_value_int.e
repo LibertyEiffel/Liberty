@@ -28,7 +28,7 @@ class XMLRPC_VALUE_INT
 inherit
 	XMLRPC_VALUE_ANY
 
-creation make, from_value
+create {ANY} make, from_value
 
 feature {} -- Creation
 
@@ -44,7 +44,7 @@ feature {} -- Creation
 			end
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	read: INTEGER is
 		do

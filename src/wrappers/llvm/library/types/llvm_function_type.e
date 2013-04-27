@@ -23,7 +23,7 @@ insert
 	WRAPPER_HANDLER
 	ARRAYED_COLLECTION_HANDLER
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {ANY}
 	make (a_return_type: LLVM_TYPE; some_parameters: COLLECTION[LLVM_TYPE]; a_variadic_function: BOOLEAN) is

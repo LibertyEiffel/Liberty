@@ -5,7 +5,7 @@ insert
 	ERRNO
 	ZMQ_EXTERNALS
 
-creation {ZMQ_STATUS, ZMQ_CONTEXT, ZMQ_SOCKET, ZMQ_MESSAGE} from_errno
+create {ZMQ_STATUS, ZMQ_CONTEXT, ZMQ_SOCKET, ZMQ_MESSAGE} from_errno
 feature {} -- Creation
 	from_errno is 
 		do
@@ -13,7 +13,7 @@ feature {} -- Creation
 			create description.from_external(zmq_strerror(error_code))
 			-- Perhaps creating a FIXED_STRING with from_external using a const char* will end up in freeing the const memory which is clearly wrong.
 		end
-feature 
+feature {ANY} 
 	description: FIXED_STRING 
 	error_code: like errno
 end -- class ZMQ_EXCEPTION

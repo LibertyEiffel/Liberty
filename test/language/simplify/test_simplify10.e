@@ -52,7 +52,7 @@ feature {ANY}
          else
             c_inline_c("simplify error #3 in boost_simplify10")
          end
-         assert(assert_counter.value = 3)
+         assert(assert_counter.item = 3)
          if g_0 then
             c_inline_c("simplify error #4 in boost_simplify10")
          else
@@ -68,7 +68,7 @@ feature {ANY}
          else
             assert(True)
          end
-         assert(assert_counter.value = 7)
+         assert(assert_counter.item = 7)
          if h_0 then
             c_inline_c("simplify error #7 in boost_simplify10")
          else
@@ -84,7 +84,7 @@ feature {ANY}
          else
             assert(True)
          end
-         assert(assert_counter.value = 11)
+         assert(assert_counter.item = 11)
       end
 
    g_0: BOOLEAN is

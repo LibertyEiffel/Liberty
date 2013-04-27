@@ -30,7 +30,7 @@ inherit
 insert
 	GTKITEM_EXTERNALS
 
-feature
+feature {ANY}
 	select_signal is
 			-- Emits the "select" signal on the given item.
 		do

@@ -23,7 +23,7 @@ deferred class G_LOG_LEVEL_FLAGS_ENUM
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	are_valid_log_level_flags (some_flags :INTEGER): BOOLEAN is
 		do	
 			Result:=(some_flags & (g_log_flag_recursion |

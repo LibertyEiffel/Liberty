@@ -19,7 +19,7 @@ insert
       redefine is_equal
       end
 
-creation {AGENT_POOL}
+create {AGENT_POOL}
    make
 
 feature {ANY}

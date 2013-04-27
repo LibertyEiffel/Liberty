@@ -32,16 +32,16 @@ insert
 	GTK_STATE_TYPE
 	GTK_STYLE_EXTERNALS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkStyle)"
 		end
 
-feature -- Accessq
+feature {ANY} -- Accessq
 	-- Using strings for color lookups is inefficient! And it is much less
 	-- efficient to search for the index of an item in an array which contains
 	-- the given "pen-name" and then using it to get access the low-level C
@@ -82,7 +82,7 @@ feature -- Accessq
 			create Result.from_external_pointer (gtk_style_get_base (handle, states.first_index_of(a_state)))
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 	set_background_pixmap (a_pixmap: GDK_PIXMAP; a_state: INTEGER) is
 		require
 			is_valid_gtk_state_type (a_state)

@@ -68,7 +68,7 @@ insert
 	GTK_TOGGLE_BUTTON_EXTERNALS
 		-- TODO: GtkToggleButton implements AtkImplementorIface.
 
-creation make, with_label, with_mnemonic, from_external_pointer
+create {ANY} make, with_label, with_mnemonic, from_external_pointer
 
 feature {} -- Creation
 
@@ -100,7 +100,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_toggle_button_new_with_mnemonic (a_label.to_external))
 		end
 
-feature
+feature {ANY}
 
 	draw_indicator is
 			-- Makes the button displayed as a separate indicator and
@@ -192,14 +192,14 @@ feature
 		ensure not is_inconsistent
 		end
 
-feature -- "active" property
+feature {ANY} -- "active" property
 --   "active"               gboolean              : Read / Write
 
 -- If the toggle button should be pressed in or not.
 
 -- Default value: FALSE
 
-feature -- The "draw-indicator" property
+feature {ANY} -- The "draw-indicator" property
 
 --   "draw-indicator"       gboolean              : Read / Write
 
@@ -214,7 +214,7 @@ feature -- The "draw-indicator" property
 
 -- Default value: FALSE
 
-feature -- The "toggled" signal
+feature {ANY} -- The "toggled" signal
 
 	toggled_signal_name: STRING is "toggled"
 		-- void        user_function                  (GtkToggleButton *togglebutton,

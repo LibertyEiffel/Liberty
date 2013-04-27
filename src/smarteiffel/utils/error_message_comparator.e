@@ -6,7 +6,7 @@ class ERROR_MESSAGE_COMPARATOR
    -- Class used to check that warning/error message of the compiler are stable.
    --
 
-creation
+create {ANY}
    make
 
 feature {}

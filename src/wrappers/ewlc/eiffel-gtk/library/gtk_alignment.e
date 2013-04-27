@@ -28,7 +28,7 @@ inherit
 insert
 	GTK_ALIGNMENT_EXTERNALS
 	
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- size
 	struct_size: INTEGER is
@@ -53,7 +53,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_alignment_new (xalign,yalign,xscale,yscale))
 		end
 
-feature -- Scaling and alignment 
+feature {ANY} -- Scaling and alignment 
 	set (xalign, yalign, xscale, yscale: REAL_32) is
 			-- Sets the GtkAlignment values.  `xalign' : the horizontal
 			-- alignment of the child widget, from 0 (left) to 1 (right).
@@ -106,7 +106,7 @@ feature -- Scaling and alignment
 -- Allowed values: [0,1]
 
 -- Default value: 1
-feature -- paddings
+feature {ANY} -- paddings
 
 	paddings: TUPLE[INTEGER,INTEGER,INTEGER,INTEGER] is
 			-- Top, bottom, left and right padding. TODO shall be NATURAL

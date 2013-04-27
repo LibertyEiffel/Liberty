@@ -6,7 +6,7 @@ class LLVM_PLUGIN_FACTORY
 inherit
    PLUGIN_FACTORY
 
-creation {LLVMEC}
+create {LLVMEC}
    make
 
 feature {SYSTEM_TOOLS}

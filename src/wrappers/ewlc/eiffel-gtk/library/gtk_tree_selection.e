@@ -52,9 +52,9 @@ insert
 	G_SIGNALS
 	GTK_TREE_SELECTION_EXTERNALS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
-feature -- selection mode
+feature {ANY} -- selection mode
 	set_single_mode is
 			-- Set selection mode to single. Zero or one element may be
 			-- selected.If the previous type was GTK_SELECTION_MULTIPLE,
@@ -129,7 +129,7 @@ feature -- selection mode
 	-- function. selection : A GtkTreeSelection.  Returns : The user
 	-- data.
 
-feature -- View	
+feature {ANY} -- View	
 	tree_view: GTK_TREE_VIEW is
 			-- the tree view associated with selection.
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_TREE_VIEW]
@@ -145,7 +145,7 @@ feature -- View
 			Result:=(gtk_tree_selection_get_selected (handle, default_pointer, default_pointer)).to_boolean
 		end
 	
-feature -- selections
+feature {ANY} -- selections
 	selected: GTK_TREE_ITER is
 			-- the currently selected node if selection is set to
 			-- `gtk_selection_single' or `gtk_selection_browse'.
@@ -285,7 +285,7 @@ feature -- selections
 		end
 	
 
-feature  -- The "changed" signal
+feature {ANY}  -- The "changed" signal
 	changed_signal_name: STRING is "changed"
 
 	on_changed is
@@ -350,7 +350,7 @@ feature  -- The "changed" signal
 	-- path : 	The GtkTreePath of a selected row
 	-- iter : 	A GtkTreeIter pointing to a selected row
 	-- data : 	user data
-feature -- struct size
+feature {ANY} -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeSelection)"

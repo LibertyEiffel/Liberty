@@ -25,7 +25,7 @@ deferred class GTK_STOCK_ITEMS
 
 inherit ANY undefine is_equal, copy end
 
-feature -- Stock items strings
+feature {ANY} -- Stock items strings
 	gtk_stock_dialog_authentication: STRING is
 		once
 			create {CONST_STRING} Result.from_external (gtk_stock_dialog_authentication_ptr)

@@ -30,12 +30,12 @@ inherit
 insert
 	G_OBJECT_FACTORY [GTK_TREE_SELECTION]
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	object: GTK_TREE_SELECTION
 
-feature
+feature {ANY}
 
 	callback (instance: POINTER) is
 		do

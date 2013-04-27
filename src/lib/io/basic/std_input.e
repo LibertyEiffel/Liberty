@@ -25,7 +25,7 @@ insert
          restore_default_input
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

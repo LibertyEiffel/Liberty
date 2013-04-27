@@ -177,7 +177,7 @@ feature {SMART_EIFFEL}
             write_make_file
             echo_information
          else
-            error_handler.append("Cannot produce C code.")
+            error_handler.append(once "Cannot produce C code.")
             error_handler.print_as_error
          end
       end
@@ -2176,12 +2176,12 @@ feature {ANY}
             put_file(tmp_file_read, out_c)
          end
          if not ok then
-            error_handler.append("No support found in directory sys/runtime for %"")
+            error_handler.append(once "No support found in directory sys/runtime for %"")
             error_handler.append(name)
-            error_handler.append("%" (i.e. file(s) %"")
+            error_handler.append(once "%" (i.e. file(s) %"")
             tmp_path.remove_last
             error_handler.append(tmp_path)
-            error_handler.append("[hc]%" not found).")
+            error_handler.append(once "[hc]%" not found).")
             error_handler.print_as_fatal_error
          end
       end

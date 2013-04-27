@@ -21,7 +21,7 @@ insert
 	G_OBJECT_FACTORY [GTK_WIDGET]
 	GTKBIN_EXTERNALS
 
-feature
+feature {ANY}
 	child: GTK_WIDGET is
 			-- the child of the GTK_BIN, or Void if the bin contains no
 			-- child widget. 

@@ -5,8 +5,8 @@ expanded class FFI_STATUS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = ffi_bad_abi_low_level)  or else
@@ -14,7 +14,7 @@ feature -- Validity
 				(a_value = ffi_ok_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_ffi_bad_abi is
 		do
@@ -31,7 +31,7 @@ feature -- Setters
 			value := ffi_ok_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_ffi_bad_abi: BOOLEAN is
 		do
 			Result := (value=ffi_bad_abi_low_level)

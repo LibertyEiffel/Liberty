@@ -105,7 +105,7 @@ insert
 	CAIRO_PATH_STRUCT
 	CAIRO_STATUS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {} -- Creation
 
@@ -484,7 +484,7 @@ feature {} -- Creation
 	--   dx : the X offset
 	--   dy : the Y offset
 
-feature -- Access
+feature {ANY} -- Access
 
 	status: INTEGER is
 		-- The current error status

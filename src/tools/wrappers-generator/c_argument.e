@@ -9,7 +9,7 @@ inherit
 insert
 	NAME_CONVERTER
 
-creation make
+create {ANY} make
 
 feature 
 	is_ellipsis: BOOLEAN is False

@@ -25,7 +25,7 @@ inherit GTS_OBJECT
 
 -- insert FOO_EXTERNALS
 
-feature 
+feature {ANY} 
 
 	is_contained (a_container: GTS_CONTAINER): BOOLEAN is
 		require container_not_void: a_container /= Void

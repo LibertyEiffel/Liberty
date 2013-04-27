@@ -14,7 +14,7 @@ inherit
    NON_WRITTEN_EXPRESSION
    TAGGED
 
-creation {FEATURE_CALL}
+create {FEATURE_CALL}
    make
 
 feature {ANY}

@@ -8,8 +8,7 @@ inherit
 		undefine null_or end
 
 insert GSIGNAL_EXTERNALS
-feature
-
+feature {ANY} 
 	query (an_id: INTEGER): G_SIGNAL_QUERY is
 			-- Queries the signal system for in-depth information about a
 			-- specific signal. This function will fill in a

@@ -5,6 +5,7 @@ expanded class XML_ERROR_DOMAIN_ENUM
 
 insert ENUM
 
+<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -38,9 +39,44 @@ feature -- Validity
 				(a_value = xml_from_xpath_low_level)  or else
 				(a_value = xml_from_xpointer_low_level)  or else
 				(a_value = xml_from_xslt_low_level) )
+=======
+create {ANY} default_create
+feature {ANY} -- Validity
+	is_valid_value (a_value: INTEGER): BOOLEAN is
+		do
+			Result := ((a_value = none_low_level)  or else
+				(a_value = parser_low_level)  or else
+				(a_value = tree_low_level)  or else
+				(a_value = namespace_low_level)  or else
+				(a_value = dtd_low_level)  or else
+				(a_value = html_low_level)  or else
+				(a_value = memory_low_level)  or else
+				(a_value = output_low_level)  or else
+				(a_value = io_low_level)  or else
+				(a_value = ftp_low_level)  or else
+				(a_value = http_low_level)  or else
+				(a_value = xinclude_low_level)  or else
+				(a_value = xpath_low_level)  or else
+				(a_value = xpointer_low_level)  or else
+				(a_value = regexp_low_level)  or else
+				(a_value = datatype_low_level)  or else
+				(a_value = schemasp_low_level)  or else
+				(a_value = schemasv_low_level)  or else
+				(a_value = relaxngp_low_level)  or else
+				(a_value = relaxngv_low_level)  or else
+				(a_value = catalog_low_level)  or else
+				(a_value = c14n_low_level)  or else
+				(a_value = xslt_low_level)  or else
+				(a_value = valid_low_level)  or else
+				(a_value = check_external_low_level)  or else
+				(a_value = writer_low_level)  or else
+				(a_value = module_low_level)  or else
+				(a_value = i18n_low_level)  or else
+				(a_value = schematronv_low_level) )
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_xml_from_c14n is
 		do
@@ -187,8 +223,13 @@ feature -- Setters
 			value := xml_from_xslt_low_level
 		end
 
+<<<<<<< HEAD
 feature -- Queries
 	is_xml_from_c14n: BOOLEAN is
+=======
+feature {ANY} -- Queries
+	none: BOOLEAN is
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=xml_from_c14n_low_level)
 		end

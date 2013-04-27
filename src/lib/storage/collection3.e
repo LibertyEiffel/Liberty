@@ -91,7 +91,7 @@ feature {ANY} -- Reading:
       end
 
 feature {ANY} -- Writing:
-   put (element: like item; line, column, depth: INTEGER) is
+   put (element: like item; line, column, depth: INTEGER) assign item is
       require
          valid_index(line, column, depth)
       deferred

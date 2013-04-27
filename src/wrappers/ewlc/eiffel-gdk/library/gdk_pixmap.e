@@ -23,9 +23,9 @@ class GDK_PIXMAP
 
 inherit GDK_DRAWABLE
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

@@ -5,6 +5,7 @@ expanded class ROUNDING_MODE_ENUM
 
 insert ENUM
 
+<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -14,9 +15,20 @@ feature -- Validity
 				(a_value = rm_toward_negative_low_level)  or else
 				(a_value = rm_toward_positive_low_level)  or else
 				(a_value = rm_toward_zero_low_level) )
+=======
+create {ANY} default_create
+feature {ANY} -- Validity
+	is_valid_value (a_value: INTEGER): BOOLEAN is
+		do
+			Result := ((a_value = nearest_ties_to_even_low_level)  or else
+				(a_value = toward_positive_low_level)  or else
+				(a_value = toward_negative_low_level)  or else
+				(a_value = toward_zero_low_level)  or else
+				(a_value = nearest_ties_to_away_low_level) )
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_rm_nearest_ties_to_away is
 		do
@@ -43,8 +55,13 @@ feature -- Setters
 			value := rm_toward_zero_low_level
 		end
 
+<<<<<<< HEAD
 feature -- Queries
 	is_rm_nearest_ties_to_away: BOOLEAN is
+=======
+feature {ANY} -- Queries
+	nearest_ties_to_even: BOOLEAN is
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=rm_nearest_ties_to_away_low_level)
 		end

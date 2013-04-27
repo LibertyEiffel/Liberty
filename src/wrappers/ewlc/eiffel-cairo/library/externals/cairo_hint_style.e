@@ -31,7 +31,7 @@ deferred class CAIRO_HINT_STYLE
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_hint_style (a_style: INTEGER): BOOLEAN is
 		do	
 			Result:=((a_style = cairo_hint_style_default) or else

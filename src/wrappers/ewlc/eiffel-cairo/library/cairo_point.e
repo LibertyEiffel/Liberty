@@ -34,7 +34,7 @@ insert
 	CAIRO_MATRIX_EXTERNALS
 	CAIRO_TRANSFORMATIONS_EXTERNALS
 
-creation make
+create {ANY} make
 
 feature {} -- Creation
 
@@ -44,7 +44,7 @@ feature {} -- Creation
 			y := an_y
 		end
 
-feature
+feature {ANY}
 	x, y: REAL
 
 	transform_distance (a_matrix: CAIRO_MATRIX) is
@@ -73,7 +73,7 @@ feature
 			cairo_matrix_transform_point (a_matrix.handle, $x, $y)
 		end
 
-feature -- Trasformations between user-space and device space 
+feature {ANY} -- Trasformations between user-space and device space 
 	from_user_to_device (a_context: CAIRO_CONTEXT) is
 			-- Transform the point from user space to device space by
 			-- multiplying the given point by the current transformation

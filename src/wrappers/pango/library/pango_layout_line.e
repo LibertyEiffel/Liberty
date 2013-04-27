@@ -32,10 +32,10 @@ insert
 	PANGO_LAYOUT_LINE_EXTERNALS
 	G_OBJECT_FACTORY [PANGO_LAYOUT]
 
-creation
+create {ANY}
 	from_external_pointer
 
-feature -- Access
+feature {ANY} -- Access
 
 	layout: PANGO_LAYOUT is
 			-- the parent layout for this line
@@ -71,7 +71,7 @@ feature -- Access
 			is_valid_pango_direction (Result)
 		end
 
-feature -- Memory handling
+feature {ANY} -- Memory handling
 	ref is
 		local p: POINTER
 		do
@@ -84,7 +84,7 @@ feature -- Memory handling
 			pango_layout_line_unref(handle)
 		end
 
-feature -- struct size
+feature {ANY} -- struct size
 
 	struct_size: INTEGER is
 		external "C inline use <pango/pango-layout.h>"

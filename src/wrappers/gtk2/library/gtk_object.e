@@ -98,7 +98,7 @@ insert
 	GTK -- that provides the gtk singleton.
 	GTKOBJECT_EXTERNALS
 
-feature
+feature {ANY}
 	sink  is
 			-- Removes the floating reference from a GtkObject, if it exists;
 			-- otherwise does nothing. See the GtkObject overview documentation at
@@ -124,7 +124,7 @@ feature
 			ref -- This takes care of sinking the object and/or adding a reference
 		end
 
-feature -- Signals
+feature {ANY} -- Signals
 	-- The "destroy" signal
 
 	-- void user_function (GtkObject *object, gpointer user_data);

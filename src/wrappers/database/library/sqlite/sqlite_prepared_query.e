@@ -25,9 +25,9 @@ insert
 			is_equal
 		end
 	
-creation  {SQLITE_DATABASE} make
+create  {SQLITE_DATABASE} make
 	
-feature
+feature {ANY}
 	last_result: SQLITE_RESULT_SET
 
 	execute (some_parameters: TRAVERSABLE[ANY]) is

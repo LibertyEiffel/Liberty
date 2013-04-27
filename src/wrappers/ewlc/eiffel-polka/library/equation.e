@@ -38,7 +38,7 @@ insert
 	EQUATION_EXTERNALS
    EIFFEL_OWNED
 
-creation	make
+create {ANY}	make
 
 feature {} -- Creation
 
@@ -54,7 +54,7 @@ feature {} -- Representation
 
 	dimension: INTEGER
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	set_var (a_variable: INTEGER) is
 		require
@@ -76,7 +76,7 @@ feature -- Operations
 			assignment = an_assignment
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	variable: INTEGER is
 		do

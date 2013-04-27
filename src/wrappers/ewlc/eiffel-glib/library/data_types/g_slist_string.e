@@ -27,9 +27,9 @@ inherit
 insert
 	G_SLIST_EXTERNALS undefine fill_tagged_out_memory end
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
-feature
+feature {ANY}
 	make is
 		do
 			handle := default_pointer
@@ -298,7 +298,7 @@ feature
 			create {ITERATOR_ON_G_SLIST_STRING} Result.make (Current) 
 		end
 
-feature -- Memory management
+feature {ANY} -- Memory management
 
 	dispose is
 		do

@@ -3,8 +3,8 @@
 expanded class G_HOOK_FLAG_MASK
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_hook_flag_active) or else 
@@ -13,7 +13,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_g_hook_flag_active is
 		do
 			value := g_hook_flag_active
@@ -30,7 +30,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_hook_flag_active: BOOLEAN is
 		do
 			Result := (value=g_hook_flag_active)

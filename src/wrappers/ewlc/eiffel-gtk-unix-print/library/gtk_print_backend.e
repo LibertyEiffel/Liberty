@@ -27,11 +27,11 @@ inherit G_OBJECT
 
 -- insert GTK_PRINT_BACKEND_EXTERNALS
 
-creation dummy, from_external_pointer
+create {ANY} dummy, from_external_pointer
 
-feature -- TODO: Properties
+feature {ANY} -- TODO: Properties
 	
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkPrintBackend)"

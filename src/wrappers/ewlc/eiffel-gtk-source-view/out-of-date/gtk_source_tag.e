@@ -92,7 +92,7 @@ feature {} -- Creation
 	--
 	-- typedef struct _GtkPatternTagClass GtkPatternTagClass;
 	--
-feature
+feature {ANY}
 	style: GTK_SOURCE_TAG_STYLE is
 			-- the style associated with the given tag. Can be Void
 		local p: POINTER
@@ -207,7 +207,7 @@ feature
 	--                     end-of-line character.
 	--   Returns :         a new string tag, as a GtkTextTag.
 	--
-feature
+feature {ANY}
 	id: STRING is
 			-- The "id" property: ID used to refer to the source tag. Default value
 			-- Void.

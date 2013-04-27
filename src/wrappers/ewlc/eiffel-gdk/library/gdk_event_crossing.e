@@ -30,9 +30,9 @@ insert
 	GDK_CROSSING_MODE
 	GDK_NOTIFY_TYPE
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
-feature -- access
+feature {ANY} -- access
 
 	subwindow: GDK_WINDOW is
 			-- the window that was entered or left.

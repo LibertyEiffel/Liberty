@@ -5,6 +5,7 @@ expanded class OP_STATUS_ENUM
 
 insert ENUM
 
+<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -15,9 +16,21 @@ feature -- Validity
 				(a_value = op_ok_low_level)  or else
 				(a_value = op_overflow_low_level)  or else
 				(a_value = op_underflow_low_level) )
+=======
+create {ANY} default_create
+feature {ANY} -- Validity
+	is_valid_value (a_value: INTEGER): BOOLEAN is
+		do
+			Result := ((a_value = ok_low_level)  or else
+				(a_value = invalid_op_low_level)  or else
+				(a_value = div_by_zero_low_level)  or else
+				(a_value = overflow_low_level)  or else
+				(a_value = underflow_low_level)  or else
+				(a_value = inexact_low_level) )
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_op_div_by_zero is
 		do
@@ -49,8 +62,13 @@ feature -- Setters
 			value := op_underflow_low_level
 		end
 
+<<<<<<< HEAD
 feature -- Queries
 	is_op_div_by_zero: BOOLEAN is
+=======
+feature {ANY} -- Queries
+	ok: BOOLEAN is
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=op_div_by_zero_low_level)
 		end

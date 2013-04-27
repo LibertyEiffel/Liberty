@@ -56,7 +56,7 @@ insert
 	GTK_ENTRY_COMPLETION_EXTERNALS
 	G_OBJECT_FACTORY [GTK_TREE_MODEL]
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	
@@ -66,7 +66,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_entry_completion_new)
 		end
 	
-feature
+feature {ANY}
 	entry: GTK_ENTRY is
 			-- the entry completion has been attached to.
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_ENTRY]
@@ -357,7 +357,7 @@ feature
 
 
 
-feature -- The "match-selected" signal
+feature {ANY} -- The "match-selected" signal
 
 	match_selected_signal_name: STRING is "match-selected"
 
@@ -414,7 +414,7 @@ feature -- The "match-selected" signal
 	-- user_data : 	user data given to gtk_entry_completion_set_match_func()
 	-- Returns : 	TRUE if iter should be displayed as a possible completion for key
 
-feature
+feature {ANY}
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkEntryCompletion)"

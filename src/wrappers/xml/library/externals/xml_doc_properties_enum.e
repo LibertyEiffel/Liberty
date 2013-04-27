@@ -5,6 +5,7 @@ expanded class XML_DOC_PROPERTIES_ENUM
 
 insert ENUM
 
+<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -16,9 +17,22 @@ feature -- Validity
 				xml_doc_userbuilt_low_level | 
 				xml_doc_wellformed_low_level | 
 				xml_doc_xinclude_low_level)).to_boolean
+=======
+create {ANY} default_create
+feature {ANY} -- Validity
+	is_valid_value (a_value: INTEGER): BOOLEAN is
+		do
+			Result := (a_value & (wellformed_low_level | 
+				old10_low_level | 
+				dtdvalid_low_level | 
+				xinclude_low_level | 
+				userbuilt_low_level | 
+				internal_low_level | 
+				html_low_level)).to_boolean
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_xml_doc_dtdvalid is
 		do
@@ -90,8 +104,13 @@ feature -- Setters
 			value := value.bit_xor(xml_doc_xinclude_low_level)
 		end
 
+<<<<<<< HEAD
 feature -- Queries
 	is_xml_doc_dtdvalid: BOOLEAN is
+=======
+feature {ANY} -- Queries
+	is_wellformed: BOOLEAN is
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=xml_doc_dtdvalid_low_level)
 		end

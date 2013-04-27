@@ -13,7 +13,7 @@ inherit
       redefine copy, is_equal
       end
 
-creation {ANY}
+create {ANY}
    make_empty, make_root, make_current, make_from_string
 
 feature {ANY} -- Creation

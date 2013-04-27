@@ -1,6 +1,6 @@
 class TEST
-creation make
-feature 
+create {ANY} make
+feature {ANY} 
 	make is
 		local rem: INTEGER
 		do

@@ -8,7 +8,7 @@ inherit
 insert
    GLOBALS
 
-creation {ANY}
+create {ANY}
    with_tag, without_tag
 
 feature {ANY}

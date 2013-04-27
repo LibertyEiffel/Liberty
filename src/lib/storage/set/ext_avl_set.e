@@ -10,7 +10,7 @@ inherit
          from_collection as abs_from_collection
       end
 
-creation {ANY}
+create {ANY}
    make, from_collection
 
 feature {ANY}

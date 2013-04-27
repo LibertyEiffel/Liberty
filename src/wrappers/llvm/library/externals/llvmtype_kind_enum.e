@@ -5,6 +5,7 @@ expanded class LLVMTYPE_KIND_ENUM
 
 insert ENUM
 
+<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -25,9 +26,31 @@ feature -- Validity
 				(a_value = llvmvoid_type_kind_low_level)  or else
 				(a_value = llvmx86_fp80type_kind_low_level)  or else
 				(a_value = llvmx86_mmxtype_kind_low_level) )
+=======
+create {ANY} default_create
+feature {ANY} -- Validity
+	is_valid_value (a_value: INTEGER): BOOLEAN is
+		do
+			Result := ((a_value = void_type_kind_low_level)  or else
+				(a_value = float_type_kind_low_level)  or else
+				(a_value = double_type_kind_low_level)  or else
+				(a_value = x86_fp80type_kind_low_level)  or else
+				(a_value = fp128type_kind_low_level)  or else
+				(a_value = ppc_fp128type_kind_low_level)  or else
+				(a_value = label_type_kind_low_level)  or else
+				(a_value = integer_type_kind_low_level)  or else
+				(a_value = function_type_kind_low_level)  or else
+				(a_value = struct_type_kind_low_level)  or else
+				(a_value = array_type_kind_low_level)  or else
+				(a_value = pointer_type_kind_low_level)  or else
+				(a_value = opaque_type_kind_low_level)  or else
+				(a_value = vector_type_kind_low_level)  or else
+				(a_value = metadata_type_kind_low_level)  or else
+				(a_value = union_type_kind_low_level) )
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_llvmarray_type_kind is
 		do
@@ -109,8 +132,13 @@ feature -- Setters
 			value := llvmx86_mmxtype_kind_low_level
 		end
 
+<<<<<<< HEAD
 feature -- Queries
 	is_llvmarray_type_kind: BOOLEAN is
+=======
+feature {ANY} -- Queries
+	void_type_kind: BOOLEAN is
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=llvmarray_type_kind_low_level)
 		end

@@ -12,7 +12,7 @@ inherit
          connect
       end
 
-creation {ACE, CLEAN}
+create {ACE, CLEAN}
    make
 
 feature {}

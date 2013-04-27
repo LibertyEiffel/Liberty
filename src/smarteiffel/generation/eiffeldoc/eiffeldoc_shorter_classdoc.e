@@ -18,7 +18,7 @@ inherit
          visit_call_support, visit_written_current, visit_result, visit_e_old, visit_manifest_string,
          visit_effective_arg_list, visit_argument_name2, visit_built_in_eq_neq, visit_implicit_cast,
          visit_e_void, visit_e_true, visit_e_false, visit_character_constant, visit_integer_constant,
-         visit_real_constant, visit_create_expression
+         visit_natural_constant, visit_real_constant, visit_create_expression
       end
 
 insert
@@ -27,7 +27,7 @@ insert
    AGENT_TYPE_MARKS
    EIFFELDOC_GLOBALS
 
-creation {EIFFELDOC_SHORTER}
+create {EIFFELDOC_SHORTER}
    make
 
 feature {}
@@ -178,20 +178,21 @@ feature {}
       local
          i: INTEGER
          cn: CLASS_NAME
+         sep: STRING
       do
          html.open_anchor_name(top_anchor_name)
          html.close_anchor
 
          -- make tabs
          options.open_tabs(html)
-         if options.home_address /= Void then
-            options.add_tab(html, home_link_name, options.home_address)
+         options.add_menu_tabs(html)
+         if options.menu.is_empty then
+            sep := once ""
+         else
+            sep := options.ariadne_separator
          end
-         if options.wiki_prefix /= Void then
-            options.add_tab(html, wiki_link_name, options.wiki_prefix)
-         end
-         options.add_tab(html, classes_and_clusters_list_link_name, index_filename)
-         options.add_tab(html, class_information_link_name, Void)
+         options.add_tab(html, classes_and_clusters_list_link_name, index_filename, sep)
+         options.add_tab(html, class_information_link_name, Void, options.ariadne_separator)
          options.close_tabs(html)
 
          -- open general block
@@ -618,7 +619,7 @@ feature {}
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       local
          ref: STRING; i: INTEGER
-         name: STRING
+         name, assign_anchor: STRING
       do
          name := once ""
          name.clear_count
@@ -658,6 +659,19 @@ feature {}
             html.put_string(once ": ")
             put_type_mark(af.result_type)
          end
+         if af.feature_text.assigned /= Void then
+            html.put_string(once " assign ")
+            assign_anchor := once ""
+            assign_anchor.copy(once "#")
+            af.feature_text.assigned.complete_name_in(assign_anchor)
+            html.with_attribute(once "class", once "feature_link")
+            html.with_attribute(once "href", filtered_attribute(assign_anchor))
+            html.open_anchor
+            assign_anchor.clear_count
+            af.feature_text.assigned.complete_name_in(assign_anchor)
+            html.put_string(assign_anchor)
+            html.close_anchor
+         end
          if af.header_comment /= Void then
             html.put_break
             set_suffixed_attribute(once "class", css_overview, css_comment_suffix, html)
@@ -673,7 +687,7 @@ feature {}
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       local
          i: INTEGER
-         feature_name, id: STRING
+         feature_name, id, assign_anchor: STRING
          require_not_empty, ensure_not_empty, need_blank: BOOLEAN
       do
          check
@@ -716,6 +730,19 @@ feature {}
          if af.result_type /= Void then
             html.put_string(once ": ")
             put_type_mark(af.result_type)
+         end
+         if af.feature_text.assigned /= Void then
+            html.put_string(once " assign ")
+            assign_anchor := once ""
+            assign_anchor.copy(once "#")
+            af.feature_text.assigned.complete_name_in(assign_anchor)
+            html.with_attribute(once "class", once "feature_link")
+            html.with_attribute(once "href", filtered_attribute(assign_anchor))
+            html.open_anchor
+            assign_anchor.clear_count
+            af.feature_text.assigned.complete_name_in(assign_anchor)
+            html.put_string(assign_anchor)
+            html.close_anchor
          end
 
          if fn.is_frozen then
@@ -889,18 +916,20 @@ feature {}
          end
          if has_else then
             html.put_string(once ") or else (")
-            html.open_list
          end
-         from
-            i := ra.direct_parents_require.lower
-         until
-            i > ra.direct_parents_require.upper
-         loop
-            print_require(ra.direct_parents_require.item(i), for_feature)
-            i := i + 1
+         if ra.direct_parents_require /= Void then
+            html.open_list
+            from
+               i := ra.direct_parents_require.lower
+            until
+               i > ra.direct_parents_require.upper
+            loop
+               print_require(ra.direct_parents_require.item(i), for_feature)
+               i := i + 1
+            end
+            html.close_list
          end
          if has_else then
-            html.close_list
             html.put_string(once ")")
          end
       end
@@ -1218,6 +1247,12 @@ feature {INTEGER_CONSTANT}
          html.put_string(visited.to_string)
       end
 
+feature {NATURAL_CONSTANT}
+   visit_natural_constant (visited: NATURAL_CONSTANT) is
+      do
+         html.put_string(visited.to_string)
+      end
+
 feature {REAL_CONSTANT}
    visit_real_constant (visited: REAL_CONSTANT) is
       do
@@ -1320,6 +1355,7 @@ feature {}
                   html.put_entity(once "nbsp")
                   html.put_string(once "->")
                   html.put_entity(once "nbsp")
+                  arg.constraint.specialize_in(context.type)
                   put_class(arg.constraint.to_static(context.type).class_text, True)
                end
                i := i + 1

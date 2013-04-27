@@ -8,7 +8,7 @@ inherit
 	STORABLE_NODE
 	WRAPPER_FEATURE
 
-creation make
+create {ANY} make
 
 feature 
 	store is

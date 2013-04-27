@@ -3,8 +3,8 @@
 expanded class G_REGEX_MATCH_FLAGS
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_regex_match_anchored) or else 
@@ -19,7 +19,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_anchored is
 		do
 			value := g_regex_match_anchored
@@ -66,7 +66,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_anchored: BOOLEAN is
 		do
 			Result := (value=g_regex_match_anchored)

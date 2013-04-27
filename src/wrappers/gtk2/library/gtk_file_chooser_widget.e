@@ -39,7 +39,7 @@ inherit
 insert
 	GTK_FILE_CHOOSER_WIDGET_EXTERNALS
 
-creation
+create {ANY}
 	make,
 	with_backend,
 	from_external_pointer
@@ -71,7 +71,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_file_chooser_widget_new_with_backend (an_action, backend.to_external))
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkFileChooserWidget)"

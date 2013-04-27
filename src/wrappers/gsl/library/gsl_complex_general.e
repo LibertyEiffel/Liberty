@@ -47,7 +47,7 @@ feature {} -- Creating
 			gsl_complex_polar(handle, r, theta)
 		end
 
-feature
+feature {ANY}
 	real: TYPE_ is
 			-- the real part of `Current'
 		do
@@ -78,7 +78,7 @@ feature
 				or else (struct_size = other.struct_size and memcmp(handle, other.handle, struct_size) = 0)
 		end
 
-feature -- copying
+feature {ANY} -- copying
 	copy(other: like Current) is
 		local
 			o: POINTER
@@ -89,7 +89,7 @@ feature -- copying
 			o := memcpy(handle, other.handle, struct_size)
 		end
 	
-feature -- Printing
+feature {ANY} -- Printing
 	out: STRING is
 			-- String representation of `Current'
 		local

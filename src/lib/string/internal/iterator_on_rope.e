@@ -7,7 +7,7 @@ class ITERATOR_ON_ROPE
 inherit
    ITERATOR[CHARACTER]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

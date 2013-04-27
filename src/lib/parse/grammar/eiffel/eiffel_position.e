@@ -9,7 +9,7 @@ insert
          default_create, is_equal
       end
 
-creation {EIFFEL_GRAMMAR}
+create {EIFFEL_GRAMMAR}
    default_create
 
 feature {EIFFEL_GRAMMAR}

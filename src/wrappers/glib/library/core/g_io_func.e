@@ -4,7 +4,7 @@ inherit
 	C_STRUCT
 	EIFFEL_OWNED
 	
-create
+create {ANY}
 	make
 
 feature {} -- Creation
@@ -17,7 +17,7 @@ feature {} -- Creation
 			g_io_func_closure_init (handle, to_pointer, $call)
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	function: POINTER is
 		external "C macro use <glib-callbacks.h>"

@@ -2006,7 +2006,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-feature -- Structure size
+feature {ANY} -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

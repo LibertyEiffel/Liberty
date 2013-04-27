@@ -18,11 +18,11 @@ insert
    TRAVERSABLE[ASSERTION_LIST]
       --*** Using traversable is very inefficient here (better implementation?)
 
-creation
-   {TMP_FEATURE}   make
+create {TMP_FEATURE}
+   make
 
-creation
-   {ANONYMOUS_FEATURE_MIXER} from_parents
+create {ANONYMOUS_FEATURE_MIXER}
+   from_parents
 
 feature {ANY}
    is_require_else: BOOLEAN
@@ -292,14 +292,14 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          i: INTEGER;     lr: like local_require; ra1, ra2: REQUIRE_ASSERTION
          pr: like direct_parents_require
       do
          Result := Current
          if local_require /= Void then
-            lr := local_require.specialize_2(type)
+            lr := local_require.specialize_and_check(type)
             if lr /= local_require then
                Result := twin
                Result.set_local_require(lr)
@@ -312,7 +312,7 @@ feature {ANY}
                ra1 /= ra2 or else i > direct_parents_require.upper
             loop
                ra1 := direct_parents_require.item(i)
-               ra2 := ra1.specialize_2(type)
+               ra2 := ra1.specialize_and_check(type)
                i := i + 1
             end
             if ra1 /= ra2 then
@@ -326,7 +326,7 @@ feature {ANY}
                until
                   i > direct_parents_require.upper
                loop
-                  pr.put(direct_parents_require.item(i).specialize_2(type), i)
+                  pr.put(direct_parents_require.item(i).specialize_and_check(type), i)
                   i := i + 1
                end
             end

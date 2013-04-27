@@ -6,6 +6,7 @@ deferred class READLINE_TYPES
 
 insert ANY undefine is_equal, copy end
 
+<<<<<<< HEAD
 feature -- C type definitions (typedefs)
 	histdata_t: POINTER is
 		-- typedef histdata_t
@@ -21,4 +22,7 @@ feature -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
+=======
+feature {ANY} -- C type definitions (typedefs)
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 end

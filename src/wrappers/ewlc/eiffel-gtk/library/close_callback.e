@@ -28,12 +28,12 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_FACTORY [CLOSE_SIGNAL_RECEIVER]
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	object: CLOSE_SIGNAL_RECEIVER
 
-feature
+feature {ANY}
 	callback (instance: POINTER) is
 		do
 			debug

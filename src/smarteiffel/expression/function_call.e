@@ -34,7 +34,7 @@ feature {ANY}
       do
          target_type := target.resolve_in(type)
          tm := feature_stamp.anonymous_feature(target_type).result_type
-         -- If the next call fails, then check if specialize_2 has been called!
+         -- If the next call fails, then check if specialize_and_check has been called!
          Result := tm.resolve_in(target_type)
       end
 
@@ -286,6 +286,16 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          end
       end
 
+feature {EIFFEL_PARSER}
+   is_assigned_to: BOOLEAN
+
+   set_assigned_to is
+      do
+         is_assigned_to := True
+      ensure
+         is_assigned_to
+      end
+
 feature {}
    declaration_type_memory: TYPE
 
@@ -303,10 +313,10 @@ feature {}
             else
                error_handler.add_position(af.start_position)
                error_handler.add_position(feature_name.start_position)
-               error_handler.append("Feature found is a procedure.")
+               error_handler.append(once "Feature found is a procedure.")
                error_handler.print_as_error
                error_handler.add_position(feature_name.start_position)
-               error_handler.append("This call has no result.")
+               error_handler.append(once "This call has no result.")
                error_handler.print_as_fatal_error
             end
          end

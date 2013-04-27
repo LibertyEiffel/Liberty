@@ -13,7 +13,7 @@ inherit
 insert
    GLOBALS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -32,16 +32,16 @@ feature {ANY}
          if old_name_to_string = new_name.to_string then
             error_handler.add_position(old_name.start_position)
             error_handler.add_position(new_name.start_position)
-            error_handler.append("New name and old name must be different.")
+            error_handler.append(once "New name and old name must be different.")
             error_handler.print_as_fatal_error
          elseif old_name_to_string = as_c_inline_c then
             error_handler.add_position(on.start_position)
-            error_handler.append("Cannot rename feature `c_inline_c' because this name is used as a keyword %
+            error_handler.append(once "Cannot rename feature `c_inline_c' because this name is used as a keyword %
                                  %to handle the corresponding %"built_in%" feature of ANY.")
             error_handler.print_as_fatal_error            
          elseif old_name_to_string = as_c_inline_h then
             error_handler.add_position(on.start_position)
-            error_handler.append("Cannot rename feature `c_inline_h' because this name is used as a keyword %
+            error_handler.append(once "Cannot rename feature `c_inline_h' because this name is used as a keyword %
                                  %to handle the corresponding %"built_in%" feature of ANY.")
             error_handler.print_as_fatal_error            
          end

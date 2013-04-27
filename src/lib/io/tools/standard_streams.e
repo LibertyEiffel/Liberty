@@ -17,7 +17,7 @@ insert
          std_error as any_std_error
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

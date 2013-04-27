@@ -9,7 +9,7 @@ inherit
          inline_expression_0
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

@@ -2,9 +2,9 @@ class TEST_GLIST00
 
 inherit EIFFELTEST_TOOLS
 
-creation make 
+create {ANY} make 
 
-feature 
+feature {ANY} 
 	make is
 		local
 			other_dates: G_LIST[G_DATE]

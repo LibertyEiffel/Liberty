@@ -27,7 +27,7 @@ feature {ANY}
          not_yet_implemented
       end
 
-   specialize_2 (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION is
       do
          not_yet_implemented
       end

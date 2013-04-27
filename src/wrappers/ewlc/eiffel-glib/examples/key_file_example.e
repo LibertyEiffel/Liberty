@@ -3,8 +3,8 @@ insert
 	FILE_TOOLS rename file_exists as obsolete_file_exists end
 	G_KEY_FILE_FLAGS
 
-creation make
-feature
+create {ANY} make
+feature {ANY}
 	make is
 		local
 			group, key: STRING

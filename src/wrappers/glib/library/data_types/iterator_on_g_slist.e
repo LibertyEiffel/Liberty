@@ -29,7 +29,7 @@ insert
 	GSLIST_STRUCT
 	GLOBAL_CACHE
 
-creation make
+create {ANY} make
 	
 feature {} -- Creation
 	make (a_list: G_SLIST_TRAVERSABLE[ITEM]) is
@@ -43,7 +43,7 @@ feature {} -- Implementation
 	list: G_SLIST_TRAVERSABLE[ITEM]
 	current_element: POINTER
 
-feature -- Iterator's features
+feature {ANY} -- Iterator's features
 	start is
 		do
 			current_element := list.handle

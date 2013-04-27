@@ -8,10 +8,10 @@ inherit
       redefine specialize_signature_in, specialize_signature_thru
       end
 
-creation {ANY}
+create {ANY}
    make
 
-creation {ANY}
+create {ANY}
    from_effective
 
 feature {ANY}

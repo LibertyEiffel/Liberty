@@ -9,7 +9,7 @@ class NATIVE_C
 inherit
    NATIVE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

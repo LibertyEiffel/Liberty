@@ -14,10 +14,10 @@ inherit
 insert
 	FILE_TOOLS
 
-creation 
+create {ANY} 
 	make
 	
-feature
+feature {ANY}
 
 	make is
 		local

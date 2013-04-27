@@ -1,9 +1,9 @@
 class DO_STUFF
 inherit G_POOLED_ROUTINE
-creation
+create {ANY}
 	make,
 	default_create
-feature 
+feature {ANY} 
 	make (an_i: INTEGER_32) is
 	local msg: STRING
 	do

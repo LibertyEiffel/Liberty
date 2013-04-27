@@ -27,7 +27,7 @@ insert
 	GLIST_EXTERNALS
 	GLIST_STRUCT
 
-creation make
+create {ANY} make
 	
 feature {} -- Creation
 	make (a_list: G_LIST_STRING) is
@@ -40,7 +40,7 @@ feature {} -- Implementation
 	list: G_LIST_STRING
 	current_element: POINTER
 
-feature -- Iterator's features
+feature {ANY} -- Iterator's features
 	start is
 		do
 			current_element := list.handle

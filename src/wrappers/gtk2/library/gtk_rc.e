@@ -25,7 +25,7 @@ insert
 	ANY
 	GTKRC_EXTERNALS
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	parse (a_filename: STRING) is
 		require

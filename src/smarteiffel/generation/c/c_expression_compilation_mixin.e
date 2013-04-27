@@ -84,13 +84,15 @@ feature {WRITTEN_CURRENT}
 
 feature {ADDRESS_OF}
    visit_address_of (visited: ADDRESS_OF) is
+      local
+         exp: EXPRESSION
       do
          if visited.local_name /= Void then
             function_body.append(once "/*$*/(void*)&")
             visited.local_name.accept(Current)
          elseif visited.feature_stamp.anonymous_feature(type).is_attribute then
-            function_body.append(once "/*$*/(void*)&")
-            cpp.code_compiler.compile(visited.calling_code, visited.target_type)
+            exp ::= visited.calling_code
+            cpp.compound_expression_compiler.compile_expression(once "/*$*/(void*)&", exp, once "", visited.target_type)
          else
             function_body.append(once "/*$*/((void*)W")
             visited.target_type.id.append_in(function_body)
@@ -874,10 +876,33 @@ feature {MANIFEST_TUPLE}
          compile_expression(visited.create_expression)
       end
 
+feature {}
+   compile_code_as_expression (code: CODE) is
+      local
+         stop: BOOLEAN
+      do
+         cpp.code_compiler.compile(code, type)
+         -- Because this item may be an INSTRUCTION, we have to remove the trailing semicolon:
+         -- *** THIS IS AN UGLY HACK!
+         from
+            stop := False
+         until
+            stop
+         loop
+            inspect
+               function_body.last
+            when ';', ' ', '%N' then
+               function_body.remove_last
+            else
+               stop := True
+            end
+         end
+      end
+
 feature {COMPOUND_EXPRESSION}
    visit_compound_expression (visited: COMPOUND_EXPRESSION) is
       local
-         i: INTEGER; stop: BOOLEAN
+         i: INTEGER
       do
          function_body.extend('(')
          from
@@ -889,22 +914,7 @@ feature {COMPOUND_EXPRESSION}
                function_body.extend(',')
             end
             function_body.extend('(')
-            cpp.code_compiler.compile(visited.list.item(i), type)
-            -- Because this item is an INSTRUCTION, we have to remove the trailing semicolon:
-            -- *** THIS IS AN UGLY HACK!
-            from
-               stop := False
-            until
-               stop
-            loop
-               inspect
-                  function_body.last
-               when ';', ' ', '%N' then
-                  function_body.remove_last
-               else
-                  stop := True
-               end
-            end
+            compile_code_as_expression(visited.list.item(i))
             function_body.extend(')')
             i := i + 1
          end

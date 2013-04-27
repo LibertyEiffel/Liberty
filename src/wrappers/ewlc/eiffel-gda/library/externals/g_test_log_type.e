@@ -3,8 +3,8 @@
 expanded class G_TEST_LOG_TYPE
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_test_log_none) or else 
@@ -20,7 +20,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_none is
 		do
 			value := g_test_log_none
@@ -72,7 +72,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_none: BOOLEAN is
 		do
 			Result := (value=g_test_log_none)

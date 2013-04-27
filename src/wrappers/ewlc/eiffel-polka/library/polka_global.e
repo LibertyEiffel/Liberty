@@ -30,7 +30,7 @@ deferred class POLKA_GLOBAL
 insert
 	POLKA_GLOBAL_EXTERNALS
 
-feature -- Variables
+feature {ANY} -- Variables
 
 	polka_strict: BOOLEAN is
 			-- True iff. strict inequalities are enable. This requires

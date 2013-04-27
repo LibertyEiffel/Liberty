@@ -3,8 +3,8 @@
 expanded class GDA_CONNECTION_FEATURE
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_connection_feature_aggregates) or else 
@@ -27,7 +27,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_aggregates is
 		do
 			value := gda_connection_feature_aggregates
@@ -114,7 +114,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_aggregates: BOOLEAN is
 		do
 			Result := (value=gda_connection_feature_aggregates)

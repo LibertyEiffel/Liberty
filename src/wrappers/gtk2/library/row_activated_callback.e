@@ -27,12 +27,12 @@ class ROW_ACTIVATED_CALLBACK
 inherit
 	CALLBACK redefine object end
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	object: GTK_TREE_VIEW
 
-feature
+feature {ANY}
 
 	callback (tree_path, tree_view_col, instance: POINTER) is
 		local

@@ -58,7 +58,7 @@ feature	{ANY}
 		deferred
 		end
 	
-feature -- State
+feature {ANY} -- State
 	-- Status reporting for the prepared statement. The actual
 	-- implementation of those features are backend depending
 

@@ -3,8 +3,8 @@
 expanded class G_MARKUP_ERROR
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_markup_error_bad_utf8) or else 
@@ -17,7 +17,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_bad_utf8 is
 		do
 			value := g_markup_error_bad_utf8
@@ -54,7 +54,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_bad_utf8: BOOLEAN is
 		do
 			Result := (value=g_markup_error_bad_utf8)

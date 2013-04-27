@@ -11,7 +11,7 @@ inherit
       redefine put_abstract_string, dispose
       end
 
-creation {ANY}
+create {ANY}
    make, connect_to
 
 feature {ANY}

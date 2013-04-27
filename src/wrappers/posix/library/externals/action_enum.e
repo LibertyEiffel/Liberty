@@ -5,15 +5,15 @@ expanded class ACTION_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = enter_low_level)  or else
 				(a_value = find_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_enter is
 		do
@@ -25,7 +25,7 @@ feature -- Setters
 			value := find_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_enter: BOOLEAN is
 		do
 			Result := (value=enter_low_level)

@@ -41,7 +41,7 @@ deferred class GTS_DELAUNAY
 	-- Delaunay conforming constrained triangulations and to refine
 	-- them.
 	
-feature 
+feature {ANY} 
 --    -----------------------------------------------------------------------------------------------------------
 
 --   gts_delaunay_add_vertex ()

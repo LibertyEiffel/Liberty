@@ -14,7 +14,7 @@ inherit
    FILE_STREAM
    TERMINAL_OUTPUT_STREAM
 
-creation {ANY}
+create {ANY}
    make, connect_to, connect_for_appending_to
 
 feature {ANY}

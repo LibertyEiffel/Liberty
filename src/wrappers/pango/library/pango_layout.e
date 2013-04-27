@@ -34,7 +34,7 @@ insert
 	PANGO_WRAP_MODE
 	PANGO_ALIGNMENT
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 
@@ -47,14 +47,14 @@ feature {} -- Creation
 			from_external_pointer (pango_layout_new (a_context.handle))
 		end
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(PangoLayout)"
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	context: PANGO_CONTEXT is
 			-- Retrieves the PANGO_CONTEXT used for this layout.
@@ -168,7 +168,7 @@ feature -- Access
 			Result /= Void
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	context_changed is
 			-- Forces recomputation of any state in the PANGO_LAYOUT that

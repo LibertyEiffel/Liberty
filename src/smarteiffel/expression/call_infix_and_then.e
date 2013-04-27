@@ -11,10 +11,10 @@ inherit
       redefine inline_dynamic_dispatch_
       end
 
-creation {EIFFEL_PARSER, IFTHEN, INTROSPECTION_HANDLER}
+create {EIFFEL_PARSER, IFTHEN, INTROSPECTION_HANDLER}
    make
 
-creation {AGENT_CREATION}
+create {AGENT_CREATION}
    with
 
 feature {ANY}

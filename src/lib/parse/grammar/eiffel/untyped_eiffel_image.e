@@ -6,7 +6,7 @@ class UNTYPED_EIFFEL_IMAGE
 inherit
    EIFFEL_IMAGE
 
-creation {EIFFEL_GRAMMAR}
+create {EIFFEL_GRAMMAR}
    make
 
 feature {}

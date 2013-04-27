@@ -8,7 +8,7 @@ class LLVM_CONST_STRING
 	-- TODO: Provide access to non-null-terminated strings.
 inherit LLVM_VALUE
 
-creation from_string, from_string_non_null_terminated, in_context
+create {ANY} from_string, from_string_non_null_terminated, in_context
 
 feature {} -- Creation
 	from_string (a_text: ABSTRACT_STRING) is

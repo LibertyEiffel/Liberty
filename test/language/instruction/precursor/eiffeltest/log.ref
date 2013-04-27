@@ -3,7 +3,7 @@ The "log.new" file must be identical to the "log.ref" file.
 The reference file is "log.ref" and this file must be created manually.
 If you confirm that "log.new" is correct, just overwrite "log.ref" with "log.new".
 --------------------------------------------------------------------------------
-Found 19 test_* file(s).
+Found 20 test_* file(s).
 Found 0 bad_* file(s).
 No subdirectory.
 --------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor01.e -o test_precursor01.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor01.e -o test_precursor01.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor01.e -o test_precursor01.exe
 Running (-require_check) "test_precursor01.exe".
 se clean test_precursor01.e
@@ -176,7 +176,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor02.e -o test_precursor02.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor02.e -o test_precursor02.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor02.e -o test_precursor02.exe
 Running (-require_check) "test_precursor02.exe".
 se clean test_precursor02.e
@@ -296,7 +296,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor03.e -o test_precursor03.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor03.e -o test_precursor03.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor03.e -o test_precursor03.exe
 Running (-require_check) "test_precursor03.exe".
 se clean test_precursor03.e
@@ -416,7 +416,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor04.e -o test_precursor04.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor04.e -o test_precursor04.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor04.e -o test_precursor04.exe
 Running (-require_check) "test_precursor04.exe".
 se clean test_precursor04.e
@@ -536,7 +536,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor05.e -o test_precursor05.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor05.e -o test_precursor05.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor05.e -o test_precursor05.exe
 Running (-require_check) "test_precursor05.exe".
 se clean test_precursor05.e
@@ -656,7 +656,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor06.e -o test_precursor06.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor06.e -o test_precursor06.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor06.e -o test_precursor06.exe
 Running (-require_check) "test_precursor06.exe".
 se clean test_precursor06.e
@@ -776,7 +776,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor07.e -o test_precursor07.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor07.e -o test_precursor07.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor07.e -o test_precursor07.exe
 Running (-require_check) "test_precursor07.exe".
 se clean test_precursor07.e
@@ -896,7 +896,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor08.e -o test_precursor08.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor08.e -o test_precursor08.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor08.e -o test_precursor08.exe
 Running (-require_check) "test_precursor08.exe".
 se clean test_precursor08.e
@@ -1016,7 +1016,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor09.e -o test_precursor09.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor09.e -o test_precursor09.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor09.e -o test_precursor09.exe
 Running (-require_check) "test_precursor09.exe".
 se clean test_precursor09.e
@@ -1136,7 +1136,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor10.e -o test_precursor10.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor10.e -o test_precursor10.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor10.e -o test_precursor10.exe
 Running (-require_check) "test_precursor10.exe".
 se clean test_precursor10.e
@@ -1256,7 +1256,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor11.e -o test_precursor11.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor11.e -o test_precursor11.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor11.e -o test_precursor11.exe
 Running (-require_check) "test_precursor11.exe".
 se clean test_precursor11.e
@@ -1376,7 +1376,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor12.e -o test_precursor12.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor12.e -o test_precursor12.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor12.e -o test_precursor12.exe
 Running (-require_check) "test_precursor12.exe".
 se clean test_precursor12.e
@@ -1496,7 +1496,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor13.e -o test_precursor13.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor13.e -o test_precursor13.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor13.e -o test_precursor13.exe
 Running (-require_check) "test_precursor13.exe".
 se clean test_precursor13.e
@@ -1616,7 +1616,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor14.e -o test_precursor14.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor14.e -o test_precursor14.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor14.e -o test_precursor14.exe
 Running (-require_check) "test_precursor14.exe".
 se clean test_precursor14.e
@@ -1736,7 +1736,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor16.e -o test_precursor16.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor16.e -o test_precursor16.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor16.e -o test_precursor16.exe
 Running (-require_check) "test_precursor16.exe".
 se clean test_precursor16.e
@@ -1856,7 +1856,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor17.e -o test_precursor17.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor17.e -o test_precursor17.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor17.e -o test_precursor17.exe
 Running (-require_check) "test_precursor17.exe".
 se clean test_precursor17.e
@@ -1976,7 +1976,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor18.e -o test_precursor18.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor18.e -o test_precursor18.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor18.e -o test_precursor18.exe
 Running (-require_check) "test_precursor18.exe".
 se clean test_precursor18.e
@@ -2096,7 +2096,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor19.e -o test_precursor19.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor19.e -o test_precursor19.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor19.e -o test_precursor19.exe
 Running (-require_check) "test_precursor19.exe".
 se clean test_precursor19.e
@@ -2216,7 +2216,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_precursor20.e -o test_precursor20.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_precursor20.e -o test_precursor20.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_precursor20.e -o test_precursor20.exe
 Running (-require_check) "test_precursor20.exe".
 se clean test_precursor20.e
@@ -2287,6 +2287,126 @@ se c -no_split -no_gc -boost test_precursor20.e -o test_precursor20.exe
 Running (-no_split -no_gc -boost) "test_precursor20.exe".
 se clean test_precursor20.e
 Removing (-no_split -no_gc -boost) "test_precursor20.exe".
+se c -boost test_precursor21.e -o test_precursor21.exe
+Running (-boost) "test_precursor21.exe".
+se clean test_precursor21.e
+Removing (-boost) "test_precursor21.exe".
+se c -flat_check -all_check -debug test_precursor21.e -o test_precursor21.exe
+Running (-flat_check -all_check -debug) "test_precursor21.exe".
+se clean test_precursor21.e
+Removing (-flat_check -all_check -debug) "test_precursor21.exe".
+se c -no_check test_precursor21.e -o test_precursor21.exe
+Running (-no_check) "test_precursor21.exe".
+se clean test_precursor21.e
+Removing (-no_check) "test_precursor21.exe".
+se c -flat_check -require_check test_precursor21.e -o test_precursor21.exe
+Running (-flat_check -require_check) "test_precursor21.exe".
+se clean test_precursor21.e
+Removing (-flat_check -require_check) "test_precursor21.exe".
+se c -flat_check -ensure_check test_precursor21.e -o test_precursor21.exe
+Running (-flat_check -ensure_check) "test_precursor21.exe".
+se clean test_precursor21.e
+Removing (-flat_check -ensure_check) "test_precursor21.exe".
+se c -flat_check -invariant_check test_precursor21.e -o test_precursor21.exe
+Running (-flat_check -invariant_check) "test_precursor21.exe".
+se clean test_precursor21.e
+Removing (-flat_check -invariant_check) "test_precursor21.exe".
+se c -flat_check -loop_check test_precursor21.e -o test_precursor21.exe
+Running (-flat_check -loop_check) "test_precursor21.exe".
+se clean test_precursor21.e
+Removing (-flat_check -loop_check) "test_precursor21.exe".
+se c -flat_check -all_check test_precursor21.e -o test_precursor21.exe
+Running (-flat_check -all_check) "test_precursor21.exe".
+se clean test_precursor21.e
+Removing (-flat_check -all_check) "test_precursor21.exe".
+Excluded command: "se c -no_gc -boost test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -boost -debug test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -no_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -require_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -ensure_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -invariant_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -loop_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -all_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -all_check -debug test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -all_check -debug".
+se c -require_check test_precursor21.e -o test_precursor21.exe
+Running (-require_check) "test_precursor21.exe".
+se clean test_precursor21.e
+Removing (-require_check) "test_precursor21.exe".
+Excluded command: "se c -ensure_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -all_check".
+Excluded command: "se c -no_gc -require_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -ensure_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -invariant_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -loop_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -all_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -profile -boost test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -debug test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -boost test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -no_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -require_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -ensure_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -invariant_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -loop_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -all_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -require_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -ensure_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -invariant_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -loop_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -all_check test_precursor21.e -o test_precursor21.exe".
+By excluded.lst:  "se c -profile".
+se c -no_split -boost test_precursor21.e -o test_precursor21.exe
+Running (-no_split -boost) "test_precursor21.exe".
+se clean test_precursor21.e
+Removing (-no_split -boost) "test_precursor21.exe".
+se c -no_split -no_gc -boost test_precursor21.e -o test_precursor21.exe
+Running (-no_split -no_gc -boost) "test_precursor21.exe".
+se clean test_precursor21.e
+Removing (-no_split -no_gc -boost) "test_precursor21.exe".
 --------------------------------------------------------------------------------
 All entries of the "excluded.lst" file are used (good).
 --------------------------------------------------------------------------------

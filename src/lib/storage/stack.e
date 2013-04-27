@@ -21,10 +21,10 @@ insert
       undefine default_create, out_in_tagged_out_memory, copy, is_equal
       end
 
-creation {ANY}
+create {ANY}
    make, with_capacity
 
-creation {FAST_ARRAY}
+create {FAST_ARRAY}
    collection_make
 
 feature {}

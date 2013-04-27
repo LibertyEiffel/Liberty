@@ -25,7 +25,7 @@ inherit G_OBJECT
 
 insert GTK_PRINT_OPERATION_PREVIEW_EXTERNALS
 
-feature -- Creation
+feature {ANY} -- Creation
 	end_preview is
 			-- Ends a preview. This function must be called to finish a custom
 			-- print preview.
@@ -51,7 +51,7 @@ feature -- Creation
 			gtk_print_operation_preview_render_page(handle,a_page_number)
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkPrintOperationPreview)"

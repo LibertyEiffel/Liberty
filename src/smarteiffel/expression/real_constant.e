@@ -9,7 +9,7 @@ class REAL_CONSTANT
 inherit
    BASE_TYPE_CONSTANT
 
-creation {EIFFEL_PARSER, INTEGER_CONSTANT, NATURAL_CONSTANT, REAL_TYPE_MARK}
+create {EIFFEL_PARSER, INTEGER_CONSTANT, NATURAL_CONSTANT, REAL_TYPE_MARK}
    make
 
 feature {ANY}
@@ -152,7 +152,7 @@ feature {ANY}
             when 0 then
                if user_exponent /= 0 then
                   error_handler.add_position(start_position)
-                  error_handler.append("Invalid notation for 0.0.")
+                  error_handler.append(once "Invalid notation for 0.0.")
                   error_handler.print_as_error
                end
                buffer.copy(once "0e0")

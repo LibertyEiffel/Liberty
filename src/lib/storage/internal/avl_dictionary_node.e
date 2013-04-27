@@ -9,7 +9,7 @@ class AVL_DICTIONARY_NODE[V_, K_ -> COMPARABLE]
 inherit
    ABSTRACT_AVL_DICTIONARY_NODE[V_, K_]
 
-creation {AVL_DICTIONARY}
+create {AVL_DICTIONARY}
    default_create
 
 feature {}

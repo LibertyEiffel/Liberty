@@ -49,7 +49,7 @@ insert
 	GTS_SURFACE_STRUCT
 	GTS_SURFACE_SIMPLIFICATION_AND_REFINEMENT_EXTERNALS
 
-creation  make, copy, from_external_pointer
+create {ANY}  make, copy, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -60,7 +60,7 @@ feature {} -- Creation
 																 gts_vertex_class))
 		end
 
-feature
+feature {ANY}
 	copy (another: GTS_SURFACE) is
 			-- Add a copy of all the faces, edges and vertices of s2 to s1.
 		do
@@ -90,7 +90,7 @@ feature
 			gts_surface_merge (handle, another.handle)
 		end
 
-feature -- Input
+feature {ANY} -- Input
 	read (a_file: GTS_FILE) is
 			-- Add to surface the data read from `a_file'. The format of the file
 			-- pointed to by `a_file' is as described in `write'.
@@ -286,7 +286,7 @@ feature -- Input
 	-- 			-- In all other case Huston has some serious problem.
 	-- 		end
 
-feature -- Output
+feature {ANY} -- Output
 	print_stats_on (a_file: OUTPUT_STREAM) is
 			-- Writes the statistics for surface to `a_file'
 		require file_not_void: a_file /= Void
@@ -343,7 +343,7 @@ feature -- Output
 			gts_surface_write_vtk(handle,a_file.stream_pointer)
 		end
 
-feature -- Boolean queries
+feature {ANY} -- Boolean queries
 	is_manifold: BOOLEAN is
 			-- Is the surface a manifold?
 		do
@@ -366,7 +366,7 @@ feature -- Boolean queries
 			Result:=gts_surface_is_closed(handle).to_boolean
 		end
 
-feature -- Element number queries
+feature {ANY} -- Element number queries
 	vertices_count: INTEGER is
 			-- the number of vertices in the surface.
 		
@@ -389,7 +389,7 @@ feature -- Element number queries
 		ensure natural: Result>=0
 		end
 
-feature
+feature {ANY}
 	faces: DICTIONARY[GTS_FACE,GTS_FACE] is
 		do
 			if cached_faces = Void then
@@ -404,7 +404,7 @@ feature
 			check cached_faces/=Void end
 			Result:=cached_faces
 		end
-feature
+feature {ANY}
 	boundary: G_SLIST[GTS_EDGE] is
 			-- the boundary edges of surface.
 		local p: POINTER
@@ -659,7 +659,7 @@ feature {} -- Unwrapped code
 	-- The surface structure derived from GtsObject. This structure should only
 	-- be accessed through the following functions.
 
-feature -- Boolean operations 
+feature {ANY} -- Boolean operations 
 
 	intersection (another: GTS_SURFACE) is
 		do
@@ -673,7 +673,7 @@ feature -- Boolean operations
 			--     Returns :      a list of GtsEdge defining the curve intersection of the two surfaces.
 		end
 	
-feature -- Delaunay and constrained Delaunay triangulations
+feature {ANY} -- Delaunay and constrained Delaunay triangulations
 	-- Delaunay and constrained Delaunay triangulations implementation
 	-- of a dynamic Delaunay triangulation algorithm.
 
@@ -1170,7 +1170,7 @@ feature -- Delaunay and constrained Delaunay triangulations
 			no_edges_added: edges_count = old edges_count
 		end
 
-feature -- Simplification and refinement: reducing or increasing the number of edges of a triangulated surface (not Delaunay)
+feature {ANY} -- Simplification and refinement: reducing or increasing the number of edges of a triangulated surface (not Delaunay)
 
 	-- `coarsen' function allows to reduce the number of edges (and of course
 -- faces and vertices) of a given surface.
@@ -1291,7 +1291,7 @@ feature -- Simplification and refinement: reducing or increasing the number of e
 	--     stop_data :     user data to be passed to stop_func.
 	--     minangle :      minimum angle between two neighboring triangles.
 
-feature -- Stop functions (used in refining and coarsing)
+feature {ANY} -- Stop functions (used in refining and coarsing)
 	
 	--   gts_coarsen_stop_number ()
 

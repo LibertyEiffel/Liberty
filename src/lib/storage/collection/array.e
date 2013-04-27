@@ -24,7 +24,7 @@ insert
       undefine default_create, out_in_tagged_out_memory
       end
 
-creation {ANY}
+create {ANY}
    default_create, make, with_capacity, from_collection, manifest_creation
 
 feature {ANY}

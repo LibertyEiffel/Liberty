@@ -36,7 +36,7 @@ inherit
 insert
 	GTK_COLOR_SELECTION_DIALOG_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (a_title: STRING) is
@@ -47,7 +47,7 @@ feature {} -- Creation
 		end
 	
 
-feature
+feature {ANY}
 
 	colorselection: GTK_COLOR_SELECTION is
 		local
@@ -89,7 +89,7 @@ feature {} -- GtkColorSelectionDialog struct
 	-- GtkWidget *help_button; The help button widget contained within
 	-- the dialog. Connect a handler for the clicked event.
 	
-feature -- struct size
+feature {ANY} -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkColorSelectionDialog)"

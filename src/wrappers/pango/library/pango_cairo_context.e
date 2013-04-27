@@ -30,10 +30,10 @@ inherit
 insert
 	PANGO_CAIRO_CONTEXT_EXTERNALS
 
-creation
+create {ANY}
 	from_external_pointer -- Only to be used by FontMaps
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	set_resolution (a_dpi: REAL) is
 			-- Sets the resolution for the context. This is a scale factor
@@ -71,7 +71,7 @@ feature -- Operations
 			pango_cairo_update_context (a_cairo.handle, handle)
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	font_options: CAIRO_FONT_OPTIONS is
 			-- Font rendering options previously set with

@@ -10,7 +10,7 @@ inherit
 		redefine default_create, out, print_on
 		end
 
-creation {ANY}
+create {ANY}
 	default_create
 
 feature {ANY}

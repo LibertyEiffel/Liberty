@@ -12,7 +12,7 @@ class ID_PROVIDER
 insert
    GLOBALS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {C_PRETTY_PRINTER}
@@ -287,7 +287,7 @@ feature {}
             error_handler.append(once "Cannot find the default class ")
             error_handler.append(string)
             error_handler.append(once " in any cluster. Don't expect the compilation to succeed.%N")
-            error_handler.print_as_warning
+            error_handler.print_as_error
          end
       end
 

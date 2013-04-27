@@ -6,7 +6,7 @@ class DESCENDING_TERMINAL
 inherit
    PARSE_TERMINAL[DESCENDING_PARSE_CONTEXT]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

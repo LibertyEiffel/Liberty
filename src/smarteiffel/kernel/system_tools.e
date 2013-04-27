@@ -24,66 +24,15 @@ insert
    ACE_HANDLER
       undefine is_equal
       end
+   SYSTEM_TOOLS_CONSTANTS
+      undefine is_equal
+      end
 
-creation {ANY}
+create {ANY}
    make
 
-creation {INSTALL_GLOBALS}
+create {INSTALL_GLOBALS}
    make_install
-
-feature {INSTALL_GLOBALS, SERC_FACTORY, C_SPLITTER} -- Currently handled system list:
-   unix_system: STRING is "UNIX"
-
-   windows_system: STRING is "Windows"
-
-   cygwin_system: STRING is "Cygwin"
-
-   beos_system: STRING is "BeOS"
-
-   macintosh_system: STRING is "Macintosh"
-
-   amiga_system: STRING is "Amiga"
-
-   dos_system: STRING is "DOS"
-
-   os2_system: STRING is "OS2"
-
-   open_vms_system: STRING is "OpenVMS"
-
-   elate_system: STRING is "Elate"
-
-feature {INSTALL_GLOBALS} -- Currently handled C/C++ compiler list:
-   gcc: STRING is "gcc"
-
-   gpp: STRING is "g++"
-
-   distcc: STRING is "distcc"
-
-   lcc_win32: STRING is "lcc-win32"
-
-   cc: STRING is "cc"
-
-   cc_pp: STRING is "CC"
-
-   wcl386: STRING is "wcl386"
-
-   bcc32: STRING is "bcc32"
-
-   cl: STRING is "cl"
-
-   sas_c: STRING is "sc"
-
-   dice: STRING is "dice"
-
-   vbcc: STRING is "vbcc"
-
-   ccc: STRING is "ccc"
-
-   vpcc: STRING is "vpcc"
-
-   open_vms_cc: STRING is "OpenVMS_CC"
-
-   tcc: STRING is "tcc"
 
 feature {INSTALL_GLOBALS, C_MODE, SERC_FACTORY}
    system_list: FAST_ARRAY[STRING] is
@@ -299,39 +248,39 @@ feature {}
          rcf: SERC_FACTORY
          s: STRING
       once
-         config := rcf.config
+         config := rcf.config(Current)
          if config /= Void then
             if not is_install then
                bin_directory := config.bin
                if bin_directory = Void then
-                  error_handler.append("%"[General] bin%" key is missing.")
+                  error_handler.append(once "%"[General] bin%" key is missing.")
                   error_handler.print_as_error
                else
                   environment_variable_substitution(Void, bin_directory)
                end
                sys_directory := config.sys
                if sys_directory = Void then
-                  error_handler.append("%"[General] sys%" key is missing.")
+                  error_handler.append(once "%"[General] sys%" key is missing.")
                   error_handler.print_as_error
                else
                   environment_variable_substitution(Void, sys_directory)
                end
                short_directory := config.short
                if short_directory = Void then
-                  error_handler.append("%"[General] short%" key is missing.")
+                  error_handler.append(once "%"[General] short%" key is missing.")
                   error_handler.print_as_error
                else
                   environment_variable_substitution(Void, short_directory)
                end
                s := config.os
                if s = Void then
-                  error_handler.append("%"[General] os%" key is missing.")
+                  error_handler.append(once "%"[General] os%" key is missing.")
                   error_handler.print_as_error
                else
                   if not system_list.has(s) then
-                     error_handler.append("Unknown os %"")
+                     error_handler.append(once "Unknown os %"")
                      error_handler.append(s)
-                     error_handler.append("%S: config file corrupted!")
+                     error_handler.append(once "%S: config file corrupted!")
                      error_handler.print_as_fatal_error
                   end
                   s := system_list.item(system_list.first_index_of(s))
@@ -339,11 +288,11 @@ feature {}
                end
                set_system_flavor(config.flavor)
                if system_flavor = Void then
-                  error_handler.append("%"[General] flavor%" key is missing.")
+                  error_handler.append(once "%"[General] flavor%" key is missing.")
                   error_handler.print_as_error
                end
                if nb_errors /= 0 then
-                  error_handler.append("The configuration file seems invalid. %
+                  error_handler.append(once "The configuration file seems invalid. %
                                        %Correct the above errors first.")
                   error_handler.print_as_fatal_error
                end
@@ -834,7 +783,7 @@ feature {SE, ACE, COMMAND_LINE_TOOLS}
       do
          if cc_arg /= Void then
             if c_compiler_mode = c_compiler_cmode then
-               error_handler.append("You must choose either -cc or -c_mode, but %
+               error_handler.append(once "You must choose either -cc or -c_mode, but %
                                     %you cannot use them both.")
                error_handler.print_as_fatal_error
             elseif c_compiler_mode = c_compiler_cc then
@@ -1955,7 +1904,7 @@ feature {ACE, COMMAND_LINE_TOOLS}
          -- flag)
       do
          if c_compiler_mode = c_compiler_cc then
-            error_handler.append("You must choose either -cc or -c_mode, but %
+            error_handler.append(once "You must choose either -cc or -c_mode, but %
                                  %you cannot use them both.")
             error_handler.print_as_fatal_error
          end
@@ -2105,9 +2054,9 @@ feature {}
                end
                c_compiler := compiler_list.item(i)
             else
-               error_handler.append("Unable to find the compiler type of %"")
+               error_handler.append(once "Unable to find the compiler type of %"")
                error_handler.append(c_mode)
-               error_handler.append("%". Please fix your configuration file or %
+               error_handler.append(once "%". Please fix your configuration file or %
                                     %choose another C mode.")
                error_handler.print_as_fatal_error
             end

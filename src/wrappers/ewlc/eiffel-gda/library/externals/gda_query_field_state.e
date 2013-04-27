@@ -3,8 +3,8 @@
 expanded class GDA_QUERY_FIELD_STATE
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_entity_field_visible) or else 
@@ -13,7 +13,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_gda_entity_field_visible is
 		do
 			value := gda_entity_field_visible
@@ -30,7 +30,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gda_entity_field_visible: BOOLEAN is
 		do
 			Result := (value=gda_entity_field_visible)

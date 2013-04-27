@@ -12,7 +12,7 @@ inherit
 insert
    BACKTRACKING_NODE_GLOBALS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

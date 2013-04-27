@@ -122,7 +122,7 @@ inherit
 	GTK_TREE_DRAG_SOURCE
 	GTK_TREE_SORTABLE
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {} 
 -- gtk_tree_model_sort_new_with_model ()
@@ -220,7 +220,7 @@ feature {}
 -- Returns : 	TRUE if the iter is valid, FALSE if the iter is invalid.
 
 
-feature -- "model" properties
+feature {ANY} -- "model" properties
 
 --   "model"                GtkTreeModel          : Read / Write / Construct Only
 
@@ -255,7 +255,7 @@ feature {} -- External calls
 -- gboolean    gtk_tree_model_sort_iter_is_valid
 --                                             (GtkTreeModelSort *tree_model_sort,
 --                                              GtkTreeIter *iter);
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeModel)"

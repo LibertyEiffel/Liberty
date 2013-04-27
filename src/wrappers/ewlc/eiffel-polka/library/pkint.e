@@ -63,7 +63,7 @@ inherit
 insert
 	PKINT_EXTERNALS
 
-creation make, copy, from_natural, from_integer, from_string, from_external_pointer
+create {ANY} make, copy, from_natural, from_integer, from_string, from_external_pointer
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Creation
 
@@ -107,7 +107,7 @@ feature {} -- Creation
 			from_integer (a_string.to_integer)
 		end
 
-feature -- Creation
+feature {ANY} -- Creation
 
 	copy (other: like Current) is
 		do
@@ -118,7 +118,7 @@ feature -- Creation
 			end
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	set_from_pkint (other: like Current) is
 			-- Set the value of Current from `other'.
@@ -152,7 +152,7 @@ feature -- Operations
 			pkint_set_str10 (handle, a_string.to_external)
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	to_natural: INTEGER_64 is
 			-- Return the least significant part from integer.
@@ -205,14 +205,14 @@ feature -- Access
 			
 		end
 
-feature -- from HASHABLE
+feature {ANY} -- from HASHABLE
 
 	hash_code: INTEGER is
 		do
 			Result := to_integer
 		end
 
-feature -- from NUMERIC
+feature {ANY} -- from NUMERIC
 
 	infix "+" (other: like Current): like Current is
 		do
@@ -303,7 +303,7 @@ feature -- from NUMERIC
 			-- before converting OP to a string. The right amount of allocation is
 			-- normally two more than the value returned by pkint_sizeinbase10
 
-feature -- from COMPARABLE
+feature {ANY} -- from COMPARABLE
 
 	is_equal (other: like Current): BOOLEAN is
 		do
@@ -338,7 +338,7 @@ feature -- from COMPARABLE
 			Result := pkint_cmp_ui (handle, an_integer)
 		end
 
-feature -- Other
+feature {ANY} -- Other
 
 	print_to_stdout is
 			-- Prints integer on the standard output.

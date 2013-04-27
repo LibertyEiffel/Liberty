@@ -31,9 +31,9 @@ insert
 	SHARED_XML2_NODE_CACHE
 	LIBXML2_EXTERNALS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
-feature -- Name and attributes
+feature {ANY} -- Name and attributes
 	name: STRING is
 		-- Name of the node.
 		do
@@ -61,7 +61,7 @@ feature -- Name and attributes
 	-- 	not_yet_implemented
 	-- end
 
-feature -- Nodes relationships
+feature {ANY} -- Nodes relationships
 	parent: XML2_NODE is
 		-- Curren't parent, if any.
 	do

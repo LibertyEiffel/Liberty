@@ -3,7 +3,7 @@
 --
 class PROCESS_LAUNCH_INFO
 
-creation {ANY}
+create {ANY}
    execute, execute_command_line
 
 feature {ANY}

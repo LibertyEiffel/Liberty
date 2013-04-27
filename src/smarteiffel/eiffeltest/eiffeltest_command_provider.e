@@ -16,7 +16,7 @@ feature {ANY}
          bd.compute_absolute_file_path_with(a_path)
          commands.add_last(bd.last_entry.intern)
       ensure
-         not is_empty
+         count > 0
       end
 
    display (stream: OUTPUT_STREAM) is
@@ -46,11 +46,10 @@ feature {ANY}
       do
          if commands.is_empty then
             Result := disconnected_clients.fast_has(client)
-         else
-            Result := False
          end
       ensure
          Result implies count = 0
+         count > 0 implies not Result
       end
 
    item (client: EIFFELTEST_CLIENT_SOCKET): FIXED_STRING is

@@ -21,7 +21,7 @@ indexing
 
 deferred class SHARED_DEFAULT_GTK_ICON_THEME
 
-feature
+feature {ANY}
 	default_gtk_icon_theme: GTK_ICON_THEME is
 			-- The (unique) icon theme associated to the default screen.
 			-- A unique GtkIconTheme associated with the default

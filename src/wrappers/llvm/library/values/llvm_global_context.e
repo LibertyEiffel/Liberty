@@ -3,8 +3,8 @@ class LLVM_GLOBAL_CONTEXT
 inherit LLVM_CONTEXT undefine copy, is_equal redefine default_create end 
 insert SINGLETON redefine default_create end 
 
-creation  default_create
-feature
+create {ANY}  default_create
+feature {ANY}
 	default_create is
 		do
 			handle:=llvmget_global_context

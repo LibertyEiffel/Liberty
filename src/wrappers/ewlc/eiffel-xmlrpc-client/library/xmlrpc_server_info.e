@@ -8,17 +8,17 @@ inherit
 insert
 	XMLRPC_SERVER_INFO_EXTERNALS
 
-creation
+create {ANY}
 	from_url, from_server_info, make
 
-feature -- Size
+feature {ANY} -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <xmlrpc-c/client.h>"
 		alias "sizeof (xmlrpc_server_info)"
 		end
 
-feature -- Representation
+feature {ANY} -- Representation
 
 	url: STRING
 
@@ -76,7 +76,7 @@ feature {} -- Destruction
 			handle:= default_pointer
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	set_basic_auth (username, password: STRING) is
 		do

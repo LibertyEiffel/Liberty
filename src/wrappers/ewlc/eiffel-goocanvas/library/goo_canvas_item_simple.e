@@ -31,10 +31,10 @@ inherit
 insert
 	GOO_CANVAS_ITEM_SIMPLE_EXTERNALS
 	
-create
+create {ANY}
 	from_external_pointer
 	
-feature 
+feature {ANY} 
 	struct_size: INTEGER is
 		external "C inline use <goocanvas-1.0/goocanvasitemsimple.h>"
 		alias "sizeof(GooCanvasItemSimple)"

@@ -3,7 +3,7 @@
 --
 class LOG_FILE_OPTIONS
 
-creation {LOG_INTERNAL_CONF}
+create {LOG_INTERNAL_CONF}
    file, console
 
 feature {LOG_INTERNAL_CONF}

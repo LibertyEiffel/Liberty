@@ -8,7 +8,7 @@ inherit
 	STORABLE_NODE
 	WRAPPER_FEATURE redefine compute_eiffel_name end
 
-creation make
+create {ANY} make
 
 feature {ANY}
 	store is

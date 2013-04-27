@@ -27,7 +27,7 @@ inherit CAIRO_SURFACE
 
 insert CAIRO_PDF_SURFACE_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (a_filename: STRING; a_width_in_points, an_height_in_points: REAL) is
@@ -78,7 +78,7 @@ feature {} -- Creation
 	--                      surface if an error such as out of memory occurs. You
 	--                      can use cairo_surface_status() to check for this.
 
-feature
+feature {ANY}
 	set_size (a_width_in_points, an_height_in_points: REAL) is
 			-- Changes the size of a PDF surface for the current (and subsequent) pages.
 

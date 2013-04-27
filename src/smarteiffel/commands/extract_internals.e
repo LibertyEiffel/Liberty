@@ -20,7 +20,7 @@ insert
       undefine is_equal
       end
 
-creation {}
+create {}
    make
 
 feature {ANY}
@@ -49,7 +49,7 @@ feature {ANY}
             if is_help_flag(arg) then
             elseif is_verbose_flag(arg) then
             elseif is_version_flag(arg) then
-            elseif is_no_style_warning_flag(arg) then
+            elseif is_style_warning_flag(arg) then
             elseif is_no_warning_flag(arg) then
             elseif is_a_compilation_level_flag(arg) then
             elseif is_debug_flag(arg) then
@@ -78,7 +78,7 @@ feature {ANY}
    is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
       do
          Result := is_version_flag(arg)
-            or else is_no_style_warning_flag(arg)
+            or else is_style_warning_flag(arg)
             or else is_no_warning_flag(arg)
             or else is_verbose_flag(arg)
       end
@@ -166,8 +166,8 @@ feature {ANY}
                            extract_internals is doing
 
     Warning levels:
-      -no_style_warning   Don't print warnings about style violations
-      -no_warning         Don't print any warnings (implies -no_style_warning)
+      -style_warning      Do print warnings about style violations
+      -no_warning         Don't print any warnings
 
    ]"
 

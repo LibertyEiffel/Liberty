@@ -3,8 +3,8 @@
 expanded class GDA_DICT_ERROR
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_dict_meta_data_update_error) or else 
@@ -18,7 +18,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_meta_data_update_error is
 		do
 			value := gda_dict_meta_data_update_error
@@ -60,7 +60,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_meta_data_update_error: BOOLEAN is
 		do
 			Result := (value=gda_dict_meta_data_update_error)

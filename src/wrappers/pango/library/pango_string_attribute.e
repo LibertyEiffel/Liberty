@@ -25,15 +25,15 @@ inherit
 	C_STRUCT
 	MIXED_MEMORY_HANDLING
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
-feature 
+feature {ANY} 
 	value: STRING is
 		do
 			create {CONST_STRING} Result.from_external(get_value (handle))
 		end
 	
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <pango/pango.h>"

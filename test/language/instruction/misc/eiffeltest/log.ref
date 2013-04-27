@@ -56,7 +56,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_anchor1.e -o test_anchor1.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_anchor1.e -o test_anchor1.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_anchor1.e -o test_anchor1.exe
 Running (-require_check) "test_anchor1.exe".
 se clean test_anchor1.e
@@ -176,7 +176,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_anchor10.e -o test_anchor10.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_anchor10.e -o test_anchor10.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_anchor10.e -o test_anchor10.exe
 Running (-require_check) "test_anchor10.exe".
 se clean test_anchor10.e
@@ -296,7 +296,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_anchor11.e -o test_anchor11.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_anchor11.e -o test_anchor11.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_anchor11.e -o test_anchor11.exe
 Running (-require_check) "test_anchor11.exe".
 se clean test_anchor11.e
@@ -416,7 +416,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_anchor12.e -o test_anchor12.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_anchor12.e -o test_anchor12.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_anchor12.e -o test_anchor12.exe
 Running (-require_check) "test_anchor12.exe".
 se clean test_anchor12.e
@@ -536,7 +536,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_anchor2.e -o test_anchor2.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_anchor2.e -o test_anchor2.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_anchor2.e -o test_anchor2.exe
 Running (-require_check) "test_anchor2.exe".
 se clean test_anchor2.e
@@ -656,7 +656,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_anchor3.e -o test_anchor3.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_anchor3.e -o test_anchor3.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_anchor3.e -o test_anchor3.exe
 Running (-require_check) "test_anchor3.exe".
 se clean test_anchor3.e
@@ -776,7 +776,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_anchor4.e -o test_anchor4.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_anchor4.e -o test_anchor4.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_anchor4.e -o test_anchor4.exe
 Running (-require_check) "test_anchor4.exe".
 se clean test_anchor4.e
@@ -896,7 +896,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_anchor5.e -o test_anchor5.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_anchor5.e -o test_anchor5.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_anchor5.e -o test_anchor5.exe
 Running (-require_check) "test_anchor5.exe".
 se clean test_anchor5.e
@@ -1016,7 +1016,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_anchor6.e -o test_anchor6.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_anchor6.e -o test_anchor6.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_anchor6.e -o test_anchor6.exe
 Running (-require_check) "test_anchor6.exe".
 se clean test_anchor6.e
@@ -1136,7 +1136,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_anchor7.e -o test_anchor7.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_anchor7.e -o test_anchor7.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_anchor7.e -o test_anchor7.exe
 Running (-require_check) "test_anchor7.exe".
 se clean test_anchor7.e
@@ -1256,7 +1256,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_anchor8.e -o test_anchor8.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_anchor8.e -o test_anchor8.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_anchor8.e -o test_anchor8.exe
 Running (-require_check) "test_anchor8.exe".
 se clean test_anchor8.e
@@ -1376,7 +1376,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_anchor9.e -o test_anchor9.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_anchor9.e -o test_anchor9.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_anchor9.e -o test_anchor9.exe
 Running (-require_check) "test_anchor9.exe".
 se clean test_anchor9.e
@@ -1496,7 +1496,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_like1.e -o test_like1.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_like1.e -o test_like1.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_like1.e -o test_like1.exe
 Running (-require_check) "test_like1.exe".
 se clean test_like1.e
@@ -1616,7 +1616,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_like2.e -o test_like2.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_like2.e -o test_like2.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_like2.e -o test_like2.exe
 Running (-require_check) "test_like2.exe".
 se clean test_like2.e
@@ -1736,7 +1736,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_like3.e -o test_like3.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_like3.e -o test_like3.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_like3.e -o test_like3.exe
 Running (-require_check) "test_like3.exe".
 se clean test_like3.e

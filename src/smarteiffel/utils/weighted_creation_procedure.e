@@ -3,7 +3,7 @@ expanded class WEIGHTED_CREATION_PROCEDURE
 insert
    COMPARABLE
 
-creation {ANY}
+create {ANY}
    default_create, make
 
 feature {ANY}

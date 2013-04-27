@@ -37,7 +37,7 @@ insert
 	GTK_STORE_SETTERS
 	GTK_TREE_STORE_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 
@@ -50,7 +50,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_tree_store_newv (some_columns.count, some_columns.to_external))
 		end
 	
-feature -- Generic setter
+feature {ANY} -- Generic setter
 	set_value (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_value: G_VALUE) is
 			-- Sets the data in the cell specified by `an_iterator' and
 			-- `a_column'. The type of `a_value' must be convertible to the type of
@@ -321,7 +321,7 @@ feature -- Generic setter
 		do
 			gtk_tree_store_move_after (handle, an_iterator.handle, default_pointer)
 		end
-feature -- struct size
+feature {ANY} -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeStore)"

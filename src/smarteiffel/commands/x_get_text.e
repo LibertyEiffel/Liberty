@@ -9,7 +9,7 @@ insert
    FEATURE_STAMP_VISITOR
    INI_HANDLER
 
-creation {}
+create {}
    make
 
 feature {ANY}
@@ -77,40 +77,38 @@ feature {}
    find_get_text_seeds is
       local
          hs: HASHED_STRING; get_text_class_name: CLASS_NAME; get_text_type: TYPE; fn: FEATURE_NAME
-         pos_ref: POSITION_PRINTER; seed: FEATURE_STAMP; get_text_declaration: GET_TEXT_DECLARATION
+         seed: FEATURE_STAMP; get_text_declaration: GET_TEXT_DECLARATION
          number_get_text_declaration: NUMBER_GET_TEXT_DECLARATION
       do
 --         parser_buffer.load_file(once "get_text.se")
 --         ini_parser.a_inifile
 
          create {HASHED_DICTIONARY[ABSTRACT_GET_TEXT_DECLARATION, FEATURE_STAMP]}get_text_seeds.make
-         new_echo.put_message_1(once "Looking for @(1)...", fz_get_text_class)
+         echo.put_line(once "Looking for #(1)..." # fz_get_text_class)
          hs := string_aliaser.hashed_string(fz_get_text_class)
          create get_text_class_name.unknown_position(hs)
          get_text_class := smart_eiffel.class_text(get_text_class_name, True)
          get_text_type := get_text_class.declaration_type_of_like_current
-         new_echo.put_message_2(once "@(1) found in @(2)", fz_get_text_class, get_text_class.path)
+         echo.put_line(once "#(1) found in #(2)" # fz_get_text_class # get_text_class.path)
 
          create fn.simple_feature_name(fz_get_text, get_text_class.name.start_position)
          seed := get_text_type.search(fn)
          if seed /= Void then
-            create pos_ref.set_position(seed.anonymous_feature(get_text_type).start_position)
-            new_echo.put_message_2(fz_found_at, fz_get_text, pos_ref)
+            echo.put_line(fz_found_at # fz_get_text # seed.anonymous_feature(get_text_type).start_position.out)
             create get_text_declaration.make(1, get_text_type)
             get_text_seeds.add(get_text_declaration, seed)
          else
-            new_echo.put_message_1(fz_not_found, fz_get_text)
+            echo.put_line(fz_not_found # fz_get_text)
          end
 
          create fn.simple_feature_name(fz_number_get_text, get_text_class.name.start_position)
          seed := get_text_type.search(fn)
          if seed /= Void then
-            pos_ref.set_position(seed.anonymous_feature(get_text_type).start_position)
-            new_echo.put_message_2(fz_found_at, fz_number_get_text, pos_ref)
+            echo.put_line(fz_found_at # fz_number_get_text # seed.anonymous_feature(get_text_type).start_position.out)
             create number_get_text_declaration.make(1, 2, get_text_type)
             get_text_seeds.add(number_get_text_declaration, seed)
          else
-            new_echo.put_message_1(fz_not_found, fz_number_get_text)
+            echo.put_line(fz_not_found # fz_number_get_text)
          end
       end
 
@@ -119,10 +117,8 @@ feature {}
          i, j: INTEGER; types: DICTIONARY[TYPE, HASHED_STRING]; type, declaration_type: TYPE
          seed, stamp: FEATURE_STAMP
          get_text_name: FEATURE_NAME
-         pos_ref: POSITION_PRINTER
       do
          create {HASHED_DICTIONARY[ABSTRACT_GET_TEXT_DECLARATION, FEATURE_STAMP]}get_text_declarations.make
-         create pos_ref
          types := smart_eiffel.type_dictionary
          from
             i := types.lower
@@ -130,8 +126,7 @@ feature {}
             i > types.upper
          loop
             type := types.item(i)
-            new_echo.put_message_1(once "Looking for (number_)get_text declarations in @(1)",
-                                   type.name.to_string)
+            echo.put_line(once "Looking for (number_)get_text declarations in #(1)" # type.name.to_string)
             from
                j := get_text_seeds.lower
             until
@@ -143,8 +138,7 @@ feature {}
                   stamp := seed.resolve_static_binding_for(declaration_type, type)
                   get_text_declarations.put(get_text_seeds.item(j), stamp)
                   get_text_name := stamp.anonymous_feature(type).first_name
-                  pos_ref.set_position(get_text_name.start_position)
-                  new_echo.put_message_3(fz_found_as, fz_get_text, get_text_name.to_string, pos_ref)
+                  echo.put_line(fz_found_as # fz_get_text # get_text_name.to_string # get_text_name.start_position.out)
                end
                j := j + 1
             end
@@ -164,7 +158,7 @@ feature {}
          create root_name.unknown_position(hashed_root_class_name)
          root := smart_eiffel.class_text(root_name, True)
          if root = Void then
-            error_handler.append("Cannot load root class ")
+            error_handler.append(once "Cannot load root class ")
             error_handler.append(root_class_name)
             error_handler.extend('.')
             error_handler.print_as_error
@@ -190,7 +184,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 
+"POT-Creation-Date:
                             ]")
          t.update
 --***         create {TIME_IN_FOOBAR} tf.set_time(t)
@@ -256,11 +250,11 @@ msgstr[1] ""
          crash
       end
 
-   fz_found_at: STRING is "@(1) found at @(2)"
+   fz_found_at: STRING is "#(1) found at #(2)"
 
-   fz_found_as: STRING is "@(1) found as @(2)(@(3))"
+   fz_found_as: STRING is "#(1) found as #(2)(#(3))"
 
-   fz_not_found: STRING is "@(1) not found"
+   fz_not_found: STRING is "#(1) not found"
 
    fz_get_text_class: STRING is "GET_TEXT"
 
@@ -269,10 +263,5 @@ msgstr[1] ""
    fz_get_text: STRING is "translation"
 
    fz_number_get_text: STRING is "number_translation"
-
-   new_echo: NEW_ECHO is
-      once
-         create Result.make
-      end
 
 end -- class X_GET_TEXT

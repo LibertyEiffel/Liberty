@@ -40,9 +40,9 @@ insert
 	CAIRO_FONT_TYPE
 	CAIRO_STATUS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
-feature -- Memory handling
+feature {ANY} -- Memory handling
 	dispose is do unref end
 
 	ref is
@@ -62,7 +62,7 @@ feature -- Memory handling
 			cairo_font_face_destroy(handle)
 		end
 
-feature
+feature {ANY}
 	status: INTEGER is
 			-- The status of font face. Useful to check whether an error has previously occurred.
 		do

@@ -28,12 +28,12 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_FACTORY [GTK_WIDGET]
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	object: GTK_WIDGET
 
-feature
+feature {ANY}
 	callback (motion_event_ptr: POINTER; instance: POINTER): INTEGER is
 		local
 			motion_event: GDK_EVENT_MOTION

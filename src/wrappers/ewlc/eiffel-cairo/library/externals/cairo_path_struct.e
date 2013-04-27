@@ -85,7 +85,7 @@ feature {} -- Structure getter/setter calls
 		external "C struct cairo_path_t set num_data use <cairo.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <cairo.h>"
 		alias "sizeof(cairo_path_t)"

@@ -16,9 +16,9 @@ inherit
 insert 
 	G_PARAMETER_EXTERNALS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 	
-feature 
+feature {ANY} 
 	name: STRING is
 			-- the parameter name
 		do
@@ -34,7 +34,7 @@ feature
 	-- const gchar *name; 	the parameter name
 	-- GValue value; 	the parameter value
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GParameter)"

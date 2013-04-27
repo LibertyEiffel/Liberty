@@ -15,7 +15,7 @@ inherit
          with_capacity as abs_with_capacity
       end
 
-creation {ANY}
+create {ANY}
    make, with_capacity
 
 feature {ANY}

@@ -9,10 +9,10 @@ inherit
 insert
 	GDK
 	
-create
+create {ANY}
 	make
 	
-feature make is
+feature {ANY} make is
 --		local
 --			temp : TUPLE[GDK_PIXMAP, GDK_BITMAP]
 		local
@@ -43,13 +43,13 @@ feature make is
 			diagram_scroll.add (goo)
 		end
 
-feature -- Widgets
+feature {ANY} -- Widgets
 	vbox: GTK_VBOX
 	
 	diagram_scroll : GTK_SCROLLED_WINDOW
 	goo : DIAGRAM_CANVAS
 
-feature  -- Callbacks
+feature {ANY}  -- Callbacks
 
 	on_destroy is
 		do

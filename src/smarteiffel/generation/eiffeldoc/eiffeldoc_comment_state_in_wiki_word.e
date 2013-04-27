@@ -12,11 +12,11 @@ class EIFFELDOC_COMMENT_STATE_IN_WIKI_WORD
 inherit
    EIFFELDOC_COMMENT_STATE
 
-creation {EIFFELDOC_CONTEXT}
+create {EIFFELDOC_CONTEXT}
    make
 
 feature {}
-   default_wiki_prefix: STRING is "http://smarteiffel.loria.fr/wiki/en/index.php/"
+   default_wiki_prefix: STRING is "http://wiki.liberty-eiffel.org/en/index.php/"
 
    wiki_prefix: STRING
 

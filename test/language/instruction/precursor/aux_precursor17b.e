@@ -12,9 +12,9 @@ inherit
 feature {ANY}
    make is
       do
-         assert(assert_counter.value = 1)
+         assert(assert_counter.item = 1)
          Precursor
-         assert(assert_counter.value = 3)
+         assert(assert_counter.item = 3)
       end
 
 end -- class AUX_PRECURSOR17B

@@ -32,14 +32,14 @@ deferred class GTK_MENU_SHELL
 inherit GTK_CONTAINER
 	-- GtkMenuShell implements AtkImplementorIface Interface
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkMenuShell)"
 		end
 
-feature
+feature {ANY}
 	-- TODO: check if all those `a_child' shall be GTK_MENU_ITEM
 	-- instead of GTK_WIDGET
 
@@ -173,7 +173,7 @@ feature
 			Result:=(gtk_menu_shell_get_take_focus(handle).to_boolean)
 		end
 
-feature -- TODO: Properties
+feature {ANY} -- TODO: Properties
 --    "take-focus"           gboolean              : Read / Write
 
 -- Property Details
@@ -190,7 +190,7 @@ feature -- TODO: Properties
 
 --    Since 2.8
 
-feature -- TODO: Signals
+feature {ANY} -- TODO: Signals
 
 
 --  "activate-current"

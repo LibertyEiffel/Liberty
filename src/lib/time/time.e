@@ -2,34 +2,35 @@
 -- See the full copyright at the end.
 --
 expanded class TIME
-   --
-   -- Time and date facilities: year, month, day, hour and seconds.
-   --
+--
+-- Time and date facilities: year, month, day, hour and seconds.
+--
 
 insert
-   HASHABLE 
-		redefine
-		 	out
-		end
+   HASHABLE
+      redefine
+         out
+      end
    COMPARABLE
       redefine
-		  is_equal, out
+         is_equal, out
       end
    TIME_HANDLER
-      redefine 
-		  is_equal, out
+      redefine
+         is_equal, out
       end
-feature 
-	out: STRING is
-	 	do
-			create Result.with_capacity(21)
-			year.append_in(Result); Result.extend('/')
-			month.append_in(Result); Result.extend('/')
-			day.append_in(Result); Result.extend(' ')
-			hour.append_in(Result); Result.extend(':')
-			minute.append_in(Result); Result.extend(':')
-			second.append_in(Result)
-		end
+
+feature {ANY}
+   out: STRING is
+      do
+         create Result.with_capacity(21)
+         year.append_in(Result); Result.extend('/')
+         month.append_in(Result); Result.extend('/')
+         day.append_in(Result); Result.extend(' ')
+         hour.append_in(Result); Result.extend(':')
+         minute.append_in(Result); Result.extend(':')
+         second.append_in(Result)
+      end
 
 feature {ANY}
    is_local_time: BOOLEAN is
@@ -213,7 +214,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Setting common time mode (local or universal):
-   set_universal_time is
+      set_universal_time is
       do
          time_mode_memo.set_item(1)
       ensure

@@ -1,12 +1,12 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class LLVMEC 
+class LLVMEC
    --
    -- `llvmec'' command, the LLVM-based Eiffel compiler
    --
 
-   -- Mainly copied from RUN. 
+   -- Mainly copied from RUN.
 
    -- Todo: replace current argument parsing which relies on side effects to a side-effects free implementation.
 inherit
@@ -18,7 +18,7 @@ inherit
 insert
    LLVM_GLOBALS
 
-creation {}
+create {}
    make
 
 feature {ANY}
@@ -43,8 +43,8 @@ feature {ANY}
                              doing
 
       Warning and Error levels:
-        -no_style_warning   Don't print warnings about style violations
-        -no_warning         Don't print any warnings (implies -no_style_warning)
+        -style_warning      Do print warnings about style violations
+        -no_warning         Don't print any warnings
         -relax              Performs less checks by considering less dead code, hence
                              using less memory and less compilation time. Useful to
                              prototype or to deliver safe code. (Useful too for very
@@ -81,12 +81,12 @@ feature {}
       do
          user_args.add_first(Void)
          system_tools.set_plugin_factory(create {LLVM_PLUGIN_FACTORY}.make)
-		 eiffel_parser.set_drop_comments 
+                 eiffel_parser.set_drop_comments
          string_command_line.set_command_line_name(command_line_name)
          if argument_count < 1 then
             system_tools.bad_use_exit(command_line_name, command_line_help_summary)
          end
-		 -- require exporting to LLVMEC
+                 -- require exporting to LLVMEC
          echo_redirect := search_for_echo_redirect_flag
          if echo_redirect /= Void then
              echo.redirect_output_on(echo_redirect)
@@ -132,7 +132,7 @@ feature {}
                argi := argi + 1
             elseif is_case_insensitive_flag(arg) then
                argi := argi + 1
-            elseif is_no_style_warning_flag(arg) then
+            elseif is_style_warning_flag(arg) then
                argi := argi + 1
             elseif is_no_warning_flag(arg) then
                argi := argi + 1
@@ -187,7 +187,7 @@ feature {}
 
    is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
       do
-         if is_version_flag(arg) or else is_no_style_warning_flag(arg) or else is_no_warning_flag(arg) or else is_verbose_flag(arg) or else is_relax_flag(arg) then
+         if is_version_flag(arg) or else is_style_warning_flag(arg) or else is_no_warning_flag(arg) or else is_verbose_flag(arg) or else is_relax_flag(arg) then
             Result := True
          end
       end
@@ -217,5 +217,5 @@ end -- class LLVMEC
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://libertyeiffel.blogspot.com https://github.com/LibertyEiffel/Liberty 
+-- http://libertyeiffel.blogspot.com https://github.com/LibertyEiffel/Liberty
 -- ------------------------------------------------------------------------------------------------------------------------------

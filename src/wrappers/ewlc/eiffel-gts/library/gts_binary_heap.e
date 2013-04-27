@@ -49,7 +49,7 @@ feature {} -- Creation
 			from_external_pointer (gts_heap_new ($comparison_function))
 		end
 	
-feature
+feature {ANY}
 	comparison_function (an_item, another: like top): INTEGER is
 		require
 			item_not_void: an_item /= Void

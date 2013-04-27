@@ -21,7 +21,7 @@ inherit
 insert
    STRING_HANDLER
 
-creation {ANY}
+create {ANY}
    make, connect_to
 
 feature {ANY}

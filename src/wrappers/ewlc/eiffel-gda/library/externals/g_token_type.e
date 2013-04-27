@@ -3,8 +3,8 @@
 expanded class G_TOKEN_TYPE
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_token_eof) or else 
@@ -34,7 +34,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_eof is
 		do
 			value := g_token_eof
@@ -156,7 +156,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_eof: BOOLEAN is
 		do
 			Result := (value=g_token_eof)

@@ -12,7 +12,7 @@ inherit
          pretty_in, default_expression, resolve_in
       end
 
-creation {ANY}
+create {ANY}
    real_32, real_64, real, real_80, real_128, real_extended
 
 feature {ANY}

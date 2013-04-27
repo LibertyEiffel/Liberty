@@ -9,7 +9,7 @@ class DEFERRED_PROCEDURE
 inherit
    DEFERRED_ROUTINE
 
-creation {ANY}
+create {ANY}
    make, from_effective
 
 feature {ANY}

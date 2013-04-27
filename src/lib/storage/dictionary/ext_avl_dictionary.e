@@ -15,7 +15,7 @@ inherit
          make as abs_make
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

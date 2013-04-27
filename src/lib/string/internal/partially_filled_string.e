@@ -6,7 +6,7 @@ inherit
          infix "#", out_in_tagged_out_memory
       end
 
-creation {ABSTRACT_STRING}
+create {ABSTRACT_STRING}
    from_string_and_arg
 
 feature {ANY}

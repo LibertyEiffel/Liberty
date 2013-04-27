@@ -21,9 +21,9 @@ indexing
 
 class COLORSEL
 	
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 -- /* Color Selector
 --  *
 --  * GtkColorSelection lets the user choose a color. GtkColorSelectionDialog is

@@ -27,7 +27,7 @@ insert
 	GSLIST_EXTERNALS
 	GSLIST_STRUCT
 
-creation make
+create {ANY} make
 	
 feature {} -- Creation
 	make (a_list: G_SLIST_STRING) is
@@ -39,7 +39,7 @@ feature {} -- Creation
 feature {} -- Implementation
 	list: POINTER
 	current_element: POINTER
-feature -- Iterator's features
+feature {ANY} -- Iterator's features
 	start is
 		do
 			current_element := list

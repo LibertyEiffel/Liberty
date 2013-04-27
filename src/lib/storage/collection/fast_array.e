@@ -14,7 +14,7 @@ class FAST_ARRAY[E_]
    -- you can expect good performances while using a FAST_ARRAY to modelize a stack behavior with `add_last' /
    -- `last' / `remove_last'. Conversely `add_first' and `remove_first' are likely to slow down your program if
    -- they are too often used. If the fact that `lower' is stuck to 0 do matter, also consider ARRAY.
-   
+
    -- `add_first' and `remove_first' are O(count) commands for FAST_ARRAY.
 
 inherit
@@ -24,7 +24,7 @@ inherit
       end
    ARRAYED_COLLECTION[E_]
       redefine default_create
-	  end
+          end
 
 insert
    NATIVE_ARRAY_COLLECTOR[E_]
@@ -32,7 +32,7 @@ insert
       redefine default_create
       end
 
-creation {ANY}
+create {ANY}
    default_create, make, with_capacity, from_collection, from_external, manifest_creation
 
 feature {ANY}
@@ -41,10 +41,11 @@ feature {ANY}
 
 feature {ANY} -- Creation and modification:
    default_create is
-	      -- Create a new with empty FAST_ARRAY with capacity 32.
-	   do
-		   with_capacity(32)
-	   end
+         -- Create a new with empty FAST_ARRAY with capacity 32.
+      do
+         with_capacity(32)
+      end
+
    make (new_count: INTEGER) is
          -- Make array with range [0 .. `new_count' - 1].
          -- When `new_count' = 0 the array is empty.

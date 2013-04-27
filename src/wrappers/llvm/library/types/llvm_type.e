@@ -104,7 +104,7 @@ feature {ANY} -- Queries
 -- is_abstract: BOOLEAN is -- is Current abstract, i.e. does it contain opaque type anywhere in its definition.
 	-- is_sized: BOOLEAN is -- Has the type a known size? Things that don't have a size are abstract types, labels and void.
 	
-feature 
+feature {ANY} 
 	as_integer: LLVM_INTEGER_TYPE is
 		-- Downcasting to integer type
 	require is_integer

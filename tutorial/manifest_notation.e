@@ -6,7 +6,7 @@ class MANIFEST_NOTATION
 --           compile -sedb manifest_notation
 --
 
-creation
+create {ANY}
    make
 
 feature {}

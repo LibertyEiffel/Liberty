@@ -9,8 +9,8 @@ class TEST_AGENT54
 
 insert
    EIFFELTEST_TOOLS
-   
-creation
+
+create {}
    make
 
 feature
@@ -32,7 +32,7 @@ feature
       end
 
    n: INTEGER
-   
+
    func: FUNCTION[TUPLE, INTEGER]
 
    func_run (i: INTEGER): INTEGER is
@@ -40,13 +40,13 @@ feature
          Result := i
       end
 
-   proc: PROCEDURE[ANY, TUPLE]
+   proc: PROCEDURE[TUPLE]
 
    proc_run (i: INTEGER) is
       do
          n := i
       end
-   
+
 end -- TEST_AGENT54
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

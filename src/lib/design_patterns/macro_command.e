@@ -8,17 +8,19 @@ class MACRO_COMMAND[C_ -> COMMAND]
 
 inherit
    COMMAND
-      undefine fill_tagged_out_memory
+      undefine fill_tagged_out_memory, out_in_tagged_out_memory, default_create
       redefine copy, is_equal
       end
    COLLECTION[C_]
+      undefine default_create, out_in_tagged_out_memory
+      end
 
 insert
    FAST_ARRAY[C_]
       redefine copy, is_equal
       end
 
-creation {ANY}
+create {ANY}
    make, with_capacity
 
 feature {ANY}

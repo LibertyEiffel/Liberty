@@ -29,9 +29,9 @@ insert
 	ARGUMENTS
 	MEMORY
 	
-creation make
+create {ANY} make
 
-feature -- objects and 
+feature {ANY} -- objects and 
 	timer: G_TIMER
 	label: GTK_LABEL
 	labels: FAST_ARRAY [GTK_LABEL]
@@ -39,7 +39,7 @@ feature -- objects and
 
 	random: STD_RAND
 	
-feature
+feature {ANY}
 	iterations_number: INTEGER_32
 	
 	make is

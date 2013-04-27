@@ -12,10 +12,10 @@ inherit
 		redefine 
 			copy
 		end
-creation
+create {ANY}
 	from_external_pointer, make
 
-feature 
+feature {ANY} 
 
 	struct_size: INTEGER is
 		external "C inline use <gdk/gdk.h>"
@@ -37,7 +37,7 @@ feature
 			from_external_pointer(gdk_color_copy(handle))
 		end
 
-feature -- Getters and setters
+feature {ANY} -- Getters and setters
 
 	is_allocated: BOOLEAN
 		-- Not implemented, we still need GdkColormaps for this.

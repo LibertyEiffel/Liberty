@@ -14,14 +14,14 @@ inherit
 	G_TYPES
 	WRAPPER_HANDLER
 
-creation make
+create {ANY} make
 
-feature -- Columns
+feature {ANY} -- Columns
 
 	pix_col_n: INTEGER is 2
 	text_col_n: INTEGER is 3
 
-feature
+feature {ANY}
 
 	model: GTK_LIST_STORE is
 			-- icon model with some data set
@@ -90,14 +90,14 @@ feature {}  -- Creation
 			gtk.run_main_loop
 		end
 
-feature -- Agents
+feature {ANY} -- Agents
 
 	on_destroy (a_gtk_object: GTK_OBJECT) is
 		do
 			gtk.quit
 		end
 
-feature -- Helper -- we need this 'cause we can wrap this directly (it uses varargs)
+feature {ANY} -- Helper -- we need this 'cause we can wrap this directly (it uses varargs)
 
 	set_pixbuf_and_string (a_list_store: GTK_LIST_STORE; an_iter: GTK_TREE_ITER;
 	                       pixbuf_column: INTEGER; a_pixbuf: GDK_PIXBUF;

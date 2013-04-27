@@ -47,16 +47,16 @@ inherit
 insert
 	GTK_TARGET_ENTRY_EXTERNALS
 
-creation from_external_pointer, make
+create {ANY} from_external_pointer, make
 
-feature -- Creation
+feature {ANY} -- Creation
 
 	make is
 		do
 			allocate
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	target: STRING is
 		local
@@ -78,7 +78,7 @@ feature -- Access
 			Result := gtk_target_entry_get_info (handle)
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	set_target (a_target: STRING) is
 		require
@@ -97,7 +97,7 @@ feature -- Operations
 			gtk_target_entry_set_info (handle, some_info)
 		end
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

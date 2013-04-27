@@ -45,9 +45,9 @@ insert
 	GTK_FILE_CHOOSER_ACTION	undefine fill_tagged_out_memory end
 	G_TYPES undefine fill_tagged_out_memory end
 
-creation main
+create {ANY} main
 
-feature 
+feature {ANY} 
 	main is
 		do
 			initialize_external_tool
@@ -95,7 +95,7 @@ feature
 			classes_tree.set_sensitive(True) -- Re-enable the class tree widget			
 		end
 	
-feature -- Classes and clusters storage 
+feature {ANY} -- Classes and clusters storage 
 	classes_by_name: GTK_TREE_STORE
 	classes_by_cluster: GTK_TREE_STORE
 	
@@ -130,14 +130,14 @@ feature -- Classes and clusters storage
 			create Result.make
 		end
 	
-feature -- Clusters and classes list
+feature {ANY} -- Clusters and classes list
 	clusters: HASHED_DICTIONARY[CLUSTER,HASHED_STRING] 
 			-- All the clusters known 
 	
 	classes: HASHED_DICTIONARY[CLASS_TEXT,HASHED_STRING]
 			-- All the known classes
 	
-feature -- 
+feature {ANY} -- 
 	on_fatal_error is
 		do
 			io.put_string(once "Fatal error:%N")			
@@ -275,7 +275,7 @@ feature --
 			class_text_added_to_classes: classes.reference_at(an_hashed_class_name) /= Void 
 		end
 	
-feature -- External tool
+feature {ANY} -- External tool
 	parse_arguments is
 		do
 			-- local argi: INTEGER; arg: STRING
@@ -297,7 +297,7 @@ feature -- External tool
 
 	usage: STRING is "Please write a proper usage description."
 
-feature
+feature {ANY}
 	is_valid_class_name (name: STRING): BOOLEAN is
 			-- Does it follow the syntactic rules for a class name?  I.e. an uppercase letter followed by
 			-- optional uppercase letters, digits and underscores.
@@ -318,7 +318,7 @@ feature
 			end
 		end
 
-feature -- User interface
+feature {ANY} -- User interface
 	build_gui is
 		do
 			gtk.initialize
@@ -342,30 +342,30 @@ feature -- User interface
 			end
 		end
 	
-feature -- Text constants
+feature {ANY} -- Text constants
 	window_title: STRING is "Eiffel documentation"
 	ace_chooser_title: STRING is "Assembly of Classes in Eiffel"
 	please_select_something_string: STRING is 
 		"<big><big>Please pick either a <b><big>loadpath</big></b> or an <b><big>ACE</big></b> <small>(<b>A</b>ssembly of <b>C</b>lasses in <b>E</b>iffel)</small> file. WEll, actually there is the ACE file passed as argument</big></big>"
 
-feature -- Syntactic sugar
+feature {ANY} -- Syntactic sugar
 	unhomogeneous: BOOLEAN is False
 			-- To make non-homogeneours boxes (i.e. GTK_BOXes)
 	spaceless: INTEGER is 0
 			-- To make boxes with no space between elements
 	
-feature -- Class sorting labels
+feature {ANY} -- Class sorting labels
 	alphabetically_sorted: STRING is "Alphabetically"
 	sorted_by_cluster: STRING is "By cluster"
 	hierarchical_view: STRING is "Class hierarchy"
 	sorted_by_usage: STRING is "Most viewed first"
 
-feature -- Feature sorting labels
+feature {ANY} -- Feature sorting labels
 	as_in_source_features: STRING is "As in source"
 	alphabetically_sorted_features: STRING is "Alphabetically"
 	sorted_by_usage_feature: STRING is "Most viewed first"
 	
-feature -- Widgets
+feature {ANY} -- Widgets
 	main_box: GTK_VBOX is
 			-- The main box: above the ace file chooser, below the rest
 		local load_button: GTK_BUTTON
@@ -487,7 +487,7 @@ feature -- Widgets
 			Result.set_pulse_step(0.01)
 		end
 	
-feature -- File filters
+feature {ANY} -- File filters
 	ace_filter: GTK_FILE_FILTER is
 		once
 			create Result.make
@@ -502,7 +502,7 @@ feature -- File filters
 			Result.add_pattern(once "*.se")
 		end
 
-feature  -- Callbacks
+feature {ANY}  -- Callbacks
 	on_destroy is
 		do
 			print ("Eiffel doc window is being destroyed%N")

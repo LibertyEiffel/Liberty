@@ -23,17 +23,17 @@ feature {ANY}
          create aux1
          create aux2
          if aux1 <= aux2 then
-            assert(assert_counter.value = 0)
+            assert(assert_counter.item = 0)
          else
             c_inline_c("#1 in boost_simplify07")
          end
-         assert(assert_counter.value = 1)
+         assert(assert_counter.item = 1)
          if aux1.direct_call(aux2) then
-            assert(assert_counter.value = 2)
+            assert(assert_counter.item = 2)
          else
             c_inline_c("#2 in boost_simplify07")
          end
-         assert(assert_counter.value = 3)
+         assert(assert_counter.item = 3)
       end
 
 end -- class TEST_SIMPLIFY07

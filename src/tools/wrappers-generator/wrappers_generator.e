@@ -9,7 +9,7 @@ insert
 	SHARED_SETTINGS
 	NAME_CONVERTER
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}

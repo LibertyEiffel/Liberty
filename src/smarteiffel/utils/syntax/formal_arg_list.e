@@ -9,7 +9,7 @@ class FORMAL_ARG_LIST
 inherit
    DECLARATION_LIST
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -181,7 +181,7 @@ feature {DECLARATION}
             if n2.to_string = n1.to_string then
                error_handler.add_position(n1.start_position)
                error_handler.add_position(n2.start_position)
-               error_handler.append("Same argument name appears twice in this formal argument list.")
+               error_handler.append(once "Same argument name appears twice in this formal argument list.")
                error_handler.print_as_fatal_error
             end
             i := i + 1

@@ -9,10 +9,10 @@ class CST_ATT_UNIQUE
 inherit
         CST_ATT
 
-creation {ANY}
+create {ANY}
         make
 
-creation {CST_ATT_UNIQUE}
+create {CST_ATT_UNIQUE}
         with
 
 feature {ANY}

@@ -12,10 +12,10 @@ inherit
 insert
    CREATE_SUPPORT
 
-creation {ANY}
+create {ANY}
    make
 
-creation {TYPE_MARK}
+create {TYPE_MARK}
    default_user_expanded
 
 feature {ANY}
@@ -61,7 +61,7 @@ feature {ANY}
          Result := current_or_twin_init(et, c)
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          created_type_memory: TYPE; c: like call; fake_target: FAKE_TARGET; fs: FEATURE_STAMP; name: FEATURE_NAME
          test_default: BOOLEAN
@@ -80,14 +80,14 @@ feature {ANY}
          end
          c.set_creation_type(created_type_memory.canonical_type_mark)
          --|***
-         c ::= c.specialize_2(type)
-         --|*** BEURK: drawback of the new signature of specialize_2.
+         c ::= c.specialize_and_check(type)
+         --|*** BEURK: drawback of the new signature of specialize_and_check.
          if test_default then
             fs := any_default_create_fs.resolve_static_binding_for(smart_eiffel.type_any, created_type_memory)
             default_create_call := c.feature_stamp = fs
          end
          Result := current_or_twin_init(explicit_type, c)
-         Result.specialize_2_checks(type)
+         Result.specialize_checks(type)
       ensure then
          Result.call /= Void
       end
@@ -212,7 +212,7 @@ feature {ANY}
          explicit_type.short(type)
          short_printer.hook_or(once "create_close", once "}")
          if call /= Void then
-            --|*** PH: why short on create_expression? If specialize_2
+            --|*** PH: why short on create_expression? If specialize_and_check
             --|has been called, then use 'default_create_call' instead.
             --|***
             --| I do not understand your question Philippe ?

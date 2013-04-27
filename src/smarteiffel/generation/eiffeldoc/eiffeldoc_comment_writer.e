@@ -17,7 +17,7 @@ insert
    EIFFELDOC_GLOBALS
    PLATFORM
 
-creation {EIFFELDOC_CONTEXT}
+create {EIFFELDOC_CONTEXT}
    make
 
 feature {EIFFELDOC_CONTEXT}

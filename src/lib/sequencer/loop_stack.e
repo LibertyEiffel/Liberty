@@ -6,7 +6,7 @@ class LOOP_STACK
    -- running loop suspend until the new loop end (all jobs end or break).
    --
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

@@ -35,7 +35,7 @@ inherit
 			print_on
 		end
 	
-creation  make, from_external_pointer
+create {ANY}  make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -45,7 +45,7 @@ feature {} -- Creation
 			gts_range_init(handle)
 		end
 
-feature -- Commands
+feature {ANY} -- Commands
 	add_value (a_value: REAL) is
 			-- Adds `a_value' to range.
 		do
@@ -73,7 +73,7 @@ feature -- Commands
 			gts_range_print(handle, a_file.stream_pointer)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	min: REAL is
 			-- Minimum value of the population.
 		do

@@ -50,7 +50,7 @@ insert
 	GTKPRINTER_EXTERNALS
 		rename is_default as is_void end
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (a_name: STRING; a_backend: GTK_PRINT_BACKEND; virtual: BOOLEAN) is
@@ -66,7 +66,7 @@ feature {} -- Creation
 																virtual.to_integer))
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	backend: GTK_PRINT_BACKEND is
 			-- The backend of the printer.
 		do
@@ -146,7 +146,7 @@ feature -- Queries
 			Result:=gtk_printer_accepts_pdf(handle).to_boolean
 		end
 
-feature -- Comparability
+feature {ANY} -- Comparability
 	is_equal (other: like Current): BOOLEAN is
 		do
 			Result:=(compare(other)=0)
@@ -165,7 +165,7 @@ feature -- Comparability
 			Result:=gtk_printer_compare(handle, other.handle)
 		end
 	
-feature -- TODO unwrapped 
+feature {ANY} -- TODO unwrapped 
 
 	-- TODO: wrap gtk_enumerate_printers 
 
@@ -200,7 +200,7 @@ feature -- TODO unwrapped
 	--   --------------------------------------------------------------------------
 	--
 
-feature -- TODO: Properties
+feature {ANY} -- TODO: Properties
 	--
 	--
 	--   "accepts-pdf"          gboolean              : Read / Write / Construct Only
@@ -304,7 +304,7 @@ feature -- TODO: Properties
 	--   Default value: NULL
 	--
 
-feature 	-- TODO: Signals
+feature {ANY} 	-- TODO: Signals
 	--
 	--
 	-- "details-acquired"

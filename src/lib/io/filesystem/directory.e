@@ -19,7 +19,7 @@ inherit
 insert
    DIRECTORY_NOTATION_HANDLER
 
-creation {ANY}
+create {ANY}
    scan, scan_current_working_directory
 
 feature {ANY}

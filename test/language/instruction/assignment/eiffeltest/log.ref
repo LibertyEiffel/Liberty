@@ -56,7 +56,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_assignment1.e -o test_assignment1.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_assignment1.e -o test_assignment1.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_assignment1.e -o test_assignment1.exe
 Running (-require_check) "test_assignment1.exe".
 se clean test_assignment1.e
@@ -176,7 +176,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_assignment2.e -o test_assignment2.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_assignment2.e -o test_assignment2.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_assignment2.e -o test_assignment2.exe
 Running (-require_check) "test_assignment2.exe".
 se clean test_assignment2.e
@@ -296,7 +296,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_assignment_test1.e -o test_assignment_test1.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_assignment_test1.e -o test_assignment_test1.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_assignment_test1.e -o test_assignment_test1.exe
 Running (-require_check) "test_assignment_test1.exe".
 se clean test_assignment_test1.e
@@ -416,7 +416,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_assignment_test_and_force.e -o test_assignment_test_and_force.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_assignment_test_and_force.e -o test_assignment_test_and_force.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_assignment_test_and_force.e -o test_assignment_test_and_force.exe
 Running (-require_check) "test_assignment_test_and_force.exe".
 se clean test_assignment_test_and_force.e
@@ -536,7 +536,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_reverse_assignment.e -o test_reverse_assignment.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_reverse_assignment.e -o test_reverse_assignment.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_reverse_assignment.e -o test_reverse_assignment.exe
 Running (-require_check) "test_reverse_assignment.exe".
 se clean test_reverse_assignment.e

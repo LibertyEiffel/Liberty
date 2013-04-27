@@ -10,7 +10,7 @@ class TMP_FEATURE
 insert
    GLOBALS
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    initialize
 
 feature {EIFFEL_PARSER}
@@ -35,6 +35,8 @@ feature {EIFFEL_PARSER}
 
    names: FAST_ARRAY[FEATURE_NAME]
 
+   assigned: FEATURE_NAME
+
    busy: BOOLEAN
 
    initialize is
@@ -46,6 +48,7 @@ feature {EIFFEL_PARSER}
          else
             names.clear_count
          end
+         assigned := Void
          arguments := Void
          type := Void
          header_comment := Void
@@ -63,6 +66,7 @@ feature {EIFFEL_PARSER}
          local_vars = Void
          routine_body = Void
          names.is_empty
+         assigned = Void
          busy
       end
 
@@ -80,6 +84,13 @@ feature {EIFFEL_PARSER}
          a_name /= Void
       do
          names.add_last(a_name)
+      end
+
+   set_assigned (a: like assigned) is
+      require
+         a /= Void
+      do
+         assigned := a
       end
 
    set_arguments (args: like arguments) is
@@ -130,6 +141,11 @@ feature {EIFFEL_PARSER}
          type /= Void
          arguments = Void
       do
+         if assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "An attribute cannot be an assigner.")
+            error_handler.print_as_fatal_error
+         end
          create Result.writable_attribute(n, type, obsolete_mark, header_comment, require_assertion)
       end
 
@@ -140,13 +156,18 @@ feature {EIFFEL_PARSER}
       local
          boolean_constant: BOOLEAN_CONSTANT
       do
+         if assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "A boolean constant cannot be an assigner.")
+            error_handler.print_as_fatal_error
+         end
          boolean_constant ::= value
          constant_attribute_common_checks(value)
          if type.is_boolean then
             create Result.boolean_constant(n, type, boolean_constant)
          else
             error_handler.add_position(type.start_position)
-            error_handler.append("The type of this constant feature should be BOOLEAN.")
+            error_handler.append(once "The type of this constant feature should be BOOLEAN.")
             error_handler.print_as_fatal_error
          end
       end
@@ -158,11 +179,16 @@ feature {EIFFEL_PARSER}
       local
          character_constant: CHARACTER_CONSTANT
       do
+         if assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "A character constant cannot be an assigner.")
+            error_handler.print_as_fatal_error
+         end
          character_constant ::= value
          constant_attribute_common_checks(value)
          if not type.is_character then
             error_handler.add_position(type.start_position)
-            error_handler.append("The type of this constant feature should be CHARACTER.")
+            error_handler.append(once "The type of this constant feature should be CHARACTER.")
             error_handler.print_as_fatal_error
          end
          create Result.character_constant(n, type, character_constant)
@@ -175,6 +201,11 @@ feature {EIFFEL_PARSER}
          integer_constant: INTEGER_CONSTANT; integer_type_mark: INTEGER_TYPE_MARK
          real_constant: REAL_CONSTANT
       do
+         if assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "A constant cannot be an assigner.")
+            error_handler.print_as_fatal_error
+         end
          constant_attribute_common_checks(value)
          if {INTEGER_CONSTANT} ?:= value then
             integer_constant ::= value
@@ -186,21 +217,21 @@ feature {EIFFEL_PARSER}
                   if not integer_constant.value_memory.fit_integer_8 then
                      error_handler.add_position(integer_type_mark.start_position)
                      error_handler.add_position(integer_constant.start_position)
-                     error_handler.append("Value out of INTEGER_8 range.")
+                     error_handler.append(once "Value out of INTEGER_8 range.")
                      error_handler.print_as_fatal_error
                   end
                when 16 then
                   if not integer_constant.value_memory.fit_integer_16 then
                      error_handler.add_position(integer_type_mark.start_position)
                      error_handler.add_position(integer_constant.start_position)
-                     error_handler.append("Value out of INTEGER_16 range.")
+                     error_handler.append(once "Value out of INTEGER_16 range.")
                      error_handler.print_as_fatal_error
                   end
                when 32 then
                   if not integer_constant.value_memory.fit_integer_32 then
                      error_handler.add_position(integer_type_mark.start_position)
                      error_handler.add_position(integer_constant.start_position)
-                     error_handler.append("Value out of INTEGER_32 range.")
+                     error_handler.append(once "Value out of INTEGER_32 range.")
                      error_handler.print_as_fatal_error
                   end
                when 64 then
@@ -211,7 +242,7 @@ feature {EIFFEL_PARSER}
                create Result.real_constant(n, type, integer_constant.to_real_constant)
             else
                error_handler.add_position(type.start_position)
-               error_handler.append("The type of this constant feature should be INTEGER or REAL.")
+               error_handler.append(once "The type of this constant feature should be INTEGER or REAL.")
                error_handler.print_as_fatal_error
             end
          elseif {REAL_CONSTANT} ?:= value then
@@ -221,14 +252,14 @@ feature {EIFFEL_PARSER}
                real_constant.set_result_type(type)
             else
                error_handler.add_position(type.start_position)
-               error_handler.append("The type of this constant feature should be REAL.")
+               error_handler.append(once "The type of this constant feature should be REAL.")
                error_handler.print_as_fatal_error
             end
          else
             error_handler.add_position(type.start_position)
-            error_handler.append("Cannot use type ")
+            error_handler.append(once "Cannot use type ")
             error_handler.append(type.written_name.to_string)
-            error_handler.append(" to define a constant.")
+            error_handler.append(once " to define a constant.")
             --|*** The error message should indicate the list of
             --| allowed types: CHARACTER, INTEGER, INTEGER_8/16/32/64, REAL, REAL_32/64/80/128/EXTENDED, STRING
             --| and UNICODE_STRING.
@@ -239,10 +270,15 @@ feature {EIFFEL_PARSER}
 
    as_string_constant (value: MANIFEST_STRING): FEATURE_TEXT is
       do
+         if assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "A string constant cannot be an assigner.")
+            error_handler.print_as_fatal_error
+         end
          constant_attribute_common_checks(value)
          if not type.is_string then
             error_handler.add_position(type.start_position)
-            error_handler.append("The type of this constant feature should be STRING.")
+            error_handler.append(once "The type of this constant feature should be STRING.")
             error_handler.print_as_fatal_error
          end
          create Result.string_constant(n, type, value)
@@ -251,7 +287,11 @@ feature {EIFFEL_PARSER}
    as_deferred_routine: FEATURE_TEXT is
       do
          if type = Void then
-            create Result.deferred_procedure(n, arguments, obsolete_mark, header_comment, require_assertion)
+            create Result.deferred_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, assigned)
+         elseif assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "A function cannot be an assigner.")
+            error_handler.print_as_fatal_error
          else
             create Result.deferred_function(n, arguments, type, obsolete_mark, header_comment, require_assertion)
          end
@@ -260,7 +300,11 @@ feature {EIFFEL_PARSER}
    as_external_routine (native: NATIVE; alias_tag: MANIFEST_STRING): FEATURE_TEXT is
       do
          if type = Void then
-            create Result.external_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, native, alias_tag)
+            create Result.external_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, native, alias_tag, assigned)
+         elseif assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "A function cannot be an assigner.")
+            error_handler.print_as_fatal_error
          else
             create Result.external_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, native, alias_tag)
          end
@@ -269,7 +313,11 @@ feature {EIFFEL_PARSER}
    as_once_routine: FEATURE_TEXT is
       do
          if type = Void then
-            create Result.once_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body)
+            create Result.once_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned)
+         elseif assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "A function cannot be an assigner.")
+            error_handler.print_as_fatal_error
          else
             create Result.once_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body)
          end
@@ -278,7 +326,11 @@ feature {EIFFEL_PARSER}
    as_procedure_or_function: FEATURE_TEXT is
       do
          if type = Void then
-            create Result.e_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body)
+            create Result.e_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned)
+         elseif assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "A function cannot be an assigner.")
+            error_handler.print_as_fatal_error
          else
             create Result.e_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body)
          end
@@ -286,10 +338,15 @@ feature {EIFFEL_PARSER}
 
    as_unique_constant: FEATURE_TEXT is
       do
+         if assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "A unique constant cannot be an assigner.")
+            error_handler.print_as_fatal_error
+         end
          constant_attribute_common_checks(Void)
          if not type.is_integer then
             error_handler.add_position(names.first.start_position)
-            error_handler.append("Unique feature must have INTEGER type.")
+            error_handler.append(once "Unique feature must have INTEGER type.")
             error_handler.print_as_fatal_error
          end
          create Result.unique_constant(n, type)
@@ -302,29 +359,29 @@ feature {}
       do
          if type = Void or else arguments /= Void then
             if constant_expression /= Void then
-               error_handler.append("Using a static constant expression just after the %"is%" keyword %
+               error_handler.append(once "Using a static constant expression just after the %"is%" keyword %
                                     %is suitable only for a constant attribute definition. The constant %
                                     %found (i.e. ")
                error_handler.add_expression(constant_expression)
-               error_handler.append(") cannot be used as the definition of the feature ")
+               error_handler.append(once ") cannot be used as the definition of the feature ")
                error_handler.add_feature_name(names.first)
-               error_handler.append(".")
+               error_handler.append(once ".")
             else
-               error_handler.append("A %"unique%" definition is actually a constant attribute definition.")
+               error_handler.append(once "A %"unique%" definition is actually a constant attribute definition.")
             end
-            error_handler.append(" Actually, feature ")
+            error_handler.append(once " Actually, feature ")
             error_handler.add_feature_name(names.first)
             if type = Void then
-               error_handler.append(" has no result type")
+               error_handler.append(once " has no result type")
             else
-               error_handler.append(" has an argument list")
+               error_handler.append(once " has an argument list")
             end
-            error_handler.append(". Bad constant-attribute definition.")
+            error_handler.append(once ". Bad constant-attribute definition.")
             error_handler.add_position(names.first.start_position)
             error_handler.print_as_fatal_error
          elseif not type.is_static then
             error_handler.add_position(type.start_position)
-            error_handler.append("Must not use such a non-static type mark for a constant-attribute %
+            error_handler.append(once "Must not use such a non-static type mark for a constant-attribute %
                                  %definition.")
             error_handler.print_as_fatal_error
          end

@@ -32,16 +32,16 @@ inherit
 insert
 	XMLRPC_VALUE_EXTERNALS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <xmlrpc-c/base.h>"
 		alias "sizeof (xmlrpc_value)"
 		end
 
-feature -- Creation
+feature {ANY} -- Creation
 
 	from_external_pointer (a_pointer: POINTER) is
 		do
@@ -49,7 +49,7 @@ feature -- Creation
 			{C_STRUCT} Precursor (a_pointer)
 		end
 
-feature
+feature {ANY}
 
 	type: INTEGER is
 		require
@@ -115,7 +115,7 @@ feature
 			Result := type = xmlrpc_value_dead
 		end
 
-feature -- Convertion to different value types
+feature {ANY} -- Convertion to different value types
 
 	value_int: XMLRPC_VALUE_INT is
 		require

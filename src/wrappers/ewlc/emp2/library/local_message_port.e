@@ -33,7 +33,7 @@ inherit MESSAGE_PORT
 
 insert UNISTD_EXTERNALS
 
-feature 
+feature {ANY} 
 	has (a_message: MESSAGE): BOOLEAN is
 		do
 			if a_message/=Void then
@@ -42,7 +42,7 @@ feature
 				start, start+size)
 			end
 	   end
-feature	 -- Ownership
+feature {ANY}	 -- Ownership
 	owner: INTEGER
 	-- Process ID (pid) of the process owning the message port. The owner is
 	-- allowed to write in the message port. 

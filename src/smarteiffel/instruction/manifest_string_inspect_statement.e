@@ -9,7 +9,7 @@ class MANIFEST_STRING_INSPECT_STATEMENT
 inherit
    INSPECT_STATEMENT
 
-creation
+create {ANY}
    with_when_list
 
 feature {ANY}
@@ -25,11 +25,11 @@ feature {INSPECT_STATEMENT}
       do
          if not expression_type.is_string and then not expression_type.is_fixed_string then
             error_handler.add_position(expression.start_position)
-            error_handler.append("Such an %"inspect%" statement is for type STRING or FIXED_STRING. (The type of ")
+            error_handler.append(once "Such an %"inspect%" statement is for type STRING or FIXED_STRING. (The type of ")
             error_handler.add_expression(expression)
-            error_handler.append(" is ")
+            error_handler.append(once " is ")
             error_handler.append(expression_type.name.to_string)
-            error_handler.append(".)")
+            error_handler.append(once ".)")
             error_handler.print_as_fatal_error
          end
       end

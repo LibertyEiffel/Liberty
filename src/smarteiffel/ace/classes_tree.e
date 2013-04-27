@@ -10,7 +10,7 @@ inherit
          pretty_in, view_in, get_started
       end
 
-creation {CLASSES_TREE_FACTORY}
+create {CLASSES_TREE_FACTORY}
    make
 
 feature {ANY}

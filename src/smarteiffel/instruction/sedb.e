@@ -10,7 +10,7 @@ class SEDB
 inherit
    NON_WRITTEN_INSTRUCTION
 
-creation {CODE_ACCUMULATOR}
+create {CODE_ACCUMULATOR}
    make
 
 feature {ANY}

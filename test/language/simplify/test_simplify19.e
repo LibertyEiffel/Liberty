@@ -24,7 +24,7 @@ feature {}
          boost_simplify19 := Current
          aux_simplify19 := boost_simplify19
          aux_simplify19_test
-         assert(assert_counter.value = 2)
+         assert(assert_counter.item = 2)
       end
 
 end -- class TEST_SIMPLIFY19

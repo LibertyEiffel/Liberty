@@ -49,7 +49,7 @@ insert
 	G_UNICODE_TYPE
 	G_UNICODE_BREAK_TYPE
 	
-feature -- Code	
+feature {ANY} -- Code	
 	code: INTEGER 
 
 	set_code (a_code: INTEGER) is
@@ -57,7 +57,7 @@ feature -- Code
 			code := a_code
 		end
 
-feature 
+feature {ANY} 
 	is_valid: BOOLEAN is
 			-- Is Current a valid Unicode character? Some possible
 			-- integer values of Current will not be valid. 0 is

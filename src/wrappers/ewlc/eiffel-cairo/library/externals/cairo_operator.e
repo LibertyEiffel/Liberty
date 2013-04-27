@@ -23,7 +23,7 @@ deferred class CAIRO_OPERATOR
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_operator (an_operator: INTEGER): BOOLEAN is
 		do	
 			Result:=((an_operator = cairo_operator_clear) or else

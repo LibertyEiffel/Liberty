@@ -244,7 +244,7 @@ insert
 		-- 			is_valid_gtk_file_chooser_action	as is_valid_gtk_action
 		-- 		end
 
-feature -- Actions
+feature {ANY} -- Actions
 
 	set_open_action is
 			-- Set open mode. The file chooser will only let the user
@@ -303,7 +303,7 @@ feature -- Actions
 			Result := (gtk_file_chooser_get_action(handle)=gtk_file_chooser_action_create_folder)
 		end
 	
-feature -- Locality
+feature {ANY} -- Locality
 	set_local_only is
 			-- Makes only local files selectable in the file
 			-- selector. The selected file are files are guaranteed to be
@@ -330,7 +330,7 @@ feature -- Locality
 			Result:=(gtk_file_chooser_get_local_only (handle)).to_boolean
 		end
 	
-feature -- Multiple selections
+feature {ANY} -- Multiple selections
 	allow_multiple_selections is
 			-- Makes multiple files selectable in the file selector. This
 			-- is only relevant if `is_open_action' or
@@ -356,7 +356,7 @@ feature -- Multiple selections
 			Result := (gtk_file_chooser_get_select_multiple(handle)).to_boolean
 		end
 
-feature -- Hidden files handling
+feature {ANY} -- Hidden files handling
 	show_hidden is
 			-- Make hidden files and folders displayed in the file
 			-- selector.
@@ -378,7 +378,7 @@ feature -- Hidden files handling
 			Result:=(gtk_file_chooser_get_show_hidden(handle)).to_boolean
 		end
 
-feature -- Overwrite confirmation
+feature {ANY} -- Overwrite confirmation
 	set_overwrite_confirmation is
 			-- Makes a file chooser in GTK_FILE_CHOOSER_ACTION_SAVE mode
 			-- present a confirmation dialog if the user types a file
@@ -418,7 +418,7 @@ feature -- Overwrite confirmation
 			Result:=(gtk_file_chooser_get_do_overwrite_confirmation (handle)).to_boolean
 		end
 
-feature -- Name, filenames and uris
+feature {ANY} -- Name, filenames and uris
 	filename: STRING is
 			-- The filename for the currently selected file in the file
 			-- selector. If multiple files are selected, one of the
@@ -692,7 +692,7 @@ feature -- Name, filenames and uris
 			end
 		end
 
-feature -- Preview
+feature {ANY} -- Preview
 	set_preview_widget (a_widget: GTK_WIDGET) is
 			-- Sets an application-supplied widget to use to display a
 			-- custom preview of the currently selected file. To
@@ -803,7 +803,7 @@ feature -- Preview
 			end
 		end
 
-feature -- Extra widget
+feature {ANY} -- Extra widget
 	set_extra_widget (a_widget: GTK_WIDGET) is
 			-- Sets an application-supplied widget to provide extra
 			-- options to the user.
@@ -824,7 +824,7 @@ feature -- Extra widget
 			end
 		end
 
-feature -- Filters
+feature {ANY} -- Filters
 	add_filter (a_filter: GTK_FILE_FILTER) is
 			-- Adds `a_filter' to the list of filters that the user can
 			-- select between. When a filter is selected, only files that
@@ -883,7 +883,7 @@ feature -- Filters
 			end
 		end
 
-feature -- Shortcuts folders
+feature {ANY} -- Shortcuts folders
 	add_shortcut_folder (a_folder: STRING) is
 			-- Adds a folder to be displayed with the shortcut folders in
 			-- a file chooser. Note that shortcut folders do not get
@@ -1127,7 +1127,7 @@ feature -- Shortcuts folders
 -- chooser : 	the object which received the signal.
 -- user_data : 	user data set when the signal handler was connected.
 
-feature -- The "file-activated" signal
+feature {ANY} -- The "file-activated" signal
 
 		-- This signal is emitted when the user "activates" a file in
 		-- the file chooser. This can happen by double-clicking on a file
@@ -1162,7 +1162,7 @@ feature -- The "file-activated" signal
 			file_activated_callback.connect (Current, a_procedure)
 		end
 
-feature -- The "selection-changed" signal
+feature {ANY} -- The "selection-changed" signal
 
 			-- This signal is emitted when there is a change in the set of selected
 			-- files in a GtkFileChooser. This can happen when the user modifies the
@@ -1202,7 +1202,7 @@ feature -- The "selection-changed" signal
 			selection_changed_callback.connect (Current, a_procedure)
 		end
 
-feature -- The "update-preview" signal
+feature {ANY} -- The "update-preview" signal
 
 		-- This signal is emitted when the preview in a file chooser should be
 		-- regenerated. For example, this can happen when the currently selected

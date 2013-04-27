@@ -534,9 +534,9 @@ feature {}
                   else
                      error_handler.add_position(er.start_position)
                      error_handler.add_position(visited.start_position)
-                     error_handler.append("Unknown %"$")
+                     error_handler.append(once "Unknown %"$")
                      error_handler.append(arg)
-                     error_handler.append("%" argument in external C inline definition.")
+                     error_handler.append(once "%" argument in external C inline definition.")
                      error_handler.print_as_fatal_error
                   end
                end

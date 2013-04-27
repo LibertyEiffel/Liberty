@@ -35,7 +35,7 @@ class GTK_ALLOCATION
 inherit
 	G_STRUCT redefine is_equal end
 
-creation copy, copy_from_pointer
+create {ANY} copy, copy_from_pointer
 
 feature {} -- Creation
 
@@ -48,7 +48,7 @@ feature {} -- Creation
 			handle := memcpy (handle, a_ptr, struct_size)
 		end
 
-feature
+feature {ANY}
 
 	is_equal (other: like Current): BOOLEAN is
 		do
@@ -144,7 +144,7 @@ feature {} -- External
 		external "C struct GtkAllocation set y use <gtk/gtk.h>"
 		end
 
-feature  -- struct size
+feature {ANY}  -- struct size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

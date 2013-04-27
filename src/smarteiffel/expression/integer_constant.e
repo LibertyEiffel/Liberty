@@ -14,13 +14,13 @@ inherit
 insert
    PLATFORM
 
-creation {ANY}
+create {ANY}
    make
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    special, hexadecimal
 
-creation {EIFFEL_PARSER, INTEGER_TYPE_MARK, CST_ATT_UNIQUE, EXTERNAL_FUNCTION}
+create {EIFFEL_PARSER, INTEGER_TYPE_MARK, CST_ATT_UNIQUE, EXTERNAL_FUNCTION}
    with
 
 feature {ANY}
@@ -184,25 +184,25 @@ feature {}
          when 8 then
             if not vm.fit_integer_8 then
                error_handler.add_position(sp)
-               error_handler.append("Value `")
+               error_handler.append(once "Value `")
                error_handler.append(vm.to_string)
-               error_handler.append("' is out of INTEGER_8 range.")
+               error_handler.append(once "' is out of INTEGER_8 range.")
                error_handler.print_as_fatal_error
             end
          when 16 then
             if not vm.fit_integer_16 then
                error_handler.add_position(sp)
-               error_handler.append("Value `")
+               error_handler.append(once "Value `")
                error_handler.append(vm.to_string)
-               error_handler.append("' is out of INTEGER_16 range.")
+               error_handler.append(once "' is out of INTEGER_16 range.")
                error_handler.print_as_fatal_error
             end
          when 32 then
             if not vm.fit_integer_32 then
                error_handler.add_position(sp)
-               error_handler.append("Value `")
+               error_handler.append(once "Value `")
                error_handler.append(vm.to_string)
-               error_handler.append("' is out of INTEGER_32 range.")
+               error_handler.append(once "' is out of INTEGER_32 range.")
                error_handler.print_as_fatal_error
             end
          else

@@ -28,9 +28,9 @@ expanded class G_OPTION_ARG
 
 insert ENUM 
 
-creation default_create
+create {ANY} default_create
 
-feature
+feature {ANY}
 	default_create, set_none is
 			-- No extra argument. This is useful for simple flags.
 		do
@@ -86,7 +86,7 @@ feature
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_none: BOOLEAN is do Result := (value=g_option_arg_none) end
 	is_string: BOOLEAN is do Result := (value=g_option_arg_string) end
 	is_integer: BOOLEAN is do Result := (value=g_option_arg_int) end

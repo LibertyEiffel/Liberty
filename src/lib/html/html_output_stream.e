@@ -11,7 +11,7 @@ inherit
       redefine can_put_character, connect_to
       end
 
-creation {ANY}
+create {ANY}
    make, connect_to
 
 feature {ANY} -- CGI extensions: written before the HTML itself is open

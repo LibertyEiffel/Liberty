@@ -44,7 +44,7 @@ insert
 	GTHREAD_EXTERNALS
 		redefine default_create end
 
-feature 
+feature {ANY} 
 	default_create is
 		do
 			-- Please note that since version 2.24 the GObject initialization
@@ -94,7 +94,7 @@ feature
 			-- This function is currently implemented with a macro: #define g_thread_create(func, data, joinable, error)                    (g_thread_create_full (func, data, 0, joinable, FALSE,G_THREAD_PRIORITY_NORMAL, error))
 
 		end
-feature -- Commands
+feature {ANY} -- Commands
 	set_priority (a_priority: GTHREADPRIORITY_ENUM) is
 		-- Changes the priority of Current thread to `a_priority'
 
@@ -142,7 +142,7 @@ feature -- Commands
 		g_thread_exit(default_pointer) --$some_results)
 	end
 
-feature -- Process-wide queries 
+feature {ANY} -- Process-wide queries 
 	is_thread_system_initialized: BOOLEAN is
 		-- Has the Glib thread system been initialized?
 	do

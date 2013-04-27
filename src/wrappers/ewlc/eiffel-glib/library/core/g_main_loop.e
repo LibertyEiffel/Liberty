@@ -929,7 +929,7 @@ class G_MAIN_LOOP
 -- timeval : 	GTimeVal structure in which to store current time.
 
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	source_remove (tag: INTEGER) is
 			-- Removes the source with the given id `tag' from the default

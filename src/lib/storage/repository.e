@@ -32,7 +32,7 @@ feature {ANY} -- Getting and setting objects in the repository:
       end
 
    frozen add (object: O_; object_name: STRING) is
-         -- Update or add a new `object' in the `Current' repository.
+         -- Add a new `object' in the `Current' repository.
       require
          object /= Void
          new_reference: not has(object_name)
@@ -42,7 +42,7 @@ feature {ANY} -- Getting and setting objects in the repository:
          reference_stored: object = at(object_name)
       end
 
-   frozen put (object: O_; object_name: STRING) is
+   frozen put (object: O_; object_name: STRING) assign at is
          -- Update or add a new `object' in the `Current' repository.
       require
          object /= Void

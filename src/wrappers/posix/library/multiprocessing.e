@@ -1,7 +1,7 @@
 deferred class MULTIPROCESSING
 	-- Facilities for multiprocessing
 insert UNISTD_EXTERNALS
-feature 
+feature {ANY} 
 	processors_count: INTEGER is
 		-- Number of processors available in the machine
 		external "plug_in"

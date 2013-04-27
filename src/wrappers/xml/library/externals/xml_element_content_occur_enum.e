@@ -5,6 +5,7 @@ expanded class XML_ELEMENT_CONTENT_OCCUR_ENUM
 
 insert ENUM
 
+<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -13,9 +14,19 @@ feature -- Validity
 				(a_value = xml_element_content_once_low_level)  or else
 				(a_value = xml_element_content_opt_low_level)  or else
 				(a_value = xml_element_content_plus_low_level) )
+=======
+create {ANY} default_create
+feature {ANY} -- Validity
+	is_valid_value (a_value: INTEGER): BOOLEAN is
+		do
+			Result := ((a_value = once_external_low_level)  or else
+				(a_value = opt_low_level)  or else
+				(a_value = mult_low_level)  or else
+				(a_value = plus_low_level) )
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_xml_element_content_mult is
 		do
@@ -37,8 +48,13 @@ feature -- Setters
 			value := xml_element_content_plus_low_level
 		end
 
+<<<<<<< HEAD
 feature -- Queries
 	is_xml_element_content_mult: BOOLEAN is
+=======
+feature {ANY} -- Queries
+	once_external: BOOLEAN is
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=xml_element_content_mult_low_level)
 		end

@@ -28,7 +28,7 @@ inherit
          from_external_pointer
       end
    
-feature
+feature {ANY}
 	dispose is
 		do
 			debug 

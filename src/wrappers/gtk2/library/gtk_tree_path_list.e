@@ -30,9 +30,9 @@ inherit 	G_LIST[GTK_TREE_PATH] redefine dispose end
 
 insert GTK_TREE_MODEL_EXTERNALS undefine fill_tagged_out_memory end
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
-feature -- Disposing
+feature {ANY} -- Disposing
 	dispose is 
 		do
 			g_list_foreach(handle, $gtk_tree_path_free, default_pointer)

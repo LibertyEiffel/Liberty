@@ -5,8 +5,8 @@ expanded class TCP_CA_STATE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = tcp_ca_cwr_low_level)  or else
@@ -16,7 +16,7 @@ feature -- Validity
 				(a_value = tcp_ca_recovery_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_tcp_ca_cwr is
 		do
@@ -43,7 +43,7 @@ feature -- Setters
 			value := tcp_ca_recovery_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_tcp_ca_cwr: BOOLEAN is
 		do
 			Result := (value=tcp_ca_cwr_low_level)

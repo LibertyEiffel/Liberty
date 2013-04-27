@@ -18,7 +18,7 @@ inherit
          new_iterator, infix "<", out_in_tagged_out_memory
       end
 
-creation {ANY}
+create {ANY}
    from_strings
 
 feature {ANY} -- Creation

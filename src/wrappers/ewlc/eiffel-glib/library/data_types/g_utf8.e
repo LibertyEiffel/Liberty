@@ -3,7 +3,7 @@ class G_UTF8
 insert
 	G_UTF8_EXTERNALS
 
-creation
+create {ANY}
 	from_unicode_string
 
 feature {} -- Creation
@@ -31,7 +31,7 @@ feature {} -- Representation
 			Result := utf8_string.count
 		end
 
-feature
+feature {ANY}
 
 	to_string: STRING is
 		do

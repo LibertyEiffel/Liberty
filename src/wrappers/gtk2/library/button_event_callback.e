@@ -29,10 +29,10 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_FACTORY [GTK_WIDGET]
 
-feature
+feature {ANY}
 	object: GTK_WIDGET
 
-feature
+feature {ANY}
 
 	callback (event_button_ptr: POINTER; instance: POINTER): INTEGER is
 		local

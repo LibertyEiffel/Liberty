@@ -33,7 +33,7 @@ feature {ANY}
          check False end
       end
 
-   specialize_2 (type: TYPE): INSTRUCTION is
+   specialize_and_check (type: TYPE): INSTRUCTION is
       do
          check False end
       end

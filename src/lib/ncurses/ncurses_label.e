@@ -10,7 +10,7 @@ inherit
       redefine left, top, width, height, refresh_later
       end
 
-creation{ANY}
+create{ANY}
    make
 
 feature {ANY}

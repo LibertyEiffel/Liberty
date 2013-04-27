@@ -33,10 +33,10 @@ inherit
 insert
 	AV_STREAM_EXTERNALS
 
-creation
+create {ANY}
 	from_external_pointer
 
-feature -- Access
+feature {ANY} -- Access
 
 	index: INTEGER is
 		do
@@ -81,7 +81,7 @@ feature -- Access
 			create Result.from_external_pointer (av_stream_get_time_base (handle))
 		end
 
-feature -- Size
+feature {ANY} -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <avformat.h>"

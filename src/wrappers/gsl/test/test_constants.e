@@ -6,10 +6,10 @@ inherit
 insert
 	GSL_CONSTANTS
 	
-creation 
+create {ANY} 
 	make
 	
-feature
+feature {ANY}
 
 	make is
 		do

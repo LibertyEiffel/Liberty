@@ -30,10 +30,10 @@ insert
 	AV_SEEK_FLAGS
 	ARGUMENTS
 
-creation
+create {ANY}
 	make
 
-feature
+feature {ANY}
 
 	make is
 		local

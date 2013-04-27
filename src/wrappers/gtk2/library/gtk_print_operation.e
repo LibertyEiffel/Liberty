@@ -98,7 +98,7 @@ insert
 		-- SHARED_G_ERROR
 	GTK -- to get error
 	
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make is 
@@ -107,7 +107,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_print_operation_new)
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	set_allow_async (a_setting: BOOLEAN) is
 			-- Sets whether the `run' feature may return before the print
 			-- operation is completed. Note that some platforms may not
@@ -248,7 +248,7 @@ feature -- Setters
 			end
 		end
 	
-feature -- Getters
+feature {ANY} -- Getters
 	-- TODO: void        gtk_print_operation_get_error   (GtkPrintOperation *op,
 	--                                              GError **error);
 	
@@ -481,7 +481,7 @@ feature -- Getters
 	--   --------------------------------------------------------------------------
 	--
 	--
-feature -- Property Details
+feature {ANY} -- Property Details
 --Properties
 	--
 	--
@@ -727,7 +727,7 @@ feature -- Property Details
 	--
 	--   Since 2.10
 	--
-feature -- TODO: Signal Details
+feature {ANY} -- TODO: Signal Details
 		--Signals
 	--
 	--
@@ -1050,7 +1050,7 @@ feature {} -- Hastened property spec
 
 	allow_async_property_name: STRING is "allow-async"
 	
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkPrintOperation)"

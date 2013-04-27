@@ -9,7 +9,7 @@ inherit
          set_default_options
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY} -- options

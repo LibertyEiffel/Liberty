@@ -11,12 +11,12 @@ insert
 	ANY
 	GQUARK_EXTERNALS
 	
-creation
+create {ANY}
 	default_create,
 	from_string,
 	try_string
 
-feature
+feature {ANY}
 	quark: NATURAL_32 
 	-- The numeric representation of the quark.
 

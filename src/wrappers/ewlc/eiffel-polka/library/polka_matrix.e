@@ -61,7 +61,7 @@ inherit
 insert
 	POLKA_MATRIX_EXTERNALS   
 
-creation make, copy, copy_from_pointer
+create {ANY} make, copy, copy_from_pointer
 
 feature {} -- Creation
 
@@ -81,7 +81,7 @@ feature {} -- Creation
 			from_external_pointer (matrix_alloc (n_rows, n_cols, is_sorted.to_integer))
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	copy_from_pointer (other_ptr: POINTER) is
 			-- Return a new matrix copy of `other_ptr'.
@@ -122,7 +122,7 @@ feature -- Operations
 			at (i, j).set_from_pkint (value)
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	rows: INTEGER is
 		do

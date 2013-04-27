@@ -239,9 +239,9 @@ feature {ACE_HANDLER}
          file_path := string_aliaser.string(fp)
          parser_buffer.load_file(fp)
          if not parser_buffer.is_ready then
-            error_handler.append("Cannot open %"")
+            error_handler.append(once "Cannot open %"")
             error_handler.append(file_path)
-            error_handler.append("%" file.%NACE file not found.")
+            error_handler.append(once "%" file.%NACE file not found.")
             error_handler.print_as_fatal_error
          end
          line := 1
@@ -257,13 +257,13 @@ feature {ACE_HANDLER}
          skip_comments
          if not a_keyword(once "system") then
             error_handler.add_position(current_position)
-            error_handler.append("Keyword %"system%" expected. Invalid ACE file.")
+            error_handler.append(once "Keyword %"system%" expected. Invalid ACE file.")
             error_handler.print_as_fatal_error
          end
          executable_name := string_aliaser.string(a_string)
          if not a_keyword(once "root") then
             error_handler.add_position(current_position)
-            error_handler.append("Keyword %"root%" expected. Invalid ACE file.")
+            error_handler.append(once "Keyword %"root%" expected. Invalid ACE file.")
             error_handler.print_as_fatal_error
          end
          set_root_class_name(string_aliaser.hashed_string(a_identifier))
@@ -286,7 +286,7 @@ feature {ACE_HANDLER}
          end
          if cc /= end_of_text then
             error_handler.add_position(current_position)
-            error_handler.append("End of text expected (invalid ACE file).")
+            error_handler.append(once "End of text expected (invalid ACE file).")
             error_handler.print_as_fatal_error
          end
          parser_buffer.release
@@ -583,7 +583,7 @@ feature {}
                error_handler.append(once "%" (and there may be more). Search started from ")
                error_handler.append(origin.to_string)
                error_handler.append(once ".%N")
-               error_handler.print_as_warning
+               error_handler.print_as_error
             end
          end
       end
@@ -646,9 +646,9 @@ feature {SMART_EIFFEL} -- Class loading
          end
          if Result = Void and then report_error then
             error_handler.add_position(class_name.start_position)
-            error_handler.append("Cannot find the class %"")
+            error_handler.append(once "Cannot find the class %"")
             error_handler.append(class_name.to_string)
-            error_handler.append("%" in any known cluster.")
+            error_handler.append(once "%" in any known cluster.")
             error_handler.print_as_fatal_error
          end
       ensure
@@ -691,9 +691,9 @@ feature {SMART_EIFFEL} -- Class loading
                   smart_eiffel.tuple_class_not_found_fatal_error(class_name)
                else
                   error_handler.add_position(class_name.start_position)
-                  error_handler.append("Unable to load class %"")
+                  error_handler.append(once "Unable to load class %"")
                   error_handler.append(class_name.to_string)
-                  error_handler.append("%".")
+                  error_handler.append(once "%".")
                   error_handler.print_as_fatal_error
                end
             end
@@ -811,10 +811,10 @@ feature {ACE_CHECK}
          else
             txt.append("   collect (yes)%N")
          end
-         if eiffel_parser.no_style_warning then
-            txt.append("   no_style_warning (yes)%N")
+         if error_handler.style_warning then
+            txt.append("   style_warning (yes)%N")
          else
-            txt.append("   no_style_warning (no)%N")
+            txt.append("   style_warning (no)%N")
          end
          if error_handler.no_warning then
             txt.append("   no_warning (yes)%N")
@@ -1051,7 +1051,7 @@ feature {C_PRETTY_PRINTER, COMPILE_TO_C, STRING_COMMAND_LINE, LIVE_TYPE, INSTALL
                create {C_SPLITTER_LEGACY} splitter.make
             else
                error_handler.add_position(current_position)
-               error_handler.append("The valid values for split are either %"legacy%" or %"by_type%".")
+               error_handler.append(once "The valid values for split are either %"legacy%" or %"by_type%".")
                error_handler.print_as_fatal_error
             end
          end
@@ -1124,7 +1124,7 @@ feature {}
                envar := Void
             when end_of_text then
                error_handler.add_position(pos(l, c))
-               error_handler.append("Bad Environment variable.%N%
+               error_handler.append(once "Bad Environment variable.%N%
                                     %(Closing %"}%" not found.)")
                error_handler.print_as_fatal_error
             else
@@ -1163,7 +1163,7 @@ feature {}
             end
             if Result.is_empty then
                error_handler.add_position(current_position)
-               error_handler.append("Non empty unquoted name expected here.")
+               error_handler.append(once "Non empty unquoted name expected here.")
                error_handler.print_as_fatal_error
             end
             skip_comments
@@ -1195,7 +1195,7 @@ feature {}
             Result := buffer
          elseif Result.is_empty then
             error_handler.add_position(current_position)
-            error_handler.append("Non empty quoted string expected here.")
+            error_handler.append(once "Non empty quoted string expected here.")
             error_handler.print_as_fatal_error
          end
       ensure
@@ -1253,13 +1253,13 @@ feature {}
                end
             elseif a_keyword(fz_case_insensitive) then
                error_handler.add_position(current_position)
-               error_handler.append("The %"case_insensitive%" option is no longer supported.")
+               error_handler.append(once "The %"case_insensitive%" option is no longer supported.")
                error_handler.print_as_warning
                if a_yes_no_all then
                end
-            elseif a_keyword(fz_no_style_warning) then
+            elseif a_keyword(fz_style_warning) then
                if a_yes_no_all then
-                  eiffel_parser.set_no_style_warning
+                  error_handler.set_style_warning
                end
             elseif a_keyword(fz_no_warning) then
                if a_yes_no_all then
@@ -1357,7 +1357,7 @@ feature {}
                   new_universe_entry(1, string_aliaser.string(path), cluster_name)
                else
                   error_handler.add_position(current_position)
-                  error_handler.append("Cluster path expected after cluster name.")
+                  error_handler.append(once "Cluster path expected after cluster name.")
                   error_handler.print_as_fatal_error
                end
             else
@@ -1403,7 +1403,7 @@ feature {}
       do
          if a_keyword(fz_use) then
             error_handler.add_position(current_position)
-            error_handler.append("The %"use%" clause is not yet implemented.")
+            error_handler.append(once "The %"use%" clause is not yet implemented.")
             error_handler.print_as_fatal_error
          end
          if a_keyword(fz_include) then
@@ -1444,7 +1444,7 @@ feature {}
          end
          if a_keyword(fz_adapt) then
             error_handler.add_position(current_position)
-            error_handler.append("The %"adapt%" clause is not yet implemented.")
+            error_handler.append(once "The %"adapt%" clause is not yet implemented.")
             error_handler.print_as_fatal_error
          end
          if a_keyword(fz_default) then
@@ -1696,7 +1696,7 @@ feature {}
                --|***
             elseif a_keyword(once "wedit") then
                error_handler.add_position(current_position)
-               error_handler.append("Unused obsolete flag -wedit / option wedit.")
+               error_handler.append(once "Unused obsolete flag -wedit / option wedit.")
                error_handler.print_as_warning
                value := a_yes_no_all
                --|*** wedit part to be removed one day ***
@@ -1735,7 +1735,7 @@ feature {}
             Result := True
          else
             error_handler.add_position(current_position)
-            error_handler.append("At this point in the ACE file, you are supposed to %
+            error_handler.append(once "At this point in the ACE file, you are supposed to %
                                  %say %"yes%", %"no%", or %"all%".")
             error_handler.print_as_fatal_error
          end
@@ -1774,9 +1774,9 @@ feature {}
             Result := level_all
          else
             error_handler.add_position(current_position)
-            error_handler.append("Unknown assertion level tag.")
+            error_handler.append(once "Unknown assertion level tag.")
             error_handler.print_as_error
-            error_handler.append("You have to fix the problem in your ACE file. Valid %
+            error_handler.append(once "You have to fix the problem in your ACE file. Valid %
             %assertion level tags are: %"no%", %"require%", %"ensure%",%
             % %"invariant%", %"loop%", %"check%", %"all%", and %"debug%".")
             error_handler.print_as_fatal_error
@@ -1888,9 +1888,9 @@ feature {}
    fatal_error_in (section_name: STRING) is
       do
          error_handler.add_position(current_position)
-         error_handler.append("Error in the %"")
+         error_handler.append(once "Error in the %"")
          error_handler.append(section_name)
-         error_handler.append("%" section.")
+         error_handler.append(once "%" section.")
          error_handler.print_as_fatal_error
       end
 

@@ -51,7 +51,7 @@ inherit C_STRUCT
 	
 insert WRAPPER_FACTORY [ITEM]
 
-creation make, empty, from_external_pointer 
+create {ANY} make, empty, from_external_pointer 
 
 feature {} -- Creation
 
@@ -88,7 +88,7 @@ feature {} -- Creation
 									  a_capacity))
 		end
 
-feature 
+feature {ANY} 
 	append (an_item: like first) is
 			-- Adds the value on to the end of the array. The array will
 			-- grow in size automatically if necessary.

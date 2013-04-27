@@ -21,9 +21,9 @@ indexing
 
 class HYPERTEXT
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 -- /* Text Widget/Hypertext
 --  *
 --  * Usually, tags modify the appearance of text in the view, e.g. making it 

@@ -28,7 +28,7 @@ insert
 	PANGO_CAIRO_RENDERER_EXTERNALS
 	WRAPPER_HANDLER
 
-creation for_cairo_context
+create {ANY} for_cairo_context
 
 feature {} -- Representation
 
@@ -41,7 +41,7 @@ feature {} -- Creation
 			cairo := a_cairo_context
 		end
 
-feature  -- Operations
+feature {ANY}  -- Operations
 
 	error_underline_path (an_x, an_y, a_width, a_height: REAL) is
 			-- Add a squiggly line to the current path in the cairo context that

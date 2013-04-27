@@ -1064,7 +1064,7 @@ feature {ANY} -- Concatenation
          create {PARTIALLY_FILLED_STRING} Result.from_string_and_arg(Current, a_value)
       end
 
-feature -- Case convertion
+feature {ANY} -- Case convertion
    as_lower: STRING is
          -- New object with all letters in lower case.
          --
@@ -1283,6 +1283,25 @@ feature {ANY} -- Interfacing with C string:
          -- (is_empty or else storage.item(count) /= '%U') implies (capacity > count and then storage.item(count) = '%U')
          count = old count
          Result.is_not_null
+      end
+
+feature {ANY} -- Other features here for ELKS compatibility:
+   same_string (other: ABSTRACT_STRING): BOOLEAN is
+         -- (Here for ELKS compatibility.)
+         -- Do `Current' and `other' have the same character sequence?
+         -- Useful in proper descendants of STRING.
+      require
+         other_not_void: other /= Void
+      do
+         Result := string.is_equal(other.string)
+      end
+
+   string: STRING is
+         -- (Here for ELKS compatibility.)
+         -- New STRING having the same character sequence as `Current'.
+         -- Useful in proper descendants of STRING.
+      do
+         create Result.make_from_string(Current)
       end
 
 feature {}

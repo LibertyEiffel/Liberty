@@ -28,12 +28,12 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_FACTORY [GTK_RANGE]
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	object: GTK_RANGE
 
-feature
+feature {ANY}
 	callback (value: REAL; scroll: INTEGER; instance: POINTER): INTEGER is
 		require
 			instance_not_null: instance.is_not_null

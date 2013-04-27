@@ -37,7 +37,7 @@ insert
 	CAIRO_FILTER
 	CAIRO_STATUS
 
-creation make_rgb, make_rgba, from_external_pointer
+create {ANY} make_rgb, make_rgba, from_external_pointer
 
 feature {} -- Creation
 	make_rgb (a_red, a_green, a_blue: REAL) is
@@ -85,7 +85,7 @@ feature {} -- Creation
 			-- cairo_pattern_status().
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	status: INTEGER is
 			-- Pattern status; useful to check whether an error has
@@ -189,7 +189,7 @@ feature -- Access
 			is_valid_extend (Result)
 		end
 
-feature -- Memory handling
+feature {ANY} -- Memory handling
 	unref is
 			-- Decreases the reference count on pattern by one. If the
 			-- result is zero, then pattern and all associated resources

@@ -3,10 +3,10 @@ class CAIROSIMPLE
 insert
 	CAIRO_FORMAT
 
-creation
+create {ANY}
 	make
 
-feature
+feature {ANY}
 
 	pi: REAL is 3.14159265358979323846 -- PI
 

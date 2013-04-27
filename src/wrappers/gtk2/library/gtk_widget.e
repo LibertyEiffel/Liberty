@@ -28,7 +28,7 @@ inherit GTK_OBJECT
 
 insert GTKWIDGET_EXTERNALS
 
-feature -- Access
+feature {ANY} -- Access
 	hide is
 			-- Reverses the effects of `show' causing the widget to be hidden
 			-- (invisible to the user).
@@ -49,7 +49,7 @@ feature -- Access
 		end
 
 
-feature -- Operation
+feature {ANY} -- Operation
 
 	set_style (a_style: GTK_STYLE) is
 			-- Sets the GTK_STYLE for a widget (widget.style).
@@ -645,7 +645,7 @@ feature -- Operation
 --   "interior-focus"       gboolean              : Read
 --   "secondary-cursor-color" GdkColor              : Read
 
-feature -- Signals
+feature {ANY} -- Signals
 
 -- "accel-closures-changed"
 --             void        user_function      (GtkWidget *widget,
@@ -667,7 +667,7 @@ feature -- Signals
 --                                             GdkEventConfigure *event,
 --                                             gpointer           user_data)      : Run last
 
-feature -- delete-event signal
+feature {ANY} -- delete-event signal
 
 	delete_event_signal_name: STRING is "delete-event"
 
@@ -703,7 +703,7 @@ feature -- delete-event signal
 --                                             GtkTextDirection arg1,
 --                                             gpointer         user_data)      : Run first
 
-feature -- drag-begin signal
+feature {ANY} -- drag-begin signal
 
 	drag_begin_signal_name: STRING is "drag-begin"
 		-- "drag-begin"
@@ -740,7 +740,7 @@ feature -- drag-begin signal
 			drag_begin_callback.connect (Current, a_procedure)
 		end
 
-feature -- drag-data-delete signal
+feature {ANY} -- drag-data-delete signal
 
 	drag_data_delete_signal_name: STRING is "drag-data-delete"
 		-- "drag-data-delete"
@@ -778,7 +778,7 @@ feature -- drag-data-delete signal
 			drag_data_delete_callback.connect (Current, a_procedure)
 		end
 
-feature -- drag-data-get signal
+feature {ANY} -- drag-data-get signal
 
 	drag_data_get_signal_name: STRING is "drag-data-get"
 		-- "drag-data-get"
@@ -824,7 +824,7 @@ feature -- drag-data-get signal
 			drag_data_get_callback.connect (Current, a_procedure)
 		end
 
-feature -- drag-data-received signal
+feature {ANY} -- drag-data-received signal
 
 	drag_data_received_signal_name: STRING is "drag-data-received"
 		-- "drag-data-received"
@@ -885,7 +885,7 @@ feature -- drag-data-received signal
 			drag_data_received_callback.connect (Current, a_procedure)
 		end
 
-feature -- drag-drop signal
+feature {ANY} -- drag-drop signal
 
 	drag_drop_signal_name: STRING is "drag-drop"
 		-- "drag-drop" gboolean    user_function      (GtkWidget      *widget,
@@ -936,7 +936,7 @@ feature -- drag-drop signal
 			drag_drop_callback.connect (Current, a_function)
 		end
 
-feature -- drag-end signal
+feature {ANY} -- drag-end signal
 
 	drag_end_signal_name: STRING is "drag-end"
 		-- "drag-end"  void        user_function      (GtkWidget      *widget,
@@ -971,7 +971,7 @@ feature -- drag-end signal
 			drag_end_callback.connect (Current, a_procedure)
 		end
 
-feature -- drag-leave signal
+feature {ANY} -- drag-leave signal
 
 	drag_leave_signal_name: STRING is "drag-leave"
 		-- "drag-leave"
@@ -1010,7 +1010,7 @@ feature -- drag-leave signal
 			drag_leave_callback.connect (Current, a_procedure)
 		end
 
-feature -- drag-motion signal
+feature {ANY} -- drag-motion signal
 
 	drag_motion_signal_name: STRING is "drag-motion"
 		-- "drag-motion"
@@ -1073,7 +1073,7 @@ feature -- drag-motion signal
 			drag_motion_callback.connect (Current, a_function)
 		end
 
-feature -- enter-notify-event signal
+feature {ANY} -- enter-notify-event signal
 
 	enter_notify_event_signal_name: STRING is "enter-notify-event"
 			-- "enter-notify-event"
@@ -1146,7 +1146,7 @@ feature -- "expose-event"
 --             gboolean    user_function      (GtkWidget     *widget,
 --                                             GdkEventFocus *event,
 --                                             gpointer       user_data)      : Run last
-feature -- focus-out-event signal
+feature {ANY} -- focus-out-event signal
 
 	focus_out_event_signal_name: STRING is "focus-out-event"
 		-- "focus-out-event"
@@ -1203,7 +1203,7 @@ feature -- focus-out-event signal
 --             void        user_function      (GtkWidget *widget,
 --                                             GtkWidget *widget2,
 --                                             gpointer   user_data)      : Run last
-feature -- key-press-event signal
+feature {ANY} -- key-press-event signal
 
 	key_press_event_signal_name: STRING is "key-press-event"
 		-- "key-press-event" signal
@@ -1242,7 +1242,7 @@ feature -- key-press-event signal
 --                                             GdkEventKey *event,
 --                                             gpointer     user_data)      : Run last
 
-feature -- leave-notify-event signal
+feature {ANY} -- leave-notify-event signal
 
 	leave_notify_event_signal_name: STRING is "leave-notify-event"
 			-- "leave-notify-event"
@@ -1287,7 +1287,7 @@ feature -- leave-notify-event signal
 --                                             gboolean   arg1,
 --                                             gpointer   user_data)      : Run last
 
-feature -- motion-notify-event signal
+feature {ANY} -- motion-notify-event signal
 
 	motion_notify_event_signal_name: STRING is "motion-notify-event"
 		-- "motion-notify-event"
@@ -1321,7 +1321,7 @@ feature -- motion-notify-event signal
 			motion_notify_event_callback.connect (Current, a_function)
 		end
 
-feature -- button-release-event signal
+feature {ANY} -- button-release-event signal
 
 	button_release_event_signal_name: STRING is "button-release-event"
 		-- "button-release-event" signal
@@ -1355,7 +1355,7 @@ feature -- button-release-event signal
 			button_release_event_callback.connect (Current, a_function)
 		end
 
-feature -- button-press-event signal
+feature {ANY} -- button-press-event signal
 
 	button_press_event_signal_name: STRING is "button-press-event"
 		-- "button-press-event" signal
@@ -1413,7 +1413,7 @@ feature -- button-press-event signal
 --                                             GdkEventProximity *event,
 --                                             gpointer           user_data)      : Run last
 
-feature -- realize signal
+feature {ANY} -- realize signal
 
 	realize_signal_name: STRING is "realize"
 -- "realize"   void        user_function      (GtkWidget *widget,
@@ -1447,7 +1447,7 @@ feature -- realize signal
 --                                             GdkScreen *arg1,
 --                                             gpointer   user_data)      : Run last
 
-feature -- scroll-event signal
+feature {ANY} -- scroll-event signal
 
 	scroll_event_signal_name: STRING is "scroll-event"
 		--             gboolean    user_function      (GtkWidget      *widget,
@@ -1510,7 +1510,7 @@ feature -- scroll-event signal
 --                                             GtkWidgetHelpType arg1,
 --                                             gpointer          user_data)      : Run last / Action
 
-feature -- size-allocate signal
+feature {ANY} -- size-allocate signal
 
 	size_allocate_signal_name: STRING is "size-allocate"
 		-- "size-allocate"
@@ -1545,7 +1545,7 @@ feature -- size-allocate signal
 			size_allocate_callback.connect (Current, a_procedure)
 		end
 
-feature -- size-request signal
+feature {ANY} -- size-request signal
 
 	size_request_signal_name: STRING is "size-request"
 		-- "size-request"
@@ -2225,7 +2225,7 @@ feature -- size-request signal
 -- widget : 	a GtkWidget
 -- state : 	new state for widget
 
-feature -- Sensitivity
+feature {ANY} -- Sensitivity
 
 	set_sensitive (sens: BOOLEAN) is
 			-- Sets the sensitivity of Current. A widget is sensitive
@@ -2253,7 +2253,7 @@ feature -- Sensitivity
 -- 		ensure unsensitive: not is_sensitive
 -- 		end
 
-feature
+feature {ANY}
 
 -- gtk_widget_set_parent ()
 

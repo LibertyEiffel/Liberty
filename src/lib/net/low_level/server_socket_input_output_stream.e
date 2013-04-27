@@ -10,7 +10,7 @@ inherit
       redefine socket_disconnected
       end
 
-creation {SOCKET_SERVER}
+create {SOCKET_SERVER}
    connect_to
 
 feature {ANY}

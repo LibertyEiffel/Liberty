@@ -3,8 +3,8 @@
 expanded class G_DATE_MONTH
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_date_bad_month) or else 
@@ -23,7 +23,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_bad_month is
 		do
 			value := g_date_bad_month
@@ -90,7 +90,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_bad_month: BOOLEAN is
 		do
 			Result := (value=g_date_bad_month)

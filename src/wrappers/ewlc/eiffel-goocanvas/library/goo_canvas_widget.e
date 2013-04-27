@@ -27,7 +27,7 @@ class
 inherit
 	GOO_CANVAS_ITEM_SIMPLE redefine struct_size end
 	
-create
+create {ANY}
 	make, from_external_pointer
 	
 feature {} -- creation
@@ -41,7 +41,7 @@ feature {} -- creation
 		external "C use <goocanvas-1.0/goocanvaswidget.h>"
 		end
 
-feature -- struct size
+feature {ANY} -- struct size
 	struct_size: INTEGER is
 		external "C inline use <goocanvas-1.0/goocanvaswidget.h>"
 		alias "sizeof(GooCanvasWidget)"

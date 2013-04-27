@@ -61,7 +61,7 @@ feature {ANY} -- Looking and searching some value:
       end
 
 feature {ANY}
-   put (v: V_; k: K_) is
+   put (v: V_; k: K_) assign at is
          -- Change some existing entry or `add' the new one. If there is
          -- as yet no key `k' in the dictionary, enter it with item `v'.
          -- Otherwise overwrite the item associated with key `k'.

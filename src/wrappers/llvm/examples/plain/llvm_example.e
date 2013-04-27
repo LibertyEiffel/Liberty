@@ -14,7 +14,7 @@ insert
 	LLVM_C_TYPES
 	LLVM_VALUES_FACTORY
 	CORE_EXTERNALS
-creation make
+create {ANY} make
 
 feature {} -- Creation
 	make is

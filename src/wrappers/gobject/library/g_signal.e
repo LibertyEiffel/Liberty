@@ -68,10 +68,10 @@ insert
 	G_SIGNAL_INVOCATION_HINT
 	G_SIGNAL_MATCH_TYPE
 
-feature -- Implementation
+feature {ANY} -- Implementation
 	signal_id: INTEGER_64	
 	
-feature -- Unwrapped C 
+feature {ANY} -- Unwrapped C 
 
 	-- GSignalAccumulator ()
 

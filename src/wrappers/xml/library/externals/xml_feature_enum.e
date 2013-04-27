@@ -5,6 +5,7 @@ expanded class XML_FEATURE_ENUM
 
 insert ENUM
 
+<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -42,9 +43,48 @@ feature -- Validity
 				(a_value = xml_with_xpath_low_level)  or else
 				(a_value = xml_with_xptr_low_level)  or else
 				(a_value = xml_with_zlib_low_level) )
+=======
+create {ANY} default_create
+feature {ANY} -- Validity
+	is_valid_value (a_value: INTEGER): BOOLEAN is
+		do
+			Result := ((a_value = thread_low_level)  or else
+				(a_value = tree_low_level)  or else
+				(a_value = output_low_level)  or else
+				(a_value = push_low_level)  or else
+				(a_value = reader_low_level)  or else
+				(a_value = pattern_low_level)  or else
+				(a_value = writer_low_level)  or else
+				(a_value = sax1_low_level)  or else
+				(a_value = ftp_low_level)  or else
+				(a_value = http_low_level)  or else
+				(a_value = valid_low_level)  or else
+				(a_value = html_low_level)  or else
+				(a_value = legacy_low_level)  or else
+				(a_value = c14n_low_level)  or else
+				(a_value = catalog_low_level)  or else
+				(a_value = xpath_low_level)  or else
+				(a_value = xptr_low_level)  or else
+				(a_value = xinclude_low_level)  or else
+				(a_value = iconv_low_level)  or else
+				(a_value = iso8859x_low_level)  or else
+				(a_value = unicode_low_level)  or else
+				(a_value = regexp_low_level)  or else
+				(a_value = automata_low_level)  or else
+				(a_value = expr_low_level)  or else
+				(a_value = schemas_low_level)  or else
+				(a_value = schematron_low_level)  or else
+				(a_value = modules_low_level)  or else
+				(a_value = debug_external_low_level)  or else
+				(a_value = debug_mem_low_level)  or else
+				(a_value = debug_run_low_level)  or else
+				(a_value = zlib_low_level)  or else
+				(a_value = icu_low_level)  or else
+				(a_value = none_low_level) )
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_xml_with_automata is
 		do
@@ -211,8 +251,13 @@ feature -- Setters
 			value := xml_with_zlib_low_level
 		end
 
+<<<<<<< HEAD
 feature -- Queries
 	is_xml_with_automata: BOOLEAN is
+=======
+feature {ANY} -- Queries
+	thread: BOOLEAN is
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=xml_with_automata_low_level)
 		end

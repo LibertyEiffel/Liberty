@@ -10,7 +10,7 @@ inherit
       redefine left, top, width, height, refresh_later
       end
 
-creation{NCURSES_PANEL}
+create{NCURSES_PANEL}
    make, no_label
 
 feature {ANY}

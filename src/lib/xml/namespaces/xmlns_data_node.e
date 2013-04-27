@@ -6,7 +6,7 @@ class XMLNS_DATA_NODE
 inherit
    XMLNS_NODE
 
-creation {XMLNS_TREE}
+create {XMLNS_TREE}
    make
 
 feature {ANY}

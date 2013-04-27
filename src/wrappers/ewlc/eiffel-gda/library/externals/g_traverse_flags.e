@@ -3,8 +3,8 @@
 expanded class G_TRAVERSE_FLAGS
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_traverse_leaves) or else 
@@ -16,7 +16,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_leaves is
 		do
 			value := g_traverse_leaves
@@ -48,7 +48,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_leaves: BOOLEAN is
 		do
 			Result := (value=g_traverse_leaves)

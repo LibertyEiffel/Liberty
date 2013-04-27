@@ -10,7 +10,7 @@ class XML_TREE
 inherit
    XML_CALLBACKS
 
-creation {ANY}
+create {ANY}
    make, with_error_handler
 
 feature {ANY}

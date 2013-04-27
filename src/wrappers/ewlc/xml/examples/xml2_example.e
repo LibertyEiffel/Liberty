@@ -5,9 +5,9 @@ insert
 	XML2_PARSER
 	ARGUMENTS
 
-creation make
+create {ANY} make
 
-feature 
+feature {ANY} 
 	make is
 		-- entry point
 	do

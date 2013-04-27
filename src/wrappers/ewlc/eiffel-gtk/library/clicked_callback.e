@@ -28,12 +28,12 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_FACTORY [O]
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	object: O
 
-feature
+feature {ANY}
 	callback (instance: POINTER) is --  a_button: GTK_BUTTON) is
 		do
 			debug

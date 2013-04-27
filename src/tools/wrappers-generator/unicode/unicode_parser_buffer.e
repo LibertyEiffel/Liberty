@@ -9,7 +9,7 @@ insert
    RECYCLABLE
    PLATFORM
 
-creation {ANY}
+create {ANY}
    connect_to
 
 feature {ANY}

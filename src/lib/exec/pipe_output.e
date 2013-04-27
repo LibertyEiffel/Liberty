@@ -15,7 +15,7 @@ inherit
 insert
    PIPE_FUNCTIONS
 
-creation {ANY}
+create {ANY}
    make, connect_to, named
 
 feature {ANY}

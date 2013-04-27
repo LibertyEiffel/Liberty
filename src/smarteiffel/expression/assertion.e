@@ -10,7 +10,7 @@ class ASSERTION
 inherit
    EXPRESSION
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -265,15 +265,15 @@ feature {ANY}
          Result := current_or_twin_init(exp)
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          exp: EXPRESSION
       do
          if expression /= Void then
-            exp := expression.specialize_2(type)
+            exp := expression.specialize_and_check(type)
          end
          Result := current_or_twin_init(exp)
-         Result.specialize_2_check(type)
+         Result.specialize_check(type)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
@@ -302,18 +302,18 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {ASSERTION}
-   specialize_2_check (type: TYPE) is
+   specialize_check (type: TYPE) is
       local
          rt: TYPE
       do
          if expression /= Void then
             rt := expression.resolve_in(type)
             if not rt.is_boolean then
-               error_handler.append("An assertion must be a BOOLEAN expression.")
+               error_handler.append(once "An assertion must be a BOOLEAN expression.")
                error_handler.add_position(expression.start_position)
-               error_handler.append("(The type of this expression is actually ")
+               error_handler.append(once "(The type of this expression is actually ")
                error_handler.append(rt.name.to_string)
-               error_handler.append(".)")
+               error_handler.append(once ".)")
                error_handler.print_as_fatal_error
             end
          end

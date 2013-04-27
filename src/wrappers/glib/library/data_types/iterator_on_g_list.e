@@ -15,7 +15,7 @@ insert
    GLIST_STRUCT
    GLOBAL_CACHE
 	
-creation make
+create {ANY} make
 	
 feature {} -- Creation
 	make (a_list: G_LIST_TRAVERSABLE[ITEM]) is
@@ -29,7 +29,7 @@ feature {} -- Implementation
 	list: G_LIST_TRAVERSABLE[ITEM]
 	current_element: POINTER
 
-feature -- Iterator's features
+feature {ANY} -- Iterator's features
 	start is
 		do
 			current_element := list.handle
@@ -60,7 +60,7 @@ feature -- Iterator's features
 			current_element := glist_struct_get_next (current_element)
 		end
 
-feature -- Bi-directional iterator features.
+feature {ANY} -- Bi-directional iterator features.
 	is_at_first: BOOLEAN is
 			-- Is Current iterator at the beginning of the G_LIST?
 		do

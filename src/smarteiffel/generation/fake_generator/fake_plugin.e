@@ -3,7 +3,7 @@ class FAKE_PLUGIN
 inherit
    PLUGIN
 
-creation {FAKE_PLUGIN_FACTORY}
+create {FAKE_PLUGIN_FACTORY}
    make
 
 feature {NATIVE_PLUG_IN}

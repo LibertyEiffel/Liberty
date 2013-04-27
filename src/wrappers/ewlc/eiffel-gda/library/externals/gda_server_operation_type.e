@@ -3,8 +3,8 @@
 expanded class GDA_SERVER_OPERATION_TYPE
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_server_operation_create_db) or else 
@@ -22,7 +22,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_create_db is
 		do
 			value := gda_server_operation_create_db
@@ -84,7 +84,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_create_db: BOOLEAN is
 		do
 			Result := (value=gda_server_operation_create_db)

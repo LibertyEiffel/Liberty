@@ -226,7 +226,7 @@ feature {ANY}
       once
          Result := smart_eiffel.type_any.feature_stamp_of(default_create_name)
          if Result = Void then
-            error_handler.append("Feature `default_create' not found in class ANY. %
+            error_handler.append(once "Feature `default_create' not found in class ANY. %
                                  %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
             error_handler.print_as_fatal_error
          end
@@ -236,7 +236,7 @@ feature {ANY}
       once
          Result := smart_eiffel.type_any.feature_stamp_of(default_rescue_name)
          if Result = Void then
-            error_handler.append("Feature `default_rescue' not found in class ANY. %
+            error_handler.append(once "Feature `default_rescue' not found in class ANY. %
                                  %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
             error_handler.print_as_fatal_error
          end
@@ -246,7 +246,7 @@ feature {ANY}
       once
          Result := smart_eiffel.type_any.feature_stamp_of(copy_name)
          if Result = Void then
-            error_handler.append("Feature `copy' not found in class ANY. %
+            error_handler.append(once "Feature `copy' not found in class ANY. %
                                  %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
             error_handler.print_as_fatal_error
          end
@@ -256,7 +256,7 @@ feature {ANY}
       once
          Result := smart_eiffel.type_any.feature_stamp_of(is_equal_name)
          if Result = Void then
-            error_handler.append("Feature `is_equal' not found in class ANY. %
+            error_handler.append(once "Feature `is_equal' not found in class ANY. %
                                  %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
             error_handler.print_as_fatal_error
          end
@@ -266,7 +266,7 @@ feature {ANY}
       once
          Result := smart_eiffel.type_any.feature_stamp_of(deep_twin_name)
          if Result = Void then
-            error_handler.append("Feature `deep_twin' not found in class ANY. %
+            error_handler.append(once "Feature `deep_twin' not found in class ANY. %
                                  %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
             error_handler.print_as_fatal_error
          end
@@ -276,7 +276,7 @@ feature {ANY}
       once
          Result := smart_eiffel.type_any.feature_stamp_of(is_deep_equal_name)
          if Result = Void then
-            error_handler.append("Feature `is_deep_equal' not found in class ANY. %
+            error_handler.append(once "Feature `is_deep_equal' not found in class ANY. %
                                  %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
             error_handler.print_as_fatal_error
          end

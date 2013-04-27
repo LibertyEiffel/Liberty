@@ -9,7 +9,7 @@ inherit
 insert
    GLOBALS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -149,7 +149,7 @@ feature {PARENT_EDGE}
                if rp2.old_name.is_equal(rp1.old_name) then
                   error_handler.add_position(rp1.old_name.start_position)
                   error_handler.add_position(rp2.old_name.start_position)
-                  error_handler.append("Multiple rename for the same feature is not allowed.")
+                  error_handler.append(once "Multiple rename for the same feature is not allowed.")
                   error_handler.print_as_fatal_error
                end
                j := j + 1
@@ -171,13 +171,13 @@ feature {PARENT_EDGE}
             rename_pair := list.item(i)
             if not parent_type.valid_feature_name(rename_pair.old_name) then
                error_handler.add_position(rename_pair.old_name.start_position)
-               error_handler.append("Cannot rename ")
+               error_handler.append(once "Cannot rename ")
                error_handler.add_feature_name(rename_pair.old_name)
-               error_handler.append(" because type ")
+               error_handler.append(once " because type ")
                error_handler.append(parent_type.name.to_string)
-               error_handler.append(" does not have ")
+               error_handler.append(once " does not have ")
                error_handler.add_feature_name(rename_pair.old_name)
-               error_handler.append(".")
+               error_handler.append(once ".")
                error_handler.print_as_fatal_error
             end
             i := i + 1

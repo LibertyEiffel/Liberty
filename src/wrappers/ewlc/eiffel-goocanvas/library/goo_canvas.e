@@ -32,7 +32,7 @@ insert
 	GOO_CANVAS_EXTERNALS
 	GOO undefine copy, is_equal end
 
-create
+create {ANY}
 	make
 	
 feature {} -- Creation
@@ -46,7 +46,7 @@ feature {} -- Creation
 
 	
 
-feature
+feature {ANY}
 
 	set_bounds (left, top, right, bottom : REAL_64) is
 			-- 
@@ -80,7 +80,7 @@ feature
 --		do
 --		end
 
-feature -- struct size
+feature {ANY} -- struct size
 	struct_size: INTEGER is
 		external "C inline use <goocanvas-1.0/goocanvas.h>"
 		alias "sizeof(GooCanvas)"

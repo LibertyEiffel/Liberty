@@ -10,7 +10,7 @@ deferred class RESULT_ROW
 inherit
 	TRAVERSABLE [ANY] 
 
-feature -- Type queries
+feature {ANY} -- Type queries
 	is_integer (a_column: INTEGER): BOOLEAN is
 			-- Is the type in `a_column' an INTEGER?
 		require
@@ -39,7 +39,7 @@ feature -- Type queries
 		deferred
 		end
 
-feature -- Column queries 
+feature {ANY} -- Column queries 
 	integer_item (a_column: INTEGER): INTEGER is
 		require
 			valid_column: valid_index (a_column)

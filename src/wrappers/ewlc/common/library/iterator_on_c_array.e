@@ -23,7 +23,7 @@ class ITERATOR_ON_C_ARRAY [ITEM->C_STRUCT]
 
 inherit ITERATOR[ITEM]
 
-creation from_array
+create {ANY} from_array
 
 feature {} -- Creation and implementation
 	from_array (an_array: C_ARRAY[ITEM]) is
@@ -36,7 +36,7 @@ feature {} -- Creation and implementation
 	
 	array: C_ARRAY[ITEM]
 	
-feature -- 
+feature {ANY} -- 
 	start is
 		do
 			i:=array.lower

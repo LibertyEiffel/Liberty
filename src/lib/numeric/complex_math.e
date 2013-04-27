@@ -1,10 +1,10 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class COMPLEX_MATH[A_PRECISION->NUMERIC]
+deferred class COMPLEX_MATH[A_PRECISION->FLOAT]
 
 feature {ANY} -- 
-   complex (a_real, an_imaginary: A_PRECISION): COMPLEX[A_PRECISION] is
+   complex (a_real, an_imaginary: A_PRECISION): COMPLEX_GENERAL[A_PRECISION] is
       do
 			Result.set(a_real,an_imaginary)
 		end

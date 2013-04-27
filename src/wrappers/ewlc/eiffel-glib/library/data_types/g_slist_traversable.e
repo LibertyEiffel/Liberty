@@ -43,7 +43,7 @@ insert
 			fill_tagged_out_memory
 		end
 
-feature
+feature {ANY}
 	-- At C level a NULL pointer is considered to be the empty list so
 	-- you simply set a GSList* to NULL.
 
@@ -611,7 +611,7 @@ feature {} -- Memory management
 			put (element,index)
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"
 		alias "sizeof(GSList)"

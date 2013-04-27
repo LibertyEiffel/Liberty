@@ -6,9 +6,9 @@ class C_ARRAY_EXAMPLE
 
 inherit WRAPPER_HANDLER -- to play with pointers
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	array: C_ARRAY[G_STRING]
 
 	make is

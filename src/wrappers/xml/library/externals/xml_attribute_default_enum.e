@@ -5,6 +5,7 @@ expanded class XML_ATTRIBUTE_DEFAULT_ENUM
 
 insert ENUM
 
+<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -13,9 +14,19 @@ feature -- Validity
 				(a_value = xml_attribute_implied_low_level)  or else
 				(a_value = xml_attribute_none_low_level)  or else
 				(a_value = xml_attribute_required_low_level) )
+=======
+create {ANY} default_create
+feature {ANY} -- Validity
+	is_valid_value (a_value: INTEGER): BOOLEAN is
+		do
+			Result := ((a_value = none_low_level)  or else
+				(a_value = required_low_level)  or else
+				(a_value = implied_low_level)  or else
+				(a_value = fixed_low_level) )
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_xml_attribute_fixed is
 		do
@@ -37,8 +48,13 @@ feature -- Setters
 			value := xml_attribute_required_low_level
 		end
 
+<<<<<<< HEAD
 feature -- Queries
 	is_xml_attribute_fixed: BOOLEAN is
+=======
+feature {ANY} -- Queries
+	none: BOOLEAN is
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=xml_attribute_fixed_low_level)
 		end

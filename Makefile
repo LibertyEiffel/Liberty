@@ -1,8 +1,11 @@
-build: install.sh
-	bash install.sh -plain -bootstrap
+export plain := TRUE
+
+build:
+	bash install.sh -bootstrap
+	bash install.sh -doc
 
 clean:
-	test -d target && rm -rf target
+	rm -rf target website/doc/api
 
 install:
-	bash install.sh -plain -package
+	bash install.sh -package

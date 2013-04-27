@@ -1,6 +1,6 @@
 class MY_THREAD
 inherit G_THREAD 
-feature 
+feature {ANY} 
 	run is
 		do
 			-- print("I'm a new thread, doing hard work (sleeping) for "+secs.to_string+" seconds%N")

@@ -6,30 +6,36 @@ expanded class SERC_FACTORY
 insert
    GLOBALS
    DIRECTORY_NOTATION_HANDLER
+   SYSTEM_TOOLS_CONSTANTS
 
 feature {ANY}
-   config: SE_CONFIG is
+   config (st: like system_tools): SE_CONFIG is
       local
-         basic_directory: BASIC_DIRECTORY; chain: SERC_CHAIN; s: STRING
+         basic_directory: BASIC_DIRECTORY; chain: SERC_CHAIN; s: STRING; def: SERC_DEFAULTS
+         file_tools: FILE_TOOLS
       once
          create chain.make
-         s := seconf_env
-         if s /= Void then
-            add_to_chain(chain, s)
-         end
+         create def.make
+         chain.add(def)
          basic_directory.ensure_system_notation
 
          if basic_directory.unix_notation or else basic_directory.cygwin_notation then
+            if file_tools.is_readable(once "/sys/rc") then
+               st.set_system_name(elate_system)
+               def.set_os(elate_system)
+               add_to_chain(chain, once "/lang/eiffel/.serc")
+            else
+               def.set_os(unix_system)
+               if file_tools.is_readable(once "/etc/issue") then
+                  def.set_flavor(once "Linux")
+               end
+            end
+            add_to_chain(chain, once "/etc/serc")
             s := home_env
             if s /= Void then
                s.append(once "/.serc")
                add_to_chain(chain, s)
             end
-            if (create {FILE_TOOLS}).is_readable(once "/sys/rc") then
-               system_tools.set_system_name(system_tools.elate_system)
-               add_to_chain(chain, once "/lang/eiffel/.serc")
-            end
-            add_to_chain(chain, once "/etc/serc")
          elseif basic_directory.windows_notation then
             s := userprofile_env
             if s /= Void then
@@ -37,19 +43,26 @@ feature {ANY}
                add_to_chain(chain, s)
             end
             add_to_chain(chain, once "C:\SE.CFG")
+            def.set_os(windows_system)
          elseif basic_directory.macintosh_notation then
+            def.set_os(macintosh_system)
          elseif basic_directory.amiga_notation then
+            def.set_os(amiga_system)
          elseif basic_directory.openvms_notation then
+            def.set_os(open_vms_system)
          end
 
-         if not chain.is_empty then
-            Result := chain
+         s := seconf_env
+         if s /= Void then
+            add_to_chain(chain, s)
          end
+
+         Result := chain
       end
 
 feature {SYSTEM_TOOLS, INSTALL_GLOBALS}
    seconf_env: STRING is
-         -- The value of the Liberty Eiffel environment variable, if defined.
+         -- The value of the SmartEiffel environment variable, if defined.
       once
          Result := env(fz_seconf)
       end

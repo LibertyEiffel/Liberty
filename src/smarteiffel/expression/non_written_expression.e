@@ -35,7 +35,7 @@ feature {ANY}
          end
       end
 
-   frozen specialize_2 (type: TYPE): EXPRESSION is
+   frozen specialize_and_check (type: TYPE): EXPRESSION is
       do
          check
             non_written_code: False

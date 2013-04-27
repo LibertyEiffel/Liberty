@@ -27,18 +27,18 @@ feature {ANY}
    end_mark_comment: BOOLEAN is True
 
 feature {IF_SUPPORT}
-   frozen specialize_2_check_ (type: TYPE) is
+   frozen specialize_check_ (type: TYPE) is
       local
          dt: TYPE
       do
          dt := expression.declaration_type
          if not dt.is_boolean then
-            error_handler.append("%"if%" (or %"elseif%" as well) must be followed by a BOOLEAN expression.")
+            error_handler.append(once "%"if%" (or %"elseif%" as well) must be followed by a BOOLEAN expression.")
             error_handler.add_position(start_position)
             error_handler.print_as_error
-            error_handler.append("The declaration type of this expression is ")
+            error_handler.append(once "The declaration type of this expression is ")
             error_handler.append(dt.name.to_string)
-            error_handler.append(" (this is not BOOLEAN).")
+            error_handler.append(once " (this is not BOOLEAN).")
             error_handler.add_position(expression.start_position)
             error_handler.print_as_fatal_error
          end

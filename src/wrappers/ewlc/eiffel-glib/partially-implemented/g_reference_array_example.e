@@ -6,13 +6,13 @@ indexing
 
 class G_REFERENCE_ARRAY_EXAMPLE
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	array: G_REFERENCE_ARRAY[G_STRING]
 	first: G_STRING
 
-feature make is
+feature {ANY} make is
 		local i: ITERATOR [G_STRING]
 		do
 			create array.make_empty

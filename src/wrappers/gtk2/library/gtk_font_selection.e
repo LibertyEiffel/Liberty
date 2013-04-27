@@ -46,7 +46,7 @@ inherit
 
 insert GTK_FONT_SELECTION_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -55,7 +55,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_font_selection_new)
 		end
 
-feature
+feature {ANY}
 	font_name: STRING is
 			-- The currently-selected font name. Note that this can be a
 			-- different string than what you set with `set_font_name',

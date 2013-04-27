@@ -30,7 +30,7 @@ inherit
 	GTK_PANED
 		-- GtkHPaned implements AtkImplementorIface.
 	
-creation make,from_external_pointer
+create {ANY} make,from_external_pointer
 
 feature {} -- size
 	struct_size: INTEGER is

@@ -11,7 +11,7 @@ class LINKED_HASHED_DICTIONARY[V_, K_ -> HASHABLE]
 inherit
    ABSTRACT_LINKED_HASHED_DICTIONARY[V_, K_]
 
-creation {ANY}
+create {ANY}
    make, with_capacity, manifest_creation
 
 feature {}

@@ -21,9 +21,9 @@ indexing
 
 class ICONVIEW_EDIT
 
-creation make
+create {ANY} make
 	
-feature
+feature {ANY}
 -- /* Icon View/Editing and Drag-and-Drop
 --  *
 --  * The GtkIconView widget supports Editing and Drag-and-Drop.

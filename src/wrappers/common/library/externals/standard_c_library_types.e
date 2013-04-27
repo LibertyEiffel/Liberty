@@ -6,6 +6,7 @@ deferred class STANDARD_C_LIBRARY_TYPES
 
 insert ANY undefine is_equal, copy end
 
+<<<<<<< HEAD
 feature -- C type definitions (typedefs)
 feature -- variable-size types
 	long: INTEGER_64 is
@@ -78,6 +79,9 @@ feature -- Standard C type definitions
 	uintmax_t: NATURAL_64 is do end
 
 feature -- C type definitions (typedefs)
+=======
+feature {ANY} -- C type definitions (typedefs)
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 	timer_t: POINTER is
 		-- typedef timer_t
 		-- Empty by design, used for anchored declarations.

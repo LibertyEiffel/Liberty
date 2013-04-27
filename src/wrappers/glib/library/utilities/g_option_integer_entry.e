@@ -31,9 +31,9 @@ inherit
 	-- 	redefine fill_tagged_out_memory
 	-- 	end
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING) is
 		local t: like argument_type
 		do
@@ -43,7 +43,7 @@ feature
 			goption_entry_struct_set_arg_data(handle, $item) 
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	item: INTEGER
 
 	set_item (an_item: INTEGER) is do item:=an_item end

@@ -9,7 +9,7 @@ inherit
 
 insert CORE_EXTERNALS
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 end -- class LLVM_MEMORY_BUFFER
 -- Copyright (C) 2010 Paolo Redaelli

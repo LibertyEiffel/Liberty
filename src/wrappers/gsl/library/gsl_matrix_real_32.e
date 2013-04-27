@@ -17,9 +17,9 @@ inherit
 insert
 	GSL_MATRIX_GENERAL[REAL_32]
 	
-creation make, make_zero, make_identity, from_collection2, from_model, copy, manifest_creation
+create {ANY} make, make_zero, make_identity, from_collection2, from_model, copy, manifest_creation
 	
-feature
+feature {ANY}
 	get_column (i: INTEGER_32): GSL_VECTOR_REAL_32 is
 		do
 			create Result.make(line_count)

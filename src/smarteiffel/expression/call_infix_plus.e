@@ -12,10 +12,10 @@ inherit
          static_simplify
       end
 
-creation {EIFFEL_PARSER, EXTERNAL_PROCEDURE}
+create {EIFFEL_PARSER, EXTERNAL_PROCEDURE}
    make
 
-creation {AGENT_CREATION}
+create {AGENT_CREATION}
    with
 
 feature {ANY}
@@ -53,11 +53,11 @@ feature {ANY}
                      create {INTEGER_CONSTANT} Result.make(number.to_integer_64, feature_name.start_position)
                   else
                      error_handler.add_position(feature_name.start_position)
-                     error_handler.append("The value of ")
+                     error_handler.append(once "The value of ")
                      error_handler.add_expression(Current)
-                     error_handler.append(" is ")
+                     error_handler.append(once " is ")
                      error_handler.append(number.to_string)
-                     error_handler.append(" which is out of INTEGER_64 range.")
+                     error_handler.append(once " which is out of INTEGER_64 range.")
                      error_handler.print_as_fatal_error
                   end
                end

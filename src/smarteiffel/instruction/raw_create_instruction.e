@@ -8,7 +8,7 @@ inherit
          accept
       end
 
-creation
+create {ANY}
    make
 
 feature {ANY}

@@ -6,8 +6,8 @@ insert
 	FILE_TOOLS
 	SYSTEM
 
-creation test
-feature
+create {ANY} test
+feature {ANY}
 	filename: STRING is "test.xml"
 
 	test is

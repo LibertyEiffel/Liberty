@@ -30,7 +30,7 @@ insert
 	GLADE_XML_EXTERNAL
 	G_OBJECT_EXTERNALS
 
-feature -- Access
+feature {ANY} -- Access
 
 	get (name: STRING): W is
 		require

@@ -12,7 +12,7 @@ class NO_DISPATCH
 inherit
    NON_WRITTEN_EXPRESSION
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

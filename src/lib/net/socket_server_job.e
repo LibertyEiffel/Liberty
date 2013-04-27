@@ -11,7 +11,7 @@ class SOCKET_SERVER_JOB
 inherit
    JOB
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

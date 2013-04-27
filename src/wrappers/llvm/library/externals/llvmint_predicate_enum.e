@@ -5,6 +5,7 @@ expanded class LLVMINT_PREDICATE_ENUM
 
 insert ENUM
 
+<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -19,9 +20,25 @@ feature -- Validity
 				(a_value = llvmint_ugt_low_level)  or else
 				(a_value = llvmint_ule_low_level)  or else
 				(a_value = llvmint_ult_low_level) )
+=======
+create {ANY} default_create
+feature {ANY} -- Validity
+	is_valid_value (a_value: INTEGER): BOOLEAN is
+		do
+			Result := ((a_value = eq_low_level)  or else
+				(a_value = ne_low_level)  or else
+				(a_value = ugt_low_level)  or else
+				(a_value = uge_low_level)  or else
+				(a_value = ult_low_level)  or else
+				(a_value = ule_low_level)  or else
+				(a_value = sgt_low_level)  or else
+				(a_value = sge_low_level)  or else
+				(a_value = slt_low_level)  or else
+				(a_value = sle_low_level) )
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_llvmint_eq is
 		do
@@ -73,8 +90,13 @@ feature -- Setters
 			value := llvmint_ult_low_level
 		end
 
+<<<<<<< HEAD
 feature -- Queries
 	is_llvmint_eq: BOOLEAN is
+=======
+feature {ANY} -- Queries
+	eq: BOOLEAN is
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=llvmint_eq_low_level)
 		end

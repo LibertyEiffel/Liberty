@@ -3,10 +3,10 @@ class TEST_VECTOR0
 inherit
 	EIFFELTEST_TOOLS
 
-creation 
+create {ANY} 
 	make
 	
-feature
+feature {ANY}
 
 	make is
 		local

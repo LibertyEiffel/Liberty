@@ -97,7 +97,7 @@ feature {WHEN_CLAUSE}
          Result.has_been_specialized
       end
 
-   specialize_2_character (type: TYPE): like Current is
+   specialize_and_check_character (type: TYPE): like Current is
          --|*** May become a procedure because this is always static ???
          --|*** (Dom. 20 dec 2003)
       require
@@ -109,7 +109,7 @@ feature {WHEN_CLAUSE}
          Result.has_been_specialized
       end
 
-   specialize_2_integer (type: TYPE): like Current is
+   specialize_and_check_integer (type: TYPE): like Current is
          --|*** May become a procedure because this is always static ???
          --|*** (Dom. 20 dec 2003)
       require
@@ -204,7 +204,7 @@ feature {}
          integer_constant ?= me
          if integer_constant = Void then
             error_handler.add_position(e.start_position)
-            error_handler.append("This is not an INTEGER expression.")
+            error_handler.append(once "This is not an INTEGER expression.")
             explain_fatal_error(e, me)
          end
       end
@@ -220,7 +220,7 @@ feature {}
          character_constant ?= me
          if character_constant = Void then
             error_handler.add_position(e.start_position)
-            error_handler.append("This is not an CHARACTER expression.")
+            error_handler.append(once "This is not an CHARACTER expression.")
             explain_fatal_error(e, me)
          end
       end
@@ -232,10 +232,10 @@ feature {}
          me /= Void
       do
          if e /= me then
-            error_handler.append("(The corresponding feature definition is in the next error message.)")
+            error_handler.append(once "(The corresponding feature definition is in the next error message.)")
             error_handler.print_as_error
             error_handler.add_position(me.start_position)
-            error_handler.append("The corresponding feature definition.")
+            error_handler.append(once "The corresponding feature definition.")
          end
          error_handler.print_as_fatal_error
       end

@@ -9,10 +9,10 @@ class CALL_INFIX_GE
 inherit
    CALL_INFIX
 
-creation {EIFFEL_PARSER}
+create {EIFFEL_PARSER}
    make
 
-creation {AGENT_CREATION}
+create {AGENT_CREATION}
    with
 
 feature {ANY}

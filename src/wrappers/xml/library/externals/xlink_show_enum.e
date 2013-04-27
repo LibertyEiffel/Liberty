@@ -5,6 +5,7 @@ expanded class XLINK_SHOW_ENUM
 
 insert ENUM
 
+<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -13,9 +14,19 @@ feature -- Validity
 				(a_value = xlink_show_new_low_level)  or else
 				(a_value = xlink_show_none_low_level)  or else
 				(a_value = xlink_show_replace_low_level) )
+=======
+create {ANY} default_create
+feature {ANY} -- Validity
+	is_valid_value (a_value: INTEGER): BOOLEAN is
+		do
+			Result := ((a_value = none_low_level)  or else
+				(a_value = new_low_level)  or else
+				(a_value = embed_low_level)  or else
+				(a_value = replace_low_level) )
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_xlink_show_embed is
 		do
@@ -37,8 +48,13 @@ feature -- Setters
 			value := xlink_show_replace_low_level
 		end
 
+<<<<<<< HEAD
 feature -- Queries
 	is_xlink_show_embed: BOOLEAN is
+=======
+feature {ANY} -- Queries
+	none: BOOLEAN is
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=xlink_show_embed_low_level)
 		end

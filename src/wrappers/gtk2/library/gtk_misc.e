@@ -45,7 +45,7 @@ insert GTKMISC_EXTERNALS
 -- feature {} -- size size: INTEGER is external "C inline use
 -- <gtk/gtk.h>" alias "sizeof(GtkMisc)" end
 
-feature --
+feature {ANY} --
 	xalign: REAL is
 			--	the horizontal alignment, from 0 (left) to 1 (right).
 		do

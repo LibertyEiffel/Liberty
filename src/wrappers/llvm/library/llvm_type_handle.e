@@ -10,9 +10,9 @@ inherit
 
 insert LLVM_TYPE_FACTORY
 
-creation from_type, from_external_pointer
+create {ANY} from_type, from_external_pointer
 
-feature 
+feature {ANY} 
 	from_type (a_type: LLVM_TYPE) is
 		-- `a_type' is potentially an abstract type.
 	require a_type/=Void
@@ -28,7 +28,7 @@ feature
 
 	-- TODO: provide refining support:  void LLVMRefineType(LLVMTypeRef AbstractTy, LLVMTypeRef ConcreteTy);
 
-feature -- Disposing
+feature {ANY} -- Disposing
 	dispose is
 		do
 			llvmdispose_type_handle(handle)

@@ -12,7 +12,7 @@ class AVL_SET_NODE[E_ -> COMPARABLE]
 inherit
    ABSTRACT_AVL_SET_NODE[E_]
 
-creation {AVL_SET}
+create {AVL_SET}
    default_create
 
 feature {}

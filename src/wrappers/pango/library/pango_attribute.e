@@ -41,10 +41,10 @@ inherit
 insert
 	PANGO_ATTR_TYPE
 
-creation {ANY}
+create {ANY}
 	background, foreground, weight, style
 	
-creation {WRAPPER}
+create {WRAPPER}
 	from_external_pointer
 
 feature {} -- Creation

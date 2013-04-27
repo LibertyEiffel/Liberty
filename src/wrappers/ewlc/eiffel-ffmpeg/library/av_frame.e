@@ -28,7 +28,7 @@ inherit
 insert
 	AV_FRAME_EXTERNALS
 
-creation
+create {ANY}
 	make
 
 feature {} -- Creation
@@ -38,7 +38,7 @@ feature {} -- Creation
 			handle := avcodec_alloc_frame
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	is_keyframe: BOOLEAN is
 		do
@@ -50,7 +50,7 @@ feature -- Access
 			Result := av_frame_get_pts (handle)
 		end
 
-feature -- Size
+feature {ANY} -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <avcodec.h>"

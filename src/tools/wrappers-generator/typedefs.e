@@ -26,7 +26,7 @@ insert
 	SHARED_SETTINGS
 	SHARED_COLLECTIONS
 
-creation make
+create {ANY} make
 
 feature {ANY} 
 	file: OUTPUT_STREAM 

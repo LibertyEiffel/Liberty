@@ -3,7 +3,7 @@ class NUMBER_GET_TEXT_DECLARATION
 inherit
    ABSTRACT_GET_TEXT_DECLARATION
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

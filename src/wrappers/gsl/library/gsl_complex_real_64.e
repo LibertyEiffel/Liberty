@@ -26,7 +26,7 @@ insert MATH_CONSTANTS
 			out
 		end
 	
-feature
+feature {ANY}
 	make_zero is
 			-- Create a complex number with value (0 + 0i)
 		do
@@ -46,7 +46,7 @@ feature
 			gsl_complex_rect(Current, a, b)
 		end
 
-feature -- value
+feature {ANY} -- value
    set_real(i: REAL_64) is
       do
          gsl_set_real(Current, i)
@@ -71,7 +71,7 @@ feature -- value
          Result := gsl_imag(Current)
       end
    
-feature -- Properties
+feature {ANY} -- Properties
 	arg: REAL_64 is
 			-- arg(`Current`)
 			-- gsl tells that: -pi < Result <= +pi
@@ -108,7 +108,7 @@ feature -- Properties
 		end
 
 	
-feature  -- Arithmetic operations
+feature {ANY}  -- Arithmetic operations
 
 	add (other: like Current) is
 			-- adds `other' to Current
@@ -134,7 +134,7 @@ feature  -- Arithmetic operations
          gsl_complex_add(Current, other, Result)
       end
 
-feature
+feature {ANY}
 	is_equal(other: like Current): BOOLEAN is
 		do
 			Result := real = other.real and imag = other.imag

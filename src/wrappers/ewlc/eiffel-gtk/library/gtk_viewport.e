@@ -27,7 +27,7 @@ inherit GTK_BIN
 
 insert GTK_ADJUSTMENT_EXTERNALS -- Needed by dummy_gobject
 	
-creation dummy, make, from_external_pointer
+create {ANY} dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (an_orizontal_adjustment, a_vertical_adjustment: GTK_ADJUSTMENT) is
@@ -171,7 +171,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkViewport)"

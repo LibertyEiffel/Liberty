@@ -29,7 +29,7 @@ class GTK_HSCROLLBAR
 inherit GTK_SCROLLBAR
 	-- GtkHScrollbar implements AtkImplementorIface.
 	
-creation make, with_adjustment, from_external_pointer
+create {ANY} make, with_adjustment, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -46,7 +46,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_hscrollbar_new (an_adjustment.handle))
 		end
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

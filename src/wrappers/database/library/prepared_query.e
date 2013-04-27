@@ -10,7 +10,7 @@ deferred class PREPARED_QUERY
 inherit
 	PREPARED_STATEMENT
 
-feature
+feature {ANY}
 	last_result: RESULT_SET[RESULT_ROW] is
 			-- The results of the current query
 		require

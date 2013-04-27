@@ -48,7 +48,7 @@ feature {ANY}
       end
 
 feature {AGENT_LAUNCHER}
-   specialize_2_check (type: TYPE) is
+   specialize_check (type: TYPE) is
       local
          i, count: INTEGER; expression: EXPRESSION; formal, actual: TYPE; open: ARRAY[TYPE]
       do
@@ -59,22 +59,22 @@ feature {AGENT_LAUNCHER}
             if open = Void then
                if count > 0 then
                   error_handler.add_position(fake_tuple.start_position)
-                  error_handler.append("To many actual arguments for agent call. %
+                  error_handler.append(once "To many actual arguments for agent call. %
                                        %(The agent you are trying to call has no arguments.)")
                   error_handler.print_as_fatal_error
                end
             elseif count /= open.count then
                error_handler.add_position(fake_tuple.start_position)
-               error_handler.append("Bad number of actual arguments for agent call. (The agent you %
+               error_handler.append(once "Bad number of actual arguments for agent call. (The agent you %
                                     %are trying to call has ")
                error_handler.append_integer(open.count)
-               error_handler.append(" argument")
+               error_handler.append(once " argument")
                if open.count /= 1 then
                   error_handler.extend('s')
                end
-               error_handler.append(". Its type is ")
+               error_handler.append(once ". Its type is ")
                error_handler.append(agent_type.name.to_string)
-               error_handler.append(".)")
+               error_handler.append(once ".)")
                sedb_breakpoint
                error_handler.print_as_fatal_error
             end
@@ -86,15 +86,15 @@ feature {AGENT_LAUNCHER}
             if expression.is_void then
                if formal.is_expanded then
                   error_handler.add_position(expression.start_position)
-                  error_handler.append("Incompatible actual argument for agent call. Cannot pass %
+                  error_handler.append(once "Incompatible actual argument for agent call. Cannot pass %
                                        %`Void' into formal argument of type ")
                   error_handler.append(formal.name.to_string)
-                  error_handler.append(" because ")
+                  error_handler.append(once " because ")
                   error_handler.append(formal.name.to_string)
-                  error_handler.append(" is expanded. (The whole type of the agent your are trying %
+                  error_handler.append(once " is expanded. (The whole type of the agent your are trying %
                                        %to launch is ")
                   error_handler.append(agent_type.name.to_string)
-                  error_handler.append(".)")
+                  error_handler.append(once ".)")
                   error_handler.print_as_fatal_error
                end
             else
@@ -103,15 +103,15 @@ feature {AGENT_LAUNCHER}
                   -- No problem of conformance.
                elseif not actual.can_be_assigned_to(formal) then
                   error_handler.add_position(expression.start_position)
-                  error_handler.append("Incompatible actual argument for agent call. Cannot pass ")
+                  error_handler.append(once "Incompatible actual argument for agent call. Cannot pass ")
                   error_handler.add_expression(expression)
-                  error_handler.append(" which is of type ")
+                  error_handler.append(once " which is of type ")
                   error_handler.append(actual.name.to_string)
-                  error_handler.append(" into formal argument of type ")
+                  error_handler.append(once " into formal argument of type ")
                   error_handler.append(formal.name.to_string)
-                  error_handler.append(". (The whole type of the agent your are trying to launch is ")
+                  error_handler.append(once ". (The whole type of the agent your are trying to launch is ")
                   error_handler.append(agent_type.name.to_string)
-                  error_handler.append(".)")
+                  error_handler.append(once ".)")
                   error_handler.print_as_fatal_error
                end
             end

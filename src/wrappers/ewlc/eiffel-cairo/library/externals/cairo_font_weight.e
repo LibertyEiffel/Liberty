@@ -25,7 +25,7 @@ deferred class CAIRO_FONT_WEIGHT
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_font_weight (a_weight: INTEGER): BOOLEAN is
 		do
 			Result := ((a_weight = cairo_font_weight_normal) or else

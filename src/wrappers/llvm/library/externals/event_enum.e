@@ -5,8 +5,8 @@ expanded class EVENT_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = copyfmt_event_low_level)  or else
@@ -14,7 +14,7 @@ feature -- Validity
 				(a_value = imbue_event_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_copyfmt_event is
 		do
@@ -31,7 +31,7 @@ feature -- Setters
 			value := imbue_event_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_copyfmt_event: BOOLEAN is
 		do
 			Result := (value=copyfmt_event_low_level)

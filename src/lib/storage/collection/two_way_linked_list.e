@@ -16,7 +16,7 @@ inherit
 insert
    LINKED_COLLECTION[E_]
 
-creation {ANY}
+create {ANY}
    make, from_collection, manifest_creation
 
 feature {TWO_WAY_LINKED_LIST, ITERATOR_ON_TWO_WAY_LINKED_LIST}

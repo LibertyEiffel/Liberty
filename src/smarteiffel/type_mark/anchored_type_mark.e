@@ -38,7 +38,7 @@ feature {}
             -- anchored definitions.
             then
             error_handler.add_position(visited.first)
-            error_handler.append("Unable to compute this anchored type mark (see next message).")
+            error_handler.append(once "Unable to compute this anchored type mark (see next message).")
             error_handler.print_as_warning
             from
                i := visited.lower

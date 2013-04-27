@@ -264,7 +264,7 @@ insert
 	GERROR_EXTERNALS
 	GERROR_STRUCT
 
-creation
+create {ANY}
 	make, empty, from_external_pointer
 
 feature {} -- Creation
@@ -284,7 +284,7 @@ feature {} -- Creation
 			-- handle
 		end
 	
-feature -- Access
+feature {ANY} -- Access
 	is_set: BOOLEAN is
 		-- Has Current been set? Usually it is set by a call to a C library
 	do
@@ -318,7 +318,7 @@ feature -- Access
 			end
 		end
 	
-feature -- Comparison
+feature {ANY} -- Comparison
 
 	matches (a_domain: G_QUARK; a_code: INTEGER): BOOLEAN is
 			-- Does Current G_ERROR matches 'a_domain' and 'a_code'?
@@ -327,7 +327,7 @@ feature -- Comparison
 			Result := g_error_matches (handle, a_domain.quark, a_code).to_boolean
 		end
 
-feature -- Disposing
+feature {ANY} -- Disposing
 
 	dispose is
 			-- Frees a G_ERROR and associated resources.

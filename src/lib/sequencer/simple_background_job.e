@@ -8,7 +8,7 @@ class SIMPLE_BACKGROUND_JOB
 inherit
    BACKGROUND_JOB
 
-creation {ANY}
+create {ANY}
    set_work
 
 feature {ANY}

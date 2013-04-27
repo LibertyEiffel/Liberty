@@ -8,7 +8,7 @@ inherit
       redefine resolve_in
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -123,9 +123,9 @@ feature {}
          end
          if error_flag then
             error_handler.add_position(ctn.start_position)
-            error_handler.append("The ")
+            error_handler.append(once "The ")
             error_handler.append(n)
-            error_handler.append(" type cannot be used here. Actually this is only a compiler %
+            error_handler.append(once " type cannot be used here. Actually this is only a compiler %
                                  %implementation facility.")
             error_handler.print_as_fatal_error
          end

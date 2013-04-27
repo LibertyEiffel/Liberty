@@ -40,7 +40,7 @@ feature {ANY}
          Result := Current
       end
 
-   frozen specialize_2 (type: TYPE): like Current is
+   frozen specialize_and_check (type: TYPE): like Current is
       do
          Result := Current
       end

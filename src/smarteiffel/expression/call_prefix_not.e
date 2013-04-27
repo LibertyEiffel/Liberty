@@ -9,7 +9,7 @@ class CALL_PREFIX_NOT
 inherit
    CALL_PREFIX
 
-creation {ANY}
+create {ANY}
    make, with
 
 feature {ANY}

@@ -52,7 +52,7 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 		
-feature -- size
+feature {ANY} -- size
  struct_size: INTEGER is
 		external "C inline use <gib.h>"
 		alias "sizeof(GCompletion)"

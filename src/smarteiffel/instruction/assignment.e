@@ -12,10 +12,10 @@ class ASSIGNMENT
 inherit
    INSTRUCTION
 
-creation
+create {ANY}
    make
 
-creation
+create {ANY}
    inline_make
 
 feature {ANY}
@@ -79,26 +79,26 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          l, r, rhs: EXPRESSION; lt, rt: TYPE; written_site: STRING
       do
-         l := left_side.specialize_2(type)
+         l := left_side.specialize_and_check(type)
          lt := l.resolve_in(type)
          if right_side.is_void then
             if lt.is_expanded then
                error_handler.add_position(right_side.start_position)
-               error_handler.append("Void cannot be assigned to an expanded entity.")
+               error_handler.append(once "Void cannot be assigned to an expanded entity.")
                if left_side.start_position.class_text /= type.class_text then
-                  error_handler.append(" Error detected while checking this code in the ")
+                  error_handler.append(once " Error detected while checking this code in the ")
                   error_handler.append(type.name.to_string)
-                  error_handler.append(" context.")
+                  error_handler.append(once " context.")
                end
-               error_handler.append(" Cannot assign Void into ")
+               error_handler.append(once " Cannot assign Void into ")
                error_handler.add_expression(left_side)
-               error_handler.append(" which is of type ")
+               error_handler.append(once " which is of type ")
                error_handler.append(lt.name.to_string)
-               error_handler.append(".")
+               error_handler.append(once ".")
                error_handler.print_as_fatal_error
             elseif l = left_side then
                Result := Current
@@ -106,7 +106,7 @@ feature {ANY}
                create Result.make(l, right_side)
             end
          else
-            r := right_side.specialize_2(type)
+            r := right_side.specialize_and_check(type)
             rt := r.resolve_in(type)
             -- Theoretically, validity checking should be done only once using the sole `declaration_type'.
             -- In practice, using the `declaration_type' needs more computation ... and this solution appears
@@ -220,19 +220,19 @@ feature {}
          error_handler.add_position(right_side.start_position)
          error_handler.add_position(left_side.start_position)
          if left_side.start_position.class_text /= context_type.class_text then
-            error_handler.append(" Error detected while checking this code in the ")
+            error_handler.append(once " Error detected while checking this code in the ")
             error_handler.append(context_type.name.to_string)
-            error_handler.append(" context.")
+            error_handler.append(once " context.")
          end
-         error_handler.append(" Cannot assign ")
+         error_handler.append(once " Cannot assign ")
          error_handler.add_expression(right_side)
-         error_handler.append(" which is of type ")
+         error_handler.append(once " which is of type ")
          error_handler.append(rt.name.to_string)
-         error_handler.append(" into ")
+         error_handler.append(once " into ")
          error_handler.add_expression(left_side)
-         error_handler.append(" which is of type ")
+         error_handler.append(once " which is of type ")
          error_handler.append(lt.name.to_string)
-         error_handler.append(".")
+         error_handler.append(once ".")
          error_handler.print_as_fatal_error
       end
 

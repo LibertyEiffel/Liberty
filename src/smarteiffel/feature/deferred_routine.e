@@ -28,7 +28,7 @@ feature {ANY}
          else
             error_handler.add_position(start_position)
          end
-         error_handler.append("Deferred feature must not have rescue compound.")
+         error_handler.append(once "Deferred feature must not have rescue compound.")
          error_handler.print_as_fatal_error
       end
 
@@ -54,7 +54,7 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          ra: like require_assertion; ea: like ensure_assertion
       do
@@ -62,10 +62,10 @@ feature {ANY}
             Result := Current
          else
             if require_assertion /= Void then
-               ra ::= require_assertion.specialize_2(type)
+               ra ::= require_assertion.specialize_and_check(type)
             end
             if ensure_assertion /= Void then
-               ea := ensure_assertion.specialize_2(type)
+               ea := ensure_assertion.specialize_and_check(type)
             end
             if ra = require_assertion and then ea = ensure_assertion then
                Result := Current
@@ -125,7 +125,7 @@ feature {}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       do
       end
-   
+
 end -- class DEFERRED_ROUTINE
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

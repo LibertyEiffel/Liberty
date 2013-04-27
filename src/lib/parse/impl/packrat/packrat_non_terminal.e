@@ -13,7 +13,7 @@ inherit
          copy, is_equal, out_in_tagged_out_memory
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

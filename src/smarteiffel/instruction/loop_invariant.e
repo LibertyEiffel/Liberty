@@ -12,7 +12,7 @@ inherit
          accept
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

@@ -26,7 +26,7 @@ inherit
 	ANY
 		undefine copy, is_equal end
 
-feature
+feature {ANY}
 
 	avcodec_alloc_frame: POINTER is
 		external "C use <avcodec.h>"

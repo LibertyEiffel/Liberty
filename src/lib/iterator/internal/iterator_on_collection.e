@@ -10,7 +10,7 @@ obsolete
 inherit
    ITERATOR_ON_TRAVERSABLE[E_]
 
-creation {ANY}
+create {ANY}
    make
 
 end -- class ITERATOR_ON_COLLECTION

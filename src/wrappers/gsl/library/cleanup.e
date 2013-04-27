@@ -2,9 +2,9 @@ class CLEANUP
 
 inherit DISPOSABLE
 
-create make
+create {ANY} make
 
-feature
+feature {ANY}
 	make(a_cleaner: PROCEDURE[TUPLE]) is
 		require
 			a_cleaner /= Void

@@ -10,7 +10,7 @@ insert
    COMMAND_LINE_TOOLS
    LOGGING
 
-creation {}
+create {}
    make
 
 feature {ANY}
@@ -40,13 +40,15 @@ feature {}
    main is
       local
          conductor: EIFFELTEST_CLIENT_CONDUCTOR
+         jobs: INTEGER
       do
          log.info.put_line(once "Starting eiffeltest for directory %"#(1)%"." # directory_path)
 
          if version_flag or else help_flag then
             -- We just finish here.
          else
-            create conductor.make(system_tools.config.jobs.to_real_32.sqrt.ceiling.force_to_integer_32, force_flag, directory_path)
+            jobs := (system_tools.config.jobs + 1).to_real_32.sqrt.floor.force_to_integer_32
+            create conductor.make(jobs, force_flag, directory_path)
             conductor.run
             if not conductor.success then
                die_with_code(exit_failure_code)
@@ -58,14 +60,17 @@ feature {}
       local
          log_conf: LOG_CONFIGURATION
          conf: STRING_INPUT_STREAM
+         bd: BASIC_DIRECTORY; conf_file_name: STRING
       do
          parse_arguments
-         create conf.from_string(once "[
+         bd.compute_file_path_with(bd.current_working_directory, "eiffeltest_ng.log")
+         conf_file_name := bd.last_entry.twin
+         create conf.from_string("[
          log configuration
          root #(1)
          output
             default is
-               file "eiffeltest_ng.log"
+               file "#(3)"
                rotated each day keeping 5
             end
          logger
@@ -74,7 +79,7 @@ feature {}
                level #(2)
             end
          end
-         ]" # generating_type # level)
+         ]" # generating_type # level # conf_file_name)
          log_conf.load(conf, Void, Void, agent main)
       end
 

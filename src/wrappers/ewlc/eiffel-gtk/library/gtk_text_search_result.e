@@ -30,7 +30,7 @@ insert
 			is_equal
 		end
 	
-creation default_create, copy
+create {ANY} default_create, copy
 
 feature {} -- Creation
 	default_create is
@@ -39,7 +39,7 @@ feature {} -- Creation
 			create match_end.make
 		end
 	
-feature
+feature {ANY}
 	set_found (a_setting: BOOLEAN) is
 		do
 			found:=a_setting
@@ -58,7 +58,7 @@ feature
 			create match_end.copy(another.match_end)
 		end
 
-feature
+feature {ANY}
 	found: BOOLEAN
 			-- Has this search been successful?
 	

@@ -3,7 +3,7 @@
 --
 class AUTOMATON[E_]
 
-creation {ANY}
+create {ANY}
    manifest_creation
 
 feature {ANY} -- Simple one-shot execution

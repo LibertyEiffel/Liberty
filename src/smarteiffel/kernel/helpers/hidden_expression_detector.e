@@ -14,7 +14,7 @@ insert
       end
    SINGLETON
 
-creation {ASSERTION_PRINT_TOOLS}
+create {ASSERTION_PRINT_TOOLS}
    make
 
 feature {}

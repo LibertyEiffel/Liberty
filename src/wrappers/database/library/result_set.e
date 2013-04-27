@@ -14,7 +14,7 @@ inherit
 			fill_tagged_out_memory
 		end
 
-feature 
+feature {ANY} 
 	columns: INTEGER
 			-- the number of columns of each result row
 

@@ -10,7 +10,7 @@ class CREATE_WRITABLE
 inherit
    EXPRESSION
 
-creation {CREATE_INSTRUCTION}
+create {CREATE_INSTRUCTION}
    make, make_specialized
 
 feature {CREATE_WRITABLE, CREATE_WRITABLE_VISITOR}
@@ -74,11 +74,11 @@ feature {ANY}
          Result := current_or_twin_init(w, tm)
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          w: like writable
       do
-         w := writable.specialize_2(type)
+         w := writable.specialize_and_check(type)
          if w = writable then
             Result := Current
          else
@@ -217,17 +217,17 @@ feature {CREATE_WRITABLE}
          if not type_mark_type.can_be_assigned_to(writable_type) then
             error_handler.add_position(writable.start_position)
             error_handler.add_position(type_mark.start_position)
-            error_handler.append("Cannot assign newly created ")
+            error_handler.append(once "Cannot assign newly created ")
             error_handler.append(type_mark_type.name.to_string)
-            error_handler.append(" into ")
+            error_handler.append(once " into ")
             error_handler.add_expression(writable)
-            error_handler.append(" which is of type ")
+            error_handler.append(once " which is of type ")
             error_handler.append(writable_type.name.to_string)
             if type.is_generic then
-               error_handler.append(" while building type ")
+               error_handler.append(once " while building type ")
                error_handler.append(type.name.to_string)
             end
-            error_handler.append(".")
+            error_handler.append(once ".")
             if not type_mark.is_static then
                error_handler.add_context_info(type.canonical_type_mark)
             end

@@ -3,7 +3,7 @@
 --
 class NCURSES_MENU_ITEM[E_]
 
-creation
+create {ANY}
    make
 
 feature {ANY}

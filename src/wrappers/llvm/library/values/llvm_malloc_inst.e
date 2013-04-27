@@ -3,7 +3,7 @@ class LLVM_MALLOC_INST
 
 inherit LLVM_ALLOCATION_INST
 
-creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
 end -- class LLVM_MALLOC_INST
 

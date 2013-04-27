@@ -17,7 +17,7 @@ insert
 	GLIB_MEMORY_ALLOCATION export {} all end
 	G_VALUE_EXTERNALS
 	
-creation
+create {ANY}
 	make, from_external_pointer, with_gtype,
 	make_boolean, make_integer, make_natural, make_real, make_real_64, make_real_32,
 	make_string, make_object, make_pointer,
@@ -539,7 +539,7 @@ feature {G_OBJECT} -- Type changing features
 			is_string: is_string
 		end
 
-feature
+feature {ANY}
 	struct_size: INTEGER is
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GValue)"

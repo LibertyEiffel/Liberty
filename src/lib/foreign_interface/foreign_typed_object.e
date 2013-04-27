@@ -6,7 +6,7 @@ class FOREIGN_TYPED_OBJECT[E_]
 inherit
    FOREIGN_OBJECT
 
-creation {FOREIGN_TYPES}
+create {FOREIGN_TYPES}
    make
 
 create {ANY}

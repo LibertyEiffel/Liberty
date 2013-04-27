@@ -48,9 +48,9 @@ class GTK_TEXT_MARK
 
 inherit G_OBJECT
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
-feature
+feature {ANY}
 
 	set_visible is
 			-- Makes the mark visible; the insertion point is normally
@@ -112,7 +112,7 @@ feature
 			Result:=(gtk_text_mark_get_left_gravity (handle).to_boolean)
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextMark)"

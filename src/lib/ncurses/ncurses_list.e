@@ -13,7 +13,7 @@ inherit
       end
    TRAVERSABLE[E_]
 
-creation{ANY}
+create{ANY}
    make
 
 feature {ANY}

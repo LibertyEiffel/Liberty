@@ -3,8 +3,8 @@
 expanded class G_NORMALIZE_MODE
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_normalize_default) or else 
@@ -18,7 +18,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_default_external is
 		do
 			value := g_normalize_default
@@ -60,7 +60,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_default_external: BOOLEAN is
 		do
 			Result := (value=g_normalize_default)

@@ -30,7 +30,7 @@ feature {ANY}
          else
             error_handler.add_position(start_position)
          end
-         error_handler.append("Attributes cannot have a rescue compound.")
+         error_handler.append(once "Attributes cannot have a rescue compound.")
          error_handler.print_as_fatal_error
       end
 
@@ -39,7 +39,7 @@ feature {ANY}
       end
 
 feature {FEATURE_STAMP, PRECURSOR_CALL}
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          ra: like require_assertion; ea: like ensure_assertion
       do
@@ -47,10 +47,10 @@ feature {FEATURE_STAMP, PRECURSOR_CALL}
             Result := Current
          else
             if require_assertion /= Void then
-               ra ::= require_assertion.specialize_2(type)
+               ra ::= require_assertion.specialize_and_check(type)
             end
             if ensure_assertion /= Void then
-               ea := ensure_assertion.specialize_2(type)
+               ea := ensure_assertion.specialize_and_check(type)
             end
             if ra = require_assertion and then ea = ensure_assertion then
                Result := Current
@@ -73,7 +73,7 @@ feature {}
       do
          error_handler.add_position(start_position)
          error_handler.add_position(fn.start_position)
-         error_handler.append("An attribute cannot be undefined.")
+         error_handler.append(once "An attribute cannot be undefined.")
          error_handler.print_as_error
          bc.fatal_undefine(fn)
       end

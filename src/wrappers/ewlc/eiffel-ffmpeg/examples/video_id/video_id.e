@@ -5,10 +5,10 @@ insert
 	AV_CODEC_TYPES
 	ARGUMENTS
 
-creation
+create {ANY}
 	make
 
-feature
+feature {ANY}
 
 	make is
 		local

@@ -3,7 +3,7 @@ class LLVM_FREE_INST
 
 inherit LLVM_UNARY_INST
 
-creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
 end -- class LLVM_FREE_INST
 

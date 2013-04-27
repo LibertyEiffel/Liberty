@@ -5,11 +5,20 @@ expanded class TYPE_ID_ENUM
 
 insert ENUM
 
+<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = array_ty_id_low_level)  or else
+=======
+create {ANY} default_create
+feature {ANY} -- Validity
+	is_valid_value (a_value: INTEGER): BOOLEAN is
+		do
+			Result := ((a_value = void_ty_id_low_level)  or else
+				(a_value = float_ty_id_low_level)  or else
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 				(a_value = double_ty_id_low_level)  or else
 				(a_value = first_derived_ty_id_low_level)  or else
 				(a_value = float_ty_id_low_level)  or else
@@ -30,7 +39,7 @@ feature -- Validity
 				(a_value = x86_mmxty_id_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_array_ty_id is
 		do
@@ -127,8 +136,13 @@ feature -- Setters
 			value := x86_mmxty_id_low_level
 		end
 
+<<<<<<< HEAD
 feature -- Queries
 	is_array_ty_id: BOOLEAN is
+=======
+feature {ANY} -- Queries
+	void_ty_id: BOOLEAN is
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=array_ty_id_low_level)
 		end

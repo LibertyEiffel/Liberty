@@ -45,7 +45,7 @@ insert
       redefine is_equal, copy, out_in_tagged_out_memory, fill_tagged_out_memory
       end
 
-creation {ANY}
+create {ANY}
    make, copy, make_empty, make_filled, from_utf8
 
 feature {UNICODE_STRING, UNICODE_STRING_HANDLER}

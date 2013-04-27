@@ -3,8 +3,8 @@
 expanded class GDA_CLIENT_EVENT
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_client_event_invalid) or else 
@@ -17,7 +17,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_invalid is
 		do
 			value := gda_client_event_invalid
@@ -54,7 +54,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_invalid: BOOLEAN is
 		do
 			Result := (value=gda_client_event_invalid)

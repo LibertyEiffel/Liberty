@@ -11,7 +11,7 @@ inherit
 insert
    GLOBALS
 
-creation {CLASS_TEXT}
+create {CLASS_TEXT}
    make
 
 feature {ANY}

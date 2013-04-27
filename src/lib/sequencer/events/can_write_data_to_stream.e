@@ -9,7 +9,7 @@ class CAN_WRITE_DATA_TO_STREAM
 inherit
    EVENT_DESCRIPTOR
 
-creation {OUTPUT_STREAM}
+create {OUTPUT_STREAM}
    make
 
 feature {EVENTS_SET}

@@ -178,8 +178,8 @@ class TEXT_DEMO
 inherit
 	GTK
 	ANY
-creation make
-feature
+create {ANY} make
+feature {ANY}
 	make is
 		do
 			gtk.initialize -- instead of "initialize_gtk"

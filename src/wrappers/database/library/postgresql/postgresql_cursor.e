@@ -12,7 +12,7 @@ class POSTGRESQL_CURSOR
 inherit
 	C_STRUCT
 
-feature 
+feature {ANY} 
 	rowcount: INTEGER is
 		do
 		end

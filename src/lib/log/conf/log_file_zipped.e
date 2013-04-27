@@ -6,7 +6,7 @@ class LOG_FILE_ZIPPED
 inherit
    LOG_FILE_OPTION
 
-creation {LOG_FILE_OPTIONS}
+create {LOG_FILE_OPTIONS}
    make
 
 feature {LOG_FILE_OPTIONS, LOG_FILE_OPTION}

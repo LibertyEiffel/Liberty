@@ -64,9 +64,9 @@ inherit
 	
 insert GTK_SHADOW_TYPE
 	
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 	
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkStatusBar)"
@@ -80,7 +80,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_statusbar_new)
 		end
 
-feature -- Context ids
+feature {ANY} -- Context ids
 
 	new_context_id (description: STRING) is
 		require
@@ -91,7 +91,7 @@ feature -- Context ids
 
 	last_context_id: INTEGER
 
-feature -- Stack like behaviour
+feature {ANY} -- Stack like behaviour
 
 	push (context_id: INTEGER; a_message: STRING) is
 			-- Pushes `a_message' onto a statusbar's stack.
@@ -138,16 +138,16 @@ feature -- Style Properties
 			-- Style of bevel around the statusbar text. Note: in C it is a
 			-- GtkShadowType.  Default value: `gtk_shadow_in'.
 		do
-			print_shadow_type_notice
-			invoke_get_property (shadow_type_property_spec.owner_class, handle,
-										shadow_type_property_spec.param_id,
-										shadow_type_gvalue.handle,
-										shadow_type_property_spec.handle)
-			Result := shadow_type_gvalue.integer
+			not_yet_implemented
+			-- invoke_get_property (shadow_type_property_spec.owner_class, handle,
+			-- 							shadow_type_property_spec.param_id,
+			-- 							shadow_type_gvalue.handle,
+			-- 							shadow_type_property_spec.handle)
+			-- Result := shadow_type_gvalue.integer
 		ensure is_valid_gtk_shadow_type (Result)
 		end
 
-feature -- TODO: Signals
+feature {ANY} -- TODO: Signals
 
 	-- "text-popped" void user_function (GtkStatusbar *statusbar, guint
 	-- context_id, gchar *text, gpointer user_data) : Run last

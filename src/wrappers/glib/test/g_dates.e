@@ -2,7 +2,7 @@ class G_DATES
 inherit 
 	G_LIST[G_DATE]
    
-creation make, copy
+create {ANY} make, copy
 
 feature {WRAPPER,WRAPPER_HANDLER} -- Implementation
 	wrapper (a_pointer: POINTER): G_DATE is

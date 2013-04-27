@@ -9,7 +9,7 @@ inherit
          out_in_tagged_out_memory
       end
 
-creation {ANY}
+create {ANY}
    set_item
 
 feature {ANY}

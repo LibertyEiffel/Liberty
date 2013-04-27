@@ -3,8 +3,8 @@
 expanded class G_ONCE_STATUS
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = g_once_status_notcalled) or else 
@@ -13,7 +13,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_g_once_status_notcalled is
 		do
 			value := g_once_status_notcalled
@@ -30,7 +30,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_once_status_notcalled: BOOLEAN is
 		do
 			Result := (value=g_once_status_notcalled)

@@ -9,7 +9,7 @@ inherit
       redefine out_in_tagged_out_memory, is_equal
       end
 
-creation
+create {ANY}
    default_create
 
 feature {ANY}
@@ -39,7 +39,7 @@ inherit
       redefine count, out_in_tagged_out_memory, is_equal
       end
 
-creation
+create {ANY}
    make_1, default_create
 
 feature {ANY}
@@ -99,7 +99,7 @@ inherit
       redefine count, out_in_tagged_out_memory, is_equal
       end
 
-creation
+create {ANY}
    make_2, default_create
 
 feature {ANY}
@@ -171,7 +171,7 @@ inherit
       redefine count, out_in_tagged_out_memory, is_equal
       end
 
-creation
+create {ANY}
    make_3, default_create
 
 feature {ANY}
@@ -253,7 +253,7 @@ inherit
       redefine count, out_in_tagged_out_memory, is_equal
       end
 
-creation
+create {ANY}
    make_4, default_create
 
 feature {ANY}
@@ -347,7 +347,7 @@ inherit
       redefine count, out_in_tagged_out_memory, is_equal
       end
 
-creation
+create {ANY}
    make_5, default_create
 
 feature {ANY}
@@ -451,7 +451,7 @@ inherit
       redefine count, out_in_tagged_out_memory, is_equal
       end
 
-creation
+create {ANY}
    make_6, default_create
 
 feature {ANY}
@@ -561,7 +561,7 @@ inherit
       redefine count, out_in_tagged_out_memory, is_equal
       end
 
-creation
+create {ANY}
    make_7, default_create
 
 feature {ANY}
@@ -683,7 +683,7 @@ inherit
       redefine count, out_in_tagged_out_memory, is_equal
       end
 
-creation
+create {ANY}
    make_8, default_create
 
 feature {ANY}
@@ -816,7 +816,7 @@ inherit
       redefine count, out_in_tagged_out_memory
       end
 
-creation
+create {ANY}
    make_9, default_create
 
 feature {ANY}
@@ -965,7 +965,7 @@ inherit
       redefine count, out_in_tagged_out_memory, is_equal
       end
 
-creation
+create {ANY}
    make_10, default_create
 
 feature {ANY}

@@ -18,7 +18,7 @@ inherit
 insert
    EIFFELDOC_GLOBALS
 
-creation {}
+create {}
    make
 
 feature {ANY}
@@ -42,7 +42,7 @@ feature {ANY}
                         ]")
          Result.append("          ")
          Result.append(command_line_name)
-         Result.append(" -prune 'lib/vision'%N")
+         Result.append(" -prune 'lib/xml'%N")
          Result.append("[
 
                          -remote replace the generation of that class by the address of the class
@@ -55,7 +55,7 @@ feature {ANY}
                         ]")
          Result.append("          ")
          Result.append(command_line_name)
-         Result.append(" -remote 'lib' 'http://smarteiffel.loria.fr/libraries/'%N")
+         Result.append(" -remote 'lib' 'http://doc.liberty-eiffel.org/libraries/'%N")
          Result.append("[
 
                         The loadpath.se or the ACE file is not compulsory. When not set, the
@@ -89,10 +89,10 @@ feature {}
 
          bootstrap
          options.set_default_arguments
-         get_started
-         write_clusters
          options.generate_stylesheets
          options.generate_jsfile
+         get_started
+         write_clusters
       end
 
    get_started is
@@ -137,6 +137,7 @@ feature {}
             if flag_match(once "prune", argument(i)) then
                -- prune this cluster
                if i + 1 > argument_count then
+                  std_error.put_line(once "**** Missing prune argument")
                   std_error.put_string(usage)
                   die_with_code(1)
                end
@@ -144,6 +145,7 @@ feature {}
                i := i + 2
             elseif flag_match(once "remote", argument(i)) then
                if i + 2 > argument_count then
+                  std_error.put_line(once "**** Missing remote argument")
                   std_error.put_string(usage)
                   die_with_code(1)
                end
@@ -178,6 +180,8 @@ feature {}
                   if i = argument_count and then set_loadpath(argument(i)) then
                      i := i + 1
                   else
+                     std_error.put_string(once "**** Invalid extra argument: ")
+                     std_error.put_line(argument(i))
                      std_error.put_string(usage)
                      die_with_code(1)
                   end
@@ -315,13 +319,8 @@ feature {} -- General HTML files
 
          -- make tabs
          options.open_tabs(html)
-         if options.home_address /= Void then
-            options.add_tab(html, home_link_name, options.home_address)
-         end
-         if options.wiki_prefix /= Void then
-            options.add_tab(html, wiki_link_name, options.wiki_prefix)
-         end
-         options.add_tab(html, classes_and_clusters_list_link_name, Void)
+         options.add_menu_tabs(html)
+         options.add_tab(html, classes_and_clusters_list_link_name, Void, options.ariadne_separator)
          options.close_tabs(html)
 
          -- open general block
@@ -339,12 +338,48 @@ feature {} -- General HTML files
       ensure
          html.in_a_body
       end
-   
+
    close_root_block (html: EIFFELDOC_OUTPUT_STREAM) is
       require
          html /= Void and then html.in_a_body
       do
          html.close_div
+      end
+
+   display_name (tag, cluster: STRING): STRING is
+      require
+         cluster /= Void
+      local
+         i, j: INTEGER
+      do
+         Result := once ""
+         Result.copy(tag)
+         from
+            i := cluster.first_index_of(':')
+            if cluster.valid_index(i) then
+               i := i + 1
+            else
+               i := cluster.lower
+            end
+         until
+            i > cluster.upper
+         loop
+            from
+               j := cluster.substring_index(once "loadpath.se:", i)
+               if not cluster.valid_index(j) then
+                  j := cluster.upper + 1
+               end
+            invariant
+               i <= cluster.upper
+               i <= j
+            until
+               i = j
+            loop
+               Result.extend(cluster.item(i))
+               i := i + 1
+            end
+            i := i + 12 -- "loadpath.se".count
+         end
       end
 
    write_clusters is
@@ -371,7 +406,7 @@ feature {} -- General HTML files
                cluster := clusters.item(i)
                html_parser := cluster_html.reference_at(cluster)
 
-               open_block(html, css_cluster, cluster, cluster)
+               open_block(html, css_cluster, display_name(once "Cluster ", cluster), cluster)
                open_expand_block(html, css_cluster, cluster, False)
 
                if html_parser /= Void then
@@ -395,7 +430,7 @@ feature {} -- General HTML files
             end
          end
 
-         close_root_block (html)
+         close_root_block(html)
          html.close
          html.disconnect
       end
@@ -417,7 +452,7 @@ feature {} -- General HTML files
             current_cluster := clusters.item(Result)
             html_parser := cluster_html.reference_at(current_cluster)
 
-            open_block(html, css_sub_cluster, current_cluster, current_cluster)
+            open_block(html, css_sub_cluster, display_name(once "Subcluster ", current_cluster), current_cluster)
             open_expand_block(html, css_sub_cluster, current_cluster, False)
 
             if html_parser /= Void then

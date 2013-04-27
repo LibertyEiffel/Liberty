@@ -14,7 +14,7 @@ deferred class PREPARED_COMMAND
 inherit
 	PREPARED_STATEMENT
 
-feature
+feature {ANY}
 	last_affected_rows: INTEGER is
 		-- require success: last_exec_success
 		deferred

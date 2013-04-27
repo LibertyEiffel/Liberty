@@ -2,10 +2,10 @@ class LLVM_LABEL_TYPE
 
 inherit LLVM_TYPE
 
-creation {ANY} make, in_context
-creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+create {ANY} make, in_context
+create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
-feature -- Creation 
+feature {ANY} -- Creation 
 	make is
 		do
 			handle:=llvmlabel_type

@@ -95,7 +95,7 @@ feature {} -- Structure getter/setter calls
 		external "C struct GtkBindingSet set parsed use <gtk/gtk.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkBindingSet)"

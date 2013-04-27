@@ -67,9 +67,9 @@ inherit
 
 insert GDATE_STRUCT	
 
-creation make_dmy, from_tuple, make
+create {ANY} make_dmy, from_tuple, make
    
-creation {WRAPPER} from_external_pointer
+create {WRAPPER} from_external_pointer
    
 feature {} -- Creation
 	make is
@@ -108,7 +108,7 @@ feature {} -- Creation
 			from_external_pointer(g_date_new_julian (a_julian_day))
 		end
 
-feature
+feature {ANY}
 	clear is
 			-- Initializes Current to a sane but invalid state. The
 			-- cleared dates will not represent an existing date, but
@@ -117,7 +117,7 @@ feature
 			g_date_clear (handle,1)
 		end
 
-feature -- Setters 
+feature {ANY} -- Setters 
 	set_day (a_day: INTEGER_8) is
 			-- Sets the day of the month for a GDate. If the resulting
 			-- day-month-year triplet is invalid, the date will be
@@ -191,7 +191,7 @@ feature -- Setters
 			g_date_set_parse (handle, a_string.to_external)
 		end
 
-feature -- Getters
+feature {ANY} -- Getters
 	day: INTEGER is
 			-- the day of the month. The date must be valid.
 		require valid: is_valid
@@ -259,7 +259,7 @@ feature -- Getters
 
 -- -------------------------------------------------------------------
 
-feature -- Date arithmetics
+feature {ANY} -- Date arithmetics
 	infix "+", add_days (some_days: INTEGER) is
 			-- Increments a date some number of days. To move forward by
 			-- weeks, add weeks*7 days. The date must be valid.
@@ -390,7 +390,7 @@ feature -- Date arithmetics
 			g_date_order (handle, another.handle)
 		end
 	
-feature -- Queries
+feature {ANY} -- Queries
 	is_first_of_month: BOOLEAN is
 			-- Is the date on the first of a month?
 		require valid: is_valid
@@ -869,7 +869,7 @@ feature {} --  enum GDateDMY
 		alias "G_DATE_YEAR"
 		end
 
-feature -- GDateDay a guint8
+feature {ANY} -- GDateDay a guint8
 	-- Integer representing a day of the month; between 1 and 31.
 	is_valid_gdate_day (a_day: INTEGER): BOOLEAN is
 		do

@@ -3,8 +3,8 @@
 expanded class SQL_LOGIC_OPERATOR
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = sql_and) or else 
@@ -12,7 +12,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_sql_and is
 		do
 			value := sql_and
@@ -24,7 +24,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_sql_and: BOOLEAN is
 		do
 			Result := (value=sql_and)

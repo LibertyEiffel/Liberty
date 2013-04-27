@@ -4,51 +4,53 @@
 
 class ITERATOR_OVER_FUNCTION_PARAMETERS
 
-inherit 
-	BIDIRECTIONAL_ITERATOR[LLVM_VALUE]
-	WRAPPER_HANDLER
-	LLVM_VALUE_WRAPPER_FACTORY
+inherit
+   BIDIRECTIONAL_ITERATOR[LLVM_VALUE]
+   WRAPPER_HANDLER
+   LLVM_VALUE_WRAPPER_FACTORY
 
 insert CORE_EXTERNALS
-creation {LLVM_FUNCTION} from_function
+create {LLVM_FUNCTION} from_function
 
 feature {LLVM_FUNCTION}
-	from_function (a_function: LLVM_FUNCTION) is
-		require a_function/=Void
-		do
-			function:=a_function
-		end
+   from_function (a_function: LLVM_FUNCTION) is
+      require a_function/=Void
+      do
+         function:=a_function
+      end
 
-	function: LLVM_FUNCTION
+   function: LLVM_FUNCTION
 feature {ANY}
-	is_off: BOOLEAN is
-		do
-			Result:=(item=Void)
-		end
+   is_off: BOOLEAN is
+      do
+         Result:=(item=Void)
+      end
 
-	start is
-		do
-			item:=value_wrapper_or_void(llvmget_first_param(function.handle))
-		end	
+   start is
+      do
+         item:=value_wrapper_or_void(llvmget_first_param(function.handle))
+      end
 
-	finish is
-		do
-			item:=value_wrapper_or_void(llvmget_last_param(function.handle))
-		end	
+   finish is
+      do
+         item:=value_wrapper_or_void(llvmget_last_param(function.handle))
+      end
 
-	next is
-		do
-			item:=value_wrapper_or_void(llvmget_next_param(item.handle))
-		end	
+   next is
+      do
+         item:=value_wrapper_or_void(llvmget_next_param(item.handle))
+      end
 
-	previous is
-		do
-			item:=value_wrapper_or_void(llvmget_previous_param(item.handle))
-		end	
+   previous is
+      do
+         item:=value_wrapper_or_void(llvmget_previous_param(item.handle))
+      end
 
-	item: LLVM_VALUE is attribute end 
+   item: LLVM_VALUE is attribute end
 
-	-- This feature is unnecessary when inheriting from LLVM_VALUE_FACTORY: wrapper (p: POINTER): LLVM_VALUE is do create Result.from_external_pointer(p) end
+         -- This feature is unnecessary when inheriting from LLVM_VALUE_FACTORY: wrapper (p: POINTER): LLVM_VALUE is do create Result.from_external_pointer(p) end
+
+   generation, iterable_generation: INTEGER is 0
 
 invariant function/=Void
 end -- class ITERATOR_OVER_FUNCTION_PARAMETERS
@@ -86,4 +88,3 @@ end -- class ITERATOR_OVER_FUNCTION_PARAMETERS
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-

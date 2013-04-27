@@ -1,7 +1,7 @@
 class ENTRIES_DEMO
 insert GTK
-creation make
-feature
+create {ANY} make
+feature {ANY}
 	make is
 		do
 			gtk.initialize

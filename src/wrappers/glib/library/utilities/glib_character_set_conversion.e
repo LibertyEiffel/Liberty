@@ -22,7 +22,7 @@ indexing
 
 deferred class GLIB_CHARACTER_SET_CONVERSION
 
-feature
+feature {ANY}
 
 	gconvert (a_string, to_codeset, from_codeset: STRING): STRING is
 			--    Converts a string from one character set to another.

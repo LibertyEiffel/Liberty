@@ -225,7 +225,7 @@ feature {ANY}
          else
             always_run
          end
-         assert(assert_counter.value = 34)
+         assert(assert_counter.item = 34)
          -- Extra test for inspect statements on CHARACTERs:
          inspect
             'b'
@@ -277,7 +277,7 @@ feature {ANY}
          when 'g' then
             c_inline_c("NoCcodeGenerated55")
          end
-         assert(assert_counter.value = 41)
+         assert(assert_counter.item = 41)
          -- Extra test for inspect statements on INTEGERs:
          inspect
             2
@@ -329,8 +329,8 @@ feature {ANY}
          when 7 then
             c_inline_c("NoCcodeGenerated65")
          end
-         assert(assert_counter.value = 48)
-         assert(assert_counter.value = 49)
+         assert(assert_counter.item = 48)
+         assert(assert_counter.item = 49)
          if {RING_ARRAY[STRING] 1, << "foo" >> } /= Void then
             always_run
          else
@@ -341,7 +341,7 @@ feature {ANY}
          else
             c_inline_c("NoCcodeGenerated67")
          end
-         
+
       end
 
    is_void: ANY is

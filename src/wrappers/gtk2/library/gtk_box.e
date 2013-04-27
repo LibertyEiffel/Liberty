@@ -69,7 +69,7 @@ feature {} -- Hack to avoid warnings
 	--	check this_should_not_be_called: False end
 	-- end
 
-feature
+feature {ANY}
 
 	pack_start (a_widget: GTK_WIDGET; expand,fill: BOOLEAN; a_padding: INTEGER) is
 			-- Add `a_widget' to box, packed with reference to the start

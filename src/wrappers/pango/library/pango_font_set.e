@@ -29,7 +29,7 @@ deferred class PANGO_FONT_SET
 
 inherit G_OBJECT
 
-feature 
+feature {ANY} 
 	
 -- PangoFontsetClass
 
@@ -137,7 +137,7 @@ feature {} -- External calls
 		external "C use <pango.h>"
 		end
 	
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <pango.h>"
 		alias "sizeof(PangoFontSet)"

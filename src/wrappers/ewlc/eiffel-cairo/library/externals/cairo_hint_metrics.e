@@ -33,7 +33,7 @@ deferred class CAIRO_HINT_METRICS
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_hint_metrics (a_metrics: INTEGER): BOOLEAN is
 		do
 			Result := ((a_metrics = cairo_hint_metrics_default) or else

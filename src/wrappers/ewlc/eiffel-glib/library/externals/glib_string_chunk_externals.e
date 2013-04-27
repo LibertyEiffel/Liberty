@@ -41,7 +41,7 @@ feature  {} -- External calls
 		external "C use <glib.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"
 		alias "sizeof(GStringChunk)"

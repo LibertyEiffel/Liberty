@@ -35,7 +35,7 @@ insert
 	MMAP_PROTECTION
 	ERRNO
 
-creation default_create, make
+create {ANY} default_create, make
 
 feature	{} -- Creation
 	defualt_create is

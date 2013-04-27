@@ -1,8 +1,8 @@
 class POSTGRESQL_EXAMPLE
 
-creation  make
+create {ANY}  make
 
-feature 
+feature {ANY} 
 	make is
 		do
 			create database.connect ("dbname=test")

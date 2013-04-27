@@ -3,7 +3,7 @@ class LLVM_RETURN_INST
 	-- continue in this function any longer.
 
 inherit LLVM_TERMINATOR_INST
-creation {LLVM_BUILDER} from_external_pointer
+create {LLVM_BUILDER} from_external_pointer
 
 end -- class LLVM_RETURN_INST
 

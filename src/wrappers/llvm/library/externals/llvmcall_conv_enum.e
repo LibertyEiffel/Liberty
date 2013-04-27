@@ -5,6 +5,7 @@ expanded class LLVMCALL_CONV_ENUM
 
 insert ENUM
 
+<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -14,9 +15,20 @@ feature -- Validity
 				(a_value = llvmfast_call_conv_low_level)  or else
 				(a_value = llvmx86fastcall_call_conv_low_level)  or else
 				(a_value = llvmx86stdcall_call_conv_low_level) )
+=======
+create {ANY} default_create
+feature {ANY} -- Validity
+	is_valid_value (a_value: INTEGER): BOOLEAN is
+		do
+			Result := ((a_value = ccall_conv_low_level)  or else
+				(a_value = fast_call_conv_low_level)  or else
+				(a_value = cold_call_conv_low_level)  or else
+				(a_value = x86stdcall_call_conv_low_level)  or else
+				(a_value = x86fastcall_call_conv_low_level) )
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_llvmccall_conv is
 		do
@@ -43,8 +55,13 @@ feature -- Setters
 			value := llvmx86stdcall_call_conv_low_level
 		end
 
+<<<<<<< HEAD
 feature -- Queries
 	is_llvmccall_conv: BOOLEAN is
+=======
+feature {ANY} -- Queries
+	ccall_conv: BOOLEAN is
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=llvmccall_conv_low_level)
 		end

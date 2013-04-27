@@ -22,7 +22,7 @@ feature {ANY}
    dispose is
       do
          disposed := True
-         dispose_count.increment
+         dispose_count.next
       end
 
    disposed: BOOLEAN

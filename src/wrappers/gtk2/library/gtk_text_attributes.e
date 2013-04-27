@@ -22,19 +22,19 @@ class GTK_TEXT_ATTRIBUTES
 	
 inherit G_STRUCT
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 	-- TODO: wrap this structure for real
 
 feature {} -- Creation
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextAttributes)"
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	font: PANGO_FONT_DESCRIPTION is
 		do

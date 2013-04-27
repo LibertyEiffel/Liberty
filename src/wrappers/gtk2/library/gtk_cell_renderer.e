@@ -59,7 +59,7 @@ inherit
 insert
 	GTK_CELL_RENDERER_EXTERNALS
 
-feature
+feature {ANY}
 
 	size (a_widget: GTK_WIDGET): TUPLE[INTEGER,INTEGER,INTEGER,INTEGER,GDK_RECTANGLE] is
 			-- The x and y offset width and height needed to render the
@@ -188,7 +188,7 @@ feature
 			gtk_cell_renderer_set_fixed_size (handle, a_width, an_height)
 		end
 
-feature -- Property Details
+feature {ANY} -- Property Details
 	-- The "cell-background" property
 
 	--   "cell-background"      gchararray            : Write
@@ -294,7 +294,7 @@ feature -- Property Details
 
 	-- Default value: 0
 
-feature -- "editing-canceled"
+feature {ANY} -- "editing-canceled"
 
 	editing_canceled_signal_name: STRING is "editing-canceled"
 		-- "editing-canceled"
@@ -326,7 +326,7 @@ feature -- "editing-canceled"
 			editing_canceled_callback.connect (Current, a_procedure)
 		end
 
-feature -- "editing-started"
+feature {ANY} -- "editing-started"
 
 	editing_started_signal_name: STRING is "editing-started"
 		-- "editing-started"

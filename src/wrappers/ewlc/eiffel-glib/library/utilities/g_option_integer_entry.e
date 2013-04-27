@@ -27,9 +27,9 @@ inherit
 
 	-- REFERENCE[INTEGER]
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING) is
 		do
 			Precursor (a_long_name,a_short_name, a_description)
@@ -37,7 +37,7 @@ feature
 			set_arg_data(handle, $item) 
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	-- GOptionArg arg; The type of the option, as a GOptionArg.
    
 	--gpointer arg_data; If the arg type is G_OPTION_ARG_CALLBACK, then

@@ -31,7 +31,7 @@ class GTK_GRAPHICS_CONTEXT
 
 inherit C_STRUCT
 	
-creation from_external_pointer
+create {ANY} from_external_pointer
 
 feature {} -- Creation
 	-- TODO: implement creation
@@ -55,7 +55,7 @@ feature {} -- Creation
 	--                 been set.
 	--   Returns :     a GdkGC.
 
-feature 
+feature {ANY} 
 	dispose is
 			--   Releases a GdkGC.
 		do
@@ -74,7 +74,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkGC)"

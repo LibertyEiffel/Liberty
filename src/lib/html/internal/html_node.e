@@ -8,7 +8,7 @@ inherit
 insert
    HTML_HANDLER
 
-creation {HTML_PARSER}
+create {HTML_PARSER}
    make
 
 feature {ANY}

@@ -541,11 +541,6 @@ feature {ARGUMENT_NAME2}
       do
       end
 
-feature {INTERNAL_LOCAL}
-   visit_internal_local (visited: INTERNAL_LOCAL) is
-      do
-      end
-
 feature {INTERNAL_LOCAL2}
    visit_internal_local2 (visited: INTERNAL_LOCAL2) is
       do
@@ -1519,6 +1514,11 @@ feature {INTEGER_CONSTANT}
       do
       end
 
+feature {NATURAL_CONSTANT}
+   visit_natural_constant (visited: NATURAL_CONSTANT) is
+      do
+      end
+
 feature {FEATURE_NAME_LIST}
    visit_feature_name_list (visited: FEATURE_NAME_LIST) is
       local
@@ -2417,6 +2417,26 @@ feature {}
       end
 
    exit_assignment (visited: ASSIGNMENT) is
+      do
+      end
+
+feature {ASSIGNMENT_CALL_ASSIGNER}
+   visit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER) is
+      do
+         if enter_assignment_call_assigner(visited) then
+            visited.left_side.accept(Current)
+            visited.right_side.accept(Current)
+            exit_assignment_call_assigner(visited)
+         end
+      end
+
+feature {}
+   enter_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER): BOOLEAN is
+      do
+         Result := True
+      end
+
+   exit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER) is
       do
       end
 

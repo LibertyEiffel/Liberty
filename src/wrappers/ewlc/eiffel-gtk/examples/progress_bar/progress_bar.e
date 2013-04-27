@@ -3,10 +3,10 @@ class PROGRESS_BAR
 inherit 
 	GTK
 
-creation 
+create {ANY} 
 	make
 
-feature
+feature {ANY}
 	
 	bar: GTK_PROGRESS_BAR
 

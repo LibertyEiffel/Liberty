@@ -23,7 +23,7 @@ deferred class GTK_PRINT_ERROR
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {ANY}  -- enum
 	is_valid_gtk_print_error (an_error :INTEGER): BOOLEAN is
 		do	
 			Result:=((an_error = gtk_print_error_general) or else

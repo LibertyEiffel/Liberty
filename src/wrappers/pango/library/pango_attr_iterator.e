@@ -42,7 +42,7 @@ inherit
 			copy
 		end
 
-creation from_attribute_list, copy, from_external_pointer
+create {ANY} from_attribute_list, copy, from_external_pointer
 
 feature {} --
 	from_attribute_list (an_attribute_list: PANGO_ATTR_LIST) is
@@ -54,7 +54,7 @@ feature {} --
 		ensure attribute_list_freezed: an_attribute_list.is_freezed
 		end
 	
-feature 
+feature {ANY} 
 	copy (another: like Current) is
 			--    Copy a PangoAttrIterator
 		do
@@ -162,7 +162,7 @@ feature
 			end
 		end
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

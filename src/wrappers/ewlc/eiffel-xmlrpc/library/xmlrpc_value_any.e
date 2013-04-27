@@ -32,7 +32,7 @@ inherit
 insert
 	XMLRPC_VALUE_EXTERNALS
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <xmlrpc-c/base.h>"
@@ -63,7 +63,7 @@ feature {} -- Representation
 		-- we shouldn't release the XMLRPC_VALUE until all XMLRPC_VALUE_*s are
 		-- disposed.
 
-feature -- Representation
+feature {ANY} -- Representation
 
 	is_valid: BOOLEAN is
 		require

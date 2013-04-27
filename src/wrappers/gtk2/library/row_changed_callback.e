@@ -30,12 +30,12 @@ inherit
 insert
 	G_OBJECT_FACTORY [GTK_TREE_MODEL]
 
-creation make
+create {ANY} make
 
-feature
+feature {ANY}
 	object: GTK_TREE_MODEL
 
-feature
+feature {ANY}
 
 	callback (path_ptr, iter_ptr, instance: POINTER) is
 		local

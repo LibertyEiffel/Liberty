@@ -6,7 +6,7 @@ indexing
 	revision: "$Revision$"
 
 deferred class DATABASE
-feature
+feature {ANY}
 	connect (a_connection_string: STRING) is
 			-- Connect to a database as specified by
 			-- `a_connection_string'; its syntax is implementation

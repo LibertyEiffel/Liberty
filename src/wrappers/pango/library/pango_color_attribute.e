@@ -27,9 +27,9 @@ inherit
 			struct_size
 		end
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
-feature -- Getters
+feature {ANY} -- Getters
 	red: INTEGER_32 is
 		do
 			Result := color_get_red(handle)
@@ -42,9 +42,9 @@ feature -- Getters
 		do
 			Result := color_get_blue(handle)
 		end
-feature -- Setters
+feature {ANY} -- Setters
 
-feature -- size
+feature {ANY} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

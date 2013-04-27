@@ -33,7 +33,7 @@ inherit
 	GTK_RANGE
 	GTKSCALE_EXTERNALS
 
-feature -- digits
+feature {ANY} -- digits
 	digits: INTEGER is
 			-- the number of decimal places that are displayed in the value.
 		do
@@ -51,7 +51,7 @@ feature -- digits
 			gtk_scale_set_digits (handle, some_digits)
 		end
 
-feature -- layout
+feature {ANY} -- layout
 
 	layout: PANGO_LAYOUT is
 			-- the PangoLayout used to display the scale.
@@ -63,7 +63,7 @@ feature -- layout
 			(not is_value_drawn) = (Result = Void)
 		end
 
-feature -- Draw value
+feature {ANY} -- Draw value
 	set_draw_value is
 			-- Specifies whether the current value is displayed as a string next to the slider.
 		do
@@ -77,7 +77,7 @@ feature -- Draw value
 			Result := (gtk_scale_get_draw_value (handle)).to_boolean
 		end
 	
-feature -- position
+feature {ANY} -- position
 	display_on_left is
 			-- Display the current value on the left.
 		do
@@ -133,7 +133,7 @@ feature -- position
 	-- the PangoLayout for this scale, or NULL if the draw_value
 	-- property is FALSE.
 
-feature
+feature {ANY}
 	layout_offsets: TUPLE [REAL, REAL] is
 			-- Obtains the coordinates where the scale will draw the
 			-- PangoLayout representing the text in the scale. Remember
@@ -148,7 +148,7 @@ feature
 		end
 	
 
-feature -- TODO: Property Details
+feature {ANY} -- TODO: Property Details
 -- The "digits" property
 
 --   "digits"               gint                  : Read / Write
@@ -193,7 +193,7 @@ feature -- TODO: Property Details
 -- Default value: 2
 -- Signal Details
 
-feature -- The "format-value" signal
+feature {ANY} -- The "format-value" signal
 
 		-- Signal which allows you to change how the scale value is displayed.
 		-- Connect a signal handler which returns an allocated string representing

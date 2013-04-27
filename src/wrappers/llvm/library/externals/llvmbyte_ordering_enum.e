@@ -5,15 +5,24 @@ expanded class LLVMBYTE_ORDERING_ENUM
 
 insert ENUM
 
+<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = llvmbig_endian_low_level)  or else
 				(a_value = llvmlittle_endian_low_level) )
+=======
+create {ANY} default_create
+feature {ANY} -- Validity
+	is_valid_value (a_value: INTEGER): BOOLEAN is
+		do
+			Result := ((a_value = big_endian_low_level)  or else
+				(a_value = little_endian_low_level) )
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_llvmbig_endian is
 		do
@@ -25,8 +34,13 @@ feature -- Setters
 			value := llvmlittle_endian_low_level
 		end
 
+<<<<<<< HEAD
 feature -- Queries
 	is_llvmbig_endian: BOOLEAN is
+=======
+feature {ANY} -- Queries
+	big_endian: BOOLEAN is
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=llvmbig_endian_low_level)
 		end

@@ -36,9 +36,9 @@ insert
 	STDIO_EXTERNALS -- to use low-level fileno function
 	EXCEPTIONS undefine copy, is_equal end
 
-creation {ANY} with_name, with_name_in_context
+create {ANY} with_name, with_name_in_context
 
-creation {WRAPPER} from_external_pointer
+create {WRAPPER} from_external_pointer
 
 feature {ANY}
 	with_name (a_name: STRING) is
@@ -486,7 +486,7 @@ feature {LLVM_MODULE_PROVIDER} -- Provider owning modules
 	ensure Result implies owner/=Void -- Note: this shall be more properly an invariant.
 	end
 	
-feature 
+feature {ANY} 
 	struct_size: like size_t is
 		do
 			not_yet_implemented

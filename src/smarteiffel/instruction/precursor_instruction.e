@@ -10,7 +10,7 @@ inherit
    INSTRUCTION
    PRECURSOR_CALL
    
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

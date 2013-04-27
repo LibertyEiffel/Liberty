@@ -5,6 +5,7 @@ expanded class XML_PARSER_OPTION_ENUM
 
 insert ENUM
 
+<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -29,9 +30,35 @@ feature -- Validity
 				xml_parse_recover_low_level | 
 				xml_parse_sax1_low_level | 
 				xml_parse_xinclude_low_level)).to_boolean
+=======
+create {ANY} default_create
+feature {ANY} -- Validity
+	is_valid_value (a_value: INTEGER): BOOLEAN is
+		do
+			Result := (a_value & (recover_low_level | 
+				dtdload_low_level | 
+				dtdattr_low_level | 
+				dtdvalid_low_level | 
+				noerror_low_level | 
+				nowarning_low_level | 
+				pedantic_low_level | 
+				noblanks_low_level | 
+				sax1_low_level | 
+				xinclude_low_level | 
+				nonet_low_level | 
+				nodict_low_level | 
+				nsclean_low_level | 
+				nocdata_low_level | 
+				noxincnode_low_level | 
+				compact_low_level | 
+				old10_low_level | 
+				nobasefix_low_level | 
+				huge_low_level | 
+				oldsax_low_level)).to_boolean
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_xml_parse_compact is
 		do
@@ -233,8 +260,13 @@ feature -- Setters
 			value := value.bit_xor(xml_parse_xinclude_low_level)
 		end
 
+<<<<<<< HEAD
 feature -- Queries
 	is_xml_parse_compact: BOOLEAN is
+=======
+feature {ANY} -- Queries
+	is_recover: BOOLEAN is
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=xml_parse_compact_low_level)
 		end

@@ -26,8 +26,8 @@ insert
 	G_TYPES
 	ANY
 	
-creation make
-feature
+create {ANY} make
+feature {ANY}
 	make is
 		do
 			gtk.initialize
@@ -55,10 +55,10 @@ feature
 			gtk.quit
 		end
 
-feature -- labels
+feature {ANY} -- labels
 	title_string: STRING is "Completion entry demo"
 	
-feature -- Widgets
+feature {ANY} -- Widgets
 	window: GTK_WINDOW
 	entry_box: GTK_HBOX
 	entry_label: GTK_LABEL

@@ -15,7 +15,7 @@ class XML_PARSER
 insert
    XML_PARSER_TOOLS
 
-creation {ANY}
+create {ANY}
    connect_to, make
 
 feature {ANY}

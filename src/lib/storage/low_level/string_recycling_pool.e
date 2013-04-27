@@ -21,7 +21,7 @@ insert
          {STRING_RECYCLING_POOL} all
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

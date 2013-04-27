@@ -17,7 +17,7 @@ insert
       end
    SINGLETON
 
-creation {INSPECT_STATEMENT}
+create {INSPECT_STATEMENT}
    make
 
 feature {EFFECTIVE_ARG_LIST}
@@ -94,6 +94,14 @@ feature {ASSIGNMENT_ATTEMPT}
 
 feature {ASSIGNMENT}
    visit_assignment (visited: ASSIGNMENT) is
+      do
+         visited.left_side.accept(Current)
+         trace.append(once ":=")
+         visited.right_side.accept(Current)
+      end
+
+feature {ASSIGNMENT_CALL_ASSIGNER}
+   visit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER) is
       do
          visited.left_side.accept(Current)
          trace.append(once ":=")

@@ -26,7 +26,7 @@ insert
 	GLIB_STRING_UTILITY_FUNCTIONS undefine out_in_tagged_out_memory end 
 
 	
-creation {ANY}
+create {ANY}
 	make, copy, make_empty, from_string
 	
 feature {ANY}
@@ -196,7 +196,7 @@ local
          value_set: item (count) = c
       end
    
-feature -- Conversion to STRING
+feature {ANY} -- Conversion to STRING
 	to_string: STRING is
 			-- A string holding a copy of Current
 		do
@@ -210,7 +210,7 @@ feature -- Conversion to STRING
 			create Result.from_external (c_string)
 		end
 	
-feature  -- Disposing
+feature {ANY}  -- Disposing
 	dispose is
 		local
          p: POINTER

@@ -109,7 +109,7 @@ inherit
 
 insert GTKLABEL_EXTERNALS
 	
-creation empty, with_label, with_mnemonic, with_markup_label, from_external_pointer
+create {ANY} empty, with_label, with_mnemonic, with_markup_label, from_external_pointer
 
 feature {} -- Creation
 
@@ -166,7 +166,7 @@ feature {} -- Creation
 		ensure is_marked_up
 		end
 
-feature
+feature {ANY}
 	set_text (a_string: STRING) is
 			-- Sets the text within the GtkLabel widget. It overwrites
 			-- any text that was there before. This will also clear any
@@ -224,7 +224,7 @@ feature
 			gtk_label_set_pattern (handle, a_pattern.to_external)
 		end
 
-feature -- Justification
+feature {ANY} -- Justification
 	set_left_justify is
 			-- Makes the lines in the text of the label left-aligned. If
 			-- you instead want to set the alignment of the label as a
@@ -286,7 +286,7 @@ feature -- Justification
 			Result:=(gtk_label_get_justify(handle)=gtk_justify_fill)
 		end
 	
-feature -- width desired or maximum
+feature {ANY} -- width desired or maximum
 	-- TODO: wrap gtk_label_set_ellipsize () void
 	-- gtk_label_set_ellipsize (GtkLabel *label, PangoEllipsizeMode
 	-- mode);Sets the mode used to ellipsize (add an ellipsis: "...")
@@ -317,7 +317,7 @@ feature -- width desired or maximum
 			Result:=gtk_label_get_max_width_chars(handle)
 		end
 
-feature -- Line wrap
+feature {ANY} -- Line wrap
 	set_line_wrap is
 			-- Toggles line wrapping within the GtkLabel widget. It
 			-- breaks lines if text exceeds the widget's size.
@@ -347,7 +347,7 @@ feature -- Line wrap
 	-- to store X offset of layout, or NULL y : location to store Y
 	-- offset of layout, or NULL
 	
-feature -- mnemonic
+feature {ANY} -- mnemonic
 	mnemonic_keyval: INTEGER is
 			-- The keyval usable for accelerators, or GDK_VoidSymbol. If
 			-- the label has been set so that it has an mnemonic key this
@@ -358,7 +358,7 @@ feature -- mnemonic
 			Result:=gtk_label_get_mnemonic_keyval (handle)
 		end
 
-feature -- Seletability
+feature {ANY} -- Seletability
 	is_selectable: BOOLEAN is
 			-- Can the user copy text from the label?
 		do
@@ -378,7 +378,7 @@ feature -- Seletability
 			gtk_label_set_selectable (handle,0)
 		end
 
-feature -- Text label
+feature {ANY} -- Text label
 	text: STRING is
 			-- the text from a label widget, as displayed on the
 			-- screen. This does not include any embedded underlines
@@ -422,7 +422,7 @@ feature -- Text label
 			gtk_label_set_text_with_mnemonic (handle, a_string.to_external)
 		end
 
-feature -- mnemonic widget
+feature {ANY} -- mnemonic widget
 	set_mnemonic_widget (a_widget: GTK_WIDGET) is
 			-- If the label has been set so that it has an mnemonic key
 			-- (using i.e. `set_markup_with_mnemonic'),
@@ -459,7 +459,7 @@ feature -- mnemonic widget
 	-- 			else check Result=Void end
 	-- 		end
 
-feature -- Other
+feature {ANY} -- Other
 	select_region (a_start_offset, an_end_offset: INTEGER) is
 		-- Selects a range of characters in the label, if the label is
 		-- selectable. See `set_selectable'. If the label is not
@@ -511,7 +511,7 @@ feature -- Other
 			is_non_empty:=(gtk_label_get_selection_bounds (handle, $a_start, $an_end))
 		end
 
-feature -- Markup
+feature {ANY} -- Markup
 	use_markup is
 			-- Signal that the text of the label contains markup in
 			-- Pango's text markup language. See `set_markup'.
@@ -533,7 +533,7 @@ feature -- Markup
 			Result:=(gtk_label_get_use_markup(handle)).to_boolean
 		end
 
-feature -- Underline indicating mnemonic
+feature {ANY} -- Underline indicating mnemonic
 	is_underline_used: BOOLEAN is
 		-- Does an embedded underline indicate a mnemonic in the label? See `set_use_underline'.
 		do
@@ -554,7 +554,7 @@ feature -- Underline indicating mnemonic
 			gtk_label_set_use_underline(handle,1)
 		end
 
-feature -- single line mode
+feature {ANY} -- single line mode
 	is_mode_single_line_mode: BOOLEAN is
 			-- Is  the label in single line mode?
 		do
@@ -573,7 +573,7 @@ feature -- single line mode
 			gtk_label_set_single_line_mode  (handle,0)
 		end
 
-feature -- Angle
+feature {ANY} -- Angle
 	angle: REAL is
 			-- The angle of rotation for the label. See `set_angle'.
 		do
@@ -589,7 +589,7 @@ feature -- Angle
 			gtk_label_set_angle (handle, an_angle)
 		end
 
-feature -- Property Details
+feature {ANY} -- Property Details
 -- The "angle" property
 
 --   "angle"                gdouble               : Read / Write
@@ -757,7 +757,7 @@ feature -- Property Details
 -- label : 	the object which received the signal.
 -- arg1 : 	
 -- user_data : 	user data set when the signal handler was connected.
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkLabel)"

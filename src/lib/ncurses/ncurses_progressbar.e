@@ -7,7 +7,7 @@ class NCURSES_PROGRESSBAR
 inherit
    NCURSES_WIDGET
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

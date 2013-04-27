@@ -30,7 +30,7 @@ inherit
 
 insert GTS_FACE_EXTERNALS
 	
-creation  from_edges, from_triangle, enclosing, from_external_pointer
+create {ANY}  from_edges, from_triangle, enclosing, from_external_pointer
 
 feature {} -- Creation
 	from_edges (first, second, third: GTS_EDGE) is
@@ -53,7 +53,7 @@ feature {} -- Creation
 			from_external_pointer(gts_triangle_enclosing (gts_face_class, some_points.handle, a_scale))
 		end
 
-feature
+feature {ANY}
 	has_parent_surface (a_surface: GTS_SURFACE): BOOLEAN is
 			-- Does Current face belong to `a_surface'?
 		require surface_not_void: a_surface /= Void

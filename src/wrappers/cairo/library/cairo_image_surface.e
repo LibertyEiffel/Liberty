@@ -35,7 +35,7 @@ insert
 	CAIRO_FORMAT
 	CAIRO_IMAGE_SURFACE_EXTERNALS
 
-creation
+create {ANY}
 	make, for_data, from_png
 
 feature {} -- Creation
@@ -101,7 +101,7 @@ feature {} -- Creation
 			                       a_filename.to_external))
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	data: POINTER is
 			--Get a pointer to the data of the image surface, for direct
@@ -136,7 +136,7 @@ feature -- Access
 			Result := cairo_image_surface_get_stride (handle)
 		end
 
-feature -- Operations
+feature {ANY} -- Operations
 
 	write_to_png (a_filename: STRING): INTEGER is
 			-- Writes the contents of surface to a new file filename as a PNG

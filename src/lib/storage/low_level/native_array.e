@@ -16,7 +16,7 @@ expanded class NATIVE_ARRAY[E_]
 insert
    SAFE_EQUAL[E_]
 
-creation {ANY}
+create {ANY}
    default_create, manifest_creation
 
 feature {ANY} -- Basic features:

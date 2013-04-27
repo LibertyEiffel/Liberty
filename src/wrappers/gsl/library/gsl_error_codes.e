@@ -19,7 +19,7 @@ expanded class GSL_ERROR_CODES
    -- changed constants to begin with a capital letter
    -- also changed to match plugin scheme
 
-feature
+feature {ANY}
 
 	Success: INTEGER is 0
 		-- success 
@@ -126,7 +126,7 @@ feature
 	Eof: INTEGER is 32
 		-- end of file 
 
-feature
+feature {ANY}
 
 	check_codes is
 			-- check that the code are conform to the GSL definition

@@ -5,6 +5,7 @@ expanded class LOST_FRACTION_ENUM
 
 insert ENUM
 
+<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -13,9 +14,19 @@ feature -- Validity
 				(a_value = lf_exactly_zero_low_level)  or else
 				(a_value = lf_less_than_half_low_level)  or else
 				(a_value = lf_more_than_half_low_level) )
+=======
+create {ANY} default_create
+feature {ANY} -- Validity
+	is_valid_value (a_value: INTEGER): BOOLEAN is
+		do
+			Result := ((a_value = exactly_zero_low_level)  or else
+				(a_value = less_than_half_low_level)  or else
+				(a_value = exactly_half_low_level)  or else
+				(a_value = more_than_half_low_level) )
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_lf_exactly_half is
 		do
@@ -37,8 +48,13 @@ feature -- Setters
 			value := lf_more_than_half_low_level
 		end
 
+<<<<<<< HEAD
 feature -- Queries
 	is_lf_exactly_half: BOOLEAN is
+=======
+feature {ANY} -- Queries
+	exactly_zero: BOOLEAN is
+>>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=lf_exactly_half_low_level)
 		end

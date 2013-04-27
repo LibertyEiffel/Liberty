@@ -32,7 +32,7 @@ inherit GTK_BOX
 
 insert GTKHBOX_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	make (an_homogeneous: BOOLEAN; a_spacing: INTEGER) is
@@ -44,7 +44,7 @@ feature {} -- Creation
 		do
 			from_external_pointer (gtk_hbox_new (an_homogeneous.to_integer, a_spacing))
 		end
-feature -- struct size
+feature {ANY} -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkHBox)"

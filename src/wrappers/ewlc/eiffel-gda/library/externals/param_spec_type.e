@@ -3,8 +3,8 @@
 expanded class PARAM_SPEC_TYPE
 insert ENUM
 
-creation default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = param_name) or else 
@@ -15,7 +15,7 @@ feature -- Validity
 		end
 
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create, set_name is
 		do
 			value := param_name
@@ -42,7 +42,7 @@ feature -- Setters
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_name: BOOLEAN is
 		do
 			Result := (value=param_name)

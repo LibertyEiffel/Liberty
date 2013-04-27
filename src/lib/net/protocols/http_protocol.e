@@ -14,7 +14,7 @@ inherit
          connect_to
       end
 
-creation {PROTOCOLS}
+create {PROTOCOLS}
    make
 
 feature {ANY}

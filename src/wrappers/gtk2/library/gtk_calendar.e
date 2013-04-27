@@ -46,9 +46,9 @@ inherit
 insert
 	GTKCALENDAR_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
-feature -- size
+feature {ANY} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCalendar)"
@@ -62,7 +62,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_calendar_new)
 		end
 
-feature
+feature {ANY}
 	marked_dates_count: INTEGER is
 			-- the number of days that have a mark over them.
 		do
@@ -178,7 +178,7 @@ feature
 		ensure set: display_options = some_flags
 		end
 
-feature -- Properties: TODO
+feature {ANY} -- Properties: TODO
 --    "day"                  gint                  : Read / Write
 --    "month"                gint                  : Read / Write
 --    "no-month-change"      gboolean              : Read / Write

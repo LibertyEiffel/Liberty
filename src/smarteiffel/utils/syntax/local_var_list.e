@@ -9,7 +9,7 @@ class LOCAL_VAR_LIST
 inherit
    DECLARATION_LIST
 
-creation {EIFFEL_PARSER, INTROSPECTION_HANDLER}
+create {EIFFEL_PARSER, INTROSPECTION_HANDLER}
    make
 
 feature {ANY}
@@ -163,7 +163,7 @@ feature {DECLARATION}
             if n2.to_string = n1.to_string then
                error_handler.add_position(n1.start_position)
                error_handler.add_position(n2.start_position)
-               error_handler.append("Same local name appears twice in this %"local%" variable list.")
+               error_handler.append(once "Same local name appears twice in this %"local%" variable list.")
                error_handler.print_as_fatal_error
             end
             i := i + 1

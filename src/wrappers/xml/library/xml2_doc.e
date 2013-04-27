@@ -30,9 +30,9 @@ insert
 	LIBXML2_EXTERNALS
 	SHARED_XML2_NODE_CACHE	
 
-creation from_external_pointer
+create {ANY} from_external_pointer
 
-feature 
+feature {ANY} 
 	root:  XML2_NODE is
 		do
 			Result:=cache.wrapper(xml_doc_get_root_element(handle))

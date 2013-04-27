@@ -1323,19 +1323,19 @@ feature {RUN_FEATURE_9}
       do
          if ace.relax then
             -- The deferred feature warning will be made later if the feature is actually in the live code.
-            error_handler.append("Feature %"")
+            error_handler.append(once "Feature %"")
             error_handler.append(visited.name.to_string)
-            error_handler.append("%" is deferred in type ")
+            error_handler.append(once "%" is deferred in type ")
             error_handler.append(visited.type_of_current.name.to_string)
-            error_handler.append(". This type should be marked as deferred.")
+            error_handler.append(once ". This type should be marked as deferred.")
             error_handler.print_as_warning
          end
          define_c_signature(visited)
          error_handler.add_position(visited.start_position)
-         error_handler.append("This routine is actually deferred is still in the live code set. %
+         error_handler.append(once "This routine is actually deferred is still in the live code set. %
                               %(You will have a crash at run-time if the dynamic type of Current is ")
          error_handler.append(visited.type_of_current.name.to_string)
-         error_handler.append(".)")
+         error_handler.append(once ".)")
          error_handler.print_as_warning
          cpp.prepare_c_function
          c_define_opening(visited)

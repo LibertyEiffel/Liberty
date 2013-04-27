@@ -7,7 +7,7 @@ class SAME_MSG
 insert
    ARGUMENTS
 
-creation {}
+create {}
    main
 
 feature {}

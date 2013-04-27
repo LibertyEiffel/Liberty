@@ -12,7 +12,7 @@ inherit
 insert
    LOCAL_NAME
 
-creation {TOKEN_BUFFER, INTROSPECTION_HANDLER}
+create {TOKEN_BUFFER, INTROSPECTION_HANDLER}
    make
 
 feature {ANY}
@@ -74,7 +74,7 @@ feature {LOCAL_NAME1}
             if is_used(type) then
                -- Well, it is a bad idea to rely on side-effects, but it is still allowed...
             else
-               error_handler.append("Unused local variable.")
+               error_handler.append(once "Unused local variable.")
                error_handler.add_position(start_position)
                error_handler.print_as_warning
             end

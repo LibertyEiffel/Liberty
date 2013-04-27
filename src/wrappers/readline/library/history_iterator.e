@@ -6,7 +6,7 @@ inherit
 insert
    HISTORY_EXTERNALS
 
-creation {READ_LINE_HISTORY}
+create {READ_LINE_HISTORY}
    make
 
 feature {ANY}

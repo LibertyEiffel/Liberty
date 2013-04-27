@@ -11,7 +11,7 @@ inherit
       redefine is_equal, hash_code
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {SMART_EIFFEL}
@@ -99,7 +99,7 @@ feature {}
       do
          if alias_string = Void then
             error_handler.add_position(external_tag.start_position)
-            error_handler.append("An external %"plug_in%" must be described with an alias clause. %
+            error_handler.append(once "An external %"plug_in%" must be described with an alias clause. %
             %(Have a look in our standard library or in our tutorial for examples.)")
             error_handler.print_as_fatal_error
          end
@@ -145,7 +145,7 @@ feature {}
          Result := alias_data.reference_at(key)
          if Result = Void then
             error_handler.add_position(start_position)
-            error_handler.append("Required key %""+key+":%" not found")
+            error_handler.append(once "Required key %""+key+":%" not found")
             error_handler.print_as_fatal_error
          end
          alias_data.remove(key)
@@ -157,7 +157,7 @@ feature {}
       do
          if not alias_data.is_empty then
             error_handler.add_position(start_position)
-            error_handler.append("Unexpected keys found%N")
+            error_handler.append(once "Unexpected keys found%N")
             from
                i := alias_data.lower
             until

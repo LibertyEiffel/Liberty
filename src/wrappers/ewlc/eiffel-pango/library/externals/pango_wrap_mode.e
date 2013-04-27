@@ -29,7 +29,7 @@ deferred class PANGO_WRAP_MODE
 
 inherit ANY undefine is_equal, copy end
 
-feature -- enum
+feature {ANY} -- enum
 
 	is_valid_pango_wrap_mode (a_wrap_mode: INTEGER) : BOOLEAN is
 		do

@@ -14,13 +14,13 @@ inherit
 insert
    TRAVERSABLE[INSTRUCTION]
 
-creation
+create {ANY}
    make_2, make_3, make_4, make_n
 
-creation   {CODE_ACCUMULATOR}
+create   {CODE_ACCUMULATOR}
    from_list
 
-creation   {COMPOUND}
+create   {COMPOUND}
    set_list
 
 feature {ANY}
@@ -182,7 +182,7 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          l: like list; inst1, inst2: INSTRUCTION; i: INTEGER
       do
@@ -192,7 +192,7 @@ feature {ANY}
             inst1 /= inst2 or else i > list.upper
          loop
             inst1 := list.item(i)
-            inst2 := inst1.specialize_2(type)
+            inst2 := inst1.specialize_and_check(type)
             i := i + 1
          end
          if inst1 = inst2 then
@@ -206,7 +206,7 @@ feature {ANY}
             until
                i > l.upper
             loop
-               l.put(l.item(i).specialize_2(type), i)
+               l.put(l.item(i).specialize_and_check(type), i)
                i := i + 1
             end
          end

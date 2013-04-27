@@ -56,7 +56,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_create01.e -o test_create01.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_create01.e -o test_create01.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_create01.e -o test_create01.exe
 Running (-require_check) "test_create01.exe".
 se clean test_create01.e
@@ -176,7 +176,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_create02.e -o test_create02.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_create02.e -o test_create02.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_create02.e -o test_create02.exe
 Running (-require_check) "test_create02.exe".
 se clean test_create02.e
@@ -296,7 +296,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_create03.e -o test_create03.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_create03.e -o test_create03.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_create03.e -o test_create03.exe
 Running (-require_check) "test_create03.exe".
 se clean test_create03.e
@@ -416,7 +416,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_create04.e -o test_create04.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_create04.e -o test_create04.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_create04.e -o test_create04.exe
 Running (-require_check) "test_create04.exe".
 se clean test_create04.e
@@ -536,7 +536,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_create05.e -o test_create05.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_create05.e -o test_create05.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_create05.e -o test_create05.exe
 Running (-require_check) "test_create05.exe".
 se clean test_create05.e
@@ -656,7 +656,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_create06.e -o test_create06.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_create06.e -o test_create06.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_create06.e -o test_create06.exe
 Running (-require_check) "test_create06.exe".
 se clean test_create06.e
@@ -776,7 +776,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_create07.e -o test_create07.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_create07.e -o test_create07.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_create07.e -o test_create07.exe
 Running (-require_check) "test_create07.exe".
 se clean test_create07.e
@@ -896,7 +896,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_create08.e -o test_create08.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_create08.e -o test_create08.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_create08.e -o test_create08.exe
 Running (-require_check) "test_create08.exe".
 se clean test_create08.e

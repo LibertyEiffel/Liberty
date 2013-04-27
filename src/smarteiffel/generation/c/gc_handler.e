@@ -9,7 +9,7 @@ class GC_HANDLER
 insert
    GLOBALS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

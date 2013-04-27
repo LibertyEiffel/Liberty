@@ -18,7 +18,7 @@ inherit
 
 insert NAME_CONVERTER
 
-creation make
+create {ANY} make
 
 feature 
 	store is

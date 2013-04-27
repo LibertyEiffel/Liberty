@@ -8,9 +8,9 @@ class HELLO
 
 insert GTK_MAIN
 	
-creation	make
+create {ANY}	make
 	
-feature
+feature {ANY}
 	on_clicked (a_button: GTK_BUTTON) is
 		require valid_button: a_button /= Void 
 		do
@@ -42,9 +42,9 @@ feature {} -- creation
 			
 			run_main_loop -- instead of "gtk_main"
 		end
-feature -- Disposing
+feature {ANY} -- Disposing
 	
-feature
+feature {ANY}
 	window: MY_WINDOW
 			-- the window
 	title: STRING is "Wow my first Eiffel window!"

@@ -8,7 +8,7 @@ inherit
 	TYPED_NODE
 	WRAPPABLE_NODE
 
-creation make
+create {ANY} make
 
 feature 
 	store is

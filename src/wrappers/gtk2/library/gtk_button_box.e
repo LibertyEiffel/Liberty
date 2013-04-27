@@ -48,7 +48,7 @@ deferred class GTK_BUTTON_BOX
 inherit GTK_BOX
 	--   GtkButtonBox implements AtkImplementorIface.
 
-feature 
+feature {ANY} 
 	layout: INTEGER is
 			-- the method used to arrange the buttons in a button box.
 		do
@@ -94,7 +94,7 @@ feature
 		end
 		
 
-feature -- Properties
+feature {ANY} -- Properties
 	-- Note: "layout-style" property and "secondary" child property 
 	-- already have strongly typed SETTER
 

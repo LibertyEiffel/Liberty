@@ -29,7 +29,7 @@ inherit
 insert
 	GTK_SOURCE_STYLE_SCHEME_EXTERNALS
 
-creation make, from_external_pointer
+create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 

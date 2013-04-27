@@ -9,7 +9,7 @@ class NETWORK_CONNECTION_OCCURRED
 inherit
    EVENT_DESCRIPTOR
 
-creation {SOCKET_SERVER}
+create {SOCKET_SERVER}
    make
 
 feature {EVENTS_SET}

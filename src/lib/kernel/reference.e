@@ -12,13 +12,13 @@ class REFERENCE[E_]
 inherit
    ANY
 
-creation {ANY}
+create {ANY}
    default_create, set_item
 
 feature {ANY}
    item: E_
 
-   set_item (i: like item) is
+   set_item (i: like item) assign item is
       do
          item := i
       ensure
