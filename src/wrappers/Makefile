@@ -21,15 +21,9 @@ LIBRARIES=cairo \
 
 .PHONY: subdirs $(LIBRARIES)
 
-update: common/library/c_types.e $(LIBRARIES) 
+update: $(LIBRARIES) 
 	@echo Clusters that will be updated: $^
 
-common/library/c_types.e : common/tools/c_types_builder
-	common/tools/c_types_builder >$@
-
-common/tools/c_types_builder: common/tools/c_types_builder.c
-	cc $^ -o $@
-
-$(LIBRARIES) : common/library/c_types.e
+$(LIBRARIES) : 
 	@echo Updating generated classes of $@
 	@$(MAKE) -C $@/library/externals
