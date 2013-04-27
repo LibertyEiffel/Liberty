@@ -80,7 +80,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_input_buffer_struct_set_compressed (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_input_buffer_struct_set_compressed (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for compressed field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -92,7 +92,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_input_buffer_struct_set_error (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_input_buffer_struct_set_error (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for error field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -104,7 +104,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_input_buffer_struct_set_rawconsumed (a_structure: POINTER; a_value: NATURAL_64) is
+	xml_parser_input_buffer_struct_set_rawconsumed (a_structure: POINTER; a_value: like long_unsigned) is
 			-- Setter for rawconsumed field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -190,7 +190,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_input_buffer_struct_get_compressed (a_structure: POINTER): INTEGER_32 is
+	xml_parser_input_buffer_struct_get_compressed (a_structure: POINTER): INTEGER is
 			-- Query for compressed field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -202,7 +202,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_input_buffer_struct_get_error (a_structure: POINTER): INTEGER_32 is
+	xml_parser_input_buffer_struct_get_error (a_structure: POINTER): INTEGER is
 			-- Query for error field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -214,7 +214,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_input_buffer_struct_get_rawconsumed (a_structure: POINTER): NATURAL_64 is
+	xml_parser_input_buffer_struct_get_rawconsumed (a_structure: POINTER): like long_unsigned is
 			-- Query for rawconsumed field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 

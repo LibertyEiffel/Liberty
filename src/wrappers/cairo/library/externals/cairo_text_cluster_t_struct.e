@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	CAIRO_TYPES
 feature {} -- Low-level setters
 
-	cairo_text_cluster_t_struct_set_num_bytes (a_structure: POINTER; a_value: INTEGER_32) is
+	cairo_text_cluster_t_struct_set_num_bytes (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for num_bytes field of CAIRO_TEXT_CLUSTER_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_text_cluster_t_struct_set_num_glyphs (a_structure: POINTER; a_value: INTEGER_32) is
+	cairo_text_cluster_t_struct_set_num_glyphs (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for num_glyphs field of CAIRO_TEXT_CLUSTER_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -34,7 +34,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	cairo_text_cluster_t_struct_get_num_bytes (a_structure: POINTER): INTEGER_32 is
+	cairo_text_cluster_t_struct_get_num_bytes (a_structure: POINTER): INTEGER is
 			-- Query for num_bytes field of CAIRO_TEXT_CLUSTER_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_text_cluster_t_struct_get_num_glyphs (a_structure: POINTER): INTEGER_32 is
+	cairo_text_cluster_t_struct_get_num_glyphs (a_structure: POINTER): INTEGER is
 			-- Query for num_glyphs field of CAIRO_TEXT_CLUSTER_T_STRUCT structure.
 			-- TODO: getter description
 

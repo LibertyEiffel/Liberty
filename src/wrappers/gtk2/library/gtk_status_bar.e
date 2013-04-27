@@ -134,7 +134,7 @@ feature -- Stack like behaviour
 		end
 
 feature -- Style Properties
-	shadow_type: INTEGER is
+	shadow_type: GTK_SHADOW_TYPE_ENUM is
 			-- Style of bevel around the statusbar text. Note: in C it is a
 			-- GtkShadowType.  Default value: `gtk_shadow_in'.
 		do

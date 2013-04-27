@@ -80,7 +80,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_output_buffer_struct_set_written (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_output_buffer_struct_set_written (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for written field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -92,7 +92,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_output_buffer_struct_set_error (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_output_buffer_struct_set_error (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for error field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -178,7 +178,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_output_buffer_struct_get_written (a_structure: POINTER): INTEGER_32 is
+	xml_output_buffer_struct_get_written (a_structure: POINTER): INTEGER is
 			-- Query for written field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -190,7 +190,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_output_buffer_struct_get_error (a_structure: POINTER): INTEGER_32 is
+	xml_output_buffer_struct_get_error (a_structure: POINTER): INTEGER is
 			-- Query for error field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 

@@ -33,7 +33,7 @@ class GTK_BUTTON
 inherit GTK_BIN
 
 insert
-	GTK_BUTTON_EXTERNALS
+	GTKBUTTON_EXTERNALS
 		-- Implemented Interfaces GtkButton implements
 		-- AtkImplementorIface.
 

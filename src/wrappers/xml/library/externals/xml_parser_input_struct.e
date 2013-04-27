@@ -80,7 +80,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_input_struct_set_length (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_input_struct_set_length (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for length field of XML_PARSER_INPUT_STRUCT structure.
 			-- TODO: setter description
 
@@ -92,7 +92,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_input_struct_set_line (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_input_struct_set_line (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for line field of XML_PARSER_INPUT_STRUCT structure.
 			-- TODO: setter description
 
@@ -104,7 +104,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_input_struct_set_col (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_input_struct_set_col (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for col field of XML_PARSER_INPUT_STRUCT structure.
 			-- TODO: setter description
 
@@ -116,7 +116,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_input_struct_set_consumed (a_structure: POINTER; a_value: NATURAL_64) is
+	xml_parser_input_struct_set_consumed (a_structure: POINTER; a_value: like long_unsigned) is
 			-- Setter for consumed field of XML_PARSER_INPUT_STRUCT structure.
 			-- TODO: setter description
 
@@ -164,7 +164,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_input_struct_set_standalone (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_input_struct_set_standalone (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for standalone field of XML_PARSER_INPUT_STRUCT structure.
 			-- TODO: setter description
 
@@ -176,7 +176,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_input_struct_set_id (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_input_struct_set_id (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for id field of XML_PARSER_INPUT_STRUCT structure.
 			-- TODO: setter description
 
@@ -262,7 +262,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_input_struct_get_length (a_structure: POINTER): INTEGER_32 is
+	xml_parser_input_struct_get_length (a_structure: POINTER): INTEGER is
 			-- Query for length field of XML_PARSER_INPUT_STRUCT structure.
 			-- TODO: getter description
 
@@ -274,7 +274,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_input_struct_get_line (a_structure: POINTER): INTEGER_32 is
+	xml_parser_input_struct_get_line (a_structure: POINTER): INTEGER is
 			-- Query for line field of XML_PARSER_INPUT_STRUCT structure.
 			-- TODO: getter description
 
@@ -286,7 +286,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_input_struct_get_col (a_structure: POINTER): INTEGER_32 is
+	xml_parser_input_struct_get_col (a_structure: POINTER): INTEGER is
 			-- Query for col field of XML_PARSER_INPUT_STRUCT structure.
 			-- TODO: getter description
 
@@ -298,7 +298,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_input_struct_get_consumed (a_structure: POINTER): NATURAL_64 is
+	xml_parser_input_struct_get_consumed (a_structure: POINTER): like long_unsigned is
 			-- Query for consumed field of XML_PARSER_INPUT_STRUCT structure.
 			-- TODO: getter description
 
@@ -346,7 +346,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_input_struct_get_standalone (a_structure: POINTER): INTEGER_32 is
+	xml_parser_input_struct_get_standalone (a_structure: POINTER): INTEGER is
 			-- Query for standalone field of XML_PARSER_INPUT_STRUCT structure.
 			-- TODO: getter description
 
@@ -358,7 +358,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_input_struct_get_id (a_structure: POINTER): INTEGER_32 is
+	xml_parser_input_struct_get_id (a_structure: POINTER): INTEGER is
 			-- Query for id field of XML_PARSER_INPUT_STRUCT structure.
 			-- TODO: getter description
 

@@ -349,7 +349,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_is_id (a_doc: POINTER; an_elem: POINTER; an_attr: POINTER): INTEGER_32 is
+	xml_is_id (a_doc: POINTER; an_elem: POINTER; an_attr: POINTER): INTEGER is
  		-- xmlIsID
 		external "plug_in"
 		alias "{
@@ -359,7 +359,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_is_mixed_element (a_doc: POINTER; a_name: POINTER): INTEGER_32 is
+	xml_is_mixed_element (a_doc: POINTER; a_name: POINTER): INTEGER is
  		-- xmlIsMixedElement
 		external "plug_in"
 		alias "{
@@ -369,7 +369,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_is_ref (a_doc: POINTER; an_elem: POINTER; an_attr: POINTER): INTEGER_32 is
+	xml_is_ref (a_doc: POINTER; an_elem: POINTER; an_attr: POINTER): INTEGER is
  		-- xmlIsRef
 		external "plug_in"
 		alias "{
@@ -409,7 +409,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_remove_id (a_doc: POINTER; an_attr: POINTER): INTEGER_32 is
+	xml_remove_id (a_doc: POINTER; an_attr: POINTER): INTEGER is
  		-- xmlRemoveID
 		external "plug_in"
 		alias "{
@@ -419,7 +419,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_remove_ref (a_doc: POINTER; an_attr: POINTER): INTEGER_32 is
+	xml_remove_ref (a_doc: POINTER; an_attr: POINTER): INTEGER is
  		-- xmlRemoveRef
 		external "plug_in"
 		alias "{
@@ -429,7 +429,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_snprintf_element_content (a_buf: POINTER; a_size: INTEGER_32; a_content: POINTER; an_englob: INTEGER_32) is
+	xml_snprintf_element_content (a_buf: POINTER; a_size: INTEGER; a_content: POINTER; an_englob: INTEGER) is
  		-- xmlSnprintfElementContent
 		external "plug_in"
 		alias "{
@@ -439,7 +439,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_sprintf_element_content (a_buf: POINTER; a_content: POINTER; an_englob: INTEGER_32) is
+	xml_sprintf_element_content (a_buf: POINTER; a_content: POINTER; an_englob: INTEGER) is
  		-- xmlSprintfElementContent
 		external "plug_in"
 		alias "{
@@ -449,7 +449,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_valid_build_content_model (a_ctxt: POINTER; an_elem: POINTER): INTEGER_32 is
+	xml_valid_build_content_model (a_ctxt: POINTER; an_elem: POINTER): INTEGER is
  		-- xmlValidBuildContentModel
 		external "plug_in"
 		alias "{
@@ -469,7 +469,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_valid_get_potential_children (a_ctree: POINTER; a_names: POINTER; a_len: POINTER; a_max: INTEGER_32): INTEGER_32 is
+	xml_valid_get_potential_children (a_ctree: POINTER; a_names: POINTER; a_len: POINTER; a_max: INTEGER): INTEGER is
  		-- xmlValidGetPotentialChildren
 		external "plug_in"
 		alias "{
@@ -479,7 +479,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_valid_get_valid_elements (a_prev: POINTER; a_next: POINTER; a_names: POINTER; a_max: INTEGER_32): INTEGER_32 is
+	xml_valid_get_valid_elements (a_prev: POINTER; a_next: POINTER; a_names: POINTER; a_max: INTEGER): INTEGER is
  		-- xmlValidGetValidElements
 		external "plug_in"
 		alias "{
@@ -499,7 +499,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_attribute_decl (a_ctxt: POINTER; a_doc: POINTER; an_attr: POINTER): INTEGER_32 is
+	xml_validate_attribute_decl (a_ctxt: POINTER; a_doc: POINTER; an_attr: POINTER): INTEGER is
  		-- xmlValidateAttributeDecl
 		external "plug_in"
 		alias "{
@@ -509,7 +509,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_attribute_value (a_type: INTEGER; a_value: POINTER): INTEGER_32 is
+	xml_validate_attribute_value (a_type: INTEGER; a_value: POINTER): INTEGER is
  		-- xmlValidateAttributeValue
 		external "plug_in"
 		alias "{
@@ -519,7 +519,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_document (a_ctxt: POINTER; a_doc: POINTER): INTEGER_32 is
+	xml_validate_document (a_ctxt: POINTER; a_doc: POINTER): INTEGER is
  		-- xmlValidateDocument
 		external "plug_in"
 		alias "{
@@ -529,7 +529,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_document_final (a_ctxt: POINTER; a_doc: POINTER): INTEGER_32 is
+	xml_validate_document_final (a_ctxt: POINTER; a_doc: POINTER): INTEGER is
  		-- xmlValidateDocumentFinal
 		external "plug_in"
 		alias "{
@@ -539,7 +539,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_dtd (a_ctxt: POINTER; a_doc: POINTER; a_dtd: POINTER): INTEGER_32 is
+	xml_validate_dtd (a_ctxt: POINTER; a_doc: POINTER; a_dtd: POINTER): INTEGER is
  		-- xmlValidateDtd
 		external "plug_in"
 		alias "{
@@ -549,7 +549,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_dtd_final (a_ctxt: POINTER; a_doc: POINTER): INTEGER_32 is
+	xml_validate_dtd_final (a_ctxt: POINTER; a_doc: POINTER): INTEGER is
  		-- xmlValidateDtdFinal
 		external "plug_in"
 		alias "{
@@ -559,7 +559,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_element (a_ctxt: POINTER; a_doc: POINTER; an_elem: POINTER): INTEGER_32 is
+	xml_validate_element (a_ctxt: POINTER; a_doc: POINTER; an_elem: POINTER): INTEGER is
  		-- xmlValidateElement
 		external "plug_in"
 		alias "{
@@ -569,7 +569,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_element_decl (a_ctxt: POINTER; a_doc: POINTER; an_elem: POINTER): INTEGER_32 is
+	xml_validate_element_decl (a_ctxt: POINTER; a_doc: POINTER; an_elem: POINTER): INTEGER is
  		-- xmlValidateElementDecl
 		external "plug_in"
 		alias "{
@@ -579,7 +579,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_name_value (a_value: POINTER): INTEGER_32 is
+	xml_validate_name_value (a_value: POINTER): INTEGER is
  		-- xmlValidateNameValue
 		external "plug_in"
 		alias "{
@@ -589,7 +589,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_names_value (a_value: POINTER): INTEGER_32 is
+	xml_validate_names_value (a_value: POINTER): INTEGER is
  		-- xmlValidateNamesValue
 		external "plug_in"
 		alias "{
@@ -599,7 +599,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_nmtoken_value (a_value: POINTER): INTEGER_32 is
+	xml_validate_nmtoken_value (a_value: POINTER): INTEGER is
  		-- xmlValidateNmtokenValue
 		external "plug_in"
 		alias "{
@@ -609,7 +609,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_nmtokens_value (a_value: POINTER): INTEGER_32 is
+	xml_validate_nmtokens_value (a_value: POINTER): INTEGER is
  		-- xmlValidateNmtokensValue
 		external "plug_in"
 		alias "{
@@ -619,7 +619,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_notation_decl (a_ctxt: POINTER; a_doc: POINTER; a_nota: POINTER): INTEGER_32 is
+	xml_validate_notation_decl (a_ctxt: POINTER; a_doc: POINTER; a_nota: POINTER): INTEGER is
  		-- xmlValidateNotationDecl
 		external "plug_in"
 		alias "{
@@ -629,7 +629,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_notation_use (a_ctxt: POINTER; a_doc: POINTER; a_notation_name: POINTER): INTEGER_32 is
+	xml_validate_notation_use (a_ctxt: POINTER; a_doc: POINTER; a_notation_name: POINTER): INTEGER is
  		-- xmlValidateNotationUse
 		external "plug_in"
 		alias "{
@@ -639,7 +639,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_one_attribute (a_ctxt: POINTER; a_doc: POINTER; an_elem: POINTER; an_attr: POINTER; a_value: POINTER): INTEGER_32 is
+	xml_validate_one_attribute (a_ctxt: POINTER; a_doc: POINTER; an_elem: POINTER; an_attr: POINTER; a_value: POINTER): INTEGER is
  		-- xmlValidateOneAttribute
 		external "plug_in"
 		alias "{
@@ -649,7 +649,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_one_element (a_ctxt: POINTER; a_doc: POINTER; an_elem: POINTER): INTEGER_32 is
+	xml_validate_one_element (a_ctxt: POINTER; a_doc: POINTER; an_elem: POINTER): INTEGER is
  		-- xmlValidateOneElement
 		external "plug_in"
 		alias "{
@@ -659,7 +659,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_one_namespace (a_ctxt: POINTER; a_doc: POINTER; an_elem: POINTER; a_prefix: POINTER; a_ns: POINTER; a_value: POINTER): INTEGER_32 is
+	xml_validate_one_namespace (a_ctxt: POINTER; a_doc: POINTER; an_elem: POINTER; a_prefix: POINTER; a_ns: POINTER; a_value: POINTER): INTEGER is
  		-- xmlValidateOneNamespace
 		external "plug_in"
 		alias "{
@@ -669,7 +669,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_pop_element (a_ctxt: POINTER; a_doc: POINTER; an_elem: POINTER; a_qname: POINTER): INTEGER_32 is
+	xml_validate_pop_element (a_ctxt: POINTER; a_doc: POINTER; an_elem: POINTER; a_qname: POINTER): INTEGER is
  		-- xmlValidatePopElement
 		external "plug_in"
 		alias "{
@@ -679,7 +679,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_push_cdata (a_ctxt: POINTER; a_data: POINTER; a_len: INTEGER_32): INTEGER_32 is
+	xml_validate_push_cdata (a_ctxt: POINTER; a_data: POINTER; a_len: INTEGER): INTEGER is
  		-- xmlValidatePushCData
 		external "plug_in"
 		alias "{
@@ -689,7 +689,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_push_element (a_ctxt: POINTER; a_doc: POINTER; an_elem: POINTER; a_qname: POINTER): INTEGER_32 is
+	xml_validate_push_element (a_ctxt: POINTER; a_doc: POINTER; an_elem: POINTER; a_qname: POINTER): INTEGER is
  		-- xmlValidatePushElement
 		external "plug_in"
 		alias "{
@@ -699,7 +699,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_root (a_ctxt: POINTER; a_doc: POINTER): INTEGER_32 is
+	xml_validate_root (a_ctxt: POINTER; a_doc: POINTER): INTEGER is
  		-- xmlValidateRoot
 		external "plug_in"
 		alias "{

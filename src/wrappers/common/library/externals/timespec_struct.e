@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	STANDARD_C_LIBRARY_TYPES
 feature {} -- Low-level setters
 
-	timespec_struct_set_tv_sec (a_structure: POINTER; a_value: INTEGER_64) is
+	timespec_struct_set_tv_sec (a_structure: POINTER; a_value: like long) is
 			-- Setter for tv_sec field of TIMESPEC_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	timespec_struct_set_tv_nsec (a_structure: POINTER; a_value: INTEGER_64) is
+	timespec_struct_set_tv_nsec (a_structure: POINTER; a_value: like long) is
 			-- Setter for tv_nsec field of TIMESPEC_STRUCT structure.
 			-- TODO: setter description
 
@@ -34,7 +34,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	timespec_struct_get_tv_sec (a_structure: POINTER): INTEGER_64 is
+	timespec_struct_get_tv_sec (a_structure: POINTER): like long is
 			-- Query for tv_sec field of TIMESPEC_STRUCT structure.
 			-- TODO: getter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	timespec_struct_get_tv_nsec (a_structure: POINTER): INTEGER_64 is
+	timespec_struct_get_tv_nsec (a_structure: POINTER): like long is
 			-- Query for tv_nsec field of TIMESPEC_STRUCT structure.
 			-- TODO: getter description
 

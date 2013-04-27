@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcphdr_struct_set_seq (a_structure: POINTER; a_value: NATURAL_32) is
+	tcphdr_struct_set_seq (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for seq field of TCPHDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcphdr_struct_set_ack_seq (a_structure: POINTER; a_value: NATURAL_32) is
+	tcphdr_struct_set_ack_seq (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for ack_seq field of TCPHDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -226,7 +226,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcphdr_struct_get_seq (a_structure: POINTER): NATURAL_32 is
+	tcphdr_struct_get_seq (a_structure: POINTER): NATURAL is
 			-- Query for seq field of TCPHDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -238,7 +238,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcphdr_struct_get_ack_seq (a_structure: POINTER): NATURAL_32 is
+	tcphdr_struct_get_ack_seq (a_structure: POINTER): NATURAL is
 			-- Query for ack_seq field of TCPHDR_STRUCT structure.
 			-- TODO: getter description
 

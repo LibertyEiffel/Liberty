@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_closure_alloc (a_size: NATURAL_64; a_code: POINTER): POINTER is
+	ffi_closure_alloc (a_size: like size_t; a_code: POINTER): POINTER is
  		-- ffi_closure_alloc
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_java_raw_size (a_cif: POINTER): NATURAL_64 is
+	ffi_java_raw_size (a_cif: POINTER): like size_t is
  		-- ffi_java_raw_size
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_prep_cif (a_cif: POINTER; an_abi: INTEGER; a_nargs: NATURAL_32; a_rtype: POINTER; an_atypes: POINTER): INTEGER is
+	ffi_prep_cif (a_cif: POINTER; an_abi: INTEGER; a_nargs: NATURAL; a_rtype: POINTER; an_atypes: POINTER): INTEGER is
  		-- ffi_prep_cif
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_prep_cif_core (a_cif: POINTER; an_abi: INTEGER; an_isvariadic: NATURAL_32; a_nfixedargs: NATURAL_32; a_ntotalargs: NATURAL_32; a_rtype: POINTER; an_atypes: POINTER): INTEGER is
+	ffi_prep_cif_core (a_cif: POINTER; an_abi: INTEGER; an_isvariadic: NATURAL; a_nfixedargs: NATURAL; a_ntotalargs: NATURAL; a_rtype: POINTER; an_atypes: POINTER): INTEGER is
  		-- ffi_prep_cif_core
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_prep_cif_var (a_cif: POINTER; an_abi: INTEGER; a_nfixedargs: NATURAL_32; a_ntotalargs: NATURAL_32; a_rtype: POINTER; an_atypes: POINTER): INTEGER is
+	ffi_prep_cif_var (a_cif: POINTER; an_abi: INTEGER; a_nfixedargs: NATURAL; a_ntotalargs: NATURAL; a_rtype: POINTER; an_atypes: POINTER): INTEGER is
  		-- ffi_prep_cif_var
 		external "plug_in"
 		alias "{
@@ -189,7 +189,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_raw_size (a_cif: POINTER): NATURAL_64 is
+	ffi_raw_size (a_cif: POINTER): like size_t is
  		-- ffi_raw_size
 		external "plug_in"
 		alias "{

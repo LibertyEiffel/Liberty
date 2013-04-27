@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	sockaddr_in_struct_set_sin_port (a_structure: POINTER; a_value: NATURAL_16) is
+	sockaddr_in_struct_set_sin_port (a_structure: POINTER; a_value: like uint16_t) is
 			-- Setter for sin_port field of SOCKADDR_IN_STRUCT structure.
 			-- TODO: setter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	sockaddr_in_struct_get_sin_port (a_structure: POINTER): NATURAL_16 is
+	sockaddr_in_struct_get_sin_port (a_structure: POINTER): like uint16_t is
 			-- Query for sin_port field of SOCKADDR_IN_STRUCT structure.
 			-- TODO: getter description
 

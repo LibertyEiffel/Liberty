@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	LIBXML2_TYPES
 feature {} -- Low-level setters
 
-	xml_domwrap_ctxt_struct_set_type (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_domwrap_ctxt_struct_set_type (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for type field of XML_DOMWRAP_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -47,7 +47,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field _private.
-	xml_domwrap_ctxt_struct_get_type (a_structure: POINTER): INTEGER_32 is
+	xml_domwrap_ctxt_struct_get_type (a_structure: POINTER): INTEGER is
 			-- Query for type field of XML_DOMWRAP_CTXT_STRUCT structure.
 			-- TODO: getter description
 

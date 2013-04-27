@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_arc (a_cr: POINTER; a_xc: REAL_64; a_yc: REAL_64; a_radius: REAL_64; an_angle1: REAL_64; an_angle2: REAL_64) is
+	cairo_arc (a_cr: POINTER; a_xc: REAL; a_yc: REAL; a_radius: REAL; an_angle1: REAL; an_angle2: REAL) is
  		-- cairo_arc
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_arc_negative (a_cr: POINTER; a_xc: REAL_64; a_yc: REAL_64; a_radius: REAL_64; an_angle1: REAL_64; an_angle2: REAL_64) is
+	cairo_arc_negative (a_cr: POINTER; a_xc: REAL; a_yc: REAL; a_radius: REAL; an_angle1: REAL; an_angle2: REAL) is
  		-- cairo_arc_negative
 		external "plug_in"
 		alias "{
@@ -129,7 +129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_curve_to (a_cr: POINTER; a_x1: REAL_64; a_y1: REAL_64; a_x2: REAL_64; a_y2: REAL_64; a_x3: REAL_64; a_y3: REAL_64) is
+	cairo_curve_to (a_cr: POINTER; a_x1: REAL; a_y1: REAL; a_x2: REAL; a_y2: REAL; a_x3: REAL; a_y3: REAL) is
  		-- cairo_curve_to
 		external "plug_in"
 		alias "{
@@ -199,7 +199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_device_get_reference_count (a_device: POINTER): NATURAL_32 is
+	cairo_device_get_reference_count (a_device: POINTER): NATURAL is
  		-- cairo_device_get_reference_count
 		external "plug_in"
 		alias "{
@@ -226,6 +226,76 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "cairo_device_get_user_data"
+		}"
+		end
+
+	cairo_device_observer_elapsed (a_device: POINTER): REAL is
+ 		-- cairo_device_observer_elapsed
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_device_observer_elapsed"
+		}"
+		end
+
+	cairo_device_observer_fill_elapsed (a_device: POINTER): REAL is
+ 		-- cairo_device_observer_fill_elapsed
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_device_observer_fill_elapsed"
+		}"
+		end
+
+	cairo_device_observer_glyphs_elapsed (a_device: POINTER): REAL is
+ 		-- cairo_device_observer_glyphs_elapsed
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_device_observer_glyphs_elapsed"
+		}"
+		end
+
+	cairo_device_observer_mask_elapsed (a_device: POINTER): REAL is
+ 		-- cairo_device_observer_mask_elapsed
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_device_observer_mask_elapsed"
+		}"
+		end
+
+	cairo_device_observer_paint_elapsed (a_device: POINTER): REAL is
+ 		-- cairo_device_observer_paint_elapsed
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_device_observer_paint_elapsed"
+		}"
+		end
+
+	cairo_device_observer_print (a_device: POINTER; a_write_func: POINTER; a_closure: POINTER): INTEGER is
+ 		-- cairo_device_observer_print
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_device_observer_print"
+		}"
+		end
+
+	cairo_device_observer_stroke_elapsed (a_device: POINTER): REAL is
+ 		-- cairo_device_observer_stroke_elapsed
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_device_observer_stroke_elapsed"
 		}"
 		end
 
@@ -339,7 +409,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_font_face_get_reference_count (a_font_face: POINTER): NATURAL_32 is
+	cairo_font_face_get_reference_count (a_font_face: POINTER): NATURAL is
  		-- cairo_font_face_get_reference_count
 		external "plug_in"
 		alias "{
@@ -429,7 +499,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_font_options_equal (an_options: POINTER; an_other: POINTER): INTEGER_32 is
+	cairo_font_options_equal (an_options: POINTER; an_other: POINTER): INTEGER is
  		-- cairo_font_options_equal
 		external "plug_in"
 		alias "{
@@ -479,7 +549,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_font_options_hash (an_options: POINTER): NATURAL_64 is
+	cairo_font_options_hash (an_options: POINTER): like long_unsigned is
  		-- cairo_font_options_hash
 		external "plug_in"
 		alias "{
@@ -549,7 +619,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_format_stride_for_width (a_format: INTEGER; a_width: INTEGER_32): INTEGER_32 is
+	cairo_format_stride_for_width (a_format: INTEGER; a_width: INTEGER): INTEGER is
  		-- cairo_format_stride_for_width
 		external "plug_in"
 		alias "{
@@ -589,7 +659,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_get_dash_count (a_cr: POINTER): INTEGER_32 is
+	cairo_get_dash_count (a_cr: POINTER): INTEGER is
  		-- cairo_get_dash_count
 		external "plug_in"
 		alias "{
@@ -669,7 +739,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_get_line_width (a_cr: POINTER): REAL_64 is
+	cairo_get_line_width (a_cr: POINTER): REAL is
  		-- cairo_get_line_width
 		external "plug_in"
 		alias "{
@@ -689,7 +759,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_get_miter_limit (a_cr: POINTER): REAL_64 is
+	cairo_get_miter_limit (a_cr: POINTER): REAL is
  		-- cairo_get_miter_limit
 		external "plug_in"
 		alias "{
@@ -709,7 +779,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_get_reference_count (a_cr: POINTER): NATURAL_32 is
+	cairo_get_reference_count (a_cr: POINTER): NATURAL is
  		-- cairo_get_reference_count
 		external "plug_in"
 		alias "{
@@ -749,7 +819,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_get_tolerance (a_cr: POINTER): REAL_64 is
+	cairo_get_tolerance (a_cr: POINTER): REAL is
  		-- cairo_get_tolerance
 		external "plug_in"
 		alias "{
@@ -769,7 +839,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_glyph_allocate (a_num_glyphs: INTEGER_32): POINTER is
+	cairo_glyph_allocate (a_num_glyphs: INTEGER): POINTER is
  		-- cairo_glyph_allocate
 		external "plug_in"
 		alias "{
@@ -779,7 +849,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_glyph_extents (a_cr: POINTER; a_glyphs: POINTER; a_num_glyphs: INTEGER_32; an_extents: POINTER) is
+	cairo_glyph_extents (a_cr: POINTER; a_glyphs: POINTER; a_num_glyphs: INTEGER; an_extents: POINTER) is
  		-- cairo_glyph_extents
 		external "plug_in"
 		alias "{
@@ -799,7 +869,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_glyph_path (a_cr: POINTER; a_glyphs: POINTER; a_num_glyphs: INTEGER_32) is
+	cairo_glyph_path (a_cr: POINTER; a_glyphs: POINTER; a_num_glyphs: INTEGER) is
  		-- cairo_glyph_path
 		external "plug_in"
 		alias "{
@@ -809,7 +879,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_has_current_point (a_cr: POINTER): INTEGER_32 is
+	cairo_has_current_point (a_cr: POINTER): INTEGER is
  		-- cairo_has_current_point
 		external "plug_in"
 		alias "{
@@ -829,7 +899,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_image_surface_create (a_format: INTEGER; a_width: INTEGER_32; a_height: INTEGER_32): POINTER is
+	cairo_image_surface_create (a_format: INTEGER; a_width: INTEGER; a_height: INTEGER): POINTER is
  		-- cairo_image_surface_create
 		external "plug_in"
 		alias "{
@@ -839,7 +909,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_image_surface_create_for_data (a_data: POINTER; a_format: INTEGER; a_width: INTEGER_32; a_height: INTEGER_32; a_stride: INTEGER_32): POINTER is
+	cairo_image_surface_create_for_data (a_data: POINTER; a_format: INTEGER; a_width: INTEGER; a_height: INTEGER; a_stride: INTEGER): POINTER is
  		-- cairo_image_surface_create_for_data
 		external "plug_in"
 		alias "{
@@ -889,7 +959,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_image_surface_get_height (a_surface: POINTER): INTEGER_32 is
+	cairo_image_surface_get_height (a_surface: POINTER): INTEGER is
  		-- cairo_image_surface_get_height
 		external "plug_in"
 		alias "{
@@ -899,7 +969,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_image_surface_get_stride (a_surface: POINTER): INTEGER_32 is
+	cairo_image_surface_get_stride (a_surface: POINTER): INTEGER is
  		-- cairo_image_surface_get_stride
 		external "plug_in"
 		alias "{
@@ -909,7 +979,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_image_surface_get_width (a_surface: POINTER): INTEGER_32 is
+	cairo_image_surface_get_width (a_surface: POINTER): INTEGER is
  		-- cairo_image_surface_get_width
 		external "plug_in"
 		alias "{
@@ -919,7 +989,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_in_clip (a_cr: POINTER; a_x: REAL_64; a_y: REAL_64): INTEGER_32 is
+	cairo_in_clip (a_cr: POINTER; a_x: REAL; a_y: REAL): INTEGER is
  		-- cairo_in_clip
 		external "plug_in"
 		alias "{
@@ -929,7 +999,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_in_fill (a_cr: POINTER; a_x: REAL_64; a_y: REAL_64): INTEGER_32 is
+	cairo_in_fill (a_cr: POINTER; a_x: REAL; a_y: REAL): INTEGER is
  		-- cairo_in_fill
 		external "plug_in"
 		alias "{
@@ -939,7 +1009,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_in_stroke (a_cr: POINTER; a_x: REAL_64; a_y: REAL_64): INTEGER_32 is
+	cairo_in_stroke (a_cr: POINTER; a_x: REAL; a_y: REAL): INTEGER is
  		-- cairo_in_stroke
 		external "plug_in"
 		alias "{
@@ -949,7 +1019,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_line_to (a_cr: POINTER; a_x: REAL_64; a_y: REAL_64) is
+	cairo_line_to (a_cr: POINTER; a_x: REAL; a_y: REAL) is
  		-- cairo_line_to
 		external "plug_in"
 		alias "{
@@ -969,7 +1039,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_mask_surface (a_cr: POINTER; a_surface: POINTER; a_surface_x: REAL_64; a_surface_y: REAL_64) is
+	cairo_mask_surface (a_cr: POINTER; a_surface: POINTER; a_surface_x: REAL; a_surface_y: REAL) is
  		-- cairo_mask_surface
 		external "plug_in"
 		alias "{
@@ -979,7 +1049,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_matrix_init (a_matrix: POINTER; a_xx: REAL_64; a_yx: REAL_64; a_xy: REAL_64; a_yy: REAL_64; a_x0: REAL_64; a_y0: REAL_64) is
+	cairo_matrix_init (a_matrix: POINTER; a_xx: REAL; a_yx: REAL; a_xy: REAL; a_yy: REAL; a_x0: REAL; a_y0: REAL) is
  		-- cairo_matrix_init
 		external "plug_in"
 		alias "{
@@ -999,7 +1069,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_matrix_init_rotate (a_matrix: POINTER; a_radians: REAL_64) is
+	cairo_matrix_init_rotate (a_matrix: POINTER; a_radians: REAL) is
  		-- cairo_matrix_init_rotate
 		external "plug_in"
 		alias "{
@@ -1009,7 +1079,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_matrix_init_scale (a_matrix: POINTER; a_sx: REAL_64; a_sy: REAL_64) is
+	cairo_matrix_init_scale (a_matrix: POINTER; a_sx: REAL; a_sy: REAL) is
  		-- cairo_matrix_init_scale
 		external "plug_in"
 		alias "{
@@ -1019,7 +1089,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_matrix_init_translate (a_matrix: POINTER; a_tx: REAL_64; a_ty: REAL_64) is
+	cairo_matrix_init_translate (a_matrix: POINTER; a_tx: REAL; a_ty: REAL) is
  		-- cairo_matrix_init_translate
 		external "plug_in"
 		alias "{
@@ -1049,7 +1119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_matrix_rotate (a_matrix: POINTER; a_radians: REAL_64) is
+	cairo_matrix_rotate (a_matrix: POINTER; a_radians: REAL) is
  		-- cairo_matrix_rotate
 		external "plug_in"
 		alias "{
@@ -1059,7 +1129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_matrix_scale (a_matrix: POINTER; a_sx: REAL_64; a_sy: REAL_64) is
+	cairo_matrix_scale (a_matrix: POINTER; a_sx: REAL; a_sy: REAL) is
  		-- cairo_matrix_scale
 		external "plug_in"
 		alias "{
@@ -1089,7 +1159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_matrix_translate (a_matrix: POINTER; a_tx: REAL_64; a_ty: REAL_64) is
+	cairo_matrix_translate (a_matrix: POINTER; a_tx: REAL; a_ty: REAL) is
  		-- cairo_matrix_translate
 		external "plug_in"
 		alias "{
@@ -1099,7 +1169,127 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_move_to (a_cr: POINTER; a_x: REAL_64; a_y: REAL_64) is
+	cairo_mesh_pattern_begin_patch (a_pattern: POINTER) is
+ 		-- cairo_mesh_pattern_begin_patch
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_mesh_pattern_begin_patch"
+		}"
+		end
+
+	cairo_mesh_pattern_curve_to (a_pattern: POINTER; a_x1: REAL; a_y1: REAL; a_x2: REAL; a_y2: REAL; a_x3: REAL; a_y3: REAL) is
+ 		-- cairo_mesh_pattern_curve_to
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_mesh_pattern_curve_to"
+		}"
+		end
+
+	cairo_mesh_pattern_end_patch (a_pattern: POINTER) is
+ 		-- cairo_mesh_pattern_end_patch
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_mesh_pattern_end_patch"
+		}"
+		end
+
+	cairo_mesh_pattern_get_control_point (a_pattern: POINTER; a_patch_num: NATURAL; a_point_num: NATURAL; a_x: POINTER; a_y: POINTER): INTEGER is
+ 		-- cairo_mesh_pattern_get_control_point
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_mesh_pattern_get_control_point"
+		}"
+		end
+
+	cairo_mesh_pattern_get_corner_color_rgba (a_pattern: POINTER; a_patch_num: NATURAL; a_corner_num: NATURAL; a_red: POINTER; a_green: POINTER; a_blue: POINTER; an_alpha: POINTER): INTEGER is
+ 		-- cairo_mesh_pattern_get_corner_color_rgba
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_mesh_pattern_get_corner_color_rgba"
+		}"
+		end
+
+	cairo_mesh_pattern_get_patch_count (a_pattern: POINTER; a_count: POINTER): INTEGER is
+ 		-- cairo_mesh_pattern_get_patch_count
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_mesh_pattern_get_patch_count"
+		}"
+		end
+
+	cairo_mesh_pattern_get_path (a_pattern: POINTER; a_patch_num: NATURAL): POINTER is
+ 		-- cairo_mesh_pattern_get_path
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_mesh_pattern_get_path"
+		}"
+		end
+
+	cairo_mesh_pattern_line_to (a_pattern: POINTER; a_x: REAL; a_y: REAL) is
+ 		-- cairo_mesh_pattern_line_to
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_mesh_pattern_line_to"
+		}"
+		end
+
+	cairo_mesh_pattern_move_to (a_pattern: POINTER; a_x: REAL; a_y: REAL) is
+ 		-- cairo_mesh_pattern_move_to
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_mesh_pattern_move_to"
+		}"
+		end
+
+	cairo_mesh_pattern_set_control_point (a_pattern: POINTER; a_point_num: NATURAL; a_x: REAL; a_y: REAL) is
+ 		-- cairo_mesh_pattern_set_control_point
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_mesh_pattern_set_control_point"
+		}"
+		end
+
+	cairo_mesh_pattern_set_corner_color_rgb (a_pattern: POINTER; a_corner_num: NATURAL; a_red: REAL; a_green: REAL; a_blue: REAL) is
+ 		-- cairo_mesh_pattern_set_corner_color_rgb
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_mesh_pattern_set_corner_color_rgb"
+		}"
+		end
+
+	cairo_mesh_pattern_set_corner_color_rgba (a_pattern: POINTER; a_corner_num: NATURAL; a_red: REAL; a_green: REAL; a_blue: REAL; an_alpha: REAL) is
+ 		-- cairo_mesh_pattern_set_corner_color_rgba
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_mesh_pattern_set_corner_color_rgba"
+		}"
+		end
+
+	cairo_move_to (a_cr: POINTER; a_x: REAL; a_y: REAL) is
  		-- cairo_move_to
 		external "plug_in"
 		alias "{
@@ -1139,7 +1329,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_paint_with_alpha (a_cr: POINTER; an_alpha: REAL_64) is
+	cairo_paint_with_alpha (a_cr: POINTER; an_alpha: REAL) is
  		-- cairo_paint_with_alpha
 		external "plug_in"
 		alias "{
@@ -1169,7 +1359,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_pattern_add_color_stop_rgb (a_pattern: POINTER; an_offset: REAL_64; a_red: REAL_64; a_green: REAL_64; a_blue: REAL_64) is
+	cairo_pattern_add_color_stop_rgb (a_pattern: POINTER; an_offset: REAL; a_red: REAL; a_green: REAL; a_blue: REAL) is
  		-- cairo_pattern_add_color_stop_rgb
 		external "plug_in"
 		alias "{
@@ -1179,7 +1369,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_pattern_add_color_stop_rgba (a_pattern: POINTER; an_offset: REAL_64; a_red: REAL_64; a_green: REAL_64; a_blue: REAL_64; an_alpha: REAL_64) is
+	cairo_pattern_add_color_stop_rgba (a_pattern: POINTER; an_offset: REAL; a_red: REAL; a_green: REAL; a_blue: REAL; an_alpha: REAL) is
  		-- cairo_pattern_add_color_stop_rgba
 		external "plug_in"
 		alias "{
@@ -1199,7 +1389,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_pattern_create_linear (a_x0: REAL_64; a_y0: REAL_64; a_x1: REAL_64; a_y1: REAL_64): POINTER is
+	cairo_pattern_create_linear (a_x0: REAL; a_y0: REAL; a_x1: REAL; a_y1: REAL): POINTER is
  		-- cairo_pattern_create_linear
 		external "plug_in"
 		alias "{
@@ -1209,7 +1399,17 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_pattern_create_radial (a_cx0: REAL_64; a_cy0: REAL_64; a_radius0: REAL_64; a_cx1: REAL_64; a_cy1: REAL_64; a_radius1: REAL_64): POINTER is
+	cairo_pattern_create_mesh: POINTER is
+ 		-- cairo_pattern_create_mesh
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_pattern_create_mesh()"
+		}"
+		end
+
+	cairo_pattern_create_radial (a_cx0: REAL; a_cy0: REAL; a_radius0: REAL; a_cx1: REAL; a_cy1: REAL; a_radius1: REAL): POINTER is
  		-- cairo_pattern_create_radial
 		external "plug_in"
 		alias "{
@@ -1219,7 +1419,17 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_pattern_create_rgb (a_red: REAL_64; a_green: REAL_64; a_blue: REAL_64): POINTER is
+	cairo_pattern_create_raster_source (an_user_data: POINTER; a_content: INTEGER; a_width: INTEGER; a_height: INTEGER): POINTER is
+ 		-- cairo_pattern_create_raster_source
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_pattern_create_raster_source"
+		}"
+		end
+
+	cairo_pattern_create_rgb (a_red: REAL; a_green: REAL; a_blue: REAL): POINTER is
  		-- cairo_pattern_create_rgb
 		external "plug_in"
 		alias "{
@@ -1229,7 +1439,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_pattern_create_rgba (a_red: REAL_64; a_green: REAL_64; a_blue: REAL_64; an_alpha: REAL_64): POINTER is
+	cairo_pattern_create_rgba (a_red: REAL; a_green: REAL; a_blue: REAL; an_alpha: REAL): POINTER is
  		-- cairo_pattern_create_rgba
 		external "plug_in"
 		alias "{
@@ -1259,7 +1469,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_pattern_get_color_stop_rgba (a_pattern: POINTER; an_index: INTEGER_32; an_offset: POINTER; a_red: POINTER; a_green: POINTER; a_blue: POINTER; an_alpha: POINTER): INTEGER is
+	cairo_pattern_get_color_stop_rgba (a_pattern: POINTER; an_index: INTEGER; an_offset: POINTER; a_red: POINTER; a_green: POINTER; a_blue: POINTER; an_alpha: POINTER): INTEGER is
  		-- cairo_pattern_get_color_stop_rgba
 		external "plug_in"
 		alias "{
@@ -1319,7 +1529,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_pattern_get_reference_count (a_pattern: POINTER): NATURAL_32 is
+	cairo_pattern_get_reference_count (a_pattern: POINTER): NATURAL is
  		-- cairo_pattern_get_reference_count
 		external "plug_in"
 		alias "{
@@ -1469,6 +1679,106 @@ feature {} -- External calls
 		}"
 		end
 
+	cairo_raster_source_pattern_get_acquire (a_pattern: POINTER; an_acquire: POINTER; a_release: POINTER) is
+ 		-- cairo_raster_source_pattern_get_acquire
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_raster_source_pattern_get_acquire"
+		}"
+		end
+
+	cairo_raster_source_pattern_get_callback_data (a_pattern: POINTER): POINTER is
+ 		-- cairo_raster_source_pattern_get_callback_data
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_raster_source_pattern_get_callback_data"
+		}"
+		end
+
+	cairo_raster_source_pattern_get_copy (a_pattern: POINTER): POINTER is
+ 		-- cairo_raster_source_pattern_get_copy
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_raster_source_pattern_get_copy"
+		}"
+		end
+
+	cairo_raster_source_pattern_get_finish (a_pattern: POINTER): POINTER is
+ 		-- cairo_raster_source_pattern_get_finish
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_raster_source_pattern_get_finish"
+		}"
+		end
+
+	cairo_raster_source_pattern_get_snapshot (a_pattern: POINTER): POINTER is
+ 		-- cairo_raster_source_pattern_get_snapshot
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_raster_source_pattern_get_snapshot"
+		}"
+		end
+
+	cairo_raster_source_pattern_set_acquire (a_pattern: POINTER; an_acquire: POINTER; a_release: POINTER) is
+ 		-- cairo_raster_source_pattern_set_acquire
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_raster_source_pattern_set_acquire"
+		}"
+		end
+
+	cairo_raster_source_pattern_set_callback_data (a_pattern: POINTER; a_data: POINTER) is
+ 		-- cairo_raster_source_pattern_set_callback_data
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_raster_source_pattern_set_callback_data"
+		}"
+		end
+
+	cairo_raster_source_pattern_set_copy (a_pattern: POINTER; a_copy_external: POINTER) is
+ 		-- cairo_raster_source_pattern_set_copy
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_raster_source_pattern_set_copy"
+		}"
+		end
+
+	cairo_raster_source_pattern_set_finish (a_pattern: POINTER; a_finish: POINTER) is
+ 		-- cairo_raster_source_pattern_set_finish
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_raster_source_pattern_set_finish"
+		}"
+		end
+
+	cairo_raster_source_pattern_set_snapshot (a_pattern: POINTER; a_snapshot: POINTER) is
+ 		-- cairo_raster_source_pattern_set_snapshot
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_raster_source_pattern_set_snapshot"
+		}"
+		end
+
 	cairo_recording_surface_create (a_content: INTEGER; an_extents: POINTER): POINTER is
  		-- cairo_recording_surface_create
 		external "plug_in"
@@ -1476,6 +1786,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "cairo_recording_surface_create"
+		}"
+		end
+
+	cairo_recording_surface_get_extents (a_surface: POINTER; an_extents: POINTER): INTEGER is
+ 		-- cairo_recording_surface_get_extents
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_recording_surface_get_extents"
 		}"
 		end
 
@@ -1489,7 +1809,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_rectangle (a_cr: POINTER; a_x: REAL_64; a_y: REAL_64; a_width: REAL_64; a_height: REAL_64) is
+	cairo_rectangle (a_cr: POINTER; a_x: REAL; a_y: REAL; a_width: REAL; a_height: REAL) is
  		-- cairo_rectangle
 		external "plug_in"
 		alias "{
@@ -1519,7 +1839,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_region_contains_point (a_region: POINTER; a_x: INTEGER_32; a_y: INTEGER_32): INTEGER_32 is
+	cairo_region_contains_point (a_region: POINTER; a_x: INTEGER; a_y: INTEGER): INTEGER is
  		-- cairo_region_contains_point
 		external "plug_in"
 		alias "{
@@ -1569,7 +1889,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_region_create_rectangles (a_rects: POINTER; a_count: INTEGER_32): POINTER is
+	cairo_region_create_rectangles (a_rects: POINTER; a_count: INTEGER): POINTER is
  		-- cairo_region_create_rectangles
 		external "plug_in"
 		alias "{
@@ -1589,7 +1909,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_region_equal (an_a: POINTER; a_b: POINTER): INTEGER_32 is
+	cairo_region_equal (an_a: POINTER; a_b: POINTER): INTEGER is
  		-- cairo_region_equal
 		external "plug_in"
 		alias "{
@@ -1609,7 +1929,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_region_get_rectangle (a_region: POINTER; a_nth: INTEGER_32; a_rectangle: POINTER) is
+	cairo_region_get_rectangle (a_region: POINTER; a_nth: INTEGER; a_rectangle: POINTER) is
  		-- cairo_region_get_rectangle
 		external "plug_in"
 		alias "{
@@ -1639,7 +1959,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_region_is_empty (a_region: POINTER): INTEGER_32 is
+	cairo_region_is_empty (a_region: POINTER): INTEGER is
  		-- cairo_region_is_empty
 		external "plug_in"
 		alias "{
@@ -1649,7 +1969,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_region_num_rectangles (a_region: POINTER): INTEGER_32 is
+	cairo_region_num_rectangles (a_region: POINTER): INTEGER is
  		-- cairo_region_num_rectangles
 		external "plug_in"
 		alias "{
@@ -1699,7 +2019,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_region_translate (a_region: POINTER; a_dx: INTEGER_32; a_dy: INTEGER_32) is
+	cairo_region_translate (a_region: POINTER; a_dx: INTEGER; a_dy: INTEGER) is
  		-- cairo_region_translate
 		external "plug_in"
 		alias "{
@@ -1749,7 +2069,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_rel_curve_to (a_cr: POINTER; a_dx1: REAL_64; a_dy1: REAL_64; a_dx2: REAL_64; a_dy2: REAL_64; a_dx3: REAL_64; a_dy3: REAL_64) is
+	cairo_rel_curve_to (a_cr: POINTER; a_dx1: REAL; a_dy1: REAL; a_dx2: REAL; a_dy2: REAL; a_dx3: REAL; a_dy3: REAL) is
  		-- cairo_rel_curve_to
 		external "plug_in"
 		alias "{
@@ -1759,7 +2079,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_rel_line_to (a_cr: POINTER; a_dx: REAL_64; a_dy: REAL_64) is
+	cairo_rel_line_to (a_cr: POINTER; a_dx: REAL; a_dy: REAL) is
  		-- cairo_rel_line_to
 		external "plug_in"
 		alias "{
@@ -1769,7 +2089,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_rel_move_to (a_cr: POINTER; a_dx: REAL_64; a_dy: REAL_64) is
+	cairo_rel_move_to (a_cr: POINTER; a_dx: REAL; a_dy: REAL) is
  		-- cairo_rel_move_to
 		external "plug_in"
 		alias "{
@@ -1799,7 +2119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_rotate (a_cr: POINTER; an_angle: REAL_64) is
+	cairo_rotate (a_cr: POINTER; an_angle: REAL) is
  		-- cairo_rotate
 		external "plug_in"
 		alias "{
@@ -1819,7 +2139,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_scale (a_cr: POINTER; a_sx: REAL_64; a_sy: REAL_64) is
+	cairo_scale (a_cr: POINTER; a_sx: REAL; a_sy: REAL) is
  		-- cairo_scale
 		external "plug_in"
 		alias "{
@@ -1899,7 +2219,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_scaled_font_get_reference_count (a_scaled_font: POINTER): NATURAL_32 is
+	cairo_scaled_font_get_reference_count (a_scaled_font: POINTER): NATURAL is
  		-- cairo_scaled_font_get_reference_count
 		external "plug_in"
 		alias "{
@@ -1939,7 +2259,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_scaled_font_glyph_extents (a_scaled_font: POINTER; a_glyphs: POINTER; a_num_glyphs: INTEGER_32; an_extents: POINTER) is
+	cairo_scaled_font_glyph_extents (a_scaled_font: POINTER; a_glyphs: POINTER; a_num_glyphs: INTEGER; an_extents: POINTER) is
  		-- cairo_scaled_font_glyph_extents
 		external "plug_in"
 		alias "{
@@ -1989,7 +2309,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_scaled_font_text_to_glyphs (a_scaled_font: POINTER; a_x: REAL_64; a_y: REAL_64; an_utf8: POINTER; an_utf8_len: INTEGER_32; a_glyphs: POINTER; a_num_glyphs: POINTER; a_clusters: POINTER; a_num_clusters: POINTER; a_cluster_flags: POINTER): INTEGER is
+	cairo_scaled_font_text_to_glyphs (a_scaled_font: POINTER; a_x: REAL; a_y: REAL; an_utf8: POINTER; an_utf8_len: INTEGER; a_glyphs: POINTER; a_num_glyphs: POINTER; a_clusters: POINTER; a_num_clusters: POINTER; a_cluster_flags: POINTER): INTEGER is
  		-- cairo_scaled_font_text_to_glyphs
 		external "plug_in"
 		alias "{
@@ -2019,7 +2339,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_set_dash (a_cr: POINTER; a_dashes: POINTER; a_num_dashes: INTEGER_32; an_offset: REAL_64) is
+	cairo_set_dash (a_cr: POINTER; a_dashes: POINTER; a_num_dashes: INTEGER; an_offset: REAL) is
  		-- cairo_set_dash
 		external "plug_in"
 		alias "{
@@ -2069,7 +2389,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_set_font_size (a_cr: POINTER; a_size: REAL_64) is
+	cairo_set_font_size (a_cr: POINTER; a_size: REAL) is
  		-- cairo_set_font_size
 		external "plug_in"
 		alias "{
@@ -2099,7 +2419,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_set_line_width (a_cr: POINTER; a_width: REAL_64) is
+	cairo_set_line_width (a_cr: POINTER; a_width: REAL) is
  		-- cairo_set_line_width
 		external "plug_in"
 		alias "{
@@ -2119,7 +2439,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_set_miter_limit (a_cr: POINTER; a_limit: REAL_64) is
+	cairo_set_miter_limit (a_cr: POINTER; a_limit: REAL) is
  		-- cairo_set_miter_limit
 		external "plug_in"
 		alias "{
@@ -2159,7 +2479,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_set_source_rgb (a_cr: POINTER; a_red: REAL_64; a_green: REAL_64; a_blue: REAL_64) is
+	cairo_set_source_rgb (a_cr: POINTER; a_red: REAL; a_green: REAL; a_blue: REAL) is
  		-- cairo_set_source_rgb
 		external "plug_in"
 		alias "{
@@ -2169,7 +2489,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_set_source_rgba (a_cr: POINTER; a_red: REAL_64; a_green: REAL_64; a_blue: REAL_64; an_alpha: REAL_64) is
+	cairo_set_source_rgba (a_cr: POINTER; a_red: REAL; a_green: REAL; a_blue: REAL; an_alpha: REAL) is
  		-- cairo_set_source_rgba
 		external "plug_in"
 		alias "{
@@ -2179,7 +2499,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_set_source_surface (a_cr: POINTER; a_surface: POINTER; a_x: REAL_64; a_y: REAL_64) is
+	cairo_set_source_surface (a_cr: POINTER; a_surface: POINTER; a_x: REAL; a_y: REAL) is
  		-- cairo_set_source_surface
 		external "plug_in"
 		alias "{
@@ -2189,7 +2509,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_set_tolerance (a_cr: POINTER; a_tolerance: REAL_64) is
+	cairo_set_tolerance (a_cr: POINTER; a_tolerance: REAL) is
  		-- cairo_set_tolerance
 		external "plug_in"
 		alias "{
@@ -2209,7 +2529,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_show_glyphs (a_cr: POINTER; a_glyphs: POINTER; a_num_glyphs: INTEGER_32) is
+	cairo_show_glyphs (a_cr: POINTER; a_glyphs: POINTER; a_num_glyphs: INTEGER) is
  		-- cairo_show_glyphs
 		external "plug_in"
 		alias "{
@@ -2239,7 +2559,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_show_text_glyphs (a_cr: POINTER; an_utf8: POINTER; an_utf8_len: INTEGER_32; a_glyphs: POINTER; a_num_glyphs: INTEGER_32; a_clusters: POINTER; a_num_clusters: INTEGER_32; a_cluster_flags: INTEGER) is
+	cairo_show_text_glyphs (a_cr: POINTER; an_utf8: POINTER; an_utf8_len: INTEGER; a_glyphs: POINTER; a_num_glyphs: INTEGER; a_clusters: POINTER; a_num_clusters: INTEGER; a_cluster_flags: INTEGER) is
  		-- cairo_show_text_glyphs
 		external "plug_in"
 		alias "{
@@ -2309,7 +2629,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_surface_create_for_rectangle (a_target: POINTER; a_x: REAL_64; a_y: REAL_64; a_width: REAL_64; a_height: REAL_64): POINTER is
+	cairo_surface_create_for_rectangle (a_target: POINTER; a_x: REAL; a_y: REAL; a_width: REAL; a_height: REAL): POINTER is
  		-- cairo_surface_create_for_rectangle
 		external "plug_in"
 		alias "{
@@ -2319,13 +2639,33 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_surface_create_similar (an_other: POINTER; a_content: INTEGER; a_width: INTEGER_32; a_height: INTEGER_32): POINTER is
+	cairo_surface_create_observer (a_target: POINTER; a_mode: INTEGER): POINTER is
+ 		-- cairo_surface_create_observer
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_surface_create_observer"
+		}"
+		end
+
+	cairo_surface_create_similar (an_other: POINTER; a_content: INTEGER; a_width: INTEGER; a_height: INTEGER): POINTER is
  		-- cairo_surface_create_similar
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "cairo_surface_create_similar"
+		}"
+		end
+
+	cairo_surface_create_similar_image (an_other: POINTER; a_format: INTEGER; a_width: INTEGER; a_height: INTEGER): POINTER is
+ 		-- cairo_surface_create_similar_image
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_surface_create_similar_image"
 		}"
 		end
 
@@ -2419,7 +2759,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_surface_get_reference_count (a_surface: POINTER): NATURAL_32 is
+	cairo_surface_get_reference_count (a_surface: POINTER): NATURAL is
  		-- cairo_surface_get_reference_count
 		external "plug_in"
 		alias "{
@@ -2449,13 +2789,23 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_surface_has_show_text_glyphs (a_surface: POINTER): INTEGER_32 is
+	cairo_surface_has_show_text_glyphs (a_surface: POINTER): INTEGER is
  		-- cairo_surface_has_show_text_glyphs
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "cairo_surface_has_show_text_glyphs"
+		}"
+		end
+
+	cairo_surface_map_to_image (a_surface: POINTER; an_extents: POINTER): POINTER is
+ 		-- cairo_surface_map_to_image
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_surface_map_to_image"
 		}"
 		end
 
@@ -2469,13 +2819,103 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_surface_mark_dirty_rectangle (a_surface: POINTER; a_x: INTEGER_32; a_y: INTEGER_32; a_width: INTEGER_32; a_height: INTEGER_32) is
+	cairo_surface_mark_dirty_rectangle (a_surface: POINTER; a_x: INTEGER; a_y: INTEGER; a_width: INTEGER; a_height: INTEGER) is
  		-- cairo_surface_mark_dirty_rectangle
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "cairo_surface_mark_dirty_rectangle"
+		}"
+		end
+
+	cairo_surface_observer_add_fill_callback (an_abstract_surface: POINTER; a_func: POINTER; a_data: POINTER): INTEGER is
+ 		-- cairo_surface_observer_add_fill_callback
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_surface_observer_add_fill_callback"
+		}"
+		end
+
+	cairo_surface_observer_add_finish_callback (an_abstract_surface: POINTER; a_func: POINTER; a_data: POINTER): INTEGER is
+ 		-- cairo_surface_observer_add_finish_callback
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_surface_observer_add_finish_callback"
+		}"
+		end
+
+	cairo_surface_observer_add_flush_callback (an_abstract_surface: POINTER; a_func: POINTER; a_data: POINTER): INTEGER is
+ 		-- cairo_surface_observer_add_flush_callback
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_surface_observer_add_flush_callback"
+		}"
+		end
+
+	cairo_surface_observer_add_glyphs_callback (an_abstract_surface: POINTER; a_func: POINTER; a_data: POINTER): INTEGER is
+ 		-- cairo_surface_observer_add_glyphs_callback
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_surface_observer_add_glyphs_callback"
+		}"
+		end
+
+	cairo_surface_observer_add_mask_callback (an_abstract_surface: POINTER; a_func: POINTER; a_data: POINTER): INTEGER is
+ 		-- cairo_surface_observer_add_mask_callback
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_surface_observer_add_mask_callback"
+		}"
+		end
+
+	cairo_surface_observer_add_paint_callback (an_abstract_surface: POINTER; a_func: POINTER; a_data: POINTER): INTEGER is
+ 		-- cairo_surface_observer_add_paint_callback
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_surface_observer_add_paint_callback"
+		}"
+		end
+
+	cairo_surface_observer_add_stroke_callback (an_abstract_surface: POINTER; a_func: POINTER; a_data: POINTER): INTEGER is
+ 		-- cairo_surface_observer_add_stroke_callback
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_surface_observer_add_stroke_callback"
+		}"
+		end
+
+	cairo_surface_observer_elapsed (a_surface: POINTER): REAL is
+ 		-- cairo_surface_observer_elapsed
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_surface_observer_elapsed"
+		}"
+		end
+
+	cairo_surface_observer_print (a_surface: POINTER; a_write_func: POINTER; a_closure: POINTER): INTEGER is
+ 		-- cairo_surface_observer_print
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_surface_observer_print"
 		}"
 		end
 
@@ -2489,7 +2929,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_surface_set_device_offset (a_surface: POINTER; a_x_offset: REAL_64; a_y_offset: REAL_64) is
+	cairo_surface_set_device_offset (a_surface: POINTER; a_x_offset: REAL; a_y_offset: REAL) is
  		-- cairo_surface_set_device_offset
 		external "plug_in"
 		alias "{
@@ -2499,7 +2939,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_surface_set_fallback_resolution (a_surface: POINTER; a_x_pixels_per_inch: REAL_64; a_y_pixels_per_inch: REAL_64) is
+	cairo_surface_set_fallback_resolution (a_surface: POINTER; a_x_pixels_per_inch: REAL; a_y_pixels_per_inch: REAL) is
  		-- cairo_surface_set_fallback_resolution
 		external "plug_in"
 		alias "{
@@ -2509,7 +2949,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_surface_set_mime_data (a_surface: POINTER; a_mime_type: POINTER; a_data: POINTER; a_length: NATURAL_64; a_destroy: POINTER; a_closure: POINTER): INTEGER is
+	cairo_surface_set_mime_data (a_surface: POINTER; a_mime_type: POINTER; a_data: POINTER; a_length: like long_unsigned; a_destroy: POINTER; a_closure: POINTER): INTEGER is
  		-- cairo_surface_set_mime_data
 		external "plug_in"
 		alias "{
@@ -2549,6 +2989,26 @@ feature {} -- External calls
 		}"
 		end
 
+	cairo_surface_supports_mime_type (a_surface: POINTER; a_mime_type: POINTER): INTEGER is
+ 		-- cairo_surface_supports_mime_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_surface_supports_mime_type"
+		}"
+		end
+
+	cairo_surface_unmap_image (a_surface: POINTER; an_image: POINTER) is
+ 		-- cairo_surface_unmap_image
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "cairo_surface_unmap_image"
+		}"
+		end
+
 	cairo_surface_write_to_png (a_surface: POINTER; a_filename: POINTER): INTEGER is
  		-- cairo_surface_write_to_png
 		external "plug_in"
@@ -2569,7 +3029,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_text_cluster_allocate (a_num_clusters: INTEGER_32): POINTER is
+	cairo_text_cluster_allocate (a_num_clusters: INTEGER): POINTER is
  		-- cairo_text_cluster_allocate
 		external "plug_in"
 		alias "{
@@ -2659,7 +3119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_translate (a_cr: POINTER; a_tx: REAL_64; a_ty: REAL_64) is
+	cairo_translate (a_cr: POINTER; a_tx: REAL; a_ty: REAL) is
  		-- cairo_translate
 		external "plug_in"
 		alias "{
@@ -2779,7 +3239,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cairo_version: INTEGER_32 is
+	cairo_version: INTEGER is
  		-- cairo_version
 		external "plug_in"
 		alias "{

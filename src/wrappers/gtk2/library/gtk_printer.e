@@ -47,7 +47,7 @@ inherit
 		end
 
 insert
-	GTK_PRINTER_EXTERNALS
+	GTKPRINTER_EXTERNALS
 		rename is_default as is_void end
 
 creation make, from_external_pointer

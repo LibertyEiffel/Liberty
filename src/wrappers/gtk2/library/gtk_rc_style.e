@@ -25,7 +25,7 @@ inherit
 	G_OBJECT redefine copy end
 
 insert
-	GTK_RC_EXTERNALS
+	GTKRC_EXTERNALS
 
 creation from_external_pointer, make, copy
 

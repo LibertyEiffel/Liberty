@@ -3,131 +3,129 @@
 
 expanded class LLVMINT_PREDICATE_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = eq_low_level)  or else
-				(a_value = ne_low_level)  or else
-				(a_value = ugt_low_level)  or else
-				(a_value = uge_low_level)  or else
-				(a_value = ult_low_level)  or else
-				(a_value = ule_low_level)  or else
-				(a_value = sgt_low_level)  or else
-				(a_value = sge_low_level)  or else
-				(a_value = slt_low_level)  or else
-				(a_value = sle_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = llvmint_eq_low_level)  or else
+				(a_value = llvmint_ne_low_level)  or else
+				(a_value = llvmint_sge_low_level)  or else
+				(a_value = llvmint_sgt_low_level)  or else
+				(a_value = llvmint_sle_low_level)  or else
+				(a_value = llvmint_slt_low_level)  or else
+				(a_value = llvmint_uge_low_level)  or else
+				(a_value = llvmint_ugt_low_level)  or else
+				(a_value = llvmint_ule_low_level)  or else
+				(a_value = llvmint_ult_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_eq is
+	set_llvmint_eq is
 		do
-			value := eq_low_level
+			value := llvmint_eq_low_level
 		end
 
-	set_ne is
+	set_llvmint_ne is
 		do
-			value := ne_low_level
+			value := llvmint_ne_low_level
 		end
 
-	set_ugt is
+	set_llvmint_sge is
 		do
-			value := ugt_low_level
+			value := llvmint_sge_low_level
 		end
 
-	set_uge is
+	set_llvmint_sgt is
 		do
-			value := uge_low_level
+			value := llvmint_sgt_low_level
 		end
 
-	set_ult is
+	set_llvmint_sle is
 		do
-			value := ult_low_level
+			value := llvmint_sle_low_level
 		end
 
-	set_ule is
+	set_llvmint_slt is
 		do
-			value := ule_low_level
+			value := llvmint_slt_low_level
 		end
 
-	set_sgt is
+	set_llvmint_uge is
 		do
-			value := sgt_low_level
+			value := llvmint_uge_low_level
 		end
 
-	set_sge is
+	set_llvmint_ugt is
 		do
-			value := sge_low_level
+			value := llvmint_ugt_low_level
 		end
 
-	set_slt is
+	set_llvmint_ule is
 		do
-			value := slt_low_level
+			value := llvmint_ule_low_level
 		end
 
-	set_sle is
+	set_llvmint_ult is
 		do
-			value := sle_low_level
+			value := llvmint_ult_low_level
 		end
 
 feature -- Queries
-	eq: BOOLEAN is
+	is_llvmint_eq: BOOLEAN is
 		do
-			Result := (value=eq_low_level)
+			Result := (value=llvmint_eq_low_level)
 		end
 
-	ne: BOOLEAN is
+	is_llvmint_ne: BOOLEAN is
 		do
-			Result := (value=ne_low_level)
+			Result := (value=llvmint_ne_low_level)
 		end
 
-	ugt: BOOLEAN is
+	is_llvmint_sge: BOOLEAN is
 		do
-			Result := (value=ugt_low_level)
+			Result := (value=llvmint_sge_low_level)
 		end
 
-	uge: BOOLEAN is
+	is_llvmint_sgt: BOOLEAN is
 		do
-			Result := (value=uge_low_level)
+			Result := (value=llvmint_sgt_low_level)
 		end
 
-	ult: BOOLEAN is
+	is_llvmint_sle: BOOLEAN is
 		do
-			Result := (value=ult_low_level)
+			Result := (value=llvmint_sle_low_level)
 		end
 
-	ule: BOOLEAN is
+	is_llvmint_slt: BOOLEAN is
 		do
-			Result := (value=ule_low_level)
+			Result := (value=llvmint_slt_low_level)
 		end
 
-	sgt: BOOLEAN is
+	is_llvmint_uge: BOOLEAN is
 		do
-			Result := (value=sgt_low_level)
+			Result := (value=llvmint_uge_low_level)
 		end
 
-	sge: BOOLEAN is
+	is_llvmint_ugt: BOOLEAN is
 		do
-			Result := (value=sge_low_level)
+			Result := (value=llvmint_ugt_low_level)
 		end
 
-	slt: BOOLEAN is
+	is_llvmint_ule: BOOLEAN is
 		do
-			Result := (value=slt_low_level)
+			Result := (value=llvmint_ule_low_level)
 		end
 
-	sle: BOOLEAN is
+	is_llvmint_ult: BOOLEAN is
 		do
-			Result := (value=sle_low_level)
+			Result := (value=llvmint_ult_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	eq_low_level: INTEGER is
+	llvmint_eq_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -136,7 +134,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ne_low_level: INTEGER is
+	llvmint_ne_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -145,52 +143,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ugt_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMIntUGT"
- 			}"
- 		end
-
-	uge_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMIntUGE"
- 			}"
- 		end
-
-	ult_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMIntULT"
- 			}"
- 		end
-
-	ule_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMIntULE"
- 			}"
- 		end
-
-	sgt_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMIntSGT"
- 			}"
- 		end
-
-	sge_low_level: INTEGER is
+	llvmint_sge_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -199,7 +152,25 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	slt_low_level: INTEGER is
+	llvmint_sgt_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMIntSGT"
+ 			}"
+ 		end
+
+	llvmint_sle_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMIntSLE"
+ 			}"
+ 		end
+
+	llvmint_slt_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -208,12 +179,39 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	sle_low_level: INTEGER is
+	llvmint_uge_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "LLVMIntSLE"
+ 			feature_name: "LLVMIntUGE"
+ 			}"
+ 		end
+
+	llvmint_ugt_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMIntUGT"
+ 			}"
+ 		end
+
+	llvmint_ule_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMIntULE"
+ 			}"
+ 		end
+
+	llvmint_ult_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMIntULT"
  			}"
  		end
 

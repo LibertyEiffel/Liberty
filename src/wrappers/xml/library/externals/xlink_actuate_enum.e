@@ -3,63 +3,52 @@
 
 expanded class XLINK_ACTUATE_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = none_low_level)  or else
-				(a_value = auto_low_level)  or else
-				(a_value = onrequest_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = xlink_actuate_auto_low_level)  or else
+				(a_value = xlink_actuate_none_low_level)  or else
+				(a_value = xlink_actuate_onrequest_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_none is
+	set_xlink_actuate_auto is
 		do
-			value := none_low_level
+			value := xlink_actuate_auto_low_level
 		end
 
-	set_auto is
+	set_xlink_actuate_none is
 		do
-			value := auto_low_level
+			value := xlink_actuate_none_low_level
 		end
 
-	set_onrequest is
+	set_xlink_actuate_onrequest is
 		do
-			value := onrequest_low_level
+			value := xlink_actuate_onrequest_low_level
 		end
 
 feature -- Queries
-	none: BOOLEAN is
+	is_xlink_actuate_auto: BOOLEAN is
 		do
-			Result := (value=none_low_level)
+			Result := (value=xlink_actuate_auto_low_level)
 		end
 
-	auto: BOOLEAN is
+	is_xlink_actuate_none: BOOLEAN is
 		do
-			Result := (value=auto_low_level)
+			Result := (value=xlink_actuate_none_low_level)
 		end
 
-	onrequest: BOOLEAN is
+	is_xlink_actuate_onrequest: BOOLEAN is
 		do
-			Result := (value=onrequest_low_level)
+			Result := (value=xlink_actuate_onrequest_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	none_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XLINK_ACTUATE_NONE"
- 			}"
- 		end
-
-	auto_low_level: INTEGER is
+	xlink_actuate_auto_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +57,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	onrequest_low_level: INTEGER is
+	xlink_actuate_none_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XLINK_ACTUATE_NONE"
+ 			}"
+ 		end
+
+	xlink_actuate_onrequest_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

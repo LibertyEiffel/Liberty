@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_rectangle_list_struct_set_num_rectangles (a_structure: POINTER; a_value: INTEGER_32) is
+	cairo_rectangle_list_struct_set_num_rectangles (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for num_rectangles field of CAIRO_RECTANGLE_LIST_STRUCT structure.
 			-- TODO: setter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_rectangle_list_struct_get_num_rectangles (a_structure: POINTER): INTEGER_32 is
+	cairo_rectangle_list_struct_get_num_rectangles (a_structure: POINTER): INTEGER is
 			-- Query for num_rectangles field of CAIRO_RECTANGLE_LIST_STRUCT structure.
 			-- TODO: getter description
 

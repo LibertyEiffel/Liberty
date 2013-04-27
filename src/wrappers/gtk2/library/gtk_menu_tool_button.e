@@ -44,7 +44,7 @@ inherit
 
 insert 
 	GTK_MENU_TOOL_BUTTON_EXTERNALS
-	GTK_MENU_EXTERNALS -- to access gtk_is_menu
+	GTKMENU_EXTERNALS -- to access gtk_is_menu
 
 creation from_label, from_stock, from_external_pointer
 

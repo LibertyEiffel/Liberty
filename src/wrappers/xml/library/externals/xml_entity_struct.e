@@ -128,7 +128,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_entity_struct_set_length (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_entity_struct_set_length (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for length field of XML_ENTITY_STRUCT structure.
 			-- TODO: setter description
 
@@ -200,7 +200,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_entity_struct_set_owner (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_entity_struct_set_owner (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for owner field of XML_ENTITY_STRUCT structure.
 			-- TODO: setter description
 
@@ -212,7 +212,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_entity_struct_set_checked (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_entity_struct_set_checked (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for checked field of XML_ENTITY_STRUCT structure.
 			-- TODO: setter description
 
@@ -347,7 +347,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_entity_struct_get_length (a_structure: POINTER): INTEGER_32 is
+	xml_entity_struct_get_length (a_structure: POINTER): INTEGER is
 			-- Query for length field of XML_ENTITY_STRUCT structure.
 			-- TODO: getter description
 
@@ -419,7 +419,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_entity_struct_get_owner (a_structure: POINTER): INTEGER_32 is
+	xml_entity_struct_get_owner (a_structure: POINTER): INTEGER is
 			-- Query for owner field of XML_ENTITY_STRUCT structure.
 			-- TODO: getter description
 
@@ -431,7 +431,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_entity_struct_get_checked (a_structure: POINTER): INTEGER_32 is
+	xml_entity_struct_get_checked (a_structure: POINTER): INTEGER is
 			-- Query for checked field of XML_ENTITY_STRUCT structure.
 			-- TODO: getter description
 

@@ -3,65 +3,63 @@
 
 expanded class FLT_CATEGORY_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = infinity_low_level)  or else
-				(a_value = na_n_low_level)  or else
-				(a_value = normal_low_level)  or else
-				(a_value = zero_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = fc_infinity_low_level)  or else
+				(a_value = fc_na_n_low_level)  or else
+				(a_value = fc_normal_low_level)  or else
+				(a_value = fc_zero_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_infinity is
+	set_fc_infinity is
 		do
-			value := infinity_low_level
+			value := fc_infinity_low_level
 		end
 
-	set_na_n is
+	set_fc_na_n is
 		do
-			value := na_n_low_level
+			value := fc_na_n_low_level
 		end
 
-	set_normal is
+	set_fc_normal is
 		do
-			value := normal_low_level
+			value := fc_normal_low_level
 		end
 
-	set_zero is
+	set_fc_zero is
 		do
-			value := zero_low_level
+			value := fc_zero_low_level
 		end
 
 feature -- Queries
-	infinity: BOOLEAN is
+	is_fc_infinity: BOOLEAN is
 		do
-			Result := (value=infinity_low_level)
+			Result := (value=fc_infinity_low_level)
 		end
 
-	na_n: BOOLEAN is
+	is_fc_na_n: BOOLEAN is
 		do
-			Result := (value=na_n_low_level)
+			Result := (value=fc_na_n_low_level)
 		end
 
-	normal: BOOLEAN is
+	is_fc_normal: BOOLEAN is
 		do
-			Result := (value=normal_low_level)
+			Result := (value=fc_normal_low_level)
 		end
 
-	zero: BOOLEAN is
+	is_fc_zero: BOOLEAN is
 		do
-			Result := (value=zero_low_level)
+			Result := (value=fc_zero_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	infinity_low_level: INTEGER is
+	fc_infinity_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -70,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	na_n_low_level: INTEGER is
+	fc_na_n_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -79,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	normal_low_level: INTEGER is
+	fc_normal_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -88,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	zero_low_level: INTEGER is
+	fc_zero_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

@@ -107,7 +107,7 @@ inherit
 		-- Implemented Interfaces: GtkLabel implements
 		-- AtkImplementorIface.
 
-insert GTK_LABEL_EXTERNALS
+insert GTKLABEL_EXTERNALS
 	
 creation empty, with_label, with_mnemonic, with_markup_label, from_external_pointer
 

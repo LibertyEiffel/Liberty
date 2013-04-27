@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	zmq_pollitem_t_struct_set_fd (a_structure: POINTER; a_value: INTEGER_32) is
+	zmq_pollitem_t_struct_set_fd (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for fd field of ZMQ_POLLITEM_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	zmq_pollitem_t_struct_get_fd (a_structure: POINTER): INTEGER_32 is
+	zmq_pollitem_t_struct_get_fd (a_structure: POINTER): INTEGER is
 			-- Query for fd field of ZMQ_POLLITEM_T_STRUCT structure.
 			-- TODO: getter description
 

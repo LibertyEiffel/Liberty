@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_wellformed (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_wellformed (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for wellFormed field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_replaceentities (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_replaceentities (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for replaceEntities field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -92,7 +92,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_standalone (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_standalone (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for standalone field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -104,7 +104,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_html (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_html (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for html field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -128,7 +128,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_inputnr (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_inputnr (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for inputNr field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -140,7 +140,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_inputmax (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_inputmax (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for inputMax field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -176,7 +176,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_nodenr (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_nodenr (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for nodeNr field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -188,7 +188,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_nodemax (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_nodemax (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for nodeMax field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -212,7 +212,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_record_info (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_record_info (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for record_info field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -224,7 +224,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_errno (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_errno (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for errNo field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -236,7 +236,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_hasexternalsubset (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_hasexternalsubset (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for hasExternalSubset field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -248,7 +248,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_hasperefs (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_hasperefs (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for hasPErefs field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -260,7 +260,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_external_field (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_external_field (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for external field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -272,7 +272,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_valid (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_valid (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for valid field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -284,7 +284,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_validate (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_validate (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for validate field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -308,7 +308,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_token (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_token (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for token field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -344,7 +344,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_namenr (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_namenr (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for nameNr field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -356,7 +356,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_namemax (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_namemax (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for nameMax field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -380,7 +380,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_nbchars (a_structure: POINTER; a_value: INTEGER_64) is
+	xml_parser_ctxt_struct_set_nbchars (a_structure: POINTER; a_value: like long) is
 			-- Setter for nbChars field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -392,7 +392,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_checkindex (a_structure: POINTER; a_value: INTEGER_64) is
+	xml_parser_ctxt_struct_set_checkindex (a_structure: POINTER; a_value: like long) is
 			-- Setter for checkIndex field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -404,7 +404,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_keepblanks (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_keepblanks (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for keepBlanks field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -416,7 +416,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_disablesax (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_disablesax (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for disableSAX field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -428,7 +428,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_insubset (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_insubset (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for inSubset field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -488,7 +488,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_spacenr (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_spacenr (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for spaceNr field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -500,7 +500,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_spacemax (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_spacemax (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for spaceMax field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -524,7 +524,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_depth (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_depth (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for depth field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -548,7 +548,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_charset (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_charset (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for charset field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -560,7 +560,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_nodelen (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_nodelen (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for nodelen field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -572,7 +572,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_nodemem (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_nodemem (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for nodemem field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -584,7 +584,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_pedantic (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_pedantic (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for pedantic field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -596,7 +596,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_loadsubset (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_loadsubset (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for loadsubset field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -608,7 +608,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_linenumbers (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_linenumbers (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for linenumbers field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -632,7 +632,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_recovery (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_recovery (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for recovery field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -644,7 +644,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_progressive (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_progressive (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for progressive field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -680,7 +680,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_maxatts (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_maxatts (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for maxatts field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -692,7 +692,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_docdict (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_docdict (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for docdict field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -740,7 +740,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_sax2 (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_sax2 (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for sax2 field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -752,7 +752,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_nsnr (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_nsnr (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for nsNr field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -764,7 +764,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_nsmax (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_nsmax (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for nsMax field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -836,7 +836,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_nswellformed (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_nswellformed (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for nsWellFormed field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -848,7 +848,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_options (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_options (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for options field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -860,7 +860,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_dictnames (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_dictnames (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for dictNames field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -872,7 +872,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_freeelemsnr (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_freeelemsnr (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for freeElemsNr field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -896,7 +896,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_freeattrsnr (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_freeattrsnr (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for freeAttrsNr field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -932,7 +932,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_nbentities (a_structure: POINTER; a_value: NATURAL_64) is
+	xml_parser_ctxt_struct_set_nbentities (a_structure: POINTER; a_value: like long_unsigned) is
 			-- Setter for nbentities field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -944,7 +944,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_sizeentities (a_structure: POINTER; a_value: NATURAL_64) is
+	xml_parser_ctxt_struct_set_sizeentities (a_structure: POINTER; a_value: like long_unsigned) is
 			-- Setter for sizeentities field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -968,7 +968,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_nodeinfonr (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_nodeinfonr (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for nodeInfoNr field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -980,7 +980,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_ctxt_struct_set_nodeinfomax (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_parser_ctxt_struct_set_nodeinfomax (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for nodeInfoMax field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -1042,7 +1042,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_wellformed (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_wellformed (a_structure: POINTER): INTEGER is
 			-- Query for wellFormed field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1054,7 +1054,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_replaceentities (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_replaceentities (a_structure: POINTER): INTEGER is
 			-- Query for replaceEntities field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1090,7 +1090,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_standalone (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_standalone (a_structure: POINTER): INTEGER is
 			-- Query for standalone field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1102,7 +1102,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_html (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_html (a_structure: POINTER): INTEGER is
 			-- Query for html field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1126,7 +1126,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_inputnr (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_inputnr (a_structure: POINTER): INTEGER is
 			-- Query for inputNr field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1138,7 +1138,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_inputmax (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_inputmax (a_structure: POINTER): INTEGER is
 			-- Query for inputMax field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1174,7 +1174,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_nodenr (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_nodenr (a_structure: POINTER): INTEGER is
 			-- Query for nodeNr field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1186,7 +1186,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_nodemax (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_nodemax (a_structure: POINTER): INTEGER is
 			-- Query for nodeMax field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1210,7 +1210,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_record_info (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_record_info (a_structure: POINTER): INTEGER is
 			-- Query for record_info field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1223,7 +1223,7 @@ feature {} -- Low-level queries
 		end
 
 	-- Unwrappable field node_seq.
-	xml_parser_ctxt_struct_get_errno (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_errno (a_structure: POINTER): INTEGER is
 			-- Query for errNo field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1235,7 +1235,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_hasexternalsubset (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_hasexternalsubset (a_structure: POINTER): INTEGER is
 			-- Query for hasExternalSubset field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1247,7 +1247,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_hasperefs (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_hasperefs (a_structure: POINTER): INTEGER is
 			-- Query for hasPErefs field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1259,7 +1259,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_external_field (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_external_field (a_structure: POINTER): INTEGER is
 			-- Query for external field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1271,7 +1271,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_valid (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_valid (a_structure: POINTER): INTEGER is
 			-- Query for valid field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1283,7 +1283,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_validate (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_validate (a_structure: POINTER): INTEGER is
 			-- Query for validate field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1308,7 +1308,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_token (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_token (a_structure: POINTER): INTEGER is
 			-- Query for token field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1344,7 +1344,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_namenr (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_namenr (a_structure: POINTER): INTEGER is
 			-- Query for nameNr field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1356,7 +1356,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_namemax (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_namemax (a_structure: POINTER): INTEGER is
 			-- Query for nameMax field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1380,7 +1380,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_nbchars (a_structure: POINTER): INTEGER_64 is
+	xml_parser_ctxt_struct_get_nbchars (a_structure: POINTER): like long is
 			-- Query for nbChars field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1392,7 +1392,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_checkindex (a_structure: POINTER): INTEGER_64 is
+	xml_parser_ctxt_struct_get_checkindex (a_structure: POINTER): like long is
 			-- Query for checkIndex field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1404,7 +1404,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_keepblanks (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_keepblanks (a_structure: POINTER): INTEGER is
 			-- Query for keepBlanks field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1416,7 +1416,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_disablesax (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_disablesax (a_structure: POINTER): INTEGER is
 			-- Query for disableSAX field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1428,7 +1428,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_insubset (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_insubset (a_structure: POINTER): INTEGER is
 			-- Query for inSubset field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1488,7 +1488,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_spacenr (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_spacenr (a_structure: POINTER): INTEGER is
 			-- Query for spaceNr field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1500,7 +1500,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_spacemax (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_spacemax (a_structure: POINTER): INTEGER is
 			-- Query for spaceMax field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1524,7 +1524,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_depth (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_depth (a_structure: POINTER): INTEGER is
 			-- Query for depth field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1548,7 +1548,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_charset (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_charset (a_structure: POINTER): INTEGER is
 			-- Query for charset field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1560,7 +1560,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_nodelen (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_nodelen (a_structure: POINTER): INTEGER is
 			-- Query for nodelen field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1572,7 +1572,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_nodemem (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_nodemem (a_structure: POINTER): INTEGER is
 			-- Query for nodemem field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1584,7 +1584,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_pedantic (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_pedantic (a_structure: POINTER): INTEGER is
 			-- Query for pedantic field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1597,7 +1597,7 @@ feature {} -- Low-level queries
 		end
 
 	-- Unwrappable field _private.
-	xml_parser_ctxt_struct_get_loadsubset (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_loadsubset (a_structure: POINTER): INTEGER is
 			-- Query for loadsubset field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1609,7 +1609,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_linenumbers (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_linenumbers (a_structure: POINTER): INTEGER is
 			-- Query for linenumbers field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1633,7 +1633,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_recovery (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_recovery (a_structure: POINTER): INTEGER is
 			-- Query for recovery field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1645,7 +1645,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_progressive (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_progressive (a_structure: POINTER): INTEGER is
 			-- Query for progressive field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1681,7 +1681,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_maxatts (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_maxatts (a_structure: POINTER): INTEGER is
 			-- Query for maxatts field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1693,7 +1693,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_docdict (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_docdict (a_structure: POINTER): INTEGER is
 			-- Query for docdict field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1741,7 +1741,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_sax2 (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_sax2 (a_structure: POINTER): INTEGER is
 			-- Query for sax2 field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1753,7 +1753,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_nsnr (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_nsnr (a_structure: POINTER): INTEGER is
 			-- Query for nsNr field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1765,7 +1765,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_nsmax (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_nsmax (a_structure: POINTER): INTEGER is
 			-- Query for nsMax field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1837,7 +1837,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_nswellformed (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_nswellformed (a_structure: POINTER): INTEGER is
 			-- Query for nsWellFormed field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1849,7 +1849,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_options (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_options (a_structure: POINTER): INTEGER is
 			-- Query for options field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1861,7 +1861,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_dictnames (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_dictnames (a_structure: POINTER): INTEGER is
 			-- Query for dictNames field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1873,7 +1873,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_freeelemsnr (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_freeelemsnr (a_structure: POINTER): INTEGER is
 			-- Query for freeElemsNr field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1897,7 +1897,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_freeattrsnr (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_freeattrsnr (a_structure: POINTER): INTEGER is
 			-- Query for freeAttrsNr field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1934,7 +1934,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_nbentities (a_structure: POINTER): NATURAL_64 is
+	xml_parser_ctxt_struct_get_nbentities (a_structure: POINTER): like long_unsigned is
 			-- Query for nbentities field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1946,7 +1946,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_sizeentities (a_structure: POINTER): NATURAL_64 is
+	xml_parser_ctxt_struct_get_sizeentities (a_structure: POINTER): like long_unsigned is
 			-- Query for sizeentities field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1970,7 +1970,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_nodeinfonr (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_nodeinfonr (a_structure: POINTER): INTEGER is
 			-- Query for nodeInfoNr field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -1982,7 +1982,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_ctxt_struct_get_nodeinfomax (a_structure: POINTER): INTEGER_32 is
+	xml_parser_ctxt_struct_get_nodeinfomax (a_structure: POINTER): INTEGER is
 			-- Query for nodeInfoMax field of XML_PARSER_CTXT_STRUCT structure.
 			-- TODO: getter description
 

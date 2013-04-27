@@ -3,8 +3,6 @@
 
 expanded class LLVMOPCODE_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create

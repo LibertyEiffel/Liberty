@@ -26,7 +26,7 @@ inherit
 	GTK_BOX
 		-- GtkHBox implements AtkImplementorIface.
 insert
-	GTK_VBOX_EXTERNALS
+	GTKVBOX_EXTERNALS
 		
 creation make, from_external_pointer
 

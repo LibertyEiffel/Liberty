@@ -39,7 +39,7 @@ inherit GTK_CONTAINER
 
 insert
 	G_OBJECT_FACTORY [GTK_WIDGET]
-	GTK_NOTEBOOK_EXTERNALS
+	GTKNOTEBOOK_EXTERNALS
 
 creation make, from_external_pointer
 

@@ -26,7 +26,7 @@ inherit GTK_WIDGET
 	-- Implemented Interfaces: GtkContainer implements
 	-- AtkImplementorIface.
 
-insert GTK_CONTAINER_EXTERNALS
+insert GTKCONTAINER_EXTERNALS
 
 feature
 	add (a_widget: GTK_WIDGET) is

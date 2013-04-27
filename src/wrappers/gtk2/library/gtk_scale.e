@@ -31,7 +31,7 @@ deferred class GTK_SCALE
 	
 inherit
 	GTK_RANGE
-	GTK_SCALE_EXTERNALS
+	GTKSCALE_EXTERNALS
 
 feature -- digits
 	digits: INTEGER is

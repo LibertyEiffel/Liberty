@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	POSIX_TYPES
 feature {} -- Low-level setters
 
-	ipv6_mreq_struct_set_ipv6mr_interface (a_structure: POINTER; a_value: NATURAL_32) is
+	ipv6_mreq_struct_set_ipv6mr_interface (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for ipv6mr_interface field of IPV6_MREQ_STRUCT structure.
 			-- TODO: setter description
 
@@ -23,7 +23,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field ipv6mr_multiaddr.
-	ipv6_mreq_struct_get_ipv6mr_interface (a_structure: POINTER): NATURAL_32 is
+	ipv6_mreq_struct_get_ipv6mr_interface (a_structure: POINTER): NATURAL is
 			-- Query for ipv6mr_interface field of IPV6_MREQ_STRUCT structure.
 			-- TODO: getter description
 

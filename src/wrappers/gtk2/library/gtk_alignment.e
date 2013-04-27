@@ -26,7 +26,7 @@ inherit
 			-- TODO: GtkAlignment implements AtkImplementorIface.
 
 insert
-	GTK_ALIGNMENT_EXTERNALS
+	GTKALIGNMENT_EXTERNALS
 	
 creation make, from_external_pointer
 

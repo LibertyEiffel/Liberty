@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	CAIRO_TYPES
 feature {} -- Low-level setters
 
-	cairo_text_extents_t_struct_set_x_bearing (a_structure: POINTER; a_value: REAL_64) is
+	cairo_text_extents_t_struct_set_x_bearing (a_structure: POINTER; a_value: REAL) is
 			-- Setter for x_bearing field of CAIRO_TEXT_EXTENTS_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_text_extents_t_struct_set_y_bearing (a_structure: POINTER; a_value: REAL_64) is
+	cairo_text_extents_t_struct_set_y_bearing (a_structure: POINTER; a_value: REAL) is
 			-- Setter for y_bearing field of CAIRO_TEXT_EXTENTS_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_text_extents_t_struct_set_width (a_structure: POINTER; a_value: REAL_64) is
+	cairo_text_extents_t_struct_set_width (a_structure: POINTER; a_value: REAL) is
 			-- Setter for width field of CAIRO_TEXT_EXTENTS_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_text_extents_t_struct_set_height (a_structure: POINTER; a_value: REAL_64) is
+	cairo_text_extents_t_struct_set_height (a_structure: POINTER; a_value: REAL) is
 			-- Setter for height field of CAIRO_TEXT_EXTENTS_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_text_extents_t_struct_set_x_advance (a_structure: POINTER; a_value: REAL_64) is
+	cairo_text_extents_t_struct_set_x_advance (a_structure: POINTER; a_value: REAL) is
 			-- Setter for x_advance field of CAIRO_TEXT_EXTENTS_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_text_extents_t_struct_set_y_advance (a_structure: POINTER; a_value: REAL_64) is
+	cairo_text_extents_t_struct_set_y_advance (a_structure: POINTER; a_value: REAL) is
 			-- Setter for y_advance field of CAIRO_TEXT_EXTENTS_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	cairo_text_extents_t_struct_get_x_bearing (a_structure: POINTER): REAL_64 is
+	cairo_text_extents_t_struct_get_x_bearing (a_structure: POINTER): REAL is
 			-- Query for x_bearing field of CAIRO_TEXT_EXTENTS_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_text_extents_t_struct_get_y_bearing (a_structure: POINTER): REAL_64 is
+	cairo_text_extents_t_struct_get_y_bearing (a_structure: POINTER): REAL is
 			-- Query for y_bearing field of CAIRO_TEXT_EXTENTS_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -106,7 +106,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_text_extents_t_struct_get_width (a_structure: POINTER): REAL_64 is
+	cairo_text_extents_t_struct_get_width (a_structure: POINTER): REAL is
 			-- Query for width field of CAIRO_TEXT_EXTENTS_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -118,7 +118,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_text_extents_t_struct_get_height (a_structure: POINTER): REAL_64 is
+	cairo_text_extents_t_struct_get_height (a_structure: POINTER): REAL is
 			-- Query for height field of CAIRO_TEXT_EXTENTS_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -130,7 +130,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_text_extents_t_struct_get_x_advance (a_structure: POINTER): REAL_64 is
+	cairo_text_extents_t_struct_get_x_advance (a_structure: POINTER): REAL is
 			-- Query for x_advance field of CAIRO_TEXT_EXTENTS_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -142,7 +142,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_text_extents_t_struct_get_y_advance (a_structure: POINTER): REAL_64 is
+	cairo_text_extents_t_struct_get_y_advance (a_structure: POINTER): REAL is
 			-- Query for y_advance field of CAIRO_TEXT_EXTENTS_T_STRUCT structure.
 			-- TODO: getter description
 

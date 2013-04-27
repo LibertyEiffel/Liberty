@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	clock: INTEGER_64 is
+	clock: like long is
  		-- clock
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	clock_getcpuclockid (a_pid: INTEGER_32; a_clock_id: POINTER): INTEGER_32 is
+	clock_getcpuclockid (a_pid: INTEGER; a_clock_id: POINTER): INTEGER is
  		-- clock_getcpuclockid
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	clock_getres (a_clock_id: INTEGER_32; a_res: POINTER): INTEGER_32 is
+	clock_getres (a_clock_id: INTEGER; a_res: POINTER): INTEGER is
  		-- clock_getres
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	clock_gettime (a_clock_id: INTEGER_32; a_tp: POINTER): INTEGER_32 is
+	clock_gettime (a_clock_id: INTEGER; a_tp: POINTER): INTEGER is
  		-- clock_gettime
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	clock_nanosleep (a_clock_id: INTEGER_32; a_flags: INTEGER_32; a_req: POINTER; a_rem: POINTER): INTEGER_32 is
+	clock_nanosleep (a_clock_id: INTEGER; a_flags: INTEGER; a_req: POINTER; a_rem: POINTER): INTEGER is
  		-- clock_nanosleep
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	clock_settime (a_clock_id: INTEGER_32; a_tp: POINTER): INTEGER_32 is
+	clock_settime (a_clock_id: INTEGER; a_tp: POINTER): INTEGER is
  		-- clock_settime
 		external "plug_in"
 		alias "{
@@ -110,7 +110,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' variable __daylight skipped.
-	daylight: INTEGER_32 is
+	daylight: INTEGER is
  		-- daylight
 		external "plug_in"
 		alias "{
@@ -130,7 +130,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_daylight (a_value: INTEGER_32) is
+	set_daylight (a_value: INTEGER) is
 		-- Set variable daylight value
 		external "plug_in"
 		alias "{
@@ -140,7 +140,7 @@ feature {} -- External calls
 		}"
 		end
 
-	difftime (a_time1: INTEGER_64; a_time0: INTEGER_64): REAL_64 is
+	difftime (a_time1: like long; a_time0: like long): REAL is
  		-- difftime
 		external "plug_in"
 		alias "{
@@ -150,7 +150,7 @@ feature {} -- External calls
 		}"
 		end
 
-	dysize (a_year: INTEGER_32): INTEGER_32 is
+	dysize (a_year: INTEGER): INTEGER is
  		-- dysize
 		external "plug_in"
 		alias "{
@@ -170,7 +170,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getdate_err: INTEGER_32 is
+	getdate_err: INTEGER is
  		-- getdate_err
 		external "plug_in"
 		alias "{
@@ -190,7 +190,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_getdate_err (a_value: INTEGER_32) is
+	set_getdate_err (a_value: INTEGER) is
 		-- Set variable getdate_err value
 		external "plug_in"
 		alias "{
@@ -200,7 +200,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getdate_r (a_string: POINTER; a_resbufp: POINTER): INTEGER_32 is
+	getdate_r (a_string: POINTER; a_resbufp: POINTER): INTEGER is
  		-- getdate_r
 		external "plug_in"
 		alias "{
@@ -250,7 +250,7 @@ feature {} -- External calls
 		}"
 		end
 
-	mktime (a_tp: POINTER): INTEGER_64 is
+	mktime (a_tp: POINTER): like long is
  		-- mktime
 		external "plug_in"
 		alias "{
@@ -260,7 +260,7 @@ feature {} -- External calls
 		}"
 		end
 
-	nanosleep (a_requested_time: POINTER; a_remaining: POINTER): INTEGER_32 is
+	nanosleep (a_requested_time: POINTER; a_remaining: POINTER): INTEGER is
  		-- nanosleep
 		external "plug_in"
 		alias "{
@@ -270,7 +270,7 @@ feature {} -- External calls
 		}"
 		end
 
-	stime (a_when_external: POINTER): INTEGER_32 is
+	stime (a_when_external: POINTER): INTEGER is
  		-- stime
 		external "plug_in"
 		alias "{
@@ -280,7 +280,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strftime (a_s: POINTER; a_maxsize: NATURAL_64; a_format: POINTER; a_tp: POINTER): NATURAL_64 is
+	strftime (a_s: POINTER; a_maxsize: like size_t; a_format: POINTER; a_tp: POINTER): like size_t is
  		-- strftime
 		external "plug_in"
 		alias "{
@@ -290,7 +290,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strftime_l (a_s: POINTER; a_maxsize: NATURAL_64; a_format: POINTER; a_tp: POINTER; a_loc: POINTER): NATURAL_64 is
+	strftime_l (a_s: POINTER; a_maxsize: like size_t; a_format: POINTER; a_tp: POINTER; a_loc: POINTER): like size_t is
  		-- strftime_l
 		external "plug_in"
 		alias "{
@@ -320,7 +320,7 @@ feature {} -- External calls
 		}"
 		end
 
-	time (a_timer: POINTER): INTEGER_64 is
+	time (a_timer: POINTER): like long is
  		-- time
 		external "plug_in"
 		alias "{
@@ -330,7 +330,7 @@ feature {} -- External calls
 		}"
 		end
 
-	timegm (a_tp: POINTER): INTEGER_64 is
+	timegm (a_tp: POINTER): like long is
  		-- timegm
 		external "plug_in"
 		alias "{
@@ -340,7 +340,7 @@ feature {} -- External calls
 		}"
 		end
 
-	timelocal (a_tp: POINTER): INTEGER_64 is
+	timelocal (a_tp: POINTER): like long is
  		-- timelocal
 		external "plug_in"
 		alias "{
@@ -350,7 +350,7 @@ feature {} -- External calls
 		}"
 		end
 
-	timer_create (a_clock_id: INTEGER_32; an_evp: POINTER; a_timerid: POINTER): INTEGER_32 is
+	timer_create (a_clock_id: INTEGER; an_evp: POINTER; a_timerid: POINTER): INTEGER is
  		-- timer_create
 		external "plug_in"
 		alias "{
@@ -360,7 +360,7 @@ feature {} -- External calls
 		}"
 		end
 
-	timer_delete (a_timerid: POINTER): INTEGER_32 is
+	timer_delete (a_timerid: POINTER): INTEGER is
  		-- timer_delete
 		external "plug_in"
 		alias "{
@@ -370,7 +370,7 @@ feature {} -- External calls
 		}"
 		end
 
-	timer_getoverrun (a_timerid: POINTER): INTEGER_32 is
+	timer_getoverrun (a_timerid: POINTER): INTEGER is
  		-- timer_getoverrun
 		external "plug_in"
 		alias "{
@@ -380,7 +380,7 @@ feature {} -- External calls
 		}"
 		end
 
-	timer_gettime (a_timerid: POINTER; a_value: POINTER): INTEGER_32 is
+	timer_gettime (a_timerid: POINTER; a_value: POINTER): INTEGER is
  		-- timer_gettime
 		external "plug_in"
 		alias "{
@@ -390,7 +390,7 @@ feature {} -- External calls
 		}"
 		end
 
-	timer_settime (a_timerid: POINTER; a_flags: INTEGER_32; a_value: POINTER; an_ovalue: POINTER): INTEGER_32 is
+	timer_settime (a_timerid: POINTER; a_flags: INTEGER; a_value: POINTER; an_ovalue: POINTER): INTEGER is
  		-- timer_settime
 		external "plug_in"
 		alias "{
@@ -400,7 +400,7 @@ feature {} -- External calls
 		}"
 		end
 
-	timezone: INTEGER_64 is
+	timezone: like long is
  		-- timezone
 		external "plug_in"
 		alias "{
@@ -420,7 +420,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_timezone (a_value: INTEGER_64) is
+	set_timezone (a_value: like long) is
 		-- Set variable timezone value
 		external "plug_in"
 		alias "{

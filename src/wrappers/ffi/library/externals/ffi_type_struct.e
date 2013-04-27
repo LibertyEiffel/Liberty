@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	FFI_TYPES
 feature {} -- Low-level setters
 
-	ffi_type_struct_set_size (a_structure: POINTER; a_value: NATURAL_64) is
+	ffi_type_struct_set_size (a_structure: POINTER; a_value: like size_t) is
 			-- Setter for size field of FFI_TYPE_STRUCT structure.
 			-- TODO: setter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	ffi_type_struct_get_size (a_structure: POINTER): NATURAL_64 is
+	ffi_type_struct_get_size (a_structure: POINTER): like size_t is
 			-- Query for size field of FFI_TYPE_STRUCT structure.
 			-- TODO: getter description
 

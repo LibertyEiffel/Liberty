@@ -30,7 +30,7 @@ inherit
 
 insert
 	GTK
-	GTK_WINDOW_EXTERNALS
+	GTKWINDOW_EXTERNALS
 	GTK_WINDOW_TYPE
 
 creation

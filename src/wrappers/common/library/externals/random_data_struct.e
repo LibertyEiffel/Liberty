@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	random_data_struct_set_rand_type (a_structure: POINTER; a_value: INTEGER_32) is
+	random_data_struct_set_rand_type (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for rand_type field of RANDOM_DATA_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	random_data_struct_set_rand_deg (a_structure: POINTER; a_value: INTEGER_32) is
+	random_data_struct_set_rand_deg (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for rand_deg field of RANDOM_DATA_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	random_data_struct_set_rand_sep (a_structure: POINTER; a_value: INTEGER_32) is
+	random_data_struct_set_rand_sep (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for rand_sep field of RANDOM_DATA_STRUCT structure.
 			-- TODO: setter description
 
@@ -130,7 +130,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	random_data_struct_get_rand_type (a_structure: POINTER): INTEGER_32 is
+	random_data_struct_get_rand_type (a_structure: POINTER): INTEGER is
 			-- Query for rand_type field of RANDOM_DATA_STRUCT structure.
 			-- TODO: getter description
 
@@ -142,7 +142,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	random_data_struct_get_rand_deg (a_structure: POINTER): INTEGER_32 is
+	random_data_struct_get_rand_deg (a_structure: POINTER): INTEGER is
 			-- Query for rand_deg field of RANDOM_DATA_STRUCT structure.
 			-- TODO: getter description
 
@@ -154,7 +154,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	random_data_struct_get_rand_sep (a_structure: POINTER): INTEGER_32 is
+	random_data_struct_get_rand_sep (a_structure: POINTER): INTEGER is
 			-- Query for rand_sep field of RANDOM_DATA_STRUCT structure.
 			-- TODO: getter description
 

@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_sax2attribute_decl (a_ctx: POINTER; an_elem: POINTER; a_fullname: POINTER; a_type: INTEGER_32; a_def: INTEGER_32; a_default_value: POINTER; a_tree: POINTER) is
+	xml_sax2attribute_decl (a_ctx: POINTER; an_elem: POINTER; a_fullname: POINTER; a_type: INTEGER; a_def: INTEGER; a_default_value: POINTER; a_tree: POINTER) is
  		-- xmlSAX2AttributeDecl
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_sax2cdata_block (a_ctx: POINTER; a_value: POINTER; a_len: INTEGER_32) is
+	xml_sax2cdata_block (a_ctx: POINTER; a_value: POINTER; a_len: INTEGER) is
  		-- xmlSAX2CDataBlock
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_sax2characters (a_ctx: POINTER; a_ch: POINTER; a_len: INTEGER_32) is
+	xml_sax2characters (a_ctx: POINTER; a_ch: POINTER; a_len: INTEGER) is
  		-- xmlSAX2Characters
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_sax2element_decl (a_ctx: POINTER; a_name: POINTER; a_type: INTEGER_32; a_content: POINTER) is
+	xml_sax2element_decl (a_ctx: POINTER; a_name: POINTER; a_type: INTEGER; a_content: POINTER) is
  		-- xmlSAX2ElementDecl
 		external "plug_in"
 		alias "{
@@ -119,7 +119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_sax2entity_decl (a_ctx: POINTER; a_name: POINTER; a_type: INTEGER_32; a_public_id: POINTER; a_system_id: POINTER; a_content: POINTER) is
+	xml_sax2entity_decl (a_ctx: POINTER; a_name: POINTER; a_type: INTEGER; a_public_id: POINTER; a_system_id: POINTER; a_content: POINTER) is
  		-- xmlSAX2EntityDecl
 		external "plug_in"
 		alias "{
@@ -139,7 +139,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_sax2get_column_number (a_ctx: POINTER): INTEGER_32 is
+	xml_sax2get_column_number (a_ctx: POINTER): INTEGER is
  		-- xmlSAX2GetColumnNumber
 		external "plug_in"
 		alias "{
@@ -159,7 +159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_sax2get_line_number (a_ctx: POINTER): INTEGER_32 is
+	xml_sax2get_line_number (a_ctx: POINTER): INTEGER is
  		-- xmlSAX2GetLineNumber
 		external "plug_in"
 		alias "{
@@ -199,7 +199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_sax2has_external_subset (a_ctx: POINTER): INTEGER_32 is
+	xml_sax2has_external_subset (a_ctx: POINTER): INTEGER is
  		-- xmlSAX2HasExternalSubset
 		external "plug_in"
 		alias "{
@@ -209,7 +209,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_sax2has_internal_subset (a_ctx: POINTER): INTEGER_32 is
+	xml_sax2has_internal_subset (a_ctx: POINTER): INTEGER is
  		-- xmlSAX2HasInternalSubset
 		external "plug_in"
 		alias "{
@@ -219,7 +219,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_sax2ignorable_whitespace (a_ctx: POINTER; a_ch: POINTER; a_len: INTEGER_32) is
+	xml_sax2ignorable_whitespace (a_ctx: POINTER; a_ch: POINTER; a_len: INTEGER) is
  		-- xmlSAX2IgnorableWhitespace
 		external "plug_in"
 		alias "{
@@ -229,7 +229,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_sax2init_default_saxhandler (a_hdlr: POINTER; a_warning: INTEGER_32) is
+	xml_sax2init_default_saxhandler (a_hdlr: POINTER; a_warning: INTEGER) is
  		-- xmlSAX2InitDefaultSAXHandler
 		external "plug_in"
 		alias "{
@@ -269,7 +269,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_sax2is_standalone (a_ctx: POINTER): INTEGER_32 is
+	xml_sax2is_standalone (a_ctx: POINTER): INTEGER is
  		-- xmlSAX2IsStandalone
 		external "plug_in"
 		alias "{
@@ -349,7 +349,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_sax2start_element_ns (a_ctx: POINTER; a_localname: POINTER; a_prefix: POINTER; an_uri: POINTER; a_nb_namespaces: INTEGER_32; a_namespaces: POINTER; a_nb_attributes: INTEGER_32; a_nb_defaulted: INTEGER_32; an_attributes: POINTER) is
+	xml_sax2start_element_ns (a_ctx: POINTER; a_localname: POINTER; a_prefix: POINTER; an_uri: POINTER; a_nb_namespaces: INTEGER; a_namespaces: POINTER; a_nb_attributes: INTEGER; a_nb_defaulted: INTEGER; an_attributes: POINTER) is
  		-- xmlSAX2StartElementNs
 		external "plug_in"
 		alias "{
@@ -369,7 +369,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_saxdefault_version (a_version: INTEGER_32): INTEGER_32 is
+	xml_saxdefault_version (a_version: INTEGER): INTEGER is
  		-- xmlSAXDefaultVersion
 		external "plug_in"
 		alias "{
@@ -379,7 +379,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_saxversion (a_hdlr: POINTER; a_version: INTEGER_32): INTEGER_32 is
+	xml_saxversion (a_hdlr: POINTER; a_version: INTEGER): INTEGER is
  		-- xmlSAXVersion
 		external "plug_in"
 		alias "{

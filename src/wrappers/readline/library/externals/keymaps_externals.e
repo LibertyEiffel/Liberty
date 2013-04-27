@@ -9,6 +9,36 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
+	emacs_ctlx_keymap: POINTER is
+ 		-- emacs_ctlx_keymap
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "emacs_ctlx_keymap"
+		}"
+		end
+
+	address_of_emacs_ctlx_keymap: POINTER is
+ 		-- Address of emacs_ctlx_keymap
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&emacs_ctlx_keymap"
+		}"
+		end
+
+	set_emacs_ctlx_keymap (a_value: POINTER) is
+		-- Set variable emacs_ctlx_keymap value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_emacs_ctlx_keymap"
+		}"
+		end
+
 	emacs_meta_keymap: POINTER is
  		-- emacs_meta_keymap
 		external "plug_in"
@@ -69,36 +99,6 @@ feature {} -- External calls
 		}"
 		end
 
-	vi_movement_keymap: POINTER is
- 		-- vi_movement_keymap
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "vi_movement_keymap"
-		}"
-		end
-
-	address_of_vi_movement_keymap: POINTER is
- 		-- Address of vi_movement_keymap
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&vi_movement_keymap"
-		}"
-		end
-
-	set_vi_movement_keymap (a_value: POINTER) is
-		-- Set variable vi_movement_keymap value
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "set_vi_movement_keymap"
-		}"
-		end
-
 	vi_insertion_keymap: POINTER is
  		-- vi_insertion_keymap
 		external "plug_in"
@@ -129,33 +129,33 @@ feature {} -- External calls
 		}"
 		end
 
-	emacs_ctlx_keymap: POINTER is
- 		-- emacs_ctlx_keymap
+	vi_movement_keymap: POINTER is
+ 		-- vi_movement_keymap
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "emacs_ctlx_keymap"
+			feature_name: "vi_movement_keymap"
 		}"
 		end
 
-	address_of_emacs_ctlx_keymap: POINTER is
- 		-- Address of emacs_ctlx_keymap
+	address_of_vi_movement_keymap: POINTER is
+ 		-- Address of vi_movement_keymap
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "&emacs_ctlx_keymap"
+			feature_name: "&vi_movement_keymap"
 		}"
 		end
 
-	set_emacs_ctlx_keymap (a_value: POINTER) is
-		-- Set variable emacs_ctlx_keymap value
+	set_vi_movement_keymap (a_value: POINTER) is
+		-- Set variable vi_movement_keymap value
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "set_emacs_ctlx_keymap"
+			feature_name: "set_vi_movement_keymap"
 		}"
 		end
 

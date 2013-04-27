@@ -10,13 +10,15 @@ HEADERS= /usr/include/assert.h \
 	 /usr/include/errno.h \
 	 /usr/include/float.h \
 	 /usr/include/math.h \
+	 /usr/include/stddef.h \
 	 /usr/include/stdio.h \
+	 /usr/include/stdint.h \
 	 /usr/include/stdlib.h \
 	 /usr/include/string.h \
 	 /usr/include/time.h
 
 wrappers: $(XML)
-	wrappers-generator --local $(XML) $(HEADERS)
+	wrappers-generator --standard-typedefs --local $(XML) $(HEADERS)
 
 $(XML): 
 	gccxml $(HEADER) -fxml=$(XML)

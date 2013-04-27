@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	POSIX_TYPES
 feature {} -- Low-level setters
 
-	ifconf_struct_set_ifc_len (a_structure: POINTER; a_value: INTEGER_32) is
+	ifconf_struct_set_ifc_len (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for ifc_len field of IFCONF_STRUCT structure.
 			-- TODO: setter description
 
@@ -22,7 +22,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	ifconf_struct_get_ifc_len (a_structure: POINTER): INTEGER_32 is
+	ifconf_struct_get_ifc_len (a_structure: POINTER): INTEGER is
 			-- Query for ifc_len field of IFCONF_STRUCT structure.
 			-- TODO: getter description
 

@@ -44,7 +44,7 @@ inherit
 	-- GtkCalendar implements AtkImplementorIface interface.
 
 insert
-	GTK_CALENDAR_EXTERNALS
+	GTKCALENDAR_EXTERNALS
 
 creation make, from_external_pointer
 

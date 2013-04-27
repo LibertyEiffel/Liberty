@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_dict_exists (a_dict: POINTER; a_name: POINTER; a_len: INTEGER_32): POINTER is
+	xml_dict_exists (a_dict: POINTER; a_name: POINTER; a_len: INTEGER): POINTER is
  		-- xmlDictExists
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_dict_lookup (a_dict: POINTER; a_name: POINTER; a_len: INTEGER_32): POINTER is
+	xml_dict_lookup (a_dict: POINTER; a_name: POINTER; a_len: INTEGER): POINTER is
  		-- xmlDictLookup
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_dict_owns (a_dict: POINTER; a_str: POINTER): INTEGER_32 is
+	xml_dict_owns (a_dict: POINTER; a_str: POINTER): INTEGER is
  		-- xmlDictOwns
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_dict_reference (a_dict: POINTER): INTEGER_32 is
+	xml_dict_reference (a_dict: POINTER): INTEGER is
  		-- xmlDictReference
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_dict_size (a_dict: POINTER): INTEGER_32 is
+	xml_dict_size (a_dict: POINTER): INTEGER is
  		-- xmlDictSize
 		external "plug_in"
 		alias "{

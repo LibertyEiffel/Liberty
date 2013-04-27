@@ -116,7 +116,7 @@ inherit
 	CLOSE_SIGNAL_RECEIVER
 
 insert
-	GTK_DIALOG_EXTERNALS
+	GTKDIALOG_EXTERNALS
 	GTK_DIALOG_STRUCT
 	GTK_STOCK_ITEMS
 		-- GtkDialog implements AtkImplementorIface.	

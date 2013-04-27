@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	llvmabialignment_of_type (an_argument_l604_c7: POINTER; an_argument_l605_c7: POINTER): NATURAL_32 is
+	llvmabialignment_of_type (an_argument_l604_c7: POINTER; an_argument_l605_c7: POINTER): NATURAL is
  		-- LLVMABIAlignmentOfType
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcall_frame_alignment_of_type (an_argument_l7204_c7: POINTER; an_argument_l7205_c7: POINTER): NATURAL_32 is
+	llvmcall_frame_alignment_of_type (an_argument_l7204_c7: POINTER; an_argument_l7205_c7: POINTER): NATURAL is
  		-- LLVMCallFrameAlignmentOfType
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmelement_at_offset (an_argument_l1025_c7: POINTER; a_struct_ty: POINTER; an_offset: NATURAL_64): NATURAL_32 is
+	llvmelement_at_offset (an_argument_l1025_c7: POINTER; a_struct_ty: POINTER; an_offset: NATURAL_64): NATURAL is
  		-- LLVMElementAtOffset
 		external "plug_in"
 		alias "{
@@ -119,7 +119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvminitialize_native_target: INTEGER_32 is
+	llvminitialize_native_target: INTEGER is
  		-- LLVMInitializeNativeTarget
 		external "plug_in"
 		alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmoffset_of_element (an_argument_l5176_c7: POINTER; a_struct_ty: POINTER; an_element: NATURAL_32): NATURAL_64 is
+	llvmoffset_of_element (an_argument_l5176_c7: POINTER; a_struct_ty: POINTER; an_element: NATURAL): NATURAL_64 is
  		-- LLVMOffsetOfElement
 		external "plug_in"
 		alias "{
@@ -159,7 +159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmpointer_size (an_argument_l4368_c7: POINTER): NATURAL_32 is
+	llvmpointer_size (an_argument_l4368_c7: POINTER): NATURAL is
  		-- LLVMPointerSize
 		external "plug_in"
 		alias "{
@@ -169,7 +169,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmpreferred_alignment_of_global (an_argument_l738_c7: POINTER; a_global_var: POINTER): NATURAL_32 is
+	llvmpreferred_alignment_of_global (an_argument_l738_c7: POINTER; a_global_var: POINTER): NATURAL is
  		-- LLVMPreferredAlignmentOfGlobal
 		external "plug_in"
 		alias "{
@@ -179,7 +179,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmpreferred_alignment_of_type (an_argument_l2574_c7: POINTER; an_argument_l2575_c7: POINTER): NATURAL_32 is
+	llvmpreferred_alignment_of_type (an_argument_l2574_c7: POINTER; an_argument_l2575_c7: POINTER): NATURAL is
  		-- LLVMPreferredAlignmentOfType
 		external "plug_in"
 		alias "{

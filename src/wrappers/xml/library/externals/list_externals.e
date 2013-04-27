@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_list_append (a_l: POINTER; a_data: POINTER): INTEGER_32 is
+	xml_list_append (a_l: POINTER; a_data: POINTER): INTEGER is
  		-- xmlListAppend
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_list_copy (a_cur: POINTER; an_old: POINTER): INTEGER_32 is
+	xml_list_copy (a_cur: POINTER; an_old: POINTER): INTEGER is
  		-- xmlListCopy
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_list_empty (a_l: POINTER): INTEGER_32 is
+	xml_list_empty (a_l: POINTER): INTEGER is
  		-- xmlListEmpty
 		external "plug_in"
 		alias "{
@@ -109,7 +109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_list_insert (a_l: POINTER; a_data: POINTER): INTEGER_32 is
+	xml_list_insert (a_l: POINTER; a_data: POINTER): INTEGER is
  		-- xmlListInsert
 		external "plug_in"
 		alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_list_push_back (a_l: POINTER; a_data: POINTER): INTEGER_32 is
+	xml_list_push_back (a_l: POINTER; a_data: POINTER): INTEGER is
  		-- xmlListPushBack
 		external "plug_in"
 		alias "{
@@ -159,7 +159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_list_push_front (a_l: POINTER; a_data: POINTER): INTEGER_32 is
+	xml_list_push_front (a_l: POINTER; a_data: POINTER): INTEGER is
  		-- xmlListPushFront
 		external "plug_in"
 		alias "{
@@ -169,7 +169,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_list_remove_all (a_l: POINTER; a_data: POINTER): INTEGER_32 is
+	xml_list_remove_all (a_l: POINTER; a_data: POINTER): INTEGER is
  		-- xmlListRemoveAll
 		external "plug_in"
 		alias "{
@@ -179,7 +179,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_list_remove_first (a_l: POINTER; a_data: POINTER): INTEGER_32 is
+	xml_list_remove_first (a_l: POINTER; a_data: POINTER): INTEGER is
  		-- xmlListRemoveFirst
 		external "plug_in"
 		alias "{
@@ -189,7 +189,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_list_remove_last (a_l: POINTER; a_data: POINTER): INTEGER_32 is
+	xml_list_remove_last (a_l: POINTER; a_data: POINTER): INTEGER is
  		-- xmlListRemoveLast
 		external "plug_in"
 		alias "{
@@ -239,7 +239,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_list_size (a_l: POINTER): INTEGER_32 is
+	xml_list_size (a_l: POINTER): INTEGER is
  		-- xmlListSize
 		external "plug_in"
 		alias "{

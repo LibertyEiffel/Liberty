@@ -3,15 +3,13 @@
 
 expanded class UNINITIALIZED_TAG_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = uninitialized_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = uninitialized_low_level) )
 		end
 
 feature -- Setters
@@ -22,7 +20,7 @@ feature -- Setters
 		end
 
 feature -- Queries
-	uninitialized: BOOLEAN is
+	is_uninitialized: BOOLEAN is
 		do
 			Result := (value=uninitialized_low_level)
 		end

@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_copy_error (a_from_external: POINTER; a_to: POINTER): INTEGER_32 is
+	xml_copy_error (a_from_external: POINTER; a_to: POINTER): INTEGER is
  		-- xmlCopyError
 		external "plug_in"
 		alias "{

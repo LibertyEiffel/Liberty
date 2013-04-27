@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	llvmverify_function (a_fn: POINTER; an_action: INTEGER): INTEGER_32 is
+	llvmverify_function (a_fn: POINTER; an_action: INTEGER): INTEGER is
  		-- LLVMVerifyFunction
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmverify_module (a_m: POINTER; an_action: INTEGER; an_out_message: POINTER): INTEGER_32 is
+	llvmverify_module (a_m: POINTER; an_action: INTEGER; an_out_message: POINTER): INTEGER is
  		-- LLVMVerifyModule
 		external "plug_in"
 		alias "{

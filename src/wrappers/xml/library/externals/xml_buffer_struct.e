@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_buffer_struct_set_use (a_structure: POINTER; a_value: NATURAL_32) is
+	xml_buffer_struct_set_use (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for use field of XML_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_buffer_struct_set_size (a_structure: POINTER; a_value: NATURAL_32) is
+	xml_buffer_struct_set_size (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for size field of XML_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_buffer_struct_get_use (a_structure: POINTER): NATURAL_32 is
+	xml_buffer_struct_get_use (a_structure: POINTER): NATURAL is
 			-- Query for use field of XML_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_buffer_struct_get_size (a_structure: POINTER): NATURAL_32 is
+	xml_buffer_struct_get_size (a_structure: POINTER): NATURAL is
 			-- Query for size field of XML_BUFFER_STRUCT structure.
 			-- TODO: getter description
 

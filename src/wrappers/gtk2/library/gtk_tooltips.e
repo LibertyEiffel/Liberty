@@ -55,7 +55,7 @@ inherit
 	GTK_OBJECT
 
 insert
-	GTK_TOOLTIPS_EXTERNALS
+	GTKTOOLTIPS_EXTERNALS
 
 creation make, from_external_pointer
 

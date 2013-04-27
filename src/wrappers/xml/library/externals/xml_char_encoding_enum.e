@@ -3,465 +3,283 @@
 
 expanded class XML_CHAR_ENCODING_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = error_low_level)  or else
-				(a_value = none_low_level)  or else
-				(a_value = utf8_low_level)  or else
-				(a_value = utf16le_low_level)  or else
-				(a_value = utf16be_low_level)  or else
-				(a_value = ucs4le_low_level)  or else
-				(a_value = ucs4be_low_level)  or else
-				(a_value = ebcdic_low_level)  or else
-				(a_value = ucs4_2143_low_level)  or else
-				(a_value = ucs4_3412_low_level)  or else
-				(a_value = ucs2_low_level)  or else
-				(a_value = a_8859_1_low_level)  or else
-				(a_value = a_8859_2_low_level)  or else
-				(a_value = a_8859_3_low_level)  or else
-				(a_value = a_8859_4_low_level)  or else
-				(a_value = a_8859_5_low_level)  or else
-				(a_value = a_8859_6_low_level)  or else
-				(a_value = a_8859_7_low_level)  or else
-				(a_value = a_8859_8_low_level)  or else
-				(a_value = a_8859_9_low_level)  or else
-				(a_value = a_2022_jp_low_level)  or else
-				(a_value = shift_jis_low_level)  or else
-				(a_value = euc_jp_low_level)  or else
-				(a_value = ascii_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = xml_char_encoding_2022_jp_low_level)  or else
+				(a_value = xml_char_encoding_8859_1_low_level)  or else
+				(a_value = xml_char_encoding_8859_2_low_level)  or else
+				(a_value = xml_char_encoding_8859_3_low_level)  or else
+				(a_value = xml_char_encoding_8859_4_low_level)  or else
+				(a_value = xml_char_encoding_8859_5_low_level)  or else
+				(a_value = xml_char_encoding_8859_6_low_level)  or else
+				(a_value = xml_char_encoding_8859_7_low_level)  or else
+				(a_value = xml_char_encoding_8859_8_low_level)  or else
+				(a_value = xml_char_encoding_8859_9_low_level)  or else
+				(a_value = xml_char_encoding_ascii_low_level)  or else
+				(a_value = xml_char_encoding_ebcdic_low_level)  or else
+				(a_value = xml_char_encoding_error_low_level)  or else
+				(a_value = xml_char_encoding_euc_jp_low_level)  or else
+				(a_value = xml_char_encoding_none_low_level)  or else
+				(a_value = xml_char_encoding_shift_jis_low_level)  or else
+				(a_value = xml_char_encoding_ucs2_low_level)  or else
+				(a_value = xml_char_encoding_ucs4_2143_low_level)  or else
+				(a_value = xml_char_encoding_ucs4_3412_low_level)  or else
+				(a_value = xml_char_encoding_ucs4be_low_level)  or else
+				(a_value = xml_char_encoding_ucs4le_low_level)  or else
+				(a_value = xml_char_encoding_utf16be_low_level)  or else
+				(a_value = xml_char_encoding_utf16le_low_level)  or else
+				(a_value = xml_char_encoding_utf8_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_error is
+	set_xml_char_encoding_2022_jp is
 		do
-			value := error_low_level
+			value := xml_char_encoding_2022_jp_low_level
 		end
 
-	set_none is
+	set_xml_char_encoding_8859_1 is
 		do
-			value := none_low_level
+			value := xml_char_encoding_8859_1_low_level
 		end
 
-	set_utf8 is
+	set_xml_char_encoding_8859_2 is
 		do
-			value := utf8_low_level
+			value := xml_char_encoding_8859_2_low_level
 		end
 
-	set_utf16le is
+	set_xml_char_encoding_8859_3 is
 		do
-			value := utf16le_low_level
+			value := xml_char_encoding_8859_3_low_level
 		end
 
-	set_utf16be is
+	set_xml_char_encoding_8859_4 is
 		do
-			value := utf16be_low_level
+			value := xml_char_encoding_8859_4_low_level
 		end
 
-	set_ucs4le is
+	set_xml_char_encoding_8859_5 is
 		do
-			value := ucs4le_low_level
+			value := xml_char_encoding_8859_5_low_level
 		end
 
-	set_ucs4be is
+	set_xml_char_encoding_8859_6 is
 		do
-			value := ucs4be_low_level
+			value := xml_char_encoding_8859_6_low_level
 		end
 
-	set_ebcdic is
+	set_xml_char_encoding_8859_7 is
 		do
-			value := ebcdic_low_level
+			value := xml_char_encoding_8859_7_low_level
 		end
 
-	set_ucs4_2143 is
+	set_xml_char_encoding_8859_8 is
 		do
-			value := ucs4_2143_low_level
+			value := xml_char_encoding_8859_8_low_level
 		end
 
-	set_ucs4_3412 is
+	set_xml_char_encoding_8859_9 is
 		do
-			value := ucs4_3412_low_level
+			value := xml_char_encoding_8859_9_low_level
 		end
 
-	set_ucs2 is
+	set_xml_char_encoding_ascii is
 		do
-			value := ucs2_low_level
+			value := xml_char_encoding_ascii_low_level
 		end
 
-	set_a_8859_1 is
+	set_xml_char_encoding_ebcdic is
 		do
-			value := a_8859_1_low_level
+			value := xml_char_encoding_ebcdic_low_level
 		end
 
-	set_a_8859_2 is
+	set_xml_char_encoding_error is
 		do
-			value := a_8859_2_low_level
+			value := xml_char_encoding_error_low_level
 		end
 
-	set_a_8859_3 is
+	set_xml_char_encoding_euc_jp is
 		do
-			value := a_8859_3_low_level
+			value := xml_char_encoding_euc_jp_low_level
 		end
 
-	set_a_8859_4 is
+	set_xml_char_encoding_none is
 		do
-			value := a_8859_4_low_level
+			value := xml_char_encoding_none_low_level
 		end
 
-	set_a_8859_5 is
+	set_xml_char_encoding_shift_jis is
 		do
-			value := a_8859_5_low_level
+			value := xml_char_encoding_shift_jis_low_level
 		end
 
-	set_a_8859_6 is
+	set_xml_char_encoding_ucs2 is
 		do
-			value := a_8859_6_low_level
+			value := xml_char_encoding_ucs2_low_level
 		end
 
-	set_a_8859_7 is
+	set_xml_char_encoding_ucs4_2143 is
 		do
-			value := a_8859_7_low_level
+			value := xml_char_encoding_ucs4_2143_low_level
 		end
 
-	set_a_8859_8 is
+	set_xml_char_encoding_ucs4_3412 is
 		do
-			value := a_8859_8_low_level
+			value := xml_char_encoding_ucs4_3412_low_level
 		end
 
-	set_a_8859_9 is
+	set_xml_char_encoding_ucs4be is
 		do
-			value := a_8859_9_low_level
+			value := xml_char_encoding_ucs4be_low_level
 		end
 
-	set_a_2022_jp is
+	set_xml_char_encoding_ucs4le is
 		do
-			value := a_2022_jp_low_level
+			value := xml_char_encoding_ucs4le_low_level
 		end
 
-	set_shift_jis is
+	set_xml_char_encoding_utf16be is
 		do
-			value := shift_jis_low_level
+			value := xml_char_encoding_utf16be_low_level
 		end
 
-	set_euc_jp is
+	set_xml_char_encoding_utf16le is
 		do
-			value := euc_jp_low_level
+			value := xml_char_encoding_utf16le_low_level
 		end
 
-	set_ascii is
+	set_xml_char_encoding_utf8 is
 		do
-			value := ascii_low_level
+			value := xml_char_encoding_utf8_low_level
 		end
 
 feature -- Queries
-	error: BOOLEAN is
+	is_xml_char_encoding_2022_jp: BOOLEAN is
 		do
-			Result := (value=error_low_level)
+			Result := (value=xml_char_encoding_2022_jp_low_level)
 		end
 
-	none: BOOLEAN is
+	is_xml_char_encoding_8859_1: BOOLEAN is
 		do
-			Result := (value=none_low_level)
+			Result := (value=xml_char_encoding_8859_1_low_level)
 		end
 
-	utf8: BOOLEAN is
+	is_xml_char_encoding_8859_2: BOOLEAN is
 		do
-			Result := (value=utf8_low_level)
+			Result := (value=xml_char_encoding_8859_2_low_level)
 		end
 
-	utf16le: BOOLEAN is
+	is_xml_char_encoding_8859_3: BOOLEAN is
 		do
-			Result := (value=utf16le_low_level)
+			Result := (value=xml_char_encoding_8859_3_low_level)
 		end
 
-	utf16be: BOOLEAN is
+	is_xml_char_encoding_8859_4: BOOLEAN is
 		do
-			Result := (value=utf16be_low_level)
+			Result := (value=xml_char_encoding_8859_4_low_level)
 		end
 
-	ucs4le: BOOLEAN is
+	is_xml_char_encoding_8859_5: BOOLEAN is
 		do
-			Result := (value=ucs4le_low_level)
+			Result := (value=xml_char_encoding_8859_5_low_level)
 		end
 
-	ucs4be: BOOLEAN is
+	is_xml_char_encoding_8859_6: BOOLEAN is
 		do
-			Result := (value=ucs4be_low_level)
+			Result := (value=xml_char_encoding_8859_6_low_level)
 		end
 
-	ebcdic: BOOLEAN is
+	is_xml_char_encoding_8859_7: BOOLEAN is
 		do
-			Result := (value=ebcdic_low_level)
+			Result := (value=xml_char_encoding_8859_7_low_level)
 		end
 
-	ucs4_2143: BOOLEAN is
+	is_xml_char_encoding_8859_8: BOOLEAN is
 		do
-			Result := (value=ucs4_2143_low_level)
+			Result := (value=xml_char_encoding_8859_8_low_level)
 		end
 
-	ucs4_3412: BOOLEAN is
+	is_xml_char_encoding_8859_9: BOOLEAN is
 		do
-			Result := (value=ucs4_3412_low_level)
+			Result := (value=xml_char_encoding_8859_9_low_level)
 		end
 
-	ucs2: BOOLEAN is
+	is_xml_char_encoding_ascii: BOOLEAN is
 		do
-			Result := (value=ucs2_low_level)
+			Result := (value=xml_char_encoding_ascii_low_level)
 		end
 
-	a_8859_1: BOOLEAN is
+	is_xml_char_encoding_ebcdic: BOOLEAN is
 		do
-			Result := (value=a_8859_1_low_level)
+			Result := (value=xml_char_encoding_ebcdic_low_level)
 		end
 
-	a_8859_2: BOOLEAN is
+	is_xml_char_encoding_error: BOOLEAN is
 		do
-			Result := (value=a_8859_2_low_level)
+			Result := (value=xml_char_encoding_error_low_level)
 		end
 
-	a_8859_3: BOOLEAN is
+	is_xml_char_encoding_euc_jp: BOOLEAN is
 		do
-			Result := (value=a_8859_3_low_level)
+			Result := (value=xml_char_encoding_euc_jp_low_level)
 		end
 
-	a_8859_4: BOOLEAN is
+	is_xml_char_encoding_none: BOOLEAN is
 		do
-			Result := (value=a_8859_4_low_level)
+			Result := (value=xml_char_encoding_none_low_level)
 		end
 
-	a_8859_5: BOOLEAN is
+	is_xml_char_encoding_shift_jis: BOOLEAN is
 		do
-			Result := (value=a_8859_5_low_level)
+			Result := (value=xml_char_encoding_shift_jis_low_level)
 		end
 
-	a_8859_6: BOOLEAN is
+	is_xml_char_encoding_ucs2: BOOLEAN is
 		do
-			Result := (value=a_8859_6_low_level)
+			Result := (value=xml_char_encoding_ucs2_low_level)
 		end
 
-	a_8859_7: BOOLEAN is
+	is_xml_char_encoding_ucs4_2143: BOOLEAN is
 		do
-			Result := (value=a_8859_7_low_level)
+			Result := (value=xml_char_encoding_ucs4_2143_low_level)
 		end
 
-	a_8859_8: BOOLEAN is
+	is_xml_char_encoding_ucs4_3412: BOOLEAN is
 		do
-			Result := (value=a_8859_8_low_level)
+			Result := (value=xml_char_encoding_ucs4_3412_low_level)
 		end
 
-	a_8859_9: BOOLEAN is
+	is_xml_char_encoding_ucs4be: BOOLEAN is
 		do
-			Result := (value=a_8859_9_low_level)
+			Result := (value=xml_char_encoding_ucs4be_low_level)
 		end
 
-	a_2022_jp: BOOLEAN is
+	is_xml_char_encoding_ucs4le: BOOLEAN is
 		do
-			Result := (value=a_2022_jp_low_level)
+			Result := (value=xml_char_encoding_ucs4le_low_level)
 		end
 
-	shift_jis: BOOLEAN is
+	is_xml_char_encoding_utf16be: BOOLEAN is
 		do
-			Result := (value=shift_jis_low_level)
+			Result := (value=xml_char_encoding_utf16be_low_level)
 		end
 
-	euc_jp: BOOLEAN is
+	is_xml_char_encoding_utf16le: BOOLEAN is
 		do
-			Result := (value=euc_jp_low_level)
+			Result := (value=xml_char_encoding_utf16le_low_level)
 		end
 
-	ascii: BOOLEAN is
+	is_xml_char_encoding_utf8: BOOLEAN is
 		do
-			Result := (value=ascii_low_level)
+			Result := (value=xml_char_encoding_utf8_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	error_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_ERROR"
- 			}"
- 		end
-
-	none_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_NONE"
- 			}"
- 		end
-
-	utf8_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_UTF8"
- 			}"
- 		end
-
-	utf16le_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_UTF16LE"
- 			}"
- 		end
-
-	utf16be_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_UTF16BE"
- 			}"
- 		end
-
-	ucs4le_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_UCS4LE"
- 			}"
- 		end
-
-	ucs4be_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_UCS4BE"
- 			}"
- 		end
-
-	ebcdic_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_EBCDIC"
- 			}"
- 		end
-
-	ucs4_2143_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_UCS4_2143"
- 			}"
- 		end
-
-	ucs4_3412_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_UCS4_3412"
- 			}"
- 		end
-
-	ucs2_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_UCS2"
- 			}"
- 		end
-
-	a_8859_1_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_8859_1"
- 			}"
- 		end
-
-	a_8859_2_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_8859_2"
- 			}"
- 		end
-
-	a_8859_3_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_8859_3"
- 			}"
- 		end
-
-	a_8859_4_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_8859_4"
- 			}"
- 		end
-
-	a_8859_5_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_8859_5"
- 			}"
- 		end
-
-	a_8859_6_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_8859_6"
- 			}"
- 		end
-
-	a_8859_7_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_8859_7"
- 			}"
- 		end
-
-	a_8859_8_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_8859_8"
- 			}"
- 		end
-
-	a_8859_9_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_8859_9"
- 			}"
- 		end
-
-	a_2022_jp_low_level: INTEGER is
+	xml_char_encoding_2022_jp_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -470,16 +288,115 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	shift_jis_low_level: INTEGER is
+	xml_char_encoding_8859_1_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_SHIFT_JIS"
+ 			feature_name: "XML_CHAR_ENCODING_8859_1"
  			}"
  		end
 
-	euc_jp_low_level: INTEGER is
+	xml_char_encoding_8859_2_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_8859_2"
+ 			}"
+ 		end
+
+	xml_char_encoding_8859_3_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_8859_3"
+ 			}"
+ 		end
+
+	xml_char_encoding_8859_4_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_8859_4"
+ 			}"
+ 		end
+
+	xml_char_encoding_8859_5_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_8859_5"
+ 			}"
+ 		end
+
+	xml_char_encoding_8859_6_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_8859_6"
+ 			}"
+ 		end
+
+	xml_char_encoding_8859_7_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_8859_7"
+ 			}"
+ 		end
+
+	xml_char_encoding_8859_8_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_8859_8"
+ 			}"
+ 		end
+
+	xml_char_encoding_8859_9_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_8859_9"
+ 			}"
+ 		end
+
+	xml_char_encoding_ascii_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_ASCII"
+ 			}"
+ 		end
+
+	xml_char_encoding_ebcdic_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_EBCDIC"
+ 			}"
+ 		end
+
+	xml_char_encoding_error_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_ERROR"
+ 			}"
+ 		end
+
+	xml_char_encoding_euc_jp_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -488,12 +405,93 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ascii_low_level: INTEGER is
+	xml_char_encoding_none_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "XML_CHAR_ENCODING_ASCII"
+ 			feature_name: "XML_CHAR_ENCODING_NONE"
+ 			}"
+ 		end
+
+	xml_char_encoding_shift_jis_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_SHIFT_JIS"
+ 			}"
+ 		end
+
+	xml_char_encoding_ucs2_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_UCS2"
+ 			}"
+ 		end
+
+	xml_char_encoding_ucs4_2143_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_UCS4_2143"
+ 			}"
+ 		end
+
+	xml_char_encoding_ucs4_3412_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_UCS4_3412"
+ 			}"
+ 		end
+
+	xml_char_encoding_ucs4be_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_UCS4BE"
+ 			}"
+ 		end
+
+	xml_char_encoding_ucs4le_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_UCS4LE"
+ 			}"
+ 		end
+
+	xml_char_encoding_utf16be_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_UTF16BE"
+ 			}"
+ 		end
+
+	xml_char_encoding_utf16le_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_UTF16LE"
+ 			}"
+ 		end
+
+	xml_char_encoding_utf8_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_CHAR_ENCODING_UTF8"
  			}"
  		end
 

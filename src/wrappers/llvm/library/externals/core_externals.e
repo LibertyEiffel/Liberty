@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmadd_global_in_address_space (a_m: POINTER; a_ty: POINTER; a_name: POINTER; an_address_space: NATURAL_32): POINTER is
+	llvmadd_global_in_address_space (a_m: POINTER; a_ty: POINTER; a_name: POINTER; an_address_space: NATURAL): POINTER is
  		-- LLVMAddGlobalInAddressSpace
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmadd_incoming (a_phi_node: POINTER; an_incoming_values: POINTER; an_incoming_blocks: POINTER; a_count: NATURAL_32) is
+	llvmadd_incoming (a_phi_node: POINTER; an_incoming_values: POINTER; an_incoming_blocks: POINTER; a_count: NATURAL) is
  		-- LLVMAddIncoming
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmadd_instr_attribute (an_instr: POINTER; an_index: NATURAL_32; an_argument_l3300_c7: INTEGER) is
+	llvmadd_instr_attribute (an_instr: POINTER; an_index: NATURAL; an_argument_l3300_c7: INTEGER) is
  		-- LLVMAddInstrAttribute
 		external "plug_in"
 		alias "{
@@ -109,7 +109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmadd_type_name (a_m: POINTER; a_name: POINTER; a_ty: POINTER): INTEGER_32 is
+	llvmadd_type_name (a_m: POINTER; a_name: POINTER; a_ty: POINTER): INTEGER is
  		-- LLVMAddTypeName
 		external "plug_in"
 		alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmarray_type (an_element_type: POINTER; an_element_count: NATURAL_32): POINTER is
+	llvmarray_type (an_element_type: POINTER; an_element_count: NATURAL): POINTER is
  		-- LLVMArrayType
 		external "plug_in"
 		alias "{
@@ -189,7 +189,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_aggregate_ret (an_argument_l6419_c7: POINTER; a_ret_vals: POINTER; a_n: NATURAL_32): POINTER is
+	llvmbuild_aggregate_ret (an_argument_l6419_c7: POINTER; a_ret_vals: POINTER; a_n: NATURAL): POINTER is
  		-- LLVMBuildAggregateRet
 		external "plug_in"
 		alias "{
@@ -279,7 +279,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_call (an_argument_l6721_c7: POINTER; a_fn: POINTER; an_args: POINTER; a_num_args: NATURAL_32; a_name: POINTER): POINTER is
+	llvmbuild_call (an_argument_l6721_c7: POINTER; a_fn: POINTER; an_args: POINTER; a_num_args: NATURAL; a_name: POINTER): POINTER is
  		-- LLVMBuildCall
 		external "plug_in"
 		alias "{
@@ -329,7 +329,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_extract_value (an_argument_l1531_c7: POINTER; an_agg_val: POINTER; an_index: NATURAL_32; a_name: POINTER): POINTER is
+	llvmbuild_extract_value (an_argument_l1531_c7: POINTER; an_agg_val: POINTER; an_index: NATURAL; a_name: POINTER): POINTER is
  		-- LLVMBuildExtractValue
 		external "plug_in"
 		alias "{
@@ -469,7 +469,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_gep (a_b: POINTER; a_pointer: POINTER; an_indices: POINTER; a_num_indices: NATURAL_32; a_name: POINTER): POINTER is
+	llvmbuild_gep (a_b: POINTER; a_pointer: POINTER; an_indices: POINTER; a_num_indices: NATURAL; a_name: POINTER): POINTER is
  		-- LLVMBuildGEP
 		external "plug_in"
 		alias "{
@@ -509,7 +509,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_in_bounds_gep (a_b: POINTER; a_pointer: POINTER; an_indices: POINTER; a_num_indices: NATURAL_32; a_name: POINTER): POINTER is
+	llvmbuild_in_bounds_gep (a_b: POINTER; a_pointer: POINTER; an_indices: POINTER; a_num_indices: NATURAL; a_name: POINTER): POINTER is
  		-- LLVMBuildInBoundsGEP
 		external "plug_in"
 		alias "{
@@ -519,7 +519,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_indirect_br (a_b: POINTER; an_addr: POINTER; a_num_dests: NATURAL_32): POINTER is
+	llvmbuild_indirect_br (a_b: POINTER; an_addr: POINTER; a_num_dests: NATURAL): POINTER is
  		-- LLVMBuildIndirectBr
 		external "plug_in"
 		alias "{
@@ -539,7 +539,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_insert_value (an_argument_l5135_c7: POINTER; an_agg_val: POINTER; an_elt_val: POINTER; an_index: NATURAL_32; a_name: POINTER): POINTER is
+	llvmbuild_insert_value (an_argument_l5135_c7: POINTER; an_agg_val: POINTER; an_elt_val: POINTER; an_index: NATURAL; a_name: POINTER): POINTER is
  		-- LLVMBuildInsertValue
 		external "plug_in"
 		alias "{
@@ -569,7 +569,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_invoke (an_argument_l1109_c7: POINTER; a_fn: POINTER; an_args: POINTER; a_num_args: NATURAL_32; a_then_external: POINTER; a_catch: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_invoke (an_argument_l1109_c7: POINTER; a_fn: POINTER; an_args: POINTER; a_num_args: NATURAL; a_then_external: POINTER; a_catch: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildInvoke
 		external "plug_in"
 		alias "{
@@ -899,7 +899,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_struct_gep (a_b: POINTER; a_pointer: POINTER; an_idx: NATURAL_32; a_name: POINTER): POINTER is
+	llvmbuild_struct_gep (a_b: POINTER; a_pointer: POINTER; an_idx: NATURAL; a_name: POINTER): POINTER is
  		-- LLVMBuildStructGEP
 		external "plug_in"
 		alias "{
@@ -919,7 +919,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_switch (an_argument_l5401_c7: POINTER; a_v: POINTER; an_else_external: POINTER; a_num_cases: NATURAL_32): POINTER is
+	llvmbuild_switch (an_argument_l5401_c7: POINTER; a_v: POINTER; an_else_external: POINTER; a_num_cases: NATURAL): POINTER is
  		-- LLVMBuildSwitch
 		external "plug_in"
 		alias "{
@@ -1079,7 +1079,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmconst_array (an_element_ty: POINTER; a_constant_vals: POINTER; a_length: NATURAL_32): POINTER is
+	llvmconst_array (an_element_ty: POINTER; a_constant_vals: POINTER; a_length: NATURAL): POINTER is
  		-- LLVMConstArray
 		external "plug_in"
 		alias "{
@@ -1129,7 +1129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmconst_extract_value (an_agg_constant: POINTER; an_idx_list: POINTER; a_num_idx: NATURAL_32): POINTER is
+	llvmconst_extract_value (an_agg_constant: POINTER; an_idx_list: POINTER; a_num_idx: NATURAL): POINTER is
  		-- LLVMConstExtractValue
 		external "plug_in"
 		alias "{
@@ -1259,7 +1259,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmconst_gep (a_constant_val: POINTER; a_constant_indices: POINTER; a_num_indices: NATURAL_32): POINTER is
+	llvmconst_gep (a_constant_val: POINTER; a_constant_indices: POINTER; a_num_indices: NATURAL): POINTER is
  		-- LLVMConstGEP
 		external "plug_in"
 		alias "{
@@ -1279,7 +1279,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmconst_in_bounds_gep (a_constant_val: POINTER; a_constant_indices: POINTER; a_num_indices: NATURAL_32): POINTER is
+	llvmconst_in_bounds_gep (a_constant_val: POINTER; a_constant_indices: POINTER; a_num_indices: NATURAL): POINTER is
  		-- LLVMConstInBoundsGEP
 		external "plug_in"
 		alias "{
@@ -1289,7 +1289,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmconst_inline_asm (a_ty: POINTER; an_asm_string: POINTER; a_constraints: POINTER; a_has_side_effects: INTEGER_32; an_is_align_stack: INTEGER_32): POINTER is
+	llvmconst_inline_asm (a_ty: POINTER; an_asm_string: POINTER; a_constraints: POINTER; a_has_side_effects: INTEGER; an_is_align_stack: INTEGER): POINTER is
  		-- LLVMConstInlineAsm
 		external "plug_in"
 		alias "{
@@ -1309,7 +1309,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmconst_insert_value (an_agg_constant: POINTER; an_element_value_constant: POINTER; an_idx_list: POINTER; a_num_idx: NATURAL_32): POINTER is
+	llvmconst_insert_value (an_agg_constant: POINTER; an_element_value_constant: POINTER; an_idx_list: POINTER; a_num_idx: NATURAL): POINTER is
  		-- LLVMConstInsertValue
 		external "plug_in"
 		alias "{
@@ -1319,7 +1319,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmconst_int (an_int_ty: POINTER; a_n: NATURAL_64; a_sign_extend: INTEGER_32): POINTER is
+	llvmconst_int (an_int_ty: POINTER; a_n: NATURAL_64; a_sign_extend: INTEGER): POINTER is
  		-- LLVMConstInt
 		external "plug_in"
 		alias "{
@@ -1329,7 +1329,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmconst_int_cast (a_constant_val: POINTER; a_to_type: POINTER; an_is_signed: INTEGER_32): POINTER is
+	llvmconst_int_cast (a_constant_val: POINTER; a_to_type: POINTER; an_is_signed: INTEGER): POINTER is
  		-- LLVMConstIntCast
 		external "plug_in"
 		alias "{
@@ -1359,7 +1359,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmconst_int_of_arbitrary_precision (an_int_ty: POINTER; a_num_words: NATURAL_32; a_words: POINTER): POINTER is
+	llvmconst_int_of_arbitrary_precision (an_int_ty: POINTER; a_num_words: NATURAL; a_words: POINTER): POINTER is
  		-- LLVMConstIntOfArbitraryPrecision
 		external "plug_in"
 		alias "{
@@ -1369,7 +1369,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmconst_int_of_string (an_int_ty: POINTER; a_text: POINTER; a_radix: CHARACTER): POINTER is
+	llvmconst_int_of_string (an_int_ty: POINTER; a_text: POINTER; a_radix: like uint8_t): POINTER is
  		-- LLVMConstIntOfString
 		external "plug_in"
 		alias "{
@@ -1379,7 +1379,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmconst_int_of_string_and_size (an_int_ty: POINTER; a_text: POINTER; a_slen: NATURAL_32; a_radix: CHARACTER): POINTER is
+	llvmconst_int_of_string_and_size (an_int_ty: POINTER; a_text: POINTER; a_slen: NATURAL; a_radix: like uint8_t): POINTER is
  		-- LLVMConstIntOfStringAndSize
 		external "plug_in"
 		alias "{
@@ -1569,7 +1569,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmconst_real (a_real_ty: POINTER; a_n: REAL_64): POINTER is
+	llvmconst_real (a_real_ty: POINTER; a_n: REAL): POINTER is
  		-- LLVMConstReal
 		external "plug_in"
 		alias "{
@@ -1589,7 +1589,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmconst_real_of_string_and_size (a_real_ty: POINTER; a_text: POINTER; a_slen: NATURAL_32): POINTER is
+	llvmconst_real_of_string_and_size (a_real_ty: POINTER; a_text: POINTER; a_slen: NATURAL): POINTER is
  		-- LLVMConstRealOfStringAndSize
 		external "plug_in"
 		alias "{
@@ -1679,7 +1679,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmconst_string (a_str: POINTER; a_length: NATURAL_32; a_dont_null_terminate: INTEGER_32): POINTER is
+	llvmconst_string (a_str: POINTER; a_length: NATURAL; a_dont_null_terminate: INTEGER): POINTER is
  		-- LLVMConstString
 		external "plug_in"
 		alias "{
@@ -1689,7 +1689,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmconst_string_in_context (a_c: POINTER; a_str: POINTER; a_length: NATURAL_32; a_dont_null_terminate: INTEGER_32): POINTER is
+	llvmconst_string_in_context (a_c: POINTER; a_str: POINTER; a_length: NATURAL; a_dont_null_terminate: INTEGER): POINTER is
  		-- LLVMConstStringInContext
 		external "plug_in"
 		alias "{
@@ -1699,7 +1699,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmconst_struct (a_constant_vals: POINTER; a_count: NATURAL_32; a_packed: INTEGER_32): POINTER is
+	llvmconst_struct (a_constant_vals: POINTER; a_count: NATURAL; a_packed: INTEGER): POINTER is
  		-- LLVMConstStruct
 		external "plug_in"
 		alias "{
@@ -1709,7 +1709,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmconst_struct_in_context (a_c: POINTER; a_constant_vals: POINTER; a_count: NATURAL_32; a_packed: INTEGER_32): POINTER is
+	llvmconst_struct_in_context (a_c: POINTER; a_constant_vals: POINTER; a_count: NATURAL; a_packed: INTEGER): POINTER is
  		-- LLVMConstStructInContext
 		external "plug_in"
 		alias "{
@@ -1779,7 +1779,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmconst_vector (a_scalar_constant_vals: POINTER; a_size: NATURAL_32): POINTER is
+	llvmconst_vector (a_scalar_constant_vals: POINTER; a_size: NATURAL): POINTER is
  		-- LLVMConstVector
 		external "plug_in"
 		alias "{
@@ -1839,7 +1839,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcount_basic_blocks (a_fn: POINTER): NATURAL_32 is
+	llvmcount_basic_blocks (a_fn: POINTER): NATURAL is
  		-- LLVMCountBasicBlocks
 		external "plug_in"
 		alias "{
@@ -1849,7 +1849,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcount_incoming (a_phi_node: POINTER): NATURAL_32 is
+	llvmcount_incoming (a_phi_node: POINTER): NATURAL is
  		-- LLVMCountIncoming
 		external "plug_in"
 		alias "{
@@ -1859,7 +1859,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcount_param_types (a_function_ty: POINTER): NATURAL_32 is
+	llvmcount_param_types (a_function_ty: POINTER): NATURAL is
  		-- LLVMCountParamTypes
 		external "plug_in"
 		alias "{
@@ -1869,7 +1869,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcount_params (a_fn: POINTER): NATURAL_32 is
+	llvmcount_params (a_fn: POINTER): NATURAL is
  		-- LLVMCountParams
 		external "plug_in"
 		alias "{
@@ -1879,7 +1879,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcount_struct_element_types (a_struct_ty: POINTER): NATURAL_32 is
+	llvmcount_struct_element_types (a_struct_ty: POINTER): NATURAL is
  		-- LLVMCountStructElementTypes
 		external "plug_in"
 		alias "{
@@ -1929,7 +1929,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcreate_memory_buffer_with_contents_of_file (a_path: POINTER; an_out_mem_buf: POINTER; an_out_message: POINTER): INTEGER_32 is
+	llvmcreate_memory_buffer_with_contents_of_file (a_path: POINTER; an_out_mem_buf: POINTER; an_out_message: POINTER): INTEGER is
  		-- LLVMCreateMemoryBufferWithContentsOfFile
 		external "plug_in"
 		alias "{
@@ -1939,7 +1939,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcreate_memory_buffer_with_stdin (an_out_mem_buf: POINTER; an_out_message: POINTER): INTEGER_32 is
+	llvmcreate_memory_buffer_with_stdin (an_out_mem_buf: POINTER; an_out_message: POINTER): INTEGER is
  		-- LLVMCreateMemoryBufferWithSTDIN
 		external "plug_in"
 		alias "{
@@ -2129,7 +2129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmfinalize_function_pass_manager (a_fpm: POINTER): INTEGER_32 is
+	llvmfinalize_function_pass_manager (a_fpm: POINTER): INTEGER is
  		-- LLVMFinalizeFunctionPassManager
 		external "plug_in"
 		alias "{
@@ -2179,7 +2179,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmfunction_type (a_return_type: POINTER; a_param_types: POINTER; a_param_count: NATURAL_32; an_is_var_arg: INTEGER_32): POINTER is
+	llvmfunction_type (a_return_type: POINTER; a_param_types: POINTER; a_param_count: NATURAL; an_is_var_arg: INTEGER): POINTER is
  		-- LLVMFunctionType
 		external "plug_in"
 		alias "{
@@ -2189,7 +2189,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmget_alignment (a_global: POINTER): NATURAL_32 is
+	llvmget_alignment (a_global: POINTER): NATURAL is
  		-- LLVMGetAlignment
 		external "plug_in"
 		alias "{
@@ -2199,7 +2199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmget_array_length (an_array_ty: POINTER): NATURAL_32 is
+	llvmget_array_length (an_array_ty: POINTER): NATURAL is
  		-- LLVMGetArrayLength
 		external "plug_in"
 		alias "{
@@ -2359,7 +2359,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmget_function_call_conv (a_fn: POINTER): NATURAL_32 is
+	llvmget_function_call_conv (a_fn: POINTER): NATURAL is
  		-- LLVMGetFunctionCallConv
 		external "plug_in"
 		alias "{
@@ -2409,7 +2409,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmget_incoming_block (a_phi_node: POINTER; an_index: NATURAL_32): POINTER is
+	llvmget_incoming_block (a_phi_node: POINTER; an_index: NATURAL): POINTER is
  		-- LLVMGetIncomingBlock
 		external "plug_in"
 		alias "{
@@ -2419,7 +2419,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmget_incoming_value (a_phi_node: POINTER; an_index: NATURAL_32): POINTER is
+	llvmget_incoming_value (a_phi_node: POINTER; an_index: NATURAL): POINTER is
  		-- LLVMGetIncomingValue
 		external "plug_in"
 		alias "{
@@ -2449,7 +2449,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmget_instruction_call_conv (an_instr: POINTER): NATURAL_32 is
+	llvmget_instruction_call_conv (an_instr: POINTER): NATURAL is
  		-- LLVMGetInstructionCallConv
 		external "plug_in"
 		alias "{
@@ -2469,7 +2469,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmget_int_type_width (an_integer_ty: POINTER): NATURAL_32 is
+	llvmget_int_type_width (an_integer_ty: POINTER): NATURAL is
  		-- LLVMGetIntTypeWidth
 		external "plug_in"
 		alias "{
@@ -2479,7 +2479,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmget_intrinsic_id (a_fn: POINTER): NATURAL_32 is
+	llvmget_intrinsic_id (a_fn: POINTER): NATURAL is
  		-- LLVMGetIntrinsicID
 		external "plug_in"
 		alias "{
@@ -2549,7 +2549,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmget_mdkind_id (a_name: POINTER; a_slen: NATURAL_32): NATURAL_32 is
+	llvmget_mdkind_id (a_name: POINTER; a_slen: NATURAL): NATURAL is
  		-- LLVMGetMDKindID
 		external "plug_in"
 		alias "{
@@ -2559,7 +2559,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmget_mdkind_idin_context (a_c: POINTER; a_name: POINTER; a_slen: NATURAL_32): NATURAL_32 is
+	llvmget_mdkind_idin_context (a_c: POINTER; a_name: POINTER; a_slen: NATURAL): NATURAL is
  		-- LLVMGetMDKindIDInContext
 		external "plug_in"
 		alias "{
@@ -2569,7 +2569,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmget_metadata (a_val: POINTER; a_kind_id: NATURAL_32): POINTER is
+	llvmget_metadata (a_val: POINTER; a_kind_id: NATURAL): POINTER is
  		-- LLVMGetMetadata
 		external "plug_in"
 		alias "{
@@ -2669,7 +2669,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmget_num_operands (a_val: POINTER): INTEGER_32 is
+	llvmget_num_operands (a_val: POINTER): INTEGER is
  		-- LLVMGetNumOperands
 		external "plug_in"
 		alias "{
@@ -2679,7 +2679,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmget_operand (a_val: POINTER; an_index: NATURAL_32): POINTER is
+	llvmget_operand (a_val: POINTER; an_index: NATURAL): POINTER is
  		-- LLVMGetOperand
 		external "plug_in"
 		alias "{
@@ -2689,7 +2689,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmget_param (a_fn: POINTER; an_index: NATURAL_32): POINTER is
+	llvmget_param (a_fn: POINTER; an_index: NATURAL): POINTER is
  		-- LLVMGetParam
 		external "plug_in"
 		alias "{
@@ -2729,7 +2729,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmget_pointer_address_space (a_pointer_ty: POINTER): NATURAL_32 is
+	llvmget_pointer_address_space (a_pointer_ty: POINTER): NATURAL is
  		-- LLVMGetPointerAddressSpace
 		external "plug_in"
 		alias "{
@@ -2909,7 +2909,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmget_vector_size (a_vector_ty: POINTER): NATURAL_32 is
+	llvmget_vector_size (a_vector_ty: POINTER): NATURAL is
  		-- LLVMGetVectorSize
 		external "plug_in"
 		alias "{
@@ -2929,7 +2929,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmhas_metadata (a_val: POINTER): INTEGER_32 is
+	llvmhas_metadata (a_val: POINTER): INTEGER is
  		-- LLVMHasMetadata
 		external "plug_in"
 		alias "{
@@ -2939,7 +2939,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvminitialize_function_pass_manager (a_fpm: POINTER): INTEGER_32 is
+	llvminitialize_function_pass_manager (a_fpm: POINTER): INTEGER is
  		-- LLVMInitializeFunctionPassManager
 		external "plug_in"
 		alias "{
@@ -3089,7 +3089,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmint_type (a_num_bits: NATURAL_32): POINTER is
+	llvmint_type (a_num_bits: NATURAL): POINTER is
  		-- LLVMIntType
 		external "plug_in"
 		alias "{
@@ -3099,7 +3099,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmint_type_in_context (a_c: POINTER; a_num_bits: NATURAL_32): POINTER is
+	llvmint_type_in_context (a_c: POINTER; a_num_bits: NATURAL): POINTER is
  		-- LLVMIntTypeInContext
 		external "plug_in"
 		alias "{
@@ -3759,7 +3759,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmis_constant (a_val: POINTER): INTEGER_32 is
+	llvmis_constant (a_val: POINTER): INTEGER is
  		-- LLVMIsConstant
 		external "plug_in"
 		alias "{
@@ -3769,7 +3769,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmis_declaration (a_global: POINTER): INTEGER_32 is
+	llvmis_declaration (a_global: POINTER): INTEGER is
  		-- LLVMIsDeclaration
 		external "plug_in"
 		alias "{
@@ -3779,7 +3779,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmis_function_var_arg (a_function_ty: POINTER): INTEGER_32 is
+	llvmis_function_var_arg (a_function_ty: POINTER): INTEGER is
  		-- LLVMIsFunctionVarArg
 		external "plug_in"
 		alias "{
@@ -3789,7 +3789,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmis_global_constant (a_global_var: POINTER): INTEGER_32 is
+	llvmis_global_constant (a_global_var: POINTER): INTEGER is
  		-- LLVMIsGlobalConstant
 		external "plug_in"
 		alias "{
@@ -3799,7 +3799,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmis_null (a_val: POINTER): INTEGER_32 is
+	llvmis_null (a_val: POINTER): INTEGER is
  		-- LLVMIsNull
 		external "plug_in"
 		alias "{
@@ -3809,7 +3809,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmis_packed_struct (a_struct_ty: POINTER): INTEGER_32 is
+	llvmis_packed_struct (a_struct_ty: POINTER): INTEGER is
  		-- LLVMIsPackedStruct
 		external "plug_in"
 		alias "{
@@ -3819,7 +3819,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmis_tail_call (a_call_inst: POINTER): INTEGER_32 is
+	llvmis_tail_call (a_call_inst: POINTER): INTEGER is
  		-- LLVMIsTailCall
 		external "plug_in"
 		alias "{
@@ -3829,7 +3829,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmis_thread_local (a_global_var: POINTER): INTEGER_32 is
+	llvmis_thread_local (a_global_var: POINTER): INTEGER is
  		-- LLVMIsThreadLocal
 		external "plug_in"
 		alias "{
@@ -3839,7 +3839,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmis_undef (a_val: POINTER): INTEGER_32 is
+	llvmis_undef (a_val: POINTER): INTEGER is
  		-- LLVMIsUndef
 		external "plug_in"
 		alias "{
@@ -3869,7 +3869,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmmdnode (a_vals: POINTER; a_count: NATURAL_32): POINTER is
+	llvmmdnode (a_vals: POINTER; a_count: NATURAL): POINTER is
  		-- LLVMMDNode
 		external "plug_in"
 		alias "{
@@ -3879,7 +3879,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmmdnode_in_context (a_c: POINTER; a_vals: POINTER; a_count: NATURAL_32): POINTER is
+	llvmmdnode_in_context (a_c: POINTER; a_vals: POINTER; a_count: NATURAL): POINTER is
  		-- LLVMMDNodeInContext
 		external "plug_in"
 		alias "{
@@ -3889,7 +3889,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmmdstring (a_str: POINTER; a_slen: NATURAL_32): POINTER is
+	llvmmdstring (a_str: POINTER; a_slen: NATURAL): POINTER is
  		-- LLVMMDString
 		external "plug_in"
 		alias "{
@@ -3899,7 +3899,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmmdstring_in_context (a_c: POINTER; a_str: POINTER; a_slen: NATURAL_32): POINTER is
+	llvmmdstring_in_context (a_c: POINTER; a_str: POINTER; a_slen: NATURAL): POINTER is
  		-- LLVMMDStringInContext
 		external "plug_in"
 		alias "{
@@ -3969,7 +3969,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmpointer_type (an_element_type: POINTER; an_address_space: NATURAL_32): POINTER is
+	llvmpointer_type (an_element_type: POINTER; an_address_space: NATURAL): POINTER is
  		-- LLVMPointerType
 		external "plug_in"
 		alias "{
@@ -4059,7 +4059,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmremove_instr_attribute (an_instr: POINTER; an_index: NATURAL_32; an_argument_l8492_c7: INTEGER) is
+	llvmremove_instr_attribute (an_instr: POINTER; an_index: NATURAL; an_argument_l8492_c7: INTEGER) is
  		-- LLVMRemoveInstrAttribute
 		external "plug_in"
 		alias "{
@@ -4089,7 +4089,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmrun_function_pass_manager (a_fpm: POINTER; a_f: POINTER): INTEGER_32 is
+	llvmrun_function_pass_manager (a_fpm: POINTER; a_f: POINTER): INTEGER is
  		-- LLVMRunFunctionPassManager
 		external "plug_in"
 		alias "{
@@ -4099,7 +4099,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmrun_pass_manager (a_pm: POINTER; a_m: POINTER): INTEGER_32 is
+	llvmrun_pass_manager (a_pm: POINTER; a_m: POINTER): INTEGER is
  		-- LLVMRunPassManager
 		external "plug_in"
 		alias "{
@@ -4109,7 +4109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmset_alignment (a_global: POINTER; a_bytes: NATURAL_32) is
+	llvmset_alignment (a_global: POINTER; a_bytes: NATURAL) is
  		-- LLVMSetAlignment
 		external "plug_in"
 		alias "{
@@ -4139,7 +4139,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmset_function_call_conv (a_fn: POINTER; a_cc: NATURAL_32) is
+	llvmset_function_call_conv (a_fn: POINTER; a_cc: NATURAL) is
  		-- LLVMSetFunctionCallConv
 		external "plug_in"
 		alias "{
@@ -4159,7 +4159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmset_global_constant (a_global_var: POINTER; an_is_constant: INTEGER_32) is
+	llvmset_global_constant (a_global_var: POINTER; an_is_constant: INTEGER) is
  		-- LLVMSetGlobalConstant
 		external "plug_in"
 		alias "{
@@ -4189,7 +4189,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmset_instr_param_alignment (an_instr: POINTER; an_index: NATURAL_32; an_align: NATURAL_32) is
+	llvmset_instr_param_alignment (an_instr: POINTER; an_index: NATURAL; an_align: NATURAL) is
  		-- LLVMSetInstrParamAlignment
 		external "plug_in"
 		alias "{
@@ -4199,7 +4199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmset_instruction_call_conv (an_instr: POINTER; a_cc: NATURAL_32) is
+	llvmset_instruction_call_conv (an_instr: POINTER; a_cc: NATURAL) is
  		-- LLVMSetInstructionCallConv
 		external "plug_in"
 		alias "{
@@ -4219,7 +4219,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmset_metadata (a_val: POINTER; a_kind_id: NATURAL_32; a_node: POINTER) is
+	llvmset_metadata (a_val: POINTER; a_kind_id: NATURAL; a_node: POINTER) is
  		-- LLVMSetMetadata
 		external "plug_in"
 		alias "{
@@ -4239,7 +4239,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmset_operand (an_user: POINTER; an_index: NATURAL_32; a_val: POINTER) is
+	llvmset_operand (an_user: POINTER; an_index: NATURAL; a_val: POINTER) is
  		-- LLVMSetOperand
 		external "plug_in"
 		alias "{
@@ -4249,7 +4249,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmset_param_alignment (an_arg: POINTER; an_align: NATURAL_32) is
+	llvmset_param_alignment (an_arg: POINTER; an_align: NATURAL) is
  		-- LLVMSetParamAlignment
 		external "plug_in"
 		alias "{
@@ -4269,7 +4269,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmset_tail_call (a_call_inst: POINTER; an_is_tail_call: INTEGER_32) is
+	llvmset_tail_call (a_call_inst: POINTER; an_is_tail_call: INTEGER) is
  		-- LLVMSetTailCall
 		external "plug_in"
 		alias "{
@@ -4289,7 +4289,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmset_thread_local (a_global_var: POINTER; an_is_thread_local: INTEGER_32) is
+	llvmset_thread_local (a_global_var: POINTER; an_is_thread_local: INTEGER) is
  		-- LLVMSetThreadLocal
 		external "plug_in"
 		alias "{
@@ -4329,7 +4329,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmstruct_type (an_element_types: POINTER; an_element_count: NATURAL_32; a_packed: INTEGER_32): POINTER is
+	llvmstruct_type (an_element_types: POINTER; an_element_count: NATURAL; a_packed: INTEGER): POINTER is
  		-- LLVMStructType
 		external "plug_in"
 		alias "{
@@ -4339,7 +4339,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmstruct_type_in_context (a_c: POINTER; an_element_types: POINTER; an_element_count: NATURAL_32; a_packed: INTEGER_32): POINTER is
+	llvmstruct_type_in_context (a_c: POINTER; an_element_types: POINTER; an_element_count: NATURAL; a_packed: INTEGER): POINTER is
  		-- LLVMStructTypeInContext
 		external "plug_in"
 		alias "{
@@ -4369,7 +4369,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmvalue_is_basic_block (a_val: POINTER): INTEGER_32 is
+	llvmvalue_is_basic_block (a_val: POINTER): INTEGER is
  		-- LLVMValueIsBasicBlock
 		external "plug_in"
 		alias "{
@@ -4379,7 +4379,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmvector_type (an_element_type: POINTER; an_element_count: NATURAL_32): POINTER is
+	llvmvector_type (an_element_type: POINTER; an_element_count: NATURAL): POINTER is
  		-- LLVMVectorType
 		external "plug_in"
 		alias "{

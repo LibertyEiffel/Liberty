@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	CAIRO_TYPES
 feature {} -- Low-level setters
 
-	cairo_user_data_key_struct_set_unused (a_structure: POINTER; a_value: INTEGER_32) is
+	cairo_user_data_key_struct_set_unused (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for unused field of CAIRO_USER_DATA_KEY_STRUCT structure.
 			-- TODO: setter description
 
@@ -22,7 +22,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	cairo_user_data_key_struct_get_unused (a_structure: POINTER): INTEGER_32 is
+	cairo_user_data_key_struct_get_unused (a_structure: POINTER): INTEGER is
 			-- Query for unused field of CAIRO_USER_DATA_KEY_STRUCT structure.
 			-- TODO: getter description
 

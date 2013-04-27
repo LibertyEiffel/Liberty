@@ -3,336 +3,217 @@
 
 expanded class XML_PARSER_INPUT_STATE_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = eof_low_level)  or else
-				(a_value = start_low_level)  or else
-				(a_value = misc_low_level)  or else
-				(a_value = pi_low_level)  or else
-				(a_value = dtd_low_level)  or else
-				(a_value = prolog_low_level)  or else
-				(a_value = comment_low_level)  or else
-				(a_value = start_tag_low_level)  or else
-				(a_value = content_low_level)  or else
-				(a_value = cdata_section_low_level)  or else
-				(a_value = end_tag_low_level)  or else
-				(a_value = entity_decl_low_level)  or else
-				(a_value = entity_value_low_level)  or else
-				(a_value = attribute_value_low_level)  or else
-				(a_value = system_literal_low_level)  or else
-				(a_value = epilog_low_level)  or else
-				(a_value = ignore_low_level)  or else
-				(a_value = public_literal_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = xml_parser_attribute_value_low_level)  or else
+				(a_value = xml_parser_cdata_section_low_level)  or else
+				(a_value = xml_parser_comment_low_level)  or else
+				(a_value = xml_parser_content_low_level)  or else
+				(a_value = xml_parser_dtd_low_level)  or else
+				(a_value = xml_parser_end_tag_low_level)  or else
+				(a_value = xml_parser_entity_decl_low_level)  or else
+				(a_value = xml_parser_entity_value_low_level)  or else
+				(a_value = xml_parser_eof_low_level)  or else
+				(a_value = xml_parser_epilog_low_level)  or else
+				(a_value = xml_parser_ignore_low_level)  or else
+				(a_value = xml_parser_misc_low_level)  or else
+				(a_value = xml_parser_pi_low_level)  or else
+				(a_value = xml_parser_prolog_low_level)  or else
+				(a_value = xml_parser_public_literal_low_level)  or else
+				(a_value = xml_parser_start_low_level)  or else
+				(a_value = xml_parser_start_tag_low_level)  or else
+				(a_value = xml_parser_system_literal_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_eof is
+	set_xml_parser_attribute_value is
 		do
-			value := eof_low_level
+			value := xml_parser_attribute_value_low_level
 		end
 
-	set_start is
+	set_xml_parser_cdata_section is
 		do
-			value := start_low_level
+			value := xml_parser_cdata_section_low_level
 		end
 
-	set_misc is
+	set_xml_parser_comment is
 		do
-			value := misc_low_level
+			value := xml_parser_comment_low_level
 		end
 
-	set_pi is
+	set_xml_parser_content is
 		do
-			value := pi_low_level
+			value := xml_parser_content_low_level
 		end
 
-	set_dtd is
+	set_xml_parser_dtd is
 		do
-			value := dtd_low_level
+			value := xml_parser_dtd_low_level
 		end
 
-	set_prolog is
+	set_xml_parser_end_tag is
 		do
-			value := prolog_low_level
+			value := xml_parser_end_tag_low_level
 		end
 
-	set_comment is
+	set_xml_parser_entity_decl is
 		do
-			value := comment_low_level
+			value := xml_parser_entity_decl_low_level
 		end
 
-	set_start_tag is
+	set_xml_parser_entity_value is
 		do
-			value := start_tag_low_level
+			value := xml_parser_entity_value_low_level
 		end
 
-	set_content is
+	set_xml_parser_eof is
 		do
-			value := content_low_level
+			value := xml_parser_eof_low_level
 		end
 
-	set_cdata_section is
+	set_xml_parser_epilog is
 		do
-			value := cdata_section_low_level
+			value := xml_parser_epilog_low_level
 		end
 
-	set_end_tag is
+	set_xml_parser_ignore is
 		do
-			value := end_tag_low_level
+			value := xml_parser_ignore_low_level
 		end
 
-	set_entity_decl is
+	set_xml_parser_misc is
 		do
-			value := entity_decl_low_level
+			value := xml_parser_misc_low_level
 		end
 
-	set_entity_value is
+	set_xml_parser_pi is
 		do
-			value := entity_value_low_level
+			value := xml_parser_pi_low_level
 		end
 
-	set_attribute_value is
+	set_xml_parser_prolog is
 		do
-			value := attribute_value_low_level
+			value := xml_parser_prolog_low_level
 		end
 
-	set_system_literal is
+	set_xml_parser_public_literal is
 		do
-			value := system_literal_low_level
+			value := xml_parser_public_literal_low_level
 		end
 
-	set_epilog is
+	set_xml_parser_start is
 		do
-			value := epilog_low_level
+			value := xml_parser_start_low_level
 		end
 
-	set_ignore is
+	set_xml_parser_start_tag is
 		do
-			value := ignore_low_level
+			value := xml_parser_start_tag_low_level
 		end
 
-	set_public_literal is
+	set_xml_parser_system_literal is
 		do
-			value := public_literal_low_level
+			value := xml_parser_system_literal_low_level
 		end
 
 feature -- Queries
-	eof: BOOLEAN is
+	is_xml_parser_attribute_value: BOOLEAN is
 		do
-			Result := (value=eof_low_level)
+			Result := (value=xml_parser_attribute_value_low_level)
 		end
 
-	start: BOOLEAN is
+	is_xml_parser_cdata_section: BOOLEAN is
 		do
-			Result := (value=start_low_level)
+			Result := (value=xml_parser_cdata_section_low_level)
 		end
 
-	misc: BOOLEAN is
+	is_xml_parser_comment: BOOLEAN is
 		do
-			Result := (value=misc_low_level)
+			Result := (value=xml_parser_comment_low_level)
 		end
 
-	pi: BOOLEAN is
+	is_xml_parser_content: BOOLEAN is
 		do
-			Result := (value=pi_low_level)
+			Result := (value=xml_parser_content_low_level)
 		end
 
-	dtd: BOOLEAN is
+	is_xml_parser_dtd: BOOLEAN is
 		do
-			Result := (value=dtd_low_level)
+			Result := (value=xml_parser_dtd_low_level)
 		end
 
-	prolog: BOOLEAN is
+	is_xml_parser_end_tag: BOOLEAN is
 		do
-			Result := (value=prolog_low_level)
+			Result := (value=xml_parser_end_tag_low_level)
 		end
 
-	comment: BOOLEAN is
+	is_xml_parser_entity_decl: BOOLEAN is
 		do
-			Result := (value=comment_low_level)
+			Result := (value=xml_parser_entity_decl_low_level)
 		end
 
-	start_tag: BOOLEAN is
+	is_xml_parser_entity_value: BOOLEAN is
 		do
-			Result := (value=start_tag_low_level)
+			Result := (value=xml_parser_entity_value_low_level)
 		end
 
-	content: BOOLEAN is
+	is_xml_parser_eof: BOOLEAN is
 		do
-			Result := (value=content_low_level)
+			Result := (value=xml_parser_eof_low_level)
 		end
 
-	cdata_section: BOOLEAN is
+	is_xml_parser_epilog: BOOLEAN is
 		do
-			Result := (value=cdata_section_low_level)
+			Result := (value=xml_parser_epilog_low_level)
 		end
 
-	end_tag: BOOLEAN is
+	is_xml_parser_ignore: BOOLEAN is
 		do
-			Result := (value=end_tag_low_level)
+			Result := (value=xml_parser_ignore_low_level)
 		end
 
-	entity_decl: BOOLEAN is
+	is_xml_parser_misc: BOOLEAN is
 		do
-			Result := (value=entity_decl_low_level)
+			Result := (value=xml_parser_misc_low_level)
 		end
 
-	entity_value: BOOLEAN is
+	is_xml_parser_pi: BOOLEAN is
 		do
-			Result := (value=entity_value_low_level)
+			Result := (value=xml_parser_pi_low_level)
 		end
 
-	attribute_value: BOOLEAN is
+	is_xml_parser_prolog: BOOLEAN is
 		do
-			Result := (value=attribute_value_low_level)
+			Result := (value=xml_parser_prolog_low_level)
 		end
 
-	system_literal: BOOLEAN is
+	is_xml_parser_public_literal: BOOLEAN is
 		do
-			Result := (value=system_literal_low_level)
+			Result := (value=xml_parser_public_literal_low_level)
 		end
 
-	epilog: BOOLEAN is
+	is_xml_parser_start: BOOLEAN is
 		do
-			Result := (value=epilog_low_level)
+			Result := (value=xml_parser_start_low_level)
 		end
 
-	ignore: BOOLEAN is
+	is_xml_parser_start_tag: BOOLEAN is
 		do
-			Result := (value=ignore_low_level)
+			Result := (value=xml_parser_start_tag_low_level)
 		end
 
-	public_literal: BOOLEAN is
+	is_xml_parser_system_literal: BOOLEAN is
 		do
-			Result := (value=public_literal_low_level)
+			Result := (value=xml_parser_system_literal_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	eof_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_PARSER_EOF"
- 			}"
- 		end
-
-	start_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_PARSER_START"
- 			}"
- 		end
-
-	misc_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_PARSER_MISC"
- 			}"
- 		end
-
-	pi_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_PARSER_PI"
- 			}"
- 		end
-
-	dtd_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_PARSER_DTD"
- 			}"
- 		end
-
-	prolog_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_PARSER_PROLOG"
- 			}"
- 		end
-
-	comment_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_PARSER_COMMENT"
- 			}"
- 		end
-
-	start_tag_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_PARSER_START_TAG"
- 			}"
- 		end
-
-	content_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_PARSER_CONTENT"
- 			}"
- 		end
-
-	cdata_section_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_PARSER_CDATA_SECTION"
- 			}"
- 		end
-
-	end_tag_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_PARSER_END_TAG"
- 			}"
- 		end
-
-	entity_decl_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_PARSER_ENTITY_DECL"
- 			}"
- 		end
-
-	entity_value_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_PARSER_ENTITY_VALUE"
- 			}"
- 		end
-
-	attribute_value_low_level: INTEGER is
+	xml_parser_attribute_value_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -341,16 +222,79 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	system_literal_low_level: INTEGER is
+	xml_parser_cdata_section_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "XML_PARSER_SYSTEM_LITERAL"
+ 			feature_name: "XML_PARSER_CDATA_SECTION"
  			}"
  		end
 
-	epilog_low_level: INTEGER is
+	xml_parser_comment_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_PARSER_COMMENT"
+ 			}"
+ 		end
+
+	xml_parser_content_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_PARSER_CONTENT"
+ 			}"
+ 		end
+
+	xml_parser_dtd_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_PARSER_DTD"
+ 			}"
+ 		end
+
+	xml_parser_end_tag_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_PARSER_END_TAG"
+ 			}"
+ 		end
+
+	xml_parser_entity_decl_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_PARSER_ENTITY_DECL"
+ 			}"
+ 		end
+
+	xml_parser_entity_value_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_PARSER_ENTITY_VALUE"
+ 			}"
+ 		end
+
+	xml_parser_eof_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_PARSER_EOF"
+ 			}"
+ 		end
+
+	xml_parser_epilog_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -359,7 +303,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ignore_low_level: INTEGER is
+	xml_parser_ignore_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -368,12 +312,66 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	public_literal_low_level: INTEGER is
+	xml_parser_misc_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_PARSER_MISC"
+ 			}"
+ 		end
+
+	xml_parser_pi_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_PARSER_PI"
+ 			}"
+ 		end
+
+	xml_parser_prolog_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_PARSER_PROLOG"
+ 			}"
+ 		end
+
+	xml_parser_public_literal_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
  			feature_name: "XML_PARSER_PUBLIC_LITERAL"
+ 			}"
+ 		end
+
+	xml_parser_start_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_PARSER_START"
+ 			}"
+ 		end
+
+	xml_parser_start_tag_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_PARSER_START_TAG"
+ 			}"
+ 		end
+
+	xml_parser_system_literal_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_PARSER_SYSTEM_LITERAL"
  			}"
  		end
 

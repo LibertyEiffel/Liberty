@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_path_struct_set_num_data (a_structure: POINTER; a_value: INTEGER_32) is
+	cairo_path_struct_set_num_data (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for num_data field of CAIRO_PATH_STRUCT structure.
 			-- TODO: setter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_path_struct_get_num_data (a_structure: POINTER): INTEGER_32 is
+	cairo_path_struct_get_num_data (a_structure: POINTER): INTEGER is
 			-- Query for num_data field of CAIRO_PATH_STRUCT structure.
 			-- TODO: getter description
 

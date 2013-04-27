@@ -40,7 +40,7 @@ inherit
 		-- Implemented Interfaces: GtkMisc implements
 		-- AtkImplementorIface.
 	
-insert GTK_MISC_EXTERNALS
+insert GTKMISC_EXTERNALS
 
 -- feature {} -- size size: INTEGER is external "C inline use
 -- <gtk/gtk.h>" alias "sizeof(GtkMisc)" end

@@ -3,83 +3,63 @@
 
 expanded class XLINK_TYPE_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = none_low_level)  or else
-				(a_value = simple_low_level)  or else
-				(a_value = extended_low_level)  or else
-				(a_value = extended_set_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = xlink_type_extended_low_level)  or else
+				(a_value = xlink_type_extended_set_low_level)  or else
+				(a_value = xlink_type_none_low_level)  or else
+				(a_value = xlink_type_simple_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_none is
+	set_xlink_type_extended is
 		do
-			value := none_low_level
+			value := xlink_type_extended_low_level
 		end
 
-	set_simple is
+	set_xlink_type_extended_set is
 		do
-			value := simple_low_level
+			value := xlink_type_extended_set_low_level
 		end
 
-	set_extended is
+	set_xlink_type_none is
 		do
-			value := extended_low_level
+			value := xlink_type_none_low_level
 		end
 
-	set_extended_set is
+	set_xlink_type_simple is
 		do
-			value := extended_set_low_level
+			value := xlink_type_simple_low_level
 		end
 
 feature -- Queries
-	none: BOOLEAN is
+	is_xlink_type_extended: BOOLEAN is
 		do
-			Result := (value=none_low_level)
+			Result := (value=xlink_type_extended_low_level)
 		end
 
-	simple: BOOLEAN is
+	is_xlink_type_extended_set: BOOLEAN is
 		do
-			Result := (value=simple_low_level)
+			Result := (value=xlink_type_extended_set_low_level)
 		end
 
-	extended: BOOLEAN is
+	is_xlink_type_none: BOOLEAN is
 		do
-			Result := (value=extended_low_level)
+			Result := (value=xlink_type_none_low_level)
 		end
 
-	extended_set: BOOLEAN is
+	is_xlink_type_simple: BOOLEAN is
 		do
-			Result := (value=extended_set_low_level)
+			Result := (value=xlink_type_simple_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	none_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XLINK_TYPE_NONE"
- 			}"
- 		end
-
-	simple_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XLINK_TYPE_SIMPLE"
- 			}"
- 		end
-
-	extended_low_level: INTEGER is
+	xlink_type_extended_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -88,12 +68,30 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	extended_set_low_level: INTEGER is
+	xlink_type_extended_set_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
  			feature_name: "XLINK_TYPE_EXTENDED_SET"
+ 			}"
+ 		end
+
+	xlink_type_none_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XLINK_TYPE_NONE"
+ 			}"
+ 		end
+
+	xlink_type_simple_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XLINK_TYPE_SIMPLE"
  			}"
  		end
 

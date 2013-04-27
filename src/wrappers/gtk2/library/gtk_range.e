@@ -25,7 +25,7 @@ deferred class GTK_RANGE
 
 inherit
 	GTK_WIDGET
-	GTK_RANGE_EXTERNALS
+	GTKRANGE_EXTERNALS
 
 feature -- The adjustment
 

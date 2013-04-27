@@ -59,7 +59,7 @@ inherit
 		
 		-- TODO: GtkBox implements AtkImplementorIface.
 
-insert GTK_BOX_EXTERNALS
+insert GTKBOX_EXTERNALS
 
 feature {} -- Hack to avoid warnings
 

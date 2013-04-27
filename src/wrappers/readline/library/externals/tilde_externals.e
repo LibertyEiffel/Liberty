@@ -69,33 +69,23 @@ feature {} -- External calls
 		}"
 		end
 
-	tilde_expansion_preexpansion_hook: POINTER is
- 		-- tilde_expansion_preexpansion_hook
+	tilde_expand (an_argument_l185_c7: POINTER): POINTER is
+ 		-- tilde_expand
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "tilde_expansion_preexpansion_hook"
+			feature_name: "tilde_expand"
 		}"
 		end
 
-	address_of_tilde_expansion_preexpansion_hook: POINTER is
- 		-- Address of tilde_expansion_preexpansion_hook
+	tilde_expand_word (an_argument_l2728_c7: POINTER): POINTER is
+ 		-- tilde_expand_word
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "&tilde_expansion_preexpansion_hook"
-		}"
-		end
-
-	set_tilde_expansion_preexpansion_hook (a_value: POINTER) is
-		-- Set variable tilde_expansion_preexpansion_hook value
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "set_tilde_expansion_preexpansion_hook"
+			feature_name: "tilde_expand_word"
 		}"
 		end
 
@@ -129,33 +119,43 @@ feature {} -- External calls
 		}"
 		end
 
-	tilde_expand (an_argument_l185_c7: POINTER): POINTER is
- 		-- tilde_expand
+	tilde_expansion_preexpansion_hook: POINTER is
+ 		-- tilde_expansion_preexpansion_hook
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "tilde_expand"
+			feature_name: "tilde_expansion_preexpansion_hook"
 		}"
 		end
 
-	tilde_find_word (an_argument_l2554_c7: POINTER; an_argument_l2555_c7: INTEGER_32; an_argument_l2556_c7: POINTER): POINTER is
+	address_of_tilde_expansion_preexpansion_hook: POINTER is
+ 		-- Address of tilde_expansion_preexpansion_hook
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&tilde_expansion_preexpansion_hook"
+		}"
+		end
+
+	set_tilde_expansion_preexpansion_hook (a_value: POINTER) is
+		-- Set variable tilde_expansion_preexpansion_hook value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_tilde_expansion_preexpansion_hook"
+		}"
+		end
+
+	tilde_find_word (an_argument_l2554_c7: POINTER; an_argument_l2555_c7: INTEGER; an_argument_l2556_c7: POINTER): POINTER is
  		-- tilde_find_word
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "tilde_find_word"
-		}"
-		end
-
-	tilde_expand_word (an_argument_l2728_c7: POINTER): POINTER is
- 		-- tilde_expand_word
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "tilde_expand_word"
 		}"
 		end
 

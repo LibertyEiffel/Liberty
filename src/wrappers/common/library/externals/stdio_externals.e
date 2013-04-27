@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fclose (a_stream: POINTER): INTEGER_32 is
+	fclose (a_stream: POINTER): INTEGER is
  		-- fclose
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fcloseall: INTEGER_32 is
+	fcloseall: INTEGER is
  		-- fcloseall
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fdopen (a_fd: INTEGER_32; a_modes: POINTER): POINTER is
+	fdopen (a_fd: INTEGER; a_modes: POINTER): POINTER is
  		-- fdopen
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	feof (a_stream: POINTER): INTEGER_32 is
+	feof (a_stream: POINTER): INTEGER is
  		-- feof
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ferror (a_stream: POINTER): INTEGER_32 is
+	ferror (a_stream: POINTER): INTEGER is
  		-- ferror
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fflush (a_stream: POINTER): INTEGER_32 is
+	fflush (a_stream: POINTER): INTEGER is
  		-- fflush
 		external "plug_in"
 		alias "{
@@ -109,7 +109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fflush_unlocked (a_stream: POINTER): INTEGER_32 is
+	fflush_unlocked (a_stream: POINTER): INTEGER is
  		-- fflush_unlocked
 		external "plug_in"
 		alias "{
@@ -119,7 +119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fgetc (a_stream: POINTER): INTEGER_32 is
+	fgetc (a_stream: POINTER): INTEGER is
  		-- fgetc
 		external "plug_in"
 		alias "{
@@ -129,7 +129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fgetpos (a_stream: POINTER; a_pos: POINTER): INTEGER_32 is
+	fgetpos (a_stream: POINTER; a_pos: POINTER): INTEGER is
  		-- fgetpos
 		external "plug_in"
 		alias "{
@@ -139,7 +139,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fgetpos64 (a_stream: POINTER; a_pos: POINTER): INTEGER_32 is
+	fgetpos64 (a_stream: POINTER; a_pos: POINTER): INTEGER is
  		-- fgetpos64
 		external "plug_in"
 		alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fileno (a_stream: POINTER): INTEGER_32 is
+	fileno (a_stream: POINTER): INTEGER is
  		-- fileno
 		external "plug_in"
 		alias "{
@@ -159,7 +159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fileno_unlocked (a_stream: POINTER): INTEGER_32 is
+	fileno_unlocked (a_stream: POINTER): INTEGER is
  		-- fileno_unlocked
 		external "plug_in"
 		alias "{
@@ -179,7 +179,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fmemopen (a_s: POINTER; a_len: NATURAL_64; a_modes: POINTER): POINTER is
+	fmemopen (a_s: POINTER; a_len: like size_t; a_modes: POINTER): POINTER is
  		-- fmemopen
 		external "plug_in"
 		alias "{
@@ -210,7 +210,7 @@ feature {} -- External calls
 		end
 
 	-- function fopencookie (at line 315 in file /usr/include/stdio.h is not wrappable
-	fputc (a_c: INTEGER_32; a_stream: POINTER): INTEGER_32 is
+	fputc (a_c: INTEGER; a_stream: POINTER): INTEGER is
  		-- fputc
 		external "plug_in"
 		alias "{
@@ -220,7 +220,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fputs (a_s: POINTER; a_stream: POINTER): INTEGER_32 is
+	fputs (a_s: POINTER; a_stream: POINTER): INTEGER is
  		-- fputs
 		external "plug_in"
 		alias "{
@@ -230,7 +230,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fputs_unlocked (a_s: POINTER; a_stream: POINTER): INTEGER_32 is
+	fputs_unlocked (a_s: POINTER; a_stream: POINTER): INTEGER is
  		-- fputs_unlocked
 		external "plug_in"
 		alias "{
@@ -260,7 +260,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fscanf (a_stream: POINTER; a_format: POINTER): INTEGER_32 is
+	fscanf (a_stream: POINTER; a_format: POINTER): INTEGER is
  		-- fscanf (variadic call) 
 		external "plug_in"
 		alias "{
@@ -270,7 +270,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fseek (a_stream: POINTER; an_off: INTEGER_64; a_whence: INTEGER_32): INTEGER_32 is
+	fseek (a_stream: POINTER; an_off: like long; a_whence: INTEGER): INTEGER is
  		-- fseek
 		external "plug_in"
 		alias "{
@@ -280,7 +280,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fseeko (a_stream: POINTER; an_off: INTEGER_64; a_whence: INTEGER_32): INTEGER_32 is
+	fseeko (a_stream: POINTER; an_off: like long; a_whence: INTEGER): INTEGER is
  		-- fseeko
 		external "plug_in"
 		alias "{
@@ -290,7 +290,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fseeko64 (a_stream: POINTER; an_off: INTEGER_64; a_whence: INTEGER_32): INTEGER_32 is
+	fseeko64 (a_stream: POINTER; an_off: like long; a_whence: INTEGER): INTEGER is
  		-- fseeko64
 		external "plug_in"
 		alias "{
@@ -300,7 +300,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fsetpos (a_stream: POINTER; a_pos: POINTER): INTEGER_32 is
+	fsetpos (a_stream: POINTER; a_pos: POINTER): INTEGER is
  		-- fsetpos
 		external "plug_in"
 		alias "{
@@ -310,7 +310,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fsetpos64 (a_stream: POINTER; a_pos: POINTER): INTEGER_32 is
+	fsetpos64 (a_stream: POINTER; a_pos: POINTER): INTEGER is
  		-- fsetpos64
 		external "plug_in"
 		alias "{
@@ -320,7 +320,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ftell (a_stream: POINTER): INTEGER_64 is
+	ftell (a_stream: POINTER): like long is
  		-- ftell
 		external "plug_in"
 		alias "{
@@ -330,7 +330,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ftello (a_stream: POINTER): INTEGER_64 is
+	ftello (a_stream: POINTER): like long is
  		-- ftello
 		external "plug_in"
 		alias "{
@@ -340,7 +340,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ftello64 (a_stream: POINTER): INTEGER_64 is
+	ftello64 (a_stream: POINTER): like long is
  		-- ftello64
 		external "plug_in"
 		alias "{
@@ -350,7 +350,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ftrylockfile (a_stream: POINTER): INTEGER_32 is
+	ftrylockfile (a_stream: POINTER): INTEGER is
  		-- ftrylockfile
 		external "plug_in"
 		alias "{
@@ -370,7 +370,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fwrite (a_ptr: POINTER; a_size: NATURAL_64; a_n: NATURAL_64; a_s: POINTER): NATURAL_64 is
+	fwrite (a_ptr: POINTER; a_size: like size_t; a_n: like size_t; a_s: POINTER): like size_t is
  		-- fwrite
 		external "plug_in"
 		alias "{
@@ -380,7 +380,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fwrite_unlocked (a_ptr: POINTER; a_size: NATURAL_64; a_n: NATURAL_64; a_stream: POINTER): NATURAL_64 is
+	fwrite_unlocked (a_ptr: POINTER; a_size: like size_t; a_n: like size_t; a_stream: POINTER): like size_t is
  		-- fwrite_unlocked
 		external "plug_in"
 		alias "{
@@ -390,7 +390,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getc (a_stream: POINTER): INTEGER_32 is
+	getc (a_stream: POINTER): INTEGER is
  		-- getc
 		external "plug_in"
 		alias "{
@@ -401,7 +401,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __getdelim skipped.
-	getdelim (a_lineptr: POINTER; a_n: POINTER; a_delimiter: INTEGER_32; a_stream: POINTER): INTEGER_64 is
+	getdelim (a_lineptr: POINTER; a_n: POINTER; a_delimiter: INTEGER; a_stream: POINTER): like long is
  		-- getdelim
 		external "plug_in"
 		alias "{
@@ -411,7 +411,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getw (a_stream: POINTER): INTEGER_32 is
+	getw (a_stream: POINTER): INTEGER is
  		-- getw
 		external "plug_in"
 		alias "{
@@ -431,7 +431,7 @@ feature {} -- External calls
 		}"
 		end
 
-	pclose (a_stream: POINTER): INTEGER_32 is
+	pclose (a_stream: POINTER): INTEGER is
  		-- pclose
 		external "plug_in"
 		alias "{
@@ -461,7 +461,7 @@ feature {} -- External calls
 		}"
 		end
 
-	putc (a_c: INTEGER_32; a_stream: POINTER): INTEGER_32 is
+	putc (a_c: INTEGER; a_stream: POINTER): INTEGER is
  		-- putc
 		external "plug_in"
 		alias "{
@@ -471,7 +471,7 @@ feature {} -- External calls
 		}"
 		end
 
-	puts (a_s: POINTER): INTEGER_32 is
+	puts (a_s: POINTER): INTEGER is
  		-- puts
 		external "plug_in"
 		alias "{
@@ -481,7 +481,7 @@ feature {} -- External calls
 		}"
 		end
 
-	putw (a_w: INTEGER_32; a_stream: POINTER): INTEGER_32 is
+	putw (a_w: INTEGER; a_stream: POINTER): INTEGER is
  		-- putw
 		external "plug_in"
 		alias "{
@@ -491,7 +491,7 @@ feature {} -- External calls
 		}"
 		end
 
-	remove (a_filename: POINTER): INTEGER_32 is
+	remove (a_filename: POINTER): INTEGER is
  		-- remove
 		external "plug_in"
 		alias "{
@@ -501,7 +501,7 @@ feature {} -- External calls
 		}"
 		end
 
-	rename_external (an_old: POINTER; a_new: POINTER): INTEGER_32 is
+	rename_external (an_old: POINTER; a_new: POINTER): INTEGER is
  		-- rename
 		external "plug_in"
 		alias "{
@@ -511,7 +511,7 @@ feature {} -- External calls
 		}"
 		end
 
-	renameat (an_oldfd: INTEGER_32; an_old: POINTER; a_newfd: INTEGER_32; a_new: POINTER): INTEGER_32 is
+	renameat (an_oldfd: INTEGER; an_old: POINTER; a_newfd: INTEGER; a_new: POINTER): INTEGER is
  		-- renameat
 		external "plug_in"
 		alias "{
@@ -531,7 +531,7 @@ feature {} -- External calls
 		}"
 		end
 
-	scanf (a_format: POINTER): INTEGER_32 is
+	scanf (a_format: POINTER): INTEGER is
  		-- scanf (variadic call) 
 		external "plug_in"
 		alias "{
@@ -551,7 +551,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setbuffer (a_stream: POINTER; a_buf: POINTER; a_size: NATURAL_64) is
+	setbuffer (a_stream: POINTER; a_buf: POINTER; a_size: like size_t) is
  		-- setbuffer
 		external "plug_in"
 		alias "{
@@ -571,7 +571,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setvbuf (a_stream: POINTER; a_buf: POINTER; a_modes: INTEGER_32; a_n: NATURAL_64): INTEGER_32 is
+	setvbuf (a_stream: POINTER; a_buf: POINTER; a_modes: INTEGER; a_n: like size_t): INTEGER is
  		-- setvbuf
 		external "plug_in"
 		alias "{
@@ -581,7 +581,7 @@ feature {} -- External calls
 		}"
 		end
 
-	sscanf (a_s: POINTER; a_format: POINTER): INTEGER_32 is
+	sscanf (a_s: POINTER; a_format: POINTER): INTEGER is
  		-- sscanf (variadic call) 
 		external "plug_in"
 		alias "{
@@ -731,7 +731,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ungetc (a_c: INTEGER_32; a_stream: POINTER): INTEGER_32 is
+	ungetc (a_c: INTEGER; a_stream: POINTER): INTEGER is
  		-- ungetc
 		external "plug_in"
 		alias "{
@@ -741,7 +741,7 @@ feature {} -- External calls
 		}"
 		end
 
-	vfscanf (a_s: POINTER; a_format: POINTER; an_arg: POINTER): INTEGER_32 is
+	vfscanf (a_s: POINTER; a_format: POINTER; an_arg: POINTER): INTEGER is
  		-- vfscanf
 		external "plug_in"
 		alias "{
@@ -751,7 +751,7 @@ feature {} -- External calls
 		}"
 		end
 
-	vscanf (a_format: POINTER; an_arg: POINTER): INTEGER_32 is
+	vscanf (a_format: POINTER; an_arg: POINTER): INTEGER is
  		-- vscanf
 		external "plug_in"
 		alias "{
@@ -761,7 +761,7 @@ feature {} -- External calls
 		}"
 		end
 
-	vsscanf (a_s: POINTER; a_format: POINTER; an_arg: POINTER): INTEGER_32 is
+	vsscanf (a_s: POINTER; a_format: POINTER; an_arg: POINTER): INTEGER is
  		-- vsscanf
 		external "plug_in"
 		alias "{

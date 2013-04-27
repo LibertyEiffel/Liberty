@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_valid_ctxt_struct_set_nodenr (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_valid_ctxt_struct_set_nodenr (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for nodeNr field of XML_VALID_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_valid_ctxt_struct_set_nodemax (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_valid_ctxt_struct_set_nodemax (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for nodeMax field of XML_VALID_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -92,7 +92,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_valid_ctxt_struct_set_finishdtd (a_structure: POINTER; a_value: NATURAL_32) is
+	xml_valid_ctxt_struct_set_finishdtd (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for finishDtd field of XML_VALID_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -116,7 +116,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_valid_ctxt_struct_set_valid (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_valid_ctxt_struct_set_valid (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for valid field of XML_VALID_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -140,7 +140,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_valid_ctxt_struct_set_vstatenr (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_valid_ctxt_struct_set_vstatenr (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for vstateNr field of XML_VALID_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -152,7 +152,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_valid_ctxt_struct_set_vstatemax (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_valid_ctxt_struct_set_vstatemax (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for vstateMax field of XML_VALID_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -250,7 +250,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_valid_ctxt_struct_get_nodenr (a_structure: POINTER): INTEGER_32 is
+	xml_valid_ctxt_struct_get_nodenr (a_structure: POINTER): INTEGER is
 			-- Query for nodeNr field of XML_VALID_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -262,7 +262,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_valid_ctxt_struct_get_nodemax (a_structure: POINTER): INTEGER_32 is
+	xml_valid_ctxt_struct_get_nodemax (a_structure: POINTER): INTEGER is
 			-- Query for nodeMax field of XML_VALID_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -286,7 +286,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_valid_ctxt_struct_get_finishdtd (a_structure: POINTER): NATURAL_32 is
+	xml_valid_ctxt_struct_get_finishdtd (a_structure: POINTER): NATURAL is
 			-- Query for finishDtd field of XML_VALID_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -310,7 +310,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_valid_ctxt_struct_get_valid (a_structure: POINTER): INTEGER_32 is
+	xml_valid_ctxt_struct_get_valid (a_structure: POINTER): INTEGER is
 			-- Query for valid field of XML_VALID_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -334,7 +334,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_valid_ctxt_struct_get_vstatenr (a_structure: POINTER): INTEGER_32 is
+	xml_valid_ctxt_struct_get_vstatenr (a_structure: POINTER): INTEGER is
 			-- Query for vstateNr field of XML_VALID_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -346,7 +346,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_valid_ctxt_struct_get_vstatemax (a_structure: POINTER): INTEGER_32 is
+	xml_valid_ctxt_struct_get_vstatemax (a_structure: POINTER): INTEGER is
 			-- Query for vstateMax field of XML_VALID_CTXT_STRUCT structure.
 			-- TODO: getter description
 

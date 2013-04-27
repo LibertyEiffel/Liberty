@@ -3,15 +3,13 @@
 
 expanded class POINTER_SIZE_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = any_pointer_size_low_level)  or else
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = any_pointer_size_low_level)  or else
 				(a_value = pointer32_low_level)  or else
 				(a_value = pointer64_low_level) )
 		end
@@ -34,17 +32,17 @@ feature -- Setters
 		end
 
 feature -- Queries
-	any_pointer_size: BOOLEAN is
+	is_any_pointer_size: BOOLEAN is
 		do
 			Result := (value=any_pointer_size_low_level)
 		end
 
-	pointer32: BOOLEAN is
+	is_pointer32: BOOLEAN is
 		do
 			Result := (value=pointer32_low_level)
 		end
 
-	pointer64: BOOLEAN is
+	is_pointer64: BOOLEAN is
 		do
 			Result := (value=pointer64_low_level)
 		end

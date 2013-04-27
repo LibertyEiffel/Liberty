@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	zmq_bind (a_s: POINTER; an_addr: POINTER): INTEGER_32 is
+	zmq_bind (a_s: POINTER; an_addr: POINTER): INTEGER is
  		-- zmq_bind
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_close (a_s: POINTER): INTEGER_32 is
+	zmq_close (a_s: POINTER): INTEGER is
  		-- zmq_close
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_connect (a_s: POINTER; an_addr: POINTER): INTEGER_32 is
+	zmq_connect (a_s: POINTER; an_addr: POINTER): INTEGER is
  		-- zmq_connect
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_device (a_device: INTEGER_32; an_insocket: POINTER; an_outsocket: POINTER): INTEGER_32 is
+	zmq_device (a_device: INTEGER; an_insocket: POINTER; an_outsocket: POINTER): INTEGER is
  		-- zmq_device
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_errno: INTEGER_32 is
+	zmq_errno: INTEGER is
  		-- zmq_errno
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_getsockopt (a_s: POINTER; an_option: INTEGER_32; an_optval: POINTER; an_optvallen: POINTER): INTEGER_32 is
+	zmq_getsockopt (a_s: POINTER; an_option: INTEGER; an_optval: POINTER; an_optvallen: POINTER): INTEGER is
  		-- zmq_getsockopt
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_init (an_io_threads: INTEGER_32): POINTER is
+	zmq_init (an_io_threads: INTEGER): POINTER is
  		-- zmq_init
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_msg_close (a_msg: POINTER): INTEGER_32 is
+	zmq_msg_close (a_msg: POINTER): INTEGER is
  		-- zmq_msg_close
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_msg_copy (a_dest: POINTER; a_src: POINTER): INTEGER_32 is
+	zmq_msg_copy (a_dest: POINTER; a_src: POINTER): INTEGER is
  		-- zmq_msg_copy
 		external "plug_in"
 		alias "{
@@ -109,7 +109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_msg_init (a_msg: POINTER): INTEGER_32 is
+	zmq_msg_init (a_msg: POINTER): INTEGER is
  		-- zmq_msg_init
 		external "plug_in"
 		alias "{
@@ -119,7 +119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_msg_init_data (a_msg: POINTER; a_data: POINTER; a_size: NATURAL_64; a_ffn: POINTER; a_hint: POINTER): INTEGER_32 is
+	zmq_msg_init_data (a_msg: POINTER; a_data: POINTER; a_size: like size_t; a_ffn: POINTER; a_hint: POINTER): INTEGER is
  		-- zmq_msg_init_data
 		external "plug_in"
 		alias "{
@@ -129,7 +129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_msg_init_size (a_msg: POINTER; a_size: NATURAL_64): INTEGER_32 is
+	zmq_msg_init_size (a_msg: POINTER; a_size: like size_t): INTEGER is
  		-- zmq_msg_init_size
 		external "plug_in"
 		alias "{
@@ -139,7 +139,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_msg_move (a_dest: POINTER; a_src: POINTER): INTEGER_32 is
+	zmq_msg_move (a_dest: POINTER; a_src: POINTER): INTEGER is
  		-- zmq_msg_move
 		external "plug_in"
 		alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_msg_size (a_msg: POINTER): NATURAL_64 is
+	zmq_msg_size (a_msg: POINTER): like size_t is
  		-- zmq_msg_size
 		external "plug_in"
 		alias "{
@@ -159,7 +159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_poll (an_items: POINTER; a_nitems: INTEGER_32; a_timeout: INTEGER_64): INTEGER_32 is
+	zmq_poll (an_items: POINTER; a_nitems: INTEGER; a_timeout: like long): INTEGER is
  		-- zmq_poll
 		external "plug_in"
 		alias "{
@@ -169,7 +169,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_recv (a_s: POINTER; a_msg: POINTER; a_flags: INTEGER_32): INTEGER_32 is
+	zmq_recv (a_s: POINTER; a_msg: POINTER; a_flags: INTEGER): INTEGER is
  		-- zmq_recv
 		external "plug_in"
 		alias "{
@@ -179,7 +179,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_send (a_s: POINTER; a_msg: POINTER; a_flags: INTEGER_32): INTEGER_32 is
+	zmq_send (a_s: POINTER; a_msg: POINTER; a_flags: INTEGER): INTEGER is
  		-- zmq_send
 		external "plug_in"
 		alias "{
@@ -189,7 +189,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_setsockopt (a_s: POINTER; an_option: INTEGER_32; an_optval: POINTER; an_optvallen: NATURAL_64): INTEGER_32 is
+	zmq_setsockopt (a_s: POINTER; an_option: INTEGER; an_optval: POINTER; an_optvallen: like size_t): INTEGER is
  		-- zmq_setsockopt
 		external "plug_in"
 		alias "{
@@ -199,7 +199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_socket (a_context: POINTER; a_type: INTEGER_32): POINTER is
+	zmq_socket (a_context: POINTER; a_type: INTEGER): POINTER is
  		-- zmq_socket
 		external "plug_in"
 		alias "{
@@ -209,7 +209,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_strerror (an_errnum: INTEGER_32): POINTER is
+	zmq_strerror (an_errnum: INTEGER): POINTER is
  		-- zmq_strerror
 		external "plug_in"
 		alias "{
@@ -219,7 +219,7 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_term (a_context: POINTER): INTEGER_32 is
+	zmq_term (a_context: POINTER): INTEGER is
  		-- zmq_term
 		external "plug_in"
 		alias "{

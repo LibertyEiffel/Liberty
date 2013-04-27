@@ -3,94 +3,74 @@
 
 expanded class XML_ELEMENT_TYPE_VAL_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = undefined_low_level)  or else
-				(a_value = empty_low_level)  or else
-				(a_value = any_low_level)  or else
-				(a_value = mixed_low_level)  or else
-				(a_value = element_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = xml_element_type_any_low_level)  or else
+				(a_value = xml_element_type_element_low_level)  or else
+				(a_value = xml_element_type_empty_low_level)  or else
+				(a_value = xml_element_type_mixed_low_level)  or else
+				(a_value = xml_element_type_undefined_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_undefined is
+	set_xml_element_type_any is
 		do
-			value := undefined_low_level
+			value := xml_element_type_any_low_level
 		end
 
-	set_empty is
+	set_xml_element_type_element is
 		do
-			value := empty_low_level
+			value := xml_element_type_element_low_level
 		end
 
-	set_any is
+	set_xml_element_type_empty is
 		do
-			value := any_low_level
+			value := xml_element_type_empty_low_level
 		end
 
-	set_mixed is
+	set_xml_element_type_mixed is
 		do
-			value := mixed_low_level
+			value := xml_element_type_mixed_low_level
 		end
 
-	set_element is
+	set_xml_element_type_undefined is
 		do
-			value := element_low_level
+			value := xml_element_type_undefined_low_level
 		end
 
 feature -- Queries
-	undefined: BOOLEAN is
+	is_xml_element_type_any: BOOLEAN is
 		do
-			Result := (value=undefined_low_level)
+			Result := (value=xml_element_type_any_low_level)
 		end
 
-	empty: BOOLEAN is
+	is_xml_element_type_element: BOOLEAN is
 		do
-			Result := (value=empty_low_level)
+			Result := (value=xml_element_type_element_low_level)
 		end
 
-	any: BOOLEAN is
+	is_xml_element_type_empty: BOOLEAN is
 		do
-			Result := (value=any_low_level)
+			Result := (value=xml_element_type_empty_low_level)
 		end
 
-	mixed: BOOLEAN is
+	is_xml_element_type_mixed: BOOLEAN is
 		do
-			Result := (value=mixed_low_level)
+			Result := (value=xml_element_type_mixed_low_level)
 		end
 
-	element: BOOLEAN is
+	is_xml_element_type_undefined: BOOLEAN is
 		do
-			Result := (value=element_low_level)
+			Result := (value=xml_element_type_undefined_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	undefined_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_ELEMENT_TYPE_UNDEFINED"
- 			}"
- 		end
-
-	empty_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_ELEMENT_TYPE_EMPTY"
- 			}"
- 		end
-
-	any_low_level: INTEGER is
+	xml_element_type_any_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +79,25 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	mixed_low_level: INTEGER is
+	xml_element_type_element_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_ELEMENT_TYPE_ELEMENT"
+ 			}"
+ 		end
+
+	xml_element_type_empty_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_ELEMENT_TYPE_EMPTY"
+ 			}"
+ 		end
+
+	xml_element_type_mixed_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,12 +106,12 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	element_low_level: INTEGER is
+	xml_element_type_undefined_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "XML_ELEMENT_TYPE_ELEMENT"
+ 			feature_name: "XML_ELEMENT_TYPE_UNDEFINED"
  			}"
  		end
 

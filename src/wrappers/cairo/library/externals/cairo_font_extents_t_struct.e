@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	CAIRO_TYPES
 feature {} -- Low-level setters
 
-	cairo_font_extents_t_struct_set_ascent (a_structure: POINTER; a_value: REAL_64) is
+	cairo_font_extents_t_struct_set_ascent (a_structure: POINTER; a_value: REAL) is
 			-- Setter for ascent field of CAIRO_FONT_EXTENTS_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_font_extents_t_struct_set_descent (a_structure: POINTER; a_value: REAL_64) is
+	cairo_font_extents_t_struct_set_descent (a_structure: POINTER; a_value: REAL) is
 			-- Setter for descent field of CAIRO_FONT_EXTENTS_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_font_extents_t_struct_set_height (a_structure: POINTER; a_value: REAL_64) is
+	cairo_font_extents_t_struct_set_height (a_structure: POINTER; a_value: REAL) is
 			-- Setter for height field of CAIRO_FONT_EXTENTS_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_font_extents_t_struct_set_max_x_advance (a_structure: POINTER; a_value: REAL_64) is
+	cairo_font_extents_t_struct_set_max_x_advance (a_structure: POINTER; a_value: REAL) is
 			-- Setter for max_x_advance field of CAIRO_FONT_EXTENTS_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_font_extents_t_struct_set_max_y_advance (a_structure: POINTER; a_value: REAL_64) is
+	cairo_font_extents_t_struct_set_max_y_advance (a_structure: POINTER; a_value: REAL) is
 			-- Setter for max_y_advance field of CAIRO_FONT_EXTENTS_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	cairo_font_extents_t_struct_get_ascent (a_structure: POINTER): REAL_64 is
+	cairo_font_extents_t_struct_get_ascent (a_structure: POINTER): REAL is
 			-- Query for ascent field of CAIRO_FONT_EXTENTS_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_font_extents_t_struct_get_descent (a_structure: POINTER): REAL_64 is
+	cairo_font_extents_t_struct_get_descent (a_structure: POINTER): REAL is
 			-- Query for descent field of CAIRO_FONT_EXTENTS_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_font_extents_t_struct_get_height (a_structure: POINTER): REAL_64 is
+	cairo_font_extents_t_struct_get_height (a_structure: POINTER): REAL is
 			-- Query for height field of CAIRO_FONT_EXTENTS_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -106,7 +106,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_font_extents_t_struct_get_max_x_advance (a_structure: POINTER): REAL_64 is
+	cairo_font_extents_t_struct_get_max_x_advance (a_structure: POINTER): REAL is
 			-- Query for max_x_advance field of CAIRO_FONT_EXTENTS_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -118,7 +118,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_font_extents_t_struct_get_max_y_advance (a_structure: POINTER): REAL_64 is
+	cairo_font_extents_t_struct_get_max_y_advance (a_structure: POINTER): REAL is
 			-- Query for max_y_advance field of CAIRO_FONT_EXTENTS_T_STRUCT structure.
 			-- TODO: getter description
 

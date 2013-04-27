@@ -3,74 +3,63 @@
 
 expanded class CMP_RESULT_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = less_than_low_level)  or else
-				(a_value = equal_value_low_level)  or else
-				(a_value = greater_than_low_level)  or else
-				(a_value = unordered_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = cmp_equal_low_level)  or else
+				(a_value = cmp_greater_than_low_level)  or else
+				(a_value = cmp_less_than_low_level)  or else
+				(a_value = cmp_unordered_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_less_than is
+	set_cmp_equal is
 		do
-			value := less_than_low_level
+			value := cmp_equal_low_level
 		end
 
-	set_equal_value is
+	set_cmp_greater_than is
 		do
-			value := equal_value_low_level
+			value := cmp_greater_than_low_level
 		end
 
-	set_greater_than is
+	set_cmp_less_than is
 		do
-			value := greater_than_low_level
+			value := cmp_less_than_low_level
 		end
 
-	set_unordered is
+	set_cmp_unordered is
 		do
-			value := unordered_low_level
+			value := cmp_unordered_low_level
 		end
 
 feature -- Queries
-	less_than: BOOLEAN is
+	is_cmp_equal: BOOLEAN is
 		do
-			Result := (value=less_than_low_level)
+			Result := (value=cmp_equal_low_level)
 		end
 
-	equal_value: BOOLEAN is
+	is_cmp_greater_than: BOOLEAN is
 		do
-			Result := (value=equal_value_low_level)
+			Result := (value=cmp_greater_than_low_level)
 		end
 
-	greater_than: BOOLEAN is
+	is_cmp_less_than: BOOLEAN is
 		do
-			Result := (value=greater_than_low_level)
+			Result := (value=cmp_less_than_low_level)
 		end
 
-	unordered: BOOLEAN is
+	is_cmp_unordered: BOOLEAN is
 		do
-			Result := (value=unordered_low_level)
+			Result := (value=cmp_unordered_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	less_than_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "cmpLessThan"
- 			}"
- 		end
-
-	equal_value_low_level: INTEGER is
+	cmp_equal_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -79,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	greater_than_low_level: INTEGER is
+	cmp_greater_than_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -88,7 +77,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unordered_low_level: INTEGER is
+	cmp_less_than_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "cmpLessThan"
+ 			}"
+ 		end
+
+	cmp_unordered_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

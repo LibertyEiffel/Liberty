@@ -34,7 +34,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __oldXMLWDcompatibility skipped.
-	old_xmlwdcompatibility: INTEGER_32 is
+	old_xmlwdcompatibility: INTEGER is
  		-- old_xmlwdcompatibility
 		external "plug_in"
 		alias "{
@@ -54,7 +54,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_old_xmlwdcompatibility (a_value: INTEGER_32) is
+	set_old_xmlwdcompatibility (a_value: INTEGER) is
 		-- Set variable old_xmlwdcompatibility value
 		external "plug_in"
 		alias "{
@@ -106,7 +106,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlDefaultBufferSize skipped.
-	xml_default_buffer_size: INTEGER_32 is
+	xml_default_buffer_size: INTEGER is
  		-- xml_default_buffer_size
 		external "plug_in"
 		alias "{
@@ -126,7 +126,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_default_buffer_size (a_value: INTEGER_32) is
+	set_xml_default_buffer_size (a_value: INTEGER) is
 		-- Set variable xml_default_buffer_size value
 		external "plug_in"
 		alias "{
@@ -202,7 +202,7 @@ feature {} -- External calls
 
 	-- `hidden' function __xmlDeregisterNodeDefaultValue skipped.
 	-- `hidden' function __xmlDoValidityCheckingDefaultValue skipped.
-	xml_do_validity_checking_default_value: INTEGER_32 is
+	xml_do_validity_checking_default_value: INTEGER is
  		-- xml_do_validity_checking_default_value
 		external "plug_in"
 		alias "{
@@ -222,7 +222,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_do_validity_checking_default_value (a_value: INTEGER_32) is
+	set_xml_do_validity_checking_default_value (a_value: INTEGER) is
 		-- Set variable xml_do_validity_checking_default_value value
 		external "plug_in"
 		alias "{
@@ -325,7 +325,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlGetWarningsDefaultValue skipped.
-	xml_get_warnings_default_value: INTEGER_32 is
+	xml_get_warnings_default_value: INTEGER is
  		-- xml_get_warnings_default_value
 		external "plug_in"
 		alias "{
@@ -345,7 +345,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_get_warnings_default_value (a_value: INTEGER_32) is
+	set_xml_get_warnings_default_value (a_value: INTEGER) is
 		-- Set variable xml_get_warnings_default_value value
 		external "plug_in"
 		alias "{
@@ -355,7 +355,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_indent_tree_output: INTEGER_32 is
+	xml_indent_tree_output: INTEGER is
  		-- xml_indent_tree_output
 		external "plug_in"
 		alias "{
@@ -375,7 +375,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_indent_tree_output (a_value: INTEGER_32) is
+	set_xml_indent_tree_output (a_value: INTEGER) is
 		-- Set variable xml_indent_tree_output value
 		external "plug_in"
 		alias "{
@@ -407,7 +407,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlKeepBlanksDefaultValue skipped.
-	xml_keep_blanks_default_value: INTEGER_32 is
+	xml_keep_blanks_default_value: INTEGER is
  		-- xml_keep_blanks_default_value
 		external "plug_in"
 		alias "{
@@ -427,7 +427,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_keep_blanks_default_value (a_value: INTEGER_32) is
+	set_xml_keep_blanks_default_value (a_value: INTEGER) is
 		-- Set variable xml_keep_blanks_default_value value
 		external "plug_in"
 		alias "{
@@ -450,7 +450,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlLineNumbersDefaultValue skipped.
-	xml_line_numbers_default_value: INTEGER_32 is
+	xml_line_numbers_default_value: INTEGER is
  		-- xml_line_numbers_default_value
 		external "plug_in"
 		alias "{
@@ -470,7 +470,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_line_numbers_default_value (a_value: INTEGER_32) is
+	set_xml_line_numbers_default_value (a_value: INTEGER) is
 		-- Set variable xml_line_numbers_default_value value
 		external "plug_in"
 		alias "{
@@ -480,7 +480,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_load_ext_dtd_default_value: INTEGER_32 is
+	xml_load_ext_dtd_default_value: INTEGER is
  		-- xml_load_ext_dtd_default_value
 		external "plug_in"
 		alias "{
@@ -500,7 +500,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_load_ext_dtd_default_value (a_value: INTEGER_32) is
+	set_xml_load_ext_dtd_default_value (a_value: INTEGER) is
 		-- Set variable xml_load_ext_dtd_default_value value
 		external "plug_in"
 		alias "{
@@ -643,7 +643,7 @@ feature {} -- External calls
 
 	-- `hidden' function __xmlOutputBufferCreateFilenameValue skipped.
 	-- `hidden' function __xmlParserDebugEntities skipped.
-	xml_parser_debug_entities: INTEGER_32 is
+	xml_parser_debug_entities: INTEGER is
  		-- xml_parser_debug_entities
 		external "plug_in"
 		alias "{
@@ -663,7 +663,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_parser_debug_entities (a_value: INTEGER_32) is
+	set_xml_parser_debug_entities (a_value: INTEGER) is
 		-- Set variable xml_parser_debug_entities value
 		external "plug_in"
 		alias "{
@@ -746,7 +746,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlPedanticParserDefaultValue skipped.
-	xml_pedantic_parser_default_value: INTEGER_32 is
+	xml_pedantic_parser_default_value: INTEGER is
  		-- xml_pedantic_parser_default_value
 		external "plug_in"
 		alias "{
@@ -766,7 +766,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_pedantic_parser_default_value (a_value: INTEGER_32) is
+	set_xml_pedantic_parser_default_value (a_value: INTEGER) is
 		-- Set variable xml_pedantic_parser_default_value value
 		external "plug_in"
 		alias "{
@@ -847,7 +847,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlRegisterNodeDefaultValue skipped.
-	xml_save_no_empty_tags: INTEGER_32 is
+	xml_save_no_empty_tags: INTEGER is
  		-- xml_save_no_empty_tags
 		external "plug_in"
 		alias "{
@@ -867,7 +867,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_save_no_empty_tags (a_value: INTEGER_32) is
+	set_xml_save_no_empty_tags (a_value: INTEGER) is
 		-- Set variable xml_save_no_empty_tags value
 		external "plug_in"
 		alias "{
@@ -940,7 +940,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_substitute_entities_default_value: INTEGER_32 is
+	xml_substitute_entities_default_value: INTEGER is
  		-- xml_substitute_entities_default_value
 		external "plug_in"
 		alias "{
@@ -960,7 +960,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_substitute_entities_default_value (a_value: INTEGER_32) is
+	set_xml_substitute_entities_default_value (a_value: INTEGER) is
 		-- Set variable xml_substitute_entities_default_value value
 		external "plug_in"
 		alias "{
@@ -981,7 +981,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_default_buffer_size (a_v: INTEGER_32): INTEGER_32 is
+	xml_thr_def_default_buffer_size (a_v: INTEGER): INTEGER is
  		-- xmlThrDefDefaultBufferSize
 		external "plug_in"
 		alias "{
@@ -1001,7 +1001,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_do_validity_checking_default_value (a_v: INTEGER_32): INTEGER_32 is
+	xml_thr_def_do_validity_checking_default_value (a_v: INTEGER): INTEGER is
  		-- xmlThrDefDoValidityCheckingDefaultValue
 		external "plug_in"
 		alias "{
@@ -1011,7 +1011,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_get_warnings_default_value (a_v: INTEGER_32): INTEGER_32 is
+	xml_thr_def_get_warnings_default_value (a_v: INTEGER): INTEGER is
  		-- xmlThrDefGetWarningsDefaultValue
 		external "plug_in"
 		alias "{
@@ -1021,7 +1021,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_indent_tree_output (a_v: INTEGER_32): INTEGER_32 is
+	xml_thr_def_indent_tree_output (a_v: INTEGER): INTEGER is
  		-- xmlThrDefIndentTreeOutput
 		external "plug_in"
 		alias "{
@@ -1031,7 +1031,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_keep_blanks_default_value (a_v: INTEGER_32): INTEGER_32 is
+	xml_thr_def_keep_blanks_default_value (a_v: INTEGER): INTEGER is
  		-- xmlThrDefKeepBlanksDefaultValue
 		external "plug_in"
 		alias "{
@@ -1041,7 +1041,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_line_numbers_default_value (a_v: INTEGER_32): INTEGER_32 is
+	xml_thr_def_line_numbers_default_value (a_v: INTEGER): INTEGER is
  		-- xmlThrDefLineNumbersDefaultValue
 		external "plug_in"
 		alias "{
@@ -1051,7 +1051,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_load_ext_dtd_default_value (a_v: INTEGER_32): INTEGER_32 is
+	xml_thr_def_load_ext_dtd_default_value (a_v: INTEGER): INTEGER is
  		-- xmlThrDefLoadExtDtdDefaultValue
 		external "plug_in"
 		alias "{
@@ -1071,7 +1071,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_parser_debug_entities (a_v: INTEGER_32): INTEGER_32 is
+	xml_thr_def_parser_debug_entities (a_v: INTEGER): INTEGER is
  		-- xmlThrDefParserDebugEntities
 		external "plug_in"
 		alias "{
@@ -1091,7 +1091,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_pedantic_parser_default_value (a_v: INTEGER_32): INTEGER_32 is
+	xml_thr_def_pedantic_parser_default_value (a_v: INTEGER): INTEGER is
  		-- xmlThrDefPedanticParserDefaultValue
 		external "plug_in"
 		alias "{
@@ -1111,7 +1111,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_save_no_empty_tags (a_v: INTEGER_32): INTEGER_32 is
+	xml_thr_def_save_no_empty_tags (a_v: INTEGER): INTEGER is
  		-- xmlThrDefSaveNoEmptyTags
 		external "plug_in"
 		alias "{
@@ -1141,7 +1141,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_substitute_entities_default_value (a_v: INTEGER_32): INTEGER_32 is
+	xml_thr_def_substitute_entities_default_value (a_v: INTEGER): INTEGER is
  		-- xmlThrDefSubstituteEntitiesDefaultValue
 		external "plug_in"
 		alias "{

@@ -13,26 +13,26 @@
 
 #define sizeof__GArray (sizeof(struct _GArray))
 #define sizeof__GMainLoop (sizeof(struct _GMainLoop))
-#define grecmutex_struct_get_p(a_structure) (((struct _GRecMutex*) (a_structure))->p)
+#define grec_mutex_struct_get_p(a_structure) (((struct _GRecMutex*) (a_structure))->p)
 
-#define grecmutex_struct_set_p(a_structure,a_value) do {(((struct _GRecMutex*)(a_structure)))->p = (a_value);}while(0)
+#define grec_mutex_struct_set_p(a_structure,a_value) do {(((struct _GRecMutex*)(a_structure)))->p = (a_value);}while(0)
 
-#define grecmutex_struct_get_i(a_structure) (((struct _GRecMutex*) (a_structure))->i)
+#define grec_mutex_struct_get_i(a_structure) (((struct _GRecMutex*) (a_structure))->i)
 
-#define grecmutex_struct_set_i(a_structure,a_value) do {(((struct _GRecMutex*)(a_structure)))->i = (a_value);}while(0)
+#define grec_mutex_struct_set_i(a_structure,a_value) do {(((struct _GRecMutex*)(a_structure)))->i = (a_value);}while(0)
 
 #define sizeof__GRecMutex (sizeof(struct _GRecMutex))
-#define gthreadpool_struct_get_func(a_structure) (((struct _GThreadPool*) (a_structure))->func)
+#define gthread_pool_struct_get_func(a_structure) (((struct _GThreadPool*) (a_structure))->func)
 
-#define gthreadpool_struct_set_func(a_structure,a_value) do {(((struct _GThreadPool*)(a_structure)))->func = (a_value);}while(0)
+#define gthread_pool_struct_set_func(a_structure,a_value) do {(((struct _GThreadPool*)(a_structure)))->func = (a_value);}while(0)
 
-#define gthreadpool_struct_get_user_data(a_structure) (((struct _GThreadPool*) (a_structure))->user_data)
+#define gthread_pool_struct_get_user_data(a_structure) (((struct _GThreadPool*) (a_structure))->user_data)
 
-#define gthreadpool_struct_set_user_data(a_structure,a_value) do {(((struct _GThreadPool*)(a_structure)))->user_data = (a_value);}while(0)
+#define gthread_pool_struct_set_user_data(a_structure,a_value) do {(((struct _GThreadPool*)(a_structure)))->user_data = (a_value);}while(0)
 
-#define gthreadpool_struct_get_exclusive(a_structure) (((struct _GThreadPool*) (a_structure))->exclusive)
+#define gthread_pool_struct_get_exclusive(a_structure) (((struct _GThreadPool*) (a_structure))->exclusive)
 
-#define gthreadpool_struct_set_exclusive(a_structure,a_value) do {(((struct _GThreadPool*)(a_structure)))->exclusive = (a_value);}while(0)
+#define gthread_pool_struct_set_exclusive(a_structure,a_value) do {(((struct _GThreadPool*)(a_structure)))->exclusive = (a_value);}while(0)
 
 #define sizeof__GThreadPool (sizeof(struct _GThreadPool))
 #define gnode_struct_get_data(a_structure) (((struct _GNode*) (a_structure))->data)
@@ -58,17 +58,17 @@
 #define sizeof__GNode (sizeof(struct _GNode))
 #define sizeof__GChecksum (sizeof(struct _GChecksum))
 #define sizeof_GTestSuite (sizeof(struct GTestSuite))
-#define gpollfd_struct_get_fd(a_structure) (((struct _GPollFD*) (a_structure))->fd)
+#define gpoll_fd_struct_get_fd(a_structure) (((struct _GPollFD*) (a_structure))->fd)
 
-#define gpollfd_struct_set_fd(a_structure,a_value) do {(((struct _GPollFD*)(a_structure)))->fd = (a_value);}while(0)
+#define gpoll_fd_struct_set_fd(a_structure,a_value) do {(((struct _GPollFD*)(a_structure)))->fd = (a_value);}while(0)
 
-#define gpollfd_struct_get_events(a_structure) (((struct _GPollFD*) (a_structure))->events)
+#define gpoll_fd_struct_get_events(a_structure) (((struct _GPollFD*) (a_structure))->events)
 
-#define gpollfd_struct_set_events(a_structure,a_value) do {(((struct _GPollFD*)(a_structure)))->events = (a_value);}while(0)
+#define gpoll_fd_struct_set_events(a_structure,a_value) do {(((struct _GPollFD*)(a_structure)))->events = (a_value);}while(0)
 
-#define gpollfd_struct_get_revents(a_structure) (((struct _GPollFD*) (a_structure))->revents)
+#define gpoll_fd_struct_get_revents(a_structure) (((struct _GPollFD*) (a_structure))->revents)
 
-#define gpollfd_struct_set_revents(a_structure,a_value) do {(((struct _GPollFD*)(a_structure)))->revents = (a_value);}while(0)
+#define gpoll_fd_struct_set_revents(a_structure,a_value) do {(((struct _GPollFD*)(a_structure)))->revents = (a_value);}while(0)
 
 #define sizeof__GPollFD (sizeof(struct _GPollFD))
 #define gonce_struct_get_status(a_structure) (((struct _GOnce*) (a_structure))->status)
@@ -102,6 +102,7 @@
 #define gcond_struct_set_i(a_structure,a_value) do {(((struct _GCond*)(a_structure)))->i = (a_value);}while(0)
 
 #define sizeof__GCond (sizeof(struct _GCond))
+#define sizeof__GSequenceNode (sizeof(struct _GSequenceNode))
 #define giochannel_struct_get_ref_count(a_structure) (((struct _GIOChannel*) (a_structure))->ref_count)
 
 #define giochannel_struct_set_ref_count(a_structure,a_value) do {(((struct _GIOChannel*)(a_structure)))->ref_count = (a_value);}while(0)
@@ -183,37 +184,190 @@
 #define giochannel_struct_set_reserved2(a_structure,a_value) do {(((struct _GIOChannel*)(a_structure)))->reserved2 = (a_value);}while(0)
 
 #define sizeof__GIOChannel (sizeof(struct _GIOChannel))
-#define ghooklist_struct_get_seq_id(a_structure) (((struct _GHookList*) (a_structure))->seq_id)
+#define ghook_list_struct_get_seq_id(a_structure) (((struct _GHookList*) (a_structure))->seq_id)
 
-#define ghooklist_struct_set_seq_id(a_structure,a_value) do {(((struct _GHookList*)(a_structure)))->seq_id = (a_value);}while(0)
+#define ghook_list_struct_set_seq_id(a_structure,a_value) do {(((struct _GHookList*)(a_structure)))->seq_id = (a_value);}while(0)
 
-#define ghooklist_struct_get_hook_size(a_structure) (((struct _GHookList*) (a_structure))->hook_size)
+#define ghook_list_struct_get_hook_size(a_structure) (((struct _GHookList*) (a_structure))->hook_size)
 
-#define ghooklist_struct_set_hook_size(a_structure,a_value) do {(((struct _GHookList*)(a_structure)))->hook_size = (a_value);}while(0)
+#define ghook_list_struct_set_hook_size(a_structure,a_value) do {(((struct _GHookList*)(a_structure)))->hook_size = (a_value);}while(0)
 
-#define ghooklist_struct_get_is_setup(a_structure) (((struct _GHookList*) (a_structure))->is_setup)
+#define ghook_list_struct_get_is_setup(a_structure) (((struct _GHookList*) (a_structure))->is_setup)
 
-#define ghooklist_struct_set_is_setup(a_structure,a_value) do {(((struct _GHookList*)(a_structure)))->is_setup = (a_value);}while(0)
+#define ghook_list_struct_set_is_setup(a_structure,a_value) do {(((struct _GHookList*)(a_structure)))->is_setup = (a_value);}while(0)
 
-#define ghooklist_struct_get_hooks(a_structure) (((struct _GHookList*) (a_structure))->hooks)
+#define ghook_list_struct_get_hooks(a_structure) (((struct _GHookList*) (a_structure))->hooks)
 
-#define ghooklist_struct_set_hooks(a_structure,a_value) do {(((struct _GHookList*)(a_structure)))->hooks = (a_value);}while(0)
+#define ghook_list_struct_set_hooks(a_structure,a_value) do {(((struct _GHookList*)(a_structure)))->hooks = (a_value);}while(0)
 
-#define ghooklist_struct_get_dummy3(a_structure) (((struct _GHookList*) (a_structure))->dummy3)
+#define ghook_list_struct_get_dummy3(a_structure) (((struct _GHookList*) (a_structure))->dummy3)
 
-#define ghooklist_struct_set_dummy3(a_structure,a_value) do {(((struct _GHookList*)(a_structure)))->dummy3 = (a_value);}while(0)
+#define ghook_list_struct_set_dummy3(a_structure,a_value) do {(((struct _GHookList*)(a_structure)))->dummy3 = (a_value);}while(0)
 
-#define ghooklist_struct_get_finalize_hook(a_structure) (((struct _GHookList*) (a_structure))->finalize_hook)
+#define ghook_list_struct_get_finalize_hook(a_structure) (((struct _GHookList*) (a_structure))->finalize_hook)
 
-#define ghooklist_struct_set_finalize_hook(a_structure,a_value) do {(((struct _GHookList*)(a_structure)))->finalize_hook = (a_value);}while(0)
+#define ghook_list_struct_set_finalize_hook(a_structure,a_value) do {(((struct _GHookList*)(a_structure)))->finalize_hook = (a_value);}while(0)
 
-#define ghooklist_struct_get_dummy(a_structure) (((struct _GHookList*) (a_structure))->dummy)
+#define ghook_list_struct_get_dummy(a_structure) (((struct _GHookList*) (a_structure))->dummy)
 
-#define ghooklist_struct_set_dummy(a_structure,a_value) do {(((struct _GHookList*)(a_structure)))->dummy = (a_value);}while(0)
+#define ghook_list_struct_set_dummy(a_structure,a_value) do {(((struct _GHookList*)(a_structure)))->dummy = (a_value);}while(0)
 
 #define sizeof__GHookList (sizeof(struct _GHookList))
 #define sizeof__GRegex (sizeof(struct _GRegex))
 #define sizeof__GSequence (sizeof(struct _GSequence))
+#define sizeof__GVariant (sizeof(struct _GVariant))
+#define glist_struct_get_data(a_structure) (((struct _GList*) (a_structure))->data)
+
+#define glist_struct_set_data(a_structure,a_value) do {(((struct _GList*)(a_structure)))->data = (a_value);}while(0)
+
+#define glist_struct_get_next(a_structure) (((struct _GList*) (a_structure))->next)
+
+#define glist_struct_set_next(a_structure,a_value) do {(((struct _GList*)(a_structure)))->next = (a_value);}while(0)
+
+#define glist_struct_get_prev(a_structure) (((struct _GList*) (a_structure))->prev)
+
+#define glist_struct_set_prev(a_structure,a_value) do {(((struct _GList*)(a_structure)))->prev = (a_value);}while(0)
+
+#define sizeof__GList (sizeof(struct _GList))
+#define sizeof__GVariantType (sizeof(struct _GVariantType))
+#define sizeof__GTree (sizeof(struct _GTree))
+#define sizeof__GAsyncQueue (sizeof(struct _GAsyncQueue))
+#define sizeof__GDateTime (sizeof(struct _GDateTime))
+#define gtime_val_struct_get_tv_sec(a_structure) (((struct _GTimeVal*) (a_structure))->tv_sec)
+
+#define gtime_val_struct_set_tv_sec(a_structure,a_value) do {(((struct _GTimeVal*)(a_structure)))->tv_sec = (a_value);}while(0)
+
+#define gtime_val_struct_get_tv_usec(a_structure) (((struct _GTimeVal*) (a_structure))->tv_usec)
+
+#define gtime_val_struct_set_tv_usec(a_structure,a_value) do {(((struct _GTimeVal*)(a_structure)))->tv_usec = (a_value);}while(0)
+
+#define sizeof__GTimeVal (sizeof(struct _GTimeVal))
+#define sizeof__GPatternSpec (sizeof(struct _GPatternSpec))
+#define sizeof__GTimer (sizeof(struct _GTimer))
+#define sizeof__GHmac (sizeof(struct _GHmac))
+#define gsource_callback_funcs_struct_get_ref(a_structure) (((struct _GSourceCallbackFuncs*) (a_structure))->ref)
+
+#define gsource_callback_funcs_struct_set_ref(a_structure,a_value) do {(((struct _GSourceCallbackFuncs*)(a_structure)))->ref = (a_value);}while(0)
+
+#define gsource_callback_funcs_struct_get_unref(a_structure) (((struct _GSourceCallbackFuncs*) (a_structure))->unref)
+
+#define gsource_callback_funcs_struct_set_unref(a_structure,a_value) do {(((struct _GSourceCallbackFuncs*)(a_structure)))->unref = (a_value);}while(0)
+
+#define gsource_callback_funcs_struct_get_get(a_structure) (((struct _GSourceCallbackFuncs*) (a_structure))->get)
+
+#define gsource_callback_funcs_struct_set_get(a_structure,a_value) do {(((struct _GSourceCallbackFuncs*)(a_structure)))->get = (a_value);}while(0)
+
+#define sizeof__GSourceCallbackFuncs (sizeof(struct _GSourceCallbackFuncs))
+#define gscanner_config_struct_get_cset_skip_characters(a_structure) (((struct _GScannerConfig*) (a_structure))->cset_skip_characters)
+
+#define gscanner_config_struct_set_cset_skip_characters(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->cset_skip_characters = (a_value);}while(0)
+
+#define gscanner_config_struct_get_cset_identifier_first(a_structure) (((struct _GScannerConfig*) (a_structure))->cset_identifier_first)
+
+#define gscanner_config_struct_set_cset_identifier_first(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->cset_identifier_first = (a_value);}while(0)
+
+#define gscanner_config_struct_get_cset_identifier_nth(a_structure) (((struct _GScannerConfig*) (a_structure))->cset_identifier_nth)
+
+#define gscanner_config_struct_set_cset_identifier_nth(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->cset_identifier_nth = (a_value);}while(0)
+
+#define gscanner_config_struct_get_cpair_comment_single(a_structure) (((struct _GScannerConfig*) (a_structure))->cpair_comment_single)
+
+#define gscanner_config_struct_set_cpair_comment_single(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->cpair_comment_single = (a_value);}while(0)
+
+#define gscanner_config_struct_get_case_sensitive(a_structure) (((struct _GScannerConfig*) (a_structure))->case_sensitive)
+
+#define gscanner_config_struct_set_case_sensitive(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->case_sensitive = (a_value);}while(0)
+
+#define gscanner_config_struct_get_skip_comment_multi(a_structure) (((struct _GScannerConfig*) (a_structure))->skip_comment_multi)
+
+#define gscanner_config_struct_set_skip_comment_multi(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->skip_comment_multi = (a_value);}while(0)
+
+#define gscanner_config_struct_get_skip_comment_single(a_structure) (((struct _GScannerConfig*) (a_structure))->skip_comment_single)
+
+#define gscanner_config_struct_set_skip_comment_single(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->skip_comment_single = (a_value);}while(0)
+
+#define gscanner_config_struct_get_scan_comment_multi(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_comment_multi)
+
+#define gscanner_config_struct_set_scan_comment_multi(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_comment_multi = (a_value);}while(0)
+
+#define gscanner_config_struct_get_scan_identifier(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_identifier)
+
+#define gscanner_config_struct_set_scan_identifier(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_identifier = (a_value);}while(0)
+
+#define gscanner_config_struct_get_scan_identifier_1char(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_identifier_1char)
+
+#define gscanner_config_struct_set_scan_identifier_1char(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_identifier_1char = (a_value);}while(0)
+
+#define gscanner_config_struct_get_scan_identifier_null(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_identifier_NULL)
+
+#define gscanner_config_struct_set_scan_identifier_null(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_identifier_NULL = (a_value);}while(0)
+
+#define gscanner_config_struct_get_scan_symbols(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_symbols)
+
+#define gscanner_config_struct_set_scan_symbols(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_symbols = (a_value);}while(0)
+
+#define gscanner_config_struct_get_scan_binary(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_binary)
+
+#define gscanner_config_struct_set_scan_binary(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_binary = (a_value);}while(0)
+
+#define gscanner_config_struct_get_scan_octal(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_octal)
+
+#define gscanner_config_struct_set_scan_octal(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_octal = (a_value);}while(0)
+
+#define gscanner_config_struct_get_scan_float(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_float)
+
+#define gscanner_config_struct_set_scan_float(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_float = (a_value);}while(0)
+
+#define gscanner_config_struct_get_scan_hex(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_hex)
+
+#define gscanner_config_struct_set_scan_hex(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_hex = (a_value);}while(0)
+
+#define gscanner_config_struct_get_scan_hex_dollar(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_hex_dollar)
+
+#define gscanner_config_struct_set_scan_hex_dollar(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_hex_dollar = (a_value);}while(0)
+
+#define gscanner_config_struct_get_scan_string_sq(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_string_sq)
+
+#define gscanner_config_struct_set_scan_string_sq(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_string_sq = (a_value);}while(0)
+
+#define gscanner_config_struct_get_scan_string_dq(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_string_dq)
+
+#define gscanner_config_struct_set_scan_string_dq(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_string_dq = (a_value);}while(0)
+
+#define gscanner_config_struct_get_numbers_2_int(a_structure) (((struct _GScannerConfig*) (a_structure))->numbers_2_int)
+
+#define gscanner_config_struct_set_numbers_2_int(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->numbers_2_int = (a_value);}while(0)
+
+#define gscanner_config_struct_get_int_2_float(a_structure) (((struct _GScannerConfig*) (a_structure))->int_2_float)
+
+#define gscanner_config_struct_set_int_2_float(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->int_2_float = (a_value);}while(0)
+
+#define gscanner_config_struct_get_identifier_2_string(a_structure) (((struct _GScannerConfig*) (a_structure))->identifier_2_string)
+
+#define gscanner_config_struct_set_identifier_2_string(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->identifier_2_string = (a_value);}while(0)
+
+#define gscanner_config_struct_get_char_2_token(a_structure) (((struct _GScannerConfig*) (a_structure))->char_2_token)
+
+#define gscanner_config_struct_set_char_2_token(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->char_2_token = (a_value);}while(0)
+
+#define gscanner_config_struct_get_symbol_2_token(a_structure) (((struct _GScannerConfig*) (a_structure))->symbol_2_token)
+
+#define gscanner_config_struct_set_symbol_2_token(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->symbol_2_token = (a_value);}while(0)
+
+#define gscanner_config_struct_get_scope_0_fallback(a_structure) (((struct _GScannerConfig*) (a_structure))->scope_0_fallback)
+
+#define gscanner_config_struct_set_scope_0_fallback(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scope_0_fallback = (a_value);}while(0)
+
+#define gscanner_config_struct_get_store_int64(a_structure) (((struct _GScannerConfig*) (a_structure))->store_int64)
+
+#define gscanner_config_struct_set_store_int64(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->store_int64 = (a_value);}while(0)
+
+#define gscanner_config_struct_get_padding_dummy(a_structure) (((struct _GScannerConfig*) (a_structure))->padding_dummy)
+
+#define gscanner_config_struct_set_padding_dummy(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->padding_dummy = (a_value);}while(0)
+
+#define sizeof__GScannerConfig (sizeof(struct _GScannerConfig))
+#define sizeof__GMarkupParseContext (sizeof(struct _GMarkupParseContext))
 #define gscanner_struct_get_user_data(a_structure) (((struct _GScanner*) (a_structure))->user_data)
 
 #define gscanner_struct_set_user_data(a_structure,a_value) do {(((struct _GScanner*)(a_structure)))->user_data = (a_value);}while(0)
@@ -291,173 +445,6 @@
 #define gscanner_struct_set_msg_handler(a_structure,a_value) do {(((struct _GScanner*)(a_structure)))->msg_handler = (a_value);}while(0)
 
 #define sizeof__GScanner (sizeof(struct _GScanner))
-#define sizeof__GVariant (sizeof(struct _GVariant))
-#define glist_struct_get_data(a_structure) (((struct _GList*) (a_structure))->data)
-
-#define glist_struct_set_data(a_structure,a_value) do {(((struct _GList*)(a_structure)))->data = (a_value);}while(0)
-
-#define glist_struct_get_next(a_structure) (((struct _GList*) (a_structure))->next)
-
-#define glist_struct_set_next(a_structure,a_value) do {(((struct _GList*)(a_structure)))->next = (a_value);}while(0)
-
-#define glist_struct_get_prev(a_structure) (((struct _GList*) (a_structure))->prev)
-
-#define glist_struct_set_prev(a_structure,a_value) do {(((struct _GList*)(a_structure)))->prev = (a_value);}while(0)
-
-#define sizeof__GList (sizeof(struct _GList))
-#define sizeof__GVariantType (sizeof(struct _GVariantType))
-#define sizeof__GTree (sizeof(struct _GTree))
-#define sizeof__GAsyncQueue (sizeof(struct _GAsyncQueue))
-#define sizeof__GDateTime (sizeof(struct _GDateTime))
-#define gtimeval_struct_get_tv_sec(a_structure) (((struct _GTimeVal*) (a_structure))->tv_sec)
-
-#define gtimeval_struct_set_tv_sec(a_structure,a_value) do {(((struct _GTimeVal*)(a_structure)))->tv_sec = (a_value);}while(0)
-
-#define gtimeval_struct_get_tv_usec(a_structure) (((struct _GTimeVal*) (a_structure))->tv_usec)
-
-#define gtimeval_struct_set_tv_usec(a_structure,a_value) do {(((struct _GTimeVal*)(a_structure)))->tv_usec = (a_value);}while(0)
-
-#define sizeof__GTimeVal (sizeof(struct _GTimeVal))
-#define gvariantiter_struct_get_x(a_structure) (((struct _GVariantIter*) (a_structure))->x)
-
-#define gvariantiter_struct_set_x(a_structure,a_value) do {(((struct _GVariantIter*)(a_structure)))->x = (a_value);}while(0)
-
-#define sizeof__GVariantIter (sizeof(struct _GVariantIter))
-#define sizeof__GPatternSpec (sizeof(struct _GPatternSpec))
-#define sizeof__GTimer (sizeof(struct _GTimer))
-#define sizeof__GHmac (sizeof(struct _GHmac))
-#define gsourcecallbackfuncs_struct_get_ref(a_structure) (((struct _GSourceCallbackFuncs*) (a_structure))->ref)
-
-#define gsourcecallbackfuncs_struct_set_ref(a_structure,a_value) do {(((struct _GSourceCallbackFuncs*)(a_structure)))->ref = (a_value);}while(0)
-
-#define gsourcecallbackfuncs_struct_get_unref(a_structure) (((struct _GSourceCallbackFuncs*) (a_structure))->unref)
-
-#define gsourcecallbackfuncs_struct_set_unref(a_structure,a_value) do {(((struct _GSourceCallbackFuncs*)(a_structure)))->unref = (a_value);}while(0)
-
-#define gsourcecallbackfuncs_struct_get_get(a_structure) (((struct _GSourceCallbackFuncs*) (a_structure))->get)
-
-#define gsourcecallbackfuncs_struct_set_get(a_structure,a_value) do {(((struct _GSourceCallbackFuncs*)(a_structure)))->get = (a_value);}while(0)
-
-#define sizeof__GSourceCallbackFuncs (sizeof(struct _GSourceCallbackFuncs))
-#define gscannerconfig_struct_get_cset_skip_characters(a_structure) (((struct _GScannerConfig*) (a_structure))->cset_skip_characters)
-
-#define gscannerconfig_struct_set_cset_skip_characters(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->cset_skip_characters = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_cset_identifier_first(a_structure) (((struct _GScannerConfig*) (a_structure))->cset_identifier_first)
-
-#define gscannerconfig_struct_set_cset_identifier_first(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->cset_identifier_first = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_cset_identifier_nth(a_structure) (((struct _GScannerConfig*) (a_structure))->cset_identifier_nth)
-
-#define gscannerconfig_struct_set_cset_identifier_nth(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->cset_identifier_nth = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_cpair_comment_single(a_structure) (((struct _GScannerConfig*) (a_structure))->cpair_comment_single)
-
-#define gscannerconfig_struct_set_cpair_comment_single(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->cpair_comment_single = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_case_sensitive(a_structure) (((struct _GScannerConfig*) (a_structure))->case_sensitive)
-
-#define gscannerconfig_struct_set_case_sensitive(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->case_sensitive = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_skip_comment_multi(a_structure) (((struct _GScannerConfig*) (a_structure))->skip_comment_multi)
-
-#define gscannerconfig_struct_set_skip_comment_multi(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->skip_comment_multi = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_skip_comment_single(a_structure) (((struct _GScannerConfig*) (a_structure))->skip_comment_single)
-
-#define gscannerconfig_struct_set_skip_comment_single(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->skip_comment_single = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_scan_comment_multi(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_comment_multi)
-
-#define gscannerconfig_struct_set_scan_comment_multi(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_comment_multi = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_scan_identifier(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_identifier)
-
-#define gscannerconfig_struct_set_scan_identifier(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_identifier = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_scan_identifier_1char(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_identifier_1char)
-
-#define gscannerconfig_struct_set_scan_identifier_1char(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_identifier_1char = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_scan_identifier_null(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_identifier_NULL)
-
-#define gscannerconfig_struct_set_scan_identifier_null(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_identifier_NULL = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_scan_symbols(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_symbols)
-
-#define gscannerconfig_struct_set_scan_symbols(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_symbols = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_scan_binary(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_binary)
-
-#define gscannerconfig_struct_set_scan_binary(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_binary = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_scan_octal(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_octal)
-
-#define gscannerconfig_struct_set_scan_octal(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_octal = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_scan_float(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_float)
-
-#define gscannerconfig_struct_set_scan_float(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_float = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_scan_hex(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_hex)
-
-#define gscannerconfig_struct_set_scan_hex(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_hex = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_scan_hex_dollar(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_hex_dollar)
-
-#define gscannerconfig_struct_set_scan_hex_dollar(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_hex_dollar = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_scan_string_sq(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_string_sq)
-
-#define gscannerconfig_struct_set_scan_string_sq(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_string_sq = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_scan_string_dq(a_structure) (((struct _GScannerConfig*) (a_structure))->scan_string_dq)
-
-#define gscannerconfig_struct_set_scan_string_dq(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scan_string_dq = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_numbers_2_int(a_structure) (((struct _GScannerConfig*) (a_structure))->numbers_2_int)
-
-#define gscannerconfig_struct_set_numbers_2_int(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->numbers_2_int = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_int_2_float(a_structure) (((struct _GScannerConfig*) (a_structure))->int_2_float)
-
-#define gscannerconfig_struct_set_int_2_float(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->int_2_float = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_identifier_2_string(a_structure) (((struct _GScannerConfig*) (a_structure))->identifier_2_string)
-
-#define gscannerconfig_struct_set_identifier_2_string(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->identifier_2_string = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_char_2_token(a_structure) (((struct _GScannerConfig*) (a_structure))->char_2_token)
-
-#define gscannerconfig_struct_set_char_2_token(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->char_2_token = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_symbol_2_token(a_structure) (((struct _GScannerConfig*) (a_structure))->symbol_2_token)
-
-#define gscannerconfig_struct_set_symbol_2_token(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->symbol_2_token = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_scope_0_fallback(a_structure) (((struct _GScannerConfig*) (a_structure))->scope_0_fallback)
-
-#define gscannerconfig_struct_set_scope_0_fallback(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->scope_0_fallback = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_store_int64(a_structure) (((struct _GScannerConfig*) (a_structure))->store_int64)
-
-#define gscannerconfig_struct_set_store_int64(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->store_int64 = (a_value);}while(0)
-
-#define gscannerconfig_struct_get_padding_dummy(a_structure) (((struct _GScannerConfig*) (a_structure))->padding_dummy)
-
-#define gscannerconfig_struct_set_padding_dummy(a_structure,a_value) do {(((struct _GScannerConfig*)(a_structure)))->padding_dummy = (a_value);}while(0)
-
-#define sizeof__GScannerConfig (sizeof(struct _GScannerConfig))
-#define sizeof__GMarkupParseContext (sizeof(struct _GMarkupParseContext))
-#define gtestlogbuffer_struct_get_data(a_structure) ((( GTestLogBuffer*) (a_structure))->data)
-
-#define gtestlogbuffer_struct_set_data(a_structure,a_value) do {((( GTestLogBuffer*)(a_structure)))->data = (a_value);}while(0)
-
-#define gtestlogbuffer_struct_get_msgs(a_structure) ((( GTestLogBuffer*) (a_structure))->msgs)
-
-#define gtestlogbuffer_struct_set_msgs(a_structure,a_value) do {((( GTestLogBuffer*)(a_structure)))->msgs = (a_value);}while(0)
-
-#define sizeof_GTestLogBuffer (sizeof( GTestLogBuffer))
 #define gsource_struct_get_callback_data(a_structure) (((struct _GSource*) (a_structure))->callback_data)
 
 #define gsource_struct_set_callback_data(a_structure,a_value) do {(((struct _GSource*)(a_structure)))->callback_data = (a_value);}while(0)
@@ -511,18 +498,18 @@
 #define gsource_struct_set_priv(a_structure,a_value) do {(((struct _GSource*)(a_structure)))->priv = (a_value);}while(0)
 
 #define sizeof__GSource (sizeof(struct _GSource))
-#define gdebugkey_struct_get_key(a_structure) (((struct _GDebugKey*) (a_structure))->key)
+#define gdebug_key_struct_get_key(a_structure) (((struct _GDebugKey*) (a_structure))->key)
 
-#define gdebugkey_struct_set_key(a_structure,a_value) do {(((struct _GDebugKey*)(a_structure)))->key = (a_value);}while(0)
+#define gdebug_key_struct_set_key(a_structure,a_value) do {(((struct _GDebugKey*)(a_structure)))->key = (a_value);}while(0)
 
-#define gdebugkey_struct_get_value(a_structure) (((struct _GDebugKey*) (a_structure))->value)
+#define gdebug_key_struct_get_value(a_structure) (((struct _GDebugKey*) (a_structure))->value)
 
-#define gdebugkey_struct_set_value(a_structure,a_value) do {(((struct _GDebugKey*)(a_structure)))->value = (a_value);}while(0)
+#define gdebug_key_struct_set_value(a_structure,a_value) do {(((struct _GDebugKey*)(a_structure)))->value = (a_value);}while(0)
 
 #define sizeof__GDebugKey (sizeof(struct _GDebugKey))
-#define gtrashstack_struct_get_next(a_structure) (((struct _GTrashStack*) (a_structure))->next)
+#define gtrash_stack_struct_get_next(a_structure) (((struct _GTrashStack*) (a_structure))->next)
 
-#define gtrashstack_struct_set_next(a_structure,a_value) do {(((struct _GTrashStack*)(a_structure)))->next = (a_value);}while(0)
+#define gtrash_stack_struct_set_next(a_structure,a_value) do {(((struct _GTrashStack*)(a_structure)))->next = (a_value);}while(0)
 
 #define sizeof__GTrashStack (sizeof(struct _GTrashStack))
 #define sizeof__GOptionGroup (sizeof(struct _GOptionGroup))
@@ -563,43 +550,43 @@
 #define ghook_struct_set_destroy(a_structure,a_value) do {(((struct _GHook*)(a_structure)))->destroy = (a_value);}while(0)
 
 #define sizeof__GHook (sizeof(struct _GHook))
-#define goptionentry_struct_get_long_name(a_structure) (((struct _GOptionEntry*) (a_structure))->long_name)
+#define goption_entry_struct_get_long_name(a_structure) (((struct _GOptionEntry*) (a_structure))->long_name)
 
-#define goptionentry_struct_set_long_name(a_structure,a_value) do {(((struct _GOptionEntry*)(a_structure)))->long_name = (a_value);}while(0)
+#define goption_entry_struct_set_long_name(a_structure,a_value) do {(((struct _GOptionEntry*)(a_structure)))->long_name = (a_value);}while(0)
 
-#define goptionentry_struct_get_short_name(a_structure) (((struct _GOptionEntry*) (a_structure))->short_name)
+#define goption_entry_struct_get_short_name(a_structure) (((struct _GOptionEntry*) (a_structure))->short_name)
 
-#define goptionentry_struct_set_short_name(a_structure,a_value) do {(((struct _GOptionEntry*)(a_structure)))->short_name = (a_value);}while(0)
+#define goption_entry_struct_set_short_name(a_structure,a_value) do {(((struct _GOptionEntry*)(a_structure)))->short_name = (a_value);}while(0)
 
-#define goptionentry_struct_get_flags(a_structure) (((struct _GOptionEntry*) (a_structure))->flags)
+#define goption_entry_struct_get_flags(a_structure) (((struct _GOptionEntry*) (a_structure))->flags)
 
-#define goptionentry_struct_set_flags(a_structure,a_value) do {(((struct _GOptionEntry*)(a_structure)))->flags = (a_value);}while(0)
+#define goption_entry_struct_set_flags(a_structure,a_value) do {(((struct _GOptionEntry*)(a_structure)))->flags = (a_value);}while(0)
 
-#define goptionentry_struct_get_arg(a_structure) (((struct _GOptionEntry*) (a_structure))->arg)
+#define goption_entry_struct_get_arg(a_structure) (((struct _GOptionEntry*) (a_structure))->arg)
 
-#define goptionentry_struct_set_arg(a_structure,a_value) do {(((struct _GOptionEntry*)(a_structure)))->arg = (a_value);}while(0)
+#define goption_entry_struct_set_arg(a_structure,a_value) do {(((struct _GOptionEntry*)(a_structure)))->arg = (a_value);}while(0)
 
-#define goptionentry_struct_get_arg_data(a_structure) (((struct _GOptionEntry*) (a_structure))->arg_data)
+#define goption_entry_struct_get_arg_data(a_structure) (((struct _GOptionEntry*) (a_structure))->arg_data)
 
-#define goptionentry_struct_set_arg_data(a_structure,a_value) do {(((struct _GOptionEntry*)(a_structure)))->arg_data = (a_value);}while(0)
+#define goption_entry_struct_set_arg_data(a_structure,a_value) do {(((struct _GOptionEntry*)(a_structure)))->arg_data = (a_value);}while(0)
 
-#define goptionentry_struct_get_description(a_structure) (((struct _GOptionEntry*) (a_structure))->description)
+#define goption_entry_struct_get_description(a_structure) (((struct _GOptionEntry*) (a_structure))->description)
 
-#define goptionentry_struct_set_description(a_structure,a_value) do {(((struct _GOptionEntry*)(a_structure)))->description = (a_value);}while(0)
+#define goption_entry_struct_set_description(a_structure,a_value) do {(((struct _GOptionEntry*)(a_structure)))->description = (a_value);}while(0)
 
-#define goptionentry_struct_get_arg_description(a_structure) (((struct _GOptionEntry*) (a_structure))->arg_description)
+#define goption_entry_struct_get_arg_description(a_structure) (((struct _GOptionEntry*) (a_structure))->arg_description)
 
-#define goptionentry_struct_set_arg_description(a_structure,a_value) do {(((struct _GOptionEntry*)(a_structure)))->arg_description = (a_value);}while(0)
+#define goption_entry_struct_set_arg_description(a_structure,a_value) do {(((struct _GOptionEntry*)(a_structure)))->arg_description = (a_value);}while(0)
 
 #define sizeof__GOptionEntry (sizeof(struct _GOptionEntry))
 #define sizeof__GOptionContext (sizeof(struct _GOptionContext))
-#define gptrarray_struct_get_pdata(a_structure) (((struct _GPtrArray*) (a_structure))->pdata)
+#define gptr_array_struct_get_pdata(a_structure) (((struct _GPtrArray*) (a_structure))->pdata)
 
-#define gptrarray_struct_set_pdata(a_structure,a_value) do {(((struct _GPtrArray*)(a_structure)))->pdata = (a_value);}while(0)
+#define gptr_array_struct_set_pdata(a_structure,a_value) do {(((struct _GPtrArray*)(a_structure)))->pdata = (a_value);}while(0)
 
-#define gptrarray_struct_get_len(a_structure) (((struct _GPtrArray*) (a_structure))->len)
+#define gptr_array_struct_get_len(a_structure) (((struct _GPtrArray*) (a_structure))->len)
 
-#define gptrarray_struct_set_len(a_structure,a_value) do {(((struct _GPtrArray*)(a_structure)))->len = (a_value);}while(0)
+#define gptr_array_struct_set_len(a_structure,a_value) do {(((struct _GPtrArray*)(a_structure)))->len = (a_value);}while(0)
 
 #define sizeof__GPtrArray (sizeof(struct _GPtrArray))
 #define gqueue_struct_get_head(a_structure) (((struct _GQueue*) (a_structure))->head)
@@ -615,29 +602,29 @@
 #define gqueue_struct_set_length(a_structure,a_value) do {(((struct _GQueue*)(a_structure)))->length = (a_value);}while(0)
 
 #define sizeof__GQueue (sizeof(struct _GQueue))
-#define gtestconfig_struct_get_test_initialized(a_structure) ((( GTestConfig*) (a_structure))->test_initialized)
+#define gtest_config_struct_get_test_initialized(a_structure) ((( GTestConfig*) (a_structure))->test_initialized)
 
-#define gtestconfig_struct_set_test_initialized(a_structure,a_value) do {((( GTestConfig*)(a_structure)))->test_initialized = (a_value);}while(0)
+#define gtest_config_struct_set_test_initialized(a_structure,a_value) do {((( GTestConfig*)(a_structure)))->test_initialized = (a_value);}while(0)
 
-#define gtestconfig_struct_get_test_quick(a_structure) ((( GTestConfig*) (a_structure))->test_quick)
+#define gtest_config_struct_get_test_quick(a_structure) ((( GTestConfig*) (a_structure))->test_quick)
 
-#define gtestconfig_struct_set_test_quick(a_structure,a_value) do {((( GTestConfig*)(a_structure)))->test_quick = (a_value);}while(0)
+#define gtest_config_struct_set_test_quick(a_structure,a_value) do {((( GTestConfig*)(a_structure)))->test_quick = (a_value);}while(0)
 
-#define gtestconfig_struct_get_test_perf(a_structure) ((( GTestConfig*) (a_structure))->test_perf)
+#define gtest_config_struct_get_test_perf(a_structure) ((( GTestConfig*) (a_structure))->test_perf)
 
-#define gtestconfig_struct_set_test_perf(a_structure,a_value) do {((( GTestConfig*)(a_structure)))->test_perf = (a_value);}while(0)
+#define gtest_config_struct_set_test_perf(a_structure,a_value) do {((( GTestConfig*)(a_structure)))->test_perf = (a_value);}while(0)
 
-#define gtestconfig_struct_get_test_verbose(a_structure) ((( GTestConfig*) (a_structure))->test_verbose)
+#define gtest_config_struct_get_test_verbose(a_structure) ((( GTestConfig*) (a_structure))->test_verbose)
 
-#define gtestconfig_struct_set_test_verbose(a_structure,a_value) do {((( GTestConfig*)(a_structure)))->test_verbose = (a_value);}while(0)
+#define gtest_config_struct_set_test_verbose(a_structure,a_value) do {((( GTestConfig*)(a_structure)))->test_verbose = (a_value);}while(0)
 
-#define gtestconfig_struct_get_test_quiet(a_structure) ((( GTestConfig*) (a_structure))->test_quiet)
+#define gtest_config_struct_get_test_quiet(a_structure) ((( GTestConfig*) (a_structure))->test_quiet)
 
-#define gtestconfig_struct_set_test_quiet(a_structure,a_value) do {((( GTestConfig*)(a_structure)))->test_quiet = (a_value);}while(0)
+#define gtest_config_struct_set_test_quiet(a_structure,a_value) do {((( GTestConfig*)(a_structure)))->test_quiet = (a_value);}while(0)
 
-#define gtestconfig_struct_get_test_undefined(a_structure) ((( GTestConfig*) (a_structure))->test_undefined)
+#define gtest_config_struct_get_test_undefined(a_structure) ((( GTestConfig*) (a_structure))->test_undefined)
 
-#define gtestconfig_struct_set_test_undefined(a_structure,a_value) do {((( GTestConfig*)(a_structure)))->test_undefined = (a_value);}while(0)
+#define gtest_config_struct_set_test_undefined(a_structure,a_value) do {((( GTestConfig*)(a_structure)))->test_undefined = (a_value);}while(0)
 
 #define sizeof_GTestConfig (sizeof( GTestConfig))
 #define giofuncs_struct_get_io_read(a_structure) (((struct _GIOFuncs*) (a_structure))->io_read)
@@ -673,25 +660,25 @@
 #define giofuncs_struct_set_io_get_flags(a_structure,a_value) do {(((struct _GIOFuncs*)(a_structure)))->io_get_flags = (a_value);}while(0)
 
 #define sizeof__GIOFuncs (sizeof(struct _GIOFuncs))
-#define gmarkupparser_struct_get_start_element(a_structure) (((struct _GMarkupParser*) (a_structure))->start_element)
+#define gmarkup_parser_struct_get_start_element(a_structure) (((struct _GMarkupParser*) (a_structure))->start_element)
 
-#define gmarkupparser_struct_set_start_element(a_structure,a_value) do {(((struct _GMarkupParser*)(a_structure)))->start_element = (a_value);}while(0)
+#define gmarkup_parser_struct_set_start_element(a_structure,a_value) do {(((struct _GMarkupParser*)(a_structure)))->start_element = (a_value);}while(0)
 
-#define gmarkupparser_struct_get_end_element(a_structure) (((struct _GMarkupParser*) (a_structure))->end_element)
+#define gmarkup_parser_struct_get_end_element(a_structure) (((struct _GMarkupParser*) (a_structure))->end_element)
 
-#define gmarkupparser_struct_set_end_element(a_structure,a_value) do {(((struct _GMarkupParser*)(a_structure)))->end_element = (a_value);}while(0)
+#define gmarkup_parser_struct_set_end_element(a_structure,a_value) do {(((struct _GMarkupParser*)(a_structure)))->end_element = (a_value);}while(0)
 
-#define gmarkupparser_struct_get_text(a_structure) (((struct _GMarkupParser*) (a_structure))->text)
+#define gmarkup_parser_struct_get_text(a_structure) (((struct _GMarkupParser*) (a_structure))->text)
 
-#define gmarkupparser_struct_set_text(a_structure,a_value) do {(((struct _GMarkupParser*)(a_structure)))->text = (a_value);}while(0)
+#define gmarkup_parser_struct_set_text(a_structure,a_value) do {(((struct _GMarkupParser*)(a_structure)))->text = (a_value);}while(0)
 
-#define gmarkupparser_struct_get_passthrough(a_structure) (((struct _GMarkupParser*) (a_structure))->passthrough)
+#define gmarkup_parser_struct_get_passthrough(a_structure) (((struct _GMarkupParser*) (a_structure))->passthrough)
 
-#define gmarkupparser_struct_set_passthrough(a_structure,a_value) do {(((struct _GMarkupParser*)(a_structure)))->passthrough = (a_value);}while(0)
+#define gmarkup_parser_struct_set_passthrough(a_structure,a_value) do {(((struct _GMarkupParser*)(a_structure)))->passthrough = (a_value);}while(0)
 
-#define gmarkupparser_struct_get_error(a_structure) (((struct _GMarkupParser*) (a_structure))->error)
+#define gmarkup_parser_struct_get_error(a_structure) (((struct _GMarkupParser*) (a_structure))->error)
 
-#define gmarkupparser_struct_set_error(a_structure,a_value) do {(((struct _GMarkupParser*)(a_structure)))->error = (a_value);}while(0)
+#define gmarkup_parser_struct_set_error(a_structure,a_value) do {(((struct _GMarkupParser*)(a_structure)))->error = (a_value);}while(0)
 
 #define sizeof__GMarkupParser (sizeof(struct _GMarkupParser))
 #define gstring_struct_get_str(a_structure) (((struct _GString*) (a_structure))->str)
@@ -707,30 +694,35 @@
 #define gstring_struct_set_allocated_len(a_structure,a_value) do {(((struct _GString*)(a_structure)))->allocated_len = (a_value);}while(0)
 
 #define sizeof__GString (sizeof(struct _GString))
+#define gvariant_iter_struct_get_x(a_structure) (((struct _GVariantIter*) (a_structure))->x)
+
+#define gvariant_iter_struct_set_x(a_structure,a_value) do {(((struct _GVariantIter*)(a_structure)))->x = (a_value);}while(0)
+
+#define sizeof__GVariantIter (sizeof(struct _GVariantIter))
 #define sizeof__GMappedFile (sizeof(struct _GMappedFile))
-#define gsourcefuncs_struct_get_prepare(a_structure) (((struct _GSourceFuncs*) (a_structure))->prepare)
+#define gsource_funcs_struct_get_prepare(a_structure) (((struct _GSourceFuncs*) (a_structure))->prepare)
 
-#define gsourcefuncs_struct_set_prepare(a_structure,a_value) do {(((struct _GSourceFuncs*)(a_structure)))->prepare = (a_value);}while(0)
+#define gsource_funcs_struct_set_prepare(a_structure,a_value) do {(((struct _GSourceFuncs*)(a_structure)))->prepare = (a_value);}while(0)
 
-#define gsourcefuncs_struct_get_check_field(a_structure) (((struct _GSourceFuncs*) (a_structure))->check)
+#define gsource_funcs_struct_get_check_field(a_structure) (((struct _GSourceFuncs*) (a_structure))->check)
 
-#define gsourcefuncs_struct_set_check_field(a_structure,a_value) do {(((struct _GSourceFuncs*)(a_structure)))->check = (a_value);}while(0)
+#define gsource_funcs_struct_set_check_field(a_structure,a_value) do {(((struct _GSourceFuncs*)(a_structure)))->check = (a_value);}while(0)
 
-#define gsourcefuncs_struct_get_dispatch(a_structure) (((struct _GSourceFuncs*) (a_structure))->dispatch)
+#define gsource_funcs_struct_get_dispatch(a_structure) (((struct _GSourceFuncs*) (a_structure))->dispatch)
 
-#define gsourcefuncs_struct_set_dispatch(a_structure,a_value) do {(((struct _GSourceFuncs*)(a_structure)))->dispatch = (a_value);}while(0)
+#define gsource_funcs_struct_set_dispatch(a_structure,a_value) do {(((struct _GSourceFuncs*)(a_structure)))->dispatch = (a_value);}while(0)
 
-#define gsourcefuncs_struct_get_finalize(a_structure) (((struct _GSourceFuncs*) (a_structure))->finalize)
+#define gsource_funcs_struct_get_finalize(a_structure) (((struct _GSourceFuncs*) (a_structure))->finalize)
 
-#define gsourcefuncs_struct_set_finalize(a_structure,a_value) do {(((struct _GSourceFuncs*)(a_structure)))->finalize = (a_value);}while(0)
+#define gsource_funcs_struct_set_finalize(a_structure,a_value) do {(((struct _GSourceFuncs*)(a_structure)))->finalize = (a_value);}while(0)
 
-#define gsourcefuncs_struct_get_closure_callback(a_structure) (((struct _GSourceFuncs*) (a_structure))->closure_callback)
+#define gsource_funcs_struct_get_closure_callback(a_structure) (((struct _GSourceFuncs*) (a_structure))->closure_callback)
 
-#define gsourcefuncs_struct_set_closure_callback(a_structure,a_value) do {(((struct _GSourceFuncs*)(a_structure)))->closure_callback = (a_value);}while(0)
+#define gsource_funcs_struct_set_closure_callback(a_structure,a_value) do {(((struct _GSourceFuncs*)(a_structure)))->closure_callback = (a_value);}while(0)
 
-#define gsourcefuncs_struct_get_closure_marshal(a_structure) (((struct _GSourceFuncs*) (a_structure))->closure_marshal)
+#define gsource_funcs_struct_get_closure_marshal(a_structure) (((struct _GSourceFuncs*) (a_structure))->closure_marshal)
 
-#define gsourcefuncs_struct_set_closure_marshal(a_structure,a_value) do {(((struct _GSourceFuncs*)(a_structure)))->closure_marshal = (a_value);}while(0)
+#define gsource_funcs_struct_set_closure_marshal(a_structure,a_value) do {(((struct _GSourceFuncs*)(a_structure)))->closure_marshal = (a_value);}while(0)
 
 #define sizeof__GSourceFuncs (sizeof(struct _GSourceFuncs))
 #define grwlock_struct_get_p(a_structure) (((struct _GRWLock*) (a_structure))->p)
@@ -744,48 +736,35 @@
 #define sizeof__GRWLock (sizeof(struct _GRWLock))
 #define sizeof__GBookmarkFile (sizeof(struct _GBookmarkFile))
 #define sizeof__GRand (sizeof(struct _GRand))
-#define gvariantbuilder_struct_get_x(a_structure) (((struct _GVariantBuilder*) (a_structure))->x)
+#define gvariant_builder_struct_get_x(a_structure) (((struct _GVariantBuilder*) (a_structure))->x)
 
-#define gvariantbuilder_struct_set_x(a_structure,a_value) do {(((struct _GVariantBuilder*)(a_structure)))->x = (a_value);}while(0)
+#define gvariant_builder_struct_set_x(a_structure,a_value) do {(((struct _GVariantBuilder*)(a_structure)))->x = (a_value);}while(0)
 
 #define sizeof__GVariantBuilder (sizeof(struct _GVariantBuilder))
-#define gerror_struct_get_domain(a_structure) (((struct _GError*) (a_structure))->domain)
-
-#define gerror_struct_set_domain(a_structure,a_value) do {(((struct _GError*)(a_structure)))->domain = (a_value);}while(0)
-
-#define gerror_struct_get_code(a_structure) (((struct _GError*) (a_structure))->code)
-
-#define gerror_struct_set_code(a_structure,a_value) do {(((struct _GError*)(a_structure)))->code = (a_value);}while(0)
-
-#define gerror_struct_get_message(a_structure) (((struct _GError*) (a_structure))->message)
-
-#define gerror_struct_set_message(a_structure,a_value) do {(((struct _GError*)(a_structure)))->message = (a_value);}while(0)
-
-#define sizeof__GError (sizeof(struct _GError))
 #define sizeof__GMatchInfo (sizeof(struct _GMatchInfo))
-#define ghashtableiter_struct_get_dummy1(a_structure) (((struct _GHashTableIter*) (a_structure))->dummy1)
+#define ghash_table_iter_struct_get_dummy1(a_structure) (((struct _GHashTableIter*) (a_structure))->dummy1)
 
-#define ghashtableiter_struct_set_dummy1(a_structure,a_value) do {(((struct _GHashTableIter*)(a_structure)))->dummy1 = (a_value);}while(0)
+#define ghash_table_iter_struct_set_dummy1(a_structure,a_value) do {(((struct _GHashTableIter*)(a_structure)))->dummy1 = (a_value);}while(0)
 
-#define ghashtableiter_struct_get_dummy2(a_structure) (((struct _GHashTableIter*) (a_structure))->dummy2)
+#define ghash_table_iter_struct_get_dummy2(a_structure) (((struct _GHashTableIter*) (a_structure))->dummy2)
 
-#define ghashtableiter_struct_set_dummy2(a_structure,a_value) do {(((struct _GHashTableIter*)(a_structure)))->dummy2 = (a_value);}while(0)
+#define ghash_table_iter_struct_set_dummy2(a_structure,a_value) do {(((struct _GHashTableIter*)(a_structure)))->dummy2 = (a_value);}while(0)
 
-#define ghashtableiter_struct_get_dummy3(a_structure) (((struct _GHashTableIter*) (a_structure))->dummy3)
+#define ghash_table_iter_struct_get_dummy3(a_structure) (((struct _GHashTableIter*) (a_structure))->dummy3)
 
-#define ghashtableiter_struct_set_dummy3(a_structure,a_value) do {(((struct _GHashTableIter*)(a_structure)))->dummy3 = (a_value);}while(0)
+#define ghash_table_iter_struct_set_dummy3(a_structure,a_value) do {(((struct _GHashTableIter*)(a_structure)))->dummy3 = (a_value);}while(0)
 
-#define ghashtableiter_struct_get_dummy4(a_structure) (((struct _GHashTableIter*) (a_structure))->dummy4)
+#define ghash_table_iter_struct_get_dummy4(a_structure) (((struct _GHashTableIter*) (a_structure))->dummy4)
 
-#define ghashtableiter_struct_set_dummy4(a_structure,a_value) do {(((struct _GHashTableIter*)(a_structure)))->dummy4 = (a_value);}while(0)
+#define ghash_table_iter_struct_set_dummy4(a_structure,a_value) do {(((struct _GHashTableIter*)(a_structure)))->dummy4 = (a_value);}while(0)
 
-#define ghashtableiter_struct_get_dummy5(a_structure) (((struct _GHashTableIter*) (a_structure))->dummy5)
+#define ghash_table_iter_struct_get_dummy5(a_structure) (((struct _GHashTableIter*) (a_structure))->dummy5)
 
-#define ghashtableiter_struct_set_dummy5(a_structure,a_value) do {(((struct _GHashTableIter*)(a_structure)))->dummy5 = (a_value);}while(0)
+#define ghash_table_iter_struct_set_dummy5(a_structure,a_value) do {(((struct _GHashTableIter*)(a_structure)))->dummy5 = (a_value);}while(0)
 
-#define ghashtableiter_struct_get_dummy6(a_structure) (((struct _GHashTableIter*) (a_structure))->dummy6)
+#define ghash_table_iter_struct_get_dummy6(a_structure) (((struct _GHashTableIter*) (a_structure))->dummy6)
 
-#define ghashtableiter_struct_set_dummy6(a_structure,a_value) do {(((struct _GHashTableIter*)(a_structure)))->dummy6 = (a_value);}while(0)
+#define ghash_table_iter_struct_set_dummy6(a_structure,a_value) do {(((struct _GHashTableIter*)(a_structure)))->dummy6 = (a_value);}while(0)
 
 #define sizeof__GHashTableIter (sizeof(struct _GHashTableIter))
 #define sizeof__GHashTable (sizeof(struct _GHashTable))
@@ -826,61 +805,82 @@
 #define gslist_struct_set_next(a_structure,a_value) do {(((struct _GSList*)(a_structure)))->next = (a_value);}while(0)
 
 #define sizeof__GSList (sizeof(struct _GSList))
-#define gbytearray_struct_get_data(a_structure) (((struct _GByteArray*) (a_structure))->data)
+#define gbyte_array_struct_get_data(a_structure) (((struct _GByteArray*) (a_structure))->data)
 
-#define gbytearray_struct_set_data(a_structure,a_value) do {(((struct _GByteArray*)(a_structure)))->data = (a_value);}while(0)
+#define gbyte_array_struct_set_data(a_structure,a_value) do {(((struct _GByteArray*)(a_structure)))->data = (a_value);}while(0)
 
-#define gbytearray_struct_get_len(a_structure) (((struct _GByteArray*) (a_structure))->len)
+#define gbyte_array_struct_get_len(a_structure) (((struct _GByteArray*) (a_structure))->len)
 
-#define gbytearray_struct_set_len(a_structure,a_value) do {(((struct _GByteArray*)(a_structure)))->len = (a_value);}while(0)
+#define gbyte_array_struct_set_len(a_structure,a_value) do {(((struct _GByteArray*)(a_structure)))->len = (a_value);}while(0)
 
 #define sizeof__GByteArray (sizeof(struct _GByteArray))
-#define sizeof__GSequenceNode (sizeof(struct _GSequenceNode))
+#define gerror_struct_get_domain(a_structure) (((struct _GError*) (a_structure))->domain)
+
+#define gerror_struct_set_domain(a_structure,a_value) do {(((struct _GError*)(a_structure)))->domain = (a_value);}while(0)
+
+#define gerror_struct_get_code(a_structure) (((struct _GError*) (a_structure))->code)
+
+#define gerror_struct_set_code(a_structure,a_value) do {(((struct _GError*)(a_structure)))->code = (a_value);}while(0)
+
+#define gerror_struct_get_message(a_structure) (((struct _GError*) (a_structure))->message)
+
+#define gerror_struct_set_message(a_structure,a_value) do {(((struct _GError*)(a_structure)))->message = (a_value);}while(0)
+
+#define sizeof__GError (sizeof(struct _GError))
+#define gtest_log_buffer_struct_get_data(a_structure) ((( GTestLogBuffer*) (a_structure))->data)
+
+#define gtest_log_buffer_struct_set_data(a_structure,a_value) do {((( GTestLogBuffer*)(a_structure)))->data = (a_value);}while(0)
+
+#define gtest_log_buffer_struct_get_msgs(a_structure) ((( GTestLogBuffer*) (a_structure))->msgs)
+
+#define gtest_log_buffer_struct_set_msgs(a_structure,a_value) do {((( GTestLogBuffer*)(a_structure)))->msgs = (a_value);}while(0)
+
+#define sizeof_GTestLogBuffer (sizeof( GTestLogBuffer))
 #define sizeof__GMainContext (sizeof(struct _GMainContext))
-#define gtestlogmsg_struct_get_log_type(a_structure) ((( GTestLogMsg*) (a_structure))->log_type)
+#define gtest_log_msg_struct_get_log_type(a_structure) ((( GTestLogMsg*) (a_structure))->log_type)
 
-#define gtestlogmsg_struct_set_log_type(a_structure,a_value) do {((( GTestLogMsg*)(a_structure)))->log_type = (a_value);}while(0)
+#define gtest_log_msg_struct_set_log_type(a_structure,a_value) do {((( GTestLogMsg*)(a_structure)))->log_type = (a_value);}while(0)
 
-#define gtestlogmsg_struct_get_n_strings(a_structure) ((( GTestLogMsg*) (a_structure))->n_strings)
+#define gtest_log_msg_struct_get_n_strings(a_structure) ((( GTestLogMsg*) (a_structure))->n_strings)
 
-#define gtestlogmsg_struct_set_n_strings(a_structure,a_value) do {((( GTestLogMsg*)(a_structure)))->n_strings = (a_value);}while(0)
+#define gtest_log_msg_struct_set_n_strings(a_structure,a_value) do {((( GTestLogMsg*)(a_structure)))->n_strings = (a_value);}while(0)
 
-#define gtestlogmsg_struct_get_strings(a_structure) ((( GTestLogMsg*) (a_structure))->strings)
+#define gtest_log_msg_struct_get_strings(a_structure) ((( GTestLogMsg*) (a_structure))->strings)
 
-#define gtestlogmsg_struct_set_strings(a_structure,a_value) do {((( GTestLogMsg*)(a_structure)))->strings = (a_value);}while(0)
+#define gtest_log_msg_struct_set_strings(a_structure,a_value) do {((( GTestLogMsg*)(a_structure)))->strings = (a_value);}while(0)
 
-#define gtestlogmsg_struct_get_n_nums(a_structure) ((( GTestLogMsg*) (a_structure))->n_nums)
+#define gtest_log_msg_struct_get_n_nums(a_structure) ((( GTestLogMsg*) (a_structure))->n_nums)
 
-#define gtestlogmsg_struct_set_n_nums(a_structure,a_value) do {((( GTestLogMsg*)(a_structure)))->n_nums = (a_value);}while(0)
+#define gtest_log_msg_struct_set_n_nums(a_structure,a_value) do {((( GTestLogMsg*)(a_structure)))->n_nums = (a_value);}while(0)
 
-#define gtestlogmsg_struct_get_nums(a_structure) ((( GTestLogMsg*) (a_structure))->nums)
+#define gtest_log_msg_struct_get_nums(a_structure) ((( GTestLogMsg*) (a_structure))->nums)
 
-#define gtestlogmsg_struct_set_nums(a_structure,a_value) do {((( GTestLogMsg*)(a_structure)))->nums = (a_value);}while(0)
+#define gtest_log_msg_struct_set_nums(a_structure,a_value) do {((( GTestLogMsg*)(a_structure)))->nums = (a_value);}while(0)
 
 #define sizeof_GTestLogMsg (sizeof( GTestLogMsg))
-#define gmemvtable_struct_get_malloc(a_structure) (((struct _GMemVTable*) (a_structure))->malloc)
+#define gmem_vtable_struct_get_malloc(a_structure) (((struct _GMemVTable*) (a_structure))->malloc)
 
-#define gmemvtable_struct_set_malloc(a_structure,a_value) do {(((struct _GMemVTable*)(a_structure)))->malloc = (a_value);}while(0)
+#define gmem_vtable_struct_set_malloc(a_structure,a_value) do {(((struct _GMemVTable*)(a_structure)))->malloc = (a_value);}while(0)
 
-#define gmemvtable_struct_get_realloc(a_structure) (((struct _GMemVTable*) (a_structure))->realloc)
+#define gmem_vtable_struct_get_realloc(a_structure) (((struct _GMemVTable*) (a_structure))->realloc)
 
-#define gmemvtable_struct_set_realloc(a_structure,a_value) do {(((struct _GMemVTable*)(a_structure)))->realloc = (a_value);}while(0)
+#define gmem_vtable_struct_set_realloc(a_structure,a_value) do {(((struct _GMemVTable*)(a_structure)))->realloc = (a_value);}while(0)
 
-#define gmemvtable_struct_get_free(a_structure) (((struct _GMemVTable*) (a_structure))->free)
+#define gmem_vtable_struct_get_free(a_structure) (((struct _GMemVTable*) (a_structure))->free)
 
-#define gmemvtable_struct_set_free(a_structure,a_value) do {(((struct _GMemVTable*)(a_structure)))->free = (a_value);}while(0)
+#define gmem_vtable_struct_set_free(a_structure,a_value) do {(((struct _GMemVTable*)(a_structure)))->free = (a_value);}while(0)
 
-#define gmemvtable_struct_get_calloc(a_structure) (((struct _GMemVTable*) (a_structure))->calloc)
+#define gmem_vtable_struct_get_calloc(a_structure) (((struct _GMemVTable*) (a_structure))->calloc)
 
-#define gmemvtable_struct_set_calloc(a_structure,a_value) do {(((struct _GMemVTable*)(a_structure)))->calloc = (a_value);}while(0)
+#define gmem_vtable_struct_set_calloc(a_structure,a_value) do {(((struct _GMemVTable*)(a_structure)))->calloc = (a_value);}while(0)
 
-#define gmemvtable_struct_get_try_malloc(a_structure) (((struct _GMemVTable*) (a_structure))->try_malloc)
+#define gmem_vtable_struct_get_try_malloc(a_structure) (((struct _GMemVTable*) (a_structure))->try_malloc)
 
-#define gmemvtable_struct_set_try_malloc(a_structure,a_value) do {(((struct _GMemVTable*)(a_structure)))->try_malloc = (a_value);}while(0)
+#define gmem_vtable_struct_set_try_malloc(a_structure,a_value) do {(((struct _GMemVTable*)(a_structure)))->try_malloc = (a_value);}while(0)
 
-#define gmemvtable_struct_get_try_realloc(a_structure) (((struct _GMemVTable*) (a_structure))->try_realloc)
+#define gmem_vtable_struct_get_try_realloc(a_structure) (((struct _GMemVTable*) (a_structure))->try_realloc)
 
-#define gmemvtable_struct_set_try_realloc(a_structure,a_value) do {(((struct _GMemVTable*)(a_structure)))->try_realloc = (a_value);}while(0)
+#define gmem_vtable_struct_set_try_realloc(a_structure,a_value) do {(((struct _GMemVTable*)(a_structure)))->try_realloc = (a_value);}while(0)
 
 #define sizeof__GMemVTable (sizeof(struct _GMemVTable))
 #define set_g_mem_gc_friendly(a_value) g_mem_gc_friendly = (a_value);

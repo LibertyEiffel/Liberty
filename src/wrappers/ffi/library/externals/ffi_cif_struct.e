@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ffi_cif_struct_set_nargs (a_structure: POINTER; a_value: NATURAL_32) is
+	ffi_cif_struct_set_nargs (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for nargs field of FFI_CIF_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ffi_cif_struct_set_bytes (a_structure: POINTER; a_value: NATURAL_32) is
+	ffi_cif_struct_set_bytes (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for bytes field of FFI_CIF_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ffi_cif_struct_set_flags (a_structure: POINTER; a_value: NATURAL_32) is
+	ffi_cif_struct_set_flags (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for flags field of FFI_CIF_STRUCT structure.
 			-- TODO: setter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ffi_cif_struct_get_nargs (a_structure: POINTER): NATURAL_32 is
+	ffi_cif_struct_get_nargs (a_structure: POINTER): NATURAL is
 			-- Query for nargs field of FFI_CIF_STRUCT structure.
 			-- TODO: getter description
 
@@ -130,7 +130,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ffi_cif_struct_get_bytes (a_structure: POINTER): NATURAL_32 is
+	ffi_cif_struct_get_bytes (a_structure: POINTER): NATURAL is
 			-- Query for bytes field of FFI_CIF_STRUCT structure.
 			-- TODO: getter description
 
@@ -142,7 +142,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ffi_cif_struct_get_flags (a_structure: POINTER): NATURAL_32 is
+	ffi_cif_struct_get_flags (a_structure: POINTER): NATURAL is
 			-- Query for flags field of FFI_CIF_STRUCT structure.
 			-- TODO: getter description
 

@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	attribute_decl (a_ctx: POINTER; an_elem: POINTER; a_fullname: POINTER; a_type: INTEGER_32; a_def: INTEGER_32; a_default_value: POINTER; a_tree: POINTER) is
+	attribute_decl (a_ctx: POINTER; an_elem: POINTER; a_fullname: POINTER; a_type: INTEGER; a_def: INTEGER; a_default_value: POINTER; a_tree: POINTER) is
  		-- attributeDecl
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	cdata_block (a_ctx: POINTER; a_value: POINTER; a_len: INTEGER_32) is
+	cdata_block (a_ctx: POINTER; a_value: POINTER; a_len: INTEGER) is
  		-- cdataBlock
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	characters (a_ctx: POINTER; a_ch: POINTER; a_len: INTEGER_32) is
+	characters (a_ctx: POINTER; a_ch: POINTER; a_len: INTEGER) is
  		-- characters
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	check_namespace (a_ctx: POINTER; a_name_space: POINTER): INTEGER_32 is
+	check_namespace (a_ctx: POINTER; a_name_space: POINTER): INTEGER is
  		-- checkNamespace
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	element_decl (a_ctx: POINTER; a_name: POINTER; a_type: INTEGER_32; a_content: POINTER) is
+	element_decl (a_ctx: POINTER; a_name: POINTER; a_type: INTEGER; a_content: POINTER) is
  		-- elementDecl
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	entity_decl (a_ctx: POINTER; a_name: POINTER; a_type: INTEGER_32; a_public_id: POINTER; a_system_id: POINTER; a_content: POINTER) is
+	entity_decl (a_ctx: POINTER; a_name: POINTER; a_type: INTEGER; a_public_id: POINTER; a_system_id: POINTER; a_content: POINTER) is
  		-- entityDecl
 		external "plug_in"
 		alias "{
@@ -119,7 +119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	get_column_number (a_ctx: POINTER): INTEGER_32 is
+	get_column_number (a_ctx: POINTER): INTEGER is
  		-- getColumnNumber
 		external "plug_in"
 		alias "{
@@ -139,7 +139,7 @@ feature {} -- External calls
 		}"
 		end
 
-	get_line_number (a_ctx: POINTER): INTEGER_32 is
+	get_line_number (a_ctx: POINTER): INTEGER is
  		-- getLineNumber
 		external "plug_in"
 		alias "{
@@ -199,7 +199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	has_external_subset (a_ctx: POINTER): INTEGER_32 is
+	has_external_subset (a_ctx: POINTER): INTEGER is
  		-- hasExternalSubset
 		external "plug_in"
 		alias "{
@@ -209,7 +209,7 @@ feature {} -- External calls
 		}"
 		end
 
-	has_internal_subset (a_ctx: POINTER): INTEGER_32 is
+	has_internal_subset (a_ctx: POINTER): INTEGER is
  		-- hasInternalSubset
 		external "plug_in"
 		alias "{
@@ -219,7 +219,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ignorable_whitespace (a_ctx: POINTER; a_ch: POINTER; a_len: INTEGER_32) is
+	ignorable_whitespace (a_ctx: POINTER; a_ch: POINTER; a_len: INTEGER) is
  		-- ignorableWhitespace
 		external "plug_in"
 		alias "{
@@ -249,7 +249,7 @@ feature {} -- External calls
 		}"
 		end
 
-	initxml_default_saxhandler (a_hdlr: POINTER; a_warning: INTEGER_32) is
+	initxml_default_saxhandler (a_hdlr: POINTER; a_warning: INTEGER) is
  		-- initxmlDefaultSAXHandler
 		external "plug_in"
 		alias "{
@@ -269,7 +269,7 @@ feature {} -- External calls
 		}"
 		end
 
-	is_standalone (a_ctx: POINTER): INTEGER_32 is
+	is_standalone (a_ctx: POINTER): INTEGER is
  		-- isStandalone
 		external "plug_in"
 		alias "{

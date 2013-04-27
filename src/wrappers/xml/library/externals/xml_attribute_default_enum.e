@@ -3,83 +3,72 @@
 
 expanded class XML_ATTRIBUTE_DEFAULT_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = none_low_level)  or else
-				(a_value = required_low_level)  or else
-				(a_value = implied_low_level)  or else
-				(a_value = fixed_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = xml_attribute_fixed_low_level)  or else
+				(a_value = xml_attribute_implied_low_level)  or else
+				(a_value = xml_attribute_none_low_level)  or else
+				(a_value = xml_attribute_required_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_none is
+	set_xml_attribute_fixed is
 		do
-			value := none_low_level
+			value := xml_attribute_fixed_low_level
 		end
 
-	set_required is
+	set_xml_attribute_implied is
 		do
-			value := required_low_level
+			value := xml_attribute_implied_low_level
 		end
 
-	set_implied is
+	set_xml_attribute_none is
 		do
-			value := implied_low_level
+			value := xml_attribute_none_low_level
 		end
 
-	set_fixed is
+	set_xml_attribute_required is
 		do
-			value := fixed_low_level
+			value := xml_attribute_required_low_level
 		end
 
 feature -- Queries
-	none: BOOLEAN is
+	is_xml_attribute_fixed: BOOLEAN is
 		do
-			Result := (value=none_low_level)
+			Result := (value=xml_attribute_fixed_low_level)
 		end
 
-	required: BOOLEAN is
+	is_xml_attribute_implied: BOOLEAN is
 		do
-			Result := (value=required_low_level)
+			Result := (value=xml_attribute_implied_low_level)
 		end
 
-	implied: BOOLEAN is
+	is_xml_attribute_none: BOOLEAN is
 		do
-			Result := (value=implied_low_level)
+			Result := (value=xml_attribute_none_low_level)
 		end
 
-	fixed: BOOLEAN is
+	is_xml_attribute_required: BOOLEAN is
 		do
-			Result := (value=fixed_low_level)
+			Result := (value=xml_attribute_required_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	none_low_level: INTEGER is
+	xml_attribute_fixed_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "XML_ATTRIBUTE_NONE"
+ 			feature_name: "XML_ATTRIBUTE_FIXED"
  			}"
  		end
 
-	required_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_ATTRIBUTE_REQUIRED"
- 			}"
- 		end
-
-	implied_low_level: INTEGER is
+	xml_attribute_implied_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -88,12 +77,21 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fixed_low_level: INTEGER is
+	xml_attribute_none_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "XML_ATTRIBUTE_FIXED"
+ 			feature_name: "XML_ATTRIBUTE_NONE"
+ 			}"
+ 		end
+
+	xml_attribute_required_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "XML_ATTRIBUTE_REQUIRED"
  			}"
  		end
 

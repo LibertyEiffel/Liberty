@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	CAIRO_TYPES
 feature {} -- Low-level setters
 
-	cairo_rectangle_int_struct_set_x (a_structure: POINTER; a_value: INTEGER_32) is
+	cairo_rectangle_int_struct_set_x (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for x field of CAIRO_RECTANGLE_INT_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_rectangle_int_struct_set_y (a_structure: POINTER; a_value: INTEGER_32) is
+	cairo_rectangle_int_struct_set_y (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for y field of CAIRO_RECTANGLE_INT_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_rectangle_int_struct_set_width (a_structure: POINTER; a_value: INTEGER_32) is
+	cairo_rectangle_int_struct_set_width (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for width field of CAIRO_RECTANGLE_INT_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_rectangle_int_struct_set_height (a_structure: POINTER; a_value: INTEGER_32) is
+	cairo_rectangle_int_struct_set_height (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for height field of CAIRO_RECTANGLE_INT_STRUCT structure.
 			-- TODO: setter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	cairo_rectangle_int_struct_get_x (a_structure: POINTER): INTEGER_32 is
+	cairo_rectangle_int_struct_get_x (a_structure: POINTER): INTEGER is
 			-- Query for x field of CAIRO_RECTANGLE_INT_STRUCT structure.
 			-- TODO: getter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_rectangle_int_struct_get_y (a_structure: POINTER): INTEGER_32 is
+	cairo_rectangle_int_struct_get_y (a_structure: POINTER): INTEGER is
 			-- Query for y field of CAIRO_RECTANGLE_INT_STRUCT structure.
 			-- TODO: getter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_rectangle_int_struct_get_width (a_structure: POINTER): INTEGER_32 is
+	cairo_rectangle_int_struct_get_width (a_structure: POINTER): INTEGER is
 			-- Query for width field of CAIRO_RECTANGLE_INT_STRUCT structure.
 			-- TODO: getter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_rectangle_int_struct_get_height (a_structure: POINTER): INTEGER_32 is
+	cairo_rectangle_int_struct_get_height (a_structure: POINTER): INTEGER is
 			-- Query for height field of CAIRO_RECTANGLE_INT_STRUCT structure.
 			-- TODO: getter description
 

@@ -332,7 +332,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_v1_struct_set_initialized (a_structure: POINTER; a_value: NATURAL_32) is
+	xml_saxhandler_v1_struct_set_initialized (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for initialized field of XML_SAXHANDLER_V1_STRUCT structure.
 			-- TODO: setter description
 
@@ -670,7 +670,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_v1_struct_get_initialized (a_structure: POINTER): NATURAL_32 is
+	xml_saxhandler_v1_struct_get_initialized (a_structure: POINTER): NATURAL is
 			-- Query for initialized field of XML_SAXHANDLER_V1_STRUCT structure.
 			-- TODO: getter description
 

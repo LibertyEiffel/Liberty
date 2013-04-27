@@ -104,7 +104,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_rto (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_rto (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_rto field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -116,7 +116,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_ato (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_ato (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_ato field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -128,7 +128,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_snd_mss (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_snd_mss (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_snd_mss field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -140,7 +140,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_rcv_mss (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_rcv_mss (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_rcv_mss field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -152,7 +152,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_unacked (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_unacked (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_unacked field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -164,7 +164,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_sacked (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_sacked (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_sacked field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -176,7 +176,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_lost (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_lost (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_lost field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -188,7 +188,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_retrans (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_retrans (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_retrans field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -200,7 +200,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_fackets (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_fackets (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_fackets field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -212,7 +212,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_last_data_sent (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_last_data_sent (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_last_data_sent field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -224,7 +224,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_last_ack_sent (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_last_ack_sent (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_last_ack_sent field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -236,7 +236,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_last_data_recv (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_last_data_recv (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_last_data_recv field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -248,7 +248,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_last_ack_recv (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_last_ack_recv (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_last_ack_recv field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -260,7 +260,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_pmtu (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_pmtu (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_pmtu field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -272,7 +272,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_rcv_ssthresh (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_rcv_ssthresh (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_rcv_ssthresh field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -284,7 +284,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_rtt (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_rtt (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_rtt field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -296,7 +296,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_rttvar (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_rttvar (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_rttvar field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -308,7 +308,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_snd_ssthresh (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_snd_ssthresh (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_snd_ssthresh field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -320,7 +320,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_snd_cwnd (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_snd_cwnd (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_snd_cwnd field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -332,7 +332,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_advmss (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_advmss (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_advmss field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -344,7 +344,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_reordering (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_reordering (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_reordering field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -356,7 +356,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_rcv_rtt (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_rcv_rtt (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_rcv_rtt field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -368,7 +368,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_rcv_space (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_rcv_space (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_rcv_space field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -380,7 +380,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_info_struct_set_tcpi_total_retrans (a_structure: POINTER; a_value: NATURAL_32) is
+	tcp_info_struct_set_tcpi_total_retrans (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for tcpi_total_retrans field of TCP_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -490,7 +490,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_rto (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_rto (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_rto field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -502,7 +502,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_ato (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_ato (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_ato field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -514,7 +514,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_snd_mss (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_snd_mss (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_snd_mss field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -526,7 +526,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_rcv_mss (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_rcv_mss (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_rcv_mss field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -538,7 +538,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_unacked (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_unacked (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_unacked field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -550,7 +550,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_sacked (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_sacked (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_sacked field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -562,7 +562,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_lost (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_lost (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_lost field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -574,7 +574,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_retrans (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_retrans (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_retrans field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -586,7 +586,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_fackets (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_fackets (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_fackets field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -598,7 +598,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_last_data_sent (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_last_data_sent (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_last_data_sent field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -610,7 +610,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_last_ack_sent (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_last_ack_sent (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_last_ack_sent field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -622,7 +622,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_last_data_recv (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_last_data_recv (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_last_data_recv field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -634,7 +634,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_last_ack_recv (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_last_ack_recv (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_last_ack_recv field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -646,7 +646,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_pmtu (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_pmtu (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_pmtu field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -658,7 +658,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_rcv_ssthresh (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_rcv_ssthresh (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_rcv_ssthresh field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -670,7 +670,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_rtt (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_rtt (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_rtt field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -682,7 +682,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_rttvar (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_rttvar (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_rttvar field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -694,7 +694,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_snd_ssthresh (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_snd_ssthresh (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_snd_ssthresh field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -706,7 +706,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_snd_cwnd (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_snd_cwnd (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_snd_cwnd field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -718,7 +718,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_advmss (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_advmss (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_advmss field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -730,7 +730,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_reordering (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_reordering (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_reordering field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -742,7 +742,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_rcv_rtt (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_rcv_rtt (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_rcv_rtt field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -754,7 +754,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_rcv_space (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_rcv_space (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_rcv_space field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -766,7 +766,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcp_info_struct_get_tcpi_total_retrans (a_structure: POINTER): NATURAL_32 is
+	tcp_info_struct_get_tcpi_total_retrans (a_structure: POINTER): NATURAL is
 			-- Query for tcpi_total_retrans field of TCP_INFO_STRUCT structure.
 			-- TODO: getter description
 

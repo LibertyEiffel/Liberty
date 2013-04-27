@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	undo_list_struct_set_start (a_structure: POINTER; a_value: INTEGER_32) is
+	undo_list_struct_set_start (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for start field of UNDO_LIST_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	undo_list_struct_set_end_field (a_structure: POINTER; a_value: INTEGER_32) is
+	undo_list_struct_set_end_field (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for end field of UNDO_LIST_STRUCT structure.
 			-- TODO: setter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	undo_list_struct_get_start (a_structure: POINTER): INTEGER_32 is
+	undo_list_struct_get_start (a_structure: POINTER): INTEGER is
 			-- Query for start field of UNDO_LIST_STRUCT structure.
 			-- TODO: getter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	undo_list_struct_get_end_field (a_structure: POINTER): INTEGER_32 is
+	undo_list_struct_get_end_field (a_structure: POINTER): INTEGER is
 			-- Query for end field of UNDO_LIST_STRUCT structure.
 			-- TODO: getter description
 

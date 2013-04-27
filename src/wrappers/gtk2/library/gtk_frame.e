@@ -25,7 +25,7 @@ class GTK_FRAME
 inherit
 	GTK_BIN
 insert
-	GTK_FRAME_EXTERNALS
+	GTKFRAME_EXTERNALS
 	
 creation from_label, from_external_pointer
 

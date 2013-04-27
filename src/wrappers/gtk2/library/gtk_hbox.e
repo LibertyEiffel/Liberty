@@ -30,7 +30,7 @@ class GTK_HBOX
 inherit GTK_BOX
 		-- GtkHBox also implements AtkImplementorIface.
 
-insert GTK_HBOX_EXTERNALS
+insert GTKHBOX_EXTERNALS
 
 creation make, from_external_pointer
 

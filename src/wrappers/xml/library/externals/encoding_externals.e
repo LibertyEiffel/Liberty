@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	isolat1to_utf8 (an_out_external: POINTER; an_outlen: POINTER; an_in: POINTER; an_inlen: POINTER): INTEGER_32 is
+	isolat1to_utf8 (an_out_external: POINTER; an_outlen: POINTER; an_in: POINTER; an_inlen: POINTER): INTEGER is
  		-- isolat1ToUTF8
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	utf8toisolat1 (an_out_external: POINTER; an_outlen: POINTER; an_in: POINTER; an_inlen: POINTER): INTEGER_32 is
+	utf8toisolat1 (an_out_external: POINTER; an_outlen: POINTER; an_in: POINTER; an_inlen: POINTER): INTEGER is
  		-- UTF8Toisolat1
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_add_encoding_alias (a_name: POINTER; an_alias_external: POINTER): INTEGER_32 is
+	xml_add_encoding_alias (a_name: POINTER; an_alias_external: POINTER): INTEGER is
  		-- xmlAddEncodingAlias
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_char_enc_close_func (a_handler: POINTER): INTEGER_32 is
+	xml_char_enc_close_func (a_handler: POINTER): INTEGER is
  		-- xmlCharEncCloseFunc
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_char_enc_first_line (a_handler: POINTER; an_out_external: POINTER; an_in: POINTER): INTEGER_32 is
+	xml_char_enc_first_line (a_handler: POINTER; an_out_external: POINTER; an_in: POINTER): INTEGER is
  		-- xmlCharEncFirstLine
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_char_enc_in_func (a_handler: POINTER; an_out_external: POINTER; an_in: POINTER): INTEGER_32 is
+	xml_char_enc_in_func (a_handler: POINTER; an_out_external: POINTER; an_in: POINTER): INTEGER is
  		-- xmlCharEncInFunc
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_char_enc_out_func (a_handler: POINTER; an_out_external: POINTER; an_in: POINTER): INTEGER_32 is
+	xml_char_enc_out_func (a_handler: POINTER; an_out_external: POINTER; an_in: POINTER): INTEGER is
  		-- xmlCharEncOutFunc
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_del_encoding_alias (an_alias_external: POINTER): INTEGER_32 is
+	xml_del_encoding_alias (an_alias_external: POINTER): INTEGER is
  		-- xmlDelEncodingAlias
 		external "plug_in"
 		alias "{
@@ -109,7 +109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_detect_char_encoding (an_in: POINTER; a_len: INTEGER_32): INTEGER is
+	xml_detect_char_encoding (an_in: POINTER; a_len: INTEGER): INTEGER is
  		-- xmlDetectCharEncoding
 		external "plug_in"
 		alias "{

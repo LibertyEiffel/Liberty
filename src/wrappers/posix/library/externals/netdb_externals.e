@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getrpcbyname_r (a_name: POINTER; a_result_buf: POINTER; a_buffer: POINTER; a_buflen: NATURAL_64; a_result: POINTER): INTEGER_32 is
+	getrpcbyname_r (a_name: POINTER; a_result_buf: POINTER; a_buffer: POINTER; a_buflen: like size_t; a_result: POINTER): INTEGER is
  		-- getrpcbyname_r
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getrpcbynumber (a_number: INTEGER_32): POINTER is
+	getrpcbynumber (a_number: INTEGER): POINTER is
  		-- getrpcbynumber
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getrpcbynumber_r (a_number: INTEGER_32; a_result_buf: POINTER; a_buffer: POINTER; a_buflen: NATURAL_64; a_result: POINTER): INTEGER_32 is
+	getrpcbynumber_r (a_number: INTEGER; a_result_buf: POINTER; a_buffer: POINTER; a_buflen: like size_t; a_result: POINTER): INTEGER is
  		-- getrpcbynumber_r
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getrpcent_r (a_result_buf: POINTER; a_buffer: POINTER; a_buflen: NATURAL_64; a_result: POINTER): INTEGER_32 is
+	getrpcent_r (a_result_buf: POINTER; a_buffer: POINTER; a_buflen: like size_t; a_result: POINTER): INTEGER is
  		-- getrpcent_r
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setrpcent (a_stayopen: INTEGER_32) is
+	setrpcent (a_stayopen: INTEGER) is
  		-- setrpcent
 		external "plug_in"
 		alias "{

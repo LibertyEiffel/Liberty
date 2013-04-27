@@ -23,7 +23,7 @@ expanded class GTK_RC
 
 insert
 	ANY
-	GTK_RC_EXTERNALS
+	GTKRC_EXTERNALS
 
 feature -- Operations
 

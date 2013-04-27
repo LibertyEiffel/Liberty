@@ -64,7 +64,7 @@ inherit
 		-- implementation is a GTK_WIDGET, therefore it shouldn't bring
 		-- any harm.
 insert
-	GTK_EDITABLE_EXTERNALS
+	GTKEDITABLE_EXTERNALS
 	GTK_EDITABLE_STRUCT
 		-- Known Implementations: GtkEditable is implemented by
 		-- GtkEntry, GtkOldEditable, GtkSpinButton and GtkText.

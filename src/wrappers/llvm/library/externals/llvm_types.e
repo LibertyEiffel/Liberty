@@ -56,7 +56,7 @@ feature -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
-	llvmbool: INTEGER_32 is
+	llvmbool: INTEGER is
 		-- typedef LLVMBool
 		-- Empty by design, used for anchored declarations.
 	do

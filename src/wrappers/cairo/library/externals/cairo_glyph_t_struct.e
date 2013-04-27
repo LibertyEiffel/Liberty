@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	CAIRO_TYPES
 feature {} -- Low-level setters
 
-	cairo_glyph_t_struct_set_index (a_structure: POINTER; a_value: NATURAL_64) is
+	cairo_glyph_t_struct_set_index (a_structure: POINTER; a_value: like long_unsigned) is
 			-- Setter for index field of CAIRO_GLYPH_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_glyph_t_struct_set_x (a_structure: POINTER; a_value: REAL_64) is
+	cairo_glyph_t_struct_set_x (a_structure: POINTER; a_value: REAL) is
 			-- Setter for x field of CAIRO_GLYPH_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_glyph_t_struct_set_y (a_structure: POINTER; a_value: REAL_64) is
+	cairo_glyph_t_struct_set_y (a_structure: POINTER; a_value: REAL) is
 			-- Setter for y field of CAIRO_GLYPH_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	cairo_glyph_t_struct_get_index (a_structure: POINTER): NATURAL_64 is
+	cairo_glyph_t_struct_get_index (a_structure: POINTER): like long_unsigned is
 			-- Query for index field of CAIRO_GLYPH_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_glyph_t_struct_get_x (a_structure: POINTER): REAL_64 is
+	cairo_glyph_t_struct_get_x (a_structure: POINTER): REAL is
 			-- Query for x field of CAIRO_GLYPH_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_glyph_t_struct_get_y (a_structure: POINTER): REAL_64 is
+	cairo_glyph_t_struct_get_y (a_structure: POINTER): REAL is
 			-- Query for y field of CAIRO_GLYPH_T_STRUCT structure.
 			-- TODO: getter description
 

@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	xml_check_version (a_version: INTEGER_32) is
+	xml_check_version (a_version: INTEGER) is
  		-- xmlCheckVersion
 		external "plug_in"
 		alias "{

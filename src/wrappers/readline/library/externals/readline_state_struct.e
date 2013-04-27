@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	READLINE_TYPES
 feature {} -- Low-level setters
 
-	readline_state_struct_set_point (a_structure: POINTER; a_value: INTEGER_32) is
+	readline_state_struct_set_point (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for point field of READLINE_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	readline_state_struct_set_end_field (a_structure: POINTER; a_value: INTEGER_32) is
+	readline_state_struct_set_end_field (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for end field of READLINE_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	readline_state_struct_set_mark (a_structure: POINTER; a_value: INTEGER_32) is
+	readline_state_struct_set_mark (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for mark field of READLINE_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	readline_state_struct_set_buflen (a_structure: POINTER; a_value: INTEGER_32) is
+	readline_state_struct_set_buflen (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for buflen field of READLINE_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -92,7 +92,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	readline_state_struct_set_rlstate (a_structure: POINTER; a_value: INTEGER_32) is
+	readline_state_struct_set_rlstate (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for rlstate field of READLINE_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -104,7 +104,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	readline_state_struct_set_done (a_structure: POINTER; a_value: INTEGER_32) is
+	readline_state_struct_set_done (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for done field of READLINE_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -140,7 +140,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	readline_state_struct_set_insmode (a_structure: POINTER; a_value: INTEGER_32) is
+	readline_state_struct_set_insmode (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for insmode field of READLINE_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -152,7 +152,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	readline_state_struct_set_edmode (a_structure: POINTER; a_value: INTEGER_32) is
+	readline_state_struct_set_edmode (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for edmode field of READLINE_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -164,7 +164,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	readline_state_struct_set_kseqlen (a_structure: POINTER; a_value: INTEGER_32) is
+	readline_state_struct_set_kseqlen (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for kseqlen field of READLINE_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -200,7 +200,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	readline_state_struct_set_pendingin (a_structure: POINTER; a_value: INTEGER_32) is
+	readline_state_struct_set_pendingin (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for pendingin field of READLINE_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -224,7 +224,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	readline_state_struct_set_catchsigs (a_structure: POINTER; a_value: INTEGER_32) is
+	readline_state_struct_set_catchsigs (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for catchsigs field of READLINE_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -236,7 +236,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	readline_state_struct_set_catchsigwinch (a_structure: POINTER; a_value: INTEGER_32) is
+	readline_state_struct_set_catchsigwinch (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for catchsigwinch field of READLINE_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -262,7 +262,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	readline_state_struct_get_point (a_structure: POINTER): INTEGER_32 is
+	readline_state_struct_get_point (a_structure: POINTER): INTEGER is
 			-- Query for point field of READLINE_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -274,7 +274,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	readline_state_struct_get_end_field (a_structure: POINTER): INTEGER_32 is
+	readline_state_struct_get_end_field (a_structure: POINTER): INTEGER is
 			-- Query for end field of READLINE_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -286,7 +286,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	readline_state_struct_get_mark (a_structure: POINTER): INTEGER_32 is
+	readline_state_struct_get_mark (a_structure: POINTER): INTEGER is
 			-- Query for mark field of READLINE_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -310,7 +310,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	readline_state_struct_get_buflen (a_structure: POINTER): INTEGER_32 is
+	readline_state_struct_get_buflen (a_structure: POINTER): INTEGER is
 			-- Query for buflen field of READLINE_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -346,7 +346,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	readline_state_struct_get_rlstate (a_structure: POINTER): INTEGER_32 is
+	readline_state_struct_get_rlstate (a_structure: POINTER): INTEGER is
 			-- Query for rlstate field of READLINE_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -358,7 +358,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	readline_state_struct_get_done (a_structure: POINTER): INTEGER_32 is
+	readline_state_struct_get_done (a_structure: POINTER): INTEGER is
 			-- Query for done field of READLINE_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -394,7 +394,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	readline_state_struct_get_insmode (a_structure: POINTER): INTEGER_32 is
+	readline_state_struct_get_insmode (a_structure: POINTER): INTEGER is
 			-- Query for insmode field of READLINE_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -406,7 +406,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	readline_state_struct_get_edmode (a_structure: POINTER): INTEGER_32 is
+	readline_state_struct_get_edmode (a_structure: POINTER): INTEGER is
 			-- Query for edmode field of READLINE_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -418,7 +418,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	readline_state_struct_get_kseqlen (a_structure: POINTER): INTEGER_32 is
+	readline_state_struct_get_kseqlen (a_structure: POINTER): INTEGER is
 			-- Query for kseqlen field of READLINE_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -454,7 +454,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	readline_state_struct_get_pendingin (a_structure: POINTER): INTEGER_32 is
+	readline_state_struct_get_pendingin (a_structure: POINTER): INTEGER is
 			-- Query for pendingin field of READLINE_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -478,7 +478,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	readline_state_struct_get_catchsigs (a_structure: POINTER): INTEGER_32 is
+	readline_state_struct_get_catchsigs (a_structure: POINTER): INTEGER is
 			-- Query for catchsigs field of READLINE_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -490,7 +490,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	readline_state_struct_get_catchsigwinch (a_structure: POINTER): INTEGER_32 is
+	readline_state_struct_get_catchsigwinch (a_structure: POINTER): INTEGER is
 			-- Query for catchsigwinch field of READLINE_STATE_STRUCT structure.
 			-- TODO: getter description
 

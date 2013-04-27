@@ -3,206 +3,195 @@
 
 expanded class LLVMREAL_PREDICATE_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = predicate_false_low_level)  or else
-				(a_value = oeq_low_level)  or else
-				(a_value = ogt_low_level)  or else
-				(a_value = oge_low_level)  or else
-				(a_value = olt_low_level)  or else
-				(a_value = ole_low_level)  or else
-				(a_value = one_low_level)  or else
-				(a_value = ord_low_level)  or else
-				(a_value = uno_low_level)  or else
-				(a_value = ueq_low_level)  or else
-				(a_value = ugt_low_level)  or else
-				(a_value = uge_low_level)  or else
-				(a_value = ult_low_level)  or else
-				(a_value = ule_low_level)  or else
-				(a_value = une_low_level)  or else
-				(a_value = predicate_true_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = llvmreal_oeq_low_level)  or else
+				(a_value = llvmreal_oge_low_level)  or else
+				(a_value = llvmreal_ogt_low_level)  or else
+				(a_value = llvmreal_ole_low_level)  or else
+				(a_value = llvmreal_olt_low_level)  or else
+				(a_value = llvmreal_one_low_level)  or else
+				(a_value = llvmreal_ord_low_level)  or else
+				(a_value = llvmreal_predicate_false_low_level)  or else
+				(a_value = llvmreal_predicate_true_low_level)  or else
+				(a_value = llvmreal_ueq_low_level)  or else
+				(a_value = llvmreal_uge_low_level)  or else
+				(a_value = llvmreal_ugt_low_level)  or else
+				(a_value = llvmreal_ule_low_level)  or else
+				(a_value = llvmreal_ult_low_level)  or else
+				(a_value = llvmreal_une_low_level)  or else
+				(a_value = llvmreal_uno_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_predicate_false is
+	set_llvmreal_oeq is
 		do
-			value := predicate_false_low_level
+			value := llvmreal_oeq_low_level
 		end
 
-	set_oeq is
+	set_llvmreal_oge is
 		do
-			value := oeq_low_level
+			value := llvmreal_oge_low_level
 		end
 
-	set_ogt is
+	set_llvmreal_ogt is
 		do
-			value := ogt_low_level
+			value := llvmreal_ogt_low_level
 		end
 
-	set_oge is
+	set_llvmreal_ole is
 		do
-			value := oge_low_level
+			value := llvmreal_ole_low_level
 		end
 
-	set_olt is
+	set_llvmreal_olt is
 		do
-			value := olt_low_level
+			value := llvmreal_olt_low_level
 		end
 
-	set_ole is
+	set_llvmreal_one is
 		do
-			value := ole_low_level
+			value := llvmreal_one_low_level
 		end
 
-	set_one is
+	set_llvmreal_ord is
 		do
-			value := one_low_level
+			value := llvmreal_ord_low_level
 		end
 
-	set_ord is
+	set_llvmreal_predicate_false is
 		do
-			value := ord_low_level
+			value := llvmreal_predicate_false_low_level
 		end
 
-	set_uno is
+	set_llvmreal_predicate_true is
 		do
-			value := uno_low_level
+			value := llvmreal_predicate_true_low_level
 		end
 
-	set_ueq is
+	set_llvmreal_ueq is
 		do
-			value := ueq_low_level
+			value := llvmreal_ueq_low_level
 		end
 
-	set_ugt is
+	set_llvmreal_uge is
 		do
-			value := ugt_low_level
+			value := llvmreal_uge_low_level
 		end
 
-	set_uge is
+	set_llvmreal_ugt is
 		do
-			value := uge_low_level
+			value := llvmreal_ugt_low_level
 		end
 
-	set_ult is
+	set_llvmreal_ule is
 		do
-			value := ult_low_level
+			value := llvmreal_ule_low_level
 		end
 
-	set_ule is
+	set_llvmreal_ult is
 		do
-			value := ule_low_level
+			value := llvmreal_ult_low_level
 		end
 
-	set_une is
+	set_llvmreal_une is
 		do
-			value := une_low_level
+			value := llvmreal_une_low_level
 		end
 
-	set_predicate_true is
+	set_llvmreal_uno is
 		do
-			value := predicate_true_low_level
+			value := llvmreal_uno_low_level
 		end
 
 feature -- Queries
-	predicate_false: BOOLEAN is
+	is_llvmreal_oeq: BOOLEAN is
 		do
-			Result := (value=predicate_false_low_level)
+			Result := (value=llvmreal_oeq_low_level)
 		end
 
-	oeq: BOOLEAN is
+	is_llvmreal_oge: BOOLEAN is
 		do
-			Result := (value=oeq_low_level)
+			Result := (value=llvmreal_oge_low_level)
 		end
 
-	ogt: BOOLEAN is
+	is_llvmreal_ogt: BOOLEAN is
 		do
-			Result := (value=ogt_low_level)
+			Result := (value=llvmreal_ogt_low_level)
 		end
 
-	oge: BOOLEAN is
+	is_llvmreal_ole: BOOLEAN is
 		do
-			Result := (value=oge_low_level)
+			Result := (value=llvmreal_ole_low_level)
 		end
 
-	olt: BOOLEAN is
+	is_llvmreal_olt: BOOLEAN is
 		do
-			Result := (value=olt_low_level)
+			Result := (value=llvmreal_olt_low_level)
 		end
 
-	ole: BOOLEAN is
+	is_llvmreal_one: BOOLEAN is
 		do
-			Result := (value=ole_low_level)
+			Result := (value=llvmreal_one_low_level)
 		end
 
-	one: BOOLEAN is
+	is_llvmreal_ord: BOOLEAN is
 		do
-			Result := (value=one_low_level)
+			Result := (value=llvmreal_ord_low_level)
 		end
 
-	ord: BOOLEAN is
+	is_llvmreal_predicate_false: BOOLEAN is
 		do
-			Result := (value=ord_low_level)
+			Result := (value=llvmreal_predicate_false_low_level)
 		end
 
-	uno: BOOLEAN is
+	is_llvmreal_predicate_true: BOOLEAN is
 		do
-			Result := (value=uno_low_level)
+			Result := (value=llvmreal_predicate_true_low_level)
 		end
 
-	ueq: BOOLEAN is
+	is_llvmreal_ueq: BOOLEAN is
 		do
-			Result := (value=ueq_low_level)
+			Result := (value=llvmreal_ueq_low_level)
 		end
 
-	ugt: BOOLEAN is
+	is_llvmreal_uge: BOOLEAN is
 		do
-			Result := (value=ugt_low_level)
+			Result := (value=llvmreal_uge_low_level)
 		end
 
-	uge: BOOLEAN is
+	is_llvmreal_ugt: BOOLEAN is
 		do
-			Result := (value=uge_low_level)
+			Result := (value=llvmreal_ugt_low_level)
 		end
 
-	ult: BOOLEAN is
+	is_llvmreal_ule: BOOLEAN is
 		do
-			Result := (value=ult_low_level)
+			Result := (value=llvmreal_ule_low_level)
 		end
 
-	ule: BOOLEAN is
+	is_llvmreal_ult: BOOLEAN is
 		do
-			Result := (value=ule_low_level)
+			Result := (value=llvmreal_ult_low_level)
 		end
 
-	une: BOOLEAN is
+	is_llvmreal_une: BOOLEAN is
 		do
-			Result := (value=une_low_level)
+			Result := (value=llvmreal_une_low_level)
 		end
 
-	predicate_true: BOOLEAN is
+	is_llvmreal_uno: BOOLEAN is
 		do
-			Result := (value=predicate_true_low_level)
+			Result := (value=llvmreal_uno_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	predicate_false_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMRealPredicateFalse"
- 			}"
- 		end
-
-	oeq_low_level: INTEGER is
+	llvmreal_oeq_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -211,16 +200,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ogt_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMRealOGT"
- 			}"
- 		end
-
-	oge_low_level: INTEGER is
+	llvmreal_oge_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -229,16 +209,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	olt_low_level: INTEGER is
+	llvmreal_ogt_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "LLVMRealOLT"
+ 			feature_name: "LLVMRealOGT"
  			}"
  		end
 
-	ole_low_level: INTEGER is
+	llvmreal_ole_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -247,7 +227,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	one_low_level: INTEGER is
+	llvmreal_olt_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMRealOLT"
+ 			}"
+ 		end
+
+	llvmreal_one_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -256,7 +245,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ord_low_level: INTEGER is
+	llvmreal_ord_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -265,16 +254,25 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	uno_low_level: INTEGER is
+	llvmreal_predicate_false_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "LLVMRealUNO"
+ 			feature_name: "LLVMRealPredicateFalse"
  			}"
  		end
 
-	ueq_low_level: INTEGER is
+	llvmreal_predicate_true_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMRealPredicateTrue"
+ 			}"
+ 		end
+
+	llvmreal_ueq_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -283,16 +281,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ugt_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMRealUGT"
- 			}"
- 		end
-
-	uge_low_level: INTEGER is
+	llvmreal_uge_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -301,16 +290,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ult_low_level: INTEGER is
+	llvmreal_ugt_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "LLVMRealULT"
+ 			feature_name: "LLVMRealUGT"
  			}"
  		end
 
-	ule_low_level: INTEGER is
+	llvmreal_ule_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -319,7 +308,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	une_low_level: INTEGER is
+	llvmreal_ult_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMRealULT"
+ 			}"
+ 		end
+
+	llvmreal_une_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -328,12 +326,12 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	predicate_true_low_level: INTEGER is
+	llvmreal_uno_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "LLVMRealPredicateTrue"
+ 			feature_name: "LLVMRealUNO"
  			}"
  		end
 

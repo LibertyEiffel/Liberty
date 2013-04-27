@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	LIBXML2_TYPES
 feature {} -- Low-level setters
 
-	xml_error_struct_set_domain (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_error_struct_set_domain (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for domain field of XML_ERROR_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_error_struct_set_code (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_error_struct_set_code (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for code field of XML_ERROR_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_error_struct_set_line (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_error_struct_set_line (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for line field of XML_ERROR_STRUCT structure.
 			-- TODO: setter description
 
@@ -116,7 +116,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_error_struct_set_int1 (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_error_struct_set_int1 (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for int1 field of XML_ERROR_STRUCT structure.
 			-- TODO: setter description
 
@@ -128,7 +128,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_error_struct_set_int2 (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_error_struct_set_int2 (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for int2 field of XML_ERROR_STRUCT structure.
 			-- TODO: setter description
 
@@ -166,7 +166,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	xml_error_struct_get_domain (a_structure: POINTER): INTEGER_32 is
+	xml_error_struct_get_domain (a_structure: POINTER): INTEGER is
 			-- Query for domain field of XML_ERROR_STRUCT structure.
 			-- TODO: getter description
 
@@ -178,7 +178,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_error_struct_get_code (a_structure: POINTER): INTEGER_32 is
+	xml_error_struct_get_code (a_structure: POINTER): INTEGER is
 			-- Query for code field of XML_ERROR_STRUCT structure.
 			-- TODO: getter description
 
@@ -226,7 +226,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_error_struct_get_line (a_structure: POINTER): INTEGER_32 is
+	xml_error_struct_get_line (a_structure: POINTER): INTEGER is
 			-- Query for line field of XML_ERROR_STRUCT structure.
 			-- TODO: getter description
 
@@ -274,7 +274,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_error_struct_get_int1 (a_structure: POINTER): INTEGER_32 is
+	xml_error_struct_get_int1 (a_structure: POINTER): INTEGER is
 			-- Query for int1 field of XML_ERROR_STRUCT structure.
 			-- TODO: getter description
 
@@ -286,7 +286,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_error_struct_get_int2 (a_structure: POINTER): INTEGER_32 is
+	xml_error_struct_get_int2 (a_structure: POINTER): INTEGER is
 			-- Query for int2 field of XML_ERROR_STRUCT structure.
 			-- TODO: getter description
 

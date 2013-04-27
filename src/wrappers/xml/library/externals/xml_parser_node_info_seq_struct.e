@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	LIBXML2_TYPES
 feature {} -- Low-level setters
 
-	xml_parser_node_info_seq_struct_set_maximum (a_structure: POINTER; a_value: NATURAL_64) is
+	xml_parser_node_info_seq_struct_set_maximum (a_structure: POINTER; a_value: like long_unsigned) is
 			-- Setter for maximum field of XML_PARSER_NODE_INFO_SEQ_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_node_info_seq_struct_set_length (a_structure: POINTER; a_value: NATURAL_64) is
+	xml_parser_node_info_seq_struct_set_length (a_structure: POINTER; a_value: like long_unsigned) is
 			-- Setter for length field of XML_PARSER_NODE_INFO_SEQ_STRUCT structure.
 			-- TODO: setter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	xml_parser_node_info_seq_struct_get_maximum (a_structure: POINTER): NATURAL_64 is
+	xml_parser_node_info_seq_struct_get_maximum (a_structure: POINTER): like long_unsigned is
 			-- Query for maximum field of XML_PARSER_NODE_INFO_SEQ_STRUCT structure.
 			-- TODO: getter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_node_info_seq_struct_get_length (a_structure: POINTER): NATURAL_64 is
+	xml_parser_node_info_seq_struct_get_length (a_structure: POINTER): like long_unsigned is
 			-- Query for length field of XML_PARSER_NODE_INFO_SEQ_STRUCT structure.
 			-- TODO: getter description
 

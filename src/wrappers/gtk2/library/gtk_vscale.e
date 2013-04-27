@@ -28,7 +28,7 @@ class GTK_VSCALE
 	
 inherit
 	GTK_SCALE
-	GTK_VSCALE_EXTERNALS
+	GTKVSCALE_EXTERNALS
 
 		-- Implemented Interfaces: GtkVscale implements
 		-- AtkImplementorIface.

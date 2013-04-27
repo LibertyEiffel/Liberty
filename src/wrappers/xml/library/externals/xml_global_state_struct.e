@@ -104,7 +104,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_global_state_struct_set_oldxmlwdcompatibility (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_global_state_struct_set_oldxmlwdcompatibility (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for oldXMLWDcompatibility field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -128,7 +128,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_global_state_struct_set_xmldefaultbuffersize (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_global_state_struct_set_xmldefaultbuffersize (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for xmlDefaultBufferSize field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -140,7 +140,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_global_state_struct_set_xmlsubstituteentitiesdefaultvalue (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_global_state_struct_set_xmlsubstituteentitiesdefaultvalue (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for xmlSubstituteEntitiesDefaultValue field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -152,7 +152,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_global_state_struct_set_xmldovaliditycheckingdefaultvalue (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_global_state_struct_set_xmldovaliditycheckingdefaultvalue (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for xmlDoValidityCheckingDefaultValue field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -164,7 +164,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_global_state_struct_set_xmlgetwarningsdefaultvalue (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_global_state_struct_set_xmlgetwarningsdefaultvalue (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for xmlGetWarningsDefaultValue field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -176,7 +176,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_global_state_struct_set_xmlkeepblanksdefaultvalue (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_global_state_struct_set_xmlkeepblanksdefaultvalue (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for xmlKeepBlanksDefaultValue field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -188,7 +188,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_global_state_struct_set_xmllinenumbersdefaultvalue (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_global_state_struct_set_xmllinenumbersdefaultvalue (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for xmlLineNumbersDefaultValue field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -200,7 +200,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_global_state_struct_set_xmlloadextdtddefaultvalue (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_global_state_struct_set_xmlloadextdtddefaultvalue (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for xmlLoadExtDtdDefaultValue field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -212,7 +212,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_global_state_struct_set_xmlparserdebugentities (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_global_state_struct_set_xmlparserdebugentities (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for xmlParserDebugEntities field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -224,7 +224,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_global_state_struct_set_xmlpedanticparserdefaultvalue (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_global_state_struct_set_xmlpedanticparserdefaultvalue (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for xmlPedanticParserDefaultValue field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -236,7 +236,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_global_state_struct_set_xmlsavenoemptytags (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_global_state_struct_set_xmlsavenoemptytags (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for xmlSaveNoEmptyTags field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -248,7 +248,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_global_state_struct_set_xmlindenttreeoutput (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_global_state_struct_set_xmlindenttreeoutput (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for xmlIndentTreeOutput field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -446,7 +446,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_global_state_struct_get_oldxmlwdcompatibility (a_structure: POINTER): INTEGER_32 is
+	xml_global_state_struct_get_oldxmlwdcompatibility (a_structure: POINTER): INTEGER is
 			-- Query for oldXMLWDcompatibility field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -470,7 +470,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_global_state_struct_get_xmldefaultbuffersize (a_structure: POINTER): INTEGER_32 is
+	xml_global_state_struct_get_xmldefaultbuffersize (a_structure: POINTER): INTEGER is
 			-- Query for xmlDefaultBufferSize field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -482,7 +482,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_global_state_struct_get_xmlsubstituteentitiesdefaultvalue (a_structure: POINTER): INTEGER_32 is
+	xml_global_state_struct_get_xmlsubstituteentitiesdefaultvalue (a_structure: POINTER): INTEGER is
 			-- Query for xmlSubstituteEntitiesDefaultValue field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -494,7 +494,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_global_state_struct_get_xmldovaliditycheckingdefaultvalue (a_structure: POINTER): INTEGER_32 is
+	xml_global_state_struct_get_xmldovaliditycheckingdefaultvalue (a_structure: POINTER): INTEGER is
 			-- Query for xmlDoValidityCheckingDefaultValue field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -506,7 +506,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_global_state_struct_get_xmlgetwarningsdefaultvalue (a_structure: POINTER): INTEGER_32 is
+	xml_global_state_struct_get_xmlgetwarningsdefaultvalue (a_structure: POINTER): INTEGER is
 			-- Query for xmlGetWarningsDefaultValue field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -518,7 +518,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_global_state_struct_get_xmlkeepblanksdefaultvalue (a_structure: POINTER): INTEGER_32 is
+	xml_global_state_struct_get_xmlkeepblanksdefaultvalue (a_structure: POINTER): INTEGER is
 			-- Query for xmlKeepBlanksDefaultValue field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -530,7 +530,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_global_state_struct_get_xmllinenumbersdefaultvalue (a_structure: POINTER): INTEGER_32 is
+	xml_global_state_struct_get_xmllinenumbersdefaultvalue (a_structure: POINTER): INTEGER is
 			-- Query for xmlLineNumbersDefaultValue field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -542,7 +542,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_global_state_struct_get_xmlloadextdtddefaultvalue (a_structure: POINTER): INTEGER_32 is
+	xml_global_state_struct_get_xmlloadextdtddefaultvalue (a_structure: POINTER): INTEGER is
 			-- Query for xmlLoadExtDtdDefaultValue field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -554,7 +554,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_global_state_struct_get_xmlparserdebugentities (a_structure: POINTER): INTEGER_32 is
+	xml_global_state_struct_get_xmlparserdebugentities (a_structure: POINTER): INTEGER is
 			-- Query for xmlParserDebugEntities field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -566,7 +566,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_global_state_struct_get_xmlpedanticparserdefaultvalue (a_structure: POINTER): INTEGER_32 is
+	xml_global_state_struct_get_xmlpedanticparserdefaultvalue (a_structure: POINTER): INTEGER is
 			-- Query for xmlPedanticParserDefaultValue field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -578,7 +578,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_global_state_struct_get_xmlsavenoemptytags (a_structure: POINTER): INTEGER_32 is
+	xml_global_state_struct_get_xmlsavenoemptytags (a_structure: POINTER): INTEGER is
 			-- Query for xmlSaveNoEmptyTags field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -590,7 +590,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_global_state_struct_get_xmlindenttreeoutput (a_structure: POINTER): INTEGER_32 is
+	xml_global_state_struct_get_xmlindenttreeoutput (a_structure: POINTER): INTEGER is
 			-- Query for xmlIndentTreeOutput field of XML_GLOBAL_STATE_STRUCT structure.
 			-- TODO: getter description
 

@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	POSIX_TYPES
 feature {} -- Low-level setters
 
-	if_nameindex_struct_set_if_index (a_structure: POINTER; a_value: NATURAL_32) is
+	if_nameindex_struct_set_if_index (a_structure: POINTER; a_value: NATURAL) is
 			-- Setter for if_index field of IF_NAMEINDEX_STRUCT structure.
 			-- TODO: setter description
 
@@ -34,7 +34,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	if_nameindex_struct_get_if_index (a_structure: POINTER): NATURAL_32 is
+	if_nameindex_struct_get_if_index (a_structure: POINTER): NATURAL is
 			-- Query for if_index field of IF_NAMEINDEX_STRUCT structure.
 			-- TODO: getter description
 

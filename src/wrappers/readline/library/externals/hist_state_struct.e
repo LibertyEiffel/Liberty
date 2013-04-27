@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	hist_state_struct_set_offset (a_structure: POINTER; a_value: INTEGER_32) is
+	hist_state_struct_set_offset (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for offset field of HIST_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	hist_state_struct_set_length (a_structure: POINTER; a_value: INTEGER_32) is
+	hist_state_struct_set_length (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for length field of HIST_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	hist_state_struct_set_size (a_structure: POINTER; a_value: INTEGER_32) is
+	hist_state_struct_set_size (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for size field of HIST_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	hist_state_struct_set_flags (a_structure: POINTER; a_value: INTEGER_32) is
+	hist_state_struct_set_flags (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for flags field of HIST_STATE_STRUCT structure.
 			-- TODO: setter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	hist_state_struct_get_offset (a_structure: POINTER): INTEGER_32 is
+	hist_state_struct_get_offset (a_structure: POINTER): INTEGER is
 			-- Query for offset field of HIST_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	hist_state_struct_get_length (a_structure: POINTER): INTEGER_32 is
+	hist_state_struct_get_length (a_structure: POINTER): INTEGER is
 			-- Query for length field of HIST_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -106,7 +106,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	hist_state_struct_get_size (a_structure: POINTER): INTEGER_32 is
+	hist_state_struct_get_size (a_structure: POINTER): INTEGER is
 			-- Query for size field of HIST_STATE_STRUCT structure.
 			-- TODO: getter description
 
@@ -118,7 +118,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	hist_state_struct_get_flags (a_structure: POINTER): INTEGER_32 is
+	hist_state_struct_get_flags (a_structure: POINTER): INTEGER is
 			-- Query for flags field of HIST_STATE_STRUCT structure.
 			-- TODO: getter description
 

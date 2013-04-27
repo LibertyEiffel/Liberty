@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_get_thread_id: INTEGER_32 is
+	xml_get_thread_id: INTEGER is
  		-- xmlGetThreadId
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_is_main_thread: INTEGER_32 is
+	xml_is_main_thread: INTEGER is
  		-- xmlIsMainThread
 		external "plug_in"
 		alias "{

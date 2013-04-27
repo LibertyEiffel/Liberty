@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	POSIX_TYPES
 feature {} -- Low-level setters
 
-	ifmap_struct_set_mem_start (a_structure: POINTER; a_value: NATURAL_64) is
+	ifmap_struct_set_mem_start (a_structure: POINTER; a_value: like long_unsigned) is
 			-- Setter for mem_start field of IFMAP_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ifmap_struct_set_mem_end (a_structure: POINTER; a_value: NATURAL_64) is
+	ifmap_struct_set_mem_end (a_structure: POINTER; a_value: like long_unsigned) is
 			-- Setter for mem_end field of IFMAP_STRUCT structure.
 			-- TODO: setter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	ifmap_struct_get_mem_start (a_structure: POINTER): NATURAL_64 is
+	ifmap_struct_get_mem_start (a_structure: POINTER): like long_unsigned is
 			-- Query for mem_start field of IFMAP_STRUCT structure.
 			-- TODO: getter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ifmap_struct_get_mem_end (a_structure: POINTER): NATURAL_64 is
+	ifmap_struct_get_mem_end (a_structure: POINTER): like long_unsigned is
 			-- Query for mem_end field of IFMAP_STRUCT structure.
 			-- TODO: getter description
 

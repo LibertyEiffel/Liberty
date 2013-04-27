@@ -104,7 +104,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_compression (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_doc_struct_set_compression (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for compression field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -116,7 +116,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_standalone (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_doc_struct_set_standalone (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for standalone field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -224,7 +224,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_charset (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_doc_struct_set_charset (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for charset field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -260,7 +260,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_parseflags (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_doc_struct_set_parseflags (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for parseFlags field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -272,7 +272,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_properties (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_doc_struct_set_properties (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for properties field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -383,7 +383,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_compression (a_structure: POINTER): INTEGER_32 is
+	xml_doc_struct_get_compression (a_structure: POINTER): INTEGER is
 			-- Query for compression field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -395,7 +395,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_standalone (a_structure: POINTER): INTEGER_32 is
+	xml_doc_struct_get_standalone (a_structure: POINTER): INTEGER is
 			-- Query for standalone field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -503,7 +503,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_charset (a_structure: POINTER): INTEGER_32 is
+	xml_doc_struct_get_charset (a_structure: POINTER): INTEGER is
 			-- Query for charset field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -539,7 +539,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_parseflags (a_structure: POINTER): INTEGER_32 is
+	xml_doc_struct_get_parseflags (a_structure: POINTER): INTEGER is
 			-- Query for parseFlags field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -551,7 +551,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_properties (a_structure: POINTER): INTEGER_32 is
+	xml_doc_struct_get_properties (a_structure: POINTER): INTEGER is
 			-- Query for properties field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 

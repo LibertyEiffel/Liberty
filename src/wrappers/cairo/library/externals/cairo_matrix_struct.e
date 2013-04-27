@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	CAIRO_TYPES
 feature {} -- Low-level setters
 
-	cairo_matrix_struct_set_xx (a_structure: POINTER; a_value: REAL_64) is
+	cairo_matrix_struct_set_xx (a_structure: POINTER; a_value: REAL) is
 			-- Setter for xx field of CAIRO_MATRIX_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_matrix_struct_set_yx (a_structure: POINTER; a_value: REAL_64) is
+	cairo_matrix_struct_set_yx (a_structure: POINTER; a_value: REAL) is
 			-- Setter for yx field of CAIRO_MATRIX_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_matrix_struct_set_xy (a_structure: POINTER; a_value: REAL_64) is
+	cairo_matrix_struct_set_xy (a_structure: POINTER; a_value: REAL) is
 			-- Setter for xy field of CAIRO_MATRIX_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_matrix_struct_set_yy (a_structure: POINTER; a_value: REAL_64) is
+	cairo_matrix_struct_set_yy (a_structure: POINTER; a_value: REAL) is
 			-- Setter for yy field of CAIRO_MATRIX_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_matrix_struct_set_x0 (a_structure: POINTER; a_value: REAL_64) is
+	cairo_matrix_struct_set_x0 (a_structure: POINTER; a_value: REAL) is
 			-- Setter for x0 field of CAIRO_MATRIX_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	cairo_matrix_struct_set_y0 (a_structure: POINTER; a_value: REAL_64) is
+	cairo_matrix_struct_set_y0 (a_structure: POINTER; a_value: REAL) is
 			-- Setter for y0 field of CAIRO_MATRIX_STRUCT structure.
 			-- TODO: setter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	cairo_matrix_struct_get_xx (a_structure: POINTER): REAL_64 is
+	cairo_matrix_struct_get_xx (a_structure: POINTER): REAL is
 			-- Query for xx field of CAIRO_MATRIX_STRUCT structure.
 			-- TODO: getter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_matrix_struct_get_yx (a_structure: POINTER): REAL_64 is
+	cairo_matrix_struct_get_yx (a_structure: POINTER): REAL is
 			-- Query for yx field of CAIRO_MATRIX_STRUCT structure.
 			-- TODO: getter description
 
@@ -106,7 +106,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_matrix_struct_get_xy (a_structure: POINTER): REAL_64 is
+	cairo_matrix_struct_get_xy (a_structure: POINTER): REAL is
 			-- Query for xy field of CAIRO_MATRIX_STRUCT structure.
 			-- TODO: getter description
 
@@ -118,7 +118,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_matrix_struct_get_yy (a_structure: POINTER): REAL_64 is
+	cairo_matrix_struct_get_yy (a_structure: POINTER): REAL is
 			-- Query for yy field of CAIRO_MATRIX_STRUCT structure.
 			-- TODO: getter description
 
@@ -130,7 +130,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_matrix_struct_get_x0 (a_structure: POINTER): REAL_64 is
+	cairo_matrix_struct_get_x0 (a_structure: POINTER): REAL is
 			-- Query for x0 field of CAIRO_MATRIX_STRUCT structure.
 			-- TODO: getter description
 
@@ -142,7 +142,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	cairo_matrix_struct_get_y0 (a_structure: POINTER): REAL_64 is
+	cairo_matrix_struct_get_y0 (a_structure: POINTER): REAL is
 			-- Query for y0 field of CAIRO_MATRIX_STRUCT structure.
 			-- TODO: getter description
 

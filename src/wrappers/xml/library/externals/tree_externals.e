@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_buffer_add (a_buf: POINTER; a_str: POINTER; a_len: INTEGER_32): INTEGER_32 is
+	xml_buffer_add (a_buf: POINTER; a_str: POINTER; a_len: INTEGER): INTEGER is
  		-- xmlBufferAdd
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_buffer_add_head (a_buf: POINTER; a_str: POINTER; a_len: INTEGER_32): INTEGER_32 is
+	xml_buffer_add_head (a_buf: POINTER; a_str: POINTER; a_len: INTEGER): INTEGER is
  		-- xmlBufferAddHead
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_buffer_cat (a_buf: POINTER; a_str: POINTER): INTEGER_32 is
+	xml_buffer_cat (a_buf: POINTER; a_str: POINTER): INTEGER is
  		-- xmlBufferCat
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_buffer_ccat (a_buf: POINTER; a_str: POINTER): INTEGER_32 is
+	xml_buffer_ccat (a_buf: POINTER; a_str: POINTER): INTEGER is
  		-- xmlBufferCCat
 		external "plug_in"
 		alias "{
@@ -129,7 +129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_buffer_create_size (a_size: NATURAL_32): POINTER is
+	xml_buffer_create_size (a_size: like size_t): POINTER is
  		-- xmlBufferCreateSize
 		external "plug_in"
 		alias "{
@@ -139,7 +139,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_buffer_create_static (a_mem: POINTER; a_size: NATURAL_32): POINTER is
+	xml_buffer_create_static (a_mem: POINTER; a_size: like size_t): POINTER is
  		-- xmlBufferCreateStatic
 		external "plug_in"
 		alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_buffer_dump (a_file: POINTER; a_buf: POINTER): INTEGER_32 is
+	xml_buffer_dump (a_file: POINTER; a_buf: POINTER): INTEGER is
  		-- xmlBufferDump
 		external "plug_in"
 		alias "{
@@ -179,7 +179,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_buffer_grow (a_buf: POINTER; a_len: NATURAL_32): INTEGER_32 is
+	xml_buffer_grow (a_buf: POINTER; a_len: NATURAL): INTEGER is
  		-- xmlBufferGrow
 		external "plug_in"
 		alias "{
@@ -189,7 +189,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_buffer_length (a_buf: POINTER): INTEGER_32 is
+	xml_buffer_length (a_buf: POINTER): INTEGER is
  		-- xmlBufferLength
 		external "plug_in"
 		alias "{
@@ -199,7 +199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_buffer_resize (a_buf: POINTER; a_size: NATURAL_32): INTEGER_32 is
+	xml_buffer_resize (a_buf: POINTER; a_size: NATURAL): INTEGER is
  		-- xmlBufferResize
 		external "plug_in"
 		alias "{
@@ -219,7 +219,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_buffer_shrink (a_buf: POINTER; a_len: NATURAL_32): INTEGER_32 is
+	xml_buffer_shrink (a_buf: POINTER; a_len: NATURAL): INTEGER is
  		-- xmlBufferShrink
 		external "plug_in"
 		alias "{
@@ -259,7 +259,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_build_qname (a_ncname: POINTER; a_prefix: POINTER; a_memory: POINTER; a_len: INTEGER_32): POINTER is
+	xml_build_qname (a_ncname: POINTER; a_prefix: POINTER; a_memory: POINTER; a_len: INTEGER): POINTER is
  		-- xmlBuildQName
 		external "plug_in"
 		alias "{
@@ -269,7 +269,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_child_element_count (a_parent: POINTER): NATURAL_32 is
+	xml_child_element_count (a_parent: POINTER): like long_unsigned is
  		-- xmlChildElementCount
 		external "plug_in"
 		alias "{
@@ -279,7 +279,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_copy_doc (a_doc: POINTER; a_recursive: INTEGER_32): POINTER is
+	xml_copy_doc (a_doc: POINTER; a_recursive: INTEGER): POINTER is
  		-- xmlCopyDoc
 		external "plug_in"
 		alias "{
@@ -319,7 +319,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_copy_node (a_node: POINTER; a_recursive: INTEGER_32): POINTER is
+	xml_copy_node (a_node: POINTER; a_recursive: INTEGER): POINTER is
  		-- xmlCopyNode
 		external "plug_in"
 		alias "{
@@ -369,7 +369,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_doc_copy_node (a_node: POINTER; a_doc: POINTER; a_recursive: INTEGER_32): POINTER is
+	xml_doc_copy_node (a_node: POINTER; a_doc: POINTER; a_recursive: INTEGER): POINTER is
  		-- xmlDocCopyNode
 		external "plug_in"
 		alias "{
@@ -389,7 +389,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_doc_dump (a_f: POINTER; a_cur: POINTER): INTEGER_32 is
+	xml_doc_dump (a_f: POINTER; a_cur: POINTER): INTEGER is
  		-- xmlDocDump
 		external "plug_in"
 		alias "{
@@ -399,7 +399,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_doc_dump_format_memory (a_cur: POINTER; a_mem: POINTER; a_size: POINTER; a_format: INTEGER_32) is
+	xml_doc_dump_format_memory (a_cur: POINTER; a_mem: POINTER; a_size: POINTER; a_format: INTEGER) is
  		-- xmlDocDumpFormatMemory
 		external "plug_in"
 		alias "{
@@ -409,7 +409,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_doc_dump_format_memory_enc (an_out_doc: POINTER; a_doc_txt_ptr: POINTER; a_doc_txt_len: POINTER; a_txt_encoding: POINTER; a_format: INTEGER_32) is
+	xml_doc_dump_format_memory_enc (an_out_doc: POINTER; a_doc_txt_ptr: POINTER; a_doc_txt_len: POINTER; a_txt_encoding: POINTER; a_format: INTEGER) is
  		-- xmlDocDumpFormatMemoryEnc
 		external "plug_in"
 		alias "{
@@ -439,7 +439,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_doc_format_dump (a_f: POINTER; a_cur: POINTER; a_format: INTEGER_32): INTEGER_32 is
+	xml_doc_format_dump (a_f: POINTER; a_cur: POINTER; a_format: INTEGER): INTEGER is
  		-- xmlDocFormatDump
 		external "plug_in"
 		alias "{
@@ -469,7 +469,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_domwrap_adopt_node (a_ctxt: POINTER; a_source_doc: POINTER; a_node: POINTER; a_dest_doc: POINTER; a_dest_parent: POINTER; an_options: INTEGER_32): INTEGER_32 is
+	xml_domwrap_adopt_node (a_ctxt: POINTER; a_source_doc: POINTER; a_node: POINTER; a_dest_doc: POINTER; a_dest_parent: POINTER; an_options: INTEGER): INTEGER is
  		-- xmlDOMWrapAdoptNode
 		external "plug_in"
 		alias "{
@@ -479,7 +479,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_domwrap_clone_node (a_ctxt: POINTER; a_source_doc: POINTER; a_node: POINTER; a_cloned_node: POINTER; a_dest_doc: POINTER; a_dest_parent: POINTER; a_deep: INTEGER_32; an_options: INTEGER_32): INTEGER_32 is
+	xml_domwrap_clone_node (a_ctxt: POINTER; a_source_doc: POINTER; a_node: POINTER; a_cloned_node: POINTER; a_dest_doc: POINTER; a_dest_parent: POINTER; a_deep: INTEGER; an_options: INTEGER): INTEGER is
  		-- xmlDOMWrapCloneNode
 		external "plug_in"
 		alias "{
@@ -509,7 +509,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_domwrap_reconcile_namespaces (a_ctxt: POINTER; an_elem: POINTER; an_options: INTEGER_32): INTEGER_32 is
+	xml_domwrap_reconcile_namespaces (a_ctxt: POINTER; an_elem: POINTER; an_options: INTEGER): INTEGER is
  		-- xmlDOMWrapReconcileNamespaces
 		external "plug_in"
 		alias "{
@@ -519,7 +519,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_domwrap_remove_node (a_ctxt: POINTER; a_doc: POINTER; a_node: POINTER; an_options: INTEGER_32): INTEGER_32 is
+	xml_domwrap_remove_node (a_ctxt: POINTER; a_doc: POINTER; a_node: POINTER; an_options: INTEGER): INTEGER is
  		-- xmlDOMWrapRemoveNode
 		external "plug_in"
 		alias "{
@@ -639,7 +639,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_get_compress_mode: INTEGER_32 is
+	xml_get_compress_mode: INTEGER is
  		-- xmlGetCompressMode
 		external "plug_in"
 		alias "{
@@ -649,7 +649,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_get_doc_compress_mode (a_doc: POINTER): INTEGER_32 is
+	xml_get_doc_compress_mode (a_doc: POINTER): INTEGER is
  		-- xmlGetDocCompressMode
 		external "plug_in"
 		alias "{
@@ -679,7 +679,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_get_line_no (a_node: POINTER): INTEGER_32 is
+	xml_get_line_no (a_node: POINTER): like long is
  		-- xmlGetLineNo
 		external "plug_in"
 		alias "{
@@ -759,7 +759,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_is_blank_node (a_node: POINTER): INTEGER_32 is
+	xml_is_blank_node (a_node: POINTER): INTEGER is
  		-- xmlIsBlankNode
 		external "plug_in"
 		alias "{
@@ -769,7 +769,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_is_xhtml (a_system_id: POINTER; a_public_id: POINTER): INTEGER_32 is
+	xml_is_xhtml (a_system_id: POINTER; a_public_id: POINTER): INTEGER is
  		-- xmlIsXHTML
 		external "plug_in"
 		alias "{
@@ -789,7 +789,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_new_cdata_block (a_doc: POINTER; a_content: POINTER; a_len: INTEGER_32): POINTER is
+	xml_new_cdata_block (a_doc: POINTER; a_content: POINTER; a_len: INTEGER): POINTER is
  		-- xmlNewCDataBlock
 		external "plug_in"
 		alias "{
@@ -919,7 +919,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_new_doc_text_len (a_doc: POINTER; a_content: POINTER; a_len: INTEGER_32): POINTER is
+	xml_new_doc_text_len (a_doc: POINTER; a_content: POINTER; a_len: INTEGER): POINTER is
  		-- xmlNewDocTextLen
 		external "plug_in"
 		alias "{
@@ -1049,7 +1049,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_new_text_len (a_content: POINTER; a_len: INTEGER_32): POINTER is
+	xml_new_text_len (a_content: POINTER; a_len: INTEGER): POINTER is
  		-- xmlNewTextLen
 		external "plug_in"
 		alias "{
@@ -1079,7 +1079,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_node_add_content_len (a_cur: POINTER; a_content: POINTER; a_len: INTEGER_32) is
+	xml_node_add_content_len (a_cur: POINTER; a_content: POINTER; a_len: INTEGER) is
  		-- xmlNodeAddContentLen
 		external "plug_in"
 		alias "{
@@ -1089,7 +1089,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_node_buf_get_content (a_buffer: POINTER; a_cur: POINTER): INTEGER_32 is
+	xml_node_buf_get_content (a_buffer: POINTER; a_cur: POINTER): INTEGER is
  		-- xmlNodeBufGetContent
 		external "plug_in"
 		alias "{
@@ -1099,7 +1099,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_node_dump (a_buf: POINTER; a_doc: POINTER; a_cur: POINTER; a_level: INTEGER_32; a_format: INTEGER_32): INTEGER_32 is
+	xml_node_dump (a_buf: POINTER; a_doc: POINTER; a_cur: POINTER; a_level: INTEGER; a_format: INTEGER): INTEGER is
  		-- xmlNodeDump
 		external "plug_in"
 		alias "{
@@ -1109,7 +1109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_node_dump_output (a_buf: POINTER; a_doc: POINTER; a_cur: POINTER; a_level: INTEGER_32; a_format: INTEGER_32; an_encoding: POINTER) is
+	xml_node_dump_output (a_buf: POINTER; a_doc: POINTER; a_cur: POINTER; a_level: INTEGER; a_format: INTEGER; an_encoding: POINTER) is
  		-- xmlNodeDumpOutput
 		external "plug_in"
 		alias "{
@@ -1149,7 +1149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_node_get_space_preserve (a_cur: POINTER): INTEGER_32 is
+	xml_node_get_space_preserve (a_cur: POINTER): INTEGER is
  		-- xmlNodeGetSpacePreserve
 		external "plug_in"
 		alias "{
@@ -1159,7 +1159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_node_is_text (a_node: POINTER): INTEGER_32 is
+	xml_node_is_text (a_node: POINTER): INTEGER is
  		-- xmlNodeIsText
 		external "plug_in"
 		alias "{
@@ -1169,7 +1169,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_node_list_get_raw_string (a_doc: POINTER; a_list: POINTER; an_in_line: INTEGER_32): POINTER is
+	xml_node_list_get_raw_string (a_doc: POINTER; a_list: POINTER; an_in_line: INTEGER): POINTER is
  		-- xmlNodeListGetRawString
 		external "plug_in"
 		alias "{
@@ -1179,7 +1179,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_node_list_get_string (a_doc: POINTER; a_list: POINTER; an_in_line: INTEGER_32): POINTER is
+	xml_node_list_get_string (a_doc: POINTER; a_list: POINTER; an_in_line: INTEGER): POINTER is
  		-- xmlNodeListGetString
 		external "plug_in"
 		alias "{
@@ -1209,7 +1209,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_node_set_content_len (a_cur: POINTER; a_content: POINTER; a_len: INTEGER_32) is
+	xml_node_set_content_len (a_cur: POINTER; a_content: POINTER; a_len: INTEGER) is
  		-- xmlNodeSetContentLen
 		external "plug_in"
 		alias "{
@@ -1239,7 +1239,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_node_set_space_preserve (a_cur: POINTER; a_val: INTEGER_32) is
+	xml_node_set_space_preserve (a_cur: POINTER; a_val: INTEGER) is
  		-- xmlNodeSetSpacePreserve
 		external "plug_in"
 		alias "{
@@ -1259,7 +1259,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_reconciliate_ns (a_doc: POINTER; a_tree: POINTER): INTEGER_32 is
+	xml_reconciliate_ns (a_doc: POINTER; a_tree: POINTER): INTEGER is
  		-- xmlReconciliateNs
 		external "plug_in"
 		alias "{
@@ -1269,7 +1269,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_remove_prop (a_cur: POINTER): INTEGER_32 is
+	xml_remove_prop (a_cur: POINTER): INTEGER is
  		-- xmlRemoveProp
 		external "plug_in"
 		alias "{
@@ -1289,7 +1289,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_save_file (a_filename: POINTER; a_cur: POINTER): INTEGER_32 is
+	xml_save_file (a_filename: POINTER; a_cur: POINTER): INTEGER is
  		-- xmlSaveFile
 		external "plug_in"
 		alias "{
@@ -1299,7 +1299,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_save_file_enc (a_filename: POINTER; a_cur: POINTER; an_encoding: POINTER): INTEGER_32 is
+	xml_save_file_enc (a_filename: POINTER; a_cur: POINTER; an_encoding: POINTER): INTEGER is
  		-- xmlSaveFileEnc
 		external "plug_in"
 		alias "{
@@ -1309,7 +1309,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_save_file_to (a_buf: POINTER; a_cur: POINTER; an_encoding: POINTER): INTEGER_32 is
+	xml_save_file_to (a_buf: POINTER; a_cur: POINTER; an_encoding: POINTER): INTEGER is
  		-- xmlSaveFileTo
 		external "plug_in"
 		alias "{
@@ -1319,7 +1319,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_save_format_file (a_filename: POINTER; a_cur: POINTER; a_format: INTEGER_32): INTEGER_32 is
+	xml_save_format_file (a_filename: POINTER; a_cur: POINTER; a_format: INTEGER): INTEGER is
  		-- xmlSaveFormatFile
 		external "plug_in"
 		alias "{
@@ -1329,7 +1329,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_save_format_file_enc (a_filename: POINTER; a_cur: POINTER; an_encoding: POINTER; a_format: INTEGER_32): INTEGER_32 is
+	xml_save_format_file_enc (a_filename: POINTER; a_cur: POINTER; an_encoding: POINTER; a_format: INTEGER): INTEGER is
  		-- xmlSaveFormatFileEnc
 		external "plug_in"
 		alias "{
@@ -1339,7 +1339,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_save_format_file_to (a_buf: POINTER; a_cur: POINTER; an_encoding: POINTER; a_format: INTEGER_32): INTEGER_32 is
+	xml_save_format_file_to (a_buf: POINTER; a_cur: POINTER; an_encoding: POINTER; a_format: INTEGER): INTEGER is
  		-- xmlSaveFormatFileTo
 		external "plug_in"
 		alias "{
@@ -1379,7 +1379,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_set_compress_mode (a_mode: INTEGER_32) is
+	xml_set_compress_mode (a_mode: INTEGER) is
  		-- xmlSetCompressMode
 		external "plug_in"
 		alias "{
@@ -1389,7 +1389,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_set_doc_compress_mode (a_doc: POINTER; a_mode: INTEGER_32) is
+	xml_set_doc_compress_mode (a_doc: POINTER; a_mode: INTEGER) is
  		-- xmlSetDocCompressMode
 		external "plug_in"
 		alias "{
@@ -1479,7 +1479,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_string_len_get_node_list (a_doc: POINTER; a_value: POINTER; a_len: INTEGER_32): POINTER is
+	xml_string_len_get_node_list (a_doc: POINTER; a_value: POINTER; a_len: INTEGER): POINTER is
  		-- xmlStringLenGetNodeList
 		external "plug_in"
 		alias "{
@@ -1489,7 +1489,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_text_concat (a_node: POINTER; a_content: POINTER; a_len: INTEGER_32): INTEGER_32 is
+	xml_text_concat (a_node: POINTER; a_content: POINTER; a_len: INTEGER): INTEGER is
  		-- xmlTextConcat
 		external "plug_in"
 		alias "{
@@ -1519,7 +1519,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_unset_ns_prop (a_node: POINTER; a_ns: POINTER; a_name: POINTER): INTEGER_32 is
+	xml_unset_ns_prop (a_node: POINTER; a_ns: POINTER; a_name: POINTER): INTEGER is
  		-- xmlUnsetNsProp
 		external "plug_in"
 		alias "{
@@ -1529,7 +1529,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_unset_prop (a_node: POINTER; a_name: POINTER): INTEGER_32 is
+	xml_unset_prop (a_node: POINTER; a_name: POINTER): INTEGER is
  		-- xmlUnsetProp
 		external "plug_in"
 		alias "{
@@ -1539,7 +1539,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_name (a_value: POINTER; a_space: INTEGER_32): INTEGER_32 is
+	xml_validate_name (a_value: POINTER; a_space: INTEGER): INTEGER is
  		-- xmlValidateName
 		external "plug_in"
 		alias "{
@@ -1549,7 +1549,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_ncname (a_value: POINTER; a_space: INTEGER_32): INTEGER_32 is
+	xml_validate_ncname (a_value: POINTER; a_space: INTEGER): INTEGER is
  		-- xmlValidateNCName
 		external "plug_in"
 		alias "{
@@ -1559,7 +1559,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_nmtoken (a_value: POINTER; a_space: INTEGER_32): INTEGER_32 is
+	xml_validate_nmtoken (a_value: POINTER; a_space: INTEGER): INTEGER is
  		-- xmlValidateNMToken
 		external "plug_in"
 		alias "{
@@ -1569,7 +1569,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_validate_qname (a_value: POINTER; a_space: INTEGER_32): INTEGER_32 is
+	xml_validate_qname (a_value: POINTER; a_space: INTEGER): INTEGER is
  		-- xmlValidateQName
 		external "plug_in"
 		alias "{

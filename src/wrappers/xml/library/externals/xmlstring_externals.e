@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_char_strndup (a_cur: POINTER; a_len: INTEGER_32): POINTER is
+	xml_char_strndup (a_cur: POINTER; a_len: INTEGER): POINTER is
  		-- xmlCharStrndup
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_check_utf8 (an_utf: POINTER): INTEGER_32 is
+	xml_check_utf8 (an_utf: POINTER): INTEGER is
  		-- xmlCheckUTF8
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_get_utf8char (an_utf: POINTER; a_len: POINTER): INTEGER_32 is
+	xml_get_utf8char (an_utf: POINTER; a_len: POINTER): INTEGER is
  		-- xmlGetUTF8Char
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_str_equal (a_str1: POINTER; a_str2: POINTER): INTEGER_32 is
+	xml_str_equal (a_str1: POINTER; a_str2: POINTER): INTEGER is
  		-- xmlStrEqual
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_str_printf (a_buf: POINTER; a_len: INTEGER_32; a_msg: POINTER): INTEGER_32 is
+	xml_str_printf (a_buf: POINTER; a_len: INTEGER; a_msg: POINTER): INTEGER is
  		-- xmlStrPrintf (variadic call) 
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_str_qequal (a_pref: POINTER; a_name: POINTER; a_str: POINTER): INTEGER_32 is
+	xml_str_qequal (a_pref: POINTER; a_name: POINTER; a_str: POINTER): INTEGER is
  		-- xmlStrQEqual
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_str_vprintf (a_buf: POINTER; a_len: INTEGER_32; a_msg: POINTER; an_ap: POINTER): INTEGER_32 is
+	xml_str_vprintf (a_buf: POINTER; a_len: INTEGER; a_msg: POINTER; an_ap: POINTER): INTEGER is
  		-- xmlStrVPrintf
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_strcasecmp (a_str1: POINTER; a_str2: POINTER): INTEGER_32 is
+	xml_strcasecmp (a_str1: POINTER; a_str2: POINTER): INTEGER is
  		-- xmlStrcasecmp
 		external "plug_in"
 		alias "{
@@ -129,7 +129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_strcmp (a_str1: POINTER; a_str2: POINTER): INTEGER_32 is
+	xml_strcmp (a_str1: POINTER; a_str2: POINTER): INTEGER is
  		-- xmlStrcmp
 		external "plug_in"
 		alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_strlen (a_str: POINTER): INTEGER_32 is
+	xml_strlen (a_str: POINTER): INTEGER is
  		-- xmlStrlen
 		external "plug_in"
 		alias "{
@@ -159,7 +159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_strncasecmp (a_str1: POINTER; a_str2: POINTER; a_len: INTEGER_32): INTEGER_32 is
+	xml_strncasecmp (a_str1: POINTER; a_str2: POINTER; a_len: INTEGER): INTEGER is
  		-- xmlStrncasecmp
 		external "plug_in"
 		alias "{
@@ -169,7 +169,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_strncat (a_cur: POINTER; an_add: POINTER; a_len: INTEGER_32): POINTER is
+	xml_strncat (a_cur: POINTER; an_add: POINTER; a_len: INTEGER): POINTER is
  		-- xmlStrncat
 		external "plug_in"
 		alias "{
@@ -179,7 +179,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_strncat_new (a_str1: POINTER; a_str2: POINTER; a_len: INTEGER_32): POINTER is
+	xml_strncat_new (a_str1: POINTER; a_str2: POINTER; a_len: INTEGER): POINTER is
  		-- xmlStrncatNew
 		external "plug_in"
 		alias "{
@@ -189,7 +189,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_strncmp (a_str1: POINTER; a_str2: POINTER; a_len: INTEGER_32): INTEGER_32 is
+	xml_strncmp (a_str1: POINTER; a_str2: POINTER; a_len: INTEGER): INTEGER is
  		-- xmlStrncmp
 		external "plug_in"
 		alias "{
@@ -199,7 +199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_strndup (a_cur: POINTER; a_len: INTEGER_32): POINTER is
+	xml_strndup (a_cur: POINTER; a_len: INTEGER): POINTER is
  		-- xmlStrndup
 		external "plug_in"
 		alias "{
@@ -219,7 +219,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_strsub (a_str: POINTER; a_start: INTEGER_32; a_len: INTEGER_32): POINTER is
+	xml_strsub (a_str: POINTER; a_start: INTEGER; a_len: INTEGER): POINTER is
  		-- xmlStrsub
 		external "plug_in"
 		alias "{
@@ -229,7 +229,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_utf8charcmp (an_utf1: POINTER; an_utf2: POINTER): INTEGER_32 is
+	xml_utf8charcmp (an_utf1: POINTER; an_utf2: POINTER): INTEGER is
  		-- xmlUTF8Charcmp
 		external "plug_in"
 		alias "{
@@ -239,7 +239,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_utf8size (an_utf: POINTER): INTEGER_32 is
+	xml_utf8size (an_utf: POINTER): INTEGER is
  		-- xmlUTF8Size
 		external "plug_in"
 		alias "{
@@ -249,7 +249,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_utf8strlen (an_utf: POINTER): INTEGER_32 is
+	xml_utf8strlen (an_utf: POINTER): INTEGER is
  		-- xmlUTF8Strlen
 		external "plug_in"
 		alias "{
@@ -259,7 +259,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_utf8strloc (an_utf: POINTER; an_utfchar: POINTER): INTEGER_32 is
+	xml_utf8strloc (an_utf: POINTER; an_utfchar: POINTER): INTEGER is
  		-- xmlUTF8Strloc
 		external "plug_in"
 		alias "{
@@ -269,7 +269,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_utf8strndup (an_utf: POINTER; a_len: INTEGER_32): POINTER is
+	xml_utf8strndup (an_utf: POINTER; a_len: INTEGER): POINTER is
  		-- xmlUTF8Strndup
 		external "plug_in"
 		alias "{
@@ -279,7 +279,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_utf8strpos (an_utf: POINTER; a_pos: INTEGER_32): POINTER is
+	xml_utf8strpos (an_utf: POINTER; a_pos: INTEGER): POINTER is
  		-- xmlUTF8Strpos
 		external "plug_in"
 		alias "{
@@ -289,7 +289,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_utf8strsize (an_utf: POINTER; a_len: INTEGER_32): INTEGER_32 is
+	xml_utf8strsize (an_utf: POINTER; a_len: INTEGER): INTEGER is
  		-- xmlUTF8Strsize
 		external "plug_in"
 		alias "{
@@ -299,7 +299,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_utf8strsub (an_utf: POINTER; a_start: INTEGER_32; a_len: INTEGER_32): POINTER is
+	xml_utf8strsub (an_utf: POINTER; a_start: INTEGER; a_len: INTEGER): POINTER is
  		-- xmlUTF8Strsub
 		external "plug_in"
 		alias "{

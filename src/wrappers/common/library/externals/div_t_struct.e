@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	STANDARD_C_LIBRARY_TYPES
 feature {} -- Low-level setters
 
-	div_t_struct_set_quot (a_structure: POINTER; a_value: INTEGER_32) is
+	div_t_struct_set_quot (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for quot field of DIV_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	div_t_struct_set_rem (a_structure: POINTER; a_value: INTEGER_32) is
+	div_t_struct_set_rem (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for rem field of DIV_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -34,7 +34,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	div_t_struct_get_quot (a_structure: POINTER): INTEGER_32 is
+	div_t_struct_get_quot (a_structure: POINTER): INTEGER is
 			-- Query for quot field of DIV_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	div_t_struct_get_rem (a_structure: POINTER): INTEGER_32 is
+	div_t_struct_get_rem (a_structure: POINTER): INTEGER is
 			-- Query for rem field of DIV_T_STRUCT structure.
 			-- TODO: getter description
 

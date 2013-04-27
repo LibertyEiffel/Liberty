@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	POSIX_TYPES
 feature {} -- Low-level setters
 
-	ip_msfilter_struct_set_imsf_fmode (a_structure: POINTER; a_value: NATURAL_32) is
+	ip_msfilter_struct_set_imsf_fmode (a_structure: POINTER; a_value: like uint32_t) is
 			-- Setter for imsf_fmode field of IP_MSFILTER_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ip_msfilter_struct_set_imsf_numsrc (a_structure: POINTER; a_value: NATURAL_32) is
+	ip_msfilter_struct_set_imsf_numsrc (a_structure: POINTER; a_value: like uint32_t) is
 			-- Setter for imsf_numsrc field of IP_MSFILTER_STRUCT structure.
 			-- TODO: setter description
 
@@ -48,7 +48,7 @@ feature {} -- Low-level queries
 
 	-- Unwrappable field imsf_multiaddr.
 	-- Unwrappable field imsf_interface.
-	ip_msfilter_struct_get_imsf_fmode (a_structure: POINTER): NATURAL_32 is
+	ip_msfilter_struct_get_imsf_fmode (a_structure: POINTER): like uint32_t is
 			-- Query for imsf_fmode field of IP_MSFILTER_STRUCT structure.
 			-- TODO: getter description
 
@@ -60,7 +60,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ip_msfilter_struct_get_imsf_numsrc (a_structure: POINTER): NATURAL_32 is
+	ip_msfilter_struct_get_imsf_numsrc (a_structure: POINTER): like uint32_t is
 			-- Query for imsf_numsrc field of IP_MSFILTER_STRUCT structure.
 			-- TODO: getter description
 

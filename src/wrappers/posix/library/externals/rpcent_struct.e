@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	rpcent_struct_set_r_number (a_structure: POINTER; a_value: INTEGER_32) is
+	rpcent_struct_set_r_number (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for r_number field of RPCENT_STRUCT structure.
 			-- TODO: setter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	rpcent_struct_get_r_number (a_structure: POINTER): INTEGER_32 is
+	rpcent_struct_get_r_number (a_structure: POINTER): INTEGER is
 			-- Query for r_number field of RPCENT_STRUCT structure.
 			-- TODO: getter description
 

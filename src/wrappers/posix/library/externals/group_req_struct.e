@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	POSIX_TYPES
 feature {} -- Low-level setters
 
-	group_req_struct_set_gr_interface (a_structure: POINTER; a_value: NATURAL_32) is
+	group_req_struct_set_gr_interface (a_structure: POINTER; a_value: like uint32_t) is
 			-- Setter for gr_interface field of GROUP_REQ_STRUCT structure.
 			-- TODO: setter description
 
@@ -22,7 +22,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	group_req_struct_get_gr_interface (a_structure: POINTER): NATURAL_32 is
+	group_req_struct_get_gr_interface (a_structure: POINTER): like uint32_t is
 			-- Query for gr_interface field of GROUP_REQ_STRUCT structure.
 			-- TODO: getter description
 

@@ -44,7 +44,7 @@ inherit
 	-- TODO: GtkToolbar implements AtkImplementorIface.
 
 insert
-	GTK_TOOLBAR_EXTERNALS
+	GTKTOOLBAR_EXTERNALS
 	GTK_ORIENTATION
 	GTK_TOOLBAR_STYLE
 

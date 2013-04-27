@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	POSIX_TYPES
 feature {} -- Low-level setters
 
-	ip6_mtuinfo_struct_set_ip6m_mtu (a_structure: POINTER; a_value: NATURAL_32) is
+	ip6_mtuinfo_struct_set_ip6m_mtu (a_structure: POINTER; a_value: like uint32_t) is
 			-- Setter for ip6m_mtu field of IP6_MTUINFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -23,7 +23,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field ip6m_addr.
-	ip6_mtuinfo_struct_get_ip6m_mtu (a_structure: POINTER): NATURAL_32 is
+	ip6_mtuinfo_struct_get_ip6m_mtu (a_structure: POINTER): like uint32_t is
 			-- Query for ip6m_mtu field of IP6_MTUINFO_STRUCT structure.
 			-- TODO: getter description
 

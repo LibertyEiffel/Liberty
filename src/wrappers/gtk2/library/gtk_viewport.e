@@ -25,7 +25,7 @@ class GTK_VIEWPORT
 inherit GTK_BIN
 	-- TODO: GtkViewport implements AtkImplementorIface.
 
-insert GTK_ADJUSTMENT_EXTERNALS -- Needed by dummy_gobject
+insert GTKADJUSTMENT_EXTERNALS -- Needed by dummy_gobject
 	
 creation dummy, make, from_external_pointer
 

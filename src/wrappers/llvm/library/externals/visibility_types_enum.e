@@ -3,15 +3,13 @@
 
 expanded class VISIBILITY_TYPES_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = default_visibility_low_level)  or else
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = default_visibility_low_level)  or else
 				(a_value = hidden_visibility_low_level)  or else
 				(a_value = protected_visibility_low_level) )
 		end
@@ -34,17 +32,17 @@ feature -- Setters
 		end
 
 feature -- Queries
-	default_visibility: BOOLEAN is
+	is_default_visibility: BOOLEAN is
 		do
 			Result := (value=default_visibility_low_level)
 		end
 
-	hidden_visibility: BOOLEAN is
+	is_hidden_visibility: BOOLEAN is
 		do
 			Result := (value=hidden_visibility_low_level)
 		end
 
-	protected_visibility: BOOLEAN is
+	is_protected_visibility: BOOLEAN is
 		do
 			Result := (value=protected_visibility_low_level)
 		end

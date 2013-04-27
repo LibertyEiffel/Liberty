@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_gc_mem_get (a_free_func: POINTER; a_malloc_func: POINTER; a_malloc_atomic_func: POINTER; a_realloc_func: POINTER; a_strdup_func: POINTER): INTEGER_32 is
+	xml_gc_mem_get (a_free_func: POINTER; a_malloc_func: POINTER; a_malloc_atomic_func: POINTER; a_realloc_func: POINTER; a_strdup_func: POINTER): INTEGER is
  		-- xmlGcMemGet
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_gc_mem_setup (a_free_func: POINTER; a_malloc_func: POINTER; a_malloc_atomic_func: POINTER; a_realloc_func: POINTER; a_strdup_func: POINTER): INTEGER_32 is
+	xml_gc_mem_setup (a_free_func: POINTER; a_malloc_func: POINTER; a_malloc_atomic_func: POINTER; a_realloc_func: POINTER; a_strdup_func: POINTER): INTEGER is
  		-- xmlGcMemSetup
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_init_memory: INTEGER_32 is
+	xml_init_memory: INTEGER is
  		-- xmlInitMemory
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_malloc_atomic_loc (a_size: NATURAL_32; a_file: POINTER; a_line: INTEGER_32): POINTER is
+	xml_malloc_atomic_loc (a_size: like size_t; a_file: POINTER; a_line: INTEGER): POINTER is
  		-- xmlMallocAtomicLoc
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_malloc_loc (a_size: NATURAL_32; a_file: POINTER; a_line: INTEGER_32): POINTER is
+	xml_malloc_loc (a_size: like size_t; a_file: POINTER; a_line: INTEGER): POINTER is
  		-- xmlMallocLoc
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_mem_blocks: INTEGER_32 is
+	xml_mem_blocks: INTEGER is
  		-- xmlMemBlocks
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_mem_display_last (a_fp: POINTER; a_nb_bytes: INTEGER_32) is
+	xml_mem_display_last (a_fp: POINTER; a_nb_bytes: like long) is
  		-- xmlMemDisplayLast
 		external "plug_in"
 		alias "{
@@ -109,7 +109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_mem_get (a_free_func: POINTER; a_malloc_func: POINTER; a_realloc_func: POINTER; a_strdup_func: POINTER): INTEGER_32 is
+	xml_mem_get (a_free_func: POINTER; a_malloc_func: POINTER; a_realloc_func: POINTER; a_strdup_func: POINTER): INTEGER is
  		-- xmlMemGet
 		external "plug_in"
 		alias "{
@@ -119,7 +119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_mem_malloc (a_size: NATURAL_32): POINTER is
+	xml_mem_malloc (a_size: like size_t): POINTER is
  		-- xmlMemMalloc
 		external "plug_in"
 		alias "{
@@ -129,7 +129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_mem_realloc (a_ptr: POINTER; a_size: NATURAL_32): POINTER is
+	xml_mem_realloc (a_ptr: POINTER; a_size: like size_t): POINTER is
  		-- xmlMemRealloc
 		external "plug_in"
 		alias "{
@@ -139,7 +139,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_mem_setup (a_free_func: POINTER; a_malloc_func: POINTER; a_realloc_func: POINTER; a_strdup_func: POINTER): INTEGER_32 is
+	xml_mem_setup (a_free_func: POINTER; a_malloc_func: POINTER; a_realloc_func: POINTER; a_strdup_func: POINTER): INTEGER is
  		-- xmlMemSetup
 		external "plug_in"
 		alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_mem_show (a_fp: POINTER; a_nr: INTEGER_32) is
+	xml_mem_show (a_fp: POINTER; a_nr: INTEGER) is
  		-- xmlMemShow
 		external "plug_in"
 		alias "{
@@ -159,7 +159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_mem_strdup_loc (a_str: POINTER; a_file: POINTER; a_line: INTEGER_32): POINTER is
+	xml_mem_strdup_loc (a_str: POINTER; a_file: POINTER; a_line: INTEGER): POINTER is
  		-- xmlMemStrdupLoc
 		external "plug_in"
 		alias "{
@@ -169,7 +169,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_mem_used: INTEGER_32 is
+	xml_mem_used: INTEGER is
  		-- xmlMemUsed
 		external "plug_in"
 		alias "{
@@ -199,7 +199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_realloc_loc (a_ptr: POINTER; a_size: NATURAL_32; a_file: POINTER; a_line: INTEGER_32): POINTER is
+	xml_realloc_loc (a_ptr: POINTER; a_size: like size_t; a_file: POINTER; a_line: INTEGER): POINTER is
  		-- xmlReallocLoc
 		external "plug_in"
 		alias "{

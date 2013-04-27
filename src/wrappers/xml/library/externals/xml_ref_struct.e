@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_ref_struct_set_lineno (a_structure: POINTER; a_value: INTEGER_32) is
+	xml_ref_struct_set_lineno (a_structure: POINTER; a_value: INTEGER) is
 			-- Setter for lineno field of XML_REF_STRUCT structure.
 			-- TODO: setter description
 
@@ -118,7 +118,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_ref_struct_get_lineno (a_structure: POINTER): INTEGER_32 is
+	xml_ref_struct_get_lineno (a_structure: POINTER): INTEGER is
 			-- Query for lineno field of XML_REF_STRUCT structure.
 			-- TODO: getter description
 

@@ -28,7 +28,7 @@ inherit
 		-- GtkItem implements AtkImplementorIface.
 
 insert
-	GTK_ITEM_EXTERNALS
+	GTKITEM_EXTERNALS
 
 feature
 	select_signal is

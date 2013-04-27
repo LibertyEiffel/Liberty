@@ -41,7 +41,7 @@ class GTK_ADJUSTMENT
 inherit GTK_OBJECT
 
 insert
-	GTK_ADJUSTMENT_EXTERNALS
+	GTKADJUSTMENT_EXTERNALS
 	EXCEPTIONS
 		export {} all
 		undefine copy, is_equal

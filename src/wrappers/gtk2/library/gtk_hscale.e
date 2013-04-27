@@ -30,7 +30,7 @@ inherit
 	GTK_SCALE
 
 insert
-	GTK_HSCALE_EXTERNALS
+	GTKHSCALE_EXTERNALS
 
 		-- Implemented Interfaces: GtkHScale implements
 		-- AtkImplementorIface.

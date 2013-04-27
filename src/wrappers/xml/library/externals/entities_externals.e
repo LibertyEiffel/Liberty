@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	xml_add_doc_entity (a_doc: POINTER; a_name: POINTER; a_type: INTEGER_32; an_external_id: POINTER; a_system_id: POINTER; a_content: POINTER): POINTER is
+	xml_add_doc_entity (a_doc: POINTER; a_name: POINTER; a_type: INTEGER; an_external_id: POINTER; a_system_id: POINTER; a_content: POINTER): POINTER is
  		-- xmlAddDocEntity
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_add_dtd_entity (a_doc: POINTER; a_name: POINTER; a_type: INTEGER_32; an_external_id: POINTER; a_system_id: POINTER; a_content: POINTER): POINTER is
+	xml_add_dtd_entity (a_doc: POINTER; a_name: POINTER; a_type: INTEGER; an_external_id: POINTER; a_system_id: POINTER; a_content: POINTER): POINTER is
  		-- xmlAddDtdEntity
 		external "plug_in"
 		alias "{
@@ -169,7 +169,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_new_entity (a_doc: POINTER; a_name: POINTER; a_type: INTEGER_32; an_external_id: POINTER; a_system_id: POINTER; a_content: POINTER): POINTER is
+	xml_new_entity (a_doc: POINTER; a_name: POINTER; a_type: INTEGER; an_external_id: POINTER; a_system_id: POINTER; a_content: POINTER): POINTER is
  		-- xmlNewEntity
 		external "plug_in"
 		alias "{

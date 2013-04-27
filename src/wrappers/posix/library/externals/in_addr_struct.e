@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	POSIX_TYPES
 feature {} -- Low-level setters
 
-	in_addr_struct_set_s_addr (a_structure: POINTER; a_value: NATURAL_32) is
+	in_addr_struct_set_s_addr (a_structure: POINTER; a_value: like uint32_t) is
 			-- Setter for s_addr field of IN_ADDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -22,7 +22,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	in_addr_struct_get_s_addr (a_structure: POINTER): NATURAL_32 is
+	in_addr_struct_get_s_addr (a_structure: POINTER): like uint32_t is
 			-- Query for s_addr field of IN_ADDR_STRUCT structure.
 			-- TODO: getter description
 

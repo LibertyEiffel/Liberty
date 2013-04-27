@@ -3,43 +3,41 @@
 
 expanded class LLVMBYTE_ORDERING_ENUM
 
--- TODO emit_description(class_descriptions.reference_at(an_enum_name))
-
 insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = big_endian_low_level)  or else
-				(a_value = little_endian_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = llvmbig_endian_low_level)  or else
+				(a_value = llvmlittle_endian_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_big_endian is
+	set_llvmbig_endian is
 		do
-			value := big_endian_low_level
+			value := llvmbig_endian_low_level
 		end
 
-	set_little_endian is
+	set_llvmlittle_endian is
 		do
-			value := little_endian_low_level
+			value := llvmlittle_endian_low_level
 		end
 
 feature -- Queries
-	big_endian: BOOLEAN is
+	is_llvmbig_endian: BOOLEAN is
 		do
-			Result := (value=big_endian_low_level)
+			Result := (value=llvmbig_endian_low_level)
 		end
 
-	little_endian: BOOLEAN is
+	is_llvmlittle_endian: BOOLEAN is
 		do
-			Result := (value=little_endian_low_level)
+			Result := (value=llvmlittle_endian_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	big_endian_low_level: INTEGER is
+	llvmbig_endian_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -48,7 +46,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	little_endian_low_level: INTEGER is
+	llvmlittle_endian_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
