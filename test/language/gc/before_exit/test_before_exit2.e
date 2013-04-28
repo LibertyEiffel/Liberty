@@ -7,7 +7,7 @@ class TEST_BEFORE_EXIT2
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {}

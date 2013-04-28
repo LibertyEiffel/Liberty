@@ -1,17 +1,24 @@
 expanded class COPY_REDEFINED
-	-- An expanded class that redefines copy feature
-insert ANY redefine copy end
-feature 
-	value: INTEGER
-	set (a_value: INTEGER) is
-		do
-			value := a_value
-		end
+   -- An expanded class that redefines copy feature
 
-	copy (another: like Current) is
-		do
-			value := another.value+1
-		ensure then definition: value = another.value+1
-		end
+insert
+   ANY
+      redefine copy
+      end
 
-end
+feature {ANY}
+   value: INTEGER
+
+   set (a_value: INTEGER) is
+      do
+         value := a_value
+      end
+
+   copy (another: like Current) is
+      do
+         value := another.value + 1
+      ensure then
+         definition: value = another.value + 1
+      end
+
+end -- class COPY_REDEFINED

@@ -3,7 +3,7 @@
 --
 class TEST_REAL_VARIATION
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

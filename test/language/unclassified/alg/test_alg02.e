@@ -10,7 +10,7 @@ inherit
       end
    AUX_ALG02B
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

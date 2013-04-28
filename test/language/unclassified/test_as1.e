@@ -9,7 +9,7 @@ class TEST_AS1
 inherit
    AUX_AS1_ANY
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

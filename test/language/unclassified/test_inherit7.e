@@ -4,7 +4,7 @@
 class TEST_INHERIT7
    -- SZ:353: wrong dynamic dispatch
 
-creation {ANY}
+create {}
    make
 
 feature {} -- Initialization

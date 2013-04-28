@@ -4,7 +4,7 @@ class TEST_FAST_ARRAY6
 insert
    EIFFELTEST_TOOLS
    
-creation {ANY}
+create {}
    main
    
 feature {ANY}

@@ -6,7 +6,7 @@ class TEST_CREATION1
    --
    -- Test rename in a child with dynamic creation.
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -3,7 +3,7 @@
 --
 class TEST_VON_NEUMAN4
 
-creation {ANY}
+create {}
    make
 
 feature {}

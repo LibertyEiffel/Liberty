@@ -12,7 +12,7 @@ indexing
 class TEST_PN1
 -- From: "Philipp Niedermaier" <pn@cpg.de>                         
 
-creation
+create {}
    make
 
 -----------------------------------------------------------------------------

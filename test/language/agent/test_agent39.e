@@ -6,7 +6,7 @@ class TEST_AGENT39
 inherit
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {}

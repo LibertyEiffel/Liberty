@@ -4,7 +4,7 @@
 class TEST_EXPANDED26
    -- From a bug report of Robert A. Abernathy
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}
@@ -17,6 +17,7 @@ feature {ANY}
          if a.is_equal(b) then
             std_output.put_string("TEST_EXPANDED26: ERROR #1%N")
          end
+
          if a.is_equal(b) then
             std_output.put_string("TEST_EXPANDED26: ERROR #2%N")
          end

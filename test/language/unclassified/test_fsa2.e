@@ -4,7 +4,7 @@
 class TEST_FSA2
    -- From: frankmsalter@blueyonder.co.uk
 
-creation {ANY}
+create {}
    main
 
 feature {}

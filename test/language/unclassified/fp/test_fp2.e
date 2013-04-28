@@ -4,7 +4,7 @@
 class TEST_FP2
    -- From a bug report of  Francois PENNANEACH
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

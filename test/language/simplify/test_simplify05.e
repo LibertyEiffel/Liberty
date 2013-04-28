@@ -3,7 +3,7 @@
 --
 class TEST_SIMPLIFY05
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -9,7 +9,7 @@ class TEST_IS_NOT_A_NUMBER
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

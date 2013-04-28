@@ -4,7 +4,7 @@
 class TEST_EB6
    -- From a bug report of Eric BEZAULT
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

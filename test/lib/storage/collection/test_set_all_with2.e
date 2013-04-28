@@ -4,7 +4,7 @@
 class TEST_SET_ALL_WITH2
    -- Test feature `set_all_with' of various implementations.
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

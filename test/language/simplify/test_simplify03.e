@@ -11,7 +11,7 @@ class TEST_SIMPLIFY03
 inherit
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make, make_1, make_2, make_like_string
 
 feature {}

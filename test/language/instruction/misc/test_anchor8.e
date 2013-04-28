@@ -5,7 +5,7 @@ class TEST_ANCHOR8
    -- This test is the simplified problem from SZ:95: which is too much
    -- complex with 10 classes, multiple inheritance, generic types...
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

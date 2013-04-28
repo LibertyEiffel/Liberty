@@ -4,7 +4,7 @@
 class TEST_ANCHOR9
    -- SZ:225: anchored type not allowed for procedure type
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

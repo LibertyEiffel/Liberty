@@ -9,7 +9,7 @@ class TEST_GENERIC1
 insert
    MATH_CONSTANTS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

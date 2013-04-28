@@ -11,7 +11,7 @@ class TEST_REQUIRE1
    --      \ /
    --       D
 
-creation {ANY}
+create {}
    main
 
 feature {ANY}

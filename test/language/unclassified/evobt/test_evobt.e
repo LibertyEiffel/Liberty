@@ -7,7 +7,7 @@ inherit
    AUX_EVOBT1
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {}

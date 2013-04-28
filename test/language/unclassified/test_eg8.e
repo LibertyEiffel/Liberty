@@ -4,7 +4,7 @@
 class TEST_EG8
    -- From a bug report of Enrico GOBBETTI
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

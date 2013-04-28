@@ -1,6 +1,6 @@
 class TEST_WOJ02 -- To complete TEST_WOJ01 (D.Colnet):
 -- From: Wolfgang Jansen <wolfgang@agnld.uni-potsdam.de>
-creation make
+create {}
 
 feature
 

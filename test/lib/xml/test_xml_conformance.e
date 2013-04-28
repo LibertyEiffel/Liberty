@@ -3,7 +3,7 @@ class TEST_XML_CONFORMANCE
 insert
    EIFFELTEST_TOOLS
 
-creation {}
+create {}
    make
 
 feature {}

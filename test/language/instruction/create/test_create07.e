@@ -8,7 +8,7 @@ inherit
    EIFFELTEST_TOOLS
    AUX_CREATE07[REFERENCE[INTEGER]]
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

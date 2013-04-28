@@ -15,7 +15,7 @@ insert
       rename io as bar
       end
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

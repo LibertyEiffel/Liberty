@@ -3,7 +3,7 @@
 --
 class TEST_SZ470
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -3,7 +3,7 @@
 --
 class TEST_LOOP_VARIANT1
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

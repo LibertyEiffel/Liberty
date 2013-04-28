@@ -13,7 +13,7 @@ insert
       undefine copy, is_equal
       end
 
-creation {ANY}
+create {}
    main
 
 feature {ANY}

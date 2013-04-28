@@ -5,7 +5,7 @@ class TEST_AGENT41
    -- SZ:232:
    -- for marking of base (current) parameter
 
-creation {ANY}
+create {}
    make
 
 feature {}

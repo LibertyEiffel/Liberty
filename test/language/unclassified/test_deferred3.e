@@ -6,7 +6,7 @@ class TEST_DEFERRED3
    -- From a bug report of : Mostefa KASSAB
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

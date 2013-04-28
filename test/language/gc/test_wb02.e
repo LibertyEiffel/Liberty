@@ -4,7 +4,7 @@
 class TEST_WB02
    -- From a bug report of Wilfried Berger
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

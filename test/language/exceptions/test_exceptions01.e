@@ -3,7 +3,7 @@
 --
 class TEST_EXCEPTIONS01
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

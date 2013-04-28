@@ -1,6 +1,6 @@
 class TEST_UW02
 -- From a bug report of Ulrich Windl
-creation
+create {}
    make
 
 feature

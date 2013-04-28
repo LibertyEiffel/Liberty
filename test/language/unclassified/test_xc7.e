@@ -11,7 +11,7 @@ inherit
       redefine path
       end
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

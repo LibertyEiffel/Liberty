@@ -6,7 +6,7 @@ class TEST_DYNAMIC_DISPATCH1
 inherit
    ANY
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

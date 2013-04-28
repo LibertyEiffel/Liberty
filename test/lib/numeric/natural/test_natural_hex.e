@@ -5,7 +5,7 @@ class TEST_NATURAL_HEX
 inherit
    EIFFELTEST_TOOLS
 
-creation
+create {}
    main
 
 feature

@@ -4,7 +4,7 @@
 class TEST_INSPECT16
    -- Inspecting STRINGS when STRING is not a live type.
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -6,7 +6,7 @@ class TEST_INDEX_OF2
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -6,7 +6,7 @@ class TEST_INTEGER6
    -- Balancing rule implies some weird stuff...
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

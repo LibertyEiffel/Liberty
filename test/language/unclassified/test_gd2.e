@@ -4,7 +4,7 @@
 class TEST_GD2
    -- From: Garth Dighton <gdighton@versant.com>
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

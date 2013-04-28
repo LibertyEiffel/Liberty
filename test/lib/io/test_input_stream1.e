@@ -7,7 +7,7 @@ insert
    SYSTEM
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    main
 
 feature {ANY}

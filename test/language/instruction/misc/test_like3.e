@@ -6,7 +6,7 @@ class TEST_LIKE3
    -- To be sure that the new like <argument> behavior is tested.
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

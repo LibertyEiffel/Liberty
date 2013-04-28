@@ -3,7 +3,7 @@
 --
 class TEST_SAME_DYNAMIC_TYPE1
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -6,7 +6,7 @@ class TEST_TINY2
    -- From a bug report of : Brian STRELIOFF
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

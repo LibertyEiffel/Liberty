@@ -3,7 +3,7 @@
 --
 class TEST_POPOF
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

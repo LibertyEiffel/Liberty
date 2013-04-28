@@ -4,7 +4,7 @@
 class TEST_ARRAY2A
    -- From a bug report of Marc SCALZOLARO
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

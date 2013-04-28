@@ -7,7 +7,7 @@ class TEST_FORCE_TO_INTEGER
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

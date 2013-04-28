@@ -6,7 +6,7 @@ class TEST_COPPERFIELD
    -- From a bug report of : Philippe RIBET
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

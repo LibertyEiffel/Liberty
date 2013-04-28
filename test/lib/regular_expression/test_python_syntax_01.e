@@ -17,7 +17,7 @@ class TEST_PYTHON_SYNTAX_01
 insert
    EIFFELTEST_TOOLS
 
-creation {}
+create {}
    make
 
 feature {}

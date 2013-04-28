@@ -3,7 +3,7 @@
 --
 class TEST_DICTIONARY8
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

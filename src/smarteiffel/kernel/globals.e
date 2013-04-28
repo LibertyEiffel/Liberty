@@ -120,7 +120,7 @@ feature {}
          create Result
       end
 
-feature {SMART_EIFFEL, SYSTEM_TOOLS, INSTALL_GLOBALS, VISITOR}
+feature {SMART_EIFFEL, SYSTEM_TOOLS, VISITOR}
    frozen parser_buffer: PARSER_BUFFER is
       once
          create Result.make

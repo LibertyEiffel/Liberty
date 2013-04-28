@@ -3,7 +3,7 @@
 --
 class TEST_JVM2
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -9,7 +9,7 @@ class TEST_BENCH
    -- footprint, because SE's GC does not merge or split memory blocks
    -- and thus recycles poorly the dead arrays.??????
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

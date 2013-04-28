@@ -8,7 +8,7 @@ class TEST_EXPANDED40
    -- Should be: r70default_create(&ds,tmp0->_exp);
    -- Because second argument is "int" in the prototype.
 
-creation {ANY}
+create {}
    make
 
 feature {}

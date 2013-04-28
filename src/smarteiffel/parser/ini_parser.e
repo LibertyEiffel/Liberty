@@ -25,7 +25,7 @@ create {GLOBALS}
 feature {ANY}
    file_path: STRING
 
-feature {SERC, INSTALL_GLOBALS, PLUGIN, INI_HANDLER} -- Parsing:
+feature {SERC, PLUGIN, INI_HANDLER} -- Parsing:
    a_inifile is
       require
          parser_buffer.is_ready
@@ -67,7 +67,7 @@ feature {SERC, INSTALL_GLOBALS, PLUGIN, INI_HANDLER} -- Parsing:
          not parser_buffer.is_ready
       end
 
-feature {SYSTEM_TOOLS, INSTALL_GLOBALS}
+feature {SYSTEM_TOOLS}
    is_invalid: BOOLEAN
 
 feature {ANY} -- Values in the default section:

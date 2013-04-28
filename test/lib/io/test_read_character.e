@@ -6,7 +6,7 @@ class TEST_READ_CHARACTER
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    main
 
 feature {}

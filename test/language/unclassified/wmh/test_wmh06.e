@@ -2,7 +2,7 @@ class TEST_WMH06
 -- From: Wai-Ming Ho <waimingh@irisa.fr>
 insert MEMORY 
 
-creation make
+create {}
 
 feature
 

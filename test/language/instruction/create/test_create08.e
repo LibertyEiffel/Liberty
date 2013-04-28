@@ -5,7 +5,7 @@ class TEST_CREATE08
    -- Bug report from Stefan Brantschen <sbr@acm.org>
    -- This simple code makes the compiler to crash!
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

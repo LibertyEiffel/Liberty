@@ -6,7 +6,7 @@ class TEST_READ_REAL2
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {}

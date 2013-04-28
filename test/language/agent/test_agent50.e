@@ -6,7 +6,7 @@ class TEST_AGENT50
    -- SZ:407: from philippe.coucaud@antevista.com
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

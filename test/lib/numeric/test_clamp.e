@@ -5,7 +5,7 @@ class TEST_BOUNDED_BY
 	-- Testing COMPARABLE.bounded_by
 insert EIFFELTEST_TOOLS
 
-creation {ANY} make
+create {}
 
 feature {ANY}
 	make is

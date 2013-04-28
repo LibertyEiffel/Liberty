@@ -6,7 +6,7 @@ class TEST_REAL_CONSTANT
    -- From a bug report of Olivier ZENDRA.
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

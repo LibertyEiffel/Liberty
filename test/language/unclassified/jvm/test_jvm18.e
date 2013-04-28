@@ -3,7 +3,7 @@
 --
 class TEST_JVM18
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

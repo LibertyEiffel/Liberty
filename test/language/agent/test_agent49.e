@@ -4,7 +4,7 @@
 class TEST_AGENT49
    -- From: Benjamin Franksen <franksen@mail.bessy.de>
 
-creation {ANY}
+create {}
    make
 
 feature {}

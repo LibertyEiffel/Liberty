@@ -3,7 +3,7 @@
 --
 class TEST_BUBBLE_SORT4
 
-creation {ANY}
+create {}
    make
 
 feature {}

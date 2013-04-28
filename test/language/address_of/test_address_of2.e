@@ -4,7 +4,7 @@
 class TEST_ADDRESS_OF2
    -- From a bug report of : Brian STRELIOFF
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -3,7 +3,7 @@
 --
 class TEST_IS_EQUAL_MAP
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

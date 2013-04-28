@@ -5,7 +5,7 @@ class TEST_NATURAL5
 inherit
    EIFFELTEST_TOOLS
 
-creation
+create {}
    main
 
 feature

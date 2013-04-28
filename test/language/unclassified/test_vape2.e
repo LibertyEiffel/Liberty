@@ -6,7 +6,7 @@ class TEST_VAPE2
    -- From a message of Jason SCHROEDER in comp.lang.eiffel
    --
 
-creation {ANY}
+create {}
    make
 
 feature {}

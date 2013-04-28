@@ -4,7 +4,7 @@
 expanded class AUX_EXPANDED36
    -- From sz:491
 
-creation {ANY}
+create {ANY}
    make, default_create
 
 feature {ANY}

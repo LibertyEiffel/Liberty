@@ -6,7 +6,7 @@ class TEST_NATURAL1
 inherit
    EIFFELTEST_TOOLS
    
-creation
+create {}
    main
 
 feature {}

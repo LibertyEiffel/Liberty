@@ -3468,7 +3468,7 @@ feature {}
          --  ++ c_inline_c -> "c_inline_c" "(" manifest_string ")"
          --  ++
       local
-         sp: POSITION; c_code: STRING
+         sp: POSITION; c_code: STRING; c_inline: C_INLINE
       do
          if a_keyword(as_c_inline_c) then
             Result := True
@@ -3489,7 +3489,11 @@ feature {}
                error_handler.append(once "Missing ')' to end `c_inline_c' call.")
                error_handler.print_as_fatal_error
             end
-            create {C_INLINE} last_instruction.make_c_inline_c(sp, c_code)
+            create c_inline.make_c_inline_c(sp, c_code)
+            if smart_eiffel.short_or_class_check_flag or else smart_eiffel.pretty_flag then
+               c_inline.set_source_view(last_manifest_string.source_view)
+            end
+            last_instruction := c_inline
          end
       end
 

@@ -4,7 +4,7 @@
 class TEST_EXCEPTIONS23
    -- SZ:280:
 
-creation {ANY}
+create {}
    make, make_exception
 
 feature {ANY}

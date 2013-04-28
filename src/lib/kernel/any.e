@@ -408,6 +408,7 @@ feature {} -- Various useful tools:
 
                                The error occured in the type
                                ]")
+         std_error.put_character(' ')
          std_error.put_string(generating_type)
          std_error.put_string(".%N%N")
          crash

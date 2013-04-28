@@ -4,7 +4,7 @@
 class TEST_EM1
    -- From a bug report of Eugene Melekhov <mev@fangorn.ryazan.ru>
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

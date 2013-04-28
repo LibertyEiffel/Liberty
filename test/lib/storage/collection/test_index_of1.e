@@ -3,7 +3,7 @@
 --
 class TEST_INDEX_OF1
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

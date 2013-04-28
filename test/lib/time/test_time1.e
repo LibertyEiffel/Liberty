@@ -7,7 +7,7 @@ class TEST_TIME1
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    main
 
 feature {ANY}

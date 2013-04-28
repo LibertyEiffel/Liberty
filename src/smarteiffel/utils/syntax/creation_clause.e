@@ -57,7 +57,7 @@ feature {ANY}
             pretty_printer.skip_one_line
          end
          pretty_printer.set_indent_level(0)
-         pretty_printer.keyword(once "creation")
+         pretty_printer.keyword(once "create")
          if clients /= Void then
             clients.pretty(1)
          end

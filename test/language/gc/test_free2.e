@@ -7,7 +7,7 @@ class TEST_FREE2
 insert
    MEMORY
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

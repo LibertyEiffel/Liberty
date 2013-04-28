@@ -4,7 +4,7 @@
 class TEST_OLD2
    -- From a bug report of Cyril ADRIAN
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

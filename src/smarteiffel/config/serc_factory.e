@@ -37,12 +37,12 @@ feature {ANY}
                add_to_chain(chain, s)
             end
          elseif basic_directory.windows_notation then
+            add_to_chain(chain, once "C:\SE.CFG")
             s := userprofile_env
             if s /= Void then
                s.append(once "\SE.CFG")
                add_to_chain(chain, s)
             end
-            add_to_chain(chain, once "C:\SE.CFG")
             def.set_os(windows_system)
          elseif basic_directory.macintosh_notation then
             def.set_os(macintosh_system)
@@ -60,7 +60,7 @@ feature {ANY}
          Result := chain
       end
 
-feature {SYSTEM_TOOLS, INSTALL_GLOBALS}
+feature {SYSTEM_TOOLS}
    seconf_env: STRING is
          -- The value of the SmartEiffel environment variable, if defined.
       once

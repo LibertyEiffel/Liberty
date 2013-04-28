@@ -3,7 +3,7 @@
 --
 class TEST_MIN_MAX
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

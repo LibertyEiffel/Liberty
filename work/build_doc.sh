@@ -46,7 +46,7 @@ done | while read i section args; do
     s=$DOC_ROOT/api/$section
     test -d $s || mkdir -p $s
     cd $s
-    run se doc -verbose -title "Section:\\\\ $section" \
+    run se doc -verbose -title "Section:\\\\ $section" -short_title "$section" \
         -wiki_prefix "http://wiki.liberty-eiffel.org/" \
         -menu_separator '"\\|\\ "' -ariadne_separator '"\\>\\ "' \
         -menu "http://www.liberty-eiffel.org" '"Liberty\\ Eiffel"' \

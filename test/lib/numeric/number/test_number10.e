@@ -9,7 +9,7 @@ insert
    EIFFELTEST_TOOLS
    NUMBER_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

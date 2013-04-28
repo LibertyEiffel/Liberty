@@ -11,7 +11,7 @@ inherit
       redefine out
       end
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

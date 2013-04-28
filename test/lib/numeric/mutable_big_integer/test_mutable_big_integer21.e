@@ -7,7 +7,7 @@ class TEST_MUTABLE_BIG_INTEGER21
 insert
    AUX_MUTABLE_BIG_INTEGER1
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

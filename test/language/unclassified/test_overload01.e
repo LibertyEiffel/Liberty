@@ -9,7 +9,7 @@ inherit
       redefine default_create
       end
 
-creation {ANY}
+create {}
    default_create
 
 feature {ANY} -- Creation

@@ -7,7 +7,7 @@ insert
    EIFFELTEST_TOOLS
    EXCEPTIONS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

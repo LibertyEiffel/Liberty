@@ -7,7 +7,7 @@ class TEST_SIMPLIFY08
 inherit
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}
@@ -19,7 +19,7 @@ feature {ANY}
 
    dog: DOG
 
-   any: ANY
+   any: ABSTRACT_STRING
 
    bs: EIFFELTEST_TOOLS
 

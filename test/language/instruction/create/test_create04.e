@@ -6,7 +6,7 @@ class TEST_CREATE04
    -- SZ:58: From a bug report of Andreas Scholz (andreas13@web.de)
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

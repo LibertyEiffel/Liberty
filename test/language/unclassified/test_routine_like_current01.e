@@ -6,7 +6,7 @@ class TEST_ROUTINE_LIKE_CURRENT01
 inherit
    AUX_ROUTINE_LIKE_CURRENT01
 
-creation {ANY}
+create {}
    default_create
 
 end -- class TEST_ROUTINE_LIKE_CURRENT01

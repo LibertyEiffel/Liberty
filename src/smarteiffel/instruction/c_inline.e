@@ -59,7 +59,21 @@ feature {ANY}
 
    pretty (indent_level: INTEGER) is
       do
-         not_yet_implemented
+         check
+            source_view /= Void
+         end
+         pretty_printer.set_indent_level(indent_level)
+         if is_c_inline_c then
+            pretty_printer.put_string(once "c_inline_c(")
+         else
+            pretty_printer.put_string(once "c_inline_h(")
+         end
+         pretty_printer.put_string(source_view)
+         pretty_printer.put_character(')')
+         if pretty_printer.semi_colon_flag then
+            pretty_printer.put_character(';')
+         end
+         pretty_printer.set_indent_level(0)
       end
 
    use_current (type: TYPE): BOOLEAN is
@@ -92,6 +106,17 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          code_accumulator.current_context.add_last(Current)
       end
 
+feature {PARSER}
+   set_source_view (sv: like source_view) is
+      do
+         check
+            sv /= Void = (smart_eiffel.short_or_class_check_flag or smart_eiffel.pretty_flag)
+         end
+         source_view := sv
+      ensure
+         source_view = sv
+      end
+
 feature {}
    make_c_inline_c (sp: like start_position; cc: like c_code) is
       do
@@ -111,6 +136,8 @@ feature {}
          not is_c_inline_c
          start_position = sp
       end
+
+   source_view: STRING
 
 invariant
    not start_position.is_unknown

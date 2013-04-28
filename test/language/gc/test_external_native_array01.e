@@ -6,7 +6,7 @@ class TEST_EXTERNAL_NATIVE_ARRAY01
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {}

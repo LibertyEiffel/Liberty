@@ -4,7 +4,7 @@
 class TEST_JLP8
    -- From a bug report of Jean-Lin PACHERIE
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

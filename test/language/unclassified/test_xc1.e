@@ -4,7 +4,7 @@
 class TEST_XC1
    -- From a bug report of Xavier CREGUT
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

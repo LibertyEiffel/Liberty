@@ -3,7 +3,7 @@
 --
 class TEST_FILE_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

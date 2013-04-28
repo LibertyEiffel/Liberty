@@ -6,7 +6,7 @@ class TEST_FILE_COPY
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {}

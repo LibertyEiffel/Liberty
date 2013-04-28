@@ -191,8 +191,8 @@ feature {}
          else
             sep := options.ariadne_separator
          end
-         options.add_tab(html, classes_and_clusters_list_link_name, index_filename, sep)
-         options.add_tab(html, class_information_link_name, Void, options.ariadne_separator)
+         options.add_tab(html, options.short_title, index_filename, sep)
+         options.add_tab(html, context_class_text.name.to_string, Void, options.ariadne_separator)
          options.close_tabs(html)
 
          -- open general block

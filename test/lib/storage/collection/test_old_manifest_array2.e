@@ -7,7 +7,7 @@ inherit
    TEST_OLD_MANIFEST_ARRAY
       -- To trigger specialize_thru.
 
-creation {ANY}
+create {}
    make
 
 end -- class TEST_OLD_MANIFEST_ARRAY2

@@ -4,7 +4,7 @@
 class TEST_ARGUMENT_FILLING
    -- Test `arg' infix "#" operators in ABSTRACT_STRING, actually also testing FILLABLE_STRING.
 insert EIFFELTEST_TOOLS
-creation {ANY} make
+create {}
 
 feature {ANY}
    make is

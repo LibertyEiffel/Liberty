@@ -10,7 +10,7 @@ insert
    ANY
    PLATFORM
 
-creation {ANY}
+create {}
    make
 
 feature {}

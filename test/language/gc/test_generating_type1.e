@@ -7,7 +7,7 @@ class TEST_GENERATING_TYPE1
 insert
    MEMORY
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

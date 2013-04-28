@@ -3,7 +3,7 @@
 --
 class TEST_REVERSE_ADD
 
-creation {ANY}
+create {}
    make
 
 feature {}

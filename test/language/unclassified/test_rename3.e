@@ -6,7 +6,7 @@ class TEST_RENAME3
    -- From a bug report of : Jean-Louis NeBUT
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

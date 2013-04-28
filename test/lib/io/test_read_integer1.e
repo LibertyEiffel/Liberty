@@ -6,7 +6,7 @@ class TEST_READ_INTEGER1
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    main
 
 feature {}

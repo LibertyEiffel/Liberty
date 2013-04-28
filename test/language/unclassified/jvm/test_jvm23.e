@@ -6,7 +6,7 @@ class TEST_JVM23
 inherit
    ANY
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

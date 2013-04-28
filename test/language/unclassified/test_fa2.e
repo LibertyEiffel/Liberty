@@ -4,7 +4,7 @@
 class TEST_FA2
    -- From a bug report of Franck ARNAUD
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

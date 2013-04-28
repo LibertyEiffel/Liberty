@@ -8,7 +8,7 @@ class TEST_LD05
 inherit
    AUX_LD05_PARENT
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -6,7 +6,7 @@ class TEST_C_INLINE_C01
 inherit
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {}

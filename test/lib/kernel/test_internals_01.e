@@ -4,7 +4,7 @@ insert
    INTERNALS_HANDLER
    EIFFELTEST_TOOLS
 
-creation {}
+create {}
    make
 
 feature

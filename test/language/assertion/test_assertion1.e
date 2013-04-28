@@ -4,7 +4,7 @@
 class TEST_ASSERTION1
    --From: Gerson Sunye <gerson.sunye@gmail.com>
 
-creation {ANY}
+create {}
    main
 
 feature {ANY}

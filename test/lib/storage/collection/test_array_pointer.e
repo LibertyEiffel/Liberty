@@ -3,7 +3,7 @@
 --
 class TEST_ARRAY_POINTER
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

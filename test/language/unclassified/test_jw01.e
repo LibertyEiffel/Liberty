@@ -4,7 +4,7 @@
 class TEST_JW01
    -- From a bug report of Jim Weirich <jweirich@one.net>
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

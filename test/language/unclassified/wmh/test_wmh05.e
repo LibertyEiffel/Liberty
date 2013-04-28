@@ -1,6 +1,6 @@
 class TEST_WMH05
 -- From a bug report of "Wai Ming, HO" <waimingh@irisa.fr>
-creation make
+create {}
 feature
 
    make is

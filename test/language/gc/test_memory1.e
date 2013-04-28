@@ -3,7 +3,7 @@
 --
 class TEST_MEMORY1
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

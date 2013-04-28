@@ -6,7 +6,7 @@ class TEST_SYSTEM_TOOLS
 inherit
    SYSTEM_TOOLS
 
-creation {ANY}
+create {}
    runit
 
 feature {ANY}

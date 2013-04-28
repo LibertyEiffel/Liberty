@@ -3,7 +3,7 @@
 --
 class TEST_COLLECTION_SORTER1
 
-creation {ANY}
+create {}
    make
 
 feature {}

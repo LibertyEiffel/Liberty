@@ -6,7 +6,7 @@ class TEST_ADDRESS_OF4
 insert
    EIFFELTEST_TOOLS
    
-creation
+create {}
    main
 
 feature {}

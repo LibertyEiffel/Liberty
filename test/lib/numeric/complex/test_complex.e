@@ -8,7 +8,7 @@ insert
    COMPLEX_CONSTANTS
    PLATFORM
 
-creation {ANY} make
+create {}
 
 feature {ANY}
    make is

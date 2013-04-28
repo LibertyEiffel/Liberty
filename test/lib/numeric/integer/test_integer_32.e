@@ -4,7 +4,7 @@
 class TEST_INTEGER_32
    -- To test INTEGER_32
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}
