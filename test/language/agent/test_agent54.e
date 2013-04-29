@@ -13,7 +13,7 @@ insert
 create {}
    make
 
-feature
+feature {}
    make is
       local
          v: INTEGER
