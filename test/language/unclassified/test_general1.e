@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   any: ANY
+   any: ABSTRACT_STRING
 
    ai8: ARRAY[INTEGER_8]
 
@@ -87,8 +87,9 @@ feature {ANY}
          -- INTEGER does not conform to ANY (Vincent Croizier, 02/11/2004)
          --any := i
          --assert(any.same_dynamic_type(i))
-         any := ar
-         assert(any.same_dynamic_type(ar))
+         -- ARRAY[REAL] does not conform to ANY
+         --any := ar
+         --assert(any.same_dynamic_type(ar))
       end
 
    assert (b: BOOLEAN) is
