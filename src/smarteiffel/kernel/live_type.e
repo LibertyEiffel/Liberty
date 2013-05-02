@@ -48,6 +48,7 @@ feature {ANY}
    at_run_time: BOOLEAN
          -- True if `Current' is itself really created (i.e. there are direct instances of
          -- the corresponding `canonical_type_mark' at run time).
+         -- *Almost* equivalent to not run_time_set.is_empty
 
    run_time_set: RUN_TIME_SET
          -- The set of all possible dynamic types (existing types at run-time, i.e. with a
@@ -1374,19 +1375,18 @@ feature {}
       end
 
 invariant
-   type.live_type = Current
-
    name /= Void
 
+   type.live_type = Current
+   class_text = type.class_text
    canonical_type_mark.is_static
 
-   class_text = type.class_text
-
    precursor_run_features = Void = (precursor_classes = Void)
-
    precursor_run_features /= Void implies precursor_run_features.count = precursor_classes.count
-
    precursor_run_features /= Void implies not precursor_run_features.is_empty
+
+   run_time_set.owner = Current
+   run_time_set.is_empty or else (at_run_time and then run_time_set.fast_has(Current))
 
 end -- class LIVE_TYPE
 --
