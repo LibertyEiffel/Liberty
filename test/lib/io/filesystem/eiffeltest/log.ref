@@ -245,7 +245,6 @@ se clean test_directory01.e
 Removing (-no_split -boost) "test_directory01.exe".
 se c -no_split -no_gc -boost test_directory01.e -o test_directory01.exe
 Running (-no_split -no_gc -boost) "test_directory01.exe".
-Abnormal exit status of "Running (-no_split -no_gc -boost) "test_directory01.exe".".
 se clean test_directory01.e
 Removing (-no_split -no_gc -boost) "test_directory01.exe".
 se c -boost test_directory02.e -o test_directory02.exe
