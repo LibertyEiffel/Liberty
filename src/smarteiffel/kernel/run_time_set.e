@@ -23,7 +23,7 @@ create {LIVE_TYPE}
 feature {ANY} -- Basic accessing:
    count: INTEGER is
       do
-         Result := sorted.count
+         Result := set.count
       ensure
          Result >= 0
       end
@@ -32,14 +32,17 @@ feature {ANY} -- Basic accessing:
       require
          index.in_range(1, count)
       do
-         Result := sorted.item(index - 1)
+         check
+            set.lower = 1
+         end
+         Result := set.item(index)
       ensure
          Result /= Void
       end
 
    is_empty: BOOLEAN is
       do
-         Result := count = 0
+         Result := set.is_empty
       ensure
          Result = (count = 0)
       end
@@ -58,7 +61,7 @@ feature {ANY} -- Basic accessing:
       require
          count = 1
       do
-         Result := sorted.first
+         Result := set.first
       ensure
          Result = item(1)
       end
@@ -67,26 +70,25 @@ feature {ANY} -- Basic accessing:
       require
          action /= Void
       do
-         sorted.do_all(action)
+         set.do_all(action)
       end
 
 feature {LIVE_TYPE}
    id_extra_information (tfw: TEXT_FILE_WRITE) is
       local
-         c, i: INTEGER; lt: LIVE_TYPE
+         i: INTEGER; lt: LIVE_TYPE
       do
-         c := sorted.count
          tfw.put_string(once "run-time-set-count: ")
-         tfw.put_integer(c)
+         tfw.put_integer(set.count)
          tfw.put_character('%N')
-         if c > 0 then
+         if not set.is_empty then
             from
                tfw.put_string(once "run-time-set:%N")
-               i := sorted.lower
+               i := set.lower
             until
-               i = c
+               i > set.upper
             loop
-               lt := sorted.item(i)
+               lt := set.item(i)
                tfw.put_character('%T')
                tfw.put_string(lt.name.to_string)
                tfw.put_character(' ')
@@ -101,7 +103,6 @@ feature {LIVE_TYPE}
 
    reset is
       do
-         sorted.clear_count
          set.clear_count
          debug
             debug_info.append(once " ***reset*** ")
@@ -111,12 +112,9 @@ feature {LIVE_TYPE}
       end
 
 feature {RUN_TIME_SET}
-   set: SET[LIVE_TYPE]
+   set: AVL_SET[LIVE_TYPE]
          -- The set of possible LIVE_TYPEs which are all `at_run_time' and that can be held by a variable
          -- of the `owner' type.
-
-   sorted: FAST_ARRAY[LIVE_TYPE]
-         -- Same `set' of LIVE_TYPEs, but sorted by increasing id.
 
 feature {GRAPH_NODE}
    add_set (other: like Current): INTEGER is
@@ -126,15 +124,15 @@ feature {GRAPH_NODE}
          not other.is_empty
          other /= Current
       local
-         i: INTEGER; other_sorted: like sorted; lt: LIVE_TYPE
+         i: INTEGER; other_set: like set; lt: LIVE_TYPE
       do
          from
-            other_sorted := other.sorted
-            i := other_sorted.lower
+            other_set := other.set
+            i := other_set.lower
          until
-            i > other_sorted.upper
+            i > other_set.upper
          loop
-            lt := other_sorted.item(i)
+            lt := other_set.item(i)
             if owner = lt then
                check
                   set.fast_has(lt)
@@ -155,22 +153,11 @@ feature {LIVE_TYPE}
    force_add (live_type: LIVE_TYPE) is
       require
          live_type.is_expanded implies live_type = owner
-      local
-         i: INTEGER
       do
          set.fast_add(live_type)
          debug
             debug_info.extend(' ')
             debug_info.append(live_type.name.to_string)
-         end
-         from
-            i := sorted.upper
-            sorted.add_last(live_type)
-         until
-            i < sorted.lower or else sorted.item(i).id < live_type.id
-         loop
-            sorted.swap(i, i + 1)
-            i := i - 1
          end
       end
 
@@ -181,8 +168,7 @@ feature {LIVE_TYPE}
          o /= Void
       do
          owner := o
-         create sorted.with_capacity(64)
-         create {HASHED_SET[LIVE_TYPE]} set.make
+         create set.make
          debug
             debug_info := owner.name.to_string.twin
             debug_info.append(once ": ")
@@ -193,8 +179,6 @@ feature {LIVE_TYPE}
 
 invariant
    owner.run_time_set = Current or else owner.run_time_set = Void
-
-   sorted.count = set.count
 
 end -- class RUN_TIME_SET
 --

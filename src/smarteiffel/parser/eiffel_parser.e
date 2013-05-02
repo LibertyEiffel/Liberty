@@ -282,13 +282,30 @@ feature {CECIL_FILE}
 
    parse_cecil_is_creation: BOOLEAN is
       do
-         Result := a_keyword(fz_creation) or else a_keyword(fz_create)
+         Result := a_creation_keyword
       end
 
    disconnect is
       do
          is_running := False
          parser_buffer.release
+      end
+
+feature {}
+   a_creation_keyword: BOOLEAN is
+      local
+         l, c: INTEGER
+      do
+         l := line
+         c := column
+         if a_keyword(fz_create) then
+            Result := True
+         elseif a_keyword(fz_creation) then
+            error_handler.add_position(pos(l, c))
+            error_handler.append(once "The keyword 'creation' is now replaced by 'create'. Please update your code.")
+            error_handler.print_as_style_warning --| **** TODO: make it a warning (in Bell), then an error (in Curtiss); then remove the keyword (in Curtiss+1)
+            Result := True
+         end
       end
 
 feature {SMART_EIFFEL}
@@ -2768,7 +2785,7 @@ feature {}
          a_parent_list
          from
          until
-            not (a_keyword(fz_creation) or else a_keyword(fz_create))
+            not a_creation_keyword
          loop
             a_creation_clause(pos(start_line, start_column))
          end
