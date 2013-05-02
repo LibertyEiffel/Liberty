@@ -9,7 +9,7 @@ class TEST_IS_ZERO
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

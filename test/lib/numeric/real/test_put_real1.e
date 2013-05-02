@@ -7,7 +7,7 @@ class TEST_PUT_REAL1
 insert
    ARGUMENTS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

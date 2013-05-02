@@ -7,7 +7,7 @@ class TEST_EXCEPTIONS19
 inherit
    EXCEPTIONS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

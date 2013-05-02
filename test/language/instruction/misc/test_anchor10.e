@@ -7,7 +7,7 @@ class TEST_ANCHOR10
 inherit
    AUX_ANCHOR10_EFFECTOR[STRING]
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

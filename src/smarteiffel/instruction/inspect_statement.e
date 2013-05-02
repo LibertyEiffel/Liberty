@@ -296,12 +296,12 @@ feature {ANY}
          Result := current_or_twin_init(exp, wl, ec)
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          exp: like expression; expression_type: TYPE; wl: like when_list
          ec: like else_compound; i: INTEGER; ew1, ew2: WHEN_CLAUSE
       do
-         exp := expression.specialize_2(type)
+         exp := expression.specialize_and_check(type)
          expression_type := exp.declaration_type
          if when_list /= Void then
             if expression_type.is_character then
@@ -311,7 +311,7 @@ feature {ANY}
                   ew1 /= ew2 or else i > when_list.upper
                loop
                   ew1 := when_list.item(i)
-                  ew2 := ew1.specialize_2_character(type)
+                  ew2 := ew1.specialize_and_check_character(type)
                   i := i + 1
                end
                if ew1 = ew2 then
@@ -323,7 +323,7 @@ feature {ANY}
                   until
                      i > wl.upper
                   loop
-                     wl.put(when_list.item(i).specialize_2_character(type), i)
+                     wl.put(when_list.item(i).specialize_and_check_character(type), i)
                      i := i + 1
                   end
                end
@@ -334,7 +334,7 @@ feature {ANY}
                   ew1 /= ew2 or else i > when_list.upper
                loop
                   ew1 := when_list.item(i)
-                  ew2 := ew1.specialize_2_integer(type)
+                  ew2 := ew1.specialize_and_check_integer(type)
                   i := i + 1
                end
                if ew1 = ew2 then
@@ -346,7 +346,7 @@ feature {ANY}
                   until
                      i > wl.upper
                   loop
-                     wl.put(when_list.item(i).specialize_2_integer(type), i)
+                     wl.put(when_list.item(i).specialize_and_check_integer(type), i)
                      i := i + 1
                   end
                end
@@ -358,7 +358,7 @@ feature {ANY}
                   ew1 /= ew2 or else i > when_list.upper
                loop
                   ew1 := when_list.item(i)
-                  ew2 := ew1.specialize_2_string(type)
+                  ew2 := ew1.specialize_and_check_string(type)
                   i := i + 1
                end
                if ew1 = ew2 then
@@ -370,7 +370,7 @@ feature {ANY}
                   until
                      i > wl.upper
                   loop
-                     wl.put(when_list.item(i).specialize_2_string(type), i)
+                     wl.put(when_list.item(i).specialize_and_check_string(type), i)
                      i := i + 1
                   end
                end
@@ -386,7 +386,7 @@ feature {ANY}
             end
          end
          if else_compound /= Void then
-            ec := else_compound.specialize_2(type)
+            ec := else_compound.specialize_and_check(type)
          end
          Result := current_or_twin_init(exp, wl, ec)
          Result.validity_check(type, expression_type)

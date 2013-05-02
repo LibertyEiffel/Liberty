@@ -35,6 +35,8 @@ feature {EIFFEL_PARSER}
 
    names: FAST_ARRAY[FEATURE_NAME]
 
+   assigned: FEATURE_NAME
+
    busy: BOOLEAN
 
    initialize is
@@ -46,6 +48,7 @@ feature {EIFFEL_PARSER}
          else
             names.clear_count
          end
+         assigned := Void
          arguments := Void
          type := Void
          header_comment := Void
@@ -63,6 +66,7 @@ feature {EIFFEL_PARSER}
          local_vars = Void
          routine_body = Void
          names.is_empty
+         assigned = Void
          busy
       end
 
@@ -80,6 +84,13 @@ feature {EIFFEL_PARSER}
          a_name /= Void
       do
          names.add_last(a_name)
+      end
+
+   set_assigned (a: like assigned) is
+      require
+         a /= Void
+      do
+         assigned := a
       end
 
    set_arguments (args: like arguments) is
@@ -130,6 +141,11 @@ feature {EIFFEL_PARSER}
          type /= Void
          arguments = Void
       do
+         if assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "An attribute cannot be an assigner.")
+            error_handler.print_as_fatal_error
+         end
          create Result.writable_attribute(n, type, obsolete_mark, header_comment, require_assertion)
       end
 
@@ -140,6 +156,11 @@ feature {EIFFEL_PARSER}
       local
          boolean_constant: BOOLEAN_CONSTANT
       do
+         if assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "A boolean constant cannot be an assigner.")
+            error_handler.print_as_fatal_error
+         end
          boolean_constant ::= value
          constant_attribute_common_checks(value)
          if type.is_boolean then
@@ -158,6 +179,11 @@ feature {EIFFEL_PARSER}
       local
          character_constant: CHARACTER_CONSTANT
       do
+         if assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "A character constant cannot be an assigner.")
+            error_handler.print_as_fatal_error
+         end
          character_constant ::= value
          constant_attribute_common_checks(value)
          if not type.is_character then
@@ -175,6 +201,11 @@ feature {EIFFEL_PARSER}
          integer_constant: INTEGER_CONSTANT; integer_type_mark: INTEGER_TYPE_MARK
          real_constant: REAL_CONSTANT
       do
+         if assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "A constant cannot be an assigner.")
+            error_handler.print_as_fatal_error
+         end
          constant_attribute_common_checks(value)
          if {INTEGER_CONSTANT} ?:= value then
             integer_constant ::= value
@@ -239,6 +270,11 @@ feature {EIFFEL_PARSER}
 
    as_string_constant (value: MANIFEST_STRING): FEATURE_TEXT is
       do
+         if assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "A string constant cannot be an assigner.")
+            error_handler.print_as_fatal_error
+         end
          constant_attribute_common_checks(value)
          if not type.is_string then
             error_handler.add_position(type.start_position)
@@ -251,7 +287,11 @@ feature {EIFFEL_PARSER}
    as_deferred_routine: FEATURE_TEXT is
       do
          if type = Void then
-            create Result.deferred_procedure(n, arguments, obsolete_mark, header_comment, require_assertion)
+            create Result.deferred_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, assigned)
+         elseif assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "A function cannot be an assigner.")
+            error_handler.print_as_fatal_error
          else
             create Result.deferred_function(n, arguments, type, obsolete_mark, header_comment, require_assertion)
          end
@@ -260,7 +300,11 @@ feature {EIFFEL_PARSER}
    as_external_routine (native: NATIVE; alias_tag: MANIFEST_STRING): FEATURE_TEXT is
       do
          if type = Void then
-            create Result.external_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, native, alias_tag)
+            create Result.external_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, native, alias_tag, assigned)
+         elseif assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "A function cannot be an assigner.")
+            error_handler.print_as_fatal_error
          else
             create Result.external_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, native, alias_tag)
          end
@@ -269,7 +313,11 @@ feature {EIFFEL_PARSER}
    as_once_routine: FEATURE_TEXT is
       do
          if type = Void then
-            create Result.once_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body)
+            create Result.once_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned)
+         elseif assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "A function cannot be an assigner.")
+            error_handler.print_as_fatal_error
          else
             create Result.once_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body)
          end
@@ -278,7 +326,11 @@ feature {EIFFEL_PARSER}
    as_procedure_or_function: FEATURE_TEXT is
       do
          if type = Void then
-            create Result.e_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body)
+            create Result.e_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned)
+         elseif assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "A function cannot be an assigner.")
+            error_handler.print_as_fatal_error
          else
             create Result.e_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body)
          end
@@ -286,6 +338,11 @@ feature {EIFFEL_PARSER}
 
    as_unique_constant: FEATURE_TEXT is
       do
+         if assigned /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "A unique constant cannot be an assigner.")
+            error_handler.print_as_fatal_error
+         end
          constant_attribute_common_checks(Void)
          if not type.is_integer then
             error_handler.add_position(names.first.start_position)

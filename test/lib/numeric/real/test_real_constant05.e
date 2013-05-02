@@ -9,7 +9,7 @@ class TEST_REAL_CONSTANT05
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

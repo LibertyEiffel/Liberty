@@ -3,7 +3,7 @@
 --
 class TEST_FAST_HAS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

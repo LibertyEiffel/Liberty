@@ -32,7 +32,7 @@ feature {RUNNER_EXPRESSIONS}
       end
 
 feature {RUNNER_INSTRUCTIONS}
-   assign (assignment: ASSIGNMENT) is
+   do_assign (assignment: ASSIGNMENT) is
       local
          right: RUNNER_OBJECT
       do

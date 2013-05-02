@@ -8,7 +8,7 @@ insert
       redefine foo_it
       end
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

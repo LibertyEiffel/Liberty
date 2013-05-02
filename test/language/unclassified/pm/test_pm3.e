@@ -4,7 +4,7 @@
 class TEST_PM3
    -- From: "Phil Malin" <phil.malin@iP3Systems.com>
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

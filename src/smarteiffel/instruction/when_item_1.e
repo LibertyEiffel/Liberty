@@ -205,16 +205,16 @@ feature {WHEN_CLAUSE, WHEN_ITEM}
          Result := current_or_twin_init(expression.specialize_thru(parent_type, parent_edge, new_type))
       end
 
-   specialize_2_character (type: TYPE): like Current is
+   specialize_and_check_character (type: TYPE): like Current is
       do
-         Result := current_or_twin_init(expression.specialize_2(type))
+         Result := current_or_twin_init(expression.specialize_and_check(type))
          Result.set_manifest_expression(type)
          Result.set_expression_value_character
       end
 
-   specialize_2_integer (type: TYPE): like Current is
+   specialize_and_check_integer (type: TYPE): like Current is
       do
-         Result := current_or_twin_init(expression.specialize_2(type))
+         Result := current_or_twin_init(expression.specialize_and_check(type))
          Result.set_manifest_expression(type)
          Result.set_expression_value_integer
       end

@@ -6,7 +6,7 @@ class TEST_FAST_ARRAY5
 inherit
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

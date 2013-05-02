@@ -105,7 +105,7 @@ feature {ANY}
          Result := Current
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          utf8_parser: UTF8_PARSER
       do
@@ -312,7 +312,7 @@ feature {MANIFEST_STRING_POOL}
          initial_storage_id = other.initial_storage_id
       end
 
-feature {MINI_BUFFER, MANIFEST_STRING_VISITOR}
+feature {PARSER, MINI_BUFFER, MANIFEST_STRING_VISITOR}
    source_view: STRING
          -- The manifest string as it appear in the Eiffel source file including opening and closing '%"' (see
          -- also `to_string'). This information is only computed for formatting tools (`pretty' or `short'

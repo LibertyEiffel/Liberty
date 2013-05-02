@@ -3,7 +3,7 @@
 --
 class TEST_MANIFEST_ARRAY3
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

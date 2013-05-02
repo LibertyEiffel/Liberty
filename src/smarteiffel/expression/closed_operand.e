@@ -66,14 +66,14 @@ feature {ANY}
          Result := Current
       end
 
-   specialize_2 (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION is
       local
          expression: EXPRESSION
       do
          if is_current then
             expression := original_capture
          else
-            expression := capture_memory.reference_at(type).specialize_2(type)
+            expression := capture_memory.reference_at(type).specialize_and_check(type)
          end
          capture_memory.put(expression, type)
          Result := Current

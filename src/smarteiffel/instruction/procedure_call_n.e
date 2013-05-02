@@ -74,7 +74,7 @@ feature {ANY}
             else
                Result := twin
                Result.init(t, arg, Void)
-               -- fs determined by specialize_2
+               -- fs determined by specialize_and_check
             end
          end
       ensure then
@@ -82,14 +82,14 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target or else Result.arguments /= arguments
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
          --|*** Except for the `procedure_and_argument_count_check' call (Dom. march 28th 2004) ***
       local
          fs: like feature_stamp; af: ANONYMOUS_FEATURE; arg: like arguments; t: like target
          target_type, target_declaration_type: TYPE
       do
-         t := target.specialize_2(type)
+         t := target.specialize_and_check(type)
          if target.is_current then
             target_type := type
             fs := feature_stamp
@@ -104,7 +104,7 @@ feature {ANY}
          end
          af := fs.anonymous_feature(target_type)
          procedure_and_argument_count_check(af, arguments)
-         arg := arguments.specialize_2(type, af, target_type, target.is_current)
+         arg := arguments.specialize_and_check(type, af, target_type, target.is_current)
          check
             arg.count = arguments.count
          end

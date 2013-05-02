@@ -6,7 +6,7 @@ class TEST_ARRAY_REFERENCE1
    -- Test Reference/ARRAY.
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -10,7 +10,7 @@ inherit
       redefine x
       end
 
-creation {ANY}
+create {}
    make, default_create
 
 feature {ANY}

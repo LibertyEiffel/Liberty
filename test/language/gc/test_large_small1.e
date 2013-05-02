@@ -11,7 +11,7 @@ class TEST_LARGE_SMALL1
 inherit
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {}

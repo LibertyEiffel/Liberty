@@ -4,7 +4,7 @@
 class TEST_INTEGER_8
    -- To test INTEGER_8
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

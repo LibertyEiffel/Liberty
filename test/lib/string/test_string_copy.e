@@ -3,7 +3,7 @@
 --
 class TEST_STRING_COPY
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

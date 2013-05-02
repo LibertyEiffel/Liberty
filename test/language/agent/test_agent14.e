@@ -6,7 +6,7 @@ class TEST_AGENT14
    -- From a bug report of Bill Moser <billm@ll.mit.edu>
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

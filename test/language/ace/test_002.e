@@ -6,7 +6,7 @@ class TEST_002
 insert
    HELLO_WORLD
 
-creation {ANY}
+create {}
    main
 
 end -- class TEST_002

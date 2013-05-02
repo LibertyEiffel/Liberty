@@ -11,7 +11,7 @@ class TEST_ASSERTION_ALL5
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    main
 
 feature {ANY}

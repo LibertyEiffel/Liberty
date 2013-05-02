@@ -4,7 +4,7 @@
 class TEST_OZ01
    -- From a bug report of Olivier ZENDRA
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

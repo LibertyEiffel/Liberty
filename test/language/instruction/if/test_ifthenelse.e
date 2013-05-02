@@ -3,7 +3,7 @@
 --
 class TEST_IFTHENELSE
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

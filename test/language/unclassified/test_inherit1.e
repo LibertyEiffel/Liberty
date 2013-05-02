@@ -4,7 +4,7 @@
 class TEST_INHERIT1
    -- From a bug report of Philippe REITZ
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

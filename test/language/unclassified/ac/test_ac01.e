@@ -7,7 +7,7 @@ class TEST_AC01
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

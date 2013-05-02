@@ -4,7 +4,7 @@
 class TEST_BYSL1
    -- From: Benjamin Yin-Sun Lynn <blynn@Stanford.EDU>
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -33,7 +33,7 @@ feature {}
          create {HASHED_DICTIONARY[ANONYMOUS_FEATURE_MIXER, FEATURE_NAME]} features_dictionary.with_capacity(1024)
          create free.with_capacity(1024)
          create pending_list.with_capacity(128)
-         create specialize_2_list.with_capacity(128)
+         create specialize_and_check_list.with_capacity(128)
          create {HASHED_SET[ABSOLUTE_FEATURE_NAME]} seeds_of_current_feature.make
          create {HASHED_DICTIONARY[FEATURE_STAMP, ABSOLUTE_FEATURE_NAME]} seeds.make
          create {HASHED_SET[ABSOLUTE_FEATURE_NAME]} insert_seeds_of_current_feature.make
@@ -261,6 +261,15 @@ feature {TYPE}
                not fs.has_anonymous_feature_for(context_type)
             end
             fs.add_anonymous_feature(m.build_definition, context_type)
+            i := i + 1
+         end
+         from
+            i := features.lower
+         until
+            i > features.upper
+         loop
+            m := features.item(i)
+            collect_assigner(m)
             free.add_last(m)
             i := i + 1
          end
@@ -277,12 +286,79 @@ feature {TYPE}
             echo.put_string(once ").%N")
          end
          smart_eiffel.status.end_specializing(context_type)
-         specialize_2_list.add(context_type)
+         specialize_and_check_list.add(context_type)
          context_type := Void
          waiting_type := waiting_type - 1
       ensure
          current_fn = Void
          context_type = Void
+      end
+
+   collect_assigner (m: ANONYMOUS_FEATURE_MIXER) is
+         -- If the feature declares an assigner, find the corresponding assigned feature and links to it
+      local
+         assigned: FEATURE_NAME
+         fs_assigned, fs_assigner: FEATURE_STAMP
+         af_assigned, af_assigner: ANONYMOUS_FEATURE
+         arg_assigned, arg_assigner: FORMAL_ARG_LIST
+      do
+         assigned := m.build_definition.feature_text.assigned
+         if assigned /= Void then
+            fs_assigned := context_type.lookup(assigned)
+            if fs_assigned = Void or else not fs_assigned.has_anonymous_feature_for(context_type) then
+               error_handler.add_position(assigned.start_position)
+               error_handler.append(once "Assigned feature not found in type")
+               error_handler.append(context_type.name.to_string)
+               error_handler.append(once ".")
+               error_handler.print_as_fatal_error
+            end
+
+            fs_assigner := context_type.lookup(m.feature_name)
+            check
+               by_design: fs_assigner.has_anonymous_feature_for(context_type)
+            end
+            af_assigned := fs_assigned.anonymous_feature(context_type)
+            arg_assigned := af_assigned.arguments
+            af_assigner := fs_assigner.anonymous_feature(context_type)
+            arg_assigner := af_assigner.arguments
+            if af_assigned.result_type = Void then
+               error_handler.add_position(assigned.start_position)
+               error_handler.append(once "Assigned feature is not a query in type")
+               error_handler.append(context_type.name.to_string)
+               error_handler.append(once ".")
+               error_handler.print_as_fatal_error
+            elseif af_assigner.result_type /= Void then
+               error_handler.add_position(assigned.start_position)
+               error_handler.append(once "Assigner feature is not a command in type ")
+               error_handler.append(context_type.name.to_string)
+               error_handler.append(once ".")
+               error_handler.print_as_fatal_error
+            elseif (arg_assigner = Void)
+               or else (arg_assigned = Void and then arg_assigner.count /= 1)
+               or else (arg_assigned /= Void and then arg_assigned.count + 1 /= arg_assigner.count)
+            then
+               error_handler.add_position(assigned.start_position)
+               error_handler.append(once "The feature ")
+               error_handler.append(fs_assigner.name.to_string)
+               error_handler.append(once " cannot be an assigner of the feature ")
+               error_handler.append(fs_assigned.name.to_string)
+               error_handler.append(once " in type ")
+               error_handler.append(context_type.name.to_string)
+               error_handler.append(once ". The assigner feature is expected to have exactly one more argument than the assigned feature.")
+               error_handler.print_as_fatal_error
+            --elseif af_assigned.result_type /= arg_assigner.name(1).result_type then
+            --   error_handler.add_position(assigned.start_position)
+            --   error_handler.append(once "The feature ")
+            --   error_handler.append(fs_assigner.name.to_string)
+            --   error_handler.append(once " cannot be an assigner of the feature ")
+            --   error_handler.append(fs_assigned.name.to_string)
+            --   error_handler.append(once " in type ")
+            --   error_handler.append(context_type.name.to_string)
+            --   error_handler.append(once ". The type of the first argument of the assigner feature is expected to be the same as the type of the assigned feature.")
+            --   error_handler.print_as_fatal_error
+            end
+            af_assigned.set_assigner(af_assigner)
+         end
       end
 
    is_known (fn: FEATURE_NAME): BOOLEAN is
@@ -347,17 +423,17 @@ feature {}
             pending_list.remove
             type.do_collect
          end
-         if waiting_type = 0 and then not specialize_2_in_progress then
+         if waiting_type = 0 and then not specialize_and_check_in_progress then
             from
-               specialize_2_in_progress := True
+               specialize_and_check_in_progress := True
             until
-               specialize_2_list.is_empty
+               specialize_and_check_list.is_empty
             loop
-               type := specialize_2_list.first
-               specialize_2_list.remove
-               type.specialize_2
+               type := specialize_and_check_list.first
+               specialize_and_check_list.remove
+               type.specialize_and_check
             end
-            specialize_2_in_progress := False
+            specialize_and_check_in_progress := False
          end
       end
 
@@ -391,9 +467,9 @@ feature {TYPE}
       end
 
 feature {}
-   pending_list, specialize_2_list: QUEUE[TYPE]
+   pending_list, specialize_and_check_list: QUEUE[TYPE]
 
-   specialize_2_in_progress: BOOLEAN
+   specialize_and_check_in_progress: BOOLEAN
 
    initial_state: INTEGER_8 is 0
 
@@ -535,7 +611,7 @@ feature {}
          if parent_fn.is_frozen then
             if parent_fn.is_equal(current_fn) then
                current_fn := parent_fn
-            else
+            elseif not current_fn.is_frozen then
                current_fn := current_fn.twin
                current_fn.set_is_frozen
             end

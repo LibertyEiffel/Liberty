@@ -8,7 +8,7 @@ inherit
       -- SZ:262: ensure violation for once method redefined as non once.
       -- Generated C code can't compile.
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

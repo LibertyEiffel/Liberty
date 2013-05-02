@@ -419,7 +419,7 @@ feature {ANY} -- To echo warnings or error messages (echoing whatever `is_verbos
          error_stream.flush
       end
 
-feature {NEW_ECHO}
+feature {}
    output_state: INTEGER
          -- See states at the end of the class to know how `echo' is redirected.
 

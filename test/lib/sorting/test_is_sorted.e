@@ -3,7 +3,7 @@
 --
 class TEST_IS_SORTED
 
-creation {ANY}
+create {}
    make
 
 feature {}

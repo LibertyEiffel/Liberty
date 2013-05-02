@@ -10,7 +10,7 @@ insert
    ABSTRACT_SORTER[STRING]
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

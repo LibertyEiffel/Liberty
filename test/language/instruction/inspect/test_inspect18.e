@@ -6,7 +6,7 @@ class TEST_INSPECT18
 insert
    EIFFELTEST_TOOLS
 
-creation {}
+create {}
    make
 
 feature {}

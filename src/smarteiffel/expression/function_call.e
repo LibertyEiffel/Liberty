@@ -34,7 +34,7 @@ feature {ANY}
       do
          target_type := target.resolve_in(type)
          tm := feature_stamp.anonymous_feature(target_type).result_type
-         -- If the next call fails, then check if specialize_2 has been called!
+         -- If the next call fails, then check if specialize_and_check has been called!
          Result := tm.resolve_in(target_type)
       end
 
@@ -284,6 +284,16 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             end
             code_accumulator.current_context.add_last(internal_local2)
          end
+      end
+
+feature {EIFFEL_PARSER}
+   is_assigned_to: BOOLEAN
+
+   set_assigned_to is
+      do
+         is_assigned_to := True
+      ensure
+         is_assigned_to
       end
 
 feature {}

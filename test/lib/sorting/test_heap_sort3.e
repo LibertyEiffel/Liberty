@@ -3,7 +3,7 @@
 --
 class TEST_HEAP_SORT3
 
-creation {ANY}
+create {}
    make
 
 feature {}

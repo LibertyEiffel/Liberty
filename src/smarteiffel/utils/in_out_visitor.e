@@ -2254,7 +2254,9 @@ feature {AGENT_EXPRESSION}
             visited.written_link.accept(Current)
             visited.agent_type.accept(Current)
             visited.target.accept(Current)
-            visited.agent_args.accept(Current)
+            if visited.agent_args /= Void then
+               visited.agent_args.accept(Current)
+            end
             exit_agent_expression(visited)
          end
       end
@@ -2417,6 +2419,26 @@ feature {}
       end
 
    exit_assignment (visited: ASSIGNMENT) is
+      do
+      end
+
+feature {ASSIGNMENT_CALL_ASSIGNER}
+   visit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER) is
+      do
+         if enter_assignment_call_assigner(visited) then
+            visited.left_side.accept(Current)
+            visited.right_side.accept(Current)
+            exit_assignment_call_assigner(visited)
+         end
+      end
+
+feature {}
+   enter_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER): BOOLEAN is
+      do
+         Result := True
+      end
+
+   exit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER) is
       do
       end
 

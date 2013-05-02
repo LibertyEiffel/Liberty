@@ -3,7 +3,7 @@
 --
 class TEST_RECURSIVE_ONCE
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

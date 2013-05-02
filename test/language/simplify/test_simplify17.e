@@ -7,7 +7,7 @@ class TEST_SIMPLIFY17
 inherit
    ANY
 
-creation {ANY}
+create {}
    make
 
 feature {}

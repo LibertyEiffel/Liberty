@@ -9,7 +9,7 @@ class CREATE_INSTRUCTION
 inherit
    INSTRUCTION
       redefine
-         specialize_2_without_checks
+         specialize_without_checks
       end
 
 insert
@@ -50,10 +50,10 @@ feature {ANY}
          Result := current_or_twin_init(et, w, c)
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       do
-         Result := specialize_2_without_checks(type)
-         Result.specialize_2_checks(type)
+         Result := specialize_without_checks(type)
+         Result.specialize_checks(type)
       end
 
    has_been_specialized: BOOLEAN is
@@ -169,12 +169,12 @@ feature {ANY}
          end
       end
 
-   specialize_2_without_checks (type: TYPE): like Current is
+   specialize_without_checks (type: TYPE): like Current is
       local
          w: like writable; c: like call; creation_type: TYPE; fs: FEATURE_STAMP
          name: FEATURE_NAME; test_default: BOOLEAN
       do
-         w := writable.specialize_2(type)
+         w := writable.specialize_and_check(type)
          if explicit_type /= Void then
             creation_type := explicit_type.resolve_in(type)
          else
@@ -194,7 +194,7 @@ feature {ANY}
             test_default := True
          end
          c.set_creation_type(creation_type.canonical_type_mark)
-         c ::= c.specialize_2(type)
+         c ::= c.specialize_and_check(type)
          check
             c /= Void
          end

@@ -1385,7 +1385,7 @@ feature {}
                   i := i + 1
                end
                if not when_list.is_empty then
-                  Result := Result.specialize_2(new_type)
+                  Result := Result.specialize_and_check(new_type)
                else
                   Result := Void
                end
@@ -1467,7 +1467,7 @@ feature {}
                if not when_list.is_empty then
                   Result.set_else_compound(start_position, Void)
                   --echo.put_line(once ">>>> valid_generating_type_for_internals: specializing -- count=#(1)" # when_list.count.out)
-                  Result := Result.specialize_2(new_type)
+                  Result := Result.specialize_and_check(new_type)
                   --echo.put_line(once ">>>> valid_generating_type_for_internals: done")
                else
                   --echo.put_line(once ">>>> valid_generating_type_for_internals: failed")
@@ -1532,7 +1532,7 @@ feature {}
                   i := i + 1
                end
                if not when_list.is_empty then
-                  Result := Result.specialize_2(new_type)
+                  Result := Result.specialize_and_check(new_type)
                else
                   Result := Void
                end
@@ -1603,7 +1603,7 @@ feature {}
                end
                if not when_list.is_empty then
                   Result.set_else_compound(start_position, Void)
-                  Result := Result.specialize_2(new_type)
+                  Result := Result.specialize_and_check(new_type)
                else
                   Result := Void
                end
@@ -1661,7 +1661,7 @@ feature {}
             create integer_type_mark.integer(start_position)
             integer_constant.set_result_type(integer_type_mark)
             create assignment.make(assignment.left_side, integer_constant)
-            Result := assignment.specialize_2(new_type)
+            Result := assignment.specialize_and_check(new_type)
          end
       end
 

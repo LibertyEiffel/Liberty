@@ -3,7 +3,7 @@
 --
 class TEST_DIABLE4
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

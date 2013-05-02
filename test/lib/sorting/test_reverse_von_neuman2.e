@@ -3,7 +3,7 @@
 --
 class TEST_REVERSE_VON_NEUMAN2
 
-creation {ANY}
+create {}
    make
 
 feature {}

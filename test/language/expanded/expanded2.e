@@ -6,7 +6,7 @@ expanded class EXPANDED2
    -- For use of test_expanded*.e
    --
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

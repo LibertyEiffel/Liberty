@@ -1025,7 +1025,7 @@ feature {C_PRETTY_PRINTER}
    splitter: C_SPLITTER
          -- The splitter to use
 
-feature {C_PRETTY_PRINTER, COMPILE_TO_C, STRING_COMMAND_LINE, LIVE_TYPE, INSTALL_GLOBALS, SYSTEM_TOOLS}
+feature {C_PRETTY_PRINTER, COMPILE_TO_C, STRING_COMMAND_LINE, LIVE_TYPE, SYSTEM_TOOLS}
    set_no_split (flag: BOOLEAN) is
       do
          if flag then

@@ -3,7 +3,7 @@
 --
 class TEST_FAST_NB_OCCURRENCES1
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

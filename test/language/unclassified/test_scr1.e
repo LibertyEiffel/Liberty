@@ -7,7 +7,7 @@ class TEST_SCR1
 inherit
    AUX_SCR1A
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

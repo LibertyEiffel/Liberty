@@ -3,7 +3,7 @@
 --
 class TEST_IN_RANGE
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

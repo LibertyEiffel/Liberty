@@ -4,7 +4,7 @@
 class TEST_TP2
    -- From a bug report of Todd PLESSEL
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

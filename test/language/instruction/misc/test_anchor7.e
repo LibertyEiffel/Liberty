@@ -3,7 +3,7 @@
 --
 class TEST_ANCHOR7
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

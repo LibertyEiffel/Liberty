@@ -35,7 +35,7 @@ feature {ANY}
    has_been_specialized: BOOLEAN is
          -- Used both for `specialize_in' and `specialize_thru' to indicate that we have all FEATURE_STAMPs
          -- ready for use and that FEATURE_NAMEs are no longer used (except for calls on non-current target
-         -- who are available after `specialize_2' -- step). Finally, also note that the purpose of this
+         -- who are available after `specialize_and_check' -- step). Finally, also note that the purpose of this
          -- feature is mostly to write contracts (see also the strange ensure assertion).
       deferred
       ensure
@@ -57,16 +57,16 @@ feature {ANY}
          Result.generating_type = generating_type
       end
 
-   specialize_2 (type: TYPE): CODE is
-         -- This `specialize_2' step is applyed after `specialize_in' / `specialize_thru'. The `specialize_2'
+   specialize_and_check (type: TYPE): CODE is
+         -- This `specialize_and_check' step is applyed after `specialize_in' / `specialize_thru'. The `specialize_and_check'
          -- step has been added to continue specialization which can't be made at `specialize_in' / `specialize_thru'
          -- time (because the expression TYPE computation may involve TYPEs who don't yet exist).
-         -- At `specialize_2' step, all TYPEs used by `Current' expression are ready, so TYPE may be known for all
-         -- sub-members (target, arguments) using `resolve_in', if we take care to call `specialize_2' on them
+         -- At `specialize_and_check' step, all TYPEs used by `Current' expression are ready, so TYPE may be known for all
+         -- sub-members (target, arguments) using `resolve_in', if we take care to call `specialize_and_check' on them
          -- before calling `resolve_in'. So we can continue the specialization process and perform some validation
          -- checks knowing the TYPE of other components.
          --
-         -- After this `specialize_2' has been called on `Current', `resolve_in' can be used to know the
+         -- After this `specialize_and_check' has been called on `Current', `resolve_in' can be used to know the
          -- `Current' expression result TYPE.
       require
          has_been_specialized
@@ -79,15 +79,15 @@ feature {ANY}
          may_report_an_error: error_handler.is_empty
       end
 
-   specialize_2_without_checks (type: TYPE): like specialize_2 is
-         -- Perform specialize_2 without checking the validity (export violations, ...)
+   specialize_without_checks (type: TYPE): like specialize_and_check is
+         -- Perform specialize_and_check without checking the validity (export violations, ...)
          -- Useful for generated code
          --|*** At the moment, checks are only inhibited for CREATE_INSTRUCTIONs.
       require
          has_been_specialized
          not smart_eiffel.status.is_specializing
       do
-         Result := specialize_2(type)
+         Result := specialize_and_check(type)
       ensure
          has_been_specialized
          Result.has_been_specialized

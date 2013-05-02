@@ -265,15 +265,15 @@ feature {ANY}
          Result := current_or_twin_init(exp)
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          exp: EXPRESSION
       do
          if expression /= Void then
-            exp := expression.specialize_2(type)
+            exp := expression.specialize_and_check(type)
          end
          Result := current_or_twin_init(exp)
-         Result.specialize_2_check(type)
+         Result.specialize_check(type)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
@@ -302,7 +302,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {ASSERTION}
-   specialize_2_check (type: TYPE) is
+   specialize_check (type: TYPE) is
       local
          rt: TYPE
       do

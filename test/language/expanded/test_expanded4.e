@@ -6,7 +6,7 @@ class TEST_EXPANDED4
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

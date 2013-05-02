@@ -7,7 +7,7 @@ class TEST_EXPANDED36
 inherit
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

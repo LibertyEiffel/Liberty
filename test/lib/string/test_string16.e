@@ -4,7 +4,7 @@
 class TEST_STRING16
    -- From SZ:435
 
-creation {ANY}
+create {}
    make
 
 feature {}

@@ -17,7 +17,7 @@ insert
          set_value as set_max
       end
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

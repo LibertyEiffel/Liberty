@@ -155,14 +155,14 @@ feature {ANY}
          Result := current_or_twin_init(e, tc, eil, ec)
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          e: like expression; tc: like then_compound; eil: like elseif_list; it1, it2: IFTHEN; i: INTEGER
          ec: like else_compound
       do
-         e := expression.specialize_2(type)
+         e := expression.specialize_and_check(type)
          if then_compound /= Void then
-            tc := then_compound.specialize_2(type)
+            tc := then_compound.specialize_and_check(type)
          end
          if elseif_list /= Void then
             from
@@ -171,7 +171,7 @@ feature {ANY}
                it1 /= it2 or else i > elseif_list.upper
             loop
                it1 := elseif_list.item(i)
-               it2 := it1.specialize_2(type)
+               it2 := it1.specialize_and_check(type)
                i := i + 1
             end
             if it1 = it2 then
@@ -183,16 +183,16 @@ feature {ANY}
                until
                   i > eil.upper
                loop
-                  eil.put(elseif_list.item(i).specialize_2(type), i)
+                  eil.put(elseif_list.item(i).specialize_and_check(type), i)
                   i := i + 1
                end
             end
          end
          if else_compound /= Void then
-            ec := else_compound.specialize_2(type)
+            ec := else_compound.specialize_and_check(type)
          end
          Result := current_or_twin_init(e, tc, eil, ec)
-         Result.specialize_2_check(type)
+         Result.specialize_check(type)
       end
 
    has_been_specialized: BOOLEAN is
@@ -440,18 +440,18 @@ feature {EIFFEL_PARSER}
       end
 
 feature {IFTHENELSE}
-   specialize_2_check (type: TYPE) is
+   specialize_check (type: TYPE) is
       local
          i: INTEGER
       do
-         specialize_2_check_(type)
+         specialize_check_(type)
          if elseif_list /= Void then
             from
                i := elseif_list.lower
             until
                i > elseif_list.upper
             loop
-               elseif_list.item(i).specialize_2_check_(type)
+               elseif_list.item(i).specialize_check_(type)
                i := i + 1
             end
          end

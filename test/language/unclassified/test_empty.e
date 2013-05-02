@@ -4,7 +4,7 @@
 class TEST_EMPTY
    -- Just to be sure that the compiler can compile an empty main class
 
-creation {ANY}
+create {}
    main
 
 feature {ANY}

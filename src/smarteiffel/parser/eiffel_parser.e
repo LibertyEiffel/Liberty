@@ -306,12 +306,12 @@ feature {}
       do
          echo.put_string("Total time spent in parser: ")
          ts := total_time
-         h := ts // (24 * 60 * 60 * 1000000)
-         ts := ts - h * (24 * 60 * 60 * 1000000)
-         m := ts // (60 * 60 * 1000000)
-         ts := ts - m * (60 * 60 * 1000000)
-         s := ts // (60 * 1000000)
-         ts := ts - s * (60 * 1000000)
+         h := ts // (60 * 60 * 1000000)
+         ts := ts - h * (60 * 60 * 1000000)
+         m := ts // (60 * 1000000)
+         ts := ts - m * (60 * 1000000)
+         s := ts // (1000000)
+         ts := ts - s * (1000000)
          u := ts
          echo_num(h, 2)
          echo.put_character(':')
@@ -1089,7 +1089,7 @@ feature {}
             when Expression_syntax_flag then
                if cc = '.' then
                   next_char
-                  manifest_just_after_a_dot(sign_flag, False, last_expression)
+                  Result := manifest_just_after_a_dot(sign_flag, False, last_expression)
                else
                   skip_comments
                   if cc = '.' then
@@ -1099,13 +1099,13 @@ feature {}
                                           %as the target).")
                      error_handler.print_as_style_warning
                      next_char
-                     manifest_just_after_a_dot(sign_flag, False, last_expression)
+                     Result := manifest_just_after_a_dot(sign_flag, False, last_expression)
                   end
                end
             when Instruction_syntax_flag then
                if cc = '.' then
                   next_char
-                  manifest_just_after_a_dot(sign_flag, True, last_expression)
+                  Result := manifest_just_after_a_dot(sign_flag, True, last_expression)
                else
                   skip_comments
                   if cc = '.' then
@@ -1115,7 +1115,7 @@ feature {}
                                           %as the target).")
                      error_handler.print_as_style_warning
                      next_char
-                     manifest_just_after_a_dot(sign_flag, True, last_expression)
+                     Result := manifest_just_after_a_dot(sign_flag, True, last_expression)
                   else
                      error_handler.add_position(pos(l, c))
                      error_handler.append(once "This call has a result value (and you must use it).")
@@ -1752,7 +1752,7 @@ feature {}
             when Expression_syntax_flag then
                if cc = '.' then
                   next_char
-                  just_after_a_dot(False, last_expression)
+                  Result := just_after_a_dot(False, last_expression)
                else
                   skip_comments
                   if cc = '.' then
@@ -1762,13 +1762,13 @@ feature {}
                          %as the target).")
                      error_handler.print_as_style_warning
                      next_char
-                     just_after_a_dot(False, last_expression)
+                     Result := just_after_a_dot(False, last_expression)
                   end
                end
             when Instruction_syntax_flag then
                if cc = '.' then
                   next_char
-                  just_after_a_dot(True, last_expression)
+                  Result := just_after_a_dot(True, last_expression)
                else
                   skip_comments
                   if cc = '.' then
@@ -1778,7 +1778,7 @@ feature {}
                          %as the target).")
                      error_handler.print_as_style_warning
                      next_char
-                     just_after_a_dot(True, last_expression)
+                     Result := just_after_a_dot(True, last_expression)
                   end
                end
             end
@@ -2150,7 +2150,7 @@ feature {}
          end
       end
 
-   just_after_a_dot (do_instruction: BOOLEAN; target: EXPRESSION) is
+   just_after_a_dot (do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN is
          --  ++ after_a_dot -> identifier [actuals] ["." after_a_dot]
          --  ++
       require
@@ -2161,7 +2161,7 @@ feature {}
          if a_ordinary_feature_name_or_local_name then
             sfn := token_buffer.to_feature_name
             eal := a_actuals
-            a_r10(do_instruction, target, sfn, eal)
+            Result := a_r10(do_instruction, target, sfn, eal)
          else
             error_handler.add_position(current_position)
             error_handler.append(once "Simple identifier expected just after a dot. %
@@ -2184,12 +2184,14 @@ feature {}
          --  ++
       local
          type_mark: TYPE_MARK; args: EFFECTIVE_ARG_LIST; sp: POSITION; writable: EXPRESSION
+         c, l: INTEGER
       do
+         c := column
+         l := line
          if skip1('(') and then a_expression then
-            Result := True
             sp := pos(start_line, start_column)
             if skip1(')') then
-               a_r10(True, last_expression, Void, Void)
+               Result := a_r10(True, last_expression, Void, Void)
             else
                error_handler.add_position(sp)
                error_handler.add_position(current_position)
@@ -2197,7 +2199,6 @@ feature {}
                error_handler.print_as_fatal_error
             end
          elseif a_keyword_precursor then
-            Result := True
             sp := pos(start_line, start_column)
             if skip1('{') then
                type_mark := a_precursor_type_mark(sp)
@@ -2211,7 +2212,7 @@ feature {}
             if skip1('.') then
                create {PRECURSOR_EXPRESSION} last_expression.make(sp, type_mark, args)
                inside_function_precursor_check(last_expression)
-               just_after_a_dot(True, last_expression)
+               Result := just_after_a_dot(True, last_expression)
             else
                create {PRECURSOR_INSTRUCTION} last_instruction.make(sp, type_mark, args)
                if inside_function_flag then
@@ -2220,16 +2221,16 @@ feature {}
                   error_handler.add_position(last_instruction.start_position)
                   error_handler.print_as_fatal_error
                end
+               Result := True
             end
          elseif a_keyword_current then
-            Result := True
             if skip2(':', '=') or else skip3(':', ':', '=') or else skip2('?', '=') then
                error_handler.add_position(pos(start_line, start_column))
                error_handler.append(once "Entity `Current' is not writable. Cannot use `Current' for the %
                                     %left-hand side of an assignment.")
                error_handler.print_as_fatal_error
             else
-               a_r10(True, create {WRITTEN_CURRENT}.make(pos(start_line, start_column)), Void, Void)
+               Result := a_r10(True, create {WRITTEN_CURRENT}.make(pos(start_line, start_column)), Void, Void)
             end
          elseif a_keyword_result then
             Result := True
@@ -2265,7 +2266,7 @@ feature {}
                   error_handler.print_as_fatal_error
                end
             else
-               a_r10(True, writable, Void, Void)
+               Result := a_r10(True, writable, Void, Void)
             end
          elseif a_ordinary_feature_name_or_local_name then
             Result := True
@@ -2296,10 +2297,10 @@ feature {}
                      error_handler.print_as_fatal_error
                   end
                else
-                  a_r10(True, writable, Void, Void)
+                  Result := a_r10(True, writable, Void, Void)
                end
             elseif a_argument then
-               a_r10(True, last_expression, Void, Void)
+               Result := a_r10(True, last_expression, Void, Void)
             else
                writable := token_buffer.to_writable_attribute_name
                if skip2(':', '=') then
@@ -2327,14 +2328,73 @@ feature {}
                      error_handler.print_as_fatal_error
                   end
                else
-                  a_procedure_call
+                  Result := a_procedure_call
                end
             end
          elseif a_manifest_or_type_test(Instruction_syntax_flag) then
             Result := True
          end
+
+         if not Result then
+            go_back_at(l, c)
+         end
       ensure
          Result implies last_instruction /= Void
+      end
+
+   a_assignment_call_assigner (do_expression: BOOLEAN): BOOLEAN is
+      local
+         pc: PROCEDURE_CALL; fc: FUNCTION_CALL
+         l, c: INTEGER
+      do
+         c := column
+         l := line
+
+         if do_expression then
+            if a_expression then
+               fc ?= last_expression
+               if fc /= Void then
+                  echo.put_line(once "**** Found potentially assignable expression")
+               end
+            end
+         else
+            pc ?= last_instruction
+         end
+
+         if skip2(':', '=') then
+            if pc /= Void then
+               check
+                  not do_expression
+                  fc = Void
+               end
+               if pc.arguments = Void then
+                  create {FUNCTION_CALL_0} fc.make(pc.target, pc.feature_name)
+               elseif pc.arguments.count = 1 then
+                  create {FUNCTION_CALL_1} fc.make(pc.target, pc.feature_name, pc.arguments)
+               else
+                  create {FUNCTION_CALL_N} fc.make(pc.target, pc.feature_name, pc.arguments)
+               end
+            end
+            if fc = Void then
+               if not do_expression then
+                  error_handler.add_position(last_instruction.start_position)
+                  error_handler.append(once "Left hand side expression of := assignment must be a feature call.")
+                  error_handler.print_as_fatal_error
+               end
+            elseif a_expression then
+               fc.set_assigned_to
+               create {ASSIGNMENT_CALL_ASSIGNER} last_instruction.make(fc, last_expression)
+               Result := True
+            else
+               error_handler.add_position(current_position)
+               error_handler.append(em2)
+               error_handler.print_as_fatal_error
+            end
+         end
+
+         if not Result then
+            go_back_at(l, c)
+         end
       end
 
    a_assertion_buffer: FAST_ARRAY[ASSERTION] is
@@ -3408,7 +3468,7 @@ feature {}
          --  ++ c_inline_c -> "c_inline_c" "(" manifest_string ")"
          --  ++
       local
-         sp: POSITION; c_code: STRING
+         sp: POSITION; c_code: STRING; c_inline: C_INLINE
       do
          if a_keyword(as_c_inline_c) then
             Result := True
@@ -3429,7 +3489,11 @@ feature {}
                error_handler.append(once "Missing ')' to end `c_inline_c' call.")
                error_handler.print_as_fatal_error
             end
-            create {C_INLINE} last_instruction.make_c_inline_c(sp, c_code)
+            create c_inline.make_c_inline_c(sp, c_code)
+            if smart_eiffel.short_or_class_check_flag or else smart_eiffel.pretty_flag then
+               c_inline.set_source_view(last_manifest_string.source_view)
+            end
+            last_instruction := c_inline
          end
       end
 
@@ -3844,10 +3908,9 @@ feature {}
          delayed_call: FUNCTION_CALL; writable: EXPRESSION; ft: FEATURE_TEXT; ewc: EXPRESSION_WITH_COMMENT
       do
          if skip1('(') then
-            Result := True
             if a_expression then
                if skip1(')') then
-                  a_r10(False, last_expression, Void, Void)
+                  Result := a_r10(False, last_expression, Void, Void)
                else
                   error_handler.add_position(current_position)
                   error_handler.append(once "')' expected in expression.")
@@ -3890,7 +3953,7 @@ feature {}
                   error_handler.print_as_style_warning
                end
                next_char
-               just_after_a_dot(False, last_expression)
+               Result := just_after_a_dot(False, last_expression)
             end
          elseif a_keyword_false then
             Result := True
@@ -3904,7 +3967,7 @@ feature {}
                   error_handler.print_as_style_warning
                end
                next_char
-               just_after_a_dot(False, last_expression)
+               Result := just_after_a_dot(False, last_expression)
             end
          elseif skip1('?') then
             Result := True
@@ -3920,7 +3983,7 @@ feature {}
                   error_handler.print_as_warning
                end
                next_char
-               just_after_a_dot(False, last_manifest_string)
+               Result := just_after_a_dot(False, last_manifest_string)
             else
                skip_comments
                if cc = '.' then
@@ -3934,7 +3997,7 @@ feature {}
                      error_handler.print_as_warning
                   end
                   next_char
-                  just_after_a_dot(False, last_manifest_string)
+                  Result := just_after_a_dot(False, last_manifest_string)
                else
                   last_expression := last_manifest_string
                end
@@ -3951,7 +4014,7 @@ feature {}
             if skip1('.') then
                create {PRECURSOR_EXPRESSION} last_expression.make(sp, type_mark, args)
                inside_function_precursor_check(last_expression)
-               just_after_a_dot(False, last_expression)
+               Result := just_after_a_dot(False, last_expression)
             else
                create {PRECURSOR_EXPRESSION} last_expression.make(sp, type_mark, args)
                inside_function_precursor_check(last_expression)
@@ -3996,15 +4059,12 @@ feature {}
                error_handler.print_as_fatal_error
             end
          elseif a_keyword_current then
-            Result := True
             create {WRITTEN_CURRENT} last_expression.make(pos(start_line, start_column))
-            a_r10(False, last_expression, Void, Void)
+            Result := a_r10(False, last_expression, Void, Void)
          elseif a_keyword_void then
-            Result := True
             create {E_VOID} last_expression.make(pos(start_line, start_column))
-            a_r10(False, last_expression, Void, Void)
+            Result := a_r10(False, last_expression, Void, Void)
          elseif a_keyword_result then
-            Result := True
             sp := pos(start_line, start_column)
             if not inside_function_flag then
                error_handler.add_position(sp)
@@ -4019,13 +4079,13 @@ feature {}
                   error_handler.print_as_fatal_error
                end
                create {ASSIGNMENT_TEST} last_expression.with_writable(writable, last_expression)
+               Result := True
             else
-               a_r10(False, writable, Void, Void)
+               Result := a_r10(False, writable, Void, Void)
             end
          elseif a_ordinary_feature_name_or_local_name then
-            Result := True
             if a_argument then
-               a_r10(False, last_expression, Void, Void)
+               Result := a_r10(False, last_expression, Void, Void)
             elseif a_local_name2 then
                writable := last_expression
                if skip3('?', ':', '=') then
@@ -4035,8 +4095,9 @@ feature {}
                      error_handler.print_as_fatal_error
                   end
                   create {ASSIGNMENT_TEST} last_expression.with_writable(writable, last_expression)
+                  Result := True
                else
-                  a_r10(False, writable, Void, Void)
+                  Result := a_r10(False, writable, Void, Void)
                end
             elseif skip3('?', ':', '=') then
                writable := token_buffer.to_writable_attribute_name
@@ -4046,8 +4107,9 @@ feature {}
                   error_handler.print_as_fatal_error
                end
                create {ASSIGNMENT_TEST} last_expression.with_writable(writable, last_expression)
+               Result := True
             else
-               a_function_call
+               Result := a_function_call
             end
          end
       end
@@ -4414,6 +4476,15 @@ feature {}
                   error_handler.print_as_fatal_error
                end
             end
+            if a_keyword(fz_assign) then
+               if a_feature_name then
+                  tmp_feature.set_assigned(last_feature_name)
+               else
+                  error_handler.add_position(current_position)
+                  error_handler.append(once "Expected a feature name to assign.")
+                  error_handler.print_as_fatal_error
+               end
+            end
             if a_keyword(fz_is) then
                if a_keyword(fz_unique) then
                   last_feature_declaration := tmp_feature.as_unique_constant
@@ -4564,7 +4635,7 @@ feature {}
          end
       end
 
-   a_function_call is
+   a_function_call: BOOLEAN is
          --  ++ function_call -> [actuals] r10 |
          --  ++                   ^
          --  ++
@@ -4573,7 +4644,7 @@ feature {}
       do
          sfn := token_buffer.to_feature_name
          create implicit_current.make(sfn.start_position)
-         a_r10(False, implicit_current, sfn, a_actuals)
+         Result := a_r10(False, implicit_current, sfn, a_actuals)
       end
 
    a_index_clause: BOOLEAN is
@@ -4743,8 +4814,12 @@ feature {}
          --  ++ instruction -> check | debug | conditionnal | retry |
          --  ++                inspect | loop | old_creation |
          --  ++                c_inline_c | c_inline_h |
-         --  ++                create_instruction | assignment_or_procedure_call
+         --  ++                create_instruction |
+         --  ++                assignment_or_procedure_call [":=" expression ]
+         --  ++                expresison [":=" expression ]
          --  ++
+      local
+         dummy: BOOLEAN
       do
          last_instruction := get_comment
          if last_instruction /= Void then
@@ -4769,13 +4844,13 @@ feature {}
          elseif a_c_inline_h then
             Result := True
          elseif a_assignment_or_procedure_call then
+            dummy := a_assignment_call_assigner(False)
             Result := True
          elseif a_retry then
             Result := True
          elseif a_character_constant(Instruction_syntax_flag) then
             Result := True
          elseif a_manifest_string(False) then
-            Result := True
             if cc = '.' then
                if last_manifest_string.once_flag then
                   error_handler.add_position(current_position)
@@ -4783,7 +4858,7 @@ feature {}
                   error_handler.print_as_warning
                end
                next_char
-               just_after_a_dot(True, last_manifest_string)
+               Result := just_after_a_dot(True, last_manifest_string)
             else
                skip_comments
                if cc = '.' then
@@ -4797,7 +4872,7 @@ feature {}
                      error_handler.print_as_warning
                   end
                   next_char
-                  just_after_a_dot(True, last_manifest_string)
+                  Result := just_after_a_dot(True, last_manifest_string)
                else
                   error_handler.add_position(last_manifest_string.start_position)
                   error_handler.add_position(current_position)
@@ -4806,7 +4881,6 @@ feature {}
                end
             end
          elseif a_keyword_true then
-            Result := True
             create {E_TRUE} last_expression.make(pos(start_line, start_column))
             if (start_line /= line) or else (column /= start_column + 4) or else (cc /= '.') then
                -- I do not want to allow a blank space after the dot here.
@@ -4815,9 +4889,8 @@ feature {}
                error_handler.print_as_fatal_error
             end
             next_char
-            just_after_a_dot(True, last_expression)
+            Result := just_after_a_dot(True, last_expression)
          elseif a_keyword_false then
-            Result := True
             create {E_FALSE} last_expression.make(pos(start_line, start_column))
             if (start_line /= line) or else (column /= start_column + 5) or else (cc /= '.') then
                -- I do not want to allow a blank space after the dot here.
@@ -4826,7 +4899,9 @@ feature {}
                error_handler.print_as_fatal_error
             end
             next_char
-            just_after_a_dot(True, last_expression)
+            Result := just_after_a_dot(True, last_expression)
+         elseif a_assignment_call_assigner(True) then
+            Result := True
          else
             check
                not Result
@@ -5197,7 +5272,7 @@ feature {}
          end
       end
 
-   a_procedure_call is
+   a_procedure_call: BOOLEAN is
          --  ++ procedure_call -> [actuals] r10 |
          --  ++                   ^
          --  ++
@@ -5206,7 +5281,7 @@ feature {}
       do
          sfn := token_buffer.to_feature_name
          create implicit_current.make(sfn.start_position)
-         a_r10(True, implicit_current, sfn, a_actuals)
+         Result := a_r10(True, implicit_current, sfn, a_actuals)
       end
 
    a_rename_list is
@@ -5649,25 +5724,36 @@ feature {}
          end
       end
 
-   a_r10 (do_instruction: BOOLEAN; t: EXPRESSION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST) is
+   a_r10 (do_instruction: BOOLEAN; t: EXPRESSION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST): BOOLEAN is
          --  ++ r10 -> "." after_a_dot |
          --  ++        ^
          --  ++
+      local
+         c, l: INTEGER
       do
+         c := column
+         l := line
          if skip1('.') then
             if t /= Void and then t.is_void then
                error_handler.add_position(t.start_position)
                error_handler.append(once "Void is not a valid target (i.e. just after a dot).")
                error_handler.print_as_fatal_error
             end
-            just_after_a_dot(do_instruction, to_call(t, fn, eal))
-         else
-            if do_instruction then
-               last_instruction := to_proc_call(t, fn, eal)
-            else
-               last_expression := to_call(t, fn, eal)
+            Result := just_after_a_dot(do_instruction, to_call(t, fn, eal))
+         elseif do_instruction then
+            if fn = Void then
                last_instruction := Void
+            else
+               last_instruction := to_proc_call(t, fn, eal)
+               Result := True
             end
+         else
+            last_instruction := Void
+            last_expression := to_call(t, fn, eal)
+            Result := True
+         end
+         if not Result then
+            go_back_at(l, c)
          end
       end
 
@@ -6307,11 +6393,11 @@ feature {}
          Result /= Void
       end
 
-   manifest_just_after_a_dot (sign_flag: CHARACTER; do_instruction: BOOLEAN; target: EXPRESSION) is
+   manifest_just_after_a_dot (sign_flag: CHARACTER; do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN is
       require
          target /= Void
       do
-         just_after_a_dot(do_instruction, target)
+         Result := just_after_a_dot(do_instruction, target)
          if target.extra_bracket_flag then
             error_handler.add_position(target.start_position)
             error_handler.append(once "Because of the usual low priority of prefix minus, `-foo.bar' is %

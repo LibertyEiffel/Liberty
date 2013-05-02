@@ -6,7 +6,7 @@ class TEST_REQ
    -- Test of REQuire Assertions.
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

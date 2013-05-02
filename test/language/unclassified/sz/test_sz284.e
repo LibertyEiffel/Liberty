@@ -4,7 +4,7 @@
 class TEST_SZ284
    -- From: ermolaev@kodotel.ru (Vladislav Ermolaev)
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

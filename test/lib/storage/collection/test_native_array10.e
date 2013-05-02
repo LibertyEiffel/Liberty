@@ -7,7 +7,7 @@ class TEST_NATIVE_ARRAY10
    -- Bug report from Mike Meyer (mwm-keyword-se.f78c7c@mired.org)
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

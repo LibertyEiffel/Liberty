@@ -4,7 +4,7 @@
 class TEST_SWITCH1
    -- From a strange bug report in pyramid2 ?
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

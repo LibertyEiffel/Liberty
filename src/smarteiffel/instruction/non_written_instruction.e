@@ -23,7 +23,7 @@ feature {ANY}
          end
       end
 
-   frozen specialize_2 (type: TYPE): INSTRUCTION is
+   frozen specialize_and_check (type: TYPE): INSTRUCTION is
       do
          check
             non_written_code: False

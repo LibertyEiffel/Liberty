@@ -4,7 +4,7 @@
 class TEST_IRF3
    -- Test inlining of RUN_FEATURE3.
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -5,7 +5,7 @@ class TEST_WEAK_REF05
    -- Found by José Bollo: weak reference code tries to use AUX_WEAK_REF05A but it can't because the type is
    -- dead.
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

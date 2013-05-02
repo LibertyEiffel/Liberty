@@ -114,7 +114,7 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          anonymous_feature: ANONYMOUS_FEATURE; writable_attribute: WRITABLE_ATTRIBUTE
       do

@@ -5,7 +5,7 @@ class TEST_INTEGER10
 
 insert EIFFELTEST_TOOLS
    
-creation {ANY}
+create {}
    make
 
 feature {ANY}

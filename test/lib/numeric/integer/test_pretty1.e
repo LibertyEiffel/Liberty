@@ -6,7 +6,7 @@ class TEST_PRETTY1
    -- Also used to test stability of command `pretty'.
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -6,7 +6,7 @@ class TEST_RB4
    -- From a bug report of Reimer BEHRENDS
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

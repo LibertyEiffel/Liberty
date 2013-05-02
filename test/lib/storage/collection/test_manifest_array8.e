@@ -6,7 +6,7 @@ class TEST_MANIFEST_ARRAY8
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    main
 
 feature {}

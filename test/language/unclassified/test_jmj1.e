@@ -6,7 +6,7 @@ class TEST_JMJ1
    -- *** inherit
    -- *** No more empty inherit allowed. ***
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

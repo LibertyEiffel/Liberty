@@ -16,7 +16,7 @@ insert
          g as g1
       end
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

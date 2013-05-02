@@ -3,7 +3,7 @@
 --
 class TEST_GCD
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

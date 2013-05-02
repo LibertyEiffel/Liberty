@@ -100,6 +100,14 @@ feature {ASSIGNMENT}
          visited.right_side.accept(Current)
       end
 
+feature {ASSIGNMENT_CALL_ASSIGNER}
+   visit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER) is
+      do
+         visited.left_side.accept(Current)
+         trace.append(once ":=")
+         visited.right_side.accept(Current)
+      end
+
 feature {CECIL_ENTRY}
    visit_cecil_entry (visited: CECIL_ENTRY) is
       do
@@ -322,12 +330,6 @@ feature {REAL_CONSTANT}
    visit_real_constant (visited: REAL_CONSTANT) is
       do
          trace.append(visited.normalized_view)
-      end
-
-feature {RUN_TIME_ERROR}
-   visit_run_time_error (visited: RUN_TIME_ERROR) is
-      do
-         trace_result := False
       end
 
 feature {VOID_CALL}

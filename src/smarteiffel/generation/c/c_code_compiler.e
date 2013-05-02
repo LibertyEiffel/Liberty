@@ -306,6 +306,15 @@ feature {ASSIGNMENT}
          function_body.append(once ";%N")
       end
 
+feature {ASSIGNMENT_CALL_ASSIGNER}
+   visit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER) is
+      do
+         -- The assigner call will have been replaced by the actual procedure call.
+         check
+            never_reached: False
+         end
+      end
+
 feature {CHECK_COMPOUND}
    visit_check_compound (visited: CHECK_COMPOUND) is
       do

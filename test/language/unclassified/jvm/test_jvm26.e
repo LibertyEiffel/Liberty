@@ -6,7 +6,7 @@ class TEST_JVM26
    -- Test Reference/ARRAY.
    --
 
-creation {ANY}
+create {}
    make
 
 feature {}

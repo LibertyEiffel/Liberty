@@ -4,7 +4,7 @@
 class TEST_JMJ2
    -- From a bug report of Jean-Marc JEZEQUEL
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

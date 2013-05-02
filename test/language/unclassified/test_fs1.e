@@ -6,7 +6,7 @@ class TEST_FS1
    -- From a bug report of Fridtjof SIEBERT
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

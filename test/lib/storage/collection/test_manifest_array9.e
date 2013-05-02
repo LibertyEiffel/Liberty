@@ -4,7 +4,7 @@
 class TEST_MANIFEST_ARRAY9
    -- From: Benjamin Franksen <franksen@mail.bessy.de>
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -7,7 +7,7 @@ inherit
    EIFFELTEST_TOOLS
       -- Bug from Frank Salter (frankmsalter@blueyonder.co.uk)
 
-creation {ANY}
+create {}
    make
 
 feature {ANY} -- Initialization

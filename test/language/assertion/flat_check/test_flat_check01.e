@@ -4,7 +4,7 @@
 class TEST_FLAT_CHECK01
    -- Always use -flat_check option for this test.
 
-creation {ANY}
+create {}
    make
 
 feature {}

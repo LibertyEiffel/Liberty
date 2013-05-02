@@ -6,7 +6,7 @@ class AUX_EXPANDED16A
 inherit
    FAST_ARRAY[AUX_EXPANDED16B]
 
-creation {ANY}
+create {ANY}
    make
 
 end -- class AUX_EXPANDED16A

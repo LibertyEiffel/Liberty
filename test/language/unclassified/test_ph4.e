@@ -4,7 +4,7 @@
 class TEST_PH4
    -- From: Philip Malin <psm@whitedove.melbourneit.com.au>
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

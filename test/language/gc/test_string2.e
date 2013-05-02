@@ -4,7 +4,7 @@
 class TEST_STRING2
    -- From: Friedrich Dominicus <frido@q-software-solutions.com>
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

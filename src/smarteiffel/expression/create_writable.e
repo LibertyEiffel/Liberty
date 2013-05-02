@@ -74,11 +74,11 @@ feature {ANY}
          Result := current_or_twin_init(w, tm)
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          w: like writable
       do
-         w := writable.specialize_2(type)
+         w := writable.specialize_and_check(type)
          if w = writable then
             Result := Current
          else

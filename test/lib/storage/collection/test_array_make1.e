@@ -3,7 +3,7 @@
 --
 class TEST_ARRAY_MAKE1
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

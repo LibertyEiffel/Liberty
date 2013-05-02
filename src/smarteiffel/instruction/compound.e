@@ -182,7 +182,7 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          l: like list; inst1, inst2: INSTRUCTION; i: INTEGER
       do
@@ -192,7 +192,7 @@ feature {ANY}
             inst1 /= inst2 or else i > list.upper
          loop
             inst1 := list.item(i)
-            inst2 := inst1.specialize_2(type)
+            inst2 := inst1.specialize_and_check(type)
             i := i + 1
          end
          if inst1 = inst2 then
@@ -206,7 +206,7 @@ feature {ANY}
             until
                i > l.upper
             loop
-               l.put(l.item(i).specialize_2(type), i)
+               l.put(l.item(i).specialize_and_check(type), i)
                i := i + 1
             end
          end
@@ -308,7 +308,15 @@ feature {ANY}
                   -- The following comment is associated to the current `instruction'.
                   pretty_printer.prepare_for_same_line_comment
                   comment.pretty(indent_level)
+                  instruction := comment
                   i := i + 1
+               end
+            end
+
+            if i <= list.upper then
+               if list.item(i).start_position.line > instruction.start_position.line + 1 then
+                  -- keep grouped lines together
+                  pretty_printer.put_character('%N')
                end
             end
          end

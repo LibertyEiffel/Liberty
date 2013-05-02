@@ -7,7 +7,7 @@ class TEST_INSPECT6
 inherit
    AUX_INSPECT6
 
-creation {ANY}
+create {}
    make
 
 end -- class TEST_INSPECT6

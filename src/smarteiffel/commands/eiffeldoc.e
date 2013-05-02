@@ -320,7 +320,7 @@ feature {} -- General HTML files
          -- make tabs
          options.open_tabs(html)
          options.add_menu_tabs(html)
-         options.add_tab(html, classes_and_clusters_list_link_name, Void, options.ariadne_separator)
+         options.add_tab(html, options.short_title, Void, options.ariadne_separator)
          options.close_tabs(html)
 
          -- open general block
@@ -332,7 +332,7 @@ feature {} -- General HTML files
          -- write name
          set_suffixed_attribute(once "class", css_root, css_name_suffix, html)
          html.open_span
-         html.put_string(classes_and_clusters_list_page_title)
+         html.put_string(options.title)
          html.close_span
          html.close_div
       ensure
@@ -344,6 +344,69 @@ feature {} -- General HTML files
          html /= Void and then html.in_a_body
       do
          html.close_div
+      end
+
+   display_name (tag, cluster, default_cluster_name: STRING): STRING is
+      require
+         cluster /= Void
+      local
+         i, j: INTEGER; done: BOOLEAN
+      do
+         Result := once ""
+         Result.copy(tag)
+         from
+            i := cluster.first_index_of(':')
+            if cluster.valid_index(i) then
+               i := i + 1
+            else
+               i := cluster.lower
+            end
+         until
+            i > cluster.upper
+         loop
+            from
+               j := cluster.substring_index(once "loadpath.se:", i)
+               if not cluster.valid_index(j) then
+                  j := cluster.upper + 1
+               end
+            invariant
+               i <= cluster.upper
+               i <= j
+            until
+               i = j
+            loop
+               Result.extend(cluster.item(i))
+               i := i + 1
+            end
+            i := i + 12 -- "loadpath.se".count
+         end
+
+         check
+            Result.has_prefix(tag)
+         end
+         from
+            done := Result.count = tag.count
+         variant
+            Result.count
+         until
+            done
+         loop
+            inspect
+               Result.last
+            when '/', '.' then
+               Result.remove_last
+               done := Result.count = tag.count
+            else
+               done := True
+            end
+         end
+         if Result.count = tag.count then
+            if default_cluster_name = Void then
+               Result.extend('/')
+            else
+               Result := default_cluster_name
+            end
+         end
       end
 
    write_clusters is
@@ -370,7 +433,7 @@ feature {} -- General HTML files
                cluster := clusters.item(i)
                html_parser := cluster_html.reference_at(cluster)
 
-               open_block(html, css_cluster, cluster, cluster)
+               open_block(html, css_cluster, display_name(once "Cluster ", cluster, once "Root cluster"), cluster)
                open_expand_block(html, css_cluster, cluster, False)
 
                if html_parser /= Void then
@@ -416,7 +479,7 @@ feature {} -- General HTML files
             current_cluster := clusters.item(Result)
             html_parser := cluster_html.reference_at(current_cluster)
 
-            open_block(html, css_sub_cluster, current_cluster, current_cluster)
+            open_block(html, css_sub_cluster, display_name(once "Subcluster ", current_cluster, Void), current_cluster)
             open_expand_block(html, css_sub_cluster, current_cluster, False)
 
             if html_parser /= Void then

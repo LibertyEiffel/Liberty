@@ -7,7 +7,7 @@ class TEST_ALG12
 insert
    MEMORY
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

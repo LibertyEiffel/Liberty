@@ -6,7 +6,7 @@ class TEST_ARRAY_RESIZE
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

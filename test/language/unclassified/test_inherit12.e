@@ -3,7 +3,7 @@
 --
 class TEST_INHERIT12
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

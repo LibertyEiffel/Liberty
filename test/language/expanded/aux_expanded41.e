@@ -5,8 +5,7 @@ expanded class AUX_EXPANDED41
 
 insert
    ANY
-      redefine
-         default_create, is_equal, copy
+      redefine default_create, is_equal, copy
       end
 
 feature {ANY}

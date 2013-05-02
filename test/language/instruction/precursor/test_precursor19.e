@@ -10,7 +10,7 @@ class TEST_PRECURSOR19
 inherit
    AUX_PRECURSOR19B
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -9,7 +9,7 @@ inherit
       redefine make, class_number_in_trace, class_number, times_class_number, affine_class_number_in_trace
       end
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

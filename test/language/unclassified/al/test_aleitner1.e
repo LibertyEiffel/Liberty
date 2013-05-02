@@ -4,7 +4,7 @@
 class TEST_ALEITNER1
    -- From: "Andreas Leitner" <andreas.leitner@teleweb.at>
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

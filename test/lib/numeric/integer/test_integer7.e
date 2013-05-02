@@ -6,7 +6,7 @@ class TEST_INTEGER7
    -- Test of bit_test.
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

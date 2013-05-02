@@ -4,7 +4,7 @@
 class TEST_LB01
    -- From: Luc Bourhis <Luc.Bourhis@durham.ac.uk>
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

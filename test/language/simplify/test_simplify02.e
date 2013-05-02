@@ -9,7 +9,7 @@ class TEST_SIMPLIFY02
 inherit
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

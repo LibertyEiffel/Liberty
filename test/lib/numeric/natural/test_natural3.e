@@ -3,7 +3,7 @@ class TEST_NATURAL3
 inherit
    EIFFELTEST_TOOLS
 
-creation
+create {}
    main
 
 feature

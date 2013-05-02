@@ -10,7 +10,7 @@ class TEST_PERL_SYNTAX_01
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {}

@@ -3,7 +3,7 @@
 --
 class TEST_001
 
-creation {ANY}
+create {}
    main
 
 feature {}

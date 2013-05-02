@@ -70,7 +70,7 @@ feature {CREATE_SUPPORT}
          proc_type: TYPE; fs: FEATURE_STAMP
       do
          check
-            -- Already checked during `specialize_2':
+            -- Already checked during `specialize_and_check':
             target_type.valid_feature_name(feature_name)
          end
          fs := target_type.lookup(feature_name)
@@ -184,7 +184,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             if t = target and then fs = feature_stamp and then args = arguments then
                code_accumulator.current_context.add_last(Current)
             else
-               procedure_call := Current.twin
+               procedure_call := twin
                procedure_call.set_target(t)
                procedure_call.set_feature_stamp(fs)
                procedure_call.set_arguments(args)
@@ -212,7 +212,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
                if t = target and then fs = feature_stamp and then args = arguments then
                   code_accumulator.current_context.add_last(Current)
                else
-                  procedure_call := Current.twin
+                  procedure_call := twin
                   procedure_call.set_target(t)
                   procedure_call.set_feature_stamp(fs)
                   procedure_call.set_arguments(args)
@@ -222,7 +222,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
                create ddt1.make(t, target_type)
                non_void_check(code_accumulator, type, ddt1, target_type)
                type_id_check(code_accumulator, type, ddt1, target_live_type)
-               procedure_call := Current.twin
+               procedure_call := twin
                create ddt2.make(ddt1, target_live_type)
                procedure_call.set_target(ddt2)
                procedure_call.set_feature_stamp(fs)
@@ -271,7 +271,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
                         args.unused_expression_inline(code_accumulator, type)
                      end
                   else
-                     procedure_call := Current.twin
+                     procedure_call := twin
                      create ddt2.make(ddt1, live_type)
                      procedure_call.set_target(ddt2)
                      procedure_call.set_feature_stamp(fs)

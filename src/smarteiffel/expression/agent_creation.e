@@ -91,7 +91,7 @@ feature {ANY}
    specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
       local
          i: INTEGER; o1, o2: OPEN_OPERAND; l: like open_operand_list
-         function_call: FUNCTION_CALL
+         c: like code
       do
          Result := Current
          if open_operand_list /= Void then
@@ -121,25 +121,23 @@ feature {ANY}
             end
          end
 
-         -- At this step, syntactically, the following forced assignment is correct:
-         function_call ::= code
-         function_call := function_call.specialize_thru(parent_type, parent_edge, new_type)
-         if function_call = code then
+         c := code.specialize_thru(parent_type, parent_edge, new_type)
+         if c = code then
             -- No need to notify OPEN_OPERAND objects.
          else
             if Result = Current then
                Result := twin
             end
-            Result.set_code(function_call)
+            Result.set_code(c)
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       do
          if {FUNCTION_CALL} ?:= code then
-            Result := specialize_2_function(type)
+            Result := specialize_and_check_function(type)
          else
-            Result := specialize_2_procedure(type)
+            Result := specialize_and_check_procedure(type)
          end
       end
 
@@ -321,7 +319,7 @@ feature {ANY}
       end
 
 feature {}
-   specialize_2_function (type: TYPE): like Current is
+   specialize_and_check_function (type: TYPE): like Current is
       require
          {FUNCTION_CALL} ?:= code
       local
@@ -329,10 +327,10 @@ feature {}
          fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; target_type: TYPE
       do
          function_call ::= code
-         -- Well, the `function_call' will be checked during `specialize_2', so we have to
+         -- Well, the `function_call' will be checked during `specialize_and_check', so we have to
          -- prepare the trap:
          smart_eiffel.set_agent_creation_error_trap(Current)
-         function_call ::= function_call.specialize_2(type)
+         function_call ::= function_call.specialize_and_check(type)
          smart_eiffel.clear_agent_creation_error_trap(Current)
          -- Now, we trust only the `feature_stamp' to create the new `code':
          fs := function_call.feature_stamp
@@ -424,7 +422,7 @@ feature {}
          Result.set_feature_stamp(fs)
       end
 
-   specialize_2_procedure (type: TYPE): like Current is
+   specialize_and_check_procedure (type: TYPE): like Current is
       require
          {PROCEDURE_CALL} ?:= code
       local
@@ -432,10 +430,10 @@ feature {}
          fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; target_type: TYPE
       do
          procedure_call ::= code
-         -- Well, the `procedure_call' will be checked during `specialize_2', so we have to
+         -- Well, the `procedure_call' will be checked during `specialize_and_check', so we have to
          -- prepare the trap:
          smart_eiffel.set_agent_creation_error_trap(Current)
-         procedure_call ::= procedure_call.specialize_2(type)
+         procedure_call ::= procedure_call.specialize_and_check(type)
          smart_eiffel.clear_agent_creation_error_trap(Current)
          -- Now, we trust only the `feature_stamp' to create the new `code':
          fs := procedure_call.feature_stamp

@@ -61,7 +61,7 @@ feature {ANY}
          Result := current_or_twin_init(explicit_type_mark.specialize_thru(parent_type, parent_edge, new_type))
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       do
          Result := Current
       end

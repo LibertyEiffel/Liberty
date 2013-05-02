@@ -101,6 +101,9 @@ feature {ANY}
          Result := first_name.start_position
       end
 
+   assigner: ANONYMOUS_FEATURE
+         -- If this feature can be assigned to, the assigner feature.
+
    frozen obsolete_warning_check (type: TYPE; caller: POSITION) is
       do
          if obsolete_mark /= Void and then not obsolete_warning_check_memory.has(caller) then
@@ -562,7 +565,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
       end
 
 feature {FEATURE_STAMP, PRECURSOR_CALL}
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       require
          has_been_specialized
          not smart_eiffel.status.is_specializing
@@ -913,6 +916,13 @@ feature {FEATURE_ACCUMULATOR}
          end
       ensure
          Result /= Void
+      end
+
+   set_assigner (a_assigner: like assigner) is
+      do
+         assigner := a_assigner
+      ensure
+         assigner = a_assigner
       end
 
 feature {FEATURE_TEXT}

@@ -4,7 +4,7 @@
 class TEST_EXTERNAL_C01
    -- From SZ:544:.
 
-creation {ANY}
+create {}
    main
 
 feature {ANY}

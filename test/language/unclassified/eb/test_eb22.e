@@ -3,7 +3,7 @@
 --
 class TEST_EB22
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -164,14 +164,14 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          lw: like left_writable; rs: like right_side; l_dt, r_dt: TYPE
       do
          if left_writable /= Void then
-            lw := left_writable.specialize_2(type)
+            lw := left_writable.specialize_and_check(type)
          end
-         rs := right_side.specialize_2(type)
+         rs := right_side.specialize_and_check(type)
          if left_type_mark /= Void then
             l_dt := left_type_mark.resolve_in(type)
          else

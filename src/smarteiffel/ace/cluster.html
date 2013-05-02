@@ -15,14 +15,14 @@
     </ul>
 
     <p>In both cases, clusters are organized in a tree. The interface of this tree is <a
-      href="index/CLASSES.html"><code>CLASSES</code></a>. The root instance of the tree is a direct instance
-      of <a href="index/UNIVERSE.html"><code>UNIVERSE</code></a>, which is a <a
+      href="index/CLASSES.html"><tt class="wiki_class_name">CLASSES</tt></a>. The root instance of the tree is a direct instance
+      of <a href="index/UNIVERSE.html"><tt class="wiki_class_name">UNIVERSE</tt></a>, which is a <a
       href="index/SINGLETON.html">singleton</a>. Node instances of the tree are direct instances of <a
-      href="index/LOADPATH.html"><code>LOADPATH</code></a>. Leaf instances, i.e. the ones holding a reference
+      href="index/LOADPATH.html"><tt class="wiki_class_name">LOADPATH</tt></a>. Leaf instances, i.e. the ones holding a reference
       to an actual <a href="index/CLUSTER.html">cluster</a>, are direct instances of <a
-      href="index/CLASSES_TREE.html"><code>CLASSES_TREE</code></a>. Note that both inherit from <a
-      href="index/CLUSTERS.html"><code>CLUSTERS</code></a>, and technically a <a
-      href="index/CLASSES_TREE.html"><code>CLASSES_TREE</code></a> is a node that may contain other cluster
+      href="index/CLASSES_TREE.html"><tt class="wiki_class_name">CLASSES_TREE</tt></a>. Note that both inherit from <a
+      href="index/CLUSTERS.html"><tt class="wiki_class_name">CLUSTERS</tt></a>, and technically a <a
+      href="index/CLASSES_TREE.html"><tt class="wiki_class_name">CLASSES_TREE</tt></a> is a node that may contain other cluster
       nodes. In fact that's not the case but that could change of course ;-)<p>
 
     <p><b>How do we load classes</b> now that the tree is built?</p>

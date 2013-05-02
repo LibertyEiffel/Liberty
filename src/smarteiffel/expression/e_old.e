@@ -66,11 +66,11 @@ feature {ANY}
          Result := current_or_twin_init(exp)
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          exp: like expression
       do
-         exp := expression.specialize_2(type)
+         exp := expression.specialize_and_check(type)
          Result := current_or_twin_init(exp)
       end
 

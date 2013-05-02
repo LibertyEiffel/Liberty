@@ -7,7 +7,7 @@ insert
    EIFFELTEST_TOOLS
    NATIVE_ARRAY_COLLECTOR[STRING]
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

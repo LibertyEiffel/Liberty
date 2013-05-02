@@ -6,7 +6,7 @@ class TEST_STRING3
    -- GC fail on this program. A memory debugging tool may help (overflow).
    -- memset in rso_from_store does overflow.
 
-creation {ANY}
+create {}
    make
 
 feature {}

@@ -2,7 +2,7 @@ class TEST_FUNCTION_01
 
 insert EIFFELTEST_TOOLS
 
-creation make
+create {}
 
 feature 
    make is

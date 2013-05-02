@@ -6,7 +6,7 @@ class TEST_BINARY_FILE_READ
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    main
 
 feature {}

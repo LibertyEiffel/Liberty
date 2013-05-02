@@ -4,7 +4,7 @@
 class TEST_PH1
    -- From: Peter Horan <peter@deakin.edu.au>
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

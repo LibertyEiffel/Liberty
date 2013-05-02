@@ -5,7 +5,7 @@ indexing
 --
 class TEST_EMPTY1
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

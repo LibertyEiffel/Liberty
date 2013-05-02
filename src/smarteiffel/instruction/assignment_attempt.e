@@ -153,12 +153,12 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          l, r: EXPRESSION; l_dt, r_dt: TYPE
       do
-         l := left_side.specialize_2(type)
-         r := right_side.specialize_2(type)
+         l := left_side.specialize_and_check(type)
+         r := right_side.specialize_and_check(type)
          l_dt := l.declaration_type
          r_dt := r.declaration_type
          if r.is_void then

@@ -4,7 +4,7 @@
 class TEST_RENAME7
    -- From a bug report of Grant CHESTON
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

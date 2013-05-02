@@ -7,7 +7,7 @@ class TEST_DEAD_CODE01
    -- This code will always fail with debug on! (So never try to make it
    -- run with -debug ;-)
 
-creation {ANY}
+create {}
    make
 
 feature {}

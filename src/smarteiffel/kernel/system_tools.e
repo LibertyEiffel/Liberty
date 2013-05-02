@@ -24,68 +24,14 @@ insert
    ACE_HANDLER
       undefine is_equal
       end
+   SYSTEM_TOOLS_CONSTANTS
+      undefine is_equal
+      end
 
 create {ANY}
    make
 
-create {INSTALL_GLOBALS}
-   make_install
-
-feature {INSTALL_GLOBALS, SERC_FACTORY, C_SPLITTER} -- Currently handled system list:
-   unix_system: STRING is "UNIX"
-
-   windows_system: STRING is "Windows"
-
-   cygwin_system: STRING is "Cygwin"
-
-   beos_system: STRING is "BeOS"
-
-   macintosh_system: STRING is "Macintosh"
-
-   amiga_system: STRING is "Amiga"
-
-   dos_system: STRING is "DOS"
-
-   os2_system: STRING is "OS2"
-
-   open_vms_system: STRING is "OpenVMS"
-
-   elate_system: STRING is "Elate"
-
-feature {INSTALL_GLOBALS} -- Currently handled C/C++ compiler list:
-   gcc: STRING is "gcc"
-
-   gpp: STRING is "g++"
-
-   distcc: STRING is "distcc"
-
-   lcc_win32: STRING is "lcc-win32"
-
-   cc: STRING is "cc"
-
-   cc_pp: STRING is "CC"
-
-   wcl386: STRING is "wcl386"
-
-   bcc32: STRING is "bcc32"
-
-   cl: STRING is "cl"
-
-   sas_c: STRING is "sc"
-
-   dice: STRING is "dice"
-
-   vbcc: STRING is "vbcc"
-
-   ccc: STRING is "ccc"
-
-   vpcc: STRING is "vpcc"
-
-   open_vms_cc: STRING is "OpenVMS_CC"
-
-   tcc: STRING is "tcc"
-
-feature {INSTALL_GLOBALS, C_MODE, SERC_FACTORY}
+feature { SERC_FACTORY}
    system_list: FAST_ARRAY[STRING] is
       once
          Result := {FAST_ARRAY[STRING]   <<unix_system, windows_system, cygwin_system, beos_system,
@@ -171,7 +117,7 @@ feature {INSTALL_GLOBALS, C_MODE, SERC_FACTORY}
          end
       end
 
-feature {INSTALL_GLOBALS, C_MODE, C_PLUGIN, C_SPLITTER}
+feature {C_PLUGIN, C_SPLITTER}
    system_name: STRING
    system_flavor: STRING
 
@@ -214,7 +160,7 @@ feature {}
          system_flavor /= Void
       end
 
-feature {INSTALL_GLOBALS}
+feature {}
    add_lib_math_do_it_again is
       do
          if beos_system = system_name then
@@ -276,7 +222,7 @@ feature {}
          end
       end
 
-feature {INSTALL_GLOBALS}
+feature {}
    seconf: STRING
          -- Path to the configuration file. Non Void if the new environment
          -- variable is used; in that case, the informations for accessing
@@ -299,7 +245,7 @@ feature {}
          rcf: SERC_FACTORY
          s: STRING
       once
-         config := rcf.config
+         config := rcf.config(Current)
          if config /= Void then
             if not is_install then
                bin_directory := config.bin
@@ -382,12 +328,7 @@ feature {}
    short_directory: STRING
          -- For example, under UNIX: "/usr/lib/SmartEiffel/short/"
 
-   make_install is
-      do
-         set_install
-      end
-
-feature {SE, COMPILE, INSTALL_GLOBALS}
+feature {SE, COMPILE}
    set_sys_directory (sysdir: STRING) is
       do
          sys_directory := sysdir
@@ -705,29 +646,6 @@ feature {C_PLUGIN}
          append_token(c_plugin_compiler_options, arg)
       end
 
-feature {INSTALL_GLOBALS}
-   set_install_compiler (comptype, comppath, linkpath: STRING) is
-      require
-         compiler_list.has(comptype)
-      local
-         i: INTEGER
-      do
-         seconf := Void
-         i := compiler_list.first_index_of(comptype)
-         c_compiler := compiler_list.item(i)
-         if comppath = Void then
-            c_compiler_path := c_compiler
-         else
-            c_compiler_path := comppath
-         end
-         if linkpath = Void then
-            c_linker_path := c_compiler
-         else
-            c_linker_path := linkpath
-         end
-         c_compiler_mode := c_compiler_cc
-      end
-
 feature {ANY}
    environment_variable_substitution (path, line: STRING) is
          -- The only one accepted notation is:  ${...}. The substitution is performed in `line'.
@@ -931,7 +849,7 @@ feature {ACE, COMPILE_TO_C, STRING_COMMAND_LINE}
          no_strip := True
       end
 
-feature {ACE, C_PRETTY_PRINTER, INSTALL_GLOBALS}
+feature {ACE, C_PRETTY_PRINTER}
    c_compiler_options: STRING is ""
          -- C compiler options including extra include path,
          -- optimization flags, etc.
@@ -1163,7 +1081,7 @@ feature {ANY}
          Result := c_compiler = gcc or else c_compiler = gpp
       end
 
-feature {C_PRETTY_PRINTER, INSTALL_GLOBALS, C_SPLITTER}
+feature {C_PRETTY_PRINTER, C_SPLITTER}
    h_precompiler_command (h_file_name: STRING): STRING is
       require
          ace.precompile_header

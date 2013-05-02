@@ -18,7 +18,7 @@ create {ANY}
 feature {ANY}
    item: E_
 
-   set_item (i: like item) is
+   set_item (i: like item) assign item is
       do
          item := i
       ensure

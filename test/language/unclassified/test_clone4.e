@@ -4,7 +4,7 @@
 class TEST_CLONE4
    -- Stupid test for stupid users.
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

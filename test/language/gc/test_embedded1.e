@@ -9,7 +9,7 @@ class TEST_EMBEDDED1
 insert
    MEMORY
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

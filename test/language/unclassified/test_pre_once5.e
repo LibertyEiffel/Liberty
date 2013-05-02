@@ -17,7 +17,7 @@ inherit
       redefine default_rescue
       end
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

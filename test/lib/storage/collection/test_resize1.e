@@ -6,7 +6,7 @@ class TEST_RESIZE1
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    main
 
 feature {ANY}

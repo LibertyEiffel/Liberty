@@ -3,7 +3,7 @@
 --
 class TEST_RESIZE2
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

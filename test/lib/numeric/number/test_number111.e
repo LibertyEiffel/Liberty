@@ -7,7 +7,7 @@ insert
    PLATFORM
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    main
 
 feature {ANY}

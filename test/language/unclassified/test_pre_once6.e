@@ -7,7 +7,7 @@ class TEST_PRE_ONCE6
 inherit
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

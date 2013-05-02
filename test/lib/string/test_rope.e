@@ -2,7 +2,7 @@ class TEST_ROPE
 insert
     EIFFELTEST_TOOLS
 
-creation
+create {}
     make
 
 feature

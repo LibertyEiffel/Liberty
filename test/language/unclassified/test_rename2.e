@@ -3,7 +3,7 @@
 --
 class TEST_RENAME2
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

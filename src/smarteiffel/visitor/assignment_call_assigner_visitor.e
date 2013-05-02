@@ -1,65 +1,19 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class MAKE_RELEASE_PLAIN_GUI
+deferred class ASSIGNMENT_CALL_ASSIGNER_VISITOR
 
 inherit
-   MAKE_RELEASE_GUI
+   VISITOR
 
-create {MAKE_RELEASE}
-   make
-
-feature {MAKE_RELEASE, MAKE_RELEASE_JOB}
-   start (job: MAKE_RELEASE_JOB) is
-      local
-         stack: LOOP_STACK
-      do
-         create stack.make
-         stack.add_job(job)
-         stack.run
-         die(0)
+feature {ASSIGNMENT_CALL_ASSIGNER}
+   visit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER) is
+      require
+         visited /= Void
+      deferred
       end
 
-   set_title (a_message: STRING) is
-      do
-         echo.put_string(a_message)
-         echo.put_character('%N')
-      end
-
-   set_action (a_message: STRING) is
-      do
-         echo.put_string(a_message)
-         echo.put_character('%N')
-      end
-
-   set_progress (a_value, a_max: INTEGER; a_message: STRING) is
-      do
-         echo.put_string(a_message)
-         echo.put_string(once " (")
-         echo.put_integer(a_value)
-         echo.put_string(once " of ")
-         echo.put_integer(a_max)
-         echo.put_string(once ")%N")
-      end
-
-   die (death_code: INTEGER) is
-      do
-         die_with_code(death_code)
-      end
-
-   run_command (a_command: STRING): INTEGER is
-      local
-         s: SYSTEM
-      do
-         Result := s.execute_command(a_command)
-      end
-
-feature {}
-   make is
-      do
-      end
-
-end -- class MAKE_RELEASE_PLAIN_GUI
+end -- class ASSIGNMENT_CALL_ASSIGNER_VISITOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

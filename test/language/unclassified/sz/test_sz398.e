@@ -4,7 +4,7 @@
 class TEST_SZ398
    -- SZ:398:
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

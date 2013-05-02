@@ -58,7 +58,7 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION is
       do
          check
             False

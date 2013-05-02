@@ -8,7 +8,7 @@ inherit
       -- SZ:262: ensure violation for once method redefined. There is bug,
       -- not sure it is exactly the reported bug.
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

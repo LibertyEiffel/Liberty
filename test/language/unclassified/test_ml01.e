@@ -4,7 +4,7 @@
 class TEST_ML01
    -- From a bug report of Mikko Larjava
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

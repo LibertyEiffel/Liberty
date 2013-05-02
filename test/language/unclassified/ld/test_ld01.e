@@ -5,7 +5,7 @@ class TEST_LD01
    -- From: "Le Dressay" <ledressay@eugensystems.com>
    -- Qui font des jeux.
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -4,7 +4,7 @@
 class TEST_FMOISSET1
    -- From: Daniel F Moisset <dmoisset@arnet.com.ar>
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

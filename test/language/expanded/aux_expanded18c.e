@@ -6,7 +6,7 @@ expanded class AUX_EXPANDED18C
 insert
    AUX_EXPANDED18A
 
-creation {ANY}
+create {ANY}
    make
 
 end -- class AUX_EXPANDED18C

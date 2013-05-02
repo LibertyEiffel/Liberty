@@ -4,7 +4,7 @@
 class TEST_EXTERNAL01
    --SZ:56: wrong generated C code
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

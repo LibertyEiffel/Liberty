@@ -3,7 +3,7 @@
 --
 class TEST_QUICKSORT4
 
-creation {ANY}
+create {}
    make
 
 feature {}

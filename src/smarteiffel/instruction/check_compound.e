@@ -48,12 +48,12 @@ feature {ANY}
          Result := current_or_twin_init(al)
       end
 
-   specialize_2 (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current is
       local
          al: like assertion_list
       do
          if assertion_list /= Void then
-            al := assertion_list.specialize_2(type)
+            al := assertion_list.specialize_and_check(type)
          end
          Result := current_or_twin_init(al)
       end

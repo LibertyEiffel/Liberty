@@ -4,7 +4,7 @@
 class TEST_AGENT09
    -- From: Schmidt Ralf <Ralf.Schmidt@ts.siemens.de>
 
-creation {ANY}
+create {}
    make
 
 feature {}

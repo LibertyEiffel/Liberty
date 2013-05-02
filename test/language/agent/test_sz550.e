@@ -4,7 +4,7 @@
 class TEST_SZ550
    -- From smartzilla 550
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

@@ -6,7 +6,7 @@ class TEST_EB7
    -- From a bug report of Eric BEZAULT
    --
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

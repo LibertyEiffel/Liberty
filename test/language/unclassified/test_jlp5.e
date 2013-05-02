@@ -15,7 +15,7 @@ insert
       rename io as foo
       end
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

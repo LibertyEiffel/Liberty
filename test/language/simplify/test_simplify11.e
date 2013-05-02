@@ -10,7 +10,7 @@ class TEST_SIMPLIFY11
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

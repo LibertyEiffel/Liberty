@@ -5,7 +5,7 @@ class TEST_REAL_CONSTANT02
    -- Bug from SZ:213: SmartEiffel 1.1b3 is unable to parse 0 constant as REAL
    -- Warning: infinite loop in boost mode!
 
-creation {ANY}
+create {}
    make
 
 feature {ANY} -- Initialization

@@ -3,7 +3,7 @@
 --
 class TEST_STRING1
 
-creation {ANY}
+create {}
    main
 
 feature {}

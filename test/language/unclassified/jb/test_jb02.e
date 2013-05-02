@@ -9,7 +9,7 @@ inherit
       redefine p, x
       end
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

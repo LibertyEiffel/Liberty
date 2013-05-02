@@ -3,7 +3,7 @@
 --
 class TEST_IS_EQUAL2
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

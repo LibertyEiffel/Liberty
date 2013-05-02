@@ -7,7 +7,7 @@ class TEST_ANCHOR6
 inherit
    AUX_ANCHOR6
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

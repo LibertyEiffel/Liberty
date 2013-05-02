@@ -3,7 +3,7 @@
 --
 class TEST_GENERIC12
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

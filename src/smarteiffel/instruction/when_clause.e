@@ -132,7 +132,7 @@ feature {ANY}
          end
       end
 
-   specialize_2 (type: TYPE): INSTRUCTION is
+   specialize_and_check (type: TYPE): INSTRUCTION is
       do
          check
             False -- *** Why is the work done in INSPECT_STATEMENT ?? *** DOM April 20th 2008 ***
@@ -467,7 +467,7 @@ feature {INSPECT_STATEMENT}
       end
 
 feature {INSPECT_STATEMENT, WHEN_CLAUSE}
-   specialize_2_character (type: TYPE): like Current is
+   specialize_and_check_character (type: TYPE): like Current is
       require
          has_been_specialized
          not smart_eiffel.status.is_specializing
@@ -475,7 +475,7 @@ feature {INSPECT_STATEMENT, WHEN_CLAUSE}
          i: INTEGER; c: like compound; l: like list; wi1, wi2: WHEN_ITEM
       do
          if compound /= Void then
-            c := compound.specialize_2(type)
+            c := compound.specialize_and_check(type)
          end
          from
             i := list.lower
@@ -483,7 +483,7 @@ feature {INSPECT_STATEMENT, WHEN_CLAUSE}
             wi1 /= wi2 or else i > list.upper
          loop
             wi1 := list.item(i)
-            wi2 := wi1.specialize_2_character(type)
+            wi2 := wi1.specialize_and_check_character(type)
             i := i + 1
          end
          if c = compound and then wi1 = wi2 then
@@ -499,7 +499,7 @@ feature {INSPECT_STATEMENT, WHEN_CLAUSE}
                until
                   i > l.upper
                loop
-                  l.put(list.item(i).specialize_2_character(type), i)
+                  l.put(list.item(i).specialize_and_check_character(type), i)
                   i := i + 1
                end
                Result.init(c, l)
@@ -510,7 +510,7 @@ feature {INSPECT_STATEMENT, WHEN_CLAUSE}
          Result.has_been_specialized
       end
 
-   specialize_2_integer (type: TYPE): like Current is
+   specialize_and_check_integer (type: TYPE): like Current is
       require
          has_been_specialized
          not smart_eiffel.status.is_specializing
@@ -518,15 +518,15 @@ feature {INSPECT_STATEMENT, WHEN_CLAUSE}
          c: like compound
       do
          if compound /= Void then
-            c := compound.specialize_2(type)
+            c := compound.specialize_and_check(type)
          end
-         Result := specialize_2_when_items_integer(type, c)
+         Result := specialize_and_check_when_items_integer(type, c)
       ensure
          has_been_specialized
          Result.has_been_specialized
       end
 
-   specialize_2_when_items_integer (type: TYPE; c: like compound): like Current is
+   specialize_and_check_when_items_integer (type: TYPE; c: like compound): like Current is
       require
          has_been_specialized
          not smart_eiffel.status.is_specializing
@@ -539,7 +539,7 @@ feature {INSPECT_STATEMENT, WHEN_CLAUSE}
             wi1 /= wi2 or else i > list.upper
          loop
             wi1 := list.item(i)
-            wi2 := wi1.specialize_2_integer(type)
+            wi2 := wi1.specialize_and_check_integer(type)
             i := i + 1
          end
          if c = compound and then wi1 = wi2 then
@@ -555,7 +555,7 @@ feature {INSPECT_STATEMENT, WHEN_CLAUSE}
                until
                   i > list.upper
                loop
-                  l.put(list.item(i).specialize_2_integer(type), i)
+                  l.put(list.item(i).specialize_and_check_integer(type), i)
                   i := i + 1
                end
                Result.init(c, l)
@@ -566,7 +566,7 @@ feature {INSPECT_STATEMENT, WHEN_CLAUSE}
          Result.has_been_specialized
       end
 
-   specialize_2_string (type: TYPE): like Current is
+   specialize_and_check_string (type: TYPE): like Current is
       require
          has_been_specialized
          not smart_eiffel.status.is_specializing
@@ -574,7 +574,7 @@ feature {INSPECT_STATEMENT, WHEN_CLAUSE}
          c: like compound
       do
          if compound /= Void then
-            c := compound.specialize_2(type)
+            c := compound.specialize_and_check(type)
          end
          if c = compound then
             Result := Current
@@ -676,7 +676,7 @@ feature {INSPECT_STATEMENT}
                Result.init(compound, l)
                Result.add_value(ic)
             end
-            Result := Result.specialize_2_when_items_integer(specialize_type, compound)
+            Result := Result.specialize_and_check_when_items_integer(specialize_type, compound)
          end
       end
 

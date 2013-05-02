@@ -7,7 +7,7 @@ insert
    DIRECTORY_NOTATION_HANDLER
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {}

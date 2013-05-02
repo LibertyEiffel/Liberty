@@ -4,7 +4,7 @@
 class TEST_TAGGED1
    -- Some checking fo untagged object.
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

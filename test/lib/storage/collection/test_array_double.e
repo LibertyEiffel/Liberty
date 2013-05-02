@@ -3,7 +3,7 @@
 --
 class TEST_ARRAY_DOUBLE
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}

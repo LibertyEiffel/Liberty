@@ -6,7 +6,7 @@ class TEST_STANDARD_IS_EQUAL
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}
