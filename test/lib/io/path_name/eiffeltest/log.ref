@@ -56,7 +56,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_microsoft_path.e -o test_microsoft_path.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_microsoft_path.e -o test_microsoft_path.exe".
-By excluded.lst:  "se c -all_check -debug".
+By excluded.lst:  "se c -all_check".
 se c -require_check test_microsoft_path.e -o test_microsoft_path.exe
 Running (-require_check) "test_microsoft_path.exe".
 se clean test_microsoft_path.e
@@ -176,7 +176,7 @@ By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_posix_path.e -o test_posix_path.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -all_check -debug test_posix_path.e -o test_posix_path.exe".
-By excluded.lst:  "se c -all_check -debug".
+By excluded.lst:  "se c -all_check".
 se c -require_check test_posix_path.e -o test_posix_path.exe
 Running (-require_check) "test_posix_path.exe".
 se clean test_posix_path.e
