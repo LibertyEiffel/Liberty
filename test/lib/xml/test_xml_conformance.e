@@ -15,7 +15,9 @@ feature {}
       do
          path := once ""
          path.make_from_string(bd.current_working_directory)
-         bd.compute_subdirectory_with(path, once "xmlconf")
+         bd.compute_subdirectory_with(path, once "eiffeltest")
+         path.make_from_string(bd.last_entry)
+         bd.compute_subdirectory_with(path, once "data")
          path.make_from_string(bd.last_entry)
          bd.compute_file_path_with(path, once "xmlconf.xml")
          path.make_from_string(bd.last_entry)

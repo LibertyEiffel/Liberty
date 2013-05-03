@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   generic_array: ARRAY[ANY]
+   generic_array: ARRAY[ABSTRACT_STRING]
 
    bit_array: ARRAY[INTEGER_32]
 

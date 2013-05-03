@@ -187,6 +187,28 @@ feature {ANY} -- Mathematical operations:
          count <= old count + other.count
       end
 
+   fast_union (other: like Current) is
+         -- Make the union of the `Current' set with `other'.
+      require
+         other /= Void
+      local
+         i: INTEGER; e: like item
+      do
+         from
+            i := 1
+         until
+            i > other.count
+         loop
+            e := other.item(i)
+            if not fast_has(e) then
+               fast_add(e)
+            end
+            i := i + 1
+         end
+      ensure
+         count <= old count + other.count
+      end
+
    infix "+" (other: like Current): like Current is
          -- Return the union of the `Current' set with `other'.
       require
@@ -214,6 +236,28 @@ feature {ANY} -- Mathematical operations:
             e := item(i)
             if not other.has(e) then
                remove(e)
+            end
+            i := i - 1
+         end
+      ensure
+         count <= other.count.min(old count)
+      end
+
+   fast_intersection (other: like Current) is
+         -- Make the intersection of the `Current' set with `other'.
+      require
+         other /= Void
+      local
+         i: INTEGER; e: like item
+      do
+         from
+            i := upper
+         until
+            i < lower
+         loop
+            e := item(i)
+            if not other.fast_has(e) then
+               fast_remove(e)
             end
             i := i - 1
          end
@@ -249,6 +293,29 @@ feature {ANY} -- Mathematical operations:
                i > other.count
             loop
                remove(other.item(i))
+               i := i + 1
+            end
+         end
+      ensure
+         count <= old count
+      end
+
+   fast_minus (other: like Current) is
+         -- Make the set `Current' - `other'.
+      require
+         other /= Void
+      local
+         i: INTEGER
+      do
+         if other = Current then
+            clear_count
+         else
+            from
+               i := 1
+            until
+               i > other.count
+            loop
+               fast_remove(other.item(i))
                i := i + 1
             end
          end

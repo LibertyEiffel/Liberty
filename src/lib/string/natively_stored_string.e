@@ -191,6 +191,7 @@ feature {STRING_HANDLER}
       local
          new_capacity: like capacity
       do
+         storage_signature_count := 0
          check
             check_can_have_storage_signature
          end
@@ -201,8 +202,8 @@ feature {STRING_HANDLER}
             new_capacity := needed_capacity
             storage := storage.calloc(new_capacity + storage_signature_count)
             capacity := new_capacity
-            if storage_signature_count > 0 then
-               set_storage_signature
+            check
+               check_set_storage_signature
             end
          elseif capacity < needed_capacity then
             check
@@ -211,8 +212,8 @@ feature {STRING_HANDLER}
             new_capacity := needed_capacity.max((capacity #* 2).max(32))
             storage := storage.realloc(capacity, new_capacity + storage_signature_count)
             capacity := new_capacity
-            if storage_signature_count > 0 then
-               set_storage_signature
+            check
+               check_set_storage_signature
             end
          else
             check
@@ -241,17 +242,18 @@ feature {STRING_HANDLER}
          target.slice_copy(target_offset, storage, storage_lower + start_index - lower, storage_lower + end_index - lower)
       end
 
-feature {}
-   set_storage_signature is
+feature {} -- storage signature: only in all_check mode
+   check_set_storage_signature: BOOLEAN is
       require
          storage.is_not_null
-         storage_signature_count > 0
+         storage_signature_count = 4
       do
          storage.put('%/0/' , capacity  )
          storage.put('%/3/' , capacity+1)
          storage.put('%/9/' , capacity+2)
          storage.put('%/27/', capacity+3)
          has_storage_signature := True
+         Result := True
       ensure
          has_storage_signature
       end
@@ -283,6 +285,7 @@ invariant
    count <= capacity
    storage_lower >= 0
    has_storage_signature implies check_storage_signature
+   storage_signature_count = 0 or storage_signature_count = 4
 
 end -- class NATIVELY_STORED_STRING
 

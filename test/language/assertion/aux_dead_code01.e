@@ -1,28 +1,18 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class TEST_SIZE_OF1
+class AUX_DEAD_CODE01
 
-insert
-   EIFFELTEST_TOOLS
-
-create {}
-   main
+create {TEST_DEAD_CODE01}
+   make
 
 feature {}
-   file_tools: FILE_TOOLS
-
-   main is
-      local
-         i: INTEGER
+   make is
       do
-         i := file_tools.size_of("test_size_of1.e")
-         assert(i = 1870)
-         i := file_tools.size_of("does_not_exists")
-         assert(i < 0)
+         io.put_string(once "") -- does nothing, but with a flourish
       end
 
-end -- class TEST_SIZE_OF1
+end -- class AUX_DEAD_CODE01
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

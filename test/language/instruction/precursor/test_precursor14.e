@@ -13,7 +13,10 @@ insert
    EIFFELTEST_TOOLS
 
 create {}
-   make, make_aux
+   make
+
+create {ANY}
+   make_aux
 
 feature {ANY}
    make is

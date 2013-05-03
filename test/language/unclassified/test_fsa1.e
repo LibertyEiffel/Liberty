@@ -4,7 +4,7 @@
 class TEST_FSA1
    -- From: frankmsalter@blueyonder.co.uk
 
-create {}
+create {TEST_FSA2}
    program
 
 feature {}
