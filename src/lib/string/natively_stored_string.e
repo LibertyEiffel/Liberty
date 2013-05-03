@@ -191,6 +191,7 @@ feature {STRING_HANDLER}
       local
          new_capacity: like capacity
       do
+         storage_signature_count := 0
          check
             check_can_have_storage_signature
          end
@@ -283,6 +284,7 @@ invariant
    count <= capacity
    storage_lower >= 0
    has_storage_signature implies check_storage_signature
+   storage_signature_count >= 0
 
 end -- class NATIVELY_STORED_STRING
 
