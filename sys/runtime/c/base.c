@@ -74,7 +74,7 @@ void* se_calloc(size_t nmemb, size_t size) {
 #elif !defined(SE_BOOST)
     error0("No more memory.", NULL);
 #else
-  fprintf(SE_ERR,"No more memory (calloc failed).\n");
+  fprintf(SE_ERR,"No more memory (calloc failed: %lu x %lu).\n", nmemb, size);
   exit(EXIT_FAILURE);
 #endif
   }
