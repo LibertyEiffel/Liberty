@@ -1,50 +1,18 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class TEST_DEAD_CODE01
-   -- Bug report from Philippe Ribet
-   -- Unused attribute has not to be in generated structure
-   -- This code will always fail with debug on! (So never try to make it
-   -- run with -debug ;-)
+class AUX_DEAD_CODE01
 
-create {}
+create {TEST_DEAD_CODE01}
    make
 
 feature {}
    make is
-      local
-         addr1: POINTER; local_debug: STRING; addr2: POINTER; addr3: POINTER; aux: AUX_DEAD_CODE01
       do
-         debug
-            local_debug := "Local debug information"
-            debug_info := "Debug attribute"
-         end
-         addr1 := get_address($addr1)
-         addr2 := get_address($addr2)
-         addr3 := get_address($addr3)
-         create aux.make
-         -- debug_info attribute is not in the structure of the object
-         if object_size /= aux.object_size then
-            std_output.put_string("Error in class ")
-            std_output.put_string(generator)
-            std_output.put_string(": debug_info attribute should not be included in the structure of the object.%N")
-         end
-         -- local_debug local variable is not declared
-         if addr1.hash_code - addr2.hash_code /= addr2.hash_code - addr3.hash_code then
-            std_output.put_string("Error in class ")
-            std_output.put_string(generator)
-            std_output.put_string(": local_debug local variable should not be declared in the generated C code.%N")
-         end
+         io.put_string(once "") -- does nothing, but with a flourish
       end
 
-   debug_info: STRING
-
-   get_address (p: POINTER): POINTER is
-      do
-         Result := p
-      end
-
-end -- class TEST_DEAD_CODE01
+end -- class AUX_DEAD_CODE01
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
