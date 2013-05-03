@@ -1,25 +1,30 @@
 class TEST_FIXED
    -- Stress fixed strings obtained from C, to discover eventual memory leaks or double freeing of memory.
+
 insert
    MEMORY
    EXCEPTIONS
    EIFFELTEST_TOOLS
+
 create {}
    make
 
-feature
+feature {}
    make is
       local
          mem_usage: INTEGER
       do
          mem_usage := allocated_bytes
-         n.times(agent  is do
-            n.times (agent is do
-               create foo.from_external(foo_ptr)
-               end)
-            full_collect
-         end)
-         print ("Memory usage for "+(n*n).out+" allocations: "+(allocated_bytes-mem_usage).out+" bytes.%N") 
+         n.times(agent is
+            do
+               n.times(agent is
+                  do
+                     create foo.from_external(foo_ptr)
+                  end)
+               full_collect
+            end)
+
+         print("Memory usage for " + (n * n).out + " allocations: " + (allocated_bytes - mem_usage).out + " bytes.%N")
          assert(foo.is_equal("my-const-string"))
       end
 
@@ -34,4 +39,4 @@ feature
          ]"
       end
 
-end -- class TEST_FIXED 
+end -- class TEST_FIXED
