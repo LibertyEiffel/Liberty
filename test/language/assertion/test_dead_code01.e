@@ -14,6 +14,7 @@ feature {}
    make is
       local
          addr1: POINTER; local_debug: STRING; addr2: POINTER; addr3: POINTER; aux: AUX_DEAD_CODE01
+         exit_code: INTEGER
       do
          debug
             local_debug := "Local debug information"
@@ -25,16 +26,19 @@ feature {}
          create aux.make
          -- debug_info attribute is not in the structure of the object
          if object_size /= aux.object_size then
-            std_output.put_string("Error in class ")
-            std_output.put_string(generator)
-            std_output.put_string(": debug_info attribute should not be included in the structure of the object.%N")
+            std_error.put_string("Error in class ")
+            std_error.put_string(generator)
+            std_error.put_string(": debug_info attribute should not be included in the structure of the object.%N")
+            exit_code := exit_code + 1
          end
          -- local_debug local variable is not declared
          if addr1.hash_code - addr2.hash_code /= addr2.hash_code - addr3.hash_code then
-            std_output.put_string("Error in class ")
-            std_output.put_string(generator)
-            std_output.put_string(": local_debug local variable should not be declared in the generated C code.%N")
+            std_error.put_string("Error in class ")
+            std_error.put_string(generator)
+            std_error.put_string(": local_debug local variable should not be declared in the generated C code.%N")
+            exit_code := exit_code + 2
          end
+         die_with_code(exit_code)
       end
 
    debug_info: STRING
