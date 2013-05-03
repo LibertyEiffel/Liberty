@@ -3,7 +3,7 @@
 --
 class AUX_PRECURSOR14
 
-creation {ANY}
+create {ANY}
    make_aux
 
 feature {ANY}
