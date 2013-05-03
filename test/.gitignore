@@ -5,3 +5,7 @@
 *.new
 *_mock.e
 *_expect.e
+*.exe
+READ_ME.txt
+time_info.txt
+log.new
