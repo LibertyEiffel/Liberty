@@ -234,7 +234,8 @@ feature {ANY} -- Modification:
          j := other.count
          d := j - storage_lower
          if d > 0 then
-            ensure_capacity(i + d)
+			 -- the string to be prepended is bigger than the unused space available in the buffer before the beginning of the string.
+            ensure_capacity(i + j)
          end
          count := i + j
          if i > 0 and then j > 0 then
