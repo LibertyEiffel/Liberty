@@ -5,7 +5,6 @@ expanded class XML_ELEMENT_TYPE_VAL_ENUM
 
 insert ENUM
 
-<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -15,20 +14,9 @@ feature -- Validity
 				(a_value = xml_element_type_empty_low_level)  or else
 				(a_value = xml_element_type_mixed_low_level)  or else
 				(a_value = xml_element_type_undefined_low_level) )
-=======
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = undefined_low_level)  or else
-				(a_value = empty_low_level)  or else
-				(a_value = any_low_level)  or else
-				(a_value = mixed_low_level)  or else
-				(a_value = element_low_level) )
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_xml_element_type_any is
 		do
@@ -55,13 +43,8 @@ feature {ANY} -- Setters
 			value := xml_element_type_undefined_low_level
 		end
 
-<<<<<<< HEAD
 feature -- Queries
 	is_xml_element_type_any: BOOLEAN is
-=======
-feature {ANY} -- Queries
-	undefined: BOOLEAN is
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=xml_element_type_any_low_level)
 		end

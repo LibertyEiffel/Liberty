@@ -5,7 +5,6 @@ expanded class XML_ENTITY_TYPE_ENUM
 
 insert ENUM
 
-<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -16,21 +15,9 @@ feature -- Validity
 				(a_value = xml_internal_general_entity_low_level)  or else
 				(a_value = xml_internal_parameter_entity_low_level)  or else
 				(a_value = xml_internal_predefined_entity_low_level) )
-=======
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = internal_general_entity_low_level)  or else
-				(a_value = external_general_parsed_entity_low_level)  or else
-				(a_value = external_general_unparsed_entity_low_level)  or else
-				(a_value = internal_parameter_entity_low_level)  or else
-				(a_value = external_parameter_entity_low_level)  or else
-				(a_value = internal_predefined_entity_low_level) )
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_xml_external_general_parsed_entity is
 		do
@@ -62,13 +49,8 @@ feature {ANY} -- Setters
 			value := xml_internal_predefined_entity_low_level
 		end
 
-<<<<<<< HEAD
 feature -- Queries
 	is_xml_external_general_parsed_entity: BOOLEAN is
-=======
-feature {ANY} -- Queries
-	internal_general_entity: BOOLEAN is
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=xml_external_general_parsed_entity_low_level)
 		end

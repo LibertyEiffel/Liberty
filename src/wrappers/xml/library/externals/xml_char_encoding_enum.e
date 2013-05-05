@@ -5,7 +5,6 @@ expanded class XML_CHAR_ENCODING_ENUM
 
 insert ENUM
 
-<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -34,39 +33,9 @@ feature -- Validity
 				(a_value = xml_char_encoding_utf16be_low_level)  or else
 				(a_value = xml_char_encoding_utf16le_low_level)  or else
 				(a_value = xml_char_encoding_utf8_low_level) )
-=======
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = error_low_level)  or else
-				(a_value = none_low_level)  or else
-				(a_value = utf8_low_level)  or else
-				(a_value = utf16le_low_level)  or else
-				(a_value = utf16be_low_level)  or else
-				(a_value = ucs4le_low_level)  or else
-				(a_value = ucs4be_low_level)  or else
-				(a_value = ebcdic_low_level)  or else
-				(a_value = ucs4_2143_low_level)  or else
-				(a_value = ucs4_3412_low_level)  or else
-				(a_value = ucs2_low_level)  or else
-				(a_value = a_8859_1_low_level)  or else
-				(a_value = a_8859_2_low_level)  or else
-				(a_value = a_8859_3_low_level)  or else
-				(a_value = a_8859_4_low_level)  or else
-				(a_value = a_8859_5_low_level)  or else
-				(a_value = a_8859_6_low_level)  or else
-				(a_value = a_8859_7_low_level)  or else
-				(a_value = a_8859_8_low_level)  or else
-				(a_value = a_8859_9_low_level)  or else
-				(a_value = a_2022_jp_low_level)  or else
-				(a_value = shift_jis_low_level)  or else
-				(a_value = euc_jp_low_level)  or else
-				(a_value = ascii_low_level) )
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_xml_char_encoding_2022_jp is
 		do
@@ -188,13 +157,8 @@ feature {ANY} -- Setters
 			value := xml_char_encoding_utf8_low_level
 		end
 
-<<<<<<< HEAD
 feature -- Queries
 	is_xml_char_encoding_2022_jp: BOOLEAN is
-=======
-feature {ANY} -- Queries
-	error: BOOLEAN is
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=xml_char_encoding_2022_jp_low_level)
 		end

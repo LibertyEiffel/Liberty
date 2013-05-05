@@ -5,8 +5,8 @@ expanded class VISIT_ENUM
 
 insert ENUM
 
-create {ANY} default_create
-feature {ANY} -- Validity
+creation default_create
+feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = endorder_low_level)  or else
@@ -15,7 +15,7 @@ feature {ANY} -- Validity
 				(a_value = preorder_low_level) )
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_endorder is
 		do
@@ -37,7 +37,7 @@ feature {ANY} -- Setters
 			value := preorder_low_level
 		end
 
-feature {ANY} -- Queries
+feature -- Queries
 	is_endorder: BOOLEAN is
 		do
 			Result := (value=endorder_low_level)

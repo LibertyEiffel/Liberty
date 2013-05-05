@@ -5,7 +5,6 @@ expanded class XML_ERROR_LEVEL_ENUM
 
 insert ENUM
 
-<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -14,19 +13,9 @@ feature -- Validity
 				(a_value = xml_err_fatal_low_level)  or else
 				(a_value = xml_err_none_low_level)  or else
 				(a_value = xml_err_warning_low_level) )
-=======
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = none_low_level)  or else
-				(a_value = warning_low_level)  or else
-				(a_value = error_low_level)  or else
-				(a_value = fatal_low_level) )
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_xml_err_error is
 		do
@@ -48,13 +37,8 @@ feature {ANY} -- Setters
 			value := xml_err_warning_low_level
 		end
 
-<<<<<<< HEAD
 feature -- Queries
 	is_xml_err_error: BOOLEAN is
-=======
-feature {ANY} -- Queries
-	none: BOOLEAN is
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=xml_err_error_low_level)
 		end

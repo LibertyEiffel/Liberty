@@ -5,8 +5,8 @@ expanded class ENDIANNESS_ENUM
 
 insert ENUM
 
-create {ANY} default_create
-feature {ANY} -- Validity
+creation default_create
+feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = any_endianness_low_level)  or else
@@ -14,7 +14,7 @@ feature {ANY} -- Validity
 				(a_value = little_endian_low_level) )
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_any_endianness is
 		do
@@ -31,7 +31,7 @@ feature {ANY} -- Setters
 			value := little_endian_low_level
 		end
 
-feature {ANY} -- Queries
+feature -- Queries
 	is_any_endianness: BOOLEAN is
 		do
 			Result := (value=any_endianness_low_level)

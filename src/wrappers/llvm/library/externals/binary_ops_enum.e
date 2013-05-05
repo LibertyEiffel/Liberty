@@ -5,7 +5,6 @@ expanded class BINARY_OPS_ENUM
 
 insert ENUM
 
-<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -15,14 +14,6 @@ feature -- Validity
 				(a_value = ashr_low_level)  or else
 				(a_value = binary_ops_begin_low_level)  or else
 				(a_value = binary_ops_end_low_level)  or else
-=======
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = binary_ops_begin_low_level)  or else
-				(a_value = add_low_level)  or else
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 				(a_value = fadd_low_level)  or else
 				(a_value = fdiv_low_level)  or else
 				(a_value = fmul_low_level)  or else
@@ -40,7 +31,7 @@ feature {ANY} -- Validity
 				(a_value = xor_external_low_level) )
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_add is
 		do
@@ -148,12 +139,7 @@ feature -- Queries
 			Result := (value=add_low_level)
 		end
 
-<<<<<<< HEAD
 	is_and_external: BOOLEAN is
-=======
-feature {ANY} -- Queries
-	binary_ops_begin: BOOLEAN is
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=and_external_low_level)
 		end

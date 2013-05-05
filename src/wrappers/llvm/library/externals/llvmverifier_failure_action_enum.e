@@ -5,7 +5,6 @@ expanded class LLVMVERIFIER_FAILURE_ACTION_ENUM
 
 insert ENUM
 
-<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -13,18 +12,9 @@ feature -- Validity
             Result := ((a_value = llvmabort_process_action_low_level)  or else
 				(a_value = llvmprint_message_action_low_level)  or else
 				(a_value = llvmreturn_status_action_low_level) )
-=======
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = abort_process_action_low_level)  or else
-				(a_value = print_message_action_low_level)  or else
-				(a_value = return_status_action_low_level) )
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_llvmabort_process_action is
 		do
@@ -41,13 +31,8 @@ feature {ANY} -- Setters
 			value := llvmreturn_status_action_low_level
 		end
 
-<<<<<<< HEAD
 feature -- Queries
 	is_llvmabort_process_action: BOOLEAN is
-=======
-feature {ANY} -- Queries
-	abort_process_action: BOOLEAN is
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=llvmabort_process_action_low_level)
 		end

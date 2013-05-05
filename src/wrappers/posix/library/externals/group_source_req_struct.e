@@ -36,7 +36,7 @@ feature {} -- Low-level queries
 
 	-- Unwrappable field gsr_group.
 	-- Unwrappable field gsr_source.
-feature {ANY} -- Structure size
+feature -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

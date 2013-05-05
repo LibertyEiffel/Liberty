@@ -5,7 +5,6 @@ expanded class XML_PARSER_INPUT_STATE_ENUM
 
 insert ENUM
 
-<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -28,33 +27,9 @@ feature -- Validity
 				(a_value = xml_parser_start_low_level)  or else
 				(a_value = xml_parser_start_tag_low_level)  or else
 				(a_value = xml_parser_system_literal_low_level) )
-=======
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = eof_low_level)  or else
-				(a_value = start_low_level)  or else
-				(a_value = misc_low_level)  or else
-				(a_value = pi_low_level)  or else
-				(a_value = dtd_low_level)  or else
-				(a_value = prolog_low_level)  or else
-				(a_value = comment_low_level)  or else
-				(a_value = start_tag_low_level)  or else
-				(a_value = content_low_level)  or else
-				(a_value = cdata_section_low_level)  or else
-				(a_value = end_tag_low_level)  or else
-				(a_value = entity_decl_low_level)  or else
-				(a_value = entity_value_low_level)  or else
-				(a_value = attribute_value_low_level)  or else
-				(a_value = system_literal_low_level)  or else
-				(a_value = epilog_low_level)  or else
-				(a_value = ignore_low_level)  or else
-				(a_value = public_literal_low_level) )
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_xml_parser_attribute_value is
 		do
@@ -146,13 +121,8 @@ feature {ANY} -- Setters
 			value := xml_parser_system_literal_low_level
 		end
 
-<<<<<<< HEAD
 feature -- Queries
 	is_xml_parser_attribute_value: BOOLEAN is
-=======
-feature {ANY} -- Queries
-	eof: BOOLEAN is
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=xml_parser_attribute_value_low_level)
 		end

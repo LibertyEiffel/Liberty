@@ -5,7 +5,6 @@ expanded class CAST_OPS_ENUM
 
 insert ENUM
 
-<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -14,17 +13,6 @@ feature -- Validity
 				(a_value = cast_ops_begin_low_level)  or else
 				(a_value = cast_ops_end_low_level)  or else
 				(a_value = fpext_low_level)  or else
-=======
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = cast_ops_begin_low_level)  or else
-				(a_value = trunc_low_level)  or else
-				(a_value = zext_low_level)  or else
-				(a_value = sext_low_level)  or else
-				(a_value = fpto_ui_low_level)  or else
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 				(a_value = fpto_si_low_level)  or else
 				(a_value = fpto_ui_low_level)  or else
 				(a_value = fptrunc_low_level)  or else
@@ -37,7 +25,7 @@ feature {ANY} -- Validity
 				(a_value = zext_low_level) )
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_bit_cast is
 		do
@@ -115,12 +103,7 @@ feature -- Queries
 			Result := (value=bit_cast_low_level)
 		end
 
-<<<<<<< HEAD
 	is_cast_ops_begin: BOOLEAN is
-=======
-feature {ANY} -- Queries
-	cast_ops_begin: BOOLEAN is
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=cast_ops_begin_low_level)
 		end

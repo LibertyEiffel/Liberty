@@ -5,8 +5,8 @@ expanded class REG_ERRCODE_T_ENUM
 
 insert ENUM
 
-create {ANY} default_create
-feature {ANY} -- Validity
+creation default_create
+feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = reg_badbr_low_level)  or else
@@ -29,7 +29,7 @@ feature {ANY} -- Validity
 				(a_value = reg_nomatch_low_level) )
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_reg_badbr is
 		do
@@ -121,7 +121,7 @@ feature {ANY} -- Setters
 			value := reg_nomatch_low_level
 		end
 
-feature {ANY} -- Queries
+feature -- Queries
 	is_reg_badbr: BOOLEAN is
 		do
 			Result := (value=reg_badbr_low_level)

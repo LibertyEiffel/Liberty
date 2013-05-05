@@ -5,8 +5,8 @@ expanded class ID_ENUM
 
 insert ENUM
 
-create {ANY} default_create
-feature {ANY} -- Validity
+creation default_create
+feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = arm_aapcs_low_level)  or else
@@ -27,7 +27,7 @@ feature {ANY} -- Validity
 				(a_value = x86_this_call_low_level) )
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_arm_aapcs is
 		do
@@ -109,7 +109,7 @@ feature {ANY} -- Setters
 			value := x86_this_call_low_level
 		end
 
-feature {ANY} -- Queries
+feature -- Queries
 	is_arm_aapcs: BOOLEAN is
 		do
 			Result := (value=arm_aapcs_low_level)

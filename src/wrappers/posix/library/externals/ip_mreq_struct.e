@@ -12,7 +12,7 @@ feature {} -- Low-level queries
 
 	-- Unwrappable field imr_multiaddr.
 	-- Unwrappable field imr_interface.
-feature {ANY} -- Structure size
+feature -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

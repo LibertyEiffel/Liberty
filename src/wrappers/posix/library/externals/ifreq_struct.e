@@ -12,7 +12,7 @@ feature {} -- Low-level queries
 
 	-- Unwrappable field ifr_ifrn.
 	-- Unwrappable field ifr_ifru.
-feature {ANY} -- Structure size
+feature -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

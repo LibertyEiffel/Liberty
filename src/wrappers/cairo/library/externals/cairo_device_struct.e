@@ -7,7 +7,7 @@ insert STANDARD_C_LIBRARY_TYPES
 
 	CAIRO_TYPES
 	-- Fieldless structure
-feature {ANY} -- Structure size
+feature -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

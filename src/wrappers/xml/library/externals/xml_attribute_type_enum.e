@@ -5,7 +5,6 @@ expanded class XML_ATTRIBUTE_TYPE_ENUM
 
 insert ENUM
 
-<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -20,25 +19,9 @@ feature -- Validity
 				(a_value = xml_attribute_nmtoken_low_level)  or else
 				(a_value = xml_attribute_nmtokens_low_level)  or else
 				(a_value = xml_attribute_notation_low_level) )
-=======
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = cdata_low_level)  or else
-				(a_value = id_low_level)  or else
-				(a_value = idref_low_level)  or else
-				(a_value = idrefs_low_level)  or else
-				(a_value = entity_low_level)  or else
-				(a_value = entities_low_level)  or else
-				(a_value = nmtoken_low_level)  or else
-				(a_value = nmtokens_low_level)  or else
-				(a_value = enumeration_low_level)  or else
-				(a_value = notation_low_level) )
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_xml_attribute_cdata is
 		do
@@ -90,13 +73,8 @@ feature {ANY} -- Setters
 			value := xml_attribute_notation_low_level
 		end
 
-<<<<<<< HEAD
 feature -- Queries
 	is_xml_attribute_cdata: BOOLEAN is
-=======
-feature {ANY} -- Queries
-	cdata: BOOLEAN is
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=xml_attribute_cdata_low_level)
 		end

@@ -6,13 +6,8 @@ deferred class FFI_TYPES
 
 insert ANY undefine is_equal, copy end
 
-<<<<<<< HEAD
 feature -- C type definitions (typedefs)
 	ffi_sarg: like long is
-=======
-feature {ANY} -- C type definitions (typedefs)
-	ffi_sarg: INTEGER_64 is
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		-- typedef ffi_sarg
 		-- Empty by design, used for anchored declarations.
 	do

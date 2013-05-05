@@ -5,8 +5,8 @@ expanded class LLVMATTRIBUTE_ENUM
 
 insert ENUM
 
-create {ANY} default_create
-feature {ANY} -- Validity
+creation default_create
+feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = llvmalignment_low_level)  or else
@@ -34,7 +34,7 @@ feature {ANY} -- Validity
 				(a_value = llvmzext_attribute_low_level) )
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_llvmalignment is
 		do
@@ -151,7 +151,7 @@ feature {ANY} -- Setters
 			value := llvmzext_attribute_low_level
 		end
 
-feature {ANY} -- Queries
+feature -- Queries
 	is_llvmalignment: BOOLEAN is
 		do
 			Result := (value=llvmalignment_low_level)

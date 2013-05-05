@@ -5,35 +5,22 @@ expanded class UNINITIALIZED_TAG_ENUM
 
 insert ENUM
 
-<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = uninitialized_low_level) )
-=======
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = uninitialized_low_level) )
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_uninitialized is
 		do
 			value := uninitialized_low_level
 		end
 
-<<<<<<< HEAD
 feature -- Queries
 	is_uninitialized: BOOLEAN is
-=======
-feature {ANY} -- Queries
-	uninitialized: BOOLEAN is
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=uninitialized_low_level)
 		end

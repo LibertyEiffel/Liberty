@@ -5,8 +5,8 @@ expanded class FLOAT_DENORM_STYLE_ENUM
 
 insert ENUM
 
-create {ANY} default_create
-feature {ANY} -- Validity
+creation default_create
+feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = denorm_absent_low_level)  or else
@@ -14,7 +14,7 @@ feature {ANY} -- Validity
 				(a_value = denorm_present_low_level) )
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_denorm_absent is
 		do
@@ -31,7 +31,7 @@ feature {ANY} -- Setters
 			value := denorm_present_low_level
 		end
 
-feature {ANY} -- Queries
+feature -- Queries
 	is_denorm_absent: BOOLEAN is
 		do
 			Result := (value=denorm_absent_low_level)

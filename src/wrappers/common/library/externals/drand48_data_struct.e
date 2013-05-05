@@ -15,7 +15,7 @@ feature {} -- Low-level queries
 	-- Unwrappable field __c.
 	-- Unwrappable field __init.
 	-- Unwrappable field __a.
-feature {ANY} -- Structure size
+feature -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

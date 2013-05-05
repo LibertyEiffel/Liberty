@@ -5,25 +5,17 @@ expanded class PREV_PTR_TAG_ENUM
 
 insert ENUM
 
-<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = full_stop_tag_low_level)  or else
-=======
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = zero_digit_tag_low_level)  or else
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 				(a_value = one_digit_tag_low_level)  or else
 				(a_value = stop_tag_low_level)  or else
 				(a_value = zero_digit_tag_low_level) )
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_full_stop_tag is
 		do
@@ -45,13 +37,8 @@ feature {ANY} -- Setters
 			value := zero_digit_tag_low_level
 		end
 
-<<<<<<< HEAD
 feature -- Queries
 	is_full_stop_tag: BOOLEAN is
-=======
-feature {ANY} -- Queries
-	zero_digit_tag: BOOLEAN is
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=full_stop_tag_low_level)
 		end

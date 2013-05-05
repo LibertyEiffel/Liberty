@@ -5,7 +5,6 @@ expanded class XML_EXP_NODE_TYPE_ENUM
 
 insert ENUM
 
-<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -16,21 +15,9 @@ feature -- Validity
 				(a_value = xml_exp_forbid_low_level)  or else
 				(a_value = xml_exp_or_low_level)  or else
 				(a_value = xml_exp_seq_low_level) )
-=======
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = empty_low_level)  or else
-				(a_value = forbid_low_level)  or else
-				(a_value = atom_low_level)  or else
-				(a_value = seq_low_level)  or else
-				(a_value = or_external_low_level)  or else
-				(a_value = count_low_level) )
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_xml_exp_atom is
 		do
@@ -62,13 +49,8 @@ feature {ANY} -- Setters
 			value := xml_exp_seq_low_level
 		end
 
-<<<<<<< HEAD
 feature -- Queries
 	is_xml_exp_atom: BOOLEAN is
-=======
-feature {ANY} -- Queries
-	empty: BOOLEAN is
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=xml_exp_atom_low_level)
 		end

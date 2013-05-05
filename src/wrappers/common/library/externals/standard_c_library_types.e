@@ -6,10 +6,9 @@ deferred class STANDARD_C_LIBRARY_TYPES
 
 insert ANY undefine is_equal, copy end
 
-<<<<<<< HEAD
 feature -- C type definitions (typedefs)
 feature -- variable-size types
-	long: INTEGER_64 is
+	long: INTEGER_32 is
 		-- a query with the same type of c 'long int'. useful when dealing with
 		-- code that uses long int variable: just insert this class and mark
 		-- the type as 'like long'
@@ -17,7 +16,7 @@ feature -- variable-size types
 		-- empty by design
 	end
 
-   long_unsigned: NATURAL_64 is
+   long_unsigned: NATURAL_32 is
 		-- a query with the same type of c 'long unsigned int'. useful when dealing with
 		-- code that uses long int variable: just insert this class and mark
 		-- the type as 'like long_unsigned'
@@ -26,11 +25,11 @@ feature -- variable-size types
 	end
 
 feature -- Memory related type definitions
-	size_t: NATURAL_64 is do end
+	size_t: NATURAL_32 is do end
 
-   ssize_t: INTEGER_64 is do end
+   ssize_t: INTEGER_32 is do end
 
-	ptrdiff_t: INTEGER_64 is do end
+	ptrdiff_t: INTEGER_32 is do end
 
 feature -- Standard C type definitions
 	-- All those queries are empty by design, meant to be used as anchored declarations
@@ -48,8 +47,8 @@ feature -- Standard C type definitions
 
 	-- Integer types capable of holding object pointers
 	-- These allow you to declare variables of the same size as a pointer.
-	intptr_t: INTEGER_64 is do end
-	uintptr_t: NATURAL_64 is do end
+	intptr_t: INTEGER_32 is do end
+	uintptr_t: NATURAL_32 is do end
 
 	-- Minimum-width integer types
 	-- Integer types having at least the specified width
@@ -66,10 +65,10 @@ feature -- Standard C type definitions
 	-- Integer types being usually fastest having at least the specified width
 	int_fast8_t: INTEGER_8 is do end
 	uint_fast8_t: NATURAL_8 is do end
-	int_fast16_t: INTEGER_64 is do end
-	uint_fast16_t: NATURAL_64 is do end
-	int_fast32_t: INTEGER_64 is do end
-	uint_fast32_t: NATURAL_64 is do end
+	int_fast16_t: INTEGER_32 is do end
+	uint_fast16_t: NATURAL_32 is do end
+	int_fast32_t: INTEGER_32 is do end
+	uint_fast32_t: NATURAL_32 is do end
 	int_fast64_t: INTEGER_64 is do end
 	uint_fast64_t: NATURAL_64 is do end
 
@@ -79,9 +78,6 @@ feature -- Standard C type definitions
 	uintmax_t: NATURAL_64 is do end
 
 feature -- C type definitions (typedefs)
-=======
-feature {ANY} -- C type definitions (typedefs)
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 	timer_t: POINTER is
 		-- typedef timer_t
 		-- Empty by design, used for anchored declarations.

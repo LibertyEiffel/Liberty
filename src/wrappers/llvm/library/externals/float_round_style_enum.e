@@ -5,8 +5,8 @@ expanded class FLOAT_ROUND_STYLE_ENUM
 
 insert ENUM
 
-create {ANY} default_create
-feature {ANY} -- Validity
+creation default_create
+feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = round_indeterminate_low_level)  or else
@@ -16,7 +16,7 @@ feature {ANY} -- Validity
 				(a_value = round_toward_zero_low_level) )
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_round_indeterminate is
 		do
@@ -43,7 +43,7 @@ feature {ANY} -- Setters
 			value := round_toward_zero_low_level
 		end
 
-feature {ANY} -- Queries
+feature -- Queries
 	is_round_indeterminate: BOOLEAN is
 		do
 			Result := (value=round_indeterminate_low_level)

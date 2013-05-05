@@ -5,25 +5,11 @@ expanded class NODE_KIND_ENUM
 
 insert ENUM
 
-<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = cstring_kind_low_level)  or else
-=======
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = null_kind_low_level)  or else
-				(a_value = empty_kind_low_level)  or else
-				(a_value = twine_kind_low_level)  or else
-				(a_value = cstring_kind_low_level)  or else
-				(a_value = std_string_kind_low_level)  or else
-				(a_value = string_ref_kind_low_level)  or else
-				(a_value = dec_uikind_low_level)  or else
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 				(a_value = dec_ikind_low_level)  or else
 				(a_value = dec_lkind_low_level)  or else
 				(a_value = dec_llkind_low_level)  or else
@@ -38,7 +24,7 @@ feature {ANY} -- Validity
 				(a_value = uhex_kind_low_level) )
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_cstring_kind is
 		do
@@ -105,13 +91,8 @@ feature {ANY} -- Setters
 			value := uhex_kind_low_level
 		end
 
-<<<<<<< HEAD
 feature -- Queries
 	is_cstring_kind: BOOLEAN is
-=======
-feature {ANY} -- Queries
-	null_kind: BOOLEAN is
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=cstring_kind_low_level)
 		end

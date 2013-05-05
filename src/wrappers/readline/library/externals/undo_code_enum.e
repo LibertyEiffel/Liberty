@@ -5,8 +5,8 @@ expanded class UNDO_CODE_ENUM
 
 insert ENUM
 
-create {ANY} default_create
-feature {ANY} -- Validity
+creation default_create
+feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = undo_begin_low_level)  or else
@@ -15,7 +15,7 @@ feature {ANY} -- Validity
 				(a_value = undo_insert_low_level) )
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_undo_begin is
 		do
@@ -37,13 +37,8 @@ feature {ANY} -- Setters
 			value := undo_insert_low_level
 		end
 
-<<<<<<< HEAD
 feature -- Queries
 	is_undo_begin: BOOLEAN is
-=======
-feature {ANY} -- Queries
-	is_delete: BOOLEAN is
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=undo_begin_low_level)
 		end

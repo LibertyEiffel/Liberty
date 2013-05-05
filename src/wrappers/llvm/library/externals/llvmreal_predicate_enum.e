@@ -5,7 +5,6 @@ expanded class LLVMREAL_PREDICATE_ENUM
 
 insert ENUM
 
-<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -26,31 +25,9 @@ feature -- Validity
 				(a_value = llvmreal_ult_low_level)  or else
 				(a_value = llvmreal_une_low_level)  or else
 				(a_value = llvmreal_uno_low_level) )
-=======
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = predicate_false_low_level)  or else
-				(a_value = oeq_low_level)  or else
-				(a_value = ogt_low_level)  or else
-				(a_value = oge_low_level)  or else
-				(a_value = olt_low_level)  or else
-				(a_value = ole_low_level)  or else
-				(a_value = one_low_level)  or else
-				(a_value = ord_low_level)  or else
-				(a_value = uno_low_level)  or else
-				(a_value = ueq_low_level)  or else
-				(a_value = ugt_low_level)  or else
-				(a_value = uge_low_level)  or else
-				(a_value = ult_low_level)  or else
-				(a_value = ule_low_level)  or else
-				(a_value = une_low_level)  or else
-				(a_value = predicate_true_low_level) )
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_llvmreal_oeq is
 		do
@@ -132,13 +109,8 @@ feature {ANY} -- Setters
 			value := llvmreal_uno_low_level
 		end
 
-<<<<<<< HEAD
 feature -- Queries
 	is_llvmreal_oeq: BOOLEAN is
-=======
-feature {ANY} -- Queries
-	predicate_false: BOOLEAN is
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=llvmreal_oeq_low_level)
 		end

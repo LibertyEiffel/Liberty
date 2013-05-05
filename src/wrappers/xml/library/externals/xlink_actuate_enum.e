@@ -5,7 +5,6 @@ expanded class XLINK_ACTUATE_ENUM
 
 insert ENUM
 
-<<<<<<< HEAD
 creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
@@ -13,18 +12,9 @@ feature -- Validity
             Result := ((a_value = xlink_actuate_auto_low_level)  or else
 				(a_value = xlink_actuate_none_low_level)  or else
 				(a_value = xlink_actuate_onrequest_low_level) )
-=======
-create {ANY} default_create
-feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = none_low_level)  or else
-				(a_value = auto_low_level)  or else
-				(a_value = onrequest_low_level) )
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		end
 
-feature {ANY} -- Setters
+feature -- Setters
 	default_create,
 	set_xlink_actuate_auto is
 		do
@@ -41,13 +31,8 @@ feature {ANY} -- Setters
 			value := xlink_actuate_onrequest_low_level
 		end
 
-<<<<<<< HEAD
 feature -- Queries
 	is_xlink_actuate_auto: BOOLEAN is
-=======
-feature {ANY} -- Queries
-	none: BOOLEAN is
->>>>>>> c5fc6163e0cda7bb1c1dc8df91c46c66ff334c0a
 		do
 			Result := (value=xlink_actuate_auto_low_level)
 		end
