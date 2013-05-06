@@ -237,7 +237,7 @@ feature {ANY} -- Modification:
             ensure_capacity(i + d)
          end
          count := i + j
-         if i > 0 and then j > 0 then
+         if i > 0 and then d > 0 then
             storage.move(storage_lower, storage_lower + i - 1, d)
          end
          storage_lower := 0
