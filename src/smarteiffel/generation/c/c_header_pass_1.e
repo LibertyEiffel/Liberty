@@ -178,8 +178,18 @@ feature {AGENT_TYPE_MARK}
 
 feature {NATIVE_ARRAY_TYPE_MARK}
    visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+      local
+         generic_type: LIVE_TYPE
       do
-         compile_live_type(visited.generic_list.first.type.live_type)
+         generic_type := visited.generic_list.first.type.live_type
+         if generic_type.at_run_time then
+            compile_live_type(generic_type)
+         elseif not is_compiled(generic_type) then --| **** TODO: THIS IS A DIRTY HACK!!
+            set_compiled(generic_type)
+            out_h.copy(once "/*BUG:NA@runtime!*/")
+            flush_out_h
+            do_compile(generic_type)
+         end
       end
 
 feature {USER_GENERIC_TYPE_MARK}
