@@ -868,14 +868,7 @@ feature {ANY} -- Interfacing with C string:
          -- of the internal `storage'. This extra null character is not
          -- part of the Eiffel STRING.
       do
-         if capacity > count then
-            count := count + 1
-            if item(count) /= '%U' then
-               put('%U', count)
-            end
-         else
-            add_last('%U')
-         end
+         add_last('%U')
          count := count - 1
          Result := storage.to_pointer + storage_lower
       end
