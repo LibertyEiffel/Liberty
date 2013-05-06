@@ -147,12 +147,8 @@ feature {ANY}
          if spec.valid_index(i) then
             Result := spec.substring(spec.lower, i-1).is_equal(spec.substring(spec.lower, i-1).as_lower)
             if Result then
-               if j > i then
-                  check
-                     spec.valid_index(j)
-                  end
-                  Result := j < spec.upper
-                     and then spec.substring(i+1, j-1).is_equal(spec.substring(i+1, j-1).as_upper)
+               if spec.valid_index(j) then
+                  Result := spec.substring(i+1, j-1).is_equal(spec.substring(i+1, j-1).as_upper)
                else
                   Result := spec.substring(i+1, spec.upper).is_equal(spec.substring(i+1, spec.upper).as_upper)
                end
@@ -215,7 +211,7 @@ feature {ANY}
          j := spec.first_index_of('.')
          if spec.valid_index(i) then
             l := spec.substring(spec.lower, i-1)
-            if j > i then
+            if spec.valid_index(j) then
                c := spec.substring(i+1, j-1)
                make_encoding(l, c, spec.substring(j+1, spec.upper))
             else
