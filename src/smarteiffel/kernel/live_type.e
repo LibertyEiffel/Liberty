@@ -1386,7 +1386,7 @@ invariant
    precursor_run_features /= Void implies not precursor_run_features.is_empty
 
    run_time_set.owner = Current
-   run_time_set.is_empty or else (at_run_time and then run_time_set.fast_has(Current))
+   run_time_set.is_empty or else (at_run_time and then run_time_set.has(Current))
 
 end -- class LIVE_TYPE
 --
