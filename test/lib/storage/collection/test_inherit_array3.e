@@ -10,7 +10,10 @@ inherit
       end
 
 create {}
-   make, array_make
+   make
+
+create {ARRAY}
+   array_make
 
 feature {ANY}
    make is

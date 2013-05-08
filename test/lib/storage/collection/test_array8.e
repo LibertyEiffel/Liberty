@@ -12,7 +12,7 @@ inherit
 create {}
    make
 
-create {}
+create {ARRAY}
    make_array
 
 feature {}
