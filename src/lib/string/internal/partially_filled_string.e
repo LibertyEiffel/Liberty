@@ -123,9 +123,6 @@ feature {ANY}
 
    hash_code: INTEGER is
       do
-         check
-            filled: storage.count = storage.capacity -- a hash_code that changes is not good!
-         end
          Result := memory.hash_code
       end
 
