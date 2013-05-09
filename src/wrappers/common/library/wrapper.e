@@ -89,6 +89,15 @@ insert
 	WRAPPER_HANDLER -- to access `null_or', `exceptions' strings and external calls
 
 	POINTER_HANDLING -- to access `address_of' and `content_of'
+	
+	STDLIB_EXTERNALS
+
+	STRING_EXTERNALS
+	
+	STANDARD_C_LIBRARY_TYPES
+
+
+	STANDARD_C_LIBRARY_TYPES
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 
@@ -136,6 +145,12 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 			-- (i.e. "GError **error")
 		do
 			Result:=address_of(handle)
+		end
+feature {WRAPPER} -- Pointer referencing and de-referencing
+	size_t_cast (an_integer: INTEGER): like size_t is
+		-- Comodity feature to cast an integer into an actual size_t 
+		external "C inline" 
+		alias "((size_t) ($an_integer))"
 		end
 
 end -- class WRAPPER

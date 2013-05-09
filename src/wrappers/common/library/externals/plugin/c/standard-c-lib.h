@@ -7,7 +7,9 @@
 #include <errno.h>
 #include <float.h>
 #include <math.h>
+#include <stddef.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>

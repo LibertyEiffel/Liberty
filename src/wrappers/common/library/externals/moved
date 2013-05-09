@@ -6,3 +6,33 @@ calloc	/usr/include/stdlib.h also calloc is declared in stdlib.h Both are often 
 
 -- Typedefs to fundamental types
 size_t	/usr/include/stdlib.h  size_t typedef will be wrapped into
+int8_t	/usr/include/stdint.h
+uint8_t	/usr/include/stdint.h
+int16_t	/usr/include/stdint.h
+uint16_t	/usr/include/stdint.h
+int32_t	/usr/include/stdint.h
+uint32_t	/usr/include/stdint.h
+int64_t	/usr/include/stdint.h
+uint64_t	/usr/include/stdint.h
+intptr_t	/usr/include/stdint.h
+uintptr_t	/usr/include/stdint.h
+int_least8_t	/usr/include/stdint.h
+uint_least8_t	/usr/include/stdint.h
+int_least16_t	/usr/include/stdint.h
+uint_least16_t	/usr/include/stdint.h
+int_least32_t	/usr/include/stdint.h
+uint_least32_t	/usr/include/stdint.h
+int_least64_t	/usr/include/stdint.h
+uint_least64_t	/usr/include/stdint.h
+int_fast8_t	/usr/include/stdint.h
+uint_fast8_t	/usr/include/stdint.h
+int_fast16_t	/usr/include/stdint.h
+uint_fast16_t	/usr/include/stdint.h
+int_fast32_t	/usr/include/stdint.h
+uint_fast32_t	/usr/include/stdint.h
+int_fast64_t	/usr/include/stdint.h
+uint_fast64_t	/usr/include/stdint.h
+intmax_t	/usr/include/stdint.h
+uintmax_t	/usr/include/stdint.h
+ssize_t	/usr/include/stdint.h
+ptrdiff_t	/usr/include/stdint.h

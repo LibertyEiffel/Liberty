@@ -26,10 +26,6 @@ deferred class C_STRUCT
 
 inherit
 	WRAPPER
-insert
-	STDLIB_EXTERNALS
-	STRING_EXTERNALS
-	STANDARD_C_LIBRARY_TYPES
 
 feature {} -- Initialization
 
