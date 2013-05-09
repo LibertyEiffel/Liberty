@@ -55,7 +55,7 @@ feature {} -- Creation
          -- Intern `a_string' to get a plain memory area containing the actual
          -- content and store the interned string to avoid it being collected.
 
-         is_successful := zmq_msg_init_size(handle, (a_string.count + 1).to_natural_64)=0
+         is_successful := zmq_msg_init_size(handle, size_t_cast (a_string.count + 1))=0
          -- the +1 needs to account for the trailing terminating zero
          if not is_successful then --handle error
             not_yet_implemented
