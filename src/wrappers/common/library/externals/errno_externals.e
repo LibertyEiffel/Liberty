@@ -6,7 +6,7 @@ deferred class ERRNO_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	program_invocation_name: POINTER is

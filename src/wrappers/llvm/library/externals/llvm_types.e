@@ -6,6 +6,8 @@ deferred class LLVM_TYPES
 
 insert ANY undefine is_equal, copy end
 
+	STANDARD_C_LIBRARY_TYPES
+
 feature -- C type definitions (typedefs)
 	llvmexecution_engine_ref: POINTER is
 		-- typedef LLVMExecutionEngineRef

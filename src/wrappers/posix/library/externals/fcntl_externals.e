@@ -6,7 +6,7 @@ deferred class FCNTL_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	creat (a_file: POINTER; a_mode: NATURAL): INTEGER is
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	posix_fadvise (a_fd: INTEGER; an_offse: like long; a_len: like long; an_advis: INTEGER): INTEGER is
+	posix_fadvise (a_fd: INTEGER; an_offset: like long; a_len: like long; an_advise: INTEGER): INTEGER is
  		-- posix_fadvise
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	posix_fadvise64 (a_fd: INTEGER; an_offse: INTEGER_64; a_len: INTEGER_64; an_advis: INTEGER): INTEGER is
+	posix_fadvise64 (a_fd: INTEGER; an_offset: INTEGER_64; a_len: INTEGER_64; an_advise: INTEGER): INTEGER is
  		-- posix_fadvise64
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	posix_fallocate (a_fd: INTEGER; an_offse: like long; a_len: like long): INTEGER is
+	posix_fallocate (a_fd: INTEGER; an_offset: like long; a_len: like long): INTEGER is
  		-- posix_fallocate
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	posix_fallocate64 (a_fd: INTEGER; an_offse: INTEGER_64; a_len: INTEGER_64): INTEGER is
+	posix_fallocate64 (a_fd: INTEGER; an_offset: INTEGER_64; a_len: INTEGER_64): INTEGER is
  		-- posix_fallocate64
 		external "plug_in"
 		alias "{

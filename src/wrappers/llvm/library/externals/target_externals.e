@@ -6,7 +6,7 @@ deferred class TARGET_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	llvmabialignment_of_type (an_argument_l604_c7: POINTER; an_argument_l605_c7: POINTER): NATURAL is

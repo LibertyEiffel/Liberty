@@ -6,7 +6,7 @@ deferred class ENTITIES_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	xml_add_doc_entity (a_doc: POINTER; a_name: POINTER; a_type: INTEGER; an_external_id: POINTER; a_system_id: POINTER; a_content: POINTER): POINTER is

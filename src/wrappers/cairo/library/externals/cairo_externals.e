@@ -6,7 +6,7 @@ deferred class CAIRO_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	cairo_append_path (a_cr: POINTER; a_path: POINTER) is

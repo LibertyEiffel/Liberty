@@ -6,7 +6,7 @@ deferred class BITWRITER_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	llvmwrite_bitcode_to_fd (a_m: POINTER; a_fd: INTEGER; a_should_close: INTEGER; an_unbuffered: INTEGER): INTEGER is

@@ -6,6 +6,8 @@ deferred class POSIX_TYPES
 
 insert ANY undefine is_equal, copy end
 
+	STANDARD_C_LIBRARY_TYPES
+
 feature -- C type definitions (typedefs)
 	in_port_t: like uint16_t is
 		-- typedef in_port_t

@@ -6,6 +6,8 @@ deferred class CAIRO_TYPES
 
 insert ANY undefine is_equal, copy end
 
+	STANDARD_C_LIBRARY_TYPES
+
 feature -- C type definitions (typedefs)
 	cairo_user_scaled_font_unicode_to_glyph_func_t: POINTER is
 		-- typedef cairo_user_scaled_font_unicode_to_glyph_func_t

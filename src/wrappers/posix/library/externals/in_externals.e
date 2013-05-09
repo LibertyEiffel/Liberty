@@ -6,7 +6,7 @@ deferred class IN_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	bindresvport (a_sockfd: INTEGER; a_sock_in: POINTER): INTEGER is
@@ -30,7 +30,7 @@ feature {} -- External calls
 		end
 
 	-- function getipv4sourcefilter (at line 592 in file /usr/include/netinet/in.h is not wrappable
-	getsourcefilter (a_s: INTEGER; an_interface_add: like uint32_t; a_group: POINTER; a_grouplen: NATURAL; a_fmode: POINTER; a_numsrc: POINTER; a_slist: POINTER): INTEGER is
+	getsourcefilter (a_s: INTEGER; an_interface_addr: like uint32_t; a_group: POINTER; a_grouplen: NATURAL; a_fmode: POINTER; a_numsrc: POINTER; a_slist: POINTER): INTEGER is
  		-- getsourcefilter
 		external "plug_in"
 		alias "{
@@ -82,7 +82,7 @@ feature {} -- External calls
 		}"
 		end
 
-	inet6_opt_append (an_extbu: POINTER; an_extle: NATURAL; an_offse: INTEGER; a_type: like uint8_t; a_len: NATURAL; an_alig: like uint8_t; a_databufp: POINTER): INTEGER is
+	inet6_opt_append (an_extbuf: POINTER; an_extlen: NATURAL; an_offset: INTEGER; a_type: like uint8_t; a_len: NATURAL; an_align: like uint8_t; a_databufp: POINTER): INTEGER is
  		-- inet6_opt_append
 		external "plug_in"
 		alias "{
@@ -92,7 +92,7 @@ feature {} -- External calls
 		}"
 		end
 
-	inet6_opt_find (an_extbu: POINTER; an_extle: NATURAL; an_offse: INTEGER; a_type: like uint8_t; a_lenp: POINTER; a_databufp: POINTER): INTEGER is
+	inet6_opt_find (an_extbuf: POINTER; an_extlen: NATURAL; an_offset: INTEGER; a_type: like uint8_t; a_lenp: POINTER; a_databufp: POINTER): INTEGER is
  		-- inet6_opt_find
 		external "plug_in"
 		alias "{
@@ -102,7 +102,7 @@ feature {} -- External calls
 		}"
 		end
 
-	inet6_opt_finish (an_extbu: POINTER; an_extle: NATURAL; an_offse: INTEGER): INTEGER is
+	inet6_opt_finish (an_extbuf: POINTER; an_extlen: NATURAL; an_offset: INTEGER): INTEGER is
  		-- inet6_opt_finish
 		external "plug_in"
 		alias "{
@@ -112,7 +112,7 @@ feature {} -- External calls
 		}"
 		end
 
-	inet6_opt_get_val (a_databuf: POINTER; an_offse: INTEGER; a_val: POINTER; a_vallen: NATURAL): INTEGER is
+	inet6_opt_get_val (a_databuf: POINTER; an_offset: INTEGER; a_val: POINTER; a_vallen: NATURAL): INTEGER is
  		-- inet6_opt_get_val
 		external "plug_in"
 		alias "{
@@ -122,7 +122,7 @@ feature {} -- External calls
 		}"
 		end
 
-	inet6_opt_init (an_extbu: POINTER; an_extle: NATURAL): INTEGER is
+	inet6_opt_init (an_extbuf: POINTER; an_extlen: NATURAL): INTEGER is
  		-- inet6_opt_init
 		external "plug_in"
 		alias "{
@@ -132,7 +132,7 @@ feature {} -- External calls
 		}"
 		end
 
-	inet6_opt_next (an_extbu: POINTER; an_extle: NATURAL; an_offse: INTEGER; a_typep: POINTER; a_lenp: POINTER; a_databufp: POINTER): INTEGER is
+	inet6_opt_next (an_extbuf: POINTER; an_extlen: NATURAL; an_offset: INTEGER; a_typep: POINTER; a_lenp: POINTER; a_databufp: POINTER): INTEGER is
  		-- inet6_opt_next
 		external "plug_in"
 		alias "{
@@ -142,7 +142,7 @@ feature {} -- External calls
 		}"
 		end
 
-	inet6_opt_set_val (a_databuf: POINTER; an_offse: INTEGER; a_val: POINTER; a_vallen: NATURAL): INTEGER is
+	inet6_opt_set_val (a_databuf: POINTER; an_offset: INTEGER; a_val: POINTER; a_vallen: NATURAL): INTEGER is
  		-- inet6_opt_set_val
 		external "plug_in"
 		alias "{
@@ -212,7 +212,7 @@ feature {} -- External calls
 		}"
 		end
 
-	inet6_rth_add (a_bp: POINTER; an_add: POINTER): INTEGER is
+	inet6_rth_add (a_bp: POINTER; an_addr: POINTER): INTEGER is
  		-- inet6_rth_add
 		external "plug_in"
 		alias "{
@@ -222,7 +222,7 @@ feature {} -- External calls
 		}"
 		end
 
-	inet6_rth_getaddr (a_bp: POINTER; an_inde: INTEGER): POINTER is
+	inet6_rth_getaddr (a_bp: POINTER; an_index: INTEGER): POINTER is
  		-- inet6_rth_getaddr
 		external "plug_in"
 		alias "{
@@ -242,7 +242,7 @@ feature {} -- External calls
 		}"
 		end
 
-	inet6_rth_reverse (an_i: POINTER; an_out_external: POINTER): INTEGER is
+	inet6_rth_reverse (an_in: POINTER; an_out_external: POINTER): INTEGER is
  		-- inet6_rth_reverse
 		external "plug_in"
 		alias "{
@@ -293,7 +293,7 @@ feature {} -- External calls
 		end
 
 	-- function setipv4sourcefilter (at line 599 in file /usr/include/netinet/in.h is not wrappable
-	setsourcefilter (a_s: INTEGER; an_interface_add: like uint32_t; a_group: POINTER; a_grouplen: NATURAL; a_fmode: like uint32_t; a_numsrc: like uint32_t; a_slist: POINTER): INTEGER is
+	setsourcefilter (a_s: INTEGER; an_interface_addr: like uint32_t; a_group: POINTER; a_grouplen: NATURAL; a_fmode: like uint32_t; a_numsrc: like uint32_t; a_slist: POINTER): INTEGER is
  		-- setsourcefilter
 		external "plug_in"
 		alias "{

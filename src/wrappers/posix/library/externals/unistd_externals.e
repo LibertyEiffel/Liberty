@@ -6,7 +6,7 @@ deferred class UNISTD_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	access (a_name: POINTER; a_type: INTEGER): INTEGER is
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	brk (an_add: POINTER): INTEGER is
+	brk (an_addr: POINTER): INTEGER is
  		-- brk
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	chown (a_file: POINTER; an_owne: NATURAL; a_group: NATURAL): INTEGER is
+	chown (a_file: POINTER; an_owner: NATURAL; a_group: NATURAL): INTEGER is
  		-- chown
 		external "plug_in"
 		alias "{
@@ -159,7 +159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	encrypt (a_libc_block: POINTER; an_edfla: INTEGER) is
+	encrypt (a_libc_block: POINTER; an_edflag: INTEGER) is
  		-- encrypt
 		external "plug_in"
 		alias "{
@@ -220,7 +220,7 @@ feature {} -- External calls
 		}"
 		end
 
-	execl (a_path: POINTER; an_ar: POINTER): INTEGER is
+	execl (a_path: POINTER; an_arg: POINTER): INTEGER is
  		-- execl (variadic call) 
 		external "plug_in"
 		alias "{
@@ -230,7 +230,7 @@ feature {} -- External calls
 		}"
 		end
 
-	execle (a_path: POINTER; an_ar: POINTER): INTEGER is
+	execle (a_path: POINTER; an_arg: POINTER): INTEGER is
  		-- execle (variadic call) 
 		external "plug_in"
 		alias "{
@@ -240,7 +240,7 @@ feature {} -- External calls
 		}"
 		end
 
-	execlp (a_file: POINTER; an_ar: POINTER): INTEGER is
+	execlp (a_file: POINTER; an_arg: POINTER): INTEGER is
  		-- execlp (variadic call) 
 		external "plug_in"
 		alias "{
@@ -250,7 +250,7 @@ feature {} -- External calls
 		}"
 		end
 
-	execv (a_path: POINTER; an_arg: POINTER): INTEGER is
+	execv (a_path: POINTER; an_argv: POINTER): INTEGER is
  		-- execv
 		external "plug_in"
 		alias "{
@@ -260,7 +260,7 @@ feature {} -- External calls
 		}"
 		end
 
-	execve (a_path: POINTER; an_arg: POINTER; an_env: POINTER): INTEGER is
+	execve (a_path: POINTER; an_argv: POINTER; an_envp: POINTER): INTEGER is
  		-- execve
 		external "plug_in"
 		alias "{
@@ -270,7 +270,7 @@ feature {} -- External calls
 		}"
 		end
 
-	execvp (a_file: POINTER; an_arg: POINTER): INTEGER is
+	execvp (a_file: POINTER; an_argv: POINTER): INTEGER is
  		-- execvp
 		external "plug_in"
 		alias "{
@@ -280,7 +280,7 @@ feature {} -- External calls
 		}"
 		end
 
-	execvpe (a_file: POINTER; an_arg: POINTER; an_env: POINTER): INTEGER is
+	execvpe (a_file: POINTER; an_argv: POINTER; an_envp: POINTER): INTEGER is
  		-- execvpe
 		external "plug_in"
 		alias "{
@@ -311,7 +311,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fchown (a_fd: INTEGER; an_owne: NATURAL; a_group: NATURAL): INTEGER is
+	fchown (a_fd: INTEGER; an_owner: NATURAL; a_group: NATURAL): INTEGER is
  		-- fchown
 		external "plug_in"
 		alias "{
@@ -321,7 +321,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fchownat (a_fd: INTEGER; a_file: POINTER; an_owne: NATURAL; a_group: NATURAL; a_flag: INTEGER): INTEGER is
+	fchownat (a_fd: INTEGER; a_file: POINTER; an_owner: NATURAL; a_group: NATURAL; a_flag: INTEGER): INTEGER is
  		-- fchownat
 		external "plug_in"
 		alias "{
@@ -341,7 +341,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fexecve (a_fd: INTEGER; an_arg: POINTER; an_env: POINTER): INTEGER is
+	fexecve (a_fd: INTEGER; an_argv: POINTER; an_envp: POINTER): INTEGER is
  		-- fexecve
 		external "plug_in"
 		alias "{
@@ -532,7 +532,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getresgid (a_rgid: POINTER; an_egi: POINTER; a_sgid: POINTER): INTEGER is
+	getresgid (a_rgid: POINTER; an_egid: POINTER; a_sgid: POINTER): INTEGER is
  		-- getresgid
 		external "plug_in"
 		alias "{
@@ -542,7 +542,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getresuid (a_ruid: POINTER; an_eui: POINTER; a_suid: POINTER): INTEGER is
+	getresuid (a_ruid: POINTER; an_euid: POINTER; a_suid: POINTER): INTEGER is
  		-- getresuid
 		external "plug_in"
 		alias "{
@@ -602,7 +602,7 @@ feature {} -- External calls
 		}"
 		end
 
-	lchown (a_file: POINTER; an_owne: NATURAL; a_group: NATURAL): INTEGER is
+	lchown (a_file: POINTER; an_owner: NATURAL; a_group: NATURAL): INTEGER is
  		-- lchown
 		external "plug_in"
 		alias "{
@@ -632,7 +632,7 @@ feature {} -- External calls
 		}"
 		end
 
-	lseek (a_fd: INTEGER; an_offse: like long; a_whence: INTEGER): like long is
+	lseek (a_fd: INTEGER; an_offset: like long; a_whence: INTEGER): like long is
  		-- lseek
 		external "plug_in"
 		alias "{
@@ -642,7 +642,7 @@ feature {} -- External calls
 		}"
 		end
 
-	lseek64 (a_fd: INTEGER; an_offse: INTEGER_64; a_whence: INTEGER): INTEGER_64 is
+	lseek64 (a_fd: INTEGER; an_offset: INTEGER_64; a_whence: INTEGER): INTEGER_64 is
  		-- lseek64
 		external "plug_in"
 		alias "{
@@ -652,7 +652,7 @@ feature {} -- External calls
 		}"
 		end
 
-	nice (an_in: INTEGER): INTEGER is
+	nice (an_inc: INTEGER): INTEGER is
  		-- nice
 		external "plug_in"
 		alias "{
@@ -702,7 +702,7 @@ feature {} -- External calls
 		}"
 		end
 
-	profil (a_sample_buffer: POINTER; a_size: like size_t; an_offse: like size_t; a_scale: NATURAL): INTEGER is
+	profil (a_sample_buffer: POINTER; a_size: like size_t; an_offset: like size_t; a_scale: NATURAL): INTEGER is
  		-- profil
 		external "plug_in"
 		alias "{
@@ -712,7 +712,7 @@ feature {} -- External calls
 		}"
 		end
 
-	pwrite (a_fd: INTEGER; a_buf: POINTER; a_n: like size_t; an_offse: like long): like ssize_t is
+	pwrite (a_fd: INTEGER; a_buf: POINTER; a_n: like size_t; an_offset: like long): like ssize_t is
  		-- pwrite
 		external "plug_in"
 		alias "{
@@ -722,7 +722,7 @@ feature {} -- External calls
 		}"
 		end
 
-	pwrite64 (a_fd: INTEGER; a_buf: POINTER; a_n: like size_t; an_offse: INTEGER_64): like ssize_t is
+	pwrite64 (a_fd: INTEGER; a_buf: POINTER; a_n: like size_t; an_offset: INTEGER_64): like ssize_t is
  		-- pwrite64
 		external "plug_in"
 		alias "{
@@ -782,7 +782,7 @@ feature {} -- External calls
 		}"
 		end
 
-	seteuid (an_ui: NATURAL): INTEGER is
+	seteuid (an_uid: NATURAL): INTEGER is
  		-- seteuid
 		external "plug_in"
 		alias "{
@@ -802,7 +802,7 @@ feature {} -- External calls
 		}"
 		end
 
-	sethostid (an_i: like long): INTEGER is
+	sethostid (an_id: like long): INTEGER is
  		-- sethostid
 		external "plug_in"
 		alias "{
@@ -852,7 +852,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setregid (a_rgid: NATURAL; an_egi: NATURAL): INTEGER is
+	setregid (a_rgid: NATURAL; an_egid: NATURAL): INTEGER is
  		-- setregid
 		external "plug_in"
 		alias "{
@@ -862,7 +862,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setresgid (a_rgid: NATURAL; an_egi: NATURAL; a_sgid: NATURAL): INTEGER is
+	setresgid (a_rgid: NATURAL; an_egid: NATURAL; a_sgid: NATURAL): INTEGER is
  		-- setresgid
 		external "plug_in"
 		alias "{
@@ -872,7 +872,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setresuid (a_ruid: NATURAL; an_eui: NATURAL; a_suid: NATURAL): INTEGER is
+	setresuid (a_ruid: NATURAL; an_euid: NATURAL; a_suid: NATURAL): INTEGER is
  		-- setresuid
 		external "plug_in"
 		alias "{
@@ -882,7 +882,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setreuid (a_ruid: NATURAL; an_eui: NATURAL): INTEGER is
+	setreuid (a_ruid: NATURAL; an_euid: NATURAL): INTEGER is
  		-- setreuid
 		external "plug_in"
 		alias "{
@@ -902,7 +902,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setuid (an_ui: NATURAL): INTEGER is
+	setuid (an_uid: NATURAL): INTEGER is
  		-- setuid
 		external "plug_in"
 		alias "{
@@ -1062,7 +1062,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ualarm (a_value: NATURAL; an_interva: NATURAL): NATURAL is
+	ualarm (a_value: NATURAL; an_interval: NATURAL): NATURAL is
  		-- ualarm
 		external "plug_in"
 		alias "{
@@ -1092,7 +1092,7 @@ feature {} -- External calls
 		}"
 		end
 
-	usleep (an_usecond: NATURAL): INTEGER is
+	usleep (an_useconds: NATURAL): INTEGER is
  		-- usleep
 		external "plug_in"
 		alias "{

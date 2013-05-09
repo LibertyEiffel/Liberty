@@ -6,7 +6,7 @@ deferred class ANALYSIS_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	llvmverify_function (a_fn: POINTER; an_action: INTEGER): INTEGER is

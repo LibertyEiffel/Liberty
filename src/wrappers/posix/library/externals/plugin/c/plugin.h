@@ -146,23 +146,6 @@
 #define if_nameindex_struct_set_if_name(a_structure,a_value) do {(((struct if_nameindex*)(a_structure)))->if_name = (a_value);}while(0)
 
 #define sizeof_if_nameindex (sizeof(struct if_nameindex))
-#define group_filter_struct_get_gf_interface(a_structure) (((struct group_filter*) (a_structure))->gf_interface)
-
-#define group_filter_struct_set_gf_interface(a_structure,a_value) do {(((struct group_filter*)(a_structure)))->gf_interface = (a_value);}while(0)
-
-#define group_filter_struct_get_gf_fmode(a_structure) (((struct group_filter*) (a_structure))->gf_fmode)
-
-#define group_filter_struct_set_gf_fmode(a_structure,a_value) do {(((struct group_filter*)(a_structure)))->gf_fmode = (a_value);}while(0)
-
-#define group_filter_struct_get_gf_numsrc(a_structure) (((struct group_filter*) (a_structure))->gf_numsrc)
-
-#define group_filter_struct_set_gf_numsrc(a_structure,a_value) do {(((struct group_filter*)(a_structure)))->gf_numsrc = (a_value);}while(0)
-
-#define group_filter_struct_get_gf_slist(a_structure) (((struct group_filter*) (a_structure))->gf_slist)
-
-#define group_filter_struct_set_gf_slist(a_structure,a_value) do {(((struct group_filter*)(a_structure)))->gf_slist = (a_value);}while(0)
-
-#define sizeof_group_filter (sizeof(struct group_filter))
 #define sockaddr_in_struct_get_sin_family(a_structure) (((struct sockaddr_in*) (a_structure))->sin_family)
 
 #define sockaddr_in_struct_set_sin_family(a_structure,a_value) do {(((struct sockaddr_in*)(a_structure)))->sin_family = (a_value);}while(0)
@@ -361,4 +344,21 @@
 #define sizeof_sockaddr_in6 (sizeof(struct sockaddr_in6))
 #define sizeof_ifreq (sizeof(struct ifreq))
 #define sizeof_iface (sizeof(struct iface))
+#define group_filter_struct_get_gf_interface(a_structure) (((struct group_filter*) (a_structure))->gf_interface)
+
+#define group_filter_struct_set_gf_interface(a_structure,a_value) do {(((struct group_filter*)(a_structure)))->gf_interface = (a_value);}while(0)
+
+#define group_filter_struct_get_gf_fmode(a_structure) (((struct group_filter*) (a_structure))->gf_fmode)
+
+#define group_filter_struct_set_gf_fmode(a_structure,a_value) do {(((struct group_filter*)(a_structure)))->gf_fmode = (a_value);}while(0)
+
+#define group_filter_struct_get_gf_numsrc(a_structure) (((struct group_filter*) (a_structure))->gf_numsrc)
+
+#define group_filter_struct_set_gf_numsrc(a_structure,a_value) do {(((struct group_filter*)(a_structure)))->gf_numsrc = (a_value);}while(0)
+
+#define group_filter_struct_get_gf_slist(a_structure) (((struct group_filter*) (a_structure))->gf_slist)
+
+#define group_filter_struct_set_gf_slist(a_structure,a_value) do {(((struct group_filter*)(a_structure)))->gf_slist = (a_value);}while(0)
+
+#define sizeof_group_filter (sizeof(struct group_filter))
 #define set_environ(a_value) environ = (a_value);

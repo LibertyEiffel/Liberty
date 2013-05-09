@@ -6,11 +6,11 @@ deferred class MATH_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	-- `hidden' variable _LIB_VERSION skipped.
-	matherr (an_ex: POINTER): INTEGER is
+	matherr (an_exc: POINTER): INTEGER is
  		-- matherr
 		external "plug_in"
 		alias "{

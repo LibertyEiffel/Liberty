@@ -6,7 +6,7 @@ deferred class IF_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	if_freenameindex (a_ptr: POINTER) is
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	if_indextoname (an_ifinde: NATURAL; an_ifnam: POINTER): POINTER is
+	if_indextoname (an_ifindex: NATURAL; an_ifname: POINTER): POINTER is
  		-- if_indextoname
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	if_nametoindex (an_ifnam: POINTER): NATURAL is
+	if_nametoindex (an_ifname: POINTER): NATURAL is
  		-- if_nametoindex
 		external "plug_in"
 		alias "{

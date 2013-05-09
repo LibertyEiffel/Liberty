@@ -6,5 +6,7 @@ deferred class ZMQ_TYPES
 
 insert ANY undefine is_equal, copy end
 
+	STANDARD_C_LIBRARY_TYPES
+
 feature -- C type definitions (typedefs)
 end

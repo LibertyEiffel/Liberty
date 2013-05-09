@@ -6,7 +6,7 @@ deferred class HISTORY_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	add_history (an_argument_l2165_c7: POINTER) is

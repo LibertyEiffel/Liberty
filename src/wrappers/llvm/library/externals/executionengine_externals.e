@@ -6,7 +6,7 @@ deferred class EXECUTIONENGINE_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	llvmadd_global_mapping (an_ee: POINTER; a_global: POINTER; an_addr: POINTER) is

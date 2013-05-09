@@ -6,7 +6,7 @@ deferred class BITREADER_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	llvmget_bitcode_module (a_mem_buf: POINTER; an_out_m: POINTER; an_out_message: POINTER): INTEGER is

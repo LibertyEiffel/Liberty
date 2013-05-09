@@ -6,6 +6,8 @@ deferred class LIBXML2_TYPES
 
 insert ANY undefine is_equal, copy end
 
+	STANDARD_C_LIBRARY_TYPES
+
 feature -- C type definitions (typedefs)
 	xml_parser_input_buffer_ptr: POINTER is
 		-- typedef xmlParserInputBufferPtr

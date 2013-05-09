@@ -6,7 +6,7 @@ deferred class XMLERROR_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	init_generic_error_default_func (a_handler: POINTER) is

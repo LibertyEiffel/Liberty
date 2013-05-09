@@ -6,7 +6,7 @@ deferred class XMLIO_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	xml_alloc_output_buffer (an_encoder: POINTER): POINTER is

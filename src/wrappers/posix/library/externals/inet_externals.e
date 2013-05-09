@@ -6,7 +6,7 @@ deferred class INET_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	inet_addr (a_cp: POINTER): like uint32_t is
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	inet_aton (a_cp: POINTER; an_in: POINTER): INTEGER is
+	inet_aton (a_cp: POINTER; an_inp: POINTER): INTEGER is
  		-- inet_aton
 		external "plug_in"
 		alias "{
@@ -31,7 +31,7 @@ feature {} -- External calls
 
 	-- function inet_lnaof (at line 38 in file /usr/include/arpa/inet.h is not wrappable
 	-- function inet_makeaddr (at line 43 in file /usr/include/arpa/inet.h is not wrappable
-	inet_net_ntop (an_a: INTEGER; a_cp: POINTER; a_bits: INTEGER; a_buf: POINTER; a_len: like size_t): POINTER is
+	inet_net_ntop (an_af: INTEGER; a_cp: POINTER; a_bits: INTEGER; a_buf: POINTER; a_len: like size_t): POINTER is
  		-- inet_net_ntop
 		external "plug_in"
 		alias "{
@@ -41,7 +41,7 @@ feature {} -- External calls
 		}"
 		end
 
-	inet_net_pton (an_a: INTEGER; a_cp: POINTER; a_buf: POINTER; a_len: like size_t): INTEGER is
+	inet_net_pton (an_af: INTEGER; a_cp: POINTER; a_buf: POINTER; a_len: like size_t): INTEGER is
  		-- inet_net_pton
 		external "plug_in"
 		alias "{
@@ -93,7 +93,7 @@ feature {} -- External calls
 		end
 
 	-- function inet_ntoa (at line 54 in file /usr/include/arpa/inet.h is not wrappable
-	inet_ntop (an_a: INTEGER; a_cp: POINTER; a_buf: POINTER; a_len: NATURAL): POINTER is
+	inet_ntop (an_af: INTEGER; a_cp: POINTER; a_buf: POINTER; a_len: NATURAL): POINTER is
  		-- inet_ntop
 		external "plug_in"
 		alias "{
@@ -103,7 +103,7 @@ feature {} -- External calls
 		}"
 		end
 
-	inet_pton (an_a: INTEGER; a_cp: POINTER; a_buf: POINTER): INTEGER is
+	inet_pton (an_af: INTEGER; a_cp: POINTER; a_buf: POINTER): INTEGER is
  		-- inet_pton
 		external "plug_in"
 		alias "{

@@ -6,7 +6,7 @@ deferred class TIME_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	asctime (a_tp: POINTER): POINTER is
@@ -280,7 +280,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strftime (a_s: POINTER; a_maxsize: like size_t; a_format: POINTER; a_tp: POINTER): like size_t is
+	strftime (a_s: POINTER; a_maxsize: like long_unsigned; a_format: POINTER; a_tp: POINTER): like long_unsigned is
  		-- strftime
 		external "plug_in"
 		alias "{
@@ -290,7 +290,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strftime_l (a_s: POINTER; a_maxsize: like size_t; a_format: POINTER; a_tp: POINTER; a_loc: POINTER): like size_t is
+	strftime_l (a_s: POINTER; a_maxsize: like long_unsigned; a_format: POINTER; a_tp: POINTER; a_loc: POINTER): like long_unsigned is
  		-- strftime_l
 		external "plug_in"
 		alias "{
@@ -350,7 +350,7 @@ feature {} -- External calls
 		}"
 		end
 
-	timer_create (a_clock_id: INTEGER; an_ev: POINTER; a_timerid: POINTER): INTEGER is
+	timer_create (a_clock_id: INTEGER; an_evp: POINTER; a_timerid: POINTER): INTEGER is
  		-- timer_create
 		external "plug_in"
 		alias "{
@@ -390,7 +390,7 @@ feature {} -- External calls
 		}"
 		end
 
-	timer_settime (a_timerid: POINTER; a_flags: INTEGER; a_value: POINTER; an_ovalu: POINTER): INTEGER is
+	timer_settime (a_timerid: POINTER; a_flags: INTEGER; a_value: POINTER; an_ovalue: POINTER): INTEGER is
  		-- timer_settime
 		external "plug_in"
 		alias "{

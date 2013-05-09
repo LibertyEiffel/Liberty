@@ -6,7 +6,7 @@ deferred class PARSER_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	xml_byte_consumed (a_ctxt: POINTER): like long is

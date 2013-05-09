@@ -1,7 +1,7 @@
 -- This file have been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
 
-deferred class TCP_EXTERNALS
+deferred class STDINT_EXTERNALS
 
 
 insert ANY undefine is_equal, copy end
@@ -10,4 +10,4 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 
-end -- class TCP_EXTERNALS
+end -- class STDINT_EXTERNALS
