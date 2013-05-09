@@ -74,7 +74,7 @@ feature {ANY}
 	process_arguments is
 		-- Process arguments. If some argument is not understood `print_usage' is invoked and the program exits. 
 		local
-			arg, gccxml_prefix: STRING;
+			arg, gccxml_prefix, standard_typedefs: STRING;
 			i: INTEGER
 		do
 			check
@@ -87,6 +87,7 @@ feature {ANY}
 			avoided := once "avoided"
 			renamed := once "renamed"
 			moved := once "moved"
+			standard_typedefs := once "STANDARD_C_LIBRARY_TYPES"
 
 			if argument_count = 0 then
 				print_usage
@@ -98,13 +99,25 @@ feature {ANY}
 					arg := argument(i)
 					if arg.is_equal(once "--local") then settings.set_global(False)
 					elseif arg.is_equal(once "--global") then settings.set_global(True)
-					elseif arg.is_equal(once "--standard-typedefs") then settings.set_standard_typedefs(True)
+					elseif arg.is_equal(once "--emit-standard-typedefs") then settings.use_standard_typedefs
 					elseif arg.is_equal(once "--apply-patches") then not_yet_implemented
 					elseif arg.is_equal(once "--descriptions") then
 						i := i + 1
 						if i <= argument_count then descriptions := argument(i)
 						else
 							std_error.put_line(once "No description file given.")
+							print_usage
+						end
+					elseif arg.is_equal(once "--standard-typedefs") then
+						i := i + 1
+						if i <= argument_count then 
+							if is_valid_class_name(argument(i)) then 
+								standard_typedefs := eiffel_class_name(argument(i),Void)
+							else
+								std_error.put_line(once "#(1) is not a valid class name" # argument(i))
+							end
+						else
+							std_error.put_line(once "Name of class containing standard typedefs not given")
 							print_usage
 						end
 					elseif arg.is_equal(once "--flags") then
@@ -163,6 +176,7 @@ feature {ANY}
 				gccxml_prefix := path.last.twin
 				gccxml_prefix.remove_tail(path.extension.count)
 				settings.set_typedefs (eiffel_class_name(gccxml_prefix,"_TYPES"))
+				settings.set_standard_typedefs(standard_typedefs)
 				preprocessor_label := eiffel_class_name(gccxml_prefix,"_LIBERTY_PLUGIN")
 
 				if verbose then
@@ -233,6 +247,8 @@ feature {ANY}
 			std_error.put_line
 			(once "wrappers-generator [--verbose|-v] [--local] [--global] [--directory dir] output.gcc-xml filenames....%N%
 			%%N%
+			%	Version 2013-05-07%N%
+			%%N%
 			%	--local %N%
 			%		produces functions, structures and enumeration%N%
 			%		classes only for the given files. Otherwise all the%N%
@@ -263,11 +279,16 @@ feature {ANY}
 			%		starting with `--' are ignored. If this option is not given the program%N%
 			%		will look into file %"descriptions%".%N%
 			%%N%
-			%	--standard-typedefs%N%
+			%	--standard-typedefs CLASS_NAME%N%
+			%		Use %"CLASS_NAME%" as the class containing the wrappers for defined typedefs%N%
+			%		If not given the default %"STANDARD_C_LIBRARY_TYPES%" will be used.%N%
+			%%N%
+			%	--emit-standard-typedefs%N%
 			%		Emit dummy queries useful for anchored declarations (i.e. %"like long%")%N%
 			%		for C types that can have different sizes on different architectures and for%N%
 			%		the typedefs defined in the C99 standard.%N%
-			%		%N%
+			%		If this flag is not given the class containing the defined typedefs will insert%N%
+			%		the CLASS_NAME defined with %"--standard-typedefs%" option.%N%
 			%%N%
 			%	--avoided a_file_name%N%
 			%		Do not wrap the symbols found in `a_file_name'. If this option is not %N%

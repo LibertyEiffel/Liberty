@@ -31,7 +31,7 @@ feature {} -- Auxiliary features
 		from until Result.last/='_' loop Result.remove_last end
 		multiple_underscores_remover.substitute_all_in(Result)
 		-- Deal with C++ names: turn list<foo> into list_of_foo
-		-- queue<dock,deepspace::station> into queue_of_dock_and_deepspace_station
+		-- TODO: queue<dock,deepspace::station> into queue_of_dock_and_deepspace_station
 		lt_translator.substitute_all_in(Result)
 		gt_translator.substitute_all_in(Result)
 		namespace_separator_translator.substitute_all_in(Result)

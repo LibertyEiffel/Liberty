@@ -19,6 +19,9 @@ feature {ANY} -- Queries
 	-- named like typedefs, useful for anchored declarations (i.e.
 	-- "gsize: INTEGER_32 is do end")
 
+	standard_typedefs_class: STRING
+	-- The name of the class containing the typedefs defined in the C99 standard
+
 	are_standard_typedefs_emitted: BOOLEAN 
 		-- Are the C99 standard typedefs and those of types with non-constant size emitted?
 
@@ -42,7 +45,9 @@ feature {ANY} -- Setters
 	
 	set_typedefs (a_typedefs: STRING) is do typedefs:=a_typedefs end
 
-	set_standard_typedefs (a_value: BOOLEAN) is do are_standard_typedefs_emitted := a_value end
+	set_standard_typedefs (a_class_name: STRING) is do standard_typedefs_class:=a_class_name end
+	use_standard_typedefs is do are_standard_typedefs_emitted := True end
+	unset_use_standard_typedefs is do are_standard_typedefs_emitted := False end
 
 	set_error (an_error: STRING) is
 		do

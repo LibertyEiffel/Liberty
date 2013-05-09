@@ -25,7 +25,9 @@ feature
 	standard_typedefs: SET[STRING] is
 		-- The standard typedefs defined by the C language.
 	once
-		Result := {HASHED_SET[STRING] << "int8_t", "uint8_t", "int16_t", "uint16_t",
+		Result := {HASHED_SET[STRING] << 
+		"long int", 
+		"int8_t", "uint8_t", "int16_t", "uint16_t",
 		"int32_t", "uint32_t", "int64_t", "uint64_t",
 		"intptr_t", "uintptr_t",
 		"int_least8_t", "uint_least8_t", "int_least16_t", "uint_least16_t",
@@ -38,7 +40,8 @@ feature
 
 	wrapper_type: STRING is
 		do
-			if standard_typedefs.has(c_string_name) then Result := once "like "+c_string_name
+			if  not settings.are_standard_typedefs_emitted and then standard_typedefs.has(c_string_name) then 
+				Result := once "like "+c_string_name
 			else 
 				if referree.has_wrapper 
 					then Result := referree.wrapper_type

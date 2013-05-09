@@ -44,7 +44,7 @@ feature
 			line.append_in(Result)
 			Result.append(once "_c")
 			column.append_in(Result)
-		else Result := eiffel_argument(c_name.as_utf8) 
+		else Result := eiffel_argument(c_name.to_utf8) 
 		end
 	ensure Result/=Void; not Result.is_empty
 	end

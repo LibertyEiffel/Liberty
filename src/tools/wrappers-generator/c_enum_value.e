@@ -30,10 +30,11 @@ feature
 				-- print(stored_eiffel_name)
 				enum ?= parent
 				if enum/=Void then
-					if enum.prefix_length > 0 and enum.prefix_length < c_string_name.count then
+					if enum.prefix_length > 0 then
+						-- this further test may be buggy and enum.prefix_length < c_string_name.count then
 						stored_eiffel_name.remove_head(enum.prefix_length)
 					else 
-						log("Enum value '@(1)' (at line @(2)) is the longest prefix: keeping the entire name to avoid problems",
+						log("Enum value '@(1)' (at line @(2)) is the longest prefix: keeping the entire name to avoid problems%N",
 						<<c_string_name,line.out>>)
 					end
 				else print("The parent of C_ENUM_VALUE at line "+line.out+" is not a C_ENUM!%N")

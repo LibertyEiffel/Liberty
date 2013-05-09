@@ -47,9 +47,11 @@ feature {ANY}
 			file.put_new_line
 			file.put_string(inherits_string)
 			if settings.are_standard_typedefs_emitted then
-				file.put_string(typedefs_features_header)
-				emit_variable_sized_typedefs
-				emit_standard_typedefs
+			 	file.put_string(typedefs_features_header)
+			 	emit_variable_sized_typedefs
+				-- 	emit_standard_typedefs
+			else
+				file.put_string("%T"|settings.standard_typedefs_class|"%N%N")
 			end
 			file.put_string(typedefs_features_header)
 			do_all(agent {C_TYPEDEF}.wrap_on(file))
@@ -320,15 +322,15 @@ feature {} -- Actual size queries
 end -- class TYPEDEFS
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
-	-- wrappers-generator  is free software: you can redistribute it and/or modify it
-	-- under the terms of the GNU General Public License as published by the Free
-	-- Software Foundation, either version 2 of the License, or (at your option)
-	-- any later version.
+-- wrappers-generator  is free software: you can redistribute it and/or modify it
+-- under the terms of the GNU General Public License as published by the Free
+-- Software Foundation, either version 2 of the License, or (at your option)
+-- any later version.
 
-	-- wrappers-generator is distributed in the hope that it will be useful, but
-	-- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-	-- or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-	-- more details.
+-- wrappers-generator is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+-- or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+-- more details.
 
-	-- You should have received a copy of the GNU General Public License along with
-	-- this program.  If not, see <http://www.gnu.org/licenses/>.
+-- You should have received a copy of the GNU General Public License along with
+-- this program.  If not, see <http://www.gnu.org/licenses/>.
