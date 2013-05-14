@@ -563,8 +563,8 @@ feature {}
          t2 := arg.resolve_in(type)
          if t1.is_expanded xor t2.is_expanded then
             written_site := start_position.class_text.name.to_string
-            if written_site = as_integer_general or else written_site = as_real_general then
-               -- Relaxed rule to share more code in INTEGER_* and REAL_*.
+            if written_site = as_integer_general or else written_site = as_real_general or else written_site = as_natural_general then
+               -- Relaxed rule to share more code in INTEGER_* / REAL_* / NATURAL_*.
             else
                sedb_breakpoint
                error_handler.append(once "Cannot compare an expanded expression with a reference expression.")

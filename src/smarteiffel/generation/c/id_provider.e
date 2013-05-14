@@ -238,21 +238,17 @@ feature {}
       local
          i: INTEGER; ta: TYPE_ALIASING
       do
-         inspect string
-         when "INTEGER" then
-            Result := ta.integer_alias.to_string
-         when "REAL" then
-            Result := ta.real_alias.to_string
+         if string.has_prefix(once "TUPLE ") then
+            Result := as_tuple
          else
-            if string.has_prefix(once "TUPLE ") then
-               Result := as_tuple
+            i := string.first_index_of('[')
+            if string.valid_index(i) then
+               Result := once ""
+               Result.copy(string)
+               Result.shrink(1, i - 1)
             else
-               i := string.first_index_of('[')
-               if string.valid_index(i) then
-                  Result := once ""
-                  Result.copy(string)
-                  Result.shrink(1, i - 1)
-               else
+               Result := ta.alias_of(string)
+               if Result = Void then
                   Result := string
                end
             end
@@ -327,7 +323,12 @@ feature {}
          id_memory_add(10, as_integer_16, True)
          id_memory_add(11, as_integer_64, True)
          id_memory_add(12, as_real_extended, True)
-         max_id := 12
+         id_memory_add(13, as_natural_8, True)
+         id_memory_add(14, as_natural_16, True)
+         id_memory_add(15, as_natural, True)
+         id_memory_add(15, as_natural_32, True)
+         id_memory_add(16, as_natural_64, True)
+         max_id := 16
          min_id := p.maximum_free_id + 1
          if not smart_eiffel.no_id then
             disk_restore

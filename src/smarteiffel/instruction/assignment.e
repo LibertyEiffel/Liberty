@@ -113,8 +113,8 @@ feature {ANY}
             -- to catch errors which are not catched using the `declaration_type'. (Dom. july 12th 2004)
             if lt.is_expanded and then rt.is_reference then
                written_site := start_position.class_text.name.to_string
-               if written_site = as_integer_general or else written_site = as_real_general then
-                  -- Relaxed rule to share more code in INTEGER_* and REAL_*.
+               if written_site = as_integer_general or else written_site = as_real_general or written_site = as_natural_general then
+                  -- Relaxed rule to share more code in INTEGER_* / REAL_* / NATURAL_*.
                else
                   fatal_error_for("Assignment of a reference type into an expanded type is not allowed. ",
                                   type, lt, rt)

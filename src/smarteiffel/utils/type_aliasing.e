@@ -7,10 +7,25 @@ expanded class TYPE_ALIASING
 -- give this possibility to the programmer via some command-line or ACE option)
 --
 -- By "type aliasing", we mean INTEGER and REAL implicit sizes being made explicit. Currently INTEGER is
--- INTEGER_32 and REAL is REAL_64.
+-- INTEGER_32, REAL is REAL_64, and NATURAL is NATURAL_32.
 --
 insert
    GLOBALS
+
+feature {ANY}
+   alias_of (string: STRING): STRING is
+      do
+         inspect string
+         when "INTEGER" then
+            Result := integer_alias.to_string
+         when "REAL" then
+            Result := real_alias.to_string
+         when "NATURAL" then
+            Result := natural_alias.to_string
+         else
+            check Result = Void end
+         end
+      end
 
 feature {ANY} -- INTEGER aliasing
    integer_alias: HASHED_STRING is

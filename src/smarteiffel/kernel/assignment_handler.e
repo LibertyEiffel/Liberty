@@ -115,6 +115,8 @@ feature {}
                create {IMPLICIT_CAST} Result.make(expression, expression_type, destination_type)
             elseif expression_type.name.to_string = as_real_general then
                create {IMPLICIT_CAST} Result.make(expression, expression_type, destination_type)
+            elseif expression_type.name.to_string = as_natural_general then
+               create {IMPLICIT_CAST} Result.make(expression, expression_type, destination_type)
             else
                check
                   expression_type.is_reference
