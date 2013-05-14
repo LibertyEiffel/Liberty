@@ -238,21 +238,17 @@ feature {}
       local
          i: INTEGER; ta: TYPE_ALIASING
       do
-         inspect string
-         when "INTEGER" then
-            Result := ta.integer_alias.to_string
-         when "REAL" then
-            Result := ta.real_alias.to_string
+         if string.has_prefix(once "TUPLE ") then
+            Result := as_tuple
          else
-            if string.has_prefix(once "TUPLE ") then
-               Result := as_tuple
+            i := string.first_index_of('[')
+            if string.valid_index(i) then
+               Result := once ""
+               Result.copy(string)
+               Result.shrink(1, i - 1)
             else
-               i := string.first_index_of('[')
-               if string.valid_index(i) then
-                  Result := once ""
-                  Result.copy(string)
-                  Result.shrink(1, i - 1)
-               else
+               Result := ta.alias_of(string)
+               if Result = Void then
                   Result := string
                end
             end
