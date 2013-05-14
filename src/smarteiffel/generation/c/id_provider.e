@@ -323,7 +323,12 @@ feature {}
          id_memory_add(10, as_integer_16, True)
          id_memory_add(11, as_integer_64, True)
          id_memory_add(12, as_real_extended, True)
-         max_id := 12
+         id_memory_add(13, as_natural_8, True)
+         id_memory_add(14, as_natural_16, True)
+         id_memory_add(15, as_natural, True)
+         id_memory_add(15, as_natural_32, True)
+         id_memory_add(16, as_natural_64, True)
+         max_id := 16
          min_id := p.maximum_free_id + 1
          if not smart_eiffel.no_id then
             disk_restore

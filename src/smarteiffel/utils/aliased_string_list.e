@@ -55,6 +55,8 @@ feature {} -- Hard-coded class names:
 
    as_natural_64: STRING is "NATURAL_64"
 
+   as_natural_general: STRING is "NATURAL_GENERAL"
+
    as_platform: STRING is "PLATFORM"
 
    as_pointer: STRING is "POINTER"

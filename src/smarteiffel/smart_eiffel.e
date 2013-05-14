@@ -649,7 +649,10 @@ feature {AGENT_POOL, CREATE_SUPPORT, ASSIGNMENT, ASSIGNMENT_ATTEMPT, CREATE_WRIT
                type_dictionary.reference_at(type.long_name).live_type = Result
             end
          end
-         rt := at_run_time or else Result.is_expanded and then Result.name.to_string /= as_integer_general
+         rt := at_run_time or else Result.is_expanded
+            and then Result.name.to_string /= as_integer_general
+            and then Result.name.to_string /= as_real_general
+            and then Result.name.to_string /= as_natural_general
          if rt and then not Result.at_run_time then
             debug
                if not at_run_time then

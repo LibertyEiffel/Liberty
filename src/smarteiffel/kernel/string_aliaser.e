@@ -132,6 +132,7 @@ feature {}
                         create_hashed_string(as_natural_16),
                         create_hashed_string(as_natural_32),
                         create_hashed_string(as_natural_64),
+                        create_hashed_string(as_natural_general),
                         create_hashed_string(as_platform),
                         create_hashed_string(as_pointer),
                         create_hashed_string(as_predicate),

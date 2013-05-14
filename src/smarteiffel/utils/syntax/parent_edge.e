@@ -239,6 +239,11 @@ feature {PARENT_LISTS}
                check
                   class_text_name = as_real
                end
+            elseif written_site_name = as_natural_32 then
+               -- NATURAL_32 allowed to inherit NATURAL.
+               check
+                  class_text_name = as_natural
+               end
             else
                error_handler.add_position(start_position)
                error_handler.append(once "You cannot inherit %"")

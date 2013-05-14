@@ -2895,6 +2895,8 @@ feature {}
                create {NATURAL_TYPE_MARK} last_type_mark.natural_32(token_buffer.start_position)
             when "NATURAL_64" then
                create {NATURAL_TYPE_MARK} last_type_mark.natural_64(token_buffer.start_position)
+            when "NATURAL" then
+               create {NATURAL_TYPE_MARK} last_type_mark.natural(token_buffer.start_position)
             when "NONE" then
                error_handler.add_position(token_buffer.start_position)
                error_handler.append(once "Since february 2006, for SmartEiffel release 2.3, the old legacy NONE type mark is %

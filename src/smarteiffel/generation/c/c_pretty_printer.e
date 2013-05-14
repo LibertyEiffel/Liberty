@@ -652,15 +652,16 @@ feature {}
       require
          pending_c_function
       local
-         id: INTEGER; n: STRING
+         id: INTEGER; n, a: STRING; ta: TYPE_ALIASING
       do
          id := ct.id
          if id >= 0 then
             array_access('g', id)
             pending_c_function_body.extend('=')
             n := ct.name.to_string
-            if n = as_integer then
-               n := as_integer_32
+            a := ta.alias_of(n)
+            if a /= Void then
+               n := a
             end
             se_string(n)
             pending_c_function_body.append(once ";%N")

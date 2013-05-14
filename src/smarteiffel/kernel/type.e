@@ -896,7 +896,7 @@ feature {ANY} -- some property similar to TYPE_MARK *without* start_position and
       require
          not_done_to_report_errors: error_handler.is_empty
       local
-         integer_type_mark: INTEGER_TYPE_MARK; real_type_mark: REAL_TYPE_MARK
+         integer_type_mark: INTEGER_TYPE_MARK; real_type_mark: REAL_TYPE_MARK; natural_type_mark: NATURAL_TYPE_MARK
       do
          if Current = other then
             Result := True
@@ -907,6 +907,9 @@ feature {ANY} -- some property similar to TYPE_MARK *without* start_position and
             elseif is_real then
                real_type_mark ::= canonical_type_mark
                Result := real_type_mark.can_be_assigned_to(other.canonical_type_mark)
+            elseif is_natural then
+               natural_type_mark ::= canonical_type_mark
+               Result := natural_type_mark.can_be_assigned_to(other.canonical_type_mark)
             elseif name.to_string = as_integer_general then
                if other.name.to_string = as_integer_64 then
                   --|*** This extra permission is necessary to share code in INTEGER_GENERAL.
@@ -922,6 +925,17 @@ feature {ANY} -- some property similar to TYPE_MARK *without* start_position and
                if other.name.to_string = as_real then
                   --|*** Caution: REAL_64 is not the largest REAL_GENERAL ***
                   --| This permission is necessary to compile the actual (wrong) code in REAL_GENERAL.
+                  --|*** (Dom. Oct 2004) ***
+                  Result := True
+               end
+            elseif name.to_string = as_natural_general then
+               if other.name.to_string = as_natural_64 then
+                  --|*** This extra permission is necessary to share code in NATURAL_GENERAL.
+                  --|*** Also note that NATURAL_64 is the largest one, so there is no danger here.
+                  Result := True
+               elseif other.name.to_string = as_natural_8 then
+                  --|*** Caution: NATURAL_8 is not the largest NATURAL_GENERAL ***
+                  --| This permission is necessary to compile the actual (wrong) code in NATURAL_GENERAL.
                   --|*** (Dom. Oct 2004) ***
                   Result := True
                end

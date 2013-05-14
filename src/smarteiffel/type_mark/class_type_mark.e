@@ -120,6 +120,11 @@ feature {}
             if not written_site.has_prefix(as_real) then
                error_flag := True
             end
+         elseif n = as_natural_general then
+            written_site := ctn.start_position.class_text.name.to_string
+            if not written_site.has_prefix(as_natural) then
+               error_flag := True
+            end
          end
          if error_flag then
             error_handler.add_position(ctn.start_position)

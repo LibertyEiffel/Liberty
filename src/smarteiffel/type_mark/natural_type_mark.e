@@ -12,7 +12,7 @@ inherit
       end
 
 create {ANY}
-   natural_8, natural_16, natural_32, natural_64
+   natural_8, natural_16, natural_32, natural_64, natural
 
 feature {ANY}
    pretty_name: HASHED_STRING
@@ -113,6 +113,20 @@ feature {LIVE_TYPE}
             Result := 'i'
          when 64 then
             Result := 'I'
+         end
+      end
+
+feature {TYPE}
+   can_be_assigned_to (other: TYPE_MARK): BOOLEAN is
+      local
+         natural_type_mark: NATURAL_TYPE_MARK
+      do
+         if other.is_natural then
+            natural_type_mark ::= other
+            Result := bit_count <= natural_type_mark.bit_count
+         elseif other.class_text_name.to_string = as_natural_general then
+            -- We relax the rule only to be able to share code in NATURAL_GENERAL.
+            Result := True
          end
       end
 
