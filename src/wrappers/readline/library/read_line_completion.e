@@ -12,6 +12,7 @@ inherit
 insert
    SINGLETON
    READLINE_EXTERNALS
+   READLINE_EXTERNALS_EXTRA
    STRING_HANDLER
       undefine
          is_equal, copy
@@ -81,7 +82,7 @@ feature {} -- The CECIL completion functions
 feature {}
    make is
       do
-         set_rl_attempted_completion_function(Current)
+         set_rl_attempted_completion_object(Current)
       end
 
    completion_agent: FUNCTION[TUPLE[FIXED_STRING, INTEGER, INTEGER], ITERABLE[ABSTRACT_STRING]]

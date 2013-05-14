@@ -2,4 +2,5 @@
  * Extra externals (not generated)
  */
 #include "liberty_readline_extra.h"
-extern void set_rl_attempted_completion_function(EIF_OBJECT target);
+extern EIF_OBJECT get_rl_attempted_completion_object(void);
+extern void set_rl_attempted_completion_object(EIF_OBJECT target);

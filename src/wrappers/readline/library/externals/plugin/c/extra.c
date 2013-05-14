@@ -27,7 +27,11 @@ static char** liberty_rl_completion(char *text, int start, int end) {
      return result;
 }
 
-void set_rl_attempted_completion_function(EIF_OBJECT target) {
+void set_rl_attempted_completion_object(EIF_OBJECT target) {
      liberty_rl_completer = target;
      rl_attempted_completion_function = (rl_completion_func_t*)&liberty_rl_completion;
+}
+
+EIF_OBJECT get_rl_attempted_completion_object(void) {
+   return liberty_rl_completer;
 }
