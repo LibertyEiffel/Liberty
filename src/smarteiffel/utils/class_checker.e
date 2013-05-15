@@ -23,7 +23,7 @@ feature {}
    type: TYPE
          -- The corresponding one of the class to class_check.
 
-   client: CLASS_NAME
+   client: TYPE_MARK
          -- The client for whom the class is class_check'ed (-client flag).
          -- If no client is provided on the command line, the default is ANY.
          -- To see all features (i.e. the old NONE behavior), `client' is Void.
@@ -56,7 +56,7 @@ feature {}
          -- Force client class lookup:
          smart_eiffel.initialize_any_tuple
          if client /= Void then
-            bc := smart_eiffel.class_text(client, True)
+            bc := client.class_text
          end
 
          -- Set the output stream:
@@ -118,7 +118,7 @@ feature {}
                short_printer.put_character('%N')
             else
                ccl := class_text.creation_clause_list
-               if ccl = Void or else not ccl.short(client) then
+               if ccl = Void or else not ccl.short(client, type) then
                   short_printer.hook(once "hook102")
                end
                prepare_or_collect_features_for(client)
@@ -144,16 +144,19 @@ feature {}
 
    set_client (a_client_or_void: HASHED_STRING) is
          -- A Void argument indicates that all features are visibles.
+      local
+         cn: CLASS_NAME
       do
          if a_client_or_void = Void then
             client := Void
          else
-            create client.unknown_position(a_client_or_void)
+            create cn.unknown_position(a_client_or_void)
+            create {CLASS_TYPE_MARK} client.make(cn)
          end
          short_printer.set_client(client)
       end
 
-   prepare_or_collect_features_for (cn: CLASS_NAME) is
+   prepare_or_collect_features_for (tm: TYPE_MARK) is
       local
          i: INTEGER; ct: CLASS_TEXT; fcl: FEATURE_CLAUSE_LIST; parent: TYPE
       do
@@ -166,7 +169,7 @@ feature {}
             ct := parent.class_text
             fcl := ct.feature_clause_list
             if fcl /= Void then
-               fcl.for_short(ct.name, parent, type, cn)
+               fcl.for_short(ct.name, parent, type, tm)
             end
             i := i + 1
          end

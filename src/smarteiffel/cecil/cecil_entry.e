@@ -180,7 +180,7 @@ feature {CECIL_FILE}
                   error_handler.print_as_fatal_error
                end
             else
-               dummy := target_type_mark.class_text.has_creation_check(feature_name, feature_name.start_position, Void)
+               dummy := target_type_mark.class_text.has_creation_check(feature_name, feature_name.start_position, Void, target_type)
                check
                   dummy
                end

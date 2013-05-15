@@ -66,14 +66,17 @@ feature {ANY}
          visitor.visit_like_argument_type_mark(Current)
       end
 
-   to_static (new_type: TYPE): TYPE_MARK is
+   to_static (new_type: TYPE; in_client_list: BOOLEAN): TYPE_MARK is
       do
+         check
+            not in_client_list
+         end
          if like_argument_computing then
             error_handler.append(once "Unable to solve cyclic anchored types.")
             like_argument_computing := False
          else
             like_argument_computing := True
-            Result := type_marks_memory.fast_reference_at(new_type).to_static(new_type)
+            Result := type_marks_memory.fast_reference_at(new_type).to_static(new_type, False)
             if Result = Void then
                error_handler.add_position(start_position)
             end

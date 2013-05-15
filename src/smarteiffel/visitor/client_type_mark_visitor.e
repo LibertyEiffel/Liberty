@@ -1,78 +1,19 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class LIKE_CURRENT_TYPE_MARK
+deferred class CLIENT_TYPE_MARK_VISITOR
 
 inherit
-   ANCHORED_TYPE_MARK
-      redefine resolve_in
-      end
+   VISITOR
 
-create {EIFFEL_PARSER, CREATE_INSTRUCTION}
-   make
-
-feature {ANY}
-   has_been_specialized: BOOLEAN is True
-
-   declaration_type: TYPE_MARK is
-      local
-         ct: CLASS_TEXT
-      do
-         ct := start_position.class_text
-         Result := ct.declaration_type_of_like_current.canonical_type_mark
-      end
-
-   specialize_in (new_type: TYPE) is
-      do
-      end
-
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
-      do
-         Result := Current
-      end
-
-   to_static (new_type: TYPE; in_client_list: BOOLEAN): TYPE_MARK is
-      do
-         check
-            not in_client_list
-         end
-         Result := new_type.canonical_type_mark
-      end
-
-   resolve_in, signature_resolve_in (new_type: TYPE): TYPE is
-      do
-         Result := new_type
-      end
-
-   written_name: HASHED_STRING is
-         -- (Is always the same one.)
-      once
-         Result := string_aliaser.hashed_string(as_like_current)
-      end
-
-   accept (visitor: LIKE_CURRENT_TYPE_MARK_VISITOR) is
-      do
-         visitor.visit_like_current_type_mark(Current)
-      end
-
-feature {TYPE_MARK}
-   short_ (shorted_type: TYPE) is
-      do
-         short_printer.hook_or(once "like", once "like ")
-         short_printer.hook_or(as_current, as_current)
-      end
-
-feature {}
-   make (sp: like start_position) is
+feature {CLIENT_TYPE_MARK}
+   visit_client_type_mark (visited: CLIENT_TYPE_MARK) is
       require
-         not sp.is_unknown
-      do
-         start_position := sp
-      ensure
-         start_position = sp
+         visited /= Void
+      deferred
       end
 
-end -- class LIKE_CURRENT_TYPE_MARK
+end -- class CLIENT_TYPE_MARK_VISITOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

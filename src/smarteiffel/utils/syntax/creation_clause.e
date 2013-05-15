@@ -68,14 +68,14 @@ feature {ANY}
          procedure_list.pretty(1)
       end
 
-   short (heading_done: BOOLEAN; client: CLASS_NAME): BOOLEAN is
+   short (heading_done: BOOLEAN; client: TYPE_MARK; target_type: TYPE): BOOLEAN is
          -- True when at least one creation list is printed.
       require
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       local
          i: INTEGER; fn: FEATURE_NAME; mgs: MANIFEST_GENERIC_SAMPLE_PRINTER
       do
-         if client = Void or else clients.gives_permission_to(client) then
+         if client = Void or else clients.gives_permission_to(client, target_type) then
             if not heading_done then
                short_printer.hook_or("hook100", "creation%N")
             end

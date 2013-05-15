@@ -102,7 +102,7 @@ feature {FEATURE_CALL}
             check
                cl /= Void
             end
-            exported := cl.gives_permission_to(type.class_text.name)
+            exported := cl.gives_permission_to(type.canonical_type_mark, target_type)
             if not exported then
                error_handler.add_position(start_position)
                error_handler.append(once "Forbidden call (i.e. exportation rules violated) when the type of Current is ")

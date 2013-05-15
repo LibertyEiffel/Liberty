@@ -20,7 +20,7 @@ create {SMART_EIFFEL}
    make
 
 feature {}
-   make (ctm: like canonical_type_mark) is
+   make (ctm: like canonical_type_mark; in_client_list: BOOLEAN) is
       require
          smart_eiffel.status.is_collecting
          ctm.is_static
@@ -58,7 +58,11 @@ feature {}
                error_handler.print_as_error
             end
          end
-         class_text.formal_generic_list_count_check(canonical_type_mark.start_position, gl)
+         if in_client_list and then gl = Void then
+            gl := class_text.constraints_generic_list
+         else
+            class_text.formal_generic_list_count_check(canonical_type_mark.start_position, gl)
+         end
          smart_eiffel.register_type(Current)
          feature_accumulator.new_incomplete_type
          parent_lists := canonical_type_mark.class_text.parent_lists
@@ -84,7 +88,7 @@ feature {}
                   --        parent_tm := a_parent_edge.type_mark.resolve_in(Current).canonical_type_mark
                   parent_tm := a_parent_edge.type_mark
                   parent_tm.specialize_in(Current)
-                  parent_tm := parent_tm.to_static(Current)
+                  parent_tm := parent_tm.to_static(Current, in_client_list)
                   check
                      parent_tm.is_static
                   end
@@ -105,7 +109,7 @@ feature {}
                   --        parent_tm := a_parent_edge.type_mark.resolve_in(Current).canonical_type_mark
                   parent_tm := a_parent_edge.type_mark
                   parent_tm.specialize_in(Current)
-                  parent_tm := parent_tm.to_static(Current)
+                  parent_tm := parent_tm.to_static(Current, in_client_list)
                   check
                      parent_tm.is_static
                   end

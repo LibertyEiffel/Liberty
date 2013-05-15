@@ -179,7 +179,7 @@ feature {ANY}
                function_call ::= code
                target_type := function_call.target.resolve_in(type)
                af := function_call.feature_stamp.anonymous_feature(target_type)
-               result_type := af.result_type.to_static(target_type)
+               result_type := af.result_type.to_static(target_type, False)
                if result_type.is_boolean then
                   create {AGENT_TYPE_MARK} result_type.predicate(start_position, open_tuple)
                else

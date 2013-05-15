@@ -65,7 +65,7 @@ feature {ANY}
          end
       end
 
-   short (type: TYPE; client: CLASS_NAME; hide_current: BOOLEAN) is
+   short (type: TYPE; client: TYPE_MARK; hide_current: BOOLEAN) is
       local
          i: INTEGER
       do
@@ -95,7 +95,7 @@ feature {ANY}
       end
 
 feature {REQUIRE_ASSERTION}
-   short_(type: TYPE; client: CLASS_NAME; hide_current: BOOLEAN) is
+   short_(type: TYPE; client: TYPE_MARK; hide_current: BOOLEAN) is
          -- Short the require without printing the `require' keyword.
          --*** Some indent level should be added (PH 16/07/08)
       local
@@ -124,7 +124,7 @@ feature {REQUIRE_ASSERTION}
       end
 
 feature {}
-   short_list (type: TYPE; al: ASSERTION_LIST; h1, r1: STRING; client: CLASS_NAME; hide_current: BOOLEAN) is
+   short_list (type: TYPE; al: ASSERTION_LIST; h1, r1: STRING; client: TYPE_MARK; hide_current: BOOLEAN) is
       local
          i: INTEGER
       do

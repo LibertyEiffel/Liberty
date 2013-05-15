@@ -37,7 +37,7 @@ feature {ANY}
       end
 
 feature {SHORT_PRINTER}
-   ensure_assertion_short (type: TYPE; client: CLASS_NAME) is
+   ensure_assertion_short (type: TYPE; client: TYPE_MARK) is
       local
          i: INTEGER
       do

@@ -41,7 +41,7 @@ feature {ANY}
       end
 
 feature {CLASS_CHECKER, SHORT_PRINTER}
-   for_short (ctn: CLASS_NAME; parent, context_type: TYPE; client: CLASS_NAME) is
+   for_short (ctn: CLASS_NAME; parent, context_type: TYPE; client: TYPE_MARK) is
       require
          ctn = parent.class_text.name
          Current = parent.class_text.feature_clause_list

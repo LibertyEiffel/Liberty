@@ -48,7 +48,7 @@ feature {ANY}
          until
             not Result or else i > count
          loop
-            static_tm := type_mark(i).to_static(type)
+            static_tm := type_mark(i).to_static(type, False)
             if static_tm.is_user_expanded then
                Result := static_tm.type.live_type.side_effect_free_default_create
             end

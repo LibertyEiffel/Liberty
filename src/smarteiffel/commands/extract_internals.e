@@ -237,6 +237,14 @@ feature {}
          put_call(cecil_stream, live_type, name, True)
       end
 
+   tm_internals_handler: CLASS_TYPE_MARK is
+      local
+         cn_internals_handler: CLASS_NAME
+      once
+         create cn_internals_handler.unknown_position(string_aliaser.hashed_string(as_internals_handler))
+         create Result.make(cn_internals_handler)
+      end
+
    creation_procedures (type_mark: TYPE_MARK): FAST_ARRAY[WEIGHTED_CREATION_PROCEDURE] is
       require
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
@@ -244,7 +252,6 @@ feature {}
          ccl: CREATION_CLAUSE_LIST
          list: FAST_ARRAY[CREATION_CLAUSE]
          type: TYPE
-         cn_internals_handler: CLASS_NAME
          creation_clause: CREATION_CLAUSE
          i, j: INTEGER
          procedure_list: FEATURE_NAME_LIST
@@ -257,14 +264,13 @@ feature {}
          if ccl /= Void then
             list := ccl.list
             type := type_mark.type
-            create cn_internals_handler.unknown_position(string_aliaser.hashed_string(as_internals_handler))
             from
                i := list.lower
             until
                i > list.upper
             loop
                creation_clause := list.item(i)
-               if creation_clause.clients.gives_permission_to(cn_internals_handler) then
+               if creation_clause.clients.gives_permission_to(tm_internals_handler, type) then
                   procedure_list := creation_clause.procedure_list
                   if procedure_list /= Void then
                      from

@@ -125,7 +125,7 @@ feature {ANY}
          else
             created_type_memory.live_type.create_function_register(Void)
          end
-         Result := current_or_twin_init(explicit_type.to_static(type), c)
+         Result := current_or_twin_init(explicit_type.to_static(type, False), c)
       end
 
    declaration_type: TYPE is

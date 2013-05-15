@@ -24,7 +24,7 @@ feature {}
          not hidden
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       do
-         hidden := not af.permissions.gives_permission_to(client)
+         hidden := not af.permissions.gives_permission_to(client, current_type)
       ensure
          not_done_to_report_errors: error_handler.is_empty
       end
@@ -616,7 +616,7 @@ feature {}
 
    hide_current: BOOLEAN
 
-   client: CLASS_NAME
+   client: TYPE_MARK
 
    current_type: TYPE
 

@@ -1,10 +1,13 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class CLASS_TYPE_MARK
+class CLIENT_TYPE_MARK
+   --
+   -- A truncated type mark, only useable in client lists (compatibility with standard Eiffel)
+   --
 
 inherit
-   STATIC_TYPE_MARK
+   TYPE_MARK
       redefine resolve_in
       end
 
@@ -12,21 +15,41 @@ create {ANY}
    make
 
 feature {ANY}
-   class_text_name: CLASS_NAME
+   class_text_name: CLASS_NAME is
+      do
+         check False end
+      end
 
-   is_generic: BOOLEAN is False
+   is_static: BOOLEAN is False
+
+   to_static (new_type: TYPE; in_client_list: BOOLEAN): TYPE_MARK is
+      local
+         gl: ARRAY[TYPE_MARK]
+      do
+         if is_generic then
+            gl := class_type_mark.class_text.constraints_generic_list
+            create {USER_GENERIC_TYPE_MARK} Result.make(class_type_mark.class_text_name, gl)
+         else
+            Result := class_type_mark
+         end
+      end
+
+   is_generic: BOOLEAN is
+      do
+         Result := class_type_mark.class_text.is_generic
+      end
 
    written_name: HASHED_STRING is
       do
-         Result := class_text_name.hashed_name
+         Result := class_type_mark.written_name
       end
 
    type: TYPE is
       do
-         if type_memory = Void then
-            type_memory := smart_eiffel.get_type_for_non_generic(Current, False)
+         check
+            must_have_been_resolved_before: False
          end
-         Result := type_memory
+         sedb_breakpoint
       end
 
    resolve_in (new_type: TYPE): TYPE is
@@ -36,12 +59,12 @@ feature {ANY}
 
    is_expanded: BOOLEAN is
       do
-         Result := class_text.is_expanded
+         Result := class_type_mark.is_expanded
       end
 
    is_reference: BOOLEAN is
       do
-         Result := not class_text.is_expanded
+         Result := class_type_mark.is_reference
       end
 
    is_user_expanded: BOOLEAN is
@@ -51,31 +74,51 @@ feature {ANY}
 
    is_empty_expanded: BOOLEAN is
       do
-         if is_expanded and then not type.has_external_type then
-            Result := type.live_type.writable_attributes = Void
-         end
+         Result := class_type_mark.is_empty_expanded
       end
 
    generic_list: ARRAY[TYPE_MARK] is
       do
          check
-            False -- Because of the inherited require.
+            please_resolve_asap: False
          end
       end
 
    id: INTEGER is
       do
-         Result := class_text.id
+         Result := class_type_mark.id
       end
 
-   accept (visitor: CLASS_TYPE_MARK_VISITOR) is
+   accept (visitor: CLIENT_TYPE_MARK_VISITOR) is
       do
-         visitor.visit_class_type_mark(Current)
+         visitor.visit_client_type_mark(Current)
       end
 
    start_position: POSITION is
       do
-         Result := class_text_name.start_position
+         Result := class_type_mark.start_position
+      end
+
+   has_been_specialized: BOOLEAN is False
+
+   signature_resolve_in (new_type: TYPE): TYPE is
+      do
+         check False end
+      end
+
+   specialize_in (new_type: TYPE) is
+      do
+         check False end
+      end
+
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): TYPE_MARK is
+      do
+         check False end
+      end
+
+   declaration_type: TYPE_MARK is
+      do
+         check False end
       end
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
@@ -87,58 +130,27 @@ feature {TYPE, TYPE_MARK, SMART_EIFFEL}
 feature {TYPE_MARK}
    frozen short_ (shorted_type: TYPE) is
       do
-         short_printer.put_class_name(class_text_name)
+         class_type_mark.short_(shorted_type)
       end
 
    set_start_position (sp: like start_position) is
       do
-         if start_position /= sp then
-            class_text_name := class_text_name.twin
-            class_text_name.set_accurate_position(sp)
-         end
+         check False end
       end
 
 feature {}
-   type_memory: like type
-
-   make (ctn: like class_text_name) is
+   make (ctm: like class_type_mark) is
       require
-         not ctn.predefined
-         not ctn.is_tuple_related
-      local
-         n, written_site: STRING; error_flag: BOOLEAN
+         ctm /= Void
       do
-         class_text_name := ctn
-         n := ctn.to_string
-         if n = as_integer_general then
-            written_site := ctn.start_position.class_text.name.to_string
-            if not written_site.has_prefix(as_integer) then
-               error_flag := True
-            end
-         elseif n = as_real_general then
-            written_site := ctn.start_position.class_text.name.to_string
-            if not written_site.has_prefix(as_real) then
-               error_flag := True
-            end
-         elseif n = as_natural_general then
-            written_site := ctn.start_position.class_text.name.to_string
-            if not written_site.has_prefix(as_natural) then
-               error_flag := True
-            end
-         end
-         if error_flag then
-            error_handler.add_position(ctn.start_position)
-            error_handler.append(once "The ")
-            error_handler.append(n)
-            error_handler.append(once " type cannot be used here. Actually this is only a compiler %
-                                 %implementation facility.")
-            error_handler.print_as_fatal_error
-         end
+         class_type_mark := ctm
       ensure
-         class_text_name = ctn
+         class_type_mark = ctm
       end
 
-end -- class CLASS_TYPE_MARK
+   class_type_mark: CLASS_TYPE_MARK
+
+end -- class CLIENT_TYPE_MARK
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

@@ -22,7 +22,7 @@ feature {ANY}
       end
 
 feature {SHORT_PRINTER}
-   class_invariant_short (type: TYPE; class_text: CLASS_TEXT; client: CLASS_NAME) is
+   class_invariant_short (type: TYPE; class_text: CLASS_TEXT; client: TYPE_MARK) is
       local
          i: INTEGER
       do

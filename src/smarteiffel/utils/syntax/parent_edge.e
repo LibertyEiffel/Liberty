@@ -144,7 +144,7 @@ feature {ANONYMOUS_FEATURE_MIXER, PARENT_LISTS, TYPE}
          ct.is_static
       do
          if type_mark.is_generic then
-            Result := type_mark.to_static(ct.type)
+            Result := type_mark.to_static(ct.type, False)
          else
             Result := type_mark
          end

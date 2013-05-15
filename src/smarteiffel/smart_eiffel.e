@@ -749,7 +749,7 @@ feature {EFFECTIVE_ROUTINE, EXTERNAL_ROUTINE, INTROSPECTION_HANDLER}
 feature {}
    type_to_be_created: HASHED_STRING
 
-   create_type (static_type: TYPE_MARK): TYPE is
+   create_type (static_type: TYPE_MARK; in_client_list: BOOLEAN): TYPE is
          -- Create a type. Type creation is locked until `register_type' has been called.
       require
          static_type.is_static
@@ -760,7 +760,7 @@ feature {}
             echo.put_string(once "Creating type: ")
             echo.put_line(static_type.long_name.to_string)
          end
-         create Result.make(static_type)
+         create Result.make(static_type, in_client_list)
       ensure
          Result /= Void
          has_type(static_type)
@@ -824,7 +824,7 @@ feature {ANY} -- To get a TYPE:
             hs := string_aliaser.hashed_string(as_any)
             type_any_memory := type_dictionary.fast_reference_at(hs)
             if type_any_memory = Void then
-               type_any_memory := get_type(create {ANY_TYPE_MARK}.make(unknown_position))
+               type_any_memory := get_type(create {ANY_TYPE_MARK}.make(unknown_position), False)
             end
          end
          Result := type_any_memory
@@ -841,7 +841,7 @@ feature {ANY} -- To get a TYPE:
             hs := string_aliaser.hashed_string(as_boolean)
             type_boolean_memory := type_dictionary.fast_reference_at(hs)
             if type_boolean_memory = Void then
-               type_boolean_memory := get_type(create {BOOLEAN_TYPE_MARK}.make(unknown_position))
+               type_boolean_memory := get_type(create {BOOLEAN_TYPE_MARK}.make(unknown_position), False)
             end
          end
          Result := type_boolean_memory
@@ -858,7 +858,7 @@ feature {ANY} -- To get a TYPE:
             hs := string_aliaser.hashed_string(as_character)
             type_character_memory := type_dictionary.fast_reference_at(hs)
             if type_character_memory = Void then
-               type_character_memory := get_type(create {CHARACTER_TYPE_MARK}.make(unknown_position))
+               type_character_memory := get_type(create {CHARACTER_TYPE_MARK}.make(unknown_position), False)
             end
          end
          Result := type_character_memory
@@ -875,7 +875,7 @@ feature {ANY} -- To get a TYPE:
             hs := string_aliaser.hashed_string(as_string)
             type_string_memory := type_dictionary.fast_reference_at(hs)
             if type_string_memory = Void then
-               type_string_memory := get_type(create {STRING_TYPE_MARK}.make(unknown_position))
+               type_string_memory := get_type(create {STRING_TYPE_MARK}.make(unknown_position), False)
             end
          end
          Result := type_string_memory
@@ -918,7 +918,7 @@ feature {ANY} -- To get a TYPE:
                   unicode_class_text /= Void
                end
                create cn.make(hs, unicode_class_text.name.start_position)
-               type_unicode_string_memory := get_type(create {CLASS_TYPE_MARK}.make(cn))
+               type_unicode_string_memory := get_type(create {CLASS_TYPE_MARK}.make(cn), False)
             end
          end
          Result := type_unicode_string_memory
@@ -935,7 +935,7 @@ feature {ANY} -- To get a TYPE:
             hs := string_aliaser.hashed_string(as_pointer)
             type_pointer_memory := type_dictionary.fast_reference_at(hs)
             if type_pointer_memory = Void then
-               type_pointer_memory := get_type(create {POINTER_TYPE_MARK}.make(unknown_position))
+               type_pointer_memory := get_type(create {POINTER_TYPE_MARK}.make(unknown_position), False)
             end
          end
          Result := type_pointer_memory
@@ -952,7 +952,7 @@ feature {ANY} -- To get a TYPE:
             hs := string_aliaser.hashed_string(as_integer_8)
             type_integer_8_memory := type_dictionary.fast_reference_at(hs)
             if type_integer_8_memory = Void then
-               type_integer_8_memory := get_type(create {INTEGER_TYPE_MARK}.integer_8(unknown_position))
+               type_integer_8_memory := get_type(create {INTEGER_TYPE_MARK}.integer_8(unknown_position), False)
             end
          end
          Result := type_integer_8_memory
@@ -969,7 +969,7 @@ feature {ANY} -- To get a TYPE:
             hs := string_aliaser.hashed_string(as_integer_16)
             type_integer_16_memory := type_dictionary.fast_reference_at(hs)
             if type_integer_16_memory = Void then
-               type_integer_16_memory := get_type(create {INTEGER_TYPE_MARK}.integer_16(unknown_position))
+               type_integer_16_memory := get_type(create {INTEGER_TYPE_MARK}.integer_16(unknown_position), False)
             end
          end
          Result := type_integer_16_memory
@@ -986,7 +986,7 @@ feature {ANY} -- To get a TYPE:
             hs := string_aliaser.hashed_string(as_integer_32)
             type_integer_32_memory := type_dictionary.fast_reference_at(hs)
             if type_integer_32_memory = Void then
-               type_integer_32_memory := get_type(create {INTEGER_TYPE_MARK}.integer(unknown_position))
+               type_integer_32_memory := get_type(create {INTEGER_TYPE_MARK}.integer(unknown_position), False)
             end
          end
          Result := type_integer_32_memory
@@ -1003,7 +1003,7 @@ feature {ANY} -- To get a TYPE:
             hs := string_aliaser.hashed_string(as_integer_64)
             type_integer_64_memory := type_dictionary.fast_reference_at(hs)
             if type_integer_64_memory = Void then
-               type_integer_64_memory := get_type(create {INTEGER_TYPE_MARK}.integer_64(unknown_position))
+               type_integer_64_memory := get_type(create {INTEGER_TYPE_MARK}.integer_64(unknown_position), False)
             end
          end
          Result := type_integer_64_memory
@@ -1020,7 +1020,7 @@ feature {ANY} -- To get a TYPE:
             hs := string_aliaser.hashed_string(as_natural_8)
             type_natural_8_memory := type_dictionary.fast_reference_at(hs)
             if type_natural_8_memory = Void then
-               type_natural_8_memory := get_type(create {NATURAL_TYPE_MARK}.natural_8(unknown_position))
+               type_natural_8_memory := get_type(create {NATURAL_TYPE_MARK}.natural_8(unknown_position), False)
             end
          end
          Result := type_natural_8_memory
@@ -1037,7 +1037,7 @@ feature {ANY} -- To get a TYPE:
             hs := string_aliaser.hashed_string(as_natural_16)
             type_natural_16_memory := type_dictionary.fast_reference_at(hs)
             if type_natural_16_memory = Void then
-               type_natural_16_memory := get_type(create {NATURAL_TYPE_MARK}.natural_16(unknown_position))
+               type_natural_16_memory := get_type(create {NATURAL_TYPE_MARK}.natural_16(unknown_position), False)
             end
          end
          Result := type_natural_16_memory
@@ -1054,7 +1054,7 @@ feature {ANY} -- To get a TYPE:
             hs := string_aliaser.hashed_string(as_natural_32)
             type_natural_32_memory := type_dictionary.fast_reference_at(hs)
             if type_natural_32_memory = Void then
-               type_natural_32_memory := get_type(create {NATURAL_TYPE_MARK}.natural_32(unknown_position))
+               type_natural_32_memory := get_type(create {NATURAL_TYPE_MARK}.natural_32(unknown_position), False)
             end
          end
          Result := type_natural_32_memory
@@ -1071,7 +1071,7 @@ feature {ANY} -- To get a TYPE:
             hs := string_aliaser.hashed_string(as_natural_64)
             type_natural_64_memory := type_dictionary.fast_reference_at(hs)
             if type_natural_64_memory = Void then
-               type_natural_64_memory := get_type(create {NATURAL_TYPE_MARK}.natural_64(unknown_position))
+               type_natural_64_memory := get_type(create {NATURAL_TYPE_MARK}.natural_64(unknown_position), False)
             end
          end
          Result := type_natural_64_memory
@@ -1099,7 +1099,7 @@ feature {ANY} -- To get a TYPE:
             hs := string_aliaser.hashed_string(as_real_32)
             type_real_32_memory := type_dictionary.fast_reference_at(hs)
             if type_real_32_memory = Void then
-               type_real_32_memory := get_type(create {REAL_TYPE_MARK}.real_32(unknown_position))
+               type_real_32_memory := get_type(create {REAL_TYPE_MARK}.real_32(unknown_position), False)
             end
          end
          Result := type_real_32_memory
@@ -1116,7 +1116,7 @@ feature {ANY} -- To get a TYPE:
             hs := string_aliaser.hashed_string(as_real_64)
             type_real_64_memory := type_dictionary.fast_reference_at(hs)
             if type_real_64_memory = Void then
-               type_real_64_memory := get_type(create {REAL_TYPE_MARK}.real(unknown_position))
+               type_real_64_memory := get_type(create {REAL_TYPE_MARK}.real(unknown_position), False)
             end
          end
          Result := type_real_64_memory
@@ -1133,7 +1133,7 @@ feature {ANY} -- To get a TYPE:
             hs := string_aliaser.hashed_string(as_real_extended)
             type_real_extended_memory := type_dictionary.fast_reference_at(hs)
             if type_real_extended_memory = Void then
-               type_real_extended_memory := get_type(create {REAL_TYPE_MARK}.real_extended(unknown_position))
+               type_real_extended_memory := get_type(create {REAL_TYPE_MARK}.real_extended(unknown_position), False)
             end
          end
          Result := type_real_extended_memory
@@ -1157,7 +1157,7 @@ feature {ANY} -- To get a TYPE:
          Result := type_dictionary.fast_has(static_type.long_name)
       end
 
-   get_type (static_type: TYPE_MARK): TYPE is
+   get_type (static_type: TYPE_MARK; in_client_list: BOOLEAN): TYPE is
       require
          static_type.is_static
       local
@@ -1175,7 +1175,7 @@ feature {ANY} -- To get a TYPE:
                until
                   i > gl.upper
                loop
-                  Result := get_type(gl.item(i))
+                  Result := get_type(gl.item(i), in_client_list)
                   i := i + 1
                end
             end
@@ -1184,7 +1184,7 @@ feature {ANY} -- To get a TYPE:
             -- creating the type of `static_type' itself:
             Result := type_dictionary.fast_reference_at(long_name)
             if Result = Void then
-               Result := create_type(static_type)
+               Result := create_type(static_type, in_client_list)
             end
          end
       ensure
@@ -1235,7 +1235,7 @@ feature {ANY} -- To get a TYPE:
       end
 
 feature {CLASS_TYPE_MARK}
-   get_type_for_non_generic (non_generic_static_type: TYPE_MARK): TYPE is
+   get_type_for_non_generic (non_generic_static_type: TYPE_MARK; in_client_list: BOOLEAN): TYPE is
          -- Just an optimized version of `get_type'.
       require
          non_generic_static_type.is_static
@@ -1243,10 +1243,10 @@ feature {CLASS_TYPE_MARK}
       do
          Result := type_dictionary.fast_reference_at(non_generic_static_type.long_name)
          if Result = Void then
-            Result := create_type(non_generic_static_type)
+            Result := create_type(non_generic_static_type, in_client_list)
          end
       ensure
-         Result = get_type(non_generic_static_type)
+         Result = get_type(non_generic_static_type, in_client_list)
       end
 
 feature {}
@@ -1303,7 +1303,7 @@ feature {LIVE_TYPE}
          hs := long_type_name(hs, c)
          t := type_dictionary.fast_reference_at(hs)
          if t = Void then
-            t := get_type(create {CLASS_TYPE_MARK}.make(cn))
+            t := get_type(create {CLASS_TYPE_MARK}.make(cn), False)
             check
                type_dictionary.has(hs)
             end
@@ -1393,7 +1393,7 @@ feature {}
             check
                constraint_type.is_static
             end
-            constraint := get_type(constraint_type)
+            constraint := get_type(constraint_type, False)
             if Result /= constraint then
                code := Result.insert_inherit_test(constraint)
                inspect

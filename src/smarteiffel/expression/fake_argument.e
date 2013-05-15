@@ -141,7 +141,7 @@ feature {}
          r > 0
       do
          start_position := sp
-         result_type := rt.to_static(target_type)
+         result_type := rt.to_static(target_type, False)
          rank := r
       ensure
          result_type.is_static

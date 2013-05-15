@@ -66,7 +66,7 @@ feature {ANY}
          gl: ARRAY[TYPE]
       do
          Precursor(new_type)
-         gl := static_memory.fast_at(new_type).generic_list
+         gl := static_memory.fast_at(new_type).first.generic_list
          open_check(new_type, gl.first)
       ensure then
          declaration_type /= Void
@@ -77,7 +77,7 @@ feature {ANY}
          gl: ARRAY[TYPE];
       do
          Result := Precursor(parent_type, parent_edge, new_type)
-         gl := static_memory.fast_at(new_type).generic_list
+         gl := static_memory.fast_at(new_type).first.generic_list
          open_check(new_type, gl.first)
       end
 
@@ -102,7 +102,7 @@ feature {TYPE_MARK}
       do
          short_printer.put_class_name(class_text_name)
          short_printer.hook_or("open_sb", "[")
-         agent_type_mark ?= static_memory.fast_at(shorted_type).canonical_type_mark
+         agent_type_mark ?= static_memory.fast_at(shorted_type).first.canonical_type_mark
          agent_type_mark.written_open.short_(shorted_type)
          if result_type /= Void then
             short_printer.hook_or("tm_sep", ", ")

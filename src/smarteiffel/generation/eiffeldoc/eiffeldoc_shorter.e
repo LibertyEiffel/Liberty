@@ -67,7 +67,7 @@ feature {}
 
    options: EIFFELDOC_OPTIONS
 
-   clients: CLASS_NAME_LIST
+   clients: TYPE_MARK_LIST
 
 feature {ANY}
    command_name: STRING is ""

@@ -23,9 +23,9 @@ feature {RUNNER_EXPRESSIONS}
          right: RUNNER_OBJECT; left_type: TYPE
       do
          if assignment.left_type_mark /= Void then
-            left_type := smart_eiffel.get_type(assignment.left_type_mark)
+            left_type := smart_eiffel.get_type(assignment.left_type_mark, False)
          else
-            left_type := smart_eiffel.get_type(type_mark(assignment.left_writable))
+            left_type := smart_eiffel.get_type(type_mark(assignment.left_writable), False)
          end
          right := processor.expressions.eval(assignment.right_side)
          Result := right.type = left_type or else right.type.inherits_from(left_type)
@@ -45,7 +45,7 @@ feature {RUNNER_INSTRUCTIONS}
          right: RUNNER_OBJECT; left_type: TYPE
       do
          right := processor.expressions.eval(assignment.right_side)
-         left_type := smart_eiffel.get_type(type_mark(assignment.left_side))
+         left_type := smart_eiffel.get_type(type_mark(assignment.left_side), False)
          if right.type = left_type or else right.type.inherits_from(left_type) then
             assign_to(right, assignment.left_side)
          elseif assignment.forced_flag then
@@ -122,7 +122,7 @@ feature {FUNCTION_CALL_0}
 feature {}
    type_mark (writable: EXPRESSION): TYPE_MARK is
       do
-         Result := writable.written_declaration_type_mark.to_static(current_frame.target.type)
+         Result := writable.written_declaration_type_mark.to_static(current_frame.target.type, False)
       ensure
          Result.is_static
       end

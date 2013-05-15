@@ -18,7 +18,7 @@ create {EIFFELDOC_SHORTER, EIFFELDOC_SHORTER_CLASSDOC}
    make
 
 feature {EIFFELDOC_SHORTER, EIFFELDOC_SHORTER_CLASSDOC}
-   clients_of (ct: CLASS_TEXT): CLASS_NAME_LIST is
+   clients_of (ct: CLASS_TEXT): TYPE_MARK_LIST is
       do
          clients := Void
          enter_class_latch := True
@@ -39,11 +39,11 @@ feature {}
 feature {}
    enter_class_latch: BOOLEAN
 
-   clients: CLASS_NAME_LIST
+   clients: TYPE_MARK_LIST
 
-   any_client_list: CLASS_NAME_LIST is
+   any_client_list: TYPE_MARK_LIST is
       local
-         any: CLASS_NAME
+         any: TYPE_MARK
       once
          create any.unknown_position(string_aliaser.hashed_string(as_any))
          create Result.make_1(any)
@@ -64,32 +64,32 @@ feature {}
 
    enter_feature_clause (visited: FEATURE_CLAUSE): BOOLEAN is
       local
-         client_list: CLIENT_LIST; class_name_list: CLASS_NAME_LIST; i: INTEGER
-         client_class_name: CLASS_NAME; client_class_text: CLASS_TEXT
+         client_list: CLIENT_LIST; type_mark_list: TYPE_MARK_LIST; i: INTEGER
+         client_type_mark: TYPE_MARK; client_class_text: CLASS_TEXT
       do
          client_list := visited.clients
          if client_list /= Void then
-            class_name_list := client_list.class_name_list
-            if class_name_list /= Void then
+            type_mark_list := client_list.type_mark_list
+            if type_mark_list /= Void then
                from
                   i := 1
                until
-                  i > class_name_list.count
+                  i > type_mark_list.count
                loop
-                  client_class_name := class_name_list.item(i)
-                  client_class_text := smart_eiffel.class_text(client_class_name, False)
+                  client_type_mark := type_mark_list.item(i)
+                  client_class_text := smart_eiffel.class_text(client_type_mark, False)
                   if client_class_text = Void then
-                     error_handler.add_position(client_class_name.start_position)
+                     error_handler.add_position(client_type_mark.start_position)
                      error_handler.append(once "Unable to find class ")
-                     error_handler.append(client_class_name.to_string)
+                     error_handler.append(client_type_mark.to_string)
                      error_handler.append(once ". Ignored client.")
                      error_handler.print_as_warning
                   else
                      if clients = Void then
-                        create clients.make_1(client_class_name)
+                        create clients.make_1(client_type_mark)
                      else
-                        if clients.index_of(client_class_name) = 0 then
-                           clients.add_last(client_class_name)
+                        if clients.index_of(client_type_mark) = 0 then
+                           clients.add_last(client_type_mark)
                         end
                      end
                   end

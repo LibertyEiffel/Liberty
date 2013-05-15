@@ -68,7 +68,7 @@ feature {}
          Result := context.class_type
       end
 
-   client: CLASS_NAME is
+   client: TYPE_MARK is
       do
          Result := context.client
       end

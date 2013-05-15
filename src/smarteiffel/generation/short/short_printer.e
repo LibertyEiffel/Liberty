@@ -393,10 +393,11 @@ feature {CLASS_CHECKER}
    short_for_tuple (format: STRING; tuple_list: FAST_ARRAY[TYPE]) is
          -- Where `tuple_list' goes from TUPLE to the maximum TUPLE[ANY, ANY, ...] ever defined.
       local
-         tuple_type: TYPE; tuple_class_text, ct: CLASS_TEXT; ccl: CREATION_CLAUSE_LIST
+         tuple_type: TYPE; tuple_class_text, ct: CLASS_TEXT; ccl: CREATION_CLAUSE_LIST; cn: CLASS_NAME
          dummy: BOOLEAN; fcl: FEATURE_CLAUSE_LIST; i, i2: INTEGER
       do
-         create client.unknown_position(string_aliaser.hashed_string(as_any))
+         create cn.unknown_position(string_aliaser.hashed_string(as_any))
+         create {CLASS_TYPE_MARK} client.make(cn)
          -- No sort for TUPLE:
          sort_flag := False
          from
@@ -410,7 +411,7 @@ feature {CLASS_CHECKER}
             memory.clear_count
             ccl := tuple_class_text.creation_clause_list
             if ccl /= Void then
-               dummy := ccl.short(client)
+               dummy := ccl.short(client, tuple_type)
             end
             from
                i2 := tuple_list.lower
@@ -522,7 +523,7 @@ feature {}
          -- Already printed features when the `sort_flag' is not used or the memorized features to be
          -- printed at the end when the `sort_flag' is used.
 
-   client: CLASS_NAME
+   client: TYPE_MARK
 
    make is
       do

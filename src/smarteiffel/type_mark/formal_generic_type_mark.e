@@ -68,7 +68,7 @@ feature {ANY}
          Result := new_type.generic_list.item(rank)
       end
 
-   to_static (new_type: TYPE): TYPE_MARK is
+   to_static (new_type: TYPE; in_client_list: BOOLEAN): TYPE_MARK is
       do
          Result := new_type.generic_list.item(rank).canonical_type_mark
       end

@@ -29,7 +29,7 @@ feature {ANY}
    frozen type: TYPE is
       do
          if type_memory = Void then
-            type_memory := smart_eiffel.get_type(Current)
+            type_memory := smart_eiffel.get_type(Current, False)
          end
          Result := type_memory
       end
@@ -214,13 +214,15 @@ feature {ANY}
          end
       end
 
-   frozen to_static (new_type: TYPE): TYPE_MARK is
+   frozen to_static (new_type: TYPE; in_client_list: BOOLEAN): TYPE_MARK is
          --|*** should be Result := static_memory.reference_at(new_type).canonical_type_mark  only.
       do
          if is_static then
             Result := Current
+         elseif in_client_list then
+            Result := static_memory.fast_reference_at(new_type).second.canonical_type_mark
          else
-            Result := static_memory.fast_reference_at(new_type).canonical_type_mark
+            Result := static_memory.fast_reference_at(new_type).first.canonical_type_mark
          end
       end
 
@@ -245,7 +247,7 @@ feature {ANY}
             end
             static_generic_type_mark := twin
             static_generic_type_mark.set_static_generic_list(gl)
-            Result := smart_eiffel.get_type(static_generic_type_mark)
+            Result := smart_eiffel.get_type(static_generic_type_mark, False)
             signature_resolved_memory.put(Result, new_type)
          end
       end
@@ -361,8 +363,7 @@ feature {GENERIC_TYPE_MARK}
 feature {GENERIC_TYPE_MARK, CREATE_INSTRUCTION}
    update_static_memory (new_type: TYPE) is
       local
-         static: TYPE; i: INTEGER; gl: like generic_list; tm1, tm2: TYPE_MARK
-         static_generic_type_mark: like Current
+         static: TUPLE[TYPE, TYPE]
       do
          if static_memory = Void then
             create static_memory.make
@@ -370,33 +371,42 @@ feature {GENERIC_TYPE_MARK, CREATE_INSTRUCTION}
             static := static_memory.fast_reference_at(new_type)
          end
          if static = Void then
+            static := [new_static_type_in(new_type, False), new_static_type_in(new_type, True)]
+            static_memory.fast_put(static, new_type)
+         end
+      end
+
+feature {}
+   new_static_type_in (new_type: TYPE; in_client_list: BOOLEAN): TYPE is
+      local
+         i: INTEGER; gl: like generic_list; tm1, tm2: TYPE_MARK
+         static_generic_type_mark: like Current
+      do
+         from
+            i := generic_list.lower
+         until
+            tm1 /= tm2 or else i > generic_list.upper
+         loop
+            tm1 := generic_list.item(i)
+            tm2 := tm1.to_static(new_type, in_client_list)
+            i := i + 1
+         end
+         if tm1 = tm2 then
+            -- Was a True static `generic_list':
+            Result := smart_eiffel.get_type(Current, in_client_list)
+         else
             from
-               i := generic_list.lower
+               gl := generic_list.twin
+               gl.put(tm2, i - 1)
             until
-               tm1 /= tm2 or else i > generic_list.upper
+               i > gl.upper
             loop
-               tm1 := generic_list.item(i)
-               tm2 := tm1.to_static(new_type)
+               gl.put(gl.item(i).to_static(new_type, in_client_list), i)
                i := i + 1
             end
-            if tm1 = tm2 then
-               -- Was a True static `generic_list':
-               static := smart_eiffel.get_type(Current)
-            else
-               from
-                  gl := generic_list.twin
-                  gl.put(tm2, i - 1)
-               until
-                  i > gl.upper
-               loop
-                  gl.put(gl.item(i).to_static(new_type), i)
-                  i := i + 1
-               end
-               static_generic_type_mark := twin
-               static_generic_type_mark.set_static_generic_list(gl)
-               static := smart_eiffel.get_type(static_generic_type_mark)
-            end
-            static_memory.fast_put(static, new_type)
+            static_generic_type_mark := twin
+            static_generic_type_mark.set_static_generic_list(gl)
+            Result := smart_eiffel.get_type(static_generic_type_mark, in_client_list)
          end
       end
 
@@ -459,7 +469,7 @@ feature {}
          short_printer.hook_or("close_sb", "]")
       end
 
-   static_memory: HASHED_DICTIONARY[TYPE, TYPE]
+   static_memory: HASHED_DICTIONARY[TUPLE[TYPE, TYPE], TYPE]
          -- Where the key is the context and where the value is the corresponding `to_static' TYPE.
 
    signature_resolved_memory: HASHED_DICTIONARY[TYPE, TYPE]

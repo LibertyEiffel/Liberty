@@ -1,19 +1,19 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class CLASS_NAME_LIST_VISITOR
+deferred class TYPE_MARK_LIST_VISITOR
 
 inherit
    VISITOR
 
-feature {CLASS_NAME_LIST}
-   visit_class_name_list (visited: CLASS_NAME_LIST) is
+feature {TYPE_MARK_LIST}
+   visit_type_mark_list (visited: TYPE_MARK_LIST) is
       require
          visited /= Void
       deferred
       end
 
-end -- class CLASS_NAME_LIST_VISITOR
+end -- class TYPE_MARK_LIST_VISITOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
