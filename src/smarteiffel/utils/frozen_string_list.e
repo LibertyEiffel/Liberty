@@ -31,6 +31,8 @@ feature {} -- The keywords section:
 
    fz_cluster: STRING is "cluster"
 
+   fz_convert: STRING is "convert"
+
    fz_create: STRING is "create"
 
    fz_creation: STRING is "creation"
