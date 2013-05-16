@@ -142,7 +142,7 @@ feature {ANY}
          Result = to_static(new_type, False).type
       end
 
-   to_static (new_type: TYPE; allow_unknown_class: BOOLEAN): TYPE_MARK is
+   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK is
          -- Compute the `is_static' one in the `new_type' context.
          -- (See also `resolve_in'.)
       require

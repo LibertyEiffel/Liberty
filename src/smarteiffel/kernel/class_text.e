@@ -457,6 +457,7 @@ feature {CREATE_SUPPORT, MANIFEST_GENERIC, CECIL_ENTRY}
                Result := True
             else
                cl := cc.clients
+               cl.specialize_checks(target_type)
                Result := cl.gives_permission_to(type.canonical_type_mark, target_type)
                if not Result then
                   error_handler.add_position(call_site)

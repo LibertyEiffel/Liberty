@@ -507,6 +507,7 @@ feature {}
             error_handler.append(once ". This can lead to catcalls!")
             error_handler_show_resulting_client_list(Result)
          end
+         Result.specialize_checks(context_type)
       ensure
          Result /= Void
       end

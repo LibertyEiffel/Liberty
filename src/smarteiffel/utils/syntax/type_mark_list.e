@@ -213,6 +213,23 @@ feature {CLIENT_LIST}
          end
       end
 
+   specialize_checks (context_type: TYPE) is
+      local
+         gtm: GENERIC_TYPE_MARK; i: INTEGER
+      do
+         from
+            i := 1
+         until
+            i > count
+         loop
+            gtm ?= item(i)
+            if gtm /= Void then
+               gtm.update_static_memory(context_type)
+            end
+            i := i + 1
+         end
+      end
+
 feature {CLIENT_LIST, TYPE_MARK_LIST}
    wider_than (other: like Current): BOOLEAN is
       require

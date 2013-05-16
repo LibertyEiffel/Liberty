@@ -118,6 +118,14 @@ feature {ANY}
          visitor.visit_client_list(Current)
       end
 
+feature {ANONYMOUS_FEATURE_MIXER, CLASS_TEXT}
+   specialize_checks (context_type: TYPE) is
+      do
+         if type_mark_list /= Void then
+            type_mark_list.specialize_checks(context_type)
+         end
+      end
+
 feature {ANONYMOUS_FEATURE_MIXER, CLIENT_LIST_VISITOR}
    append_in (b: STRING) is
       do

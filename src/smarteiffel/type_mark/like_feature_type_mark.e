@@ -90,12 +90,12 @@ feature {ANY}
          Result := not feature_stamp_memory.is_empty
       end
 
-   to_static (new_type: TYPE; allow_unknown_class: BOOLEAN): TYPE_MARK is
+   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK is
       local
          fs: FEATURE_STAMP
       do
          check
-            not allow_unknown_class
+            not allow_raw_class_name
          end
          fs := feature_stamp_memory.fast_reference_at(new_type)
          if feature_accumulator.context_type /= new_type then
