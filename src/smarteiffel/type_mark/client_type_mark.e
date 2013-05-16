@@ -24,21 +24,29 @@ feature {ANY}
 
    to_static (new_type: TYPE; in_client_list: BOOLEAN): TYPE_MARK is
       local
-         gl: ARRAY[TYPE_MARK]
+         gl: ARRAY[TYPE_MARK]; static_tuple: TUPLE[TYPE, TYPE]
+         ugtm: USER_GENERIC_TYPE_MARK
       do
          if static_memory = Void then
             create static_memory.make
          else
-            Result := static_memory.fast_reference_at(new_type)
+            static_tuple := static_memory.fast_reference_at(new_type)
          end
-         if Result = Void then
+         if static_tuple = Void then
             if is_generic then
                gl := class_type_mark.class_text.constraints_generic_list
-               create {USER_GENERIC_TYPE_MARK} Result.make(class_type_mark.class_text_name, gl)
+               create ugtm.make(class_type_mark.class_text_name, gl)
+               Result := ugtm
             else
                Result := class_type_mark
             end
-            static_memory.add(Result, new_type)
+            static_tuple := [smart_eiffel.get_type(Result.to_static(new_type, False), False), smart_eiffel.get_type(Result.to_static(new_type, True), True)]
+            static_memory.add(static_tuple, new_type)
+         end
+         if in_client_list then
+            Result := static_tuple.second.canonical_type_mark
+         else
+            Result := static_tuple.first.canonical_type_mark
          end
       end
 
@@ -121,11 +129,13 @@ feature {ANY}
    specialize_in (new_type: TYPE) is
       do
          check False end
+         sedb_breakpoint
       end
 
    specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): TYPE_MARK is
       do
          check False end
+         sedb_breakpoint
       end
 
    declaration_type: TYPE_MARK is
@@ -171,7 +181,7 @@ feature {}
       end
 
    class_type_mark: CLASS_TYPE_MARK
-   static_memory: HASHED_DICTIONARY[TYPE_MARK, TYPE]
+   static_memory: HASHED_DICTIONARY[TUPLE[TYPE, TYPE], TYPE]
    generic_list_memory: ARRAY[TYPE_MARK]
 
 end -- class CLIENT_TYPE_MARK
