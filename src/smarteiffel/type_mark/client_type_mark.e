@@ -22,7 +22,7 @@ feature {ANY}
 
    is_static: BOOLEAN is False
 
-   to_static (new_type: TYPE; in_client_list: BOOLEAN): TYPE_MARK is
+   to_static (new_type: TYPE; allow_unknown_class: BOOLEAN): TYPE_MARK is
       local
          gl: ARRAY[TYPE_MARK]; static_tuple: TUPLE[TYPE, TYPE]
          ugtm: USER_GENERIC_TYPE_MARK
@@ -43,7 +43,7 @@ feature {ANY}
             static_tuple := [smart_eiffel.get_type(Result.to_static(new_type, False), False), smart_eiffel.get_type(Result.to_static(new_type, True), True)]
             static_memory.add(static_tuple, new_type)
          end
-         if in_client_list then
+         if allow_unknown_class then
             Result := static_tuple.second.canonical_type_mark
          else
             Result := static_tuple.first.canonical_type_mark

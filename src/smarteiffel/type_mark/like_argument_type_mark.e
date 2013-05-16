@@ -66,10 +66,10 @@ feature {ANY}
          visitor.visit_like_argument_type_mark(Current)
       end
 
-   to_static (new_type: TYPE; in_client_list: BOOLEAN): TYPE_MARK is
+   to_static (new_type: TYPE; allow_unknown_class: BOOLEAN): TYPE_MARK is
       do
          check
-            not in_client_list
+            not allow_unknown_class
          end
          if like_argument_computing then
             error_handler.append(once "Unable to solve cyclic anchored types.")

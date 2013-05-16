@@ -749,7 +749,7 @@ feature {EFFECTIVE_ROUTINE, EXTERNAL_ROUTINE, INTROSPECTION_HANDLER}
 feature {}
    type_to_be_created: HASHED_STRING
 
-   create_type (static_type: TYPE_MARK; in_client_list: BOOLEAN): TYPE is
+   create_type (static_type: TYPE_MARK; allow_unknown_class: BOOLEAN): TYPE is
          -- Create a type. Type creation is locked until `register_type' has been called.
       require
          static_type.is_static
@@ -760,7 +760,7 @@ feature {}
             echo.put_string(once "Creating type: ")
             echo.put_line(static_type.long_name.to_string)
          end
-         create Result.make(static_type, in_client_list)
+         create Result.make(static_type, allow_unknown_class)
       ensure
          Result /= Void
          has_type(static_type)
@@ -1157,7 +1157,7 @@ feature {ANY} -- To get a TYPE:
          Result := type_dictionary.fast_has(static_type.long_name)
       end
 
-   get_type (static_type: TYPE_MARK; in_client_list: BOOLEAN): TYPE is
+   get_type (static_type: TYPE_MARK; allow_unknown_class: BOOLEAN): TYPE is
       require
          static_type.is_static
       local
@@ -1175,7 +1175,7 @@ feature {ANY} -- To get a TYPE:
                until
                   i > gl.upper
                loop
-                  Result := get_type(gl.item(i), in_client_list)
+                  Result := get_type(gl.item(i), allow_unknown_class)
                   i := i + 1
                end
             end
@@ -1184,7 +1184,7 @@ feature {ANY} -- To get a TYPE:
             -- creating the type of `static_type' itself:
             Result := type_dictionary.fast_reference_at(long_name)
             if Result = Void then
-               Result := create_type(static_type, in_client_list)
+               Result := create_type(static_type, allow_unknown_class)
             end
          end
       ensure
@@ -1235,7 +1235,7 @@ feature {ANY} -- To get a TYPE:
       end
 
 feature {CLASS_TYPE_MARK}
-   get_type_for_non_generic (non_generic_static_type: TYPE_MARK; in_client_list: BOOLEAN): TYPE is
+   get_type_for_non_generic (non_generic_static_type: TYPE_MARK; allow_unknown_class: BOOLEAN): TYPE is
          -- Just an optimized version of `get_type'.
       require
          non_generic_static_type.is_static
@@ -1243,10 +1243,10 @@ feature {CLASS_TYPE_MARK}
       do
          Result := type_dictionary.fast_reference_at(non_generic_static_type.long_name)
          if Result = Void then
-            Result := create_type(non_generic_static_type, in_client_list)
+            Result := create_type(non_generic_static_type, allow_unknown_class)
          end
       ensure
-         Result = get_type(non_generic_static_type, in_client_list)
+         Result = get_type(non_generic_static_type, allow_unknown_class)
       end
 
 feature {}

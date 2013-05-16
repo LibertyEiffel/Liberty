@@ -214,7 +214,7 @@ feature {ANY}
          end
       end
 
-   frozen to_static (new_type: TYPE; in_client_list: BOOLEAN): TYPE_MARK is
+   frozen to_static (new_type: TYPE; allow_unknown_class: BOOLEAN): TYPE_MARK is
       local
          static_tuple: TUPLE[TYPE, TYPE]
       do
@@ -225,7 +225,7 @@ feature {ANY}
             static_tuple := static_memory.fast_reference_at(new_type)
             if static_tuple = Void then
                sedb_breakpoint
-            elseif in_client_list then
+            elseif allow_unknown_class then
                Result := static_tuple.second.canonical_type_mark
             else
                Result := static_tuple.first.canonical_type_mark
@@ -384,7 +384,7 @@ feature {GENERIC_TYPE_MARK}
       end
 
 feature {}
-   new_static_type_in (new_type: TYPE; in_client_list: BOOLEAN): TYPE is
+   new_static_type_in (new_type: TYPE; allow_unknown_class: BOOLEAN): TYPE is
       local
          i: INTEGER; gl: like generic_list; tm1, tm2: TYPE_MARK
          static_generic_type_mark: like Current
@@ -395,12 +395,12 @@ feature {}
             tm1 /= tm2 or else i > generic_list.upper
          loop
             tm1 := generic_list.item(i)
-            tm2 := tm1.to_static(new_type, in_client_list)
+            tm2 := tm1.to_static(new_type, allow_unknown_class)
             i := i + 1
          end
          if tm1 = tm2 then
             -- Was a True static `generic_list':
-            Result := smart_eiffel.get_type(Current, in_client_list)
+            Result := smart_eiffel.get_type(Current, allow_unknown_class)
          else
             from
                gl := generic_list.twin
@@ -408,12 +408,12 @@ feature {}
             until
                i > gl.upper
             loop
-               gl.put(gl.item(i).to_static(new_type, in_client_list), i)
+               gl.put(gl.item(i).to_static(new_type, allow_unknown_class), i)
                i := i + 1
             end
             static_generic_type_mark := twin
             static_generic_type_mark.set_static_generic_list(gl)
-            Result := smart_eiffel.get_type(static_generic_type_mark, in_client_list)
+            Result := smart_eiffel.get_type(static_generic_type_mark, allow_unknown_class)
          end
       end
 
