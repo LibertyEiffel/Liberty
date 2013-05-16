@@ -7,7 +7,7 @@ class ITERATOR_ON_UNICODE_STRING
 inherit
    ITERATOR[INTEGER]
 
-create {ANY}
+create {UNICODE_STRING}
    make
 
 feature {}

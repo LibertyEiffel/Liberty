@@ -7,7 +7,7 @@ class ITERATOR_ON_STRING
 inherit
    ITERATOR[CHARACTER]
 
-create {ANY}
+create {ABSTRACT_STRING}
    make
 
 feature {}

@@ -7,7 +7,7 @@ class ITERATOR_ON_SET[E_]
 inherit
    ITERATOR[E_]
 
-create {ANY}
+create {SET[E_]}
    make
 
 feature {}

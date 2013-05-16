@@ -7,7 +7,7 @@ class ITERATOR_ON_DICTIONARY_ITEMS[V_, K_]
 inherit
    ITERATOR[V_]
 
-create {ANY}
+create {DICTIONARY[V_, K_]}
    make
 
 feature {}

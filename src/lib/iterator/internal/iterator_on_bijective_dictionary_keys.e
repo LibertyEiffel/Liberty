@@ -7,7 +7,7 @@ class ITERATOR_ON_BIJECTIVE_DICTIONARY_KEYS[V_, K_]
 inherit
    ITERATOR[K_]
 
-create {ANY}
+create {BIJECTIVE_DICTIONARY[V_, K_]}
    make
 
 feature {}

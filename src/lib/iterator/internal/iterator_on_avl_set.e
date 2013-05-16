@@ -6,7 +6,7 @@ inherit
 insert
    AVL_TREE_ITERATOR[E_]
 
-create {ABSTRACT_AVL_SET}
+create {ABSTRACT_AVL_SET[E_]}
    make
 
 feature {ANY}

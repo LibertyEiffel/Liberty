@@ -7,7 +7,7 @@ class ITERATOR_ON_TWO_WAY_LINKED_LIST[E_]
 inherit
    ITERATOR[E_]
 
-create {ANY}
+create {TWO_WAY_LINKED_LIST[E_]}
    make
 
 feature {}

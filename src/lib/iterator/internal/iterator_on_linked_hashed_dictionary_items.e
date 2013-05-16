@@ -1,13 +1,13 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS[V_, K_]
+class ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS[V_, K_ -> HASHABLE]
    -- Please do not use this class directly. Look at `ITERATOR'.
 
 inherit
    ITERATOR[V_]
 
-create {ANY}
+create {ABSTRACT_LINKED_HASHED_DICTIONARY[V_, K_]}
    make
 
 feature {}
