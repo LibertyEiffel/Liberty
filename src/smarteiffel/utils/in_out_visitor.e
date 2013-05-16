@@ -652,10 +652,14 @@ feature {}
 
 feature {CLIENT_TYPE_MARK}
    visit_client_type_mark (visited: CLIENT_TYPE_MARK) is
+      local
+         ct: CLASS_TEXT
       do
          if enter_client_type_mark(visited) then
-            visited.class_text.accept(Current)
-            visited.class_text_name.accept(Current)
+            ct := visited.try_class_text
+            if ct /= Void then
+               ct.accept(Current)
+            end
             exit_client_type_mark(visited)
          end
       end

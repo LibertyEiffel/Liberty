@@ -177,7 +177,7 @@ feature {}
          html /= Void and then html.in_a_body
       local
          i: INTEGER
-         cn: CLASS_NAME
+         tm: TYPE_MARK
          sep: STRING
       do
          html.open_anchor_name(top_anchor_name)
@@ -205,19 +205,19 @@ feature {}
          if client = Void then
             options.open_menu(html, points_of_view_menu_name, all_feature_entry_name)
          else
-            options.open_menu(html, points_of_view_menu_name, client.to_string)
+            options.open_menu(html, points_of_view_menu_name, client.written_mark)
          end
          from
             i := 1
          until
             i > clients.count
          loop
-            cn := clients.item(i)
-            options.add_menu_item(html, cn.to_string, filename_of(context_class_text, cn))
+            tm := clients.item(i)
+            options.add_menu_item(html, tm.written_mark, filename_of(context_class_text, tm))
             i := i + 1
          end
-         cn := Void
-         options.add_menu_item(html, all_feature_entry_name, filename_of(context_class_text, cn))
+         tm := Void
+         options.add_menu_item(html, all_feature_entry_name, filename_of(context_class_text, tm))
          options.close_menu(html)
 
          -- write name
@@ -1274,7 +1274,7 @@ feature {CREATE_EXPRESSION}
 feature {}
    class_text: CLASS_TEXT
 
-   client: CLASS_NAME is
+   client: TYPE_MARK is
       do
          Result := context.client
       end
@@ -1372,7 +1372,7 @@ feature {}
          anchor: STRING
       do
          if anchored then
-            anchor := filename_of(class_name.class_text, class_name_any)
+            anchor := filename_of(class_name.class_text, smart_eiffel.type_any.canonical_type_mark)
          end
          put_class_name_string(class_name.to_string, anchor)
       end

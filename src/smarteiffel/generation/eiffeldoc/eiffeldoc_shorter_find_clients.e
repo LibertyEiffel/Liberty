@@ -42,11 +42,8 @@ feature {}
    clients: TYPE_MARK_LIST
 
    any_client_list: TYPE_MARK_LIST is
-      local
-         any: TYPE_MARK
       once
-         create any.unknown_position(string_aliaser.hashed_string(as_any))
-         create Result.make_1(any)
+         create Result.make_1(smart_eiffel.type_any.canonical_type_mark)
       end
 
 feature {}
@@ -77,11 +74,11 @@ feature {}
                   i > type_mark_list.count
                loop
                   client_type_mark := type_mark_list.item(i)
-                  client_class_text := smart_eiffel.class_text(client_type_mark, False)
+                  client_class_text := client_type_mark.try_class_text
                   if client_class_text = Void then
                      error_handler.add_position(client_type_mark.start_position)
                      error_handler.append(once "Unable to find class ")
-                     error_handler.append(client_type_mark.to_string)
+                     error_handler.append(client_type_mark.written_mark)
                      error_handler.append(once ". Ignored client.")
                      error_handler.print_as_warning
                   else

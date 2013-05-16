@@ -16,7 +16,7 @@ feature {EIFFELDOC_CORE}
    short_for (ct: CLASS_TEXT; inherit_children, insert_children: FAST_ARRAY[CLASS_TEXT]) is
          -- The filename of the class file is returned
       local
-         fn: STRING; i: INTEGER; client: CLASS_NAME
+         fn: STRING; i: INTEGER; client: TYPE_MARK
       do
          if remote_cluster(ct.cluster) = Void then
             -- It is a local class

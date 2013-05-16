@@ -8,7 +8,7 @@ class CLIENT_TYPE_MARK
 
 inherit
    TYPE_MARK
-      redefine resolve_in
+      redefine resolve_in, class_text, try_class_text
       end
 
 create {ANY}
@@ -26,11 +26,19 @@ feature {ANY}
       local
          gl: ARRAY[TYPE_MARK]
       do
-         if is_generic then
-            gl := class_type_mark.class_text.constraints_generic_list
-            create {USER_GENERIC_TYPE_MARK} Result.make(class_type_mark.class_text_name, gl)
+         if static_memory = Void then
+            create static_memory.make
          else
-            Result := class_type_mark
+            Result := static_memory.fast_reference_at(new_type)
+         end
+         if Result = Void then
+            if is_generic then
+               gl := class_type_mark.class_text.constraints_generic_list
+               create {USER_GENERIC_TYPE_MARK} Result.make(class_type_mark.class_text_name, gl)
+            else
+               Result := class_type_mark
+            end
+            static_memory.add(Result, new_type)
          end
       end
 
@@ -54,7 +62,7 @@ feature {ANY}
 
    resolve_in (new_type: TYPE): TYPE is
       do
-         Result := type
+         Result := to_static(new_type, False).type
       end
 
    is_expanded: BOOLEAN is
@@ -79,8 +87,12 @@ feature {ANY}
 
    generic_list: ARRAY[TYPE_MARK] is
       do
-         check
-            please_resolve_asap: False
+         if is_generic then
+            Result := generic_list_memory
+            if Result = Void then
+               Result := class_type_mark.class_text.constraints_generic_list
+               generic_list_memory := Result
+            end
          end
       end
 
@@ -121,6 +133,16 @@ feature {ANY}
          check False end
       end
 
+   class_text: CLASS_TEXT is
+      do
+         Result := class_type_mark.class_text
+      end
+
+   try_class_text: CLASS_TEXT is
+      do
+         Result := class_type_mark.try_class_text
+      end
+
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
    long_name: HASHED_STRING is
       do
@@ -149,6 +171,8 @@ feature {}
       end
 
    class_type_mark: CLASS_TYPE_MARK
+   static_memory: HASHED_DICTIONARY[TYPE_MARK, TYPE]
+   generic_list_memory: ARRAY[TYPE_MARK]
 
 end -- class CLIENT_TYPE_MARK
 --
