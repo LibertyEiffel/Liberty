@@ -2,7 +2,7 @@
 -- Copy this file into your working directory (the directory used to
 -- run the SmartEiffel compiler) and edit it.
 system
-   "SYSTEME_NAME"
+   "SYSTEM_NAME"
       -- Replace SYSTEM_NAME with the name of the executable file
       -- to be generated for your system. (This is the equivalent of
       -- the -o flag in traditional command line mode.)
