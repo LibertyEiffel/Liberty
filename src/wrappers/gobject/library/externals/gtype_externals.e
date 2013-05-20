@@ -6,7 +6,7 @@ deferred class GTYPE_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_type_add_class_cache_func (a_cache_data: POINTER; a_cache_func: POINTER) is

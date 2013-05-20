@@ -5,8 +5,8 @@ expanded class GOPTION_FLAGS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (g_option_flag_filename_low_level | 
@@ -17,7 +17,7 @@ feature -- Validity
 				g_option_flag_reverse_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_option_flag_filename is
 		do
@@ -79,7 +79,7 @@ feature -- Setters
 			value := value.bit_xor(g_option_flag_reverse_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_option_flag_filename: BOOLEAN is
 		do
 			Result := (value=g_option_flag_filename_low_level)

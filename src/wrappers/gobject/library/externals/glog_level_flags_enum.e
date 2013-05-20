@@ -5,8 +5,8 @@ expanded class GLOG_LEVEL_FLAGS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_log_flag_fatal_low_level)  or else
@@ -20,7 +20,7 @@ feature -- Validity
 				(a_value = g_log_level_warning_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_log_flag_fatal is
 		do
@@ -67,7 +67,7 @@ feature -- Setters
 			value := g_log_level_warning_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_log_flag_fatal: BOOLEAN is
 		do
 			Result := (value=g_log_flag_fatal_low_level)

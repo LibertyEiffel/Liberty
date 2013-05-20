@@ -7,7 +7,7 @@ insert STANDARD_C_LIBRARY_TYPES
 
 	GOBJECT_TYPES
 	-- Fieldless structure
-feature -- Structure size
+feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

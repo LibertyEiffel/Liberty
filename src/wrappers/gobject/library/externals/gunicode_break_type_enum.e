@@ -5,8 +5,8 @@ expanded class GUNICODE_BREAK_TYPE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_unicode_break_after_low_level)  or else
@@ -50,7 +50,7 @@ feature -- Validity
 				(a_value = g_unicode_break_zero_width_space_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_unicode_break_after is
 		do
@@ -247,7 +247,7 @@ feature -- Setters
 			value := g_unicode_break_zero_width_space_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_unicode_break_after: BOOLEAN is
 		do
 			Result := (value=g_unicode_break_after_low_level)

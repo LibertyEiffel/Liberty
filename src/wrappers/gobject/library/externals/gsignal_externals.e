@@ -6,7 +6,7 @@ deferred class GSIGNAL_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_signal_accumulator_first_wins (an_ihint: POINTER; a_return_accu: POINTER; a_handler_return: POINTER; a_dummy: POINTER): INTEGER is

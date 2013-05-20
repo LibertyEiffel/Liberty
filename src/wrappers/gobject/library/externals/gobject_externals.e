@@ -6,7 +6,7 @@ deferred class GOBJECT_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_cclosure_new_object (a_callback_func: POINTER; an_object: POINTER): POINTER is

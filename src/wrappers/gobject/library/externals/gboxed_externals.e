@@ -6,7 +6,7 @@ deferred class GBOXED_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_boxed_copy (a_boxed_type: like long_unsigned; a_src_boxed: POINTER): POINTER is
