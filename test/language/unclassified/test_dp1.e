@@ -25,7 +25,7 @@ feature {ANY}
    make is
       do
          run
-         assert(assert_counter.value = 2)
+         assert(assert_counter.item = 2)
       end
 
 end -- class TEST_DP1
