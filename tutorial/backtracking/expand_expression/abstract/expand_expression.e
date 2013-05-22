@@ -32,14 +32,24 @@ class EXPAND_EXPRESSION
 
 inherit
    ABSTRACT_BACKTRACKING
+      undefine
+         default_create
+      end
    MINI_PARSER_BUFFER
       -- a nicer name when inherited!
-      rename next as next_character
+      rename
+         next as next_character
       end
    EXPRESSION_ITEM_GLOBALS
+      undefine
+         default_create
+      end
 
 insert
    EXCEPTIONS
+      undefine
+         default_create
+      end
 
 creation {ANY}
    make

@@ -60,6 +60,7 @@ feature {C_PRETTY_PRINTER}
    write_make_file (out_make: TEXT_FILE_WRITE): BOOLEAN is
       do
          out_make.put_line(system_tools.c_compiler_command(c_path))
+         Result := True
       end
 
 feature {ACE}
