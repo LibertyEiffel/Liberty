@@ -119,7 +119,10 @@ feature {ANY}
          Result := class_type_mark.start_position
       end
 
-   has_been_specialized: BOOLEAN is False
+   has_been_specialized: BOOLEAN is
+      do
+         Result := specialized_type_mark /= Void
+      end
 
    signature_resolve_in (new_type: TYPE): TYPE is
       do
@@ -128,14 +131,25 @@ feature {ANY}
 
    specialize_in (new_type: TYPE) is
       do
-         check False end
-         sedb_breakpoint
+         specialized_type_mark := to_static(new_type, True)
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): TYPE_MARK is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): CLIENT_TYPE_MARK is
+      local
+         stm: like specialized_type_mark
       do
-         check False end
-         sedb_breakpoint
+         if specialized_type_mark = Void then
+            stm := to_static(new_type, True)
+         else
+            stm := specialized_type_mark
+         end
+         stm := stm.specialize_thru(parent_type, parent_edge, new_type)
+         if stm = specialized_type_mark then
+            Result := Current
+         else
+            Result := twin
+            Result.set_specialized_type_mark(stm)
+         end
       end
 
    declaration_type: TYPE_MARK is
@@ -170,6 +184,17 @@ feature {TYPE_MARK}
          check False end
       end
 
+feature {CLIENT_TYPE_MARK}
+   set_specialized_type_mark (stm: like specialized_type_mark) is
+      require
+         stm /= Void
+         specialized_type_mark /= Void
+      do
+         specialized_type_mark := stm
+      ensure
+         specialized_type_mark = stm
+      end
+
 feature {}
    make (ctm: like class_type_mark) is
       require
@@ -183,6 +208,7 @@ feature {}
    class_type_mark: CLASS_TYPE_MARK
    static_memory: HASHED_DICTIONARY[TUPLE[TYPE, TYPE], TYPE]
    generic_list_memory: ARRAY[TYPE_MARK]
+   specialized_type_mark: TYPE_MARK
 
 end -- class CLIENT_TYPE_MARK
 --

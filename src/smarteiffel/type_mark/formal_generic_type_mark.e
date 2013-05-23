@@ -29,7 +29,7 @@ feature {ANY}
             else
                already_checking := True
                Result := Result.declaration_type
-               if already_checking = False then
+               if not already_checking then
                   -- A cycle was found, for instance FOO[A->B, B->A]
                   -- Check if it is valid.
                   if Result /= smart_eiffel.type_any.canonical_type_mark then

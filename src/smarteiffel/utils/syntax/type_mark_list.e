@@ -17,6 +17,9 @@ insert
 create {ANY}
    make_1, merge
 
+create {TYPE_MARK_LIST}
+   make
+
 feature {ANY}
    count: INTEGER is
       do
@@ -213,20 +216,62 @@ feature {CLIENT_LIST}
          end
       end
 
-   specialize_checks (context_type: TYPE) is
+   specialize_in (new_type: TYPE) is
+      require
+         new_type /= Void
       local
-         gtm: GENERIC_TYPE_MARK; i: INTEGER
+         i: INTEGER
       do
          from
             i := 1
          until
             i > count
          loop
-            gtm ?= item(i)
-            if gtm /= Void then
-               gtm.update_static_memory(context_type)
-            end
+            item(i).specialize_in(new_type)
             i := i + 1
+         end
+      end
+
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+      require
+         parent_type /= Void
+         parent_edge /= Void
+         new_type /= Void
+      local
+         f, tm1, tm2: TYPE_MARK; i: INTEGER; r: like remainder
+      do
+         tm1 := first
+         tm2 := first.specialize_thru(parent_type, parent_edge, new_type)
+         if tm1 /= tm2 then
+            f := tm2
+            check remainder /= Void implies i = remainder.lower end -- since it is 0
+         elseif remainder /= Void then
+            from
+               r := remainder
+               check i = r.lower end -- also 0
+            until
+               tm1 /= tm2 or else i > r.upper
+            loop
+               tm1 := r.item(i)
+               tm2 := tm1.specialize_thru(parent_type, parent_edge, new_type)
+               i := i + 1
+            end
+         end
+         if tm1 = tm2 then
+            Result := Current
+         else
+            if remainder /= Void and then remainder.valid_index(i - 1) then
+               from
+                  create r.from_collection(remainder)
+                  r.put(tm2, i - 1)
+               until
+                  i > r.upper
+               loop
+                  r.put(r.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
+                  i := i + 1
+               end
+            end
+            create Result.make(f, r)
          end
       end
 
@@ -278,6 +323,17 @@ feature {}
          item(1) = tm
       end
 
+   make (tm: TYPE_MARK; rem: like remainder) is
+      require
+         tm /= Void
+      do
+         first := tm
+         remainder := rem
+      ensure
+         first = tm
+         remainder = rem
+      end
+
    merge (l1, l2: like Current) is
       require
          l1 /= Void
@@ -285,26 +341,30 @@ feature {}
       local
          i: INTEGER; tm: TYPE_MARK
       do
-         create remainder.with_capacity(l1.count + l2.count - 1)
-         from
-            first := l1.item(1)
-            i := 2
-         until
-            i > l1.count
-         loop
-            remainder.add_last(l1.item(i))
-            i := i + 1
-         end
-         from
-            i := 1
-         until
-            i > l2.count
-         loop
-            tm := l2.item(i)
-            if index_of(tm) = 0 then
-               remainder.add_last(tm)
+         if l1.count = 1 and then l2.count = 1 and then l1.item(1).is_equal(l2.item(1)) then
+            make_1(l1.item(1))
+         else
+            create remainder.with_capacity(l1.count + l2.count - 1)
+            from
+               first := l1.item(1)
+               i := 2
+            until
+               i > l1.count
+            loop
+               remainder.add_last(l1.item(i))
+               i := i + 1
             end
-            i := i + 1
+            from
+               i := 1
+            until
+               i > l2.count
+            loop
+               tm := l2.item(i)
+               if index_of(tm) = 0 then
+                  remainder.add_last(tm)
+               end
+               i := i + 1
+            end
          end
       end
 

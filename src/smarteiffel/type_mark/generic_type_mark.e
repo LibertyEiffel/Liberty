@@ -221,6 +221,9 @@ feature {ANY}
          if is_static then
             Result := Current
          else
+            if allow_raw_class_name then --| **** TODO find a way to remove that HACK
+               update_static_memory(new_type)
+            end
             static_tuple := static_memory.fast_reference_at(new_type)
             if static_tuple = Void then
                sedb_breakpoint
@@ -369,7 +372,7 @@ feature {GENERIC_TYPE_MARK}
 feature {GENERIC_TYPE_MARK, TYPE_MARK_LIST}
    update_static_memory (new_type: TYPE) is
       local
-         static: TUPLE[TYPE, TYPE]
+         static: TUPLE[TYPE, TYPE]; t1, t2: TYPE
       do
          if static_memory = Void then
             create static_memory.make
@@ -377,7 +380,9 @@ feature {GENERIC_TYPE_MARK, TYPE_MARK_LIST}
             static := static_memory.fast_reference_at(new_type)
          end
          if static = Void then
-            static := [new_static_type_in(new_type, False), new_static_type_in(new_type, True)]
+            t1 := new_static_type_in(new_type, False)
+            t2 := new_static_type_in(new_type, True)
+            static := [t1, t2]
             static_memory.fast_put(static, new_type)
          end
       end

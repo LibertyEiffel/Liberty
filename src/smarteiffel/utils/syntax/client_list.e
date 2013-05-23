@@ -118,11 +118,31 @@ feature {ANY}
          visitor.visit_client_list(Current)
       end
 
-feature {ANONYMOUS_FEATURE_MIXER, CLASS_TEXT}
-   specialize_checks (context_type: TYPE) is
+feature {ANONYMOUS_FEATURE}
+   specialize_in (new_type: TYPE) is
+      require
+         new_type /= Void
       do
          if type_mark_list /= Void then
-            type_mark_list.specialize_checks(context_type)
+            type_mark_list.specialize_in(new_type)
+         end
+      end
+
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+      require
+         parent_type /= Void
+         parent_edge /= Void
+         new_type /= Void
+      local
+         tml: like type_mark_list
+      do
+         if type_mark_list /= Void then
+            tml := type_mark_list.specialize_thru(parent_type, parent_edge, new_type)
+         end
+         if tml = type_mark_list then
+            Result := Current
+         else
+            create Result.make(start_position, tml)
          end
       end
 
@@ -244,20 +264,20 @@ feature {CLIENT_LIST, CLIENT_LIST_VISITOR}
    type_mark_list: TYPE_MARK_LIST
 
 feature {}
-   make (sp: like start_position; cnl: like type_mark_list) is
+   make (sp: like start_position; tml: like type_mark_list) is
          -- When the client list is really written.
       require
          not sp.is_unknown
       do
          start_position := sp
-         type_mark_list := cnl
+         type_mark_list := tml
          debug
             if eiffel_view /= Void then
             end
          end
       ensure
          start_position = sp
-         type_mark_list = cnl
+         type_mark_list = tml
       end
 
    omitted is
@@ -266,12 +286,12 @@ feature {}
       do
       end
 
-   merge (sp: like start_position; cnl1, cnl2: like type_mark_list) is
+   merge (sp: like start_position; tml1, tml2: like type_mark_list) is
       require
          not sp.is_unknown
       do
          start_position := sp
-         create type_mark_list.merge(cnl1, cnl2)
+         create type_mark_list.merge(tml1, tml2)
          debug
             eiffel_view_memory := Void
             if eiffel_view /= Void then

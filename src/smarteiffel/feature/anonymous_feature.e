@@ -394,10 +394,40 @@ feature {ANONYMOUS_FEATURE, ANONYMOUS_FEATURE_MIXER, ANONYMOUS_FEATURE_VISITOR,
          -- class and export items in inherit clauses . This list is semantic.  Also see `clients'.
 
 feature {ANONYMOUS_FEATURE_MIXER}
+   specialize_permissions_in (new_type: TYPE): like Current is
+      require
+         new_type /= Void
+      do
+         if permissions /= Void then
+            permissions.specialize_in(new_type)
+         end
+         Result := Current
+      end
+
    specialize_signature_in (new_type: TYPE): like Current is
       require
          new_type /= Void
       deferred
+      ensure
+         Result /= Void
+      end
+
+   specialize_permissions_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+      require
+         parent_type /= Void
+         parent_edge /= Void
+         new_type /= Void
+      local
+         perm: like permissions
+      do
+         Result := Current
+         if permissions /= Void then
+            perm := permissions.specialize_thru(parent_type, parent_edge, new_type)
+            if perm /= permissions then
+               Result := twin
+               Result.set_permissions(perm)
+            end
+         end
       ensure
          Result /= Void
       end
