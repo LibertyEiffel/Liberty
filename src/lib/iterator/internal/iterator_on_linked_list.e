@@ -7,7 +7,7 @@ class ITERATOR_ON_LINKED_LIST[E_]
 inherit
    ITERATOR[E_]
 
-create {LINKED_LIST[E_]}
+create {ANY}
    make
 
 feature {}

@@ -7,7 +7,7 @@ class ITERATOR_ON_ZIP[V_, K_]
 inherit
    ITERATOR[TUPLE[V_, K_]]
 
-create {ZIP[V_, K_]}
+create {ANY}
    make
 
 feature {}

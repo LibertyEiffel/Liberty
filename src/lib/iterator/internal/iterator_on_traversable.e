@@ -7,7 +7,7 @@ class ITERATOR_ON_TRAVERSABLE[E_]
 inherit
    ITERATOR[E_]
 
-create {TRAVERSABLE[E_]}
+create {ANY}
    make
 
 feature {}
