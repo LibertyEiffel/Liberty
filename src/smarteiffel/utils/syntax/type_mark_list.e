@@ -192,7 +192,12 @@ feature {CLIENT_LIST}
                   if item_type_mark.try_class_text = Void then
                      -- just an unknown class, no big deal in a client clause
                   else
-                     Result := tm_type.insert_inherit_test(item_type_mark.type) /= unrelated_code
+                     Result := tm_type = item_type_mark.type or else tm_type.insert_inherit_test(item_type_mark.type) /= unrelated_code
+                     debug
+                        if not Result then
+                           echo.put_line("#### #(1) -/-> #(2)" # tm_type.name.to_string # item_type_mark.type.name.to_string)
+                        end
+                     end
                   end
                end
                i := i + 1
@@ -240,6 +245,7 @@ feature {CLIENT_LIST}
       local
          f, tm1, tm2: TYPE_MARK; i: INTEGER; r: like remainder
       do
+         f := first
          tm1 := first
          tm2 := first.specialize_thru(parent_type, parent_edge, new_type)
          if tm1 /= tm2 then
