@@ -25,10 +25,15 @@ feature {ANY}
       do
          create Result.with_capacity(21)
          year.append_in(Result); Result.extend('/')
+         if month < 10 then Result.extend('0') end
          month.append_in(Result); Result.extend('/')
+         if day < 10 then Result.extend('0') end
          day.append_in(Result); Result.extend(' ')
+         if hour < 10 then Result.extend('0') end
          hour.append_in(Result); Result.extend(':')
+         if minute < 10 then Result.extend('0') end
          minute.append_in(Result); Result.extend(':')
+         if second < 10 then Result.extend('0') end
          second.append_in(Result)
       end
 

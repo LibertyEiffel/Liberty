@@ -8,11 +8,13 @@ expanded class MICROSECOND_TIME
 
 insert
    HASHABLE
+      redefine out
+      end
    COMPARABLE
-      redefine is_equal
+      redefine is_equal, out
       end
    TIME_HANDLER
-      redefine is_equal
+      redefine is_equal, out
       end
 
 feature {ANY}
@@ -120,7 +122,19 @@ feature {ANY}
 
    hash_code: INTEGER is
       do
-         Result := time.hash_code
+         Result := time.hash_code.bit_xor(microsecond)
+      end
+
+   out: STRING is
+      local
+         mic: STRING
+      do
+         Result := time.out
+         Result.extend('.')
+         mic := once "............"
+         mic.copy(once "000000")
+         microsecond.append_in(mic)
+         Result.append_substring(mic, mic.upper - 5, mic.upper)
       end
 
 feature {ANY}

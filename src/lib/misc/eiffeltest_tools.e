@@ -67,14 +67,18 @@ feature {} -- timer features
          Result.update
       end
 
-   stop_timer (timer: MICROSECOND_TIME) is
+   stop_timer (start: MICROSECOND_TIME) is
       local
          stop: MICROSECOND_TIME
       do
          stop.update
          io.put_string(once "Elapsed time: ")
-         io.put_real(timer.elapsed_seconds(stop))
-         io.put_line(once " seconds")
+         io.put_real(start.elapsed_seconds(stop))
+         io.put_string(once " seconds (")
+         io.put_string(start.out)
+         io.put_string(once " - ")
+         io.put_string(stop.out)
+         io.put_line(once ")")
       end
 
    timed (action: PROCEDURE[TUPLE]) is
