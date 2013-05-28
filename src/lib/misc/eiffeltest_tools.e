@@ -17,7 +17,7 @@ feature {ANY}
          test_failed.item = what_to_do
       end
 
-feature {}
+feature {} -- `assert' methods used by tests
    assert (test: BOOLEAN) is
          -- Check that `test' is actually True. If `test' is True, nothing happens except that the
          -- `assert_counter' is incremented by one. When `test' is False, an error message is printed
@@ -61,6 +61,32 @@ feature {}
          end
       end
 
+feature {} -- timer features
+   start_timer: MICROSECOND_TIME is
+      do
+         Result.update
+      end
+
+   stop_timer (timer: MICROSECOND_TIME) is
+      local
+         stop: MICROSECOND_TIME
+      do
+         stop.update
+         io.put_string(once "Elapsed time: ")
+         io.put_real(timer.elapsed_seconds(stop))
+         io.put_line(once " seconds")
+      end
+
+   timed (action: PROCEDURE[TUPLE]) is
+      local
+         start: MICROSECOND_TIME
+      do
+         start := start_timer
+         action.call([])
+         stop_timer(start)
+      end
+
+feature {}
    assert_counter: COUNTER is
          -- Unique once COUNTER used to count `assert' calls.
       once
