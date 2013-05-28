@@ -67,10 +67,21 @@ feature {ANY}
 
    make is
       do
-         test1(create {HASHED_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
-         test2(create {HASHED_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
-         test1(create {PYTHON_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
-         test2(create {PYTHON_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
+         timed(
+            agent is
+               do
+                  test1(create {HASHED_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
+                  test2(create {HASHED_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
+               end
+         )
+
+         timed(
+            agent is
+               do
+                  test1(create {PYTHON_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
+                  test2(create {PYTHON_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
+               end
+         )
       end
 
 end -- class TEST_DICTIONARY5
