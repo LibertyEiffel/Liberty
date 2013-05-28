@@ -284,7 +284,7 @@ feature {ABSTRACT_PYTHON_DICTIONARY}
 
    ensure_capacity (new_capacity: INTEGER) is
       require
-         -- `new_capacity' is a power of 2
+         new_capacity.is_a_power_of_2
       local
          item_: PYTHON_DICTIONARY_NODE[V_, K_]
          old_storage: like storage
@@ -464,12 +464,11 @@ feature {} -- Creation procedures
             Result := Result | (Result |>>  4)
             Result := Result | (Result |>>  8)
             Result := Result | (Result |>> 16)
-            Result := Result | (Result |>> 32)
             Result := Result + 1
          end
       ensure
          Result >= medium_size
-         -- Result is a power of 2
+         Result.is_a_power_of_2
       end
 
    make is
@@ -499,7 +498,7 @@ feature {} -- Creation procedures
 
 invariant
    capacity >= 0
-   -- `capacity' is a power of 2
+   capacity.is_a_power_of_2
    capacity > 0 implies count < capacity
 
 end -- class ABSTRACT_PYTHON_DICTIONARY
