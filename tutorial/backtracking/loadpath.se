@@ -1,0 +1,5 @@
+./
+./expand_expression/loadpath.se
+./logigram/loadpath.se
+./tiny_parse/loadpath.se
+./tiny_prolog/loadpath.se
