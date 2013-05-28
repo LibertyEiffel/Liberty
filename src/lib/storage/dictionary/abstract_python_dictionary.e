@@ -80,7 +80,7 @@ feature {ANY}
                ensure_capacity(capacity * 2)
                index := index_of(k)
             end
-            create item_.make(v, k)
+            create item_.make(v, k, hash_code(k))
             storage.put(item_, -index - 1)
             count := count + 1
             next_generation
@@ -102,7 +102,7 @@ feature {ANY}
                ensure_capacity(capacity * 2)
                index := fast_index_of(k)
             end
-            create item_.make(v, k)
+            create item_.make(v, k, hash_code(k))
             storage.put(item_, -index - 1)
             count := count + 1
             next_generation
@@ -120,7 +120,7 @@ feature {ANY}
          if count > capacity * 3 // 4 and then (capacity #* 2) > 0 then
             ensure_capacity(capacity * 2)
          end
-         create item_.make(v, k)
+         create item_.make(v, k, hash_code(k))
          storage.put(item_, -index_of(k) - 1)
          count := count + 1
          next_generation
@@ -371,23 +371,24 @@ feature {}
       require
          k /= Void
       local
-         hash, stew: INTEGER; stop: BOOLEAN
+         hash, index, stew: INTEGER; stop: BOOLEAN
       do
          if capacity = 0 then
             Result := -1
          else
             from
-               stew := hash_code(k)
-               hash := stew \\ capacity
+               hash := hash_code(k)
+               stew := hash
+               index := stew \\ capacity
             until
                stop
             loop
-               Result := hash \\ capacity
+               Result := index \\ capacity
                if storage.item(Result).is_set then
-                  if key_safe_equal(storage.item(Result).key, k) then
+                  if hash = storage.item(Result).hash_code and then key_safe_equal(storage.item(Result).key, k) then
                      stop := True
                   else
-                     hash := (hash |<< 2) #+ hash #+ {INTEGER_32 1} #+ stew
+                     index := (index |<< 2) #+ index #+ {INTEGER_32 1} #+ stew
                      stew := stew |>> stew_shift
                   end
                else
@@ -405,23 +406,24 @@ feature {}
       require
          k /= Void
       local
-         hash, stew: INTEGER; stop: BOOLEAN
+         hash, stew, index: INTEGER; stop: BOOLEAN
       do
          if capacity = 0 then
             Result := -1
          else
             from
-               stew := hash_code(k)
-               hash := stew \\ capacity
+               hash := hash_code(k)
+               stew := hash
+               index := stew \\ capacity
             until
                stop
             loop
-               Result := hash \\ capacity
+               Result := index \\ capacity
                if storage.item(Result).is_set then
                   if storage.item(Result).key = k then
                      stop := True
                   else
-                     hash := (hash |<< 2) #+ hash #+ {INTEGER_32 1} #+ stew
+                     index := (index |<< 2) #+ index #+ {INTEGER_32 1} #+ stew
                      stew := stew |>> stew_shift
                   end
                else
@@ -456,13 +458,14 @@ feature {} -- Creation procedures
    powered_capacity (medium_size: INTEGER): INTEGER is
       do
          if medium_size > 0 then
-            from
-               Result := 4
-            until
-               Result >= medium_size
-            loop
-               Result := Result * 4
-            end
+            Result := medium_size #- 1
+            Result := Result | (Result |>>  1)
+            Result := Result | (Result |>>  2)
+            Result := Result | (Result |>>  4)
+            Result := Result | (Result |>>  8)
+            Result := Result | (Result |>> 16)
+            Result := Result | (Result |>> 32)
+            Result := Result + 1
          end
       ensure
          Result >= medium_size

@@ -4,7 +4,7 @@
 expanded class PYTHON_DICTIONARY_NODE[V_, K_]
 
 insert
-   ANY
+   HASHABLE
       redefine
          default_create
       end
@@ -12,7 +12,20 @@ insert
 create {ABSTRACT_PYTHON_DICTIONARY}
    make, default_create
 
-feature {ABSTRACT_PYTHON_DICTIONARY}
+feature {ANY}
+   is_equal (other: like Current): BOOLEAN is
+      do
+         if is_set and then other.is_set then
+            Result := safe_equal_key.test(key, other.key)
+               and then safe_equal_item.test(item, other.item)
+         else
+            Result := is_set = other.is_set
+         end
+      end
+
+feature {ABSTRACT_PYTHON_DICTIONARY, PYTHON_DICTIONARY_NODE}
+   hash_code: INTEGER
+
    key: K_ is
       require
          is_set
@@ -43,6 +56,7 @@ feature {}
       local
          def_key: K_; def_item: V_
       do
+         hash_code := 0
          key := def_key
          item := def_item
          is_set := False
@@ -50,16 +64,21 @@ feature {}
          not is_set
       end
 
-   make (a_item: like item; a_key: like key) is
+   make (a_item: like item; a_key: like key; a_hash: like hash_code) is
       do
+         hash_code := a_hash
          key := a_key
          item := a_item
          is_set := True
       ensure
+         hash_code = a_hash
          key = a_key
          item = a_item
          is_set
       end
+
+   safe_equal_key: SAFE_EQUAL[K_]
+   safe_equal_item: SAFE_EQUAL[V_]
 
 end -- class PYTHON_DICTIONARY_NODE[V_, K_]
 --
