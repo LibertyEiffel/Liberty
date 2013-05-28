@@ -11,26 +11,19 @@ create {}
 
 feature {ANY}
    k1: STRING is "k1"
-
    k2: STRING is "k2"
-
    k3: STRING is "k3"
-
    k4: STRING is "k4"
 
    v1: STRING is "v1"
-
    v2: STRING is "v2"
-
    v3: STRING is "v3"
-
    v4: STRING is "v4"
 
-   make is
+   test (d: DICTIONARY[STRING, STRING]) is
       local
-         d: DICTIONARY[STRING, STRING]; k, v: STRING; i: INTEGER; v_list, k_list: ARRAY[STRING]
+         k, v: STRING; i: INTEGER; v_list, k_list: ARRAY[STRING]
       do
-         create {HASHED_DICTIONARY[STRING, STRING]} d.make
          d.put(v1, k1)
          d.put(v2, k2)
          d.put(v3, k3)
@@ -54,6 +47,12 @@ feature {ANY}
          end
          assert(v_list.is_empty)
          assert(k_list.is_empty)
+      end
+
+   make is
+      do
+         test(create {HASHED_DICTIONARY[STRING, STRING]}.make)
+         test(create {PYTHON_DICTIONARY[STRING, STRING]}.make)
       end
 
 end -- class TEST_DICTIONARY2

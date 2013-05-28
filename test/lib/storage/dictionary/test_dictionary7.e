@@ -10,11 +10,8 @@ create {}
    make
 
 feature {ANY}
-   make is
-      local
-         d: DICTIONARY[INTEGER, INTEGER]
+   test (d: DICTIONARY[INTEGER, INTEGER]) is
       do
-         create {HASHED_DICTIONARY[INTEGER, INTEGER]} d.make
          buffer.clear_count
          d.key_map_in(buffer)
          assert(buffer.count = 0)
@@ -67,6 +64,12 @@ feature {ANY}
          buffer_view
          sorter.sort(buffer)
          assert(buffer.is_equal({ARRAY[INTEGER] 1, << 1, 1.to_integer_32, 1 >> }))
+      end
+
+   make is
+      do
+         test(create {HASHED_DICTIONARY[INTEGER, INTEGER]}.make)
+         test(create {PYTHON_DICTIONARY[INTEGER, INTEGER]}.make)
       end
 
    buffer: ARRAY[INTEGER] is

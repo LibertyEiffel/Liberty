@@ -12,11 +12,10 @@ create {}
 feature {ANY}
    str: STRING is "qwertyuiop[]asdfghjkl;'zxcvbnm,./1234567890-="
 
-   make is
+   test1 (d: DICTIONARY[INTEGER, CHARACTER]) is
       local
-         i: INTEGER; d: DICTIONARY[INTEGER, CHARACTER]; c: CHARACTER
+         i: INTEGER; c: CHARACTER
       do
-         create {HASHED_DICTIONARY[INTEGER, CHARACTER]} d.with_capacity(1)
          assert(d.count = 0)
          from
             i := str.count
@@ -25,17 +24,17 @@ feature {ANY}
          loop
             assert(d.count = str.count - i)
             c := str.item(i)
-            if d.has(c) then
-               crash
-            else
-               d.put(c.code, c)
-               if not d.has(c) then
-                  crash
-               end
-            end
+            assert(not d.has(c))
+            d.put(c.code, c)
+            assert(d.has(c))
             i := i - 1
          end
-         create {HASHED_DICTIONARY[INTEGER, CHARACTER]} d.with_capacity(4)
+      end
+
+   test2 (d: DICTIONARY[INTEGER, CHARACTER]) is
+      local
+         i: INTEGER; c: CHARACTER
+      do
          from
             i := str.count
          until
@@ -47,9 +46,7 @@ feature {ANY}
                crash
             else
                d.put(c.code, c)
-               if not d.has(c) then
-                  crash
-               end
+               assert(d.has(c))
             end
             i := i - 1
          end
@@ -61,14 +58,21 @@ feature {ANY}
          loop
             assert(d.count = i)
             c := str.item(i)
-            if d.has(c) then
-               d.remove(c)
-            else
-               crash
-            end
+            assert(d.has(c))
+            d.remove(c)
             i := i - 1
          end
          assert(d.is_empty)
+      end
+
+   make is
+      do
+         io.put_line(once "* hashed")
+         test1(create {HASHED_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
+         test2(create {HASHED_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
+         io.put_line(once "* python")
+         test1(create {PYTHON_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
+         test2(create {PYTHON_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
       end
 
 end -- class TEST_DICTIONARY5

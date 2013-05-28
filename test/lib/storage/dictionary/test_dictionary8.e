@@ -8,7 +8,6 @@ create {}
 
 feature {ANY}
    dict_a: DICTIONARY[INTEGER, INTEGER]
-
    dict_b: DICTIONARY[STRING, INTEGER]
 
    make is
