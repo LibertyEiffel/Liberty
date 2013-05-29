@@ -412,7 +412,7 @@ The default is \"se\"."
 ;; Note obsolete is handled as a special case since it is both a
 ;; class-level and a feature-level keyword
 (defconst eif-class-level-keywords
-  "indexing\\|class\\|deferred[ \t]+class\\|expanded[ \t]+class\\|reference[ \t]+class\\|separate[ \t]+class\\|inherit\\|insert\\|creation\\|feature"
+  "indexing\\|class\\|deferred[ \t]+class\\|expanded[ \t]+class\\|reference[ \t]+class\\|separate[ \t]+class\\|inherit\\|insert\\|convert\\|create\\|creation\\|feature"
   "Keywords introducing class-level clauses.
 Note that `invariant' and `obsolete' are not included here since can
 function as more than one type of keyword.")
@@ -560,14 +560,14 @@ If one of these occurs prior to an `eif-obsolete-keyword' then the
 
 (defconst eif-create-keyword
   "create"
-  "Eiffel class keyword.  Can be used at class or minor level.")
+  "Eiffel create keyword.  Can be used at class or minor level.")
 
 (defconst eif-create-keyword-regexp
-  (eif-post-anchor "create")
+  (eif-post-anchor eif-create-keyword)
   "Regexp matching `create' keyword, with trailing context.")
 
 (defconst eif-indentation-keywords
-  (concat "indexing\\|rescue\\|inherit\\|insert\\|creation" "\\|"
+  (concat "indexing\\|rescue\\|inherit\\|insert\\|convert\\|create\\|creation" "\\|"
           "invariant\\|require\\|local\\|ensure\\|obsolete" "\\|"
           eif-from-level-keywords "\\|"
           eif-if-or-inspect-level-keywords "\\|"
@@ -584,7 +584,7 @@ See `eif-indentation-keywords'.")
   "Regexp of Eiffel once keyword in context not affecting indentation.")
 
 (defconst eif-feature-indentation-keywords-regexp
-  (eif-word-anchor "creation\\|feature")
+  (eif-word-anchor "convert\\|create\\|creation\\|feature")
   "Keywords which denote the presence of features following them.")
 
 (defconst eif-is-keyword-regexp "\\(.*[ \t)]\\)?is[ \t]*\\(--.*\\)?$"
@@ -2526,13 +2526,13 @@ Sort by position if sort-method is 0. Sort by name if sort-method is 1."
         (progn (end-of-line)(newline)))
     (indent-to 0)
     (insert "class " (upcase cname) "\n\n"
-            "creation {ANY}\n"
+            "create {ANY}\n"
             "make\n"
             "\nfeature {ANY}\n\n"
             "\nfeature {}\n"
             "\n\ninvariant\n\n"
             "end -- class " (upcase cname) "\n"))
-  (re-search-backward "creation" nil t)
+  (re-search-backward "create {ANY}" nil t)
   (forward-line 1)
   (eif-indent-line)
   (re-search-forward "feature {ANY}" nil t)
