@@ -1,0 +1,174 @@
+<html>
+<head>
+</head>
+<body>
+Storage: object collections
+
+<h2>How to use the "storage" cluster</h2>
+
+<p>
+  This cluster provides the main collection abstractions and their
+  implementations. This document provides a few hints that may help
+  choosing the most relevant data structure.
+</p>
+
+<h2>Collections</h2>
+
+<p>
+  <a href="index/COLLECTION.html">Collections</a> are linear sequences of objects. They are traversable by
+  either using an index (an <a href="INTEGER.html">INTEGER</a> between <i>lower</i>
+  and <i>upper</i>) or an iterator.
+</p>
+
+<p>
+  The standard library implementations are:
+</p>
+
+<ul>
+
+  <li><a href="index/FAST_ARRAY.html">FAST_ARRAY</a>: a random
+    accessible array of object; <i>lower</i> is zero.</li>
+
+  <li><a href="index/ARRAY.html">ARRAY</a>: a random accessible array
+    of object with a variable <i>lower</i> bound (hence just a little
+    bit slower
+    than <a href="index/FAST_ARRAY.html">FAST_ARRAY</a>)</li>
+
+  <li><a href="index/RING_ARRAY.html">RING_ARRAY</a>: a random
+    accesisble array with variable bounds and optimized for additions
+    and removals at <i>both</i> ends (used
+    for <a href="index/QUEUE.html">QUEUE</a> implementation)</li>
+
+  <li><a href="index/LINKED_LIST.html">LINKED_LIST</a>: a collection
+    of objects linked together; random access is slower but insertion
+    in the middle is faster.</li>
+
+  <li><a href="index/TWO_WAY_LINKED_LIST.html">TWO_WAY_LINKED_LIST</a>:
+    the same but objects are linked both forward and backward thus
+    allowing efficient iteration in both directions.</li>
+
+</ul>
+
+<h2>Multi-dimentsion collections</h2>
+
+<p>
+  <a href="index/COLLECTION2.html">COLLECTION2</a>
+  and <a href="index/COLLECTION3.html">COLLECTION3</a> provide similar
+  facilities for two- and three-dimension object collections.
+</p>
+
+<h2>Maps</h2>
+
+<p>
+  <a href="index/MAP.html">Maps</a> provide indexed collections:
+  access to object values using object keys.
+</p>
+
+<p>
+  The standard library implementations are:
+</p>
+
+<ul>
+
+<li><a href="index/HASHED_DICTIONARY.html">HASHED_DICTIONARY</a>: the
+  classical hash table. The keys must
+  be <a href="index/HASHABLE.html">HASHABLE</a>. The capacity of
+  those dictionaries is always a prime number; collisions are resolved
+  by linking together the objects with the same hash code (module the
+  table capacity). Therefore a hashed dictionary may contain more
+  elements than its capacity!
+  <a href="index/EST_HASHED_DICTIONARY.html">EST_HASHED_DICTIONARY</a>
+  provides the same data structure but requires an external agent to
+  provide the hash code of a key (therefore alleviating the need for
+  the key to be <a href="index/HASHABLE.html">HASHABLE</a>).</li>
+
+<li><a href="index/PYTHON_DICTIONARY.html">PYTHON_DICTIONARY</a>:
+  another implementation of hash tables, using Python's algorithm. The
+  keys must be <a href="index/HASHABLE.html">HASHABLE</a>. The
+  capacity is exactly what it says: the number of elements may not
+  exceed the capacity. Collisions are resolved by spreading the
+  elements in the table's array. There are no linked lists, no
+  reference nodes, therefore this implementation is a bit less memory
+  hungry. The capacity is always a power of 2.
+  <a href="index/EXT_PYTHON_DICTIONARY.html">EXT_PYTHON_DICTIONARY</a>
+  provides the same data structure but requires an external agent to
+  provide the hash code of a key (therefore alleviating the need for
+  the key to be <a href="index/HASHABLE.html">HASHABLE</a>).</li>
+
+<li><a href="index/AVL_DICTIONARY.html">AVL_DICTIONARY</a>: the
+  objects are distributed in an <a href="index/AVL_TREE.html">AVL
+  tree</a> using <a href="index/COMPARABLE.html">COMPARABLE</a>
+  keys. Because the elements are linked in a tree, there is no
+  capacity (it is meaningless).
+  <a href="index/EXT_AVL_DICTIONARY.html">EXT_AVL_DICTIONARY</a>
+  provides the same data structure but requires an external agent to
+  compare two keys (therefore alleviating the need for the key to
+  be <a href="index/COMPARABLE.html">COMPARABLE</a>).</li>
+
+<li><a href="index/ZIP.html">ZIP</a> is just a pair
+  of <a href="index/COLLECTION.html">collections</a> with the
+  same <i>count</i>. One collection is the list of keys, the other is
+  the list of values.</li>
+
+<li><a href="index/ENUMERATE.html">ENUMERATE</a> is just a collection
+  with the object indices as key.</li>
+
+</ul>
+
+<h2>Sets</h2>
+
+<p>
+  Sets of objects have unique occurrences of each object. Mathematical
+  set operators are available.
+</p>
+
+<p>
+  The standard library implementations are:
+</p>
+
+<ul>
+
+  <li><a href="index/HASHED_SET.html">HASHED_SET</a>
+    and <a href="index/EXT_HASHED_SET.html">EXT_HASHED_SET</a></li>
+
+  <li><a href="index/AVL_SET.html">AVL_SET</a>
+    and <a href="index/EXT_AVL_SET.html">EXT_AVL_SET</a></li>
+
+</ul>
+
+<h2>Repositories</h2>
+
+<p>
+  A <a href="index/REPOSITORY.html">repository</a> is a collection
+  of <a href="index/STORABLE.html">STORABLE</a> objects. The aim of
+  this structure is to make objects persistent.
+</p>
+
+<p>
+  The standard library implementations are:
+</p>
+
+<ul>
+
+  <li><a href="index/JSON_FILE_REPOSITORY.html">JSON_FILE_REPOSITORY</a>
+    loads and stores persistent objects in a file useing a JSON
+    format. <a href="index/JSON_STREAM_REPOSITORY.html">JSON_STREAM_REPOSITORY</a>
+    uses input/output streams for data loading and storing, also using
+    a JSON format.</li>
+
+  <li><a href="index/XML_FILE_REPOSITORY.html">XML_FILE_REPOSITORY</a>
+    loads and stores persistent objects in a file useing a XML
+    format. <a href="index/XML_STREAM_REPOSITORY.html">XML_STREAM_REPOSITORY</a>
+    uses input/output streams for data loading and storing, also using
+    a XML format.</li>
+
+</ul>
+
+<p>
+  See
+  also: <a href="index/REPOSITORY_TRANSIENT.html">REPOSITORY_TRANSIENT</a>
+  to register objects that must not be persisted.
+</p>
+
+</body>
+</html>
