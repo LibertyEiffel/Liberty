@@ -527,17 +527,8 @@ feature {ANY} -- Other:
          -- Set all elements in range [0 .. `upper'] with value `v'.
       require
          upper >= -1
-      local
-         i: INTEGER
       do
-         from
-            i := upper
-         until
-            i < 0
-         loop
-            put(v, i)
-            i := i - 1
-         end
+         set_slice_with(v, 0, upper)
       end
 
    set_slice_with (v: like item; lower, upper: INTEGER) is
@@ -608,17 +599,8 @@ feature {ANY} -- Other:
       require
          lower >= 0
          upper >= lower - 1
-      local
-         i: INTEGER
       do
-         from
-            i := upper
-         until
-            i < lower
-         loop
-            put(model.item(i), i - lower)
-            i := i - 1
-         end
+         slice_copy(0, model, lower, upper)
       end
 
    deep_twin_from (capacity: INTEGER): like Current is

@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class G_OBJECT_FACTORY [ITEM -> G_OBJECT]
+deferred class G_OBJECT_FACTORY [ITEM_ -> G_OBJECT]
 	-- A factory for G_OBJECTS. Given a pointer to a valid GObject C 
 	-- data structure it return the fittest wrapper.
 
@@ -29,11 +29,11 @@ deferred class G_OBJECT_FACTORY [ITEM -> G_OBJECT]
 
 	-- Actually the Eiffel type system is stretched a little: we
 	-- re-wrap `g_object_get_qdata' as `g_object_get_eiffel_wrapper ', changing
-	-- the signature of the result from POINTER to ITEM, to avoid an
+	-- the signature of the result from POINTER to ITEM_, to avoid an
 	-- ugly type-convertion (aka cast) on the Eiffel side.
 
 inherit 
-	WRAPPER_FACTORY[ITEM]
+	WRAPPER_FACTORY[ITEM_]
 
 insert
 	G_OBJECT_EXTERNALS
@@ -43,10 +43,10 @@ insert
 	EXCEPTIONS undefine copy,is_equal end 
 
 feature {WRAPPER,WRAPPER_HANDLER}
-	existant_wrapper (a_pointer: POINTER): ITEM is
+	existant_wrapper (a_pointer: POINTER): ITEM_ is
 			-- Retrieve the eiffel wrapper object from gobject's
 			-- `a_pointer' or Void when it does not have a wrapper conforming
-			-- to ITEM (i.e. if you ask for GTK_RADIO_BUTTON when it is
+			-- to ITEM_ (i.e. if you ask for GTK_RADIO_BUTTON when it is
 			-- actually a GTK_BUTTON Result is still Void).
 
 			-- Useful when you precisely know the type of a wrapper but
@@ -60,14 +60,14 @@ feature {WRAPPER,WRAPPER_HANDLER}
 			Result ?= g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
 		end
 
-	existant_wrapper_or_void (a_pointer: POINTER): ITEM is
+	existant_wrapper_or_void (a_pointer: POINTER): ITEM_ is
 		do
 			if a_pointer.is_not_null then
 				Result := existant_wrapper(a_pointer)
 			end
 		end
 
-	wrapper (a_pointer: POINTER): ITEM is
+	wrapper (a_pointer: POINTER): ITEM_ is
 			-- The eiffel wrapper object for gobject's `a_pointer'. It the
 			-- GObject does not have a wrapper, Result is created using an
 			-- agent function from creation_agents dictionary using
@@ -81,13 +81,13 @@ feature {WRAPPER,WRAPPER_HANDLER}
 			Result.ref
 		end
 	
-	unreffed_wrapper (a_pointer: POINTER): ITEM is
+	unreffed_wrapper (a_pointer: POINTER): ITEM_ is
 			-- A non-referred wrapper. See `wrapper' for further
 			-- informations
 		require pointer_is_gobject: g_is_object(a_pointer)/=0
 		local
 			generic_function: FUNCTION[TUPLE[POINTER],G_OBJECT] 
-			function: FUNCTION[TUPLE[POINTER],ITEM]
+			function: FUNCTION[TUPLE[POINTER],ITEM_]
 			typename: STRING; type: like g_type --; fundamental_type_found: BOOLEAN
 		do
 			create typename.from_external_copy(g_object_type_name(a_pointer))
@@ -135,7 +135,7 @@ feature {WRAPPER,WRAPPER_HANDLER}
 			end
 		end
 
-	unreffed_wrapper_or_void (a_pointer: POINTER): ITEM is
+	unreffed_wrapper_or_void (a_pointer: POINTER): ITEM_ is
 			-- A (unreffed) wrapper for `a_pointer' or Void if `a_pointer' is
 			-- default_pointer (NULL in C). See `wrapper_or_void' for 
 			-- further informations

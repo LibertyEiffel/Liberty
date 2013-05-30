@@ -31,7 +31,7 @@ feature {ANY}
          end
       end
 
-   short (client: CLASS_NAME): BOOLEAN is
+   short (client: TYPE_MARK; target_type: TYPE): BOOLEAN is
          -- True when at least one creation list is printed for the given `client'.
       local
          i: INTEGER
@@ -41,7 +41,7 @@ feature {ANY}
          until
             i > list.upper
          loop
-            Result := list.item(i).short(Result, client) or else Result
+            Result := list.item(i).short(Result, client, target_type) or else Result
             i := i + 1
          end
       end

@@ -167,6 +167,12 @@ feature {}
          end
       end
 
+feature {CLIENT_TYPE_MARK}
+   visit_client_type_mark (visited: CLIENT_TYPE_MARK) is
+      do
+         check False end
+      end
+
 invariant
    compiled /= Void
 

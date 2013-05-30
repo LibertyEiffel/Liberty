@@ -5,6 +5,9 @@ deferred class XML_NODE
    -- A node in an XML_TREE
    --
 
+insert
+   VISITABLE
+
 feature {ANY}
    line, column: INTEGER
          -- The position of the node in its source file

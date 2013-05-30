@@ -32,7 +32,7 @@ feature {ANY}
    type: TYPE is
       do
          if type_memory = Void then
-            type_memory := smart_eiffel.get_type(Current)
+            type_memory := smart_eiffel.get_type(Current, False)
          end
          Result := type_memory
       end

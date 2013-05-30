@@ -113,6 +113,12 @@ feature {CLASS_TYPE_MARK}
          end
       end
 
+feature {CLIENT_TYPE_MARK}
+   visit_client_type_mark (visited: CLIENT_TYPE_MARK) is
+      do
+         check False end
+      end
+
 feature {BOOLEAN_TYPE_MARK}
    visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK) is
       do

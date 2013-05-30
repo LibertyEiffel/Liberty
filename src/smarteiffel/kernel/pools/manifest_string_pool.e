@@ -139,7 +139,11 @@ feature {EXTERNAL_FUNCTION, SMART_EIFFEL}
          fs := string_type.feature_stamp_of(capacity_name)
          dummy := smart_eiffel.collect(string_type, fs, True)
          fs := string_type.feature_stamp_of(storage_lower_name)
-         dummy := smart_eiffel.collect(string_type, fs, True)
+         if fs = Void then
+            sedb_breakpoint
+         else
+            dummy := smart_eiffel.collect(string_type, fs, True)
+         end
       end
 
 feature {SMART_EIFFEL}

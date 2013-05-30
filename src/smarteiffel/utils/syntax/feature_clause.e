@@ -41,14 +41,14 @@ feature {ANY}
       end
 
 feature {FEATURE_CLAUSE_LIST}
-   for_short (bcn: CLASS_NAME; parent, type: TYPE; client: CLASS_NAME) is
+   for_short (bcn: CLASS_NAME; parent, type: TYPE; client: TYPE_MARK) is
       require
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       local
          i: INTEGER; ft: FEATURE_TEXT; heading_done: BOOLEAN
       do
          if list /= Void then
-            if client = Void or else clients.gives_permission_to(client) then
+            if client = Void or else clients.gives_permission_to(client, type) then
                from
                   i := list.lower
                until

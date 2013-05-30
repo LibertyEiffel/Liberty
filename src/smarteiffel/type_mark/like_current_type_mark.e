@@ -31,8 +31,11 @@ feature {ANY}
          Result := Current
       end
 
-   to_static (new_type: TYPE): TYPE_MARK is
+   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK is
       do
+         check
+            not allow_raw_class_name
+         end
          Result := new_type.canonical_type_mark
       end
 

@@ -73,7 +73,7 @@ feature {ANY}
 
    adapt_for (type: TYPE): like Current is
       do
-         Result := current_or_twin_init(explicit_type_mark.to_static(type))
+         Result := current_or_twin_init(explicit_type_mark.to_static(type, False))
       end
 
    has_been_specialized: BOOLEAN is

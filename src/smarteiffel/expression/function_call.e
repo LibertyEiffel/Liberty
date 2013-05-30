@@ -258,7 +258,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
                         args := arguments.inline_dynamic_dispatch(code_accumulator, type)
                         args.unused_expression_inline(code_accumulator, type)
                      end
-                     default_expression := af.result_type.to_static(tt).default_expression(start_position)
+                     default_expression := af.result_type.to_static(tt, False).default_expression(start_position)
                      code_accumulator.current_context.add_last(create {ASSIGNMENT}.inline_make(internal_local2, default_expression))
                   else
                      function_call := Current.twin

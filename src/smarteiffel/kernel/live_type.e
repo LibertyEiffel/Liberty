@@ -1112,7 +1112,7 @@ feature {C_PRETTY_PRINTER, LIVE_TYPE}
                until
                   i > wa.upper
                loop
-                  lt := smart_eiffel.get_type(wa.item(i).result_type).live_type
+                  lt := smart_eiffel.get_type(wa.item(i).result_type, False).live_type
                   if lt = Void then
                      -- ignored: not a live type
                   elseif lt.is_reference then

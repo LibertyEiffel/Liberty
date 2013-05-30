@@ -522,7 +522,7 @@ feature {}
          elseif nt.class_text.name.to_string = as_native_array_internals then
             native_array_element_type := nt.generic_list.first
             create native_array_type_mark.make(start_position, native_array_element_type.canonical_type_mark)
-            target_type := smart_eiffel.get_type(native_array_type_mark)
+            target_type := smart_eiffel.get_type(native_array_type_mark, False)
          else
             check
                er.class_text.name.to_string = as_internals_handler
@@ -628,7 +628,7 @@ feature {}
             loop
                fs := feature_stamps.item(i)
                af := fs.anonymous_feature(target_type)
-               if is_introspectable_attribute_type(af.result_type.to_static(target_type)) then
+               if is_introspectable_attribute_type(af.result_type.to_static(target_type, False)) then
                   create when_clause.make_strippable(inspect_statement, fs)
                   create manifest_string.from_identifier(start_position, target_type.get_feature_name(fs).name)
                   create assignment.make(result_variable, manifest_string)
@@ -681,7 +681,7 @@ feature {}
             loop
                fs := feature_stamps.item(i)
                af := fs.anonymous_feature(target_type)
-               tm := af.result_type.to_static(target_type)
+               tm := af.result_type.to_static(target_type, False)
                if is_introspectable_attribute_type(tm) then
                   create fn.ordinary_name(target_type.get_feature_name(fs).name, start_position)
                   create an_attribute.make(object_memory, fn)
@@ -751,7 +751,7 @@ feature {}
             loop
                fs := feature_stamps.item(i)
                af := fs.anonymous_feature(target_type)
-               attribute_type_mark := af.result_type.to_static(target_type)
+               attribute_type_mark := af.result_type.to_static(target_type, False)
                if is_introspectable_attribute_type(attribute_type_mark) then
                   var_name := once ""
                   var_name.copy(once "ti_")
@@ -777,7 +777,7 @@ feature {}
                loop
                   fs := feature_stamps.item(i)
                   af := fs.anonymous_feature(target_type)
-                  attribute_type_mark := af.result_type.to_static(target_type)
+                  attribute_type_mark := af.result_type.to_static(target_type, False)
                   if is_introspectable_attribute_type(attribute_type_mark) then
                      create when_clause.make_strippable(inspect_statement, fs)
                      create local_var2.refer_to(start_position, lv, j)
@@ -855,7 +855,7 @@ feature {}
             loop
                fs := feature_stamps.item(i)
                af := fs.anonymous_feature(target_type)
-               attribute_type_mark := af.result_type.to_static(target_type)
+               attribute_type_mark := af.result_type.to_static(target_type, False)
                if is_introspectable_attribute_type(attribute_type_mark) then
                   create when_clause.make_strippable(inspect_statement, fs)
                   if attribute_type_mark.is_expanded then
@@ -908,7 +908,7 @@ feature {}
             loop
                fs := feature_stamps.item(i)
                af := fs.anonymous_feature(target_type)
-               attribute_type_mark := af.result_type.to_static(target_type)
+               attribute_type_mark := af.result_type.to_static(target_type, False)
                if is_introspectable_attribute_type(attribute_type_mark) then
                   tm := attribute_type_mark.typed_internals_type_mark(start_position)
                   create when_clause.make_strippable(inspect_statement, fs)
@@ -1043,7 +1043,7 @@ feature {}
             loop
                fs := feature_stamps.item(i)
                af := fs.anonymous_feature(target_type)
-               type_mark := af.result_type.to_static(target_type)
+               type_mark := af.result_type.to_static(target_type, False)
                if is_introspectable_attribute_type(type_mark) then
                   create when_clause.make_strippable(inspect_statement, fs)
                   create static_generating_type.make_generating_type(start_position, type_mark.type)
@@ -1086,7 +1086,7 @@ feature {}
             loop
                fs := feature_stamps.item(i)
                af := fs.anonymous_feature(target_type)
-               type_mark := af.result_type.to_static(target_type)
+               type_mark := af.result_type.to_static(target_type, False)
                if is_introspectable_attribute_type(type_mark) then
                   create when_clause.make_strippable(inspect_statement, fs)
                   create static_generator.make_generator(start_position, type_mark.type)
@@ -1632,7 +1632,7 @@ feature {}
             until
                i > writable_attributes.upper
             loop
-               tm := writable_attributes.item(i).result_type.to_static(target_type)
+               tm := writable_attributes.item(i).result_type.to_static(target_type, False)
                if is_introspectable_attribute_type(tm) then
                   count := count + 1
                end

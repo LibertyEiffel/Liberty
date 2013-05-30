@@ -87,7 +87,7 @@ feature {ANY}
             c := call.adapt_for(type)
          end
          if explicit_type /= Void then
-            et := explicit_type.to_static(type)
+            et := explicit_type.to_static(type, False)
          end
          Result := current_or_twin_init(et, w, c)
       end

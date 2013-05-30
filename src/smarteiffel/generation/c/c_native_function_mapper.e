@@ -1228,7 +1228,7 @@ feature {} -- built-ins
             loop
                rf2 := wa.item(i)
                field_name := rf2.name.to_string
-               tm := rf2.result_type.to_static(live_type.type)
+               tm := rf2.result_type.to_static(live_type.type, False)
                if tm.is_reference then
                   lt := tm.type.live_type
                   if lt = Void then
@@ -1373,7 +1373,7 @@ feature {} -- built-ins
             loop
                rf2 := wa.item(i)
                field_name := rf2.name.to_string
-               tm := rf2.result_type.to_static(live_type.type)
+               tm := rf2.result_type.to_static(live_type.type, False)
                if tm.is_kernel_expanded then
                   function_body.append(once "if(R)R=((C->_")
                   function_body.append(field_name)
@@ -1390,7 +1390,7 @@ feature {} -- built-ins
             loop
                rf2 := wa.item(i)
                field_name := rf2.name.to_string
-               tm := rf2.result_type.to_static(live_type.type)
+               tm := rf2.result_type.to_static(live_type.type, False)
                if tm.is_reference then
                   lt := tm.type.live_type
                   if lt = Void then

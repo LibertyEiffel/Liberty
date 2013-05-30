@@ -11,26 +11,19 @@ create {}
 
 feature {ANY}
    k1: STRING is "k1"
-
    k2: STRING is "k2"
-
    k3: STRING is "k3"
-
    k4: STRING is "k4"
 
    v1: STRING is "v1"
-
    v2: STRING is "v2"
-
    v3: STRING is "v3"
-
    v4: STRING is "v4"
 
-   make is
+   test (d: DICTIONARY[STRING, STRING]) is
       local
-         d: DICTIONARY[STRING, STRING]; k, v: STRING; i: INTEGER; v_list, k_list: ARRAY[STRING]
+         k, v: STRING; i: INTEGER; v_list, k_list: ARRAY[STRING]
       do
-         create {HASHED_DICTIONARY[STRING, STRING]} d.make
          assert(d.count = 0)
          assert(d.is_empty)
          assert(not d.has(k1))
@@ -104,6 +97,12 @@ feature {ANY}
          assert(d.count = 1)
          d.remove(k4)
          assert(d.count = 0)
+      end
+
+   make is
+      do
+         test(create {HASHED_DICTIONARY[STRING, STRING]}.make)
+         test(create {PYTHON_DICTIONARY[STRING, STRING]}.make)
       end
 
 end -- class TEST_DICTIONARY1

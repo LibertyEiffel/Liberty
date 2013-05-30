@@ -40,7 +40,7 @@ feature {}
 feature {EIFFELDOC_SHORTER}
    find_clients: EIFFELDOC_SHORTER_FIND_CLIENTS
 
-   clients: CLASS_NAME_LIST
+   clients: TYPE_MARK_LIST
 
    generate (a_class_text: CLASS_TEXT; a_client: like client; a_filename: STRING;
             inherit_children, insert_children: FAST_ARRAY[CLASS_TEXT]) is
@@ -177,7 +177,7 @@ feature {}
          html /= Void and then html.in_a_body
       local
          i: INTEGER
-         cn: CLASS_NAME
+         tm: TYPE_MARK
          sep: STRING
       do
          html.open_anchor_name(top_anchor_name)
@@ -205,19 +205,19 @@ feature {}
          if client = Void then
             options.open_menu(html, points_of_view_menu_name, all_feature_entry_name)
          else
-            options.open_menu(html, points_of_view_menu_name, client.to_string)
+            options.open_menu(html, points_of_view_menu_name, client.written_mark)
          end
          from
             i := 1
          until
             i > clients.count
          loop
-            cn := clients.item(i)
-            options.add_menu_item(html, cn.to_string, filename_of(context_class_text, cn))
+            tm := clients.item(i)
+            options.add_menu_item(html, tm.written_mark, filename_of(context_class_text, tm))
             i := i + 1
          end
-         cn := Void
-         options.add_menu_item(html, all_feature_entry_name, filename_of(context_class_text, cn))
+         tm := Void
+         options.add_menu_item(html, all_feature_entry_name, filename_of(context_class_text, tm))
          options.close_menu(html)
 
          -- write name
@@ -428,7 +428,7 @@ feature {}
          c: like client
       do
          c := client
-         Result := c = Void or else visited.clients.gives_permission_to(client)
+         Result := c = Void or else visited.clients.gives_permission_to(client, context.type)
          if Result then
             inspect
                phase
@@ -496,7 +496,7 @@ feature {}
             if client = Void then
                Result := True
             else
-               Result := visited.clients /= Void and then visited.clients.gives_permission_to(client)
+               Result := visited.clients /= Void and then visited.clients.gives_permission_to(client, context.type)
             end
             feature_clause_comment_to_print := visited.comment
             feature_clause_comment_printed := False
@@ -509,7 +509,7 @@ feature {}
             if client = Void then
                Result := True
             else
-               Result := visited.clients /= Void and then visited.clients.gives_permission_to(client)
+               Result := visited.clients /= Void and then visited.clients.gives_permission_to(client, context.type)
             end
          end
       ensure
@@ -625,7 +625,7 @@ feature {}
          name.clear_count
          fn.complete_name_in(name)
          check
-            phase = summary_features_phase implies client = Void or else af.permissions.gives_permission_to(client)
+            phase = summary_features_phase implies client = Void or else af.permissions.gives_permission_to(client, context.type)
          end
          set_suffixed_attribute(once "class", css_overview, css_feature_item_suffix, html)
          html.open_list_item
@@ -691,7 +691,7 @@ feature {}
          require_not_empty, ensure_not_empty, need_blank: BOOLEAN
       do
          check
-            phase = details_features_phase implies client = Void or else af.permissions.gives_permission_to(client)
+            phase = details_features_phase implies client = Void or else af.permissions.gives_permission_to(client, context.type)
          end
          feature_name := once ""
          feature_name.clear_count
@@ -1274,7 +1274,7 @@ feature {CREATE_EXPRESSION}
 feature {}
    class_text: CLASS_TEXT
 
-   client: CLASS_NAME is
+   client: TYPE_MARK is
       do
          Result := context.client
       end
@@ -1356,7 +1356,7 @@ feature {}
                   html.put_string(once "->")
                   html.put_entity(once "nbsp")
                   arg.constraint.specialize_in(context.type)
-                  put_class(arg.constraint.to_static(context.type).class_text, True)
+                  put_class(arg.constraint.to_static(context.type, False).class_text, True)
                end
                i := i + 1
             end
@@ -1372,7 +1372,7 @@ feature {}
          anchor: STRING
       do
          if anchored then
-            anchor := filename_of(class_name.class_text, class_name_any)
+            anchor := filename_of(class_name.class_text, smart_eiffel.type_any.canonical_type_mark)
          end
          put_class_name_string(class_name.to_string, anchor)
       end

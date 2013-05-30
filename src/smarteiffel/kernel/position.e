@@ -277,6 +277,8 @@ feature {EIFFEL_PARSER, CLASS_TEXT}
                   debug_string := "INI file"
                when id_plugin_file then
                   debug_string := "Plugin file"
+               else
+                  debug_string := "Unknown position id=" + (class_id.out)
                end
             end
             debug_string.append(once ", line ")

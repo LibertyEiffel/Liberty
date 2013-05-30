@@ -29,7 +29,7 @@ feature {ANY}
             else
                already_checking := True
                Result := Result.declaration_type
-               if already_checking = False then
+               if not already_checking then
                   -- A cycle was found, for instance FOO[A->B, B->A]
                   -- Check if it is valid.
                   if Result /= smart_eiffel.type_any.canonical_type_mark then
@@ -68,7 +68,7 @@ feature {ANY}
          Result := new_type.generic_list.item(rank)
       end
 
-   to_static (new_type: TYPE): TYPE_MARK is
+   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK is
       do
          Result := new_type.generic_list.item(rank).canonical_type_mark
       end

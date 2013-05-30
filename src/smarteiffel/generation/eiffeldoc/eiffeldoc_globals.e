@@ -415,7 +415,7 @@ feature {}
          end
       end
 
-   filename_of (a_class: CLASS_TEXT; a_client: CLASS_NAME): STRING is
+   filename_of (a_class: CLASS_TEXT; a_client: TYPE_MARK): STRING is
       require
          a_class /= Void
       local
@@ -466,7 +466,8 @@ feature {}
          Result.append(a_class.name.to_string)
          if a_client /= Void then
             Result.extend('/')
-            Result.append(a_client.to_string)
+            Result.append(once "client_")
+            client_file_name_part_(Result, a_client)
          end
          Result.append(once ".html")
       end
@@ -485,6 +486,34 @@ feature {}
       once
          hs := string_aliaser.hashed_string(as_tuple)
          create Result.unknown_position(hs)
+      end
+
+   client_file_name_part_ (buffer: STRING; a_client: TYPE_MARK) is
+      require
+         buffer /= Void
+      local
+         gl: ARRAY[TYPE_MARK]; i: INTEGER
+      do
+         buffer.append(a_client.class_text.name.to_string)
+         if a_client.is_generic then
+            gl := a_client.generic_list
+            if gl /= Void then
+               buffer.append(once "_of")
+               from
+                  i := gl.lower
+               until
+                  i > gl.upper
+               loop
+                  if i > gl.lower then
+                     buffer.append(once "_and")
+                  end
+                  buffer.extend('_')
+                  client_file_name_part_(buffer, gl.item(i))
+                  i := i + 1
+               end
+               buffer.append(once "_fo")
+            end
+         end
       end
 
 end -- class EIFFELDOC_GLOBALS

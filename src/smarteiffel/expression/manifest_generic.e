@@ -263,7 +263,7 @@ feature {ANY}
                error_handler.print_as_fatal_error
             else
                mcn := smart_eiffel.manifest_creation_name
-               if not class_to_create.has_creation_check(mcn, start_position, type) then
+               if not class_to_create.has_creation_check(mcn, start_position, type, created_type) then
                   error_handler.add_position(start_position)
                   if creation_clause_list /= Void then
                      error_handler.add_position(creation_clause_list.start_position)

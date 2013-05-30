@@ -134,12 +134,16 @@ feature {FEATURE_ACCUMULATOR}
             from
                -- for deferred methods
                original := parents_af.first
-               build_definition := parents_af.last.specialize_signature_thru(parents_type.last, parents_edges.last, context_type)
+               build_definition := parents_af.last
+                  .specialize_permissions_thru(parents_type.last, parents_edges.last, context_type)
+                  .specialize_signature_thru(parents_type.last, parents_edges.last, context_type)
                i := parents_af.lower + 1
             until
                i > parents_af.upper
             loop
-               build_definition := parents_af.item(i).merge_signature_thru(build_definition, parents_type.item(i), parents_edges.item(i), context_type, original = build_definition)
+               build_definition := parents_af.item(i)
+                  .specialize_permissions_thru(parents_type.last, parents_edges.last, context_type)
+                  .merge_signature_thru(build_definition, parents_type.item(i), parents_edges.item(i), context_type, original = build_definition)
                i := i + 1
             end
          elseif body_inherit /= Void then
@@ -147,7 +151,9 @@ feature {FEATURE_ACCUMULATOR}
             check
                not local_definition
             end
-            build_definition := body_feature.specialize_signature_thru(body_type, body_inherit, context_type)
+            build_definition := body_feature
+               .specialize_permissions_thru(body_type, body_inherit, context_type)
+               .specialize_signature_thru(body_type, body_inherit, context_type)
             from
                i := parents_af.lower
             until
@@ -178,7 +184,9 @@ feature {FEATURE_ACCUMULATOR}
                local_definition
             end
             if not signature_ready then
-               build_definition := body_feature.specialize_signature_in(context_type)
+               build_definition := body_feature
+                  .specialize_permissions_in(context_type)
+                  .specialize_signature_in(context_type)
                from
                   i := parents_af.lower
                until
@@ -619,7 +627,9 @@ feature {PRECURSOR_CALL}
             error_handler.add_position(pc.start_position)
             error_handler.print_as_fatal_error
          end
-         build_definition := build_definition.specialize_signature_thru(parents_type.item(i), parents_edges.item(i), new_type)
+         build_definition := build_definition
+            .specialize_permissions_thru(parents_type.item(i), parents_edges.item(i), new_type)
+            .specialize_signature_thru(parents_type.item(i), parents_edges.item(i), new_type)
          if not ace.boost then
             build_definition := build_definition.specialize_require_thru(parents_type.item(i), parents_edges.item(i), new_type)
             --|*** add can twin
@@ -646,7 +656,9 @@ feature {PRECURSOR_CALL}
          build_definition := af
 
          -- specialize_thru of af
-         build_definition := build_definition.specialize_signature_thru(parent_type, parent_edge, new_type)
+         build_definition := build_definition
+            .specialize_permissions_thru(parent_type, parent_edge, new_type)
+            .specialize_signature_thru(parent_type, parent_edge, new_type)
          if not ace.boost then
             build_definition := build_definition.specialize_require_thru(parent_type, parent_edge, new_type) --|*** add can twin
             can_twin := build_definition = af

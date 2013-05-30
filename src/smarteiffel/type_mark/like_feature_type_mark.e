@@ -60,7 +60,7 @@ feature {ANY}
          -- (Keep in mind that {TYPE_MARK}.specialize_thru may be called more than once.)
          old_fs := feature_stamp_memory.fast_reference_at(new_type)
          if old_fs = Void then
-            feature_stamp_memory.add(new_fs, new_type) 
+            feature_stamp_memory.add(new_fs, new_type)
             Result := Current
          elseif new_fs = old_fs then
             Result := Current
@@ -90,17 +90,20 @@ feature {ANY}
          Result := not feature_stamp_memory.is_empty
       end
 
-   to_static (new_type: TYPE): TYPE_MARK is
+   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK is
       local
          fs: FEATURE_STAMP
       do
+         check
+            not allow_raw_class_name
+         end
          fs := feature_stamp_memory.fast_reference_at(new_type)
          if feature_accumulator.context_type /= new_type then
             Result := fs.anonymous_feature(new_type).result_type
          else
             Result := feature_accumulator.find_type_for(fs)
          end
-         Result := Result.to_static(new_type)
+         Result := Result.to_static(new_type, False)
       end
 
    signature_resolve_in (new_type: TYPE): TYPE is
@@ -154,7 +157,7 @@ feature {LIKE_FEATURE_TYPE_MARK}
       ensure
          declaration_type = dt
       end
-   
+
 feature {}
    debug_info: STRING
 

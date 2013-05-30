@@ -689,7 +689,7 @@ feature {}
             Result := True
          elseif condition_type.live_type.collected(strip_condition) then
             af := strip_condition.anonymous_feature(condition_type)
-            tm := af.result_type.to_static(condition_type)
+            tm := af.result_type.to_static(condition_type, False)
             Result := tm.type.live_type /= Void
                and then tm.type.live_type.at_run_time -- and then tm.type.live_type.run_time_set.has(tm.type.live_type)
          end

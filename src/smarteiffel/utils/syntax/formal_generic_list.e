@@ -102,7 +102,7 @@ feature {TYPE, GENERIC_TYPE_MARK}
                   end
                   actual_type := actual.type
                   formal.specialize_in(t)
-                  static_formal := formal.to_static(t)
+                  static_formal := formal.to_static(t, False)
                   formal_type := static_formal.type
                   if actual_type = formal_type then
                      -- Allowed generic derivation!

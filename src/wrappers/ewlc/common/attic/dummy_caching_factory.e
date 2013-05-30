@@ -5,13 +5,13 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-class DUMMY_CACHING_FACTORY  [ITEM->SHARED_C_STRUCT]
+class DUMMY_CACHING_FACTORY  [ITEM_->SHARED_C_STRUCT]
 	-- A dummy caching factory, useful to create temporary
 	-- NULL_TERMINATED_C_ARRAY to be passed to underlying C functions.
 	
 inherit 
-	DUMMY_FACTORY [ITEM]
-	CACHING_FACTORY [ITEM]
+	DUMMY_FACTORY [ITEM_]
+	CACHING_FACTORY [ITEM_]
 
 create {ANY} default_create
 	

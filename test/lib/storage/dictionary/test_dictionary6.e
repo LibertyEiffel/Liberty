@@ -12,11 +12,10 @@ create {}
 feature {ANY}
    str: STRING is "qwertyuiop[]asdfghjkl;'zxcvbnm,./1234567890-="
 
-   make is
+   test (d1, d2_: DICTIONARY[INTEGER, CHARACTER]) is
       local
-         i: INTEGER; d1, d2: DICTIONARY[INTEGER, CHARACTER]; c: CHARACTER
+         i: INTEGER; c: CHARACTER; d2: like d2_
       do
-         create {HASHED_DICTIONARY[INTEGER, CHARACTER]} d1.with_capacity(2)
          from
             i := str.count
          until
@@ -32,7 +31,7 @@ feature {ANY}
          assert(d1.is_equal(d2))
          d2 := d1.twin
          assert(d1.is_equal(d2))
-         create {HASHED_DICTIONARY[INTEGER, CHARACTER]} d2.with_capacity(250)
+         d2 := d2_
          from
             i := 1
          until
@@ -50,6 +49,12 @@ feature {ANY}
          assert(not d1.is_equal(d2))
          d2.clear_count
          assert(d1.is_equal(d2))
+      end
+
+   make is
+      do
+         test(create {HASHED_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(2), create {HASHED_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(2))
+         test(create {PYTHON_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(2), create {PYTHON_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(2))
       end
 
 end -- class TEST_DICTIONARY6

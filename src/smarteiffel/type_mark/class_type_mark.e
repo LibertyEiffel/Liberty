@@ -24,7 +24,7 @@ feature {ANY}
    type: TYPE is
       do
          if type_memory = Void then
-            type_memory := smart_eiffel.get_type_for_non_generic(Current)
+            type_memory := smart_eiffel.get_type_for_non_generic(Current, False)
          end
          Result := type_memory
       end

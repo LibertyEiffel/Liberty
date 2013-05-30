@@ -149,7 +149,7 @@ feature {EIFFEL_PARSER}
       end
 
 feature {FEATURE_CLAUSE}
-   for_short (fc: FEATURE_CLAUSE; heading_done: BOOLEAN; bcn: CLASS_NAME; parent, type: TYPE; cn: CLASS_NAME): BOOLEAN is
+   for_short (fc: FEATURE_CLAUSE; heading_done: BOOLEAN; bcn: CLASS_NAME; parent, type: TYPE; client: TYPE_MARK): BOOLEAN is
       require
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       local
@@ -171,7 +171,7 @@ feature {FEATURE_CLAUSE}
                check
                   cl /= Void
                end
-               if cn = Void or else cl.gives_permission_to(cn) then
+               if client = Void or else cl.gives_permission_to(client, type) then
                   if not short_printer.has(fn, af) then
                      if short_printer.sort_flag then
                         short_printer.delayed_output_of(fn, af)

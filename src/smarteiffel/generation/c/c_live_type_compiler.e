@@ -770,7 +770,7 @@ feature {}
             if i > 1 then
                function_signature.extend(',')
             end
-            static_tm := args.type_mark(i).to_static(type)
+            static_tm := args.type_mark(i).to_static(type, False)
             function_signature.append(cpp.argument_type.for(static_tm))
             function_signature.extend(' ')
             function_signature.extend('a')
@@ -821,7 +821,7 @@ feature {}
          loop
             if args.name(i).is_used(type) then
                c_frame_descriptor_format.append(args.name(i).to_string)
-               static_tm := args.type_mark(i).to_static(type)
+               static_tm := args.type_mark(i).to_static(type, False)
                cpp.c_frame_descriptor_in(static_tm, c_frame_descriptor_format)
                c_frame_descriptor_locals.append(once "(void**)&")
                if use_real_name then

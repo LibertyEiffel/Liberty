@@ -428,7 +428,7 @@ feature {FEATURE_STAMP, CLASS_TEXT}
       end
 
 feature {CREATE_SUPPORT, MANIFEST_GENERIC, CECIL_ENTRY}
-   has_creation_check (procedure_name: FEATURE_NAME; call_site: POSITION; type: TYPE): BOOLEAN is
+   has_creation_check (procedure_name: FEATURE_NAME; call_site: POSITION; type, target_type: TYPE): BOOLEAN is
          -- Check that the `procedure_name' is actually a creation procedure for `Current'. Then, also check that
          -- `procedure_name' is written in an allowed base class for creation from `type'.
       require
@@ -437,7 +437,7 @@ feature {CREATE_SUPPORT, MANIFEST_GENERIC, CECIL_ENTRY}
          not call_site.is_unknown
          may_report_an_error: error_handler.is_empty
       local
-         cc: CREATION_CLAUSE; class_text: CLASS_TEXT; cn: CLASS_NAME; cl: CLIENT_LIST
+         cc: CREATION_CLAUSE; cl: CLIENT_LIST
       do
          cc := creation_clause_list.get_clause(procedure_name)
          if cc = Void then
@@ -456,15 +456,13 @@ feature {CREATE_SUPPORT, MANIFEST_GENERIC, CECIL_ENTRY}
                -- It can be Void when called from CECIL_ENTRY
                Result := True
             else
-               class_text := type.class_text
-               cn := class_text.name
                cl := cc.clients
-               Result := cl.gives_permission_to(cn)
+               Result := cl.gives_permission_to(type.canonical_type_mark, target_type)
                if not Result then
                   error_handler.add_position(call_site)
                   error_handler.add_position(procedure_name.start_position)
                   error_handler.append(once "Forbidden creation call (i.e. exportation rules violated). %
-                                       %Creation is only allowed from ")
+                                            %Creation is only allowed from ")
                   error_handler.append(cl.eiffel_view)
                   cl.locate_in_error_handler
                   error_handler.extend('.')
@@ -537,8 +535,7 @@ feature {CLASS_TEXT}
       require
          not sp.is_unknown
       local
-         bcn: STRING; fgl: FORMAL_GENERIC_LIST; t: TYPE_MARK; gl: ARRAY[TYPE_MARK]
-         i: INTEGER;   fga: FORMAL_GENERIC_ARG
+         bcn: STRING; fgl: FORMAL_GENERIC_LIST; gl: ARRAY[TYPE_MARK]
       do
          bcn := name.to_string
          fgl := formal_generic_list
@@ -585,22 +582,7 @@ feature {CLASS_TEXT}
          elseif as_tuple = bcn then
             create {EMPTY_TUPLE_TYPE_MARK} Result.make(sp)
          elseif fgl /= Void then
-            from
-               i := 1
-               create gl.with_capacity(fgl.count, 1)
-            until
-               i > fgl.count
-            loop
-               fga := fgl.item(i)
-               t := fga.constraint
-               if t = Void then
-                  create {ANY_TYPE_MARK} t.make(fga.start_position)
-               else
-                  t := t.declaration_type
-               end
-               gl.add_last(t)
-               i := i + 1
-            end
+            gl := constraints_generic_list
             if name.is_tuple_related then
                create {NON_EMPTY_TUPLE_TYPE_MARK} Result.make(sp, gl)
             elseif bcn = as_routine then
@@ -927,6 +909,34 @@ feature {FEATURE_NAME, ANONYMOUS_FEATURE}
       end
 
 feature {TYPE, TYPE_MARK}
+   constraints_generic_list: ARRAY[TYPE_MARK] is
+      local
+         fgl: FORMAL_GENERIC_LIST; fga: FORMAL_GENERIC_ARG
+         i: INTEGER; t: TYPE_MARK
+      do
+         fgl := formal_generic_list
+         if fgl /= Void then
+            from
+               i := 1
+               create Result.with_capacity(fgl.count, 1)
+            until
+               i > fgl.count
+            loop
+               fga := fgl.item(i)
+               t := fga.constraint
+               if t = Void then
+                  create {ANY_TYPE_MARK} t.make(fga.start_position)
+               else
+                  t := t.declaration_type
+               end
+               Result.add_last(t)
+               i := i + 1
+            end
+         end
+      ensure
+         formal_generic_list /= Void implies Result.count = formal_generic_list.count
+      end
+
    formal_generic_list_count_check (usage_position: POSITION; actual_list: ARRAY[TYPE_MARK]) is
          -- To check that the number of elements in the `actual_list' is equal to the number of elements in the
          -- `formal_generic_list' (which may also be Void). In case of problem (i.e. when both lists do not have the same number

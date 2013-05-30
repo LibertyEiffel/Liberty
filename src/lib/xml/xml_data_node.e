@@ -15,6 +15,15 @@ feature {ANY}
    data: UNICODE_STRING
          -- Data in the node
 
+feature {ANY}
+   accept (visitor: VISITOR) is
+      local
+         v: XML_NODE_VISITOR
+      do
+         v ::= visitor
+         v.visit_data_node(Current)
+      end
+
 feature {}
    make (a_data: like data; a_line: like line; a_column: like column) is
       require

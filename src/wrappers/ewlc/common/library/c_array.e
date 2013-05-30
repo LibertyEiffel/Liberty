@@ -19,12 +19,12 @@ indexing
 					02110-1301 USA
 			]"
 
-deferred class C_ARRAY [ITEM -> C_STRUCT]
+deferred class C_ARRAY [ITEM_ -> C_STRUCT]
 	-- An array of wrapped item which is also a wrapper to a C array 
 	-- of pointers of item's struct. For example a C_ARRAY[GTK_BUTTON] 
 	-- wraps a GtkButton** array.
 
-inherit WRAPPER_COLLECTION [ITEM]
+inherit WRAPPER_COLLECTION [ITEM_]
 
 insert
 	EXCEPTIONS
@@ -57,10 +57,10 @@ feature {} --
 	object_materialization_notice: STRING is
 			-- The notice printed when creating a new wrapper object from
 			-- no-where.
-		"Warning: C_ARRAY is going to create a new wrapper; if ITEM is deferred the program will almost surely crash. The actual ITEM must be made non-deferred.%N"
+		"Warning: C_ARRAY is going to create a new wrapper; if ITEM_ is deferred the program will almost surely crash. The actual ITEM_ must be made non-deferred.%N"
 
 feature {ANY}
-	item (i: INTEGER_32): ITEM is
+	item (i: INTEGER_32): ITEM_ is
 		local
 			ptr: POINTER
 		do
@@ -70,12 +70,12 @@ feature {ANY}
 			end
 		end
 
-	first: ITEM	is
+	first: ITEM_	is
 		do
 			Result := item(lower)
 		end
 
-	last: ITEM is
+	last: ITEM_ is
 		do
 			Result := item(upper)
 		end
@@ -168,7 +168,7 @@ feature {ANY} -- Modification:
 			end
 		end
 
-	force (element: ITEM; index: INTEGER) is
+	force (element: ITEM_; index: INTEGER) is
 		do
 			-- Make `element' the item at `index', enlarging the collection if
 			-- necessary (new bounds except `index' are initialized with default
@@ -386,7 +386,7 @@ feature {ANY} -- Looking and comparison:
 		end
 
 	is_equal_map (other: like Current): BOOLEAN is
-		local i: INTEGER; c_ith, o_ith: ITEM
+		local i: INTEGER; c_ith, o_ith: ITEM_
 		do
 			-- Do both collections have the same `lower', `upper', and
 			-- items?  feature `is_equal' is used for comparison of
@@ -428,7 +428,7 @@ feature {ANY} -- Looking and comparison:
 		end
 
 	occurrences (element: like item): INTEGER is
-		local i: ITERATOR[ITEM]
+		local i: ITERATOR[ITEM_]
 		do
 			-- Number of occurrences of `element' using `is_equal' for comparison.
 			if element/=Void then 
@@ -459,7 +459,7 @@ feature {ANY} -- Looking and comparison:
 		end
 
 feature {ANY} -- Agents based features:
-	-- do_all (action: ROUTINE[TUPLE[ITEM]]) is
+	-- do_all (action: ROUTINE[TUPLE[ITEM_]]) is
 	-- do
 	-- 			-- Apply `action' to every item of `Current'.
 	-- 			--
@@ -479,7 +479,7 @@ feature {ANY} -- Agents based features:
 	-- end
 	-- end
 
-	-- for_all (test: PREDICATE[TUPLE[ITEM]]): BOOLEAN is
+	-- for_all (test: PREDICATE[TUPLE[ITEM_]]): BOOLEAN is
 	--		do
 	-- 			-- Do all items satisfy `test'?
 	-- 			--
@@ -500,7 +500,7 @@ feature {ANY} -- Agents based features:
 	-- end
 	--		end
 
-	-- exists (test: PREDICATE[TUPLE[ITEM]]): BOOLEAN is
+	-- exists (test: PREDICATE[TUPLE[ITEM_]]): BOOLEAN is
 	--		do
 	-- 			-- Does at least one item satisfy `test'?
 	-- 			--
@@ -530,7 +530,7 @@ feature {ANY} -- Other features:
 			-- 		deferred
 			-- 		ensure
 			-- 			count = old count
-			-- 			not (create {SAFE_EQUAL[ITEM]}).test(old_value, new_value) implies occurrences(old_value) = 0
+			-- 			not (create {SAFE_EQUAL[ITEM_]}).test(old_value, new_value) implies occurrences(old_value) = 0
 		end
 
 	fast_replace_all (old_value, new_value: like item) is
@@ -632,9 +632,9 @@ feature {ANY}
 			Result := (upper = -1) or else storage.is_null
 		end
 
-	get_new_iterator: ITERATOR[ITEM] is
+	get_new_iterator: ITERATOR[ITEM_] is
 		do
-			create {ITERATOR_ON_C_ARRAY[ITEM]} Result.from_array(Current)
+			create {ITERATOR_ON_C_ARRAY[ITEM_]} Result.from_array(Current)
 		end
 
 feature {C_ARRAY, WRAPPER_HANDLER} -- Implementation
@@ -642,7 +642,7 @@ feature {C_ARRAY, WRAPPER_HANDLER} -- Implementation
 
 	capacity: INTEGER
 
-	manifest_put (index: INTEGER_32; element: ITEM) is
+	manifest_put (index: INTEGER_32; element: ITEM_) is
 		do
 			put(element, index)
 		end

@@ -13,11 +13,10 @@ create {}
 feature {ANY}
    str: STRING is "qwertyuiop[]asdfghjkl;'zxcvbnm,./1234567890-="
 
-   make is
+   test (d: DICTIONARY[INTEGER, CHARACTER]) is
       local
-         i: INTEGER; d: HASHED_DICTIONARY[INTEGER, CHARACTER]; c: CHARACTER
+         i: INTEGER; c: CHARACTER
       do
-         create d.with_capacity(12)
          from
             i := str.count
          until
@@ -72,6 +71,12 @@ feature {ANY}
             end
             i := i - 1
          end
+      end
+
+   make is
+      do
+         test(create {HASHED_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(12))
+         test(create {PYTHON_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(12))
       end
 
 end -- class TEST_DICTIONARY4

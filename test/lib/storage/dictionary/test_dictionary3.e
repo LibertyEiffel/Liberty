@@ -11,20 +11,22 @@ create {}
 
 feature {ANY}
    v1: STRING is "FOO"
-
    v2: STRING is "BAR"
 
-   make is
-      local
-         d: DICTIONARY[STRING, INTEGER]
+   test (d: DICTIONARY[STRING, INTEGER]) is
       do
-         create {HASHED_DICTIONARY[STRING, INTEGER]} d.make
          assert(d.count = 0)
          assert(d.is_empty)
          d.put(v1, 567)
          assert(v1 = d.at(567))
          d.put(v2, 567)
          assert(v2 = d.at(567))
+      end
+
+   make is
+      do
+         test(create {HASHED_DICTIONARY[STRING, INTEGER]}.make)
+         test(create {PYTHON_DICTIONARY[STRING, INTEGER]}.make)
       end
 
 end -- class TEST_DICTIONARY3

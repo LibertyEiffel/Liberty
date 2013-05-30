@@ -9,33 +9,33 @@ deferred class IN_OUT_VISITOR
 
 inherit
       -- "single" visitors
+   AGENT_ARGS_VISITOR
+   ASSERTION_VISITOR
+   CLASS_NAME_VISITOR
    CLASS_TEXT_VISITOR
-   PARENT_LISTS_VISITOR
-   PARENT_EDGE_VISITOR
+   CLIENT_LIST_VISITOR
    CREATION_CLAUSE_LIST_VISITOR
    CREATION_CLAUSE_VISITOR
+   DECLARATION_VISITOR
+   EFFECTIVE_ARG_LIST_VISITOR
+   EXPORT_ITEM_VISITOR
+   EXPORT_LIST_VISITOR
    FEATURE_CLAUSE_LIST_VISITOR
    FEATURE_CLAUSE_VISITOR
-   CLIENT_LIST_VISITOR
-   CLASS_NAME_LIST_VISITOR
-   CLASS_NAME_VISITOR
-   FEATURE_TEXT_VISITOR
-   ASSERTION_VISITOR
-   EFFECTIVE_ARG_LIST_VISITOR
-   LOOP_VARIANT_VISITOR
-   WHEN_CLAUSE_VISITOR
    FEATURE_NAME_LIST_VISITOR
-   AGENT_ARGS_VISITOR
-   TYPE_VISITOR
-   REQUIRE_ASSERTION_VISITOR
+   FEATURE_NAME_VISITOR
+   FEATURE_TEXT_VISITOR
+   FORMAL_ARG_LIST_VISITOR
+   LOCAL_VAR_LIST_VISITOR
+   LOOP_VARIANT_VISITOR
+   PARENT_EDGE_VISITOR
+   PARENT_LISTS_VISITOR
    RENAME_LIST_VISITOR
    RENAME_PAIR_VISITOR
-   EXPORT_LIST_VISITOR
-   EXPORT_ITEM_VISITOR
-   FEATURE_NAME_VISITOR
-   DECLARATION_VISITOR
-   LOCAL_VAR_LIST_VISITOR
-   FORMAL_ARG_LIST_VISITOR
+   REQUIRE_ASSERTION_VISITOR
+   TYPE_MARK_LIST_VISITOR
+   TYPE_VISITOR
+   WHEN_CLAUSE_VISITOR
 
       -- "group" visitors
    LOCAL_ARGUMENT_VISITOR
@@ -385,8 +385,8 @@ feature {CLIENT_LIST}
    visit_client_list (visited: CLIENT_LIST) is
       do
          if enter_client_list(visited) then
-            if visited.class_name_list /= Void then
-               visited.class_name_list.accept(Current)
+            if visited.type_mark_list /= Void then
+               visited.type_mark_list.accept(Current)
             end
             exit_client_list(visited)
          end
@@ -402,12 +402,12 @@ feature {}
       do
       end
 
-feature {CLASS_NAME_LIST}
-   visit_class_name_list (visited: CLASS_NAME_LIST) is
+feature {TYPE_MARK_LIST}
+   visit_type_mark_list (visited: TYPE_MARK_LIST) is
       local
          i: INTEGER
       do
-         if enter_class_name_list(visited) then
+         if enter_type_mark_list(visited) then
             from
                i := 1
             until
@@ -416,17 +416,17 @@ feature {CLASS_NAME_LIST}
                visited.item(i).accept(Current)
                i := i + 1
             end
-            exit_class_name_list(visited)
+            exit_type_mark_list(visited)
          end
       end
 
 feature {}
-   enter_class_name_list (visited: CLASS_NAME_LIST): BOOLEAN is
+   enter_type_mark_list (visited: TYPE_MARK_LIST): BOOLEAN is
       do
          Result := True
       end
 
-   exit_class_name_list (visited: CLASS_NAME_LIST) is
+   exit_type_mark_list (visited: TYPE_MARK_LIST) is
       do
       end
 
@@ -647,6 +647,30 @@ feature {}
       end
 
    exit_class_type_mark (visited: CLASS_TYPE_MARK) is
+      do
+      end
+
+feature {CLIENT_TYPE_MARK}
+   visit_client_type_mark (visited: CLIENT_TYPE_MARK) is
+      local
+         ct: CLASS_TEXT
+      do
+         if enter_client_type_mark(visited) then
+            ct := visited.try_class_text
+            if ct /= Void then
+               ct.accept(Current)
+            end
+            exit_client_type_mark(visited)
+         end
+      end
+
+feature {}
+   enter_client_type_mark (visited: CLIENT_TYPE_MARK): BOOLEAN is
+      do
+         Result := True
+      end
+
+   exit_client_type_mark (visited: CLIENT_TYPE_MARK) is
       do
       end
 

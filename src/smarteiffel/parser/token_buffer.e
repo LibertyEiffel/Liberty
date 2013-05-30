@@ -77,7 +77,7 @@ feature {PARSER}
          inspect
             buffer
          when
-            "agent", "alias", "all", "and", "as", "assign", "attribute", "check", "class", "create",
+            "agent", "alias", "all", "and", "as", "assign", "attribute", "check", "class", "convert", "create",
             "creation", "Current", "current", "debug", "deferred", "do", "else", "elseif", "end", "ensure",
             "expanded", "export", "external", "False", "false", "feature", "from", "frozen", "if", "implies",
             "indexing", "infix", "inherit", "inspect", "invariant", "is", "like", "local", "loop", "obsolete",

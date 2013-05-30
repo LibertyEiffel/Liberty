@@ -139,7 +139,7 @@ feature {CREATE_SUPPORT}
             end
          else
             fn := created_type_memory.get_feature_name(feature_stamp)
-            if not class_to_create.has_creation_check(fn, start_position, type) then
+            if not class_to_create.has_creation_check(fn, start_position, type, created_type_memory) then
                if default_create_call then
                   error_handler.append(once "Creation clause exists for type ")
                   error_handler.append(created_type_memory.name.to_string)

@@ -39,6 +39,7 @@ feature {SMART_EIFFEL}
       local
          old_nbe, old_nbw: INTEGER; path: STRING; cn: HASHED_STRING
          start_time, end_time: MICROSECOND_TIME
+         ctc: INTEGER
       do
          start_time.update
          check
@@ -70,10 +71,24 @@ feature {SMART_EIFFEL}
                error_handler.print_as_warning
             end
          end
-         echo.put_integer(smart_eiffel.class_text_count + 1)
+
+         ctc := smart_eiffel.class_text_count + 1
+         if ctc < 10000 then
+            if ctc < 1000 then
+               if ctc < 100 then
+                  if ctc < 10 then
+                     echo.put_character(' ')
+                  end
+                  echo.put_character(' ')
+               end
+               echo.put_character(' ')
+            end
+            echo.put_character(' ')
+         end
+         echo.put_integer(ctc)
          echo.put_character('%T')
-         echo.put_string(path)
-         echo.put_character('%N')
+         echo.put_line(path)
+
          old_nbe := nb_errors
          old_nbw := nb_warnings
          is_running := True
@@ -318,44 +333,10 @@ feature {SMART_EIFFEL}
 
 feature {}
    show_total_time is
-      local
-         ts, h, m, s, u: INTEGER_64
       do
          echo.put_string("Total time spent in parser: ")
-         ts := total_time
-         h := ts // (60 * 60 * 1000000)
-         ts := ts - h * (60 * 60 * 1000000)
-         m := ts // (60 * 1000000)
-         ts := ts - m * (60 * 1000000)
-         s := ts // (1000000)
-         ts := ts - s * (1000000)
-         u := ts
-         echo_num(h, 2)
-         echo.put_character(':')
-         echo_num(m, 2)
-         echo.put_character(':')
-         echo_num(s, 2)
-         echo.put_character('.')
-         echo_num(u, 6)
+         echo.put_time(total_time)
          echo.put_new_line
-      end
-
-   echo_num (num: INTEGER_64; precision: INTEGER) is
-      local
-         s: STRING
-      do
-         s := once "      "
-         s.clear_count
-
-         from
-            num.append_in(s)
-         until
-            s.count >= precision
-         loop
-            s.add_first('0')
-         end
-
-         echo.put_string(s)
       end
 
    show_nb_warnings is
@@ -3162,34 +3143,41 @@ feature {}
          end
       end
 
-   a_base_class_name_inside_client_list: BOOLEAN is
+   a_type_mark_inside_client_list: BOOLEAN is
       local
-         fn: FEATURE_NAME
+         fn: FEATURE_NAME; ctm: CLASS_TYPE_MARK
       do
-         if a_base_class_name then
-            if last_class_name.to_string.is_equal(once "NONE") then
-               if smart_eiffel.short_or_class_check_flag then
-                  error_handler.add_position(token_buffer.start_position)
-                  error_handler.append(once "Since february 2006, for SmartEiffel release 2.3, the old legacy %
-                                    %NONE type mark is obsolete. Keep in mind that an empty class name list %
-                                    %like {} do indicate no exportation at all, hence making NONE unuseful %
-                                    %and probably misleading for newcomers. So, just remove this NONE class %
-                                    %name right now. Please update your code now.")
-                  error_handler.print_as_warning
-               end
+         if a_type_mark then
+            if last_type_mark.is_anchored then
+               error_handler.add_position(token_buffer.start_position)
+               error_handler.append(once "An anchored type cannot be used to indicate exportation status in a client list.")
+               error_handler.print_as_fatal_error
+            end
+            if last_type_mark.written_mark.is_equal(once "NONE") then
+               error_handler.add_position(token_buffer.start_position)
+               error_handler.append(once "Since february 2006, for SmartEiffel release 2.3, the old legacy %
+                                         %NONE type mark is obsolete. Keep in mind that an empty class name list %
+                                         %such as {} does indicate no exportation at all, hence making NONE useless %
+                                         %and probably misleading for newcomers. So, just remove this NONE class %
+                                         %name now. Please update your code now.")
+               error_handler.print_as_warning
             else
+               if ctm ?:= last_type_mark then
+                  ctm ::= last_type_mark
+                  create {CLIENT_TYPE_MARK} last_type_mark.make(ctm)
+               end
                Result := True
             end
          elseif a_ordinary_feature_name_or_local_name then
             fn := token_buffer.to_feature_name
             error_handler.add_position(fn.start_position)
             error_handler.append(once "A feature name cannot be used to indicate exportation status in a client list. %
-            %Only plain class names are allowed here (class names must use only uppercase letters).")
+                                      %Only plain class names are allowed here (class names must use only uppercase letters).")
             error_handler.print_as_fatal_error
          elseif cc.is_letter or else cc.is_digit then
             error_handler.add_position(current_position)
             error_handler.append(once "Inside a client list, only plain class names are allowed. %
-            %(Class names must use only uppercase letters.)")
+                                      %(Class names must use only uppercase letters.)")
             error_handler.print_as_fatal_error
 
          end
@@ -3199,7 +3187,7 @@ feature {}
          --  ++ clients -> "{" { class_text_name "," ... } "}"
          --  ++
       local
-         sp: POSITION; list: CLASS_NAME_LIST; state: INTEGER
+         sp: POSITION; list: TYPE_MARK_LIST; state: INTEGER
       do
          if skip1('{') then
             from
@@ -3211,8 +3199,8 @@ feature {}
                   state
                when 0 then
                   -- Waiting a class_text_name or "}" if empty list.
-                  if a_base_class_name_inside_client_list then
-                     create list.make_1(last_class_name)
+                  if a_type_mark_inside_client_list then
+                     create list.make_1(last_type_mark)
                      state := 2
                   elseif skip1('}') then
                      state := 4
@@ -3226,8 +3214,8 @@ feature {}
                   end
                when 1 then
                   -- Waiting a class_text_name after a ",".
-                  if a_base_class_name_inside_client_list then
-                     list.add_last(last_class_name)
+                  if a_type_mark_inside_client_list then
+                     list.add_last(last_type_mark)
                      state := 2
                   elseif cc = ',' then
                      error_handler.add_position(current_position)
@@ -3249,11 +3237,11 @@ feature {}
                      state := 1
                   elseif skip1('}') then
                      state := 4
-                  elseif a_base_class_name_inside_client_list then
-                     error_handler.add_position(last_class_name.start_position)
+                  elseif a_type_mark_inside_client_list then
+                     error_handler.add_position(last_type_mark.start_position)
                      error_handler.append(em5)
                      error_handler.print_as_warning
-                     list.add_last(last_class_name)
+                     list.add_last(last_type_mark)
                   else
                      state := 3
                   end
@@ -5837,7 +5825,7 @@ feature {}
             error_handler.add_position(pos(start_line, start_column))
             error_handler.add_position(current_position)
             error_handler.append(once "No more %"reference%" keyword allowed. The obsolete %"reference FOO%" %
-            %notation is no longer accepted. Just use our REFERENCE class instead.")
+            %notation is no longer accepted. Just use the REFERENCE class instead.")
             error_handler.print_as_fatal_error
          elseif a_keyword(fz_separate) then
             error_handler.add_position(pos(start_line, start_column))

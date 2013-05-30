@@ -137,12 +137,12 @@ feature {ANY}
       require
          has_been_specialized
       do
-         Result := to_static(new_type).type
+         Result := to_static(new_type, False).type
       ensure
-         Result = to_static(new_type).type
+         Result = to_static(new_type, False).type
       end
 
-   to_static (new_type: TYPE): TYPE_MARK is
+   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK is
          -- Compute the `is_static' one in the `new_type' context.
          -- (See also `resolve_in'.)
       require
@@ -467,6 +467,8 @@ feature {}
    class_text_memory: CLASS_TEXT
          -- Memory cache for `class_text'.
 
+   has_tried_to_load: BOOLEAN
+
    long_name_memory: like long_name
 
    canonical_long_name: HASHED_STRING is
@@ -523,6 +525,28 @@ feature {ANY}
          end
       ensure
          Result = class_text_name.class_text
+      end
+
+   try_class_text: CLASS_TEXT is
+      require
+         not is_anchored
+         not_done_to_report_errors: error_handler.is_empty
+      local
+         bcn: CLASS_NAME
+      do
+         if class_text_memory = Void then
+            if not has_tried_to_load then
+               bcn := class_text_name
+               if bcn /= Void then
+                  Result := bcn.try_class_text
+                  class_text_memory := Result
+               end
+               has_tried_to_load := True
+            end
+         end
+         Result := class_text_memory
+      ensure
+         not_done_to_report_errors: error_handler.is_empty
       end
 
    frozen debug_info_in (buffer: STRING) is

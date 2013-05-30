@@ -41,9 +41,11 @@ feature {RUN_FEATURE}
             exceptions_handler.set_used
          elseif as_slice_copy = n and then as_native_array = t.class_text.name.to_string and then t.generic_list.first.is_user_expanded then --|**** TODO also check that copy was redefined
             if routine_body = Void then
-               echo.put_string(once "**** collecting ")
-               echo.put_string(t.name.to_string)
-               echo.put_line(once ".slice_copy")
+               debug
+                  echo.put_string(once "**** collecting ")
+                  echo.put_string(t.name.to_string)
+                  echo.put_line(once ".slice_copy")
+               end
                routine_body := collect_slice_copy(t)
                is_generated_eiffel := True
             end

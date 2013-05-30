@@ -3467,7 +3467,7 @@ feature {}
          static_tm: TYPE_MARK
       do
          if local_name.is_used(type) then
-            static_tm := local_name.result_type.to_static(type)
+            static_tm := local_name.result_type.to_static(type, False)
             if volatile_flag then
                if static_tm.is_kernel_expanded then
                   pending_c_function_body.append(once "volatile ")
@@ -3495,7 +3495,7 @@ feature {C_COMPILATION_MIXIN}
             if i > 1 then
                str.extend(',')
             end
-            t := formal_arg_list.type_mark(i).to_static(tgt_type)
+            t := formal_arg_list.type_mark(i).to_static(tgt_type, False)
             str.append(result_type.for_external(t))
             str.extend(' ')
             str.extend('a')
@@ -4038,7 +4038,7 @@ feature {} -- CECIL_POOL
          af := cecil_entry.anonymous_feature
          result_type_mark := af.result_type
          if result_type_mark /= Void then
-            result_type_mark := result_type_mark.to_static(cecil_entry.target_type)
+            result_type_mark := result_type_mark.to_static(cecil_entry.target_type, False)
          end
          arguments := af.arguments
          prepare_c_function

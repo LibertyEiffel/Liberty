@@ -19,21 +19,21 @@ indexing
 					02110-1301 USA
 			]"
 
-class G_REFERENCE_ARRAY_ITERATOR [ITEM->C_STRUCT]
+class G_REFERENCE_ARRAY_ITERATOR [ITEM_->C_STRUCT]
 
 inherit
-	ITERATOR[ITEM]
+	ITERATOR[ITEM_]
 	WRAPPER_HANDLER
 
 insert
-	WRAPPER_FACTORY [ITEM]
+	WRAPPER_FACTORY [ITEM_]
 	SHARED_WRAPPERS_DICTIONARY
 	G_PTR_ARRAY_EXTERNALS
 
 create {ANY} make 
 
 feature {} -- Creation
-	make (an_array: G_REFERENCE_ARRAY [ITEM]) is
+	make (an_array: G_REFERENCE_ARRAY [ITEM_]) is
 		require array_not_void: an_array/=Void
 		do
 			array:=an_array
@@ -52,7 +52,7 @@ feature {ANY}
 			Result := i>upper
 		end
 
-	item: ITEM is
+	item: ITEM_ is
 		local p: POINTER; npa: NATIVE_ARRAY[POINTER]
 		do
 			npa := npa.from_pointer(get_pdata(handle))
@@ -69,7 +69,7 @@ feature {ANY}
 			i:=i+1
 		end
 feature {} -- Implementation
-	array: G_REFERENCE_ARRAY [ITEM]
+	array: G_REFERENCE_ARRAY [ITEM_]
 	
 end --class G_REFERENCE_ARRAY_ITERATOR
 

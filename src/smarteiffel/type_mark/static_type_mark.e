@@ -10,7 +10,7 @@ inherit
    TYPE_MARK
 
 feature {ANY}
-   frozen is_static: BOOLEAN is True
+   is_static: BOOLEAN is True
 
    frozen has_been_specialized: BOOLEAN is True
 
@@ -28,7 +28,7 @@ feature {ANY}
          Result := Current
       end
 
-   frozen to_static (new_type: TYPE): TYPE_MARK is
+   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK is
       do
          Result := Current
       end

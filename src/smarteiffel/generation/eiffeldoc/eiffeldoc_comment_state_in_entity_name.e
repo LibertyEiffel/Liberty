@@ -66,7 +66,7 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
                      n.extend('.')
                      n.append(feature_name)
                      n.append(once " for ")
-                     n.append(client.to_string)
+                     n.append(client.written_mark)
                   end
                   if fs = Void then
                      echo.put_string(once "*** cannot find ")
@@ -83,7 +83,7 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
                      if fs /= Void then
                         af := fs.anonymous_feature(class_type)
                         if af /= Void then
-                           with_anchor := af.permissions.gives_permission_to(client)
+                           with_anchor := af.permissions.gives_permission_to(client, type)
                         end
                      end
                      if with_anchor then

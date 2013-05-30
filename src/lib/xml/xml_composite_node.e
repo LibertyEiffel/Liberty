@@ -57,6 +57,15 @@ feature {ANY}
          Result := children.count
       end
 
+feature {ANY}
+   accept (visitor: VISITOR) is
+      local
+         v: XML_NODE_VISITOR
+      do
+         v ::= visitor
+         v.visit_composite_node(Current)
+      end
+
 feature {XML_TREE}
    set_attribute (a_attribute_name, a_attribute_value: UNICODE_STRING) is
       require
