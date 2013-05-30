@@ -39,6 +39,7 @@ feature {SMART_EIFFEL}
       local
          old_nbe, old_nbw: INTEGER; path: STRING; cn: HASHED_STRING
          start_time, end_time: MICROSECOND_TIME
+         ctc: INTEGER
       do
          start_time.update
          check
@@ -70,10 +71,24 @@ feature {SMART_EIFFEL}
                error_handler.print_as_warning
             end
          end
-         echo.put_integer(smart_eiffel.class_text_count + 1)
+
+         ctc := smart_eiffel.class_text_count + 1
+         if ctc < 10000 then
+            if ctc < 1000 then
+               if ctc < 100 then
+                  if ctc < 10 then
+                     echo.put_character(' ')
+                  end
+                  echo.put_character(' ')
+               end
+               echo.put_character(' ')
+            end
+            echo.put_character(' ')
+         end
+         echo.put_integer(ctc)
          echo.put_character('%T')
-         echo.put_string(path)
-         echo.put_character('%N')
+         echo.put_line(path)
+
          old_nbe := nb_errors
          old_nbw := nb_warnings
          is_running := True
