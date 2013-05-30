@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 			]"
 
-class G_QUEUE [ITEM->WRAPPER]
+class G_QUEUE [ITEM_->WRAPPER]
 	-- The GQueue structure and its associated functions provide a
 	-- standard queue data structure. Internally, GQueue uses the same
 	-- data structure as GList to store elements.
@@ -174,7 +174,7 @@ feature {ANY}
 		end
 
 feature {ANY} -- Other features
-	pop_nth (an_index: INTEGER): ITEM is
+	pop_nth (an_index: INTEGER): ITEM_ is
 			-- Removes the element of queue at `an_index'. Void if is_empty
 		require 
 			unsigned_index: an_index >= 0
@@ -191,7 +191,7 @@ feature {ANY} -- Other features
 		ensure is_empty implies Result = Void
 		end
 
-	first, head: ITEM is
+	first, head: ITEM_ is
 			-- the first element of the queue.
 		local ptr: POINTER
 		do
@@ -218,7 +218,7 @@ feature {ANY} -- Other features
 		ensure is_empty implies Result = Void
 		end
 
-	get_new_iterator: ITERATOR[ITEM] is
+	get_new_iterator: ITERATOR[ITEM_] is
 		obsolete "get_new_iterator is not implemented"
 		do
 			check implemented: False end

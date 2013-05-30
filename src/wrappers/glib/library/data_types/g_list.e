@@ -6,7 +6,7 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class G_LIST [ITEM->WRAPPER]
+deferred class G_LIST [ITEM_->WRAPPER]
 
    -- TODO: add test for all COLLECTION features (modify the version 
    -- from SE testsuite?)
@@ -20,12 +20,12 @@ deferred class G_LIST [ITEM->WRAPPER]
   
 
 inherit
-	G_LIST_TRAVERSABLE[ITEM]
+	G_LIST_TRAVERSABLE[ITEM_]
 		undefine
 			out_in_tagged_out_memory,
 			fill_tagged_out_memory
 		end
-	COLLECTION[ITEM]
+	COLLECTION[ITEM_]
 		undefine
 			swap,
 			has,
@@ -91,7 +91,7 @@ feature {ANY}
 			handle := g_list_insert (handle, element.handle, an_index)
 		end
 	
-	append_collection (other: COLLECTION[ITEM]) is
+	append_collection (other: COLLECTION[ITEM_]) is
 		do
 			other.do_all(agent add_last)
 		end

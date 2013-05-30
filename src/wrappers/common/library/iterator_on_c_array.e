@@ -19,14 +19,14 @@ indexing
 					02110-1301 USA
 			]"
 
-class ITERATOR_ON_C_ARRAY [ITEM->C_STRUCT]
+class ITERATOR_ON_C_ARRAY [ITEM_->C_STRUCT]
 
-inherit ITERATOR[ITEM]
+inherit ITERATOR[ITEM_]
 
 create {ANY} from_array
 
 feature {} -- Creation and implementation
-	from_array (an_array: C_ARRAY[ITEM]) is
+	from_array (an_array: C_ARRAY[ITEM_]) is
 		require array_not_void: an_array/=Void
 		do
 			array:=an_array
@@ -34,7 +34,7 @@ feature {} -- Creation and implementation
 	
 	i: INTEGER  -- Iterator index
 	
-	array: C_ARRAY[ITEM]
+	array: C_ARRAY[ITEM_]
 	
 feature {ANY} -- 
 	start is
@@ -48,7 +48,7 @@ feature {ANY} --
 			-- Result:=array.valid_index(i)
 		end
 
-	item: ITEM is do Result:=array.item(i) end
+	item: ITEM_ is do Result:=array.item(i) end
 
 	next is do i:=i+1	end
 end -- class ITERATOR_ON_C_ARRAY

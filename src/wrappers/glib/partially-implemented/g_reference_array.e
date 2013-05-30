@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision: "$REvision:$"
 
-class G_REFERENCE_ARRAY [ITEM->C_STRUCT]
+class G_REFERENCE_ARRAY [ITEM_->C_STRUCT]
 	-- Warning: this class will be soon called G_ARRAY and the "old" 
 	-- G_ARRAY will become G_EXPANDED_ARRAY or something like this. 
 	-- Paolo 2007-04-08
@@ -63,7 +63,7 @@ inherit
 		redefine copy, is_equal
 		end
 
-	COLLECTION [ITEM]
+	COLLECTION [ITEM_]
 		redefine -- features that can be implemented in a smarter way, knowing that there is an array of pointers to wrapped features.
 			fast_first_index_of,
 			--fast_index_of,
@@ -74,7 +74,7 @@ inherit
 		end
 	
 insert
-	WRAPPER_FACTORY [ITEM] -- undefine fill_tagged_out_memory end
+	WRAPPER_FACTORY [ITEM_] -- undefine fill_tagged_out_memory end
 	G_PTR_ARRAY_EXTERNALS undefine fill_tagged_out_memory end
 	
 create {ANY} empty, with_capacity, from_external_pointer
@@ -125,7 +125,7 @@ feature {ANY} -- Counting:
 		end
 
 feature {ANY} -- Accessing:
-	item (index: INTEGER_32): ITEM is
+	item (index: INTEGER_32): ITEM_ is
 			-- Item at the corresponding `index'.  See also `lower',
 			-- `upper', `valid_index'.
 		local 
@@ -141,13 +141,13 @@ feature {ANY} -- Accessing:
 			end
 		end
 
-	first: ITEM is
+	first: ITEM_ is
 			-- The very `first' item.
 		do		
 			Result:=item(lower)
 		end
 
-	last: ITEM is
+	last: ITEM_ is
 			-- The `last' item.
 			-- See also `first', `item'.
 		do
@@ -155,13 +155,13 @@ feature {ANY} -- Accessing:
 		end
 
 feature {ANY}   -- Other features:
-	get_new_iterator: ITERATOR[ITEM] is
+	get_new_iterator: ITERATOR[ITEM_] is
 		obsolete "Currently unimplemented!"
 		do
-			-- create {G_ARRAY_ITERATOR[ITEM]} Result.from_array(Current)
+			-- create {G_ARRAY_ITERATOR[ITEM_]} Result.from_array(Current)
 		end
 feature {ANY}    -- Writing:
-	put (element: ITEM; an_index: INTEGER_32) is
+	put (element: ITEM_; an_index: INTEGER_32) is
 			-- Make `element' the item at `an_index'.  See also `lower',
 			-- `upper', `valid_index', `item', `swap', `force'.
 		local npa: NATIVE_ARRAY[POINTER]
@@ -182,7 +182,7 @@ feature {ANY}    -- Writing:
 			npa.put( tmp, i2)
 		end
 
-	set_all_with (v: ITEM) is
+	set_all_with (v: ITEM_) is
 			-- Set all items with value `v'.  See also `set_slice_with'.
 		local i:INTEGER
 		do
@@ -191,7 +191,7 @@ feature {ANY}    -- Writing:
 			end
 		end
 	
-	-- set_slice_with (v: ITEM_; lower_index, upper_index: INTEGER_32) is
+	-- set_slice_with (v: ITEM__; lower_index, upper_index: INTEGER_32) is
 	-- Set all items in range [`lower_index' .. `upper_index'] with `v'.
 	-- See also `set_all_with'.
 	-- local i:INTEGER
@@ -212,7 +212,7 @@ feature {ANY}    -- Writing:
 		end
 
 feature {ANY} -- Adding:
-	add_first (element: ITEM) is
+	add_first (element: ITEM_) is
 			-- Add a new item in first position : `count' is increased by
 			-- one and all other items are shifted right.  See also
 			-- `add_last', `first', `last', `add'.
@@ -228,14 +228,14 @@ feature {ANY} -- Adding:
 			put(element,lower)
 		end
 
-	add_last (element: ITEM) is
+	add_last (element: ITEM_) is
 			-- Add a new item at the end; `count' is increased by one.
 			-- See also `add_first', `last', `first', `add'.
 		do
 			g_ptr_array_add (handle, null_or(element))
 		end
 
-	add (element: ITEM; index: INTEGER_32) is
+	add (element: ITEM_; index: INTEGER_32) is
 			-- Add a new `element' at rank `index' : `count' is increased
 			-- by one and range [`index' .. `upper'] is shifted right by
 			-- one position.
@@ -249,12 +249,12 @@ feature {ANY} -- Adding:
 			end
 		end
 
-	append_collection (other: COLLECTION[ITEM]) is
+	append_collection (other: COLLECTION[ITEM_]) is
 			-- Append `other' to Current.  See also `add_last',
 			-- `add_first', `add'.
 		
 			-- Complexity: O(other.count)
-		local i: ITERATOR[ITEM]
+		local i: ITERATOR[ITEM_]
 		do
 			i := other.get_new_iterator
 			from i.start until i.is_off loop
@@ -285,9 +285,9 @@ feature {ANY} -- Modification:
 			end
 		end
 
-	from_collection (model: TRAVERSABLE[ITEM]) is
+	from_collection (model: TRAVERSABLE[ITEM_]) is
 			-- Initialize the current object with the contents of `model'.
-		local i: ITERATOR[ITEM]
+		local i: ITERATOR[ITEM_]
 		do
 			from_external_pointer(g_ptr_array_sized_new(model.count))
 			from i:=model.get_new_iterator; i.start until i.is_off 
@@ -364,7 +364,7 @@ feature {ANY} -- Removing:
 		end
 	
 feature {ANY} -- Looking and Searching:
-	has (x: ITEM): BOOLEAN is
+	has (x: ITEM_): BOOLEAN is
 			-- Look for `x' using `is_equal' for comparison.
 
 			-- See also `fast_has', `index_of', `fast_index_of'.
@@ -377,7 +377,7 @@ feature {ANY} -- Looking and Searching:
 			end
 		end
 	
-	fast_has (x: ITEM): BOOLEAN is
+	fast_has (x: ITEM_): BOOLEAN is
 			-- Look for `x' using basic `=' for comparison.
 
 			-- See also `has', `fast_index_of', `index_of'.
@@ -390,7 +390,7 @@ feature {ANY} -- Looking and Searching:
 			end
 		end
 	
---    first_index_of (element: ITEM): INTEGER_32 is
+--    first_index_of (element: ITEM_): INTEGER_32 is
 -- 			-- Give the index of the first occurrence of `element' using
 -- 			-- `is_equal' for comparison.  Answer `upper + 1' when
 -- 			-- `element' is not inside.
@@ -408,7 +408,7 @@ feature {ANY} -- Looking and Searching:
 -- 			end
 -- 		end
 
---    index_of (element: ITEM; start_index: INTEGER_32): INTEGER_32 is
+--    index_of (element: ITEM_; start_index: INTEGER_32): INTEGER_32 is
 -- 			-- Using `is_equal' for comparison, gives the index of the
 -- 			-- first occurrence of `element' at or after
 -- 			-- `start_index'. Answer `upper + 1' when `element' when the
@@ -427,7 +427,7 @@ feature {ANY} -- Looking and Searching:
 -- 			end
 -- 		end
 			
--- 	reverse_index_of (element: ITEM; start_index: INTEGER_32): INTEGER_32 is
+-- 	reverse_index_of (element: ITEM_; start_index: INTEGER_32): INTEGER_32 is
 -- 			-- Using `is_equal' for comparison, gives the index of the
 -- 			-- first occurrence of `element' at or before
 -- 			-- `start_index'. Search is done in reverse direction, which
@@ -447,7 +447,7 @@ feature {ANY} -- Looking and Searching:
 -- 			end
 -- 		end
 
---    last_index_of (element: ITEM): INTEGER_32 is
+--    last_index_of (element: ITEM_): INTEGER_32 is
 -- 			-- Using `is_equal' for comparison, gives the index of the
 -- 			-- last occurrence of `element' at or before `upper'. Search
 -- 			-- is done in reverse direction, which means from the `upper'
@@ -466,7 +466,7 @@ feature {ANY} -- Looking and Searching:
 -- 			end
 -- 		end
 
-	fast_first_index_of (element: ITEM): INTEGER_32 is
+	fast_first_index_of (element: ITEM_): INTEGER_32 is
 			-- Give the index of the first occurrence of `element' using
 			-- basic `=' for comparison.  Answer `upper + 1' when
 			-- `element' is not inside.
@@ -483,7 +483,7 @@ feature {ANY} -- Looking and Searching:
 			end
 		end
 		
-	fast_index_of (element: ITEM; start_index: INTEGER_32): INTEGER_32 is
+	fast_index_of (element: ITEM_; start_index: INTEGER_32): INTEGER_32 is
 			-- Using basic `=' for comparison, gives the index of the
 			-- first occurrence of `element' at or after
 			-- `start_index'. Answer `upper + 1' when `element' when the
@@ -502,7 +502,7 @@ feature {ANY} -- Looking and Searching:
 			end
 		end
 
-	fast_reverse_index_of (element: ITEM; start_index: INTEGER_32): INTEGER_32 is
+	fast_reverse_index_of (element: ITEM_; start_index: INTEGER_32): INTEGER_32 is
 			-- Using basic `=' comparison, gives the index of the first
 			-- occurrence of `element' at or before `start_index'. Search
 			-- is done in reverse direction, which means from the
@@ -521,7 +521,7 @@ feature {ANY} -- Looking and Searching:
 			end
 		end
 
-	fast_last_index_of (element: ITEM): INTEGER_32 is
+	fast_last_index_of (element: ITEM_): INTEGER_32 is
 			-- Using basic `=' for comparison, gives the index of the
 			-- last occurrence of `element' at or before `upper'. Search
 			-- is done in reverse direction, which means from the `upper'
@@ -589,14 +589,14 @@ feature {ANY} -- Looking and comparison:
 			end
 		end
 
-	same_items (other: COLLECTION[ITEM]): BOOLEAN is
+	same_items (other: COLLECTION[ITEM_]): BOOLEAN is
 			-- Do both collections have the same items? The basic `=' is used
 			-- for comparison of items and indices are not considered (for
 			-- example this routine may yeld True with `Current' indexed in
 			-- range [1..2] and `other' indexed in range [2..3]).
 
 			-- See also `is_equal_map', `is_equal'.
-		local i, oi: ITERATOR[ITEM]
+		local i, oi: ITERATOR[ITEM_]
 		do
 			if count = other.count then
 				from
@@ -611,7 +611,7 @@ feature {ANY} -- Looking and comparison:
 			end
 		end
 		
-	occurrences (element: ITEM): INTEGER_32 is
+	occurrences (element: ITEM_): INTEGER_32 is
 			-- Number of occurrences of `element' using `is_equal' for comparison.
 		
 			-- See also `fast_occurrences', `index_of'.
@@ -624,7 +624,7 @@ feature {ANY} -- Looking and comparison:
 			end
 		end
 	
-	fast_occurrences (element: ITEM): INTEGER_32 is
+	fast_occurrences (element: ITEM_): INTEGER_32 is
 			-- Number of occurrences of `element' using basic `=' for comparison.
 		
 			-- See also `occurrences', `index_of'.
@@ -659,14 +659,14 @@ feature {ANY} -- Agents based features:
 	--          test /= Void
 	-- feature(s) from COLLECTION
 	--    -- Other features:
-	--    replace_all (old_value, new_value: ITEM)
+	--    replace_all (old_value, new_value: ITEM_)
 	--       -- Replace all occurrences of the element `old_value' by `new_value' using `is_equal' for comparison.
 	--       --
 	--       -- See also `fast_replace_all', `move'.
 	--       ensure
 	--          count = old count;
-	--          not (create {SAFE_EQUAL[ITEM]}default_create).test(old_value, new_value) implies occurrences(old_value) = 0
-	--    fast_replace_all (old_value, new_value: ITEM)
+	--          not (create {SAFE_EQUAL[ITEM_]}default_create).test(old_value, new_value) implies occurrences(old_value) = 0
+	--    fast_replace_all (old_value, new_value: ITEM_)
 	--       -- Replace all occurrences of the element `old_value' by `new_value' using basic `=' for comparison.
 	--       --
 	--       -- See also `replace_all', `move'.

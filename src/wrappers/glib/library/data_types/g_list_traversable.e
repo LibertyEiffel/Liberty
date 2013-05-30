@@ -5,7 +5,7 @@ indexing
 	date: "$Date: 2008-11-30 00:48:25 +0100 (dom, 30 nov 2008) $"
 	revision: "$Revision: 1101 $"
 
-deferred class G_LIST_TRAVERSABLE [ITEM->WRAPPER]
+deferred class G_LIST_TRAVERSABLE [ITEM_->WRAPPER]
 	-- A standard singly-linked list which may be "frozen", refusing further
 	-- any changes until "thawed".
 	
@@ -16,14 +16,14 @@ deferred class G_LIST_TRAVERSABLE [ITEM->WRAPPER]
 inherit
 	WRAPPER
    
-   TRAVERSABLE[ITEM]
+   TRAVERSABLE[ITEM_]
       undefine
          copy
       redefine
          is_equal
       end
    
-   WRAPPER_FACTORY[ITEM]
+   WRAPPER_FACTORY[ITEM_]
 
 insert
 	GLIST_EXTERNALS
@@ -50,7 +50,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- object creation
 		end
    
 feature {ANY} -- data access
-	first: ITEM is
+	first: ITEM_ is
 		local
          p: POINTER -- Item Pointer
 		do
@@ -80,7 +80,7 @@ feature {ANY} -- data access
 
 	has (x: like first): BOOLEAN is
 			-- Look for `x' using is_equal for comparison. 
-		local i: ITERATOR[ITEM]; p: POINTER
+		local i: ITERATOR[ITEM_]; p: POINTER
 		do
 			if x/=Void then
 				from i:=new_iterator; i.start until Result=True or else i.is_off
@@ -151,7 +151,7 @@ feature {ANY} -- data access
 	is_equal (other: like Current): BOOLEAN is
 			-- Do both collections have the same lower, upper, and items?
       local
-		  ci, oi: ITERATOR[ITEM]
+		  ci, oi: ITERATOR[ITEM_]
          i, j: INTEGER
 		do
 			if count = other.count and then
@@ -222,11 +222,11 @@ feature {ANY} -- data access
 			Result:= (handle.is_null)
 		end
 
-	from_collection (model: COLLECTION[ITEM]) is do not_yet_implemented end
+	from_collection (model: COLLECTION[ITEM_]) is do not_yet_implemented end
 
-	new_iterator: ITERATOR[ITEM] is
+	new_iterator: ITERATOR[ITEM_] is
 		do
-			create {ITERATOR_ON_G_LIST[ITEM]} Result.make (Current)
+			create {ITERATOR_ON_G_LIST[ITEM_]} Result.make (Current)
 		end
 	dispose is
 			-- Frees all of the memory used by a GList. The freed

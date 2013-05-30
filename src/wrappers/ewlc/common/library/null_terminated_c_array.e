@@ -19,14 +19,14 @@ indexing
 					02110-1301 USA
 			]"
 
-deferred class NULL_TERMINATED_C_ARRAY [ITEM -> C_STRUCT]
+deferred class NULL_TERMINATED_C_ARRAY [ITEM_ -> C_STRUCT]
 	-- A NULL-terminated C_ARRAY, useful since many low-level C
 	-- functions expect to receive such arrays. 
 
 	-- The NULL (default_pointer in Eiffel) is not counted as an
 	-- element of the array.
 
-inherit C_ARRAY [ITEM]
+inherit C_ARRAY [ITEM_]
 	redefine
 		with_capacity
 	end

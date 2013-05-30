@@ -7,9 +7,9 @@ indexing
 
 	-- TODO: review this class
 	
-deferred class RESULT_SET [ROW-> RESULT_ROW] 
+deferred class RESULT_SET [ROW_-> RESULT_ROW_] 
 inherit
-	TRAVERSABLE [ROW]
+	TRAVERSABLE [ROW_]
 		undefine
 			fill_tagged_out_memory
 		end

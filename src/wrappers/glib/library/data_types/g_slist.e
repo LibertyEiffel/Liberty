@@ -6,7 +6,7 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class G_SLIST [ITEM->WRAPPER]
+deferred class G_SLIST [ITEM_->WRAPPER]
  
 	-- Some GLib-using libraries requires that some instances of
 	-- GList shall be modified only by the library, making it
@@ -16,13 +16,13 @@ deferred class G_SLIST [ITEM->WRAPPER]
 	-- will return a G_LIST.
    
 inherit
-	G_SLIST_TRAVERSABLE[ITEM]
+	G_SLIST_TRAVERSABLE[ITEM_]
 		undefine
 	  		out_in_tagged_out_memory, 
 			fill_tagged_out_memory
 		end
    
-	COLLECTION[ITEM]
+	COLLECTION[ITEM_]
 		undefine 
 			has,
 			fast_has,
@@ -107,7 +107,7 @@ feature {ANY}
 			handle := g_slist_insert (handle, element.handle, an_index)
 		end
 	
-	append_collection (other: COLLECTION[ITEM]) is
+	append_collection (other: COLLECTION[ITEM_]) is
 			--
 		do
 			not_yet_implemented -- TODO
@@ -170,8 +170,8 @@ feature {ANY}
 			g_slist_free (handle) -- TODO is this call correct?
 		end
 
-	from_collection (model: COLLECTION[ITEM]) is
-		local i: ITERATOR[ITEM]
+	from_collection (model: COLLECTION[ITEM_]) is
+		local i: ITERATOR[ITEM_]
 		do
 			from i:=model.new_iterator; i.start
 			until not i.is_off

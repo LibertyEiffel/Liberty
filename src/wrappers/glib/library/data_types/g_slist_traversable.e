@@ -5,7 +5,7 @@ indexing
 	date: "$Date: 2008-11-30 00:48:25 +0100 (dom, 30 nov 2008) $"
 	revision: "$Revision: 1101 $"
 
-deferred class G_SLIST_TRAVERSABLE [ITEM->WRAPPER]
+deferred class G_SLIST_TRAVERSABLE [ITEM_->WRAPPER]
 	-- A singly-linked list data structure.
 	
 	-- To add elements, use `add_last', `append', `add_first', `prepend',
@@ -27,14 +27,14 @@ deferred class G_SLIST_TRAVERSABLE [ITEM->WRAPPER]
 inherit
 	WRAPPER
    
-   TRAVERSABLE[ITEM]
+   TRAVERSABLE[ITEM_]
       undefine
          copy
       redefine
          is_equal
       end
    
-   WRAPPER_FACTORY[ITEM]
+   WRAPPER_FACTORY[ITEM_]
 
 insert
 	GSLIST_EXTERNALS 
@@ -57,7 +57,7 @@ feature {ANY}
 			handle := default_pointer
 		end
 
-	first: ITEM is
+	first: ITEM_ is
 		local p: POINTER -- Item Pointer
 		do
 			p:=gslist_struct_get_data (handle)
@@ -144,7 +144,7 @@ feature {ANY}
 	is_equal (other: like Current): BOOLEAN is
 			-- Do both collections have the same lower, upper, and items?
       local
-		  ci, oi: ITERATOR[ITEM]
+		  ci, oi: ITERATOR[ITEM_]
          i, j: INTEGER
 		do
 			if count = other.count and then
@@ -208,9 +208,9 @@ feature {ANY}
 		end
 	
 
-	new_iterator: ITERATOR[ITEM] is 
+	new_iterator: ITERATOR[ITEM_] is 
 		do
-			create {ITERATOR_ON_G_SLIST[ITEM]} Result.make (Current)
+			create {ITERATOR_ON_G_SLIST[ITEM_]} Result.make (Current)
 		end
 
 feature {} -- Memory management
