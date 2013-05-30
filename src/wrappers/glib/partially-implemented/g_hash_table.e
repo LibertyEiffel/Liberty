@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision: "$REvision:$"
 
-class G_HASH_TABLE [VALUE->SHARED_C_STRUCT, KEY->COMPARABLE_SHARED_C_STRUCT]
+class G_HASH_TABLE [VALUE_->SHARED_C_STRUCT, KEY_->COMPARABLE_SHARED_C_STRUCT]
 	-- A G_HASH_TABLE provides associations between keys and values
 	-- which is optimized so that given a key, the associated value can
 	-- be found very quickly.
@@ -49,7 +49,7 @@ class G_HASH_TABLE [VALUE->SHARED_C_STRUCT, KEY->COMPARABLE_SHARED_C_STRUCT]
 	-- To destroy a GHashTable use g_hash_table_destroy().
 
 inherit
-	WRAPPER_DICTIONARY [VALUE, KEY]
+	WRAPPER_DICTIONARY [VALUE_, KEY_]
 		redefine
 			dispose
 		end
@@ -60,7 +60,7 @@ insert
 create {ANY}  from_external
 
 feature {} -- Creation
-	from_external (a_pointer: POINTER; a_factory: WRAPPER_FACTORY[VALUE]) is
+	from_external (a_pointer: POINTER; a_factory: WRAPPER_FACTORY[VALUE_]) is
 		require factory_not_void: a_factory/=Void
 		do
 			factory := a_factory
@@ -68,7 +68,7 @@ feature {} -- Creation
 		end
 	
 
-	with_factory (a_factory: WRAPPER_FACTORY[VALUE]) is
+	with_factory (a_factory: WRAPPER_FACTORY[VALUE_]) is
 		require factory_not_void: a_factory/=Void
 		do
 			factory := a_factory
@@ -120,14 +120,14 @@ feature {} -- Creation
 	-- 		end
 	
 feature {ANY} -- Basic access:
-	has (a_key: KEY): BOOLEAN is
+	has (a_key: KEY_): BOOLEAN is
 		local orig_key_ptr, value_ptr: POINTER
 		do
 			Result:=(g_hash_table_lookup_extended
 						(handle, a_key.handle, orig_key_ptr, value_ptr)).to_boolean
 		end
 
-	at (a_key: KEY): VALUE is
+	at (a_key: KEY_): VALUE_ is
 			-- Looks up `a_key' in a GHashTable. 
 		local ptr: POINTER
 		do
@@ -137,7 +137,7 @@ feature {ANY} -- Basic access:
 			end
 		end
 
-	reference_at (a_key: KEY): VALUE is
+	reference_at (a_key: KEY_): VALUE_ is
 			-- The value associated to `a_key'. Void if there is no value
 			-- for `a_key'.
 		local ptr: POINTER
@@ -163,7 +163,7 @@ feature {ANY} -- Basic access:
 			-- gpointer *value);
 		end
 
-	fast_has (k: KEY): BOOLEAN is
+	fast_has (k: KEY_): BOOLEAN is
 		do
 			debug 
 				print_no_fast_notice
@@ -172,7 +172,7 @@ feature {ANY} -- Basic access:
 			Result:=has(k)
 		end
 
-	fast_at (k: KEY): VALUE is
+	fast_at (k: KEY_): VALUE_ is
 		do	
 			debug 
 				print_no_fast_notice
@@ -181,7 +181,7 @@ feature {ANY} -- Basic access:
 			Result:=at(k)
 		end
 
-	fast_reference_at (k: KEY): VALUE is
+	fast_reference_at (k: KEY_): VALUE_ is
 		do
 			debug 
 				print_no_fast_notice
@@ -191,7 +191,7 @@ feature {ANY} -- Basic access:
 		end
 
 feature {ANY}
-	put (a_value: VALUE; a_key: KEY) is
+	put (a_value: VALUE_; a_key: KEY_) is
 			-- Inserts a new key and value into a GHashTable.
 		
 			-- If the key already exists in the GHashTable its current
@@ -209,7 +209,7 @@ feature {ANY}
 			g_hash_table_insert (handle, a_key.handle, a_value.handle)
 		end
 
-	fast_put (v: VALUE; k: KEY) is
+	fast_put (v: VALUE_; k: KEY_) is
 		require else value_not_void: v /= Void
 		do
 			debug 
@@ -219,14 +219,14 @@ feature {ANY}
 			put(v,k)
 		end
 
-	add (v: VALUE; k: KEY) is
+	add (v: VALUE_; k: KEY_) is
 		require else value_not_void: v /= Void
 		do
 			put(v,k)
 		end
 
 feature {ANY} -- Removing:
-	remove (a_key: KEY) is
+	remove (a_key: KEY_) is
 			-- Removes a key and its associated value from a GHashTable.
 
 			-- `is_successful' will be True if the key was found and
@@ -240,7 +240,7 @@ feature {ANY} -- Removing:
 			is_successful := (g_hash_table_remove (handle, a_key.handle)).to_boolean
 		end
 
-	fast_remove (k: KEY) is
+	fast_remove (k: KEY_) is
 		do
 			debug 
 				print_no_fast_notice
@@ -266,23 +266,23 @@ feature {ANY} -- Removing:
 		end
 
 feature {ANY} -- To provide iterating facilities:
-	item (index: INTEGER): VALUE is
+	item (index: INTEGER): VALUE_ is
 		do
 		ensure then implemented: False
 		end
 
-	key (index: INTEGER): KEY is
+	key (index: INTEGER): KEY_ is
 		do
 		ensure then implemented: False
 		end
 
-	get_new_iterator_on_keys: ITERATOR[KEY] is
+	get_new_iterator_on_keys: ITERATOR[KEY_] is
 		do
 		ensure then implemented: False
 		end
 
 feature {ANY} -- Other features:
-	internal_key (k: KEY): KEY is
+	internal_key (k: KEY_): KEY_ is
 		do
 		ensure then implemented: False
 		end
@@ -490,7 +490,7 @@ feature {} -- Low level implementation
 		"Fast_[has|at|reference_at|put|remove] feature not available. Falling back to non-fast features.%N"
 
 
-		--	steal (a_key: KEY): VALUE is
+		--	steal (a_key: KEY_): VALUE_ is
 		-- Removes a key and its associated value from a GHashTable
 		-- without calling the key and value destroy functions.
 	
@@ -501,7 +501,7 @@ feature {} -- Low level implementation
 		-- do is_successful := (g_hash_table_steal (handle,
 		-- a_key.handle)).to_boolean end
 
-		-- replace (a_key: KEY; a_value: VALUE) is Inserts a new key and
+		-- replace (a_key: KEY_; a_value: VALUE_) is Inserts a new key and
 		-- value into a GHashTable similar to g_hash_table_insert(). The
 		-- difference is that if the key already exists in the
 		-- GHashTable, it gets replaced by the new key. If you supplied

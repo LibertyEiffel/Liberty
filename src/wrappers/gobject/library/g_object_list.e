@@ -19,13 +19,13 @@ indexing
 					02110-1301 USA
 			]"
 
-class G_OBJECT_LIST [ITEM->G_OBJECT]
+class G_OBJECT_LIST [ITEM_->G_OBJECT]
 	-- A G_LIST variant, specific for G_OBJECT with proper memory
 	-- handling.
 
 inherit 
-	G_LIST[ITEM]
-	G_OBJECT_FACTORY[ITEM] undefine fill_tagged_out_memory end
+	G_LIST[ITEM_]
+	G_OBJECT_FACTORY[ITEM_] undefine fill_tagged_out_memory end
 
 create {ANY} make, from_external_pointer
 

@@ -43,13 +43,13 @@ indexing
 			--   g_array_free (garray, TRUE);
 	
 	
-class G_ARRAY [ITEM->C_STRUCT]
+class G_ARRAY [ITEM_->C_STRUCT]
 
 inherit C_STRUCT
 	-- TODO: make it a proper heir of ARRAY, FAST_ARRAY or
 	-- ARRAYED_COLLECTION
 	
-insert WRAPPER_FACTORY [ITEM]
+insert WRAPPER_FACTORY [ITEM_]
 
 create {ANY} make, empty, from_external_pointer 
 
@@ -100,7 +100,7 @@ feature {ANY}
 			-- it with literal values such as "27". You must use variables.
 		end
 
-	append_values (some_items: ARRAY[ITEM]) is
+	append_values (some_items: ARRAY[ITEM_]) is
 			-- Adds `some_elements' onto the end of the array.
 		require 
 			items_not_void: some_items /= Void
@@ -130,7 +130,7 @@ feature {ANY}
 			-- use variables. 
 		end
 
-	prepend_values (some_items: ARRAY[ITEM]) is
+	prepend_values (some_items: ARRAY[ITEM_]) is
 			-- Adds `some_items' onto the start of the array.
 
 			-- This operation is slower than `append_values' since the
@@ -148,7 +148,7 @@ feature {ANY}
 			end
 		end
 
-	insert_value (an_item: ITEM; an_index: INTEGER) is
+	insert_value (an_item: ITEM_; an_index: INTEGER) is
 			-- Inserts `an_item' into Current array at `an_index'.
 		require
 			item_not_void: an_item /= Void
@@ -166,7 +166,7 @@ feature {ANY}
 		ensure -- TODO: value_put
 		end
 
-	insert_values (some_values: ARRAY[ITEM]; an_index: INTEGER) is
+	insert_values (some_values: ARRAY[ITEM_]; an_index: INTEGER) is
 			-- Inserts `some_values' into Current GArray at `an_index'.
 		require
 			values_not_void: some_values /= Void
@@ -244,7 +244,7 @@ feature {ANY}
 	-- data argument.  array : a GArray.  compare_func : comparison
 	-- function.  user_data : data to pass to compare_func.
 
-	item (an_index: INTEGER): ITEM is
+	item (an_index: INTEGER): ITEM_ is
 			-- the element of Current GArray at `an_index'. 
 
 			-- Example 4. Getting a pointer to an element in a GArray

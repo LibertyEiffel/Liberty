@@ -19,12 +19,12 @@ indexing
 					02110-1301 USA
 			]"
 
-deferred class C_ARRAY [ITEM -> C_STRUCT]
+deferred class C_ARRAY [ITEM_ -> C_STRUCT]
 	-- An array of wrapped item which is also a wrapper to a C array 
 	-- of pointers of item's struct. For example a C_ARRAY[GTK_BUTTON] 
 	-- wraps a GtkButton** array.
 
-inherit WRAPPER_COLLECTION [ITEM]
+inherit WRAPPER_COLLECTION [ITEM_]
 
 insert
 	EXCEPTIONS
@@ -57,7 +57,7 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	item (i: INTEGER_32): ITEM is
+	item (i: INTEGER_32): ITEM_ is
 		local
 			ptr: POINTER
 		do
@@ -67,12 +67,12 @@ feature {ANY}
 			end
 		end
 
-	first: ITEM	is
+	first: ITEM_	is
 		do
 			Result := item(lower)
 		end
 
-	last: ITEM is
+	last: ITEM_ is
 		do
 			Result := item(upper)
 		end
@@ -165,7 +165,7 @@ feature {ANY} -- Modification:
 			end
 		end
 
-	force (element: ITEM; index: INTEGER) is
+	force (element: ITEM_; index: INTEGER) is
 		do
 			-- Make `element' the item at `index', enlarging the collection if
 			-- necessary (new bounds except `index' are initialized with default
@@ -400,7 +400,7 @@ feature {ANY} -- Looking and comparison:
 		end
 
 	occurrences (element: like item): INTEGER is
-		local i: ITERATOR[ITEM]
+		local i: ITERATOR[ITEM_]
 		do
 			-- Number of occurrences of `element' using `is_equal' for comparison.
 			if element/=Void then 
@@ -431,7 +431,7 @@ feature {ANY} -- Looking and comparison:
 		end
 
 feature {ANY} -- Agents based features:
-	-- do_all (action: ROUTINE[TUPLE[ITEM]]) is
+	-- do_all (action: ROUTINE[TUPLE[ITEM_]]) is
 	-- do
 	-- 			-- Apply `action' to every item of `Current'.
 	-- 			--
@@ -451,7 +451,7 @@ feature {ANY} -- Agents based features:
 	-- end
 	-- end
 
-	-- for_all (test: PREDICATE[TUPLE[ITEM]]): BOOLEAN is
+	-- for_all (test: PREDICATE[TUPLE[ITEM_]]): BOOLEAN is
 	--		do
 	-- 			-- Do all items satisfy `test'?
 	-- 			--
@@ -472,7 +472,7 @@ feature {ANY} -- Agents based features:
 	-- end
 	--		end
 
-	-- exists (test: PREDICATE[TUPLE[ITEM]]): BOOLEAN is
+	-- exists (test: PREDICATE[TUPLE[ITEM_]]): BOOLEAN is
 	--		do
 	-- 			-- Does at least one item satisfy `test'?
 	-- 			--
@@ -502,7 +502,7 @@ feature {ANY} -- Other features:
 			-- 		deferred
 			-- 		ensure
 			-- 			count = old count
-			-- 			not (create {SAFE_EQUAL[ITEM]}).test(old_value, new_value) implies occurrences(old_value) = 0
+			-- 			not (create {SAFE_EQUAL[ITEM_]}).test(old_value, new_value) implies occurrences(old_value) = 0
 		end
 
 	fast_replace_all (old_value, new_value: like item) is
@@ -604,9 +604,9 @@ feature {ANY}
 			Result := (upper = -1) or else storage.is_null
 		end
 
-	new_iterator: ITERATOR[ITEM] is
+	new_iterator: ITERATOR[ITEM_] is
 		do
-			create {ITERATOR_ON_C_ARRAY[ITEM]} Result.from_array(Current)
+			create {ITERATOR_ON_C_ARRAY[ITEM_]} Result.from_array(Current)
 		end
 
 	as_c_array: NATIVE_ARRAY[POINTER] is
@@ -628,16 +628,16 @@ feature {} -- Implement manifest generic creation (very low-level):
 			upper := needed_capacity-1
 		end	
 
-	manifest_put (index: INTEGER_32; element: ITEM) is
+	manifest_put (index: INTEGER_32; element: ITEM_) is
 		do
 			put(element, index)
 		end
 
 feature {ANY} -- TODO: unimplemented 
 	clear_all is do not_yet_implemented end
-	fast_has (an_item: ITEM): BOOLEAN is do not_yet_implemented end 
-	has (an_item: ITEM): BOOLEAN is do not_yet_implemented end 
+	fast_has (an_item: ITEM_): BOOLEAN is do not_yet_implemented end 
+	has (an_item: ITEM_): BOOLEAN is do not_yet_implemented end 
 	swap (i1,i2: INTEGER) is do not_yet_implemented end 
-	append_collection (another: COLLECTION [ITEM]) is do not_yet_implemented end 
+	append_collection (another: COLLECTION [ITEM_]) is do not_yet_implemented end 
 
 end -- class C_ARRAY

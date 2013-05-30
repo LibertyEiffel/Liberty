@@ -19,9 +19,9 @@ indexing
 					02110-1301 USA
 			]"
 
-class ITERATOR_ON_G_SLIST [ITEM->WRAPPER]
+class ITERATOR_ON_G_SLIST [ITEM_->WRAPPER]
 inherit
-	ITERATOR [ITEM]
+	ITERATOR [ITEM_]
 	WRAPPER_HANDLER
 
 insert
@@ -32,7 +32,7 @@ insert
 create {ANY} make
 	
 feature {} -- Creation
-	make (a_list: G_SLIST_TRAVERSABLE[ITEM]) is
+	make (a_list: G_SLIST_TRAVERSABLE[ITEM_]) is
 		require
          valid_list: a_list /= Void
 		do
@@ -40,7 +40,7 @@ feature {} -- Creation
 		end
 	
 feature {} -- Implementation
-	list: G_SLIST_TRAVERSABLE[ITEM]
+	list: G_SLIST_TRAVERSABLE[ITEM_]
 	current_element: POINTER
 
 feature {ANY} -- Iterator's features
@@ -54,7 +54,7 @@ feature {ANY} -- Iterator's features
 			Result:=(current_element.is_null)
 		end
 	
-	item: ITEM is
+	item: ITEM_ is
 		local
          ptr: POINTER
          l: WRAPPER

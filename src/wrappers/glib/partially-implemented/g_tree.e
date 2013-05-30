@@ -20,12 +20,12 @@ indexing
 			]"
 	license: "LGPL v2 or later"
 
-class G_TREE [VALUE->SHARED_C_STRUCT, KEY->COMPARABLE_SHARED_C_STRUCT]
+class G_TREE [VALUE_->SHARED_C_STRUCT, KEY_->COMPARABLE_SHARED_C_STRUCT]
 	-- A sorted collection of key/value pairs optimized for searching
 	-- and traversing in order.
 
 inherit
-	DICTIONARY[VALUE, KEY]
+	DICTIONARY[VALUE_, KEY_]
 		undefine
 			is_equal, copy -- using the definition given by SHARED_C_STRUCT
 		redefine
@@ -43,8 +43,8 @@ insert
 create {ANY}  with_comparer, from_external_pointer
 
 feature {} -- Creation
-	make (a_key_factory: CACHING_FACTORY[KEY]; a_value_factory: CACHING_FACTORY[VALUE]) is
-			-- Creates a new G_TREE; comparison is made using KEY's 
+	make (a_key_factory: CACHING_FACTORY[KEY_]; a_value_factory: CACHING_FACTORY[VALUE_]) is
+			-- Creates a new G_TREE; comparison is made using KEY_'s 
 			-- `compare' feature.
 		require
 			key_factory_not_void: a_key_factory/=Void
@@ -52,14 +52,14 @@ feature {} -- Creation
 		do
 			key_factory   := a_key_factory
 			value_factory := a_value_factory
-			create comparator.make(agent {KEY}.compare)
+			create comparator.make(agent {KEY_}.compare)
 			from_external_pointer(g_tree_new_with_data
 										 (comparator.callback_address,
 										  comparator.to_pointer))
 		end
 	
-	with_comparer (a_comparison_function: FUNCTION[ANY,TUPLE[KEY,KEY],INTEGER];
-						a_key_factory: CACHING_FACTORY[KEY]; a_value_factory: CACHING_FACTORY[VALUE]) is
+	with_comparer (a_comparison_function: FUNCTION[ANY,TUPLE[KEY_,KEY_],INTEGER];
+						a_key_factory: CACHING_FACTORY[KEY_]; a_value_factory: CACHING_FACTORY[VALUE_]) is
 			-- Creates a new GTree.
 		require
 			comparison_function_not_void: a_comparison_function /= Void
@@ -90,7 +90,7 @@ feature {} -- Creation
 
 feature {ANY} -- Basic access:
 
-	has (a_key: KEY): BOOLEAN is
+	has (a_key: KEY_): BOOLEAN is
 			-- Is there a value currently associated with `a_key'?
 
 			-- See also `fast_has', `at'.
@@ -100,7 +100,7 @@ feature {ANY} -- Basic access:
 			end
 		end
 
-	at (a_key: KEY): VALUE is
+	at (a_key: KEY_): VALUE_ is
 			-- The value associated to `a_key'.
 
 			-- See also `fast_at', `reference_at', `has'.
@@ -113,13 +113,13 @@ feature {ANY} -- Basic access:
 			Result:=value_factory.wrapper(p)
 		end
 
-	reference_at (a_key: KEY): VALUE is
+	reference_at (a_key: KEY_): VALUE_ is
 			-- the value corresponding to `a_key'. Since a GTree is
 			-- automatically balanced as key/value pairs are added, key
 			-- lookup is very fast.
 		
 			-- Void if `a_key' was not found.
-		local p: POINTER; r: WRAPPER_RETRIEVER[VALUE]
+		local p: POINTER; r: WRAPPER_RETRIEVER[VALUE_]
 		do
 			p:=g_tree_lookup(handle, a_key.handle)
 			if p.is_not_null then
@@ -127,7 +127,7 @@ feature {ANY} -- Basic access:
 			end
 		end
 
-	fast_has (a_key: KEY): BOOLEAN is
+	fast_has (a_key: KEY_): BOOLEAN is
 			-- Is there a value currently associated with `a_key'?
 			-- Using basic `=' for comparison.
 			--
@@ -137,7 +137,7 @@ feature {ANY} -- Basic access:
 			Result:=has(a_key)
 		end
 
-	fast_at (a_key: KEY): VALUE is
+	fast_at (a_key: KEY_): VALUE_ is
 			-- Return the value associated to key `k' using basic `=' for comparison.
 			--
 			-- See also `at', `reference_at', `fast_reference_at'.
@@ -146,7 +146,7 @@ feature {ANY} -- Basic access:
 			Result:=at(a_key)
 		end
 
-	fast_reference_at (a_key: KEY): VALUE is
+	fast_reference_at (a_key: KEY_): VALUE_ is
 			-- Same work as `reference_at', but basic `=' is used for comparison.
 			--
 			-- See also `reference_at', `at', `has'.
@@ -156,7 +156,7 @@ feature {ANY} -- Basic access:
 		end
 
 feature {ANY}
-	put (a_value: VALUE; a_key: KEY) is
+	put (a_value: VALUE_; a_key: KEY_) is
 			-- Change some existing entry or `add' the new one. If an entry with `a_key' is not yet in the dictionary,
 			-- enter it with `a_value'. Otherwise overwrite the item associated with `a_key'.
 			-- 
@@ -172,7 +172,7 @@ feature {ANY}
 			g_tree_insert(handle, a_key.handle, a_value.handle)
 		end
 
-	fast_put (a_value: VALUE; a_key: KEY) is
+	fast_put (a_value: VALUE_; a_key: KEY_) is
 			-- Same job as `put', but uses basic `=' for comparison.
 			--
 			-- See also `put', `add'.
@@ -181,7 +181,7 @@ feature {ANY}
 			put(a_value,a_key)
 		end
 
-	add (a_value: VALUE; a_key: KEY) is
+	add (a_value: VALUE_; a_key: KEY_) is
 			-- To add a new entry `k' with its associated value `v'.
 			-- Actually, this is equivalent to call `put', but it may run a little bit faster.
 			--
@@ -192,7 +192,7 @@ feature {ANY}
 		end
 
 feature {ANY} -- Removing:
-	remove (a_key: KEY) is
+	remove (a_key: KEY_) is
 			-- Remove entry `a_key' (which may exist or not before this call).
 			-- As the `remove' procedure actually uses `is_equal', you may consider to use `fast_remove' for expanded
 			-- objects as well while trying to get the very best performances.
@@ -219,7 +219,7 @@ feature {ANY} -- Removing:
 			-- GTree, the function does nothing.
 		end
 
-	fast_remove (a_key: KEY) is
+	fast_remove (a_key: KEY_) is
 			-- Same job as `remove', but uses basic `=' for comparison.
 			--
 			-- See also `remove', `clear_count'.
@@ -266,37 +266,37 @@ feature {ANY} -- counting
 		end
 
 feature {ANY} -- To provide iterating facilities:
-	item (index: INTEGER): VALUE is
+	item (index: INTEGER): VALUE_ is
 		do
 			not_yet_implemented
 		end
 
-	key (index: INTEGER): KEY is
+	key (index: INTEGER): KEY_ is
 		do
 			not_yet_implemented
 		end
 
-	get_new_iterator_on_items: ITERATOR[VALUE] is
+	get_new_iterator_on_items: ITERATOR[VALUE_] is
 		do
 			not_yet_implemented
 		end
 
-	get_new_iterator_on_keys: ITERATOR[KEY] is
+	get_new_iterator_on_keys: ITERATOR[KEY_] is
 		do
 			not_yet_implemented
 		end
 
 feature {ANY} -- Agents based features:
-	do_all (action: ROUTINE[TUPLE[VALUE, KEY]]) is
-			-- Apply `action' to every [VALUE, KEY] associations of `Current'.
+	do_all (action: ROUTINE[TUPLE[VALUE_, KEY_]]) is
+			-- Apply `action' to every [VALUE_, KEY_] associations of `Current'.
 			--
 			-- See also `for_all', `exist'.
 		do
 			not_yet_implemented
 		end
 
-	for_all (test: PREDICATE[TUPLE[VALUE, KEY]]): BOOLEAN is
-			-- Do all [VALUE, KEY] associations satisfy `test'?
+	for_all (test: PREDICATE[TUPLE[VALUE_, KEY_]]): BOOLEAN is
+			-- Do all [VALUE_, KEY_] associations satisfy `test'?
 			--
 			-- See also `do_all', `exist'.
 		-- local callback: G_TRAVERSE_CALLBACK
@@ -306,13 +306,13 @@ feature {ANY} -- Agents based features:
 			-- g_tree_foreach (handle, callback.low_level_callback, $callback)
 		end
 
-	exists (test: PREDICATE[TUPLE[VALUE, KEY]]): BOOLEAN is
+	exists (test: PREDICATE[TUPLE[VALUE_, KEY_]]): BOOLEAN is
 		do
 			not_yet_implemented
 		end
 
 feature {ANY} -- Other features:
-	internal_key (a_key: KEY): KEY is
+	internal_key (a_key: KEY_): KEY_ is
 			-- Retrieve the internal key object which correspond to the existing
 			-- entry `a_key' (the one memorized into the `Current' dictionary).
 			--
@@ -368,7 +368,7 @@ feature {ANY}
 			handle:=default_pointer
 		end
 
-	compare (a_value, another_value: VALUE): INTEGER is
+	compare (a_value, another_value: VALUE_): INTEGER is
 			-- The comparison function of two values. The function should
 			-- return a negative integer if the first value comes before
 			-- the second, 0 if they are equal, or a positive integer if
@@ -379,12 +379,12 @@ feature {ANY}
 		end
 	
 feature {} -- Low level implementation
-	comparator: G_COMPARE_DATA_CALLBACK [KEY]
+	comparator: G_COMPARE_DATA_CALLBACK [KEY_]
 			-- The object containing the callback that will be called by C
 
-	key_factory: WRAPPER_FACTORY[KEY]
+	key_factory: WRAPPER_FACTORY[KEY_]
 
-	value_factory: WRAPPER_FACTORY[VALUE]
+	value_factory: WRAPPER_FACTORY[VALUE_]
 
 	print_no_fast_notice is
 		once
@@ -425,7 +425,7 @@ feature {} -- Unwrapped code
 
 	-- AFAIK wrapping replace is just not necessary in Eiffel
 	
-	-- 		replace (a_key: KEY; a_value: VALUE) is
+	-- 		replace (a_key: KEY_; a_value: VALUE_) is
 	-- 			-- Inserts `a_key' and `a_value' into a GTree similar to
 	-- 			-- `insert_value'. The difference is that if `a_key' already
 	-- 			-- exists in the GTree, it gets replaced by the new key. If

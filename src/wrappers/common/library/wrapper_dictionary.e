@@ -21,14 +21,14 @@ indexing
 
 license: "LGPL v2 or later"
 
-deferred class WRAPPER_DICTIONARY [VALUE->WRAPPER, KEY->COMPARABLE_WRAPPER]
+deferred class WRAPPER_DICTIONARY [VALUE_->WRAPPER, KEY_->COMPARABLE_WRAPPER]
 	-- A wrapper that is a collection of other wrappers. 
 
 	-- Contains the shared logic used in Glib G_SLIST, G_HASH_TABLE 
 	-- and so on.
 
 inherit
-	DICTIONARY [VALUE,KEY]
+	DICTIONARY [VALUE_,KEY_]
 
 	WRAPPER
       undefine
@@ -48,9 +48,9 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 		ensure set: are_items_shared = a_setting
 		end
 
-	factory: WRAPPER_FACTORY[VALUE]
+	factory: WRAPPER_FACTORY[VALUE_]
 			-- The wrapper factory takes a pointer and returns a correct 
-			-- VALUE wrapper.
+			-- VALUE_ wrapper.
 
 invariant
 	factory_not_void: factory /= Void

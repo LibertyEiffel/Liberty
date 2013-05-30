@@ -18,15 +18,15 @@ indexing
 					02110-1301 USA
 			]"
 
-deferred class CACHING_FACTORY [ITEM->WRAPPER]
+deferred class CACHING_FACTORY [ITEM_->WRAPPER]
 	-- A factory that retrieves wrappers from a cache, usually a
 	-- dictionary; used to implement collection of wrapped objects
 
 inherit
-	WRAPPER_FACTORY[ITEM]
+	WRAPPER_FACTORY[ITEM_]
 
 feature {WRAPPER, WRAPPER_HANDLER}
-	wrappers: HASHED_DICTIONARY [ITEM, POINTER] is
+	wrappers: HASHED_DICTIONARY [ITEM_, POINTER] is
 			-- Dictionary cache storing wrappers; usually used in 
 			-- WRAPPER_COLLECTIONs or WRAPPER_DICTIONARY
 			-- Key is the address (pointer) to the wrapped C structure,
@@ -37,7 +37,7 @@ feature {WRAPPER, WRAPPER_HANDLER}
 		deferred
 		end
 
-	wrapper (a_pointer: POINTER): ITEM is
+	wrapper (a_pointer: POINTER): ITEM_ is
 		deferred
 		ensure then wrappers.has(a_pointer)
 		end

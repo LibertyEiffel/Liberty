@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-class DUMMY_FACTORY [ITEM->SHARED_C_STRUCT]
+class DUMMY_FACTORY [ITEM_->SHARED_C_STRUCT]
 	-- A dummy factory.
 
 	-- Sometimes a wrapper needs to convert an Eiffel COLLECTION into
@@ -22,12 +22,12 @@ class DUMMY_FACTORY [ITEM->SHARED_C_STRUCT]
 	-- robbing it from function it belongs to and causing horrible
 	-- crashes. Paolo 2007-09-02
 	
-inherit WRAPPER_FACTORY[ITEM]
+inherit WRAPPER_FACTORY[ITEM_]
 
 create {ANY} default_create
 	
 feature {WRAPPER,WRAPPER_HANDLER} -- Implementation
-	wrapper (a_pointer: POINTER): ITEM is
+	wrapper (a_pointer: POINTER): ITEM_ is
 			-- A wrapper for the structure at address `a_pointer'. The 
 			-- default implementation in WRAPPER_FACTORY "creates" a new 
 			-- wrapper every time, while their heirs are allowed to 

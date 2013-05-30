@@ -19,11 +19,11 @@ indexing
 					02110-1301 USA
 			]"
 
-deferred class WRAPPER_COLLECTION [ITEM->WRAPPER]
+deferred class WRAPPER_COLLECTION [ITEM_->WRAPPER]
 	-- A collection of wrappers. 
 
 inherit
-	COLLECTION[ITEM] 
+	COLLECTION[ITEM_] 
 		undefine 
 			append_collection,
 			clear_all,
@@ -34,10 +34,10 @@ inherit
 			-- reverse,
 			swap
 		end
-	WRAPPER_FACTORY[ITEM] 
+	WRAPPER_FACTORY[ITEM_] 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
-	wrapper(a_pointer: POINTER): ITEM is
+	wrapper(a_pointer: POINTER): ITEM_ is
 			-- The wrapper for `a_pointer'. It could be newly created or
 			-- retrieved from a cache, a dictionary, from the underlying
 			-- object, depending on the implementation.
