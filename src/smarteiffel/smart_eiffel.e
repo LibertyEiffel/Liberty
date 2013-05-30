@@ -1415,8 +1415,8 @@ feature {CLASS_CHECK}
       do
          assignment_handler.echo_information
          feature_accumulator.echo_information
-         status.info
          eiffel_parser.echo_information
+         status.echo_information
          echo.put_string(once "Done.%N")
       end
 
@@ -2151,6 +2151,7 @@ feature {}
          prev_magic_count: INTEGER
       do
          if ace.boost then
+            status.start_simplifying
             echo.put_string(once "Starting optimization (")
             echo.put_integer(magic_count)
             echo.put_string(once ")%N")
@@ -2177,6 +2178,7 @@ feature {}
             echo.put_string(once "Finished optimization (")
             echo.put_integer(magic_count)
             echo.put_string(once ")%N")
+            status.end_simplifying
          end
       end
 
@@ -2237,7 +2239,7 @@ feature {}
          if max_loop = 0 then
             echo_magic_count(once "Symplify interrupted (infinite inlining ... or infinite recursion detected.).")
          end
-         echo_magic_count(once "Symplify done")
+         echo_magic_count(once "Simplify done")
          set_simplify_done
       end
 
