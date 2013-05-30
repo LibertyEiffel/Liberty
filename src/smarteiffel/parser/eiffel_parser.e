@@ -318,44 +318,10 @@ feature {SMART_EIFFEL}
 
 feature {}
    show_total_time is
-      local
-         ts, h, m, s, u: INTEGER_64
       do
          echo.put_string("Total time spent in parser: ")
-         ts := total_time
-         h := ts // (60 * 60 * 1000000)
-         ts := ts - h * (60 * 60 * 1000000)
-         m := ts // (60 * 1000000)
-         ts := ts - m * (60 * 1000000)
-         s := ts // (1000000)
-         ts := ts - s * (1000000)
-         u := ts
-         echo_num(h, 2)
-         echo.put_character(':')
-         echo_num(m, 2)
-         echo.put_character(':')
-         echo_num(s, 2)
-         echo.put_character('.')
-         echo_num(u, 6)
+         echo.put_time(total_time)
          echo.put_new_line
-      end
-
-   echo_num (num: INTEGER_64; precision: INTEGER) is
-      local
-         s: STRING
-      do
-         s := once "      "
-         s.clear_count
-
-         from
-            num.append_in(s)
-         until
-            s.count >= precision
-         loop
-            s.add_first('0')
-         end
-
-         echo.put_string(s)
       end
 
    show_nb_warnings is
