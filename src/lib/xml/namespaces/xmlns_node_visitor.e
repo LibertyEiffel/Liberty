@@ -1,31 +1,25 @@
 -- See the Copyright notice at the end of this file.
 --
-deferred class XML_NODE
-   --
-   -- A node in an XML_TREE
-   --
+deferred class XMLNS_NODE_VISITOR
 
-insert
-   VISITABLE
+inherit
+   VISITOR
 
-feature {ANY}
-   line, column: INTEGER
-         -- The position of the node in its source file
-
-   parent: XML_COMPOSITE_NODE
-         -- The parent of the node, Void if it is the root
-
-feature {XML_COMPOSITE_NODE}
-   set_parent (a_parent: like parent) is
+feature {XMLNS_COMPOSITE_NODE}
+   visit_composite_node (node: XMLNS_COMPOSITE_NODE) is
       require
-         a_parent /= Void
-      do
-         parent := a_parent
-      ensure
-         parent = a_parent
+         node /= Void
+      deferred
       end
 
-end -- class XML_NODE
+feature {XMLNS_DATA_NODE}
+   visit_data_node (node: XMLNS_DATA_NODE) is
+      require
+         node /= Void
+      deferred
+      end
+
+end -- class XMLNS_NODE_VISITOR
 --
 -- ------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
