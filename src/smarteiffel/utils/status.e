@@ -37,16 +37,17 @@ feature {}
    -- Numbering of following constants is important, see documentation below:
    getting_started:            INTEGER is 1
    specializing_one_type:      INTEGER is 2
-   specializing_2:             INTEGER is 3
+   specializing_and_checking:  INTEGER is 3
    collecting_features:        INTEGER is 4
-   inlining_dynamic_dispatch:  INTEGER is 5
-   adapting_features:          INTEGER is 6
-   safety_checking:            INTEGER is 7
-   generating:                 INTEGER is 8
-   done:                       INTEGER is 9
-   safety_check_not_done:      INTEGER is 10
-   safety_check_ok:            INTEGER is 11
-   safety_check_failed:        INTEGER is 12
+   simplifying:                INTEGER is 5
+   inlining_dynamic_dispatch:  INTEGER is 6
+   adapting_features:          INTEGER is 7
+   safety_checking:            INTEGER is 8
+   generating:                 INTEGER is 9
+   done:                       INTEGER is 10
+   safety_check_not_done:      INTEGER is 11
+   safety_check_ok:            INTEGER is 12
+   safety_check_failed:        INTEGER is 13
 
 feature {}
    -- The known phases (in somewhat chronological order)
@@ -58,7 +59,7 @@ feature {}
    -- Particular phase when one type is being created (and specialized). This include `specialize_in' and
    -- `specialize_thru' but not `specialize_and_check'.
    --
-   -- `specializing_2'
+   -- `specializing_and_checking'
    -- Particular phase when `specialize_and_check' is being performed on one type. After this phase, `resolve_in'
    -- can be used on the `type'.
    --
@@ -78,6 +79,9 @@ feature {}
    --     more types and more features will be considered.
    -- At the end of this phase, all the live types must be known. Then, and only then, does the compiler
    -- start the next phase: adaptation and code generation.
+   --
+   -- `simplifying`
+   -- Trying to simplify the code, in boost more
    --
    -- `inlining_dynamic_dispatch'
    -- All feature calls are replaced by monomorphic calls and dynamic
@@ -128,7 +132,7 @@ feature {} -- State change support
          p > getting_started and then p <= done
          internal_phase_stack.is_empty
       do
-         phase := p
+         set_phase_(p)
       end
 
    push_phase (p: like phase) is
@@ -136,15 +140,29 @@ feature {} -- State change support
          p > getting_started and then p <= done
       do
          internal_phase_stack.add_last(phase)
-         phase := p
+         set_phase_(p)
       end
 
    pop_phase is
       require
          not internal_phase_stack.is_empty
       do
-         phase := internal_phase_stack.last
+         set_phase_(internal_phase_stack.last)
          internal_phase_stack.remove_last
+      end
+
+feature {}
+   set_phase_ (p: like phase) is
+      require
+         p > 0
+      local
+         end_time: MICROSECOND_TIME; time: INTEGER_64
+      do
+         end_time.update
+         time := times.item(phase)
+         times.force(time + (end_time.timestamp - phase_time.timestamp), phase)
+         phase := p
+         phase_time.update
       end
 
 feature {FEATURE_ACCUMULATOR}
@@ -169,19 +187,19 @@ feature {FEATURE_ACCUMULATOR}
          is_collecting
       end
 
-   start_specializing_2 (t: TYPE) is
+   start_specializing_and_checking (t: TYPE) is
       require
          is_specializing
          specializing_type = t
       do
-         push_phase(specializing_2)
+         push_phase(specializing_and_checking)
       ensure
-         is_specializing_2
+         is_specializing_and_checking
       end
 
-   end_specializing_2 (t: TYPE) is
+   end_specializing_and_checking (t: TYPE) is
       require
-         is_specializing_2
+         is_specializing_and_checking
          specializing_type = t
       do
          pop_phase
@@ -219,9 +237,30 @@ feature {SMART_EIFFEL}
          collecting_done
       end
 
+   start_simplifying is
+      require
+         collecting_done and not is_adapting
+         not is_inlining_dynamic_dispatch
+      do
+         push_phase(simplifying)
+      ensure
+         is_simplifying
+      end
+
+   end_simplifying is
+      require
+         is_simplifying
+      do
+         pop_phase
+      ensure
+         not is_simplifying
+         collecting_done and not is_adapting
+      end
+
    set_inlining_dynamic_dispatch is
       require
          collecting_done and not is_adapting
+         not is_simplifying
       do
          set_phase(inlining_dynamic_dispatch)
          inlining_dynamic_dispatch_done := False
@@ -277,8 +316,17 @@ feature {SMART_EIFFEL}
       end
 
 feature {SMART_EIFFEL}
-   info is
+   echo_information is
       do
+         echo_phase_information(once "getting started", getting_started)
+         echo_phase_information(once "specializing one type", specializing_one_type)
+         echo_phase_information(once "specializing and checking", specializing_and_checking)
+         echo_phase_information(once "collecting features", collecting_features)
+         echo_phase_information(once "inlining dynamic dispatch", inlining_dynamic_dispatch)
+         echo_phase_information(once "simplifying", simplifying)
+         echo_phase_information(once "adapting features", adapting_features)
+         echo_phase_information(once "safety checking", safety_checking)
+         echo_phase_information(once "generating", generating)
          inspect
             safety_check_state
          when safety_check_failed then
@@ -291,10 +339,25 @@ feature {SMART_EIFFEL}
          end
       end
 
+feature {}
+   echo_phase_information (phase_tag: STRING; p: INTEGER) is
+      local
+         time: INTEGER_64
+      do
+         time := times.item(p)
+         if time > 0 then
+            echo.put_string(once "Total time spent ")
+            echo.put_string(phase_tag)
+            echo.put_string(once ": ")
+            echo.put_time(time)
+            echo.put_new_line
+         end
+      end
+
 feature {ANY} -- State checking
    specializing_type: TYPE is
       require
-         is_specializing or else is_specializing_2
+         is_specializing or else is_specializing_and_checking
       do
          Result := specializing_type_memory
       end
@@ -317,6 +380,11 @@ feature {ANY} -- State checking
          Result := phase < adapting_features
       end
 
+   is_simplifying: BOOLEAN is
+      do
+         Result := phase = simplifying
+      end
+
    is_inlining_dynamic_dispatch: BOOLEAN is
       do
          Result := phase = inlining_dynamic_dispatch
@@ -334,10 +402,10 @@ feature {ANY} -- State checking
          Result := phase = specializing_one_type
       end
 
-   is_specializing_2: BOOLEAN is
+   is_specializing_and_checking: BOOLEAN is
          -- True if the system is calling `specialize_and_check' on the newly created type
       do
-         Result := phase = specializing_2
+         Result := phase = specializing_and_checking
       end
 
    is_safety_checking: BOOLEAN is
@@ -374,16 +442,20 @@ feature {ANY} -- State checking
 feature {} -- The constructor
    make is
       do
-         phase := getting_started
+         create times.make(13)
+         set_phase(getting_started)
          safety_check_state := safety_check_not_done
       end
 
+   phase_time: MICROSECOND_TIME
+   times: FAST_ARRAY[INTEGER_64]
+
 invariant
    valid_phase: phase.in_range(getting_started, done)
-
    valid_safety_check_state: safety_check_state.in_range(safety_check_not_done, safety_check_failed)
+   valid_state_stack: (not is_specializing and then not is_specializing_and_checking) = internal_phase_stack.is_empty
 
-   valid_state_stack: (not is_specializing and then not is_specializing_2) = internal_phase_stack.is_empty
+   times.count >= phase
 
 end -- class STATUS
 --

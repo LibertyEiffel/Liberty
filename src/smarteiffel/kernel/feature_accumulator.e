@@ -431,7 +431,9 @@ feature {}
             loop
                type := specialize_and_check_list.first
                specialize_and_check_list.remove
+               smart_eiffel.status.start_specializing_and_checking(type)
                type.specialize_and_check
+               smart_eiffel.status.end_specializing_and_checking(type)
             end
             specialize_and_check_in_progress := False
          end

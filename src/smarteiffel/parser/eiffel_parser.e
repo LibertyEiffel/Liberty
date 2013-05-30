@@ -39,6 +39,7 @@ feature {SMART_EIFFEL}
       local
          old_nbe, old_nbw: INTEGER; path: STRING; cn: HASHED_STRING
          start_time, end_time: MICROSECOND_TIME
+         ctc: INTEGER
       do
          start_time.update
          check
@@ -70,10 +71,24 @@ feature {SMART_EIFFEL}
                error_handler.print_as_warning
             end
          end
-         echo.put_integer(smart_eiffel.class_text_count + 1)
+
+         ctc := smart_eiffel.class_text_count + 1
+         if ctc < 10000 then
+            if ctc < 1000 then
+               if ctc < 100 then
+                  if ctc < 10 then
+                     echo.put_character(' ')
+                  end
+                  echo.put_character(' ')
+               end
+               echo.put_character(' ')
+            end
+            echo.put_character(' ')
+         end
+         echo.put_integer(ctc)
          echo.put_character('%T')
-         echo.put_string(path)
-         echo.put_character('%N')
+         echo.put_line(path)
+
          old_nbe := nb_errors
          old_nbw := nb_warnings
          is_running := True
@@ -318,44 +333,10 @@ feature {SMART_EIFFEL}
 
 feature {}
    show_total_time is
-      local
-         ts, h, m, s, u: INTEGER_64
       do
          echo.put_string("Total time spent in parser: ")
-         ts := total_time
-         h := ts // (60 * 60 * 1000000)
-         ts := ts - h * (60 * 60 * 1000000)
-         m := ts // (60 * 1000000)
-         ts := ts - m * (60 * 1000000)
-         s := ts // (1000000)
-         ts := ts - s * (1000000)
-         u := ts
-         echo_num(h, 2)
-         echo.put_character(':')
-         echo_num(m, 2)
-         echo.put_character(':')
-         echo_num(s, 2)
-         echo.put_character('.')
-         echo_num(u, 6)
+         echo.put_time(total_time)
          echo.put_new_line
-      end
-
-   echo_num (num: INTEGER_64; precision: INTEGER) is
-      local
-         s: STRING
-      do
-         s := once "      "
-         s.clear_count
-
-         from
-            num.append_in(s)
-         until
-            s.count >= precision
-         loop
-            s.add_first('0')
-         end
-
-         echo.put_string(s)
       end
 
    show_nb_warnings is

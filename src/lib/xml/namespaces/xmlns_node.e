@@ -3,6 +3,9 @@ deferred class XMLNS_NODE
    -- A node in an XMLNS_TREE
    --
 
+insert
+   VISITABLE
+
 feature {ANY}
    line, column: INTEGER
          -- The position of the node in its source file

@@ -105,16 +105,19 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
    put_position (position: POSITION) is
          -- Echo the `position' inside brakets.
       do
-         if position.is_unknown then
-            put_string(once "(unknown position)")
-         else
-            put_string(once "(line:")
-            put_integer(position.line)
-            put_string(once " column:")
-            put_integer(position.column)
-            put_string(once " of %"")
-            put_string(position.path)
-            put_string(once "%")")
+         if is_verbose then
+            if position.is_unknown then
+               output_stream.put_string(once "(unknown position)")
+            else
+               output_stream.put_string(once "(line:")
+               output_stream.put_integer(position.line)
+               output_stream.put_string(once " column:")
+               output_stream.put_integer(position.column)
+               output_stream.put_string(once " of %"")
+               output_stream.put_string(position.path)
+               output_stream.put_string(once "%")")
+            end
+            output_stream.flush
          end
       end
 
@@ -124,13 +127,52 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
       local
          i: INTEGER
       do
-         from
-            i := n
-         until
-            i = 0
-         loop
-            put_character(' ')
-            i := i - 1
+         if is_verbose then
+            from
+               i := n
+            until
+               i = 0
+            loop
+               output_stream.put_character(' ')
+               i := i - 1
+            end
+         end
+         output_stream.flush
+      end
+
+   put_time (time: INTEGER_64) is
+      local
+         ts, d, h, m, s, u: INTEGER_64
+      do
+         if is_verbose then
+            ts := time
+            h := ts // (60 * 60 * 1000000)
+            ts := ts - h * (60 * 60 * 1000000)
+            m := ts // (60 * 1000000)
+            ts := ts - m * (60 * 1000000)
+            s := ts // (1000000)
+            ts := ts - s * (1000000)
+            u := ts
+            if h > 0 then
+               if h > 24 then
+                  d := h // 24
+                  h := h \\ 24
+                  put_padded_num(d, 1)
+                  output_stream.put_string(once " day")
+                  if d > 1 then
+                     output_stream.put_character('s')
+                  end
+                  output_stream.put_character(' ')
+               end
+               put_padded_num(h, 2)
+               output_stream.put_character(':')
+            end
+            put_padded_num(m, 2)
+            output_stream.put_character(':')
+            put_padded_num(s, 2)
+            output_stream.put_character('.')
+            put_padded_num(u, 6)
+            output_stream.flush
          end
       end
 
@@ -458,6 +500,27 @@ feature {COMPILE_TO_C, RUN, COMMAND_LINE_TOOLS}
          end
       ensure
          is_redirected_on_file
+      end
+
+   put_padded_num (num: INTEGER_64; precision: INTEGER) is
+      require
+         is_verbose
+         precision > 0
+      local
+         s: STRING
+      do
+         s := once "      "
+         s.clear_count
+
+         from
+            num.append_in(s)
+         until
+            s.count >= precision
+         loop
+            s.add_first('0')
+         end
+
+         output_stream.put_string(s)
       end
 
 feature {COMPILE, SE}
