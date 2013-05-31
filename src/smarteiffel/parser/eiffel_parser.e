@@ -2713,8 +2713,8 @@ feature {}
          --  ++                      ["obsolete" manifest_string]
          --  ++                      ["inherit" inherit_text]
          --  ++                      ["insert" inherit_text]
-         --  ++                      {"creation" creation_clause ...}
-         --  ++                      {"create" creation_clause ...}
+         --  ++                      {{"creation"|"create"} creation_clause ...}
+         --  ++                      ["convert" convert_clause]
          --  ++                      {"feature" feature_clause ...}
          --  ++                      ["invariant" assertion]
          --  ++                      "end"
@@ -2769,6 +2769,9 @@ feature {}
             not a_creation_keyword
          loop
             a_creation_clause(pos(start_line, start_column))
+         end
+         if a_keyword(fz_convert) then
+            a_convert_clause(pos(start_line, start_column))
          end
          from
          until
@@ -3183,76 +3186,35 @@ feature {}
          end
       end
 
-   a_clients: CLIENT_LIST is
-         --  ++ clients -> "{" { class_text_name "," ... } "}"
+   a_conversion_list is
+         --  ++ conversion_list -> type_mark_list
          --  ++
       local
-         sp: POSITION; list: TYPE_MARK_LIST; state: INTEGER
+         list: TYPE_MARK_LIST; sp: POSITION
       do
          if skip1('{') then
-            from
-               sp := pos(start_line, start_column)
-            until
-               state > 3
-            loop
-               inspect
-                  state
-               when 0 then
-                  -- Waiting a class_text_name or "}" if empty list.
-                  if a_type_mark_inside_client_list then
-                     create list.make_1(last_type_mark)
-                     state := 2
-                  elseif skip1('}') then
-                     state := 4
-                  elseif cc = ',' then
-                     error_handler.add_position(current_position)
-                     error_handler.append(em7)
-                     error_handler.print_as_style_warning
-                     ok := skip1(',')
-                  else
-                     state := 3
-                  end
-               when 1 then
-                  -- Waiting a class_text_name after a ",".
-                  if a_type_mark_inside_client_list then
-                     list.add_last(last_type_mark)
-                     state := 2
-                  elseif cc = ',' then
-                     error_handler.add_position(current_position)
-                     error_handler.append(em7)
-                     error_handler.print_as_style_warning
-                     ok := skip1(',')
-                  elseif cc = '}' then
-                     error_handler.add_position(current_position)
-                     error_handler.append(once "Unexpected bracket after a comma.")
-                     error_handler.print_as_style_warning
-                     ok := skip1('}')
-                     state := 4
-                  else
-                     state := 3
-                  end
-               when 2 then
-                  -- Waiting "," or "}" to end list.
-                  if skip1(',') then
-                     state := 1
-                  elseif skip1('}') then
-                     state := 4
-                  elseif a_type_mark_inside_client_list then
-                     error_handler.add_position(last_type_mark.start_position)
-                     error_handler.append(em5)
-                     error_handler.print_as_warning
-                     list.add_last(last_type_mark)
-                  else
-                     state := 3
-                  end
-               when 3 then
-                  -- Error.
-                  error_handler.add_position(current_position)
-                  error_handler.append(em11)
-                  error_handler.print_as_fatal_error
-                  state := 4
-               end
-            end
+            sp := pos(start_line, start_column)
+            list := a_type_mark_list
+         else
+            sp := current_position
+         end
+         if list = Void then
+            error_handler.add_position(sp)
+            error_handler.append(once "Expected a non-empty types list.")
+            error_handler.print_as_fatal_error
+         end
+         --create Result.make(sp, list)
+      end
+
+   a_clients: CLIENT_LIST is
+         --  ++ clients -> type_mark_list
+         --  ++
+      local
+         list: TYPE_MARK_LIST; sp: POSITION
+      do
+         if skip1('{') then
+            sp := pos(start_line, start_column)
+            list := a_type_mark_list
             create Result.make(sp, list)
          else
             error_handler.add_position(current_position)
@@ -3262,6 +3224,76 @@ feature {}
          end
       ensure
          Result /= Void
+      end
+
+   a_type_mark_list: TYPE_MARK_LIST is
+         --  ++ type_mark_list -> "{" { class_text_name "," ... } "}"
+         --  ++
+      local
+         state: INTEGER
+      do
+         from
+         until
+            state > 3
+         loop
+            inspect
+               state
+            when 0 then
+               -- Waiting a class_text_name or "}" if empty list.
+               if a_type_mark_inside_client_list then
+                  create Result.make_1(last_type_mark)
+                  state := 2
+               elseif skip1('}') then
+                  state := 4
+               elseif cc = ',' then
+                  error_handler.add_position(current_position)
+                  error_handler.append(em7)
+                  error_handler.print_as_style_warning
+                  ok := skip1(',')
+               else
+                  state := 3
+               end
+            when 1 then
+               -- Waiting a class_text_name after a ",".
+               if a_type_mark_inside_client_list then
+                  Result.add_last(last_type_mark)
+                  state := 2
+               elseif cc = ',' then
+                  error_handler.add_position(current_position)
+                  error_handler.append(em7)
+                  error_handler.print_as_style_warning
+                  ok := skip1(',')
+               elseif cc = '}' then
+                  error_handler.add_position(current_position)
+                  error_handler.append(once "Unexpected bracket after a comma.")
+                  error_handler.print_as_style_warning
+                  ok := skip1('}')
+                  state := 4
+               else
+                  state := 3
+               end
+            when 2 then
+               -- Waiting "," or "}" to end list.
+               if skip1(',') then
+                  state := 1
+               elseif skip1('}') then
+                  state := 4
+               elseif a_type_mark_inside_client_list then
+                  error_handler.add_position(last_type_mark.start_position)
+                  error_handler.append(em5)
+                  error_handler.print_as_warning
+                  Result.add_last(last_type_mark)
+               else
+                  state := 3
+               end
+            when 3 then
+               -- Error.
+               error_handler.add_position(current_position)
+               error_handler.append(em11)
+               error_handler.print_as_fatal_error
+               state := 4
+            end
+         end
       end
 
    a_compound1: INSTRUCTION is
@@ -3635,6 +3667,88 @@ feature {}
          end
          create creation_clause.make(sp, clients, comments, last_feature_name_list)
          last_class_text.add_creation_clause(creation_clause)
+      end
+
+   a_convert_clause (sp: POSITION) is
+         --  ++ convert_clause -> {feature_name conversion_clause ...}
+         --  ++
+      local
+         done: BOOLEAN
+      do
+         if a_feature_name then
+            from
+               a_conversion_clause
+            until
+               done
+            loop
+               if skip1(',') then
+                  if a_feature_name then
+                     a_conversion_clause
+                  else
+                     error_handler.add_position(current_position)
+                     error_handler.append(once "Ignored extra %",%".")
+                     error_handler.print_as_style_warning
+                  end
+               elseif a_feature_name then
+                  error_handler.add_position(last_feature_name.start_position)
+                  error_handler.append(once "Missing %",%" added.")
+                  error_handler.print_as_warning
+                  a_conversion_clause
+               else
+                  done := True
+               end
+            end
+            error_handler.add_position(sp)
+            error_handler.append(once "The convert support is EXPERIMENTAL (work in progress).")
+            error_handler.print_as_warning
+         else
+            error_handler.add_position(sp)
+            error_handler.append(once "Discarded empty convert clause")
+            error_handler.print_as_warning
+         end
+      end
+
+   a_conversion_clause is
+         --  ++ conversion_clause -> conversion_procedure |
+         --  ++                      conversion_query
+         --  ++
+      do
+         if not a_conversion_procedure and then not a_conversion_query then
+            error_handler.add_position(last_feature_name.start_position)
+            error_handler.append(once "Syntax error while trying to parse a conversion clause. Expected either '(' or ':'")
+            error_handler.print_as_fatal_error
+         end
+      end
+
+   a_conversion_procedure: BOOLEAN is
+         --  ++ conversion_procedure -> '(' conversion_list ')'
+         --  ++
+      local
+         lfn: like last_feature_name
+      do
+         if skip1('(') then
+            lfn := last_feature_name
+            a_conversion_list
+            if not skip1(')') then
+               error_handler.add_position(current_position)
+               error_handler.append(once "Added missing %")%"")
+               error_handler.print_as_warning
+            end
+            Result := True
+         end
+      end
+
+   a_conversion_query: BOOLEAN is
+         --  ++ conversion_query -> ':' conversion_list
+         --  ++
+      local
+         lfn: like last_feature_name
+      do
+         if skip1(':') then
+            lfn := last_feature_name
+            a_conversion_list
+            Result := True
+         end
       end
 
    a_debug: BOOLEAN is

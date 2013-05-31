@@ -348,7 +348,7 @@ feature {}
          i: INTEGER; tm: TYPE_MARK
       do
          if l1.count = 1 and then l2.count = 1 and then l1.item(1).is_equal(l2.item(1)) then
-            make_1(l1.item(1))
+            first := l1.item(1)
          else
             create remainder.with_capacity(l1.count + l2.count - 1)
             from
