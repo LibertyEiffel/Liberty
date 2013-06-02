@@ -5,8 +5,8 @@ expanded class MEMORY_OPS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = alloca_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = store_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_alloca is
 		do
@@ -49,7 +49,7 @@ feature -- Setters
 			value := store_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_alloca: BOOLEAN is
 		do
 			Result := (value=alloca_low_level)

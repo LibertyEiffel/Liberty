@@ -5,8 +5,8 @@ expanded class FUNCTION_LOCALNESS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = fl_no_low_level)  or else
@@ -14,7 +14,7 @@ feature -- Validity
 				(a_value = fl_yes_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_fl_no is
 		do
@@ -31,7 +31,7 @@ feature -- Setters
 			value := fl_yes_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_fl_no: BOOLEAN is
 		do
 			Result := (value=fl_no_low_level)

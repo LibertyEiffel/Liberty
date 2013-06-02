@@ -5,8 +5,8 @@ expanded class POSSIBLE_RELOCATIONS_TY_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = global_relocations_low_level)  or else
@@ -14,7 +14,7 @@ feature -- Validity
 				(a_value = no_relocation_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_global_relocations is
 		do
@@ -31,7 +31,7 @@ feature -- Setters
 			value := no_relocation_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_global_relocations: BOOLEAN is
 		do
 			Result := (value=global_relocations_low_level)

@@ -5,8 +5,8 @@ expanded class OTHER_OPS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = call_low_level)  or else
@@ -26,7 +26,7 @@ feature -- Validity
 				(a_value = vaarg_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_call is
 		do
@@ -103,7 +103,7 @@ feature -- Setters
 			value := vaarg_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_call: BOOLEAN is
 		do
 			Result := (value=call_low_level)

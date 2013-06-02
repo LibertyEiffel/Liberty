@@ -8,7 +8,7 @@ insert ANY undefine is_equal, copy end
 
 	STANDARD_C_LIBRARY_TYPES
 
-feature -- C type definitions (typedefs)
+feature {ANY} -- C type definitions (typedefs)
 	llvmexecution_engine_ref: POINTER is
 		-- typedef LLVMExecutionEngineRef
 		-- Empty by design, used for anchored declarations.
