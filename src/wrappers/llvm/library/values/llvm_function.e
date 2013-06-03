@@ -67,12 +67,12 @@ feature {} -- Creation
 	end
 
 feature {ANY} -- Calling convention
-	calling_convention: LLVMCALLCONV_ENUM is
+	calling_convention: LLVMCALL_CONV_ENUM is
 		do
 			Result.change_value(llvmget_function_call_conv(handle).to_integer_32)
 		end
 			
-	set_calling_convention (a_calling_convention: LLVMCALLCONV_ENUM) is
+	set_calling_convention (a_calling_convention: LLVMCALL_CONV_ENUM) is
 		-- Set calling convention
 	do
 		llvmset_function_call_conv(handle, a_calling_convention.value.to_natural_32)	
