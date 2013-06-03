@@ -5,8 +5,8 @@ expanded class GSPAWN_FLAGS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (g_spawn_child_inherits_stdin_low_level | 
@@ -18,7 +18,7 @@ feature -- Validity
 				g_spawn_stdout_to_dev_null_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_spawn_child_inherits_stdin is
 		do
@@ -90,7 +90,7 @@ feature -- Setters
 			value := value.bit_xor(g_spawn_stdout_to_dev_null_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_spawn_child_inherits_stdin: BOOLEAN is
 		do
 			Result := (value=g_spawn_child_inherits_stdin_low_level)

@@ -6,7 +6,7 @@ deferred class GMARSHAL_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_cclosure_marshal_booleaniboxed_boxed (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is

@@ -166,7 +166,7 @@ feature
 		do
 			ptr := g_irepository_get_dependencies (handle, a_namespace.to_external)
 			create {STRING_ARRAY} Result.from_external_null_array(ptr)
-			-- TODO: STRING_ARRAY is extremely weak is  Zero-terminated string array of versioned dependencies. [transfer full]
+			-- TODO: STRING_ARRAY is extremely weak is zero-terminated string array of versioned dependencies. [transfer full]
 		end
  
  	

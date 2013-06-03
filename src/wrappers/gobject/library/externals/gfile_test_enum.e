@@ -5,8 +5,8 @@ expanded class GFILE_TEST_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (g_file_test_exists_low_level | 
@@ -15,7 +15,7 @@ feature -- Validity
 				g_file_test_is_symlink_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_file_test_exists is
 		do
@@ -57,7 +57,7 @@ feature -- Setters
 			value := value.bit_xor(g_file_test_is_symlink_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_file_test_exists: BOOLEAN is
 		do
 			Result := (value=g_file_test_exists_low_level)

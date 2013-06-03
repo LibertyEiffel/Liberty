@@ -6,7 +6,7 @@ deferred class GTYPEPLUGIN_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_type_plugin_complete_interface_info (a_plugin: POINTER; an_instance_type: like long_unsigned; an_interface_type: like long_unsigned; an_info: POINTER) is

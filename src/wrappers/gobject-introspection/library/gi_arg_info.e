@@ -35,7 +35,7 @@ feature
 	do
 		Result:=g_arg_info_is_optional(handle).to_boolean
 	end
-  
+	
 	may_be_null: BOOLEAN is
 		-- Can the argument be NULL?
 	do

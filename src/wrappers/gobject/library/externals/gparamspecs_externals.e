@@ -6,7 +6,7 @@ deferred class GPARAMSPECS_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_param_spec_boolean (a_name: POINTER; a_nick: POINTER; a_blurb: POINTER; a_default_value: INTEGER; a_flags: INTEGER): POINTER is

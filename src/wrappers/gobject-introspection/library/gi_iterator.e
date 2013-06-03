@@ -33,7 +33,6 @@ feature
 		do
 			Result := index<n_infos
 		end
-		
 
 	item: GI_BASE_INFO is
 		do

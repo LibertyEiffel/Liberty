@@ -5,8 +5,8 @@ expanded class GCONVERT_ERROR_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_convert_error_bad_uri_low_level)  or else
@@ -17,7 +17,7 @@ feature -- Validity
 				(a_value = g_convert_error_partial_input_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_convert_error_bad_uri is
 		do
@@ -49,7 +49,7 @@ feature -- Setters
 			value := g_convert_error_partial_input_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_convert_error_bad_uri: BOOLEAN is
 		do
 			Result := (value=g_convert_error_bad_uri_low_level)

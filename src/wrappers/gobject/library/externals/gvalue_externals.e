@@ -6,7 +6,7 @@ deferred class GVALUE_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_value_copy (a_src_value: POINTER; a_dest_value: POINTER) is

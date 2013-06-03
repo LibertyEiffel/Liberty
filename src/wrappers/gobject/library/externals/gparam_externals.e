@@ -6,7 +6,7 @@ deferred class GPARAM_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_param_spec_get_blurb (a_pspec: POINTER): POINTER is
