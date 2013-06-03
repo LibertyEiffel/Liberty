@@ -75,7 +75,6 @@ insert
    STDLIB_EXTERNALS
    STRING_EXTERNALS
    STANDARD_C_LIBRARY_TYPES
-   STANDARD_C_LIBRARY_TYPES
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
    from_external_pointer (a_ptr: POINTER) is
