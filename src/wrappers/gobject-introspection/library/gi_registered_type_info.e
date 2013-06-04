@@ -1,170 +1,48 @@
-class GI_REGISTERED_TYPE_INFO
-	
-	Link: GObject Introspection Reference Manual (start)
-   Link: GIRepository structs (parent)
-   Link: GIEnumInfo (previous)
-   Link: GIObjectInfo (next)
+deferred class GI_REGISTERED_TYPE_INFO
+   -- A GOBject introspection metadata representing a struct with a GType
+   
+   -- GIRegisteredTypeInfo represents an entity with a GType associated. Could
+   -- be either a GIEnumInfo, GIInterfaceInfo, GIObjectInfo, GIStructInfo or a
+   -- GIUnionInfo.
 
-   Prev Up Home                                GObject Introspection Reference Manual                                 Next
-   Top  |  Description
+   -- A registered type info struct has a name and a type function. To get the
+   -- name call g_registered_type_info_get_type_name(). Most users want to call
+   -- g_registered_type_info_get_g_type() and don't worry about the rest of the
+   -- details.
 
-   GIRegisteredTypeInfo
+inherit GI_BASE_INFO
 
-   GIRegisteredTypeInfo — Struct representing a struct with a GType
+insert GIREGISTEREDTYPEINFO_EXTERNALS
 
-Synopsis
+feature {ANY}
+	type_name: FIXED_STRING is
+		-- the type name of the struct within the GObject type system. TODO: provide Eiffel version of "This type can be passed to g_type_name() to get a GType."
+		do
+			create Result.from_external(g_registered_type_info_get_type_name(handle))
+		ensure not_void: Result/=Void
+		end
 
- #define             GI_IS_REGISTERED_TYPE_INFO          (info)
- typedef             GIRegisteredTypeInfo;
- const gchar *       g_registered_type_info_get_type_name
-                                                         (GIRegisteredTypeInfo *info);
- const gchar *       g_registered_type_info_get_type_init
-                                                         (GIRegisteredTypeInfo *info);
- GType               g_registered_type_info_get_g_type   (GIRegisteredTypeInfo *info);
+	type_init: FIXED_STRING is
+		-- the symbol name of the type init function, suitable for passing into
+		-- g_module_symbol(). The type init function is the function which will
+		-- register the GType within the GObject type system. Usually this is
+		-- not called by langauge bindings or applications, use
+		-- g_registered_type_info_get_g_type() directly instead.
+	do
+		create Result.from_external(g_registered_type_info_get_type_init(handle))
+	ensure not_void: Result/=Void
+	end
 
-Description
 
-   GIRegisteredTypeInfo represents an entity with a GType associated. Could be either a GIEnumInfo, GIInterfaceInfo,
-   GIObjectInfo, GIStructInfo or a GIUnionInfo.
+	-- TODO: wrap  g_registered_type_info_get_g_type ()
+	-- 
+	--  GType               g_registered_type_info_get_g_type   (GIRegisteredTypeInfo *info);
+	-- 
+	--    Obtain the GType for this registered type or G_TYPE_NONE which a special meaning. It means that either there is no type
+	--    information associated with this info or that the shared library which provides the type_init function for this info
+	--    cannot be called.
+	-- 
+	--    info :    a GIRegisteredTypeInfo
+	--    Returns : the GType.
 
-   A registered type info struct has a name and a type function. To get the name call
-   g_registered_type_info_get_type_name(). Most users want to call g_registered_type_info_get_g_type() and don't worry
-   about the rest of the details.
-
-Struct hierarchy
-
-   GIBaseInfo
-    +----GIRegisteredTypeInfo
-          +----GIEnumInfo
-          +----GIInterfaceInfo
-          +----GIObjectInfo
-          +----GIStructInfo
-          +----GIUnionInfo
-
-Details
-
-  GI_IS_REGISTERED_TYPE_INFO()
-
- #define             GI_IS_REGISTERED_TYPE_INFO(info)
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  GIRegisteredTypeInfo
-
- typedef GIBaseInfo GIRegisteredTypeInfo;
-
-   Represent a registered type.
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  g_registered_type_info_get_type_name ()
-
- const gchar *       g_registered_type_info_get_type_name
-                                                         (GIRegisteredTypeInfo *info);
-
-   Obtain the type name of the struct within the GObject type system. This type can be passed to g_type_name() to get a
-   GType.
-
-   info :    a GIRegisteredTypeInfo
-   Returns : the type name
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  g_registered_type_info_get_type_init ()
-
- const gchar *       g_registered_type_info_get_type_init
-                                                         (GIRegisteredTypeInfo *info);
-
-   Obtain the type init function for info. The type init function is the function which will register the GType within the
-   GObject type system. Usually this is not called by langauge bindings or applications, use
-   g_registered_type_info_get_g_type() directly instead.
-
-   info :    a GIRegisteredTypeInfo
-   Returns : the symbol name of the type init function, suitable for passing into g_module_symbol().
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  g_registered_type_info_get_g_type ()
-
- GType               g_registered_type_info_get_g_type   (GIRegisteredTypeInfo *info);
-
-   Obtain the GType for this registered type or G_TYPE_NONE which a special meaning. It means that either there is no type
-   information associated with this info or that the shared library which provides the type_init function for this info
-   cannot be called.
-
-   info :    a GIRegisteredTypeInfo
-   Returns : the GType.
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-                                                Generated by GTK-Doc V1.18.1
-
-References
-
-   Visible links
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/index.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-repository-structs.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIEnumInfo.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIObjectInfo.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIEnumInfo.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-repository-structs.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/index.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIObjectInfo.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#gi-GIRegisteredTypeInfo.synopsis
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#gi-GIRegisteredTypeInfo.description
-   . GI_IS_REGISTERED_TYPE_INFO()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#GI-IS-REGISTERED-TYPE-INFO:CAPS
-   . GIRegisteredTypeInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#GIRegisteredTypeInfo
-   . g_registered_type_info_get_type_name ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#g-registered-type-info-get-type-name
-   . GIRegisteredTypeInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#GIRegisteredTypeInfo
-   . g_registered_type_info_get_type_init ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#g-registered-type-info-get-type-init
-   . GIRegisteredTypeInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#GIRegisteredTypeInfo
-   . g_registered_type_info_get_g_type ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#g-registered-type-info-get-g-type
-   . GIRegisteredTypeInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#GIRegisteredTypeInfo
-   . GIEnumInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIEnumInfo.html#GIEnumInfo
-   . GIInterfaceInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIInterfaceInfo.html#GIInterfaceInfo
-   . GIObjectInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIObjectInfo.html#GIObjectInfo
-   . GIStructInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIStructInfo.html#GIStructInfo
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . g_registered_type_info_get_type_name ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#g-registered-type-info-get-type-name
-   . g_registered_type_info_get_g_type ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#g-registered-type-info-get-g-type
-   . GIBaseInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIBaseInfo.html
-   . GIEnumInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIEnumInfo.html
-   . GIInterfaceInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIInterfaceInfo.html
-   . GIObjectInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIObjectInfo.html
-   . GIStructInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIStructInfo.html
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html
-   . GIRegisteredTypeInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#GIRegisteredTypeInfo
-   . GIRegisteredTypeInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#GIRegisteredTypeInfo
-   . GIRegisteredTypeInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#GIRegisteredTypeInfo
-   . g_registered_type_info_get_g_type ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#g-registered-type-info-get-g-type
-   . GIRegisteredTypeInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#GIRegisteredTypeInfo
-   . GIRegisteredTypeInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#GIRegisteredTypeInfo
-   . GIRegisteredTypeInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html#GIRegisteredTypeInfo
+end -- class GI_REGISTERED_TYPE_INFO

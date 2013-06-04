@@ -12,6 +12,7 @@ inherit
 		redefine default_create end 
 	-- Note: it actually is a G_OBJECT but it is almost not relevant for the use we are going to make of GIr
 	GI_INFO_FACTORY
+		redefine default_create end 
 
 insert 
 	SINGLETON 
@@ -19,9 +20,9 @@ insert
 	GIREPOSITORY_EXTERNALS
 		redefine default_create end
 
-creation default_create 
+creation {ANY} default_create 
 
-feature {}
+feature {ANY}
 	default_create is
    		-- Creates the singleton process-global default GIRepository.
 		
@@ -37,7 +38,7 @@ feature {}
 			-- Note: All methods (C functions) on GIRepository also accept NULL as an instance parameter to mean this default repository, which is usually more convenient for C.
 		end
 
-feature 
+feature {ANY}
  	prepend_search_path (a_directory: ABSTRACT_STRING) is
 		-- Prepends `a_directory' to the search path that is used to search
 		-- shared libraries referenced by imported namespaces.  Multiple calls

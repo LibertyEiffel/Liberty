@@ -9,7 +9,7 @@ inherit
 
 insert GIREPOSITORY_EXTERNALS
 
-creation from_repository_and_namespace
+creation {GI_INFO_FACTORY, WRAPPER} from_repository_and_namespace
 
 feature {} -- Creation
 	from_repository_and_namespace (a_repository: GI_REPOSITORY; a_namespace: ABSTRACT_STRING) is
@@ -23,7 +23,7 @@ feature {} -- Creation
 			n_infos := g_irepository_get_n_infos(repo_ptr,namespace.to_external)
 	end
 
-feature 
+feature {ANY}
 	start is
 		do
 			index := 0

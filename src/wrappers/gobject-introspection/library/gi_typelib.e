@@ -1,7 +1,7 @@
 class GI_TYPELIB
 
 	-- Unfinished meta-class
-inherit WRAPPER
+inherit OPAQUE_TYPE
 creation {GI_REPOSITORY} from_external_pointer
 end
 

@@ -1,337 +1,178 @@
-   Link: GObject Introspection Reference Manual (start)
-   Link: GIRepository structs (parent)
-   Link: GIStructInfo (previous)
-   Link: GIFieldInfo (next)
-
-   Prev Up Home                                GObject Introspection Reference Manual                                 Next
-   Top  |  Description
-
-   GIUnionInfo
-
-   GIUnionInfo — Struct representing a union.
-
-Synopsis
-
- #define             GI_IS_UNION_INFO                    (info)
- typedef             GIUnionInfo;
- gint                g_union_info_get_n_fields           (GIUnionInfo *info);
- GIFieldInfo *       g_union_info_get_field              (GIUnionInfo *info,
-                                                          gint n);
- gint                g_union_info_get_n_methods          (GIUnionInfo *info);
- GIFunctionInfo *    g_union_info_get_method             (GIUnionInfo *info,
-                                                          gint n);
- gboolean            g_union_info_is_discriminated       (GIUnionInfo *info);
- gint                g_union_info_get_discriminator_offset
-                                                         (GIUnionInfo *info);
- GITypeInfo *        g_union_info_get_discriminator_type (GIUnionInfo *info);
- GIConstantInfo *    g_union_info_get_discriminator      (GIUnionInfo *info,
-                                                          gint n);
- GIFunctionInfo *    g_union_info_find_method            (GIUnionInfo *info,
-                                                          const gchar *name);
- gsize               g_union_info_get_size               (GIUnionInfo *info);
- gsize               g_union_info_get_alignment          (GIUnionInfo *info);
-
-Description
-
-   GIUnionInfo represents a union type.
-
-   A union has methods and fields. Unions can optionally have a discriminator, which is a field deciding what type of real
-   union fields is valid for specified instance.
-
-Struct hierarchy
-
-   GIBaseInfo
-    +----GIRegisteredTypeInfo
-          +----GIUnionInfo
-
-Details
-
-  GI_IS_UNION_INFO()
-
- #define             GI_IS_UNION_INFO(info)
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  GIUnionInfo
-
- typedef GIBaseInfo GIUnionInfo;
-
-   Represents a union.
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  g_union_info_get_n_fields ()
-
- gint                g_union_info_get_n_fields           (GIUnionInfo *info);
-
-   Obtain the number of fields this union has.
-
-   info :    a GIUnionInfo
-   Returns : number of fields
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  g_union_info_get_field ()
-
- GIFieldInfo *       g_union_info_get_field              (GIUnionInfo *info,
-                                                          gint n);
-
-   Obtain the type information for field with specified index.
-
-   info :    a GIUnionInfo
-   n :       a field index
-   Returns : the GIFieldInfo, free it with g_base_info_unref() when done. [transfer full]
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  g_union_info_get_n_methods ()
-
- gint                g_union_info_get_n_methods          (GIUnionInfo *info);
-
-   Obtain the number of methods this union has.
-
-   info :    a GIUnionInfo
-   Returns : number of methods
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  g_union_info_get_method ()
-
- GIFunctionInfo *    g_union_info_get_method             (GIUnionInfo *info,
-                                                          gint n);
-
-   Obtain the type information for method with specified index.
-
-   info :    a GIUnionInfo
-   n :       a method index
-   Returns : the GIFunctionInfo, free it with g_base_info_unref() when done. [transfer full]
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  g_union_info_is_discriminated ()
-
- gboolean            g_union_info_is_discriminated       (GIUnionInfo *info);
-
-   Return true if this union contains discriminator field.
-
-   info :    a GIUnionInfo
-   Returns : TRUE if this is a discriminated union, FALSE otherwise
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  g_union_info_get_discriminator_offset ()
-
- gint                g_union_info_get_discriminator_offset
-                                                         (GIUnionInfo *info);
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  g_union_info_get_discriminator_type ()
-
- GITypeInfo *        g_union_info_get_discriminator_type (GIUnionInfo *info);
-
-   Obtain the type information of the union discriminator.
-
-   info :    a GIUnionInfo
-   Returns : the GITypeInfo, free it with g_base_info_unref() when done. [transfer full]
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  g_union_info_get_discriminator ()
-
- GIConstantInfo *    g_union_info_get_discriminator      (GIUnionInfo *info,
-                                                          gint n);
-
-   Obtain discriminator value assigned for n-th union field, i.e. n-th union field is the active one if discriminator
-   contains this constant.
-
-   info :    a GIUnionInfo
-   n :       a union field index
-   Returns : the GIConstantInfo, free it with g_base_info_unref() when done. [transfer full]
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  g_union_info_find_method ()
-
- GIFunctionInfo *    g_union_info_find_method            (GIUnionInfo *info,
-                                                          const gchar *name);
-
-   Obtain the type information for method named name.
-
-   info :    a GIUnionInfo
-   name :    a method name
-   Returns : the GIFunctionInfo, free it with g_base_info_unref() when done. [transfer full]
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  g_union_info_get_size ()
-
- gsize               g_union_info_get_size               (GIUnionInfo *info);
-
-   Obtain the total size of the union.
-
-   info :    a GIUnionInfo
-   Returns : size of the union in bytes
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  g_union_info_get_alignment ()
-
- gsize               g_union_info_get_alignment          (GIUnionInfo *info);
-
-   Obtain the required alignment of the union.
-
-   info :    a GIUnionInfo
-   Returns : required alignment in bytes
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-                                                Generated by GTK-Doc V1.18.1
-
-References
-
-   Visible links
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/index.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-repository-structs.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIStructInfo.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIFieldInfo.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIStructInfo.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-repository-structs.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/index.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIFieldInfo.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#gi-GIUnionInfo.synopsis
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#gi-GIUnionInfo.description
-   . GI_IS_UNION_INFO()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GI-IS-UNION-INFO:CAPS
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . g_union_info_get_n_fields ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#g-union-info-get-n-fields
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIFieldInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIFieldInfo.html#GIFieldInfo
-   . g_union_info_get_field ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#g-union-info-get-field
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . g_union_info_get_n_methods ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#g-union-info-get-n-methods
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIFunctionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIFunctionInfo.html#GIFunctionInfo
-   . g_union_info_get_method ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#g-union-info-get-method
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . g_union_info_is_discriminated ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#g-union-info-is-discriminated
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . g_union_info_get_discriminator_offset ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#g-union-info-get-discriminator-offset
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GITypeInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GITypeInfo.html#GITypeInfo
-   . g_union_info_get_discriminator_type ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#g-union-info-get-discriminator-type
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIConstantInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIConstantInfo.html#GIConstantInfo
-   . g_union_info_get_discriminator ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#g-union-info-get-discriminator
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIFunctionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIFunctionInfo.html#GIFunctionInfo
-   . g_union_info_find_method ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#g-union-info-find-method
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . g_union_info_get_size ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#g-union-info-get-size
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . g_union_info_get_alignment ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#g-union-info-get-alignment
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIBaseInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIBaseInfo.html
-   . GIRegisteredTypeInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIRegisteredTypeInfo.html
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIFieldInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIFieldInfo.html#GIFieldInfo
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIFieldInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIFieldInfo.html#GIFieldInfo
-   . g_base_info_unref ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIBaseInfo.html#g-base-info-unref
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIFunctionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIFunctionInfo.html#GIFunctionInfo
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIFunctionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIFunctionInfo.html#GIFunctionInfo
-   . g_base_info_unref ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIBaseInfo.html#g-base-info-unref
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GITypeInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GITypeInfo.html#GITypeInfo
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GITypeInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GITypeInfo.html#GITypeInfo
-   . g_base_info_unref ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIBaseInfo.html#g-base-info-unref
-   . GIConstantInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIConstantInfo.html#GIConstantInfo
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIConstantInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIConstantInfo.html#GIConstantInfo
-   . g_base_info_unref ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIBaseInfo.html#g-base-info-unref
-   . GIFunctionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIFunctionInfo.html#GIFunctionInfo
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIFunctionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIFunctionInfo.html#GIFunctionInfo
-   . g_base_info_unref ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIBaseInfo.html#g-base-info-unref
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
-   . GIUnionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIUnionInfo.html#GIUnionInfo
+class GI_UNION_INFO
+	-- A GObject metadata object representing a union.
+
+	-- A union has methods and fields. Unions can optionally have a
+	-- discriminator, which is a field deciding what type of real union
+	-- fields
+
+inherit 
+	GI_REGISTERED_TYPE_INFO
+	INDEXABLE[GI_FIELD_INFO]
+		rename 
+			lower as field_lower
+			upper as field_upper
+			count as field_count
+			is_empty as has_no_fields
+			valid_index as valid_field_index
+			item as field 
+			first as first_field
+			last as last_field
+			do_all as field_do_all 
+			for_all as for_all_fields
+			exists as field_exists
+			aggregate as aggregate_fields
+		undefine 
+			copy, 
+			field_do_all, 
+			field_for_all, 
+			field_exists,
+			is_equal, 
+			out_in_tagged_out_memory 
+		redefine field_do_all, for_all_fields, field_exists
+		end
+
+	INDEXABLE[GI_FUNCTION_INFO]
+		rename 
+			lower as method_lower
+			upper as method_upper
+			count as method_count
+			is_empty as has_no_methods
+			valid_index as valid_method_index
+			item as method 
+			first as first_method
+			last as last_method
+			do_all as method_do_all 
+			for_all as for_all_methods
+			exists as method_exists
+			aggregate as method_aggregate
+		undefine copy, is_equal, out_in_tagged_out_memory 
+		redefine method_do_all, for_all_methods, method_exists
+		end
+
+insert GIUNIONINFO_EXTERNALS
+    
+creation {GI_INFO_FACTORY, WRAPPER} from_external_pointer
+
+feature {ANY} -- Fields
+	field_lower: INTEGER is 0
+	field_upper: INTEGER is do Result := field_count-1 end
+	field_count: INTEGER is
+		-- The number of fields that this object type has.
+	do
+		Result := g_union_info_get_n_fields(handle)
+	ensure not_negative: Result>=0
+	end
+
+	field (n: INTEGER): GI_BASE_INFO is 
+		-- The field object at index n.
+	do
+		create Result.from_external_pointer(g_union_info_get_field(handle,n))
+		-- g_union_info_get_field returns the GIFieldInfo. Free the struct by calling g_base_info_unref() when done. [transfer full]
+	ensure not_void: Result/=Void
+	end
+
+	field_do_all (an_action: ROUTINE[TUPLE[GI_FIELD_INFO]]) is
+	do
+		lower.loop_up_to(upper, an_action)
+	end
+
+	for_all_fields (a_test: FIELD[TUPLE[GI_FIELD_INFO],BOOLEAN]): BOOLEAN is
+	do
+		not_yet_implemented
+	end
+
+	field_exists (test: PREDICATE[TUPLE[GI_FIELD_INFO]]): BOOLEAN is
+	do
+		not_yet_implemented
+	end
+	
+feature {ANY} -- Methods
+	method_lower: INTEGER is 0
+	method_upper: INTEGER is do Result := method_count-1 end
+	method_count: INTEGER is
+		-- The number of methods Current object has
+	do
+		Result := g_union_info_get_n_methods (handle)
+	end
+
+  	method (n: INTEGER): GI_FUNCTION_INFO is
+		-- The method object at index `n'
+	do
+		create Result.from_external_pointer(g_union_info_get_method(handle,n))
+   		-- returns  the GIFunctionInfo. Free the struct by calling g_base_info_unref() when done. [transfer full]
+	ensure not_void: Result/=Void
+	end
+
+	find_method (a_name: ABSTRACT_STRING): GI_FUNCTION_INFO is
+		-- The method with `a_name'. Void if no method exists with that name
+	require 
+		not_void_name: a_name/=Void
+		not_empty_name: not a_name.is_empty
+	local p: POINTER
+	do
+		p := g_union_info_find_method(handle,a_name.to_external) 
+		if p.is_not_null then 
+			create Result.from_external_pointer(p)
+		end 
+		-- g_union_info_find_method returns a GIFunctionInfo. Free the struct by calling g_base_info_unref() when done. [transfer full]
+	end
+
+	method_do_all (an_action: ROUTINE[TUPLE[GI_FUNCTION_INFO]]) is
+	do
+		lower.loop_up_to(upper, an_action)
+	end
+
+	for_all_methods (a_test: FUNCTION[TUPLE[GI_FUNCTION_INFO],BOOLEAN]): BOOLEAN is
+	do
+		not_yet_implemented
+	end
+
+	method_exists (test: PREDICATE[TUPLE[GI_FUNCTION_INFO]]): BOOLEAN is
+	do
+		not_yet_implemented
+	end
+
+feature {ANY}
+	is_discriminated: BOOLEAN is
+		-- Does Current union contain a discriminator field?
+	do
+		Result:= g_union_info_is_discriminated(handle)
+	end 
+  
+	discriminator_offset: INTEGER is
+		-- Offset of the discrimantor 
+	require is_discriminated
+	do
+		Result := g_union_info_get_discriminator_offset(handle)
+	end
+
+	discriminator_type: GI_TYPE_INFO is
+		-- the type information of the union discriminator.
+	require is_discriminated
+	do
+		create Result.from_external_pointer(g_union_info_get_discriminator_type (handle))
+		-- g_union_info_get_discriminator_type returns : the GITypeInfo, free it with g_base_info_unref() when done. [transfer full]
+	ensure not_void: Result/=Void
+	end
+
+	discriminator (n: INTEGER) : GI_CONSTANT_INFO is
+		-- the discriminator value assigned for n-th union field, i.e. n-th
+		-- union field is the active one if discriminator contains this
+		-- constant.
+	do
+		create Result.from_external_pointer(g_union_info_get_discriminator(handle,n))
+		--g_union_info_get_discriminator returns the GIConstantInfo, free it with g_base_info_unref() when done. [transfer full]
+	end
+
+	size: NATURAL is
+		-- The total size of the union in bytes
+	do
+		Result := g_union_info_get_size(handle)
+	end 
+
+	alignment: NATURAL is
+		-- The required alignment of the union in bytes.
+	do
+		Result := g_union_info_get_alignment(handle)
+	end 
+end -- class GI_UNION_INFO

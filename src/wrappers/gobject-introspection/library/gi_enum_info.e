@@ -8,14 +8,19 @@ class GI_ENUM_INFO
 
 inherit
 	GI_REGISTERED_TYPE_INFO
-	INDEXABLE[GI_VALUE_INFO]
+	TRAVERSABLE[GI_VALUE_INFO]
+		undefine 
+			copy,
+			is_equal,
+			out_in_tagged_out_memory
+		end
 
 insert
 	GIENUMINFO_EXTERNALS
 
-creation from_external_pointer
+creation {GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
-feature
+feature {ANY} -- Enumeration values
 	lower: INTEGER is 0
 	upper: INTEGER is 
 		do
@@ -30,12 +35,21 @@ feature
 
 	item (i: INTEGER): GI_VALUE_INFO is
 	do
-		create Result(g_enum_info_get_value(handle,i))
+		create Result.from_external_pointer(g_enum_info_get_value(handle,i))
 		-- g_enum_info_get_value returns the enumeration value or NULL if type tag is wrong but it would not since the precondition prevent this.
 	ensure not_void: Result/=Void
 	end
 
-	-- TODO: it puzzles me how an enumeration could have methods. I will clarify this as soon as I understand the meaning of this
+	is_empty: BOOLEAN is do Result:=count=0 end
+	first: GI_VALUE_INFO is do Result:=item(lower) end 
+	last: GI_VALUE_INFO is do Result:=item(upper) end
+
+	new_iterator: ITERATOR_OVER_ENUM_VALUES is
+		do
+			create Result.from_enum(Current)
+feature {ANY} -- Methods
+
+	-- TODO: it is quite puzzling discovering an enumeration that  have methods: what are the meaning and usage of such methods? (Paolo 2013-05-31)
 
 	methods_count: INTEGER is
 		-- the number of methods that this enum type has.

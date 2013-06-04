@@ -26,10 +26,11 @@ inherit
 
 insert 
 	GIINTERFACEINFO_EXTERNALS
+	GI_INFO_FACTORY
 
-creation from_external_pointer
+creation {GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
-feature -- Prerequisites
+feature {ANY} -- Interface prerequisites
 	prerequisites_count: INTEGER is
 		-- The number of prerequisites for this interface type. A prerequisites
 		-- is another interface that needs to be implemented for interface,
@@ -48,29 +49,30 @@ feature -- Prerequisites
 		-- The interface type prerequisites at index `i'.
 	require valid_index: i.in_range(0,prerequisites_count-1)
 	do
-		create Result.from_external_pointer(g_interface_info_get_prerequisite( handle,i))
+		Result := wrapper(g_interface_info_get_prerequisite( handle,i))
 		-- g_interface_info_get_prerequisite Returns : the prerequisites as a
 		-- GIBaseInfo. Free the struct by calling g_base_info_unref() when
 		-- done. [transfer full]
 	ensure Result /=Void
+	end
 
-feature -- Properties
+feature {ANY} -- Properties
 	properties_count: INTEGER is
 		-- the number of properties that this interface type has. 
 	do
 		Result := g_interface_info_get_n_properties(handle)
 	end
   
-	property (i: INTEGER) is
+	property (i: INTEGER): GI_PROPERTY_INFO is
 		-- the interface type property at index `i'. 
 	require valid_index: i.in_range(0,properties_count-1)
 	do
-		create Result.from_external_pointer(g_interface_info_get_property(handle,i)
+		create Result.from_external_pointer(g_interface_info_get_property(handle,i))
 		-- g_interface_info_get_property Returns : the GIPropertyInfo. Free the struct by calling g_base_info_unref() when done. [transfer full]
 	ensure Result/=Void
 	end
    
-feature -- Methods
+feature {ANY} -- Methods
 	methods_count: INTEGER is
 		-- the number of methods that this interface type has.
 		do
@@ -84,6 +86,7 @@ feature -- Methods
 		create Result.from_external_pointer(g_interface_info_get_method(handle,n)) 
 		-- g_interface_info_get_method  Returns : the GIFunctionInfo. Free the struct by calling g_base_info_unref() when done. [transfer full]
 	ensure Result/=Void
+	end
 
 	find_method (a_name: ABSTRACT_STRING): GI_FUNCTION_INFO is
 		-- The method of the interface type with `a_name'. Void if there's no method available with that name.
@@ -99,8 +102,9 @@ feature -- Methods
 			-- NULL if none found. Free the struct by calling
 			-- g_base_info_unref() when done. [transfer
 		end 
+	end
    
-feature -- Signals
+feature {ANY} -- Signals
 	signals_count: INTEGER is
 		-- the number of signals that this interface type has.
 		do
@@ -112,7 +116,7 @@ feature -- Signals
 		-- The an interface type signal at index n.
 	require valid_n: n.in_range(0,signals_count-1)
 	do
-		create Result.from_external_pointer(g_interface_info_get_signal(handle,n)
+		create Result.from_external_pointer(g_interface_info_get_signal(handle,n))
 	ensure Result/=Void
 	end
 
@@ -129,7 +133,7 @@ feature -- Signals
 		end
 	end
 
-feature -- Virtual functions 
+feature {ANY} -- Virtual functions 
 	virtual_functions_count: INTEGER is 
 		-- the number of virtual functions that this interface type has. 
 	do
@@ -156,8 +160,9 @@ feature -- Virtual functions
 		if res.is_not_null then
 			create Result.from_external_pointer(res)
 		end 
+	end
 
-feature -- Constants
+feature {ANY} -- Constants
 	constants_count: INTEGER is
 		-- the number of constants that this interface type has.
 	do
@@ -181,7 +186,4 @@ feature -- Constants
 -- 
 --    info :    a GIInterfaceInfo
 --    Returns : the GIStructInfo or NULL. Free it with g_base_info_unref() when done. [transfer full]
-
-   -----------------------------------------------------------------------------------------------------------------------
-
 end 

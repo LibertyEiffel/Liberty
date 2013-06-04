@@ -4,14 +4,15 @@ class GI_PROPERTY_INFO
 
 inherit GI_BASE_INFO
 insert GIPROPERTYINFO_EXTERNALS
-feature 
+creation {GI_INFO_FACTORY, WRAPPER} from_external_pointer
+feature {ANY}
 	flags: GPARAM_FLAGS_ENUM is
 		-- The flags for this property info. See GParamFags for more information about possible flag values.
 	do
 		Result.set(g_property_info_get_flags(handle))
 	end
 
-	type: GI_TYPE_INFO is
+	property_type: GI_TYPE_INFO is
 		-- the type information for the property info.
 	do
 		create Result.from_external_pointer(g_property_info_get_type(handle))
