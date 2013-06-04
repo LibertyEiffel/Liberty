@@ -3,32 +3,52 @@
 --
 deferred class LIBERTY_VERSION
 
+insert
+   ARGUMENTS
+
 feature {ANY}
-   liberty_authors: STRING is
+   print_version is
+      local
+         sys: SYSTEM; bd: BASIC_DIRECTORY
+      do
+         -- SmartEiffel tools compatibility -- mostly used by the "se" command multiplexer
+         if sys.get_environment_variable("SMART_EIFFEL_SHORT_VERSION") /= Void then
+            std_output.put_line(short_copyright)
+         else
+            bd.ensure_system_notation
+            bd.compute_short_name_of(command_name)
+            std_output.put_line("Version of command %"#(1)%" is:" # bd.last_entry)
+            std_output.put_line(copyright)
+         end
+      end
+
+   liberty_release: STRING is "2013.06 (Charles Adler, Jr.)"
+
+   liberty_dates: ABSTRACT_STRING is
       deferred
       end
 
-   liberty_dates: STRING is "2011-2013"
+   liberty_authors: ABSTRACT_STRING is
+      deferred
+      end
 
-   copyright: STRING is
+   copyright: ABSTRACT_STRING is
       once
-         Result := "Liberty Eiffel The GNU Eiffel Compiler, Eiffel tools and libraries%N"
-         Result.append(release_number)
-         Result.append("[
+         Result := "[
 
-                        Copyright (C), #(1) - #(2)
+                    Liberty Eiffel The GNU Eiffel Compiler, Eiffel tools and libraries
+                        release #(1)
+
+                    Copyright (C), #(2) - #(3)
                         http://www.liberty-eiffel.org
 
-                        ]" # liberty_dates # liberty_authors)
+                    ]" # liberty_release # liberty_dates # liberty_authors
       end
 
-   version: STRING is
+   short_copyright: ABSTRACT_STRING is
       once
-         Result := release_number.twin
-         Result.append(" (C) #(1) - #(2)" # liberty_dates # liberty_authors)
+         Result := "(C) #(1) - #(2)" # liberty_dates # liberty_authors
       end
-
-   release_number: STRING is "Release 2013.06 (Charles Adler, Jr.)"
 
 end -- class LIBERTY_VERSION
 --

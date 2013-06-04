@@ -8,11 +8,15 @@ insert
    FILE_TOOLS
    SHARED_SETTINGS
    NAME_CONVERTER
+   LIBERTY_VERSION
 
 create {ANY}
    make
 
 feature {ANY}
+   liberty_authors: STRING is "P.REDAELLI"
+   liberty_dates: STRING is "2008-2013"
+
    make is
       do
          log_string(once "wrappers generator rel 0.2%N")
@@ -146,7 +150,7 @@ feature {ANY}
                   end
                elseif arg.is_equal(once "--version") or else
                   arg.is_equal(once "-v") then
-                  std_output.put_line(once "wrappers generator version... (C) Paolo Redaelli") --| **** TODO
+                  print_version
                   die_with_code(0)
                elseif arg.is_equal(once "--verbose") then
                   settings.set_verbose(True)

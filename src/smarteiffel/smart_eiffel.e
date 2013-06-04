@@ -20,18 +20,19 @@ insert
 
 feature {ANY}
    liberty_authors: STRING is "C.ADRIAN, P.REDAELLI, R.MACK"
+   liberty_dates: STRING is "2011-2013"
 
-   copyright: STRING is
+   copyright: ABSTRACT_STRING is
       once
-         Result := Precursor
-         Result.append("[
-                        Original SmartEiffel code:
-                        Copyright (C), 1994-2002 - INRIA - LORIA - ESIAL UHP Nancy 1 - FRANCE
-                        Copyright (C), 2003-2005 - INRIA - LORIA - IUT Charlemagne Nancy 2 - FRANCE
-                        D.COLNET, P.RIBET, C.ADRIAN, V.CROIZIER, F.MERIZEN
+         Result := "[
+                    #(1)
+                    Original SmartEiffel code:
+                    Copyright (C), 1994-2002 - INRIA - LORIA - ESIAL UHP Nancy 1 - FRANCE
+                    Copyright (C), 2003-2005 - INRIA - LORIA - IUT Charlemagne Nancy 2 - FRANCE
+                    D.COLNET, P.RIBET, C.ADRIAN, V.CROIZIER, F.MERIZEN
                         http://smarteiffel.loria.fr
 
-                        ]")
+                    ]" # Precursor
       end
 
    status: STATUS is

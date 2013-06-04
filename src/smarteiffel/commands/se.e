@@ -180,11 +180,10 @@ feature {}
 
                         Should you have any question about Liberty Eiffel, feel free to contact us
                         by e-mail:
-                              smarteiffel@loria.fr       the users mailing list
-                              smarteiffel-dev@loria.fr   the development mailing list
+                              libertyeiffel@librelist.com
 
                         You can also visit our web site:
-                              http://smarteiffel.loria.fr
+                              http://www.liberty-eiffel.org
 
                         ]")
       end
@@ -195,19 +194,18 @@ feature {}
          i, status: INTEGER
          plugin_name: STRING
          echo_verbose_status_save: BOOLEAN
+         sys: SYSTEM
       do
          echo_verbose_status_save := echo.is_verbose
          echo.set_verbose
          plugin_name := command_line_name
-         echo.put_character('%N')
          echo.put_string(plugin_name)
-         echo.put_spaces(command_name_length - plugin_name.count + 1)
-         echo.put_string(smart_eiffel.release_number)
+         echo.put_spaces(command_name_length - plugin_name.count + 2)
+         echo.put_line(smart_eiffel.short_copyright)
          arg := {FAST_ARRAY[STRING]<<version_arg>>}
-         -- We use an environment variable rather than a new argument 
-         -- (e.g. -short_version) so that a recent "se" degrades 
-         -- gracefully when used with an old plugin.
-         (create {SYSTEM}).set_environment_variable("SMART_EIFFEL_SHORT_VERSION", "1")
+         -- We use an environment variable rather than a new argument (e.g. -short_version) so that a recent
+         -- "se" degrades gracefully when used with an old plugin.
+         sys.set_environment_variable("SMART_EIFFEL_SHORT_VERSION", "1")
          from
             i := plugins.lower
          until
@@ -215,14 +213,15 @@ feature {}
          loop
             plugin_name := plugins.item(i)
             echo.put_string(plugin_name)
-            echo.put_spaces(command_name_length - plugin_name.count + 1)
+            echo.put_spaces(command_name_length - plugin_name.count + 2)
             echo.unset_verbose
             status := do_plugin_call(plugin_commands.item(i), arg)
             echo.set_verbose
             -- Do something if status /= 0 ?
             i := i + 1
          end
-         echo.set_verbose_with(echo_verbose_status_save)   
+         echo.put_new_line
+         echo.set_verbose_with(echo_verbose_status_save)
       end
 
    is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
