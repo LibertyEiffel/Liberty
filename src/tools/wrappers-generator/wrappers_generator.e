@@ -146,7 +146,8 @@ feature {ANY}
                   end
                elseif arg.is_equal(once "--version") or else
                   arg.is_equal(once "-v") then
-                  std_output.put_string(once "wrappers generator version... (C) Paolo Redaelli") --| **** TODO
+                  std_output.put_line(once "wrappers generator version... (C) Paolo Redaelli") --| **** TODO
+                  die_with_code(0)
                elseif arg.is_equal(once "--verbose") then
                   settings.set_verbose(True)
                -- TODO: re-enable grouping output on standard output
