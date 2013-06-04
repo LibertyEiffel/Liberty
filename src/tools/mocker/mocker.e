@@ -8,9 +8,13 @@ class MOCKER
 
 insert
    LOGGING
+   LIBERTY_VERSION
 
 create {}
    make
+
+feature {ANY}
+   liberty_authors: STRING is "Cyril Adrian"
 
 feature {}
    input, out_mock, out_expect: REGULAR_FILE
@@ -116,7 +120,11 @@ feature {}
             arguments.usage(std_output)
             die_with_code(0)
          elseif option_version.is_set then
-            std_output.put_line(once "mocker 2013.02 (C) Cyril ADRIAN <cyril.adrian@gmail.com>")
+            if (create {SYSTEM}).get_environment_variable("SMART_EIFFEL_SHORT_VERSION") /= Void then
+               std_output.put_line(version)
+            else
+               std_output.put_string(copyright)
+            end
             die_with_code(0)
          elseif not argument_file.is_set then
             arguments.usage(std_error)

@@ -355,7 +355,7 @@ feature {}
                -- We use an environment variable rather than a new argument (e.g. -short_version) so that a
                -- recent "se" degrades gracefully when used with an old plugin.
                if (create {SYSTEM}).get_environment_variable("SMART_EIFFEL_SHORT_VERSION") /= Void then
-                  echo.put_string(smart_eiffel.release_number)
+                  echo.put_string(smart_eiffel.version)
                else
                   echo.put_string(once "Version of command %"")
                   echo.put_string(command_line_name)
