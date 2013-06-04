@@ -5,8 +5,8 @@ expanded class GMODULE_FLAGS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_module_bind_lazy_low_level)  or else
@@ -14,7 +14,7 @@ feature -- Validity
 				(a_value = g_module_bind_mask_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_module_bind_lazy is
 		do
@@ -31,7 +31,7 @@ feature -- Setters
 			value := g_module_bind_mask_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_module_bind_lazy: BOOLEAN is
 		do
 			Result := (value=g_module_bind_lazy_low_level)

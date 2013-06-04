@@ -5,11 +5,12 @@ expanded class GSIGNAL_FLAGS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (g_signal_action_low_level | 
+				g_signal_deprecated_low_level | 
 				g_signal_detailed_low_level | 
 				g_signal_must_collect_low_level | 
 				g_signal_no_hooks_low_level | 
@@ -19,7 +20,7 @@ feature -- Validity
 				g_signal_run_last_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_signal_action is
 		do
@@ -29,6 +30,16 @@ feature -- Setters
 	unset_g_signal_action is
 		do
 			value := value.bit_xor(g_signal_action_low_level)
+		end
+
+	set_g_signal_deprecated is
+		do
+			value := value.bit_or(g_signal_deprecated_low_level)
+		end
+
+	unset_g_signal_deprecated is
+		do
+			value := value.bit_xor(g_signal_deprecated_low_level)
 		end
 
 	set_g_signal_detailed is
@@ -101,10 +112,15 @@ feature -- Setters
 			value := value.bit_xor(g_signal_run_last_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_signal_action: BOOLEAN is
 		do
 			Result := (value=g_signal_action_low_level)
+		end
+
+	is_g_signal_deprecated: BOOLEAN is
+		do
+			Result := (value=g_signal_deprecated_low_level)
 		end
 
 	is_g_signal_detailed: BOOLEAN is
@@ -149,6 +165,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module: "plugin"
  			feature_name: "G_SIGNAL_ACTION"
+ 			}"
+ 		end
+
+	g_signal_deprecated_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module: "plugin"
+ 			feature_name: "G_SIGNAL_DEPRECATED"
  			}"
  		end
 

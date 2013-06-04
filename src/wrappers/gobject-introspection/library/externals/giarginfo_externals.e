@@ -6,7 +6,7 @@ deferred class GIARGINFO_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_arg_info_get_closure (an_info: POINTER): INTEGER is

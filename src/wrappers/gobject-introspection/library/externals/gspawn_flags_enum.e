@@ -5,11 +5,12 @@ expanded class GSPAWN_FLAGS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (g_spawn_child_inherits_stdin_low_level | 
+				g_spawn_do_not_reap_child_low_level | 
 				g_spawn_file_and_argv_zero_low_level | 
 				g_spawn_leave_descriptors_open_low_level | 
 				g_spawn_search_path_low_level | 
@@ -18,7 +19,7 @@ feature -- Validity
 				g_spawn_stdout_to_dev_null_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_spawn_child_inherits_stdin is
 		do
@@ -28,6 +29,16 @@ feature -- Setters
 	unset_g_spawn_child_inherits_stdin is
 		do
 			value := value.bit_xor(g_spawn_child_inherits_stdin_low_level)
+		end
+
+	set_g_spawn_do_not_reap_child is
+		do
+			value := value.bit_or(g_spawn_do_not_reap_child_low_level)
+		end
+
+	unset_g_spawn_do_not_reap_child is
+		do
+			value := value.bit_xor(g_spawn_do_not_reap_child_low_level)
 		end
 
 	set_g_spawn_file_and_argv_zero is
@@ -90,10 +101,15 @@ feature -- Setters
 			value := value.bit_xor(g_spawn_stdout_to_dev_null_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_spawn_child_inherits_stdin: BOOLEAN is
 		do
 			Result := (value=g_spawn_child_inherits_stdin_low_level)
+		end
+
+	is_g_spawn_do_not_reap_child: BOOLEAN is
+		do
+			Result := (value=g_spawn_do_not_reap_child_low_level)
 		end
 
 	is_g_spawn_file_and_argv_zero: BOOLEAN is
@@ -133,6 +149,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module: "plugin"
  			feature_name: "G_SPAWN_CHILD_INHERITS_STDIN"
+ 			}"
+ 		end
+
+	g_spawn_do_not_reap_child_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module: "plugin"
+ 			feature_name: "G_SPAWN_DO_NOT_REAP_CHILD"
  			}"
  		end
 

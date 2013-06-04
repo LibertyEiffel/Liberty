@@ -11,7 +11,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field parent.
-feature -- Structure size
+feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

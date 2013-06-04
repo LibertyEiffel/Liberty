@@ -5,8 +5,8 @@ expanded class GISCOPE_TYPE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gi_scope_type_async_low_level)  or else
@@ -15,7 +15,7 @@ feature -- Validity
 				(a_value = gi_scope_type_notified_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gi_scope_type_async is
 		do
@@ -37,7 +37,7 @@ feature -- Setters
 			value := gi_scope_type_notified_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gi_scope_type_async: BOOLEAN is
 		do
 			Result := (value=gi_scope_type_async_low_level)

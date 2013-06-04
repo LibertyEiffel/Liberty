@@ -6,7 +6,7 @@ deferred class GIPROPERTYINFO_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_property_info_get_flags (an_info: POINTER): INTEGER is

@@ -6,7 +6,7 @@ deferred class GIRFFI_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_callable_info_free_closure (a_callable_info: POINTER; a_closure: POINTER) is

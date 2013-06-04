@@ -6,7 +6,7 @@ deferred class GISIGNALINFO_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_signal_info_get_class_closure (an_info: POINTER): POINTER is

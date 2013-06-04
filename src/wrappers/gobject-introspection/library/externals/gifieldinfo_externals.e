@@ -6,7 +6,7 @@ deferred class GIFIELDINFO_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_field_info_get_field (a_field_info: POINTER; a_mem: POINTER; a_value: POINTER): INTEGER is

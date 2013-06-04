@@ -6,7 +6,7 @@ deferred class GIREGISTEREDTYPEINFO_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_registered_type_info_get_g_type (an_info: POINTER): like long_unsigned is

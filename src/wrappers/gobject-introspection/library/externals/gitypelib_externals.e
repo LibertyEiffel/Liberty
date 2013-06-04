@@ -6,7 +6,7 @@ deferred class GITYPELIB_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_typelib_free (a_typelib: POINTER) is
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_typelib_new_from_const_memory (a_memory: POINTER; a_len: like long_unsigned; an_error: POINTER): POINTER is
+	g_typelib_new_from_const_memory (a_memory: POINTER; a_len: NATURAL; an_error: POINTER): POINTER is
  		-- g_typelib_new_from_const_memory
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_typelib_new_from_memory (a_memory: POINTER; a_len: like long_unsigned; an_error: POINTER): POINTER is
+	g_typelib_new_from_memory (a_memory: POINTER; a_len: NATURAL; an_error: POINTER): POINTER is
  		-- g_typelib_new_from_memory
 		external "plug_in"
 		alias "{

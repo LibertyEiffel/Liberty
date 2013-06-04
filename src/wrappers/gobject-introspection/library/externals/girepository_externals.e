@@ -6,7 +6,7 @@ deferred class GIREPOSITORY_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_irepository_dump (an_arg: POINTER; an_error: POINTER): INTEGER is

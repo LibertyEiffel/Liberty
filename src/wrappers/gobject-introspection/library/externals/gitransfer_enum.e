@@ -5,8 +5,8 @@ expanded class GITRANSFER_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = gi_transfer_container_low_level)  or else
@@ -14,7 +14,7 @@ feature -- Validity
 				(a_value = gi_transfer_nothing_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gi_transfer_container is
 		do
@@ -31,7 +31,7 @@ feature -- Setters
 			value := gi_transfer_nothing_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gi_transfer_container: BOOLEAN is
 		do
 			Result := (value=gi_transfer_container_low_level)
