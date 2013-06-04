@@ -19,6 +19,8 @@ TOOL=compile_to_c
 BUILD=true
 GDB=false
 
+SE_BIN=$(grep ^bin: $HOME/.serc/liberty.se | cut -c6-)
+
 while [ $# -gt 0 ]; do
     case x"$1" in
         x-no_check|x--no_check|x/no_check)
@@ -67,23 +69,8 @@ while [ $# -gt 0 ]; do
         x-gdb|x--gdb|x/gdb)
             GDB=true
             ;;
-        x-version|x--version|x/version)
-            if [ x$SMART_EIFFEL_SHORT_VERSION = x1 ]; then
-                echo "Release 2011.07 (LibertyEiffel revival)"
-            else
-                cat <<EOF
-Version of command "se_make.sh" is:
-SmartEiffel The GNU Eiffel Compiler, Eiffel tools and libraries
-Release 2011.07 (LibertyEiffel revival)
-Copyright (C), 1994-2002 - INRIA - LORIA - ESIAL UHP Nancy 1 - FRANCE
-Copyright (C), 2003-2005 - INRIA - LORIA - IUT Charlemagne Nancy 2 - FRANCE
-D.COLNET, P.RIBET, C.ADRIAN, V.CROIZIER F.MERIZEN - SmartEiffel@loria.fr
-http://SmartEiffel.loria.fr
-
-Copyright (C), 2011 - C.ADRIAN - cyril.adrian@gmail.com
-https://github.com/LibertyEiffel/Liberty
-EOF
-            fi
+        x-version|x--version|x/version|x-v|x--v|x/v)
+            $SE_BIN/compile_to_c $1
             exit 0
             ;;
         x-c_mode)
@@ -99,8 +86,6 @@ EOF
     esac
     shift
 done
-
-SE_BIN=$(grep ^bin: $HOME/.serc/liberty.se | cut -c6-)
 
 outdir=$SE_BIN/.make/$TOOL/$DIR
 if $DEBUG; then
