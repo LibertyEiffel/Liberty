@@ -8,9 +8,14 @@ class EFFECT
 
 insert
    LOGGING
+   LIBERTY_VERSION
 
 create {}
    make
+
+feature {ANY}
+   liberty_authors: STRING is "C.ADRIAN"
+   liberty_dates: STRING is "2011-2013"
 
 feature {}
    output_effect, output_reduce, output_position, output_image: TEXT_FILE_WRITE

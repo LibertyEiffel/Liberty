@@ -32,7 +32,7 @@ inherit
 insert 
 	LLVM_TYPE_FACTORY
 	CORE_EXTERNALS 
-	BIT_WRITER_EXTERNALS
+	BITWRITER_EXTERNALS
 	STDIO_EXTERNALS -- to use low-level fileno function
 	EXCEPTIONS undefine copy, is_equal end
 
@@ -182,7 +182,7 @@ feature {ANY} -- Global variables
 			end
 		end
 	
-	new_iterator_over_global_variables: ITERATOR_OVER_GLOBAL_VARIABLES is
+	iterator_over_global_variables: ITERATOR_OVER_GLOBAL_VARIABLES is
 		do
 			create Result.from_module(Current)
 		ensure Result/=Void

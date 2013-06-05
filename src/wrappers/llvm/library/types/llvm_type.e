@@ -33,7 +33,7 @@ inherit
 insert CORE_EXTERNALS
 
 feature {ANY} -- Queries
-   type_kind: LLVMTYPEKIND_ENUM is
+   type_kind: LLVMTYPE_KIND_ENUM is
          -- The actual type of Current
       do
          Result.change_value

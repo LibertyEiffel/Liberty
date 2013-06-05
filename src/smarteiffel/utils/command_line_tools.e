@@ -176,7 +176,7 @@ feature {}
                argi := argi + 1
             end
          end
-         echo.put_string(smart_eiffel.copyright)
+         echo.put_line(smart_eiffel.copyright)
       end
 
    valid_arg_index (i: INTEGER): BOOLEAN is
@@ -345,26 +345,12 @@ feature {}
       end
 
    is_version_flag_no_exit (flag: STRING): BOOLEAN is
-      local
-         echo_verbose_status_save: BOOLEAN
       do
          if flag_match(fz_version, flag) or else flag_match(once "v", flag) then
             if not version_flag then
-               echo_verbose_status_save := echo.is_verbose
-               echo.set_verbose
-               -- We use an environment variable rather than a new argument (e.g. -short_version) so that a
-               -- recent "se" degrades gracefully when used with an old plugin.
-               if (create {SYSTEM}).get_environment_variable("SMART_EIFFEL_SHORT_VERSION") /= Void then
-                  echo.put_string(smart_eiffel.release_number)
-               else
-                  echo.put_string(once "Version of command %"")
-                  echo.put_string(command_line_name)
-                  echo.put_string(once "%" is:%N")
-                  echo.put_string(smart_eiffel.copyright)
-               end
-               echo.set_verbose_with(echo_verbose_status_save)
+               smart_eiffel.print_version
+               version_flag := True
             end
-            version_flag := True
             Result := True
          end
       end

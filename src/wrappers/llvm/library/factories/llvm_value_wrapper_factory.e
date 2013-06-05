@@ -13,7 +13,7 @@ insert
 
 feature {WRAPPER, WRAPPER_HANDLER}
    value_wrapper (p: POINTER): LLVM_VALUE is
-      local type: LLVMTYPEKIND_ENUM
+      local type: LLVMTYPE_KIND_ENUM
       do
          debug
             std_error.put_string("Not all heirs of LLVM_VALUE taken in count in value factory%N")

@@ -13,26 +13,27 @@ insert
       undefine is_equal
       end
    SINGLETON
-
-feature {ANY}
-   copyright: STRING is
-      once
-         Result := "Liberty Eiffel The GNU Eiffel Compiler, Eiffel tools and libraries%N"
-         Result.append(release_number)
-         Result.append(once "[
-                        Copyright (C), 1994-2002 - INRIA - LORIA - ESIAL UHP Nancy 1 - FRANCE
-                        Copyright (C), 2003-2005 - INRIA - LORIA - IUT Charlemagne Nancy 2 - FRANCE
-                        D.COLNET, P.RIBET, C.ADRIAN, V.CROIZIER F.MERIZEN
-
-                        Copyright (C), 2011-2013 - C.ADRIAN
-                        http://liberty-eiffel.blogspot.com
-                        https://github.com/LibertyEiffel/Liberty
-
-                        ]")
-         --Result.append("                        ")
+   LIBERTY_VERSION
+      undefine is_equal
+      redefine copyright
       end
 
-   release_number: STRING is "Release 2013.03 (Charles Adler, Jr.)%N"
+feature {ANY}
+   liberty_authors: STRING is "C.ADRIAN, P.REDAELLI, R.MACK"
+   liberty_dates: STRING is "2011-2013"
+
+   copyright: ABSTRACT_STRING is
+      once
+         Result := "[
+                    #(1)
+                    Original SmartEiffel code:
+                    Copyright (C), 1994-2002 - INRIA - LORIA - ESIAL UHP Nancy 1 - FRANCE
+                    Copyright (C), 2003-2005 - INRIA - LORIA - IUT Charlemagne Nancy 2 - FRANCE
+                    D.COLNET, P.RIBET, C.ADRIAN, V.CROIZIER, F.MERIZEN
+                        http://smarteiffel.loria.fr
+
+                    ]" # Precursor
+      end
 
    status: STATUS is
       once

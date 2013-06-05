@@ -5,8 +5,8 @@ expanded class LLVMVISIBILITY_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = llvmdefault_visibility_low_level)  or else
@@ -14,7 +14,7 @@ feature -- Validity
 				(a_value = llvmprotected_visibility_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_llvmdefault_visibility is
 		do
@@ -31,7 +31,7 @@ feature -- Setters
 			value := llvmprotected_visibility_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_llvmdefault_visibility: BOOLEAN is
 		do
 			Result := (value=llvmdefault_visibility_low_level)

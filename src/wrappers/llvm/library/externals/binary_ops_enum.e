@@ -5,8 +5,8 @@ expanded class BINARY_OPS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = add_low_level)  or else
@@ -31,7 +31,7 @@ feature -- Validity
 				(a_value = xor_external_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_add is
 		do
@@ -133,7 +133,7 @@ feature -- Setters
 			value := xor_external_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_add: BOOLEAN is
 		do
 			Result := (value=add_low_level)

@@ -124,7 +124,6 @@ find: finder
 make: se_make.sh
 mock: mocker
 pretty: pretty
-run: run
 short: short
 test: eiffeltest
 test_ng: eiffeltest_ng
@@ -450,7 +449,6 @@ doc: eiffeldoc
 find: finder
 mock: mocker
 pretty: pretty
-run: run
 short: short
 test: eiffeltest
 test_ng: eiffeltest_ng

@@ -5,8 +5,8 @@ expanded class LLVMREAL_PREDICATE_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = llvmreal_oeq_low_level)  or else
@@ -27,7 +27,7 @@ feature -- Validity
 				(a_value = llvmreal_uno_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_llvmreal_oeq is
 		do
@@ -109,7 +109,7 @@ feature -- Setters
 			value := llvmreal_uno_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_llvmreal_oeq: BOOLEAN is
 		do
 			Result := (value=llvmreal_oeq_low_level)

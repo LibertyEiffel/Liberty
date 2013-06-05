@@ -8,9 +8,14 @@ class MOCKER
 
 insert
    LOGGING
+   LIBERTY_VERSION
 
 create {}
    make
+
+feature {ANY}
+   liberty_authors: STRING is "C.ADRIAN"
+   liberty_dates: STRING is "2013"
 
 feature {}
    input, out_mock, out_expect: REGULAR_FILE
@@ -116,7 +121,7 @@ feature {}
             arguments.usage(std_output)
             die_with_code(0)
          elseif option_version.is_set then
-            std_output.put_line(once "mocker 2013.02 (C) Cyril ADRIAN <cyril.adrian@gmail.com>")
+            print_version
             die_with_code(0)
          elseif not argument_file.is_set then
             arguments.usage(std_error)
