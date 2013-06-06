@@ -115,7 +115,7 @@ void se_prinT7(FILE* file, EIF_STRING* o) {
         fprintf(file,"Void");
     }
     else {
-        T3* storage = (*o)->_storage;
+        T3* storage = (*o)->_storage + (*o)->_storage_lower;
         int count = (*o)->_count;
         int i = 0;
         putc('\"',file);
