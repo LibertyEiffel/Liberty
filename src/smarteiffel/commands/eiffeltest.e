@@ -1354,7 +1354,6 @@ feature {}
                echo.w_put_string(once "%".%N")
             else
                running_of(test_file, exe_name, Void)
-
             end
          end
       end
