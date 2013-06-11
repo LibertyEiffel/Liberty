@@ -237,6 +237,11 @@ feature {NATIVE_BUILT_IN}
                      function_body.append(once "()")
                   end
                   function_body.append(once ";%N")
+               else
+                  check
+                     function_body.has_suffix(once "R=")
+                  end
+                  function_body.remove_tail(2)
                end
                cpp.inside_twin(live_type_of_current.type, copy_run_feature)
                if function_body.has_suffix(once ";%N") then

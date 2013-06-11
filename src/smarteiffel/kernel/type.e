@@ -631,6 +631,20 @@ feature {ANY}
          Result /= Void
       end
 
+   twin_stamp: FEATURE_STAMP is
+         -- The one of the `twin' feature (which is magically called by user-expanded assignments).
+      local
+         type_any: like Current; fn: FEATURE_NAME
+      do
+         -- First, going to ANY in order to get the FEATURE_NAME:
+         type_any := smart_eiffel.type_any
+         fn := type_any.class_text.any_twin_feature.names.first
+         Result := feature_accumulator.feature_stamp_of(fn)
+         Result := Result.resolve_static_binding_for(type_any, Current)
+      ensure
+         Result /= Void
+      end
+
    is_equal_stamp: FEATURE_STAMP is
          -- The one of the `is_equal' feature (which is magically called by user-expanded comparisons).
       local
