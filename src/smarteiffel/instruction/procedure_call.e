@@ -35,7 +35,6 @@ feature {ANY}
          if Result and then arguments /= Void then
             Result := arguments.has_been_specialized
          end
-         Result := Result and then target.has_been_specialized
          if target.is_current then
             Result := Result and then feature_stamp /= Void
          end

@@ -79,9 +79,10 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): INSTRUCTION is
       local
-         l, r, rhs: EXPRESSION; lt, rt: TYPE; written_site: STRING
+         l, r: EXPRESSION; lt, rt: TYPE; written_site: STRING
+         call_twin: FUNCTION_CALL_0
       do
          l := left_side.specialize_and_check(type)
          lt := l.resolve_in(type)
@@ -103,14 +104,14 @@ feature {ANY}
             elseif l = left_side then
                Result := Current
             else
-               create Result.make(l, right_side)
+               create {ASSIGNMENT} Result.make(l, right_side)
             end
          else
             r := right_side.specialize_and_check(type)
             rt := r.resolve_in(type)
             -- Theoretically, validity checking should be done only once using the sole `declaration_type'.
             -- In practice, using the `declaration_type' needs more computation ... and this solution appears
-            -- to catch errors which are not catched using the `declaration_type'. (Dom. july 12th 2004)
+            -- to catch errors which are not caught using the `declaration_type'. (Dom. july 12th 2004)
             if lt.is_expanded and then rt.is_reference then
                written_site := start_position.class_text.name.to_string
                if written_site = as_integer_general or else written_site = as_real_general or written_site = as_natural_general then
@@ -122,16 +123,18 @@ feature {ANY}
             end
             if not rt.can_be_assigned_to(lt) then
                fatal_error_for(" Bad assignment.", type, lt, rt)
+            elseif rt.is_user_expanded then
+               create call_twin.make(r, smart_eiffel.type_any.class_text.any_twin_feature.names.first)
+               call_twin.set_feature_stamp(rt.twin_stamp)
+               r := call_twin
             end
             if rt = lt and then r = right_side and then l = left_side then
                Result := Current
             else
-               if rt = lt or else rt.is_agent then
-                  rhs := r
-               else
-                  rhs := assignment_handler.implicit_cast(r, rt, lt)
+               if rt /= lt and then not rt.is_agent then
+                  r := assignment_handler.implicit_cast(r, rt, lt)
                end
-               create Result.make(l, rhs)
+               create {ASSIGNMENT} Result.make(l, r)
             end
          end
       end
