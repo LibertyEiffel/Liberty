@@ -1256,6 +1256,9 @@ feature {RUN_FEATURE_6}
                cpp.c_test_o_flag_recursion(visited)
             end
             c_define_closing(visited)
+            if cpp.gc_handler.is_bdw then
+               cpp.c_define_unreachable(visited)
+            end
             function_body.append(once "return ")
             once_routine_pool.unique_result_in(function_body, visited.base_feature)
             function_body.append(once ";%N")

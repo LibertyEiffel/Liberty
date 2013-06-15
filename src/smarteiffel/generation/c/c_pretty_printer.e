@@ -1219,7 +1219,7 @@ feature {}
             end
             out_h_buffer.append(once "se_agent*);%N")
 
-            if not gc_handler.is_off then
+            if not gc_handler.is_off and then not gc_handler.is_bdw then
                out_h_buffer.append(once "void(*gc_mark_agent_mold)(se_agent*);%N")
             end
 
@@ -2505,10 +2505,10 @@ feature {}
             if no_check then
                pending_c_function_body.append(once "[
                                                     se_frame_descriptor irfd={"<runtime init>",0,0,"",1};
-                                                                                                     se_dump_stack ds = {NULL,NULL,0,NULL,NULL,0};
-                                                                                                     ds.fd=&irfd;
+                                                    se_dump_stack ds = {NULL,NULL,0,NULL,NULL,0};
+                                                    ds.fd=&irfd;
 
-                                                                                                     ]")
+                                                    ]")
                set_dump_stack_top_for(rf3.type_of_current, once "&ds", once "link")
             end
             pending_c_function_body.append(once "se_argc=argc;%Nse_argv=argv;%N")
@@ -2579,11 +2579,14 @@ feature {}
                                                     ]")
             end
             c_call_initialize_manifest_strings
+            if gc_handler.is_bdw then
+               out_h_buffer.append(once "manifest_string_mark1();%N")
+            end
             c_code_for_precomputable_routines
             if ace.sedb then
                pending_c_function_body.append(once "se_general_trace_switch=1;%N")
             end
-            if not gc_handler.is_off then
+            if not gc_handler.is_off and then not gc_handler.is_bdw then
                pending_c_function_body.append(once "gc_is_off=0;%N")
             end
             internal_c_local := pending_c_function_lock_local(lt.type, once "root")
@@ -2593,6 +2596,7 @@ feature {}
             pending_c_function_body.append(once "*)")
             internal_c_local.append_in(pending_c_function_body)
             pending_c_function_body.append(once ");%N")
+
             internal_c_local.unlock
             system_tools.auto_init_plugins
             if ace.no_check then
@@ -2796,7 +2800,7 @@ feature {}
             pending_c_function_body.append(once "get_profiler_started(&master_profile);%N")
             pending_c_function_body.append(once "start_profile(&master_profile, &global_profile);%N")
          end
-         if not gc_handler.is_off then
+         if not gc_handler.is_off and then not gc_handler.is_bdw then
             pending_c_function_body.append(once "stack_bottom=((void**)(void*)(&argc));%N")
          end
          pending_c_function_body.append(once "initialize_eiffel_runtime(argc,argv);%N")
@@ -3933,10 +3937,9 @@ feature {RUN_FEATURE_5, RUN_FEATURE_6, C_COMPILATION_MIXIN}
       require
          rf.is_once_function
       local
-         bf: ANONYMOUS_FEATURE; bcbf: CLASS_TEXT; unique_result: STRING; rt: TYPE_MARK
+         bf: ANONYMOUS_FEATURE; unique_result: STRING; rt: TYPE_MARK
       do
          bf := rf.base_feature
-         bcbf := bf.class_text
          unique_result := once "............ unique buffer ..........."
          unique_result.clear_count
          once_routine_pool.unique_result_in(unique_result, bf)
@@ -4001,6 +4004,25 @@ feature {RUN_FEATURE_5, RUN_FEATURE_6, C_COMPILATION_MIXIN}
          pending_c_function_body.append(once "if(")
          pending_c_function_body.append(flag)
          pending_c_function_body.append(once "!=0){%N")
+      end
+
+   c_define_unreachable (rf: RUN_FEATURE) is
+      require
+         rf.is_once_function
+         gc_handler.is_bdw
+      local
+         bf: ANONYMOUS_FEATURE; rt: TYPE_MARK
+      do
+         if not rt.is_expanded then
+            bf := rf.base_feature
+            out_h_buffer.clear_count
+            rt := rf.result_type
+            out_h_buffer.append(once "bdw_mark_uncollectable_T")
+            rt.type.id.append_in(out_h_buffer)
+            out_h_buffer.extend('(')
+            once_routine_pool.unique_result_in(out_h_buffer, bf)
+            out_h_buffer.extend(')')
+         end
       end
 
 feature {} -- CECIL_POOL

@@ -16,6 +16,9 @@ feature {ANY}
    is_off: BOOLEAN
          -- True when the Garbage Collector is not produced.
 
+   is_bdw: BOOLEAN
+         -- True when bdwgc is used.
+
    info_flag: BOOLEAN
          -- True when Garbage Collector Information need to be printed.
 
@@ -36,6 +39,15 @@ feature {ACE, COMPILE_TO_C, STRING_COMMAND_LINE}
          not info_flag
       end
 
+   bdw_gc is
+      do
+         is_bdw := True
+         info_flag := False
+      ensure
+         is_bdw
+         not info_flag
+      end
+
    set_info_flag is
       do
          is_off := False
@@ -49,6 +61,7 @@ feature {C_GARBAGE_COLLECTOR_FUNCTIONS_COMPILER}
    memory_dispose (o: STRING; live_type: LIVE_TYPE) is
          -- Append the extra C code for the MEMORY.dispose call if any.
       require
+         not is_off
          cpp.pending_c_function
          not live_type.is_expanded
          not live_type.is_native_array
@@ -58,9 +71,11 @@ feature {C_GARBAGE_COLLECTOR_FUNCTIONS_COMPILER}
          rf3 := live_type.get_memory_dispose
          if rf3 /= Void then
             dispose_flag := True
-            cpp.pending_c_function_body.append(once "if((")
-            cpp.pending_c_function_body.append(o)
-            cpp.pending_c_function_body.append(once "->header.flag)==FSOH_UNMARKED){%N")
+            if not is_bdw then
+               cpp.pending_c_function_body.append(once "if((")
+               cpp.pending_c_function_body.append(o)
+               cpp.pending_c_function_body.append(once "->header.flag)==FSOH_UNMARKED){%N")
+            end
             no_check := ace.no_check
             if no_check then
                cpp.pending_c_function_body.append(once "[
@@ -101,14 +116,23 @@ feature {C_GARBAGE_COLLECTOR_FUNCTIONS_COMPILER}
             if no_check then
                cpp.set_dump_stack_top_for(rf3.type_of_current, once "ds.caller", once "unlink")
             end
-            cpp.pending_c_function_body.extend('}')
+            if not is_bdw then
+               cpp.pending_c_function_body.extend('}')
+            end
          end
       end
 
 feature {C_PRETTY_PRINTER}
    customize_c_runtime is
       do
-         if not is_off then
+         if is_bdw then
+            cpp.out_h_buffer.append(once "#include <gc.h>%N#define BDW_GC 1%N")
+            if not ace.boost then
+               cpp.out_h_buffer.append(once "#define GC_DEBUG 1%N")
+            end
+            cpp.write_out_h_buffer
+            system_tools.add_bdwgc_lib
+         elseif not is_off then
             cpp.macro_def(once "FSOC_SIZE", fsoc_size)
             cpp.macro_def(once "RSOC_SIZE", rsoc_size)
             cpp.sys_runtime_h_and_c(once "gc_lib")
@@ -117,7 +141,9 @@ feature {C_PRETTY_PRINTER}
 
    initialize_runtime is
       do
-         if not is_off then
+         if is_bdw then
+            cpp.pending_c_function_body.append(once "GC_java_finalization=1;%NGC_INIT();%NGC_stackbottom=(char*)(void*)&argc;%N")
+         elseif not is_off then
             cpp.pending_c_function_body.append(once "gcmt=((mch**)se_malloc((gcmt_max+1)*sizeof(void*)));%N%
                                 %#ifdef FIXED_STACK_BOTTOM%N%
                                 %if (!stack_bottom) stack_bottom=((void**)(void*)(&argc));%N%
@@ -127,7 +153,9 @@ feature {C_PRETTY_PRINTER}
 
    gc_info_before_exit is
       do
-         if not is_off then
+         if is_bdw then
+            cpp.pending_c_function_body.append(once "GC_enable();%NGC_gcollect();%N")
+         elseif not is_off then
             if info_flag then
                cpp.pending_c_function_body.append(once "fprintf(SE_GCINFO,%"==== Last GC before exit ====\n%");%N%
                %gc_start();%N")
@@ -143,9 +171,13 @@ feature {C_PRETTY_PRINTER}
       require
          not is_off
       do
-         echo.put_string(once "Adding Garbage Collector.%N")
-         --
-         compute_ceils
+         if is_bdw then
+            echo.put_string(once "Adding Boehm-Demers-Weiser Garbage Collector.%N")
+         else
+            echo.put_string(once "Adding Garbage Collector.%N")
+            --
+            compute_ceils
+         end
       end
 
    define2 is
@@ -156,37 +188,124 @@ feature {C_PRETTY_PRINTER}
       do
          live_type_map := smart_eiffel.live_type_map
          root_type := smart_eiffel.root_procedure.type_of_current
+
+         echo.put_string(once "GC support (root functions).%N")
+         if is_bdw then
+            from
+               i := live_type_map.lower
+            until
+               i > live_type_map.upper
+            loop
+               lt := live_type_map.item(i)
+               if lt.at_run_time then
+                  cpp.out_h_buffer.append(once "extern void* bdw_ms[")
+                  manifest_string_pool.collected_once_count.append_in(cpp.out_h_buffer)
+                  cpp.out_h_buffer.append(once "];%N")
+                  cpp.write_out_h_buffer
+               end
+               i := i + 1
+            end
+         else
+            cpp.prepare_c_function
+            cpp.pending_c_function_signature.append(once "void once_function_mark(void)")
+            mark_once_routines
+            cpp.dump_pending_c_function(True)
+         end
          define_manifest_string_mark
-         cpp.prepare_c_function
-         cpp.pending_c_function_signature.append(once "void once_function_mark(void)")
-         mark_once_routines
-         cpp.dump_pending_c_function(True)
          define_gc_start(root_type, live_type_map)
-         echo.put_string(once "GC support (gc_define1 step).%N")
+
+         echo.put_string(once "GC support (header).%N")
          cpp.split_c_file_padding_here
-         from
-            i := live_type_map.lower
-         until
-            i > live_type_map.upper
-         loop
-            lt := live_type_map.item(i)
-            if lt.at_run_time then
-               header_compiler.compile(lt.canonical_type_mark)
+         if is_bdw then
+            from
+               i := live_type_map.lower
+            until
+               i > live_type_map.upper
+            loop
+               lt := live_type_map.item(i)
+               if lt.at_run_time then
+                  cpp.out_h_buffer.copy(once "void bdw_finalizeT")
+                  lt.id.append_in(cpp.out_h_buffer)
+                  cpp.out_h_buffer.append(once "(void*obj,void*_);%N")
+                  cpp.pending_c_function_body.append(cpp.target_type.for(lt.canonical_type_mark))
+                  cpp.out_h_buffer.append(once " bdw_mallocT")
+                  lt.id.append_in(cpp.out_h_buffer)
+                  cpp.out_h_buffer.append(once "(int n);%N")
+                  cpp.write_out_h_buffer
+               end
+               i := i + 1
             end
-            i := i + 1
-         end
-         echo.put_string(once "GC support (gc_define2 step).%N")
-         from
-            i := live_type_map.lower
-         until
-            i > live_type_map.upper
-         loop
-            lt := live_type_map.item(i)
-            if lt.at_run_time then
-               functions_compiler.compile(lt.canonical_type_mark)
+         else
+            from
+               i := live_type_map.lower
+            until
+               i > live_type_map.upper
+            loop
+               lt := live_type_map.item(i)
+               if lt.at_run_time then
+                  header_compiler.compile(lt.canonical_type_mark)
+               end
+               i := i + 1
             end
-            i := i + 1
          end
+
+         echo.put_string(once "GC support (functions).%N")
+         if is_bdw then
+            from
+               i := live_type_map.lower
+            until
+               i > live_type_map.upper
+            loop
+               lt := live_type_map.item(i)
+               if lt.at_run_time then
+                  cpp.prepare_c_function
+                  cpp.pending_c_function_signature.append(once "void bdw_finalizeT")
+                  lt.id.append_in(cpp.pending_c_function_signature)
+                  cpp.pending_c_function_signature.append(once "(void*obj,void*_)")
+                  cpp.pending_c_function_body.append(cpp.target_type.for(lt.canonical_type_mark))
+                  cpp.pending_c_function_body.append(once " o=(")
+                  cpp.pending_c_function_body.append(cpp.target_type.for(lt.canonical_type_mark))
+                  cpp.pending_c_function_body.append(once ")obj;%N")
+                  memory_dispose(once "o", lt)
+                  cpp.dump_pending_c_function(True)
+                  cpp.prepare_c_function
+                  cpp.pending_c_function_signature.append(cpp.target_type.for(lt.canonical_type_mark))
+                  cpp.pending_c_function_signature.append(once " bdw_mallocT")
+                  lt.id.append_in(cpp.pending_c_function_signature)
+                  cpp.pending_c_function_signature.append(once "(int n)")
+                  cpp.pending_c_function_body.append(cpp.target_type.for(lt.canonical_type_mark))
+                  cpp.pending_c_function_body.append(once " R=(")
+                  cpp.pending_c_function_body.append(cpp.target_type.for(lt.canonical_type_mark))
+                  cpp.pending_c_function_body.append(once ")se_malloc(n*sizeof(T")
+                  lt.id.append_in(cpp.pending_c_function_body)
+                  cpp.pending_c_function_body.append(once "));%NGC_REGISTER_FINALIZER_UNREACHABLE(R, bdw_finalizeT")
+                  lt.id.append_in(cpp.pending_c_function_body)
+                  cpp.pending_c_function_body.append(once ",NULL,NULL,NULL);%N")
+                  if cpp.need_struct.for(lt.canonical_type_mark) then
+                     cpp.pending_c_function_body.append(once "*R=M")
+                     lt.id.append_in(cpp.pending_c_function_body)
+                     cpp.pending_c_function_body.append(once ";%N")
+                  end
+                  cpp.pending_c_function_body.append(once "return R;%N")
+                  cpp.dump_pending_c_function(True)
+               end
+               i := i + 1
+            end
+         else
+            from
+               i := live_type_map.lower
+            until
+               i > live_type_map.upper
+            loop
+               lt := live_type_map.item(i)
+               if lt.at_run_time then
+                  functions_compiler.compile(lt.canonical_type_mark)
+               end
+               i := i + 1
+            end
+         end
+
+         echo.put_string(once "GC support (switch).%N")
          from
             i := switch_list.lower
          until
@@ -195,6 +314,7 @@ feature {C_PRETTY_PRINTER}
             switch_for(switch_list.item(i))
             i := i + 1
          end
+
          if info_flag then
             define_gc_info(live_type_map)
          end
@@ -202,9 +322,12 @@ feature {C_PRETTY_PRINTER}
          smart_eiffel.magic_count = old smart_eiffel.magic_count
       end
 
+feature {}
    mark_once_routines is
          -- Produce the C code to mark results of all once functions (because they are part of the root).
       require
+         not is_bdw
+         not is_off
          smart_eiffel.is_ready
       local
          i: INTEGER; rf: RUN_FEATURE; memory: HASHED_SET[STRING]; once_function: ONCE_FUNCTION;
@@ -261,10 +384,20 @@ feature {C_PRETTY_PRINTER}
       end
 
    define_manifest_string_mark is
+      require
+         not is_off
       local
          i, mdc, ms_count, function_count, id, us_id: INTEGER; ms: MANIFEST_STRING
       do
          mdc := manifest_string_pool.collected_once_count
+
+         if is_bdw then
+            cpp.out_c_buffer.copy(once "void* bdw_ms[")
+            mdc.append_in(cpp.out_c_buffer)
+            cpp.out_c_buffer.append(once "];%N")
+            cpp.write_out_c_buffer
+         end
+
          function_count := 1
          cpp.prepare_c_function
          manifest_string_mark_signature(function_count)
@@ -287,13 +420,20 @@ feature {C_PRETTY_PRINTER}
                manifest_string_mark_signature(function_count)
             end
             ms := manifest_string_pool.collected_once_item(i)
-            cpp.pending_c_function_body.append(once "gc_mark")
             if ms.unicode_flag then
                id := us_id
             else
                id := 7
             end
-            id.append_in(cpp.pending_c_function_body)
+
+            if is_bdw then
+               cpp.pending_c_function_body.append(once "bdw_ms[")
+               (i-1).append_in(cpp.pending_c_function_body)
+               cpp.pending_c_function_body.append(once "]=")
+            else
+               cpp.pending_c_function_body.append(once "gc_mark")
+               id.append_in(cpp.pending_c_function_body)
+            end
             cpp.pending_c_function_body.append(once "((T")
             id.append_in(cpp.pending_c_function_body)
             cpp.pending_c_function_body.append(once "*)")
@@ -324,7 +464,11 @@ feature {ANY}
       do
          internal_c_local.append_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.extend('=')
-         if is_off then
+         if is_bdw then
+            cpp.pending_c_function_body.append(once "((T0*)bdw_mallocT")
+            created_live_type.id.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once "(1))")
+         elseif is_off then
             if cpp.need_struct.for(created_live_type.canonical_type_mark) then
                cpp.pending_c_function_body.append(once "((T0*)se_malloc(sizeof(T")
                created_live_type.id.append_in(cpp.pending_c_function_body)
@@ -482,13 +626,13 @@ feature {C_PRETTY_PRINTER}
       do
          if is_off or else not string_at_run_time then
             c_code.append(once "s=((T7*)se_malloc(sizeof(T7)));%N")
-            if string_at_run_time and then
-               smart_eiffel.type_string.live_type.is_tagged
-             then
-               c_code.append(once "s->id=7;%N")
-            end
+         elseif is_bdw then
+            c_code.append(once "s=(T7*)bdw_mallocT7(1);%N")
          else
             c_code.append(once "s=new7();%N")
+         end
+         if string_at_run_time and then smart_eiffel.type_string.live_type.is_tagged then
+            c_code.append(once "s->id=7;%N")
          end
       end
 
@@ -496,6 +640,8 @@ feature {C_PRETTY_PRINTER}
       do
          if is_off or else not string_at_run_time then
             c_code.append(once "se_malloc")
+         elseif is_bdw then
+            c_code.append(once "bdw_mallocT9")
          else
             c_code.append(once "new9")
          end
@@ -508,6 +654,7 @@ feature {ONCE_ROUTINE_POOL, NATIVE_ARRAY_TYPE_MARK, NATIVE_BUILT_IN, C_COMPILATI
       require
          cpp.pending_c_function
          not is_off
+         not is_bdw
          need_mark.for(lt.type)
       local
          ct: TYPE_MARK; run_time_set: RUN_TIME_SET
@@ -568,6 +715,9 @@ feature {}
       end
 
    compute_ceils is
+      require
+         not is_off
+         not is_bdw
       local
          fsoc_count_ceil, rsoc_count_ceil, i: INTEGER; live_type_map: TRAVERSABLE[LIVE_TYPE]; lt: LIVE_TYPE
          kb_count: INTEGER
@@ -658,6 +808,7 @@ feature {}
    just_before_mark (live_type_map: TRAVERSABLE[LIVE_TYPE]) is
       require
          not is_off
+         not is_bdw
          cpp.pending_c_function
       local
          i: INTEGER; lt: LIVE_TYPE
@@ -678,34 +829,39 @@ feature {}
    define_gc_info (live_type_map: TRAVERSABLE[LIVE_TYPE]) is
       require
          info_flag
+         not is_off
       local
          i: INTEGER; lt: LIVE_TYPE
       do
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void  gc_info(void)")
-         cpp.pending_c_function_body.append(once
-         "fprintf(SE_GCINFO,%"--------------------\nNumber\tTotal\tStore\tName\ncreated\tsize\tleft\n%");%N")
-         from
-            i := live_type_map.lower
-         until
-            i > live_type_map.upper
-         loop
-            lt := live_type_map.item(i)
-            if lt.at_run_time then
-               info_compiler.compile(lt.canonical_type_mark)
+         if is_bdw then
+            cpp.pending_c_function_body.append(once "GC_dump();%N")
+         else
+            cpp.pending_c_function_body.append(once
+            "fprintf(SE_GCINFO,%"--------------------\nNumber\tTotal\tStore\tName\ncreated\tsize\tleft\n%");%N")
+            from
+               i := live_type_map.lower
+            until
+               i > live_type_map.upper
+            loop
+               lt := live_type_map.item(i)
+               if lt.at_run_time then
+                  info_compiler.compile(lt.canonical_type_mark)
+               end
+               i := i + 1
             end
-            i := i + 1
+            agent_pool_gc_info
+            cpp.pending_c_function_body.append(once "fprintf(SE_GCINFO,%"C-stack=%%d %",gc_stack_size());%N%
+              %fprintf(SE_GCINFO,%"main-table=%%d/%%d %",gcmt_used,gcmt_max);%N%
+              %fprintf(SE_GCINFO,%"fsoc:%%d(%",fsoc_count);%N%
+              %fprintf(SE_GCINFO,%"free=%%d %",fsocfl_count());%N%
+              %fprintf(SE_GCINFO,%"ceil=%%d) %",fsoc_count_ceil);%N%
+              %fprintf(SE_GCINFO,%"rsoc:%%d(%",rsoc_count);%N%
+              %fprintf(SE_GCINFO,%"ceil=%%d)\n%",rsoc_count_ceil);%N%
+              %fprintf(SE_GCINFO,%"GC called %%d time(s)\n%",collector_counter);%N%
+              %fprintf(SE_GCINFO,%"--------------------\n%");%N")
          end
-         agent_pool_gc_info
-         cpp.pending_c_function_body.append(once "fprintf(SE_GCINFO,%"C-stack=%%d %",gc_stack_size());%N%
-           %fprintf(SE_GCINFO,%"main-table=%%d/%%d %",gcmt_used,gcmt_max);%N%
-           %fprintf(SE_GCINFO,%"fsoc:%%d(%",fsoc_count);%N%
-           %fprintf(SE_GCINFO,%"free=%%d %",fsocfl_count());%N%
-           %fprintf(SE_GCINFO,%"ceil=%%d) %",fsoc_count_ceil);%N%
-           %fprintf(SE_GCINFO,%"rsoc:%%d(%",rsoc_count);%N%
-           %fprintf(SE_GCINFO,%"ceil=%%d)\n%",rsoc_count_ceil);%N%
-           %fprintf(SE_GCINFO,%"GC called %%d time(s)\n%",collector_counter);%N%
-           %fprintf(SE_GCINFO,%"--------------------\n%");%N")
          cpp.dump_pending_c_function(True)
       end
 
@@ -729,37 +885,41 @@ feature {}
       do
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void gc_start(void)")
-         cpp.pending_c_function_body.append(once "if(gc_is_off)return;%N%
-                                                 %if(garbage_delayed())return;%N")
          cpp.pending_c_function_body.append(once "handle(SE_HANDLE_ENTER_GC,NULL);%N");
-         cpp.pending_c_function_body.append(once "gcmt_tail_addr=(((char*)(gcmt[gcmt_used-1]))+%
-            %(gcmt[gcmt_used-1])->size);%N%
-            %((gc")
-         root_type.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "*)eiffel_root_object)->header.flag=FSOH_UNMARKED;%N")
-         just_before_mark(live_type_map)
-         cpp.pending_c_function_body.append(once "gc_mark")
-         root_type.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "(eiffel_root_object);%N%
-                     %manifest_string_mark1();%N%
-                     %once_function_mark();%N")
-         if smart_eiffel.generator_used then
-            cpp.pending_c_function_body.append(once "{int i=SE_MAXID-1;%N%
-                        %while(i>=0){%N%
-                        %if(g[i]!=NULL)gc_mark7(g[i]);%N%
-                        %i--;}%N}%N")
-         end
-         if smart_eiffel.generating_type_used then
-            cpp.pending_c_function_body.append(once "{int i=SE_MAXID-1;%N%
-                        %while(i>=0){%N%
-                        %if(t[i]!=NULL)gc_mark7(t[i]);%N%
-                        %i--;}%N}%N")
-         end
-         cpp.pending_c_function_body.append(once "mark_stack_and_registers();%N%
-                     %gc_sweep();%N%
-                     %collector_counter++;%N")
-         if info_flag then
-            cpp.pending_c_function_body.append(once "gc_info();%N")
+         if is_bdw then
+            cpp.pending_c_function_body.append(once "GC_gcollect();%N")
+         else
+            cpp.pending_c_function_body.append(once "if(!gc_is_off && !garbage_delayed()){%N")
+            cpp.pending_c_function_body.append(once "gcmt_tail_addr=(((char*)(gcmt[gcmt_used-1]))+%
+               %(gcmt[gcmt_used-1])->size);%N%
+               %((gc")
+            root_type.id.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once "*)eiffel_root_object)->header.flag=FSOH_UNMARKED;%N")
+            just_before_mark(live_type_map)
+            cpp.pending_c_function_body.append(once "gc_mark")
+            root_type.id.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once "(eiffel_root_object);%N%
+                        %manifest_string_mark1();%N%
+                        %once_function_mark();%N")
+            if smart_eiffel.generator_used then
+               cpp.pending_c_function_body.append(once "{int i=SE_MAXID-1;%N%
+                           %while(i>=0){%N%
+                           %if(g[i]!=NULL)gc_mark7(g[i]);%N%
+                           %i--;}%N}%N")
+            end
+            if smart_eiffel.generating_type_used then
+               cpp.pending_c_function_body.append(once "{int i=SE_MAXID-1;%N%
+                           %while(i>=0){%N%
+                           %if(t[i]!=NULL)gc_mark7(t[i]);%N%
+                           %i--;}%N}%N")
+            end
+            cpp.pending_c_function_body.append(once "mark_stack_and_registers();%N%
+                        %gc_sweep();%N%
+                        %collector_counter++;%N")
+            if info_flag then
+               cpp.pending_c_function_body.append(once "gc_info();%N")
+            end
+            cpp.pending_c_function_body.append(once "}%N")
          end
          cpp.pending_c_function_body.append(once "handle(SE_HANDLE_EXIT_GC,NULL);%N");
          cpp.dump_pending_c_function(True)

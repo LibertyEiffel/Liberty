@@ -106,6 +106,8 @@ feature {} -- Hard coded feature names:
 
    as_agent: STRING is "agent"
 
+   as_allocated_bytes: STRING is "allocated_bytes"
+
    as_as_16_ne: STRING is "as_16_ne"
 
    as_as_32_ne: STRING is "as_32_ne"

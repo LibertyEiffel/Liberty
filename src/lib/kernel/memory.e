@@ -31,7 +31,7 @@ feature {ANY} -- Garbage collector information and tuning:
 
    frozen collector_counter: INTEGER is
          -- The number of collections actually performed or -1 when the
-         -- system is not using the SmartEiffel garbage collector (i.e. when
+         -- system is not using any garbage collector (i.e. when
          -- the system is compiled using the -no_gc flag).
       external "built_in"
       ensure
@@ -121,11 +121,8 @@ feature {ANY} -- SmartEiffel Garbage collector information and tuning:
    frozen allocated_bytes: INTEGER is
          -- Total number of allocated bytes of memory in the heap.
       require
-         collector_counter >= 0
-      do
-         c_inline_c("#ifdef SE_GC_LIB%N")
-         c_inline_c("R=gc_memory_used();%N")
-         c_inline_c("#endif%N")
+         smart_eiffel_collector
+      external "built_in"
       end
 
 end -- class MEMORY

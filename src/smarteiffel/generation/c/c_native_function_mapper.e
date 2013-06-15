@@ -356,16 +356,28 @@ feature {NATIVE_BUILT_IN}
          elseif as_signal_number = name then
             function_body.append(once "signal_exception_number")
          elseif as_collecting = name then
-            if cpp.gc_handler.is_off then
+            if cpp.gc_handler.is_bdw then
+               function_body.append(once "!GC_dont_gc")
+            elseif cpp.gc_handler.is_off then
                function_body.extend('0')
             else
                function_body.append(once "!gc_is_off")
             end
          elseif as_collector_counter = name then
-            if cpp.gc_handler.is_off then
+            if cpp.gc_handler.is_bdw then
+               function_body.append(once "GC_gc_no")
+            elseif cpp.gc_handler.is_off then
                function_body.append(once "(-1)")
             else
                function_body.append(as_collector_counter)
+            end
+         elseif as_allocated_bytes = name then
+            if cpp.gc_handler.is_bdw then
+               function_body.append(once "GC_get_heap_size()")
+            elseif cpp.gc_handler.is_off then
+               function_body.append(once "(-1)")
+            else
+               function_body.append(once "gc_memory_used()")
             end
          elseif type_of_current.is_integer then
             c_mapping_integer_function

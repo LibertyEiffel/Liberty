@@ -123,7 +123,9 @@ feature {NATIVE_BUILT_IN}
             cpp.put_ith_argument(1)
             function_body.append(once ");%N")
          elseif as_full_collect = name then
-            if not cpp.gc_handler.is_off then
+            if cpp.gc_handler.is_bdw then
+               function_body.append(once "GC_gcollect();%N")
+            elseif not cpp.gc_handler.is_off then
                function_body.append(once "gc_start();%N")
             end
          elseif as_trace_switch = name then
@@ -131,11 +133,15 @@ feature {NATIVE_BUILT_IN}
          elseif as_sedb_breakpoint = name then
             cpp.put_sedb_breakpoint
          elseif as_collection_off = name then
-            if not cpp.gc_handler.is_off then
+            if cpp.gc_handler.is_bdw then
+               function_body.append(once "GC_disable();%N")
+            elseif not cpp.gc_handler.is_off then
                function_body.append(once "gc_is_off=1;%N")
             end
          elseif as_collection_on = name then
-            if not cpp.gc_handler.is_off then
+            if cpp.gc_handler.is_bdw then
+               function_body.append(once "GC_enable();%N")
+            elseif not cpp.gc_handler.is_off then
                function_body.append(once "gc_is_off=0;%N")
             end
          elseif as_put_16_be = name or else as_put_16_le = name or else as_put_16_ne = name then
