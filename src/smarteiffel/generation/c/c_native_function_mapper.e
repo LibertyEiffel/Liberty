@@ -225,16 +225,16 @@ feature {NATIVE_BUILT_IN}
                c_mapping_standard_twin
             else
                if live_type_of_current.is_reference then
+                  id := live_type_of_current.id
                   if cpp.gc_handler.is_off then
-                     id := live_type_of_current.id
                      function_body.append(once "se_malloc(sizeof(*C))")
                   elseif cpp.gc_handler.is_bdw then
                      function_body.append(once "(void*)bdw_mallocT")
-                     live_type_of_current.canonical_type_mark.id.append_in(function_body)
+                     id.append_in(function_body)
                      function_body.append(once "(1)")
                   else
                      function_body.append(once "(void*)new")
-                     live_type_of_current.canonical_type_mark.id.append_in(function_body)
+                     id.append_in(function_body)
                      function_body.append(once "()")
                   end
                   function_body.append(once ";%N*((T")
