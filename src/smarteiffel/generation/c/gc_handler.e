@@ -185,6 +185,7 @@ feature {C_PRETTY_PRINTER}
          not is_off
       local
          i: INTEGER; lt: LIVE_TYPE; live_type_map: TRAVERSABLE[LIVE_TYPE]; root_type: TYPE
+         wrlt: LIVE_TYPE
       do
          live_type_map := smart_eiffel.live_type_map
          root_type := smart_eiffel.root_procedure.type_of_current
@@ -247,6 +248,9 @@ feature {C_PRETTY_PRINTER}
                   cpp.pending_c_function_signature.append(once " bdw_mallocT")
                   lt.id.append_in(cpp.pending_c_function_signature)
                   cpp.pending_c_function_signature.append(once "(int n)")
+                  if lt.class_text_name.to_string = as_weak_reference then
+                     wrlt := lt.type.generic_list.first.live_type
+                  end
                   cpp.pending_c_function_body.append(cpp.target_type.for(lt.canonical_type_mark))
                   cpp.pending_c_function_body.append(once " R=(")
                   cpp.pending_c_function_body.append(cpp.target_type.for(lt.canonical_type_mark))
@@ -258,6 +262,9 @@ feature {C_PRETTY_PRINTER}
                         cpp.pending_c_function_body.append(once "0*")
                      end
                   else
+                     if wrlt /= Void then
+                        --|**** TODO
+                     end
                      cpp.pending_c_function_body.append(once ")se_malloc(n*sizeof(T")
                      lt.id.append_in(cpp.pending_c_function_body)
                   end
