@@ -334,6 +334,7 @@ feature {}
       require
          visited.is_reference -- is_weak_ref
          not cpp.gc_handler.is_off
+         not cpp.gc_handler.is_bdw
          not cpp.pending_c_function
          visited.type.live_type.at_run_time
       once
@@ -379,6 +380,7 @@ feature {}
       require
          cpp.pending_c_function
          not cpp.gc_handler.is_off
+         not cpp.gc_handler.is_bdw
          not lt.canonical_type_mark.is_native_array
          lt.at_run_time
       local
@@ -528,6 +530,7 @@ feature {}
       require
          cpp.pending_c_function
          not cpp.gc_handler.is_off
+         not cpp.gc_handler.is_bdw
          not lt.canonical_type_mark.is_native_array
          lt.at_run_time
       do
@@ -557,6 +560,7 @@ feature {}
       require
          cpp.pending_c_function
          not cpp.gc_handler.is_off
+         not cpp.gc_handler.is_bdw
          visited.type.live_type.at_run_time
       local
          e_type: TYPE; e_live_type: LIVE_TYPE

@@ -811,6 +811,11 @@ feature {ACE_CHECK}
          else
             txt.append("   collect (yes)%N")
          end
+         if cpp.gc_handler.is_bdw then
+            txt.append("   collect_bdw (yes)%N")
+         elseif not cpp.gc_handler.is_off then
+            txt.append("   collect_bdw (no)%N")
+         end
          if error_handler.style_warning then
             txt.append("   style_warning (yes)%N")
          else

@@ -53,7 +53,7 @@ feature {ANY} -- Extra collectors
 
    add_extra_collectors is
       do
-         if not gc_handler.is_off then
+         if not gc_handler.is_off and then not gc_handler.is_bdw then
             live_type_extra_collectors.add_last(native_array_collector)
          end
       end
@@ -500,7 +500,7 @@ feature {}
             write_extern_array_2(once "T7*t", size)
          end
          if ace.boost then
-            if (not gc_handler.is_off) and then smart_eiffel.weak_reference_used then
+            if (not gc_handler.is_off and then not gc_handler.is_bdw) and then smart_eiffel.weak_reference_used then
                initialize_size_table
             end
          else
