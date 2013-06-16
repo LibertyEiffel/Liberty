@@ -227,9 +227,7 @@ feature {NATIVE_BUILT_IN}
                if live_type_of_current.is_reference then
                   if cpp.gc_handler.is_off then
                      id := live_type_of_current.id
-                     function_body.append(once "se_malloc(sizeof(*C));%N*((T")
-                     id.append_in(function_body)
-                     function_body.append(once "*)R)=M")
+                     function_body.append(once "se_malloc(sizeof(*C))")
                      id.append_in(function_body)
                   elseif cpp.gc_handler.is_bdw then
                      function_body.append(once "(void*)bdw_mallocT")
@@ -240,7 +238,9 @@ feature {NATIVE_BUILT_IN}
                      live_type_of_current.canonical_type_mark.id.append_in(function_body)
                      function_body.append(once "()")
                   end
-                  function_body.append(once ";%N")
+                  function_body.append(once ";%N*((T")
+                  id.append_in(function_body)
+                  function_body.append(once "*)R)=M;%N")
                else
                   check
                      function_body.has_suffix(once "R=")

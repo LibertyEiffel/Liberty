@@ -53,7 +53,7 @@ feature {ANY} -- Extra collectors
 
    add_extra_collectors is
       do
-         if not gc_handler.is_off and then not gc_handler.is_bdw then
+         if not gc_handler.is_off and then not gc_handler.is_bdw then --| MEMORY_HANDLER.add_extra_collectors
             live_type_extra_collectors.add_last(native_array_collector)
          end
       end
@@ -115,7 +115,7 @@ feature {SMART_EIFFEL}
             if ace.sedb then
                out_h.put_string(once "#define SE_SEDB 1%N")
             end
-            if gc_flag and not gc_handler.is_bdw then
+            if gc_flag and not gc_handler.is_bdw then --| MEMORY_HANDLER.pre_customize_c_runtime
                out_h.put_string(once "#define SE_GC_LIB 1%N")
             end
             if exceptions_handler.used then
@@ -500,7 +500,7 @@ feature {}
             write_extern_array_2(once "T7*t", size)
          end
          if ace.boost then
-            if (not gc_handler.is_off and then not gc_handler.is_bdw) and then smart_eiffel.weak_reference_used then
+            if (not gc_handler.is_off and then not gc_handler.is_bdw) and then smart_eiffel.weak_reference_used then --| MEMORY_HANDLER.need_size_table
                initialize_size_table
             end
          else
@@ -1219,7 +1219,7 @@ feature {}
             end
             out_h_buffer.append(once "se_agent*);%N")
 
-            if not gc_handler.is_off and then not gc_handler.is_bdw then
+            if not gc_handler.is_off and then not gc_handler.is_bdw then --| MEMORY_HANDLER.define_agent_data_0
                out_h_buffer.append(once "void(*gc_mark_agent_mold)(se_agent*);%N")
             end
 
@@ -2579,15 +2579,14 @@ feature {}
                                                     ]")
             end
             c_call_initialize_manifest_strings
-            if gc_handler.is_bdw then
-               out_h_buffer.append(once "manifest_string_mark1();%N")
-            end
             c_code_for_precomputable_routines
+            if gc_handler.is_bdw then --| MEMORY_HANDLER.post_initialize_runtime
+               out_h_buffer.append(once "manifest_string_mark1();%N")
+            elseif not gc_handler.is_off then
+               pending_c_function_body.append(once "gc_is_off=0;%N")
+            end
             if ace.sedb then
                pending_c_function_body.append(once "se_general_trace_switch=1;%N")
-            end
-            if not gc_handler.is_off and then not gc_handler.is_bdw then
-               pending_c_function_body.append(once "gc_is_off=0;%N")
             end
             internal_c_local := pending_c_function_lock_local(lt.type, once "root")
             gc_handler.allocation_of(internal_c_local, lt)
@@ -2800,7 +2799,7 @@ feature {}
             pending_c_function_body.append(once "get_profiler_started(&master_profile);%N")
             pending_c_function_body.append(once "start_profile(&master_profile, &global_profile);%N")
          end
-         if not gc_handler.is_off and then not gc_handler.is_bdw then
+         if not gc_handler.is_off and then not gc_handler.is_bdw then --| MEMORY_HANDLER.pre_initialize_runtime
             pending_c_function_body.append(once "stack_bottom=((void**)(void*)(&argc));%N")
          end
          pending_c_function_body.append(once "initialize_eiffel_runtime(argc,argv);%N")
@@ -4084,7 +4083,7 @@ feature {} -- CECIL_POOL
             end
             pending_c_function_body.append(once " R;%N")
          end
-         if not gc_handler.is_off and then not gc_handler.is_bdw then
+         if not gc_handler.is_off and then not gc_handler.is_bdw then --| MEMORY_HANDLER.pre_cecil_define
             pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
                                                 %int valid_stack_bottom = stack_bottom != NULL;%N%
                                                 %#endif%N")
@@ -4096,7 +4095,7 @@ feature {} -- CECIL_POOL
                                                 %ds.locals=NULL;%N")
             set_dump_stack_top_for(cecil_entry.target_type, once "&ds", once "link")
          end
-         if not gc_handler.is_off and then not gc_handler.is_bdw then
+         if not gc_handler.is_off and then not gc_handler.is_bdw then --| MEMORY_HANDLER.cecil_define
             pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
                                                 %if(!valid_stack_bottom) stack_bottom = (void**)(void*)&valid_stack_bottom;%N%
                                                 %#endif%N")
@@ -4125,7 +4124,7 @@ feature {} -- CECIL_POOL
          else
             compound_expression_compiler.compile(once "R=", cecil_entry.code.to_expression, once ";%N", type)
          end
-         if not gc_handler.is_off and then not gc_handler.is_bdw then
+         if not gc_handler.is_off and then not gc_handler.is_bdw then --| MEMORY_HANDLER.post_cecil_define
             pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
                                                 %if(!valid_stack_bottom) stack_bottom = NULL;%N%
                                                 %#endif%N")

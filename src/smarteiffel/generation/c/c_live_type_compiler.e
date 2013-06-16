@@ -331,7 +331,7 @@ feature {}
             function_body.append(once ";%N")
          end
          if not cpp.gc_handler.is_off and then not cpp.gc_handler.is_bdw then
-            function_body.append(once "u->gc_mark_agent_mold=gc_mark_")
+            function_body.append(once "u->gc_mark_agent_mold=gc_mark_") --| MEMORY_HANDLER.assign_agent_data
             function_body.append(mold_id)
             function_body.append(once ";%N")
          end
@@ -356,7 +356,7 @@ feature {}
          cpp.dump_pending_c_function(True)
 
          -- The gc_mark_MOLD_ID function:
-         if not cpp.gc_handler.is_off and then not cpp.gc_handler.is_bdw then
+         if not cpp.gc_handler.is_off and then not cpp.gc_handler.is_bdw then --| MEMORY_HANDLER.generate_agent_data
             cpp.prepare_c_function
             function_signature.append(once "void gc_mark_")
             function_signature.append(mold_id)
@@ -506,7 +506,7 @@ feature {}
             end
          end
          out_h.append(once ");%N")
-         if not cpp.gc_handler.is_off and then not cpp.gc_handler.is_bdw then
+         if not cpp.gc_handler.is_off and then not cpp.gc_handler.is_bdw then --| MEMORY_HANDLER.define_agent_data
             out_h.append(once "void(*gc_mark_agent_mold)(se_")
             out_h.append(mold_id)
             out_h.append(once "*);%N")
@@ -563,7 +563,7 @@ feature {}
             out_h.append(is_equal_mold_id)
             out_h.append(once "{Tid id;%Nint creation_mold_id;%N")
             out_h.append(once "void*afp;%N")
-            if not cpp.gc_handler.is_off and then not cpp.gc_handler.is_bdw then
+            if not cpp.gc_handler.is_off and then not cpp.gc_handler.is_bdw then --| MEMORY_HANDLER.define_agent_data_is_equal
                out_h.append(once "void*gc_mark_agent_mold;%N")
             end
             out_h.append(once "void*eq;%N")
