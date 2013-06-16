@@ -71,7 +71,7 @@ void* se_malloc(size_t size) {
 */
 void* se_calloc(size_t nmemb, size_t size) {
 #ifdef BDW_GC
-  void *result = GC_MALLOC(nmemb*size);
+  void *result = GC_MALLOC_IGNORE_OFF_PAGE(nmemb*size);
 #else
   void *result = calloc(nmemb,size);
 #endif
