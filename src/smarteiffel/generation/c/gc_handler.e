@@ -126,7 +126,7 @@ feature {C_PRETTY_PRINTER}
    customize_c_runtime is
       do
          if is_bdw then
-            cpp.out_h_buffer.append(once "#include <gc.h>%N#define BDW_GC 1%N")
+            cpp.out_h_buffer.copy(once "%N#include <gc.h>%N#define BDW_GC 1%N")
             if not ace.boost then
                cpp.out_h_buffer.append(once "#define GC_DEBUG 1%N")
             end
@@ -191,19 +191,11 @@ feature {C_PRETTY_PRINTER}
 
          echo.put_string(once "GC support (root functions).%N")
          if is_bdw then
-            from
-               i := live_type_map.lower
-            until
-               i > live_type_map.upper
-            loop
-               lt := live_type_map.item(i)
-               if lt.at_run_time then
-                  cpp.out_h_buffer.append(once "extern void* bdw_ms[")
-                  manifest_string_pool.collected_once_count.append_in(cpp.out_h_buffer)
-                  cpp.out_h_buffer.append(once "];%N")
-                  cpp.write_out_h_buffer
-               end
-               i := i + 1
+            if manifest_string_pool.collected_once_count > 0 then
+               cpp.out_h_buffer.copy(once "void* bdw_ms[")
+               manifest_string_pool.collected_once_count.append_in(cpp.out_h_buffer)
+               cpp.out_h_buffer.append(once "]")
+               cpp.write_extern_0(cpp.out_h_buffer)
             end
          else
             cpp.prepare_c_function
@@ -217,24 +209,6 @@ feature {C_PRETTY_PRINTER}
          echo.put_string(once "GC support (header).%N")
          cpp.split_c_file_padding_here
          if is_bdw then
-            from
-               i := live_type_map.lower
-            until
-               i > live_type_map.upper
-            loop
-               lt := live_type_map.item(i)
-               if lt.at_run_time then
-                  cpp.out_h_buffer.copy(once "void bdw_finalizeT")
-                  lt.id.append_in(cpp.out_h_buffer)
-                  cpp.out_h_buffer.append(once "(void*obj,void*_);%N")
-                  cpp.pending_c_function_body.append(cpp.target_type.for(lt.canonical_type_mark))
-                  cpp.out_h_buffer.append(once " bdw_mallocT")
-                  lt.id.append_in(cpp.out_h_buffer)
-                  cpp.out_h_buffer.append(once "(int n);%N")
-                  cpp.write_out_h_buffer
-               end
-               i := i + 1
-            end
          else
             from
                i := live_type_map.lower
@@ -257,7 +231,7 @@ feature {C_PRETTY_PRINTER}
                i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
-               if lt.at_run_time then
+               if lt.at_run_time and then (lt.is_reference or else lt.is_native_array) then
                   cpp.prepare_c_function
                   cpp.pending_c_function_signature.append(once "void bdw_finalizeT")
                   lt.id.append_in(cpp.pending_c_function_signature)
@@ -390,13 +364,6 @@ feature {}
          i, mdc, ms_count, function_count, id, us_id: INTEGER; ms: MANIFEST_STRING
       do
          mdc := manifest_string_pool.collected_once_count
-
-         if is_bdw then
-            cpp.out_c_buffer.copy(once "void* bdw_ms[")
-            mdc.append_in(cpp.out_c_buffer)
-            cpp.out_c_buffer.append(once "];%N")
-            cpp.write_out_c_buffer
-         end
 
          function_count := 1
          cpp.prepare_c_function

@@ -3651,6 +3651,10 @@ feature {} -- MANIFEST_GENERIC_POOL
             pending_c_function_body.append(once "se_malloc(sizeof(*C));%N*C=M")
             created_type_id.append_in(pending_c_function_body)
             pending_c_function_body.append(once ";%N")
+         elseif gc_handler.is_bdw then
+            pending_c_function_body.append(once "bdw_malloocT")
+            created_type_id.append_in(pending_c_function_body)
+            pending_c_function_body.append(once "();%N")
          else
             pending_c_function_body.append(once "new")
             created_type_id.append_in(pending_c_function_body)
@@ -3760,6 +3764,10 @@ feature {} -- MANIFEST_GENERIC_POOL
          pending_c_function_body.append(once " C;%Nint i=0;%Nva_list pa;%Nva_start(pa,argc);%NC=")
          if gc_handler.is_off then
             pending_c_function_body.append(once "se_malloc(sizeof(*C)*")
+         elseif gc_handler.is_bdw then
+            pending_c_function_body.append(once "bdw_mallocT")
+            native_array_id.append_in(pending_c_function_body)
+            pending_c_function_body.append(once "(")
          else
             pending_c_function_body.append(once "new")
             native_array_id.append_in(pending_c_function_body)
@@ -4004,25 +4012,6 @@ feature {RUN_FEATURE_5, RUN_FEATURE_6, C_COMPILATION_MIXIN}
          pending_c_function_body.append(once "if(")
          pending_c_function_body.append(flag)
          pending_c_function_body.append(once "!=0){%N")
-      end
-
-   c_define_unreachable (rf: RUN_FEATURE) is
-      require
-         rf.is_once_function
-         gc_handler.is_bdw
-      local
-         bf: ANONYMOUS_FEATURE; rt: TYPE_MARK
-      do
-         if not rt.is_expanded then
-            bf := rf.base_feature
-            out_h_buffer.clear_count
-            rt := rf.result_type
-            out_h_buffer.append(once "bdw_mark_uncollectable_T")
-            rt.type.id.append_in(out_h_buffer)
-            out_h_buffer.extend('(')
-            once_routine_pool.unique_result_in(out_h_buffer, bf)
-            out_h_buffer.extend(')')
-         end
       end
 
 feature {} -- CECIL_POOL

@@ -676,6 +676,10 @@ feature {} -- built-ins
                   function_body.append(once "se_malloc(sizeof(T")
                   elt_type.id.append_in(function_body)
                   function_body.append(once ")*")
+               elseif cpp.gc_handler.is_bdw then
+                  function_body.append(once "bdw_mallocT")
+                  type_of_current.id.append_in(function_body)
+                  function_body.extend('(')
                else
                   function_body.append(once "new")
                   type_of_current.id.append_in(function_body)
@@ -704,6 +708,12 @@ feature {} -- built-ins
                   function_body.append(once ",sizeof(")
                   function_body.append(cpp.result_type.for(elt_type.canonical_type_mark))
                   function_body.append(once "))))")
+               elseif cpp.gc_handler.is_bdw then
+                  function_body.append(once "bdw_mallocT")
+                  type_of_current.id.append_in(function_body)
+                  function_body.extend('(')
+                  cpp.put_ith_argument(1)
+                  function_body.extend(')')
                else
                   function_body.append(once "new")
                   type_of_current.id.append_in(function_body)
