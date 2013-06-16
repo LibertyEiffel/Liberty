@@ -115,7 +115,7 @@ feature {SMART_EIFFEL}
             if ace.sedb then
                out_h.put_string(once "#define SE_SEDB 1%N")
             end
-            if gc_flag then
+            if gc_flag and not gc_handler.is_bdw then
                out_h.put_string(once "#define SE_GC_LIB 1%N")
             end
             if exceptions_handler.used then
@@ -3652,9 +3652,9 @@ feature {} -- MANIFEST_GENERIC_POOL
             created_type_id.append_in(pending_c_function_body)
             pending_c_function_body.append(once ";%N")
          elseif gc_handler.is_bdw then
-            pending_c_function_body.append(once "bdw_malloocT")
+            pending_c_function_body.append(once "bdw_mallocT")
             created_type_id.append_in(pending_c_function_body)
-            pending_c_function_body.append(once "();%N")
+            pending_c_function_body.append(once "(1);%N")
          else
             pending_c_function_body.append(once "new")
             created_type_id.append_in(pending_c_function_body)
@@ -4084,7 +4084,7 @@ feature {} -- CECIL_POOL
             end
             pending_c_function_body.append(once " R;%N")
          end
-         if not gc_handler.is_off then
+         if not gc_handler.is_off and then not gc_handler.is_bdw then
             pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
                                                 %int valid_stack_bottom = stack_bottom != NULL;%N%
                                                 %#endif%N")
@@ -4096,7 +4096,7 @@ feature {} -- CECIL_POOL
                                                 %ds.locals=NULL;%N")
             set_dump_stack_top_for(cecil_entry.target_type, once "&ds", once "link")
          end
-         if not gc_handler.is_off then
+         if not gc_handler.is_off and then not gc_handler.is_bdw then
             pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
                                                 %if(!valid_stack_bottom) stack_bottom = (void**)(void*)&valid_stack_bottom;%N%
                                                 %#endif%N")
@@ -4125,7 +4125,7 @@ feature {} -- CECIL_POOL
          else
             compound_expression_compiler.compile(once "R=", cecil_entry.code.to_expression, once ";%N", type)
          end
-         if not gc_handler.is_off then
+         if not gc_handler.is_off and then not gc_handler.is_bdw then
             pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
                                                 %if(!valid_stack_bottom) stack_bottom = NULL;%N%
                                                 %#endif%N")

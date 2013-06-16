@@ -231,6 +231,10 @@ feature {NATIVE_BUILT_IN}
                      id.append_in(function_body)
                      function_body.append(once "*)R)=M")
                      id.append_in(function_body)
+                  elseif cpp.gc_handler.is_bdw then
+                     function_body.append(once "(void*)bdw_mallocT")
+                     live_type_of_current.canonical_type_mark.id.append_in(function_body)
+                     function_body.append(once "(1)")
                   else
                      function_body.append(once "(void*)new")
                      live_type_of_current.canonical_type_mark.id.append_in(function_body)
@@ -643,6 +647,10 @@ feature {} -- built-ins
          else
             if cpp.gc_handler.is_off then
                function_body.append(once "se_malloc(sizeof(*C));%N")
+            elseif cpp.gc_handler.is_bdw then
+               function_body.append(once "((void*)bdw_mallocT")
+               type_of_current.canonical_type_mark.id.append_in(function_body)
+               function_body.append(once "(1));%N")
             else
                function_body.append(once "((void*)new")
                type_of_current.canonical_type_mark.id.append_in(function_body)
