@@ -46,7 +46,11 @@ void copy_swap_16(const uint16_t *src, uint16_t *dest, int count){
   only `se_malloc' instead of direct `malloc').
 */
 void* se_malloc(size_t size) {
+#ifdef BDW_GC
+  void *result = GC_MALLOC(size);
+#else
   void *result = malloc(size);
+#endif
   if (result == NULL) {
     handle(SE_HANDLE_NO_MORE_MEMORY, NULL);
 #ifdef SE_EXCEPTIONS
@@ -66,7 +70,11 @@ void* se_malloc(size_t size) {
   only `se_calloc' instead of direct `calloc').
 */
 void* se_calloc(size_t nmemb, size_t size) {
+#ifdef BDW_GC
+  void *result = GC_MALLOC(nmemb*size);
+#else
   void *result = calloc(nmemb,size);
+#endif
   if (result == NULL) {
     handle(SE_HANDLE_NO_MORE_MEMORY, NULL);
 #ifdef SE_EXCEPTIONS
@@ -86,7 +94,11 @@ void* se_calloc(size_t nmemb, size_t size) {
   only `se_realloc' instead of direct `realloc').
 */
 void* se_realloc(void* src, size_t size) {
+#ifdef BDW_GC
+  void *result = GC_REALLOC(src, size);
+#else
   void *result = realloc(src, size);
+#endif
   if (result == NULL) {
     handle(SE_HANDLE_NO_MORE_MEMORY, NULL);
 #ifdef SE_EXCEPTIONS
