@@ -195,7 +195,7 @@ feature {C_PRETTY_PRINTER}
                cpp.out_h_buffer.copy(once "void* bdw_ms[")
                manifest_string_pool.collected_once_count.append_in(cpp.out_h_buffer)
                cpp.out_h_buffer.append(once "]")
-               cpp.write_extern_0(cpp.out_h_buffer)
+               cpp.write_extern_1(cpp.out_h_buffer)
             end
          else
             cpp.prepare_c_function
