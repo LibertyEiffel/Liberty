@@ -251,8 +251,16 @@ feature {C_PRETTY_PRINTER}
                   cpp.pending_c_function_body.append(once " R=(")
                   cpp.pending_c_function_body.append(cpp.target_type.for(lt.canonical_type_mark))
                   cpp.pending_c_function_body.append(once ")se_malloc(n*sizeof(T")
-                  lt.id.append_in(cpp.pending_c_function_body)
-                  cpp.pending_c_function_body.append(once "));%NGC_REGISTER_FINALIZER_UNREACHABLE(R, bdw_finalizeT")
+                  if lt.is_native_array then
+                     if lt.type.generic_list.first.is_expanded then
+                        lt.type.generic_list.first.id.append_in(cpp.pending_c_function_body)
+                     else
+                        cpp.pending_c_function_body.append(once "0*")
+                     end
+                  else
+                     lt.id.append_in(cpp.pending_c_function_body)
+                  end
+                  cpp.pending_c_function_body.append(once "));%NGC_REGISTER_FINALIZER_NO_ORDER(R, bdw_finalizeT")
                   lt.id.append_in(cpp.pending_c_function_body)
                   cpp.pending_c_function_body.append(once ",NULL,NULL,NULL);%N")
                   if cpp.need_struct.for(lt.canonical_type_mark) then
