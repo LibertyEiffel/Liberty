@@ -21,13 +21,13 @@ feature {NATIVE_ARRAY_TYPE_MARK}
    visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
       do
          function_body.append(once "if(")
-         cpp.gc_handler.info_nb_in(visited, function_body)
+         memory.info_nb_in(visited, function_body)
          function_body.append(once ")%Nfprintf(SE_GCINFO,%"%%d\t%%d\t\t")
          function_body.append(visited.written_name.to_string)
          function_body.append(once "\n%",")
-         cpp.gc_handler.info_nb_in(visited, function_body)
+         memory.info_nb_in(visited, function_body)
          function_body.extend(',')
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ".space_used);%N")
       end
 
@@ -35,17 +35,17 @@ feature {}
    gc_reference (visited: TYPE_MARK) is
       do
          function_body.append(once ";%Nif(")
-         cpp.gc_handler.info_nb_in(visited, function_body)
+         memory.info_nb_in(visited, function_body)
          function_body.append(once ")%Nfprintf(SE_GCINFO,%"%%d\t%%lu\t%%d\t")
          function_body.append(visited.written_mark)
          function_body.append(once "\n%",")
-         cpp.gc_handler.info_nb_in(visited, function_body)
+         memory.info_nb_in(visited, function_body)
          function_body.append(once ",(unsigned long)(")
-         cpp.gc_handler.info_nb_in(visited, function_body)
+         memory.info_nb_in(visited, function_body)
          function_body.append(once "*sizeof(T")
          visited.id.append_in(function_body)
          function_body.append(once ")),")
-         cpp.gc_handler.store_left_in(visited, function_body)
+         memory.store_left_in(visited, function_body)
          function_body.append(once ");%N")
       end
 

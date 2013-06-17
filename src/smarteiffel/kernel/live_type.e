@@ -947,7 +947,7 @@ feature {}
    memory_dispose_stamp: FEATURE_STAMP
          -- Non Void when feature `dispose' has been collected.
 
-feature {GC_HANDLER}
+feature {MEMORY_HANDLER}
    get_memory_dispose: RUN_FEATURE_3 is
       do
          if memory_dispose_stamp /= Void then

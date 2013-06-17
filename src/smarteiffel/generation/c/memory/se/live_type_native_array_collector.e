@@ -9,7 +9,7 @@ inherit
 insert
    GLOBALS
 
-create {C_PRETTY_PRINTER}
+create {GC_HANDLER}
    make
 
 feature {ANY}
@@ -31,7 +31,7 @@ feature {LIVE_TYPE}
       do
          flag := must_collect(live_type)
          if flag = Void then
-            if cpp.gc_handler.is_off or else cpp.gc_handler.is_bdw or else not is_native_array_collector_enabled(live_type.type.class_text) then
+            if not is_native_array_collector_enabled(live_type.type.class_text) then
                flag := no
             else
                fs := live_type.type.feature_stamp_of(mark_item_name)
@@ -65,9 +65,6 @@ feature {LIVE_TYPE}
 
 feature {}
    is_native_array_collector_enabled (class_text: CLASS_TEXT): BOOLEAN is
-      require
-         not cpp.gc_handler.is_off
-         not cpp.gc_handler.is_bdw
       local
          flag: TAGGED_FLAG
       do

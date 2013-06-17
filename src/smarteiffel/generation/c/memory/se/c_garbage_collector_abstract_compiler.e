@@ -19,11 +19,15 @@ insert
       end
    SINGLETON
 
+feature {}
+   memory: GC_HANDLER is
+      do
+         Result ::= cpp.memory
+      end
+
 feature {GC_HANDLER}
    compile (type_mark: TYPE_MARK) is
       require
-         not cpp.gc_handler.is_off
-         not cpp.gc_handler.is_bdw
          type_mark.type.live_type.at_run_time
       do
          type_mark.accept(Current)
@@ -149,8 +153,6 @@ feature {}
       require
          visited.is_static
          visited.is_reference
-         not cpp.gc_handler.is_off
-         not cpp.gc_handler.is_bdw
          visited.type.live_type.at_run_time
       deferred
       end
@@ -160,8 +162,6 @@ feature {}
       require
          visited.is_static
          visited.is_expanded
-         not cpp.gc_handler.is_off
-         not cpp.gc_handler.is_bdw
          visited.type.live_type.at_run_time
       deferred
       end

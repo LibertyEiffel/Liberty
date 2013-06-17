@@ -33,7 +33,7 @@ feature {ANY} -- Code generators
    arg_mapper: C_ARG_MAPPER
    code_compiler: C_CODE_COMPILER
    compound_expression_compiler: C_COMPOUND_EXPRESSION_COMPILER
-   gc_handler: GC_HANDLER
+   memory: MEMORY_HANDLER
    native_function_mapper: C_NATIVE_FUNCTION_MAPPER
    native_procedure_mapper: C_NATIVE_PROCEDURE_MAPPER
    native_c_definition: C_NATIVE_C_DEFINITION
@@ -47,16 +47,6 @@ feature {ANY} -- C-related type properties
    va_arg_type: C_TYPE_FOR_VA_ARG
    need_struct: C_NEED_STRUCT
    native_need_wrapper: C_NATIVE_NEED_WRAPPER
-
-feature {ANY} -- Extra collectors
-   native_array_collector: LIVE_TYPE_NATIVE_ARRAY_COLLECTOR
-
-   add_extra_collectors is
-      do
-         if not gc_handler.is_off and then not gc_handler.is_bdw then --| MEMORY_HANDLER.add_extra_collectors
-            live_type_extra_collectors.add_last(native_array_collector)
-         end
-      end
 
 feature {}
    make is
@@ -72,7 +62,6 @@ feature {}
          create arg_mapper.make
          create code_compiler.make
          create compound_expression_compiler.make
-         create gc_handler.make
          create native_function_mapper.make
          create native_procedure_mapper.make
          create native_c_definition.make
@@ -87,14 +76,10 @@ feature {}
          create native_need_wrapper.make
 
          create registered_natives.make
-
-         create native_array_collector.make
       end
 
 feature {SMART_EIFFEL}
    compile is
-      local
-         gc_flag: BOOLEAN
       do
          check
             ace.splitter /= Void
@@ -107,7 +92,6 @@ feature {SMART_EIFFEL}
             check
                smart_eiffel.is_ready
             end
-            gc_flag := not gc_handler.is_off
             -- ---------------------------------------------------------
             if ace.boost then
                out_h.put_string(once "#define SE_BOOST 1%N")
@@ -115,9 +99,7 @@ feature {SMART_EIFFEL}
             if ace.sedb then
                out_h.put_string(once "#define SE_SEDB 1%N")
             end
-            if gc_flag and not gc_handler.is_bdw then --| MEMORY_HANDLER.pre_customize_c_runtime
-               out_h.put_string(once "#define SE_GC_LIB 1%N")
-            end
+            memory.pre_customize_c_runtime
             if exceptions_handler.used then
                out_h.put_string(once "#define SE_EXCEPTIONS 1%N")
             end
@@ -149,9 +131,7 @@ feature {SMART_EIFFEL}
             c_define1_manifest_string_pool
             customize_runtime
             -- ---------------------------------------------------------
-            if gc_flag then
-               gc_handler.define1
-            end
+            memory.define1
             -- ---------------------------------------------------------
             compile_routines
             cecil_define
@@ -163,9 +143,7 @@ feature {SMART_EIFFEL}
             -- ---------------------------------------------------------
             split_c_file_padding_here
             c_define2_manifest_string_pool
-            if gc_flag then
-               gc_handler.define2
-            end
+            memory.define2
             define_main(smart_eiffel.root_procedure)
             c_define_manifest_generic_functions
             c_define_assignment_test_functions
@@ -500,7 +478,7 @@ feature {}
             write_extern_array_2(once "T7*t", size)
          end
          if ace.boost then
-            if (not gc_handler.is_off and then not gc_handler.is_bdw) and then smart_eiffel.weak_reference_used then --| MEMORY_HANDLER.need_size_table
+            if memory.may_need_size_table and then smart_eiffel.weak_reference_used then
                initialize_size_table
             end
          else
@@ -913,7 +891,20 @@ feature {ANY} -- Low-level set of feature to be used when one cannot use the `pe
          out_c.put_string(out_c_buffer)
       end
 
-feature {SMART_EIFFEL, MANIFEST_STRING_POOL, GC_HANDLER, MANIFEST_GENERIC_POOL}
+feature {ANY}
+   prepare_memory is
+      require
+         memory = Void
+      local
+         mhf: MEMORY_HANDLER_FACTORY
+      do
+         memory := mhf.create_memory_handler
+         memory.add_extra_collectors
+      ensure
+         memory /= Void
+      end
+
+feature {SMART_EIFFEL, MANIFEST_STRING_POOL, MEMORY_HANDLER, MANIFEST_GENERIC_POOL}
    split_c_file_padding_here is
          -- Must be called only if we are sure that we will output something after that call.
       do
@@ -1182,7 +1173,7 @@ feature {}
             sys_runtime_h_and_c(fz_boost)
          end
          exceptions_handler.customize_c_runtime
-         gc_handler.customize_c_runtime
+         memory.customize_c_runtime
          customize_agent_pool_runtime_1
          if smart_eiffel.deep_twin_used then
             sys_runtime_h_and_c(as_deep_twin)
@@ -1218,11 +1209,7 @@ feature {}
                out_h_buffer.append(once "se_local_profile_t*,")
             end
             out_h_buffer.append(once "se_agent*);%N")
-
-            if not gc_handler.is_off and then not gc_handler.is_bdw then --| MEMORY_HANDLER.define_agent_data_0
-               out_h_buffer.append(once "void(*gc_mark_agent_mold)(se_agent*);%N")
-            end
-
+            memory.define_agent_data_0
             out_h_buffer.append(once "int(*eq)(se_agent*,se_agent*);%N};%N")
             write_out_h_buffer
          end
@@ -2206,7 +2193,7 @@ feature {PLUGIN}
          not tfr.is_connected
       end
 
-feature {GC_HANDLER, LIVE_TYPE, RUN_FEATURE, C_COMPILATION_MIXIN}
+feature {MEMORY, LIVE_TYPE, RUN_FEATURE, C_COMPILATION_MIXIN, MEMORY_HANDLER}
    recompilation_comment (lt: LIVE_TYPE) is
       require
          lt /= Void
@@ -2484,7 +2471,7 @@ feature {}
                end
                pending_c_function_body.append(once ");%N")
             end
-            gc_handler.gc_info_before_exit
+            memory.gc_info_before_exit
             if ace.profile then
                pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
             end
@@ -2518,7 +2505,7 @@ feature {}
                pending_c_function_body.append(once "local_profile.profile=&runinit_profile;%N")
                pending_c_function_body.append(once "start_profile(parent_profile, &local_profile);%N")
             end
-            gc_handler.initialize_runtime
+            memory.initialize_runtime
             exceptions_handler.initialize_runtime
             if no_check then
                initialize_path_table
@@ -2580,16 +2567,12 @@ feature {}
             end
             c_call_initialize_manifest_strings
             c_code_for_precomputable_routines
-            if gc_handler.is_bdw then --| MEMORY_HANDLER.post_initialize_runtime
-               out_h_buffer.append(once "manifest_string_mark1();%N")
-            elseif not gc_handler.is_off then
-               pending_c_function_body.append(once "gc_is_off=0;%N")
-            end
+            memory.post_initialize_runtime
             if ace.sedb then
                pending_c_function_body.append(once "se_general_trace_switch=1;%N")
             end
             internal_c_local := pending_c_function_lock_local(lt.type, once "root")
-            gc_handler.allocation_of(internal_c_local, lt)
+            memory.allocation_of(internal_c_local, lt)
             pending_c_function_body.append(once "eiffel_root_object=((T")
             lt.id.append_in(pending_c_function_body)
             pending_c_function_body.append(once "*)")
@@ -2799,9 +2782,7 @@ feature {}
             pending_c_function_body.append(once "get_profiler_started(&master_profile);%N")
             pending_c_function_body.append(once "start_profile(&master_profile, &global_profile);%N")
          end
-         if not gc_handler.is_off and then not gc_handler.is_bdw then --| MEMORY_HANDLER.pre_initialize_runtime
-            pending_c_function_body.append(once "stack_bottom=((void**)(void*)(&argc));%N")
-         end
+         memory.pre_initialize_runtime
          pending_c_function_body.append(once "initialize_eiffel_runtime(argc,argv);%N")
          if ace.profile then
             pending_c_function_body.append(once "local_profile=global_profile;%N")
@@ -3176,7 +3157,7 @@ feature {}
             end
             pending_c_function_signature.append("int32_t c,uint16_t*s,int32_t sc,int16_t*lsv,int32_t*lsi)")
             internal_c_local := pending_c_function_lock_local(lt.type, once "mspalloc")
-            gc_handler.allocation_of(internal_c_local, lt)
+            memory.allocation_of(internal_c_local, lt)
             pending_c_function_body.extend('r')
             id.append_in(pending_c_function_body)
             pending_c_function_body.append("manifest_initialize(")
@@ -3206,12 +3187,12 @@ feature {}
          pending_c_function
       do
          pending_c_function_body.append(once "T7*")
-         gc_handler.manifest_string_in(pending_c_function_body, string_at_run_time)
+         memory.manifest_string_in(pending_c_function_body, string_at_run_time)
          pending_c_function_body.append(once "s->_count=c;%N%
                                              %s->_capacity=c+1;%N%
                                              %s->_storage_lower=0;%N%
                                              %s->_storage=((T9)")
-         gc_handler.native9_in(pending_c_function_body, string_at_run_time)
+         memory.native9_in(pending_c_function_body, string_at_run_time)
          pending_c_function_body.append(once "(c+1));%N%
                                              %memcpy(s->_storage,e,c+1);%N%
                                              %return((T0*)s);")
@@ -3609,6 +3590,7 @@ feature {} -- MANIFEST_GENERIC_POOL
 
    c_define_for_user_generic (manifest_generic: MANIFEST_GENERIC) is
       require
+         manifest_generic.created_type.live_type /= Void
          not manifest_generic.created_type.is_native_array
       local
          created_type: TYPE; created_type_id, i: INTEGER;
@@ -3646,20 +3628,8 @@ feature {} -- MANIFEST_GENERIC_POOL
          pending_c_function_body.append(once "*/%NT")
          created_type_id.append_in(pending_c_function_body)
          pending_c_function_body.append(once "*C;%Nva_list pa;%Nint i=0;%Nint imax;%Nva_start(pa,argc);%NC=")
-         if gc_handler.is_off then
-            pending_c_function_body.append(once "se_malloc(sizeof(*C));%N*C=M")
-            created_type_id.append_in(pending_c_function_body)
-            pending_c_function_body.append(once ";%N")
-         elseif gc_handler.is_bdw then
-            pending_c_function_body.append(once "bdw_mallocT")
-            created_type_id.append_in(pending_c_function_body)
-            pending_c_function_body.append(once "(1);%N")
-         else
-            pending_c_function_body.append(once "new")
-            created_type_id.append_in(pending_c_function_body)
-            pending_c_function_body.append(once "();%N")
-         end
-         pending_c_function_body.extend('r')
+         memory.malloc(created_type.live_type)
+         pending_c_function_body.append(once ";%Nr")
          created_type_id.append_in(pending_c_function_body)
          pending_c_function_body.append(once "manifest_make(")
          if not ace.boost then
@@ -3736,6 +3706,7 @@ feature {} -- MANIFEST_GENERIC_POOL
 
    c_define_for_native_array (native_array: TYPE) is
       require
+         native_array.live_type /= Void
          native_array.is_native_array
       local
          native_array_id: INTEGER; va_type: TYPE_MARK
@@ -3761,18 +3732,8 @@ feature {} -- MANIFEST_GENERIC_POOL
          pending_c_function_body.append(once "*/%NT")
          native_array_id.append_in(pending_c_function_body)
          pending_c_function_body.append(once " C;%Nint i=0;%Nva_list pa;%Nva_start(pa,argc);%NC=")
-         if gc_handler.is_off then
-            pending_c_function_body.append(once "se_malloc(sizeof(*C)*")
-         elseif gc_handler.is_bdw then
-            pending_c_function_body.append(once "bdw_mallocT")
-            native_array_id.append_in(pending_c_function_body)
-            pending_c_function_body.append(once "(")
-         else
-            pending_c_function_body.append(once "new")
-            native_array_id.append_in(pending_c_function_body)
-            pending_c_function_body.append(once "(")
-         end
-         pending_c_function_body.append(once "argc);%Nwhile (i < argc ) {%N")
+         memory.calloc(native_array.live_type, agent is do pending_c_function_body.append(once "argc") end)
+         pending_c_function_body.append(once ";%Nwhile (i < argc ) {%N")
          pending_c_function_body.append(argument_type.for(va_type))
          pending_c_function_body.append(once " element=((")
          pending_c_function_body.append(argument_type.for(va_type))
@@ -4083,11 +4044,7 @@ feature {} -- CECIL_POOL
             end
             pending_c_function_body.append(once " R;%N")
          end
-         if not gc_handler.is_off and then not gc_handler.is_bdw then --| MEMORY_HANDLER.pre_cecil_define
-            pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
-                                                %int valid_stack_bottom = stack_bottom != NULL;%N%
-                                                %#endif%N")
-         end
+         memory.pre_cecil_define
          if ace.no_check then
             pending_c_function_body.append(once "se_dump_stack ds={NULL,NULL,0,NULL,NULL,NULL,0};%N%
                                                 %ds.caller=se_dst;%N%
@@ -4095,17 +4052,13 @@ feature {} -- CECIL_POOL
                                                 %ds.locals=NULL;%N")
             set_dump_stack_top_for(cecil_entry.target_type, once "&ds", once "link")
          end
-         if not gc_handler.is_off and then not gc_handler.is_bdw then --| MEMORY_HANDLER.cecil_define
-            pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
-                                                %if(!valid_stack_bottom) stack_bottom = (void**)(void*)&valid_stack_bottom;%N%
-                                                %#endif%N")
-         end
+         memory.cecil_define
          if cecil_entry.is_creation then
             --sedb_breakpoint --| *** TODO
             pending_c_function_body.append(once "/* CECIL creation */%N{%N")
             internal_c_local := pending_c_function_lock_local(cecil_entry.target_type, once "cecilcrea")
             if cecil_entry.target_type.is_reference then
-               gc_handler.allocation_of(internal_c_local, cecil_entry.target_type.live_type)
+               memory.allocation_of(internal_c_local, cecil_entry.target_type.live_type)
             else
                internal_c_local.append_in(pending_c_function_body)
                pending_c_function_body.append(once "=M")
@@ -4124,11 +4077,7 @@ feature {} -- CECIL_POOL
          else
             compound_expression_compiler.compile(once "R=", cecil_entry.code.to_expression, once ";%N", type)
          end
-         if not gc_handler.is_off and then not gc_handler.is_bdw then --| MEMORY_HANDLER.post_cecil_define
-            pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
-                                                %if(!valid_stack_bottom) stack_bottom = NULL;%N%
-                                                %#endif%N")
-         end
+         memory.post_cecil_define
          if ace.no_check then
             set_dump_stack_top_for(cecil_entry.target_type, once "ds.caller", once "unlink")
          end

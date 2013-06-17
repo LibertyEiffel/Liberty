@@ -3,7 +3,30 @@
 --
 deferred class MEMORY_HANDLER
 
+insert
+   GLOBALS
+
    --|**** TODO: renamings
+
+feature {ANY}
+   info_flag: BOOLEAN
+         -- True when Garbage Collector Information need to be printed.
+
+feature {MEMORY_HANDLER_FACTORY}
+   set_info_flag is
+      do
+         info_flag := True
+      ensure
+         info_flag
+      end
+
+feature {ACE}
+   ace_option (txt: STRING) is
+         -- Puts the collect option in the ACE text
+      require
+         txt /= Void
+      deferred
+      end
 
 feature {C_PRETTY_PRINTER} -- C code phases
    pre_customize_c_runtime is
@@ -24,6 +47,8 @@ feature {C_PRETTY_PRINTER} -- C code phases
    define2 is
          -- Most GC code is generated here
       deferred
+      ensure
+         smart_eiffel.magic_count = old smart_eiffel.magic_count
       end
 
    pre_initialize_runtime is
@@ -80,11 +105,11 @@ feature {C_PRETTY_PRINTER} -- memory-specific handling aspects
       deferred
       end
 
-   need_size_table: BOOLEAN
+   may_need_size_table: BOOLEAN is
       deferred
       end
 
-feature {C_COMPILATION_MIXIN} -- allocators
+feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
    malloc (lt: LIVE_TYPE) is
          -- Code to create an object of the given live type
       deferred
@@ -128,7 +153,7 @@ feature {C_COMPILATION_MIXIN} -- GC switches (see MEMORY)
       deferred
       end
 
-feature {C_COMPILATION_MIXIN} -- agents
+feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
    assign_agent_data (mold_id: STRING) is
          -- At agent creation time: specific memory handling data may be assigned
          -- See also `define_agent_data' for the struct fields to define
@@ -137,10 +162,13 @@ feature {C_COMPILATION_MIXIN} -- agents
       deferred
       end
 
-   generate_agent_data (mold_id: STRING) is
+   generate_agent_data (agent_creation: AGENT_CREATION; type: TYPE; mold_id: STRING; generate_closed_operand: PROCEDURE[TUPLE[CLOSED_OPERAND]]) is
          -- Code (usually functions) that handle agents memory, assigned above, called below
       require
+         agent_creation /= Void
+         type /= Void
          mold_id /= Void
+         generate_closed_operand /= Void
       deferred
       end
 
@@ -161,6 +189,12 @@ feature {C_COMPILATION_MIXIN} -- agents
       deferred
       end
 
+feature {C_NATIVE_PROCEDURE_MAPPER}
+   mark_item (rf7: RUN_FEATURE_7) is
+         -- the `mark_item' function code
+      deferred
+      end
+
 feature {ANY}
    allocation_of (internal_c_local: INTERNAL_C_LOCAL; created_live_type: LIVE_TYPE) is
       require
@@ -168,6 +202,194 @@ feature {ANY}
          created_live_type.at_run_time
          created_live_type.is_reference
       deferred
+      end
+
+feature {}
+   define_manifest_string_mark is
+      local
+         i, mdc, ms_count, function_count, id, us_id: INTEGER; ms: MANIFEST_STRING
+      do
+         mdc := manifest_string_pool.collected_once_count
+
+         function_count := 1
+         cpp.prepare_c_function
+         manifest_string_mark_signature(function_count)
+         from
+            i := 1
+            if manifest_string_pool.first_unicode_manifest_string_collected_flag then
+               us_id := manifest_string_pool.se_ums.type_of_current.live_type.id
+            end
+         until
+            i > mdc
+         loop
+            if ms_count > 300 then
+               ms_count := 0
+               function_count := function_count + 1
+               cpp.pending_c_function_body.append(once "manifest_string_mark")
+               function_count.append_in(cpp.pending_c_function_body)
+               cpp.pending_c_function_body.append(once "();%N")
+               cpp.dump_pending_c_function(True)
+               cpp.prepare_c_function
+               manifest_string_mark_signature(function_count)
+            end
+            ms := manifest_string_pool.collected_once_item(i)
+            if ms.unicode_flag then
+               id := us_id
+            else
+               id := 7
+            end
+
+            manifest_string_mark(i, id)
+
+            cpp.pending_c_function_body.append(once "((T")
+            id.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once "*)")
+            cpp.pending_c_function_body.append(ms.once_variable)
+            cpp.pending_c_function_body.append(once ");%N")
+            ms_count := ms_count + 1
+            i := i + 1
+         end
+         cpp.dump_pending_c_function(True)
+      end
+
+   manifest_string_mark_signature (number: INTEGER) is
+      require
+         cpp.pending_c_function
+      do
+         cpp.pending_c_function_signature.copy(once "void manifest_string_mark")
+         number.append_in(cpp.pending_c_function_signature)
+         cpp.pending_c_function_signature.append(once "(void)")
+      end
+
+   manifest_string_mark (i, id: INTEGER) is
+      require
+         i.in_range(1, manifest_string_pool.collected_once_count)
+         manifest_string_pool.collected_once_item(i).unicode_flag implies (
+            manifest_string_pool.first_unicode_manifest_string_collected_flag
+            and then id = manifest_string_pool.se_ums.type_of_current.live_type.id
+         )
+         not manifest_string_pool.collected_once_item(i).unicode_flag implies (id = 7)
+      deferred
+      ensure
+         cpp.pending_c_function_body.count > old cpp.pending_c_function_body.count
+      end
+
+feature {}
+   initialize_user_expanded_attributes (internal_c_local: INTERNAL_C_LOCAL; created_live_type: LIVE_TYPE) is
+         -- Produce C code to initialize, if any, expanded attributes of the newly `created_live_type' which is
+         -- currently stored in the `internal_c_local'.
+      require
+         smart_eiffel.is_ready
+         internal_c_local /= Void
+         created_live_type.is_reference
+      local
+         wa: ARRAY[RUN_FEATURE]; a: RUN_FEATURE; at: TYPE_MARK; i: INTEGER; rf3: RUN_FEATURE_3
+         coma_flag: BOOLEAN
+      do
+         if created_live_type.class_text.name.to_string /= as_typed_internals then
+            wa := created_live_type.writable_attributes
+         end
+         if wa /= Void then
+            from
+               i := wa.lower
+            until
+               i > wa.upper
+            loop
+               a := wa.item(i)
+               at := a.result_type
+               if at.is_user_expanded then
+                  rf3 := at.type.live_type.default_create_run_feature
+                  if rf3 /= Void then
+                     coma_flag := False
+                     rf3.mapping_name_in(cpp.pending_c_function_body)
+                     cpp.pending_c_function_body.extend('(')
+                     if ace.no_check then
+                        cpp.pending_c_function_body.append(once "&ds")
+                        coma_flag := True
+                     end
+                     if ace.profile then
+                        if coma_flag then
+                           cpp.pending_c_function_body.extend(',')
+                        end
+                        cpp.pending_c_function_body.append(once "&local_profile")
+                        coma_flag := True
+                     end
+                     if rf3.use_current then
+                        if coma_flag then
+                           cpp.pending_c_function_body.extend(',')
+                        end
+                        if rf3.type_of_current.is_empty_expanded then
+                           cpp.pending_c_function_body.extend('0')
+                        else
+                           cpp.pending_c_function_body.append(once "&(((T")
+                           created_live_type.id.append_in(cpp.pending_c_function_body)
+                           cpp.pending_c_function_body.append(once "*)")
+                           internal_c_local.append_in(cpp.pending_c_function_body)
+                           cpp.pending_c_function_body.append(once ")->_")
+                           cpp.pending_c_function_body.append(a.name.to_string)
+                           cpp.pending_c_function_body.extend(')')
+                        end
+                     end
+                     cpp.pending_c_function_body.append(once ");%N")
+                  end
+               end
+               i := i + 1
+            end
+         end
+      end
+
+feature {}
+   generate_dispose (o: STRING; rf3: RUN_FEATURE_3; live_type: LIVE_TYPE) is
+         -- Append the extra C code for the MEMORY.dispose call if any.
+      require
+         not o.is_empty
+         cpp.pending_c_function
+         rf3 = live_type.get_memory_dispose
+         not live_type.is_expanded
+         not live_type.is_native_array
+      local
+         no_check: BOOLEAN
+      do
+         no_check := ace.no_check
+         if no_check then
+            cpp.pending_c_function_body.append(once "[
+             se_frame_descriptor gcd={"Garbage Collector at work.\n"
+             "dispose called (during sweep phase)",0,0,"",1};
+             se_dump_stack ds = {NULL,NULL,0,NULL,NULL};
+             ds.fd=&gcd;
+             ds.caller=se_dst;
+             ds.exception_origin=NULL;
+             ds.locals=NULL;
+
+            ]")
+            cpp.set_dump_stack_top_for(rf3.type_of_current, once "&ds", once "link")
+         end
+         cpp.pending_c_function_body.extend('r')
+         live_type.id.append_in(cpp.pending_c_function_body)
+         rf3.name.mapping_c_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.extend('(')
+         if no_check then
+            cpp.pending_c_function_body.append(once "&ds,")
+         end
+         if ace.profile then
+            cpp.pending_c_function_body.append(once "&gc_local_profile")
+         end
+         if no_check or else rf3.use_current then
+            inspect
+               cpp.pending_c_function_body.last
+            when ',', '(' then
+            else
+               cpp.pending_c_function_body.extend(',')
+            end
+            cpp.pending_c_function_body.extend('(')
+            cpp.pending_c_function_body.append(cpp.target_type.for(live_type.canonical_type_mark))
+            cpp.pending_c_function_body.extend(')')
+            cpp.pending_c_function_body.append(o)
+         end
+         cpp.pending_c_function_body.append(once ");%N")
+         if no_check then
+            cpp.set_dump_stack_top_for(rf3.type_of_current, once "ds.caller", once "unlink")
+         end
       end
 
 end -- class MEMORY_HANDLER

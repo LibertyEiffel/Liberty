@@ -376,7 +376,7 @@ feature {CREATE_INSTRUCTION}
          created_type_memory := visited.created_type(type)
          if created_type_memory.is_reference then
             internal_c_local := cpp.pending_c_function_lock_local(created_type_memory, once "new")
-            cpp.gc_handler.allocation_of(internal_c_local, created_type_memory.live_type)
+            cpp.memory.allocation_of(internal_c_local, created_type_memory.live_type)
             if visited.call /= Void then
                rf := visited.call.run_feature_for(type)
                cpp.push_create_instruction(type, rf, visited.arguments, internal_c_local)
@@ -433,7 +433,7 @@ feature {RAW_CREATE_INSTRUCTION}
          created_type_memory := visited.created_type(type)
          if created_type_memory.is_reference then
             internal_c_local := cpp.pending_c_function_lock_local(created_type_memory, once "rawci")
-            cpp.gc_handler.allocation_of(internal_c_local, created_type_memory.live_type)
+            cpp.memory.allocation_of(internal_c_local, created_type_memory.live_type)
             compile_expression(visited.writable)
             function_body.append(once "=((T0*)")
             internal_c_local.append_in(cpp.pending_c_function_body)

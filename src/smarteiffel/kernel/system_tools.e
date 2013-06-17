@@ -160,7 +160,7 @@ feature {}
          system_flavor /= Void
       end
 
-feature {GC_HANDLER}
+feature {BDW_GC}
    add_bdwgc_lib is
       do
          add_external_lib(once "gc")

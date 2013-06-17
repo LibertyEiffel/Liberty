@@ -26,15 +26,15 @@ feature {NATIVE_ARRAY_TYPE_MARK}
       do
          -- ------------------------------------ Declare na_envXXX :
          out_h.copy(once "na_env ")
-         cpp.gc_handler.na_env_in(visited, out_h)
+         memory.na_env_in(visited, out_h)
          out_c.copy(once "{0,NULL,NULL,NULL,(void(*)(T0*))")
-         cpp.gc_handler.mark_in(visited, out_c)
+         memory.mark_in(visited, out_c)
          out_c.extend('}')
          cpp.write_extern_2(out_h, out_c)
          -- -------------------------------- Declare gc_info_nbXXX :
-         if cpp.gc_handler.info_flag then
+         if memory.info_flag then
             out_h.copy(once "int ")
-            cpp.gc_handler.info_nb_in(visited, out_h)
+            memory.info_nb_in(visited, out_h)
             cpp.write_extern_0(out_h)
          end
       end
@@ -62,26 +62,26 @@ feature {}
          out_h.copy(once "gc")
          ltid.append_in(out_h)
          out_h.extend('*')
-         cpp.gc_handler.store_in(visited, out_h)
+         memory.store_in(visited, out_h)
          cpp.write_extern_2(out_h, once "(void*)0")
          -- ------------------------------ Declare store_leftXXX :
          out_h.copy(once "int ")
-         cpp.gc_handler.store_left_in(visited, out_h)
+         memory.store_left_in(visited, out_h)
          cpp.write_extern_0(out_h)
          -- ----------------------------------- Declare store_chunkXXX :
          out_h.copy(once "fsoc*")
-         cpp.gc_handler.store_chunk_in(visited, out_h)
+         memory.store_chunk_in(visited, out_h)
          cpp.write_extern_2(out_h, once "(void*)0")
          -- --------------------------------- Declare gc_freeXXX :
          out_h.copy(once "gc")
          ltid.append_in(out_h)
          out_h.extend('*')
-         cpp.gc_handler.free_in(visited, out_h)
+         memory.free_in(visited, out_h)
          cpp.write_extern_2(out_h, once "(void*)0")
          -- -------------------------------- Declare gc_info_nbXXX :
-         if cpp.gc_handler.info_flag then
+         if memory.info_flag then
             out_h.copy(once "int ")
-            cpp.gc_handler.info_nb_in(visited, out_h)
+            memory.info_nb_in(visited, out_h)
             cpp.write_extern_0(out_h)
          end
       end

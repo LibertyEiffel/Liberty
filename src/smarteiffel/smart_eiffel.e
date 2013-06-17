@@ -213,7 +213,7 @@ feature {RESULT, ONCE_FUNCTION}
          error_handler.print_as_fatal_error
       end
 
-feature {GC_HANDLER, CODE_PRINTER}
+feature {MEMORY_HANDLER, CODE_PRINTER}
    root_procedure: RUN_FEATURE_3
          -- The root procedure of the system to compile.
 

@@ -129,7 +129,7 @@ feature {}
             -- Now finish the work.
             ace.command_line_parsed(command_line_name)
          end
-         cpp.add_extra_collectors
+         cpp.prepare_memory
          smart_eiffel.compile(cpp)
          id_provider.disk_save
          string_aliaser.echo_information
@@ -139,6 +139,7 @@ feature {}
    parse_command_line (pass: INTEGER) is
       local
          argi: INTEGER; arg: STRING
+         mhf: MEMORY_HANDLER_FACTORY
       do
          from
             argi := 1
@@ -174,13 +175,13 @@ feature {}
                ace.set_no_main
                argi := argi + 1
             elseif flag_match(once "no_gc", arg) then
-               cpp.gc_handler.no_gc
+               mhf.set_no_gc
                argi := argi + 1
             elseif flag_match(once "bdw_gc", arg) then
-               cpp.gc_handler.bdw_gc
+               mhf.set_bdw_gc
                argi := argi + 1
             elseif flag_match(fz_gc_info, arg) then
-               cpp.gc_handler.set_info_flag
+               mhf.set_info_flag
                argi := argi + 1
             elseif is_safety_check_flag(arg) then
                argi := argi + 1

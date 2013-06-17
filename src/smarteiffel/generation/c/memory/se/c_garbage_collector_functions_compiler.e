@@ -29,7 +29,7 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          -- ----------------------------- Definiton for gc_markXXX :
          cpp.prepare_c_function
          function_signature.append(once "void ")
-         cpp.gc_handler.mark_in(visited, function_signature)
+         memory.mark_in(visited, function_signature)
          function_signature.append(once "(T")
          ltid.append_in(function_signature)
          function_signature.append(once " o)")
@@ -45,33 +45,33 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          function_body.append(once "size=(size*sizeof(")
          function_body.append(cpp.result_type.for(visited.generic_list.first))
          function_body.append(once "))+sizeof(rsoh);%Nsize=((size+(sizeof(double)-1))&~(sizeof(double)-1));%N")
-         if cpp.gc_handler.info_flag then
-            cpp.gc_handler.info_nb_in(visited, function_body)
+         if memory.info_flag then
+            memory.info_nb_in(visited, function_body)
             function_body.append(once "++;%N")
-            cpp.gc_handler.na_env_in(visited, function_body)
+            memory.na_env_in(visited, function_body)
             function_body.append(once ".space_used+=size;%N")
          end
          function_body.append(once "if (size<=(")
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ".store_left)){%N%
                                                  %rsoh*r=")
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ".store;%N")
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ".store_left-=size;%N%
                                                  %if(")
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ".store_left>sizeof(rsoh)){%N%
                                                  %r->header.size=size;%N")
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ".store=((rsoh*)(((char*)(")
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ".store))+size));%N}%N%
                                                  %else {%N%
                                                  %r->header.size=size+")
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ".store_left;%N")
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ".store_left=0;%N}%N%
                                    %(r->header.magic_flag)=RSOH_UNMARKED;%N%
                                    %((void)memset((r+1),0,r->header.size-sizeof(rsoh)));%N%
@@ -80,7 +80,7 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          function_body.append(once ")(r+1));%N}%Nreturn((T")
          ltid.append_in(function_body)
          function_body.append(once ")new_na(&")
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ",size));%N")
          cpp.dump_pending_c_function(True)
       end
@@ -105,7 +105,7 @@ feature {}
          function_body.append(once "*)(&(c->first_object)));%N%
                                    %if(c->header.state_type==FSO_STORE_CHUNK){%N%
                                    %for(;o1<")
-         cpp.gc_handler.store_in(visited, function_body)
+         memory.store_in(visited, function_body)
          function_body.append(once ";o1++){%N%
                                    %if((o1->header.flag)==FSOH_MARKED){%N%
                                    %o1->header.flag=FSOH_UNMARKED;%N")
@@ -125,7 +125,7 @@ feature {}
             end
          end
          function_body.append(once "}%Nelse{%N")
-         cpp.gc_handler.memory_dispose(once "o1", lt)
+         memory.memory_dispose(once "o1", lt)
          function_body.append(once "o1->header.next=gc_free")
          ltid.append_in(function_body)
          function_body.append(once ";%Ngc_free")
@@ -153,7 +153,7 @@ feature {}
             end
          end
          function_body.append(once "dead=0;}%Nelse{%N")
-         cpp.gc_handler.memory_dispose(once "o1", lt)
+         memory.memory_dispose(once "o1", lt)
          function_body.append(once "o1->header.next=gc_free")
          ltid.append_in(function_body)
          function_body.append(once ";%Ngc_free")
@@ -200,7 +200,7 @@ feature {}
          -- --------------------- Definition for gc_markXXX :
          cpp.prepare_c_function
          function_signature.append(once "void ")
-         cpp.gc_handler.mark_in(visited, function_signature)
+         memory.mark_in(visited, function_signature)
          function_signature.append(once "(T")
          ltid.append_in(function_signature)
          function_signature.append(once "*o)")
@@ -218,7 +218,7 @@ feature {}
          -- ----------------------- Definition for gc_align_markXXX :
          cpp.prepare_c_function
          function_signature.append(once "void ")
-         cpp.gc_handler.align_mark_in(visited, function_signature)
+         memory.align_mark_in(visited, function_signature)
          function_signature.append(once "(fsoc*c,gc")
          ltid.append_in(function_signature)
          function_signature.append(once "*p)")
@@ -245,59 +245,59 @@ feature {}
          function_body.append(once "gc")
          ltid.append_in(function_body)
          function_body.append(once "*n;%Nfsoc*c;%N")
-         if cpp.gc_handler.info_flag then
-            cpp.gc_handler.info_nb_in(visited, function_body)
+         if memory.info_flag then
+            memory.info_nb_in(visited, function_body)
             function_body.append(once "++;%N")
          end
          --
          function_body.append(once "if(")
-         cpp.gc_handler.store_left_in(visited, function_body)
+         memory.store_left_in(visited, function_body)
          function_body.append(once ">1){%N")
-         cpp.gc_handler.store_left_in(visited, function_body)
+         memory.store_left_in(visited, function_body)
          function_body.append(once "--;%Nn=")
-         cpp.gc_handler.store_in(visited, function_body)
+         memory.store_in(visited, function_body)
          function_body.append(once "++;%N}%Nelse if(")
-         cpp.gc_handler.free_in(visited, function_body)
+         memory.free_in(visited, function_body)
          function_body.append(once "!=NULL){%Nn=")
-         cpp.gc_handler.free_in(visited, function_body)
+         memory.free_in(visited, function_body)
          function_body.append(once ";%N")
-         cpp.gc_handler.free_in(visited, function_body)
+         memory.free_in(visited, function_body)
          function_body.append(once "=n->header.next;%N}%Nelse if(")
-         cpp.gc_handler.store_left_in(visited, function_body)
+         memory.store_left_in(visited, function_body)
          function_body.append(once "==1){%N")
-         cpp.gc_handler.store_left_in(visited, function_body)
+         memory.store_left_in(visited, function_body)
          function_body.append(once "=0;%N")
-         cpp.gc_handler.store_chunk_in(visited, function_body)
+         memory.store_chunk_in(visited, function_body)
          function_body.append(once "->header.state_type=FSO_USED_CHUNK;%N%
                                    %n=")
-         cpp.gc_handler.store_in(visited, function_body)
+         memory.store_in(visited, function_body)
          function_body.append(once "++;%N}%N%
                                    %else{%Nc=gc_fsoc_get1();%N%
                                    %if(")
-         cpp.gc_handler.free_in(visited, function_body)
+         memory.free_in(visited, function_body)
          function_body.append(once "!=NULL){%Nn=")
-         cpp.gc_handler.free_in(visited, function_body)
+         memory.free_in(visited, function_body)
          function_body.append(once ";%N")
-         cpp.gc_handler.free_in(visited, function_body)
+         memory.free_in(visited, function_body)
          function_body.append(once "=n->header.next;%N}%Nelse{%N%
                                    %if(c==NULL)c=gc_fsoc_get2();%N")
-         cpp.gc_handler.store_chunk_in(visited, function_body)
+         memory.store_chunk_in(visited, function_body)
          function_body.append(once "=c;%N*")
-         cpp.gc_handler.store_chunk_in(visited, function_body)
+         memory.store_chunk_in(visited, function_body)
          function_body.append(once "=H")
          ltid.append_in(function_body)
          function_body.append(once ";%N")
-         cpp.gc_handler.store_in(visited, function_body)
+         memory.store_in(visited, function_body)
          function_body.append(once "=((gc")
          ltid.append_in(function_body)
          function_body.append(once "*)(&(")
-         cpp.gc_handler.store_chunk_in(visited, function_body)
+         memory.store_chunk_in(visited, function_body)
          function_body.append(once "->first_object)));%N")
-         cpp.gc_handler.store_left_in(visited, function_body)
+         memory.store_left_in(visited, function_body)
          function_body.append(once "=H")
          ltid.append_in(function_body)
          function_body.append(once ".count_minus_one;%Nn=")
-         cpp.gc_handler.store_in(visited, function_body)
+         memory.store_in(visited, function_body)
          function_body.append(once "++;%N}%N%
                                    %}%Nn->header.flag=FSOH_UNMARKED;%N")
          if cpp.need_struct.for(visited) then
@@ -316,12 +316,12 @@ feature {}
          lt: LIVE_TYPE; lt_id: INTEGER
       do
          lt := visited.type.live_type
-         if cpp.gc_handler.need_mark.for(lt.type) then
+         if memory.need_mark.for(lt.type) then
             lt_id := lt.id
             -- -------------------------- Definition for gc_markXXX:
             cpp.prepare_c_function
             function_signature.append(once "void ")
-            cpp.gc_handler.mark_in(visited, function_signature)
+            memory.mark_in(visited, function_signature)
             function_signature.append(once "(T")
             lt_id.append_in(function_signature)
             function_signature.append(once "*o)")
@@ -333,8 +333,6 @@ feature {}
    generate_once_gc_update_weak_ref_item_polymorph (visited: TYPE_MARK) is
       require
          visited.is_reference -- is_weak_ref
-         not cpp.gc_handler.is_off
-         not cpp.gc_handler.is_bdw
          not cpp.pending_c_function
          visited.type.live_type.at_run_time
       once
@@ -379,8 +377,6 @@ feature {}
          -- Finally, when `is_unmarked' is True, object `o' is unmarked.
       require
          cpp.pending_c_function
-         not cpp.gc_handler.is_off
-         not cpp.gc_handler.is_bdw
          not lt.canonical_type_mark.is_native_array
          lt.at_run_time
       local
@@ -400,7 +396,7 @@ feature {}
                loop
                   rf2 := lt.writable_attributes.item(i)
                   t := rf2.result_type.type
-                  if cpp.gc_handler.need_mark.for(t) then
+                  if memory.need_mark.for(t) then
                      lvtp := t.live_type
                      wa_cycle.clear_count
                      wa_cycle.add_last(rf2)
@@ -476,7 +472,7 @@ feature {}
       local
          must_collect: TAGGED_FLAG
       do
-         must_collect := cpp.native_array_collector.must_collect(lt)
+         must_collect := memory.native_array_collector.must_collect(lt)
          Result := must_collect /= Void and then must_collect.item
       end
 
@@ -520,7 +516,7 @@ feature {}
                end
                function_body.append(once "o);%N}%N}%N}")
             else
-               cpp.gc_handler.mark_for(field_name, attribute_type, False)
+               memory.mark_for(field_name, attribute_type, False)
             end
          end
       end
@@ -529,8 +525,6 @@ feature {}
          -- Compute the best body for gc_align_markXXX of a fixed_size object.
       require
          cpp.pending_c_function
-         not cpp.gc_handler.is_off
-         not cpp.gc_handler.is_bdw
          not lt.canonical_type_mark.is_native_array
          lt.at_run_time
       do
@@ -559,8 +553,6 @@ feature {}
          -- Actually, this feature may be called to produce C code when C variable `o' is not NULL.
       require
          cpp.pending_c_function
-         not cpp.gc_handler.is_off
-         not cpp.gc_handler.is_bdw
          visited.type.live_type.at_run_time
       local
          e_type: TYPE; e_live_type: LIVE_TYPE
@@ -570,7 +562,7 @@ feature {}
                                       %return; /* external NA */%N")
          end
          e_type := visited.elements_type.type
-         if cpp.gc_handler.need_mark.for(e_type) then
+         if memory.need_mark.for(e_type) then
             e_live_type := e_type.live_type
             function_body.append(once "{rsoh*h=((rsoh*)o)-1;%N%
                                       %if((h->header.magic_flag)==RSOH_UNMARKED){%N%
@@ -583,7 +575,7 @@ feature {}
             function_body.append(once "p=((void*)(o+((((h->header.size)-sizeof(rsoh))/sizeof(e))-1)));%N%
                                       %for(;((void*)p)>=((void*)o);p--){%N%
                                       %e=*p;%N")
-            cpp.gc_handler.mark_for(once "e", e_live_type, False)
+            memory.mark_for(once "e", e_live_type, False)
             function_body.append(once "}}}}%N")
          else
             function_body.append(once "(((rsoh*)o)-1)->header.magic_flag=RSOH_MARKED;%N")
