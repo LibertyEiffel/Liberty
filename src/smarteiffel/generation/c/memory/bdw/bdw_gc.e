@@ -216,6 +216,23 @@ feature {C_COMPILATION_MIXIN} -- GC switches (see MEMORY)
          cpp.pending_c_function_body.append(once "(GC_get_heap_size())")
       end
 
+feature {C_COMPILATION_MIXIN} -- see WEAK_REFERENCE
+   weak_item (lt: LIVE_TYPE) is
+      do
+         cpp.pending_c_function_body.append(once "(*((T0**)(")
+         cpp.put_target_as_value
+         cpp.pending_c_function_body.append(once ")))")
+      end
+
+   weak_set_item (lt: LIVE_TYPE) is
+      do
+         cpp.pending_c_function_body.append(once "(*((T0**)(")
+         cpp.put_target_as_value
+         cpp.pending_c_function_body.append(once ")))=")
+         cpp.put_ith_argument(1)
+         cpp.pending_c_function_body.append(once ";%N")
+      end
+
 feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
    assign_agent_data (mold_id: STRING) is
       do

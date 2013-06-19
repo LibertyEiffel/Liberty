@@ -597,6 +597,8 @@ feature {LIVE_TYPE}
 feature {ANY}
    weak_reference_argument (lt: LIVE_TYPE): LIVE_TYPE is
       do
+         check False end
+         sedb_breakpoint
       end
 
 feature {ANONYMOUS_FEATURE}

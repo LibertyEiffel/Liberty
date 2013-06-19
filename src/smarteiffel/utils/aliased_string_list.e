@@ -352,6 +352,8 @@ feature {} -- Hard coded feature names:
 
    as_sedb_breakpoint: STRING is "sedb_breakpoint"
 
+   as_set_item: STRING is "set_item"
+
    as_set_object_attribute: STRING is "set_object_attribute"
 
    as_signal_number: STRING is "signal_number"

@@ -9,7 +9,7 @@ class C_GARBAGE_COLLECTOR_FUNCTIONS_COMPILER
 inherit
    C_GARBAGE_COLLECTOR_ABSTRACT_COMPILER
       redefine
-         make
+         make, visit_weak_reference_type_mark
       end
 
 create {GC_HANDLER}
@@ -85,15 +85,21 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          cpp.dump_pending_c_function(True)
       end
 
+feature {WEAK_REFERENCE_TYPE_MARK}
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+      do
+         gc_weak_reference(visited)
+      end
+
 feature {}
-   gc_reference (visited: TYPE_MARK) is
+   gc_reference_sweep (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER; is_weak_ref: BOOLEAN) is
+      require
+         lt = visited.type.live_type
+         ltid = lt.id
       local
-         lt: LIVE_TYPE; ltid, arg_id: INTEGER; gc_check_id: BOOLEAN; wr_gen_arg_lt: LIVE_TYPE; is_weak_ref: BOOLEAN
+         arg_id: INTEGER; gc_check_id: BOOLEAN; wr_gen_arg_lt: LIVE_TYPE
          is_monomorphic_weak_ref: BOOLEAN
       do
-         lt := visited.type.live_type
-         ltid := lt.id
-         -- --------------------------- Definition for gc_sweepXXX :
          cpp.prepare_c_function
          function_signature.append(once "void gc_sweep")
          ltid.append_in(function_signature)
@@ -110,7 +116,9 @@ feature {}
                                    %if((o1->header.flag)==FSOH_MARKED){%N%
                                    %o1->header.flag=FSOH_UNMARKED;%N")
          wr_gen_arg_lt := visited.weak_reference_argument(lt)
-         is_weak_ref := wr_gen_arg_lt /= Void
+         check
+            is_weak_ref = (wr_gen_arg_lt /= Void)
+         end
          if is_weak_ref then
             check
                visited.generic_list.count = 1
@@ -121,7 +129,7 @@ feature {}
                ltid.append_in(function_body)
                function_body.append(once "(&(o1->object));%N")
             else
-               function_body.append(once "gc_update_weak_ref_item_polymorph(&(o1->object._item));%N")
+               function_body.append(once "gc_update_weak_ref_item_polymorph((T0**)(o1->object));%N")
             end
          end
          function_body.append(once "}%Nelse{%N")
@@ -149,7 +157,7 @@ feature {}
                ltid.append_in(function_body)
                function_body.append(once "(&(o1->object));%N")
             else
-               function_body.append(once "gc_update_weak_ref_item_polymorph(&(o1->object._item));%N")
+               function_body.append(once "gc_update_weak_ref_item_polymorph((T0**)(o1->object));%N")
             end
          end
          function_body.append(once "dead=0;}%Nelse{%N")
@@ -169,35 +177,55 @@ feature {}
                                    %c->header.state_type=FSO_FREE_CHUNK;%N}%N%
                                    %}%N")
          cpp.dump_pending_c_function(True)
-         -- ------------------ Definition for gc_update_weak_ref_item... :
-         if is_weak_ref then
-            if is_monomorphic_weak_ref then
-               cpp.prepare_c_function
-               function_signature.append(once "void gc_update_weak_ref_item")
-               ltid.append_in(function_signature)
-               function_signature.append(once "(T")
-               ltid.append_in(function_signature)
-               function_signature.append(once "* wr)")
-               function_body.append(once "gc")
-               arg_id := wr_gen_arg_lt.run_time_set.first.id
-               arg_id.append_in(function_body)
-               function_body.append(once "* obj_ptr = (gc")
-               arg_id.append_in(function_body)
-               function_body.append(once "*)(wr->_item);%N%
-                                         %if (obj_ptr != NULL){%N%
-                                         %int swept = (((void*)obj_ptr) <= ((void*)wr));%N%
-                                         %if (swept != (obj_ptr->header.flag == FSOH_UNMARKED))%N%
-                                         %/* (already swept) xor marked */%N%
-                                         %wr->_item = NULL;%N}%N")
-               cpp.dump_pending_c_function(True)
-            else
-               check
-                  wr_gen_arg_lt.is_tagged
-               end
-               generate_once_gc_update_weak_ref_item_polymorph(visited)
-            end
+      end
+
+   gc_reference_update_weak_ref_item (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER) is
+      require
+         lt = visited.type.live_type
+         ltid = lt.id
+      local
+         arg_id: INTEGER; gc_check_id: BOOLEAN; wr_gen_arg_lt: LIVE_TYPE
+         is_monomorphic_weak_ref: BOOLEAN
+      do
+         wr_gen_arg_lt := visited.weak_reference_argument(lt)
+         check
+            wr_gen_arg_lt /= Void
          end
-         -- --------------------- Definition for gc_markXXX :
+         is_monomorphic_weak_ref := wr_gen_arg_lt.run_time_set.count = 1
+         if is_monomorphic_weak_ref then
+            cpp.prepare_c_function
+            function_signature.append(once "void gc_update_weak_ref_item")
+            ltid.append_in(function_signature)
+            function_signature.append(once "(T")
+            ltid.append_in(function_signature)
+            function_signature.append(once "* wr)")
+            function_body.append(once "gc")
+            arg_id := wr_gen_arg_lt.run_time_set.first.id
+            arg_id.append_in(function_body)
+            function_body.append(once "* obj_ptr = (gc")
+            arg_id.append_in(function_body)
+            function_body.append(once "*)(*wr);%N%
+                                      %if (obj_ptr != NULL){%N%
+                                      %int swept = (((void*)obj_ptr) <= ((void*)wr));%N%
+                                      %if (swept != (obj_ptr->header.flag == FSOH_MARKED)) /* **** TODO: was FSOH_UNMARKED???? (incoherent with comment below) */%N%
+                                      %/* (already swept) xor marked */%N%
+                                      %*wr = NULL;%N}%N")
+            cpp.dump_pending_c_function(True)
+         else
+            check
+               wr_gen_arg_lt.is_tagged
+            end
+            generate_once_gc_update_weak_ref_item_polymorph(visited)
+         end
+      end
+
+   gc_reference_mark (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER) is
+      require
+         lt = visited.type.live_type
+         ltid = lt.id
+      local
+         arg_id: INTEGER; gc_check_id: BOOLEAN
+      do
          cpp.prepare_c_function
          function_signature.append(once "void ")
          memory.mark_in(visited, function_signature)
@@ -215,7 +243,15 @@ feature {}
             function_body.append(once "}%N")
          end
          cpp.dump_pending_c_function(True)
-         -- ----------------------- Definition for gc_align_markXXX :
+      end
+
+   gc_reference_align_mark (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER) is
+      require
+         lt = visited.type.live_type
+         ltid = lt.id
+      local
+         arg_id: INTEGER; gc_check_id: BOOLEAN
+      do
          cpp.prepare_c_function
          function_signature.append(once "void ")
          memory.align_mark_in(visited, function_signature)
@@ -224,7 +260,15 @@ feature {}
          function_signature.append(once "*p)")
          gc_align_mark_fixed_size(lt)
          cpp.dump_pending_c_function(True)
-         -- ------------------------ Definition of chunk model HXXX :
+      end
+
+   gc_reference_fsoc_model (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER) is
+      require
+         lt = visited.type.live_type
+         ltid = lt.id
+      local
+         arg_id: INTEGER; gc_check_id: BOOLEAN
+      do
          cpp.out_h_buffer.copy(once "fsoc H")
          ltid.append_in(cpp.out_h_buffer)
          cpp.out_c_buffer.copy(once "{{FSOC_SIZE,FSO_STORE_CHUNK,%N(void(*)(mch*,void*))gc_align_mark")
@@ -235,7 +279,15 @@ feature {}
          ltid.append_in(cpp.out_c_buffer)
          cpp.out_c_buffer.append(once "))-1)}")
          cpp.write_extern_2(cpp.out_h_buffer, cpp.out_c_buffer)
-         -- --------------------------------- Definition for newXXX :
+      end
+
+   gc_reference_new (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER) is
+      require
+         lt = visited.type.live_type
+         ltid = lt.id
+      local
+         arg_id: INTEGER; gc_check_id: BOOLEAN
+      do
          cpp.prepare_c_function
          function_signature.extend('T')
          ltid.append_in(function_signature)
@@ -311,6 +363,36 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
+   gc_reference (visited: TYPE_MARK) is
+      local
+         lt: LIVE_TYPE; ltid: INTEGER
+         arg_id: INTEGER; gc_check_id: BOOLEAN
+      do
+         lt := visited.type.live_type
+         ltid := lt.id
+
+         gc_reference_sweep(visited, lt, ltid, False)
+         gc_reference_mark(visited, lt, ltid)
+         gc_reference_align_mark(visited, lt, ltid)
+         gc_reference_fsoc_model(visited, lt, ltid)
+         gc_reference_new(visited, lt, ltid)
+      end
+
+   gc_weak_reference (visited: TYPE_MARK) is
+      local
+         lt: LIVE_TYPE; ltid: INTEGER
+      do
+         lt := visited.type.live_type
+         ltid := lt.id
+
+         gc_reference_sweep(visited, lt, ltid, True)
+         gc_reference_update_weak_ref_item(visited, lt, ltid)
+         gc_reference_mark(visited, lt, ltid)
+         gc_reference_align_mark(visited, lt, ltid)
+         gc_reference_fsoc_model(visited, lt, ltid)
+         gc_reference_new(visited, lt, ltid)
+      end
+
    gc_expanded (visited: TYPE_MARK) is
       local
          lt: LIVE_TYPE; lt_id: INTEGER
@@ -352,7 +434,7 @@ feature {}
          end
          function_body.append(once "=(((void*)obj_ptr)<=((void*)item));%N%
                                    %obj_ptr = (T0*)(((char*)obj_ptr) + obj_size);%N%
-                                   %if (swept!=(((fso_header*)obj_ptr)->flag==FSOH_UNMARKED))%N%
+                                   %if (swept != (((fso_header*)obj_ptr)->flag==FSOH_UNMARKED)) /* **** TODO: was FSOH_UNMARKED???? (incoherent with comment below) */%N%
                                    %/* (already swept) xor marked */%N%
                                    %*item = NULL;%N}%N")
          cpp.dump_pending_c_function(True)

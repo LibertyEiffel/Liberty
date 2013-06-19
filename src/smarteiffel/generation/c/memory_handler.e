@@ -153,6 +153,21 @@ feature {C_COMPILATION_MIXIN} -- GC switches (see MEMORY)
       deferred
       end
 
+feature {C_COMPILATION_MIXIN} -- see WEAK_REFERENCE
+   weak_item (lt: LIVE_TYPE) is
+         -- Code to get the weak reference item
+      require
+         -- lt is a WEAK_REFERENCE type
+      deferred
+      end
+
+   weak_set_item (lt: LIVE_TYPE) is
+         -- Code to set the weak reference item
+      require
+         -- lt is a WEAK_REFERENCE type
+      deferred
+      end
+
 feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
    assign_agent_data (mold_id: STRING) is
          -- At agent creation time: specific memory handling data may be assigned

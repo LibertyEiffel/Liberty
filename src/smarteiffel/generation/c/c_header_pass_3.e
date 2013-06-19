@@ -136,6 +136,11 @@ feature {NATIVE_ARRAY_TYPE_MARK}
       do
       end
 
+feature {WEAK_REFERENCE_TYPE_MARK}
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+      do
+      end
+
 feature {USER_GENERIC_TYPE_MARK}
    visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
       do

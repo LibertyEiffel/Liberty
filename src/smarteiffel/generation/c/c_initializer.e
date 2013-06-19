@@ -44,6 +44,12 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          buffer.append(once "(void*)0")
       end
 
+feature {WEAK_REFERENCE_TYPE_MARK}
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+      do
+         buffer.append(once "(void*)0")
+      end
+
 feature {NON_EMPTY_TUPLE_TYPE_MARK}
    visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK) is
       do

@@ -307,6 +307,7 @@ feature {}
                         create_hashed_string(as_se_argv),
                         create_hashed_string(as_se_atexit),
                         create_hashed_string(as_sedb_breakpoint),
+                        create_hashed_string(as_set_item),
                         create_hashed_string(as_set_object_attribute),
                         create_hashed_string(as_signal_number),
                         create_hashed_string(as_slice_copy),

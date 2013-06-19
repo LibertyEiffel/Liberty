@@ -1,74 +1,19 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class USER_GENERIC_TYPE_MARK
-   --
-   -- Handling of generic type mark excluding ARRAY, NATIVE_ARRAY, and AGENT_TYPE_MARK.
-   --
+deferred class WEAK_REFERENCE_TYPE_MARK_VISITOR
 
 inherit
-   GENERIC_TYPE_MARK
+   VISITOR
 
-create {ANY}
-   make
-
-feature {ANY}
-   is_expanded: BOOLEAN is
-      do
-         Result := class_text.is_expanded
-      end
-
-   is_reference: BOOLEAN is
-      do
-         Result := not class_text.is_expanded
-      end
-
-   is_user_expanded: BOOLEAN is
-      do
-         Result := class_text.is_expanded
-      end
-
-   is_empty_expanded: BOOLEAN is
-      do
-         if is_user_expanded then
-            Result := type.live_type.writable_attributes = Void
-         end
-      end
-
-   id: INTEGER is
-      do
-         Result := type.live_type.id
-      end
-
-   accept (visitor: USER_GENERIC_TYPE_MARK_VISITOR) is
-      do
-         visitor.visit_user_generic_type_mark(Current)
-      end
-
-feature {TYPE_MARK}
-   short_ (shorted_type: TYPE) is
-      do
-         short_generic(shorted_type, class_text_name)
-      end
-
-feature {}
-   make (bcn: like class_text_name; gl: like generic_list) is
+feature {WEAK_REFERENCE_TYPE_MARK}
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
       require
-         bcn /= Void
-         gl.lower = 1
-         not gl.is_empty
-      do
-         class_text_name := bcn
-         generic_list := gl
-      ensure
-         class_text_name = bcn
-         generic_list = gl
+         visited /= Void
+      deferred
       end
 
-invariant
-   generic_list.count >= 1
-
-end -- class USER_GENERIC_TYPE_MARK
+end -- class WEAK_REFERENCE_TYPE_MARK_VISITOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

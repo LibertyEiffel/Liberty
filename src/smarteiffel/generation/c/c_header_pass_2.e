@@ -117,9 +117,24 @@ feature {NATIVE_ARRAY_TYPE_MARK}
    visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
       do
          compile_live_type(visited.generic_list.first.type.live_type)
-         out_h.copy(once "typedef ")
+         out_h.copy(once "/*NA*/typedef ")
          native_array_type_in(visited, out_h)
          out_h.extend('T')
+         visited.id.append_in(out_h)
+         out_h.append(once ";%N#define M")
+         visited.id.append_in(out_h)
+         out_h.append(once " NULL%N")
+         flush_out_h
+      end
+
+feature {WEAK_REFERENCE_TYPE_MARK}
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+      do
+         check
+            visited.generic_list.first.type.is_reference
+         end
+         compile_live_type(visited.generic_list.first.type.live_type)
+         out_h.copy(once "/*WR*/typedef T0**T")
          visited.id.append_in(out_h)
          out_h.append(once ";%N#define M")
          visited.id.append_in(out_h)

@@ -143,6 +143,12 @@ feature {STRING_TYPE_MARK}
          gc_reference(visited)
       end
 
+feature {WEAK_REFERENCE_TYPE_MARK}
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+      do
+         gc_reference(visited)
+      end
+
 feature {}
    make is
       do

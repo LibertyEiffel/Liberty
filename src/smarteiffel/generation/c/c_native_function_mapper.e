@@ -347,6 +347,12 @@ feature {NATIVE_BUILT_IN}
             function_body.append(once "(NULL!=")
             cpp.put_target_as_value
             function_body.extend(')')
+         elseif as_weak_reference = bcn then
+            if as_item = name then
+               cpp.memory.weak_item(live_type_of_current)
+            else
+               not_yet_implemented
+            end
          elseif as_exception = name then
             function_body.append(once "internal_exception_number")
          elseif as_signal_number = name then

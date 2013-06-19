@@ -122,6 +122,12 @@ feature {NATIVE_BUILT_IN}
             function_body.append(once "internal_exception_handler(")
             cpp.put_ith_argument(1)
             function_body.append(once ");%N")
+         elseif as_weak_reference = bcn then
+            if  as_set_item = name then
+               cpp.memory.weak_set_item(type_of_current.live_type)
+            else
+               not_yet_implemented
+            end
          elseif as_full_collect = name then
             cpp.memory.gc_collect
          elseif as_trace_switch = name then

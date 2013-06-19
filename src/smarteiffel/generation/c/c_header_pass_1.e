@@ -192,6 +192,22 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          end
       end
 
+feature {WEAK_REFERENCE_TYPE_MARK}
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+      local
+         generic_type: LIVE_TYPE
+      do
+         generic_type := visited.generic_list.first.type.live_type
+         if generic_type.at_run_time then
+            compile_live_type(generic_type)
+         elseif not is_compiled(generic_type) then --| **** TODO: THIS IS A DIRTY HACK!!
+            set_compiled(generic_type)
+            out_h.copy(once "/*BUG:WR@runtime!*/")
+            flush_out_h
+            do_compile(generic_type)
+         end
+      end
+
 feature {USER_GENERIC_TYPE_MARK}
    visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
       do

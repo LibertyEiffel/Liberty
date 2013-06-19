@@ -132,11 +132,11 @@ feature {} -- internal_c_local
       end
 
 feature {}
-   native_array_type_in (na: NATIVE_ARRAY_TYPE_MARK; str: STRING) is
+   native_array_type_in (ref: NATIVE_ARRAY_TYPE_MARK; str: STRING) is
       local
          et: TYPE_MARK
       do
-         et := na.generic_list.first
+         et := ref.generic_list.first
          if et.is_reference then
             str.append(once "T0**")
          else
