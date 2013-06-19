@@ -18,8 +18,9 @@ feature {ACE}
 feature {C_PRETTY_PRINTER} -- C code phases
    pre_customize_c_runtime is
       do
-         cpp.out_h_buffer.copy(once "#include <gc.h>%N%
-                                    %#define BDW_GC 1%N")
+         cpp.out_h_buffer.copy(once "#define BDW_GC 1%N%
+                                    %#define GC_I_HIDE_POINTERS 1%N%
+                                    %#include <gc.h>%N")
          if not ace.boost then
             cpp.out_h_buffer.append(once "#define GC_DEBUG 1%N")
          end
@@ -39,7 +40,6 @@ feature {C_PRETTY_PRINTER} -- C code phases
    define2 is
       local
          i: INTEGER; lt: LIVE_TYPE; live_type_map: TRAVERSABLE[LIVE_TYPE]; root_type: TYPE
-         wrlt: LIVE_TYPE
       do
          live_type_map := smart_eiffel.live_type_map
          root_type := smart_eiffel.root_procedure.type_of_current
@@ -65,15 +65,15 @@ feature {C_PRETTY_PRINTER} -- C code phases
          loop
             lt := live_type_map.item(i)
             if lt.at_run_time and then (lt.is_reference or else lt.is_native_array) then
+               if lt.class_text_name.to_string = as_weak_reference then
+                  prepare_weakref_accessors
+               end
                memory_dispose(lt)
                cpp.prepare_c_function
                cpp.pending_c_function_signature.append(cpp.target_type.for(lt.canonical_type_mark))
                cpp.pending_c_function_signature.append(once " bdw_mallocT")
                lt.id.append_in(cpp.pending_c_function_signature)
                cpp.pending_c_function_signature.append(once "(int n)")
-               if lt.class_text_name.to_string = as_weak_reference then
-                  wrlt := lt.type.generic_list.first.live_type
-               end
                cpp.pending_c_function_body.append(cpp.target_type.for(lt.canonical_type_mark))
                cpp.pending_c_function_body.append(once " R=(")
                cpp.pending_c_function_body.append(cpp.target_type.for(lt.canonical_type_mark))
@@ -85,9 +85,6 @@ feature {C_PRETTY_PRINTER} -- C code phases
                      cpp.pending_c_function_body.append(once "0*")
                   end
                else
-                  if wrlt /= Void then
-                     --|**** TODO
-                  end
                   cpp.pending_c_function_body.append(once ")se_malloc(n*sizeof(T")
                   lt.id.append_in(cpp.pending_c_function_body)
                end
@@ -219,18 +216,20 @@ feature {C_COMPILATION_MIXIN} -- GC switches (see MEMORY)
 feature {C_COMPILATION_MIXIN} -- see WEAK_REFERENCE
    weak_item (lt: LIVE_TYPE) is
       do
-         cpp.pending_c_function_body.append(once "(*((T0**)(")
+         cpp.pending_c_function_body.append(once "(")
+         cpp.pending_c_function_body.append(cpp.result_type.for(lt.type.generic_list.first.canonical_type_mark))
+         cpp.pending_c_function_body.append(once ")bdw_weakref_getlink((T0**)(")
          cpp.put_target_as_value
-         cpp.pending_c_function_body.append(once ")))")
+         cpp.pending_c_function_body.append(once "))")
       end
 
    weak_set_item (lt: LIVE_TYPE) is
       do
-         cpp.pending_c_function_body.append(once "(*((T0**)(")
+         cpp.pending_c_function_body.append(once "bdw_weakref_setlink((T0**)(")
          cpp.put_target_as_value
-         cpp.pending_c_function_body.append(once ")))=")
+         cpp.pending_c_function_body.append(once "), ")
          cpp.put_ith_argument(1)
-         cpp.pending_c_function_body.append(once ";%N")
+         cpp.pending_c_function_body.append(once ");%N")
       end
 
 feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
@@ -311,6 +310,25 @@ feature {}
             o.append(once ")obj)")
             generate_dispose(o, rf3, lt)
          end
+         cpp.dump_pending_c_function(True)
+      end
+
+   prepare_weakref_accessors is
+      once
+         cpp.prepare_c_function
+         cpp.pending_c_function_signature.append(once "void bdw_weakref_setlink(T0**wr,T0*r)")
+         cpp.pending_c_function_body.append(once "if(r==NULL){%N%
+                                                 %GC_unregister_disappearing_link((void**)wr);%N%
+                                                 %*wr=NULL;%N%
+                                                 %}else{%N%
+                                                 %*wr=(T0*)HIDE_POINTER(r);%N%
+                                                 %GC_GENERAL_REGISTER_DISAPPEARING_LINK((void**)wr,(void*)r);%N%
+                                                 %}%N")
+         cpp.dump_pending_c_function(True)
+         cpp.prepare_c_function
+         cpp.pending_c_function_signature.append(once "T0* bdw_weakref_getlink(T0**wr)")
+         cpp.pending_c_function_body.append(once "if(*wr==NULL)return NULL;%N%
+                                                 %return REVEAL_POINTER(*wr);%N")
          cpp.dump_pending_c_function(True)
       end
 
