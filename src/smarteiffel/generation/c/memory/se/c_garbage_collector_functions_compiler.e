@@ -97,7 +97,7 @@ feature {}
          lt = visited.type.live_type
          ltid = lt.id
       local
-         arg_id: INTEGER; gc_check_id: BOOLEAN; wr_gen_arg_lt: LIVE_TYPE
+         wr_gen_arg_lt: LIVE_TYPE
          is_monomorphic_weak_ref: BOOLEAN
       do
          cpp.prepare_c_function
@@ -184,7 +184,7 @@ feature {}
          lt = visited.type.live_type
          ltid = lt.id
       local
-         arg_id: INTEGER; gc_check_id: BOOLEAN; wr_gen_arg_lt: LIVE_TYPE
+         arg_id: INTEGER; wr_gen_arg_lt: LIVE_TYPE
          is_monomorphic_weak_ref: BOOLEAN
       do
          wr_gen_arg_lt := visited.weak_reference_argument(lt)
@@ -224,7 +224,7 @@ feature {}
          lt = visited.type.live_type
          ltid = lt.id
       local
-         arg_id: INTEGER; gc_check_id: BOOLEAN
+         gc_check_id: BOOLEAN
       do
          cpp.prepare_c_function
          function_signature.append(once "void ")
@@ -249,8 +249,6 @@ feature {}
       require
          lt = visited.type.live_type
          ltid = lt.id
-      local
-         arg_id: INTEGER; gc_check_id: BOOLEAN
       do
          cpp.prepare_c_function
          function_signature.append(once "void ")
@@ -266,8 +264,6 @@ feature {}
       require
          lt = visited.type.live_type
          ltid = lt.id
-      local
-         arg_id: INTEGER; gc_check_id: BOOLEAN
       do
          cpp.out_h_buffer.copy(once "fsoc H")
          ltid.append_in(cpp.out_h_buffer)
@@ -285,8 +281,6 @@ feature {}
       require
          lt = visited.type.live_type
          ltid = lt.id
-      local
-         arg_id: INTEGER; gc_check_id: BOOLEAN
       do
          cpp.prepare_c_function
          function_signature.extend('T')
@@ -366,7 +360,6 @@ feature {}
    gc_reference (visited: TYPE_MARK) is
       local
          lt: LIVE_TYPE; ltid: INTEGER
-         arg_id: INTEGER; gc_check_id: BOOLEAN
       do
          lt := visited.type.live_type
          ltid := lt.id
