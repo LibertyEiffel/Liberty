@@ -5,6 +5,8 @@ class BDW_GC
 
 inherit
    MEMORY_HANDLER
+      export {BDW_GC_DEFINE2} generate_dispose
+      end
 
 create {MEMORY_HANDLER_FACTORY}
    make
@@ -67,40 +69,8 @@ feature {C_PRETTY_PRINTER} -- C code phases
             i > live_type_map.upper
          loop
             lt := live_type_map.item(i)
-            if lt.at_run_time and then (lt.is_reference or else lt.is_native_array) then
-               if lt.class_text_name.to_string = as_weak_reference then
-                  prepare_weakref_accessors
-               end
-               memory_dispose(lt)
-               cpp.prepare_c_function
-               cpp.pending_c_function_signature.append(cpp.target_type.for(lt.canonical_type_mark))
-               cpp.pending_c_function_signature.append(once " bdw_mallocT")
-               lt.id.append_in(cpp.pending_c_function_signature)
-               cpp.pending_c_function_signature.append(once "(int n)")
-               cpp.pending_c_function_body.append(cpp.target_type.for(lt.canonical_type_mark))
-               cpp.pending_c_function_body.append(once " R=(")
-               cpp.pending_c_function_body.append(cpp.target_type.for(lt.canonical_type_mark))
-               if lt.is_native_array then
-                  cpp.pending_c_function_body.append(once ")se_calloc(n, sizeof(T")
-                  if lt.type.generic_list.first.is_expanded then
-                     lt.type.generic_list.first.id.append_in(cpp.pending_c_function_body)
-                  else
-                     cpp.pending_c_function_body.append(once "0*")
-                  end
-               else
-                  cpp.pending_c_function_body.append(once ")se_malloc(n*sizeof(T")
-                  lt.id.append_in(cpp.pending_c_function_body)
-               end
-               cpp.pending_c_function_body.append(once "));%NGC_REGISTER_FINALIZER_NO_ORDER(R, bdw_finalizeT")
-               lt.id.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.append(once ",NULL,NULL,NULL);%N")
-               if cpp.need_struct.for(lt.canonical_type_mark) then
-                  cpp.pending_c_function_body.append(once "*R=M")
-                  lt.id.append_in(cpp.pending_c_function_body)
-                  cpp.pending_c_function_body.append(once ";%N")
-               end
-               cpp.pending_c_function_body.append(once "return R;%N")
-               cpp.dump_pending_c_function(True)
+            if lt.at_run_time then
+               gc_define2.for(lt)
             end
             i := i + 1
          end
@@ -293,51 +263,20 @@ feature {}
          cpp.pending_c_function_body.append(once "]=")
       end
 
-   memory_dispose (lt: LIVE_TYPE) is
-         -- Append the extra C code for the MEMORY.dispose call if any.
+feature {BDW_GC_DEFINE2}
+   get_memory_dispose (lt: LIVE_TYPE): RUN_FEATURE_3 is
       require
-         not lt.is_expanded
-         not lt.is_native_array
-      local
-         rf3: RUN_FEATURE_3; o: STRING
+         lt /= Void
       do
-         cpp.prepare_c_function
-         cpp.pending_c_function_signature.append(once "void bdw_finalizeT")
-         lt.id.append_in(cpp.pending_c_function_signature)
-         cpp.pending_c_function_signature.append(once "(void*obj,void*_)")
-         rf3 := lt.get_memory_dispose
-         if rf3 /= Void then
-            o := once "................"
-            o.copy(once "((")
-            o.append(cpp.target_type.for(lt.canonical_type_mark))
-            o.append(once ")obj)")
-            generate_dispose(o, rf3, lt)
-         end
-         cpp.dump_pending_c_function(True)
-      end
-
-   prepare_weakref_accessors is
-      once
-         cpp.prepare_c_function
-         cpp.pending_c_function_signature.append(once "void bdw_weakref_setlink(T0**wr,T0*r)")
-         cpp.pending_c_function_body.append(once "if(r==NULL){%N%
-                                                 %GC_unregister_disappearing_link((void**)wr);%N%
-                                                 %*wr=NULL;%N%
-                                                 %}else{%N%
-                                                 %*wr=(T0*)HIDE_POINTER(r);%N%
-                                                 %GC_GENERAL_REGISTER_DISAPPEARING_LINK((void**)wr,(void*)r);%N%
-                                                 %}%N")
-         cpp.dump_pending_c_function(True)
-         cpp.prepare_c_function
-         cpp.pending_c_function_signature.append(once "T0* bdw_weakref_getlink(T0**wr)")
-         cpp.pending_c_function_body.append(once "if(*wr==NULL)return NULL;%N%
-                                                 %return REVEAL_POINTER(*wr);%N")
-         cpp.dump_pending_c_function(True)
+         Result := lt.get_memory_dispose
       end
 
 feature {}
+   gc_define2: BDW_GC_DEFINE2
+
    make is
       do
+         create gc_define2.make(Current)
       end
 
 end -- class BDW_GC
