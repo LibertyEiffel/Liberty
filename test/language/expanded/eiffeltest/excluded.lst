@@ -5,3 +5,4 @@ se c -all_check
 se c -loop_check
 se c -invariant_check
 se c -ensure_check
+se c -flat_check
