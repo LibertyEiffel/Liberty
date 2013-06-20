@@ -219,11 +219,11 @@ feature {C_COMPILATION_MIXIN} -- GC switches (see MEMORY)
 feature {C_COMPILATION_MIXIN} -- see WEAK_REFERENCE
    weak_item (lt: LIVE_TYPE) is
       do
-         cpp.pending_c_function_body.append(once "(")
+         cpp.pending_c_function_body.append(once "((")
          cpp.pending_c_function_body.append(cpp.result_type.for(lt.type.generic_list.first.canonical_type_mark))
-         cpp.pending_c_function_body.append(once ")bdw_weakref_getlink((T0**)(")
+         cpp.pending_c_function_body.append(once ")GC_call_with_alloc_lock((GC_fn_type)bdw_weakref_getlink, (void**)(")
          cpp.put_target_as_value
-         cpp.pending_c_function_body.append(once "))")
+         cpp.pending_c_function_body.append(once ")))")
       end
 
    weak_set_item (lt: LIVE_TYPE) is
