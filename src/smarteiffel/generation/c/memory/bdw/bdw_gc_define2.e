@@ -26,14 +26,14 @@ feature {BDW_GC}
 feature {ANY_TYPE_MARK}
    visit_any_type_mark (visited: ANY_TYPE_MARK) is
       do
-         alloc_reference
+         alloc_reference(visited)
       end
 
 feature {CLASS_TYPE_MARK}
    visit_class_type_mark (visited: CLASS_TYPE_MARK) is
       do
          if visited.is_reference then
-            alloc_reference
+            alloc_reference(visited)
          end
       end
 
@@ -70,46 +70,45 @@ feature {REAL_TYPE_MARK}
 feature {STRING_TYPE_MARK}
    visit_string_type_mark (visited: STRING_TYPE_MARK) is
       do
-         alloc_reference
+         alloc_reference(visited)
       end
 
 feature {AGENT_TYPE_MARK}
    visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
       do
-         alloc_reference
+         alloc_reference(visited)
       end
 
 feature {ARRAY_TYPE_MARK}
    visit_array_type_mark (visited: ARRAY_TYPE_MARK) is
       do
-         alloc_reference
+         alloc_reference(visited)
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}
    visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
       do
-         alloc_native_array
+         alloc_native_array(visited)
       end
 
 feature {NON_EMPTY_TUPLE_TYPE_MARK}
    visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK) is
       do
-         alloc_reference
+         alloc_reference(visited)
       end
 
 feature {USER_GENERIC_TYPE_MARK}
    visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
       do
          if visited.is_reference then
-            alloc_reference
+            alloc_reference(visited)
          end
       end
 
 feature {WEAK_REFERENCE_TYPE_MARK}
    visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
       do
-         prepare_weakref_accessors
-         alloc_weak_reference
+         alloc_weak_reference(visited)
       end
 
 feature {}
@@ -125,32 +124,35 @@ feature {}
          bdw = a_bdw
       end
 
-   prepare_alloc_function is
+   prepare_alloc_function (tm: TYPE_MARK) is
+      require
+         tm = live_type.canonical_type_mark
       do
          cpp.prepare_c_function
-         cpp.pending_c_function_signature.append(cpp.target_type.for(live_type.canonical_type_mark))
+         cpp.pending_c_function_signature.append(cpp.target_type.for(tm))
          cpp.pending_c_function_signature.append(once " bdw_mallocT")
          live_type.id.append_in(cpp.pending_c_function_signature)
          cpp.pending_c_function_signature.append(once "(int n)")
       end
 
-   alloc_reference is
+   alloc_reference (tm: TYPE_MARK) is
       require
          live_type.is_reference
+         tm = live_type.canonical_type_mark
       do
-         finalize_reference
+         finalize_reference(tm)
 
-         prepare_alloc_function
-         cpp.pending_c_function_body.append(cpp.target_type.for(live_type.canonical_type_mark))
+         prepare_alloc_function(tm)
+         cpp.pending_c_function_body.append(cpp.target_type.for(tm))
          cpp.pending_c_function_body.append(once " R=(")
-         cpp.pending_c_function_body.append(cpp.target_type.for(live_type.canonical_type_mark))
+         cpp.pending_c_function_body.append(cpp.target_type.for(tm))
          cpp.pending_c_function_body.append(once ")se_malloc(n*sizeof(T")
          live_type.id.append_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once "));%N%
                                                  %GC_REGISTER_FINALIZER_NO_ORDER(R, bdw_finalizeT")
          live_type.id.append_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once ",NULL,NULL,NULL);%N")
-         if cpp.need_struct.for(live_type.canonical_type_mark) then
+         if cpp.need_struct.for(tm) then
             cpp.pending_c_function_body.append(once "*R=M")
             live_type.id.append_in(cpp.pending_c_function_body)
             cpp.pending_c_function_body.append(once ";%N")
@@ -159,14 +161,17 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   alloc_weak_reference is
+   alloc_weak_reference (tm: WEAK_REFERENCE_TYPE_MARK) is
       require
          live_type.is_reference
+         tm = live_type.canonical_type_mark
       do
-         prepare_alloc_function
-         cpp.pending_c_function_body.append(cpp.target_type.for(live_type.canonical_type_mark))
+         prepare_weakref_accessors
+
+         prepare_alloc_function(tm)
+         cpp.pending_c_function_body.append(cpp.target_type.for(tm))
          cpp.pending_c_function_body.append(once " R=(")
-         cpp.pending_c_function_body.append(cpp.target_type.for(live_type.canonical_type_mark))
+         cpp.pending_c_function_body.append(cpp.target_type.for(tm))
          cpp.pending_c_function_body.append(once ")se_malloc(n*sizeof(T")
          live_type.id.append_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once "));%N%
@@ -174,30 +179,63 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   alloc_native_array is
+   alloc_native_array (tm: NATIVE_ARRAY_TYPE_MARK) is
       require
          live_type.is_native_array
+         tm = live_type.canonical_type_mark
+      local
+         elt: TYPE
       do
-         prepare_alloc_function
-         cpp.pending_c_function_body.append(cpp.target_type.for(live_type.canonical_type_mark))
+         elt := live_type.type.generic_list.first
+         prepare_alloc_function(tm)
+         cpp.pending_c_function_body.append(cpp.target_type.for(tm))
          cpp.pending_c_function_body.append(once " R=(")
-         cpp.pending_c_function_body.append(cpp.target_type.for(live_type.canonical_type_mark))
+         cpp.pending_c_function_body.append(cpp.target_type.for(tm))
          cpp.pending_c_function_body.append(once ")se_calloc(n, sizeof(T")
-         if live_type.type.generic_list.first.is_expanded then
-            live_type.type.generic_list.first.id.append_in(cpp.pending_c_function_body)
+         if elt.is_reference then
+            cpp.pending_c_function_body.append(once "0*));%N%
+                                                    %bdw_markT")
+            live_type.id.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once "(R);%N")
          else
-            cpp.pending_c_function_body.append(once "0*")
+            elt.id.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once "));%N")
          end
-         cpp.pending_c_function_body.append(once "));%N%
-                                                 %return R;%N")
+         cpp.pending_c_function_body.append(once "return R;%N")
          cpp.dump_pending_c_function(True)
+
+         if elt.is_reference then
+            cpp.out_h_buffer.copy(once "typedef struct {int g;")
+            cpp.out_h_buffer.append(cpp.target_type.for(tm))
+            cpp.out_h_buffer.append(once " na;} bdwM")
+            live_type.id.append_in(cpp.out_h_buffer)
+            cpp.out_h_buffer.append(once ";%N")
+            cpp.write_out_h_buffer
+
+            cpp.prepare_c_function
+            cpp.pending_c_function_signature.append(once "void bdw_markT")
+            live_type.id.append_in(cpp.pending_c_function_signature)
+            cpp.pending_c_function_signature.append(once "(")
+            cpp.pending_c_function_signature.append(cpp.target_type.for(tm))
+            cpp.pending_c_function_signature.append(once " na)")
+            cpp.pending_c_function_body.append(once "bdwM")
+            live_type.id.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once "*mark=GC_MALLOC(sizeof(bdwM")
+            live_type.id.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once "));%N")
+            --| **** TODO
+            --|      - for all items: HIDE_POINTER then call the relevant features to REVEAL_POINTER
+            --|      - use storage_generation if available
+            cpp.dump_pending_c_function(True)
+         end
       end
 
-   finalize_reference is
+   finalize_reference (tm: TYPE_MARK) is
          -- Append the extra C code for the MEMORY.dispose call if any.
       require
          not live_type.is_expanded
          not live_type.is_native_array
+         tm = live_type.canonical_type_mark
       local
          rf3: RUN_FEATURE_3; o: STRING
       do
@@ -209,7 +247,7 @@ feature {}
          if rf3 /= Void then
             o := once "................"
             o.copy(once "((")
-            o.append(cpp.target_type.for(live_type.canonical_type_mark))
+            o.append(cpp.target_type.for(tm))
             o.append(once ")obj)")
             bdw.generate_dispose(o, rf3, live_type)
          end
@@ -218,20 +256,22 @@ feature {}
 
    prepare_weakref_accessors is
       once
+         cpp.out_h_buffer.copy(once "typedef struct bdw_Swr{Tid id;T0*o;}bdw_Twr;%N")
+         cpp.write_out_h_buffer
          cpp.prepare_c_function
-         cpp.pending_c_function_signature.append(once "void bdw_weakref_setlink(T0**wr,T0*r)")
+         cpp.pending_c_function_signature.append(once "void bdw_weakref_setlink(bdw_Twr*wr,T0*r)")
          cpp.pending_c_function_body.append(once "if(r==NULL){%N%
-                                                 %GC_unregister_disappearing_link((void**)wr);%N%
-                                                 %*wr=NULL;%N%
+                                                 %GC_unregister_disappearing_link((void**)&(wr->o));%N%
+                                                 %wr->o=NULL;%N%
                                                  %}else{%N%
-                                                 %*wr=(T0*)HIDE_POINTER(r);%N%
-                                                 %GC_GENERAL_REGISTER_DISAPPEARING_LINK((void**)wr,(void*)r);%N%
+                                                 %wr->o=(T0*)HIDE_POINTER(r);%N%
+                                                 %GC_GENERAL_REGISTER_DISAPPEARING_LINK((void**)&(wr->o),(void*)r);%N%
                                                  %}%N")
          cpp.dump_pending_c_function(True)
          cpp.prepare_c_function
-         cpp.pending_c_function_signature.append(once "T0* bdw_weakref_getlink(T0**wr)")
-         cpp.pending_c_function_body.append(once "if(*wr==NULL)return NULL;%N%
-                                                 %return REVEAL_POINTER(*wr);%N")
+         cpp.pending_c_function_signature.append(once "T0* bdw_weakref_getlink(bdw_Twr*wr)")
+         cpp.pending_c_function_body.append(once "if(wr->o==NULL)return NULL;%N%
+                                                 %return REVEAL_POINTER(wr->o);%N")
          cpp.dump_pending_c_function(True)
       end
 

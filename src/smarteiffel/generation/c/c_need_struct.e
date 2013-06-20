@@ -42,6 +42,7 @@ feature {NATIVE_ARRAY_TYPE_MARK}
 feature {WEAK_REFERENCE_TYPE_MARK}
    visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
       do
+         flag := True
       end
 
 feature {NON_EMPTY_TUPLE_TYPE_MARK}

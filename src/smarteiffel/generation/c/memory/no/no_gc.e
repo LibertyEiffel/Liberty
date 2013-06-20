@@ -96,9 +96,9 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
       do
          cpp.pending_c_function_body.append(once "se_malloc(sizeof(T")
          lt.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ")*")
+         cpp.pending_c_function_body.append(once ")*(")
          n.call([])
-         cpp.pending_c_function_body.extend(')')
+         cpp.pending_c_function_body.append(once "))")
       end
 
 feature {C_COMPILATION_MIXIN} -- GC switches (see MEMORY)
@@ -132,16 +132,16 @@ feature {C_COMPILATION_MIXIN} -- GC switches (see MEMORY)
 feature {C_COMPILATION_MIXIN} -- see WEAK_REFERENCE
    weak_item (lt: LIVE_TYPE) is
       do
-         cpp.pending_c_function_body.append(once "(*((T0**)(")
+         cpp.pending_c_function_body.append(once "((")
          cpp.put_target_as_value
-         cpp.pending_c_function_body.append(once ")))")
+         cpp.pending_c_function_body.append(once ")->o)")
       end
 
    weak_set_item (lt: LIVE_TYPE) is
       do
-         cpp.pending_c_function_body.append(once "(*((T0**)(")
+         cpp.pending_c_function_body.append(once "(")
          cpp.put_target_as_value
-         cpp.pending_c_function_body.append(once ")))=")
+         cpp.pending_c_function_body.append(once ")->o=")
          cpp.put_ith_argument(1)
          cpp.pending_c_function_body.append(once ";%N")
       end
