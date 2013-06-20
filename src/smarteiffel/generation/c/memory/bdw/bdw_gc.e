@@ -18,12 +18,15 @@ feature {ACE}
 feature {C_PRETTY_PRINTER} -- C code phases
    pre_customize_c_runtime is
       do
-         cpp.out_h_buffer.copy(once "#define BDW_GC 1%N%
-                                    %#define GC_I_HIDE_POINTERS 1%N%
-                                    %#include <gc.h>%N")
          if not ace.boost then
             cpp.out_h_buffer.append(once "#define GC_DEBUG 1%N")
          end
+         cpp.out_h_buffer.copy(once "#define BDW_GC 1%N%
+                                    %#define GC_I_HIDE_POINTERS 1%N%
+                                    %#include <gc.h>%N%
+                                    %#define malloc(s) GC_MALLOC(s)%N%
+                                    %#define calloc(n,s) GC_MALLOC_IGNORE_OFF_PAGE((s)*(n))%N%
+                                    %#define realloc(p,s) GC_REALLOC((p),(s))%N")
          cpp.write_out_h_buffer
       end
 
