@@ -33,7 +33,6 @@ feature {CLASS_TYPE_MARK}
    visit_class_type_mark (visited: CLASS_TYPE_MARK) is
       do
          if visited.is_reference then
-            memory_dispose
             alloc_reference
          end
       end
@@ -71,21 +70,18 @@ feature {REAL_TYPE_MARK}
 feature {STRING_TYPE_MARK}
    visit_string_type_mark (visited: STRING_TYPE_MARK) is
       do
-         memory_dispose
          alloc_reference
       end
 
 feature {AGENT_TYPE_MARK}
    visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
       do
-         memory_dispose
          alloc_reference
       end
 
 feature {ARRAY_TYPE_MARK}
    visit_array_type_mark (visited: ARRAY_TYPE_MARK) is
       do
-         memory_dispose
          alloc_reference
       end
 
@@ -98,7 +94,6 @@ feature {NATIVE_ARRAY_TYPE_MARK}
 feature {NON_EMPTY_TUPLE_TYPE_MARK}
    visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK) is
       do
-         memory_dispose
          alloc_reference
       end
 
@@ -106,7 +101,6 @@ feature {USER_GENERIC_TYPE_MARK}
    visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
       do
          if visited.is_reference then
-            memory_dispose
             alloc_reference
          end
       end
@@ -144,6 +138,8 @@ feature {}
       require
          live_type.is_reference
       do
+         finalize_reference
+
          prepare_alloc_function
          cpp.pending_c_function_body.append(cpp.target_type.for(live_type.canonical_type_mark))
          cpp.pending_c_function_body.append(once " R=(")
@@ -197,7 +193,7 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   memory_dispose is
+   finalize_reference is
          -- Append the extra C code for the MEMORY.dispose call if any.
       require
          not live_type.is_expanded
