@@ -26,6 +26,7 @@ feature {ANY}
          check
             non_written_code: False
          end
+         sedb_breakpoint
       end
 
    frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
@@ -33,6 +34,7 @@ feature {ANY}
          check
             non_written_code: False
          end
+         sedb_breakpoint
       end
 
    frozen specialize_and_check (type: TYPE): EXPRESSION is

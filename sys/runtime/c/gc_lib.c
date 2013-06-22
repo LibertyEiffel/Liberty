@@ -78,6 +78,9 @@
 
 */
 
+#define GC_BUG(expr) do {if (expr) {int *i=0; *i=0;}} while(0)
+
+
 int se_gc_strategy = SE_GC_DEFAULT_MEMORY_STRATEGY;
 
 int collector_counter = 0;
@@ -460,6 +463,7 @@ static void rsoc_sweep(rsoc*c) {
   while (gp<eoc) {
     while (gp->header.magic_flag == RSOH_MARKED) {
       gp->header.magic_flag=RSOH_UNMARKED;
+      GC_BUG(gp->header.size==0);
       gp=((rsoh*)(((char*)gp)+gp->header.size));
       if(gp>=eoc) {
         /* No need to register chunks with no free_list_of_large
@@ -470,9 +474,11 @@ static void rsoc_sweep(rsoc*c) {
       }
     }
     gp->header.magic_flag=RSOH_FREE;
+    GC_BUG(gp->header.size==0);
     pp=(rsoh*)(((char*)gp)+gp->header.size);
     while ((pp<eoc)&&(pp->header.magic_flag != RSOH_MARKED)) {
       gp->header.size+=pp->header.size;
+      GC_BUG(pp->header.size==0);
       pp=((rsoh*)(((char*)pp)+pp->header.size));
     }
     if (gp->header.size >= RSOC_MIN_STORE) {
@@ -493,6 +499,7 @@ static void rsoc_sweep(rsoc*c) {
         c->free_list_of_large=((fll_rsoh*)gp);
       }
     }
+    GC_BUG(pp==gp);
     gp=pp;
   }
   if (((rsoh*)(&c->first_header))->header.size >=
@@ -800,10 +807,11 @@ static void gcna_align_mark(rsoc*c,void*o) {
       pf=(fll_rsoh*)b;
   }
   while ((((rsoh*)pf)+1) < (rsoh*)o) {
+      GC_BUG(pf->rsoh_field.size==0);
       pf = ((fll_rsoh*)(((char*)pf)+pf->rsoh_field.size));
   }
   if (o == (((rsoh*)pf)+1)) {
-    nae->gc_mark((T0*)o);
+      nae->gc_mark((T0*)o);
   }
 }
 

@@ -1009,6 +1009,17 @@ feature {ANY}
          Result.names.first.to_string = as_copy
       end
 
+   any_twin_feature: ANONYMOUS_FEATURE is
+         -- To get the original definition of feature `twin' from class ANY.
+      require
+         name.to_string = as_any
+      do
+         fn_buffer.unknown_position(as_twin)
+         Result := feature_dictionary.at(fn_buffer)
+      ensure
+         Result.names.first.to_string = as_copy
+      end
+
    any_is_equal_feature: ANONYMOUS_FEATURE is
          -- To get the original definition of feature `is_equal' from class ANY.
       require
