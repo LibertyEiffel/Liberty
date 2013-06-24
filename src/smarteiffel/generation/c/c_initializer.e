@@ -198,6 +198,7 @@ feature {}
                rf.result_type.accept(Current)
                i := i + 1
             end
+            cpp.memory.extra_c_model(type_mark)
             buffer.extend('}')
          end
       end

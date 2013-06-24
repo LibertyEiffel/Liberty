@@ -210,6 +210,32 @@ feature {C_NATIVE_PROCEDURE_MAPPER}
       deferred
       end
 
+feature {C_COMPILATION_MIXIN}
+   need_struct_for (type_mark: TYPE_MARK): BOOLEAN is
+      require
+         type_mark /= Void
+      deferred
+      end
+
+   extra_c_struct (type_mark: TYPE_MARK) is
+      require
+         type_mark /= Void
+      deferred
+      end
+
+   extra_c_model (type_mark: TYPE_MARK) is
+      require
+         type_mark /= Void
+      deferred
+      end
+
+   assigned_native_array (assignment: ASSIGNMENT; type: TYPE) is
+      require
+         type /= Void
+         assignment.right_side.resolve_in(type).is_native_array
+      deferred
+      end
+
 feature {ANY}
    allocation_of (internal_c_local: INTERNAL_C_LOCAL; created_live_type: LIVE_TYPE) is
       require

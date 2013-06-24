@@ -14,13 +14,22 @@ create {BDW_GC}
    make
 
 feature {BDW_GC}
-   for (lt: like live_type) is
+   for (lt: like live_type; na: TAGGED_FLAG) is
       require
          lt.at_run_time
       do
          live_type := lt
+         is_na_collector:= na /= Void and then na.item
          lt.canonical_type_mark.accept(Current)
          live_type := Void
+      end
+
+   extra_functions is
+      do
+         cpp.prepare_c_function
+         cpp.pending_c_function_signature.append(once "void bdw_run_finalizers(void)")
+         cpp.pending_c_function_body.append(once "if(bdw_in_assign)bdw_delayed_finalize=1;else GC_invoke_finalizers();%N")
+         cpp.dump_pending_c_function(True)
       end
 
 feature {ANY_TYPE_MARK}
@@ -34,6 +43,9 @@ feature {CLASS_TYPE_MARK}
       do
          if visited.is_reference then
             alloc_reference(visited)
+         end
+         if is_na_collector then
+            mark_native_arrays(visited)
          end
       end
 
@@ -71,18 +83,27 @@ feature {STRING_TYPE_MARK}
    visit_string_type_mark (visited: STRING_TYPE_MARK) is
       do
          alloc_reference(visited)
+         if is_na_collector then
+            mark_native_arrays(visited)
+         end
       end
 
 feature {AGENT_TYPE_MARK}
    visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
       do
          alloc_reference(visited)
+         if is_na_collector then
+            mark_native_arrays(visited)
+         end
       end
 
 feature {ARRAY_TYPE_MARK}
    visit_array_type_mark (visited: ARRAY_TYPE_MARK) is
       do
          alloc_reference(visited)
+         if is_na_collector then
+            mark_native_arrays(visited)
+         end
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}
@@ -103,6 +124,9 @@ feature {USER_GENERIC_TYPE_MARK}
          if visited.is_reference then
             alloc_reference(visited)
          end
+         if is_na_collector then
+            mark_native_arrays(visited)
+         end
       end
 
 feature {WEAK_REFERENCE_TYPE_MARK}
@@ -113,6 +137,7 @@ feature {WEAK_REFERENCE_TYPE_MARK}
 
 feature {}
    live_type: LIVE_TYPE
+   is_na_collector: BOOLEAN
    bdw: BDW_GC
 
    make (a_bdw: like bdw) is
@@ -193,41 +218,13 @@ feature {}
          cpp.pending_c_function_body.append(cpp.target_type.for(tm))
          cpp.pending_c_function_body.append(once ")se_calloc(n, sizeof(T")
          if elt.is_reference then
-            cpp.pending_c_function_body.append(once "0*));%N%
-                                                    %bdw_markT")
-            live_type.id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "(R);%N")
+            cpp.pending_c_function_body.append(once "0*));%N")
          else
             elt.id.append_in(cpp.pending_c_function_body)
             cpp.pending_c_function_body.append(once "));%N")
          end
          cpp.pending_c_function_body.append(once "return R;%N")
          cpp.dump_pending_c_function(True)
-
-         if elt.is_reference then
-            cpp.out_h_buffer.copy(once "typedef struct {int g;")
-            cpp.out_h_buffer.append(cpp.target_type.for(tm))
-            cpp.out_h_buffer.append(once " na;} bdwM")
-            live_type.id.append_in(cpp.out_h_buffer)
-            cpp.out_h_buffer.append(once ";%N")
-            cpp.write_out_h_buffer
-
-            cpp.prepare_c_function
-            cpp.pending_c_function_signature.append(once "void bdw_markT")
-            live_type.id.append_in(cpp.pending_c_function_signature)
-            cpp.pending_c_function_signature.append(once "(")
-            cpp.pending_c_function_signature.append(cpp.target_type.for(tm))
-            cpp.pending_c_function_signature.append(once " na)")
-            cpp.pending_c_function_body.append(once "bdwM")
-            live_type.id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "*mark=GC_MALLOC(sizeof(bdwM")
-            live_type.id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "));%N")
-            --| **** TODO
-            --|      - for all items: HIDE_POINTER then call the relevant features to REVEAL_POINTER
-            --|      - use storage_generation if available
-            cpp.dump_pending_c_function(True)
-         end
       end
 
    finalize_reference (tm: TYPE_MARK) is
@@ -272,6 +269,105 @@ feature {}
          cpp.pending_c_function_signature.append(once "T0* bdw_weakref_getlink(bdw_Twr*wr)")
          cpp.pending_c_function_body.append(once "if(wr->o==NULL)return NULL;%N%
                                                  %return REVEAL_POINTER(wr->o);%N")
+         cpp.dump_pending_c_function(True)
+      end
+
+   mark_native_arrays (type_mark: TYPE_MARK) is
+      local
+         wa: ARRAY[RUN_FEATURE_2]; i: INTEGER; a: RUN_FEATURE_2; t: TYPE
+         has_capacity: BOOLEAN
+      do
+         cpp.prepare_c_function
+         cpp.pending_c_function_signature.append(once "void*bdw_na_assignT")
+         live_type.id.append_in(cpp.pending_c_function_signature)
+         cpp.pending_c_function_signature.append(once "(T")
+         live_type.id.append_in(cpp.pending_c_function_signature)
+         cpp.pending_c_function_signature.append(once "*o)")
+         cpp.pending_c_function_body.append(once "GC_call_with_alloc_lock((GC_fn_type)bdw_na_assign_lockedT")
+         live_type.id.append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once ",o);%N")
+         cpp.dump_pending_c_function(True)
+
+         cpp.prepare_c_function
+         cpp.pending_c_function_signature.append(once "void*bdw_na_assign_lockedT")
+         live_type.id.append_in(cpp.pending_c_function_signature)
+         cpp.pending_c_function_signature.append(once "(T")
+         live_type.id.append_in(cpp.pending_c_function_signature)
+         cpp.pending_c_function_signature.append(once "*o)")
+         cpp.pending_c_function_body.append(once "if(o->bdw_markna==NULL){%N%
+                                                 %void*markna;%N%
+                                                 %bdw_in_assign=1;%N%
+                                                 %markna=se_malloc(1);%N%
+                                                 %GC_REGISTER_FINALIZER_UNREACHABLE(markna,(GC_finalization_proc)bdw_na_markT")
+         live_type.id.append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once ",o,NULL,NULL);%N%
+                                                 %o->bdw_markna=(void*)HIDE_POINTER(markna);%N%
+                                                 %GC_GENERAL_REGISTER_DISAPPEARING_LINK(&(o->bdw_markna),markna);%N%
+                                                 %bdw_in_assign=0;%N%
+                                                 %if(bdw_delayed_finalize){%N%
+                                                 %bdw_run_finalizers();%N%
+                                                 %bdw_delayed_finalize=0;}}%N%
+                                                 %return o;%N")
+         cpp.dump_pending_c_function(True)
+
+         cpp.prepare_c_function
+         cpp.pending_c_function_signature.append(once "void bdw_na_markT")
+         live_type.id.append_in(cpp.pending_c_function_signature)
+         cpp.pending_c_function_signature.append(once "(void*_old_markna,T")
+         live_type.id.append_in(cpp.pending_c_function_signature)
+         cpp.pending_c_function_signature.append(once "*o)")
+         cpp.pending_c_function_body.append(once "int i,c;%N")
+         wa := live_type.writable_attributes
+         if wa /= Void then
+            from
+               i := wa.lower
+            until
+               i > wa.upper
+            loop
+               a := wa.item(i)
+               t := a.result_type.resolve_in(live_type.type)
+               if t.is_native_array and then t.generic_list.first.is_reference then
+                  if not has_capacity then
+                     if live_type.type.has_simple_feature_name(capacity_name) then
+                        cpp.pending_c_function_body.append(once "c=o->_capacity;%N")
+                        has_capacity := True
+                     else
+                        i := wa.upper
+                     end
+                  end
+                  if has_capacity then
+                     cpp.pending_c_function_body.append(once "if(o->_")
+                     cpp.pending_c_function_body.append(a.name.to_string)
+                     cpp.pending_c_function_body.append(once "!=NULL)for(i=0;i<c;i++)if(o->_")
+                     cpp.pending_c_function_body.append(a.name.to_string)
+                     cpp.pending_c_function_body.append(once "[i]!=NULL)o->_")
+                     cpp.pending_c_function_body.append(a.name.to_string)
+                     cpp.pending_c_function_body.append(once "[i]=(")
+                     cpp.pending_c_function_body.append(cpp.argument_type.for(t.generic_list.first.canonical_type_mark))
+                     cpp.pending_c_function_body.append(once ")HIDE_POINTER(o->_")
+                     cpp.pending_c_function_body.append(a.name.to_string)
+                     cpp.pending_c_function_body.append(once "[i]);%N")
+                  end
+               end
+               i := i + 1
+            end
+            if has_capacity then
+               cpp.pending_c_function_body.extend('r')
+               live_type.id.append_in(cpp.pending_c_function_body)
+               cpp.pending_c_function_body.append(once "mark_native_arrays(")
+               if not ace.boost then
+                  -- Hope there is no bug in `mark_native_arrays'...
+                  cpp.pending_c_function_body.append(once "NULL,")
+               end
+               if ace.profile then
+                  cpp.pending_c_function_body.append(once "NULL,")
+               end
+               cpp.pending_c_function_body.append(once "o);%N")
+            end
+         end
+         cpp.pending_c_function_body.append(once "bdw_na_assignT")
+         live_type.id.append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once "(o);%N")
          cpp.dump_pending_c_function(True)
       end
 

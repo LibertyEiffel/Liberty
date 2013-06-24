@@ -337,7 +337,7 @@ feature {C_PRETTY_PRINTER}
          end
       end
 
-feature {C_PRETTY_PRINTER, C_GARBAGE_COLLECTOR_ABSTRACT_COMPILER} -- memory-specific handling aspects
+feature {C_GARBAGE_COLLECTOR_ABSTRACT_COMPILER} -- memory-specific handling aspects
    native_array_collector: LIVE_TYPE_NATIVE_ARRAY_COLLECTOR
 
 feature {C_PRETTY_PRINTER}
@@ -495,6 +495,24 @@ feature {C_NATIVE_PROCEDURE_MAPPER}
          cpp.pending_c_function_body.append(once "];%N")
          mark_for(once "elt", elt_type.live_type, False)
          cpp.pending_c_function_body.append(once "/*mark_item*/}")
+      end
+
+feature {C_COMPILATION_MIXIN}
+   need_struct_for (type_mark: TYPE_MARK): BOOLEAN is
+      do
+         check not Result end
+      end
+
+   extra_c_struct (type_mark: TYPE_MARK) is
+      do
+      end
+
+   extra_c_model (type_mark: TYPE_MARK) is
+      do
+      end
+
+   assigned_native_array (assignment: ASSIGNMENT; type: TYPE) is
+      do
       end
 
 feature {ONCE_ROUTINE_POOL, NATIVE_ARRAY_TYPE_MARK, NATIVE_BUILT_IN, C_COMPILATION_MIXIN}

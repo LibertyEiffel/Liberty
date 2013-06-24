@@ -67,6 +67,7 @@ feature {}
                i := i + 1
             end
          end
+         cpp.memory.extra_c_struct(type_mark)
          out_h.append(once "};%N")
          flush_out_h
          if type_mark.is_expanded then
@@ -166,6 +167,7 @@ feature {}
             if live_type.is_tagged then
                out_c.extend('{')
                live_type.id.append_in(out_c)
+               cpp.memory.extra_c_model(live_type.canonical_type_mark)
                out_c.extend('}')
             else
                out_c.append(cpp.initializer.for(live_type.canonical_type_mark))
@@ -189,6 +191,7 @@ feature {}
                out_c.append(cpp.initializer.for(t))
                i := i + 1
             end
+            cpp.memory.extra_c_model(live_type.canonical_type_mark)
             out_c.extend('}')
          end
       end

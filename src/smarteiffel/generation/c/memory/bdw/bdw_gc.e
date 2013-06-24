@@ -62,18 +62,22 @@ feature {C_PRETTY_PRINTER} -- C code phases
          cpp.split_c_file_padding_here
 
          echo.put_string(once "GC support (functions).%N")
+         cpp.write_extern_0(once "int bdw_in_assign")
+         cpp.write_extern_0(once "int bdw_delayed_finalize")
 
-         from --| **** TODO move in proper visitor
+         from
             i := live_type_map.lower
          until
             i > live_type_map.upper
          loop
             lt := live_type_map.item(i)
             if lt.at_run_time then
-               gc_define2.for(lt)
+               gc_define2.for(lt, native_array_collector.must_collect(lt))
             end
             i := i + 1
          end
+
+         gc_define2.extra_functions
       end
 
    pre_initialize_runtime is
@@ -83,6 +87,8 @@ feature {C_PRETTY_PRINTER} -- C code phases
    initialize_runtime is
       do
          cpp.pending_c_function_body.append(once "GC_java_finalization=1;%N%
+                                                 %GC_finalize_on_demand=1;%N%
+                                                 %GC_finalizer_notifier=bdw_run_finalizers;%N%
                                                  %GC_INIT();%N%
                                                  %GC_stackbottom=(char*)(void*)&argc;%N")
       end
@@ -131,9 +137,13 @@ feature {C_PRETTY_PRINTER} -- specific objects
          end
       end
 
+feature {} -- memory-specific handling aspects
+   native_array_collector: LIVE_TYPE_NATIVE_ARRAY_COLLECTOR
+
 feature {C_PRETTY_PRINTER} -- memory-specific handling aspects
    add_extra_collectors is
       do
+         live_type_extra_collectors.add_last(native_array_collector)
       end
 
    may_need_size_table: BOOLEAN is False
@@ -228,8 +238,59 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
 
 feature {C_NATIVE_PROCEDURE_MAPPER}
    mark_item (rf7: RUN_FEATURE_7) is
+      local
+         elt_type: TYPE
       do
-         cpp.pending_c_function_body.append(once "{/*mark_item*/}%N")
+         cpp.pending_c_function_body.append(once "/*mark_item*/")
+         elt_type := rf7.arguments.name(1).resolve_in(rf7.type_of_current).generic_list.first
+         cpp.put_ith_argument(1)
+         cpp.pending_c_function_body.append(once "[")
+         cpp.put_ith_argument(2)
+         cpp.pending_c_function_body.append(once "]=(")
+         cpp.pending_c_function_body.append(cpp.argument_type.for(elt_type.canonical_type_mark))
+         cpp.pending_c_function_body.append(once ")REVEAL_POINTER(")
+         cpp.put_ith_argument(1)
+         cpp.pending_c_function_body.append(once "[")
+         cpp.put_ith_argument(2)
+         cpp.pending_c_function_body.append(once "]);%N")
+      end
+
+feature {C_COMPILATION_MIXIN}
+   need_struct_for (type_mark: TYPE_MARK): BOOLEAN is
+      do
+         check not Result end
+      end
+
+   extra_c_struct (type_mark: TYPE_MARK) is
+      local
+         flag: TAGGED_FLAG
+      do
+         flag := native_array_collector.must_collect(type_mark.type.live_type)
+         if flag /= Void and then flag.item then
+            cpp.out_h_buffer.append(once "void*bdw_markna;")
+         end
+      end
+
+   extra_c_model (type_mark: TYPE_MARK) is
+      local
+         flag: TAGGED_FLAG
+      do
+         flag := native_array_collector.must_collect(type_mark.type.live_type)
+         if flag /= Void and then flag.item then
+            cpp.out_c_buffer.append(once ",(void*)0")
+         end
+      end
+
+   assigned_native_array (assignment: ASSIGNMENT; type: TYPE) is
+      local
+         flag: TAGGED_FLAG
+      do
+         if assignment.left_side.is_writable then
+            flag := native_array_collector.must_collect(type.live_type)
+            if flag /= Void and then flag.item then
+               assign_na.for(assignment, type)
+            end
+         end
       end
 
 feature {ANY}
@@ -273,10 +334,12 @@ feature {BDW_GC_DEFINE2}
 
 feature {}
    gc_define2: BDW_GC_DEFINE2
+   assign_na: BDW_ASSIGN_NATIVE_ARRAY
 
    make is
       do
          create gc_define2.make(Current)
+         create assign_na.make(Current)
       end
 
 end -- class BDW_GC

@@ -2138,7 +2138,7 @@ feature {C_CODE_COMPILER}
 feature {}
    assignment_evobt: BOOLEAN
 
-feature {C_EXPRESSION_COMPILATION_MIXIN}
+feature {ANY}
    put_direct (type: TYPE; dynamic_feature: RUN_FEATURE; target: EXPRESSION; arguments: EFFECTIVE_ARG_LIST) is
       do
          push_direct(dynamic_feature, type, target, arguments)

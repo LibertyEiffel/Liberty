@@ -18,8 +18,10 @@ feature {ANY}
       require
          type_mark.is_static
       do
-         flag := False
-         type_mark.accept(Current)
+         flag := cpp.memory.need_struct_for(type_mark)
+         if not flag then
+            type_mark.accept(Current)
+         end
          Result := flag
       end
 
