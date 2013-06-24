@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <meta name="description" content="Results of the testsuite for LibertyEiffel." />
+   <meta name="keywords" content="LibertyEiffel,TestSuite,Continuous integration,Eiffel,Programming Language" />
+   <meta name="date" content="<?php echo date(DATE_ATOM, strtotime($update)); ?>" />
+   <meta http-equiv="content-language" content="en" />
+   <meta name="robots" content="INDEX,FOLLOW" />
+
+<?php if($_GET["manual_request"] == 1){?>
+   <meta http-equiv="refresh" content="1; URL=/">
+<?php }?>
+   <title>ET: Liberty Eiffel automated tests</title>
+   <link rel="stylesheet" href="style.css" type="text/css" />
+
+   <style type="text/css">
+      #content {
+         background-image:url('<?php echo "$img/liberty-light.png"; ?>');
+         background-repeat:no-repeat;
+         background-position:right top; 
+      }
+      table
+      {
+         border-collapse:collapse;
+         background-color:#fafbeb;
+      }
+
+      table, th, td
+      {
+         border: 1px solid #463728;
+         vertical-align:top;
+         word-wrap: break-word;
+      }
+
+      td
+      {
+          padding: 0 10px;
+      }
+
+      p.cmd
+      {
+         color:#1010a0;
+         font-family: monospace;
+         margin-bottom: 0;
+         margin-top: 0;
+      }
+
+      p.out
+      {
+         color:#606060;
+         font-family: monospace;
+         margin-bottom: 0;
+         margin-top: 0;
+      }
+
+      p.err
+      {
+         color:#a01010;
+         font-family: monospace;
+         margin-bottom: 0;
+         margin-top: 0;
+      }
+   </style>
+
+</head>
+<body>
+  <div id="all">
+    <div class="header"><a href="http://www.gnu.org/software/liberty-eiffel/">GNU</a> | <a href="http://www.liberty-eiffel.org">Liberty Eiffel</a> | <b class="current">Automated tests</b> | <a href="http://wiki.liberty-eiffel.org/index.php/Main_Page">Wiki</a> | <a href="https://savannah.gnu.org/projects/liberty-eiffel/">Savannah project</a> | <a href="http://doc.liberty-eiffel.org">Documentation</a></div>
+    <div id="content">
+<h1><span class="dropcap">L</span>iberty Eiffel automated tests</h1>

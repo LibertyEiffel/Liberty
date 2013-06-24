@@ -45,6 +45,7 @@ feature {ASSIGNMENT_ATTEMPT, EFFECTIVE_ARG_LIST}
          elseif source.is_expanded then
             if destination.is_expanded then
                -- No impact on RUN_TIME_SETs.
+               -- Happens for implicit conversions such as INTEGER_8 => INTEGER_32
             else
                sedb_breakpoint
             end

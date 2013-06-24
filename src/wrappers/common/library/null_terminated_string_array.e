@@ -56,6 +56,7 @@ feature {}
          loop
             a_lenght := a_lenght + 1
          end
+
          create strings.make(a_lenght)
          fill_strings
       end
