@@ -651,8 +651,8 @@ feature {} -- built-ins
             end
          elseif as_calloc = name then
             if expanded_initializer(elt_type) then
-               cpp.memory.calloc(elt_type.live_type, agent is do function_body.append(once "a1") end)
-               function_body.append(once ");%Nr")
+               cpp.memory.calloc(type_of_current.live_type, agent is do function_body.append(once "a1") end)
+               function_body.append(once ";%Nr")
                type_of_current.id.append_in(function_body)
                function_body.append(once "clear_all(")
                if ace.no_check then
