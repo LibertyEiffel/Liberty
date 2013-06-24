@@ -15,16 +15,16 @@ expanded class POSITION
 
 insert
    COMPARABLE
-      redefine is_equal, out_in_tagged_out_memory
+      redefine default_create, is_equal, out_in_tagged_out_memory
       end
    GLOBALS
-      redefine is_equal, out_in_tagged_out_memory
+      redefine default_create, is_equal, out_in_tagged_out_memory
       end
    PLATFORM
-      redefine is_equal, out_in_tagged_out_memory
+      redefine default_create, is_equal, out_in_tagged_out_memory
       end
    HASHABLE
-      redefine out_in_tagged_out_memory
+      redefine default_create, out_in_tagged_out_memory
       end
 
 feature {ANY}
@@ -370,6 +370,12 @@ feature {INI_PARSER}
 
 feature {ID_PROVIDER}
    maximum_free_id: INTEGER_16 is 32764
+
+feature {}
+   default_create is
+      do
+         mangling := 0
+      end
 
 end -- class POSITION
 --
