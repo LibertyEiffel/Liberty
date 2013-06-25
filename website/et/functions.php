@@ -9,12 +9,20 @@ function htmlify($in)
     $line = htmlspecialchars($line);
     if(preg_match("/(Please look at )(\\S*)/", $line, $match)){
       $link = preg_replace("!$BaseDir(.*)!","$publicBase$1",$match[2]);
-      $line = preg_replace("/(Please look at )(\\S*)/", "$1<a href=\"$link\">$2</a>", $line);
+      $displaypath = preg_replace("!$BaseDir/(.*)!","$1",$match[2]);
+      $line = preg_replace("/(Please look at )(\\S*)/", "$1<a href=\"$link\">$displaypath</a>", $line);
+    }
+    
+    if(preg_match("!$BaseDir([a-zA-Z0-9_\.\-/]+)!", $line, $match)){
+      $link = preg_replace("!$BaseDir([a-zA-Z0-9_\.\-/]+)!","$publicBase$1",$match[1]);
+      $displaypath = preg_replace("!$BaseDir/([a-zA-Z0-9_\.\-/]+)!","$1",$match[1]);
+      $line = preg_replace("!$BaseDir([a-zA-Z0-9_\.\-/]+)!", "<a href=\"$link\">$displaypath</a>", $line);
+      
     }
     if(strlen($line) > 0){
         $str .=  $line . "<br/>\n";
     }
-  } 
+  }
 
   return $str;
 } 
