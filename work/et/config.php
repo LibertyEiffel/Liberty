@@ -1,5 +1,6 @@
 <?php
 $repobaselink = "http://git.savannah.gnu.org/cgit/liberty-eiffel.git/tree";
+$commitbaselink = "http://git.savannah.gnu.org/cgit/liberty-eiffel.git/commit/?id=";
 $BaseDir = "/home/et";
 $LibertyBase = "$BaseDir/Liberty";
 $out = "$BaseDir/Liberty/website/et";

@@ -32,7 +32,7 @@ echo "<p>active commits (" . count($json['commits']) . "):<br/>\n";
 foreach ($json['commits'] as $commit){
     $committer = $commit['author']['name'];
     // his email is: $commit['author']['email'];
-    echo "   <a href=\"" . $commit['url'] . "\">" . $commit['message'] . "</a> by $committer on " . date ($dateFormat, strtotime($commit['timestamp'])) . " <br/>\n";
+    echo "   <a href=\"" . $commitbaselink . $commit['id'] . "\">" . $commit['message'] . "</a> by $committer on " . date ($dateFormat, strtotime($commit['timestamp'])) . "<br/>\n";
 }
 echo "</p><p>\n";
 if(file_exists($request)){
