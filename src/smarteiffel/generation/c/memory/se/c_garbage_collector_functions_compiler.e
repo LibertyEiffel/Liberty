@@ -204,12 +204,12 @@ feature {}
             arg_id.append_in(function_body)
             function_body.append(once "* obj_ptr = (gc")
             arg_id.append_in(function_body)
-            function_body.append(once "*)(*wr);%N%
+            function_body.append(once "*)(wr->o);%N%
                                       %if (obj_ptr != NULL){%N%
                                       %int swept = (((void*)obj_ptr) <= ((void*)wr));%N%
                                       %if (swept != (obj_ptr->header.flag == FSOH_MARKED)) /* **** TODO: was FSOH_UNMARKED???? (incoherent with comment below) */%N%
                                       %/* (already swept) xor marked */%N%
-                                      %*wr = NULL;%N}%N")
+                                      %wr->o = NULL;%N}%N")
             cpp.dump_pending_c_function(True)
          else
             check
