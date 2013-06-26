@@ -283,9 +283,9 @@ feature {}
          cpp.pending_c_function_signature.append(once "(T")
          live_type.id.append_in(cpp.pending_c_function_signature)
          cpp.pending_c_function_signature.append(once "*o)")
-         cpp.pending_c_function_body.append(once "GC_call_with_alloc_lock((GC_fn_type)bdw_na_assign_lockedT")
+         cpp.pending_c_function_body.append(once "if(GC_call_with_alloc_lock((GC_fn_type)bdw_na_assign_lockedT")
          live_type.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ",o);%N")
+         cpp.pending_c_function_body.append(once ",o)==NULL)bdw_run_finalizers();%N")
          cpp.dump_pending_c_function(True)
 
          cpp.prepare_c_function
@@ -305,8 +305,8 @@ feature {}
                                                  %GC_GENERAL_REGISTER_DISAPPEARING_LINK(&(o->bdw_markna),markna);%N%
                                                  %bdw_in_assign=0;%N%
                                                  %if(bdw_delayed_finalize){%N%
-                                                 %bdw_run_finalizers();%N%
-                                                 %bdw_delayed_finalize=0;}}%N%
+                                                 %bdw_delayed_finalize=0;%N%
+                                                 %return NULL;}}%N%
                                                  %return o;%N")
          cpp.dump_pending_c_function(True)
 
