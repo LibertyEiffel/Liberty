@@ -253,13 +253,7 @@ feature {} -- built-ins
                   function_body.append(once "));%N}%N")
                end
             else
-               function_body.extend('(')
-               cpp.put_target_as_value
-               function_body.append(once ")[")
-               cpp.put_ith_argument(2)
-               function_body.append(once "]=(")
-               cpp.put_ith_argument(1)
-               function_body.append(once ");%N")
+               cpp.memory.put_ref_in_native_array(rf7)
             end
          elseif name = as_slice_copy then
             function_body.append(once "{/*slice_copy*/%Nint a3tmp=")

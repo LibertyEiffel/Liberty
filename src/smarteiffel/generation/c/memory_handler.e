@@ -236,6 +236,19 @@ feature {C_COMPILATION_MIXIN}
       deferred
       end
 
+   put_ref_in_native_array (rf7: RUN_FEATURE_7) is
+      require
+         rf7.type_of_current.generic_list.first.is_reference
+      do
+         cpp.pending_c_function_body.extend('(')
+         cpp.put_target_as_value
+         cpp.pending_c_function_body.append(once ")[")
+         cpp.put_ith_argument(2)
+         cpp.pending_c_function_body.append(once "]=(")
+         cpp.put_ith_argument(1)
+         cpp.pending_c_function_body.append(once ");%N")
+      end
+
 feature {ANY}
    allocation_of (internal_c_local: INTERNAL_C_LOCAL; created_live_type: LIVE_TYPE) is
       require

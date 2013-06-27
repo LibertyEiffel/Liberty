@@ -6,6 +6,7 @@ class BDW_GC
 inherit
    MEMORY_HANDLER
       export {BDW_GC_DEFINE2} generate_dispose
+      redefine put_ref_in_native_array
       end
 
 create {MEMORY_HANDLER_FACTORY}
@@ -19,9 +20,22 @@ feature {ACE}
 
 feature {C_PRETTY_PRINTER} -- C code phases
    pre_customize_c_runtime is
+      local
+         gc_debug_env: STRING
       do
          if not ace.boost then
-            cpp.out_h_buffer.append(once "#define GC_DEBUG 1%N")
+            cpp.out_h_buffer.append(once "#ifndef GC_DEBUG%N%
+                                         %#define GC_DEBUG 1%N%
+                                         %#endif%N")
+         else
+            gc_debug_env := system_tools.config.environment(once "GC_DEBUG")
+            if gc_debug_env /= Void and then not gc_debug_env.is_empty then
+               cpp.out_h_buffer.append(once "#ifndef GC_DEBUG%N%
+                                            %#define GC_DEBUG %"")
+               cpp.out_h_buffer.append(gc_debug_env)
+               cpp.out_h_buffer.append(once "%"%N%
+                                            %#endif%N")
+            end
          end
          cpp.out_h_buffer.copy(once "#define BDW_GC 1%N%
                                     %#define GC_I_HIDE_POINTERS 1%N%
@@ -243,16 +257,28 @@ feature {C_NATIVE_PROCEDURE_MAPPER}
       do
          cpp.pending_c_function_body.append(once "/*mark_item*/")
          elt_type := rf7.arguments.name(1).resolve_in(rf7.type_of_current).generic_list.first
-         cpp.put_ith_argument(1)
-         cpp.pending_c_function_body.append(once "[")
-         cpp.put_ith_argument(2)
-         cpp.pending_c_function_body.append(once "]=(")
-         cpp.pending_c_function_body.append(cpp.argument_type.for(elt_type.canonical_type_mark))
-         cpp.pending_c_function_body.append(once ")REVEAL_POINTER(")
-         cpp.put_ith_argument(1)
-         cpp.pending_c_function_body.append(once "[")
-         cpp.put_ith_argument(2)
-         cpp.pending_c_function_body.append(once "]);%N")
+         if elt_type.is_reference then
+            cpp.pending_c_function_body.append(once "if(")
+            cpp.put_ith_argument(1)
+            cpp.pending_c_function_body.append(once "[")
+            cpp.put_ith_argument(2)
+            cpp.pending_c_function_body.append(once "]!=NULL){%N//")
+            cpp.put_ith_argument(1)
+            cpp.pending_c_function_body.append(once "[")
+            cpp.put_ith_argument(2)
+            cpp.pending_c_function_body.append(once "]=(")
+            cpp.pending_c_function_body.append(cpp.argument_type.for(elt_type.canonical_type_mark))
+            cpp.pending_c_function_body.append(once ")REVEAL_POINTER(")
+            cpp.put_ith_argument(1)
+            cpp.pending_c_function_body.append(once "[")
+            cpp.put_ith_argument(2)
+            cpp.pending_c_function_body.append(once "]);%N%
+                                                    %//GC_unregister_disappearing_link((void**)&(")
+            cpp.put_ith_argument(1)
+            cpp.pending_c_function_body.append(once "[")
+            cpp.put_ith_argument(2)
+            cpp.pending_c_function_body.append(once "]));%N}%N")
+         end
       end
 
 feature {C_COMPILATION_MIXIN}
@@ -291,6 +317,17 @@ feature {C_COMPILATION_MIXIN}
                assign_na.for(assignment, type)
             end
          end
+      end
+
+   put_ref_in_native_array (rf7: RUN_FEATURE_7) is
+      do
+         Precursor(rf7)
+         cpp.pending_c_function_body.append(once "//GC_unregister_disappearing_link((void**)&((")
+         cpp.put_target_as_value
+         cpp.pending_c_function_body.append(once ")[")
+         cpp.put_ith_argument(2)
+         cpp.pending_c_function_body.append(once "]")
+         cpp.pending_c_function_body.append(once "));%N")
       end
 
 feature {ANY}
