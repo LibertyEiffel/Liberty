@@ -1,6 +1,6 @@
 class AUX_EXAMPLE_DEBUG_A
 
-creation
+creation {ANY}
 	make
 
 feature {}

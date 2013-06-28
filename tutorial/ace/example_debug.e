@@ -1,6 +1,6 @@
 class EXAMPLE_DEBUG
 
-creation
+creation {ANY}
 	make
 
 feature {}
