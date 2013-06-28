@@ -290,7 +290,7 @@ feature {}
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void bdw_weakref_setlink(bdw_Twr*wr,T0*r)")
          cpp.pending_c_function_body.append(once "if(r==NULL){%N%
-                                                 %GC_reachable_here(r);%N%
+                                                 %//GC_reachable_here(r);%N%
                                                  %GC_unregister_disappearing_link((void**)&(wr->o));%N%
                                                  %wr->o=NULL;}else{%N%
                                                  %GC_disable();%N%
@@ -338,7 +338,7 @@ feature {}
                                                  %GC_reachable_here(markna);%N%
                                                  %o->bdw_markna=(void*)HIDE_POINTER(markna);%N%
                                                  %*markna=(T0*)o;%N%
-                                                 %//GC_GENERAL_REGISTER_DISAPPEARING_LINK(&(o->bdw_markna),markna);%N%
+                                                 %GC_GENERAL_REGISTER_DISAPPEARING_LINK(&(o->bdw_markna),markna);%N%
                                                  %bdw_in_assign=0;%N%
                                                  %GC_enable();%N%
                                                  %if(bdw_delayed_finalize){%N%
@@ -355,7 +355,8 @@ feature {}
          cpp.pending_c_function_signature.append(once "**markna,void*_)")
          cpp.pending_c_function_body.append(once "int i,c;T0*e;T0**na;T")
          live_type.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "*o=*markna;%N")
+         cpp.pending_c_function_body.append(once "*o=*markna;%N%
+                                                 %GC_disable();%N")
          wa := live_type.writable_attributes
          if wa /= Void then
             from
@@ -378,14 +379,8 @@ feature {}
                      cpp.pending_c_function_body.append(once "na=o->_")
                      cpp.pending_c_function_body.append(a.name.to_string)
                      cpp.pending_c_function_body.append(once ";%N%
-                                                             %if(na!=NULL){%N%
-                                                             %GC_disable();%N%
-                                                             %for(i=0;i<c;i++){%N%
-                                                             %e=na[i];%N%
-                                                             %if(e!=NULL){%N%
-                                                             %//na[i]=(T0*)HIDE_POINTER(e);%N%
-                                                             %//GC_GENERAL_REGISTER_DISAPPEARING_LINK((void**)&(na[i]), e);%N}}%N%
-                                                             %GC_enable();}%N")
+                                                             %if(na)for(i=0;i<c;i++){%N%
+                                                             %e=na[i];if(e)na[i]=(T0*)HIDE_POINTER(e);}%N")
                   end
                end
                i := i + 1
@@ -406,7 +401,8 @@ feature {}
          end
          cpp.pending_c_function_body.append(once "bdw_na_assignT")
          live_type.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "(o);%N")
+         cpp.pending_c_function_body.append(once "(o);%N%
+                                                 %GC_enable();%N")
          cpp.dump_pending_c_function(True)
       end
 

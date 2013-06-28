@@ -6,7 +6,6 @@ class BDW_GC
 inherit
    MEMORY_HANDLER
       export {BDW_GC_DEFINE2} generate_dispose
-      redefine put_ref_in_native_array
       end
 
 create {MEMORY_HANDLER_FACTORY}
@@ -262,7 +261,7 @@ feature {C_NATIVE_PROCEDURE_MAPPER}
             cpp.put_ith_argument(1)
             cpp.pending_c_function_body.append(once "[")
             cpp.put_ith_argument(2)
-            cpp.pending_c_function_body.append(once "]!=NULL){%N//")
+            cpp.pending_c_function_body.append(once "]!=NULL)")
             cpp.put_ith_argument(1)
             cpp.pending_c_function_body.append(once "[")
             cpp.put_ith_argument(2)
@@ -272,12 +271,7 @@ feature {C_NATIVE_PROCEDURE_MAPPER}
             cpp.put_ith_argument(1)
             cpp.pending_c_function_body.append(once "[")
             cpp.put_ith_argument(2)
-            cpp.pending_c_function_body.append(once "]);%N%
-                                                    %//GC_unregister_disappearing_link((void**)&(")
-            cpp.put_ith_argument(1)
-            cpp.pending_c_function_body.append(once "[")
-            cpp.put_ith_argument(2)
-            cpp.pending_c_function_body.append(once "]));%N}%N")
+            cpp.pending_c_function_body.append(once "]);%N")
          end
       end
 
@@ -317,17 +311,6 @@ feature {C_COMPILATION_MIXIN}
                assign_na.for(assignment, type)
             end
          end
-      end
-
-   put_ref_in_native_array (rf7: RUN_FEATURE_7) is
-      do
-         Precursor(rf7)
-         cpp.pending_c_function_body.append(once "//GC_unregister_disappearing_link((void**)&((")
-         cpp.put_target_as_value
-         cpp.pending_c_function_body.append(once ")[")
-         cpp.put_ith_argument(2)
-         cpp.pending_c_function_body.append(once "]")
-         cpp.pending_c_function_body.append(once "));%N")
       end
 
 feature {ANY}
