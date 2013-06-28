@@ -1,3 +1,4 @@
 <?php
-include "../bin/config.php";
+include "../../work/et/config.php";
+
 ?>
