@@ -127,9 +127,9 @@ feature {}
             if is_monomorphic_weak_ref then
                function_body.append(once "gc_update_weak_ref_item")
                ltid.append_in(function_body)
-               function_body.append(once "(&(o1->object.o));%N")
+               function_body.append(once "(&(o1->object));%N")
             else
-               function_body.append(once "gc_update_weak_ref_item_polymorph((T0**)&(o1->object.o));%N")
+               function_body.append(once "gc_update_weak_ref_item_polymorph((Tgc*)&(o1->object));%N")
             end
          end
          function_body.append(once "}%Nelse{%N")
@@ -155,9 +155,9 @@ feature {}
             if is_monomorphic_weak_ref then
                function_body.append(once "gc_update_weak_ref_item")
                ltid.append_in(function_body)
-               function_body.append(once "(&(o1->object.o));%N")
+               function_body.append(once "(&(o1->object));%N")
             else
-               function_body.append(once "gc_update_weak_ref_item_polymorph((T0**)&(o1->object.o));%N")
+               function_body.append(once "gc_update_weak_ref_item_polymorph((Tgc*)&(o1->object));%N")
             end
          end
          function_body.append(once "dead=0;}%Nelse{%N")
@@ -411,9 +411,12 @@ feature {}
          not cpp.pending_c_function
          visited.type.live_type.at_run_time
       once
+         cpp.out_h_buffer.copy(once "typedef struct Sgc {Tid id;T0*o;} Tgc;%N")
+         cpp.write_out_h_buffer
+
          cpp.prepare_c_function
-         function_signature.append(once "void gc_update_weak_ref_item_polymorph(T0** item)")
-         function_body.append(once "T0* obj_ptr = *item;%N%
+         function_signature.append(once "void gc_update_weak_ref_item_polymorph(Tgc* item)")
+         function_body.append(once "T0* obj_ptr = item->o;%N%
                                    %if (obj_ptr != NULL){%N%
                                    %int obj_size=se_strucT[obj_ptr->id];%N%
                                    %int swept")
@@ -429,7 +432,7 @@ feature {}
                                    %obj_ptr = (T0*)(((char*)obj_ptr) + obj_size);%N%
                                    %if (swept != (((fso_header*)obj_ptr)->flag==FSOH_UNMARKED)) /* **** TODO: was FSOH_UNMARKED???? (incoherent with comment below) */%N%
                                    %/* (already swept) xor marked */%N%
-                                   %*item = NULL;%N}%N")
+                                   %item->o=NULL;%N}%N")
          cpp.dump_pending_c_function(True)
       end
 
