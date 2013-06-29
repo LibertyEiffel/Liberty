@@ -285,54 +285,69 @@ EOF
     progress 30 4 $MAXTOOLCOUNT "compile"
     test -d compile.d || mkdir compile.d
     cd compile.d
-    run ../compile_to_c -verbose -boost -no_split compile -o compile || exit 1
+    run ../compile_to_c -verbose -boost -bdw_gc -no_split compile -o compile || exit 1
     grep ^$CC compile.make | while read cmd; do
         run $cmd || exit 1
     done
     cd .. && test -e compile || ln -s compile.d/compile .
 
-    while read i tool; do
+    while read i gc tool; do
         progress 30 $i $MAXTOOLCOUNT "$tool"
         test -d ${tool}.d || mkdir ${tool}.d
         cd ${tool}.d
-        run ../compile -verbose -boost -no_split $tool -o $tool || exit 1
+        case $gc in
+            no) GC="-no_gc";;
+            bdw) GC="-bdw_gc";;
+            *) GC="";;
+        esac
+        run ../compile -verbose -boost $GC -no_split $tool -o $tool || exit 1
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done <<EOF
-5 se
-6 clean
-7 ace_check
-8 eiffeltest
-9 eiffeltest_ng
-10 eiffeltest_server
+5  bdw se
+6  bdw clean
+7  bdw ace_check
+8  bdw eiffeltest
+9  yes eiffeltest_ng
+10 yes eiffeltest_server
 EOF
-    while read i tool; do
+    while read i gc tool; do
         progress 30 $i $MAXTOOLCOUNT "$tool"
         test -d ${tool}.d || mkdir ${tool}.d
         cd ${tool}.d
-        run ../compile -verbose -boost $tool -o $tool || exit 1
+        case $gc in
+            no) GC="-no_gc";;
+            bdw) GC="-bdw_gc";;
+            *) GC="";;
+        esac
+        run ../compile -verbose -boost $GC $tool -o $tool || exit 1
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done <<EOF
-11 pretty
-12 short
-13 class_check
-14 finder
-15 eiffeldoc
-16 extract_internals
+11 yes pretty
+12 yes short
+13 yes class_check
+14 yes finder
+15 yes eiffeldoc
+16 yes extract_internals
 EOF
 
-    while read i tool; do
+    while read i gc tool; do
         progress 30 $(($MAXTOOLCOUNT - 2)) $MAXTOOLCOUNT "$tool"
         test -d ${tool}.d || mkdir ${tool}.d
         cd ${tool}.d
         if [ -e $tool.ace ]; then
             run ../se c -verbose $tool.ace
         else
-            run ../se c -verbose -boost $tool -o $tool || exit 1
+            case $gc in
+                no) GC="-no_gc";;
+                bdw) GC="-bdw_gc";;
+                *) GC="";;
+            esac
+            run ../se c -verbose -boost $GC $tool -o $tool || exit 1
         fi
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done <<EOF
-17 wrappers-generator
-18 mocker
+17 _   wrappers-generator
+18 yes mocker
 EOF
 
     progress 30 $(($MAXTOOLCOUNT - 1)) $MAXTOOLCOUNT "se_make.sh"
