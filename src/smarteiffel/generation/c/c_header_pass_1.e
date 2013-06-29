@@ -29,33 +29,6 @@ feature {}
          live_type.canonical_type_mark.accept(Current)
       end
 
-feature {}
-   frozen standard_c_typedef (type_mark: TYPE_MARK) is
-      require
-         type_mark.type.live_type.at_run_time
-      local
-         mem_id: INTEGER
-      do
-         mem_id := type_mark.id
-         out_h.clear_count
-         if cpp.need_struct.for(type_mark) then
-            out_h.append(once "typedef struct S")
-            mem_id.append_in(out_h)
-            out_h.append(once " T")
-            mem_id.append_in(out_h)
-            out_h.append(once ";%N")
-         elseif type_mark.is_empty_expanded then
-            out_h.append(once "typedef int T")
-            mem_id.append_in(out_h)
-            out_h.append(once ";%N")
-         elseif type_mark.is_reference then
-            out_h.append(once "typedef void*T")
-            mem_id.append_in(out_h)
-            out_h.append(once ";%N")
-         end
-         flush_out_h
-      end
-
 feature {LIKE_ARGUMENT_TYPE_MARK}
    visit_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK) is
       do
@@ -187,6 +160,22 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          elseif not is_compiled(generic_type) then --| **** TODO: THIS IS A DIRTY HACK!!
             set_compiled(generic_type)
             out_h.copy(once "/*BUG:NA@runtime!*/")
+            flush_out_h
+            do_compile(generic_type)
+         end
+      end
+
+feature {WEAK_REFERENCE_TYPE_MARK}
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+      local
+         generic_type: LIVE_TYPE
+      do
+         generic_type := visited.generic_list.first.type.live_type
+         if generic_type.at_run_time then
+            compile_live_type(generic_type)
+         elseif not is_compiled(generic_type) then --| **** TODO: THIS IS A DIRTY HACK!!
+            set_compiled(generic_type)
+            out_h.copy(once "/*BUG:WR@runtime!*/")
             flush_out_h
             do_compile(generic_type)
          end

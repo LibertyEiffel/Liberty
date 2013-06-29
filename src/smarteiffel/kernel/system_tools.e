@@ -160,6 +160,12 @@ feature {}
          system_flavor /= Void
       end
 
+feature {BDW_GC}
+   add_bdwgc_lib is
+      do
+         add_external_lib(once "gc")
+      end
+
 feature {}
    add_lib_math_do_it_again is
       do

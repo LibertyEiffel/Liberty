@@ -27,7 +27,7 @@ feature {ANY}
          --    -sedb
          --    -profile
       local
-         arg: STRING
+         arg: STRING; mhf: MEMORY_HANDLER_FACTORY
       do
          from
             command_line_buffer.copy(command_line)
@@ -37,7 +37,9 @@ feature {ANY}
             next_option
             arg := option_buffer
             if flag_match(once "no_gc", arg) then
-               cpp.gc_handler.no_gc
+               mhf.set_no_gc
+            elseif flag_match(once "bdw_gc", arg) then
+               mhf.set_bdw_gc
             elseif flag_match(fz_no_strip, arg) then
                system_tools.set_no_strip
             elseif flag_match(fz_no_split, arg) then

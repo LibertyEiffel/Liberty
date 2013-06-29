@@ -58,7 +58,7 @@ feature {}
 feature {NATIVE_BUILT_IN}
    visit_native_built_in (visited: NATIVE_BUILT_IN) is
       local
-         cbd: BOOLEAN; elt_type: TYPE
+         cbd: BOOLEAN
       do
          if name.has_prefix(once "basic_") then
             cbd := cpp.target_cannot_be_dropped
@@ -122,22 +122,22 @@ feature {NATIVE_BUILT_IN}
             function_body.append(once "internal_exception_handler(")
             cpp.put_ith_argument(1)
             function_body.append(once ");%N")
-         elseif as_full_collect = name then
-            if not cpp.gc_handler.is_off then
-               function_body.append(once "gc_start();%N")
+         elseif as_weak_reference = bcn then
+            if  as_set_item = name then
+               cpp.memory.weak_set_item(type_of_current.live_type)
+            else
+               not_yet_implemented
             end
+         elseif as_full_collect = name then
+            cpp.memory.gc_collect
          elseif as_trace_switch = name then
             cpp.put_trace_switch
          elseif as_sedb_breakpoint = name then
             cpp.put_sedb_breakpoint
          elseif as_collection_off = name then
-            if not cpp.gc_handler.is_off then
-               function_body.append(once "gc_is_off=1;%N")
-            end
+            cpp.memory.gc_disable
          elseif as_collection_on = name then
-            if not cpp.gc_handler.is_off then
-               function_body.append(once "gc_is_off=0;%N")
-            end
+            cpp.memory.gc_enable
          elseif as_put_16_be = name or else as_put_16_le = name or else as_put_16_ne = name then
             function_body.append(once "*((int16_t*)(")
             cpp.put_ith_argument(1)
@@ -189,16 +189,7 @@ feature {NATIVE_BUILT_IN}
                function_body.append(once "#endif%N")
             end
          elseif as_mark_item = name then
-            function_body.append(once "{/*mark_item*/%N")
-            elt_type := rf7.arguments.name(1).resolve_in(rf7.type_of_current).generic_list.first
-            function_body.append(cpp.argument_type.for(elt_type.canonical_type_mark))
-            function_body.append(once " elt=")
-            cpp.put_ith_argument(1)
-            function_body.append(once "[")
-            cpp.put_ith_argument(2)
-            function_body.append(once "];%N")
-            cpp.gc_handler.mark_for(once "elt", elt_type.live_type, False)
-            function_body.append(once "/*mark_item*/}")
+            cpp.memory.mark_item(rf7)
          else
             check -- Unknown external.
                False
@@ -262,13 +253,7 @@ feature {} -- built-ins
                   function_body.append(once "));%N}%N")
                end
             else
-               function_body.extend('(')
-               cpp.put_target_as_value
-               function_body.append(once ")[")
-               cpp.put_ith_argument(2)
-               function_body.append(once "]=(")
-               cpp.put_ith_argument(1)
-               function_body.append(once ");%N")
+               cpp.memory.put_ref_in_native_array(rf7)
             end
          elseif name = as_slice_copy then
             function_body.append(once "{/*slice_copy*/%Nint a3tmp=")

@@ -9,7 +9,7 @@ Vcs-Git: git://github.com/LibertyEiffel/Liberty.git
 
 Package: liberty-eiffel-tools
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, liberty-eiffel-core-libs, gcc
+Depends: ${shlibs:Depends}, ${misc:Depends}, liberty-eiffel-core-libs, gcc, libgc-dev
 Suggests: liberty-eiffel-tools-src, emacs
 Description: The Liberty Eiffel tools
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly

@@ -135,14 +135,14 @@ feature {ASSIGNMENT_ATTEMPT}
                if cpp.check_assignment then
                   function_body.append(once "=((void*)")
                   compile_expression(visited.right_side)
-                  function_body.append(once ");")
+                  function_body.append(once ");%N")
                else
                   function_body.append(once ";%N")
                end
             elseif visited.forced_flag then
                function_body.append(once "error1(%"Invalid ::= assignment (inserted type).%",")
                cpp.put_position(visited.start_position)
-               function_body.append(once ");")
+               function_body.append(once ");%N")
             else
                cpp.start_assignment
                compile_expression(visited.left_side)
@@ -183,7 +183,7 @@ feature {ASSIGNMENT_ATTEMPT}
                if cpp.check_assignment then
                   function_body.append(once "=((void*)")
                   compile_expression(visited.right_side)
-                  function_body.append(once ");")
+                  function_body.append(once ");%N")
                else
                   function_body.append(once ";%N")
                end
@@ -201,7 +201,7 @@ feature {ASSIGNMENT_ATTEMPT}
                      compile_expression(visited.left_side)
                      function_body.append(once "!=NULL){error1(%"Invalid ::= assignment (inserted type).%",")
                      cpp.put_position(visited.start_position)
-                     function_body.append(once ");}")
+                     function_body.append(once ");}%N")
                   else
                      function_body.append(once ";%N")
                   end
@@ -213,7 +213,7 @@ feature {ASSIGNMENT_ATTEMPT}
                   cpp.start_assignment
                   compile_expression(visited.left_side)
                   if cpp.check_assignment then
-                     function_body.append(once "=NULL;")
+                     function_body.append(once "=NULL;%N")
                   else
                      function_body.append(once ";%N")
                   end
@@ -256,13 +256,12 @@ feature {ASSIGNMENT_ATTEMPT}
                      compile_expression(visited.left_side)
                      function_body.append(once "=NULL;%N")
                   end
-                  function_body.append(once "}}")
+                  function_body.append(once "}}%N")
                else
                   function_body.append(once ";%N")
                end
             end
          end
-         function_body.extend('%N')
       end
 
 feature {ASSIGNMENT}
@@ -276,8 +275,6 @@ feature {ASSIGNMENT}
             if cpp.check_assignment then
                function_body.extend('=')
                compile_expression(visited.right_side)
-            else
-               function_body.append(once ";%N")
             end
          else
             cpp.start_assignment
@@ -299,11 +296,12 @@ feature {ASSIGNMENT}
                if cast_t0 or else right_type.is_boolean then
                   function_body.append(once "))")
                end
-            else
-               function_body.append(once ";%N")
             end
          end
          function_body.append(once ";%N")
+         if right_type /= Void and then right_type.is_native_array then
+            cpp.memory.assigned_native_array(visited, type)
+         end
       end
 
 feature {ASSIGNMENT_CALL_ASSIGNER}
@@ -376,7 +374,7 @@ feature {CREATE_INSTRUCTION}
          created_type_memory := visited.created_type(type)
          if created_type_memory.is_reference then
             internal_c_local := cpp.pending_c_function_lock_local(created_type_memory, once "new")
-            cpp.gc_handler.allocation_of(internal_c_local, created_type_memory.live_type)
+            cpp.memory.allocation_of(internal_c_local, created_type_memory.live_type)
             if visited.call /= Void then
                rf := visited.call.run_feature_for(type)
                cpp.push_create_instruction(type, rf, visited.arguments, internal_c_local)
@@ -433,7 +431,7 @@ feature {RAW_CREATE_INSTRUCTION}
          created_type_memory := visited.created_type(type)
          if created_type_memory.is_reference then
             internal_c_local := cpp.pending_c_function_lock_local(created_type_memory, once "rawci")
-            cpp.gc_handler.allocation_of(internal_c_local, created_type_memory.live_type)
+            cpp.memory.allocation_of(internal_c_local, created_type_memory.live_type)
             compile_expression(visited.writable)
             function_body.append(once "=((T0*)")
             internal_c_local.append_in(cpp.pending_c_function_body)

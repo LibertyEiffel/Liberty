@@ -26,7 +26,7 @@ feature {}
          ctm.is_static
       local
          parent_lists: PARENT_LISTS; a_parent_edge: PARENT_EDGE; parent_tm: TYPE_MARK; i: INTEGER
-         gl: ARRAY[TYPE_MARK]; generic_type: TYPE; user_generic_type_mark: USER_GENERIC_TYPE_MARK
+         gl: ARRAY[TYPE_MARK]; generic_type: TYPE; weak_reference_type_mark: WEAK_REFERENCE_TYPE_MARK
          first_inherit_index: INTEGER
       do
          hash_code := ctm.written_name.hash_code
@@ -139,9 +139,9 @@ feature {}
             generic_type := ctm.class_text.declaration_type_of_like_current
 
             -- Performs some extra checks only for the `canonical_type_mark' (i.e. made only once):
-            user_generic_type_mark ?= canonical_type_mark
-            if user_generic_type_mark /= Void then
-               user_generic_type_mark.special_weak_reference_extra_check
+            if weak_reference_type_mark ?:= canonical_type_mark then
+               weak_reference_type_mark ::= canonical_type_mark
+               weak_reference_type_mark.special_weak_reference_extra_check
             end
          end
          feature_accumulator.register(Current)

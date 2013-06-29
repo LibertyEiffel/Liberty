@@ -14,6 +14,7 @@ DIR=require
 DEBUG=false
 SEDB=false
 NOGC=false
+BDWGC=false
 OPTIONS=''
 TOOL=compile_to_c
 BUILD=true
@@ -63,6 +64,10 @@ while [ $# -gt 0 ]; do
             NOGC=true
             OPTIONS="$OPTIONS $1"
             ;;
+        x-bdw_gc|x--bdw_gc|x/bdw_gc)
+            BDWGC=true
+            OPTIONS="$OPTIONS $1"
+            ;;
         x-no_build|x--no_build|x/no_build)
             BUILD=false
             ;;
@@ -96,6 +101,9 @@ if $SEDB; then
 fi
 if $NOGC; then
     outdir=${outdir}.no_gc
+fi
+if $BDWGC; then
+    outdir=${outdir}.bdw_gc
 fi
 
 test -d $outdir || mkdir -p $outdir

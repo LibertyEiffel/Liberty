@@ -225,17 +225,13 @@ feature {NATIVE_BUILT_IN}
                c_mapping_standard_twin
             else
                if live_type_of_current.is_reference then
-                  if cpp.gc_handler.is_off then
-                     id := live_type_of_current.id
-                     function_body.append(once "se_malloc(sizeof(*C));%N*((T")
-                     id.append_in(function_body)
-                     function_body.append(once "*)R)=M")
-                     id.append_in(function_body)
-                  else
-                     function_body.append(once "(void*)new")
-                     live_type_of_current.canonical_type_mark.id.append_in(function_body)
-                     function_body.append(once "()")
-                  end
+                  id := live_type_of_current.id
+                  function_body.append(once "(void*)")
+                  cpp.memory.malloc(live_type_of_current)
+                  function_body.append(once ";%N*((T")
+                  id.append_in(function_body)
+                  function_body.append(once "*)R)=M")
+                  id.append_in(function_body)
                   function_body.append(once ";%N")
                else
                   check
@@ -351,22 +347,22 @@ feature {NATIVE_BUILT_IN}
             function_body.append(once "(NULL!=")
             cpp.put_target_as_value
             function_body.extend(')')
+         elseif as_weak_reference = bcn then
+            if as_item = name then
+               cpp.memory.weak_item(live_type_of_current)
+            else
+               not_yet_implemented
+            end
          elseif as_exception = name then
             function_body.append(once "internal_exception_number")
          elseif as_signal_number = name then
             function_body.append(once "signal_exception_number")
          elseif as_collecting = name then
-            if cpp.gc_handler.is_off then
-               function_body.extend('0')
-            else
-               function_body.append(once "!gc_is_off")
-            end
+            cpp.memory.gc_is_collecting
          elseif as_collector_counter = name then
-            if cpp.gc_handler.is_off then
-               function_body.append(once "(-1)")
-            else
-               function_body.append(as_collector_counter)
-            end
+            cpp.memory.gc_counter
+         elseif as_allocated_bytes = name then
+            cpp.memory.gc_allocated_bytes
          elseif type_of_current.is_integer then
             c_mapping_integer_function
          elseif type_of_current.is_natural then
@@ -629,14 +625,9 @@ feature {} -- built-ins
                function_body.append(once "memcpy(&R,C,sizeof(R))")
             end
          else
-            if cpp.gc_handler.is_off then
-               function_body.append(once "se_malloc(sizeof(*C));%N")
-            else
-               function_body.append(once "((void*)new")
-               type_of_current.canonical_type_mark.id.append_in(function_body)
-               function_body.append(once "());%N")
-            end
-            function_body.append(once "*((T")
+            function_body.append(once "((void*)")
+            cpp.memory.malloc(type_of_current.live_type)
+            function_body.append(once ");%N*((T")
             type_of_current.id.append_in(function_body)
             function_body.append(once "*)R)=*C")
          end
@@ -660,16 +651,8 @@ feature {} -- built-ins
             end
          elseif as_calloc = name then
             if expanded_initializer(elt_type) then
-               if cpp.gc_handler.is_off then
-                  function_body.append(once "se_malloc(sizeof(T")
-                  elt_type.id.append_in(function_body)
-                  function_body.append(once ")*")
-               else
-                  function_body.append(once "new")
-                  type_of_current.id.append_in(function_body)
-                  function_body.extend('(')
-               end
-               function_body.append(once "a1);%Nr")
+               cpp.memory.calloc(type_of_current.live_type, agent is do function_body.append(once "a1") end)
+               function_body.append(once ";%Nr")
                type_of_current.id.append_in(function_body)
                function_body.append(once "clear_all(")
                if ace.no_check then
@@ -684,21 +667,7 @@ feature {} -- built-ins
                if tcbd then
                   function_body.extend(',')
                end
-               if cpp.gc_handler.is_off then
-                  function_body.append(once "((T")
-                  type_of_current.id.append_in(function_body)
-                  function_body.append(once ")(se_calloc(")
-                  cpp.put_ith_argument(1)
-                  function_body.append(once ",sizeof(")
-                  function_body.append(cpp.result_type.for(elt_type.canonical_type_mark))
-                  function_body.append(once "))))")
-               else
-                  function_body.append(once "new")
-                  type_of_current.id.append_in(function_body)
-                  function_body.extend('(')
-                  cpp.put_ith_argument(1)
-                  function_body.extend(')')
-               end
+               cpp.memory.calloc(type_of_current.live_type, agent cpp.put_ith_argument(1))
                if tcbd then
                   function_body.extend(')')
                end
@@ -1210,7 +1179,7 @@ feature {} -- built-ins
          if live_type.is_reference then
             function_body.append(once "R=se_deep_twin_search((void*)C);%N%
                                       %if(NULL==R){%N")
-            cpp.gc_handler.allocation_of(internal_c_local, live_type)
+            cpp.memory.allocation_of(internal_c_local, live_type)
             function_body.append(once "R=")
             internal_c_local.append_in(function_body)
             function_body.append(once ";%N*((T")
