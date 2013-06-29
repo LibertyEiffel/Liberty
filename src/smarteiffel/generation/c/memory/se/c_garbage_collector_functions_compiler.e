@@ -129,7 +129,7 @@ feature {}
                ltid.append_in(function_body)
                function_body.append(once "(&(o1->object));%N")
             else
-               function_body.append(once "gc_update_weak_ref_item_polymorph((T0**)(o1->object));%N")
+               function_body.append(once "gc_update_weak_ref_item_polymorph((T0**)&(o1->object->o));%N")
             end
          end
          function_body.append(once "}%Nelse{%N")
@@ -157,7 +157,7 @@ feature {}
                ltid.append_in(function_body)
                function_body.append(once "(&(o1->object));%N")
             else
-               function_body.append(once "gc_update_weak_ref_item_polymorph((T0**)(o1->object));%N")
+               function_body.append(once "gc_update_weak_ref_item_polymorph((T0**)&(o1->object->o));%N")
             end
          end
          function_body.append(once "dead=0;}%Nelse{%N")
