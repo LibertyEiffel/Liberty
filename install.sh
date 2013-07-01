@@ -14,9 +14,6 @@ export PREREQUISITES="$CC $CXX gccxml"
 unset CDPATH
 . $LIBERTY_HOME/work/tools.sh
 
-#BOOST_OPT="-fgcse"
-#BOOST_OPT="-fgcse-lm -finline-small-functions -fdevirtualize -fexpensive-optimizations -fcaller-saves -fcrossjumping -fcse-follow-jumps -fcse-skip-blocks -fdelete-null-pointer-checks -fthread-jumps -falign-functions -falign-jumps -falign-loops -falign-labels -findirect-inlining -fipa-sra -foptimize-sibling-calls -fpartial-inlining -fpeephole2 -fregmove -freorder-blocks -freorder-functions -frerun-cse-after-loop -fsched-interblock -fsched-spec -fschedule-insns -fschedule-insns2 -fstrict-aliasing -fstrict-overflow -ftree-switch-conversion -ftree-tail-merge -ftree-pre -ftree-vrp -fpartial-inlining -fpeephole2 -fregmove -freorder-blocks -freorder-functions -frerun-cse-after-loop -fsched-interblock -fsched-spec -fschedule-insns -fschedule-insns2 -fstrict-aliasing -fstrict-overflow -ftree-switch-conversion -ftree-tail-merge -ftree-pre -ftree-vrp"
-
 function check_prerequisites()
 {
     title "Checking required programs."
@@ -285,7 +282,7 @@ EOF
     progress 30 4 $MAXTOOLCOUNT "compile"
     test -d compile.d || mkdir compile.d
     cd compile.d
-    run ../compile_to_c -verbose -boost -bdw_gc -no_split compile -o compile || exit 1
+    run ../compile_to_c -verbose -boost -no_gc -no_split compile -o compile || exit 1
     grep ^$CC compile.make | while read cmd; do
         run $cmd || exit 1
     done
@@ -303,7 +300,7 @@ EOF
         run ../compile -verbose -boost $GC -no_split $tool -o $tool || exit 1
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done <<EOF
-5  bdw se
+5  no se
 6  bdw clean
 7  bdw ace_check
 8  bdw eiffeltest
