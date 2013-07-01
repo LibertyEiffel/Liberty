@@ -290,7 +290,6 @@ feature {}
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void bdw_weakref_setlink(bdw_Twr*wr,T0*r)")
          cpp.pending_c_function_body.append(once "if(r==NULL){%N%
-                                                 %//GC_reachable_here(r);%N%
                                                  %GC_unregister_disappearing_link((void**)&(wr->o));%N%
                                                  %wr->o=NULL;}else{%N%
                                                  %GC_disable();%N%
@@ -335,7 +334,6 @@ feature {}
                                                  %GC_REGISTER_FINALIZER_NO_ORDER(markna,(GC_finalization_proc)bdw_na_markT")
          live_type.id.append_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once ",NULL,NULL,NULL);%N%
-                                                 %GC_reachable_here(markna);%N%
                                                  %o->bdw_markna=(void*)HIDE_POINTER(markna);%N%
                                                  %*markna=(T0*)o;%N%
                                                  %GC_GENERAL_REGISTER_DISAPPEARING_LINK(&(o->bdw_markna),markna);%N%
