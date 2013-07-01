@@ -94,11 +94,20 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
       end
 
    calloc (lt: LIVE_TYPE; n: PROCEDURE[TUPLE]) is
+      require
+         lt.is_generic
+      local
+         et: TYPE
       do
+         et := lt.type.generic_list.first
          cpp.pending_c_function_body.append(once "se_calloc(")
          n.call([])
          cpp.pending_c_function_body.append(once ",sizeof(T")
-         lt.id.append_in(cpp.pending_c_function_body)
+         if et.is_reference then
+            cpp.pending_c_function_body.append(once "0*")
+         else
+            et.id.append_in(cpp.pending_c_function_body)
+         end
          cpp.pending_c_function_body.append(once "))")
       end
 

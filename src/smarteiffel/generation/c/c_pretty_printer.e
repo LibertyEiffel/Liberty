@@ -3629,6 +3629,8 @@ feature {} -- MANIFEST_GENERIC_POOL
          created_type_id.append_in(pending_c_function_body)
          pending_c_function_body.append(once "*C;%Nva_list pa;%Nint i=0;%Nint imax;%Nva_start(pa,argc);%NC=")
          memory.malloc(created_type.live_type)
+         pending_c_function_body.append(once ";%N*C=M")
+         created_type_id.append_in(pending_c_function_body)
          pending_c_function_body.append(once ";%Nr")
          created_type_id.append_in(pending_c_function_body)
          pending_c_function_body.append(once "manifest_make(")
