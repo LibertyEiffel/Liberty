@@ -124,7 +124,7 @@ feature {C_PRETTY_PRINTER}
          live_type_map := smart_eiffel.live_type_map
          root_type := smart_eiffel.root_procedure.type_of_current
 
-         echo.put_string(once "GC support (root functions).%N")
+         echo.put_string(once "GC support: adding root functions.%N")
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void once_function_mark(void)")
          mark_once_routines
@@ -134,7 +134,7 @@ feature {C_PRETTY_PRINTER}
 
          cpp.split_c_file_padding_here
 
-         echo.put_string(once "GC support (header).%N")
+         echo.put_string(once "GC support: generating header.%N")
          from
             i := live_type_map.lower
          until
@@ -147,7 +147,7 @@ feature {C_PRETTY_PRINTER}
             i := i + 1
          end
 
-         echo.put_string(once "GC support (functions).%N")
+         echo.put_string(once "GC support: generating functions.%N")
          from
             i := live_type_map.lower
          until
@@ -160,7 +160,7 @@ feature {C_PRETTY_PRINTER}
             i := i + 1
          end
 
-         echo.put_string(once "GC support (switch).%N")
+         echo.put_string(once "GC support: generating switch functions.%N")
          from
             i := switch_list.lower
          until
