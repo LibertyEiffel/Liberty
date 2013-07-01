@@ -38,7 +38,7 @@ feature {C_PRETTY_PRINTER} -- C code phases
          end
          cpp.out_h_buffer.copy(once "#define BDW_GC 1%N%
                                     %#define GC_I_HIDE_POINTERS 1%N%
-                                    %#include <gc.h>%N%
+                                    %#include <gc/gc.h>%N%
                                     %#define malloc(s) GC_MALLOC(s)%N%
                                     %#define calloc(n,s) GC_MALLOC_IGNORE_OFF_PAGE((s)*(n))%N%
                                     %#define realloc(p,s) GC_REALLOC((p),(s))%N")
