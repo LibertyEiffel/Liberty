@@ -2,6 +2,7 @@ se c -no_gc
 se c -no_split -no_gc
 se c -profile -flat_check
 se c -profile -no_gc
+se c -profile -bdw_gc
 se c -profile -no_check
 se c -profile -require_check
 se c -profile -ensure_check
