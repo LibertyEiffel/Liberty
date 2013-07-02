@@ -351,6 +351,8 @@ feature {NATIVE_BUILT_IN}
             if as_item = name then
                cpp.memory.weak_item(live_type_of_current)
             else
+               echo.w_put_string(once "Unknown WEAK_REFERENCE built-in: ")
+               echo.w_put_line(name)
                not_yet_implemented
             end
          elseif as_exception = name then
@@ -400,6 +402,10 @@ feature {NATIVE_BUILT_IN}
                function_body.extend(')')
             end
          else
+            echo.w_put_string(once "Unknown ")
+            echo.w_put_string(bcn)
+            echo.w_put_string(once " built-in: ")
+            echo.w_put_line(name)
             not_yet_implemented
          end
       end
