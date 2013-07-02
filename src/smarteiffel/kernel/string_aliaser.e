@@ -110,6 +110,7 @@ feature {}
          Result := {HASHED_SET[HASHED_STRING]
                       <<
                         create_hashed_string(as_any),
+                        create_hashed_string(as_allocated_bytes),
                         create_hashed_string(as_array),
                         create_hashed_string(as_boolean),
                         create_hashed_string(as_character),
