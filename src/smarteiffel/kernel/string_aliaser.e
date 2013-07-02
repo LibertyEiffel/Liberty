@@ -244,6 +244,7 @@ feature {}
                         create_hashed_string(as_from_pointer),
                         create_hashed_string(as_full_collect),
                         create_hashed_string(as_generating_type),
+                        create_hashed_string(as_generation),
                         create_hashed_string(as_generator),
                         create_hashed_string(as_io),
                         create_hashed_string(as_integer_bits),

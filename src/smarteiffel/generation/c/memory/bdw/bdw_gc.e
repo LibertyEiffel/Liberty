@@ -287,7 +287,7 @@ feature {C_COMPILATION_MIXIN}
       do
          flag := native_array_collector.must_collect(type_mark.type.live_type)
          if flag /= Void and then flag.item then
-            cpp.out_h_buffer.append(once "void*bdw_markna;")
+            cpp.out_h_buffer.append(once "void*bdw_markna;int bdw_generation;")
          end
       end
 
@@ -297,7 +297,7 @@ feature {C_COMPILATION_MIXIN}
       do
          flag := native_array_collector.must_collect(type_mark.type.live_type)
          if flag /= Void and then flag.item then
-            cpp.out_c_buffer.append(once ",(void*)0")
+            cpp.out_c_buffer.append(once ",(void*)0,0")
          end
       end
 
