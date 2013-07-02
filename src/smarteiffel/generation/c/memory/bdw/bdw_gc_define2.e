@@ -29,7 +29,13 @@ feature {BDW_GC}
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void bdw_run_finalizers(void)")
          cpp.pending_c_function_body.append(once "if(bdw_in_assign)bdw_delayed_finalize=1;%N%
-                                                 %else GC_invoke_finalizers();%N")
+                                                 %else{%N%
+                                                 %handle(SE_HANDLE_ENTER_GC,NULL);%N%
+                                                 %GC_invoke_finalizers();%N")
+         if bdw.info_flag then
+            cpp.pending_c_function_body.append(once "GC_dump();%N")
+         end
+         cpp.pending_c_function_body.append(once "handle(SE_HANDLE_EXIT_GC,NULL);}%N")
          cpp.dump_pending_c_function(True)
       end
 
