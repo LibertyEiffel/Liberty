@@ -290,8 +290,8 @@ static int subtract_time(se_time_t* start, se_time_t* stop, se_time_t* result) {
   result->cycles = stop->cycles - start->cycles;
   r = (result->cycles > INT64_C(0));
 #else
-  int64_t s = (int64_t)(stop->date.sec ) - (int64_t)(start->date.sec );
-  int64_t u = (int64_t)(stop->date.usec) - (int64_t)(start->date.usec);
+  int64_t s;
+  int64_t u;
 
   if (stop->date.usec < start->date.usec) {
      u = (int64_t)(stop->date.usec) + MICRO_SEC - (int64_t)(start->date.usec);
