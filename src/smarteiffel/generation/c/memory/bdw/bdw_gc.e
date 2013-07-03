@@ -214,7 +214,7 @@ feature {C_COMPILATION_MIXIN} -- see WEAK_REFERENCE
       do
          cpp.pending_c_function_body.append(once "((")
          cpp.pending_c_function_body.append(cpp.result_type.for(lt.type.generic_list.first.canonical_type_mark))
-         cpp.pending_c_function_body.append(once ")GC_call_with_alloc_lock((GC_fn_type)bdw_weakref_getlink, (bdw_Twr*)(")
+         cpp.pending_c_function_body.append(once ")GC_call_with_alloc_lock((GC_fn_type)bdw_weakref_getlink,(bdw_Twr*)(")
          cpp.put_target_as_value
          cpp.pending_c_function_body.append(once ")))")
       end
@@ -223,9 +223,9 @@ feature {C_COMPILATION_MIXIN} -- see WEAK_REFERENCE
       do
          cpp.pending_c_function_body.append(once "bdw_weakref_setlink((bdw_Twr*)(")
          cpp.put_target_as_value
-         cpp.pending_c_function_body.append(once "), ")
+         cpp.pending_c_function_body.append(once "),(")
          cpp.put_ith_argument(1)
-         cpp.pending_c_function_body.append(once ");%N")
+         cpp.pending_c_function_body.append(once "));%N")
       end
 
 feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents

@@ -230,11 +230,14 @@ feature {}
          prepare_weakref_accessors
 
          prepare_alloc_inner_function(tm)
-         cpp.pending_c_function_body.append(once "return (")
          cpp.pending_c_function_body.append(cpp.target_type.for(tm))
-         cpp.pending_c_function_body.append(once ")se_malloc((*n)*sizeof(T")
+         cpp.pending_c_function_body.append(once "R=(")
+         cpp.pending_c_function_body.append(cpp.target_type.for(tm))
+         cpp.pending_c_function_body.append(once ")bdw_weakref_new(*n);%N%
+                                                 %*R=M")
          live_type.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "));%N")
+         cpp.pending_c_function_body.append(once ";%N%
+                                                 %return R;%N")
          cpp.dump_pending_c_function(True)
 
          put_alloc_function(tm)
@@ -295,18 +298,23 @@ feature {}
          cpp.write_out_h_buffer
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void bdw_weakref_setlink(bdw_Twr*wr,T0*r)")
-         cpp.pending_c_function_body.append(once "if(r==NULL){%N%
-                                                 %GC_unregister_disappearing_link((void**)&(wr->o));%N%
-                                                 %wr->o=NULL;}else{%N%
-                                                 %GC_disable();%N%
-                                                 %wr->o=(T0*)HIDE_POINTER(r);%N%
-                                                 %GC_GENERAL_REGISTER_DISAPPEARING_LINK((void**)&(wr->o),(void*)r);%N%
-                                                 %GC_enable();}%N")
+         cpp.pending_c_function_body.append(once "GC_disable();%N%
+                                                 %if(wr->o)GC_unregister_disappearing_link((void**)&(wr->o));%N%
+                                                 %wr->o=r;%N%
+                                                 %if(r)GC_GENERAL_REGISTER_DISAPPEARING_LINK((void**)&(wr->o),(void*)r);%N%
+                                                 %GC_enable();%N")
          cpp.dump_pending_c_function(True)
+
          cpp.prepare_c_function
-         cpp.pending_c_function_signature.append(once "T0* bdw_weakref_getlink(bdw_Twr*wr)")
-         cpp.pending_c_function_body.append(once "if(wr->o==NULL)return NULL;%N%
-                                                 %return REVEAL_POINTER(wr->o);%N")
+         cpp.pending_c_function_signature.append(once "T0*bdw_weakref_getlink(bdw_Twr*wr)")
+         cpp.pending_c_function_body.append(once "return wr->o;%N")
+         cpp.dump_pending_c_function(True)
+
+         cpp.prepare_c_function
+         cpp.pending_c_function_signature.append(once "void*bdw_weakref_new(int n)")
+         cpp.pending_c_function_body.append(once "void*result=GC_MALLOC_ATOMIC(n*sizeof(bdw_Twr));%N%
+                                                 %se_check_malloc(result);%N%
+                                                 %return result;%N")
          cpp.dump_pending_c_function(True)
       end
 

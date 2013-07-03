@@ -41,12 +41,7 @@ void copy_swap_16(const uint16_t *src, uint16_t *dest, int count){
 }
 
 
-/*
-  The wrapper for `malloc' (generated C code is supposed to use
-  only `se_malloc' instead of direct `malloc').
-*/
-void* se_malloc(size_t size) {
-  void *result = malloc(size);
+void se_check_malloc(void*result) {
   if (result == NULL) {
     handle(SE_HANDLE_NO_MORE_MEMORY, NULL);
 #ifdef SE_EXCEPTIONS
@@ -58,6 +53,15 @@ void* se_malloc(size_t size) {
   exit(EXIT_FAILURE);
 #endif
   }
+}
+
+/*
+  The wrapper for `malloc' (generated C code is supposed to use
+  only `se_malloc' instead of direct `malloc').
+*/
+void* se_malloc(size_t size) {
+  void *result = malloc(size);
+  se_check_malloc(result);
   return result;
 }
 
