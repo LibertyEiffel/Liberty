@@ -103,6 +103,7 @@ path_liberty: $LIBERTY_HOME/
 path_lib: $LIBERTY_HOME/src/lib/
 path_tools: $LIBERTY_HOME/src/smarteiffel/
 path_tutorial: $LIBERTY_HOME/tutorial/
+hyphen: -
 
 [Loadpath]
 liberty: \${path_liberty}src/loadpath.se
@@ -135,80 +136,96 @@ c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe -O2 -fno-gcse
 c_linker_path: $CC
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -O2 -fno-gcse
 cpp_linker_path: $CC
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [no_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe -O1
 c_linker_path: $CC
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -O1
 cpp_linker_path: $CC
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [require_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
 c_linker_path: $CC
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 cpp_linker_path: $CC
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [ensure_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
 c_linker_path: $CC
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 cpp_linker_path: $CC
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [invariant_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
 c_linker_path: $CC
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 cpp_linker_path: $CC
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [loop_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
 c_linker_path: $CC
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 cpp_linker_path: $CC
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [all_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
 c_linker_path: $CC
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 cpp_linker_path: $CC
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [debug_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe -g
 c_linker_path: $CC
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -g
 cpp_linker_path: $CC
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 smarteiffel_options: -no_strip
 
 EOF
@@ -451,6 +468,9 @@ flavor: Linux
 tag: 3
 jobs: 2
 
+[Environment]
+hyphen: -
+
 [Tools]
 ace_check: ace_check
 c2c: compile_to_c
@@ -471,50 +491,66 @@ x_int: extract_internals
 [boost]
 c_compiler_type: gcc
 c_compiler_options: -pipe -O2 -fno-gcse
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe -O2 -fno-gcse
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [no_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe -O1
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe -O1
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [require_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [ensure_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [invariant_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [loop_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [all_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [debug_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe -g
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe -g
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 smarteiffel_options: -no_strip
 
 EOF
