@@ -8,9 +8,6 @@ class USER_GENERIC_TYPE_MARK
 
 inherit
    GENERIC_TYPE_MARK
-      redefine
-         weak_reference_argument
-      end
 
 create {ANY}
    make
@@ -48,26 +45,6 @@ feature {ANY}
          visitor.visit_user_generic_type_mark(Current)
       end
 
-feature {TYPE}
-   special_weak_reference_extra_check is
-      require
-         is_static
-      local
-         tm: TYPE_MARK
-      do
-         if class_text.name.to_string = as_weak_reference then
-            tm := generic_list.first
-            if tm.is_expanded then
-               error_handler.add_type_mark(tm)
-               error_handler.add_position(tm.start_position)
-               error_handler.add_position(start_position)
-               error_handler.append(once " is expanded. The generic argument of WEAK_REFERENCE must not be %
-                %expanded. (It does not makes sense to do so.)")
-               error_handler.print_as_fatal_error
-            end
-         end
-      end
-
 feature {TYPE_MARK}
    short_ (shorted_type: TYPE) is
       do
@@ -86,14 +63,6 @@ feature {}
       ensure
          class_text_name = bcn
          generic_list = gl
-      end
-
-feature {ANY}
-   weak_reference_argument (lt: LIVE_TYPE): LIVE_TYPE is
-      do
-         if lt.class_text_name.to_string = as_weak_reference then
-            Result := generic_list.first.type.live_type
-         end
       end
 
 invariant

@@ -67,6 +67,7 @@ feature {}
                i := i + 1
             end
          end
+         cpp.memory.extra_c_struct(type_mark)
          out_h.append(once "};%N")
          flush_out_h
          if type_mark.is_expanded then
@@ -131,6 +132,32 @@ feature {}
          cpp.write_extern_2(out_h, out_c)
       end
 
+   frozen standard_c_typedef (type_mark: TYPE_MARK) is
+      require
+         type_mark.type.live_type.at_run_time
+      local
+         mem_id: INTEGER
+      do
+         mem_id := type_mark.id
+         out_h.clear_count
+         if cpp.need_struct.for(type_mark) then
+            out_h.append(once "typedef struct S")
+            mem_id.append_in(out_h)
+            out_h.append(once " T")
+            mem_id.append_in(out_h)
+            out_h.append(once ";%N")
+         elseif type_mark.is_empty_expanded then
+            out_h.append(once "typedef int T")
+            mem_id.append_in(out_h)
+            out_h.append(once ";%N")
+         elseif type_mark.is_reference then
+            out_h.append(once "typedef void*T")
+            mem_id.append_in(out_h)
+            out_h.append(once ";%N")
+         end
+         flush_out_h
+      end
+
    c_object_model_in (live_type: LIVE_TYPE) is
       local
          wa: ARRAY[RUN_FEATURE_2]; i: INTEGER; rf2: RUN_FEATURE_2; t: TYPE_MARK
@@ -140,6 +167,7 @@ feature {}
             if live_type.is_tagged then
                out_c.extend('{')
                live_type.id.append_in(out_c)
+               cpp.memory.extra_c_model(live_type.canonical_type_mark)
                out_c.extend('}')
             else
                out_c.append(cpp.initializer.for(live_type.canonical_type_mark))
@@ -163,6 +191,7 @@ feature {}
                out_c.append(cpp.initializer.for(t))
                i := i + 1
             end
+            cpp.memory.extra_c_model(live_type.canonical_type_mark)
             out_c.extend('}')
          end
       end

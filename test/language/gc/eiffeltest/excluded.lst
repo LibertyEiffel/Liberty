@@ -1,7 +1,34 @@
-se c -profile
 se c -no_gc
-se c -all_check -debug
-se c -all_check
-se c -loop_check
-se c -invariant_check
+se c -no_split -no_gc
+se c -profile -flat_check
+se c -profile -no_gc
+se c -profile -bdw_gc
+se c -profile -no_check
+se c -profile -require_check
+se c -profile -ensure_check
+se c -profile -invariant_check
+se c -profile -loop_check
+se c -profile -all_check
+se c -require_check
 se c -ensure_check
+se c -invariant_check
+se c -loop_check
+se c -all_check
+se c -flat_check -all_check -debug
+se c -flat_check -require_check
+se c -flat_check -ensure_check
+se c -flat_check -invariant_check
+se c -flat_check -loop_check
+se c -flat_check -all_check test_popof.e
+se c -no_check test_popof.e
+se c -profile -boost test_popof.e
+se c -profile -boost test_native_array6.e
+se c -flat_check -all_check test_native_array6.e
+se c -flat_check -all_check test_native_array7.e
+se c -profile -boost test_native_array7.e
+se c -flat_check -all_check test_array1.e
+Running (-boost) "test_native_array_collector03.exe"
+Running (-no_check) "test_native_array_collector03.exe"
+Running (-flat_check -all_check) "test_native_array_collector03.exe"
+Running (-profile -boost) "test_native_array_collector03.exe"
+Running (-no_split -boost) "test_native_array_collector03.exe"

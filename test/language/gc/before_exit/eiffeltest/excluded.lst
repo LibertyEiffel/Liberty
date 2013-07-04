@@ -1,7 +1,13 @@
-se c -profile
 se c -no_gc
-se c -all_check -debug
-se c -all_check
-se c -loop_check
-se c -invariant_check
+se c -profile
+se c -no_split -no_gc
+se c -require_check
 se c -ensure_check
+se c -invariant_check
+se c -loop_check
+se c -all_check
+se c -flat_check -all_check -debug
+se c -flat_check -require_check
+se c -flat_check -ensure_check
+se c -flat_check -invariant_check
+se c -flat_check -loop_check

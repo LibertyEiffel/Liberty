@@ -32,7 +32,7 @@
 
 #define SE_DEBUG_PROFILE 0
 
-#define MICRO_SEC INT64_C(1000000) /* 1 second is that many nanoseconds */
+#define MICRO_SEC INT64_C(1000000) /* 1 second is that many microseconds */
 #define MICRO_2_SEC INT64_C(2000000) /* 2 seconds */
 
 #define DRIFT_LOOP 1000
@@ -290,17 +290,18 @@ static int subtract_time(se_time_t* start, se_time_t* stop, se_time_t* result) {
   result->cycles = stop->cycles - start->cycles;
   r = (result->cycles > INT64_C(0));
 #else
-  int64_t s = (int64_t)(stop->date.sec  - start->date.sec);
-  int64_t u = (int64_t)(stop->date.usec - start->date.usec);
+  int64_t s;
+  int64_t u;
 
-  if (u < INT32_C(0)) {
-    --s;
-    u += MICRO_SEC;
+  if (stop->date.usec < start->date.usec) {
+     u = (int64_t)(stop->date.usec) + MICRO_SEC - (int64_t)(start->date.usec);
+     s = (int64_t)(stop->date.sec ) - (int64_t)(start->date.sec ) - 1;
   }
-  else if (u >= MICRO_SEC) {
-    ++s;
-    u -= MICRO_SEC;
+  else {
+     u = (int64_t)(stop->date.usec) - (int64_t)(start->date.usec);
+     s = (int64_t)(stop->date.sec ) - (int64_t)(start->date.sec );
   }
+
   if (s >= INT32_C(0) && u >= INT32_C(0) && u < MICRO_SEC) {
     result->date.sec  = (uint32_t)s;
     result->date.usec = (uint32_t)u;

@@ -8,7 +8,7 @@
 ./expression
 ./feature
 ./generation
-./generation/c
+./generation/c/loadpath.se
 ./generation/context
 ./generation/eiffeldoc
 ./generation/fake_generator

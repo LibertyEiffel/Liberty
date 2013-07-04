@@ -18,8 +18,10 @@ feature {ANY}
       require
          type_mark.is_static
       do
-         flag := False
-         type_mark.accept(Current)
+         flag := cpp.memory.need_struct_for(type_mark)
+         if not flag then
+            type_mark.accept(Current)
+         end
          Result := flag
       end
 
@@ -37,6 +39,12 @@ feature {ARRAY_TYPE_MARK}
 feature {NATIVE_ARRAY_TYPE_MARK}
    visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
       do
+      end
+
+feature {WEAK_REFERENCE_TYPE_MARK}
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+      do
+         flag := True
       end
 
 feature {NON_EMPTY_TUPLE_TYPE_MARK}

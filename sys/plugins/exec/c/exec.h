@@ -29,6 +29,8 @@
 #define basic_exec_system_posix 1
 #define basic_exec_system_win32 2
 
+#include "eiffel_exec.h"
+
 /***************************
  * Common macros and types *
  * basic_exec_xxx          *

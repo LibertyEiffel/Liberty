@@ -19,10 +19,15 @@ insert
       end
    SINGLETON
 
+feature {}
+   memory: GC_HANDLER is
+      do
+         Result ::= cpp.memory
+      end
+
 feature {GC_HANDLER}
    compile (type_mark: TYPE_MARK) is
       require
-         not cpp.gc_handler.is_off
          type_mark.type.live_type.at_run_time
       do
          type_mark.accept(Current)
@@ -138,6 +143,12 @@ feature {STRING_TYPE_MARK}
          gc_reference(visited)
       end
 
+feature {WEAK_REFERENCE_TYPE_MARK}
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+      do
+         gc_reference(visited)
+      end
+
 feature {}
    make is
       do
@@ -148,7 +159,6 @@ feature {}
       require
          visited.is_static
          visited.is_reference
-         not cpp.gc_handler.is_off
          visited.type.live_type.at_run_time
       deferred
       end
@@ -158,7 +168,6 @@ feature {}
       require
          visited.is_static
          visited.is_expanded
-         not cpp.gc_handler.is_off
          visited.type.live_type.at_run_time
       deferred
       end

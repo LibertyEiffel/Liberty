@@ -136,6 +136,25 @@ feature {NATIVE_ARRAY_TYPE_MARK}
       do
       end
 
+feature {WEAK_REFERENCE_TYPE_MARK}
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+      do
+         out_h.copy(once "struct S")
+         visited.id.append_in(out_h)
+         out_h.append(once "{Tid id;T0*o;};%N")
+         flush_out_h
+         out_h.clear_count
+         out_h.extend('T')
+         visited.id.append_in(out_h)
+         out_h.append(once " M")
+         visited.id.append_in(out_h)
+         out_c.clear_count
+         out_c.extend('{')
+         visited.id.append_in(out_c)
+         out_c.append(once ",NULL}")
+         cpp.write_extern_2(out_h, out_c)
+      end
+
 feature {USER_GENERIC_TYPE_MARK}
    visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
       do

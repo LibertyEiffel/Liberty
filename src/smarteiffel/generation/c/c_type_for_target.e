@@ -13,7 +13,8 @@ inherit
          visit_empty_tuple_type_mark,
          visit_any_type_mark,
          visit_class_type_mark,
-         visit_string_type_mark
+         visit_string_type_mark,
+         visit_weak_reference_type_mark
       end
 
 create {C_PRETTY_PRINTER}
@@ -53,6 +54,14 @@ feature {USER_GENERIC_TYPE_MARK}
             visited.id.append_in(buffer)
             buffer.extend('*')
          end
+      end
+
+feature {WEAK_REFERENCE_TYPE_MARK}
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+      do
+         buffer.extend('T')
+         visited.id.append_in(buffer)
+         buffer.extend('*')
       end
 
 feature {EMPTY_TUPLE_TYPE_MARK}

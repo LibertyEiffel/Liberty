@@ -78,7 +78,21 @@
 
 */
 
-#define GC_BUG(expr) do {if (expr) {int *i=0; *i=0;}} while(0)
+
+#ifdef SE_BOOST
+#    define GC_BUG(tag, expr) do {if (expr) {    \
+         handle(SE_HANDLE_RUNTIME_ERROR, NULL); \
+         se_print_run_time_stack();             \
+         {int *i=0;*i=0;}                       \
+         exit(EXIT_FAILURE);                    \
+      }} while(0)
+#else
+#    define GC_BUG(tag, expr) do {if (expr) {                    \
+         char msg[512];                                         \
+         sprintf(msg, "GC BUG: %s (%s).\n", tag, #expr);        \
+         error0(msg, NULL);                                     \
+      }} while(0)
+#endif
 
 
 int se_gc_strategy = SE_GC_DEFAULT_MEMORY_STRATEGY;
@@ -427,6 +441,7 @@ static void gc_add_into_gcmt(mch*c) {
 
 static char*rso_from_store(na_env*nae,unsigned int size) {
   rsoh*r=(nae->store);
+  GC_BUG("zero-size for rso_from_store()", size==0);
   nae->store_left-=size;
   if ((nae->store_left) > sizeof(rsoh)) {
     r->header.size=size;
@@ -460,10 +475,11 @@ static void rsoc_sweep(rsoc*c) {
     }
     return;
   }
+
   while (gp<eoc) {
     while (gp->header.magic_flag == RSOH_MARKED) {
       gp->header.magic_flag=RSOH_UNMARKED;
-      GC_BUG(gp->header.size==0);
+      GC_BUG("rsoc_sweep(), unmarking marked rsoh", gp->header.size==0);
       gp=((rsoh*)(((char*)gp)+gp->header.size));
       if(gp>=eoc) {
         /* No need to register chunks with no free_list_of_large
@@ -473,14 +489,16 @@ static void rsoc_sweep(rsoc*c) {
         return;
       }
     }
+
     gp->header.magic_flag=RSOH_FREE;
-    GC_BUG(gp->header.size==0);
+    GC_BUG("rsoc_sweep(), sweeping unmaked rsoh", gp->header.size==0);
     pp=(rsoh*)(((char*)gp)+gp->header.size);
     while ((pp<eoc)&&(pp->header.magic_flag != RSOH_MARKED)) {
       gp->header.size+=pp->header.size;
-      GC_BUG(pp->header.size==0);
+      GC_BUG("rsoc_sweep(), coalescing unmarked rsoh", pp->header.size==0);
       pp=((rsoh*)(((char*)pp)+pp->header.size));
     }
+
     if (gp->header.size >= RSOC_MIN_STORE) {
       if (nae->store_left==0) {
         nae->store_left=gp->header.size;
@@ -499,9 +517,10 @@ static void rsoc_sweep(rsoc*c) {
         c->free_list_of_large=((fll_rsoh*)gp);
       }
     }
-    GC_BUG(pp==gp);
+    GC_BUG("rsoc_sweep(), checking next rsoh", pp==gp);
     gp=pp;
   }
+
   if (((rsoh*)(&c->first_header))->header.size >=
       (c->header.size-sizeof(rsoc)+sizeof(rsoh))){
     c->header.state_type=RSO_FREE_CHUNK;
@@ -611,6 +630,7 @@ static int get_store_in(rsoc*c,unsigned int size) {
     if (f->rsoh_field.size >= size) {
       nae->store_left=f->rsoh_field.size;
       nae->store=(rsoh*)f;
+      GC_BUG("check nae store size", nae->store->header.size==0);
       nae->store_chunk=c;
       if (pf == NULL) {
         c->free_list_of_large=f->nextflol;
@@ -629,6 +649,7 @@ static int get_store_in(rsoc*c,unsigned int size) {
 char*new_na_from_chunk_list(na_env*nae,unsigned int size) {
   rsoc*c=nae->chunk_list;
   unsigned int csize;
+  GC_BUG("zero-size for new_na_from_chunk_list()", size==0);
   while (c != NULL) {
     if (get_store_in(c,size)) {
       return rso_from_store(nae,size);
@@ -679,17 +700,7 @@ char*new_na_from_chunk_list(na_env*nae,unsigned int size) {
 
 /* size in bytes, including header size */
 char*new_na(na_env*nae,unsigned int size) {
-  if (size == 0) {
-#ifdef SE_BOOST
-    handle(SE_HANDLE_RUNTIME_ERROR, NULL);
-    se_print_run_time_stack();
-    exit(EXIT_FAILURE);
-#else
-    char msg[512];
-    sprintf(msg, "Bad native array size: %d.\n", size);
-    error0(msg, NULL);
-#endif
-  }
+  GC_BUG("zero-size for new_na()", size == 0);
   if (nae->store_left>0) {
     nae->store->header.size=nae->store_left;
     nae->store->header.magic_flag=RSOH_FREE;
@@ -725,6 +736,7 @@ char*new_na(na_env*nae,unsigned int size) {
       */
       gc_add_into_gcmt((mch*)c);
       r->header.size=size;
+      GC_BUG("check rsoh size from nae", r->header.size==0);
       (r->header.magic_flag)=RSOH_UNMARKED;
       ((void)memset((r+1),0,size-sizeof(rsoh)));
       return (char*)(r+1);
@@ -807,7 +819,7 @@ static void gcna_align_mark(rsoc*c,void*o) {
       pf=(fll_rsoh*)b;
   }
   while ((((rsoh*)pf)+1) < (rsoh*)o) {
-      GC_BUG(pf->rsoh_field.size==0);
+      GC_BUG("gcna_align_mark(), zero-size rsoh", pf->rsoh_field.size==0);
       pf = ((fll_rsoh*)(((char*)pf)+pf->rsoh_field.size));
   }
   if (o == (((rsoh*)pf)+1)) {

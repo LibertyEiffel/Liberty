@@ -14,9 +14,6 @@ export PREREQUISITES="$CC $CXX gccxml"
 unset CDPATH
 . $LIBERTY_HOME/work/tools.sh
 
-#BOOST_OPT="-fgcse"
-#BOOST_OPT="-fgcse-lm -finline-small-functions -fdevirtualize -fexpensive-optimizations -fcaller-saves -fcrossjumping -fcse-follow-jumps -fcse-skip-blocks -fdelete-null-pointer-checks -fthread-jumps -falign-functions -falign-jumps -falign-loops -falign-labels -findirect-inlining -fipa-sra -foptimize-sibling-calls -fpartial-inlining -fpeephole2 -fregmove -freorder-blocks -freorder-functions -frerun-cse-after-loop -fsched-interblock -fsched-spec -fschedule-insns -fschedule-insns2 -fstrict-aliasing -fstrict-overflow -ftree-switch-conversion -ftree-tail-merge -ftree-pre -ftree-vrp -fpartial-inlining -fpeephole2 -fregmove -freorder-blocks -freorder-functions -frerun-cse-after-loop -fsched-interblock -fsched-spec -fschedule-insns -fschedule-insns2 -fstrict-aliasing -fstrict-overflow -ftree-switch-conversion -ftree-tail-merge -ftree-pre -ftree-vrp"
-
 function check_prerequisites()
 {
     title "Checking required programs."
@@ -106,6 +103,7 @@ path_liberty: $LIBERTY_HOME/
 path_lib: $LIBERTY_HOME/src/lib/
 path_tools: $LIBERTY_HOME/src/smarteiffel/
 path_tutorial: $LIBERTY_HOME/tutorial/
+hyphen: -
 
 [Loadpath]
 liberty: \${path_liberty}src/loadpath.se
@@ -138,80 +136,96 @@ c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe -O2 -fno-gcse
 c_linker_path: $CC
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -O2 -fno-gcse
 cpp_linker_path: $CC
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [no_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe -O1
 c_linker_path: $CC
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -O1
 cpp_linker_path: $CC
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [require_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
 c_linker_path: $CC
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 cpp_linker_path: $CC
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [ensure_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
 c_linker_path: $CC
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 cpp_linker_path: $CC
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [invariant_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
 c_linker_path: $CC
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 cpp_linker_path: $CC
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [loop_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
 c_linker_path: $CC
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 cpp_linker_path: $CC
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [all_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
 c_linker_path: $CC
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 cpp_linker_path: $CC
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [debug_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe -g
 c_linker_path: $CC
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -g
 cpp_linker_path: $CC
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 smarteiffel_options: -no_strip
 
 EOF
@@ -285,54 +299,69 @@ EOF
     progress 30 4 $MAXTOOLCOUNT "compile"
     test -d compile.d || mkdir compile.d
     cd compile.d
-    run ../compile_to_c -verbose -boost -no_split compile -o compile || exit 1
+    run ../compile_to_c -verbose -boost -no_gc -no_split compile -o compile || exit 1
     grep ^$CC compile.make | while read cmd; do
         run $cmd || exit 1
     done
     cd .. && test -e compile || ln -s compile.d/compile .
 
-    while read i tool; do
+    while read i gc tool; do
         progress 30 $i $MAXTOOLCOUNT "$tool"
         test -d ${tool}.d || mkdir ${tool}.d
         cd ${tool}.d
-        run ../compile -verbose -boost -no_split $tool -o $tool || exit 1
+        case $gc in
+            no) GC="-no_gc";;
+            bdw) GC="-bdw_gc";;
+            *) GC="";;
+        esac
+        run ../compile -verbose -boost $GC -no_split $tool -o $tool || exit 1
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done <<EOF
-5 se
-6 clean
-7 ace_check
-8 eiffeltest
-9 eiffeltest_ng
-10 eiffeltest_server
+5  no se
+6  bdw clean
+7  bdw ace_check
+8  bdw eiffeltest
+9  yes eiffeltest_ng
+10 yes eiffeltest_server
 EOF
-    while read i tool; do
+    while read i gc tool; do
         progress 30 $i $MAXTOOLCOUNT "$tool"
         test -d ${tool}.d || mkdir ${tool}.d
         cd ${tool}.d
-        run ../compile -verbose -boost $tool -o $tool || exit 1
+        case $gc in
+            no) GC="-no_gc";;
+            bdw) GC="-bdw_gc";;
+            *) GC="";;
+        esac
+        run ../compile -verbose -boost $GC $tool -o $tool || exit 1
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done <<EOF
-11 pretty
-12 short
-13 class_check
-14 finder
-15 eiffeldoc
-16 extract_internals
+11 yes pretty
+12 yes short
+13 yes class_check
+14 yes finder
+15 yes eiffeldoc
+16 yes extract_internals
 EOF
 
-    while read i tool; do
+    while read i gc tool; do
         progress 30 $(($MAXTOOLCOUNT - 2)) $MAXTOOLCOUNT "$tool"
         test -d ${tool}.d || mkdir ${tool}.d
         cd ${tool}.d
         if [ -e $tool.ace ]; then
             run ../se c -verbose $tool.ace
         else
-            run ../se c -verbose -boost $tool -o $tool || exit 1
+            case $gc in
+                no) GC="-no_gc";;
+                bdw) GC="-bdw_gc";;
+                *) GC="";;
+            esac
+            run ../se c -verbose -boost $GC $tool -o $tool || exit 1
         fi
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done <<EOF
-17 wrappers-generator
-18 mocker
+17 _   wrappers-generator
+18 yes mocker
 EOF
 
     progress 30 $(($MAXTOOLCOUNT - 1)) $MAXTOOLCOUNT "se_make.sh"
@@ -439,6 +468,9 @@ flavor: Linux
 tag: 3
 jobs: 2
 
+[Environment]
+hyphen: -
+
 [Tools]
 ace_check: ace_check
 c2c: compile_to_c
@@ -459,50 +491,66 @@ x_int: extract_internals
 [boost]
 c_compiler_type: gcc
 c_compiler_options: -pipe -O2 -fno-gcse
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe -O2 -fno-gcse
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [no_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe -O1
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe -O1
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [require_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [ensure_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [invariant_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [loop_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [all_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [debug_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe -g
+c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe -g
+cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 smarteiffel_options: -no_strip
 
 EOF

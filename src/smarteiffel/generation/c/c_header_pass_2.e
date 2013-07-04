@@ -127,6 +127,16 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          flush_out_h
       end
 
+feature {WEAK_REFERENCE_TYPE_MARK}
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+      do
+         check
+            visited.generic_list.first.type.is_reference
+         end
+         compile_live_type(visited.generic_list.first.type.live_type)
+         standard_c_typedef(visited)
+      end
+
 feature {USER_GENERIC_TYPE_MARK}
    visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
       do
