@@ -1,54 +1,56 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class C_GARBAGE_COLLECTOR_BEFORE_MARK_COMPILER
-   --
-   -- Produce C code to print GC information.
-   --
+expanded class MEMORY_HANDLER_FACTORY
 
-inherit
-   C_GARBAGE_COLLECTOR_ABSTRACT_COMPILER
-
-create {GC_HANDLER}
-   make
-
-feature {AGENT_TYPE_MARK}
-   visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
+feature {ANY}
+   set_no_gc is
       do
+         mode.set_item(Mode_off)
       end
 
-feature {NATIVE_ARRAY_TYPE_MARK}
-   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+   set_bdw_gc is
       do
-         function_body.append(once "if(")
-         cpp.gc_handler.na_env_in(visited, function_body)
-         function_body.append(once ".store_left>0){%N")
-         cpp.gc_handler.na_env_in(visited, function_body)
-         function_body.append(once ".store->header.size=")
-         cpp.gc_handler.na_env_in(visited, function_body)
-         function_body.append(once ".store_left;%N")
-         cpp.gc_handler.na_env_in(visited, function_body)
-         function_body.append(once ".store->header.magic_flag=RSOH_FREE;%N")
-         cpp.gc_handler.na_env_in(visited, function_body)
-         function_body.append(once ".store_left=0;%N}%N")
-         cpp.gc_handler.na_env_in(visited, function_body)
-         function_body.append(once ".chunk_list=NULL;%N")
-         cpp.gc_handler.na_env_in(visited, function_body)
-         function_body.append(once ".store_chunk=NULL;%N")
+         mode.set_item(Mode_bdw)
       end
 
-feature {}
-   gc_reference (visited: TYPE_MARK) is
+   set_info_flag is
       do
-         cpp.gc_handler.free_in(visited, function_body)
-         function_body.append(once "=(void*)0;%N")
+         info.set_item(True)
       end
 
-   gc_expanded (visited: TYPE_MARK) is
+feature {C_PRETTY_PRINTER}
+   create_memory_handler: MEMORY_HANDLER is
       do
+         inspect
+            mode.item
+         when Mode_off then
+            create {NO_GC} Result.make
+         when Mode_bdw then
+            create {BDW_GC} Result.make
+         when Mode_standard then
+            create {GC_HANDLER} Result.make
+         end
+         if info.item then
+            Result.set_info_flag
+         end
       end
 
-end -- class C_GARBAGE_COLLECTOR_BEFORE_MARK_COMPILER
+   mode: REFERENCE[INTEGER] is
+      once
+         create Result.set_item(Mode_standard)
+      end
+
+   info: REFERENCE[BOOLEAN] is
+      once
+         create Result
+      end
+
+   Mode_standard: INTEGER is 0
+   Mode_off: INTEGER is -1
+   Mode_bdw: INTEGER is 1
+
+end -- class MEMORY_HANDLER_FACTORY
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

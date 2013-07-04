@@ -184,7 +184,7 @@ feature {}
 
    define_agent_creation_function (agent_creation: AGENT_CREATION; type: TYPE; mold_id: STRING; integer_mold_id: INTEGER) is
       local
-         boost: BOOLEAN; agent_type, agent_result, t: TYPE; tm: TYPE_MARK;   i: INTEGER
+         boost: BOOLEAN; agent_type, agent_result: TYPE; tm: TYPE_MARK;   i: INTEGER
          expression: EXPRESSION; open_operand: OPEN_OPERAND; closed_operand: CLOSED_OPERAND
       do
          boost := ace.boost
@@ -330,11 +330,7 @@ feature {}
             is_equal_mold_id_in(agent_creation, type, function_body)
             function_body.append(once ";%N")
          end
-         if not cpp.gc_handler.is_off then
-            function_body.append(once "u->gc_mark_agent_mold=gc_mark_")
-            function_body.append(mold_id)
-            function_body.append(once ";%N")
-         end
+         cpp.memory.assign_agent_data(mold_id)
          if agent_creation.closed_operand_list /= Void then
             from
                i := agent_creation.closed_operand_list.lower
@@ -354,46 +350,7 @@ feature {}
          end
          function_body.append(once "return((T0*)u);%N")
          cpp.dump_pending_c_function(True)
-
-         -- The gc_mark_MOLD_ID function:
-         if not cpp.gc_handler.is_off then
-            cpp.prepare_c_function
-            function_signature.append(once "void gc_mark_")
-            function_signature.append(mold_id)
-            function_signature.append(once "(se_")
-            function_signature.append(mold_id)
-            function_signature.append(once "*u)")
-
-            function_body.append(once "gc_agent*gcu=(gc_agent*)u;%N%
-                                      %if (gcu->header.flag==FSOH_UNMARKED){%N%
-                                      %gcu->header.flag=FSOH_MARKED;%N")
-
-            if agent_creation.closed_operand_list /= Void then
-               from
-                  i := agent_creation.closed_operand_list.lower
-               until
-                  i > agent_creation.closed_operand_list.upper
-               loop
-                  closed_operand := agent_creation.closed_operand_list.item(i)
-                  if agent_creation.stored_closed_operand(type, closed_operand) then
-                     t := closed_operand.resolve_in(type)
-                     if t.is_reference then
-                        function_body.append(once "gc_mark(u->")
-                        closed_operand_name_in(closed_operand, function_body)
-                        function_body.append(once ");%N")
-                     elseif cpp.gc_handler.need_mark.for(t) then
-                        cpp.gc_handler.mark_in(t.canonical_type_mark, function_body)
-                        function_body.append(once "(&(u->")
-                        closed_operand_name_in(closed_operand, function_body)
-                        function_body.append(once "));%N")
-                     end
-                  end
-                  i := i + 1
-               end
-            end
-            function_body.append(once "}%N")
-            cpp.dump_pending_c_function(True)
-         end
+         cpp.memory.generate_agent_data(agent_creation, type, mold_id, agent closed_operand_name_in(?, function_body))
          if agent_creation.is_equal_used_in(agent_type) then
             -- The is_equal function:
             is_equal_agent_creation_define_function(agent_creation, type)
@@ -506,11 +463,7 @@ feature {}
             end
          end
          out_h.append(once ");%N")
-         if not cpp.gc_handler.is_off then
-            out_h.append(once "void(*gc_mark_agent_mold)(se_")
-            out_h.append(mold_id)
-            out_h.append(once "*);%N")
-         end
+         cpp.memory.define_agent_data(mold_id)
          out_h.append(once "int (*eq)(se_agent*,se_agent*);%N")
          if agent_creation.closed_operand_list /= Void then
             from
@@ -563,9 +516,7 @@ feature {}
             out_h.append(is_equal_mold_id)
             out_h.append(once "{Tid id;%Nint creation_mold_id;%N")
             out_h.append(once "void*afp;%N")
-            if not cpp.gc_handler.is_off then
-               out_h.append(once "void*gc_mark_agent_mold;%N")
-            end
+            cpp.memory.define_agent_data_is_equal
             out_h.append(once "void*eq;%N")
             from
                i := agent_creation.closed_operand_list.lower
@@ -674,7 +625,7 @@ feature {}
                            %ds.locals=NULL;%N")
          end
          if live_type.canonical_type_mark.is_reference then
-            cpp.gc_handler.allocation_of(internal_c_local, live_type)
+            cpp.memory.allocation_of(internal_c_local, live_type)
          else
             internal_c_local.append_in(function_body)
             function_body.append(once "=M")

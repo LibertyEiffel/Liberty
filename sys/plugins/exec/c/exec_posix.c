@@ -53,6 +53,20 @@ static int find_variable(char** env, char* var){
   return -1;
 }
 
+static void check_write(int expected, int actual) {
+   if (actual != expected) {
+    handle(SE_HANDLE_RUNTIME_ERROR, NULL);
+#ifdef SE_EXCEPTIONS
+    internal_exception_handler(Routine_failure);
+#elif !defined(SE_BOOST)
+    error0("Routine failure: could not write.", NULL);
+#else
+    fprintf(SE_ERR,"Routine failure (write returned %d but expected %d).\n", actual, expected);
+    exit(EXIT_FAILURE);
+#endif
+  }
+}
+
 EIF_BOOLEAN basic_exec_posix_execute(se_exec_data_t*data, char*prog, char**args, EIF_BOOLEAN keep_env, char**add_env, int* in_fd, int* out_fd, int* err_fd) {
   int id = fork();
   if (id == 0) {
@@ -179,7 +193,7 @@ EIF_INTEGER basic_exec_posix_get_character (EIF_INTEGER fd) {
 void basic_exec_posix_put_character(EIF_INTEGER fd, EIF_CHARACTER c) {
   char buf[1];
   buf[0] = c;
-  write(fd, buf, 1);
+  check_write(1, write(fd, buf, 1));
 }
 
 void basic_exec_posix_wait_any(se_exec_data_t*data) {
@@ -199,7 +213,7 @@ static int waitpid_selfpipe[2];
 static EIF_OBJECT waitpid_input;
 
 static void waitpid_sigh(int n) {
-   write(waitpid_selfpipe[1], "", 1);
+   check_write(1, write(waitpid_selfpipe[1], "", 1));
 }
 
 void basic_exec_waitpid_init(EIF_OBJECT obj) {

@@ -1,7 +1,7 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class C_GARBAGE_COLLECTOR_INFO_COMPILER
+class C_GARBAGE_COLLECTOR_BEFORE_MARK_COMPILER
    --
    -- Produce C code to print GC information.
    --
@@ -21,39 +21,34 @@ feature {NATIVE_ARRAY_TYPE_MARK}
    visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
       do
          function_body.append(once "if(")
-         cpp.gc_handler.info_nb_in(visited, function_body)
-         function_body.append(once ")%Nfprintf(SE_GCINFO,%"%%d\t%%d\t\t")
-         function_body.append(visited.written_name.to_string)
-         function_body.append(once "\n%",")
-         cpp.gc_handler.info_nb_in(visited, function_body)
-         function_body.extend(',')
-         cpp.gc_handler.na_env_in(visited, function_body)
-         function_body.append(once ".space_used);%N")
+         memory.na_env_in(visited, function_body)
+         function_body.append(once ".store_left>0){%N")
+         memory.na_env_in(visited, function_body)
+         function_body.append(once ".store->header.size=")
+         memory.na_env_in(visited, function_body)
+         function_body.append(once ".store_left;%N")
+         memory.na_env_in(visited, function_body)
+         function_body.append(once ".store->header.magic_flag=RSOH_FREE;%N")
+         memory.na_env_in(visited, function_body)
+         function_body.append(once ".store_left=0;%N}%N")
+         memory.na_env_in(visited, function_body)
+         function_body.append(once ".chunk_list=NULL;%N")
+         memory.na_env_in(visited, function_body)
+         function_body.append(once ".store_chunk=NULL;%N")
       end
 
 feature {}
    gc_reference (visited: TYPE_MARK) is
       do
-         function_body.append(once ";%Nif(")
-         cpp.gc_handler.info_nb_in(visited, function_body)
-         function_body.append(once ")%Nfprintf(SE_GCINFO,%"%%d\t%%lu\t%%d\t")
-         function_body.append(visited.written_mark)
-         function_body.append(once "\n%",")
-         cpp.gc_handler.info_nb_in(visited, function_body)
-         function_body.append(once ",(unsigned long)(")
-         cpp.gc_handler.info_nb_in(visited, function_body)
-         function_body.append(once "*sizeof(T")
-         visited.id.append_in(function_body)
-         function_body.append(once ")),")
-         cpp.gc_handler.store_left_in(visited, function_body)
-         function_body.append(once ");%N")
+         memory.free_in(visited, function_body)
+         function_body.append(once "=(void*)0;%N")
       end
 
    gc_expanded (visited: TYPE_MARK) is
       do
       end
 
-end -- class C_GARBAGE_COLLECTOR_INFO_COMPILER
+end -- class C_GARBAGE_COLLECTOR_BEFORE_MARK_COMPILER
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

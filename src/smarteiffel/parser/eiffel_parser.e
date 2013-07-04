@@ -2857,6 +2857,18 @@ feature {}
                   error_handler.append(once "Bad use of predefined type NATIVE_ARRAY.")
                   error_handler.print_as_fatal_error
                end
+            when "WEAK_REFERENCE" then
+               sp := token_buffer.start_position
+               if skip1('[') and then a_type_mark and then skip1(']') then
+                  check
+                     last_type_mark /= Void
+                  end
+                  create {WEAK_REFERENCE_TYPE_MARK} last_type_mark.make(sp, last_type_mark)
+               else
+                  error_handler.add_position(current_position)
+                  error_handler.append(once "Bad use of predefined type NATIVE_ARRAY.")
+                  error_handler.print_as_fatal_error
+               end
             when "BOOLEAN" then
                create {BOOLEAN_TYPE_MARK} last_type_mark.make(token_buffer.start_position)
             when "CHARACTER" then

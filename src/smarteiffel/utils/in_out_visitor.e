@@ -859,6 +859,26 @@ feature {}
       do
       end
 
+feature {WEAK_REFERENCE_TYPE_MARK}
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+      do
+         if enter_weak_reference_type_mark(visited) then
+            visited.class_text.accept(Current)
+            visit_generic_type_mark(visited)
+            exit_weak_reference_type_mark(visited)
+         end
+      end
+
+feature {}
+   enter_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK): BOOLEAN is
+      do
+         Result := True
+      end
+
+   exit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+      do
+      end
+
 feature {BOOLEAN_TYPE_MARK}
    visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK) is
       do

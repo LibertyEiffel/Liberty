@@ -806,11 +806,7 @@ feature {ACE_CHECK}
          else
             txt.append("   trace (no)%N")
          end
-         if cpp.gc_handler.is_off then
-            txt.append("   collect (no)%N")
-         else
-            txt.append("   collect (yes)%N")
-         end
+         cpp.memory.ace_option(txt)
          if error_handler.style_warning then
             txt.append("   style_warning (yes)%N")
          else
@@ -1248,9 +1244,7 @@ feature {}
             elseif a_keyword(fz_debug) then
                add_default_debug_key(a_debug_key)
             elseif a_keyword(once "collect") then
-               if not a_yes_no_all then
-                  cpp.gc_handler.no_gc
-               end
+               a_collect_value
             elseif a_keyword(fz_case_insensitive) then
                error_handler.add_position(current_position)
                error_handler.append(once "The %"case_insensitive%" option is no longer supported.")
@@ -1294,6 +1288,31 @@ feature {}
             else
                stop := True
             end
+         end
+      end
+
+   a_collect_value is
+      local
+         mhf: MEMORY_HANDLER_FACTORY
+      do
+         if a_manifest_string(True) then
+            inspect
+               buffer
+            when "bdw" then
+               mhf.set_bdw_gc
+            when "yes", "all" then
+               -- nothing to do
+            when "no" then
+               mhf.set_no_gc
+            else
+               error_handler.add_position(current_position)
+               error_handler.append(once "Invalid collect value: must be either yes, no, or %"bdw%"")
+               error_handler.print_as_fatal_error
+            end
+         elseif a_yes_no_all then
+            -- nothing to do
+         else
+            mhf.set_no_gc
          end
       end
 
@@ -1659,7 +1678,7 @@ feature {}
 
    a_generate is
       local
-         stop, value: BOOLEAN
+         stop, value: BOOLEAN; mhf: MEMORY_HANDLER_FACTORY
       do
          from
          until
@@ -1674,7 +1693,7 @@ feature {}
                system_tools.set_c_compiler(string_aliaser.string(a_string))
             elseif a_keyword(fz_gc_info) then
                if a_yes_no_all then
-                  cpp.gc_handler.set_info_flag
+                  mhf.set_info_flag
                end
             elseif a_keyword(fz_no_strip) then
                if a_yes_no_all then

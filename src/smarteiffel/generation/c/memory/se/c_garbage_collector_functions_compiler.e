@@ -9,7 +9,7 @@ class C_GARBAGE_COLLECTOR_FUNCTIONS_COMPILER
 inherit
    C_GARBAGE_COLLECTOR_ABSTRACT_COMPILER
       redefine
-         make
+         make, visit_weak_reference_type_mark
       end
 
 create {GC_HANDLER}
@@ -29,7 +29,7 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          -- ----------------------------- Definiton for gc_markXXX :
          cpp.prepare_c_function
          function_signature.append(once "void ")
-         cpp.gc_handler.mark_in(visited, function_signature)
+         memory.mark_in(visited, function_signature)
          function_signature.append(once "(T")
          ltid.append_in(function_signature)
          function_signature.append(once " o)")
@@ -45,33 +45,33 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          function_body.append(once "size=(size*sizeof(")
          function_body.append(cpp.result_type.for(visited.generic_list.first))
          function_body.append(once "))+sizeof(rsoh);%Nsize=((size+(sizeof(double)-1))&~(sizeof(double)-1));%N")
-         if cpp.gc_handler.info_flag then
-            cpp.gc_handler.info_nb_in(visited, function_body)
+         if memory.info_flag then
+            memory.info_nb_in(visited, function_body)
             function_body.append(once "++;%N")
-            cpp.gc_handler.na_env_in(visited, function_body)
+            memory.na_env_in(visited, function_body)
             function_body.append(once ".space_used+=size;%N")
          end
          function_body.append(once "if (size<=(")
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ".store_left)){%N%
                                                  %rsoh*r=")
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ".store;%N")
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ".store_left-=size;%N%
                                                  %if(")
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ".store_left>sizeof(rsoh)){%N%
                                                  %r->header.size=size;%N")
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ".store=((rsoh*)(((char*)(")
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ".store))+size));%N}%N%
                                                  %else {%N%
                                                  %r->header.size=size+")
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ".store_left;%N")
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ".store_left=0;%N}%N%
                                    %(r->header.magic_flag)=RSOH_UNMARKED;%N%
                                    %((void)memset((r+1),0,r->header.size-sizeof(rsoh)));%N%
@@ -80,20 +80,26 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          function_body.append(once ")(r+1));%N}%Nreturn((T")
          ltid.append_in(function_body)
          function_body.append(once ")new_na(&")
-         cpp.gc_handler.na_env_in(visited, function_body)
+         memory.na_env_in(visited, function_body)
          function_body.append(once ",size));%N")
          cpp.dump_pending_c_function(True)
       end
 
+feature {WEAK_REFERENCE_TYPE_MARK}
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+      do
+         gc_weak_reference(visited)
+      end
+
 feature {}
-   gc_reference (visited: TYPE_MARK) is
+   gc_reference_sweep (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER; is_weak_ref: BOOLEAN) is
+      require
+         lt = visited.type.live_type
+         ltid = lt.id
       local
-         lt: LIVE_TYPE; ltid, arg_id: INTEGER; gc_check_id: BOOLEAN; wr_gen_arg_lt: LIVE_TYPE; is_weak_ref: BOOLEAN
+         wr_gen_arg_lt: LIVE_TYPE
          is_monomorphic_weak_ref: BOOLEAN
       do
-         lt := visited.type.live_type
-         ltid := lt.id
-         -- --------------------------- Definition for gc_sweepXXX :
          cpp.prepare_c_function
          function_signature.append(once "void gc_sweep")
          ltid.append_in(function_signature)
@@ -105,12 +111,14 @@ feature {}
          function_body.append(once "*)(&(c->first_object)));%N%
                                    %if(c->header.state_type==FSO_STORE_CHUNK){%N%
                                    %for(;o1<")
-         cpp.gc_handler.store_in(visited, function_body)
+         memory.store_in(visited, function_body)
          function_body.append(once ";o1++){%N%
                                    %if((o1->header.flag)==FSOH_MARKED){%N%
                                    %o1->header.flag=FSOH_UNMARKED;%N")
          wr_gen_arg_lt := visited.weak_reference_argument(lt)
-         is_weak_ref := wr_gen_arg_lt /= Void
+         check
+            is_weak_ref = (wr_gen_arg_lt /= Void)
+         end
          if is_weak_ref then
             check
                visited.generic_list.count = 1
@@ -121,11 +129,11 @@ feature {}
                ltid.append_in(function_body)
                function_body.append(once "(&(o1->object));%N")
             else
-               function_body.append(once "gc_update_weak_ref_item_polymorph(&(o1->object._item));%N")
+               function_body.append(once "gc_update_weak_ref_item_polymorph((Tgc*)&(o1->object));%N")
             end
          end
          function_body.append(once "}%Nelse{%N")
-         cpp.gc_handler.memory_dispose(once "o1", lt)
+         memory.memory_dispose(once "o1", lt)
          function_body.append(once "o1->header.next=gc_free")
          ltid.append_in(function_body)
          function_body.append(once ";%Ngc_free")
@@ -149,11 +157,11 @@ feature {}
                ltid.append_in(function_body)
                function_body.append(once "(&(o1->object));%N")
             else
-               function_body.append(once "gc_update_weak_ref_item_polymorph(&(o1->object._item));%N")
+               function_body.append(once "gc_update_weak_ref_item_polymorph((Tgc*)&(o1->object));%N")
             end
          end
          function_body.append(once "dead=0;}%Nelse{%N")
-         cpp.gc_handler.memory_dispose(once "o1", lt)
+         memory.memory_dispose(once "o1", lt)
          function_body.append(once "o1->header.next=gc_free")
          ltid.append_in(function_body)
          function_body.append(once ";%Ngc_free")
@@ -169,38 +177,58 @@ feature {}
                                    %c->header.state_type=FSO_FREE_CHUNK;%N}%N%
                                    %}%N")
          cpp.dump_pending_c_function(True)
-         -- ------------------ Definition for gc_update_weak_ref_item... :
-         if is_weak_ref then
-            if is_monomorphic_weak_ref then
-               cpp.prepare_c_function
-               function_signature.append(once "void gc_update_weak_ref_item")
-               ltid.append_in(function_signature)
-               function_signature.append(once "(T")
-               ltid.append_in(function_signature)
-               function_signature.append(once "* wr)")
-               function_body.append(once "gc")
-               arg_id := wr_gen_arg_lt.run_time_set.first.id
-               arg_id.append_in(function_body)
-               function_body.append(once "* obj_ptr = (gc")
-               arg_id.append_in(function_body)
-               function_body.append(once "*)(wr->_item);%N%
-                                         %if (obj_ptr != NULL){%N%
-                                         %int swept = (((void*)obj_ptr) <= ((void*)wr));%N%
-                                         %if (swept != (obj_ptr->header.flag == FSOH_UNMARKED))%N%
-                                         %/* (already swept) xor marked */%N%
-                                         %wr->_item = NULL;%N}%N")
-               cpp.dump_pending_c_function(True)
-            else
-               check
-                  wr_gen_arg_lt.is_tagged
-               end
-               generate_once_gc_update_weak_ref_item_polymorph(visited)
-            end
+      end
+
+   gc_reference_update_weak_ref_item (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER) is
+      require
+         lt = visited.type.live_type
+         ltid = lt.id
+      local
+         arg_id: INTEGER; wr_gen_arg_lt: LIVE_TYPE
+         is_monomorphic_weak_ref: BOOLEAN
+      do
+         wr_gen_arg_lt := visited.weak_reference_argument(lt)
+         check
+            wr_gen_arg_lt /= Void
          end
-         -- --------------------- Definition for gc_markXXX :
+         is_monomorphic_weak_ref := wr_gen_arg_lt.run_time_set.count = 1
+         if is_monomorphic_weak_ref then
+            cpp.prepare_c_function
+            function_signature.append(once "void gc_update_weak_ref_item")
+            ltid.append_in(function_signature)
+            function_signature.append(once "(T")
+            ltid.append_in(function_signature)
+            function_signature.append(once "* wr)")
+            function_body.append(once "gc")
+            arg_id := wr_gen_arg_lt.run_time_set.first.id
+            arg_id.append_in(function_body)
+            function_body.append(once "* obj_ptr = (gc")
+            arg_id.append_in(function_body)
+            function_body.append(once "*)(wr->o);%N%
+                                      %if (obj_ptr != NULL){%N%
+                                      %int swept = (((void*)obj_ptr) <= ((void*)wr));%N%
+                                      %if (swept != (obj_ptr->header.flag == FSOH_MARKED)) /* **** TODO: was FSOH_UNMARKED???? (incoherent with comment below) */%N%
+                                      %/* (already swept) xor marked */%N%
+                                      %wr->o = NULL;%N}%N")
+            cpp.dump_pending_c_function(True)
+         else
+            check
+               wr_gen_arg_lt.is_tagged
+            end
+            generate_once_gc_update_weak_ref_item_polymorph(visited)
+         end
+      end
+
+   gc_reference_mark (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER) is
+      require
+         lt = visited.type.live_type
+         ltid = lt.id
+      local
+         gc_check_id: BOOLEAN
+      do
          cpp.prepare_c_function
          function_signature.append(once "void ")
-         cpp.gc_handler.mark_in(visited, function_signature)
+         memory.mark_in(visited, function_signature)
          function_signature.append(once "(T")
          ltid.append_in(function_signature)
          function_signature.append(once "*o)")
@@ -215,16 +243,28 @@ feature {}
             function_body.append(once "}%N")
          end
          cpp.dump_pending_c_function(True)
-         -- ----------------------- Definition for gc_align_markXXX :
+      end
+
+   gc_reference_align_mark (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER) is
+      require
+         lt = visited.type.live_type
+         ltid = lt.id
+      do
          cpp.prepare_c_function
          function_signature.append(once "void ")
-         cpp.gc_handler.align_mark_in(visited, function_signature)
+         memory.align_mark_in(visited, function_signature)
          function_signature.append(once "(fsoc*c,gc")
          ltid.append_in(function_signature)
          function_signature.append(once "*p)")
          gc_align_mark_fixed_size(lt)
          cpp.dump_pending_c_function(True)
-         -- ------------------------ Definition of chunk model HXXX :
+      end
+
+   gc_reference_fsoc_model (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER) is
+      require
+         lt = visited.type.live_type
+         ltid = lt.id
+      do
          cpp.out_h_buffer.copy(once "fsoc H")
          ltid.append_in(cpp.out_h_buffer)
          cpp.out_c_buffer.copy(once "{{FSOC_SIZE,FSO_STORE_CHUNK,%N(void(*)(mch*,void*))gc_align_mark")
@@ -235,7 +275,13 @@ feature {}
          ltid.append_in(cpp.out_c_buffer)
          cpp.out_c_buffer.append(once "))-1)}")
          cpp.write_extern_2(cpp.out_h_buffer, cpp.out_c_buffer)
-         -- --------------------------------- Definition for newXXX :
+      end
+
+   gc_reference_new (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER) is
+      require
+         lt = visited.type.live_type
+         ltid = lt.id
+      do
          cpp.prepare_c_function
          function_signature.extend('T')
          ltid.append_in(function_signature)
@@ -245,59 +291,59 @@ feature {}
          function_body.append(once "gc")
          ltid.append_in(function_body)
          function_body.append(once "*n;%Nfsoc*c;%N")
-         if cpp.gc_handler.info_flag then
-            cpp.gc_handler.info_nb_in(visited, function_body)
+         if memory.info_flag then
+            memory.info_nb_in(visited, function_body)
             function_body.append(once "++;%N")
          end
          --
          function_body.append(once "if(")
-         cpp.gc_handler.store_left_in(visited, function_body)
+         memory.store_left_in(visited, function_body)
          function_body.append(once ">1){%N")
-         cpp.gc_handler.store_left_in(visited, function_body)
+         memory.store_left_in(visited, function_body)
          function_body.append(once "--;%Nn=")
-         cpp.gc_handler.store_in(visited, function_body)
+         memory.store_in(visited, function_body)
          function_body.append(once "++;%N}%Nelse if(")
-         cpp.gc_handler.free_in(visited, function_body)
+         memory.free_in(visited, function_body)
          function_body.append(once "!=NULL){%Nn=")
-         cpp.gc_handler.free_in(visited, function_body)
+         memory.free_in(visited, function_body)
          function_body.append(once ";%N")
-         cpp.gc_handler.free_in(visited, function_body)
+         memory.free_in(visited, function_body)
          function_body.append(once "=n->header.next;%N}%Nelse if(")
-         cpp.gc_handler.store_left_in(visited, function_body)
+         memory.store_left_in(visited, function_body)
          function_body.append(once "==1){%N")
-         cpp.gc_handler.store_left_in(visited, function_body)
+         memory.store_left_in(visited, function_body)
          function_body.append(once "=0;%N")
-         cpp.gc_handler.store_chunk_in(visited, function_body)
+         memory.store_chunk_in(visited, function_body)
          function_body.append(once "->header.state_type=FSO_USED_CHUNK;%N%
                                    %n=")
-         cpp.gc_handler.store_in(visited, function_body)
+         memory.store_in(visited, function_body)
          function_body.append(once "++;%N}%N%
                                    %else{%Nc=gc_fsoc_get1();%N%
                                    %if(")
-         cpp.gc_handler.free_in(visited, function_body)
+         memory.free_in(visited, function_body)
          function_body.append(once "!=NULL){%Nn=")
-         cpp.gc_handler.free_in(visited, function_body)
+         memory.free_in(visited, function_body)
          function_body.append(once ";%N")
-         cpp.gc_handler.free_in(visited, function_body)
+         memory.free_in(visited, function_body)
          function_body.append(once "=n->header.next;%N}%Nelse{%N%
                                    %if(c==NULL)c=gc_fsoc_get2();%N")
-         cpp.gc_handler.store_chunk_in(visited, function_body)
+         memory.store_chunk_in(visited, function_body)
          function_body.append(once "=c;%N*")
-         cpp.gc_handler.store_chunk_in(visited, function_body)
+         memory.store_chunk_in(visited, function_body)
          function_body.append(once "=H")
          ltid.append_in(function_body)
          function_body.append(once ";%N")
-         cpp.gc_handler.store_in(visited, function_body)
+         memory.store_in(visited, function_body)
          function_body.append(once "=((gc")
          ltid.append_in(function_body)
          function_body.append(once "*)(&(")
-         cpp.gc_handler.store_chunk_in(visited, function_body)
+         memory.store_chunk_in(visited, function_body)
          function_body.append(once "->first_object)));%N")
-         cpp.gc_handler.store_left_in(visited, function_body)
+         memory.store_left_in(visited, function_body)
          function_body.append(once "=H")
          ltid.append_in(function_body)
          function_body.append(once ".count_minus_one;%Nn=")
-         cpp.gc_handler.store_in(visited, function_body)
+         memory.store_in(visited, function_body)
          function_body.append(once "++;%N}%N%
                                    %}%Nn->header.flag=FSOH_UNMARKED;%N")
          if cpp.need_struct.for(visited) then
@@ -311,17 +357,46 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
+   gc_reference (visited: TYPE_MARK) is
+      local
+         lt: LIVE_TYPE; ltid: INTEGER
+      do
+         lt := visited.type.live_type
+         ltid := lt.id
+
+         gc_reference_sweep(visited, lt, ltid, False)
+         gc_reference_mark(visited, lt, ltid)
+         gc_reference_align_mark(visited, lt, ltid)
+         gc_reference_fsoc_model(visited, lt, ltid)
+         gc_reference_new(visited, lt, ltid)
+      end
+
+   gc_weak_reference (visited: TYPE_MARK) is
+      local
+         lt: LIVE_TYPE; ltid: INTEGER
+      do
+         lt := visited.type.live_type
+         ltid := lt.id
+
+         gc_reference_sweep(visited, lt, ltid, True)
+         gc_reference_update_weak_ref_item(visited, lt, ltid)
+         gc_reference_mark(visited, lt, ltid)
+         gc_reference_align_mark(visited, lt, ltid)
+         gc_reference_fsoc_model(visited, lt, ltid)
+         gc_reference_new(visited, lt, ltid)
+      end
+
    gc_expanded (visited: TYPE_MARK) is
       local
          lt: LIVE_TYPE; lt_id: INTEGER
       do
          lt := visited.type.live_type
-         if cpp.gc_handler.need_mark.for(lt.type) then
+         if memory.need_mark.for(lt.type) then
             lt_id := lt.id
             -- -------------------------- Definition for gc_markXXX:
             cpp.prepare_c_function
             function_signature.append(once "void ")
-            cpp.gc_handler.mark_in(visited, function_signature)
+            memory.mark_in(visited, function_signature)
             function_signature.append(once "(T")
             lt_id.append_in(function_signature)
             function_signature.append(once "*o)")
@@ -333,13 +408,15 @@ feature {}
    generate_once_gc_update_weak_ref_item_polymorph (visited: TYPE_MARK) is
       require
          visited.is_reference -- is_weak_ref
-         not cpp.gc_handler.is_off
          not cpp.pending_c_function
          visited.type.live_type.at_run_time
       once
+         cpp.out_h_buffer.copy(once "typedef struct Sgc {Tid id;T0*o;} Tgc;%N")
+         cpp.write_out_h_buffer
+
          cpp.prepare_c_function
-         function_signature.append(once "void gc_update_weak_ref_item_polymorph(T0** item)")
-         function_body.append(once "T0* obj_ptr = *item;%N%
+         function_signature.append(once "void gc_update_weak_ref_item_polymorph(Tgc* item)")
+         function_body.append(once "T0* obj_ptr = item->o;%N%
                                    %if (obj_ptr != NULL){%N%
                                    %int obj_size=se_strucT[obj_ptr->id];%N%
                                    %int swept")
@@ -353,9 +430,9 @@ feature {}
          end
          function_body.append(once "=(((void*)obj_ptr)<=((void*)item));%N%
                                    %obj_ptr = (T0*)(((char*)obj_ptr) + obj_size);%N%
-                                   %if (swept!=(((fso_header*)obj_ptr)->flag==FSOH_UNMARKED))%N%
+                                   %if (swept != (((fso_header*)obj_ptr)->flag==FSOH_UNMARKED)) /* **** TODO: was FSOH_UNMARKED???? (incoherent with comment below) */%N%
                                    %/* (already swept) xor marked */%N%
-                                   %*item = NULL;%N}%N")
+                                   %item->o=NULL;%N}%N")
          cpp.dump_pending_c_function(True)
       end
 
@@ -378,7 +455,6 @@ feature {}
          -- Finally, when `is_unmarked' is True, object `o' is unmarked.
       require
          cpp.pending_c_function
-         not cpp.gc_handler.is_off
          not lt.canonical_type_mark.is_native_array
          lt.at_run_time
       local
@@ -398,7 +474,7 @@ feature {}
                loop
                   rf2 := lt.writable_attributes.item(i)
                   t := rf2.result_type.type
-                  if cpp.gc_handler.need_mark.for(t) then
+                  if memory.need_mark.for(t) then
                      lvtp := t.live_type
                      wa_cycle.clear_count
                      wa_cycle.add_last(rf2)
@@ -474,7 +550,7 @@ feature {}
       local
          must_collect: TAGGED_FLAG
       do
-         must_collect := cpp.native_array_collector.must_collect(lt)
+         must_collect := memory.native_array_collector.must_collect(lt)
          Result := must_collect /= Void and then must_collect.item
       end
 
@@ -518,7 +594,7 @@ feature {}
                end
                function_body.append(once "o);%N}%N}%N}")
             else
-               cpp.gc_handler.mark_for(field_name, attribute_type, False)
+               memory.mark_for(field_name, attribute_type, False)
             end
          end
       end
@@ -527,7 +603,6 @@ feature {}
          -- Compute the best body for gc_align_markXXX of a fixed_size object.
       require
          cpp.pending_c_function
-         not cpp.gc_handler.is_off
          not lt.canonical_type_mark.is_native_array
          lt.at_run_time
       do
@@ -556,7 +631,6 @@ feature {}
          -- Actually, this feature may be called to produce C code when C variable `o' is not NULL.
       require
          cpp.pending_c_function
-         not cpp.gc_handler.is_off
          visited.type.live_type.at_run_time
       local
          e_type: TYPE; e_live_type: LIVE_TYPE
@@ -566,7 +640,7 @@ feature {}
                                       %return; /* external NA */%N")
          end
          e_type := visited.elements_type.type
-         if cpp.gc_handler.need_mark.for(e_type) then
+         if memory.need_mark.for(e_type) then
             e_live_type := e_type.live_type
             function_body.append(once "{rsoh*h=((rsoh*)o)-1;%N%
                                       %if((h->header.magic_flag)==RSOH_UNMARKED){%N%
@@ -579,7 +653,7 @@ feature {}
             function_body.append(once "p=((void*)(o+((((h->header.size)-sizeof(rsoh))/sizeof(e))-1)));%N%
                                       %for(;((void*)p)>=((void*)o);p--){%N%
                                       %e=*p;%N")
-            cpp.gc_handler.mark_for(once "e", e_live_type, False)
+            memory.mark_for(once "e", e_live_type, False)
             function_body.append(once "}}}}%N")
          else
             function_body.append(once "(((rsoh*)o)-1)->header.magic_flag=RSOH_MARKED;%N")
