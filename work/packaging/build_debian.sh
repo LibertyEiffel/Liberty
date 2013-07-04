@@ -85,4 +85,11 @@ done
 
 rm -rf $HOME
 
-ls -l $packages/debs
+echo
+echo "Installed packages:"
+for deb in $packages/debs/*.deb; do
+    echo "    $deb"
+done
+
+echo
+echo Done.
