@@ -1,0 +1,19 @@
+Origin: Releases
+Label: Releases
+Suite: stable
+Codename: release
+Version: 3.0
+Architectures: i386 amd64 source
+Components: main
+Description: Liberty-Eiffel releases
+#SignWith: yes
+
+Origin: Snapshots
+Label: Snapshots
+Suite: stable
+Codename: snapshot
+Version: 3.0
+Architectures: i386 amd64 source
+Components: main
+Description: Liberty-Eiffel snapshots
+#SignWith: yes
