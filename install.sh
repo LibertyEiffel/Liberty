@@ -2,16 +2,19 @@
 
 MAXTOOLCOUNT=20
 
-test ${0%/*} != $0 && cd ${0%/*}
+cd $(dirname $(readlink -f $0))
+
 export CC_TYPE=${CC_TYPE:-gcc}
 export CC=${CC:-$CC_TYPE}
 export CXX=${CXX:-g++}
 export LIBERTY_HOME=$(pwd)
-export PATH=$LIBERTY_HOME/target/bin:$PATH
+export TARGET=${TARGET:-$LIBERTY_HOME/target}
+export PATH=$TARGET/bin:$PATH
 export plain=${plain:-FALSE}
-export LOG=$LIBERTY_HOME/target/log/install$(date +'-%Y%m%d-%H%M%S').log
+export LOG=$TARGET/log/install$(date +'-%Y%m%d-%H%M%S').log
 export PREREQUISITES="$CC $CXX gccxml"
 unset CDPATH
+
 . $LIBERTY_HOME/work/tools.sh
 
 function check_prerequisites()
@@ -34,55 +37,26 @@ function check_prerequisites()
 
 function bootstrap()
 {
-    cd $LIBERTY_HOME
-    test -d target || mkdir target
-    cd target
+    test -d $TARGET && rm -rf $TARGET
+    mkdir $TARGET
+    cd $TARGET
     test -d log || mkdir log
 
     check_prerequisites
 
     if [ ! -d bin ]; then
-        title "Preparing target"
+        title "Preparing $TARGET"
         mkdir bin
         cd bin
         for ace in $LIBERTY_HOME/src/tools/*/*.ace; do
             tool=$(basename $(dirname $ace))
             if [[ $tool.ace == $(basename $ace) ]]; then
-                mkdir $LIBERTY_HOME/target/bin/$tool.d
-                ln -s $ace $LIBERTY_HOME/target/bin/$tool.d
+                mkdir $TARGET/bin/$tool.d
+                ln -s $ace $TARGET/bin/$tool.d
             fi
         done
         cd ..
     fi
-
-    if [ ! -d libertyrc ]; then
-        title "Preparing Liberty environment"
-        mkdir libertyrc
-        cd libertyrc
-        cat > libertyi.rc <<EOF
-master libertyi
-
-environment
-        path_liberty is "$LIBERTY_HOME"
-        sys is "$LIBERTY_HOME/target"
-
-cluster
-        LIBERTY_LIBRARY: "\${path_liberty}/src/lib"
-        LIBERTY_TOOLS: "\${path_liberty}/src/tools"
-        LIBERTY_WRAPPERS: "\${path_liberty}/src/wrappers"
-        SMARTEIFFEL_TOOLS: "\${path_liberty}/src/smarteiffel"
-
-end
-EOF
-        cd ..
-    fi
-
-    if [ -L $HOME/.liberty ]; then
-        rm $HOME/.liberty
-    elif [ -e $HOME/.liberty ]; then
-        mv $HOME/.liberty $HOME/.liberty~
-    fi
-    ln -s $LIBERTY_HOME/target/libertyrc $HOME/.liberty
 
     if [ ! -d serc ]; then
         title "Preparing SmartEiffel environment"
@@ -90,7 +64,7 @@ EOF
         cd serc
         cat > liberty.se <<EOF
 [General]
-bin: $LIBERTY_HOME/target/bin
+bin: $TARGET/bin
 sys: $LIBERTY_HOME/sys
 short: $LIBERTY_HOME/resources/short
 os: UNIX
@@ -100,13 +74,15 @@ jobs: $((2 * $(grep '^processor' /proc/cpuinfo|wc -l)))
 
 [Environment]
 path_liberty: $LIBERTY_HOME/
-path_lib: $LIBERTY_HOME/src/lib/
+path_liberty_core: $LIBERTY_HOME/src/lib/
+path_liberty_extra: $LIBERTY_HOME/src/wrappers/
 path_tools: $LIBERTY_HOME/src/smarteiffel/
 path_tutorial: $LIBERTY_HOME/tutorial/
 hyphen: -
 
 [Loadpath]
-liberty: \${path_liberty}src/loadpath.se
+liberty_core: \${path_liberty_core}loadpath.se
+liberty_extra: \${path_liberty_extra}loadpath.se
 test: \${path_liberty}test/loadpath.se
 tools: \${path_tools}loadpath.se
 tutorial: \${path_tutorial}loadpath.se
@@ -237,17 +213,17 @@ EOF
     elif [ -e $HOME/.serc ]; then
         mv $HOME/.serc $HOME/.serc~
     fi
-    ln -s $LIBERTY_HOME/target/serc $HOME/.serc
+    ln -s $TARGET/serc $HOME/.serc
 
     title "Bootstrapping SmartEiffel tools"
     cd $LIBERTY_HOME/resources/smarteiffel-germ
 
-    if [ ! -d $LIBERTY_HOME/target/bin/compile_to_c.d ]; then
+    if [ ! -d $TARGET/bin/compile_to_c.d ]; then
         progress 30 0 $MAXTOOLCOUNT "germ"
-        test -d $LIBERTY_HOME/target/bin/compile_to_c.d || mkdir $LIBERTY_HOME/target/bin/compile_to_c.d
-        run $CC -c compile_to_c.c && run $CC compile_to_c.o -o $LIBERTY_HOME/target/bin/compile_to_c.d/compile_to_c || exit 1
+        test -d $TARGET/bin/compile_to_c.d || mkdir $TARGET/bin/compile_to_c.d
+        run $CC -c compile_to_c.c && run $CC compile_to_c.o -o $TARGET/bin/compile_to_c.d/compile_to_c || exit 1
     fi
-    cd $LIBERTY_HOME/target/bin/compile_to_c.d
+    cd $TARGET/bin/compile_to_c.d
 
     progress 30 1 $MAXTOOLCOUNT "T1: compile_to_c"
     run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c.new || exit 1
@@ -382,7 +358,7 @@ function compile_plugins()
 function generate_wrappers()
 {
     title "Generating wrappers"
-    cd $LIBERTY_HOME/target/bin
+    cd $TARGET/bin
     cd wrappers-generator.d
     n=$(ls $LIBERTY_HOME/src/wrappers/*/library/externals/Makefile | wc -l)
     n=$((n+1))
@@ -411,7 +387,7 @@ function compile_all()
         for f in $LIBERTY_HOME/src/tools/main/*.ace; do
             ace=${f##*/} && ace=${ace%.ace}
             progress 30 $i $n $ace
-            cd $LIBERTY_HOME/target/bin/${ace}.d
+            cd $TARGET/bin/${ace}.d
             run ../se c -verbose ${ace}.ace
             cd .. && test -e "$ace" || ln -s ${ace}.d/$ace .
             i=$((i+1))
@@ -423,7 +399,8 @@ function compile_all()
 
 function make_doc()
 {
-    export DOC_ROOT=$LIBERTY_HOME/target/doc/
+    export DOC_ROOT=$TARGET/doc/
+    export LOG=$TARGET/log/build_doc$(date +'-%Y%m%d-%H%M%S').log
     test -d $DOC_ROOT && rm -rf $DOC_ROOT
     mkdir -p $DOC_ROOT
 
@@ -441,20 +418,20 @@ function do_pkg_tools()
 
     install -d -m 0755 -o root -g root $PUBLIC $PRIVATE $ETC $SHORT $SYS $SITE_LISP
 
-    install -m 0755 -o root -g root $LIBERTY_HOME/target/bin/se $PUBLIC/
+    install -m 0755 -o root -g root $TARGET/bin/se $PUBLIC/
     install -m 0644 -o root -g root $LIBERTY_HOME/work/eiffel.el $SITE_LISP/
 
     for tool in compile compile_to_c clean pretty short find ace_check class_check eiffeldoc eiffeltest extract_internals mocker
     do
-        bin=$LIBERTY_HOME/target/bin/${tool}.d/$tool
+        bin=$TARGET/bin/${tool}.d/$tool
         if test -e $bin; then
             echo "$bin to $PRIVATE/"
             install -m 0755 -o root -g root $bin $PRIVATE/
         fi
     done
 
-    cp -a $LIBERTY_HOME/resources/short $SHORT
-    cp -a $LIBERTY_HOME/sys $SYS
+    cp -a $LIBERTY_HOME/resources/short/* $SHORT
+    cp -a $LIBERTY_HOME/sys/* $SYS
 
     chown -R root:root $SHORT $SYS
 
@@ -491,66 +468,66 @@ x_int: extract_internals
 [boost]
 c_compiler_type: gcc
 c_compiler_options: -pipe -O2 -fno-gcse
-c_linker_options: -Xlinker -${hyphen}no-as-needed
+c_linker_options: -Xlinker -\${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe -O2 -fno-gcse
-cpp_linker_options: -Xlinker -${hyphen}no-as-needed
+cpp_linker_options: -Xlinker -\${hyphen}no-as-needed
 
 [no_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe -O1
-c_linker_options: -Xlinker -${hyphen}no-as-needed
+c_linker_options: -Xlinker -\${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe -O1
-cpp_linker_options: -Xlinker -${hyphen}no-as-needed
+cpp_linker_options: -Xlinker -\${hyphen}no-as-needed
 
 [require_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe
-c_linker_options: -Xlinker -${hyphen}no-as-needed
+c_linker_options: -Xlinker -\${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe
-cpp_linker_options: -Xlinker -${hyphen}no-as-needed
+cpp_linker_options: -Xlinker -\${hyphen}no-as-needed
 
 [ensure_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe
-c_linker_options: -Xlinker -${hyphen}no-as-needed
+c_linker_options: -Xlinker -\${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe
-cpp_linker_options: -Xlinker -${hyphen}no-as-needed
+cpp_linker_options: -Xlinker -\${hyphen}no-as-needed
 
 [invariant_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe
-c_linker_options: -Xlinker -${hyphen}no-as-needed
+c_linker_options: -Xlinker -\${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe
-cpp_linker_options: -Xlinker -${hyphen}no-as-needed
+cpp_linker_options: -Xlinker -\${hyphen}no-as-needed
 
 [loop_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe
-c_linker_options: -Xlinker -${hyphen}no-as-needed
+c_linker_options: -Xlinker -\${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe
-cpp_linker_options: -Xlinker -${hyphen}no-as-needed
+cpp_linker_options: -Xlinker -\${hyphen}no-as-needed
 
 [all_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe
-c_linker_options: -Xlinker -${hyphen}no-as-needed
+c_linker_options: -Xlinker -\${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe
-cpp_linker_options: -Xlinker -${hyphen}no-as-needed
+cpp_linker_options: -Xlinker -\${hyphen}no-as-needed
 
 [debug_check]
 c_compiler_type: gcc
 c_compiler_options: -pipe -g
-c_linker_options: -Xlinker -${hyphen}no-as-needed
+c_linker_options: -Xlinker -\${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe -g
-cpp_linker_options: -Xlinker -${hyphen}no-as-needed
+cpp_linker_options: -Xlinker -\${hyphen}no-as-needed
 smarteiffel_options: -no_strip
 
 EOF
@@ -558,57 +535,71 @@ EOF
     chown root:root $ETC/liberty.se
 }
 
-function do_pkg_tools_src()
+function _do_pkg_src()
 {
-    SRC=$DESTDIR/usr/share/liberty-eiffel/src/
+    section=$1
+    src=$2
+
+    SRC=$DESTDIR/usr/share/liberty-eiffel/src
     ETC=$DESTDIR/etc/serc
 
     install -d -m 0755 -o root -g root $SRC $ETC
 
-    cp -a $LIBERTY_HOME/src/smarteiffel $SRC/tools
-    chown -R root:root $SRC/tools
+    cp -a $src $SRC/${section}
+    find $SRC -type f -exec chmod a-x {} +
+    chown -R root:root $SRC/${section}
 
-cat > $ETC/liberty_tools.se <<EOF
+cat > $ETC/liberty_${section}.se <<EOF
 [Environment]
-path_tools: /usr/share/liberty-eiffel/src/tools/
+path_${section}: /usr/share/liberty-eiffel/src/${section}/
 
 [Loadpath]
-tools: ${path_tools}loadpath.se
+${section}: \${path_${section}}loadpath.se
 EOF
+
+    chown root:root $ETC/liberty_${section}.se
+}
+
+function do_pkg_tools_src()
+{
+    _do_pkg_src tools $LIBERTY_HOME/src/smarteiffel
 }
 
 function do_pkg_core_libs()
 {
-    SRC=$DESTDIR/usr/share/liberty-eiffel/src/
-    ETC=$DESTDIR/etc/serc
+    _do_pkg_src core $LIBERTY_HOME/src/lib
+}
 
-    install -d -m 0755 -o root -g root $SRC $ETC
-
-    cp -a $LIBERTY_HOME/src/lib $SRC/core
-    chown -R root:root $SRC/core
-
-cat > $ETC/liberty_core.se <<EOF
-[Environment]
-path_liberty: /usr/share/liberty-eiffel/src/core/
-
-[Loadpath]
-liberty: ${path_liberty}loadpath.se
-EOF
+function do_pkg_extra_libs()
+{
+    _do_pkg_src extra $LIBERTY_HOME/src/wrappers
 }
 
 function do_pkg_tools_doc()
 {
-    DOC=$DESTDIR/usr/share/doc/liberty-eiffel/
-    install -d -m 0755 -o root -g root $DOC
-    cp -a $LIBERTY_HOME/target/doc/api/smarteiffel $DOC/tools
+    DOC=$DESTDIR/usr/share/doc/liberty-eiffel
+    install -d -m 0755 -o root -g root $DOC/tools
+    cp -a $TARGET/doc/api/smarteiffel/* $DOC/tools/smarteiffel/
+    cp -a $TARGET/doc/api/liberty/* $DOC/tools/liberty/
+    find $DOC -type f -exec chmod a-x {} +
     chown -R root:root $DOC
 }
 
 function do_pkg_core_doc()
 {
-    DOC=$DESTDIR/usr/share/doc/liberty-eiffel/
+    DOC=$DESTDIR/usr/share/doc/liberty-eiffel
     install -d -m 0755 -o root -g root $DOC
-    cp -a $LIBERTY_HOME/target/doc/api/liberty $DOC/core
+    cp -a $TARGET/doc/api/libraries/* $DOC/core/
+    find $DOC -type f -exec chmod a-x {} +
+    chown -R root:root $DOC
+}
+
+function do_pkg_extra_doc()
+{
+    DOC=$DESTDIR/usr/share/doc/liberty-eiffel
+    install -d -m 0755 -o root -g root $DOC
+    cp -a $TARGET/doc/api/wrappers/* $DOC/extra/
+    find $DOC -type f -exec chmod a-x {} +
     chown -R root:root $DOC
 }
 
@@ -618,32 +609,25 @@ function do_pkg()
         echo "No DESTDIR, please call from debian helper tools" >&2
         exit 1
     fi
-    echo do_pkg: DESTDIR=$DESTDIR
-    do_pkg_tools
-    do_pkg_tools_src
-    do_pkg_tools_doc
-    do_pkg_core_libs
-    do_pkg_core_doc
-}
-
-function do_all()
-{
-    test -d $LIBERTY_HOME/target && rm -rf $LIBERTY_HOME/target
-    bootstrap
-    #compile_plugins
-    #generate_wrappers
-    #compile_all
-    #make_doc
+    echo do_pkg: DESTDIR= $DESTDIR
+    echo
+    case "$1" in
+        tools)      do_pkg_tools;;
+        tools_src)  do_pkg_tools_src;;
+        tools_doc)  do_pkg_tools_doc;;
+        core_libs)  do_pkg_core_libs;;
+        core_doc)   do_pkg_core_doc;;
+        extra_libs) do_pkg_extra_libs;;
+        extra_doc)  do_pkg_extra_doc;;
+        *)
+            echo "Unknown pkg name: $1" >&2
+            exit 1
+            ;;
+    esac
 }
 
 if [ $# = 0 ]; then
-    #if [ -d $LIBERTY_HOME/target ]; then
-    #    #compile_all
-    #else
-    #    do_all
-    #fi
-
-    do_all
+    bootstrap
 else
     while [ $# -gt 0 ]; do
         case x"$1" in
@@ -654,16 +638,14 @@ else
                 generate_wrappers
                 ;;
             x-bootstrap)
-                do_all
-                ;;
-            x-bootstrap-se)
                 bootstrap
                 ;;
             x-compile)
                 compile_all
                 ;;
             x-package)
-                do_pkg
+                shift
+                do_pkg "$1"
                 ;;
             x-plain)
                 plain=TRUE
@@ -675,13 +657,10 @@ else
                 echo "Unknown argument: $1"
                 cat >&2 <<EOF
 
-Usage: $0 {-bootstrap|-plugins|-wrappers|-bootstrap-se|-package}
+Usage: $0 {-bootstrap|-plugins|-wrappers|-doc|-package}
 
   -bootstrap   Bootstraps Liberty starting from SmartEiffel compilation,
-               Liberty configuration files, up to the plugins, wrappers,
-               and Liberty tools installation
-
-  -bootstrap-se Bootstraps SmartEiffel
+               up to the plugins, wrappers, and Liberty tools installation
 
   -plugins     Compiles the plugins used by the Liberty interpreter
 
@@ -690,10 +669,9 @@ Usage: $0 {-bootstrap|-plugins|-wrappers|-bootstrap-se|-package}
 
   -doc         Generates the HTML documentation for all classes.
 
-  -package     Generates the Debian packages into DESTDIR.
+  -package     Generates the Debian packages into \$DESTDIR.
 
-  If no argument is provided, then only the Liberty tools are rebuilt
-  or the installation is bootstrapped if not already done.
+  If no argument is provided, -bootstrap is assumed.
 
 EOF
                 exit 1
