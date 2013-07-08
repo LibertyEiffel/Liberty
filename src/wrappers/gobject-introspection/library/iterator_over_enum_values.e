@@ -1,11 +1,11 @@
 class ITERATOR_OVER_ENUM_VALUES
 inherit ITERATOR[GI_VALUE_INFO]
-creation {GI_CALLABLE_INFO} from_enum
+creation {GI_ENUM_INFO} from_enum
 feature {} -- Creation
-	from_enum (a_callable: GI_CALLABLE_INFO) is
+	from_enum (an_enum: GI_ENUM_INFO) is
 	require a_enum/=Void
 	do
-		enum:=a_callable
+		enum:=an_enum
 	end
 
 	start is
@@ -13,7 +13,7 @@ feature {} -- Creation
 		i:=enum.lower
 	end
 
-	item: GI_ARG_INFO is
+	item: GI_VALUE_INFO is
 		do
 			Result := enum.item(i)
 		end
