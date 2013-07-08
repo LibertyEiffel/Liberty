@@ -1,14 +1,9 @@
-deferred class GI_ITERATOR [AN_ITEM_] 
-	-- Base class for most iterators of the wrappers Gobject Introspection
-	-- library.
-
-	-- Most of those iterators are expanded objects and inserts this class.
-	-- Currently the only exception is the NAMESPACE_ITERATOR which is
-	-- generated directoy from a GI_REPOSITORY 
-
+expanded class ENUM_VALUES_ITERATOR
+	-- An iterator over the values of an enumeration implemented as an expanded class.
 insert 
-	ITERATOR[AN_ITEM_]
+	ITERATOR[GI_VALUE_INFO]
 		redefine default_create end
+
 feature {ANY}
 	default_create is
 		do
@@ -20,23 +15,34 @@ feature {ANY}
 			generation := 0
 		end
 
-feature {GI_CLASS} 
-	set_class (a_class: GI_CLASS) is
-	require a_class/=Void
-	do
-		gi_class := a_class
-		iterable_generation := generation
-	ensure is_valid
-	end
 
 feature {ANY}
-	next is
+	set_enum (an_enum: GI_ENUM_INFO) is
+	require an_enum /= Void
+	do
+		enum := an_enum
+		iterable_generation := generation
+	end
+
+	start is
+	do
+		i:=enum.lower
+	end
+
+	item: GI_VALUE_INFO is
 		do
-			i:=i+1
+			Result := enum.item(i)
 		end
 
-feature {GI_CLASS} -- Implementation
-	gi_class: GI_CLASS
+	next is do i:=i+1 end
+
+	is_off: BOOLEAN is 
+	do
+		Result:=enum.valid_index(i)
+	end
+
+feature {} 
+	enum: GI_ENUM_INFO
 	i: INTEGER
 
 feature {ANY} -- Check that the underlying traversable has not changed
@@ -48,6 +54,5 @@ feature {ANY} -- Check that the underlying traversable has not changed
 	  attribute
       end
 
-end -- class METHODS_ITER
-
+end 
 

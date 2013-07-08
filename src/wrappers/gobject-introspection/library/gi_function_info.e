@@ -9,7 +9,7 @@ inherit GI_CALLABLE_INFO
 
 insert GIFUNCTIONINFO_EXTERNALS
 
-creation {GI_REPOSITORY, WRAPPER} from_external_pointer
+creation {GI_REPOSITORY, GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
 --   enum GInvokeError
 -- 
@@ -51,7 +51,7 @@ feature {ANY}
 	end
 
 	property: GI_PROPERTY_INFO is
-		-- Obtain the property associated with this GIFunctionInfo. Only
+		-- The property associated with this GIFunctionInfo. Only
 		-- GIFunctionInfo with the flag GI_FUNCTION_IS_GETTER or
 		-- GI_FUNCTION_IS_SETTER have a property set. For other cases, NULL
 		-- will be returned.
@@ -65,7 +65,7 @@ feature {ANY}
 	end
 
 	vfunc: GI_VFUNC_INFO is
-		-- Obtain the virtual function associated with this GIFunctionInfo.
+		-- The virtual function associated with this GIFunctionInfo.
 		-- Only GIFunctionInfo with the flag GI_FUNCTION_WRAPS_VFUNC has a
 		-- virtual function set. For other cases, NULL will be returned.
 	local res: POINTER
@@ -78,7 +78,7 @@ feature {ANY}
 		end
 	end
 
-	-- TODO: shall this be wrapped? g_function_info_invoke () it could be useful to implement an interpreter but since LibertyEiffel currently "only" provides a compiler it is debatable if it's useful
+	-- TODO: shall "g_function_info_invoke" be wrapped? It could be useful to implement an interpreter but since LibertyEiffel currently "only" provides a compiler it is debatable if it's useful.
 
 	--
 	-- gboolean            g_function_info_invoke              (GIFunctionInfo *info,

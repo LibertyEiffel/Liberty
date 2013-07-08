@@ -6,17 +6,9 @@ class GI_ENUM_INFO
 	-- values and a type The GIValueInfo is fetched by calling
 	-- g_enum_info_get_value() on a GIEnumInfo.
 
-inherit
-	GI_REGISTERED_TYPE_INFO
-	TRAVERSABLE[GI_VALUE_INFO]
-		undefine 
-			copy,
-			is_equal,
-			out_in_tagged_out_memory
-		end
+inherit GI_REGISTERED_TYPE_INFO
 
-insert
-	GIENUMINFO_EXTERNALS
+insert GIENUMINFO_EXTERNALS
 
 creation {GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
@@ -44,9 +36,11 @@ feature {ANY} -- Enumeration values
 	first: GI_VALUE_INFO is do Result:=item(lower) end 
 	last: GI_VALUE_INFO is do Result:=item(upper) end
 
-	new_iterator: ITERATOR_OVER_ENUM_VALUES is
+	iter: ENUM_VALUES_ITERATOR is
+		-- iterator over enumeration values implemented as an expanded - passed by value - object
 		do
-			create Result.from_enum(Current)
+			Result.set_enum(Current)
+		end
 feature {ANY} -- Methods
 
 	-- TODO: it is quite puzzling discovering an enumeration that  have methods: what are the meaning and usage of such methods? (Paolo 2013-05-31)

@@ -193,7 +193,7 @@ feature {ANY}
  --
  --   -----------------------------------------------------------------------------------------------------------------------
  --
- 	namespace_iterator (a_namespace: ABSTRACT_STRING): GI_ITERATOR is
+ 	namespace_iterator (a_namespace: ABSTRACT_STRING): NAMESPACE_ITERATOR is
 		-- A newly allocated iterator over the
 		-- metadata features of an already
 		-- loaded `a_namespace'. 
@@ -202,7 +202,7 @@ feature {ANY}
 		-- if an unloaded namespace is specified. 
 	do
 		create Result.from_repository_and_namespace(Current,a_namespace)
-		-- Note: GI_ITERATOR is implemented using and wraps g_irepository_get_n_infos and g_irepository_get_info
+		-- Note: NAMESPACE_ITERATOR is implemented using and wraps g_irepository_get_n_infos and g_irepository_get_info
 	end
 
   --  g_irepository_get_typelib_path ()

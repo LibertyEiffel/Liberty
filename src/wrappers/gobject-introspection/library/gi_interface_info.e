@@ -6,23 +6,8 @@ class GI_INTERFACE_INFO
 	-- constants, virtual functions and prerequisites.
 
 inherit 
+	GI_CLASS
 	GI_REGISTERED_TYPE_INFO
-	-- TODO: an interface is actually indexable over prerequisites, properties,
-	-- methods, signales, virtual functions and constants.  Each of them
-	-- requires renaming and redefining of pratically all the indexable
-	-- interface (lower, upper, valid_index, item, first, last, do_all,
-	-- for_all, exists, aggregate out_in_tagged_out_memory, count, is_empty).
-	-- Usage will tell if it's worth.
-
-	-- INDEXABLE[GI_BASE_INFO] 
-	-- rename
-	-- 	lower as prerequisites_lower,
-	-- 	upper as prerequisites_upper,
-	-- 	count as prerequisites_count
-	-- 	item as prerequisites,
-	-- 	do_all as do_all_prerequites,
-	-- 	for_all as for_all_prerequisites....
-	-- end
 
 insert 
 	GIINTERFACEINFO_EXTERNALS
@@ -31,6 +16,9 @@ insert
 creation {GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
 feature {ANY} -- Interface prerequisites
+	prerequisites_lower: INTEGER is 0
+	prerequisites_upper: INTEGER is do Result:=prerequisites_count-1 end
+
 	prerequisites_count: INTEGER is
 		-- The number of prerequisites for this interface type. A prerequisites
 		-- is another interface that needs to be implemented for interface,
@@ -47,7 +35,7 @@ feature {ANY} -- Interface prerequisites
 
 	prerequisite (i: INTEGER): GI_BASE_INFO is
 		-- The interface type prerequisites at index `i'.
-	require valid_index: i.in_range(0,prerequisites_count-1)
+	require valid_index: i.in_range(prerequisites_lower,prerequisites_upper)
 	do
 		Result := wrapper(g_interface_info_get_prerequisite( handle,i))
 		-- g_interface_info_get_prerequisite Returns : the prerequisites as a
@@ -55,6 +43,11 @@ feature {ANY} -- Interface prerequisites
 		-- done. [transfer full]
 	ensure Result /=Void
 	end
+
+	prerequisites_iter: INTERFACE_PREREQUITES_ITERATOR is
+		do
+			Result.from_interface(Current)
+		end
 
 feature {ANY} -- Properties
 	properties_count: INTEGER is
@@ -65,11 +58,9 @@ feature {ANY} -- Properties
   
 	property (i: INTEGER): GI_PROPERTY_INFO is
 		-- the interface type property at index `i'. 
-	require valid_index: i.in_range(0,properties_count-1)
 	do
 		create Result.from_external_pointer(g_interface_info_get_property(handle,i))
 		-- g_interface_info_get_property Returns : the GIPropertyInfo. Free the struct by calling g_base_info_unref() when done. [transfer full]
-	ensure Result/=Void
 	end
    
 feature {ANY} -- Methods
@@ -90,9 +81,6 @@ feature {ANY} -- Methods
 
 	find_method (a_name: ABSTRACT_STRING): GI_FUNCTION_INFO is
 		-- The method of the interface type with `a_name'. Void if there's no method available with that name.
-	require 
-		not_void: a_name /= Void
-		not_empty: not a_name.is_empty
 	local res: POINTER
 	do
 		res := g_interface_info_find_method(handle, a_name.to_external) 
@@ -109,7 +97,6 @@ feature {ANY} -- Signals
 		-- the number of signals that this interface type has.
 		do
 			Result := g_interface_info_get_n_signals(handle)
-		ensure Result>=0
 		end
 
 	signal (n: INTEGER): GI_SIGNAL_INFO is
@@ -122,9 +109,6 @@ feature {ANY} -- Signals
 
 	find_signal (a_name: ABSTRACT_STRING): GI_SIGNAL_INFO is
 		-- The information for the signal with `a_name'. Void if no such a signal exists.
-	require 
-		a_name /= Void
-		not a_name.is_empty
 	local res: POINTER
 	do
 		res := g_interface_info_find_signal(handle,a_name.to_external)
@@ -143,10 +127,8 @@ feature {ANY} -- Virtual functions
 
 	virtual_function (n: INTEGER): GI_VFUNC_INFO is
 		-- The interface type virtual function at index `n'.
-	require	valid_index: n.in_range(0,virtual_functions_count)
 	do
 		create Result.from_external_pointer(g_interface_info_get_vfunc(handle,n)) --Note: ownership fully transferred
-	ensure Result/=Void
 	end
 
 	find_virtual_function (a_name: ABSTRACT_STRING): GI_VFUNC_INFO is
@@ -167,15 +149,12 @@ feature {ANY} -- Constants
 		-- the number of constants that this interface type has.
 	do
 		Result := g_interface_info_get_n_constants(handle)
-	ensure Result>=0
 	end
 
 	constant (n: INTEGER): GI_CONSTANT_INFO is
 		-- The interface type constant at index n.
-	require valid_index: n.in_range(0,constants_count-1)
 	do
 		create Result.from_external_pointer(g_interface_info_get_constant(handle,n)) -- Note: ownership fully transferred
-	ensure Result/=Void
 	end
 
 -- TODO: if necessary or useful  g_interface_info_get_iface_struct ()

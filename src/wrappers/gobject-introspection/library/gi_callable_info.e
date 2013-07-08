@@ -102,10 +102,11 @@ feature {ANY} -- Indexing over arguments
 		create {ITERATOR_OVER_ARGUMENTS} Result.from_callable(Current)
 	end
 
-  first: GI_ARG_INFO is do Result := item(lower) end
-  last: GI_ARG_INFO is do Result := item(upper) end
+	first: GI_ARG_INFO is do Result := item(lower) end
+	last: GI_ARG_INFO is do Result := item(upper) end
+
 feature {} -- Unwrapperd 
-	
+
 	--   g_callable_info_load_return_type and g_callable_info_load_arg () should not be necessary neither useful in Eiffel.
 
 end -- class GI_CALLABLE_INFO

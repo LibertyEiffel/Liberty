@@ -19,7 +19,7 @@ feature {WRAPPER, WRAPPER_HANDLER}
 			elseif type.is_gi_info_type_enum then create {GI_ENUM_INFO} Result.from_external_pointer(a_pointer)
 			elseif type.is_gi_info_type_field then create {GI_FIELD_INFO} Result.from_external_pointer(a_pointer)
 			elseif type.is_gi_info_type_flags then not_yet_implemented
-			elseif type.is_gi_info_type_function then not_yet_implemented
+			elseif type.is_gi_info_type_function then create {GI_FUNCTION_INFO} Result.from_external_pointer(a_pointer)
 			elseif type.is_gi_info_type_interface then not_yet_implemented
 			elseif type.is_gi_info_type_invalid then not_yet_implemented
 			elseif type.is_gi_info_type_invalid_0 then not_yet_implemented
