@@ -723,7 +723,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
                -- Well, it was actually an ace_*.ace test.
             else
                check_mocks_with(test_file)
-
+               --
                test_file_check_with(once "-boost", test_file)
                test_file_check_with(once "-flat_check -all_check -debug", test_file)
                test_file_check_with(once "-no_check", test_file)
@@ -742,6 +742,15 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
                test_file_check_with(once "-no_gc -flat_check -loop_check", test_file)
                test_file_check_with(once "-no_gc -flat_check -all_check", test_file)
                --
+               test_file_check_with(once "-bdw_gc -boost", test_file)
+               test_file_check_with(once "-bdw_gc -boost -debug", test_file)
+               test_file_check_with(once "-bdw_gc -no_check", test_file)
+               test_file_check_with(once "-bdw_gc -flat_check -require_check", test_file)
+               test_file_check_with(once "-bdw_gc -ensure_check", test_file)
+               test_file_check_with(once "-bdw_gc -flat_check -invariant_check", test_file)
+               test_file_check_with(once "-bdw_gc -flat_check -loop_check", test_file)
+               test_file_check_with(once "-bdw_gc -flat_check -all_check", test_file)
+               --
                test_file_check_with(once "-all_check -debug", test_file)
                test_file_check_with(once "-require_check", test_file)
                test_file_check_with(once "-ensure_check", test_file)
@@ -754,6 +763,12 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
                test_file_check_with(once "-no_gc -invariant_check", test_file)
                test_file_check_with(once "-no_gc -loop_check", test_file)
                test_file_check_with(once "-no_gc -all_check", test_file)
+               --
+               test_file_check_with(once "-bdw_gc -require_check", test_file)
+               test_file_check_with(once "-bdw_gc -ensure_check", test_file)
+               test_file_check_with(once "-bdw_gc -invariant_check", test_file)
+               test_file_check_with(once "-bdw_gc -loop_check", test_file)
+               test_file_check_with(once "-bdw_gc -all_check", test_file)
                --
                test_file_check_with(once "-profile -boost", test_file)
                test_file_check_with(once "-profile -all_check -debug", test_file)
@@ -772,6 +787,14 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
                test_file_check_with(once "-profile -no_gc -loop_check", test_file)
                test_file_check_with(once "-profile -no_gc -all_check", test_file)
                --
+               test_file_check_with(once "-profile -bdw_gc -boost", test_file)
+               test_file_check_with(once "-profile -bdw_gc -no_check", test_file)
+               test_file_check_with(once "-profile -bdw_gc -require_check", test_file)
+               test_file_check_with(once "-profile -bdw_gc -ensure_check", test_file)
+               test_file_check_with(once "-profile -bdw_gc -invariant_check", test_file)
+               test_file_check_with(once "-profile -bdw_gc -loop_check", test_file)
+               test_file_check_with(once "-profile -bdw_gc -all_check", test_file)
+               --
                test_file_check_with(once "-profile -flat_check -require_check", test_file)
                test_file_check_with(once "-profile -flat_check -ensure_check", test_file)
                test_file_check_with(once "-profile -flat_check -invariant_check", test_file)
@@ -780,6 +803,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
                --
                test_file_check_with(once "-no_split -boost", test_file)
                test_file_check_with(once "-no_split -no_gc -boost", test_file)
+               test_file_check_with(once "-no_split -bdw_gc -boost", test_file)
                --
             end
             i := i + 1

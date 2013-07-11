@@ -8,7 +8,7 @@ fi
 root=$(cd $(dirname $(readlink -f $0))/..; pwd)
 DOC_ROOT=${DOC_ROOT:-$root/website/doc}
 export DOC_ROOT
-export LOG=$DOC_ROOT/build_doc$(date +'-%Y%m%d-%H%M%S').log
+export LOG=${LOG:-$DOC_ROOT/build_doc$(date +'-%Y%m%d-%H%M%S').log}
 
 . $root/work/tools.sh
 

@@ -38,7 +38,7 @@ feature {C_PRETTY_PRINTER} -- C code phases
          end
          cpp.out_h_buffer.copy(once "#define BDW_GC 1%N%
                                     %#define GC_I_HIDE_POINTERS 1%N%
-                                    %#include <gc.h>%N%
+                                    %#include <gc/gc.h>%N%
                                     %#define malloc(s) GC_MALLOC(s)%N%
                                     %#define calloc(n,s) GC_MALLOC_IGNORE_OFF_PAGE((s)*(n))%N%
                                     %#define realloc(p,s) GC_REALLOC((p),(s))%N")
@@ -214,7 +214,7 @@ feature {C_COMPILATION_MIXIN} -- see WEAK_REFERENCE
       do
          cpp.pending_c_function_body.append(once "((")
          cpp.pending_c_function_body.append(cpp.result_type.for(lt.type.generic_list.first.canonical_type_mark))
-         cpp.pending_c_function_body.append(once ")GC_call_with_alloc_lock((GC_fn_type)bdw_weakref_getlink, (bdw_Twr*)(")
+         cpp.pending_c_function_body.append(once ")GC_call_with_alloc_lock((GC_fn_type)bdw_weakref_getlink,(bdw_Twr*)(")
          cpp.put_target_as_value
          cpp.pending_c_function_body.append(once ")))")
       end
@@ -223,9 +223,9 @@ feature {C_COMPILATION_MIXIN} -- see WEAK_REFERENCE
       do
          cpp.pending_c_function_body.append(once "bdw_weakref_setlink((bdw_Twr*)(")
          cpp.put_target_as_value
-         cpp.pending_c_function_body.append(once "), ")
+         cpp.pending_c_function_body.append(once "),(")
          cpp.put_ith_argument(1)
-         cpp.pending_c_function_body.append(once ");%N")
+         cpp.pending_c_function_body.append(once "));%N")
       end
 
 feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
@@ -287,7 +287,7 @@ feature {C_COMPILATION_MIXIN}
       do
          flag := native_array_collector.must_collect(type_mark.type.live_type)
          if flag /= Void and then flag.item then
-            cpp.out_h_buffer.append(once "void*bdw_markna;")
+            cpp.out_h_buffer.append(once "void*bdw_markna;int bdw_generation;")
          end
       end
 
@@ -297,7 +297,7 @@ feature {C_COMPILATION_MIXIN}
       do
          flag := native_array_collector.must_collect(type_mark.type.live_type)
          if flag /= Void and then flag.item then
-            cpp.out_c_buffer.append(once ",(void*)0")
+            cpp.out_c_buffer.append(once ",(void*)0,0")
          end
       end
 
@@ -328,12 +328,8 @@ feature {}
       do
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void gc_start(void)")
-         cpp.pending_c_function_body.append(once "handle(SE_HANDLE_ENTER_GC,NULL);%N");
-         cpp.pending_c_function_body.append(once "GC_gcollect();%N")
-         if info_flag then
-            cpp.pending_c_function_body.append(once "GC_dump();%N")
-         end
-         cpp.pending_c_function_body.append(once "handle(SE_HANDLE_EXIT_GC,NULL);%N");
+         cpp.pending_c_function_body.append(once "GC_gcollect();%N%
+                                                 %if(GC_should_invoke_finalizers())bdw_run_finalizers();%N")
          cpp.dump_pending_c_function(True)
       end
 

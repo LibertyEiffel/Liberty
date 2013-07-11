@@ -29,7 +29,13 @@ feature {BDW_GC}
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void bdw_run_finalizers(void)")
          cpp.pending_c_function_body.append(once "if(bdw_in_assign)bdw_delayed_finalize=1;%N%
-                                                 %else GC_invoke_finalizers();%N")
+                                                 %else{%N%
+                                                 %handle(SE_HANDLE_ENTER_GC,NULL);%N")
+         if bdw.info_flag then
+            cpp.pending_c_function_body.append(once "GC_dump();%N")
+         end
+         cpp.pending_c_function_body.append(once "GC_invoke_finalizers();%N%
+                                                 %handle(SE_HANDLE_EXIT_GC,NULL);}%N")
          cpp.dump_pending_c_function(True)
       end
 
@@ -224,11 +230,14 @@ feature {}
          prepare_weakref_accessors
 
          prepare_alloc_inner_function(tm)
-         cpp.pending_c_function_body.append(once "return (")
          cpp.pending_c_function_body.append(cpp.target_type.for(tm))
-         cpp.pending_c_function_body.append(once ")se_malloc((*n)*sizeof(T")
+         cpp.pending_c_function_body.append(once "R=(")
+         cpp.pending_c_function_body.append(cpp.target_type.for(tm))
+         cpp.pending_c_function_body.append(once ")bdw_weakref_new(*n);%N%
+                                                 %*R=M")
          live_type.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "));%N")
+         cpp.pending_c_function_body.append(once ";%N%
+                                                 %return R;%N")
          cpp.dump_pending_c_function(True)
 
          put_alloc_function(tm)
@@ -289,26 +298,30 @@ feature {}
          cpp.write_out_h_buffer
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void bdw_weakref_setlink(bdw_Twr*wr,T0*r)")
-         cpp.pending_c_function_body.append(once "if(r==NULL){%N%
-                                                 %//GC_reachable_here(r);%N%
-                                                 %GC_unregister_disappearing_link((void**)&(wr->o));%N%
-                                                 %wr->o=NULL;}else{%N%
-                                                 %GC_disable();%N%
-                                                 %wr->o=(T0*)HIDE_POINTER(r);%N%
-                                                 %GC_GENERAL_REGISTER_DISAPPEARING_LINK((void**)&(wr->o),(void*)r);%N%
-                                                 %GC_enable();}%N")
+         cpp.pending_c_function_body.append(once "GC_disable();%N%
+                                                 %if(wr->o)GC_unregister_disappearing_link((void**)&(wr->o));%N%
+                                                 %wr->o=r;%N%
+                                                 %if(r)GC_GENERAL_REGISTER_DISAPPEARING_LINK((void**)&(wr->o),(void*)r);%N%
+                                                 %GC_enable();%N")
          cpp.dump_pending_c_function(True)
+
          cpp.prepare_c_function
-         cpp.pending_c_function_signature.append(once "T0* bdw_weakref_getlink(bdw_Twr*wr)")
-         cpp.pending_c_function_body.append(once "if(wr->o==NULL)return NULL;%N%
-                                                 %return REVEAL_POINTER(wr->o);%N")
+         cpp.pending_c_function_signature.append(once "T0*bdw_weakref_getlink(bdw_Twr*wr)")
+         cpp.pending_c_function_body.append(once "return wr->o;%N")
+         cpp.dump_pending_c_function(True)
+
+         cpp.prepare_c_function
+         cpp.pending_c_function_signature.append(once "void*bdw_weakref_new(int n)")
+         cpp.pending_c_function_body.append(once "void*result=GC_MALLOC_ATOMIC(n*sizeof(bdw_Twr));%N%
+                                                 %se_check_malloc(result);%N%
+                                                 %return result;%N")
          cpp.dump_pending_c_function(True)
       end
 
    mark_native_arrays (type_mark: TYPE_MARK) is
       local
          wa: ARRAY[RUN_FEATURE_2]; i: INTEGER; a: RUN_FEATURE_2; t: TYPE
-         has_capacity: BOOLEAN
+         has_capacity, has_generation: BOOLEAN
       do
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void*bdw_na_assignT")
@@ -335,7 +348,6 @@ feature {}
                                                  %GC_REGISTER_FINALIZER_NO_ORDER(markna,(GC_finalization_proc)bdw_na_markT")
          live_type.id.append_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once ",NULL,NULL,NULL);%N%
-                                                 %GC_reachable_here(markna);%N%
                                                  %o->bdw_markna=(void*)HIDE_POINTER(markna);%N%
                                                  %*markna=(T0*)o;%N%
                                                  %GC_GENERAL_REGISTER_DISAPPEARING_LINK(&(o->bdw_markna),markna);%N%
@@ -353,12 +365,30 @@ feature {}
          cpp.pending_c_function_signature.append(once "(T")
          live_type.id.append_in(cpp.pending_c_function_signature)
          cpp.pending_c_function_signature.append(once "**markna,void*_)")
-         cpp.pending_c_function_body.append(once "int i,c;T0*e;T0**na;T")
+         cpp.pending_c_function_body.append(once "int i,c,g;T0*e;T0**na;T")
          live_type.id.append_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once "*o=*markna;%N%
                                                  %GC_disable();%N")
          wa := live_type.writable_attributes
          if wa /= Void then
+            from
+               i := wa.lower
+            until
+               has_generation or else i > wa.upper
+            loop
+               a := wa.item(i)
+               t := a.result_type.resolve_in(live_type.type)
+               if t.is_native_array and then t.generic_list.first.is_reference then
+                  if live_type.type.has_simple_feature_name(generation_name) then
+                     cpp.pending_c_function_body.append(once "g=o->_generation;%N")
+                     has_generation := True
+                  end
+               end
+               i := i + 1
+            end
+            if has_generation then
+               cpp.pending_c_function_body.append(once "if(g!=o->bdw_generation){%N")
+            end
             from
                i := wa.lower
             until
@@ -397,6 +427,9 @@ feature {}
                   cpp.pending_c_function_body.append(once "NULL,")
                end
                cpp.pending_c_function_body.append(once "o);%N")
+            end
+            if has_generation then
+               cpp.pending_c_function_body.append(once "o->bdw_generation=g;}%N")
             end
          end
          cpp.pending_c_function_body.append(once "bdw_na_assignT")

@@ -242,15 +242,15 @@ feature {} -- built-ins
                else
                   function_body.append(once "{%NT")
                   elt_type.id.append_in(function_body)
-                  function_body.append(once " tmp_src=")
+                  function_body.append(once " a1tmp=")
                   cpp.put_ith_argument(1)
-                  function_body.append(once ";%Nmemcpy((")
+                  function_body.append(once ";%Nmemcpy(&((")
                   cpp.put_target_as_value
-                  function_body.append(once ")+(")
+                  function_body.append(once ")[")
                   cpp.put_ith_argument(2)
-                  function_body.append(once "),&(tmp_src),sizeof(T")
+                  function_body.append(once "]),&a1tmp,sizeof(T")
                   elt_type.id.append_in(function_body)
-                  function_body.append(once "));%N}%N")
+                  function_body.append(once "));}%N")
                end
             else
                cpp.memory.put_ref_in_native_array(rf7)

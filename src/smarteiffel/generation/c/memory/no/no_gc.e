@@ -26,6 +26,7 @@ feature {C_PRETTY_PRINTER} -- C code phases
 
    define1 is
       do
+         echo.put_string(once "Compiling without Garbage Collector!%N")
       end
 
    define2 is
@@ -47,7 +48,7 @@ feature {C_PRETTY_PRINTER} -- C code phases
    gc_info_before_exit is
       do
          if info_flag then
-            cpp.pending_c_function_body.append(once "fprintf(SE_ERR, %"No GC compiled in, no information available\n%");%N")
+            cpp.pending_c_function_body.append(once "fprintf(SE_ERR,%"No GC compiled in, no information available\n%");%N")
          end
       end
 
@@ -93,11 +94,20 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
       end
 
    calloc (lt: LIVE_TYPE; n: PROCEDURE[TUPLE]) is
+      require
+         lt.is_generic
+      local
+         et: TYPE
       do
-         cpp.pending_c_function_body.append(once "se_malloc(sizeof(T")
-         lt.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ")*(")
+         et := lt.type.generic_list.first
+         cpp.pending_c_function_body.append(once "se_calloc(")
          n.call([])
+         cpp.pending_c_function_body.append(once ",sizeof(T")
+         if et.is_reference then
+            cpp.pending_c_function_body.append(once "0*")
+         else
+            et.id.append_in(cpp.pending_c_function_body)
+         end
          cpp.pending_c_function_body.append(once "))")
       end
 
@@ -132,18 +142,22 @@ feature {C_COMPILATION_MIXIN} -- GC switches (see MEMORY)
 feature {C_COMPILATION_MIXIN} -- see WEAK_REFERENCE
    weak_item (lt: LIVE_TYPE) is
       do
-         cpp.pending_c_function_body.append(once "((")
+         cpp.pending_c_function_body.append(once "(((T")
+         lt.id.append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once "*)(")
          cpp.put_target_as_value
-         cpp.pending_c_function_body.append(once ")->o)")
+         cpp.pending_c_function_body.append(once "))->o)")
       end
 
    weak_set_item (lt: LIVE_TYPE) is
       do
-         cpp.pending_c_function_body.append(once "(")
+         cpp.pending_c_function_body.append(once "(((T")
+         lt.id.append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once "*)(")
          cpp.put_target_as_value
-         cpp.pending_c_function_body.append(once ")->o=")
+         cpp.pending_c_function_body.append(once "))->o)=(T0*)(")
          cpp.put_ith_argument(1)
-         cpp.pending_c_function_body.append(once ";%N")
+         cpp.pending_c_function_body.append(once ");%N")
       end
 
 feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents

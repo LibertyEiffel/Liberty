@@ -152,12 +152,17 @@ if(execute("cd $LibertyBase && ./install.sh -plain -bootstrap") > 0){
 endsubstage();
 
 substage("class check ANY");
-execute("class_check ANY");
+execute("se class_check ANY");
 endsubstage();
 
 //- se doc
 substage("eiffeldoc");
 execute("$LibertyBase/work/build_doc.sh -plain");
+endsubstage();
+
+//- debian packaging
+substage("debian packaging")
+execute("$LibertyBase/work/packaging/build_debian.sh");
 endsubstage();
 
 substage("compile tutorial");
@@ -251,7 +256,7 @@ function testDir($dir){
         }
         file_put_contents($stagedir ."/result.txt", $result);
     }
-    
+
     foreach (glob("$dir/*", GLOB_ONLYDIR) as $dirname){
         if(basename($dirname) != "eiffeltest"){
             substage(basename($dirname), str_replace($LibertyBase, $repobaselink, $dirname));

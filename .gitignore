@@ -16,3 +16,5 @@ target
 ## Ignore GCC-XML wrapper-generator files
 *.gcc-xml
 *.gccxml
+## Ignore local patches
+*.patch
