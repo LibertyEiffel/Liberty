@@ -18,7 +18,7 @@ $update = date ($dateFormat, filemtime("$stageout/current_stage.txt"));
 
 include "$templates/head.html";
 
-if($_GET["manual_request"] == 1){
+if(array_key_exists("manual_request", $_GET) && $_GET["manual_request"] == 1){
   file_put_contents ($request, "new MANUAL request on " . date($dateFormat));
 }
 
@@ -91,7 +91,11 @@ function printSubStages($dir){
         $stage = $parentStage . "_" . $substageNo;
 
         $stageName = file_get_contents("$stagedir/stagename.txt");
-        $stageresult = htmlForResult(file_get_contents("$stagedir/result.txt"));
+        if(file_exists("$stagedir/result.txt")){
+            $stageresult = htmlForResult(file_get_contents("$stagedir/result.txt"));
+        }else{
+            $stageresult = "";
+        }
         // todo: also print retvalue
 
         if(file_exists("$stagedir/stagelink.txt")){
