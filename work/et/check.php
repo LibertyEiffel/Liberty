@@ -161,7 +161,7 @@ execute("$LibertyBase/work/build_doc.sh -plain");
 endsubstage();
 
 //- debian packaging
-substage("debian packaging")
+substage("debian packaging");
 execute("$LibertyBase/work/packaging/build_debian.sh");
 endsubstage();
 
