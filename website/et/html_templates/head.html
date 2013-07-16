@@ -8,7 +8,7 @@
    <meta http-equiv="content-language" content="en" />
    <meta name="robots" content="INDEX,FOLLOW" />
 
-<?php if($_GET["manual_request"] == 1){?>
+<?php if(array_key_exists("manual_request", $_GET) && $_GET["manual_request"] == 1){?>
    <meta http-equiv="refresh" content="1; URL=/">
 <?php }?>
    <title>ET: Liberty Eiffel automated tests</title>

@@ -52,6 +52,17 @@ test -d $TARGET/doc || {
     $LIBERTY_HOME/install.sh -plain -doc
 }
 
+do_debuild() {
+    if egrep -q '^Architecture: all$' debian/control; then
+        debuild -us -uc > "$LOGDIR/$(basename $tmp)_all.log" 2>&1 || return 1
+    else
+        debuild -us -uc > "$LOGDIR/$(basename $tmp)_$(dpkg --print-architecture).log" 2>&1 || return 1
+        for arch in $(dpkg --print-foreign-architectures); do
+            debuild -a$arch -us -uc > "$LOGDIR/$(basename $tmp)_$arch.log" 2>&1 || return 1
+        done
+    fi
+}
+
 echo
 echo "Generating packages"
 for debian in $packages/*.pkg/debian; do
@@ -108,7 +119,7 @@ EOF
     rm Makefile~
 
     # now let debian helpers run
-    if debuild -us -uc > "$LOGDIR/$(basename $tmp).log" 2>&1; then
+    if do_debuild; then
         cp $tmp/*.deb $packages/debs/
         cd $packages
         rm -rf $tmp

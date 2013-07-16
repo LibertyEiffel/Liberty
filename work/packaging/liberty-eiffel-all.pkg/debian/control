@@ -1,5 +1,5 @@
 Package: liberty-eiffel-all
-Architecture: any
+Architecture: all
 Depends: liberty-eiffel-core-libs, liberty-eiffel-extra-libs, liberty-eiffel-tools
 Recommends: liberty-eiffel-core-doc, liberty-eiffel-extra-doc, liberty-eiffel-tools-doc
 Suggests: liberty-eiffel-tools-src
