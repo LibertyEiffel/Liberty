@@ -1,6 +1,6 @@
 Package: liberty-eiffel-core-doc
 Architecture: all
-Recommends: liberty-eiffel-tools, liberty-eiffel-core-libs
+Recommends: liberty-eiffel-tools (= #VERSION#), liberty-eiffel-core-libs (= #VERSION#)
 Description: documentation for liberty-eiffel
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly
  known as the GNU Eiffel compiler.
