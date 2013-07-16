@@ -76,7 +76,8 @@ jobs: $((2 * $(grep '^processor' /proc/cpuinfo|wc -l)))
 path_liberty: $LIBERTY_HOME/
 path_liberty_core: $LIBERTY_HOME/src/lib/
 path_liberty_extra: $LIBERTY_HOME/src/wrappers/
-path_tools: $LIBERTY_HOME/src/smarteiffel/
+path_smarteiffel: $LIBERTY_HOME/src/smarteiffel/
+path_tools: $LIBERTY_HOME/src/tools/
 path_tutorial: $LIBERTY_HOME/tutorial/
 hyphen: -
 
@@ -84,6 +85,7 @@ hyphen: -
 liberty_core: \${path_liberty_core}loadpath.se
 liberty_extra: \${path_liberty_extra}loadpath.se
 test: \${path_liberty}test/loadpath.se
+smarteiffel: \${path_smarteiffel}loadpath.se
 tools: \${path_tools}loadpath.se
 tutorial: \${path_tutorial}loadpath.se
 

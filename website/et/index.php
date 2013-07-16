@@ -8,7 +8,7 @@ include "functions.php";
 // todo: graphical improvements:
 //       - use only divs instead of tables
 //       - add info div (as popup?)
-//       - provide navigation links though the history with the current view "<-" and "->" on left and right side 
+//       - provide navigation links though the history with the current view "<-" and "->" on left and right side
 //       - provide a diff between history
 //       - somehow "store" the visible divs over reload and navigation
 
@@ -124,7 +124,7 @@ function printSubStages($dir){
         /* echo "         </div>\n"; */
         echo "      </div></td></tr>";
         echo "   \n";
-        
+
     }
 
     if(!$first){
