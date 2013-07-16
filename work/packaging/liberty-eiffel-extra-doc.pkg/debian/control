@@ -1,6 +1,6 @@
 Package: liberty-eiffel-extra-doc
 Architecture: all
-Recommends: liberty-eiffel-tools, liberty-eiffel-extra-libs
+Recommends: liberty-eiffel-tools (= #VERSION#), liberty-eiffel-extra-libs (= #VERSION#)
 Description: documentation for liberty-eiffel extra libraries
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly
  known as the GNU Eiffel compiler.

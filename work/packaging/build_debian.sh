@@ -2,6 +2,8 @@
 
 export plain=TRUE
 
+status=0
+
 packages=$(dirname $(readlink -f $0))
 export LIBERTY_HOME=$(cd $packages/../..; pwd)
 test -d $packages/debs && rm -rf $packages/debs
@@ -52,19 +54,38 @@ test -d $TARGET/doc || {
     $LIBERTY_HOME/install.sh -plain -doc
 }
 
+build_chroot() {
+    arch=$1
+    (
+        cd $LIBERTY_HOME/target/chroot/liberty-$arch
+        fakeroot fakechroot /usr/sbin/chroot debootstrap --variant=fakechroot --arch=$arch stable $LIBERTY_HOME/target/chroot/$arch http://ftp.us.debian.org/debian
+    )
+}
+
 do_debuild() {
     if egrep -q '^Architecture: all$' debian/control; then
-        debuild -us -uc > "$LOGDIR/$(basename $tmp)_all.log" 2>&1 || return 1
-    else
-        debuild -us -uc > "$LOGDIR/$(basename $tmp)_$(dpkg --print-architecture).log" 2>&1 || return 1
-        for arch in $(dpkg --print-foreign-architectures); do
-            debuild -a$arch -us -uc > "$LOGDIR/$(basename $tmp)_$arch.log" 2>&1 || return 1
-        done
+        debuild -us -uc > "$LOGDIR/$(basename $tmp)_all.log" 2>&1
+        return $?
     fi
+
+    mkdir -p $LIBERTY_HOME/target/chroot
+    r=0
+    for arch in $(dpkg --print-architecture; dpkg --print-foreign-architectures); do
+        test -d $LIBERTY_HOME/target/chroot/liberty-$arch || build_chroot $arch
+        fakeroot fakechroot /usr/sbin/chroot $LIBERTY_HOME/target/chroot/liberty-$arch "linux32 debuild -a$arch -us -uc > '$LOGDIR/$(basename $tmp)_$arch.log' 2>&1"
+        r=$(($r + $?))
+    done
+    return $r
 }
 
 echo
 echo "Generating packages"
+if [ $release == TRUE ]; then
+    version=$(head -n 1 $packages/debian.skel/debian/changelog | sed 's/#SNAPSHOT#//g' | awk -F'[()]' '{print $2}')
+else
+    pkgdate=$(date -u +'%Y%m%d.%H%M%S')
+    version=$(head -n 1 $packages/debian.skel/debian/changelog | sed 's/#SNAPSHOT#/~snapshot~'"$pkgdate"'/g' | awk -F'[()]' '{print $2}')
+fi
 for debian in $packages/*.pkg/debian; do
     package_dir=${debian%/debian}
     package=$(basename ${debian%.pkg/debian})
@@ -83,7 +104,7 @@ for debian in $packages/*.pkg/debian; do
     if [ $release == TRUE ]; then
         sed 's/#SNAPSHOT#//g' -i debian/changelog
     else
-        sed 's/#SNAPSHOT#/~snapshot~'$(date -u +'%Y%m%d.%H%M%S')'/g' -i debian/changelog
+        sed 's/#SNAPSHOT#/~snapshot~'"$pkgdate"'/g' -i debian/changelog
     fi
 
     # customize debian/control
@@ -101,7 +122,7 @@ Vcs-Git: http://git.savannah.gnu.org/cgit/liberty-eiffel.git
 
 EOF
         cat debian/control~
-    } > debian/control
+    } | sed 's/#VERSION#/'"$version"'/g' > debian/control
     rm debian/control~
 
     # customize Makefile
@@ -124,9 +145,11 @@ EOF
         cd $packages
         rm -rf $tmp
     else
+        cp $tmp/*.deb $packages/debs/
         echo
         echo "**** Keeping $tmp for forensics"
         echo
+        status=$(($status + 1))
     fi
 done
 
@@ -142,9 +165,11 @@ echo
 echo "Adding packages to repository"
 mkdir -p $LIBERTY_HOME/website/apt
 for deb in $packages/debs/*.deb; do
-    reprepro --basedir $LIBERTY_HOME/website/apt includedeb $codename $deb
+    reprepro --basedir $LIBERTY_HOME/website/apt includedeb $codename $deb || status=$(($status + 1))
 done
 
 echo
 echo Done.
 echo
+
+exit $status

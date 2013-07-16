@@ -1,3 +1,4 @@
 ./lib/loadpath.se
+./smarteiffel/loadpath.se
 ./tools/loadpath.se
 ./wrappers/loadpath.se

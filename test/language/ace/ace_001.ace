@@ -12,5 +12,5 @@ cluster
    -- directory separator:
    "."
    "${path_tutorial}"
-   "${path_lib}/loadpath.se"
+   "${path_liberty_core}/loadpath.se"
 end
