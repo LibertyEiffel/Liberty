@@ -2,6 +2,8 @@
 
 export plain=TRUE
 
+status=0
+
 packages=$(dirname $(readlink -f $0))
 export LIBERTY_HOME=$(cd $packages/../..; pwd)
 test -d $packages/debs && rm -rf $packages/debs
@@ -127,6 +129,7 @@ EOF
         echo
         echo "**** Keeping $tmp for forensics"
         echo
+        status=$(($status + 1))
     fi
 done
 
@@ -142,9 +145,11 @@ echo
 echo "Adding packages to repository"
 mkdir -p $LIBERTY_HOME/website/apt
 for deb in $packages/debs/*.deb; do
-    reprepro --basedir $LIBERTY_HOME/website/apt includedeb $codename $deb
+    reprepro --basedir $LIBERTY_HOME/website/apt includedeb $codename $deb || status=$(($status + 1))
 done
 
 echo
 echo Done.
 echo
+
+exit $status
