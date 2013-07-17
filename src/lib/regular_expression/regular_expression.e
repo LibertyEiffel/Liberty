@@ -63,7 +63,7 @@ feature {ANY} -- matching capabilities
       end
 
    last_match_succeeded: BOOLEAN is
-         -- Does last match succedeed?
+         -- Did last match succeed?
          --
          -- See also `match', `match_from'.
       do
