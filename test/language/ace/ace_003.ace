@@ -6,7 +6,7 @@ root
 
 cluster
    "."
-   "${path_lib}/loadpath.se"
+   "${path_liberty_core}/loadpath.se"
 
 external
    cecil ("test_003.se")
