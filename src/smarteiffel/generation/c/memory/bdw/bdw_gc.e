@@ -41,7 +41,8 @@ feature {C_PRETTY_PRINTER} -- C code phases
                                     %#include <gc/gc.h>%N%
                                     %#define malloc(s) GC_MALLOC(s)%N%
                                     %#define calloc(n,s) GC_MALLOC_IGNORE_OFF_PAGE((s)*(n))%N%
-                                    %#define realloc(p,s) GC_REALLOC((p),(s))%N")
+                                    %#define realloc(p,s) GC_REALLOC((p),(s))%N%
+                                    %#define free(p) p=NULL%N")
          cpp.write_out_h_buffer
       end
 
