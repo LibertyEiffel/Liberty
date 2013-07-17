@@ -1,14 +1,6 @@
 se c -no_gc
 se c -no_split -no_gc
-se c -profile -flat_check
-se c -profile -no_gc
-se c -profile -bdw_gc
-se c -profile -no_check
-se c -profile -require_check
-se c -profile -ensure_check
-se c -profile -invariant_check
-se c -profile -loop_check
-se c -profile -all_check
+se c -profile
 se c -require_check
 se c -ensure_check
 se c -invariant_check
