@@ -94,7 +94,7 @@ function printSubStages($dir){
         if(file_exists("$stagedir/result.txt")){
             $stageresult = htmlForResult(file_get_contents("$stagedir/result.txt"));
         }else{
-            $stageresult = "";
+            $stageresult = htmlForResult("");
         }
         // todo: also print retvalue
 

@@ -254,7 +254,6 @@ function testDir($dir){
             file_put_contents($stagedir ."/err.txt", "missing eiffeltest directory - please add to repository");
             $result = -1;
         }
-        file_put_contents($stagedir ."/result.txt", $result);
     }
 
     foreach (glob("$dir/*", GLOB_ONLYDIR) as $dirname){
