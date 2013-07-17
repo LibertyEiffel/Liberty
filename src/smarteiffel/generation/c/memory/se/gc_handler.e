@@ -245,9 +245,9 @@ feature {ANY}
          -- Heap-allocation into `internal_c_local' of a new object of some `created_live_type'.
       do
          internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "=((T0*)(new")
-         created_live_type.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "()));%N")
+         cpp.pending_c_function_body.append(once "=/*alloc*/((T0*)(")
+         malloc(created_live_type)
+         cpp.pending_c_function_body.append(once "));%N")
          initialize_user_expanded_attributes(internal_c_local, created_live_type)
       end
 
