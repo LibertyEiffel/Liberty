@@ -9,7 +9,7 @@ inherit
 insert
    GLOBALS
 
-create {GC_HANDLER}
+create {MEMORY_HANDLER}
    make
 
 feature {ANY}
