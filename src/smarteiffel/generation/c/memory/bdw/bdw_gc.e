@@ -322,16 +322,6 @@ feature {C_COMPILATION_MIXIN}
          end
       end
 
-feature {ANY}
-   allocation_of (internal_c_local: INTERNAL_C_LOCAL; created_live_type: LIVE_TYPE) is
-      do
-         internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "=/*alloc*/((T0*)")
-         malloc(created_live_type)
-         cpp.pending_c_function_body.append(once ");%N")
-         initialize_user_expanded_attributes(internal_c_local, created_live_type)
-      end
-
 feature {}
    define_gc_start (root_type: TYPE; live_type_map: TRAVERSABLE[LIVE_TYPE]) is
       do

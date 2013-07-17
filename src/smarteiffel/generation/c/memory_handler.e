@@ -251,11 +251,26 @@ feature {C_COMPILATION_MIXIN}
 
 feature {ANY}
    allocation_of (internal_c_local: INTERNAL_C_LOCAL; created_live_type: LIVE_TYPE) is
+         -- Heap-allocation into `internal_c_local' of a new object of some `created_live_type'.
       require
          cpp.pending_c_function
          created_live_type.at_run_time
          created_live_type.is_reference
-      deferred
+      do
+         internal_c_local.append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once "=/*alloc*/((T0*)(")
+         malloc(created_live_type)
+         cpp.pending_c_function_body.append(once "));%N")
+         if cpp.need_struct.for(created_live_type.canonical_type_mark) then
+            cpp.pending_c_function_body.append(once "*((T")
+            created_live_type.id.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once "*)")
+            internal_c_local.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once ")=M")
+            created_live_type.id.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once ";%N")
+         end
+         initialize_user_expanded_attributes(internal_c_local, created_live_type)
       end
 
 feature {}
