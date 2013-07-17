@@ -242,7 +242,7 @@ function testDir($dir){
     $hasEiffelTest = is_dir("$dir/eiffeltest");
     if($tests > 0){
         if($hasEiffelTest){
-            $result = execute("se test $dir");
+            $result = execute("se test -flat $dir");
             $warnCnt = exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
             if($result == 0){
                 if($warnCnt != 0){
