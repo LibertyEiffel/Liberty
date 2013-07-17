@@ -283,6 +283,24 @@ feature {}
    --      Result := True
    --   end
 
+   plural (count: INTEGER): STRING is
+      do
+         if count = 1 then
+            Result := once ""
+         else
+            Result := once "s"
+         end
+      end
+
+   plural_y (count: INTEGER): STRING is
+      do
+         if count = 1 then
+            Result := once "y"
+         else
+            Result := once "ies"
+         end
+      end
+
    eiffeltest_watch_diff_mode (dir_path: STRING) is
          -- No other "se test" in progress.
          -- We will now look for diff between existing "log.new" / "log.ref".
@@ -467,19 +485,9 @@ feature {}
             directory_scanner.disconnect
          end
 
-         log(once "Found " + test_list.count.to_string + once " test_* file(s).%N")
-
-         log(once "Found " + bad_list.count.to_string + once " bad_* file(s).%N")
-
-         inspect
-            subdirectory_list.count
-         when 0 then
-            log(once "No subdirectory.%N")
-         when 1 then
-            log(once "Found 1 subdirectory.%N")
-         else
-            log(once "Found " + subdirectory_list.count.to_string + once " subdirectories.%N")
-         end
+         log(once "Found #(1) test_* file#(2).%N" # test_list.count.to_string # plural(test_list.count))
+         log(once "Found #(1) bad_* file#(2).%N" # bad_list.count.to_string # plural(bad_list.count))
+         log(once "Found #(1) subdirector#(2).%N" # subdirectory_list.count.to_string # plural_y(subdirectory_list.count))
 
          long_line_draw_in_log_file
 
@@ -502,9 +510,7 @@ feature {}
          log_unused_excluded_entries
          long_line_draw_in_log_file
 
-         echo.put_string(once "Now closing the %"")
-         echo.put_string(log_file.path)
-         echo.put_string(once "%".%N")
+         echo.put_string(once "Now closing the %"#(1)%".%N" # log_file.path)
 
          log(once "End of %"se test%" log file (%"log.new%" should be identical with %"log.ref%").%N")
          log(once "Check that manually and overwrite %"log.ref%" with %"log.new%" if you agree.%N")
@@ -516,9 +522,7 @@ feature {}
 
          create_the_time_info_file
 
-         echo.put_string(once "Finished %"")
-         echo.put_string(directory_path)
-         echo.put_string(once "%" directory.%N")
+         echo.put_string(once "Finished %"#(1)%" directory.%N" # directory_path)
       end
 
    parse_arguments is
@@ -551,18 +555,12 @@ feature {}
             elseif file_tools.is_directory(arg) then
                if directory_path /= Void then
                   echo.w_put_string(once "se test (eiffeltest): must give only one directory as argument.%N")
-                  echo.w_put_string(once "Found first directory %"")
-                  echo.w_put_string(arg)
-                  echo.w_put_string(once "%" then directory %"")
-                  echo.w_put_string(directory_path)
-                  echo.w_put_string(once "%".%N")
+                  echo.w_put_string(once "Found first directory %"#(1)%" then directory %"#(2)%".%N" # arg # directory_path)
                   die_with_code(exit_failure_code)
                end
                directory_path := arg
             else
-               echo.w_put_string(once "se test (eiffeltest): %"")
-               echo.w_put_string(arg)
-               echo.w_put_string(once "%": unknown argument or option.%N")
+               echo.w_put_string(once "se test (eiffeltest): %"#(1)%": unknown argument or option.%N" # arg)
                die_with_code(exit_failure_code)
             end
             i := i + 1
@@ -596,14 +594,10 @@ feature {}
          check
             not path.is_empty
          end
-         echo.put_string(once "Trying to create/update READ_ME.txt file %"")
-         echo.put_string(path)
-         echo.put_string(once "%".%N")
+         echo.put_string(once "Trying to create/update READ_ME.txt file %"#(1)%".%N" # path)
          create text_file_write.connect_to(path)
          if not text_file_write.is_connected then
-            echo.w_put_string(once "se test (eiffeltest): Unable to create file %"")
-            echo.w_put_string(path)
-            echo.w_put_string(once "%". Check for read/write permissions.%N")
+            echo.w_put_string(once "se test (eiffeltest): Unable to create file %"#(1)%". Check for read/write permissions.%N" # path)
             die_with_code(exit_failure_code)
          end
          text_file_write.put_string(once "{
@@ -660,29 +654,23 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          end
          path.copy(basic_directory.last_entry)
          if file_tools.file_exists(path) then
-            echo.w_put_string(once "se test (eiffeltest): Another %"eiffeltest%" process seems to work%Nin %"")
-            echo.w_put_string(path)
-            echo.w_put_string(once "%".%NJust remove this LOCK file if it is wrong.%N")
-            echo.w_put_string(once "(Cannot run more than one eiffeltest at a time in the same directory.)%N")
+            echo.w_put_string(once "se test (eiffeltest): Another %"eiffeltest%" process seems to work%N%
+                                   %in %"#(1)%".%NJust remove this LOCK file if it is wrong.%N%
+                                   %(Cannot run more than one eiffeltest at a time in the same directory.)%N" # path)
             die_with_code(exit_failure_code)
          end
-         echo.put_string(once "Now creating the %"")
-         echo.put_string(path)
-         echo.put_string(once "%" file.%N")
+         echo.put_string(once "Now creating the %"#(1)%" file.%N" # path)
          create text_file_write.connect_to(path)
          if not text_file_write.is_connected then
-            echo.w_put_string(once "se test (eiffeltest): Unable to create LOCK file %"")
-            echo.w_put_string(path)
-            echo.w_put_string(once "%". Check for read/write permissions.%N")
+            echo.w_put_string(once "se test (eiffeltest): Unable to create LOCK file %"#(1)%". Check for read/write permissions.%N" # path)
             die_with_code(exit_failure_code)
          end
-         text_file_write.put_string(once "This LOCK file indicate that some %"eiffeltest%" process is %
-                                         %still running in this directory.%N%Nse test (eiffeltest): started on")
          time.update
          create time_in_english.set_time(time)
-         text_file_write.put_string(time_in_english.to_string)
-         text_file_write.put_string(once "%N%NIf you think that it is wrong, just remove this file.%N")
-         text_file_write.put_string(once "Only one eiffeltest process can be run at-a-time in some directory.%N")
+         text_file_write.put_string(once "This LOCK file indicate that some %"eiffeltest%" process is still running in this directory.%N%N%
+                                         %se test (eiffeltest): started on#(1)%N%N%
+                                         %If you think that it is wrong, just remove this file.%N%
+                                         %Only one eiffeltest process can be run at-a-time in some directory.%N" # time_in_english.to_string)
          text_file_write.disconnect
       end
 
@@ -699,9 +687,8 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          path.copy(basic_directory.last_entry)
          file_tools.delete(path)
          if file_tools.file_exists(path) then
-            echo.w_put_string(once "se test (eiffeltest): Unable to delete LOCK file %"")
-            echo.w_put_string(path)
-            echo.w_put_string(once "%".%NCheck for read/write permissions. Weird!%N")
+            echo.w_put_string(once "se test (eiffeltest): Unable to delete LOCK file %"#(1)%".%N%
+                                   %Check for read/write permissions. Weird!%N" # path)
             die_with_code(exit_failure_code)
          end
       end
@@ -849,7 +836,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
       do
          exe_name := change_exe_name(test_file)
 
-         cmd := once "se c " + options + once " " + test_file + once " -o " + exe_name
+         cmd := (once "se c #(1) #(2) -o #(3)" # options # test_file # exe_name).out
 
          -- Looking for some C glu (glu_*.c) file:
          c_glu := once "..............."
@@ -902,22 +889,17 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          if excluded_execution_of(log_line, agent execute_command(log_line, cmd, False)) then
             -- Command skipped.
          elseif not file_tools.file_exists(exe_name) then
-            echo.w_put_string(once "se test (eiffeltest): Unable to compile %"")
-            echo.w_put_string(test_file)
-            echo.w_put_string(once "%".%NCommand used:%N")
-            echo.w_put_string(cmd)
-            echo.w_put_string(once "%NIn directory %"")
-            echo.w_put_string(directory_path)
-            echo.w_put_string(once "%".%N")
+            echo.w_put_string(once "se test (eiffeltest): Unable to compile %"#(1)%".%N%
+                                   %Command used:%N%
+                                   %#(2)%N%
+                                   %In directory %"#(3)%".%N" # test_file # cmd # directory_path)
          else
             running_of(test_file, exe_name, options)
-
             if cecil_flag then
-               log_line := once "Removing (" + options + once ") %"cecil.h%" file."
+               log_line := (once "Removing (#(1)) %"cecil.h%" file." # options).out
                dummy := excluded_execution_of(log_line, agent file_tools.delete(once "cecil.h"))
             end
          end
-
       end
 
    bad_list_check (bad_list: FAST_ARRAY[STRING]) is
@@ -954,46 +936,29 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          new.remove_tail(2)
          new.append(once ".new")
 
-         cmd := once "se c " + bad_file + once " -o " + exe_name + once " -output_error_warning_on " + new
+         cmd := (once "se c #(1) -o #(2) -output_error_warning_on #(3)" # bad_file # exe_name # new).out
          log_line := cmd
          if excluded_execution_of(log_line, agent execute_command(log_line, cmd, True)) then
             -- Command skipped.
          elseif not file_tools.file_exists(new) then
-            echo.w_put_string("se test (eiffeltest): Bad file %"")
-            echo.w_put_string(bad_file)
-            echo.w_put_string("%" does not create error/warning output.%N")
-            echo.w_put_string("Check that manually (in directory %"")
-            echo.w_put_string(directory_path)
-            echo.w_put_string("%").%N")
-
-            log(once "No error/warning message for %"")
-            log(bad_file)
-            log(once "%".%N")
-
+            echo.w_put_string("se test (eiffeltest): Bad file %"#(1)%" does not create error/warning output.%N%
+                              %Check that manually (in directory %"#(1)%").%N" # bad_file # directory_path)
+            log(once "No error/warning message for %"#(1)%".%N" # bad_file)
          elseif not file_tools.file_exists(msg) then
-            echo.w_put_string("se test (eiffeltest): In directory %"")
-            echo.w_put_string(directory_path)
-            echo.w_put_string("%",%Ncheck manually that the error file %"")
-            echo.w_put_string(new)
-            echo.w_put_string("%",%Nis the correct one for %"")
-            echo.w_put_string(bad_file)
-            echo.w_put_string("%".%NIf so, then, change the name of this file as %"")
-            echo.w_put_string(msg)
-            echo.w_put_string("%".%NThis will register this message as correct.%N")
+            echo.w_put_string("se test (eiffeltest): In directory %"#(1)%",%N%
+                              %check manually that the error file %"#(2)%",%N%
+                              %is the correct one for %"#(3)%".%N%
+                              %If so, then, change the name of this file as %"#(4)%".%N%
+                              %This will register this message as correct.%N" # directory_path # new # bad_file # msg)
          else
             error_message_comparator.do_compare(msg, new)
             if error_message_comparator.error_flag then
-               echo.w_put_string("se test (eiffeltest): Error/warning message has changed for file %"")
-               echo.w_put_string(bad_file)
-               echo.w_put_string("%".%NIn directory %"")
-               echo.w_put_string(directory_path)
-               echo.w_put_string("%",%Nfiles %"")
-               echo.w_put_string(new)
-               echo.w_put_string("%" and %"")
-               echo.w_put_string(msg)
-               echo.w_put_string("%" do differ too much.%NPlease check manually.%N")
+               echo.w_put_string("se test (eiffeltest): Error/warning message has changed for file %"#(1)%".%N%
+                                 %In directory %"#(2)%",%N%
+                                 %files %"#(3)%" and %"#(4)%" differ too much.%N%
+                                 %Please check manually.%N" # bad_file # directory_path # new # msg)
             else
-               log_line := "Removing %"" + new + "%"."
+               log_line := (once "Removing %"#(1)%"." # new).out
                dummy := excluded_execution_of(log_line, agent file_tools.delete(new))
             end
          end
@@ -1015,7 +980,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
 
       end
 
-   log (log_line: STRING) is
+   log (log_line: ABSTRACT_STRING) is
       require
          not log_line.is_empty
       do
@@ -1042,26 +1007,21 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          log_new_path := basic_directory.last_entry.twin
 
          if not file_tools.file_exists(log_ref_path) then
-            echo.w_put_string("se test (eiffeltest): It seems to be the first run into%Ndirectory %"")
-            echo.w_put_string(directory_path)
-            echo.w_put_string("%".%NPlease check manually the log file %"")
-            echo.w_put_string(log_new_path)
-            echo.w_put_string("%".%NThen, rename this file as %"")
-            echo.w_put_string(log_ref_path)
-            echo.w_put_string("%".%N")
+            echo.w_put_string("se test (eiffeltest): It seems to be the first run into%N%
+                              %directory %"#(1)%".%N%
+                              %Please check manually the log file %"#(2)%".%N%
+                              %Then, rename this file as %"#(3)%".%N" # directory_path # log_new_path # log_ref_path)
             final_die_with_code_result := exit_failure_code
          elseif file_tools.same_files(log_ref_path, log_new_path) then
-            echo.put_string("Identical %"log.ref%" / %"log.new%" files in%N directory %"")
-            echo.put_string(eiffeltest_directory_path)
-            echo.put_string("%".%NTest appears to be correct.%N")
+            echo.put_string("Identical %"log.ref%" / %"log.new%" files in%N%
+                            %directory %"#(1)%".%N%
+                            %Test appears to be correct.%N" # eiffeltest_directory_path)
          else
-            echo.w_put_string("se test (eiffeltest): Log file changed for%Ndirectory %"")
-            echo.w_put_string(directory_path)
-            echo.w_put_string("%".%NPlease compare manually the log file %"")
-            echo.w_put_string(log_new_path)
-            echo.w_put_string("%".%Nwith %"")
-            echo.w_put_string(log_ref_path)
-            echo.w_put_string("%".%NOverwrite %"log.ref%" with %"log.new%" if you agree.%N")
+            echo.w_put_string("se test (eiffeltest): Log file changed for%N%
+                              %directory %"#(1)%".%N%
+                              %Please compare manually the log file %"#(2)%".%N%
+                              %with %"#(3)%".%N%
+                              %Overwrite %"log.ref%" with %"log.new%" if you agree.%N" # directory_path # log_new_path # log_ref_path)
             final_die_with_code_result := exit_failure_code
          end
       end
@@ -1099,7 +1059,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
       local
          cmd, log_line: STRING; subdirectory_path: STRING; dummy: BOOLEAN
       do
-         log_line := once "Launching %"se test%" on %"" + subdirectory + once "%" subdirectory."
+         log_line := (once "Launching %"se test%" on %"#(1)%" subdirectory." # subdirectory).out
 
          basic_directory.compute_subdirectory_with(directory_path, subdirectory)
          subdirectory_path := basic_directory.last_entry.twin
@@ -1116,21 +1076,16 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          dummy := excluded_execution_of(log_line, agent execute_command(log_line, cmd, False))
       end
 
-   excluded_lst: FAST_ARRAY[STRING] is
-      once
-         create Result.with_capacity(32)
-      end
-
-   excluded_lst_flag: FAST_ARRAY[BOOLEAN] is
+   excluded_lst: FAST_ARRAY[EIFFELTEST_PATTERN] is
       once
          create Result.with_capacity(32)
       end
 
    loading_excluded_lst is
       local
-         path, pattern: STRING
+         path, entry: STRING
       do
-         echo.put_string("Trying to load the optional %"excluded.lst%" file.%N")
+         echo.put_string(once "Trying to load the optional %"excluded.lst%" file.%N")
          basic_directory.compute_file_path_with(eiffeltest_directory_path, once "excluded.lst")
          path := basic_directory.last_entry.twin
          if file_tools.file_exists(path) then
@@ -1140,10 +1095,9 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
                text_file_read.end_of_input
             loop
                text_file_read.read_line
-               pattern := text_file_read.last_string.twin
-               if not pattern.is_empty then
-                  excluded_lst.add_last(pattern)
-                  excluded_lst_flag.add_last(False)
+               entry := text_file_read.last_string
+               if not entry.is_empty then
+                  excluded_lst.add_last(create {EIFFELTEST_PATTERN}.make(entry))
                end
             end
             text_file_read.disconnect
@@ -1155,26 +1109,40 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          i, total_unused: INTEGER
       do
          if excluded_lst.is_empty then
-            log("No %"excluded.lst%" here (good).%N")
+            log(once "No %"excluded.lst%" here (good).%N")
          else
-            total_unused := excluded_lst_flag.fast_occurrences(False)
+            total_unused := count_unused_excluded_lst
             if total_unused = 0 then
-               log("All entries of the %"excluded.lst%" file are used (good).%N")
+               log(once "All entries of the %"excluded.lst%" file are used (good).%N")
             else
-               log("Warning, " + total_unused.to_string + " entries of %"excluded.lst%" not used.%N")
+               log(once "Warning, #(1) entr#(2) of %"excluded.lst%" not used:%N" # total_unused.to_string # plural_y(total_unused))
                from
-                  i := excluded_lst_flag.lower
+                  i := excluded_lst.lower
                until
-                  i > excluded_lst_flag.upper
+                  i > excluded_lst.upper
                loop
-                  if excluded_lst_flag.item(i) then
-                     -- Used.
-                  else
-                     log(once "Entry %"" + excluded_lst.item(i) + once "%" not used.%N")
+                  if not excluded_lst.item(i).matched then
+                     log(once "Entry %"#(1)%" not used.%N" # excluded_lst.item(i).text)
                   end
                   i := i + 1
                end
             end
+         end
+      end
+
+   count_unused_excluded_lst: INTEGER is
+      local
+         i: INTEGER
+      do
+         from
+            i := excluded_lst.lower
+         until
+            i > excluded_lst.upper
+         loop
+            if not excluded_lst.item(i).matched then
+               Result := Result + 1
+            end
+            i := i + 1
          end
       end
 
@@ -1190,18 +1158,17 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          until
             Result or else i > excluded_lst.upper
          loop
-            if log_line.has_substring(excluded_lst.item(i)) then
-               log(once "Excluded command: %"" + log_line + once "%".%N")
-               log(once "By excluded.lst:  %"" + excluded_lst.item(i) + once "%".%N")
-               excluded_lst_flag.put(True, i)
-               echo.put_string(once "Excluded %"" + log_line + once "%".%N")
+            if excluded_lst.item(i).match(log_line) then
+               log(once "Excluded command: %"#(1)%".%N" # log_line)
+               log(once "By excluded.lst:  %"#(1)%".%N" # excluded_lst.item(i).text)
+               echo.put_string(once "Excluded %"#(1)%".%N" # log_line)
                Result := True
             end
             i := i + 1
          end
          if not Result then
-            log(log_line + once "%N")
-            echo.put_string(log_line + once "%N")
+            log(once "#(1)%N" # log_line)
+            echo.put_string(once "#(1)%N" # log_line)
             action.call([])
          end
       end
@@ -1223,9 +1190,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          path := basic_directory.last_entry.twin
          create text_file_write.connect_to(path)
          if not text_file_write.is_connected then
-            echo.w_put_string("se test (eiffeltest): Unable to create file %"")
-            echo.w_put_string(path)
-            echo.w_put_string("%". Check for read/write permissions or disk space.%N")
+            echo.w_put_string("se test (eiffeltest): Unable to create file %"#(1)%". Check for read/write permissions or disk space.%N" # path)
             die_with_code(exit_failure_code)
          end
          text_file_write.put_string(once "{
@@ -1247,7 +1212,7 @@ se c -ensure_check
       do
          inspect
             name
-         when "eiffeltest", ".", "..", ".svn", "CVS" then
+         when "eiffeltest", ".", "..", ".svn", "CVS", ".git" then
             Result := True
          else
             check
@@ -1300,21 +1265,12 @@ feature {}
             if bad_file_flag then
                -- A bad `exit_status' is just normal.
             else
-               echo.w_put_string(once "se test (eiffeltest): Error while running:%N   ")
-               echo.w_put_string(log_line)
-               echo.w_put_string(once "%N")
+               echo.w_put_string(once "se test (eiffeltest): Error while running:%N   #(1)%N" # log_line)
                if not log_line.is_equal(cmd) then
-                  echo.w_put_string(once "   ")
-                  echo.w_put_string(cmd)
-                  echo.w_put_string(once "%N")
+                  echo.w_put_string(once "   #(1)%N" # cmd)
                end
-               echo.w_put_string(once "(Return status was ")
-               echo.w_put_integer(exit_status)
-               echo.w_put_string(once ")%N")
-
-               log(once "Abnormal exit status of %"")
-               log(log_line)
-               log(once "%".%N")
+               echo.w_put_string(once "(Return status was #(1))%N" # exit_status.to_string)
+               log(once "Abnormal exit status #(1) of %"#(2)%".%N" # exit_status.to_string # log_line)
             end
             -- Now one second of pause to allow the user to kill the main "se test" process.
             -- Actually, this is not a pause... I do not like to use the cpu for nothing,
@@ -1369,13 +1325,10 @@ feature {}
             if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False)) then
                -- Command skipped.
             elseif not file_tools.file_exists(exe_name) then
-               echo.w_put_string(once "se test (eiffeltest): Unable to compile %"")
-               echo.w_put_string(test_file)
-               echo.w_put_string(once "%".%NCommand used:%N")
-               echo.w_put_string(cmd)
-               echo.w_put_string(once "%NIn directory %"")
-               echo.w_put_string(directory_path)
-               echo.w_put_string(once "%".%N")
+               echo.w_put_string(once "se test (eiffeltest): Unable to compile %"#(1)%".%N%
+                                      %Command used:%N%
+                                      %#(2)%N%
+                                      %In directory %"#(3)%".%N" # test_file # cmd # directory_path)
             else
                running_of(test_file, exe_name, Void)
             end
