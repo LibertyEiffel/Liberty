@@ -6,6 +6,7 @@ class BDW_GC_DEFINE2
 inherit
    STATIC_TYPE_MARK_VISITOR
    GENERIC_TYPE_MARK_VISITOR
+   NON_GENERIC_TYPE_MARK_VISITOR
 
 insert
    GLOBALS
@@ -14,12 +15,11 @@ create {BDW_GC}
    make
 
 feature {BDW_GC}
-   for (lt: like live_type; na: TAGGED_FLAG) is
+   for (lt: like live_type) is
       require
          lt.at_run_time
       do
          live_type := lt
-         is_na_collector:= na /= Void and then na.item
          lt.canonical_type_mark.accept(Current)
          live_type := Void
       end
@@ -113,6 +113,12 @@ feature {ARRAY_TYPE_MARK}
          end
       end
 
+feature {EMPTY_TUPLE_TYPE_MARK}
+   visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK) is
+      do
+         alloc_reference(visited)
+      end
+
 feature {NATIVE_ARRAY_TYPE_MARK}
    visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
       do
@@ -142,18 +148,31 @@ feature {WEAK_REFERENCE_TYPE_MARK}
          alloc_weak_reference(visited)
       end
 
+feature {} -- memory-specific handling aspects
+   native_array_collector: LIVE_TYPE_NATIVE_ARRAY_COLLECTOR
+
 feature {}
    live_type: LIVE_TYPE
-   is_na_collector: BOOLEAN
    bdw: BDW_GC
 
-   make (a_bdw: like bdw) is
+   is_na_collector: BOOLEAN is
+      local
+         na: TAGGED_FLAG
+      do
+         na := native_array_collector.must_collect(live_type)
+         Result := na /= Void and then na.item
+      end
+
+   make (a_bdw: like bdw; a_native_array_collector: like native_array_collector) is
       require
          a_bdw /= Void
+         a_native_array_collector /= Void
       do
          bdw := a_bdw
+         native_array_collector := a_native_array_collector
       ensure
          bdw = a_bdw
+         native_array_collector = a_native_array_collector
       end
 
    put_alloc_function (tm: TYPE_MARK) is
