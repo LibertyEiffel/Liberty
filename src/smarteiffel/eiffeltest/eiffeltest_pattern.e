@@ -6,11 +6,11 @@ class EIFFELTEST_PATTERN
 insert
    GLOBALS
 
-create {EIFFELTEST}
+create {EIFFELTEST, EIFFELTEST_SERVER_RUN_TESTS}
    make
 
-feature {EIFFELTEST}
-   match (string: STRING): BOOLEAN is
+feature {EIFFELTEST, EIFFELTEST_SERVER_RUN_TESTS}
+   match (string: ABSTRACT_STRING): BOOLEAN is
       require
          string /= Void
       do
@@ -28,7 +28,7 @@ feature {EIFFELTEST}
 feature {}
    regex: REGULAR_EXPRESSION
 
-   make (a_text: STRING) is
+   make (a_text: ABSTRACT_STRING) is
       require
          a_text /= Void
       local
