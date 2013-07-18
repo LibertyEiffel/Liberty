@@ -69,7 +69,7 @@ feature {ANY} -- common
          scanned_string_remains: scanned_string = old scanned_string
       end
 
-   match_from (text: STRING; first_index: INTEGER): BOOLEAN is
+   match_from (text: ABSTRACT_STRING; first_index: INTEGER): BOOLEAN is
       do
          set_scanned_string(text)
          goto_position(first_index)

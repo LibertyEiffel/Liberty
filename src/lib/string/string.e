@@ -145,7 +145,7 @@ feature {ANY} -- Modification:
          count = other.count
       end
 
-   copy_substring (s: like Current; start_index, end_index: INTEGER) is
+   copy_substring (s: ABSTRACT_STRING; start_index, end_index: INTEGER) is
          -- Copy the substring from `s' from `start_index' to `end_index'
          -- to Current.
          --

@@ -15,7 +15,7 @@ feature {ANY} -- make
       end
 
 feature {ANY} -- basic
-   scanned_string: STRING
+   scanned_string: ABSTRACT_STRING
          -- The expression being currently build.
 
    set_scanned_string (string: like scanned_string) is
