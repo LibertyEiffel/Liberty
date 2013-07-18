@@ -9,7 +9,8 @@ class MANIFEST_TUPLE
 inherit
    EXPRESSION
 
-create {ANY} make
+create {ANY}
+   make
 
 feature {ANY}
    start_position: POSITION
@@ -18,7 +19,6 @@ feature {ANY}
    effective_arg_list: EFFECTIVE_ARG_LIST
          -- Provided by the `eiffel_parser': the list of expressions inside square brackets.
          -- This `effective_arg_list' is Void for the empty TUPLE.
-
 
    is_void: BOOLEAN is False
 

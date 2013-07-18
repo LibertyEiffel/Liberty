@@ -41,7 +41,8 @@ feature {C_PRETTY_PRINTER} -- C code phases
                                     %#include <gc/gc.h>%N%
                                     %#define malloc(s) GC_MALLOC(s)%N%
                                     %#define calloc(n,s) GC_MALLOC_IGNORE_OFF_PAGE((s)*(n))%N%
-                                    %#define realloc(p,s) GC_REALLOC((p),(s))%N")
+                                    %#define realloc(p,s) GC_REALLOC((p),(s))%N%
+                                    %#define free(p) p=NULL%N")
          cpp.write_out_h_buffer
       end
 
@@ -85,7 +86,7 @@ feature {C_PRETTY_PRINTER} -- C code phases
          loop
             lt := live_type_map.item(i)
             if lt.at_run_time then
-               gc_define2.for(lt, native_array_collector.must_collect(lt))
+               gc_define2.for(lt)
             end
             i := i + 1
          end
@@ -164,18 +165,26 @@ feature {C_PRETTY_PRINTER} -- memory-specific handling aspects
 feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
    malloc (lt: LIVE_TYPE) is
       do
-         cpp.pending_c_function_body.append(once "bdw_mallocT")
-         lt.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "(1)")
+         if lt.at_run_time then
+            cpp.pending_c_function_body.append(once "bdw_mallocT")
+            lt.id.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once "(1)")
+         else
+            cpp.pending_c_function_body.append(once "NULL")
+         end
       end
 
    calloc (lt: LIVE_TYPE; n: PROCEDURE[TUPLE]) is
       do
-         cpp.pending_c_function_body.append(once "bdw_mallocT")
-         lt.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.extend('(')
-         n.call([])
-         cpp.pending_c_function_body.extend(')')
+         if lt.at_run_time then
+            cpp.pending_c_function_body.append(once "bdw_mallocT")
+            lt.id.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.extend('(')
+            n.call([])
+            cpp.pending_c_function_body.extend(')')
+         else
+            cpp.pending_c_function_body.append(once "NULL")
+         end
       end
 
 feature {C_COMPILATION_MIXIN} -- GC switches (see MEMORY)
@@ -313,16 +322,6 @@ feature {C_COMPILATION_MIXIN}
          end
       end
 
-feature {ANY}
-   allocation_of (internal_c_local: INTERNAL_C_LOCAL; created_live_type: LIVE_TYPE) is
-      do
-         internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "=((T0*)bdw_mallocT")
-         created_live_type.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "(1));%N")
-         initialize_user_expanded_attributes(internal_c_local, created_live_type)
-      end
-
 feature {}
    define_gc_start (root_type: TYPE; live_type_map: TRAVERSABLE[LIVE_TYPE]) is
       do
@@ -354,8 +353,9 @@ feature {}
 
    make is
       do
-         create gc_define2.make(Current)
          create assign_na.make(Current)
+         create native_array_collector.make
+         create gc_define2.make(Current, native_array_collector)
       end
 
 end -- class BDW_GC

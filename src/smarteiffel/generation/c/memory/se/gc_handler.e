@@ -240,17 +240,6 @@ feature {}
          id.append_in(cpp.pending_c_function_body)
       end
 
-feature {ANY}
-   allocation_of (internal_c_local: INTERNAL_C_LOCAL; created_live_type: LIVE_TYPE) is
-         -- Heap-allocation into `internal_c_local' of a new object of some `created_live_type'.
-      do
-         internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "=((T0*)(new")
-         created_live_type.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "()));%N")
-         initialize_user_expanded_attributes(internal_c_local, created_live_type)
-      end
-
 feature {C_COMPILATION_MIXIN}
    frozen store_in (type_mark: TYPE_MARK; buffer: STRING) is
       require

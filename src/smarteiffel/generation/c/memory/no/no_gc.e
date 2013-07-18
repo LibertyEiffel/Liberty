@@ -88,9 +88,13 @@ feature {C_PRETTY_PRINTER} -- memory-specific handling aspects
 feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
    malloc (lt: LIVE_TYPE) is
       do
-         cpp.pending_c_function_body.append(once "se_malloc(sizeof(T")
-         lt.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "))")
+         if cpp.need_struct.for(lt.canonical_type_mark) then
+            cpp.pending_c_function_body.append(once "se_malloc(sizeof(T")
+            lt.id.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once "))")
+         else
+            cpp.pending_c_function_body.append(once "se_malloc(1)")
+         end
       end
 
    calloc (lt: LIVE_TYPE; n: PROCEDURE[TUPLE]) is
@@ -203,30 +207,6 @@ feature {C_COMPILATION_MIXIN}
 
    assigned_native_array (assignment: ASSIGNMENT; type: TYPE) is
       do
-      end
-
-feature {ANY}
-   allocation_of (internal_c_local: INTERNAL_C_LOCAL; created_live_type: LIVE_TYPE) is
-      do
-         internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.extend('=')
-         if cpp.need_struct.for(created_live_type.canonical_type_mark) then
-            cpp.pending_c_function_body.append(once "((T0*)se_malloc(sizeof(T")
-            created_live_type.id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once ")))")
-            cpp.recompilation_comment(created_live_type)
-            cpp.pending_c_function_body.append(once ";%N*((T")
-            created_live_type.id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "*)")
-            internal_c_local.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once ")=M")
-            created_live_type.id.append_in(cpp.pending_c_function_body)
-         else
-            -- Object has no attributes:
-            cpp.pending_c_function_body.append(once "((T0*)(se_malloc(1)))")
-         end
-         cpp.pending_c_function_body.append(once ";%N")
-         initialize_user_expanded_attributes(internal_c_local, created_live_type)
       end
 
 feature {}

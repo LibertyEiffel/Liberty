@@ -3,9 +3,9 @@ The "log.new" file must be identical to the "log.ref" file.
 The reference file is "log.ref" and this file must be created manually.
 If you confirm that "log.new" is correct, just overwrite "log.ref" with "log.new".
 --------------------------------------------------------------------------------
-Found 5 test_* file(s).
-Found 0 bad_* file(s).
-No subdirectory.
+Found 5 test_* files.
+Found 0 bad_* files.
+Found 0 subdirectories.
 --------------------------------------------------------------------------------
 se c -boost test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se
 Running (-boost) "test_01.exe".
@@ -63,6 +63,43 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_01.e -o test_01.exe 
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se
+Running (-boost -bdw_gc) "test_01.exe".
+se clean test_01.e
+Removing (-boost -bdw_gc) "test_01.exe".
+Removing (-boost -bdw_gc) "cecil.h" file.
+se c -boost -debug -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se
+Running (-boost -debug -bdw_gc) "test_01.exe".
+se clean test_01.e
+Removing (-boost -debug -bdw_gc) "test_01.exe".
+Removing (-boost -debug -bdw_gc) "cecil.h" file.
+se c -no_check -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se
+Running (-no_check -bdw_gc) "test_01.exe".
+se clean test_01.e
+Removing (-no_check -bdw_gc) "test_01.exe".
+Removing (-no_check -bdw_gc) "cecil.h" file.
+se c -flat_check -require_check -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se
+Running (-flat_check -require_check -bdw_gc) "test_01.exe".
+se clean test_01.e
+Removing (-flat_check -require_check -bdw_gc) "test_01.exe".
+Removing (-flat_check -require_check -bdw_gc) "cecil.h" file.
+Excluded command: "se c -ensure_check -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se
+Running (-flat_check -invariant_check -bdw_gc) "test_01.exe".
+se clean test_01.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_01.exe".
+Removing (-flat_check -invariant_check -bdw_gc) "cecil.h" file.
+se c -flat_check -loop_check -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se
+Running (-flat_check -loop_check -bdw_gc) "test_01.exe".
+se clean test_01.e
+Removing (-flat_check -loop_check -bdw_gc) "test_01.exe".
+Removing (-flat_check -loop_check -bdw_gc) "cecil.h" file.
+se c -flat_check -all_check -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se
+Running (-flat_check -all_check -bdw_gc) "test_01.exe".
+se clean test_01.e
+Removing (-flat_check -all_check -bdw_gc) "test_01.exe".
+Removing (-flat_check -all_check -bdw_gc) "cecil.h" file.
 Excluded command: "se c -all_check -debug test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
 By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se
@@ -88,6 +125,19 @@ Excluded command: "se c -no_gc -loop_check test_01.e -o test_01.exe glu_01.c -ce
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se
+Running (-require_check -bdw_gc) "test_01.exe".
+se clean test_01.e
+Removing (-require_check -bdw_gc) "test_01.exe".
+Removing (-require_check -bdw_gc) "cecil.h" file.
+Excluded command: "se c -ensure_check -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
@@ -118,6 +168,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_01.e -o test_01.exe glu
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se".
@@ -138,6 +202,11 @@ Running (-no_split -no_gc -boost) "test_01.exe".
 se clean test_01.e
 Removing (-no_split -no_gc -boost) "test_01.exe".
 Removing (-no_split -no_gc -boost) "cecil.h" file.
+se c -no_split -boost -bdw_gc test_01.e -o test_01.exe glu_01.c -cecil cecil_01.se
+Running (-no_split -boost -bdw_gc) "test_01.exe".
+se clean test_01.e
+Removing (-no_split -boost -bdw_gc) "test_01.exe".
+Removing (-no_split -boost -bdw_gc) "cecil.h" file.
 se c -boost test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se
 Running (-boost) "test_02.exe".
 se clean test_02.e
@@ -194,6 +263,43 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_02.e -o test_02.exe 
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se
+Running (-boost -bdw_gc) "test_02.exe".
+se clean test_02.e
+Removing (-boost -bdw_gc) "test_02.exe".
+Removing (-boost -bdw_gc) "cecil.h" file.
+se c -boost -debug -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se
+Running (-boost -debug -bdw_gc) "test_02.exe".
+se clean test_02.e
+Removing (-boost -debug -bdw_gc) "test_02.exe".
+Removing (-boost -debug -bdw_gc) "cecil.h" file.
+se c -no_check -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se
+Running (-no_check -bdw_gc) "test_02.exe".
+se clean test_02.e
+Removing (-no_check -bdw_gc) "test_02.exe".
+Removing (-no_check -bdw_gc) "cecil.h" file.
+se c -flat_check -require_check -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se
+Running (-flat_check -require_check -bdw_gc) "test_02.exe".
+se clean test_02.e
+Removing (-flat_check -require_check -bdw_gc) "test_02.exe".
+Removing (-flat_check -require_check -bdw_gc) "cecil.h" file.
+Excluded command: "se c -ensure_check -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se
+Running (-flat_check -invariant_check -bdw_gc) "test_02.exe".
+se clean test_02.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_02.exe".
+Removing (-flat_check -invariant_check -bdw_gc) "cecil.h" file.
+se c -flat_check -loop_check -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se
+Running (-flat_check -loop_check -bdw_gc) "test_02.exe".
+se clean test_02.e
+Removing (-flat_check -loop_check -bdw_gc) "test_02.exe".
+Removing (-flat_check -loop_check -bdw_gc) "cecil.h" file.
+se c -flat_check -all_check -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se
+Running (-flat_check -all_check -bdw_gc) "test_02.exe".
+se clean test_02.e
+Removing (-flat_check -all_check -bdw_gc) "test_02.exe".
+Removing (-flat_check -all_check -bdw_gc) "cecil.h" file.
 Excluded command: "se c -all_check -debug test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
 By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se
@@ -219,6 +325,19 @@ Excluded command: "se c -no_gc -loop_check test_02.e -o test_02.exe glu_02.c -ce
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se
+Running (-require_check -bdw_gc) "test_02.exe".
+se clean test_02.e
+Removing (-require_check -bdw_gc) "test_02.exe".
+Removing (-require_check -bdw_gc) "cecil.h" file.
+Excluded command: "se c -ensure_check -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
@@ -249,6 +368,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_02.e -o test_02.exe glu
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se".
@@ -269,6 +402,11 @@ Running (-no_split -no_gc -boost) "test_02.exe".
 se clean test_02.e
 Removing (-no_split -no_gc -boost) "test_02.exe".
 Removing (-no_split -no_gc -boost) "cecil.h" file.
+se c -no_split -boost -bdw_gc test_02.e -o test_02.exe glu_02.c -cecil cecil_02.se
+Running (-no_split -boost -bdw_gc) "test_02.exe".
+se clean test_02.e
+Removing (-no_split -boost -bdw_gc) "test_02.exe".
+Removing (-no_split -boost -bdw_gc) "cecil.h" file.
 se c -boost test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c
 Running (-boost) "test_03.exe".
 se clean test_03.e
@@ -325,6 +463,43 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_03.e -o test_03.exe 
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c
+Running (-boost -bdw_gc) "test_03.exe".
+se clean test_03.e
+Removing (-boost -bdw_gc) "test_03.exe".
+Removing (-boost -bdw_gc) "cecil.h" file.
+se c -boost -debug -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c
+Running (-boost -debug -bdw_gc) "test_03.exe".
+se clean test_03.e
+Removing (-boost -debug -bdw_gc) "test_03.exe".
+Removing (-boost -debug -bdw_gc) "cecil.h" file.
+se c -no_check -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c
+Running (-no_check -bdw_gc) "test_03.exe".
+se clean test_03.e
+Removing (-no_check -bdw_gc) "test_03.exe".
+Removing (-no_check -bdw_gc) "cecil.h" file.
+se c -flat_check -require_check -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c
+Running (-flat_check -require_check -bdw_gc) "test_03.exe".
+se clean test_03.e
+Removing (-flat_check -require_check -bdw_gc) "test_03.exe".
+Removing (-flat_check -require_check -bdw_gc) "cecil.h" file.
+Excluded command: "se c -ensure_check -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c
+Running (-flat_check -invariant_check -bdw_gc) "test_03.exe".
+se clean test_03.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_03.exe".
+Removing (-flat_check -invariant_check -bdw_gc) "cecil.h" file.
+se c -flat_check -loop_check -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c
+Running (-flat_check -loop_check -bdw_gc) "test_03.exe".
+se clean test_03.e
+Removing (-flat_check -loop_check -bdw_gc) "test_03.exe".
+Removing (-flat_check -loop_check -bdw_gc) "cecil.h" file.
+se c -flat_check -all_check -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c
+Running (-flat_check -all_check -bdw_gc) "test_03.exe".
+se clean test_03.e
+Removing (-flat_check -all_check -bdw_gc) "test_03.exe".
+Removing (-flat_check -all_check -bdw_gc) "cecil.h" file.
 Excluded command: "se c -all_check -debug test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
 By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c
@@ -350,6 +525,19 @@ Excluded command: "se c -no_gc -loop_check test_03.e -o test_03.exe glu_03.c -ce
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c
+Running (-require_check -bdw_gc) "test_03.exe".
+se clean test_03.e
+Removing (-require_check -bdw_gc) "test_03.exe".
+Removing (-require_check -bdw_gc) "cecil.h" file.
+Excluded command: "se c -ensure_check -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
@@ -380,6 +568,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_03.e -o test_03.exe glu
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c".
@@ -400,6 +602,11 @@ Running (-no_split -no_gc -boost) "test_03.exe".
 se clean test_03.e
 Removing (-no_split -no_gc -boost) "test_03.exe".
 Removing (-no_split -no_gc -boost) "cecil.h" file.
+se c -no_split -boost -bdw_gc test_03.e -o test_03.exe glu_03.c -cecil cecil_03.se -cecil cecil_03_b.se glu_03_b.c
+Running (-no_split -boost -bdw_gc) "test_03.exe".
+se clean test_03.e
+Removing (-no_split -boost -bdw_gc) "test_03.exe".
+Removing (-no_split -boost -bdw_gc) "cecil.h" file.
 se c -boost test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning
 Running (-boost) "test_05.exe".
 se clean test_05.e
@@ -456,6 +663,43 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_05.e -o test_05.exe 
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning
+Running (-boost -bdw_gc) "test_05.exe".
+se clean test_05.e
+Removing (-boost -bdw_gc) "test_05.exe".
+Removing (-boost -bdw_gc) "cecil.h" file.
+se c -boost -debug -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning
+Running (-boost -debug -bdw_gc) "test_05.exe".
+se clean test_05.e
+Removing (-boost -debug -bdw_gc) "test_05.exe".
+Removing (-boost -debug -bdw_gc) "cecil.h" file.
+se c -no_check -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning
+Running (-no_check -bdw_gc) "test_05.exe".
+se clean test_05.e
+Removing (-no_check -bdw_gc) "test_05.exe".
+Removing (-no_check -bdw_gc) "cecil.h" file.
+se c -flat_check -require_check -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning
+Running (-flat_check -require_check -bdw_gc) "test_05.exe".
+se clean test_05.e
+Removing (-flat_check -require_check -bdw_gc) "test_05.exe".
+Removing (-flat_check -require_check -bdw_gc) "cecil.h" file.
+Excluded command: "se c -ensure_check -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning
+Running (-flat_check -invariant_check -bdw_gc) "test_05.exe".
+se clean test_05.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_05.exe".
+Removing (-flat_check -invariant_check -bdw_gc) "cecil.h" file.
+se c -flat_check -loop_check -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning
+Running (-flat_check -loop_check -bdw_gc) "test_05.exe".
+se clean test_05.e
+Removing (-flat_check -loop_check -bdw_gc) "test_05.exe".
+Removing (-flat_check -loop_check -bdw_gc) "cecil.h" file.
+se c -flat_check -all_check -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning
+Running (-flat_check -all_check -bdw_gc) "test_05.exe".
+se clean test_05.e
+Removing (-flat_check -all_check -bdw_gc) "test_05.exe".
+Removing (-flat_check -all_check -bdw_gc) "cecil.h" file.
 Excluded command: "se c -all_check -debug test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
 By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning
@@ -481,6 +725,19 @@ Excluded command: "se c -no_gc -loop_check test_05.e -o test_05.exe glu_05.c -ce
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning
+Running (-require_check -bdw_gc) "test_05.exe".
+se clean test_05.e
+Removing (-require_check -bdw_gc) "test_05.exe".
+Removing (-require_check -bdw_gc) "cecil.h" file.
+Excluded command: "se c -ensure_check -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
@@ -511,6 +768,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_05.e -o test_05.exe glu
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning".
@@ -531,6 +802,11 @@ Running (-no_split -no_gc -boost) "test_05.exe".
 se clean test_05.e
 Removing (-no_split -no_gc -boost) "test_05.exe".
 Removing (-no_split -no_gc -boost) "cecil.h" file.
+se c -no_split -boost -bdw_gc test_05.e -o test_05.exe glu_05.c -cecil cecil_05.se -no_warning
+Running (-no_split -boost -bdw_gc) "test_05.exe".
+se clean test_05.e
+Removing (-no_split -boost -bdw_gc) "test_05.exe".
+Removing (-no_split -boost -bdw_gc) "cecil.h" file.
 se c -boost test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning
 Running (-boost) "test_06.exe".
 se clean test_06.e
@@ -587,6 +863,43 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_06.e -o test_06.exe 
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning
+Running (-boost -bdw_gc) "test_06.exe".
+se clean test_06.e
+Removing (-boost -bdw_gc) "test_06.exe".
+Removing (-boost -bdw_gc) "cecil.h" file.
+se c -boost -debug -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning
+Running (-boost -debug -bdw_gc) "test_06.exe".
+se clean test_06.e
+Removing (-boost -debug -bdw_gc) "test_06.exe".
+Removing (-boost -debug -bdw_gc) "cecil.h" file.
+se c -no_check -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning
+Running (-no_check -bdw_gc) "test_06.exe".
+se clean test_06.e
+Removing (-no_check -bdw_gc) "test_06.exe".
+Removing (-no_check -bdw_gc) "cecil.h" file.
+se c -flat_check -require_check -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning
+Running (-flat_check -require_check -bdw_gc) "test_06.exe".
+se clean test_06.e
+Removing (-flat_check -require_check -bdw_gc) "test_06.exe".
+Removing (-flat_check -require_check -bdw_gc) "cecil.h" file.
+Excluded command: "se c -ensure_check -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning
+Running (-flat_check -invariant_check -bdw_gc) "test_06.exe".
+se clean test_06.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_06.exe".
+Removing (-flat_check -invariant_check -bdw_gc) "cecil.h" file.
+se c -flat_check -loop_check -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning
+Running (-flat_check -loop_check -bdw_gc) "test_06.exe".
+se clean test_06.e
+Removing (-flat_check -loop_check -bdw_gc) "test_06.exe".
+Removing (-flat_check -loop_check -bdw_gc) "cecil.h" file.
+se c -flat_check -all_check -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning
+Running (-flat_check -all_check -bdw_gc) "test_06.exe".
+se clean test_06.e
+Removing (-flat_check -all_check -bdw_gc) "test_06.exe".
+Removing (-flat_check -all_check -bdw_gc) "cecil.h" file.
 Excluded command: "se c -all_check -debug test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
 By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning
@@ -612,6 +925,19 @@ Excluded command: "se c -no_gc -loop_check test_06.e -o test_06.exe glu_06.c -ce
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning
+Running (-require_check -bdw_gc) "test_06.exe".
+se clean test_06.e
+Removing (-require_check -bdw_gc) "test_06.exe".
+Removing (-require_check -bdw_gc) "cecil.h" file.
+Excluded command: "se c -ensure_check -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
@@ -642,6 +968,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_06.e -o test_06.exe glu
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning".
@@ -662,6 +1002,11 @@ Running (-no_split -no_gc -boost) "test_06.exe".
 se clean test_06.e
 Removing (-no_split -no_gc -boost) "test_06.exe".
 Removing (-no_split -no_gc -boost) "cecil.h" file.
+se c -no_split -boost -bdw_gc test_06.e -o test_06.exe glu_06.c -cecil cecil_06.se -no_warning
+Running (-no_split -boost -bdw_gc) "test_06.exe".
+se clean test_06.e
+Removing (-no_split -boost -bdw_gc) "test_06.exe".
+Removing (-no_split -boost -bdw_gc) "cecil.h" file.
 --------------------------------------------------------------------------------
 All entries of the "excluded.lst" file are used (good).
 --------------------------------------------------------------------------------

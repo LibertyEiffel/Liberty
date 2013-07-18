@@ -1,0 +1,93 @@
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
+-- See the Copyright notice at the end of this file.
+--
+class EIFFELTEST_PATTERN
+
+create {EIFFELTEST}
+   make
+
+feature {EIFFELTEST}
+   match (string: STRING): BOOLEAN is
+      require
+         string /= Void
+      do
+         Result := regex.match(string)
+         if Result then
+            matched := True
+         end
+      ensure
+         Result implies matched
+      end
+
+   text: FIXED_STRING
+   matched: BOOLEAN
+
+feature {}
+   regex: REGULAR_EXPRESSION
+
+   make (a_text: STRING) is
+      require
+         a_text /= Void
+      local
+         entry: STRING; i: INTEGER
+         reb: REGULAR_EXPRESSION_BUILDER
+      do
+         text := a_text.intern
+         if a_text.first = '/' and then a_text.last = '/' then
+            entry := a_text
+         else
+            entry := once ""
+            entry.clear_count
+            entry.append(once "^.*?")
+            from
+               i := a_text.lower
+            until
+               i > a_text.upper
+            loop
+               inspect
+                  a_text.item(i)
+               when '(', ')', '[', ']', '+', '*', '?', '{', '}', '\', '|', '^', '$', '.' then
+                  entry.add_last('\')
+               else
+               end
+               entry.add_last(a_text.item(i))
+               i := i + 1
+            end
+            entry.append(once ".*$")
+         end
+         regex := reb.convert_python_pattern(entry)
+      ensure
+         text = a_text.intern
+         regex /= Void
+         not matched
+      end
+
+invariant
+   text /= Void
+   regex /= Void
+
+end -- class EIFFELTEST_PATTERN
+--
+-- ------------------------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
+-- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+--
+-- Copyright(C) 2013: Cyril ADRIAN <cyril.adrian@gmail.com>
+--
+-- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+--
+--
+-- Liberty Eiffel is based on SmartEiffel (Copyrights below)
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- ------------------------------------------------------------------------------------------------------------------------------

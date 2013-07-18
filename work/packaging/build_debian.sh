@@ -65,7 +65,10 @@ build_chroot() {
 do_debuild() {
     if egrep -q '^Architecture: all$' debian/control; then
         debuild -us -uc > "$LOGDIR/$(basename $tmp)_all.log" 2>&1
-        return $?
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            echo "**** debuild failed: see $LOGDIR/$(basename $tmp)_all.log"
+        fi
     fi
 
     mkdir -p $LIBERTY_HOME/target/chroot
@@ -73,7 +76,11 @@ do_debuild() {
     for arch in $(dpkg --print-architecture; dpkg --print-foreign-architectures); do
         test -d $LIBERTY_HOME/target/chroot/liberty-$arch || build_chroot $arch
         fakeroot fakechroot /usr/sbin/chroot $LIBERTY_HOME/target/chroot/liberty-$arch "linux32 debuild -a$arch -us -uc > '$LOGDIR/$(basename $tmp)_$arch.log' 2>&1"
-        r=$(($r + $?))
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            echo "**** debuild failed: see $LOGDIR/$(basename $tmp)_$arch.log"
+        fi
+        r=$(($r + $ret))
     done
     return $r
 }
