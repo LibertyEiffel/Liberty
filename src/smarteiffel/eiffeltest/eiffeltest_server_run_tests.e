@@ -651,14 +651,12 @@ se c -ensure_check
          create tfr.connect_to(filepath)
          if tfr.is_connected then
             create excluded_patterns.make(0)
-            create excluded_patterns_usage.make(0)
             from
                tfr.read_line
             until
                tfr.end_of_input
             loop
-               excluded_patterns.add_last(tfr.last_string.intern)
-               excluded_patterns_usage.add_last(False)
+               excluded_patterns.add_last(create {EIFFELTEST_PATTERN}.make(tfr.last_string))
                tfr.read_line
             end
             tfr.disconnect
@@ -669,8 +667,7 @@ se c -ensure_check
          end
       end
 
-   excluded_patterns: FAST_ARRAY[FIXED_STRING]
-   excluded_patterns_usage: FAST_ARRAY[BOOLEAN]
+   excluded_patterns: FAST_ARRAY[EIFFELTEST_PATTERN]
 
    check_unused_excluded_patterns is
       require
@@ -678,18 +675,32 @@ se c -ensure_check
       local
          i, total_unused: INTEGER
       do
-         total_unused := excluded_patterns_usage.fast_occurrences(False)
+         if excluded_patterns /= Void then
+            from
+               i := excluded_patterns.lower
+            until
+               i > excluded_patterns.upper
+            loop
+               if not excluded_patterns.item(i).matched then
+                  total_unused := total_unused + 1
+               end
+               i := i + 1
+            end
+         end
          if total_unused = 0 then
             test_log.put_line(once "All entries of the %"excluded.lst%" file were matched.")
          else
+            check
+               by_construction: excluded_patterns /= Void
+            end
             test_log.put_line(once "**** Warning: #(1) entries of %"excluded.lst%" not matched:" # total_unused.out)
             from
-               i := excluded_patterns_usage.lower
+               i := excluded_patterns.lower
             until
-               i > excluded_patterns_usage.upper
+               i > excluded_patterns.upper
             loop
-               if not excluded_patterns_usage.item(i) then
-                  test_log.put_line(once "     Entry %"#(1)%" not used." # excluded_patterns.item(i))
+               if not excluded_patterns.item(i).matched then
+                  test_log.put_line(once "     Entry %"#(1)%" not used." # excluded_patterns.item(i).text)
                end
                i := i + 1
             end
@@ -729,10 +740,9 @@ feature {}
          until
             Result or else i > excluded_patterns.upper
          loop
-            if log_line.has_substring(excluded_patterns.item(i)) then
+            if excluded_patterns.item(i).match(log_line) then
                test_log.put_line(once "Excluded command: %"#(1)%"." # log_line)
-               test_log.put_line(once "By excluded.lst:  %"#(1)%"." # excluded_patterns.item(i))
-               excluded_patterns_usage.put(True, i)
+               test_log.put_line(once "By excluded.lst:  %"#(1)%"." # excluded_patterns.item(i).text)
                Result := True
             end
             i := i + 1
@@ -880,8 +890,6 @@ invariant
    path /= Void
    stream /= Void
    server /= Void
-
-   excluded_patterns /= Void implies excluded_patterns.count = excluded_patterns_usage.count
 
 end -- class EIFFELTEST_SERVER_RUN_TESTS
 --
