@@ -3,8 +3,8 @@ The "log.new" file must be identical to the "log.ref" file.
 The reference file is "log.ref" and this file must be created manually.
 If you confirm that "log.new" is correct, just overwrite "log.ref" with "log.new".
 --------------------------------------------------------------------------------
-Found 16 test_* file(s).
-Found 0 bad_* file(s).
+Found 16 test_* files.
+Found 0 bad_* files.
 Found 2 subdirectories.
 --------------------------------------------------------------------------------
 se c -boost test_base64_stream1.e -o test_base64_stream1.exe
@@ -55,6 +55,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_base64_stream1.e -o 
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_base64_stream1.e -o test_base64_stream1.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe
+Running (-boost -bdw_gc) "test_base64_stream1.exe".
+se clean test_base64_stream1.e
+Removing (-boost -bdw_gc) "test_base64_stream1.exe".
+se c -boost -debug -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe
+Running (-boost -debug -bdw_gc) "test_base64_stream1.exe".
+se clean test_base64_stream1.e
+Removing (-boost -debug -bdw_gc) "test_base64_stream1.exe".
+se c -no_check -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe
+Running (-no_check -bdw_gc) "test_base64_stream1.exe".
+se clean test_base64_stream1.e
+Removing (-no_check -bdw_gc) "test_base64_stream1.exe".
+se c -flat_check -require_check -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe
+Running (-flat_check -require_check -bdw_gc) "test_base64_stream1.exe".
+se clean test_base64_stream1.e
+Removing (-flat_check -require_check -bdw_gc) "test_base64_stream1.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_base64_stream1.exe".
+se clean test_base64_stream1.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_base64_stream1.exe".
+se c -flat_check -loop_check -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe
+Running (-flat_check -loop_check -bdw_gc) "test_base64_stream1.exe".
+se clean test_base64_stream1.e
+Removing (-flat_check -loop_check -bdw_gc) "test_base64_stream1.exe".
+se c -flat_check -all_check -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe
+Running (-flat_check -all_check -bdw_gc) "test_base64_stream1.exe".
+se clean test_base64_stream1.e
+Removing (-flat_check -all_check -bdw_gc) "test_base64_stream1.exe".
 Excluded command: "se c -all_check -debug test_base64_stream1.e -o test_base64_stream1.exe".
 By excluded.lst:  "se c -all_check".
 se c -require_check test_base64_stream1.e -o test_base64_stream1.exe
@@ -79,6 +109,18 @@ Excluded command: "se c -no_gc -loop_check test_base64_stream1.e -o test_base64_
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_base64_stream1.e -o test_base64_stream1.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe
+Running (-require_check -bdw_gc) "test_base64_stream1.exe".
+se clean test_base64_stream1.e
+Removing (-require_check -bdw_gc) "test_base64_stream1.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_base64_stream1.e -o test_base64_stream1.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_base64_stream1.e -o test_base64_stream1.exe".
@@ -109,6 +151,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_base64_stream1.e -o tes
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_base64_stream1.e -o test_base64_stream1.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_base64_stream1.e -o test_base64_stream1.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_base64_stream1.e -o test_base64_stream1.exe".
@@ -127,6 +183,10 @@ se c -no_split -no_gc -boost test_base64_stream1.e -o test_base64_stream1.exe
 Running (-no_split -no_gc -boost) "test_base64_stream1.exe".
 se clean test_base64_stream1.e
 Removing (-no_split -no_gc -boost) "test_base64_stream1.exe".
+se c -no_split -boost -bdw_gc test_base64_stream1.e -o test_base64_stream1.exe
+Running (-no_split -boost -bdw_gc) "test_base64_stream1.exe".
+se clean test_base64_stream1.e
+Removing (-no_split -boost -bdw_gc) "test_base64_stream1.exe".
 se c -boost test_basic_directory.e -o test_basic_directory.exe
 Running (-boost) "test_basic_directory.exe".
 se clean test_basic_directory.e
@@ -175,6 +235,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_basic_directory.e -o
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_basic_directory.e -o test_basic_directory.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_basic_directory.e -o test_basic_directory.exe
+Running (-boost -bdw_gc) "test_basic_directory.exe".
+se clean test_basic_directory.e
+Removing (-boost -bdw_gc) "test_basic_directory.exe".
+se c -boost -debug -bdw_gc test_basic_directory.e -o test_basic_directory.exe
+Running (-boost -debug -bdw_gc) "test_basic_directory.exe".
+se clean test_basic_directory.e
+Removing (-boost -debug -bdw_gc) "test_basic_directory.exe".
+se c -no_check -bdw_gc test_basic_directory.e -o test_basic_directory.exe
+Running (-no_check -bdw_gc) "test_basic_directory.exe".
+se clean test_basic_directory.e
+Removing (-no_check -bdw_gc) "test_basic_directory.exe".
+se c -flat_check -require_check -bdw_gc test_basic_directory.e -o test_basic_directory.exe
+Running (-flat_check -require_check -bdw_gc) "test_basic_directory.exe".
+se clean test_basic_directory.e
+Removing (-flat_check -require_check -bdw_gc) "test_basic_directory.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_basic_directory.e -o test_basic_directory.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_basic_directory.e -o test_basic_directory.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_basic_directory.exe".
+se clean test_basic_directory.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_basic_directory.exe".
+se c -flat_check -loop_check -bdw_gc test_basic_directory.e -o test_basic_directory.exe
+Running (-flat_check -loop_check -bdw_gc) "test_basic_directory.exe".
+se clean test_basic_directory.e
+Removing (-flat_check -loop_check -bdw_gc) "test_basic_directory.exe".
+se c -flat_check -all_check -bdw_gc test_basic_directory.e -o test_basic_directory.exe
+Running (-flat_check -all_check -bdw_gc) "test_basic_directory.exe".
+se clean test_basic_directory.e
+Removing (-flat_check -all_check -bdw_gc) "test_basic_directory.exe".
 Excluded command: "se c -all_check -debug test_basic_directory.e -o test_basic_directory.exe".
 By excluded.lst:  "se c -all_check".
 se c -require_check test_basic_directory.e -o test_basic_directory.exe
@@ -199,6 +289,18 @@ Excluded command: "se c -no_gc -loop_check test_basic_directory.e -o test_basic_
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_basic_directory.e -o test_basic_directory.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_basic_directory.e -o test_basic_directory.exe
+Running (-require_check -bdw_gc) "test_basic_directory.exe".
+se clean test_basic_directory.e
+Removing (-require_check -bdw_gc) "test_basic_directory.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_basic_directory.e -o test_basic_directory.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_basic_directory.e -o test_basic_directory.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_basic_directory.e -o test_basic_directory.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_basic_directory.e -o test_basic_directory.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_basic_directory.e -o test_basic_directory.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_basic_directory.e -o test_basic_directory.exe".
@@ -229,6 +331,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_basic_directory.e -o te
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_basic_directory.e -o test_basic_directory.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_basic_directory.e -o test_basic_directory.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_basic_directory.e -o test_basic_directory.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_basic_directory.e -o test_basic_directory.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_basic_directory.e -o test_basic_directory.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_basic_directory.e -o test_basic_directory.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_basic_directory.e -o test_basic_directory.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_basic_directory.e -o test_basic_directory.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_basic_directory.e -o test_basic_directory.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_basic_directory.e -o test_basic_directory.exe".
@@ -247,6 +363,10 @@ se c -no_split -no_gc -boost test_basic_directory.e -o test_basic_directory.exe
 Running (-no_split -no_gc -boost) "test_basic_directory.exe".
 se clean test_basic_directory.e
 Removing (-no_split -no_gc -boost) "test_basic_directory.exe".
+se c -no_split -boost -bdw_gc test_basic_directory.e -o test_basic_directory.exe
+Running (-no_split -boost -bdw_gc) "test_basic_directory.exe".
+se clean test_basic_directory.e
+Removing (-no_split -boost -bdw_gc) "test_basic_directory.exe".
 se c -boost test_binary_file_read.e -o test_binary_file_read.exe
 Running (-boost) "test_binary_file_read.exe".
 se clean test_binary_file_read.e
@@ -295,6 +415,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_binary_file_read.e -
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_binary_file_read.e -o test_binary_file_read.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe
+Running (-boost -bdw_gc) "test_binary_file_read.exe".
+se clean test_binary_file_read.e
+Removing (-boost -bdw_gc) "test_binary_file_read.exe".
+se c -boost -debug -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe
+Running (-boost -debug -bdw_gc) "test_binary_file_read.exe".
+se clean test_binary_file_read.e
+Removing (-boost -debug -bdw_gc) "test_binary_file_read.exe".
+se c -no_check -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe
+Running (-no_check -bdw_gc) "test_binary_file_read.exe".
+se clean test_binary_file_read.e
+Removing (-no_check -bdw_gc) "test_binary_file_read.exe".
+se c -flat_check -require_check -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe
+Running (-flat_check -require_check -bdw_gc) "test_binary_file_read.exe".
+se clean test_binary_file_read.e
+Removing (-flat_check -require_check -bdw_gc) "test_binary_file_read.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_binary_file_read.exe".
+se clean test_binary_file_read.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_binary_file_read.exe".
+se c -flat_check -loop_check -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe
+Running (-flat_check -loop_check -bdw_gc) "test_binary_file_read.exe".
+se clean test_binary_file_read.e
+Removing (-flat_check -loop_check -bdw_gc) "test_binary_file_read.exe".
+se c -flat_check -all_check -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe
+Running (-flat_check -all_check -bdw_gc) "test_binary_file_read.exe".
+se clean test_binary_file_read.e
+Removing (-flat_check -all_check -bdw_gc) "test_binary_file_read.exe".
 Excluded command: "se c -all_check -debug test_binary_file_read.e -o test_binary_file_read.exe".
 By excluded.lst:  "se c -all_check".
 se c -require_check test_binary_file_read.e -o test_binary_file_read.exe
@@ -319,6 +469,18 @@ Excluded command: "se c -no_gc -loop_check test_binary_file_read.e -o test_binar
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_binary_file_read.e -o test_binary_file_read.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe
+Running (-require_check -bdw_gc) "test_binary_file_read.exe".
+se clean test_binary_file_read.e
+Removing (-require_check -bdw_gc) "test_binary_file_read.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_binary_file_read.e -o test_binary_file_read.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_binary_file_read.e -o test_binary_file_read.exe".
@@ -349,6 +511,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_binary_file_read.e -o t
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_binary_file_read.e -o test_binary_file_read.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_binary_file_read.e -o test_binary_file_read.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_binary_file_read.e -o test_binary_file_read.exe".
@@ -367,6 +543,10 @@ se c -no_split -no_gc -boost test_binary_file_read.e -o test_binary_file_read.ex
 Running (-no_split -no_gc -boost) "test_binary_file_read.exe".
 se clean test_binary_file_read.e
 Removing (-no_split -no_gc -boost) "test_binary_file_read.exe".
+se c -no_split -boost -bdw_gc test_binary_file_read.e -o test_binary_file_read.exe
+Running (-no_split -boost -bdw_gc) "test_binary_file_read.exe".
+se clean test_binary_file_read.e
+Removing (-no_split -boost -bdw_gc) "test_binary_file_read.exe".
 se c -boost test_binary_file_write.e -o test_binary_file_write.exe
 Running (-boost) "test_binary_file_write.exe".
 se clean test_binary_file_write.e
@@ -415,6 +595,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_binary_file_write.e 
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_binary_file_write.e -o test_binary_file_write.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe
+Running (-boost -bdw_gc) "test_binary_file_write.exe".
+se clean test_binary_file_write.e
+Removing (-boost -bdw_gc) "test_binary_file_write.exe".
+se c -boost -debug -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe
+Running (-boost -debug -bdw_gc) "test_binary_file_write.exe".
+se clean test_binary_file_write.e
+Removing (-boost -debug -bdw_gc) "test_binary_file_write.exe".
+se c -no_check -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe
+Running (-no_check -bdw_gc) "test_binary_file_write.exe".
+se clean test_binary_file_write.e
+Removing (-no_check -bdw_gc) "test_binary_file_write.exe".
+se c -flat_check -require_check -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe
+Running (-flat_check -require_check -bdw_gc) "test_binary_file_write.exe".
+se clean test_binary_file_write.e
+Removing (-flat_check -require_check -bdw_gc) "test_binary_file_write.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_binary_file_write.exe".
+se clean test_binary_file_write.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_binary_file_write.exe".
+se c -flat_check -loop_check -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe
+Running (-flat_check -loop_check -bdw_gc) "test_binary_file_write.exe".
+se clean test_binary_file_write.e
+Removing (-flat_check -loop_check -bdw_gc) "test_binary_file_write.exe".
+se c -flat_check -all_check -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe
+Running (-flat_check -all_check -bdw_gc) "test_binary_file_write.exe".
+se clean test_binary_file_write.e
+Removing (-flat_check -all_check -bdw_gc) "test_binary_file_write.exe".
 Excluded command: "se c -all_check -debug test_binary_file_write.e -o test_binary_file_write.exe".
 By excluded.lst:  "se c -all_check".
 se c -require_check test_binary_file_write.e -o test_binary_file_write.exe
@@ -439,6 +649,18 @@ Excluded command: "se c -no_gc -loop_check test_binary_file_write.e -o test_bina
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_binary_file_write.e -o test_binary_file_write.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe
+Running (-require_check -bdw_gc) "test_binary_file_write.exe".
+se clean test_binary_file_write.e
+Removing (-require_check -bdw_gc) "test_binary_file_write.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_binary_file_write.e -o test_binary_file_write.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_binary_file_write.e -o test_binary_file_write.exe".
@@ -469,6 +691,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_binary_file_write.e -o 
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_binary_file_write.e -o test_binary_file_write.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_binary_file_write.e -o test_binary_file_write.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_binary_file_write.e -o test_binary_file_write.exe".
@@ -487,6 +723,10 @@ se c -no_split -no_gc -boost test_binary_file_write.e -o test_binary_file_write.
 Running (-no_split -no_gc -boost) "test_binary_file_write.exe".
 se clean test_binary_file_write.e
 Removing (-no_split -no_gc -boost) "test_binary_file_write.exe".
+se c -no_split -boost -bdw_gc test_binary_file_write.e -o test_binary_file_write.exe
+Running (-no_split -boost -bdw_gc) "test_binary_file_write.exe".
+se clean test_binary_file_write.e
+Removing (-no_split -boost -bdw_gc) "test_binary_file_write.exe".
 se c -boost test_file_copy.e -o test_file_copy.exe
 Running (-boost) "test_file_copy.exe".
 se clean test_file_copy.e
@@ -535,6 +775,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_file_copy.e -o test_
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_file_copy.e -o test_file_copy.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_file_copy.e -o test_file_copy.exe
+Running (-boost -bdw_gc) "test_file_copy.exe".
+se clean test_file_copy.e
+Removing (-boost -bdw_gc) "test_file_copy.exe".
+se c -boost -debug -bdw_gc test_file_copy.e -o test_file_copy.exe
+Running (-boost -debug -bdw_gc) "test_file_copy.exe".
+se clean test_file_copy.e
+Removing (-boost -debug -bdw_gc) "test_file_copy.exe".
+se c -no_check -bdw_gc test_file_copy.e -o test_file_copy.exe
+Running (-no_check -bdw_gc) "test_file_copy.exe".
+se clean test_file_copy.e
+Removing (-no_check -bdw_gc) "test_file_copy.exe".
+se c -flat_check -require_check -bdw_gc test_file_copy.e -o test_file_copy.exe
+Running (-flat_check -require_check -bdw_gc) "test_file_copy.exe".
+se clean test_file_copy.e
+Removing (-flat_check -require_check -bdw_gc) "test_file_copy.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_file_copy.e -o test_file_copy.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_file_copy.e -o test_file_copy.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_file_copy.exe".
+se clean test_file_copy.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_file_copy.exe".
+se c -flat_check -loop_check -bdw_gc test_file_copy.e -o test_file_copy.exe
+Running (-flat_check -loop_check -bdw_gc) "test_file_copy.exe".
+se clean test_file_copy.e
+Removing (-flat_check -loop_check -bdw_gc) "test_file_copy.exe".
+se c -flat_check -all_check -bdw_gc test_file_copy.e -o test_file_copy.exe
+Running (-flat_check -all_check -bdw_gc) "test_file_copy.exe".
+se clean test_file_copy.e
+Removing (-flat_check -all_check -bdw_gc) "test_file_copy.exe".
 Excluded command: "se c -all_check -debug test_file_copy.e -o test_file_copy.exe".
 By excluded.lst:  "se c -all_check".
 se c -require_check test_file_copy.e -o test_file_copy.exe
@@ -559,6 +829,18 @@ Excluded command: "se c -no_gc -loop_check test_file_copy.e -o test_file_copy.ex
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_file_copy.e -o test_file_copy.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_file_copy.e -o test_file_copy.exe
+Running (-require_check -bdw_gc) "test_file_copy.exe".
+se clean test_file_copy.e
+Removing (-require_check -bdw_gc) "test_file_copy.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_file_copy.e -o test_file_copy.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_file_copy.e -o test_file_copy.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_file_copy.e -o test_file_copy.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_file_copy.e -o test_file_copy.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_file_copy.e -o test_file_copy.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_file_copy.e -o test_file_copy.exe".
@@ -589,6 +871,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_file_copy.e -o test_fil
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_file_copy.e -o test_file_copy.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_file_copy.e -o test_file_copy.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_file_copy.e -o test_file_copy.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_file_copy.e -o test_file_copy.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_file_copy.e -o test_file_copy.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_file_copy.e -o test_file_copy.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_file_copy.e -o test_file_copy.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_file_copy.e -o test_file_copy.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_file_copy.e -o test_file_copy.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_file_copy.e -o test_file_copy.exe".
@@ -607,6 +903,10 @@ se c -no_split -no_gc -boost test_file_copy.e -o test_file_copy.exe
 Running (-no_split -no_gc -boost) "test_file_copy.exe".
 se clean test_file_copy.e
 Removing (-no_split -no_gc -boost) "test_file_copy.exe".
+se c -no_split -boost -bdw_gc test_file_copy.e -o test_file_copy.exe
+Running (-no_split -boost -bdw_gc) "test_file_copy.exe".
+se clean test_file_copy.e
+Removing (-no_split -boost -bdw_gc) "test_file_copy.exe".
 se c -boost test_file_exists.e -o test_file_exists.exe
 Running (-boost) "test_file_exists.exe".
 se clean test_file_exists.e
@@ -655,6 +955,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_file_exists.e -o tes
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_file_exists.e -o test_file_exists.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_file_exists.e -o test_file_exists.exe
+Running (-boost -bdw_gc) "test_file_exists.exe".
+se clean test_file_exists.e
+Removing (-boost -bdw_gc) "test_file_exists.exe".
+se c -boost -debug -bdw_gc test_file_exists.e -o test_file_exists.exe
+Running (-boost -debug -bdw_gc) "test_file_exists.exe".
+se clean test_file_exists.e
+Removing (-boost -debug -bdw_gc) "test_file_exists.exe".
+se c -no_check -bdw_gc test_file_exists.e -o test_file_exists.exe
+Running (-no_check -bdw_gc) "test_file_exists.exe".
+se clean test_file_exists.e
+Removing (-no_check -bdw_gc) "test_file_exists.exe".
+se c -flat_check -require_check -bdw_gc test_file_exists.e -o test_file_exists.exe
+Running (-flat_check -require_check -bdw_gc) "test_file_exists.exe".
+se clean test_file_exists.e
+Removing (-flat_check -require_check -bdw_gc) "test_file_exists.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_file_exists.e -o test_file_exists.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_file_exists.e -o test_file_exists.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_file_exists.exe".
+se clean test_file_exists.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_file_exists.exe".
+se c -flat_check -loop_check -bdw_gc test_file_exists.e -o test_file_exists.exe
+Running (-flat_check -loop_check -bdw_gc) "test_file_exists.exe".
+se clean test_file_exists.e
+Removing (-flat_check -loop_check -bdw_gc) "test_file_exists.exe".
+se c -flat_check -all_check -bdw_gc test_file_exists.e -o test_file_exists.exe
+Running (-flat_check -all_check -bdw_gc) "test_file_exists.exe".
+se clean test_file_exists.e
+Removing (-flat_check -all_check -bdw_gc) "test_file_exists.exe".
 Excluded command: "se c -all_check -debug test_file_exists.e -o test_file_exists.exe".
 By excluded.lst:  "se c -all_check".
 se c -require_check test_file_exists.e -o test_file_exists.exe
@@ -679,6 +1009,18 @@ Excluded command: "se c -no_gc -loop_check test_file_exists.e -o test_file_exist
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_file_exists.e -o test_file_exists.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_file_exists.e -o test_file_exists.exe
+Running (-require_check -bdw_gc) "test_file_exists.exe".
+se clean test_file_exists.e
+Removing (-require_check -bdw_gc) "test_file_exists.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_file_exists.e -o test_file_exists.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_file_exists.e -o test_file_exists.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_file_exists.e -o test_file_exists.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_file_exists.e -o test_file_exists.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_file_exists.e -o test_file_exists.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_file_exists.e -o test_file_exists.exe".
@@ -709,6 +1051,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_file_exists.e -o test_f
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_file_exists.e -o test_file_exists.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_file_exists.e -o test_file_exists.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_file_exists.e -o test_file_exists.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_file_exists.e -o test_file_exists.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_file_exists.e -o test_file_exists.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_file_exists.e -o test_file_exists.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_file_exists.e -o test_file_exists.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_file_exists.e -o test_file_exists.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_file_exists.e -o test_file_exists.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_file_exists.e -o test_file_exists.exe".
@@ -727,6 +1083,10 @@ se c -no_split -no_gc -boost test_file_exists.e -o test_file_exists.exe
 Running (-no_split -no_gc -boost) "test_file_exists.exe".
 se clean test_file_exists.e
 Removing (-no_split -no_gc -boost) "test_file_exists.exe".
+se c -no_split -boost -bdw_gc test_file_exists.e -o test_file_exists.exe
+Running (-no_split -boost -bdw_gc) "test_file_exists.exe".
+se clean test_file_exists.e
+Removing (-no_split -boost -bdw_gc) "test_file_exists.exe".
 se c -boost test_file_tools.e -o test_file_tools.exe
 Running (-boost) "test_file_tools.exe".
 se clean test_file_tools.e
@@ -775,6 +1135,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_file_tools.e -o test
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_file_tools.e -o test_file_tools.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_file_tools.e -o test_file_tools.exe
+Running (-boost -bdw_gc) "test_file_tools.exe".
+se clean test_file_tools.e
+Removing (-boost -bdw_gc) "test_file_tools.exe".
+se c -boost -debug -bdw_gc test_file_tools.e -o test_file_tools.exe
+Running (-boost -debug -bdw_gc) "test_file_tools.exe".
+se clean test_file_tools.e
+Removing (-boost -debug -bdw_gc) "test_file_tools.exe".
+se c -no_check -bdw_gc test_file_tools.e -o test_file_tools.exe
+Running (-no_check -bdw_gc) "test_file_tools.exe".
+se clean test_file_tools.e
+Removing (-no_check -bdw_gc) "test_file_tools.exe".
+se c -flat_check -require_check -bdw_gc test_file_tools.e -o test_file_tools.exe
+Running (-flat_check -require_check -bdw_gc) "test_file_tools.exe".
+se clean test_file_tools.e
+Removing (-flat_check -require_check -bdw_gc) "test_file_tools.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_file_tools.e -o test_file_tools.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_file_tools.e -o test_file_tools.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_file_tools.exe".
+se clean test_file_tools.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_file_tools.exe".
+se c -flat_check -loop_check -bdw_gc test_file_tools.e -o test_file_tools.exe
+Running (-flat_check -loop_check -bdw_gc) "test_file_tools.exe".
+se clean test_file_tools.e
+Removing (-flat_check -loop_check -bdw_gc) "test_file_tools.exe".
+se c -flat_check -all_check -bdw_gc test_file_tools.e -o test_file_tools.exe
+Running (-flat_check -all_check -bdw_gc) "test_file_tools.exe".
+se clean test_file_tools.e
+Removing (-flat_check -all_check -bdw_gc) "test_file_tools.exe".
 Excluded command: "se c -all_check -debug test_file_tools.e -o test_file_tools.exe".
 By excluded.lst:  "se c -all_check".
 se c -require_check test_file_tools.e -o test_file_tools.exe
@@ -799,6 +1189,18 @@ Excluded command: "se c -no_gc -loop_check test_file_tools.e -o test_file_tools.
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_file_tools.e -o test_file_tools.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_file_tools.e -o test_file_tools.exe
+Running (-require_check -bdw_gc) "test_file_tools.exe".
+se clean test_file_tools.e
+Removing (-require_check -bdw_gc) "test_file_tools.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_file_tools.e -o test_file_tools.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_file_tools.e -o test_file_tools.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_file_tools.e -o test_file_tools.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_file_tools.e -o test_file_tools.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_file_tools.e -o test_file_tools.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_file_tools.e -o test_file_tools.exe".
@@ -829,6 +1231,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_file_tools.e -o test_fi
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_file_tools.e -o test_file_tools.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_file_tools.e -o test_file_tools.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_file_tools.e -o test_file_tools.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_file_tools.e -o test_file_tools.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_file_tools.e -o test_file_tools.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_file_tools.e -o test_file_tools.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_file_tools.e -o test_file_tools.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_file_tools.e -o test_file_tools.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_file_tools.e -o test_file_tools.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_file_tools.e -o test_file_tools.exe".
@@ -847,6 +1263,10 @@ se c -no_split -no_gc -boost test_file_tools.e -o test_file_tools.exe
 Running (-no_split -no_gc -boost) "test_file_tools.exe".
 se clean test_file_tools.e
 Removing (-no_split -no_gc -boost) "test_file_tools.exe".
+se c -no_split -boost -bdw_gc test_file_tools.e -o test_file_tools.exe
+Running (-no_split -boost -bdw_gc) "test_file_tools.exe".
+se clean test_file_tools.e
+Removing (-no_split -boost -bdw_gc) "test_file_tools.exe".
 se c -boost test_input_stream1.e -o test_input_stream1.exe
 Running (-boost) "test_input_stream1.exe".
 se clean test_input_stream1.e
@@ -895,6 +1315,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_input_stream1.e -o t
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_input_stream1.e -o test_input_stream1.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_input_stream1.e -o test_input_stream1.exe
+Running (-boost -bdw_gc) "test_input_stream1.exe".
+se clean test_input_stream1.e
+Removing (-boost -bdw_gc) "test_input_stream1.exe".
+se c -boost -debug -bdw_gc test_input_stream1.e -o test_input_stream1.exe
+Running (-boost -debug -bdw_gc) "test_input_stream1.exe".
+se clean test_input_stream1.e
+Removing (-boost -debug -bdw_gc) "test_input_stream1.exe".
+se c -no_check -bdw_gc test_input_stream1.e -o test_input_stream1.exe
+Running (-no_check -bdw_gc) "test_input_stream1.exe".
+se clean test_input_stream1.e
+Removing (-no_check -bdw_gc) "test_input_stream1.exe".
+se c -flat_check -require_check -bdw_gc test_input_stream1.e -o test_input_stream1.exe
+Running (-flat_check -require_check -bdw_gc) "test_input_stream1.exe".
+se clean test_input_stream1.e
+Removing (-flat_check -require_check -bdw_gc) "test_input_stream1.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_input_stream1.e -o test_input_stream1.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_input_stream1.e -o test_input_stream1.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_input_stream1.exe".
+se clean test_input_stream1.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_input_stream1.exe".
+se c -flat_check -loop_check -bdw_gc test_input_stream1.e -o test_input_stream1.exe
+Running (-flat_check -loop_check -bdw_gc) "test_input_stream1.exe".
+se clean test_input_stream1.e
+Removing (-flat_check -loop_check -bdw_gc) "test_input_stream1.exe".
+se c -flat_check -all_check -bdw_gc test_input_stream1.e -o test_input_stream1.exe
+Running (-flat_check -all_check -bdw_gc) "test_input_stream1.exe".
+se clean test_input_stream1.e
+Removing (-flat_check -all_check -bdw_gc) "test_input_stream1.exe".
 Excluded command: "se c -all_check -debug test_input_stream1.e -o test_input_stream1.exe".
 By excluded.lst:  "se c -all_check".
 se c -require_check test_input_stream1.e -o test_input_stream1.exe
@@ -919,6 +1369,18 @@ Excluded command: "se c -no_gc -loop_check test_input_stream1.e -o test_input_st
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_input_stream1.e -o test_input_stream1.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_input_stream1.e -o test_input_stream1.exe
+Running (-require_check -bdw_gc) "test_input_stream1.exe".
+se clean test_input_stream1.e
+Removing (-require_check -bdw_gc) "test_input_stream1.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_input_stream1.e -o test_input_stream1.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_input_stream1.e -o test_input_stream1.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_input_stream1.e -o test_input_stream1.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_input_stream1.e -o test_input_stream1.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_input_stream1.e -o test_input_stream1.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_input_stream1.e -o test_input_stream1.exe".
@@ -949,6 +1411,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_input_stream1.e -o test
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_input_stream1.e -o test_input_stream1.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_input_stream1.e -o test_input_stream1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_input_stream1.e -o test_input_stream1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_input_stream1.e -o test_input_stream1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_input_stream1.e -o test_input_stream1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_input_stream1.e -o test_input_stream1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_input_stream1.e -o test_input_stream1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_input_stream1.e -o test_input_stream1.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_input_stream1.e -o test_input_stream1.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_input_stream1.e -o test_input_stream1.exe".
@@ -967,6 +1443,10 @@ se c -no_split -no_gc -boost test_input_stream1.e -o test_input_stream1.exe
 Running (-no_split -no_gc -boost) "test_input_stream1.exe".
 se clean test_input_stream1.e
 Removing (-no_split -no_gc -boost) "test_input_stream1.exe".
+se c -no_split -boost -bdw_gc test_input_stream1.e -o test_input_stream1.exe
+Running (-no_split -boost -bdw_gc) "test_input_stream1.exe".
+se clean test_input_stream1.e
+Removing (-no_split -boost -bdw_gc) "test_input_stream1.exe".
 se c -boost test_input_stream2.e -o test_input_stream2.exe
 Running (-boost) "test_input_stream2.exe".
 se clean test_input_stream2.e
@@ -1015,6 +1495,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_input_stream2.e -o t
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_input_stream2.e -o test_input_stream2.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_input_stream2.e -o test_input_stream2.exe
+Running (-boost -bdw_gc) "test_input_stream2.exe".
+se clean test_input_stream2.e
+Removing (-boost -bdw_gc) "test_input_stream2.exe".
+se c -boost -debug -bdw_gc test_input_stream2.e -o test_input_stream2.exe
+Running (-boost -debug -bdw_gc) "test_input_stream2.exe".
+se clean test_input_stream2.e
+Removing (-boost -debug -bdw_gc) "test_input_stream2.exe".
+se c -no_check -bdw_gc test_input_stream2.e -o test_input_stream2.exe
+Running (-no_check -bdw_gc) "test_input_stream2.exe".
+se clean test_input_stream2.e
+Removing (-no_check -bdw_gc) "test_input_stream2.exe".
+se c -flat_check -require_check -bdw_gc test_input_stream2.e -o test_input_stream2.exe
+Running (-flat_check -require_check -bdw_gc) "test_input_stream2.exe".
+se clean test_input_stream2.e
+Removing (-flat_check -require_check -bdw_gc) "test_input_stream2.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_input_stream2.e -o test_input_stream2.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_input_stream2.e -o test_input_stream2.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_input_stream2.exe".
+se clean test_input_stream2.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_input_stream2.exe".
+se c -flat_check -loop_check -bdw_gc test_input_stream2.e -o test_input_stream2.exe
+Running (-flat_check -loop_check -bdw_gc) "test_input_stream2.exe".
+se clean test_input_stream2.e
+Removing (-flat_check -loop_check -bdw_gc) "test_input_stream2.exe".
+se c -flat_check -all_check -bdw_gc test_input_stream2.e -o test_input_stream2.exe
+Running (-flat_check -all_check -bdw_gc) "test_input_stream2.exe".
+se clean test_input_stream2.e
+Removing (-flat_check -all_check -bdw_gc) "test_input_stream2.exe".
 Excluded command: "se c -all_check -debug test_input_stream2.e -o test_input_stream2.exe".
 By excluded.lst:  "se c -all_check".
 se c -require_check test_input_stream2.e -o test_input_stream2.exe
@@ -1039,6 +1549,18 @@ Excluded command: "se c -no_gc -loop_check test_input_stream2.e -o test_input_st
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_input_stream2.e -o test_input_stream2.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_input_stream2.e -o test_input_stream2.exe
+Running (-require_check -bdw_gc) "test_input_stream2.exe".
+se clean test_input_stream2.e
+Removing (-require_check -bdw_gc) "test_input_stream2.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_input_stream2.e -o test_input_stream2.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_input_stream2.e -o test_input_stream2.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_input_stream2.e -o test_input_stream2.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_input_stream2.e -o test_input_stream2.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_input_stream2.e -o test_input_stream2.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_input_stream2.e -o test_input_stream2.exe".
@@ -1069,6 +1591,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_input_stream2.e -o test
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_input_stream2.e -o test_input_stream2.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_input_stream2.e -o test_input_stream2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_input_stream2.e -o test_input_stream2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_input_stream2.e -o test_input_stream2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_input_stream2.e -o test_input_stream2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_input_stream2.e -o test_input_stream2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_input_stream2.e -o test_input_stream2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_input_stream2.e -o test_input_stream2.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_input_stream2.e -o test_input_stream2.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_input_stream2.e -o test_input_stream2.exe".
@@ -1087,6 +1623,10 @@ se c -no_split -no_gc -boost test_input_stream2.e -o test_input_stream2.exe
 Running (-no_split -no_gc -boost) "test_input_stream2.exe".
 se clean test_input_stream2.e
 Removing (-no_split -no_gc -boost) "test_input_stream2.exe".
+se c -no_split -boost -bdw_gc test_input_stream2.e -o test_input_stream2.exe
+Running (-no_split -boost -bdw_gc) "test_input_stream2.exe".
+se clean test_input_stream2.e
+Removing (-no_split -boost -bdw_gc) "test_input_stream2.exe".
 se c -boost test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe
 Running (-boost) "test_quoted_printable_stream1.exe".
 se clean test_quoted_printable_stream1.e
@@ -1135,6 +1675,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_quoted_printable_str
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe
+Running (-boost -bdw_gc) "test_quoted_printable_stream1.exe".
+se clean test_quoted_printable_stream1.e
+Removing (-boost -bdw_gc) "test_quoted_printable_stream1.exe".
+se c -boost -debug -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe
+Running (-boost -debug -bdw_gc) "test_quoted_printable_stream1.exe".
+se clean test_quoted_printable_stream1.e
+Removing (-boost -debug -bdw_gc) "test_quoted_printable_stream1.exe".
+se c -no_check -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe
+Running (-no_check -bdw_gc) "test_quoted_printable_stream1.exe".
+se clean test_quoted_printable_stream1.e
+Removing (-no_check -bdw_gc) "test_quoted_printable_stream1.exe".
+se c -flat_check -require_check -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe
+Running (-flat_check -require_check -bdw_gc) "test_quoted_printable_stream1.exe".
+se clean test_quoted_printable_stream1.e
+Removing (-flat_check -require_check -bdw_gc) "test_quoted_printable_stream1.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_quoted_printable_stream1.exe".
+se clean test_quoted_printable_stream1.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_quoted_printable_stream1.exe".
+se c -flat_check -loop_check -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe
+Running (-flat_check -loop_check -bdw_gc) "test_quoted_printable_stream1.exe".
+se clean test_quoted_printable_stream1.e
+Removing (-flat_check -loop_check -bdw_gc) "test_quoted_printable_stream1.exe".
+se c -flat_check -all_check -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe
+Running (-flat_check -all_check -bdw_gc) "test_quoted_printable_stream1.exe".
+se clean test_quoted_printable_stream1.e
+Removing (-flat_check -all_check -bdw_gc) "test_quoted_printable_stream1.exe".
 Excluded command: "se c -all_check -debug test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
 By excluded.lst:  "se c -all_check".
 se c -require_check test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe
@@ -1159,6 +1729,18 @@ Excluded command: "se c -no_gc -loop_check test_quoted_printable_stream1.e -o te
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe
+Running (-require_check -bdw_gc) "test_quoted_printable_stream1.exe".
+se clean test_quoted_printable_stream1.e
+Removing (-require_check -bdw_gc) "test_quoted_printable_stream1.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
@@ -1189,6 +1771,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_quoted_printable_stream
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe".
@@ -1207,6 +1803,10 @@ se c -no_split -no_gc -boost test_quoted_printable_stream1.e -o test_quoted_prin
 Running (-no_split -no_gc -boost) "test_quoted_printable_stream1.exe".
 se clean test_quoted_printable_stream1.e
 Removing (-no_split -no_gc -boost) "test_quoted_printable_stream1.exe".
+se c -no_split -boost -bdw_gc test_quoted_printable_stream1.e -o test_quoted_printable_stream1.exe
+Running (-no_split -boost -bdw_gc) "test_quoted_printable_stream1.exe".
+se clean test_quoted_printable_stream1.e
+Removing (-no_split -boost -bdw_gc) "test_quoted_printable_stream1.exe".
 se c -boost test_read_character.e -o test_read_character.exe
 Running (-boost) "test_read_character.exe".
 se clean test_read_character.e
@@ -1255,6 +1855,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_read_character.e -o 
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_read_character.e -o test_read_character.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_read_character.e -o test_read_character.exe
+Running (-boost -bdw_gc) "test_read_character.exe".
+se clean test_read_character.e
+Removing (-boost -bdw_gc) "test_read_character.exe".
+se c -boost -debug -bdw_gc test_read_character.e -o test_read_character.exe
+Running (-boost -debug -bdw_gc) "test_read_character.exe".
+se clean test_read_character.e
+Removing (-boost -debug -bdw_gc) "test_read_character.exe".
+se c -no_check -bdw_gc test_read_character.e -o test_read_character.exe
+Running (-no_check -bdw_gc) "test_read_character.exe".
+se clean test_read_character.e
+Removing (-no_check -bdw_gc) "test_read_character.exe".
+se c -flat_check -require_check -bdw_gc test_read_character.e -o test_read_character.exe
+Running (-flat_check -require_check -bdw_gc) "test_read_character.exe".
+se clean test_read_character.e
+Removing (-flat_check -require_check -bdw_gc) "test_read_character.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_read_character.e -o test_read_character.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_read_character.e -o test_read_character.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_read_character.exe".
+se clean test_read_character.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_read_character.exe".
+se c -flat_check -loop_check -bdw_gc test_read_character.e -o test_read_character.exe
+Running (-flat_check -loop_check -bdw_gc) "test_read_character.exe".
+se clean test_read_character.e
+Removing (-flat_check -loop_check -bdw_gc) "test_read_character.exe".
+se c -flat_check -all_check -bdw_gc test_read_character.e -o test_read_character.exe
+Running (-flat_check -all_check -bdw_gc) "test_read_character.exe".
+se clean test_read_character.e
+Removing (-flat_check -all_check -bdw_gc) "test_read_character.exe".
 Excluded command: "se c -all_check -debug test_read_character.e -o test_read_character.exe".
 By excluded.lst:  "se c -all_check".
 se c -require_check test_read_character.e -o test_read_character.exe
@@ -1279,6 +1909,18 @@ Excluded command: "se c -no_gc -loop_check test_read_character.e -o test_read_ch
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_read_character.e -o test_read_character.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_read_character.e -o test_read_character.exe
+Running (-require_check -bdw_gc) "test_read_character.exe".
+se clean test_read_character.e
+Removing (-require_check -bdw_gc) "test_read_character.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_read_character.e -o test_read_character.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_read_character.e -o test_read_character.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_read_character.e -o test_read_character.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_read_character.e -o test_read_character.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_read_character.e -o test_read_character.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_read_character.e -o test_read_character.exe".
@@ -1309,6 +1951,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_read_character.e -o tes
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_read_character.e -o test_read_character.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_read_character.e -o test_read_character.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_read_character.e -o test_read_character.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_read_character.e -o test_read_character.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_read_character.e -o test_read_character.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_read_character.e -o test_read_character.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_read_character.e -o test_read_character.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_read_character.e -o test_read_character.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_read_character.e -o test_read_character.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_read_character.e -o test_read_character.exe".
@@ -1327,6 +1983,10 @@ se c -no_split -no_gc -boost test_read_character.e -o test_read_character.exe
 Running (-no_split -no_gc -boost) "test_read_character.exe".
 se clean test_read_character.e
 Removing (-no_split -no_gc -boost) "test_read_character.exe".
+se c -no_split -boost -bdw_gc test_read_character.e -o test_read_character.exe
+Running (-no_split -boost -bdw_gc) "test_read_character.exe".
+se clean test_read_character.e
+Removing (-no_split -boost -bdw_gc) "test_read_character.exe".
 se c -boost test_read_integer1.e -o test_read_integer1.exe
 Running (-boost) "test_read_integer1.exe".
 se clean test_read_integer1.e
@@ -1375,6 +2035,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_read_integer1.e -o t
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_read_integer1.e -o test_read_integer1.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_read_integer1.e -o test_read_integer1.exe
+Running (-boost -bdw_gc) "test_read_integer1.exe".
+se clean test_read_integer1.e
+Removing (-boost -bdw_gc) "test_read_integer1.exe".
+se c -boost -debug -bdw_gc test_read_integer1.e -o test_read_integer1.exe
+Running (-boost -debug -bdw_gc) "test_read_integer1.exe".
+se clean test_read_integer1.e
+Removing (-boost -debug -bdw_gc) "test_read_integer1.exe".
+se c -no_check -bdw_gc test_read_integer1.e -o test_read_integer1.exe
+Running (-no_check -bdw_gc) "test_read_integer1.exe".
+se clean test_read_integer1.e
+Removing (-no_check -bdw_gc) "test_read_integer1.exe".
+se c -flat_check -require_check -bdw_gc test_read_integer1.e -o test_read_integer1.exe
+Running (-flat_check -require_check -bdw_gc) "test_read_integer1.exe".
+se clean test_read_integer1.e
+Removing (-flat_check -require_check -bdw_gc) "test_read_integer1.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_read_integer1.e -o test_read_integer1.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_read_integer1.e -o test_read_integer1.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_read_integer1.exe".
+se clean test_read_integer1.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_read_integer1.exe".
+se c -flat_check -loop_check -bdw_gc test_read_integer1.e -o test_read_integer1.exe
+Running (-flat_check -loop_check -bdw_gc) "test_read_integer1.exe".
+se clean test_read_integer1.e
+Removing (-flat_check -loop_check -bdw_gc) "test_read_integer1.exe".
+se c -flat_check -all_check -bdw_gc test_read_integer1.e -o test_read_integer1.exe
+Running (-flat_check -all_check -bdw_gc) "test_read_integer1.exe".
+se clean test_read_integer1.e
+Removing (-flat_check -all_check -bdw_gc) "test_read_integer1.exe".
 Excluded command: "se c -all_check -debug test_read_integer1.e -o test_read_integer1.exe".
 By excluded.lst:  "se c -all_check".
 se c -require_check test_read_integer1.e -o test_read_integer1.exe
@@ -1399,6 +2089,18 @@ Excluded command: "se c -no_gc -loop_check test_read_integer1.e -o test_read_int
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_read_integer1.e -o test_read_integer1.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_read_integer1.e -o test_read_integer1.exe
+Running (-require_check -bdw_gc) "test_read_integer1.exe".
+se clean test_read_integer1.e
+Removing (-require_check -bdw_gc) "test_read_integer1.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_read_integer1.e -o test_read_integer1.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_read_integer1.e -o test_read_integer1.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_read_integer1.e -o test_read_integer1.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_read_integer1.e -o test_read_integer1.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_read_integer1.e -o test_read_integer1.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_read_integer1.e -o test_read_integer1.exe".
@@ -1429,6 +2131,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_read_integer1.e -o test
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_read_integer1.e -o test_read_integer1.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_read_integer1.e -o test_read_integer1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_read_integer1.e -o test_read_integer1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_read_integer1.e -o test_read_integer1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_read_integer1.e -o test_read_integer1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_read_integer1.e -o test_read_integer1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_read_integer1.e -o test_read_integer1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_read_integer1.e -o test_read_integer1.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_read_integer1.e -o test_read_integer1.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_read_integer1.e -o test_read_integer1.exe".
@@ -1447,6 +2163,10 @@ se c -no_split -no_gc -boost test_read_integer1.e -o test_read_integer1.exe
 Running (-no_split -no_gc -boost) "test_read_integer1.exe".
 se clean test_read_integer1.e
 Removing (-no_split -no_gc -boost) "test_read_integer1.exe".
+se c -no_split -boost -bdw_gc test_read_integer1.e -o test_read_integer1.exe
+Running (-no_split -boost -bdw_gc) "test_read_integer1.exe".
+se clean test_read_integer1.e
+Removing (-no_split -boost -bdw_gc) "test_read_integer1.exe".
 se c -boost test_read_integer2.e -o test_read_integer2.exe
 Running (-boost) "test_read_integer2.exe".
 se clean test_read_integer2.e
@@ -1495,6 +2215,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_read_integer2.e -o t
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_read_integer2.e -o test_read_integer2.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_read_integer2.e -o test_read_integer2.exe
+Running (-boost -bdw_gc) "test_read_integer2.exe".
+se clean test_read_integer2.e
+Removing (-boost -bdw_gc) "test_read_integer2.exe".
+se c -boost -debug -bdw_gc test_read_integer2.e -o test_read_integer2.exe
+Running (-boost -debug -bdw_gc) "test_read_integer2.exe".
+se clean test_read_integer2.e
+Removing (-boost -debug -bdw_gc) "test_read_integer2.exe".
+se c -no_check -bdw_gc test_read_integer2.e -o test_read_integer2.exe
+Running (-no_check -bdw_gc) "test_read_integer2.exe".
+se clean test_read_integer2.e
+Removing (-no_check -bdw_gc) "test_read_integer2.exe".
+se c -flat_check -require_check -bdw_gc test_read_integer2.e -o test_read_integer2.exe
+Running (-flat_check -require_check -bdw_gc) "test_read_integer2.exe".
+se clean test_read_integer2.e
+Removing (-flat_check -require_check -bdw_gc) "test_read_integer2.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_read_integer2.e -o test_read_integer2.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_read_integer2.e -o test_read_integer2.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_read_integer2.exe".
+se clean test_read_integer2.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_read_integer2.exe".
+se c -flat_check -loop_check -bdw_gc test_read_integer2.e -o test_read_integer2.exe
+Running (-flat_check -loop_check -bdw_gc) "test_read_integer2.exe".
+se clean test_read_integer2.e
+Removing (-flat_check -loop_check -bdw_gc) "test_read_integer2.exe".
+se c -flat_check -all_check -bdw_gc test_read_integer2.e -o test_read_integer2.exe
+Running (-flat_check -all_check -bdw_gc) "test_read_integer2.exe".
+se clean test_read_integer2.e
+Removing (-flat_check -all_check -bdw_gc) "test_read_integer2.exe".
 Excluded command: "se c -all_check -debug test_read_integer2.e -o test_read_integer2.exe".
 By excluded.lst:  "se c -all_check".
 se c -require_check test_read_integer2.e -o test_read_integer2.exe
@@ -1519,6 +2269,18 @@ Excluded command: "se c -no_gc -loop_check test_read_integer2.e -o test_read_int
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_read_integer2.e -o test_read_integer2.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_read_integer2.e -o test_read_integer2.exe
+Running (-require_check -bdw_gc) "test_read_integer2.exe".
+se clean test_read_integer2.e
+Removing (-require_check -bdw_gc) "test_read_integer2.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_read_integer2.e -o test_read_integer2.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_read_integer2.e -o test_read_integer2.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_read_integer2.e -o test_read_integer2.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_read_integer2.e -o test_read_integer2.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_read_integer2.e -o test_read_integer2.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_read_integer2.e -o test_read_integer2.exe".
@@ -1549,6 +2311,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_read_integer2.e -o test
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_read_integer2.e -o test_read_integer2.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_read_integer2.e -o test_read_integer2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_read_integer2.e -o test_read_integer2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_read_integer2.e -o test_read_integer2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_read_integer2.e -o test_read_integer2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_read_integer2.e -o test_read_integer2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_read_integer2.e -o test_read_integer2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_read_integer2.e -o test_read_integer2.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_read_integer2.e -o test_read_integer2.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_read_integer2.e -o test_read_integer2.exe".
@@ -1567,6 +2343,10 @@ se c -no_split -no_gc -boost test_read_integer2.e -o test_read_integer2.exe
 Running (-no_split -no_gc -boost) "test_read_integer2.exe".
 se clean test_read_integer2.e
 Removing (-no_split -no_gc -boost) "test_read_integer2.exe".
+se c -no_split -boost -bdw_gc test_read_integer2.e -o test_read_integer2.exe
+Running (-no_split -boost -bdw_gc) "test_read_integer2.exe".
+se clean test_read_integer2.e
+Removing (-no_split -boost -bdw_gc) "test_read_integer2.exe".
 se c -boost test_read_real1.e -o test_read_real1.exe
 Running (-boost) "test_read_real1.exe".
 se clean test_read_real1.e
@@ -1615,6 +2395,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_read_real1.e -o test
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_read_real1.e -o test_read_real1.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_read_real1.e -o test_read_real1.exe
+Running (-boost -bdw_gc) "test_read_real1.exe".
+se clean test_read_real1.e
+Removing (-boost -bdw_gc) "test_read_real1.exe".
+se c -boost -debug -bdw_gc test_read_real1.e -o test_read_real1.exe
+Running (-boost -debug -bdw_gc) "test_read_real1.exe".
+se clean test_read_real1.e
+Removing (-boost -debug -bdw_gc) "test_read_real1.exe".
+se c -no_check -bdw_gc test_read_real1.e -o test_read_real1.exe
+Running (-no_check -bdw_gc) "test_read_real1.exe".
+se clean test_read_real1.e
+Removing (-no_check -bdw_gc) "test_read_real1.exe".
+se c -flat_check -require_check -bdw_gc test_read_real1.e -o test_read_real1.exe
+Running (-flat_check -require_check -bdw_gc) "test_read_real1.exe".
+se clean test_read_real1.e
+Removing (-flat_check -require_check -bdw_gc) "test_read_real1.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_read_real1.e -o test_read_real1.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_read_real1.e -o test_read_real1.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_read_real1.exe".
+se clean test_read_real1.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_read_real1.exe".
+se c -flat_check -loop_check -bdw_gc test_read_real1.e -o test_read_real1.exe
+Running (-flat_check -loop_check -bdw_gc) "test_read_real1.exe".
+se clean test_read_real1.e
+Removing (-flat_check -loop_check -bdw_gc) "test_read_real1.exe".
+se c -flat_check -all_check -bdw_gc test_read_real1.e -o test_read_real1.exe
+Running (-flat_check -all_check -bdw_gc) "test_read_real1.exe".
+se clean test_read_real1.e
+Removing (-flat_check -all_check -bdw_gc) "test_read_real1.exe".
 Excluded command: "se c -all_check -debug test_read_real1.e -o test_read_real1.exe".
 By excluded.lst:  "se c -all_check".
 se c -require_check test_read_real1.e -o test_read_real1.exe
@@ -1639,6 +2449,18 @@ Excluded command: "se c -no_gc -loop_check test_read_real1.e -o test_read_real1.
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_read_real1.e -o test_read_real1.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_read_real1.e -o test_read_real1.exe
+Running (-require_check -bdw_gc) "test_read_real1.exe".
+se clean test_read_real1.e
+Removing (-require_check -bdw_gc) "test_read_real1.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_read_real1.e -o test_read_real1.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_read_real1.e -o test_read_real1.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_read_real1.e -o test_read_real1.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_read_real1.e -o test_read_real1.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_read_real1.e -o test_read_real1.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_read_real1.e -o test_read_real1.exe".
@@ -1669,6 +2491,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_read_real1.e -o test_re
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_read_real1.e -o test_read_real1.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_read_real1.e -o test_read_real1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_read_real1.e -o test_read_real1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_read_real1.e -o test_read_real1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_read_real1.e -o test_read_real1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_read_real1.e -o test_read_real1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_read_real1.e -o test_read_real1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_read_real1.e -o test_read_real1.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_read_real1.e -o test_read_real1.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_read_real1.e -o test_read_real1.exe".
@@ -1687,6 +2523,10 @@ se c -no_split -no_gc -boost test_read_real1.e -o test_read_real1.exe
 Running (-no_split -no_gc -boost) "test_read_real1.exe".
 se clean test_read_real1.e
 Removing (-no_split -no_gc -boost) "test_read_real1.exe".
+se c -no_split -boost -bdw_gc test_read_real1.e -o test_read_real1.exe
+Running (-no_split -boost -bdw_gc) "test_read_real1.exe".
+se clean test_read_real1.e
+Removing (-no_split -boost -bdw_gc) "test_read_real1.exe".
 se c -boost test_read_real2.e -o test_read_real2.exe
 Running (-boost) "test_read_real2.exe".
 se clean test_read_real2.e
@@ -1735,6 +2575,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_read_real2.e -o test
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_read_real2.e -o test_read_real2.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_read_real2.e -o test_read_real2.exe
+Running (-boost -bdw_gc) "test_read_real2.exe".
+se clean test_read_real2.e
+Removing (-boost -bdw_gc) "test_read_real2.exe".
+se c -boost -debug -bdw_gc test_read_real2.e -o test_read_real2.exe
+Running (-boost -debug -bdw_gc) "test_read_real2.exe".
+se clean test_read_real2.e
+Removing (-boost -debug -bdw_gc) "test_read_real2.exe".
+se c -no_check -bdw_gc test_read_real2.e -o test_read_real2.exe
+Running (-no_check -bdw_gc) "test_read_real2.exe".
+se clean test_read_real2.e
+Removing (-no_check -bdw_gc) "test_read_real2.exe".
+se c -flat_check -require_check -bdw_gc test_read_real2.e -o test_read_real2.exe
+Running (-flat_check -require_check -bdw_gc) "test_read_real2.exe".
+se clean test_read_real2.e
+Removing (-flat_check -require_check -bdw_gc) "test_read_real2.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_read_real2.e -o test_read_real2.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_read_real2.e -o test_read_real2.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_read_real2.exe".
+se clean test_read_real2.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_read_real2.exe".
+se c -flat_check -loop_check -bdw_gc test_read_real2.e -o test_read_real2.exe
+Running (-flat_check -loop_check -bdw_gc) "test_read_real2.exe".
+se clean test_read_real2.e
+Removing (-flat_check -loop_check -bdw_gc) "test_read_real2.exe".
+se c -flat_check -all_check -bdw_gc test_read_real2.e -o test_read_real2.exe
+Running (-flat_check -all_check -bdw_gc) "test_read_real2.exe".
+se clean test_read_real2.e
+Removing (-flat_check -all_check -bdw_gc) "test_read_real2.exe".
 Excluded command: "se c -all_check -debug test_read_real2.e -o test_read_real2.exe".
 By excluded.lst:  "se c -all_check".
 se c -require_check test_read_real2.e -o test_read_real2.exe
@@ -1759,6 +2629,18 @@ Excluded command: "se c -no_gc -loop_check test_read_real2.e -o test_read_real2.
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_read_real2.e -o test_read_real2.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_read_real2.e -o test_read_real2.exe
+Running (-require_check -bdw_gc) "test_read_real2.exe".
+se clean test_read_real2.e
+Removing (-require_check -bdw_gc) "test_read_real2.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_read_real2.e -o test_read_real2.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_read_real2.e -o test_read_real2.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_read_real2.e -o test_read_real2.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_read_real2.e -o test_read_real2.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_read_real2.e -o test_read_real2.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_read_real2.e -o test_read_real2.exe".
@@ -1789,6 +2671,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_read_real2.e -o test_re
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_read_real2.e -o test_read_real2.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_read_real2.e -o test_read_real2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_read_real2.e -o test_read_real2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_read_real2.e -o test_read_real2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_read_real2.e -o test_read_real2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_read_real2.e -o test_read_real2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_read_real2.e -o test_read_real2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_read_real2.e -o test_read_real2.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_read_real2.e -o test_read_real2.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_read_real2.e -o test_read_real2.exe".
@@ -1807,6 +2703,10 @@ se c -no_split -no_gc -boost test_read_real2.e -o test_read_real2.exe
 Running (-no_split -no_gc -boost) "test_read_real2.exe".
 se clean test_read_real2.e
 Removing (-no_split -no_gc -boost) "test_read_real2.exe".
+se c -no_split -boost -bdw_gc test_read_real2.e -o test_read_real2.exe
+Running (-no_split -boost -bdw_gc) "test_read_real2.exe".
+se clean test_read_real2.e
+Removing (-no_split -boost -bdw_gc) "test_read_real2.exe".
 se c -boost test_size_of1.e -o test_size_of1.exe
 Running (-boost) "test_size_of1.exe".
 se clean test_size_of1.e
@@ -1855,6 +2755,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_size_of1.e -o test_s
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_size_of1.e -o test_size_of1.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_size_of1.e -o test_size_of1.exe
+Running (-boost -bdw_gc) "test_size_of1.exe".
+se clean test_size_of1.e
+Removing (-boost -bdw_gc) "test_size_of1.exe".
+se c -boost -debug -bdw_gc test_size_of1.e -o test_size_of1.exe
+Running (-boost -debug -bdw_gc) "test_size_of1.exe".
+se clean test_size_of1.e
+Removing (-boost -debug -bdw_gc) "test_size_of1.exe".
+se c -no_check -bdw_gc test_size_of1.e -o test_size_of1.exe
+Running (-no_check -bdw_gc) "test_size_of1.exe".
+se clean test_size_of1.e
+Removing (-no_check -bdw_gc) "test_size_of1.exe".
+se c -flat_check -require_check -bdw_gc test_size_of1.e -o test_size_of1.exe
+Running (-flat_check -require_check -bdw_gc) "test_size_of1.exe".
+se clean test_size_of1.e
+Removing (-flat_check -require_check -bdw_gc) "test_size_of1.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_size_of1.e -o test_size_of1.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_size_of1.e -o test_size_of1.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_size_of1.exe".
+se clean test_size_of1.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_size_of1.exe".
+se c -flat_check -loop_check -bdw_gc test_size_of1.e -o test_size_of1.exe
+Running (-flat_check -loop_check -bdw_gc) "test_size_of1.exe".
+se clean test_size_of1.e
+Removing (-flat_check -loop_check -bdw_gc) "test_size_of1.exe".
+se c -flat_check -all_check -bdw_gc test_size_of1.e -o test_size_of1.exe
+Running (-flat_check -all_check -bdw_gc) "test_size_of1.exe".
+se clean test_size_of1.e
+Removing (-flat_check -all_check -bdw_gc) "test_size_of1.exe".
 Excluded command: "se c -all_check -debug test_size_of1.e -o test_size_of1.exe".
 By excluded.lst:  "se c -all_check".
 se c -require_check test_size_of1.e -o test_size_of1.exe
@@ -1879,6 +2809,18 @@ Excluded command: "se c -no_gc -loop_check test_size_of1.e -o test_size_of1.exe"
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_size_of1.e -o test_size_of1.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_size_of1.e -o test_size_of1.exe
+Running (-require_check -bdw_gc) "test_size_of1.exe".
+se clean test_size_of1.e
+Removing (-require_check -bdw_gc) "test_size_of1.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_size_of1.e -o test_size_of1.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_size_of1.e -o test_size_of1.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_size_of1.e -o test_size_of1.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_size_of1.e -o test_size_of1.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_size_of1.e -o test_size_of1.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_size_of1.e -o test_size_of1.exe".
@@ -1909,6 +2851,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_size_of1.e -o test_size
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_size_of1.e -o test_size_of1.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_size_of1.e -o test_size_of1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_size_of1.e -o test_size_of1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_size_of1.e -o test_size_of1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_size_of1.e -o test_size_of1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_size_of1.e -o test_size_of1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_size_of1.e -o test_size_of1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_size_of1.e -o test_size_of1.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_size_of1.e -o test_size_of1.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_size_of1.e -o test_size_of1.exe".
@@ -1927,6 +2883,10 @@ se c -no_split -no_gc -boost test_size_of1.e -o test_size_of1.exe
 Running (-no_split -no_gc -boost) "test_size_of1.exe".
 se clean test_size_of1.e
 Removing (-no_split -no_gc -boost) "test_size_of1.exe".
+se c -no_split -boost -bdw_gc test_size_of1.e -o test_size_of1.exe
+Running (-no_split -boost -bdw_gc) "test_size_of1.exe".
+se clean test_size_of1.e
+Removing (-no_split -boost -bdw_gc) "test_size_of1.exe".
 --------------------------------------------------------------------------------
 Launching "se test" on "filesystem" subdirectory.
 Launching "se test" on "path_name" subdirectory.

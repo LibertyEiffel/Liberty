@@ -10,7 +10,7 @@ deferred class REGULAR_EXPRESSION
    --
 
 feature {ANY} -- matching capabilities
-   match (text: STRING): BOOLEAN is
+   match (text: ABSTRACT_STRING): BOOLEAN is
          -- Returns True if `Current' regular_expression can match the `text'.
          --
          -- See also `match_next', `match_from', `last_match_succeeded', `last_match_first_index'.
@@ -26,7 +26,7 @@ feature {ANY} -- matching capabilities
          Result implies last_match_first_index <= last_match_last_index + 1
       end
 
-   match_from (text: STRING; first_index: INTEGER): BOOLEAN is
+   match_from (text: ABSTRACT_STRING; first_index: INTEGER): BOOLEAN is
          -- Returns True if `Current' regular_expression can match the `text' starting from `first_index'.
          --
          -- See also `match', `last_match_succeeded', `last_match_first_index'.
@@ -43,7 +43,7 @@ feature {ANY} -- matching capabilities
          Result implies last_match_first_index <= last_match_last_index + 1
       end
 
-   match_next (text: STRING): BOOLEAN is
+   match_next (text: ABSTRACT_STRING): BOOLEAN is
          -- Returns True if `Current' regular_expression can match the same `text' one more time.
          -- Must be called after a successful `match' or `math_from' or `match_next' using the same `text'.
          --
@@ -249,7 +249,7 @@ feature {ANY} -- matching capabilities
          Result = named_group_last_index(name) - named_group_first_index(name) + 1
       end
 
-   for_all_matched_named_groups (text: STRING; action: PROCEDURE[TUPLE[FIXED_STRING, STRING]]) is
+   for_all_matched_named_groups (text: ABSTRACT_STRING; action: PROCEDURE[TUPLE[FIXED_STRING, STRING]]) is
          -- Call the `action' for each group that matched during the last match.
          -- The first action argument is the name of the group; the second is its content.
          -- The order of the action calls is the ascending order of the group definitions in the pattern.
@@ -279,7 +279,7 @@ feature {ANY} -- matching capabilities
          end
       end
 
-   append_heading_text (text, buffer: STRING) is
+   append_heading_text (text: ABSTRACT_STRING; buffer: STRING) is
          -- Append in `buffer' the text before the matching area.
          -- `text' is the same as used in last matching.
          --
@@ -295,7 +295,7 @@ feature {ANY} -- matching capabilities
          buffer.count = old buffer.count + last_match_first_index - 1
       end
 
-   append_pattern_text (text, buffer: STRING) is
+   append_pattern_text (text: ABSTRACT_STRING; buffer: STRING) is
          -- Append in `buffer' the text matching the pattern.
          -- `text' is the same as used in last matching.
          --
@@ -311,7 +311,7 @@ feature {ANY} -- matching capabilities
          buffer.count = old buffer.count + last_match_count
       end
 
-   append_tailing_text (text, buffer: STRING) is
+   append_tailing_text (text: ABSTRACT_STRING; buffer: STRING) is
          -- Append in `buffer' the text after the matching area.
          -- `text' is the same as used in last matching.
          --
@@ -327,7 +327,7 @@ feature {ANY} -- matching capabilities
          buffer.count = old buffer.count + text.count - last_match_last_index
       end
 
-   append_ith_group (text, buffer: STRING; i: INTEGER) is
+   append_ith_group (text: ABSTRACT_STRING; buffer: STRING; i: INTEGER) is
          -- Append in `buffer' the text of the `i'th group.
          -- `text' is the same as used in last matching.
          --
@@ -345,7 +345,7 @@ feature {ANY} -- matching capabilities
          buffer.count = old buffer.count + ith_group_count(i)
       end
 
-   append_named_group (text, buffer: STRING; name: ABSTRACT_STRING) is
+   append_named_group (text: ABSTRACT_STRING; buffer: STRING; name: ABSTRACT_STRING) is
          -- Append in `buffer' the text of the group named `name'.
          -- `text' is the same as used in last matching.
          --
@@ -367,7 +367,7 @@ feature {ANY} -- matching capabilities
          buffer.count = old buffer.count + named_group_count(name)
       end
 
-   named_group_value (text: STRING; name: ABSTRACT_STRING): STRING is
+   named_group_value (text, name: ABSTRACT_STRING): STRING is
          -- Returns the text of the group named `name' (always the same STRING!)
          -- `text' is the same as used in last matching.
          --
@@ -386,7 +386,7 @@ feature {ANY} -- matching capabilities
       end
 
 feature {ANY} -- substitution capabilities
-   prepare_substitution (p: like substitution_pattern) is
+   prepare_substitution (p: ABSTRACT_STRING) is
          -- Set pattern `p' for substitution. If pattern `p' is not compatible with the `Current' regular
          -- expression, the `pattern_error_message' is updated as well as `pattern_error_position'.
          --
@@ -403,7 +403,7 @@ feature {ANY} -- substitution capabilities
                compiled_substitution_pattern.clear_count
             end
             substitution_pattern_ready := True
-            substitution_pattern.copy(p)
+            substitution_pattern.make_from_string(p)
             substrings_first_indexes.resize(0, substrings_first_indexes.upper)
             substrings_last_indexes.resize(0, substrings_last_indexes.upper)
             i := 1
@@ -449,10 +449,17 @@ feature {ANY} -- substitution capabilities
          substitution_pattern_ready xor pattern_error_message /= Void
       end
 
-   last_substitution: STRING
+   last_substitution: STRING is
          -- You need to copy this STRING if you want to keep it.
+      do
+         Result := last_substitution_memory
+         if Result = Void then
+            create Result.make(128)
+            last_substitution_memory := Result
+         end
+      end
 
-   substitute_for (text: STRING) is
+   substitute_for (text: ABSTRACT_STRING) is
          -- This call has to be precedeed by a sucessful matching on the same text.
          -- Then the substitution is made on the matching part. The result is in `last_substitution'.
          --
@@ -462,12 +469,10 @@ feature {ANY} -- substitution capabilities
          text /= Void
          text.is_equal(last_match_text)
       local
-         i, first: INTEGER; src: STRING; index: INTEGER
+         i, first: INTEGER; src: ABSTRACT_STRING; index: INTEGER
       do
          from
-            last_substitution := substitution_buffer
-            last_substitution.clear_count
-            last_substitution.append_substring(text, 1, last_match_first_index - 1)
+            last_substitution.copy_substring(text, 1, last_match_first_index - 1)
             i := compiled_substitution_pattern.lower
          until
             i > compiled_substitution_pattern.upper
@@ -510,7 +515,7 @@ feature {ANY} -- substitution capabilities
          only_one_substitution_per_match: not can_substitute
       end
 
-   substitute_all_for (text: STRING) is
+   substitute_all_for (text: ABSTRACT_STRING) is
          -- Every matching part is substituted. No preliminary matching is required.
          -- The result is in `last_substitution'.
          --
@@ -523,7 +528,7 @@ feature {ANY} -- substitution capabilities
       do
          text_pos := substitute_all_without_tail(text)
          if text_pos = 1 then
-            last_substitution := text
+            last_substitution.make_from_string(text)
          else
             last_substitution.append_substring(text, text_pos, text.count)
          end
@@ -576,10 +581,10 @@ feature {ANY} -- Error informations
          -- See also `prepare_substitution'.
 
 feature {}
-   save_matching_text (text: STRING): BOOLEAN is
+   save_matching_text (text: ABSTRACT_STRING): BOOLEAN is
          -- Used in assertion only. Side-effect: save the text
       do
-         last_match_text.copy(text)
+         last_match_text.make_from_string(text)
          Result := True
       ensure
          Result -- Assertion only feature
@@ -596,7 +601,7 @@ feature {}
          not can_substitute
       end
 
-   valid_substrings (text: STRING): BOOLEAN is
+   valid_substrings (text: ABSTRACT_STRING): BOOLEAN is
          -- Used in assertion only.
       require
          last_match_succeeded
@@ -669,7 +674,7 @@ feature {}
          Result -- Method for assertion only
       end
 
-   substitute_all_without_tail (text: STRING): INTEGER is
+   substitute_all_without_tail (text: ABSTRACT_STRING): INTEGER is
          -- Substitute all matching parts from `text'. The resulting text is
          -- in `last_substitution', except the end. The part of `text' from
          -- `Result' up to the end is not copied.
@@ -677,10 +682,9 @@ feature {}
          substitution_pattern_ready
          text /= Void
       local
-         i: INTEGER; src: STRING; index: INTEGER
+         i: INTEGER; src: ABSTRACT_STRING; index: INTEGER
       do
          from
-            last_substitution := substitution_buffer
             last_substitution.clear_count
             Result := 1
          until
@@ -738,19 +742,13 @@ feature {}
          -- This array describe the substitution text as a suite of
          -- strings from `substrings_first_indexes'.
 
-   substitution_buffer: STRING is
-      once
-         create Result.make(1024)
-      end
-
    last_match_text: STRING is
          -- For assertion only.
       do
-         if last_match_text_memory = Void then
+         Result := last_match_text_memory
+         if Result = Void then
             create Result.make(128)
             last_match_text_memory := Result
-         else
-            Result := last_match_text_memory
          end
       end
 
@@ -765,6 +763,8 @@ feature {}
       end
 
    last_match_text_memory: STRING -- For assertion only.
+
+   last_substitution_memory: STRING
 
 invariant
    substrings_first_indexes.lower = substrings_last_indexes.lower

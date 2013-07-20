@@ -106,8 +106,8 @@ function printSubStages($dir){
         }
 
         echo "  <tr><td>" . $stageHtml . "</td><td>" . $stageresult . "</td><td>";
-        echo "      <div style=\"display:inline\" onclick=\"document.getElementById('stageout" . $stage . "').style.display='inline'\"><img src=\"$img/Plus_sign.png\" width=\"16\" height=\"16\" alt=\"show details\"/></div>\n";
-        echo "      <div style=\"display:inline\" onclick=\"document.getElementById('stageout" . $stage . "').style.display='none'\"><img src=\"$img/Minus_sign.png\" width=\"16\" height=\"16\" alt=\"hide details\"/></div>\n";
+        echo "      <div style=\"display:inline;cursor:pointer;\" onclick=\"document.getElementById('stageout" . $stage . "').style.display='inline'\"><img src=\"$img/Plus_sign.png\" width=\"16\" height=\"16\" alt=\"show details\"/></div>\n";
+        echo "      <div style=\"display:inline;cursor:pointer;\" onclick=\"document.getElementById('stageout" . $stage . "').style.display='none'\"><img src=\"$img/Minus_sign.png\" width=\"16\" height=\"16\" alt=\"hide details\"/></div>\n";
         echo "      </td></tr>\n";
         echo "      <tr><td colspan=\"3\"><div style=\"display:none\" id=\"stageout" . $stage ."\">";
         echo "         <p class=\"cmd\">" . htmlify(file_get_contents("$stagedir/cmd.txt")) . "</p>\n";

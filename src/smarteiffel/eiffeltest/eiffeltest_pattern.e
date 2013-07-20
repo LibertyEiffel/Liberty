@@ -3,11 +3,14 @@
 --
 class EIFFELTEST_PATTERN
 
-create {EIFFELTEST}
+insert
+   GLOBALS
+
+create {EIFFELTEST, EIFFELTEST_SERVER_RUN_TESTS}
    make
 
-feature {EIFFELTEST}
-   match (string: STRING): BOOLEAN is
+feature {EIFFELTEST, EIFFELTEST_SERVER_RUN_TESTS}
+   match (string: ABSTRACT_STRING): BOOLEAN is
       require
          string /= Void
       do
@@ -25,7 +28,7 @@ feature {EIFFELTEST}
 feature {}
    regex: REGULAR_EXPRESSION
 
-   make (a_text: STRING) is
+   make (a_text: ABSTRACT_STRING) is
       require
          a_text /= Void
       local
@@ -33,12 +36,11 @@ feature {}
          reb: REGULAR_EXPRESSION_BUILDER
       do
          text := a_text.intern
-         if a_text.first = '/' and then a_text.last = '/' then
-            entry := a_text
+         entry := once ""
+         if a_text.count > 1 and then a_text.first = '/' and then a_text.last = '/' then
+            entry.copy_substring(a_text, a_text.lower + 1, a_text.upper - 1)
          else
-            entry := once ""
-            entry.clear_count
-            entry.append(once "^.*?")
+            entry.copy(once "^.*?")
             from
                i := a_text.lower
             until
@@ -55,6 +57,7 @@ feature {}
             end
             entry.append(once ".*$")
          end
+         echo.put_line(once "Excluded pattern: /#(1)/" # entry)
          regex := reb.convert_python_pattern(entry)
       ensure
          text = a_text.intern

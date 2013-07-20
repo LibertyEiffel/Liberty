@@ -3,9 +3,9 @@ The "log.new" file must be identical to the "log.ref" file.
 The reference file is "log.ref" and this file must be created manually.
 If you confirm that "log.new" is correct, just overwrite "log.ref" with "log.new".
 --------------------------------------------------------------------------------
-Found 8 test_* file(s).
-Found 0 bad_* file(s).
-No subdirectory.
+Found 8 test_* files.
+Found 0 bad_* files.
+Found 0 subdirectories.
 --------------------------------------------------------------------------------
 se c -boost test_create01.e -o test_create01.exe
 Running (-boost) "test_create01.exe".
@@ -55,6 +55,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_create01.e -o test_c
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_create01.e -o test_create01.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_create01.e -o test_create01.exe
+Running (-boost -bdw_gc) "test_create01.exe".
+se clean test_create01.e
+Removing (-boost -bdw_gc) "test_create01.exe".
+se c -boost -debug -bdw_gc test_create01.e -o test_create01.exe
+Running (-boost -debug -bdw_gc) "test_create01.exe".
+se clean test_create01.e
+Removing (-boost -debug -bdw_gc) "test_create01.exe".
+se c -no_check -bdw_gc test_create01.e -o test_create01.exe
+Running (-no_check -bdw_gc) "test_create01.exe".
+se clean test_create01.e
+Removing (-no_check -bdw_gc) "test_create01.exe".
+se c -flat_check -require_check -bdw_gc test_create01.e -o test_create01.exe
+Running (-flat_check -require_check -bdw_gc) "test_create01.exe".
+se clean test_create01.e
+Removing (-flat_check -require_check -bdw_gc) "test_create01.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_create01.e -o test_create01.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_create01.e -o test_create01.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_create01.exe".
+se clean test_create01.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_create01.exe".
+se c -flat_check -loop_check -bdw_gc test_create01.e -o test_create01.exe
+Running (-flat_check -loop_check -bdw_gc) "test_create01.exe".
+se clean test_create01.e
+Removing (-flat_check -loop_check -bdw_gc) "test_create01.exe".
+se c -flat_check -all_check -bdw_gc test_create01.e -o test_create01.exe
+Running (-flat_check -all_check -bdw_gc) "test_create01.exe".
+se clean test_create01.e
+Removing (-flat_check -all_check -bdw_gc) "test_create01.exe".
 Excluded command: "se c -all_check -debug test_create01.e -o test_create01.exe".
 By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_create01.e -o test_create01.exe
@@ -79,6 +109,18 @@ Excluded command: "se c -no_gc -loop_check test_create01.e -o test_create01.exe"
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_create01.e -o test_create01.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_create01.e -o test_create01.exe
+Running (-require_check -bdw_gc) "test_create01.exe".
+se clean test_create01.e
+Removing (-require_check -bdw_gc) "test_create01.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_create01.e -o test_create01.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_create01.e -o test_create01.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_create01.e -o test_create01.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_create01.e -o test_create01.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_create01.e -o test_create01.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_create01.e -o test_create01.exe".
@@ -109,6 +151,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_create01.e -o test_crea
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_create01.e -o test_create01.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_create01.e -o test_create01.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_create01.e -o test_create01.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_create01.e -o test_create01.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_create01.e -o test_create01.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_create01.e -o test_create01.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_create01.e -o test_create01.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_create01.e -o test_create01.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_create01.e -o test_create01.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_create01.e -o test_create01.exe".
@@ -127,6 +183,10 @@ se c -no_split -no_gc -boost test_create01.e -o test_create01.exe
 Running (-no_split -no_gc -boost) "test_create01.exe".
 se clean test_create01.e
 Removing (-no_split -no_gc -boost) "test_create01.exe".
+se c -no_split -boost -bdw_gc test_create01.e -o test_create01.exe
+Running (-no_split -boost -bdw_gc) "test_create01.exe".
+se clean test_create01.e
+Removing (-no_split -boost -bdw_gc) "test_create01.exe".
 se c -boost test_create02.e -o test_create02.exe
 Running (-boost) "test_create02.exe".
 se clean test_create02.e
@@ -175,6 +235,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_create02.e -o test_c
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_create02.e -o test_create02.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_create02.e -o test_create02.exe
+Running (-boost -bdw_gc) "test_create02.exe".
+se clean test_create02.e
+Removing (-boost -bdw_gc) "test_create02.exe".
+se c -boost -debug -bdw_gc test_create02.e -o test_create02.exe
+Running (-boost -debug -bdw_gc) "test_create02.exe".
+se clean test_create02.e
+Removing (-boost -debug -bdw_gc) "test_create02.exe".
+se c -no_check -bdw_gc test_create02.e -o test_create02.exe
+Running (-no_check -bdw_gc) "test_create02.exe".
+se clean test_create02.e
+Removing (-no_check -bdw_gc) "test_create02.exe".
+se c -flat_check -require_check -bdw_gc test_create02.e -o test_create02.exe
+Running (-flat_check -require_check -bdw_gc) "test_create02.exe".
+se clean test_create02.e
+Removing (-flat_check -require_check -bdw_gc) "test_create02.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_create02.e -o test_create02.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_create02.e -o test_create02.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_create02.exe".
+se clean test_create02.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_create02.exe".
+se c -flat_check -loop_check -bdw_gc test_create02.e -o test_create02.exe
+Running (-flat_check -loop_check -bdw_gc) "test_create02.exe".
+se clean test_create02.e
+Removing (-flat_check -loop_check -bdw_gc) "test_create02.exe".
+se c -flat_check -all_check -bdw_gc test_create02.e -o test_create02.exe
+Running (-flat_check -all_check -bdw_gc) "test_create02.exe".
+se clean test_create02.e
+Removing (-flat_check -all_check -bdw_gc) "test_create02.exe".
 Excluded command: "se c -all_check -debug test_create02.e -o test_create02.exe".
 By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_create02.e -o test_create02.exe
@@ -199,6 +289,18 @@ Excluded command: "se c -no_gc -loop_check test_create02.e -o test_create02.exe"
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_create02.e -o test_create02.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_create02.e -o test_create02.exe
+Running (-require_check -bdw_gc) "test_create02.exe".
+se clean test_create02.e
+Removing (-require_check -bdw_gc) "test_create02.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_create02.e -o test_create02.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_create02.e -o test_create02.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_create02.e -o test_create02.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_create02.e -o test_create02.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_create02.e -o test_create02.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_create02.e -o test_create02.exe".
@@ -229,6 +331,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_create02.e -o test_crea
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_create02.e -o test_create02.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_create02.e -o test_create02.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_create02.e -o test_create02.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_create02.e -o test_create02.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_create02.e -o test_create02.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_create02.e -o test_create02.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_create02.e -o test_create02.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_create02.e -o test_create02.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_create02.e -o test_create02.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_create02.e -o test_create02.exe".
@@ -247,6 +363,10 @@ se c -no_split -no_gc -boost test_create02.e -o test_create02.exe
 Running (-no_split -no_gc -boost) "test_create02.exe".
 se clean test_create02.e
 Removing (-no_split -no_gc -boost) "test_create02.exe".
+se c -no_split -boost -bdw_gc test_create02.e -o test_create02.exe
+Running (-no_split -boost -bdw_gc) "test_create02.exe".
+se clean test_create02.e
+Removing (-no_split -boost -bdw_gc) "test_create02.exe".
 se c -boost test_create03.e -o test_create03.exe
 Running (-boost) "test_create03.exe".
 se clean test_create03.e
@@ -295,6 +415,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_create03.e -o test_c
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_create03.e -o test_create03.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_create03.e -o test_create03.exe
+Running (-boost -bdw_gc) "test_create03.exe".
+se clean test_create03.e
+Removing (-boost -bdw_gc) "test_create03.exe".
+se c -boost -debug -bdw_gc test_create03.e -o test_create03.exe
+Running (-boost -debug -bdw_gc) "test_create03.exe".
+se clean test_create03.e
+Removing (-boost -debug -bdw_gc) "test_create03.exe".
+se c -no_check -bdw_gc test_create03.e -o test_create03.exe
+Running (-no_check -bdw_gc) "test_create03.exe".
+se clean test_create03.e
+Removing (-no_check -bdw_gc) "test_create03.exe".
+se c -flat_check -require_check -bdw_gc test_create03.e -o test_create03.exe
+Running (-flat_check -require_check -bdw_gc) "test_create03.exe".
+se clean test_create03.e
+Removing (-flat_check -require_check -bdw_gc) "test_create03.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_create03.e -o test_create03.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_create03.e -o test_create03.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_create03.exe".
+se clean test_create03.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_create03.exe".
+se c -flat_check -loop_check -bdw_gc test_create03.e -o test_create03.exe
+Running (-flat_check -loop_check -bdw_gc) "test_create03.exe".
+se clean test_create03.e
+Removing (-flat_check -loop_check -bdw_gc) "test_create03.exe".
+se c -flat_check -all_check -bdw_gc test_create03.e -o test_create03.exe
+Running (-flat_check -all_check -bdw_gc) "test_create03.exe".
+se clean test_create03.e
+Removing (-flat_check -all_check -bdw_gc) "test_create03.exe".
 Excluded command: "se c -all_check -debug test_create03.e -o test_create03.exe".
 By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_create03.e -o test_create03.exe
@@ -319,6 +469,18 @@ Excluded command: "se c -no_gc -loop_check test_create03.e -o test_create03.exe"
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_create03.e -o test_create03.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_create03.e -o test_create03.exe
+Running (-require_check -bdw_gc) "test_create03.exe".
+se clean test_create03.e
+Removing (-require_check -bdw_gc) "test_create03.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_create03.e -o test_create03.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_create03.e -o test_create03.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_create03.e -o test_create03.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_create03.e -o test_create03.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_create03.e -o test_create03.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_create03.e -o test_create03.exe".
@@ -349,6 +511,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_create03.e -o test_crea
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_create03.e -o test_create03.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_create03.e -o test_create03.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_create03.e -o test_create03.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_create03.e -o test_create03.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_create03.e -o test_create03.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_create03.e -o test_create03.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_create03.e -o test_create03.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_create03.e -o test_create03.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_create03.e -o test_create03.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_create03.e -o test_create03.exe".
@@ -367,6 +543,10 @@ se c -no_split -no_gc -boost test_create03.e -o test_create03.exe
 Running (-no_split -no_gc -boost) "test_create03.exe".
 se clean test_create03.e
 Removing (-no_split -no_gc -boost) "test_create03.exe".
+se c -no_split -boost -bdw_gc test_create03.e -o test_create03.exe
+Running (-no_split -boost -bdw_gc) "test_create03.exe".
+se clean test_create03.e
+Removing (-no_split -boost -bdw_gc) "test_create03.exe".
 se c -boost test_create04.e -o test_create04.exe
 Running (-boost) "test_create04.exe".
 se clean test_create04.e
@@ -415,6 +595,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_create04.e -o test_c
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_create04.e -o test_create04.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_create04.e -o test_create04.exe
+Running (-boost -bdw_gc) "test_create04.exe".
+se clean test_create04.e
+Removing (-boost -bdw_gc) "test_create04.exe".
+se c -boost -debug -bdw_gc test_create04.e -o test_create04.exe
+Running (-boost -debug -bdw_gc) "test_create04.exe".
+se clean test_create04.e
+Removing (-boost -debug -bdw_gc) "test_create04.exe".
+se c -no_check -bdw_gc test_create04.e -o test_create04.exe
+Running (-no_check -bdw_gc) "test_create04.exe".
+se clean test_create04.e
+Removing (-no_check -bdw_gc) "test_create04.exe".
+se c -flat_check -require_check -bdw_gc test_create04.e -o test_create04.exe
+Running (-flat_check -require_check -bdw_gc) "test_create04.exe".
+se clean test_create04.e
+Removing (-flat_check -require_check -bdw_gc) "test_create04.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_create04.e -o test_create04.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_create04.e -o test_create04.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_create04.exe".
+se clean test_create04.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_create04.exe".
+se c -flat_check -loop_check -bdw_gc test_create04.e -o test_create04.exe
+Running (-flat_check -loop_check -bdw_gc) "test_create04.exe".
+se clean test_create04.e
+Removing (-flat_check -loop_check -bdw_gc) "test_create04.exe".
+se c -flat_check -all_check -bdw_gc test_create04.e -o test_create04.exe
+Running (-flat_check -all_check -bdw_gc) "test_create04.exe".
+se clean test_create04.e
+Removing (-flat_check -all_check -bdw_gc) "test_create04.exe".
 Excluded command: "se c -all_check -debug test_create04.e -o test_create04.exe".
 By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_create04.e -o test_create04.exe
@@ -439,6 +649,18 @@ Excluded command: "se c -no_gc -loop_check test_create04.e -o test_create04.exe"
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_create04.e -o test_create04.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_create04.e -o test_create04.exe
+Running (-require_check -bdw_gc) "test_create04.exe".
+se clean test_create04.e
+Removing (-require_check -bdw_gc) "test_create04.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_create04.e -o test_create04.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_create04.e -o test_create04.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_create04.e -o test_create04.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_create04.e -o test_create04.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_create04.e -o test_create04.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_create04.e -o test_create04.exe".
@@ -469,6 +691,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_create04.e -o test_crea
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_create04.e -o test_create04.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_create04.e -o test_create04.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_create04.e -o test_create04.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_create04.e -o test_create04.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_create04.e -o test_create04.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_create04.e -o test_create04.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_create04.e -o test_create04.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_create04.e -o test_create04.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_create04.e -o test_create04.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_create04.e -o test_create04.exe".
@@ -487,6 +723,10 @@ se c -no_split -no_gc -boost test_create04.e -o test_create04.exe
 Running (-no_split -no_gc -boost) "test_create04.exe".
 se clean test_create04.e
 Removing (-no_split -no_gc -boost) "test_create04.exe".
+se c -no_split -boost -bdw_gc test_create04.e -o test_create04.exe
+Running (-no_split -boost -bdw_gc) "test_create04.exe".
+se clean test_create04.e
+Removing (-no_split -boost -bdw_gc) "test_create04.exe".
 se c -boost test_create05.e -o test_create05.exe
 Running (-boost) "test_create05.exe".
 se clean test_create05.e
@@ -535,6 +775,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_create05.e -o test_c
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_create05.e -o test_create05.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_create05.e -o test_create05.exe
+Running (-boost -bdw_gc) "test_create05.exe".
+se clean test_create05.e
+Removing (-boost -bdw_gc) "test_create05.exe".
+se c -boost -debug -bdw_gc test_create05.e -o test_create05.exe
+Running (-boost -debug -bdw_gc) "test_create05.exe".
+se clean test_create05.e
+Removing (-boost -debug -bdw_gc) "test_create05.exe".
+se c -no_check -bdw_gc test_create05.e -o test_create05.exe
+Running (-no_check -bdw_gc) "test_create05.exe".
+se clean test_create05.e
+Removing (-no_check -bdw_gc) "test_create05.exe".
+se c -flat_check -require_check -bdw_gc test_create05.e -o test_create05.exe
+Running (-flat_check -require_check -bdw_gc) "test_create05.exe".
+se clean test_create05.e
+Removing (-flat_check -require_check -bdw_gc) "test_create05.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_create05.e -o test_create05.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_create05.e -o test_create05.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_create05.exe".
+se clean test_create05.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_create05.exe".
+se c -flat_check -loop_check -bdw_gc test_create05.e -o test_create05.exe
+Running (-flat_check -loop_check -bdw_gc) "test_create05.exe".
+se clean test_create05.e
+Removing (-flat_check -loop_check -bdw_gc) "test_create05.exe".
+se c -flat_check -all_check -bdw_gc test_create05.e -o test_create05.exe
+Running (-flat_check -all_check -bdw_gc) "test_create05.exe".
+se clean test_create05.e
+Removing (-flat_check -all_check -bdw_gc) "test_create05.exe".
 Excluded command: "se c -all_check -debug test_create05.e -o test_create05.exe".
 By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_create05.e -o test_create05.exe
@@ -559,6 +829,18 @@ Excluded command: "se c -no_gc -loop_check test_create05.e -o test_create05.exe"
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_create05.e -o test_create05.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_create05.e -o test_create05.exe
+Running (-require_check -bdw_gc) "test_create05.exe".
+se clean test_create05.e
+Removing (-require_check -bdw_gc) "test_create05.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_create05.e -o test_create05.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_create05.e -o test_create05.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_create05.e -o test_create05.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_create05.e -o test_create05.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_create05.e -o test_create05.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_create05.e -o test_create05.exe".
@@ -589,6 +871,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_create05.e -o test_crea
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_create05.e -o test_create05.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_create05.e -o test_create05.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_create05.e -o test_create05.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_create05.e -o test_create05.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_create05.e -o test_create05.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_create05.e -o test_create05.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_create05.e -o test_create05.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_create05.e -o test_create05.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_create05.e -o test_create05.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_create05.e -o test_create05.exe".
@@ -607,6 +903,10 @@ se c -no_split -no_gc -boost test_create05.e -o test_create05.exe
 Running (-no_split -no_gc -boost) "test_create05.exe".
 se clean test_create05.e
 Removing (-no_split -no_gc -boost) "test_create05.exe".
+se c -no_split -boost -bdw_gc test_create05.e -o test_create05.exe
+Running (-no_split -boost -bdw_gc) "test_create05.exe".
+se clean test_create05.e
+Removing (-no_split -boost -bdw_gc) "test_create05.exe".
 se c -boost test_create06.e -o test_create06.exe
 Running (-boost) "test_create06.exe".
 se clean test_create06.e
@@ -655,6 +955,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_create06.e -o test_c
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_create06.e -o test_create06.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_create06.e -o test_create06.exe
+Running (-boost -bdw_gc) "test_create06.exe".
+se clean test_create06.e
+Removing (-boost -bdw_gc) "test_create06.exe".
+se c -boost -debug -bdw_gc test_create06.e -o test_create06.exe
+Running (-boost -debug -bdw_gc) "test_create06.exe".
+se clean test_create06.e
+Removing (-boost -debug -bdw_gc) "test_create06.exe".
+se c -no_check -bdw_gc test_create06.e -o test_create06.exe
+Running (-no_check -bdw_gc) "test_create06.exe".
+se clean test_create06.e
+Removing (-no_check -bdw_gc) "test_create06.exe".
+se c -flat_check -require_check -bdw_gc test_create06.e -o test_create06.exe
+Running (-flat_check -require_check -bdw_gc) "test_create06.exe".
+se clean test_create06.e
+Removing (-flat_check -require_check -bdw_gc) "test_create06.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_create06.e -o test_create06.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_create06.e -o test_create06.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_create06.exe".
+se clean test_create06.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_create06.exe".
+se c -flat_check -loop_check -bdw_gc test_create06.e -o test_create06.exe
+Running (-flat_check -loop_check -bdw_gc) "test_create06.exe".
+se clean test_create06.e
+Removing (-flat_check -loop_check -bdw_gc) "test_create06.exe".
+se c -flat_check -all_check -bdw_gc test_create06.e -o test_create06.exe
+Running (-flat_check -all_check -bdw_gc) "test_create06.exe".
+se clean test_create06.e
+Removing (-flat_check -all_check -bdw_gc) "test_create06.exe".
 Excluded command: "se c -all_check -debug test_create06.e -o test_create06.exe".
 By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_create06.e -o test_create06.exe
@@ -679,6 +1009,18 @@ Excluded command: "se c -no_gc -loop_check test_create06.e -o test_create06.exe"
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_create06.e -o test_create06.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_create06.e -o test_create06.exe
+Running (-require_check -bdw_gc) "test_create06.exe".
+se clean test_create06.e
+Removing (-require_check -bdw_gc) "test_create06.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_create06.e -o test_create06.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_create06.e -o test_create06.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_create06.e -o test_create06.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_create06.e -o test_create06.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_create06.e -o test_create06.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_create06.e -o test_create06.exe".
@@ -709,6 +1051,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_create06.e -o test_crea
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_create06.e -o test_create06.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_create06.e -o test_create06.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_create06.e -o test_create06.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_create06.e -o test_create06.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_create06.e -o test_create06.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_create06.e -o test_create06.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_create06.e -o test_create06.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_create06.e -o test_create06.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_create06.e -o test_create06.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_create06.e -o test_create06.exe".
@@ -727,6 +1083,10 @@ se c -no_split -no_gc -boost test_create06.e -o test_create06.exe
 Running (-no_split -no_gc -boost) "test_create06.exe".
 se clean test_create06.e
 Removing (-no_split -no_gc -boost) "test_create06.exe".
+se c -no_split -boost -bdw_gc test_create06.e -o test_create06.exe
+Running (-no_split -boost -bdw_gc) "test_create06.exe".
+se clean test_create06.e
+Removing (-no_split -boost -bdw_gc) "test_create06.exe".
 se c -boost test_create07.e -o test_create07.exe
 Running (-boost) "test_create07.exe".
 se clean test_create07.e
@@ -775,6 +1135,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_create07.e -o test_c
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_create07.e -o test_create07.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_create07.e -o test_create07.exe
+Running (-boost -bdw_gc) "test_create07.exe".
+se clean test_create07.e
+Removing (-boost -bdw_gc) "test_create07.exe".
+se c -boost -debug -bdw_gc test_create07.e -o test_create07.exe
+Running (-boost -debug -bdw_gc) "test_create07.exe".
+se clean test_create07.e
+Removing (-boost -debug -bdw_gc) "test_create07.exe".
+se c -no_check -bdw_gc test_create07.e -o test_create07.exe
+Running (-no_check -bdw_gc) "test_create07.exe".
+se clean test_create07.e
+Removing (-no_check -bdw_gc) "test_create07.exe".
+se c -flat_check -require_check -bdw_gc test_create07.e -o test_create07.exe
+Running (-flat_check -require_check -bdw_gc) "test_create07.exe".
+se clean test_create07.e
+Removing (-flat_check -require_check -bdw_gc) "test_create07.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_create07.e -o test_create07.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_create07.e -o test_create07.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_create07.exe".
+se clean test_create07.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_create07.exe".
+se c -flat_check -loop_check -bdw_gc test_create07.e -o test_create07.exe
+Running (-flat_check -loop_check -bdw_gc) "test_create07.exe".
+se clean test_create07.e
+Removing (-flat_check -loop_check -bdw_gc) "test_create07.exe".
+se c -flat_check -all_check -bdw_gc test_create07.e -o test_create07.exe
+Running (-flat_check -all_check -bdw_gc) "test_create07.exe".
+se clean test_create07.e
+Removing (-flat_check -all_check -bdw_gc) "test_create07.exe".
 Excluded command: "se c -all_check -debug test_create07.e -o test_create07.exe".
 By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_create07.e -o test_create07.exe
@@ -799,6 +1189,18 @@ Excluded command: "se c -no_gc -loop_check test_create07.e -o test_create07.exe"
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_create07.e -o test_create07.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_create07.e -o test_create07.exe
+Running (-require_check -bdw_gc) "test_create07.exe".
+se clean test_create07.e
+Removing (-require_check -bdw_gc) "test_create07.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_create07.e -o test_create07.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_create07.e -o test_create07.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_create07.e -o test_create07.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_create07.e -o test_create07.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_create07.e -o test_create07.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_create07.e -o test_create07.exe".
@@ -829,6 +1231,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_create07.e -o test_crea
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_create07.e -o test_create07.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_create07.e -o test_create07.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_create07.e -o test_create07.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_create07.e -o test_create07.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_create07.e -o test_create07.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_create07.e -o test_create07.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_create07.e -o test_create07.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_create07.e -o test_create07.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_create07.e -o test_create07.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_create07.e -o test_create07.exe".
@@ -847,6 +1263,10 @@ se c -no_split -no_gc -boost test_create07.e -o test_create07.exe
 Running (-no_split -no_gc -boost) "test_create07.exe".
 se clean test_create07.e
 Removing (-no_split -no_gc -boost) "test_create07.exe".
+se c -no_split -boost -bdw_gc test_create07.e -o test_create07.exe
+Running (-no_split -boost -bdw_gc) "test_create07.exe".
+se clean test_create07.e
+Removing (-no_split -boost -bdw_gc) "test_create07.exe".
 se c -boost test_create08.e -o test_create08.exe
 Running (-boost) "test_create08.exe".
 se clean test_create08.e
@@ -895,6 +1315,36 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_create08.e -o test_c
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_create08.e -o test_create08.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_create08.e -o test_create08.exe
+Running (-boost -bdw_gc) "test_create08.exe".
+se clean test_create08.e
+Removing (-boost -bdw_gc) "test_create08.exe".
+se c -boost -debug -bdw_gc test_create08.e -o test_create08.exe
+Running (-boost -debug -bdw_gc) "test_create08.exe".
+se clean test_create08.e
+Removing (-boost -debug -bdw_gc) "test_create08.exe".
+se c -no_check -bdw_gc test_create08.e -o test_create08.exe
+Running (-no_check -bdw_gc) "test_create08.exe".
+se clean test_create08.e
+Removing (-no_check -bdw_gc) "test_create08.exe".
+se c -flat_check -require_check -bdw_gc test_create08.e -o test_create08.exe
+Running (-flat_check -require_check -bdw_gc) "test_create08.exe".
+se clean test_create08.e
+Removing (-flat_check -require_check -bdw_gc) "test_create08.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_create08.e -o test_create08.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_create08.e -o test_create08.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_create08.exe".
+se clean test_create08.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_create08.exe".
+se c -flat_check -loop_check -bdw_gc test_create08.e -o test_create08.exe
+Running (-flat_check -loop_check -bdw_gc) "test_create08.exe".
+se clean test_create08.e
+Removing (-flat_check -loop_check -bdw_gc) "test_create08.exe".
+se c -flat_check -all_check -bdw_gc test_create08.e -o test_create08.exe
+Running (-flat_check -all_check -bdw_gc) "test_create08.exe".
+se clean test_create08.e
+Removing (-flat_check -all_check -bdw_gc) "test_create08.exe".
 Excluded command: "se c -all_check -debug test_create08.e -o test_create08.exe".
 By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_create08.e -o test_create08.exe
@@ -919,6 +1369,18 @@ Excluded command: "se c -no_gc -loop_check test_create08.e -o test_create08.exe"
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_create08.e -o test_create08.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_create08.e -o test_create08.exe
+Running (-require_check -bdw_gc) "test_create08.exe".
+se clean test_create08.e
+Removing (-require_check -bdw_gc) "test_create08.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_create08.e -o test_create08.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_create08.e -o test_create08.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_create08.e -o test_create08.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_create08.e -o test_create08.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_create08.e -o test_create08.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_create08.e -o test_create08.exe".
@@ -949,6 +1411,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_create08.e -o test_crea
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_create08.e -o test_create08.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_create08.e -o test_create08.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_create08.e -o test_create08.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_create08.e -o test_create08.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_create08.e -o test_create08.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_create08.e -o test_create08.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_create08.e -o test_create08.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_create08.e -o test_create08.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_create08.e -o test_create08.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_create08.e -o test_create08.exe".
@@ -967,6 +1443,10 @@ se c -no_split -no_gc -boost test_create08.e -o test_create08.exe
 Running (-no_split -no_gc -boost) "test_create08.exe".
 se clean test_create08.e
 Removing (-no_split -no_gc -boost) "test_create08.exe".
+se c -no_split -boost -bdw_gc test_create08.e -o test_create08.exe
+Running (-no_split -boost -bdw_gc) "test_create08.exe".
+se clean test_create08.e
+Removing (-no_split -boost -bdw_gc) "test_create08.exe".
 --------------------------------------------------------------------------------
 All entries of the "excluded.lst" file are used (good).
 --------------------------------------------------------------------------------
