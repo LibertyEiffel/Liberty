@@ -85,7 +85,7 @@ feature {}
          create offset.make(plus, start_position, arg_src_min)
          offset.set_feature_stamp(t_int.lookup(create {FEATURE_NAME}.infix_name(eiffel_parser.minus_name, start_position)))
          create array_item.make(start_position, offset, type.generic_list.first)
-         create src_item.make(start_position, local_index, type.generic_list.first)
+         create src_item.make_array(start_position, arg_src, local_index)
          create copy_args.make_1(src_item)
          create call_copy.make(array_item, smart_eiffel.type_any.class_text.any_copy_feature.names.first, copy_args)
          call_copy.set_feature_stamp(type.generic_list.first.copy_stamp)

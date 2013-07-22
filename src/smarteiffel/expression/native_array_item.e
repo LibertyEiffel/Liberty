@@ -10,9 +10,15 @@ inherit
    NON_WRITTEN_EXPRESSION
 
 create {ANY}
-   make
+   make, make_array
+
+create {NATIVE_ARRAY_ITEM}
+   make_
 
 feature {ANY}
+   array: EXPRESSION
+         -- The array to access
+
    index: EXPRESSION
          -- The array index
 
@@ -24,31 +30,43 @@ feature {ANY}
 
    use_current (type: TYPE): BOOLEAN is
       do
-         Result := True
+         Result := array = Void
       end
 
    declaration_type: TYPE
 
    resolve_in (type: TYPE): TYPE is
       do
-         Result := declaration_type
+         if array = Void then
+            Result := declaration_type
+         else
+            Result := array.resolve_in(type).generic_list.first
+         end
       end
 
    side_effect_free (type: TYPE): BOOLEAN is
       do
-         Result := True
+         if array = Void then
+            Result := True
+         else
+            Result := array.side_effect_free(type)
+         end
       end
 
    adapt_for (type: TYPE): like Current is
       local
-         i: like index; dt: like declaration_type
+         a: like array; i: like index; dt: like declaration_type
       do
+         if array /= Void then
+            a := array.adapt_for(type)
+         else
+            dt := type.generic_list.first
+         end
          i := index.adapt_for(type)
-         dt := type.generic_list.first
-         if i = index and then dt = declaration_type then
+         if a = array and then i = index and then dt = declaration_type then
             Result := Current
          else
-            create Result.make(start_position, i, declaration_type)
+            create Result.make_(start_position, a, i, declaration_type)
          end
       end
 
@@ -64,14 +82,18 @@ feature {ANY}
 
    simplify (type: TYPE): like Current is
       local
-         i: like index; dt: like declaration_type
+         a: like array; i: like index; dt: like declaration_type
       do
+         if array /= Void then
+            a := array.simplify(type)
+         else
+            dt := type.generic_list.first
+         end
          i := index.simplify(type)
-         dt := type.generic_list.first
-         if i = index and then dt = declaration_type then
+         if a = array and then i = index and then dt = declaration_type then
             Result := Current
          else
-            create Result.make(start_position, i, dt)
+            create Result.make_(start_position, a, i, dt)
          end
       end
 
@@ -80,7 +102,7 @@ feature {ANY}
    collect (type: TYPE): TYPE is
       do
          Result := index.collect(type)
-         Result := declaration_type
+         Result := resolve_in(type)
       end
 
    accept (visitor: NATIVE_ARRAY_ITEM_VISITOR) is
@@ -95,16 +117,31 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   make (a_position: like start_position; a_index: like index; a_declaration_type: like declaration_type) is
+   make_ (a_position: like start_position; a_array: like array; a_index: like index; a_declaration_type: like declaration_type) is
       do
          start_position := a_position
+         array := a_array
          index := a_index
          declaration_type := a_declaration_type
       ensure
          start_position = a_position
+         array = a_array
          index = a_index
          declaration_type = a_declaration_type
       end
+
+   make (a_position: like start_position; a_index: like index; a_declaration_type: like declaration_type) is
+      do
+         make_(a_position, Void, a_index, a_declaration_type)
+      end
+
+   make_array (a_position: like start_position; a_array: like array; a_index: like index) is
+      do
+         make_(a_position, a_array, a_index, Void)
+      end
+
+invariant
+   (array = Void) /= (declaration_type = Void)
 
 end -- class NATIVE_ARRAY_ITEM
 --

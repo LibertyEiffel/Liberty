@@ -354,6 +354,9 @@ feature {INTERNAL_LOCAL2}
 feature {NATIVE_ARRAY_ITEM}
    visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
       do
+         if visited.array /= Void then
+            visited.array.accept(Current)
+         end
          visited.index.accept(Current)
       end
 
