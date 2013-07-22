@@ -7,7 +7,7 @@ insert
 create {}
    make
 
-feature
+feature {}
    make is
       local
          int: INTERNALS
@@ -20,13 +20,6 @@ feature
          type_attribute_generator := int.type_attribute_generator(1)
          type_attribute_generating_type := int.type_attribute_generating_type(1)
          type_attribute_is_expanded := int.type_attribute_is_expanded(1)
-
-         --std_output.put_line("Attribute #1 '#(1)': #(2) (#(3), expanded: #(4))"
-         --                    # type_attribute_name
-         --                    # type_attribute_generator
-         --                    # type_attribute_generating_type
-         --                    # type_attribute_is_expanded.out
-         --)
 
          assert(int.type_attribute_count = 1)
          assert("assertion_level".same_as(type_attribute_name))

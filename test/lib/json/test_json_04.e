@@ -28,6 +28,11 @@ feature {}
                                         "type":  "INTEGER_32",
                                         "value": "0"
                                     },
+                                    "has_storage_signature":   {
+                                        "*":     "basic",
+                                        "type":  "BOOLEAN",
+                                        "value": "False"
+                                    },
                                     "generation":              {
                                         "*":     "basic",
                                         "type":  "INTEGER_32",
@@ -101,6 +106,11 @@ feature {}
                                         "*":     "basic",
                                         "type":  "INTEGER_32",
                                         "value": "0"
+                                    },
+                                    "has_storage_signature":   {
+                                        "*":     "basic",
+                                        "type":  "BOOLEAN",
+                                        "value": "False"
                                     },
                                     "generation":              {
                                         "*":     "basic",
