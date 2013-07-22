@@ -10,13 +10,18 @@ expanded class STRING_RECYCLING_ITEM
 insert
    ANY
       redefine
-         is_equal
+         is_equal, copy
       end
 
 feature {ANY}
    is_equal (other: like Current): BOOLEAN is
       do
          Result := capacity = other.capacity
+      end
+
+   copy (other: like Current) is
+      do
+         set_capacity(other.capacity)
       end
 
 feature {STRING_RECYCLING_POOL, STRING_RECYCLING_ITEM, STRING_RECYCLING_ITEM_SORTER}
