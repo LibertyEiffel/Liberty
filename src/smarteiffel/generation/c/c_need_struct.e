@@ -62,7 +62,7 @@ feature {USER_GENERIC_TYPE_MARK}
 feature {EMPTY_TUPLE_TYPE_MARK}
    visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK) is
       do
-         flag := not ace.boost
+         flag := not ace.boost or else visited.type.live_type.is_tagged
       end
 
 feature {LIKE_ARGUMENT_TYPE_MARK}
