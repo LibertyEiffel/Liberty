@@ -158,6 +158,7 @@ feature {}
          url.connect
          label_assert(once "File must exist: " + a_filename, url.is_connected)
          create p.connect_to(url)
+         label_assert(once "Parser must be connected", p.is_connected)
          p.parse(Current)
          url.disconnect
       end
