@@ -238,41 +238,37 @@ function testDir($dir){
     global $stagedir;
     global $repobaselink, $LibertyBase;
     $result = 0;
-    $tests = count(glob("$dir/test_*.e")) + count(glob("$dir/bad_*.e"));
-    $hasEiffelTest = is_dir("$dir/eiffeltest");
-    if($tests > 0){
-        if($hasEiffelTest){
-            $result = execute("se test -flat $dir");
-            $warnCnt = exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
-            if($result == 0){
-                if($warnCnt != 0){
-                    $result = 0 - $warnCnt;
-                }
-            }
-
-        }else{
-            file_put_contents($stagedir ."/err.txt", "missing eiffeltest directory - please add to repository");
-            $result = -1;
-        }
-    }
 
     foreach (glob("$dir/*", GLOB_ONLYDIR) as $dirname){
         if(basename($dirname) != "eiffeltest"){
             substage(basename($dirname), str_replace($LibertyBase, $repobaselink, $dirname));
             $res = testDir($dirname);
-            if($result == 0){
-                $result = $res;
-            }elseif($result > 0 && $res > 0){
-                $result = $result + $res;
-            }elseif($result > 0){
-                // no change
+            if($res < 0) {
+                if($result < 0) $result -= $res;
             }elseif($res > 0){
-                $result = $res;
-            }elseif($result < 0 || $res < 0){
-                $result += $res;
+                if($result > 0) $result += $res;
             }
-            file_put_contents($stagedir ."/result.txt", $result);
             endsubstage();
+        }
+    }
+
+    $tests = count(glob("$dir/test_*.e")) + count(glob("$dir/bad_*.e")) + count(glob("$dir/ace_*.ace"));
+    $hasEiffelTest = is_dir("$dir/eiffeltest");
+    if($tests > 0){
+        if($hasEiffelTest){
+            $res = 0 - execute("se test -flat $dir");
+            if($res == 0){
+                $warnCnt = exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
+                $res = $warnCnt;
+            }
+        }else{
+            file_put_contents($stagedir ."/err.txt", "missing eiffeltest directory - please add to repository");
+            $res = -1;
+        }
+        if($res < 0) {
+            if($result < 0) $result -= $res;
+        }elseif($res > 0){
+            if($result > 0) $result += $res;
         }
     }
 
