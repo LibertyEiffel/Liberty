@@ -599,6 +599,7 @@ feature {ANY} -- Other:
       require
          lower >= 0
          upper >= lower - 1
+         useful_work: model /= Current or else lower > 0
       do
          slice_copy(0, model, lower, upper)
       end

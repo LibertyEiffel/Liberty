@@ -24,11 +24,13 @@ feature {}
                full_collect
             end)
 
-         print("Memory usage for " + (n * n).out + " allocations: " + (allocated_bytes - mem_usage).out + " bytes.%N")
+         debug
+            print("Memory usage for " + (n * n).out + " allocations: " + (allocated_bytes - mem_usage).out + " bytes.%N")
+         end
          assert(foo.is_equal("my-const-string"))
       end
 
-   n: INTEGER_32 is 512
+   n: INTEGER_32 is 16
 
    foo: FIXED_STRING
 

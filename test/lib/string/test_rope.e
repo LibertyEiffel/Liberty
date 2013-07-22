@@ -5,7 +5,7 @@ insert
 create {}
     make
 
-feature
+feature {}
     make is
         local
             a,b: STRING
@@ -17,7 +17,7 @@ feature
             r:="A-"|"rope"|"-is-beautiful"
 
             assert(a.count = r.count)
-            assert(a.is_equal(r))            
+            assert(a.is_equal(r))
             assert(r.is_equal(a))
 
             from

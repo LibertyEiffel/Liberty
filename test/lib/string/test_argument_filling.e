@@ -33,4 +33,3 @@ feature {ANY}
       end
 
 end -- class TEST_ARGUMENT_FILLING
--- class TEST_FILLABLE_STRING

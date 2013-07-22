@@ -1,24 +1,18 @@
 class TEST_LAZY_STRING
-create {}
-feature 
-   make is
-      do
-      ("My PID is "| &pid |".%N").print_on(std_output)
-   end
 
-   pid: INTEGER_32 is
+create {}
+   make
+
+feature {}
+   make is
+      local
+         model: STRING
       do
-         Result:=getpid
+         model := "My PID is " + pid.out + "."
+         assert(model.equals("My PID is " | &pid | "."))
+         assert(model.equals("My PID is #(1)." # &pid))
       end
 
-   getpid: INTEGER_32 is
-       -- getpid (node at line 5374)
-      external "plug_in"
-      alias "{
-         location: "../../../src/wrappers/posix/library/externals"
-         module_name: "plugin"
-         feature_name: "getpid()"
-      }"
-   end
+   pid: INTEGER_32 is 42
 
 end
