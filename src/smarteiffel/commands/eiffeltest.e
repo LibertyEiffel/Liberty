@@ -24,6 +24,9 @@ feature {ANY}
 
         -flat               Launch only tests in the current directory (don't recurse)
 
+        -check              Only check the log.new file (called by -flat, not so
+                            useful otherwise)
+
       Information:
         -help               Display this help information (no test run)
         -version            Display Liberty Eiffel version information (no test run)
@@ -66,7 +69,11 @@ feature {}
 
          if version_flag or else help_flag then
             -- We just finish here.
+         elseif check_flag then
+            check_eiffel_directory_path
+            log_file_comparison
          else
+            check_eiffel_directory_path
             eiffeltest_normal_running_mode
          end
 
@@ -164,7 +171,7 @@ feature {}
          end
       end
 
-   eiffeltest_normal_running_mode is
+   check_eiffel_directory_path is
       local
          path, name: STRING; directory_scanner: BASIC_DIRECTORY
          subdirectory_list, test_list, bad_list: FAST_ARRAY[STRING]
@@ -214,7 +221,15 @@ feature {}
          if new_eiffeltest_directory_flag then
             create_the_default_excluded_lst
          end
+      end
 
+   eiffeltest_normal_running_mode is
+      require
+         checked: eiffeltest_directory_path /= Void
+      local
+         path, name: STRING; directory_scanner: BASIC_DIRECTORY
+         subdirectory_list, test_list, bad_list: FAST_ARRAY[STRING]
+      do
          create_the_lock_file
 
          echo.put_string(once "Now opening the %"eiffeltest/log.new%" file for write.%N")
@@ -340,6 +355,8 @@ feature {}
                end
             elseif flag_match(once "flat", arg) then
                flat_flag := True
+            elseif flag_match(once "check", arg) then
+               check_flag := True
             elseif flag_match(once "force", arg) then
                force_flag := True
             elseif file_tools.is_directory(arg) then
@@ -367,9 +384,8 @@ feature {}
 
    collection_sorter: COLLECTION_SORTER[STRING]
 
-   force_flag: BOOLEAN
-
-   flat_flag: BOOLEAN
+   force_flag, flat_flag, check_flag: BOOLEAN
+         -- Various obvious CLI flags
 
    new_eiffeltest_directory_flag: BOOLEAN
          -- When the subdirectory "eiffeltest" is a new one.
@@ -779,6 +795,8 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
       end
 
    log_file_comparison is
+      require
+         checked: eiffeltest_directory_path /= Void
       local
          log_ref_path, log_new_path: STRING
       do
@@ -843,16 +861,11 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          end
       end
 
-   do_nothing is
-      do
-      end
-
    subdirectory_check_with (subdirectory: STRING) is
       require
          file_tools.is_directory(subdirectory)
       local
          cmd, log_line: STRING; subdirectory_path: STRING; dummy: BOOLEAN
-         execute: PROCEDURE[TUPLE]
       do
          log_line := (once "Launching %"se test%" on %"#(1)%" subdirectory." # subdirectory).out
 
@@ -866,15 +879,12 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          if force_flag then
             cmd.append(once "-force ")
          end
+         if flat_flag then
+            cmd.append(once "-check ")
+         end
          cmd.append(subdirectory_path)
 
-         if flat_flag then
-            execute := agent do_nothing
-            echo.put_string(once "Skipping subdirectory tests.")
-         else
-            execute := agent execute_command(log_line, cmd, False)
-         end
-         dummy := excluded_execution_of(log_line, execute)
+         dummy := excluded_execution_of(log_line, agent execute_command(log_line, cmd, False))
       end
 
    excluded_lst: FAST_ARRAY[EIFFELTEST_PATTERN] is
