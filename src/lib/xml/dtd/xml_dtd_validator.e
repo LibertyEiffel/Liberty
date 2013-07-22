@@ -170,11 +170,11 @@ feature {} -- Attributes string management
 
    new_string (s: UNICODE_STRING): UNICODE_STRING is
       do
-         Result := strings_pool.item
-         if Result /= Void then
-            Result.copy(s)
-         else
+         if strings_pool.is_empty then
             Result := s.twin
+         else
+            Result := strings_pool.item
+            Result.copy(s)
          end
       ensure
          Result.is_equal(s)
