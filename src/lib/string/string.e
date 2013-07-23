@@ -365,7 +365,7 @@ feature {ANY} -- Modification:
             end
             storage_lower := storage_lower - 1
          else
-            ensure_capacity(capacity + 1)
+            ensure_capacity(count + storage_lower + 1)
             if i <= upper then
                storage.move(storage_lower - lower + i, storage_lower - lower + upper, 1)
             end
