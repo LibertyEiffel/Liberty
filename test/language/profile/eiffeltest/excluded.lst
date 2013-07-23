@@ -1,6 +1,7 @@
-se c -profile
+se c -boost
+se c -flat_check
+se c -no_check
 se c -no_gc
-se c -all_check -debug
 se c -all_check
 se c -loop_check
 se c -invariant_check
