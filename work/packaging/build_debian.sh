@@ -10,9 +10,11 @@ test -d $packages/debs && rm -rf $packages/debs
 mkdir $packages/debs
 
 export clean=FALSE
-export release=FALSE
 export pbuilder=FALSE
 export codename=snapshot
+
+pkgdate=$(date -u +'%Y%m%d.%H%M%S')
+export tag="-0~snapshot~$pkgdate"
 
 while [ x$1 != x ]; do
     case $1 in
@@ -20,8 +22,11 @@ while [ x$1 != x ]; do
             clean=TRUE
             ;;
         -release)
-            release=TRUE
             codename=release
+            tag="-2"
+            ;;
+        -rc*)
+            tag="-1~rc"${1#-rc}
             ;;
         -pbuilder)
             pbuilder=TRUE
@@ -124,17 +129,12 @@ do_debuild() {
 
 echo
 echo "Generating packages"
-if [ $release == TRUE ]; then
-    version=$(head -n 1 $packages/debian.skel/debian/changelog | sed 's/#SNAPSHOT#//g' | awk -F'[()]' '{print $2}')
-else
-    pkgdate=$(date -u +'%Y%m%d.%H%M%S')
-    version=$(head -n 1 $packages/debian.skel/debian/changelog | sed 's/#SNAPSHOT#/~snapshot~'"$pkgdate"'/g' | awk -F'[()]' '{print $2}')
-fi
+version=$(head -n 1 $packages/debian.skel/debian/changelog | sed 's/#SNAPSHOT#/'"$tag"'/g' | awk -F'[()]' '{print $2}')
 for debian in $packages/*.pkg/debian; do
     package_dir=${debian%/debian}
     package=$(basename ${debian%.pkg/debian})
     tmp=$(mktemp -d -t $package-deb.XXXXXX)
-    echo "    $package (working in $tmp)"
+    echo "    $package $version (working in $tmp)"
     cd $tmp
     mkdir build
     cd build
@@ -145,11 +145,7 @@ for debian in $packages/*.pkg/debian; do
     cp -a $package_dir/* .
 
     # customize debian/changelog
-    if [ $release == TRUE ]; then
-        sed 's/#SNAPSHOT#//g' -i debian/changelog
-    else
-        sed 's/#SNAPSHOT#/~snapshot~'"$pkgdate"'/g' -i debian/changelog
-    fi
+    sed 's/#SNAPSHOT#/'"$tag"'/g' -i debian/changelog
 
     # customize debian/control
     mv debian/control debian/control~
