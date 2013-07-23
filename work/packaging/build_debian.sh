@@ -58,6 +58,24 @@ COMPRESSPROG=pigz
 DISTRIBUTION=stable
 EXTRAPACKAGES="gcc g++"
 EOF
+
+    if sudo -l /usr/sbin/pbuilder >/dev/null 2>&1; then
+        for arch in $(dpkg --print-architecture; dpkg --print-foreign-architectures); do
+            dir=$LIBERTY_HOME/target/pbuilder/liberty-$arch
+            if [ -e $dir/base.tgz ]; then
+                log=$LOGDIR/pbuilder_update_$(date -u +'%Y%m%d.%H%M%S')_$arch.log
+                sudo -n -E /usr/sbin/pbuilder --update --basetgz $dir/base.tgz > $log 2>&1 || {
+                    echo "**** pbuilder --update failed: see $log"
+                }
+            else
+                mkdir -p $dir
+                log=$LOGDIR/pbuilder_create_$(date -u +'%Y%m%d.%H%M%S')_$arch.log
+                sudo -n -E /usr/sbin/pbuilder --create --basetgz $dir/base.tgz --architecture $arch --extrapackages 'gcc g++' > $log 2>&1 || {
+                    echo "**** pbuilder --create failed: see $log"
+                }
+            fi
+        done
+    fi
 fi
 
 test -d $HOME/.serc || {
@@ -76,25 +94,6 @@ test -d $TARGET/doc || {
     $LIBERTY_HOME/install.sh -plain -doc
 }
 
-pbuilder_create() {
-    if sudo -l /usr/sbin/pbuilder >/dev/null 2>&1; then
-        arch=$1
-        dir=$LIBERTY_HOME/target/pbuilder/liberty-$arch
-        if [ -e $dir/base.tgz ]; then
-            log=$LOGDIR/pbuilder_update_$(date -u +'%Y%m%d.%H%M%S')_$arch.log
-            sudo -n -E /usr/sbin/pbuilder --update --basetgz $dir/base.tgz > $log 2>&1 || {
-                echo "**** pbuilder --update failed: see $log"
-            }
-        else
-            mkdir -p $dir
-            log=$LOGDIR/pbuilder_create_$(date -u +'%Y%m%d.%H%M%S')_$arch.log
-            sudo -n -E /usr/sbin/pbuilder --create --basetgz $dir/base.tgz --architecture $arch --extrapackages 'gcc g++' > $log 2>&1 || {
-                echo "**** pbuilder --create failed: see $log"
-            }
-        fi
-    fi
-}
-
 do_debuild() {
     tmp=$1
 
@@ -106,10 +105,8 @@ do_debuild() {
         }
     elif [ $pbuilder == TRUE ]; then
         for arch in $(dpkg --print-architecture; dpkg --print-foreign-architectures); do
-            pbuilder_create $arch
-            pdebuild \
-                --architecture $arch --buildresult $tmp/.. --debbuildopts '-us -uc' -- \
-                --basetgz $LIBERTY_HOME/target/pbuilder/liberty-$arch/base.tgz > $LOGDIR/$(basename $tmp)_$arch.log 2>&1 || {
+            pdebuild --architecture $arch --buildresult $tmp/.. --debbuildopts '-us -uc' -- \
+                     --basetgz $LIBERTY_HOME/target/pbuilder/liberty-$arch/base.tgz > $LOGDIR/$(basename $tmp)_$arch.log 2>&1 || {
                 echo "**** pdebuild failed: see $LOGDIR/$(basename $tmp)_$arch.log"
                 r=$(($r + 1))
             }
