@@ -21,11 +21,12 @@ while [ x$1 != x ]; do
         -clean)
             clean=TRUE
             ;;
-        -release)
+        -release*)
             codename=release
-            tag="-2"
+            tag="-2~release"${1#-release}
             ;;
         -rc*)
+            codename=rc
             tag="-1~rc"${1#-rc}
             ;;
         -pbuilder)
