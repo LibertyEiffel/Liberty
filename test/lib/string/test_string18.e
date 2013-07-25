@@ -2,11 +2,22 @@ class TEST_STRING18
    -- Test multiple remove_first and remove_last
 insert EIFFELTEST_TOOLS
 create {} make
-feature 
+feature {ANY} 
    make is
 	   local x,y: STRING
 	   do
+		   print("plain strin%N")
 		   x := once "__addr"
+		   y := translate(x)
+		   assert(y ~ "an_addr")
+		   assert(y.count = 7)
+		   print("from external%N")
+		   create x.from_external(addr)
+		   y := translate(x)
+		   assert(y ~ "an_addr")
+		   assert(y.count = 7)
+		   print("From external copy")
+		   create x.from_external_copy(addr)
 		   y := translate(x)
 		   assert(y ~ "an_addr")
 		   assert(y.count = 7)
@@ -49,4 +60,8 @@ feature
 		end
 	end
 	
+	addr: POINTER is
+		external "C inline"
+		alias "%"__addr%""
+		end
 end
