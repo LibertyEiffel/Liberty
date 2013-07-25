@@ -77,6 +77,9 @@ feature {}
             eiffeltest_normal_running_mode
          end
 
+         echo.put_string(once "Exiting with status ")
+         echo.put_integer(final_die_with_code_result)
+         echo.put_line(once ".")
          die_with_code(final_die_with_code_result)
       end
 
