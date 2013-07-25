@@ -244,7 +244,7 @@ function testDir($dir){
             substage(basename($dirname), str_replace($LibertyBase, $repobaselink, $dirname));
             $res = testDir($dirname);
             if($res < 0) {
-                if($result <= 0) $result -= $res;
+                if($result <= 0) $result += $res;
             }elseif($res > 0){
                 if($result >= 0) $result += $res;
                 else $result = $res;
@@ -267,7 +267,7 @@ function testDir($dir){
             $res = -1;
         }
         if($res < 0) {
-            if($result <= 0) $result -= $res;
+            if($result <= 0) $result += $res;
         }elseif($res > 0){
             if($result >= 0) $result += $res;
             else $result = $res;
