@@ -193,19 +193,14 @@ feature {ANY} -- Implementation of deferred:
       local
          other_upper, new_capacity: INTEGER
       do
-         --*** Why is the end cleared? remove_last, remove_tail, remove_first does not clear anything
          other_upper := other.upper
          if other_upper >= 0 then
             new_capacity := other_upper + 1
             if capacity < new_capacity then
                storage := storage.calloc(new_capacity)
                capacity := new_capacity
-            elseif new_capacity < capacity then
-               storage.clear(new_capacity, capacity - 1)
             end
             storage.copy_from(other.storage, other_upper)
-         elseif capacity > 0 then
-            storage.clear_all(capacity - 1)
          end
          upper := other_upper
          next_generation

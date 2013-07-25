@@ -972,7 +972,15 @@ feature {INTERNAL_LOCAL2}
 feature {NATIVE_ARRAY_ITEM}
    visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
       do
-         function_body.append(once "/*NAI*/(C[")
+         function_body.append(once "/*NAI*/(")
+         if visited.array = Void then
+            function_body.extend('C')
+         else
+            function_body.extend('(')
+            compile_expression(visited.array)
+            function_body.extend(')')
+         end
+         function_body.append(once "[")
          compile_expression(visited.index)
          function_body.append(once "])")
       end

@@ -89,7 +89,6 @@ feature {XML_PARSER}
                end
             end
          end
-         set_url(Void)
       end
 
 feature {}

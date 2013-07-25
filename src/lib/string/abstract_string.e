@@ -1046,9 +1046,6 @@ feature {ANY} -- Concatenation
                   state := always_print_state
               end
         end
-        debug
-            print("%""+Current+"%"arg("+an_index.out+",%""+a_value+"%")=%""+Result+"%"%N")
-        end
     ensure
         definition: has_substring("#("+an_index.out+")") implies Result.has_substring(a_value) and not Result.has_substring("#("+an_index.out+")")
         substitution_not_made: not has_substring("#("+an_index.out+")") implies Current.is_equal(Result)
@@ -1094,29 +1091,29 @@ feature {ANY} -- Printing:
       end
 
 feature {ANY} -- String replacing
-	replacing (an_old, a_new: ABSTRACT_STRING): STRING is
-		-- Current with all occurrences of `an_old' string replaced with `a_new'.
-	local cut_from, oldsize, i: INTEGER
-	do
+        replacing (an_old, a_new: ABSTRACT_STRING): STRING is
+                -- Current with all occurrences of `an_old' string replaced with `a_new'.
+        local cut_from, oldsize, i: INTEGER
+        do
         i := first_substring_index(an_old)
-        if not valid_index(i) then create Result.make_from_string(Current) 
+        if not valid_index(i) then create Result.make_from_string(Current)
         else
             -- The size of Result will be usually similar to those of Current, so
             create Result.with_capacity(Current.count)
             -- will reasonably limit reallocations compared to a plain create Result.make_empty
             oldsize := an_old.count
             from cut_from := lower
-            until not valid_index(i) 
+            until not valid_index(i)
             loop
                 Result.append_substring(Current,cut_from,i-1)
                 Result.append(a_new)
                 cut_from := i+oldsize
                 i := substring_index(an_old,i+oldsize)
             end
-            -- append the remaining part 
+            -- append the remaining part
             Result.append_substring(Current,cut_from,upper)
         end
-	end
+        end
 
 feature {ANY} -- Other features:
    first: CHARACTER is
@@ -1148,7 +1145,7 @@ feature {ANY} -- Other features:
 
    substring_index (other: ABSTRACT_STRING; start_index: INTEGER): INTEGER is
          -- Position of first occurrence of `other' at or after `start_index'.
-		 -- If the is no occurrence Result will be an invalid index, usually 0 when lower is 1.
+                 -- If the is no occurrence Result will be an invalid index, usually 0 when lower is 1.
          --
          -- See also `substring', `first_substring_index'.
       require

@@ -5,7 +5,7 @@ insert
 
 create {}
 
-feature
+feature {}
    make is
       do
          echo("a string%N")

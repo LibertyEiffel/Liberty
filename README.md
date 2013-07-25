@@ -1,7 +1,7 @@
 Liberty Eiffel
 ==============
 
-Liberty is a compiler for the Eiffel programming language, a
+Liberty is the GNU compiler for the Eiffel programming language, a
 continuation of the SmartEiffel compiler. We want to retain from
 SmartEiffel its rigour; but not its rigidity. Think of Liberty as
 SmartEiffel down from its ivory tower.
@@ -28,5 +28,8 @@ Get in Touch
 ============
  * Home of Liberty: http://www.liberty-eiffel.org
  * Documentation Wiki: http://wiki.liberty-eiffel.org
- * Source on github: http://github.com/LibertyEiffel/Liberty
- * Mailing list: libertyeiffel@librelist.com (first mail is interpreted as subscription request)
+ * Mailing list: mailto:liberty-eiffel@gnu.org subscription and
+   archives on https://lists.gnu.org/mailman/listinfo/liberty-eiffel
+ * Source on GNU Savannah: http://git.savannah.gnu.org/cgit/liberty-eiffel.git
+ * Savannah project: https://savannah.gnu.org/projects/liberty-eiffel/
+ * and not to forget the GNU website: http://www.gnu.org/

@@ -49,6 +49,8 @@ feature {ANY}
       do
          Result := top
          pop
+      ensure
+         Result /= Void
       end
 
   recycle (an_item: like item) is

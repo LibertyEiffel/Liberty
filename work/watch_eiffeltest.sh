@@ -4,8 +4,8 @@ case x$1 in
     x_internal)
         pwd
         {
-            find . -name eiffeltest -exec test -e {}/log.ref \; -exec test -e {}/log.new \; -exec test -e {}/LOCK \; -print | sort -u
-            find . -name eiffeltest -exec test -e {}/log.ref \; -exec test -e {}/log.new \; -exec test \! -e {}/LOCK \; -print | sort -u
+            find . -name eiffeltest -exec test -e {}/log.new \; -exec test -e {}/LOCK \; -print | sort -u
+            find . -name eiffeltest -exec test -e {}/log.new \; -exec test \! -e {}/LOCK \; -print | sort -u
         } |
         while read eiffeltest; do
             awk -vcol=$(tput cols) 'BEGIN {printf("[1;34m"); for(i=0;i<col;i++)printf("-"); printf("[m\n")}'
@@ -29,13 +29,22 @@ case x$1 in
             echo
             tail -n 5 $eiffeltest/log.new | sed 's/^/[1;34m    | [1;33m/;s/$/[m/'
             echo
-            ps axu | head -1
-            ps axu | grep "$(tail -n 1 $eiffeltest/log.new | grep -o '[A-Za-z0-9_]*\.exe')" | egrep -v 'grep|sh -c'
-            echo
             (
                 cd $eiffeltest
-                diff -u log.new log.ref | diffstat -C -w $(($(tput cols) - 1))
+                if [ -e log.ref ]; then
+                    diff -u log.new log.ref | diffstat -C -w $(($(tput cols) - 1))
+                else
+                    diff -uN log.new - | diffstat -C -w $(($(tput cols) - 1)) <<EOF
+EOF
+                fi
             )
+            exe=$(tail -n 1 $eiffeltest/log.new | grep -o '[A-Za-z0-9_]*\.exe') && {
+                echo
+                {
+                    ps axu | head -1
+                    ps axu | grep "$exe" | egrep -v 'grep|sh -c'
+                } | sed 's/^/[1;34m    | [1;36m/;s/$/[m/'
+            }
             echo
         done
         ;;
@@ -59,6 +68,7 @@ case x$1 in
         trap cleanup INT TERM HUP
         wait $test_pid
         kill $watch_pid
+        exec $0 _internal | less -R
         ;;
     *)
         exec watch --color -n 30 "$@" $0 _internal

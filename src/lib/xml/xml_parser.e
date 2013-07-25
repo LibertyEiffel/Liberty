@@ -81,12 +81,16 @@ feature {}
 
    parse_node (at_root: BOOLEAN): INTEGER is
          -- True if a node was successfully parsed
+      require
+         is_connected
       local
          name, entity, entity_value, data, data_blanks, pi_target, pi_data: UNICODE_STRING
          again, done, open, open_close: BOOLEAN; l, c: INTEGER
       do
          from
             again := True
+         invariant
+            is_connected
          until
             not again or else callbacks.at_error
          loop
@@ -502,6 +506,8 @@ feature {}
       end
 
    read_dtd is
+      require
+         is_connected
       do
          callbacks.set_validator(dtd_parser.parse(buffer))
          skip_blanks

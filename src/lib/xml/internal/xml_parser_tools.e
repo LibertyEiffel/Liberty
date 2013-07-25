@@ -20,6 +20,8 @@ feature {}
       end
 
    skip_blanks is
+      require
+         buffer.is_connected
       do
          from
          until
@@ -30,12 +32,15 @@ feature {}
       end
 
    end_of_input: BOOLEAN is
+      require
+         buffer.is_connected
       do
          Result := buffer.end_of_input
       end
 
    next is
       require
+         buffer.is_connected
          not end_of_input
       do
          buffer.next
@@ -43,6 +48,7 @@ feature {}
 
    previous is
       require
+         buffer.is_connected
          buffer.index > 0
       do
          buffer.previous
@@ -50,12 +56,15 @@ feature {}
 
    current_character: INTEGER is
       require
+         buffer.is_connected
          not end_of_input
       do
          Result := buffer.code
       end
 
    skip (character: CHARACTER): BOOLEAN is
+      require
+         buffer.is_connected
       do
          if not end_of_input then
             skip_blanks
@@ -67,6 +76,8 @@ feature {}
       end
 
    skip2 (char1, char2: CHARACTER): BOOLEAN is
+      require
+         buffer.is_connected
       do
          if skip(char1) then
             if skip(char2) then
@@ -79,6 +90,7 @@ feature {}
 
    skip_word (word: STRING): BOOLEAN is
       require
+         buffer.is_connected
          not word.is_empty
       local
          w: INTEGER; p: UNICODE_PARSER_POSITION
@@ -100,6 +112,8 @@ feature {}
       end
 
    is_identifier_start (unicode: INTEGER): BOOLEAN is
+      require
+         buffer.is_connected
       do
          Result := is_letter(unicode)
          if not Result then
@@ -114,6 +128,8 @@ feature {}
       end
 
    is_identifier_part (unicode: INTEGER): BOOLEAN is
+      require
+         buffer.is_connected
       do
          Result := is_letter(unicode) or else is_digit(unicode) or else is_combining_char(unicode) or else is_extender(unicode)
          if not Result then
@@ -128,6 +144,8 @@ feature {}
       end
 
    read_identifier: UNICODE_STRING is
+      require
+         buffer.is_connected
       local
          done: BOOLEAN
       do
@@ -166,6 +184,7 @@ feature {}
 
    read_string: UNICODE_STRING is
       require
+         buffer.is_connected
          current_character = '%''.code or else current_character = '"'.code
       local
          done: BOOLEAN; limit: INTEGER; p: UNICODE_PARSER_POSITION
@@ -194,6 +213,8 @@ feature {}
       end
 
    read_identifier_as_string: STRING is
+      require
+         buffer.is_connected
       local
          s: UNICODE_STRING
       do
@@ -206,6 +227,8 @@ feature {}
       end
 
    read_string_as_string: STRING is
+      require
+         buffer.is_connected
       local
          s: UNICODE_STRING
       do

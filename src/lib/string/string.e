@@ -59,9 +59,11 @@ feature {ANY} -- Creation / Modification:
       do
          storage_lower := 0
          c := model.count
-         ensure_capacity(c)
          count := c
-         slice_copy(0, model, model.lower, model.upper)
+         if c > 0 then
+            ensure_capacity(c)
+            slice_copy(0, model, model.lower, model.upper)
+         end
          next_generation
       ensure
          count = model.count
@@ -134,13 +136,15 @@ feature {ANY} -- Modification:
       local
          c: INTEGER
       do
-         storage_lower := 0
-         c := other.count
-         if c > 0 then
-            ensure_capacity(c)
-            storage.copy_slice_from(other.storage, other.storage_lower, other.storage_lower + c - 1)
+         if other /= Current then
+            storage_lower := 0
+            c := other.count
+            if c > 0 then
+               ensure_capacity(c)
+               storage.copy_slice_from(other.storage, other.storage_lower, other.storage_lower + c - 1)
+            end
+            count := c
          end
-         count := c
       ensure then
          count = other.count
       end
@@ -248,7 +252,7 @@ feature {ANY} -- Modification:
          slice_copy(0, other, other.lower, other.upper)
          count := i + j
       ensure
-         (old other.twin + old Current.twin).is_equal(Current)
+         (old other.twin + old twin).is_equal(Current)
       end
 
    insert_string (s: ABSTRACT_STRING; i: INTEGER) is
@@ -361,7 +365,7 @@ feature {ANY} -- Modification:
             end
             storage_lower := storage_lower - 1
          else
-            ensure_capacity(count + 1)
+            ensure_capacity(count + storage_lower + 1)
             if i <= upper then
                storage.move(storage_lower - lower + i, storage_lower - lower + upper, 1)
             end
@@ -873,8 +877,12 @@ feature {ANY} -- Interfacing with C string:
          -- of the internal `storage'. This extra null character is not
          -- part of the Eiffel STRING.
       do
-         add_last('%U')
-         count := count - 1
+         if count + storage_lower = capacity then
+            add_last('%U')
+            count := count - 1
+         elseif storage.item(count + storage_lower) /= '%U' then
+            storage.put('%U', count + storage_lower)
+         end
          Result := storage.to_pointer + storage_lower
       end
 

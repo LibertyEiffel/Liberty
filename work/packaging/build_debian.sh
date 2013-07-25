@@ -10,17 +10,27 @@ test -d $packages/debs && rm -rf $packages/debs
 mkdir $packages/debs
 
 export clean=FALSE
-export release=FALSE
+export pbuilder=FALSE
 export codename=snapshot
+
+pkgdate=$(date -u +'%Y%m%d.%H%M%S')
+export tag="-0~snapshot~$pkgdate"
 
 while [ x$1 != x ]; do
     case $1 in
         -clean)
             clean=TRUE
             ;;
-        -release)
-            release=TRUE
+        -release*)
             codename=release
+            tag="-2~release"${1#-release}
+            ;;
+        -rc*)
+            codename=rc
+            tag="-1~rc"${1#-rc}
+            ;;
+        -pbuilder)
+            pbuilder=TRUE
             ;;
         *)
             echo "Unknown option: $1" >&2
@@ -39,8 +49,44 @@ else
     export LOGDIR=${TMPDIR:-/tmp}/liberty-eiffel-logs
 fi
 mkdir -p $LOGDIR
+orig_home=$HOME
 export HOME=$(mktemp -d -t liberty-eiffel-home.XXXXXX)
 export TARGET=${TARGET:-$HOME/target}
+
+if [ $pbuilder == TRUE ]; then
+    cat > $HOME/.pbuilderrc <<EOF
+APTCACHE=$TARGET/pbuilder/.data/aptcache
+BUILDPLACE=$TARGET/pbuilder/.data/build
+BUILDRESULT=$TARGET/pbuilder/.data/result
+CCACHEDIR=$TARGET/pbuilder/.data/ccache
+BUILDUSERID=9999
+COMPRESSPROG=pigz
+DISTRIBUTION=stable
+EXTRAPACKAGES="gcc g++"
+EOF
+
+    if sudo -l /usr/sbin/pbuilder >/dev/null 2>&1; then
+        for arch in $(dpkg --print-architecture; dpkg --print-foreign-architectures); do
+            dir=$LIBERTY_HOME/target/pbuilder/liberty-$arch
+            if [ -e $dir/base.tgz ]; then
+                log=$LOGDIR/pbuilder_update_$(date -u +'%Y%m%d.%H%M%S')_$arch.log
+                sudo -n -E /usr/sbin/pbuilder --update --basetgz $dir/base.tgz > $log 2>&1 || {
+                    echo "**** pbuilder --update failed: see $log"
+                }
+            else
+                mkdir -p $dir
+                log=$LOGDIR/pbuilder_create_$(date -u +'%Y%m%d.%H%M%S')_$arch.log
+                sudo -n -E /usr/sbin/pbuilder --create --basetgz $dir/base.tgz --architecture $arch --extrapackages 'gcc g++' > $log 2>&1 || {
+                    echo "**** pbuilder --create failed: see $log"
+                }
+            fi
+        done
+    fi
+fi
+
+test -d $HOME/.serc || {
+    test -d $orig_home/.serc && cp -a $orig_home/.serc $HOME/
+}
 
 test -d $TARGET/bin || {
     echo
@@ -54,50 +100,42 @@ test -d $TARGET/doc || {
     $LIBERTY_HOME/install.sh -plain -doc
 }
 
-build_chroot() {
-    arch=$1
-    (
-        cd $LIBERTY_HOME/target/chroot/liberty-$arch
-        fakeroot fakechroot /usr/sbin/chroot debootstrap --variant=fakechroot --arch=$arch stable $LIBERTY_HOME/target/chroot/$arch http://ftp.us.debian.org/debian
-    )
-}
-
 do_debuild() {
+    tmp=$1
+
+    r=0
     if egrep -q '^Architecture: all$' debian/control; then
-        debuild -us -uc > "$LOGDIR/$(basename $tmp)_all.log" 2>&1
-        ret=$?
-        if [ $ret -ne 0 ]; then
+        debuild -us -uc > "$LOGDIR/$(basename $tmp)_all.log" 2>&1 || {
             echo "**** debuild failed: see $LOGDIR/$(basename $tmp)_all.log"
-        fi
+            r=1
+        }
+    elif [ $pbuilder == TRUE ]; then
+        for arch in $(dpkg --print-architecture; dpkg --print-foreign-architectures); do
+            pdebuild --architecture $arch --buildresult $tmp/.. --debbuildopts '-us -uc' -- \
+                     --basetgz $LIBERTY_HOME/target/pbuilder/liberty-$arch/base.tgz > $LOGDIR/$(basename $tmp)_$arch.log 2>&1 || {
+                echo "**** pdebuild failed: see $LOGDIR/$(basename $tmp)_$arch.log"
+                r=$(($r + 1))
+            }
+        done
+    else
+        arch=$(dpkg --print-architecture)
+        debuild -us -uc > "$LOGDIR/$(basename $tmp)_${arch}.log" 2>&1 || {
+            echo "**** debuild failed: see $LOGDIR/$(basename $tmp)_${arch}.log"
+            r=1
+        }
     fi
 
-    mkdir -p $LIBERTY_HOME/target/chroot
-    r=0
-    for arch in $(dpkg --print-architecture; dpkg --print-foreign-architectures); do
-        test -d $LIBERTY_HOME/target/chroot/liberty-$arch || build_chroot $arch
-        fakeroot fakechroot /usr/sbin/chroot $LIBERTY_HOME/target/chroot/liberty-$arch "linux32 debuild -a$arch -us -uc > '$LOGDIR/$(basename $tmp)_$arch.log' 2>&1"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            echo "**** debuild failed: see $LOGDIR/$(basename $tmp)_$arch.log"
-        fi
-        r=$(($r + $ret))
-    done
     return $r
 }
 
 echo
 echo "Generating packages"
-if [ $release == TRUE ]; then
-    version=$(head -n 1 $packages/debian.skel/debian/changelog | sed 's/#SNAPSHOT#//g' | awk -F'[()]' '{print $2}')
-else
-    pkgdate=$(date -u +'%Y%m%d.%H%M%S')
-    version=$(head -n 1 $packages/debian.skel/debian/changelog | sed 's/#SNAPSHOT#/~snapshot~'"$pkgdate"'/g' | awk -F'[()]' '{print $2}')
-fi
+version=$(head -n 1 $packages/debian.skel/debian/changelog | sed 's/#SNAPSHOT#/'"$tag"'/g' | awk -F'[()]' '{print $2}')
 for debian in $packages/*.pkg/debian; do
     package_dir=${debian%/debian}
     package=$(basename ${debian%.pkg/debian})
     tmp=$(mktemp -d -t $package-deb.XXXXXX)
-    echo "    $package (working in $tmp)"
+    echo "    $package $version (working in $tmp)"
     cd $tmp
     mkdir build
     cd build
@@ -108,11 +146,7 @@ for debian in $packages/*.pkg/debian; do
     cp -a $package_dir/* .
 
     # customize debian/changelog
-    if [ $release == TRUE ]; then
-        sed 's/#SNAPSHOT#//g' -i debian/changelog
-    else
-        sed 's/#SNAPSHOT#/~snapshot~'"$pkgdate"'/g' -i debian/changelog
-    fi
+    sed 's/#SNAPSHOT#/'"$tag"'/g' -i debian/changelog
 
     # customize debian/control
     mv debian/control debian/control~
@@ -147,7 +181,7 @@ EOF
     rm Makefile~
 
     # now let debian helpers run
-    if do_debuild; then
+    if do_debuild $tmp; then
         cp $tmp/*.deb $packages/debs/
         cd $packages
         rm -rf $tmp
@@ -176,7 +210,7 @@ for deb in $packages/debs/*.deb; do
 done
 
 echo
-echo Done.
+echo "Done (status=$status)."
 echo
 
 exit $status
