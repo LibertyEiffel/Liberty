@@ -243,11 +243,16 @@ function testDir($dir){
         if(basename($dirname) != "eiffeltest"){
             substage(basename($dirname), str_replace($LibertyBase, $repobaselink, $dirname));
             $res = testDir($dirname);
-            if($res < 0) {
-                if($result <= 0) $result += $res;
-            }elseif($res > 0){
-                if($result >= 0) $result += $res;
-                else $result = $res;
+            if($res <= 0) {
+               if($result <= 0){
+                  $result += $res;
+               }
+            }else{
+               if($result >= 0){
+                  $result += $res;
+               }else{
+                  $result = $res;
+               }
             }
             endsubstage();
         }
@@ -257,20 +262,25 @@ function testDir($dir){
     $hasEiffelTest = is_dir("$dir/eiffeltest");
     if($tests > 0){
         if($hasEiffelTest){
-            $res = 0 - execute("se test -flat $dir");
+            $res = execute("se test -flat $dir");
             if($res == 0){
                 $warnCnt = exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
-                $res = $warnCnt;
+                $res = -$warnCnt;
             }
         }else{
             file_put_contents($stagedir ."/err.txt", "missing eiffeltest directory - please add to repository");
-            $res = -1;
+            $res = 1;
         }
-        if($res < 0) {
-            if($result <= 0) $result += $res;
-        }elseif($res > 0){
-            if($result >= 0) $result += $res;
-            else $result = $res;
+        if($res <= 0) {
+           if($result <= 0){
+              $result += $res;
+           }
+        }else{
+           if($result >= 0){
+              $result += $res;
+           }else{
+              $result = $res;
+           }
         }
     }
 
