@@ -1,52 +1,53 @@
-class GI_ITERATOR
-	-- An iterator over the metadata features of a namespace as seen in a
-	-- GI_REPOSITORY the GObject Introspection Repository.
+deferred class GI_ITERATOR [AN_ITEM_] 
+	-- Base class for most iterators of the wrappers Gobject Introspection
+	-- library.
 
-inherit
-	ITERATOR[GI_BASE_INFO]
-	GI_INFO_FACTORY 
-	WRAPPER_HANDLER
+	-- Most of those iterators are expanded objects and inserts this class.
+	-- Currently the only exception is the NAMESPACE_ITERATOR which is
+	-- generated directoy from a GI_REPOSITORY 
 
-insert GIREPOSITORY_EXTERNALS
+insert 
+	ITERATOR[AN_ITEM_]
+		redefine default_create end
+feature {ANY}
+	default_create is
+		do
+			-- Setting generation and iterable_generation to different values
+			-- so that any invocation of the queries and commands requiring
+			-- is_valid will fail. 
+			-- set_class will make sure that is_valid is set.
+			iterable_generation := -1
+			generation := 0
+		end
 
-creation from_repository_and_namespace
-
-feature {} -- Creation
-	from_repository_and_namespace (a_repository: GI_REPOSITORY; a_namespace: ABSTRACT_STRING) is
-		do 
-			repo_ptr := a_repository.handle
-			-- Since the string `a_namespace' may be changed during lifetime of
-			-- the iterator we copy it.
-			create namespace.make_from_string(a_namespace) 
-			-- Note: GI_ITERATOR is implemented using and wraps
-			-- g_irepository_get_n_infos and g_irepository_get_info
-			n_infos := g_irepository_get_n_infos(repo_ptr,namespace.to_external)
+feature {GI_CLASS} 
+	set_class (a_class: GI_CLASS) is
+	require a_class/=Void
+	do
+		gi_class := a_class
+		iterable_generation := generation
+	ensure is_valid
 	end
 
-feature 
-	start is
-		do
-			index := 0
-		end
-
-	is_off: BOOLEAN is
-		do
-			Result := index<n_infos
-		end
-
-	item: GI_BASE_INFO is
-		do
-			Result := wrapper(g_irepository_get_info(repo_ptr,namespace.to_external,index))
-		end
-
+feature {ANY}
 	next is
 		do
-			index:=index+1
+			i:=i+1
 		end
-feature {} -- Implementation
-	repo_ptr: POINTER -- Pointer to the GIRepository
-	namespace: STRING
-	n_infos: INTEGER -- number of elements for `namespace'
-	index: INTEGER -- current index
-end -- class GI_ITERATOR 
+
+feature {GI_CLASS} -- Implementation
+	gi_class: GI_CLASS
+	i: INTEGER
+
+feature {ANY} -- Check that the underlying traversable has not changed
+   iterable_generation: INTEGER is
+	  attribute
+      end
+
+   generation: INTEGER is
+	  attribute
+      end
+
+end -- class METHODS_ITER
+
 

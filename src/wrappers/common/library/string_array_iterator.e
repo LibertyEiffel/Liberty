@@ -61,4 +61,14 @@ feature {ANY}
          index := index + 1
       end
 
+feature {ANY} -- Check that the underlying traversable has not changed
+   iterable_generation: INTEGER is
+	  attribute
+      end
+
+   generation: INTEGER is
+	  attribute
+      end
+
+
 end -- class STRING_ARRAY_ITERATOR

@@ -6,7 +6,7 @@ deferred class GIOBJECTINFO_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_object_info_find_method (an_info: POINTER; a_name: POINTER): POINTER is

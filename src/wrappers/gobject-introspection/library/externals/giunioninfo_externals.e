@@ -6,7 +6,7 @@ deferred class GIUNIONINFO_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_union_info_find_method (an_info: POINTER; a_name: POINTER): POINTER is
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_union_info_get_alignment (an_info: POINTER): like long_unsigned is
+	g_union_info_get_alignment (an_info: POINTER): NATURAL is
  		-- g_union_info_get_alignment
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_union_info_get_size (an_info: POINTER): like long_unsigned is
+	g_union_info_get_size (an_info: POINTER): NATURAL is
  		-- g_union_info_get_size
 		external "plug_in"
 		alias "{

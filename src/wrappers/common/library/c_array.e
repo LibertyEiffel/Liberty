@@ -20,6 +20,7 @@ indexing
                Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
                02110-1301 USA
          ]"
+
 deferred class C_ARRAY[ITEM_ -> C_STRUCT]
    -- An array of wrapped item which is also a wrapper to a C array
    -- of pointers of item's struct. For example a C_ARRAY[GTK_BUTTON]

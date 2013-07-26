@@ -5,16 +5,17 @@ expanded class GIVFUNC_INFO_FLAGS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (gi_vfunc_must_chain_up_low_level | 
+				gi_vfunc_must_not_override_low_level | 
 				gi_vfunc_must_override_low_level | 
 				gi_vfunc_throws_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_gi_vfunc_must_chain_up is
 		do
@@ -24,6 +25,16 @@ feature -- Setters
 	unset_gi_vfunc_must_chain_up is
 		do
 			value := value.bit_xor(gi_vfunc_must_chain_up_low_level)
+		end
+
+	set_gi_vfunc_must_not_override is
+		do
+			value := value.bit_or(gi_vfunc_must_not_override_low_level)
+		end
+
+	unset_gi_vfunc_must_not_override is
+		do
+			value := value.bit_xor(gi_vfunc_must_not_override_low_level)
 		end
 
 	set_gi_vfunc_must_override is
@@ -46,10 +57,15 @@ feature -- Setters
 			value := value.bit_xor(gi_vfunc_throws_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_gi_vfunc_must_chain_up: BOOLEAN is
 		do
 			Result := (value=gi_vfunc_must_chain_up_low_level)
+		end
+
+	is_gi_vfunc_must_not_override: BOOLEAN is
+		do
+			Result := (value=gi_vfunc_must_not_override_low_level)
 		end
 
 	is_gi_vfunc_must_override: BOOLEAN is
@@ -69,6 +85,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module: "plugin"
  			feature_name: "GI_VFUNC_MUST_CHAIN_UP"
+ 			}"
+ 		end
+
+	gi_vfunc_must_not_override_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module: "plugin"
+ 			feature_name: "GI_VFUNC_MUST_NOT_OVERRIDE"
  			}"
  		end
 

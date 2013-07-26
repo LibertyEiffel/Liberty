@@ -1,5 +1,10 @@
 deferred class OPAQUE_TYPE
-   -- An wrapper that is not is completely defined in its underlying C interface so that it cannot be allocated by the Eiffel.
+   -- A wrapper that is not is completely defined in its underlying C interface.
+   
+   -- Such types must be handled by reference, usually using a pointer. Not
+   -- knowing their actual size it cannot be allocated ineither created by an
+   -- Eiffel wrapper.
+
    -- See also http://en.wikipedia.org/wiki/Opaque_data_type
 
 inherit
@@ -27,3 +32,21 @@ feature {WRAPPER, WRAPPER_HANDLER}
       end
 
 end -- class OPAQUE_TYPE
+
+-- Copyright (C) 2013 Paolo Redaelli
+
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Lesser General Public License
+-- as published by the Free Software Foundation; either version 2.1 of
+-- the License, or (at your option) any later version.
+--
+-- This library is distributed in the hopeOA that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Lesser General Public License for more details.
+--
+-- You should have received a copy of the GNU Lesser General Public
+-- License along with this library; if not, write to the Free Software
+-- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+-- 02110-1301 USA
+ 

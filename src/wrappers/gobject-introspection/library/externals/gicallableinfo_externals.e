@@ -6,7 +6,7 @@ deferred class GICALLABLEINFO_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_callable_info_can_throw_gerror (an_info: POINTER): INTEGER is

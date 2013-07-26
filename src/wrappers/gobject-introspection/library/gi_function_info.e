@@ -2,10 +2,14 @@ class GI_FUNCTION_INFO
 	-- A GObject Introspection metadata structure representing a function, a method or a constructor. 
 	
 	-- `flags' query To find out what kind of entity a GIFunctionInfo represents, call g_function_info_get_flags().  
-   See also GICallableInfo for information on how to retreive arguments and other metadata.
 
-inherit GI_CALLBACK_INFO
+	-- See also GICallableInfo for information on how to retreive arguments and other metadata.
+
+inherit GI_CALLABLE_INFO
+
 insert GIFUNCTIONINFO_EXTERNALS
+
+creation {GI_REPOSITORY, GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
 --   enum GInvokeError
 -- 
@@ -26,28 +30,28 @@ insert GIFUNCTIONINFO_EXTERNALS
 --    -----------------------------------------------------------------------------------------------------------------------
 -- 
 -- 
-feature 
+feature {ANY}
 	symbol: FIXED_STRING is
 		-- The symbol of the function; the symbol is the name of the exported function, suitable to be used as an argument to g_module_symbol().
 	do
-		create Result.from_external_pointer(g_function_info_get_symbol(handle))
+		create Result.from_external(g_function_info_get_symbol(handle))
 	ensure not_void: Result/=Void
 	end
    
   	flags: GIFUNCTION_INFO_FLAGS_ENUM is
-		-- The flags of Current function. It may be 
-		--    GI_FUNCTION_IS_METHOD      is a method.
-		--    GI_FUNCTION_IS_CONSTRUCTOR is a constructor.
-		--    GI_FUNCTION_IS_GETTER      is a getter of a GIPropertyInfo.
-		--    GI_FUNCTION_IS_SETTER      is a setter of a GIPropertyInfo.
-		--    GI_FUNCTION_WRAPS_VFUNC    represents a virtual function.
-		--    GI_FUNCTION_THROWS         the function may throw an error.
+		-- The flags of Current function. It may be:
+		-- GI_FUNCTION_IS_METHOD      is a method.
+		-- GI_FUNCTION_IS_CONSTRUCTOR is a constructor.
+		-- GI_FUNCTION_IS_GETTER      is a getter of a GIPropertyInfo.
+		-- GI_FUNCTION_IS_SETTER      is a setter of a GIPropertyInfo.
+		-- GI_FUNCTION_WRAPS_VFUNC    represents a virtual function.
+		-- GI_FUNCTION_THROWS         the function may throw an error.
 	do
 		Result.set(g_function_info_get_flags(handle))
 	end
 
 	property: GI_PROPERTY_INFO is
-		-- Obtain the property associated with this GIFunctionInfo. Only
+		-- The property associated with this GIFunctionInfo. Only
 		-- GIFunctionInfo with the flag GI_FUNCTION_IS_GETTER or
 		-- GI_FUNCTION_IS_SETTER have a property set. For other cases, NULL
 		-- will be returned.
@@ -61,7 +65,7 @@ feature
 	end
 
 	vfunc: GI_VFUNC_INFO is
-		-- Obtain the virtual function associated with this GIFunctionInfo.
+		-- The virtual function associated with this GIFunctionInfo.
 		-- Only GIFunctionInfo with the flag GI_FUNCTION_WRAPS_VFUNC has a
 		-- virtual function set. For other cases, NULL will be returned.
 	local res: POINTER
@@ -74,7 +78,8 @@ feature
 		end
 	end
 
-	-- TODO: shall this be wrapped? g_function_info_invoke ()
+	-- TODO: shall "g_function_info_invoke" be wrapped? It could be useful to implement an interpreter but since LibertyEiffel currently "only" provides a compiler it is debatable if it's useful.
+
 	--
 	-- gboolean            g_function_info_invoke              (GIFunctionInfo *info,
 	--                                                          const GIArgument *in_args,

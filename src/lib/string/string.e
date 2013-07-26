@@ -239,7 +239,7 @@ feature {ANY} -- Modification:
          d := storage_lower - j
          if d < 0 then
             -- the string to be prepended is bigger than the unused space available in the buffer before the beginning of the string.
-            ensure_capacity(i + j)
+            ensure_capacity(i + j) 
          end
          if i = 0 or else d = 0 then
             storage_lower := 0

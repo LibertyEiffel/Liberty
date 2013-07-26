@@ -5,14 +5,14 @@ expanded class GIREPOSITORY_LOAD_FLAGS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := (a_value & (g_irepository_load_flag_lazy_low_level)).to_boolean
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_irepository_load_flag_lazy is
 		do
@@ -24,7 +24,7 @@ feature -- Setters
 			value := value.bit_xor(g_irepository_load_flag_lazy_low_level)
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_irepository_load_flag_lazy: BOOLEAN is
 		do
 			Result := (value=g_irepository_load_flag_lazy_low_level)

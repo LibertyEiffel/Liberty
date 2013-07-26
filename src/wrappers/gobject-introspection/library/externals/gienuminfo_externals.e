@@ -6,7 +6,7 @@ deferred class GIENUMINFO_EXTERNALS
 
 insert ANY undefine is_equal, copy end
 
-		-- TODO: insert typedefs class
+		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
 	g_enum_info_get_error_domain (an_info: POINTER): POINTER is
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_info_get_value (an_info: POINTER): like long is
+	g_value_info_get_value (an_info: POINTER): INTEGER_64 is
  		-- g_value_info_get_value
 		external "plug_in"
 		alias "{

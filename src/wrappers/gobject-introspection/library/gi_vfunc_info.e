@@ -1,202 +1,60 @@
-   Link: GObject Introspection Reference Manual (start)
-   Link: GIRepository structs (parent)
-   Link: GIPropertyInfo (previous)
-   Link: GISignalInfo (next)
+class GI_VFUNC_INFO
+	-- A GObject introspection metadata representing a virtual function
 
-   Prev Up Home                                GObject Introspection Reference Manual                                 Next
-   Top  |  Description
+	-- A virtual function is a property belonging to either a GIObjectInfo or a
+	-- GIInterfaceInfo and it is akin to an Eiffel deferred feature.
 
-   GIVFuncInfo
+inherit 
+	GI_CALLABLE_INFO
 
-   GIVFuncInfo — Struct representing a virtual function
+insert 
+	GIVFUNCINFO_EXTERNALS
 
-Synopsis
+creation {GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
- #define             GI_IS_VFUNC_INFO                    (info)
- typedef             GIVFuncInfo;
- enum                GIVFuncInfoFlags;
- GIVFuncInfoFlags    g_vfunc_info_get_flags              (GIVFuncInfo *info);
- gint                g_vfunc_info_get_offset             (GIVFuncInfo *info);
- GISignalInfo *      g_vfunc_info_get_signal             (GIVFuncInfo *info);
- GIFunctionInfo *    g_vfunc_info_get_invoker            (GIVFuncInfo *info);
+feature {ANY}
+	flags: GIVFUNC_INFO_FLAGS_ENUM is
+		-- The flags for this virtual function info. Possible flag values are
+		
+		--   GI_VFUNC_MUST_CHAIN_UP     chains up to the parent type
+		--   GI_VFUNC_MUST_OVERRIDE     overrides
+		--   GI_VFUNC_MUST_NOT_OVERRIDE does not override
+		--   GI_VFUNC_THROWS            Includes a GError
+	do
+		Result.set(g_vfunc_info_get_flags (handle))
+	end
 
-Description
+	offset: INTEGER is
+		-- Obtain the offset of the function pointer in the class struct. The value 0xFFFF indicates that the struct offset is unknown.
+	do
+		Result:=g_vfunc_info_get_offset(handle)
+	end 
 
-   GIVfuncInfo represents a virtual function. A property belongs to either a GIObjectInfo or a GIInterfaceInfo.
+ 	signal: GI_SIGNAL_INFO is
+		-- the signal for the virtual function if one is set. The signal comes
+		-- from the object or interface to which this virtual function belongs.
+		-- Can be Void
+	local p: POINTER
+	do
+		p := g_vfunc_info_get_signal(handle)
+		-- g_vfunc_info_get_signal returns : the signal or NULL if none set. [transfer full]
+		if p.is_not_null then
+			create Result.from_external_pointer(handle)
+		end
+	end
+   
+	invoker: GI_FUNCTION_INFO is
+		-- The invoker method associated to Current virtual function. Can be
+		-- Void as not all virtuals will have invokers.  An invoker method is a
+		-- C entry  point.
+	local p: POINTER
+	do
+		p := g_vfunc_info_get_invoker(handle)
+		-- g_vfunc_info_get_invoker returns : the GIVFuncInfo or NULL. Free it with g_base_info_unref() when done. [transfer full]
+		if p.is_not_null then
+			create Result.from_external_pointer(p)
+		end
+	end
 
-Struct hierarchy
-
-   GIBaseInfo
-    +----GICallableInfo
-          +----GIFunctionInfo
-          +----GISignalInfo
-          +----GIVFuncInfo
-
-Details
-
-  GI_IS_VFUNC_INFO()
-
- #define             GI_IS_VFUNC_INFO(info)
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  GIVFuncInfo
-
- typedef GIBaseInfo GIVFuncInfo;
-
-   Represents a virtual function.
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  enum GIVFuncInfoFlags
-
- typedef enum {
-   GI_VFUNC_MUST_CHAIN_UP     = 1 << 0,
-   GI_VFUNC_MUST_OVERRIDE     = 1 << 1,
-   GI_VFUNC_MUST_NOT_OVERRIDE = 1 << 2,
-   GI_VFUNC_THROWS =            1 << 3
- } GIVFuncInfoFlags;
-
-   Flags of a GIVFuncInfo struct.
-
-   GI_VFUNC_MUST_CHAIN_UP     chains up to the parent type
-   GI_VFUNC_MUST_OVERRIDE     overrides
-   GI_VFUNC_MUST_NOT_OVERRIDE does not override
-   GI_VFUNC_THROWS            Includes a GError
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  g_vfunc_info_get_flags ()
-
- GIVFuncInfoFlags    g_vfunc_info_get_flags              (GIVFuncInfo *info);
-
-   Obtain the flags for this virtual function info. See GIVFuncInfoFlags for more information about possible flag values.
-
-   info :    a GIVFuncInfo
-   Returns : the flags
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  g_vfunc_info_get_offset ()
-
- gint                g_vfunc_info_get_offset             (GIVFuncInfo *info);
-
-   Obtain the offset of the function pointer in the class struct. The value 0xFFFF indicates that the struct offset is
-   unknown.
-
-   info :    a GIVFuncInfo
-   Returns : the struct offset or 0xFFFF if it's unknown
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  g_vfunc_info_get_signal ()
-
- GISignalInfo *      g_vfunc_info_get_signal             (GIVFuncInfo *info);
-
-   Obtain the signal for the virtual function if one is set. The signal comes from the object or interface to which this
-   virtual function belongs.
-
-   info :    a GIVFuncInfo
-   Returns : the signal or NULL if none set. [transfer full]
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-  g_vfunc_info_get_invoker ()
-
- GIFunctionInfo *    g_vfunc_info_get_invoker            (GIVFuncInfo *info);
-
-   If this virtual function has an associated invoker method, this method will return it. An invoker method is a C entry
-   point.
-
-   Not all virtuals will have invokers.
-
-   info :    a GIVFuncInfo
-   Returns : the GIVFuncInfo or NULL. Free it with g_base_info_unref() when done. [transfer full]
-
-   -----------------------------------------------------------------------------------------------------------------------
-
-                                                Generated by GTK-Doc V1.18.1
-
-References
-
-   Visible links
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/index.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-repository-structs.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIPropertyInfo.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GISignalInfo.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIPropertyInfo.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-repository-structs.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/index.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GISignalInfo.html
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#gi-GIVFuncInfo.synopsis
-   . file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#gi-GIVFuncInfo.description
-   . GI_IS_VFUNC_INFO()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GI-IS-VFUNC-INFO:CAPS
-   . GIVFuncInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfo
-   . enum GIVFuncInfoFlags
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfoFlags
-   . enum GIVFuncInfoFlags
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfoFlags
-   . g_vfunc_info_get_flags ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#g-vfunc-info-get-flags
-   . GIVFuncInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfo
-   . g_vfunc_info_get_offset ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#g-vfunc-info-get-offset
-   . GIVFuncInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfo
-   . GISignalInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GISignalInfo.html#GISignalInfo
-   . g_vfunc_info_get_signal ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#g-vfunc-info-get-signal
-   . GIVFuncInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfo
-   . GIFunctionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIFunctionInfo.html#GIFunctionInfo
-   . g_vfunc_info_get_invoker ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#g-vfunc-info-get-invoker
-   . GIVFuncInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfo
-   . GIObjectInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIObjectInfo.html#GIObjectInfo
-   . GIInterfaceInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIInterfaceInfo.html#GIInterfaceInfo
-   . GIBaseInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIBaseInfo.html
-   . GICallableInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GICallableInfo.html
-   . GIFunctionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIFunctionInfo.html
-   . GISignalInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GISignalInfo.html
-   . GIVFuncInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfo
-   . enum GIVFuncInfoFlags
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfoFlags
-   . GIVFuncInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfo
-   . enum GIVFuncInfoFlags
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfoFlags
-   . GIVFuncInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfo
-   . GIVFuncInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfo
-   . GIVFuncInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfo
-   . GISignalInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GISignalInfo.html#GISignalInfo
-   . GIVFuncInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfo
-   . GIVFuncInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfo
-   . GIFunctionInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIFunctionInfo.html#GIFunctionInfo
-   . GIVFuncInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfo
-   . GIVFuncInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfo
-   . GIVFuncInfo
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIVFuncInfo.html#GIVFuncInfo
-   . g_base_info_unref ()
-	file:///media/Liberty/tybor-liberty/src/wrappers/gobject-introspection/library/gi-html-1.35.9/gi-GIBaseInfo.html#g-base-info-unref
+   
+end -- class GI_VFUNC_INFO

@@ -5,8 +5,8 @@ expanded class GVARIANT_CLASS_ENUM
 
 insert ENUM
 
-creation default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = g_variant_class_array_low_level)  or else
@@ -29,7 +29,7 @@ feature -- Validity
 				(a_value = g_variant_class_variant_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
 	set_g_variant_class_array is
 		do
@@ -121,7 +121,7 @@ feature -- Setters
 			value := g_variant_class_variant_low_level
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	is_g_variant_class_array: BOOLEAN is
 		do
 			Result := (value=g_variant_class_array_low_level)

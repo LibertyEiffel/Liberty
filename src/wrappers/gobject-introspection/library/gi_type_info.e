@@ -11,8 +11,8 @@ inherit
 	GI_INFO_FACTORY
 
 insert GITYPEINFO_EXTERNALS
-creation from_external_pointer
-feature 
+creation {GI_INFO_FACTORY, WRAPPER} from_external_pointer
+feature {ANY}
 
 -- 
 --   enum GIArrayType
@@ -168,7 +168,7 @@ feature
 	is_zero_terminated: BOOLEAN is	
 		--  Is the last element of the array NULL? The type tag must be a GI_TYPE_TAG_ARRAY or FALSE will returned.
 	do
-		Result:= g_type_info_is_zero_terminated (handle)
+		Result:= g_type_info_is_zero_terminated (handle).to_boolean
 	end
 --   g_type_info_get_array_type ()
 -- 
