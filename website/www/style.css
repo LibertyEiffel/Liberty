@@ -30,6 +30,14 @@ font-weight: bold;
 font-style: italic;
 }
 
+@font-face {
+font-family: 'Inconsolata';
+local: 'Inconsolata';
+src: url('fonts/Inconsolata.woff ') format('woff');
+font-weight: normal;
+font-style: normal;
+}
+
 html {
     height: 100%;
 }
@@ -41,14 +49,22 @@ body {
     background-position: right 2em;
     background-color: #fafbeb;
     font-family: 'Linux Biolinum',Verdana,Helvetica;
+    font-size: 15pt;
+}
+
+code {
+    font-family: 'Inconsolata',Courrier,monospace;
+    font-size: 14pt;
+    background-color: #ddd;
 }
 
 * {
     margin: 0;
+    line-height: 130%;
 }
 
 p, h1 {
-    padding-bottom: 10px;
+    padding-bottom: 6px;
 }
 
 .header {
@@ -57,18 +73,19 @@ p, h1 {
 }
 
 h1 {
-    margin: 25px 0px 10px;
+    margin: 15px 0px 5px;
     color: #0d0d6a;
-    font-size: 150%;
+    font-size: 135%;
     font-family: "Linux Biolinum",Verdana,Helvetica;
     font-variant: small-caps;
     font-weight: bold;
+    letter-spacing: 1px;
 }
 
 h2 {
     margin: 5px 0px 5px;
     color: #0d0d6a;
-    font-size: 110%;
+    font-size: 115%;
     font-family: "Linux Biolinum",Verdana,Helvetica;
     font-weight: bold;
 }

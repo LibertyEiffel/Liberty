@@ -110,12 +110,12 @@ function printSubStages($dir){
         echo "      <div style=\"display:inline;cursor:pointer;\" onclick=\"document.getElementById('stageout" . $stage . "').style.display='none'\"><img src=\"$img/Minus_sign.png\" width=\"16\" height=\"16\" alt=\"hide details\"/></div>\n";
         echo "      </td></tr>\n";
         echo "      <tr><td colspan=\"3\"><div style=\"display:none\" id=\"stageout" . $stage ."\">";
-        echo "         <p class=\"cmd\">" . htmlify(file_get_contents("$stagedir/cmd.txt")) . "</p>\n";
-        echo "         <p class=\"out\">" . htmlify(file_get_contents("$stagedir/out.txt")) . "</p>\n";
-        echo "         <p class=\"err\">" . htmlify(file_get_contents("$stagedir/err.txt")) . "</p>\n";
         echo "         <div class=\"substage\">";
         printSubStages($stagedir);
         echo "         </div>";
+        echo "         <p class=\"cmd\">" . htmlify(file_get_contents("$stagedir/cmd.txt")) . "</p>\n";
+        echo "         <p class=\"out\">" . htmlify(file_get_contents("$stagedir/out.txt")) . "</p>\n";
+        echo "         <p class=\"err\">" . htmlify(file_get_contents("$stagedir/err.txt")) . "</p>\n";
         // todo: improve info div (print duration as time)
         // todo: print summary (#of failed, #of warns and #of oks
         /* echo "         <div class=\"info\">\n"; */
