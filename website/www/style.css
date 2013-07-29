@@ -53,7 +53,7 @@ body {
 }
 
 code {
-    font-family: 'Inconsolata',Courrier,Fixed;
+    font-family: 'Inconsolata',Courrier,monospace;
     font-size: 14pt;
     background-color: #ddd;
 }
