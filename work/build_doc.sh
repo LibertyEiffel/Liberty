@@ -54,6 +54,7 @@ done | while read i section args; do
         -menu "http://et.liberty-eiffel.org" '"Automated\\ Tests"' \
         -menu "http://wiki.liberty-eiffel.org" '"Wiki"' \
         -menu "https://savannah.gnu.org/projects/liberty-eiffel/" '"Savannah\\ project"' \
+        -menu "http://apt.liberty-eiffel.org" '"Debian\\ packages"' \
         -menu "http://doc.liberty-eiffel.org" '"Documentation"' \
         -js "$root/resources/eiffeldoc/eiffeldoc.js" -css "$root/resources/eiffeldoc/eiffeldoc.css" \
         -prune test -prune Local $args
