@@ -121,8 +121,10 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
          Result := address_of(handle)
       end
 
-feature {WRAPPER} -- Pointer referencing and de-referencing
-   size_t_cast (an_integer: INTEGER): like size_t is
+feature {WRAPPER} -- Integer and natural convertions
+
+	-- This section is currently necessary as Liberty does not have automatic type convertions.
+   integer_to_size_t (an_integer: INTEGER): like size_t is
          -- Comodity feature to cast an integer into an actual size_t
       external "C inline"
       alias "((size_t) ($an_integer))"

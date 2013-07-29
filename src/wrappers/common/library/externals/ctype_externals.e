@@ -1,326 +1,330 @@
 -- This file have been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
+
 deferred class CTYPE_EXTERNALS
 
-insert
-   ANY
-      undefine is_equal, copy
-      end
-   STANDARD_C_LIBRARY_TYPES
 
-feature {}
-   -- External calls
-   -- `hidden' function __ctype_b_loc skipped.
-   -- `hidden' function __ctype_tolower_loc skipped.
-   -- `hidden' function __ctype_toupper_loc skipped.
-   isalnum (a_c: INTEGER): INTEGER is
-         -- isalnum
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isalnum"
-      }"
-      end
+insert ANY undefine is_equal, copy end
 
-   isalnum_l (an_argument_l3366_c7: INTEGER; an_argument_l3367_c7: POINTER): INTEGER is
-         -- isalnum_l
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isalnum_l"
-      }"
-      end
+		STANDARD_C_LIBRARY_TYPES
+feature {} -- External calls
 
-   isalpha (a_c: INTEGER): INTEGER is
-         -- isalpha
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isalpha"
-      }"
-      end
+	-- `hidden' function __ctype_b_loc skipped.
+	-- `hidden' function __ctype_tolower_loc skipped.
+	-- `hidden' function __ctype_toupper_loc skipped.
+	isalnum (a_c: INTEGER): INTEGER is
+ 		-- isalnum
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isalnum"
+		}"
+		end
 
-   isalpha_l (an_argument_l3054_c7: INTEGER; an_argument_l3055_c7: POINTER): INTEGER is
-         -- isalpha_l
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isalpha_l"
-      }"
-      end
+	isalnum_l (an_argument_l3380_c7: INTEGER; an_argument_l3381_c7: POINTER): INTEGER is
+ 		-- isalnum_l
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isalnum_l"
+		}"
+		end
 
-   isascii (a_c: INTEGER): INTEGER is
-         -- isascii
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isascii"
-      }"
-      end
+	isalpha (a_c: INTEGER): INTEGER is
+ 		-- isalpha
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isalpha"
+		}"
+		end
 
-   isblank (a_c: INTEGER): INTEGER is
-         -- isblank
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isblank"
-      }"
-      end
+	isalpha_l (an_argument_l3069_c7: INTEGER; an_argument_l3070_c7: POINTER): INTEGER is
+ 		-- isalpha_l
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isalpha_l"
+		}"
+		end
 
-   isblank_l (an_argument_l1038_c7: INTEGER; an_argument_l1039_c7: POINTER): INTEGER is
-         -- isblank_l
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isblank_l"
-      }"
-      end
+	isascii (a_c: INTEGER): INTEGER is
+ 		-- isascii
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isascii"
+		}"
+		end
 
-   iscntrl (a_c: INTEGER): INTEGER is
-         -- iscntrl
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "iscntrl"
-      }"
-      end
+	isblank (a_c: INTEGER): INTEGER is
+ 		-- isblank
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isblank"
+		}"
+		end
 
-   iscntrl_l (an_argument_l1007_c7: INTEGER; an_argument_l1008_c7: POINTER): INTEGER is
-         -- iscntrl_l
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "iscntrl_l"
-      }"
-      end
+	isblank_l (an_argument_l1038_c7: INTEGER; an_argument_l1039_c7: POINTER): INTEGER is
+ 		-- isblank_l
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isblank_l"
+		}"
+		end
 
-   isctype (a_c: INTEGER; a_mask: INTEGER): INTEGER is
-         -- isctype
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isctype"
-      }"
-      end
+	iscntrl (a_c: INTEGER): INTEGER is
+ 		-- iscntrl
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "iscntrl"
+		}"
+		end
 
-   isdigit (a_c: INTEGER): INTEGER is
-         -- isdigit
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isdigit"
-      }"
-      end
+	iscntrl_l (an_argument_l1007_c7: INTEGER; an_argument_l1008_c7: POINTER): INTEGER is
+ 		-- iscntrl_l
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "iscntrl_l"
+		}"
+		end
 
-   isdigit_l (an_argument_l726_c7: INTEGER; an_argument_l727_c7: POINTER): INTEGER is
-         -- isdigit_l
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isdigit_l"
-      }"
-      end
+	isctype (a_c: INTEGER; a_mask: INTEGER): INTEGER is
+ 		-- isctype
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isctype"
+		}"
+		end
 
-   isgraph (a_c: INTEGER): INTEGER is
-         -- isgraph
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isgraph"
-      }"
-      end
+	isdigit (a_c: INTEGER): INTEGER is
+ 		-- isdigit
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isdigit"
+		}"
+		end
 
-   isgraph_l (an_argument_l705_c7: INTEGER; an_argument_l706_c7: POINTER): INTEGER is
-         -- isgraph_l
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isgraph_l"
-      }"
-      end
+	isdigit_l (an_argument_l723_c7: INTEGER; an_argument_l724_c7: POINTER): INTEGER is
+ 		-- isdigit_l
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isdigit_l"
+		}"
+		end
 
-   islower (a_c: INTEGER): INTEGER is
-         -- islower
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "islower"
-      }"
-      end
+	isgraph (a_c: INTEGER): INTEGER is
+ 		-- isgraph
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isgraph"
+		}"
+		end
 
-   islower_l (an_argument_l2084_c7: INTEGER; an_argument_l2085_c7: POINTER): INTEGER is
-         -- islower_l
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "islower_l"
-      }"
-      end
+	isgraph_l (an_argument_l702_c7: INTEGER; an_argument_l703_c7: POINTER): INTEGER is
+ 		-- isgraph_l
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isgraph_l"
+		}"
+		end
 
-   isprint (a_c: INTEGER): INTEGER is
-         -- isprint
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isprint"
-      }"
-      end
+	islower (a_c: INTEGER): INTEGER is
+ 		-- islower
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "islower"
+		}"
+		end
 
-   isprint_l (an_argument_l2255_c7: INTEGER; an_argument_l2256_c7: POINTER): INTEGER is
-         -- isprint_l
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isprint_l"
-      }"
-      end
+	islower_l (an_argument_l2095_c7: INTEGER; an_argument_l2096_c7: POINTER): INTEGER is
+ 		-- islower_l
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "islower_l"
+		}"
+		end
 
-   ispunct (a_c: INTEGER): INTEGER is
-         -- ispunct
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "ispunct"
-      }"
-      end
+	isprint (a_c: INTEGER): INTEGER is
+ 		-- isprint
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isprint"
+		}"
+		end
 
-   ispunct_l (an_argument_l2229_c7: INTEGER; an_argument_l2230_c7: POINTER): INTEGER is
-         -- ispunct_l
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "ispunct_l"
-      }"
-      end
+	isprint_l (an_argument_l2272_c7: INTEGER; an_argument_l2273_c7: POINTER): INTEGER is
+ 		-- isprint_l
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isprint_l"
+		}"
+		end
 
-   isspace (a_c: INTEGER): INTEGER is
-         -- isspace
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isspace"
-      }"
-      end
+	ispunct (a_c: INTEGER): INTEGER is
+ 		-- ispunct
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "ispunct"
+		}"
+		end
 
-   isspace_l (an_argument_l1497_c7: INTEGER; an_argument_l1498_c7: POINTER): INTEGER is
-         -- isspace_l
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isspace_l"
-      }"
-      end
+	ispunct_l (an_argument_l2246_c7: INTEGER; an_argument_l2247_c7: POINTER): INTEGER is
+ 		-- ispunct_l
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "ispunct_l"
+		}"
+		end
 
-   isupper (a_c: INTEGER): INTEGER is
-         -- isupper
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isupper"
-      }"
-      end
+	isspace (a_c: INTEGER): INTEGER is
+ 		-- isspace
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isspace"
+		}"
+		end
 
-   isupper_l (an_argument_l2178_c7: INTEGER; an_argument_l2179_c7: POINTER): INTEGER is
-         -- isupper_l
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isupper_l"
-      }"
-      end
+	isspace_l (an_argument_l1509_c7: INTEGER; an_argument_l1510_c7: POINTER): INTEGER is
+ 		-- isspace_l
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isspace_l"
+		}"
+		end
 
-   isxdigit (a_c: INTEGER): INTEGER is
-         -- isxdigit
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isxdigit"
-      }"
-      end
+	isupper (a_c: INTEGER): INTEGER is
+ 		-- isupper
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isupper"
+		}"
+		end
 
-   isxdigit_l (an_argument_l1428_c7: INTEGER; an_argument_l1429_c7: POINTER): INTEGER is
-         -- isxdigit_l
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "isxdigit_l"
-      }"
-      end
+	isupper_l (an_argument_l2189_c7: INTEGER; an_argument_l2190_c7: POINTER): INTEGER is
+ 		-- isupper_l
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isupper_l"
+		}"
+		end
 
-   toascii (a_c: INTEGER): INTEGER is
-         -- toascii
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "toascii"
-      }"
-      end
+	isxdigit (a_c: INTEGER): INTEGER is
+ 		-- isxdigit
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isxdigit"
+		}"
+		end
 
-   tolower (a_c: INTEGER): INTEGER is
-         -- tolower
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "tolower"
-      }"
-      end -- `hidden' function _tolower skipped.
+	isxdigit_l (an_argument_l1437_c7: INTEGER; an_argument_l1438_c7: POINTER): INTEGER is
+ 		-- isxdigit_l
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "isxdigit_l"
+		}"
+		end
 
-   tolower_l (a_c: INTEGER; a_l: POINTER): INTEGER is
-         -- tolower_l
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "tolower_l"
-      }"
-      end -- `hidden' function __tolower_l skipped.
+	toascii (a_c: INTEGER): INTEGER is
+ 		-- toascii
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "toascii"
+		}"
+		end
 
-   toupper (a_c: INTEGER): INTEGER is
-         -- toupper
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "toupper"
-      }"
-      end -- `hidden' function _toupper skipped.
+	tolower (a_c: INTEGER): INTEGER is
+ 		-- tolower
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "tolower"
+		}"
+		end
 
-   toupper_l (a_c: INTEGER; a_l: POINTER): INTEGER is
-         -- toupper_l
-      external "plug_in"
-      alias "{
-         location: "."
-         module_name: "plugin"
-         feature_name: "toupper_l"
-      }"
-      end -- `hidden' function __toupper_l skipped.
+	-- `hidden' function _tolower skipped.
+	tolower_l (a_c: INTEGER; a_l: POINTER): INTEGER is
+ 		-- tolower_l
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "tolower_l"
+		}"
+		end
+
+	-- `hidden' function __tolower_l skipped.
+	toupper (a_c: INTEGER): INTEGER is
+ 		-- toupper
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "toupper"
+		}"
+		end
+
+	-- `hidden' function _toupper skipped.
+	toupper_l (a_c: INTEGER; a_l: POINTER): INTEGER is
+ 		-- toupper_l
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "toupper_l"
+		}"
+		end
+
+	-- `hidden' function __toupper_l skipped.
 
 end -- class CTYPE_EXTERNALS

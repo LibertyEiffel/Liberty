@@ -13,7 +13,7 @@ feature {}
          allocate
          -- The message body is actually the content of Current
          handle_return_value(zmq_msg_init_data
-                             (handle,to_pointer,object_size.to_natural_64,
+                             (handle,to_pointer,integer_to_size_t(object_size),
                               default_pointer, -- i.e. no deallocation function
                               default_pointer  -- i.e. no data hint for the deallocation function
                               ))

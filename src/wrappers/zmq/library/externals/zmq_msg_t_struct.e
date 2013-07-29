@@ -106,7 +106,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-feature -- Structure size
+feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
 	struct_size: like size_t is
 		external "plug_in"
 		alias "{

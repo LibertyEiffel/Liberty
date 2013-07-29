@@ -21,7 +21,7 @@ indexing
                02110-1301 USA
          ]"
 
-ddeferred class ERRNO
+deferred class ERRNO
    -- Access to C errno variable
 
 insert
