@@ -93,14 +93,14 @@ function endsubstage(){
 // 1 error
 // (-1 warning) - cannot be detected here
 // filling result is the callers obligation if not called with simple = true
-function execute($cmd, $simple = true){
+function execute($cmd, $simple = true, $ulimit_time = 600, $ulimit_virt = 4194304){ // 5 minutes CPU, 4Gio virtual memory: should be plenty for most cases
     global $stagedir;
     global $out;
     global $verbose;
     if($verbose) echo "executing '$cmd'\n";
     file_put_contents($stagedir . "/cmd.txt", $cmd);
-    system("{ " . $cmd . " ; " . "} > '$stagedir" ."/out.txt' 2>'$stagedir" . "/err.txt'", $retval);
-    file_put_contents($stagedir ."/retValue.txt", $retval);
+    system("( ulimit -t " . $ulimit_time . " ; ulimit -v " . $ulimit_virt . " ; " . $cmd . " ) > '" . $stagedir . "/out.txt' 2>'" .$stagedir . "/err.txt'", $retval);
+    file_put_contents($stagedir . "/retValue.txt", $retval);
     if($simple)    file_put_contents($stagedir ."/result.txt", $retval);
 
     return $retval;
@@ -146,23 +146,25 @@ if(execute("cd $LibertyBase && git pull") != 0){
 endsubstage();
 
 substage("bootstrap");
-if(execute("cd $LibertyBase && ./install.sh -plain -bootstrap") > 0){
+if(execute("cd $LibertyBase && ./install.sh -plain -bootstrap", $ulimit_time = 3600) > 0){
     failed();
 }
 endsubstage();
 
 substage("class check ANY");
-execute("se class_check ANY");
+if(execute("se class_check ANY") > 0){
+   failed();
+}
 endsubstage();
 
 //- se doc
 substage("eiffeldoc");
-execute("$LibertyBase/work/build_doc.sh -plain");
+execute("$LibertyBase/work/build_doc.sh -plain", $ulimit_time = 3600);
 endsubstage();
 
 //- debian packaging
 substage("debian packaging");
-execute("$LibertyBase/work/packaging/build_debian.sh");
+execute("$LibertyBase/work/packaging/build_debian.sh", $ulimit_time = 3600);
 endsubstage();
 
 substage("compile tutorial");
@@ -177,7 +179,7 @@ function tutorialDir($dir){
         foreach (glob("$dir/*.ace") as $acefilename){
             substage("ACE file " . basename($acefilename), str_replace($LibertyBase, $repobaselink, $acefilename));
 
-            $ret = execute("{ cd $dir && se c --clean " . $acefilename . " ; }");
+            $ret = execute("cd $dir && se c --clean " . $acefilename);
             if($ret > 0){
                 $curRes = $ret;
             }else{
@@ -194,7 +196,7 @@ function tutorialDir($dir){
             if(is_file($filename) && preg_match("/(.*)\.e$/", $filename)){
                 $class = strtoupper(basename($filename, ".e"));
                 substage("class $class", str_replace($LibertyBase, $repobaselink, $filename));
-                $ret = execute("{ cd $dir && se c -o " . basename($filename, ".e") . " $class ; } && se clean $class");
+                $ret = execute("cd $dir && se c -o " . basename($filename, ".e") . " $class && se clean $class");
                 if($ret > 0){
                     $curRes = $ret;
                 }else{
