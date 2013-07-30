@@ -296,18 +296,19 @@ feature {}
       local
          rf3: RUN_FEATURE_3; o: STRING
       do
+         rf3 := bdw.get_memory_dispose(live_type)
          if rf3 /= Void then
             cpp.prepare_c_function
             cpp.pending_c_function_signature.append(once "void bdw_finalizeT")
             live_type.id.append_in(cpp.pending_c_function_signature)
             cpp.pending_c_function_signature.append(once "(void*obj,void*_)")
-            rf3 := bdw.get_memory_dispose(live_type)
             o := once "................"
             o.copy(once "((")
             o.append(cpp.target_type.for(tm))
             o.append(once ")obj)")
             bdw.generate_dispose(o, rf3, live_type)
             cpp.dump_pending_c_function(True)
+            Result := True
          end
       end
 
