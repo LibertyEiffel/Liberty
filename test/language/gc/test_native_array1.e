@@ -4,7 +4,10 @@
 class TEST_NATIVE_ARRAY1
 
 create {}
-   make, make2
+   make
+
+create {TEST_NATIVE_ARRAY1}
+   make2
 
 feature {ANY}
    make is
