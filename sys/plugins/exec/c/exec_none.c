@@ -56,7 +56,7 @@ EIF_INTEGER basic_exec_waitpid_fd(void) {
    return -1;
 }
 
-EIF_INTEGER basic_exec_waitpid_read_buffer(void*) {
+EIF_INTEGER basic_exec_waitpid_read_buffer(void*data) {
    return -1;
 }
 #else
