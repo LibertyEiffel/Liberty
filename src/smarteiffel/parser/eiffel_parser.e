@@ -271,7 +271,7 @@ feature {CECIL_FILE}
 
    parse_type_mark: TYPE_MARK is
       do
-         if a_static_type_mark then
+         if a_static_type_mark(False) then
             Result := last_type_mark
          else
             error_handler.add_position(current_position)
@@ -536,7 +536,7 @@ feature {}
                when ' ', '%T', '%N' then
                   next_char
                when 'A' .. 'Z', 'a' .. 'z' then
-                  if not a_type_mark then
+                  if not a_type_mark(False) then
                      error_handler.add_position(current_position)
                      error_handler.append(once "Type mark expected.")
                      error_handler.print_as_fatal_error
@@ -1218,7 +1218,7 @@ feature {}
                   end
                when 3 then
                   -- Waiting for type_mark mark.
-                  if a_type_mark then
+                  if a_type_mark(False) then
                      if name_list /= Void then
                         create {DECLARATION_GROUP} declaration.make(name_list, last_type_mark)
                         name_list := Void
@@ -1358,6 +1358,7 @@ feature {}
    S_waiting_for_a_second_local_name:       INTEGER is 2
    S_waiting_for_a_type_mark:               INTEGER is 3
    S_waiting_for_optional_colon:            INTEGER is 4
+
    a_local_var_list is
          --  ++ local_var_list -> [{declaration_group ";" ...}]
          --  ++ declaration_group -> {identifier "," ...}+ ":" type_mark
@@ -1433,7 +1434,7 @@ feature {}
                   error_handler.append(em13)
                   error_handler.print_as_style_warning
                   ok := skip1(',') or else skip1(';')
-               elseif a_type_mark then
+               elseif a_type_mark(False) then
                   sp := last_type_mark.start_position
                   go_back_at(sp.line, sp.column)
                   error_handler.add_position(current_position)
@@ -1446,7 +1447,7 @@ feature {}
                   error_handler.print_as_fatal_error
                end
             when S_waiting_for_a_type_mark then
-               if a_type_mark then
+               if a_type_mark(False) then
                   if name_list /= Void then
                      create {DECLARATION_GROUP} declaration.make(name_list, last_type_mark)
                      name_list := Void
@@ -2814,7 +2815,7 @@ feature {}
          end
       end
 
-   a_static_type_mark: BOOLEAN is
+   a_static_type_mark (allow_missing_generics: BOOLEAN): BOOLEAN is
          --  ++ base_type_mark -> "ANY" | ARRAY "[" type_mark "]" | "BOOLEAN" |
          --  ++         "CHARACTER" | "DOUBLE" | "INTEGER" |
          --  ++         "POINTER" | "REAL" | "STRING" | "TUPLE" |
@@ -2835,36 +2836,36 @@ feature {}
                create {ANY_TYPE_MARK} last_type_mark.make(token_buffer.start_position)
             when "ARRAY" then
                sp := token_buffer.start_position
-               if skip1('[') and then a_type_mark and then skip1(']') then
+               if skip1('[') and then a_type_mark(False) and then skip1(']') then
                   check
                      last_type_mark /= Void
                   end
                   create {ARRAY_TYPE_MARK} last_type_mark.make(sp, last_type_mark)
-               else
+               elseif not allow_missing_generics then
                   error_handler.add_position(current_position)
                   error_handler.append(once "Bad use of predefined type ARRAY.")
                   error_handler.print_as_fatal_error
                end
             when "NATIVE_ARRAY" then
                sp := token_buffer.start_position
-               if skip1('[') and then a_type_mark and then skip1(']') then
+               if skip1('[') and then a_type_mark(False) and then skip1(']') then
                   check
                      last_type_mark /= Void
                   end
                   create {NATIVE_ARRAY_TYPE_MARK} last_type_mark.make(sp, last_type_mark)
-               else
+               elseif not allow_missing_generics then
                   error_handler.add_position(current_position)
                   error_handler.append(once "Bad use of predefined type NATIVE_ARRAY.")
                   error_handler.print_as_fatal_error
                end
             when "WEAK_REFERENCE" then
                sp := token_buffer.start_position
-               if skip1('[') and then a_type_mark and then skip1(']') then
+               if skip1('[') and then a_type_mark(False) and then skip1(']') then
                   check
                      last_type_mark /= Void
                   end
                   create {WEAK_REFERENCE_TYPE_MARK} last_type_mark.make(sp, last_type_mark)
-               else
+               elseif not allow_missing_generics then
                   error_handler.add_position(current_position)
                   error_handler.append(once "Bad use of predefined type NATIVE_ARRAY.")
                   error_handler.print_as_fatal_error
@@ -2938,7 +2939,7 @@ feature {}
                   until
                      skip1(']')
                   loop
-                     if a_type_mark then
+                     if a_type_mark(False) then
                         types.add_last(last_type_mark)
                         if not skip1(',') then
                            if cc /= ']' then
@@ -2964,7 +2965,7 @@ feature {}
                   error_handler.append(em30)
                   error_handler.print_as_fatal_error
                end
-               if not a_type_mark then
+               if not a_type_mark(False) then
                   error_handler.add_position(current_position)
                   error_handler.append(em32)
                   error_handler.print_as_fatal_error
@@ -2972,7 +2973,7 @@ feature {}
                base_type_mark := last_type_mark
                open_type_mark := last_type_mark
                ok := skip1(',')
-               if a_type_mark then
+               if a_type_mark(False) then
                   -- Old style with unused base:
                   open_type_mark := last_type_mark
                   error_handler.add_position(base_type_mark.start_position)
@@ -2993,7 +2994,7 @@ feature {}
                   error_handler.append(em30)
                   error_handler.print_as_fatal_error
                end
-               if not a_type_mark then
+               if not a_type_mark(False) then
                   error_handler.add_position(current_position)
                   error_handler.append(em32)
                   error_handler.print_as_fatal_error
@@ -3001,7 +3002,7 @@ feature {}
                base_type_mark := last_type_mark
                open_type_mark := last_type_mark
                ok := skip1(',')
-               if a_type_mark then
+               if a_type_mark(False) then
                   -- Old style with unused base:
                   open_type_mark := last_type_mark
                   error_handler.add_position(base_type_mark.start_position)
@@ -3022,7 +3023,7 @@ feature {}
                   error_handler.append(em30)
                   error_handler.print_as_fatal_error
                end
-               if not a_type_mark then
+               if not a_type_mark(False) then
                   error_handler.add_position(current_position)
                   error_handler.append(em32)
                   error_handler.print_as_fatal_error
@@ -3030,7 +3031,7 @@ feature {}
                base_type_mark := last_type_mark
                open_type_mark := last_type_mark
                ok := skip1(',')
-               if a_type_mark then
+               if a_type_mark(False) then
                   -- Old style with unused base:
                   open_type_mark := last_type_mark
                   error_handler.add_position(base_type_mark.start_position)
@@ -3051,7 +3052,7 @@ feature {}
                   error_handler.append(em30)
                   error_handler.print_as_fatal_error
                end
-               if not a_type_mark then
+               if not a_type_mark(False) then
                   error_handler.add_position(current_position)
                   error_handler.append(em32)
                   error_handler.print_as_fatal_error
@@ -3063,14 +3064,14 @@ feature {}
                   error_handler.append(em5)
                   error_handler.print_as_warning
                end
-               if not a_type_mark then
+               if not a_type_mark(False) then
                   error_handler.add_position(current_position)
                   error_handler.append(em32)
                   error_handler.print_as_fatal_error
                end
                result_type_mark := last_type_mark
                ok := skip1(',')
-               if a_type_mark then
+               if a_type_mark(False) then
                   -- Old style with unused base:
                   open_type_mark := result_type_mark
                   result_type_mark := last_type_mark
@@ -3103,7 +3104,7 @@ feature {}
                      end
                   when 1 then
                      -- Waiting next generic argument.
-                     if a_type_mark then
+                     if a_type_mark(False) then
                         if generic_list = Void then
                            create generic_list.with_capacity(2, 1)
                         end
@@ -3137,7 +3138,7 @@ feature {}
                         end
                         ok := skip1(']')
                         state := 3
-                     elseif a_type_mark then
+                     elseif a_type_mark(False) then
                         if generic_list = Void then
                            create generic_list.with_capacity(2, 1)
                         end
@@ -3162,7 +3163,7 @@ feature {}
       local
          fn: FEATURE_NAME; ctm: CLASS_TYPE_MARK
       do
-         if a_type_mark then
+         if a_type_mark(True) then
             if last_type_mark.is_anchored then
                error_handler.add_position(token_buffer.start_position)
                error_handler.append(once "An anchored type cannot be used to indicate exportation status in a client list.")
@@ -3482,7 +3483,7 @@ feature {}
          if skip1('!') then
             Result := True
             sp := pos(start_line, start_column)
-            if a_type_mark then
+            if a_type_mark(False) then
                type := last_type_mark
                anchored_creation_check(type)
                if not skip1('!') then
@@ -3588,7 +3589,7 @@ feature {}
             Result := True
             sp := pos(start_line, start_column)
             if skip1('{') then
-               if a_type_mark then
+               if a_type_mark(False) then
                   type := last_type_mark
                   anchored_creation_check(type)
                   if not skip1('}') then
@@ -3632,7 +3633,7 @@ feature {}
                error_handler.append(once "Bad create expression ('{' expected).")
                error_handler.print_as_fatal_error
             end
-            if not a_type_mark then
+            if not a_type_mark(False) then
                error_handler.add_position(current_position)
                error_handler.append(once "Bad create instruction (type expected).")
                error_handler.print_as_fatal_error
@@ -3825,7 +3826,7 @@ feature {}
                end
             end
             if not skip2('>', '>') then
-               if a_type_mark then
+               if a_type_mark(False) then
                   error_handler.add_position(last_type_mark.start_position)
                   error_handler.append(once "A type mark is not a valid item for a manifest array. %
                                        %Keep in mind that Liberty Eiffel is case-sensitive and that ")
@@ -4296,7 +4297,7 @@ feature {}
             error_handler.cancel
          else
             if skip1(':') then
-               if a_type_mark then
+               if a_type_mark(False) then
                   inside_function_flag := True
                   tmp_feature.set_type(last_type_mark)
                else
@@ -4600,7 +4601,7 @@ feature {}
                error_handler.print_as_fatal_error
             end
             if skip1(':') then
-               if a_type_mark then
+               if a_type_mark(False) then
                   inside_function_flag := True
                   tmp_feature.set_type(last_type_mark)
                else
@@ -4654,7 +4655,7 @@ feature {}
                error_handler.add_position(current_position)
                if a_keyword(fz_do) or else a_keyword(fz_once) then
                   error_handler.append(once "Missing the %"is%" keyword?")
-               elseif a_type_mark then
+               elseif a_type_mark(False) then
                   error_handler.append(once "Missing %":%" before the type mark?")
                else
                   error_handler.append(once "Bad procedure definition.")
@@ -4740,7 +4741,7 @@ feature {}
                   if a_formal_generic_type_mark then
                      constraint := last_formal_generic_type_mark
                      state := 2
-                  elseif a_static_type_mark then
+                  elseif a_static_type_mark(False) then
                      constraint := last_type_mark
                      state := 2
                   else
@@ -5313,7 +5314,7 @@ feature {}
             error_handler.append(once "Unexpected %"reference%" keyword.")
             error_handler.print_as_fatal_error
          end
-         if a_type_mark then
+         if a_type_mark(False) then
             Result := True
             if last_type_mark.is_formal_generic then
                error_handler.add_position(last_type_mark.start_position)
@@ -5908,7 +5909,7 @@ feature {}
          end
       end
 
-   a_type_mark: BOOLEAN is
+   a_type_mark (allow_missing_generics: BOOLEAN): BOOLEAN is
          --  ++ type_mark -> static_type_mark |
          --  ++              formal_generic_type_mark |
          --  ++              "like" "Current" |
@@ -5960,7 +5961,7 @@ feature {}
             error_handler.print_as_fatal_error
          elseif a_formal_generic_type_mark then
             last_type_mark := last_formal_generic_type_mark
-         elseif a_static_type_mark then
+         elseif a_static_type_mark(allow_missing_generics) then
             -- `last_type_mark' already set.
          else
             Result := False
@@ -6480,7 +6481,7 @@ feature {}
    a_precursor_type_mark (sp: POSITION): TYPE_MARK is
          -- To continue the work after the first '{'.
       do
-         if not a_type_mark then
+         if not a_type_mark(False) then
             error_handler.add_position(current_position)
             error_handler.append(em32)
             error_handler.print_as_fatal_error
