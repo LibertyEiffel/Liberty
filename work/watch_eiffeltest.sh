@@ -48,13 +48,18 @@ EOF
             echo
         done
         ;;
-    x-run)
+    x-run|x-flat)
+        run=$1
         shift
         (
             rm -f eiffeltest/LOCK
             ulimit -t ${ULIMIT_TIME:-60}
             ulimit -v ${ULIMIT_VIRT:-$((1024*1024*4))}
-            nice se test . > eiffeltest/log 2>&1
+            if [ x$run == x-flat ]; then
+                nice se test -verbose -flat . > eiffeltest/log 2>&1
+            else
+                nice se test -verbose . > eiffeltest/log 2>&1
+            fi
         ) &
         test_pid=$!
         $0 "$@" &
