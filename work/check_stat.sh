@@ -69,7 +69,7 @@ END {
     if (n) {
         total = sprintf("Total: [1;36m%5d[m\t(%5d classes, %5d different clients)", m, n, length(all_clients));
         mean = sprintf("Mean: [1;33m%g[m", 1.0*m/n);
-        sdev = sprintf("Std deviation: [1;32m%g[m", 1.0*o/n/n);
+        sdev = sprintf("Std deviation: [1;32m%g[m", sqrt(1.0*o/n/n));
         printf("%14s %-65s %-30s %-30s\n", section, total, mean, sdev);
     }
 }' > $LIBERTY_HOME/target/log/stat-$section.txt
