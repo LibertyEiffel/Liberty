@@ -37,11 +37,11 @@ eval $(
         echo sedoc_url_$section=http://doc.liberty-eiffel.org/api/$section
         echo sedoc_rem_$section=$remote
     done <<EOF
-liberty     liberty:tools
-libraries   liberty:lib
-smarteiffel tools
+liberty     tools
+libraries   liberty_core
+smarteiffel smarteiffel
 tutorial    tutorial
-wrappers    liberty:wrappers
+wrappers    liberty_extra
 EOF
 )
 

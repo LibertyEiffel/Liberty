@@ -12,6 +12,7 @@ mkdir $packages/debs
 export clean=FALSE
 export pbuilder=FALSE
 export codename=snapshot
+export keep_failed=FALSE
 
 pkgdate=$(date -u +'%Y%m%d.%H%M%S')
 export tag="-0~snapshot~$pkgdate"
@@ -31,6 +32,9 @@ while [ x$1 != x ]; do
             ;;
         -pbuilder)
             pbuilder=TRUE
+            ;;
+        -keep)
+            keep_failed=TRUE
             ;;
         *)
             echo "Unknown option: $1" >&2
@@ -187,9 +191,14 @@ EOF
         rm -rf $tmp
     else
         cp $tmp/*.deb $packages/debs/
-        echo
-        echo "**** Keeping $tmp for forensics"
-        echo
+        if [ $keep_failed == TRUE ]; then
+            echo
+            echo "**** Keeping $tmp for forensics"
+            echo
+        else
+            cd $packages
+            rm -rf $tmp
+        fi
         status=$(($status + 1))
     fi
 done
@@ -199,7 +208,7 @@ rm -rf $HOME
 echo
 echo "Generated packages:"
 for deb in $packages/debs/*.deb; do
-    echo "    $deb"
+    echo " -  $deb"
 done
 
 echo
