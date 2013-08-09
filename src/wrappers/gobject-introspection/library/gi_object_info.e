@@ -34,7 +34,6 @@ feature {ANY}
 			create stored_type_name.from_external(g_object_info_get_type_name(handle))
 		end
 		Result := stored_type_name
-	ensure Result/=Void
 	end 
 
 	type_init: FIXED_STRING is 
@@ -45,7 +44,6 @@ feature {ANY}
 			create stored_type_init.from_external(g_object_info_get_type_init(handle))
 		end
 		Result:=stored_type_init
-	ensure Result/=Void
 	end 
 
 	is_deferred: BOOLEAN is
@@ -60,7 +58,7 @@ feature {ANY}
 		-- Obtain if the object type is of a fundamental type which is not
 		-- G_TYPE_OBJECT. This is mostly for supporting GstMiniObject.
 	do
-		Result := g_object_info_get_fundamental(handle)
+		Result := g_object_info_get_fundamental(handle).to_boolean
 	end 
 
 	parent: GI_OBJECT_INFO is
@@ -87,7 +85,7 @@ feature {ANY} -- Properties
 	end
 
 feature {ANY} -- Methods
-	method_count: INTEGER is
+	methods_count: INTEGER is
 		-- The number of methods Current object has
 	do
 		Result := g_object_info_get_n_methods (handle)
@@ -183,11 +181,10 @@ feature {ANY} -- Interfaces
 	end
 
 feature {ANY} -- Virtual functions
-	virtual_function_count: INTEGER is
+	virtual_functions_count: INTEGER is
 		-- the number of virtual functions that this object type has.
 		do
 			Result :=  g_object_info_get_n_vfuncs(handle)
-		ensure not_negative: Result >= 0
 		end
 
 	virtual_function (n: INTEGER): GI_VFUNC_INFO is
@@ -195,7 +192,6 @@ feature {ANY} -- Virtual functions
 	do
 		create Result.from_external_pointer(g_object_info_get_vfunc(handle,n))
 		-- g_object_info_get_vfunc returns the GIVFuncInfo. Free the struct by calling g_base_info_unref() when done. [transfer full]
-	ensure not_void: Result/=Void
 	end
 
 	find_virtual_function (a_name: ABSTRACT_STRING): GI_VFUNC_INFO is
@@ -204,9 +200,6 @@ feature {ANY} -- Virtual functions
 		-- concrete method associated for a virtual. If there is one, it may be
 		-- retrieved using Result.invoker otherwise Void will be returned. See
 		-- GI_VFUNC_INFO the more information on invoking virtuals.
-	require 
-		not_void: a_name/=Void
-		not_empty: not a_name.is_empty
 	local p:POINTER
 	do
 		p := g_object_info_find_vfunc (handle, a_name.to_external)
@@ -218,7 +211,7 @@ feature {ANY} -- Virtual functions
 	end
    
 feature {ANY} -- Constants
-	constant_count: INTEGER is
+	constants_count: INTEGER is
 		-- the number of constants that this object type has
 	do
 		Result:=g_object_info_get_n_constants (handle)
@@ -406,3 +399,21 @@ feature {} -- Unwrapped
 --    -----------------------------------------------------------------------------------------------------------------------
 -- 
 end
+
+-- Copyright (C) 2013 Paolo Redaelli <paolo.redaelli@gmail.com>
+-- 
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Lesser General Public License
+-- as published by the Free Software Foundation; either version 2.1 of
+-- the License, or (at your option) any later version.
+-- 
+-- This library is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Lesser General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Lesser General Public
+-- License along with this library; if not, write to the Free Software
+-- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+-- 02110-1301 USA
+	

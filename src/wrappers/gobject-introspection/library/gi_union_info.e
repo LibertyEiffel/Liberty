@@ -5,13 +5,23 @@ class GI_UNION_INFO
 	-- discriminator, which is a field deciding what type of real union
 	-- fields
 
+	-- As unions in the C language has fields but not methods this wrapper is
+	-- made indexable over its fields throught proper inheritance of INDEXABLE,
+	-- while providing indexable-like features over the functions provided.
+
+	-- GI_UNION_INFO could have been made a proper multiple heir of INDEXABLE
+	-- but the added complexity of the resulting code would not have brought
+	-- any appreciable benefits.
+
 inherit 
 	GI_REGISTERED_TYPE_INFO
+		redefine out_in_tagged_out_memory end
+
 	INDEXABLE[GI_FIELD_INFO]
 		rename 
-			lower as field_lower
-			upper as field_upper
-			count as field_count
+			lower as fields_lower
+			upper as fields_upper
+			count as fields_count
 			is_empty as has_no_fields
 			valid_index as valid_field_index
 			item as field 
@@ -21,49 +31,30 @@ inherit
 			for_all as for_all_fields
 			exists as field_exists
 			aggregate as aggregate_fields
-		undefine 
-			copy, 
-			field_do_all, 
-			field_for_all, 
-			field_exists,
-			is_equal, 
-			out_in_tagged_out_memory 
-		redefine field_do_all, for_all_fields, field_exists
+			undefine copy, is_equal
+		redefine out_in_tagged_out_memory
 		end
 
-	INDEXABLE[GI_FUNCTION_INFO]
-		rename 
-			lower as method_lower
-			upper as method_upper
-			count as method_count
-			is_empty as has_no_methods
-			valid_index as valid_method_index
-			item as method 
-			first as first_method
-			last as last_method
-			do_all as method_do_all 
-			for_all as for_all_methods
-			exists as method_exists
-			aggregate as method_aggregate
-		undefine copy, is_equal, out_in_tagged_out_memory 
-		redefine method_do_all, for_all_methods, method_exists
-		end
-
-insert GIUNIONINFO_EXTERNALS
-    
+insert 
+	GIUNIONINFO_EXTERNALS
+		redefine out_in_tagged_out_memory end
 creation {GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
 feature {ANY} -- Fields
-	field_lower: INTEGER is 0
-	field_upper: INTEGER is do Result := field_count-1 end
-	field_count: INTEGER is
+	fields_lower: INTEGER is 0
+	fields_upper: INTEGER is do Result := fields_count-1 end
+	fields_count: INTEGER is
 		-- The number of fields that this object type has.
 	do
 		Result := g_union_info_get_n_fields(handle)
-	ensure not_negative: Result>=0
 	end
 
-	field (n: INTEGER): GI_BASE_INFO is 
+	has_no_fields: BOOLEAN is
+		do
+			Result := fields_count=0
+		end
+
+	field (n: INTEGER): GI_FIELD_INFO is 
 		-- The field object at index n.
 	do
 		create Result.from_external_pointer(g_union_info_get_field(handle,n))
@@ -71,25 +62,18 @@ feature {ANY} -- Fields
 	ensure not_void: Result/=Void
 	end
 
-	field_do_all (an_action: ROUTINE[TUPLE[GI_FIELD_INFO]]) is
-	do
-		lower.loop_up_to(upper, an_action)
-	end
+	first_field: GI_FIELD_INFO is do Result:=field(fields_lower) end
+	last_field: GI_FIELD_INFO is do Result:=field(fields_upper) end
 
-	for_all_fields (a_test: FIELD[TUPLE[GI_FIELD_INFO],BOOLEAN]): BOOLEAN is
-	do
-		not_yet_implemented
-	end
+	new_fields_iterator: ITERATOR_OVER_UNION_FIELDS is
+		do
+			create Result.from_union(Current)
+		end
 
-	field_exists (test: PREDICATE[TUPLE[GI_FIELD_INFO]]): BOOLEAN is
-	do
-		not_yet_implemented
-	end
-	
 feature {ANY} -- Methods
-	method_lower: INTEGER is 0
-	method_upper: INTEGER is do Result := method_count-1 end
-	method_count: INTEGER is
+	methods_lower: INTEGER is 0
+	methods_upper: INTEGER is do Result := methods_count-1 end
+	methods_count: INTEGER is
 		-- The number of methods Current object has
 	do
 		Result := g_union_info_get_n_methods (handle)
@@ -118,25 +102,40 @@ feature {ANY} -- Methods
 	end
 
 	method_do_all (an_action: ROUTINE[TUPLE[GI_FUNCTION_INFO]]) is
+	local i: INTEGER
 	do
-		lower.loop_up_to(upper, an_action)
+		from i:=methods_lower until i>methods_upper loop
+			an_action.call([method(i)])
+			i:=i+1
+		end
 	end
 
 	for_all_methods (a_test: FUNCTION[TUPLE[GI_FUNCTION_INFO],BOOLEAN]): BOOLEAN is
-	do
-		not_yet_implemented
-	end
+		local i: INTEGER
+		do
+			from Result := True; i := methods_lower
+			until not Result or else i > methods_upper
+			loop
+				Result := a_test.item([method(i)])
+				i := i + 1
+			end
+		end
 
 	method_exists (test: PREDICATE[TUPLE[GI_FUNCTION_INFO]]): BOOLEAN is
+	local i: INTEGER
 	do
-		not_yet_implemented
+		from i:=methods_lower until Result or else i>methods_upper
+		loop 
+			Result := test.item([method(i)])
+			i:=i+1
+		end
 	end
 
 feature {ANY}
 	is_discriminated: BOOLEAN is
 		-- Does Current union contain a discriminator field?
 	do
-		Result:= g_union_info_is_discriminated(handle)
+		Result:= g_union_info_is_discriminated(handle).to_boolean
 	end 
   
 	discriminator_offset: INTEGER is
@@ -175,4 +174,29 @@ feature {ANY}
 	do
 		Result := g_union_info_get_alignment(handle)
 	end 
+
+feature {ANY}
+	out_in_tagged_out_memory is
+		do
+			not_yet_implemented
+		end
+
 end -- class GI_UNION_INFO
+
+-- Copyright (C) 2013 Paolo Redaelli <paolo.redaelli@gmail.com>
+-- 
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Lesser General Public License
+-- as published by the Free Software Foundation; either version 2.1 of
+-- the License, or (at your option) any later version.
+-- 
+-- This library is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Lesser General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Lesser General Public
+-- License along with this library; if not, write to the Free Software
+-- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+-- 02110-1301 USA
+	

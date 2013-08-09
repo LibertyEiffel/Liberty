@@ -40,6 +40,9 @@ deferred class GI_CLASS
 
 	-- TODO: the documentation og GIR is not consistent as it reads that an interface has fields and interfaces yet it hasn't.
 
+inherit GI_BASE_INFO
+	undefine out_in_tagged_out_memory end
+
 feature {ANY} -- Methods 
 	methods_lower: INTEGER is 0
 	methods_upper: INTEGER is do Result:=methods_count-1 end
@@ -114,17 +117,18 @@ feature {ANY} -- Signals
 		-- Expanded iterator over signals
 	do
 		Result.set_class(Current)
-		end
+	end
 
 feature {ANY} -- Virtual functions 
 	virtual_functions_lower: INTEGER is 0
 	virtual_functions_upper: INTEGER is do Result:=virtual_functions_count-1 end
 	virtual_functions_count: INTEGER is 
 	deferred
-	ensure Result>=0
+	ensure non_negative: Result>=0
 	end
 
 	virtual_function (n: INTEGER): GI_VFUNC_INFO is
+
 		-- The interface type virtual function at index `n'.
 	require	valid_index: n.in_range(0,virtual_functions_count)
 	deferred
@@ -140,7 +144,8 @@ feature {ANY} -- Virtual functions
 	end
 
 	vfuncs_iter: VFUNCS_ITER is
-		deferred
+		do
+			Result.set_class(Current)
 		end
 
 feature {ANY} -- Constants
@@ -162,8 +167,25 @@ feature {ANY} -- Constants
 	constants_iter: CONSTANTS_ITER is
 		-- Expanded iterator over constans
 	do
-		Result.set_object(Current)
+		Result.set_class(Current)
 	end
 
 end
 
+-- Copyright (C) 2013 Paolo Redaelli <paolo.redaelli@gmail.com>
+-- 
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Lesser General Public License
+-- as published by the Free Software Foundation; either version 2.1 of
+-- the License, or (at your option) any later version.
+-- 
+-- This library is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Lesser General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Lesser General Public
+-- License along with this library; if not, write to the Free Software
+-- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+-- 02110-1301 USA
+	

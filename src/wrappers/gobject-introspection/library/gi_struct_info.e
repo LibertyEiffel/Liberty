@@ -11,9 +11,9 @@ inherit
 
 	INDEXABLE[GI_FIELD_INFO]
 		rename 
-			lower as field_lower,
-			upper as field_upper,
-			count as field_count,
+			lower as fields_lower,
+			upper as fields_upper,
+			count as fields_count,
 			is_empty as has_no_fields,
 			valid_index as valid_field_index,
 			item as field,
@@ -35,14 +35,18 @@ insert
 creation {GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
 feature {ANY} -- Fields
-	field_lower: INTEGER is 0
-	field_upper: INTEGER is do Result := field_count-1 end
-	field_count: INTEGER is
+	fields_lower: INTEGER is 0
+	fields_upper: INTEGER is do Result := fields_count-1 end
+	fields_count: INTEGER is
 		-- The number of fields that this object type has.
 	do
 		Result := g_struct_info_get_n_fields(handle)
-	ensure not_negative: Result>=0
 	end
+	
+	has_no_fields: BOOLEAN is
+		do
+			Result := fields_count=0
+		end
 
 	field (n: INTEGER): GI_FIELD_INFO is 
 		-- The field object at index n.
@@ -52,15 +56,19 @@ feature {ANY} -- Fields
 	ensure not_void: Result/=Void
 	end
 
-    field_iterator: ITERATOR_OVER_STRUCT_FIELDS is
+	first_field: GI_FIELD_INFO is do Result:=field(fields_lower) end
+	last_field: GI_FIELD_INFO is do Result:=field(fields_upper) end
+
+
+    new_fields_iterator: ITERATOR_OVER_STRUCT_FIELDS is
         do
             create Result.from_struct(Current)
         end
 
 feature {ANY} -- Methods
-	method_lower: INTEGER is 0
-	method_upper: INTEGER is do Result := method_count-1 end
-	method_count: INTEGER is
+	methods_lower: INTEGER is 0
+	methods_upper: INTEGER is do Result := methods_count-1 end
+	methods_count: INTEGER is
 		-- The number of methods Current object has
 	do
 		Result := g_struct_info_get_n_methods (handle)
@@ -68,7 +76,7 @@ feature {ANY} -- Methods
 
   	method (n: INTEGER): GI_FUNCTION_INFO is
 		-- The method object at index `n'
-    require n.in_range(method_lower,method_upper)
+    require n.in_range(methods_lower,methods_upper)
 	do
 		create Result.from_external_pointer(g_struct_info_get_method(handle,n))
    		-- returns  the GIFunctionInfo. Free the struct by calling g_base_info_unref() when done. [transfer full]
@@ -119,6 +127,24 @@ feature {ANY}
  	is_foreign: BOOLEAN is
 		--
 	do
-		Result := g_struct_info_is_foreign(handle)
+		Result := g_struct_info_is_foreign(handle).to_boolean
 	end 
 end -- class GI_STRUCT_INFO
+
+-- Copyright (C) 2013 Paolo Redaelli <paolo.redaelli@gmail.com>
+-- 
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Lesser General Public License
+-- as published by the Free Software Foundation; either version 2.1 of
+-- the License, or (at your option) any later version.
+-- 
+-- This library is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Lesser General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Lesser General Public
+-- License along with this library; if not, write to the Free Software
+-- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+-- 02110-1301 USA
+	

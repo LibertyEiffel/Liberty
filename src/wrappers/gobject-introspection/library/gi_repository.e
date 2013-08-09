@@ -77,24 +77,18 @@ feature {ANY}
  --
  --   -----------------------------------------------------------------------------------------------------------------------
  --
- --  g_irepository_is_registered ()
- --
- -- gboolean            g_irepository_is_registered         (GIRepository *repository,
- --                                                          const gchar *namespace_,
- --                                                          const gchar *version);
- --
- --   Check whether a particular namespace (and optionally, a specific version thereof) is currently loaded. This function is
- --   likely to only be useful in unusual circumstances; in order to act upon metadata in the namespace, you should call
- --   g_irepository_require() instead which will ensure the namespace is loaded, and return as quickly as this function will
- --   if it has already been loaded.
- --
- --   repository : A GIRepository, may be NULL for the default. [allow-none]
- --   namespace_ : Namespace of interest
- --   version :    Required version, may be NULL for latest. [allow-none]
- --   Returns :    TRUE if namespace-version is loaded, FALSE otherwise
- --
- --   -----------------------------------------------------------------------------------------------------------------------
- --
+
+	registered (a_name_space, a_version: ABSTRACT_STRING): BOOLEAN is
+		-- Is `a_name_space' currently loaded? Specific version of `a_name_space' can be checked when `a_version' is not Void. 
+		-- When 'a_version' is Void latest version is checked.
+	require a_name_space/=Void
+	do
+		Result := g_irepository_is_registered  (handle, 
+		a_name_space.to_external,
+		null_or_string(a_version)).to_boolean
+	end
+
+
 	find_by_name (a_namespace, a_name: ABSTRACT_STRING): GI_BASE_INFO is
 		-- Searches for `a_name' entry in `a_namespace'. Before calling this function for a particular namespace, you must call
 		--  `load' once to load the namespace, or otherwise ensure the namespace has already been loaded.
@@ -117,11 +111,11 @@ feature {ANY}
 		-- already. If `a_name_space' is not loaded, this function will search
 		-- for a ".typelib" file using the repository search path. In addition,
 		-- `a_version' of namespace may be specified. If version is not
-		-- specified, the latest will be used.
+		-- speocified, the latest will be used.
 
-		-- TODO: add support for flags and error usage. 
-		--   flags :      Set of GIRepositoryLoadFlags, may be 0
-		--   error :      a GError.
+		-- Note: this feature is known as "require" in other languages. It has been renamed because "require" is a reserved word in Eiffel
+
+		-- TODO: add support for flags (GIRepositoryLoadFlags that may be 0) and error usage (GError). 
  		local a_ptr: POINTER
 		do
 			a_ptr:=g_irepository_require(handle,a_name_space.to_external, null_or_string(a_version),
@@ -131,6 +125,7 @@ feature {ANY}
 			if a_ptr.is_not_null then
 				create Result.from_external_pointer(a_ptr)
 			end
+		ensure registered (a_name_space, a_version)
 		end
 
 	--
@@ -200,6 +195,7 @@ feature {ANY}
 
 		-- Note: the underlying C implementation does not specify what's happen
 		-- if an unloaded namespace is specified. 
+	require namespace_loaded: 
 	do
 		create Result.from_repository_and_namespace(Current,a_namespace)
 		-- Note: NAMESPACE_ITERATOR is implemented using and wraps g_irepository_get_n_infos and g_irepository_get_info
@@ -388,3 +384,21 @@ feature {ANY}
  --
  -- const gchar *       g_typelib_get_namespace             (GITypelib *typelib);
 end -- class GI_REPOSITORY
+
+-- Copyright (C) 2013 Paolo Redaelli <paolo.redaelli@gmail.com>
+-- 
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Lesser General Public License
+-- as published by the Free Software Foundation; either version 2.1 of
+-- the License, or (at your option) any later version.
+-- 
+-- This library is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Lesser General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Lesser General Public
+-- License along with this library; if not, write to the Free Software
+-- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+-- 02110-1301 USA
+	
