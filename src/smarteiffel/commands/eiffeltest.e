@@ -745,7 +745,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          new.remove_tail(2)
          new.append(once ".new")
 
-         cmd := (once "se c #(1) -o #(2) -output_error_warning_on #(3)" # bad_file # exe_name # new).out
+         cmd := (once "se c #(1) -o #(2) -style_warning -output_error_warning_on #(3)" # bad_file # exe_name # new).out
          log_line := cmd
          if excluded_execution_of(log_line, agent execute_command(log_line, cmd, True)) then
             -- Command skipped.
