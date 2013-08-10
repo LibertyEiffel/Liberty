@@ -5304,7 +5304,7 @@ feature {}
                error_handler.print_as_warning
             else
                error_handler.append(once "You are probably trying to use the new inherit/insert mechanism. %
-                                         %With Liberty Eiffel, this can be achieve thanks to the new %"insert%" clause. %
+                                         %With Liberty Eiffel, this can be achieved thanks to the new %"insert%" clause. %
                                          %The new %"insert%" clause comes just after the traditional %"inherit%" clause with %
                                          %a similar syntax.")
                error_handler.print_as_fatal_error
@@ -5349,7 +5349,7 @@ feature {}
             if a_keyword(once "select") then
                error_handler.append(once "The old %"select%" option of the %"inherit%" clause is now obsolete. %
                                     %You have to update your code with the new %"insert%" mechanism. %
-                                    %With Liberty Eiffel, this can be achieve thanks to the new %"insert%" clause. %
+                                    %With Liberty Eiffel, this can be achieved thanks to the new %"insert%" clause. %
                                     %The new %"insert%" clause comes just after the traditional %"inherit%" clause with %
                                     %a similar syntax.")
                error_handler.add_position(pos(start_line, start_column))
