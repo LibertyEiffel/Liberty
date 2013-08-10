@@ -636,7 +636,7 @@ feature {AGENT_CREATION}
          function_call: FUNCTION_CALL; procedure_call: PROCEDURE_CALL
       do
          error_handler.add_position(start_position)
-         error_handler.append(once "Please consider writing an explicit open argument list for your agent%
+         error_handler.append(once "Please consider writing an explicit open argument list for your agent %
                               %creation. Replace your code with: ")
          if {FUNCTION_CALL} ?:= code then
             function_call ::= code
