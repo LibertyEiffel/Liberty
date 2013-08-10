@@ -752,13 +752,14 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          elseif not file_tools.file_exists(new) then
             echo.w_put_string("se test (eiffeltest): Bad file %"#(1)%" does not create error/warning output.%N%
                               %Check that manually (in directory %"#(1)%").%N" # bad_file # directory_path)
-            log(once "No error/warning message for %"#(1)%".%N" # bad_file)
+            log(once "Abnormal: no error/warning message for %"#(1)%".%N" # bad_file)
          elseif not file_tools.file_exists(msg) then
             echo.w_put_string("se test (eiffeltest): In directory %"#(1)%",%N%
                               %check manually that the error file %"#(2)%",%N%
                               %is the correct one for %"#(3)%".%N%
                               %If so, then, change the name of this file as %"#(4)%".%N%
                               %This will register this message as correct.%N" # directory_path # new # bad_file # msg)
+            log(once "Abnormal: missing reference error/warning message for %"#(1)%".%N" # bad_file)
          else
             error_message_comparator.do_compare(msg, new)
             if error_message_comparator.error_flag then
@@ -766,6 +767,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
                                  %In directory %"#(2)%",%N%
                                  %files %"#(3)%" and %"#(4)%" differ too much.%N%
                                  %Please check manually.%N" # bad_file # directory_path # new # msg)
+               log(once "Abnormal: differing error/warning message for %"#(1)%".%N" # bad_file)
             else
                log_line := (once "Removing %"#(1)%"." # new).out
                dummy := excluded_execution_of(log_line, agent file_tools.delete(new))
@@ -1084,7 +1086,7 @@ feature {}
                   echo.w_put_string(once "   #(1)%N" # cmd)
                end
                echo.w_put_string(once "(Return status was #(1))%N" # exit_status.to_string)
-               log(once "Abnormal exit status #(1) of %"#(2)%".%N" # exit_status.to_string # log_line)
+               log(once "Abnormal: exit status #(1) of %"#(2)%".%N" # exit_status.to_string # log_line)
             end
             -- Now one second of pause to allow the user to kill the main "se test" process.
             -- Actually, this is not a pause... I do not like to use the cpu for nothing,
