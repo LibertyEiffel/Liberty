@@ -9,4 +9,3 @@ create {ANY}
 ^           
 ------
 ****** 1 warning.
-****** 1 warning.

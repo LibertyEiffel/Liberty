@@ -1,3 +1,11 @@
+****** Error: Forbidden call (i.e. exportation rules violated)
+when the type of Current is AUX_EXPORT6B. (See the next error
+report for details.)
+
+Line 11 column 16 in AUX_EXPORT6A (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export6a.e):
+            a1.g
+               ^
+------
 ****** Warning: The client list computed from the "export" clauses
 is narrower than the one from the conforming parent(s) for AUX_EXPORT6B1.`g'.
 This can lead to catcalls! The final export list is {}.
@@ -10,14 +18,6 @@ feature {AUX_EXPORT6A}
 Line 5 column 30 in AUX_EXPORT6B1 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export6b1.e):
 inherit AUX_EXPORT6A1 export {} g end
                              ^       
-------
-****** Error: Forbidden call (i.e. exportation rules violated)
-when the type of Current is AUX_EXPORT6B. (See the next error
-report for details.)
-
-Line 11 column 16 in AUX_EXPORT6A (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export6a.e):
-            a1.g
-               ^
 ------
 ****** Fatal Error: This feature is only exported to {}.
 

@@ -4,7 +4,6 @@ Line 13 column 10 in BAD_IF1 (/home/cadrian/Workspace/Dev/Liberty/test/language/
          end
          ^  
 ------
-****** 1 warning.
 ****** Error: "if" (or "elseif" as well) must be followed by a
 BOOLEAN expression.
 

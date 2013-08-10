@@ -1,16 +1,5 @@
 ****** Warning: Since february 2006, for SmartEiffel release 2.3,
 the old legacy NONE type mark is obsolete. Keep in mind that an
-empty class name list like {} do indicate no exportation at all,
-hence making NONE unuseful and probably misleading for newcomers.
-So, just remove this NONE class name right now. Please update
-your code now.
-
-Line 7 column 15 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
-      export {NONE} all
-              ^        
-------
-****** Warning: Since february 2006, for SmartEiffel release 2.3,
-the old legacy NONE type mark is obsolete. Keep in mind that an
 empty class name list such as {} does indicate no exportation
 at all, hence making NONE useless and probably misleading for
 newcomers. So, just remove this NONE class name now. Please update
@@ -19,20 +8,6 @@ your code now.
 Line 7 column 15 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
               ^        
-------
-****** 2 warnings.
-****** Warning: The client list computed from the "export" clauses
-is narrower than the one from the conforming parent(s) for AUX_EXPORT3B.prefix
-"&". This can lead to catcalls! The final export list is {}.
-
-The source lines involved by the message are the following:
-
-Line 225 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
-feature {ANY} -- Object Printing:
-        ^                        
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
-      export {NONE} all
-             ^         
 ------
 ****** Warning: The client list computed from the "export" clauses
 is narrower than the one from the conforming parent(s) for AUX_EXPORT3B.`is_default'.
@@ -59,19 +34,6 @@ feature {ANY} -- Deep Comparison:
 Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
-------
-****** Warning: The client list computed from the "export" clauses
-is narrower than the one from the conforming parent(s) for AUX_EXPORT3B.`foo'.
-This can lead to catcalls! The final export list is {}.
-
-The source lines involved by the message are the following:
-
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
-      export {NONE} all
-             ^         
-Line 5 column 9 in AUX_EXPORT3A (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3a.e):
-feature {ANY}
-        ^    
 ------
 ****** Warning: The client list computed from the "export" clauses
 is narrower than the one from the conforming parent(s) for AUX_EXPORT3B.`immutable'.
@@ -392,6 +354,30 @@ for details.)
 Line 15 column 14 in BAD_EXPORT3 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_export3.e):
          aux.foo
              ^  
+------
+****** Warning: The client list computed from the "export" clauses
+is narrower than the one from the conforming parent(s) for AUX_EXPORT3B.`foo'.
+This can lead to catcalls! The final export list is {}.
+
+The source lines involved by the message are the following:
+
+Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+      export {NONE} all
+             ^         
+Line 5 column 9 in AUX_EXPORT3A (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3a.e):
+feature {ANY}
+        ^    
+------
+****** Warning: Since february 2006, for SmartEiffel release 2.3,
+the old legacy NONE type mark is obsolete. Keep in mind that an
+empty class name list like {} do indicate no exportation at all,
+hence making NONE unuseful and probably misleading for newcomers.
+So, just remove this NONE class name right now. Please update
+your code now.
+
+Line 7 column 15 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+      export {NONE} all
+              ^        
 ------
 ****** Fatal Error: This feature is only exported to {}.
 

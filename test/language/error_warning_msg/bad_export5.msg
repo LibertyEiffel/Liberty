@@ -5,7 +5,14 @@ Line 6 column 4 in AUX_EXPORT5A (/home/cadrian/Workspace/Dev/Liberty/test/langua
    f is
    ^   
 ------
-****** 1 warning.
+****** Error: Forbidden call (i.e. exportation rules violated)
+when the type of Current is AUX_EXPORT5B. (See the next error
+report for details.)
+
+Line 11 column 16 in AUX_EXPORT5A (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export5a.e):
+            a1.g
+               ^
+------
 ****** Warning: The "feature" clause declares a narrower client
 list than the conforming parent(s) for AUX_EXPORT5B1.`g'. This
 can lead to catcalls! The final export list is {}.
@@ -21,14 +28,6 @@ feature {}
 Line 7 column 4 in AUX_EXPORT5B1 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export5b1.e):
    g is
    ^   
-------
-****** Error: Forbidden call (i.e. exportation rules violated)
-when the type of Current is AUX_EXPORT5B. (See the next error
-report for details.)
-
-Line 11 column 16 in AUX_EXPORT5A (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export5a.e):
-            a1.g
-               ^
 ------
 ****** Fatal Error: This feature is only exported to {}.
 
