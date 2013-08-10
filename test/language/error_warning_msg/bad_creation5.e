@@ -5,9 +5,11 @@ class BAD_CREATION5
 --
 -- Because we must check that all creation procedures do exists.
 --
-creation
+
+create {}
    non_exists, make
-feature
+
+feature {}
    make is
       do
       end

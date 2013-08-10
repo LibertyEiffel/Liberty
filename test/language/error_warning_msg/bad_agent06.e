@@ -3,20 +3,19 @@
 --
 class BAD_AGENT06
 
-creation make
+create {}
+   make
 
-feature
-
+feature {ANY}
    make is
       local
-    p: FUNCTION[TUPLE[CHARACTER],REAL];
+         p: FUNCTION[TUPLE[CHARACTER],REAL];
       do
-    p := agent proc(?);
-    p.call([6]);
+         p := agent proc(?);
+         p.call([6]);
       end;
 
-feature {NONE}
-
+feature {}
    proc(c: CHARACTER): REAL is
       do
       end;

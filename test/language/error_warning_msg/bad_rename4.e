@@ -5,11 +5,11 @@ class BAD_RENAME4
 -- From a bug report of Xavier CREGUT
 
 inherit ANY rename foo as bar end
-   
-creation
+
+create {}
    main
-   
-feature
+
+feature {}
    main is
       do
       end

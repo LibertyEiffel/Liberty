@@ -3,7 +3,7 @@
 --
 class AUX_GENERIC11[E_]
 
-feature
+feature {ANY}
    do_it is
       local
          e: E_
@@ -30,4 +30,3 @@ end -- class AUX_GENERIC11
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-

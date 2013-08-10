@@ -6,12 +6,11 @@ class BAD_INHERIT8
 insert
    STRING
 
-creation make
+create {} make
 
-feature
-
+feature {}
    make is do end
-   
+
 end -- class BAD_INHERIT8
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

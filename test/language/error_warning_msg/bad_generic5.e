@@ -3,15 +3,15 @@
 --
 class BAD_GENERIC5
 
-creation make
+create {}
+   make
 
-feature
-   
+feature {}
    make is
       local
-    aux: AUX_GENERIC5[INTEGER];
+         aux: AUX_GENERIC5[INTEGER];
       do
-    !!aux;
+         !!aux;
       end;
 
 end -- class BAD_GENERIC5

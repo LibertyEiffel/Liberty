@@ -3,7 +3,7 @@
 --
 class AUX_C
 inherit AUX_B redefine foo, foo2 end
-feature
+feature {ANY}
    foo(bar: AUX_B) is
       do
       end

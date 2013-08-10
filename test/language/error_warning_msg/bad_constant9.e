@@ -2,15 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_CONSTANT9
-creation make
-feature
+
+create {}
+   make
+
+feature {}
    make is
       do
          print(f.out+"%N")
       end
-   
+
    f (i:INTEGER): INTEGER is 3
-   
+
 end -- class BAD_CONSTANT9
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

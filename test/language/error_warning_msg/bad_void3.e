@@ -3,7 +3,7 @@
 --
 class BAD_VOID3
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

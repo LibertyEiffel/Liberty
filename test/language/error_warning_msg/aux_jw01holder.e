@@ -2,13 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_JW01HOLDER[G]
-creation make
-feature
+
+create {ANY}
+   make
+
+feature {ANY}
    make (x: G) is
       do
-    item := x
+         item := x
       end
+
    item: G
+
 end -- class AUX_JW01HOLDER
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

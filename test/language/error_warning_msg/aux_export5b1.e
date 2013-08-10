@@ -3,7 +3,7 @@
 --
 class AUX_EXPORT5B1
 inherit AUX_EXPORT5A1 redefine g end
-feature {NONE}
+feature {}
    g is
       do
       end

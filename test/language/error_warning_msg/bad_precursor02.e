@@ -3,25 +3,25 @@
 --
 class BAD_PRECURSOR02
 
-inherit 
+inherit
    AUX_PRECURSOR
       redefine function
       end
 
-creation make
+create {}
+   make
 
-feature 
-
+feature {}
    make is
       local
-    x: INTEGER
+         x: INTEGER
       do
-    x := function
+         x := function
       end
 
    function: INTEGER is
       do
-    Precursor
+         Precursor
       end
 
 end -- class BAD_PRECURSOR02

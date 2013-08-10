@@ -7,12 +7,11 @@ insert
    ANY
       rename c_inline_c as eric_inline_c
       end
-   
-creation
+
+create {}
    main
 
-feature
-
+feature {ANY}
    main is
       do
          eric_inline_c("hi");

@@ -2,9 +2,9 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_CREATION2
-creation
+create {ANY}
     make
-feature
+feature {ANY}
    make is do end;
 end -- class AUX_CREATION2
 --
@@ -25,4 +25,3 @@ end -- class AUX_CREATION2
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-

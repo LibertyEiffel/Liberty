@@ -3,7 +3,7 @@
 --
 class BAD_TO_POINTER
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

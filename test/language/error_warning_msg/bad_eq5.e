@@ -3,10 +3,10 @@
 --
 class BAD_EQ5
 
-creation
+create {}
    make
 
-feature
+feature {}
    make is
       local
          integer_64: INTEGER_64
@@ -16,6 +16,7 @@ feature
             -- Also note that no assignment cannot be done too which is coherent.
          end
       end
+
 end -- class BAD_EQ5
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

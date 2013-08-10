@@ -3,21 +3,21 @@
 --
 class BAD_FREE_OPERATOR5
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    infix "|=" (other: like Current): BOOLEAN is
       do
       end
-   
+
    make is
       local
-    x: like Current
+         x: like Current
       do
-    x |= x
+         x |= x
       end
-   
+
 end -- class BAD_FREE_OPERATOR5
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

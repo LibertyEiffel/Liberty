@@ -3,17 +3,17 @@
 --
 class BAD_FREE_OPERATOR1
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       local
-    s: STRING
+         s: STRING
       do
-    s := "foo"-+"bar"
+         s := "foo"-+"bar"
       end
-   
+
 end -- class BAD_FREE_OPERATOR1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

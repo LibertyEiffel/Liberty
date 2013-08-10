@@ -3,17 +3,18 @@
 --
 class BAD_CALL1
    -- From: Paul-Henry Perrin <Paul-Henry.Perrin@esial.u-nancy.fr>
-creation make
-   
-feature
 
+create {}
+   make
+
+feature {ANY}
    make is
-      local 
-    un_pointer: POINTER;
+      local
+         un_pointer: POINTER;
       do
-    -- On ne devrait pas ecrire ca mais 
-    -- ce n'est pas une raison ;-)
-    un_pointer := (Void).to_external;
+         -- On ne devrait pas ecrire ca mais
+         -- ce n'est pas une raison ;-)
+         un_pointer := (Void).to_external;
       end;
 
 end -- class BAD_CALL1

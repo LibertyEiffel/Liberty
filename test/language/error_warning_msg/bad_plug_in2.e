@@ -2,8 +2,10 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_PLUG_IN2
-creation
+
+create {}
    make
+
 feature {}
    make is
       local
@@ -19,7 +21,7 @@ feature {}
            momo
         ]"
       end
-   
+
 end -- class BAD_PLUG_IN2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

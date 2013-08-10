@@ -4,7 +4,7 @@ to do so.)
 
 The source lines involved by the message are the following:
 
-Line 12 columns 8, 23 in BAD_WEAK_REFERENCE01 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_weak_reference01.e):
-    bwr: WEAK_REFERENCE[INTEGER]
-         ^              ^       
+Line 12 columns 15, 30 in BAD_WEAK_REFERENCE01 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_weak_reference01.e):
+         bwr: WEAK_REFERENCE[INTEGER]
+              ^              ^       
 ------

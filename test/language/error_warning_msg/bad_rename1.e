@@ -2,17 +2,17 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_RENAME1
-   
-inherit 
+
+inherit
    AUX_RENAME1
       rename f as g, g as f, f as g
       end;
-   
-creation make
-   
-feature 
-   
-   make is 
+
+create {}
+   make
+
+feature {}
+   make is
       do
 
       end;

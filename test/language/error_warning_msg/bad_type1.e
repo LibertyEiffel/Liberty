@@ -3,18 +3,18 @@
 --
 class BAD_TYPE1
 
-creation make
-   
-feature
-   
+create {}
+   make
+
+feature {}
    make is
       local
-    l_integer: LINKED_LIST[INTEGER];
-    c: COLLECTION[STRING];
+         l_integer: LINKED_LIST[INTEGER];
+         c: COLLECTION[STRING];
       do
-    c := l_integer;
+         c := l_integer;
       end;
-   
+
 end -- class BAD_TYPE1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

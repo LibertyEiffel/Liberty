@@ -3,7 +3,7 @@
 --
 class AUX_CREATION1
 
-creation 
+create {ANY}
 
 end -- class AUX_CREATION1
 --

@@ -2,17 +2,17 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_RENAME2
-   
-creation make
-   
-feature 
-   
-   make is 
+
+create {}
+   make
+
+feature {}
+   make is
       local
-    aux: BAD_RENAME1;
+         aux: BAD_RENAME1;
       do
-    !!aux.make;
-    aux.g;
+         !!aux.make;
+         aux.g;
       end;
 
 end -- class BAD_RENAME2

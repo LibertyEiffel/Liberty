@@ -3,9 +3,9 @@
 --
 class BAD_AGENT24
 
-creation
+create {}
    main
-   
+
 feature {ANY}
    make is
       do

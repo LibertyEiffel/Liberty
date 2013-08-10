@@ -2,15 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_STRIP1
-creation make
-feature
+
+create {}
+   make
+
+feature {}
    b : BOOLEAN
 
    f (i : INTEGER) : BOOLEAN is
-       do
-       ensure
-          illegal_assert: equal (strip(f), old strip(f));
-       end
+      do
+      ensure
+         illegal_assert: equal (strip(f), old strip(f));
+      end
 
    make is
       do

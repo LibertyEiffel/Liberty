@@ -6,7 +6,7 @@ class BAD_INHERIT19
 inherit
    AUX_INHERIT19
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

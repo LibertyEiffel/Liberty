@@ -2,15 +2,15 @@
 -- See the Copyright notice at the end of this file.
 --
 class dEferred BAD_CLASS2
-   
-creation make
-   
-feature 
 
-   make is 
-      do 
+create {}
+   make
+
+feature {}
+   make is
+      do
       end;
-   
+
 end -- class dEferred
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

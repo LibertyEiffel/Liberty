@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_COLON
-   
-creation make
-   
-feature
 
+create {}
+   make
+
+feature {ANY}
    make is
       do
-    fonction(1, 2 3);
+         fonction(1, 2 3);
       end; -- creer
-   
+
    fonction(a,b,c: INTEGER) is
       do
-    Result := true;
+         Result := true;
       end;
 
 end -- class BAD_COLON

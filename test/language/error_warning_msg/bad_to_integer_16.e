@@ -6,17 +6,17 @@ class BAD_TO_INTEGER_16
 -- No to_integer_16 in INTEGER_16 !
 --
 
-creation
+create {}
    make
 
-feature
+feature {}
    make is
       local
          i16: INTEGER_16
       do
          i16 := i16.to_integer_16
       end
-   
+
 end -- class BAD_TO_INTEGER_16
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

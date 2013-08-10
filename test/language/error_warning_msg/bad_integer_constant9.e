@@ -5,18 +5,18 @@ class BAD_INTEGER_CONSTANT9
 --
 -- Tracking overflow.
 --
-   
-creation make
-   
-feature 
 
-   make is 
+create {}
+   make
+
+feature {}
+   make is
       local
          i16: INTEGER_16
-      do 
+      do
          i16 := {INTEGER_16 32768}
       end
-   
+
 end -- class BAD_INTEGER_CONSTANT9
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

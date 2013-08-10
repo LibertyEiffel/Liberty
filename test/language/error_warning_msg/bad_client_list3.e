@@ -1,6 +1,6 @@
 class BAD_CLIENT_LIST3
 
-creation
+create {}
    main
 
 feature {like Current}
@@ -9,4 +9,3 @@ feature {like Current}
       end
 
 end
-   

@@ -2,19 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_INSPECT7
-creation make
-feature
 
+create {}
+   make
+
+feature {}
    make is
       local
-    i: INTEGER
+         i: INTEGER
       do
-    inspect
-       i
-    when 1, 2 then
-    when 1 then -- Second occurrence !
-    end
+         inspect
+            i
+         when 1, 2 then
+         when 1 then -- Second occurrence !
+         end
       end
+
 end -- class BAD_INSPECT7
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

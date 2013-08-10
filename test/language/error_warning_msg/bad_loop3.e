@@ -2,8 +2,8 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_LOOP3
-   
-creation
+
+create {}
    main
 
 feature {}
@@ -13,7 +13,7 @@ feature {}
          until
             Void
          loop
-            
+
          end
       end
 

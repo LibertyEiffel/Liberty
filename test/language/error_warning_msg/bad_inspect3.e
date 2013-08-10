@@ -3,10 +3,10 @@
 --
 class BAD_INSPECT3
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       do
          inspect "toto"

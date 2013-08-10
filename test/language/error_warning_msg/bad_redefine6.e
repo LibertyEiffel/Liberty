@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_REDEFINE6
-   
+
 inherit
-   ANY redefine is_equal, is_equal 
+   ANY redefine is_equal, is_equal
       end;
-   
-creation make
-   
-feature 
-   
-   make is 
-      do 
-    if Current.is_equal(Current) then
-       make;
-    end;
+
+create {}
+   make
+
+feature {}
+   make is
+      do
+         if Current.is_equal(Current) then
+            make;
+         end;
       end;
-   
+
    is_equal(other: like Current): BOOLEAN is
       do
       end;

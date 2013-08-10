@@ -3,9 +3,13 @@
 --
 class BAD_GENERIC6 -- SZ:31:
 -- From a bug report privat@lirmm.fr (Jean Privat)
-creation make
-feature
-   a : AUX_GENERIC6[INTEGER]
+
+create {}
+   make
+
+feature {}
+   a: AUX_GENERIC6[INTEGER]
+
    make is
       do
          create a.make(10)
@@ -14,6 +18,7 @@ feature
          print(a.foo.my_t)
          print("%N")
       end
+
 end -- class BAD_GENERIC6
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

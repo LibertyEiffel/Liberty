@@ -3,10 +3,9 @@
 --
 class BAD_ROOT2
 
-creation foo
+create {} foo
 
-feature
-
+feature {}
    make is
       do
       end;

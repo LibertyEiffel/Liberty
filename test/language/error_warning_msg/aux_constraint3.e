@@ -3,7 +3,7 @@
 --
 class AUX_CONSTRAINT3[X,Y->X]
 
-feature
+feature {ANY}
 
    item1: X;
 

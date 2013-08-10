@@ -3,16 +3,20 @@
 --
 class BAD_REDEFINE9
 inherit AUX_REDEFINE9 redefine dummy end;
-creation make
-feature
+
+create {}
+   make
+
+feature {}
    make is
       do
          if dummy then end
       end
    dummy : BOOLEAN is
-      do 
-    Result := False 
+      do
+         Result := False
       end
+
 end -- class BAD_REDEFINE9
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -3,17 +3,17 @@
 --
 class AUX_PRECURSOR09
 
-creation
+create {ANY}
    make_aux
 
-feature
+feature {ANY}
    make_aux is
       do
       end
 
    foo: like Current is
       do
-    Result := create {AUX_PRECURSOR09}.make_aux
+         Result := create {AUX_PRECURSOR09}.make_aux
       end
 end -- class AUX_PRECURSOR09
 --

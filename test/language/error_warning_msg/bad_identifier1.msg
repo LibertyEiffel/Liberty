@@ -6,7 +6,7 @@ to use `IsEmpty' or `isEmpty' at one place while all other places
 are using `is_empty'. Finally, this strict constraint will help
 us to improve error messages of the compiler.
 
-Line 15 column 7 in BAD_IDENTIFIER1 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_identifier1.e):
+Line 15 column 13 in BAD_IDENTIFIER1 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_identifier1.e):
          badIdentifier: STRING
             ^                 
 ------

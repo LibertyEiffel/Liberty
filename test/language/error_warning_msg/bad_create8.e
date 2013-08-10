@@ -3,17 +3,17 @@
 --
 class BAD_CREATE8
 
-creation
+create {}
    main
 
-feature
+feature {}
    main is
       local
          integer: INTEGER
       do
          integer := create {INTEGER}.make
       end
-   
+
 end -- class BAD_CREATE8
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

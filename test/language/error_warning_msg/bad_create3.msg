@@ -4,10 +4,10 @@ allowed.
 
 The source lines involved by the message are the following:
 
-Line 12 column 2 in ANY (/home/colnet/SmartEiffel/lib/kernel/any.e):
+Line 11 column 4 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
    default_create is
    ^                
-Line 14 column 10 in BAD_CREATE3 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_create3.e):
+Line 14 column 10 in BAD_CREATE3 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_create3.e):
          create aux
          ^         
 ------
@@ -18,10 +18,10 @@ procedure here.
 
 The source lines involved by the message are the following:
 
-Line 14 column 10 in BAD_CREATE3 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_create3.e):
+Line 14 column 10 in BAD_CREATE3 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_create3.e):
          create aux
          ^         
-Line 7 column 4 in AUX_CREATE3 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/aux_create3.e):
+Line 7 column 4 in AUX_CREATE3 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_create3.e):
    make
    ^   
 ------

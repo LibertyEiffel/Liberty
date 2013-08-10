@@ -4,7 +4,7 @@
 class BAD_SZ550
    -- From smartzilla 550
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

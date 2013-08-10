@@ -3,13 +3,15 @@
 --
 class BAD_CLASS4
 -- Checking for multiple definition.
-creation make
-feature
 
+create {}
+   make
+
+feature {ANY}
    make is
       do
       end
-   
+
    a, b, c is
       do
       end
@@ -17,7 +19,7 @@ feature
    d, b, f is
       do
       end
-   
+
 end -- class BAD_CLASS4
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

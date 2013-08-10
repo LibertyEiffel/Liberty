@@ -3,10 +3,10 @@
 --
 class BAD_C_INLINE_C_2
 
-creation
+create {}
    main
 
-feature
+feature {ANY}
    main is
       do
          c_inline_c("hi", "world");

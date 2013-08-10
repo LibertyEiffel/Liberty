@@ -3,17 +3,16 @@
 --
 class BAD_CREATE5
 
-creation
+create {}
    make
 
-feature
-
+feature {}
    make is
       local
-    aux_create5: AUX_CREATE5
+         aux_create5: AUX_CREATE5
       do
-    create aux_create5
-    create aux_create5.default_create
+         create aux_create5
+         create aux_create5.default_create
       end
 
 end -- class BAD_CREATE5

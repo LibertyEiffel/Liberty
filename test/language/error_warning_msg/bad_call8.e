@@ -4,7 +4,7 @@
 class BAD_CALL8
    -- From sz:518
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

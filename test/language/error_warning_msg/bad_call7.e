@@ -5,7 +5,8 @@ class BAD_CALL7
 --
 -- To check warning about extra blank space between some manifest and the dot.
 --
-creation
+
+create {}
    make
 
 feature {}
@@ -49,7 +50,7 @@ feature {}
 
          string := "foo". print_on(io)                   -- <-- Fatal error here.
       end
-   
+
 end -- class BAD_CALL7
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -3,16 +3,17 @@
 --
 class BAD_REDEFINE13
 -- Invalid redefinition of a feature Result (VDRD.6 ?).
-creation
+
+create {}
    make
 
-feature
+feature {}
    make is
       local
-    aux: AUX_REDEFINE13B
+         aux: AUX_REDEFINE13B
       do
       end
-   
+
 end -- class BAD_REDEFINE13
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -6,18 +6,17 @@ class BAD_ASSIGNMENT20
 insert
    ANY
 
-creation
+create {}
    make
 
-feature
+feature {ANY}
    make is
       local
          any: ANY
       do
          any := Current
       end
-   
-   
+
 end -- class BAD_ASSIGNMENT20
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

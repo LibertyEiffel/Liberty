@@ -3,10 +3,10 @@
 --
 class BAD_GENERIC8
 
-create
+create {}
    make
 
-feature
+feature {}
    make is
       local
          a: AUX_GENERIC8

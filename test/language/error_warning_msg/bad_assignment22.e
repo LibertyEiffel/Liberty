@@ -3,10 +3,10 @@
 --
 class BAD_ASSIGNMENT22
 
-creation
+create {}
    make
 
-feature
+feature {ANY}
    make is
       local
          c: COLLECTION[COMPARABLE]; a: ARRAY[INTEGER]
@@ -16,8 +16,7 @@ feature
          c := a -- <-- Must be rejected.
          comparable := c.item(1)
       end
-   
-   
+
 end -- class BAD_ASSIGNMENT22
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

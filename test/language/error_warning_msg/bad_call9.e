@@ -3,12 +3,12 @@
 --
 class BAD_CALL9
 
-creation
+create {}
    main
 
 feature {}
    to_string: STRING
-   
+
    main is
       local
          string: AUX_CALL9_STRING; i: INTEGER

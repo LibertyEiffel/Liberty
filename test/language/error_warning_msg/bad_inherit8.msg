@@ -6,13 +6,13 @@ be.
 
 The source lines involved by the message are the following:
 
-Line 68 column 2 in STRING (/home/colnet/SmartEiffel/lib/string/./string.e):
+Line 17 column 4 in STRING (/home/cadrian/Workspace/Dev/Liberty/src/lib/string/string.e):
    make, with_capacity (needed_capacity: INTEGER) is
    ^                                                
-Line 7 column 4 in BAD_INHERIT8 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_inherit8.e):
+Line 7 column 4 in BAD_INHERIT8 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_inherit8.e):
    STRING
    ^     
-Line 13 column 4 in BAD_INHERIT8 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_inherit8.e):
+Line 12 column 4 in BAD_INHERIT8 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_inherit8.e):
    make is do end
    ^             
 ------

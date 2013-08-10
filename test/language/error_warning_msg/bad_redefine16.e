@@ -9,10 +9,10 @@ insert
    AUX_REDEFINE16
       rename bar as bar2 end
 
-creation
+create {}
    foo
 
-feature
+feature {}
    bar1 is
       do
 --         io.put_integer(1)

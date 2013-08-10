@@ -2,14 +2,17 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_EXPORT3
-creation make
-feature
+
+create {}
+   make
+
+feature {}
    make is
       local
-    aux: AUX_EXPORT3B
+         aux: AUX_EXPORT3B
       do
-    create aux
-    aux.foo
+         create aux
+         aux.foo
       end
 
 end -- class BAD_EXPORT3

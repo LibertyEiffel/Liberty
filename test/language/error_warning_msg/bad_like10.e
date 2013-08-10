@@ -3,15 +3,15 @@
 --
 class BAD_LIKE10
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       local
-    a: like procedure;
+         a: like procedure;
       do
-    a := 1;
+         a := 1;
       end;
 
    procedure is

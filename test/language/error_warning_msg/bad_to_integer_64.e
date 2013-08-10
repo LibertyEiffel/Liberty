@@ -6,17 +6,17 @@ class BAD_TO_INTEGER_64
 -- No to_integer_64 in INTEGER_64 !
 --
 
-creation
+create {}
    make
 
-feature
+feature {}
    make is
       local
          i64: INTEGER_64
       do
          i64 := i64.to_integer_64
       end
-   
+
 end -- class BAD_TO_INTEGER_64
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

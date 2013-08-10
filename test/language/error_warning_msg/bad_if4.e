@@ -3,7 +3,7 @@
 --
 class BAD_IF4
 
-creation
+create {}
    main
 
 feature {}

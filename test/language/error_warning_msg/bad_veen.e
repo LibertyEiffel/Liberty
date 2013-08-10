@@ -3,10 +3,11 @@
 --
 class BAD_VEEN
 -- From: Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
-creation make
 
-feature
+create {}
+   make
 
+feature {}
    make is
       local
          b : BOOLEAN;

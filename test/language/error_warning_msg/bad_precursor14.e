@@ -7,14 +7,15 @@ insert
    AUX_PRECURSOR14
       end
 
-creation
+create {}
    main
 
-feature
+feature {}
    main is
       do
          Precursor -- ... no existing one!
       end
+
 end -- class BAD_PRECURSOR14
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

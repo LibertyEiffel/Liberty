@@ -5,7 +5,7 @@ is not easy or possible to compute the most general type for the
 following set of types: {INTEGER_8, STRING}. See the next error
 message.
 
-Line 10 column 8 in BAD_MANIFEST_ARRAY1 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_manifest_array1.e):
+Line 12 column 14 in BAD_MANIFEST_ARRAY1 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_manifest_array1.e):
          if (<< "foo" , 3 >>) = Void then
              ^                           
 ------
@@ -13,7 +13,7 @@ Line 10 column 8 in BAD_MANIFEST_ARRAY1 (/home/colnet/SmartEiffel/test_suite/lan
 longer supported. See our "SmartEiffel/tutorial/manifest_notation.e"
 in order to use the new notation.
 
-Line 10 column 8 in BAD_MANIFEST_ARRAY1 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_manifest_array1.e):
+Line 12 column 14 in BAD_MANIFEST_ARRAY1 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_manifest_array1.e):
          if (<< "foo" , 3 >>) = Void then
              ^                           
 ------

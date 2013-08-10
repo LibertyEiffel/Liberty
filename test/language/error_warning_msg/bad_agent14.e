@@ -3,10 +3,10 @@
 --
 class BAD_AGENT14
 
-creation make
+create {}
+   make
 
-feature
-
+feature {ANY}
    make is
       local
          my_collection: COLLECTION[STRING]
@@ -16,7 +16,6 @@ feature
       end
 
 feature {}
-
    print_item(item: STRING; c: CHARACTER) is
       do
       end

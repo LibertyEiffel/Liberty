@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_INTEGER_CONSTANT7
-   
-creation make
-   
-feature 
 
-   make is 
+create {}
+   make
+
+feature {}
+   make is
       local
          i64: INTEGER_64
-      do 
+      do
          i64 := 9223372036854775807 + 1
       end
-   
+
 end -- class BAD_INTEGER_CONSTANT7
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

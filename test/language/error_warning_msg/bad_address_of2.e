@@ -5,13 +5,13 @@ class BAD_ADDRESS_OF2
 
 -- From a bug report of : Brian STRELIOFF
 
-creation make
+create {}
+   make
 
-feature
-
+feature {ANY}
    make is
       do
-    foo($Current);
+         foo($Current);
       end;
 
    foo(arg: POINTER) is
@@ -56,4 +56,3 @@ end -- class BAD_ADDRESS_OF2
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-

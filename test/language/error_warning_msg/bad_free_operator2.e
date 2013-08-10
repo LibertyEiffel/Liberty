@@ -3,18 +3,18 @@
 --
 class BAD_FREE_OPERATOR2
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    infix "=" (other: like Current): BOOLEAN is
       do
       end
-   
+
    make is
       do
       end
-   
+
 end -- class BAD_FREE_OPERATOR2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -2,12 +2,11 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_LIKE8
-   
-creation
+
+create {}
    make
 
-feature
-
+feature {}
    make is
       local
          a: AUX_LIKE8A;   b: AUX_LIKE8B
@@ -16,11 +15,11 @@ feature
          create b
          same_as(a,b)
       end
-   
+
    same_as(some: AUX_LIKE8A; other: like some) is
       do
       end
-   
+
 end -- class BAD_LIKE8
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

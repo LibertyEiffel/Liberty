@@ -3,13 +3,13 @@
 --
 class AUX_EXPORT1B
 inherit AUX_EXPORT1A
-feature
-    foo is 
+feature {ANY}
+   foo is
       local
-    other: like Current
-      do 
-    make
-    other.make -- It is right to reject this :-)
+         other: like Current
+      do
+         make
+         other.make -- It is right to reject this :-)
       end
 end -- class AUX_EXPORT1B
 --

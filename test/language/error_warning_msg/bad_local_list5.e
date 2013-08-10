@@ -3,17 +3,17 @@
 --
 class BAD_LOCAL_LIST5
 
-creation
+create {}
    main
 
-feature
+feature {}
    main is
       local
          clock CLOCK integer INTEGER
       do
          integer := clock.value
       end
-   
+
 end -- class BAD_LOCAL_LIST5
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

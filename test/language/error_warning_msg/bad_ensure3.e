@@ -2,16 +2,16 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_ENSURE3
-   
+
 inherit
    AUX_ENSURE3
       redefine make, make2
       end
-   
-creation
+
+create {}
    main
-   
-feature
+
+feature {}
    main is
       do
          make
@@ -19,21 +19,21 @@ feature
          attr := 0
          make2
       end
-   
+
    make is
       do
          attr := attr + 2
       ensure -- 'ensure then' is needed
          attr = 2
       end
-   
+
    make2 is
       do
          attr := attr + 2
       ensure then -- 'ensure' is needed
          attr = 2
       end
-   
+
 end -- class BAD_ENSURE3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

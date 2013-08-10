@@ -6,17 +6,17 @@ class BAD_TO_REAL_64
 -- No to_real_64 in REAL_64 !
 --
 
-creation
+create {}
    make
 
-feature
+feature {}
    make is
       local
          real_64: REAL_64
       do
          real_64 := real_64.to_real_64
       end
-   
+
 end -- class BAD_TO_REAL_64
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

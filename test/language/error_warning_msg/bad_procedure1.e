@@ -3,16 +3,15 @@
 --
 class BAD_PROCEDURE1
 
-creation
+create {}
    make
 
-feature
-   
+feature {}
    make is
       local
-    bar: BOOLEAN
+         bar: BOOLEAN
       do
-    bar := foo
+         bar := foo
       end
 
    foo is

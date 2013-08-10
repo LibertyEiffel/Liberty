@@ -1,4 +1,4 @@
-****** Warning: In type BAD_GENERIC12, features "bar" and "foo"
+****** Error: In type BAD_GENERIC12, features "foo" and "bar"
 come from the same original feature via multiple "insert" paths,
 but none comes via an "inherit" path.
 Below, you get the feature evolution step by step. Note that in
@@ -8,13 +8,15 @@ use enough "inherit" links in place of "insert" links to have
 one "inherit" path or rename the feature to get the same name
 in BAD_GENERIC12 type.
 
-First "insert" path (from top to bottom):
-   `print_on' in ANY
-      inserted as `bar' in BAD_GENERIC12
-
-Second "insert" path (from top to bottom):
+First "insert" path (from parent to child):
    `print_on' in ANY
       inserted as `foo' in BAD_GENERIC12
 
+Second "insert" path (from parent to child):
+   `print_on' in ANY
+      inserted as `bar' in BAD_GENERIC12
+
 ------
-****** 1 warning.
+****** Fatal Error: Correct the previous error first.
+
+------

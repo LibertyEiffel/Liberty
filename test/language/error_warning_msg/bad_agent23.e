@@ -3,8 +3,8 @@
 --
 class BAD_AGENT23
 -- From sz:562
-   
-creation {ANY}
+
+create {ANY}
    make
 
 feature {ANY}

@@ -3,7 +3,7 @@
 --
 class AUX_GENERIC12[E_]
 
-feature
+feature {ANY}
    do_print (x: E_) is
       do
          x.print_on(io) -- This call is ambiguous and should be rejected for E_=BAD_GENERIC12
@@ -28,4 +28,3 @@ end -- class AUX_GENERIC12
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-

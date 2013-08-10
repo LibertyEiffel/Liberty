@@ -2,14 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_REDEFINE11
-creation make
-feature
+
+create {}
+   make
+
+feature {}
    c : AUX_C
    make is
       do
-    create c
-    c.foo(c)
+         create c
+         c.foo(c)
       end
+
 end -- class BAD_REDEFINE11
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

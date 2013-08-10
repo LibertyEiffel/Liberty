@@ -2,13 +2,16 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_STRIP2
-creation make
-feature
 
+create {}
+   make
+
+feature {}
    make is
       do
          if strip(a) /= Void then end;
       end
+
 end -- class BAD_STRIP2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

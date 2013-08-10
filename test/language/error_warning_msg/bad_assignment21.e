@@ -3,18 +3,17 @@
 --
 class BAD_ASSIGNMENT21
 
-creation
+create {}
    make
 
-feature
+feature {ANY}
    make is
       local
          c: COLLECTION[ANY]; a: ARRAY[INTEGER]
       do
          c := a -- <-- Must be rejected.
       end
-   
-   
+
 end -- class BAD_ASSIGNMENT21
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

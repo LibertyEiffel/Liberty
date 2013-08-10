@@ -3,10 +3,10 @@
 --
 expanded class BAD_ROOT3
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       do
       end;

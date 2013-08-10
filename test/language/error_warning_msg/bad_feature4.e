@@ -1,23 +1,23 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class   BAD_FEATURE4
+class BAD_FEATURE4
 
-creation
+create {}
    make
 
-feature   
+feature {}
    make is
          -- Make
       do
          test_1.f
       end
-   
+
 feature {}
    test_1 is
       do
       end
-   
+
 end -- class    BAD_FEATURE4
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

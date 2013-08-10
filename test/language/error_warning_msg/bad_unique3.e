@@ -2,21 +2,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_UNIQUE3
-creation
+
+create {}
    make
 
-feature
-
+feature {}
    u1: INTEGER is unique
-   
+
    u2: INTEGER is unique
 
    make is
       do
-    if u1 < u2 then The compiler should check this wrong code
-    end
+         if u1 < u2 then The compiler should choke on this wrong code
+         end
       end
-   
+
 end -- class BAD_UNIQUE3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

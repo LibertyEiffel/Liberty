@@ -5,18 +5,18 @@ class BAD_INTEGER_CONSTANT8
 --
 -- Tracking overflow.
 --
-   
-creation make
-   
-feature 
 
-   make is 
+create {}
+   make
+
+feature {}
+   make is
       local
          i64: INTEGER_64
-      do 
+      do
          i64 := 9223372036854775808
       end
-   
+
 end -- class BAD_INTEGER_CONSTANT8
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_REDEFINE9
-feature
+feature {ANY}
    dummy : BOOLEAN;
 end -- class AUX_REDEFINE9
 --

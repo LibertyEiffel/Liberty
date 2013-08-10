@@ -3,8 +3,11 @@
 --
 class BAD_AGENT18
 -- SZ:448: from pc@axlog.fr (philippe coucaud)
-creation make
-feature
+
+create {}
+   make
+
+feature {ANY}
    f1 (max_depth: INTEGER) is
       do
       end
@@ -16,6 +19,7 @@ feature
          -- wrong number of effective parameters (2 instead of 1)
          list.do_all(agent {BAD_AGENT18}.f1(1,2))
       end
+
 end -- class BAD_AGENT18
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

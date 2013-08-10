@@ -6,17 +6,17 @@ class BAD_LIKE6
    -- From : Olivier ZENDRA
    --
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    an_attribute: like an_attribute;
-   
+
    make is
       do
-    an_attribute := an_attribute;
+         an_attribute := an_attribute;
       end;
-   
+
 end -- class BAD_LIKE6
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -3,10 +3,10 @@
 --
 class BAD_INSPECT2
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       local
          s: STRING

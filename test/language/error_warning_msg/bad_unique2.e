@@ -3,17 +3,17 @@
 --
 class BAD_UNIQUE2
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    dummy: CHARACTER is unique;
 
    make is
       local
-    x: CHARACTER;
+         x: CHARACTER;
       do
-    x := dummy;
+         x := dummy;
       end;
 
 end -- class BAD_UNIQUE2

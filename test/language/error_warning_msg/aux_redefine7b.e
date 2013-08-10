@@ -2,7 +2,7 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_REDEFINE7B
-feature
+feature {ANY}
    path: STRING;
 end -- class AUX_REDEFINE7B
 --

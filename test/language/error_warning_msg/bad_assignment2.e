@@ -3,9 +3,11 @@
 --
 class BAD_ASSIGNMENT2
 -- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
-creation make
-feature
 
+create {}
+   make
+
+feature {ANY}
    exp: AUX_ASSIGNMENT2EXP
 
    make is
@@ -16,6 +18,7 @@ feature
          exp := ref -- This one is not allowed !
          print(exp.i.to_string)
       end
+
 end -- class BAD_ASSIGNMENT2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

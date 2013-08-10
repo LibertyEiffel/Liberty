@@ -2,7 +2,7 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_LIKE12A
-feature
+feature {ANY}
    t: INTEGER is
       do
       end

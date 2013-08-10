@@ -2,10 +2,10 @@
 
 The source lines involved by the message are the following:
 
-Line 12 column 3 in BAD_LOCAL_LIST2 (/home/colnet/SmartEiffel/work/lib_test3/bad_local_list2.e):
-    bar: INTEGER;
-    ^            
-Line 17 column 4 in BAD_LOCAL_LIST2 (/home/colnet/SmartEiffel/work/lib_test3/bad_local_list2.e):
+Line 12 column 10 in BAD_LOCAL_LIST2 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_local_list2.e):
+         bar: INTEGER;
+         ^            
+Line 17 column 4 in BAD_LOCAL_LIST2 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_local_list2.e):
    bar: INTEGER
    ^           
 ------

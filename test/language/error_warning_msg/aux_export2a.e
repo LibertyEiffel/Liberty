@@ -3,8 +3,7 @@
 --
 class AUX_EXPORT2A
 
-feature {NONE}
-
+feature {}
    foo is do end;
 
 end -- class AUX_EXPORT2A

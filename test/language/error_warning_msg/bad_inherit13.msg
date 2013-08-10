@@ -2,10 +2,10 @@
 
 The source lines involved by the message are the following:
 
-Line 10 column 22 in BAD_INHERIT13 (/home/colnet/SmartEiffel/work/lib_test3/bad_inherit13.e):
+Line 10 column 22 in BAD_INHERIT13 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_inherit13.e):
       undefine foo2, count
                      ^    
-Line 25 column 4 in AUX_INHERIT13B (/home/colnet/SmartEiffel/work/lib_test3/aux_inherit13b.e):
+Line 24 column 4 in AUX_INHERIT13B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_inherit13b.e):
    count: INTEGER
    ^             
 ------

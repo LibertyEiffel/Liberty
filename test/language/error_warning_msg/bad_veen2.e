@@ -2,22 +2,26 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_VEEN2
-creation make
-feature
+
+create {}
+   make
+
+feature {}
    f (i : INTEGER) : BOOLEAN is
-       local
-          j : INTEGER
-       do
-          j := j + 1
-       ensure
-          illegal_assert: i = old j
-       end
+      local
+         j : INTEGER
+      do
+         j := j + 1
+      ensure
+         illegal_assert: i = old j
+      end
 
    make is
       do
          print (f(0))
          print (f(1))
       end
+
 end -- class BAD_VEEN2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

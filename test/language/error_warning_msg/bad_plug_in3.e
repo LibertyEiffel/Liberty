@@ -3,7 +3,7 @@
 --
 class BAD_PLUG_IN3
 
-creation
+create {}
    make
 
 feature {}

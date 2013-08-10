@@ -3,9 +3,9 @@
 --
 class BAD_SYNTAX07
 
-create
+create {}
    main
-   
+
 feature {}
    main is
       do
@@ -14,7 +14,7 @@ feature {}
    missing_is yes
       once
       end
-   
+
 end -- class BAD_SYNTAX07
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

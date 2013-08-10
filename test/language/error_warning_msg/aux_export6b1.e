@@ -2,7 +2,7 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_EXPORT6B1
-inherit AUX_EXPORT6A1 export {NONE} g end
+inherit AUX_EXPORT6A1 export {} g end
 end -- class AUX_EXPORT6B1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -3,10 +3,10 @@
 --
 class AUX_CONSTRAINT_A[X -> NUMERIC]
 
-creation make
+create {ANY}
+   make
 
-feature
-
+feature {ANY}
    x: X;
 
    make(vx: X) is

@@ -2,9 +2,11 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_GENERIC11
-creation
+
+create {}
    make
-feature
+
+feature {}
    make is
       local
          g: AUX_GENERIC11[INTEGER]

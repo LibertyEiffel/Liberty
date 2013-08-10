@@ -9,10 +9,10 @@ initialization.
 
 The source lines involved by the message are the following:
 
-Line 16 column 5 in BAD_EXPANDED2 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_expanded2.e):
+Line 16 column 7 in BAD_EXPANDED2 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_expanded2.e):
    e: AUX_EXPANDED2
       ^            
-Line 12 column 1 in AUX_EXPANDED2 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/aux_expanded2.e):
-creation {ANY}
-^             
+Line 12 column 1 in AUX_EXPANDED2 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_expanded2.e):
+create {ANY}
+^           
 ------

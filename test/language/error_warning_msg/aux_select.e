@@ -3,18 +3,17 @@
 --
 class AUX_SELECT
 
-feature
-
+feature {ANY}
    foo_count: INTEGER;
 
    foo is
       do
-    foo_count := foo_count + 1;
+         foo_count := foo_count + 1;
       end;
 
    bar is
       do
-    foo_count := foo_count + 1;
+         foo_count := foo_count + 1;
       end;
 
 end -- class AUX_SELECT
@@ -55,4 +54,3 @@ end -- class AUX_SELECT
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-

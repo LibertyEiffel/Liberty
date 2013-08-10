@@ -2,15 +2,16 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_REDEFINE14
+
 inherit
    AUX_REDEFINE14
       redefine foo
       end
 
-creation
+create {}
    make
 
-feature
+feature {}
    foo (bar: INTEGER_16) is
       do
       end
@@ -18,7 +19,7 @@ feature
    make is
       do
       end
-   
+
 end -- class BAD_REDEFINE14
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -3,20 +3,19 @@
 --
 class BAD_VEEN3
 
-creation
+create {}
    make
 
-feature
-
+feature {}
    make is
       local
-    i: BOOLEAN
+         i: BOOLEAN
       do
-    i := True
+         i := True
       ensure
-    i -- No !
+         i -- No !
       end
-   
+
 end -- class BAD_VEEN3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

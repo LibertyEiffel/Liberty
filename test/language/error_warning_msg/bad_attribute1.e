@@ -5,12 +5,13 @@ class BAD_ATTRIBUTE1
 --
 -- To check that a non existant attribute type is detected.
 --
-creation
+
+create {}
    main
 
-feature
+feature {ANY}
    non_existant_type: NON_EXISTANT_TYPE
-   
+
    main is
       do
          if non_existant_type = Void then
@@ -18,7 +19,7 @@ feature
             -- *** This should not be necessary ! ***
          end
       end
-   
+
 end -- class BAD_ATTRIBUTE1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

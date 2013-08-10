@@ -3,7 +3,7 @@
 --
 class BAD_ASSIGNMENT_TEST03
 
-creation
+create {}
    main
 
 feature {}
@@ -29,7 +29,7 @@ feature {}
          b ?= aux2.get_x
          c ?= aux3.get_x
       end
-   
+
 end -- class BAD_ASSIGNMENT_TEST03
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

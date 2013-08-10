@@ -3,17 +3,17 @@
 --
 class BAD_GENERIC1
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       local
-    dctn: DICTIONARY[INTEGER];
+         dctn: DICTIONARY[INTEGER];
       do
-    !!dctn.make;
+         !!dctn.make;
       end;
-   
+
 end -- class BAD_GENERIC1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

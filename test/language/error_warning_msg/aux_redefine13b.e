@@ -8,13 +8,12 @@ inherit
       redefine foo
       end
 
-feature
-
+feature {ANY}
    foo: like Current is
       do
-    Result := Current
+         Result := Current
       end
-   
+
 end -- class AUX_REDEFINE13B
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

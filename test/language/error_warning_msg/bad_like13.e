@@ -3,22 +3,23 @@
 --
 class BAD_LIKE13
 -- SZ:362 from wolfgang@agnld.uni-potsdam.de (Wolfgang Jansen)
-create make
 
-feature 
+create {}
+   make
 
-  make is
-    local
-      s: STRING
-    do
-      s := adapt_to("abc")
-      print(s);  print("%N")
-    end
+feature {}
+   make is
+      local
+         s: STRING
+      do
+         s := adapt_to("abc")
+         print(s);  print("%N")
+      end
 
-  adapt_to(pattern: like adapt_to): STRING is
-    do
-      Result := out + pattern
-    end
+   adapt_to(pattern: like adapt_to): STRING is
+      do
+         Result := out + pattern
+      end
 
 end -- class BAD_LIKE13
 --

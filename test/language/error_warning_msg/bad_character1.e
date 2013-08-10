@@ -3,19 +3,19 @@
 --
 class BAD_CHARACTER1
 
-creation make
+create {}
+   make
 
-feature
-
+feature {ANY}
    make is
       local
-    c: CHARACTER
+         c: CHARACTER
       do
-    c := '%/256/'
-    c := '%//'
-    c := '%/'
+         c := '%/256/'
+         c := '%//'
+         c := '%/'
       end
-   
+
 end -- class BAD_CHARACTER1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -3,12 +3,11 @@
 --
 deferred class AUX_VDRS4
 
-feature
-
+feature {ANY}
    a is deferred end
 
    b is deferred end
-   
+
 end -- class AUX_VDRS4
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

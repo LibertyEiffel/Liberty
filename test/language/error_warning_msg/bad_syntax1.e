@@ -3,13 +3,13 @@
 --
 class BAD_SYNTAX1
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       local
-    i: INTEGER[]
+         i: INTEGER[]
       do
       end
 

@@ -7,10 +7,10 @@ inherit
       redefine foo
       end
 
-creation
+create {}
    make
 
-feature
+feature {}
    foo (bar: ARRAY[INTEGER_16]) is
       do
       end
@@ -18,7 +18,7 @@ feature
    make is
       do
       end
-   
+
 end -- class BAD_REDEFINE15
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

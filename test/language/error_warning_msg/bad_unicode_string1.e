@@ -3,20 +3,20 @@
 --
 class BAD_UNICODE_STRING1
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       local
-    s: STRING
+         s: STRING
       do
-    s := "Hi %/Ux456/"
-    s := "Hi %/UxFFFF/"
-    s := "Hi %/Ux0000FFFF0/"
-    s := "%/Ux/"
+         s := "Hi %/Ux456/"
+         s := "Hi %/UxFFFF/"
+         s := "Hi %/Ux0000FFFF0/"
+         s := "%/Ux/"
       end
-   
+
 end -- class BAD_UNICODE_STRING1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

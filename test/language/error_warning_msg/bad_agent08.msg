@@ -3,10 +3,10 @@ into formal type STRING.
 
 The source lines involved by the message are the following:
 
-Line 12 column 18 in BAD_AGENT08 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_agent08.e):
-    r := agent f(?,2)
-                   ^ 
-Line 17 column 20 in BAD_AGENT08 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_agent08.e):
+Line 15 column 25 in BAD_AGENT08 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_agent08.e):
+         r := agent f(?,2)
+                        ^ 
+Line 20 column 20 in BAD_AGENT08 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_agent08.e):
    f(s: STRING; i: STRING) is
                    ^         
 ------

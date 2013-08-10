@@ -3,17 +3,17 @@
 --
 class BAD_CREATION7
 
-creation
+create {}
    main
 
-feature
+feature {}
    main is
       local
          fast_array: FAST_ARRAY[INTEGER]
       do
          fast_array := {FAST_ARRAY[INTEGER] << Void, 2 >> }
       end
-   
+
 end -- class BAD_CREATION7
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -2,18 +2,17 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_REDEFINE4
-   
+
 inherit ANY redefine foo_bar end;
-   
-creation {ANY}
+
+create {ANY}
    make
-   
+
 feature {ANY}
-   
-   make is 
-      do 
+   make is
+      do
       end;
-   
+
 end -- class BAD_REDEFINE4
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

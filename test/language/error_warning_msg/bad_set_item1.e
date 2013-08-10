@@ -2,12 +2,16 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_SET_ITEM1 -- SZ:91:
-creation make
-feature
+
+create {}
+   make
+
+feature {}
    make is
       do
-    (1).set_item(0)
+         (1).set_item(0)
       end
+
 end -- class BAD_SET_ITEM1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

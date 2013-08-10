@@ -3,16 +3,16 @@
 --
 class BAD_CONSTANT1
    -- From a bug report of Alex Cozzi
-creation make
 
-feature
+create {}
+   make
 
+feature {}
    anchor : REAL;
-   
+
    zero : like anchor is 0.0;
-   
-feature
-   
+
+feature {}
    make is
       do
       end

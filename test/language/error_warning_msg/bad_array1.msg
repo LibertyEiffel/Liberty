@@ -3,7 +3,7 @@
 
 The source lines involved by the message are the following:
 
-Line 14 columns 6, 9 in BAD_ARRAY1 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_array1.e):
-    if a1.bidon then
-       ^  ^         
+Line 14 columns 13, 16 in BAD_ARRAY1 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_array1.e):
+         if a1.bidon then
+            ^  ^         
 ------

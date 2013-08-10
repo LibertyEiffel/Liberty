@@ -3,16 +3,16 @@
 --
 class BAD_KEYWORD2
 
-creation 
+create {}
    make
 
-feature
+feature {}
 
    make is
       local
-    agent: INTEGER;
+         agent: INTEGER;
       do
-    agent := agent;
+         agent := agent;
       end;
 
 end -- class BAD_KEYWORD2

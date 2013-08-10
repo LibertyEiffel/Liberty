@@ -13,11 +13,10 @@ insert
       redefine routine
       end
 
-creation
+create {}
    make
-   
-feature
 
+feature {}
    make is
       do
          routine

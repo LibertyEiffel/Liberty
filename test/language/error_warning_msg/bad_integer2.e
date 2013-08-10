@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_INTEGER2
-   
-creation
+
+create {}
    make
-   
-feature 
-   make is 
+
+feature {}
+   make is
       local
          i: INTEGER_GENERAL
-      do 
+      do
          i := 1
       end
-   
+
 end -- class BAD_INTEGER2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

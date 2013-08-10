@@ -5,8 +5,8 @@ class BAD_SYNTAX08
 --
 -- Reported by Daniel F Moisset.
 --
-   
-creation
+
+create {}
    main
 
 feature {}
@@ -16,7 +16,6 @@ feature {}
                                0);
       end
 
-   
 end -- class BAD_SYNTAX08
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

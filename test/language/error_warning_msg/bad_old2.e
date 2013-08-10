@@ -2,19 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_OLD2
-creation make
-feature
-   
+
+create {}
+   make
+
+feature {}
    f (i : INTEGER) : BOOLEAN is
       do
          if i = old (old i) then
          end;
       end
-   
+
    make is
       do
          f(1);
       end
+
 end -- class BAD_OLD2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

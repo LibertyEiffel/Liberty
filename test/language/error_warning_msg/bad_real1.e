@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_REAL1
-   
-creation
+
+create {}
    make
-   
-feature 
-   make is 
+
+feature {}
+   make is
       local
          r: REAL_GENERAL
-      do 
+      do
          i := 1.0
       end
-   
+
 end -- class BAD_REAL1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

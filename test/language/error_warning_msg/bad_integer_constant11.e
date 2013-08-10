@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_INTEGER_CONSTANT11
-   
-creation make
-   
-feature 
 
-   make is 
+create {}
+   make
+
+feature {}
+   make is
       local
          i32: INTEGER_32
-      do 
+      do
          i32 := - -2147483648
       end
-   
+
 end -- class BAD_INTEGER_CONSTANT11
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

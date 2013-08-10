@@ -3,16 +3,17 @@
 --
 class BAD_AGENT16
 
-creation
+create {}
    make
 
-feature
+feature {ANY}
    make is
       local
          my_function: FUNCTION[TUPLE[INTEGER_8], INTEGER]; i: INTEGER
       do
          i := my_function.item([1, 2])
       end
+
 end -- class BAD_AGENT16
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -3,14 +3,17 @@
 --
 class BAD_PRECURSOR12
 -- From a bug report of Francois Colona.
-creation
+
+create {}
    make
-feature
+
+feature {}
    make is
       local
          tn: TREE_NODE[STRING]
       do
       end
+
 end -- class BAD_PRECURSOR12
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -5,9 +5,9 @@ class BAD_AGENT20
 
 -- As TUPLE must not hold open arguments.
 
-creation {ANY}
+create {ANY}
    make
-   
+
 feature {}
    make is
       do
@@ -19,7 +19,7 @@ feature {}
       do
          Result := repeat.first
       end
-   
+
 end -- class BAD_AGENT20
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

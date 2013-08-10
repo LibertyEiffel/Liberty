@@ -3,17 +3,17 @@
 --
 class BAD_ASSIGNMENT1
 
-creation make
-   
-feature 
-   
+create {}
+   make
+
+feature {ANY}
    make is
       local
-    i: INTEGER
+         i: INTEGER
       do
-    i := Void
+         i := Void
       end
-   
+
 end -- class BAD_ASSIGNMENT1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
