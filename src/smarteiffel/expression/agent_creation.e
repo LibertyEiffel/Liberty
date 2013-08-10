@@ -633,20 +633,7 @@ feature {AGENT_CREATION}
          omitted_arguments.count >= 1
       local
          i: INTEGER; open_operand: OPEN_OPERAND
-         function_call: FUNCTION_CALL; procedure_call: PROCEDURE_CALL
       do
-         error_handler.add_position(start_position)
-         error_handler.append(once "Please consider writing an explicit open argument list for your agent %
-                              %creation. Replace your code with: ")
-         if {FUNCTION_CALL} ?:= code then
-            function_call ::= code
-            error_handler.add_expression(function_call)
-         else
-            error_handler.append(once "%N")
-            procedure_call ::= code
-            error_handler.add_instruction(procedure_call)
-         end
-         error_handler.print_as_style_warning
          if open_operand_list = Void then
             create open_operand_list.with_capacity(omitted_arguments.count)
          end
