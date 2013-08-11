@@ -7,7 +7,7 @@ Found 0 test_* files.
 Found 1 bad_* file.
 Found 0 subdirectories.
 --------------------------------------------------------------------------------
-se c bad_loadpath1.e -o bad_loadpath1.exe -output_error_warning_on bad_loadpath1.new
+se c bad_loadpath1.e -o bad_loadpath1.exe -style_warning -output_error_warning_on bad_loadpath1.new
 Removing "bad_loadpath1.new".
 --------------------------------------------------------------------------------
 No "excluded.lst" here (good).
