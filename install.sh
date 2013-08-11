@@ -323,7 +323,7 @@ EOF
 EOF
 
     while read i gc tool; do
-        progress 30 $(($MAXTOOLCOUNT - 2)) $MAXTOOLCOUNT "$tool"
+        progress 30 $i $MAXTOOLCOUNT "$tool"
         test -d ${tool}.d || mkdir ${tool}.d
         cd ${tool}.d
         if [ -e $tool.ace ]; then
