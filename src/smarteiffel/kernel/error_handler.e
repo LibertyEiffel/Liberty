@@ -293,9 +293,9 @@ feature {}
                if errors = Void then
                   create errors.make
                   class_text.set_tag(inttag, errors)
-                  saved := True
                end
                errors.data.add_last(error)
+               saved := True
             end
             i := i + 1
          end
@@ -340,7 +340,6 @@ feature {}
          class_text /= Void
       local
          inttag: FIXED_STRING
-         i: INTEGER
          errors: TAGGED_ERRORS
          error: TAGGED_ERROR
       do
@@ -351,7 +350,7 @@ feature {}
             until
                errors.data.is_empty
             loop
-               error := errors.data.item(i)
+               error := errors.data.first
                if not error.is_emitted then
                   emit_error(warning_tag, error)
                   warning_counter := warning_counter + 1
