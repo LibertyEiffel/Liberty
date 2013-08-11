@@ -190,16 +190,18 @@ feature {ANY}
       local
          i: INTEGER; lt: LIVE_TYPE
       do
-         from
-            i := smart_eiffel.live_type_map.lower
-         until
-            i > smart_eiffel.live_type_map.upper
-         loop
-            lt := smart_eiffel.live_type_map.item(i)
-            if not lt.run_time_set.is_empty then
-               emit_warnings(lt.class_text)
+         if smart_eiffel.live_type_map /= Void then
+            from
+               i := smart_eiffel.live_type_map.lower
+            until
+               i > smart_eiffel.live_type_map.upper
+            loop
+               lt := smart_eiffel.live_type_map.item(i)
+               if not lt.run_time_set.is_empty then
+                  emit_warnings(lt.class_text)
+               end
+               i := i + 1
             end
-            i := i + 1
          end
       end
 
