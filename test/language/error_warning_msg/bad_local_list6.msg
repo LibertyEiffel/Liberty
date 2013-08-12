@@ -11,4 +11,3 @@ Line 12 column 38 in BAD_LOCAL_LIST6 (/home/cadrian/Workspace/Dev/Liberty/test/l
                                      ^      
 ------
 ****** 2 warnings.
-****** 2 warnings.
