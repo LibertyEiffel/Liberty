@@ -3,7 +3,7 @@
 --
 expanded class AUX_REDEFINE13B
 
-inherit
+insert
    AUX_REDEFINE13A
       redefine foo
       end

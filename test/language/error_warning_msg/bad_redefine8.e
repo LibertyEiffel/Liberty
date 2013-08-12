@@ -10,9 +10,10 @@ inherit
 create {}
    make
 
-feature {}
+feature {ANY}
     path: STRING;
 
+feature {}
     make is
       do
          if path /= Void then

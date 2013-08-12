@@ -18,7 +18,7 @@ Line 6 column 4 in AUX_REDEFINE7B (/home/cadrian/Workspace/Dev/Liberty/test/lang
 in type BAD_REDEFINE7. (For this call, the target is the implicit
 non written `Current' which is of type BAD_REDEFINE7.)
 
-Line 26 column 10 in BAD_REDEFINE7 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_redefine7.e):
+Line 19 column 10 in BAD_REDEFINE7 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_redefine7.e):
          i_want_to_crash_here_to_keep_track_of_the_previous_warning
          ^                                                         
 ------

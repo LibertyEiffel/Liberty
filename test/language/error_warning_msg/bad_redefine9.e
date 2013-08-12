@@ -12,7 +12,9 @@ feature {}
       do
          if dummy then end
       end
-   dummy : BOOLEAN is
+
+feature {ANY}
+   dummy: BOOLEAN is
       do
          Result := False
       end
