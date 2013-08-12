@@ -24,10 +24,11 @@ inherit
 create {}
    make
 
-feature {}
+feature {ANY}
    a is do end
    b is do end
 
+feature {}
    make is
       do
          a
