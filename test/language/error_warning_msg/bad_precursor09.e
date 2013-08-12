@@ -20,7 +20,8 @@ feature {}
          temp := foo
       end
 
-   foo : like Current is
+feature {ANY}
+   foo: like Current is
       local
          a : BAD_PRECURSOR09
       do

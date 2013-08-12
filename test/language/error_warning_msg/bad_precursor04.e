@@ -17,6 +17,7 @@ feature {}
          routine(4);
       end;
 
+feature {ANY}
    routine(i: INTEGER) is
       do
          Precursor('A');

@@ -3,7 +3,7 @@
 --
 class BAD_INHERIT19
 
-inherit
+insert
    AUX_INHERIT19
 
 create {ANY}
