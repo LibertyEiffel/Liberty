@@ -499,14 +499,52 @@ feature {ANONYMOUS_FEATURE_MIXER}
          error_handler.is_empty
       local
          i: INTEGER; t1, t2: TYPE; tm1, tm2: TYPE_MARK
+         writable_attribute: WRITABLE_ATTRIBUTE
       do
          Result := True
+         if writable_attribute ?:= other then
+            if not (writable_attribute ?:= Current) then --| **** TODO: BERK
+               error_handler.add_position(start_position)
+               error_handler.add_position(other.start_position)
+               error_handler.append(once "Bad redefinition. An attribute must be redefined as an %
+                                         %attribute only (VDRD.6).")
+               error_handler.print_as_fatal_error
+            end
+         end
          if result_type /= other.result_type then
             if result_type = Void or else other.result_type = Void then
                error_handler.add_position(other.start_position)
                error_handler.add_position(start_position)
                error_handler.append(em_ohrbnto)
                Result := False
+            else
+               t1 := result_type.resolve_in(new_type)
+               t2 := other.result_type.resolve_in(parent_type)
+               if not t1.is_kernel_expanded and then not t2.is_kernel_expanded
+                  and then (not new_type.is_generic or else not new_type.generic_list.fast_has(t1))
+                  and then (not parent_type.is_generic or else not parent_type.generic_list.fast_has(t2))
+                  and then (parent_type.class_text.name.to_string /= as_integer_general
+                            and then parent_type.class_text.name.to_string /= as_real_general
+                            and then parent_type.class_text.name.to_string /= as_natural_general)
+               then
+                  if t1.is_reference then
+                     if t2.is_reference then
+                        -- OK
+                     else
+                        error_handler.add_position(start_position)
+                        error_handler.add_position(other.start_position)
+                        error_handler.append(once "Bad redefinition. Result types must be both expanded or %
+                                                  %both non-expanded (VDRD.6).")
+                        Result := False
+                     end
+                  elseif t2.is_reference then
+                     error_handler.add_position(start_position)
+                     error_handler.add_position(other.start_position)
+                     error_handler.append(once "Bad redefinition. Result types must be both expanded or %
+                                               %both non-expanded (VDRD.6).")
+                     Result := False
+                  end
+               end
             end
          end
          if Result and then arguments /= other.arguments then
