@@ -11,7 +11,7 @@ feature {}
       local
          s: STRING;
       do
-          s := "jjj%
+          s := "jjj%    
                 %hhh";
           s := "[ hi
                 ]" ;

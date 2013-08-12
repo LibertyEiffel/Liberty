@@ -11,11 +11,11 @@ feature {}
       local
          s: STRING;
       do
-          s := "[
+          s := "[ 
                 hi
                 ]" ;
 
-          s := "[
+          s := "[	
                 hi
 
       end;

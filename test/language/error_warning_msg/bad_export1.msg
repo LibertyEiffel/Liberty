@@ -1,14 +1,3 @@
-****** Warning: Since february 2006, for SmartEiffel release 2.3,
-the old legacy NONE type mark is obsolete. Keep in mind that an
-empty class name list such as {} does indicate no exportation
-at all, hence making NONE useless and probably misleading for
-newcomers. So, just remove this NONE class name now. Please update
-your code now.
-
-Line 7 column 15 in AUX_EXPORT1A (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export1a.e):
-      export {NONE} make
-              ^         
-------
 ****** Error: Forbidden call (i.e. exportation rules violated)
 when the type of Current is AUX_EXPORT1B. (See the next error
 report for details.)
@@ -35,6 +24,17 @@ the old legacy NONE type mark is obsolete. Keep in mind that an
 empty class name list like {} do indicate no exportation at all,
 hence making NONE unuseful and probably misleading for newcomers.
 So, just remove this NONE class name right now. Please update
+your code now.
+
+Line 7 column 15 in AUX_EXPORT1A (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export1a.e):
+      export {NONE} make
+              ^         
+------
+****** Warning: Since february 2006, for SmartEiffel release 2.3,
+the old legacy NONE type mark is obsolete. Keep in mind that an
+empty class name list such as {} does indicate no exportation
+at all, hence making NONE useless and probably misleading for
+newcomers. So, just remove this NONE class name now. Please update
 your code now.
 
 Line 7 column 15 in AUX_EXPORT1A (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export1a.e):

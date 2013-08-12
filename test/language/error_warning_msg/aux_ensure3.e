@@ -6,6 +6,7 @@ class AUX_ENSURE3
 feature {ANY}
    attr: INTEGER
 
+feature {}
    make is
       do
          attr := attr + 1

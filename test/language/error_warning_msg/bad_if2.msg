@@ -21,7 +21,6 @@ Line 18 column 7 in BAD_IF2 (/home/cadrian/Workspace/Dev/Liberty/test/language/e
       ensure
       ^     
 ------
-****** 3 warnings.
 ****** Error: "if" (or "elseif" as well) must be followed by a
 BOOLEAN expression.
 

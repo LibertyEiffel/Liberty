@@ -1,4 +1,12 @@
 ****** Warning: Removed unexpected blank space(s) just before
+this dot (assume you really want to apply a function using the
+previous manifest STRING as target).
+
+Line 17 column 26 in BAD_CALL7 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_call7.e):
+         string := "foo" .to_string                      -- <-- Warning #01 on this line.
+                         ^                                                               
+------
+****** Warning: Removed unexpected blank space(s) just before
 this dot (assume you really want to apply a procedure using the
 previous STRING as target).
 
@@ -147,14 +155,6 @@ previous manifest expression as the target).
 Line 49 column 40 in BAD_CALL7 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_call7.e):
          {ARRAY[STRING] 1, <<"foo">> } .print_on(io)     -- <-- Warning #20 on this line.
                                        ^                                                 
-------
-****** Warning: Removed unexpected blank space(s) just before
-this dot (assume you really want to apply a function using the
-previous manifest STRING as target).
-
-Line 17 column 26 in BAD_CALL7 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_call7.e):
-         string := "foo" .to_string                      -- <-- Warning #01 on this line.
-                         ^                                                               
 ------
 ****** Fatal Error: Simple identifier expected just after a dot.
 Nothing else but a simple feature name is meaningful just after
