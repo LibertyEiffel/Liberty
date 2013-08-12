@@ -5875,10 +5875,8 @@ feature {}
             end
             Result := just_after_a_dot(do_instruction, to_call(t, fn, eal))
          elseif do_instruction then
-            if fn = Void then
-               last_instruction := Void
-            else
-               last_instruction := to_proc_call(t, fn, eal)
+            last_instruction := to_proc_call(t, fn, eal)
+            if last_instruction /= Void then
                Result := True
             end
          else
