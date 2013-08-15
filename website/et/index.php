@@ -50,7 +50,7 @@ if(array_key_exists('history', $_GET) && ($_GET["history"] > 0)){
 
 }
 
-echo "<p>State: $state</p>\n";
+echo "<p><br/>State: $state</p>\n";
 $update = date ($dateFormat, filemtime("$stageout/current_stage.txt"));
 echo "<p>Last update: $update</p>\n";
 
