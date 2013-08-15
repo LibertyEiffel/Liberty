@@ -46,7 +46,7 @@ function htmlForResult($in)
   if(strlen($in) == 0){
     return "<span style=\"color:blue\">active</span>";
   }elseif($in < 0){
-    nb_warn = 0 - $in;
+    $nb_warn = 0 - $in;
     return "<span style=\"color:orange\">warn (" . $nb_warn . ")</span>";
   }elseif($in == 0){
     return "<span style=\"color:green\">ok</span>";
