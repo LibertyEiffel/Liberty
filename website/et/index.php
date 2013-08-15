@@ -42,9 +42,9 @@ if(array_key_exists('history', $_GET) && ($_GET["history"] > 0)){
     if(file_exists($request)){
         $content = file_get_contents ($request);
         if(preg_match("/new MANUAL/", $content)){
-            $state += " &mdash; request pending (" . $content . ")";
+            $state = $state . " &mdash; request pending (" . $content . ")";
         }else{
-            $state += " &mdash; request pending (via git request)";
+            $state = $state . " &mdash; request pending (via git request)";
         }
     }
 
