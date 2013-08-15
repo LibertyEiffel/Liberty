@@ -12,12 +12,12 @@ function htmlify($in)
       $displaypath = preg_replace("!$BaseDir/(.*)!","$1",$match[2]);
       $line = preg_replace("/(Please look at )(\\S*)/", "$1<a href=\"$link\">$displaypath</a>", $line);
     }
-    
+
     if(preg_match("!$BaseDir([a-zA-Z0-9_\.\-/]+)!", $line, $match)){
       $link = preg_replace("!$BaseDir([a-zA-Z0-9_\.\-/]+)!","$publicBase$1",$match[1]);
       $displaypath = preg_replace("!$BaseDir/([a-zA-Z0-9_\.\-/]+)!","$1",$match[1]);
       $line = preg_replace("!$BaseDir([a-zA-Z0-9_\.\-/]+)!", "<a href=\"$link\">$displaypath</a>", $line);
-      
+
     }
     if(strlen($line) > 0){
         $str .=  $line . "<br/>\n";
@@ -25,7 +25,7 @@ function htmlify($in)
   }
 
   return $str;
-} 
+}
 
 
 function htmlForRetVal($in)
@@ -46,12 +46,22 @@ function htmlForResult($in)
   if(strlen($in) == 0){
     return "<span style=\"color:blue\">active</span>";
   }elseif($in < 0){
-    return "<span style=\"color:orange\">warn</span>";
+    nb_warn = 0 - $in;
+    return "<span style=\"color:orange\">warn (" . $nb_warn . ")</span>";
   }elseif($in == 0){
     return "<span style=\"color:green\">ok</span>";
   }else{
-    return "<span style=\"color:red\">failed</span>";
+    return "<span style=\"color:red\">failed (" . $in . ")</span>";
   }
+}
+
+function displayStyleForResult($in)
+{
+  $in = trim($in);
+  if(strlen($in) == 0){
+    return "inline";
+  }
+  return "none";
 }
 
 ?>

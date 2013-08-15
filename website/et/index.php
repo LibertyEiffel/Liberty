@@ -92,10 +92,11 @@ function printSubStages($dir){
         $stageName = file_get_contents("$stagedir/stagename.txt");
         if(file_exists("$stagedir/result.txt")){
             $stageresult = htmlForResult(file_get_contents("$stagedir/result.txt"));
+            $display_style = displayStyleForResult(file_get_contents("$stagedir/result.txt"));
         }else{
             $stageresult = htmlForResult("");
+            $display_style = displayStyleForResult("");
         }
-        // todo: also print retvalue
 
         if(file_exists("$stagedir/stagelink.txt")){
             $stagelink = file_get_contents("$stagedir/stagelink.txt");
@@ -108,7 +109,7 @@ function printSubStages($dir){
         echo "      <div style=\"display:inline;cursor:pointer;\" onclick=\"document.getElementById('stageout" . $stage . "').style.display='inline'\"><img src=\"$img/Plus_sign.png\" width=\"16\" height=\"16\" alt=\"show details\"/></div>\n";
         echo "      <div style=\"display:inline;cursor:pointer;\" onclick=\"document.getElementById('stageout" . $stage . "').style.display='none'\"><img src=\"$img/Minus_sign.png\" width=\"16\" height=\"16\" alt=\"hide details\"/></div>\n";
         echo "      </td></tr>\n";
-        echo "      <tr><td colspan=\"3\"><div style=\"display:none\" id=\"stageout" . $stage ."\">";
+        echo "      <tr><td colspan=\"3\"><div style=\"display:" . $display_style . "\" id=\"stageout" . $stage ."\">";
         echo "         <div class=\"substage\">";
         printSubStages($stagedir);
         echo "         </div>";
