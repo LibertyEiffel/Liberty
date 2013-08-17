@@ -79,7 +79,8 @@ feature {ANY}
                             have enough physical memory, compilation should
                             be faster (note: generated C code is not affected)
         -jobs <num>         Run up to <num> instances of the c compiler in parallel
-                            (defaults to 1)
+                            (defaults to the number of jobs in General section of
+                            the configuration file)
 
    ]"
 
