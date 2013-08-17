@@ -4,7 +4,7 @@ function htmlify($in)
 {
   global $BaseDir;
   global $publicBase;
-
+  $str = "";
   foreach(preg_split("/((\r?\n)|(\r\n?))/", $in) as $line){
     $line = htmlspecialchars($line);
     if(preg_match("/(Please look at )(\\S*)/", $line, $match)){
