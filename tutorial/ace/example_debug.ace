@@ -32,6 +32,6 @@ cluster
          debug("trace 7"): AUX_EXAMPLE_DEBUG_B
       end
 
-   standard: "${path_lib}/loadpath.se"
+   standard: "${path_liberty_core}/loadpath.se"
 
 end
