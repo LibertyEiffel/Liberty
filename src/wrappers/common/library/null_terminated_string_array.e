@@ -31,13 +31,9 @@ inherit
       --  redefine with_capacity end
 
 create {ANY}
-   from_collection, from_external
+   from_indexable, from_iterable, from_external
 
 feature {}
-   --, with_capacity
-   -- Creation
-   -- Note: space allocated in storage must always be capacity+1 large, to
-   -- store the ending NULL pointer
    from_external (an_array: POINTER) is
          -- Initialize the NULL_TERMINATED_C_ARRAY from `an_array'
          -- pointer. The array is inspected from the beginning to
@@ -60,9 +56,6 @@ feature {}
          create strings.make(a_lenght)
          fill_strings
       end
-      -- with_capacity (a_capacity: INTEGER) is do
-      -- storage:=storage.calloc(a_capacity+1) create
-      -- strings.make(a_capacity+1) end
 
 feature {ANY}
    is_null_terminated: BOOLEAN is
