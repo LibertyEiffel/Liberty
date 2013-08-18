@@ -6,10 +6,10 @@ class CURSOR
 insert
    NCURSES_TOOLS; NCURSES_KEYS; CHARACTER_CONSTANTS
 
-creation
+create {}
    main
 
-feature
+feature {}
    main is
       do
          ncurses.enable

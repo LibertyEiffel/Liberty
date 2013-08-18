@@ -5,10 +5,10 @@ insert
    NCURSES_KEYS
    NCURSES_COLORS
 
-creation
+create {}
    make
 
-feature{ANY}
+feature {ANY}
    pad: NCURSES_PAD
 
    make is
@@ -62,4 +62,4 @@ feature{ANY}
          end
       end
 
-end -- class LIST
+end -- class PAD
