@@ -86,13 +86,13 @@ feature {ANY}
 
 	emit_standard_typedefs is
 		do
- 			file.put_string("feature -- Memory related type definitions%N%
+ 			file.put_string("feature {ANY} -- Memory related type definitions%N%
  			%	size_t: NATURAL_#(1) is do end%N%N%
  			%   ssize_t: INTEGER_#(2) is do end%N%N%
  			%	ptrdiff_t: INTEGER_#(3) is do end%N%N" 
  			# & size_t_size # & ssize_t_size # & ptrdiff_t_size)
 
- 			file.put_string("feature -- Standard C type definitions%N%
+ 			file.put_string("feature {ANY} -- Standard C type definitions%N%
 			%	-- All those queries are empty by design, meant to be used as anchored declarations%N%N%
  			%	-- Exact-width integer types%N%
  			%	-- Integer types having exactly the specified width %N%
