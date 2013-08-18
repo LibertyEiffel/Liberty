@@ -6,7 +6,7 @@ insert
 creation
 	make
 
-feature
+feature {}
 	make is
 		do
 			std_input.redirect_from("low_level_redirection_example.e")
