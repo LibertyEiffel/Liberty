@@ -3,7 +3,7 @@ class LOW_LEVEL_REDIRECTION_EXAMPLE
 insert
    STREAM_HANDLER
 
-creation
+create {}
    make
 
 feature {}
