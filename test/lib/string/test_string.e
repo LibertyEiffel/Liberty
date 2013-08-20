@@ -4,6 +4,7 @@ insert
    EIFFELTEST_TOOLS
 
 create {}
+   make
 
 feature {}
    make is
