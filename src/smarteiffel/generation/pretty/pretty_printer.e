@@ -535,7 +535,9 @@ feature {ANY} -- To run `pretty' in a STRING buffer:
          end
          buffer.clear_count
          code.pretty(0)
-         client_buffer.append(buffer)
+         pretty_buffer.clear_count
+         buffer.replacing_in(once "%T", once "   ", pretty_buffer)
+         client_buffer.append(pretty_buffer)
       end
 
    expression_in (client_buffer: STRING; expression: EXPRESSION) is
@@ -550,7 +552,9 @@ feature {ANY} -- To run `pretty' in a STRING buffer:
          end
          buffer.clear_count
          expression.pretty(0)
-         client_buffer.append(buffer)
+         pretty_buffer.clear_count
+         buffer.replacing_in(once "%T", once "   ", pretty_buffer)
+         client_buffer.append(pretty_buffer)
       end
 
    instruction_in (client_buffer: STRING; instruction: INSTRUCTION) is
@@ -565,8 +569,13 @@ feature {ANY} -- To run `pretty' in a STRING buffer:
          end
          buffer.clear_count
          instruction.pretty(1)
-         client_buffer.append(buffer)
+         pretty_buffer.clear_count
+         buffer.replacing_in(once "%T", once "   ", pretty_buffer)
+         client_buffer.append(pretty_buffer)
       end
+
+feature {}
+   pretty_buffer: STRING is once ""
 
 feature {PRETTY, PRETTY_PRINTER_HANDLER}
    connect_to (path: STRING) is
