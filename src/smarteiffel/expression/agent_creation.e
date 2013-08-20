@@ -72,6 +72,8 @@ feature {ANY}
    feature_stamp: FEATURE_STAMP
          -- useful for the interpreter
 
+   has_omitted_open_arguments: BOOLEAN
+
    specialize_in (type: TYPE): like Current is
       local
          function_call: FUNCTION_CALL
@@ -210,6 +212,9 @@ feature {ANY}
       local
          c: like code
       do
+         if has_omitted_open_arguments then
+            warn_omitted_open_arguments
+         end
          if code = Void then
             Result := Current
          else
@@ -232,6 +237,10 @@ feature {ANY}
       local
          c: like code
       do
+         if has_omitted_open_arguments then
+            -- If there is a warning at simplify time, then emit it first before simplifying the code.
+            warn_omitted_open_arguments
+         end
          if code = Void then
             -- After `simplify' the code can become Void in the case of an empty
             -- procedure called.
@@ -627,6 +636,26 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          end
       end
 
+feature {}
+   warn_omitted_open_arguments is
+      require
+         has_omitted_open_arguments
+      local
+      do
+         error_handler.add_position(start_position)
+         error_handler.append(once "Please consider writing an explicit open argument list for your agent %
+                                   %creation.")
+         if inline_feature = Void then
+            error_handler.append(once " Replace your code with:%N%N      agent ")
+            error_handler.add_raw_code(code)
+         end
+         error_handler.print_as_warning
+
+         has_omitted_open_arguments := False
+      ensure
+         print_only_once: not has_omitted_open_arguments
+      end
+
 feature {AGENT_CREATION}
    omitted_open_arguments_update (omitted_arguments: EFFECTIVE_ARG_LIST) is
       require
@@ -634,6 +663,7 @@ feature {AGENT_CREATION}
       local
          i: INTEGER; open_operand: OPEN_OPERAND
       do
+         has_omitted_open_arguments := True
          if open_operand_list = Void then
             create open_operand_list.with_capacity(omitted_arguments.count)
          end
@@ -646,6 +676,8 @@ feature {AGENT_CREATION}
             open_operand_list.add_last(open_operand)
             i := i + 1
          end
+      ensure
+         has_omitted_open_arguments
       end
 
 feature {ANY}

@@ -523,6 +523,21 @@ feature {PRETTY, PRETTY_PRINTER_HANDLER}
       end
 
 feature {ANY} -- To run `pretty' in a STRING buffer:
+   code_in (client_buffer: STRING; code: CODE) is
+         -- After this call, the prettyfied version of `code' has been appended in the `client_buffer'.
+      require
+         client_buffer /= Void
+         code /= Void
+      do
+         check
+         -- That pretty is not currently running in file mode.
+            not out_stream_flag
+         end
+         buffer.clear_count
+         code.pretty(0)
+         client_buffer.append(buffer)
+      end
+
    expression_in (client_buffer: STRING; expression: EXPRESSION) is
          -- After this call, the prettyfied version of `expression' has been appended in the `client_buffer'.
       require

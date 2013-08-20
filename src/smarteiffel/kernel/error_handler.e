@@ -100,6 +100,16 @@ feature {ANY}
          type.canonical_type_mark.pretty_in(explanation)
       end
 
+   add_raw_code (code: CODE) is
+         -- Add a piece of `code' in the message.
+         -- Note: the `start_position' of `code' is not automatically added by this call because it may be not
+         -- meaningful in some context (it is up to the caller to do it when useful).
+      require
+         code /= Void
+      do
+         pretty_printer.code_in(explanation, code)
+      end
+
    add_expression (expression: EXPRESSION) is
          -- Add a piece of `expression' in the message.
          -- Note: the `start_position' of `expression' is not automatically added by this call because it may be not

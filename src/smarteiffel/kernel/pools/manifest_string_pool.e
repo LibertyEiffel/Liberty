@@ -160,7 +160,7 @@ feature {SMART_EIFFEL}
 feature {}
    agent_exists_in_collected_once_variables: PREDICATE[TUPLE[STRING]] is
       once
-         Result := agent exists_in_collected_once_variables
+         Result := agent exists_in_collected_once_variables(?)
       end
 
    exists_in_collected_once_variables (a_string: STRING): BOOLEAN is
@@ -170,7 +170,7 @@ feature {}
 
    agent_exists_in_collected_storage_id_set: PREDICATE[TUPLE[STRING]] is
       once
-         Result := agent exists_in_collected_storage_id_set
+         Result := agent exists_in_collected_storage_id_set(?)
       end
 
    exists_in_collected_storage_id_set (a_string: STRING): BOOLEAN is
