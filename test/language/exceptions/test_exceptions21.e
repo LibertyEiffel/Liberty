@@ -3,7 +3,7 @@
 --
 class TEST_EXCEPTIONS21
 
-inherit
+insert
    ANY
       rename default_rescue as dummy
       redefine dummy
