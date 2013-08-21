@@ -5,7 +5,10 @@ class TEST_EXCEPTIONS23
    -- SZ:280:
 
 create {}
-   make, make_exception
+   make
+
+create {TEST_EXCEPTIONS23}
+   make_exception
 
 feature {ANY}
    make is
