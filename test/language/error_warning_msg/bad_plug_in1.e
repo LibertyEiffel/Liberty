@@ -2,20 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_PLUG_IN1
-creation
+
+create {}
    make
+
 feature {}
    make is
       local
-    p: POINTER
+         p: POINTER
       do
-    p := open(p)
+         p := open(p)
       end
 
    open (p: POINTER): POINTER is
       external "plug_in"
       end
-   
+
 end -- class BAD_PLUG_IN1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -3,11 +3,10 @@
 --
 class BAD_FEATURE9
 
-creation
+create {}
    make
-   
-feature
-   
+
+feature {}
    make is
       do
       end

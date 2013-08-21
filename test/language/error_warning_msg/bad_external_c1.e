@@ -3,18 +3,18 @@
 --
 class BAD_EXTERNAL_C1
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    point_pointer: POINTER;
 
    make is
       do
-    set_x(point_pointer);
+         set_x(point_pointer);
       end;
 
-feature {NONE}
+feature {}
 
    set_x(point_star: POINTER) is
       external "[

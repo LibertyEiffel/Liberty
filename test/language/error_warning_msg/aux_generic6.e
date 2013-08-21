@@ -2,9 +2,13 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_GENERIC6[T]
-creation make
-feature
+
+create {ANY}
+   make
+
+feature {ANY}
    my_t: T;
+
    foo: like Current is
     -- foo is the identity in fact
       local
@@ -15,12 +19,14 @@ feature
       ensure
          Result = Current
       end
-    make(t: T) is
+
+   make(t: T) is
       do
          my_t := t
       ensure
          my_t = t
       end
+
 end -- class AUX_GENERIC6
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
@@ -40,6 +46,3 @@ end -- class AUX_GENERIC6
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-
-
-

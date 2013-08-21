@@ -2,17 +2,16 @@
 -- See the Copyright notice at the end of this file.
 --
 class POINTER
-   
-creation {ANY}
+
+create {ANY}
    make
-   
+
 feature {ANY}
-   
-   make is 
+   make is
       local
-    p2: POINTER;
-      do 
-    !!p2.make;
+         p2: POINTER;
+      do
+         !!p2.make;
       end;
 
 end -- class POINTER

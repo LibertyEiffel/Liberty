@@ -2,7 +2,10 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_ASSIGNMENT_TEST01
-create make
+
+create {}
+   make
+
 feature {}
    make is
       local
@@ -15,6 +18,7 @@ feature {}
             io.put_string("not true!%N")
          end
       end
+
 end -- class BAD_ASSIGNMENT_TEST01
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

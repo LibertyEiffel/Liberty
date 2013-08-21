@@ -1096,47 +1096,6 @@ feature {}
          end
       end
 
-   vdrd6 (lt: LIVE_TYPE; super, redef: ANONYMOUS_FEATURE) is
-         --|*** PH(03/03/04) to be removed? Move error messages?
-      require
-         super /= Void
-         redef /= Void
-         super /= redef
-      local
-         writable_attribute: WRITABLE_ATTRIBUTE; ct, rt1, rt2: TYPE_MARK
-      do
-         if writable_attribute ?:= super then
-            if not (writable_attribute ?:= redef) then
-               fatal_error_vdrd6(super, redef, "An attribute must be redefined as an attribute %
-          %only (VDRD.6).")
-            else
-               ct := lt.canonical_type_mark
-               rt1 := super.result_type
-               rt2 := redef.result_type
-               if rt1.is_reference then
-                  if rt2.is_reference then
-                  else
-                     fatal_error_vdrd6(super, redef, vdrd6_types)
-                  end
-               elseif rt2.is_reference then
-                  fatal_error_vdrd6(super, redef, vdrd6_types)
-               end
-            end
-         end
-      end
-
-   vdrd6_types: STRING is "Result types must be both expanded or %
-   %both non-expanded (VDRD.6)."
-
-   fatal_error_vdrd6 (super, redef: ANONYMOUS_FEATURE; msg: STRING) is
-      do
-         error_handler.add_position(super.start_position)
-         error_handler.add_position(redef.start_position)
-         error_handler.append(once "Bad redefinition. ")
-         error_handler.append(msg)
-         error_handler.print_as_fatal_error
-      end
-
 feature {}
    insert_inherit_test_memory_cache: HASHED_DICTIONARY[INTEGER_8, CLASS_TEXT]
 

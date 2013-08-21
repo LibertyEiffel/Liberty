@@ -3,14 +3,18 @@
 --
 class BAD_ASSIGNMENT3
 -- To signal our current limitation...
-creation make
-feature
+
+create {}
+   make
+
+feature {ANY}
    make is
       local
-    any: TUPLE[STRING, STRING, ANY]
+         any: TUPLE[STRING, STRING, ANY]
       do
-    any := ["foo", "bar"]
+         any := ["foo", "bar"]
       end
+
 end -- class BAD_ASSIGNMENT3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

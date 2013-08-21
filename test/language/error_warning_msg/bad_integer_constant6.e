@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_INTEGER_CONSTANT6
-   
-creation make
-   
-feature 
 
-   make is 
+create {}
+   make
+
+feature {}
+   make is
       local
          i16: INTEGER_16
-      do 
+      do
          i16 := 32767 + 1
       end
-   
+
 end -- class BAD_INTEGER_CONSTANT6
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

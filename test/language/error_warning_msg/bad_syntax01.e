@@ -3,14 +3,18 @@
 --
 class BAD_SYNTAX01
 -- From: Dave E Martin XXIII <dave@cyberdude.com>
-creation make
-feature
- value: STRING
- the_value: STRING
 
- make is
+create {}
+   make
+
+feature {}
+   value: STRING
+   the_value: STRING
+
+   make is
       do
       end
+
 invariant
    value_set: (value = Void && the_value = Void) or else
    (value.is_equal (the_value))

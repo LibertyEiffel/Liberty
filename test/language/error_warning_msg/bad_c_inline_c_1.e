@@ -3,10 +3,10 @@
 --
 class BAD_C_INLINE_C_1
 
-creation make
+create {}
+   make
 
-feature
-
+feature {ANY}
    make is
       local
          c_code: STRING;

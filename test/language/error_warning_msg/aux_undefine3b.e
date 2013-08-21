@@ -5,7 +5,6 @@ class AUX_UNDEFINE3B
 insert
    ANY
 feature {ANY}
-
    frozen test is
       do
       end

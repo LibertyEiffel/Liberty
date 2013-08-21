@@ -6,10 +6,10 @@ insert
    NCURSES_COLORS
    NCURSES_CHARACTERS
 
-creation
+create {}
    make
 
-feature{ANY}
+feature {ANY}
    ncurses_list: NCURSES_LIST[ANY]
 
    make is

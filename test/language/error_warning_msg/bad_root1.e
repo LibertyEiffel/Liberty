@@ -3,8 +3,7 @@
 --
 class BAD_ROOT1
 
-feature
-
+feature {}
    make is
       do
       end;

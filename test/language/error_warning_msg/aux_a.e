@@ -2,7 +2,7 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_A
-feature
+feature {ANY}
    foo(bar: like Current) is
       do
       end

@@ -2,13 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_JW01NAMED_THING
-creation make
-feature
+
+create {ANY}
+   make
+
+feature {ANY}
    make (n: STRING) is
       do
-    name := n
+         name := n
       end
+
    name: STRING
+
 end -- class AUX_JW01NAMED_THING
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

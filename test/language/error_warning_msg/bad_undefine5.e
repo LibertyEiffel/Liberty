@@ -7,15 +7,15 @@ insert
    ANY
       undefine foo
       end
-   
-creation
+
+create {}
    main
 
-feature
+feature {}
    main is
       do
       end
-   
+
 end -- class BAD_UNDEFINE5
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

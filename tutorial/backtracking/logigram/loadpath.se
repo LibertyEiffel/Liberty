@@ -1,4 +1,5 @@
 .
-./constraints
-./exprs
+./aux
+./aux/constraints
+./aux/exprs
 

@@ -2,17 +2,17 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_UNDEFINE2
-   
+
 inherit ANY undefine foo end;
-   
-creation make
-   
-feature 
-   
+
+create {}
+   make
+
+feature {}
    make is
       do
       end;
-   
+
 end -- class BAD_UNDEFINE2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

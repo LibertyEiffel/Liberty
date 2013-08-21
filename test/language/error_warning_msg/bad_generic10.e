@@ -3,15 +3,16 @@
 --
 class BAD_GENERIC10
 
-creation
+create {}
    make
 
-feature
+feature {}
    make is
       local
          foo: LINKED_LIST[INTEGER->NUMERIC]
       do
       end
+
 end -- class BAD_GENERIC10
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

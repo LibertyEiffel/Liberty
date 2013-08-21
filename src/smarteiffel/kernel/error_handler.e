@@ -13,6 +13,9 @@ insert
       undefine is_equal
       end
    SINGLETON
+   TAGGER
+      undefine is_equal
+      end
 
 feature {ANY}
    error_counter, warning_counter: INTEGER
@@ -97,6 +100,16 @@ feature {ANY}
          type.canonical_type_mark.pretty_in(explanation)
       end
 
+   add_raw_code (code: CODE) is
+         -- Add a piece of `code' in the message.
+         -- Note: the `start_position' of `code' is not automatically added by this call because it may be not
+         -- meaningful in some context (it is up to the caller to do it when useful).
+      require
+         code /= Void
+      do
+         pretty_printer.code_in(explanation, code)
+      end
+
    add_expression (expression: EXPRESSION) is
          -- Add a piece of `expression' in the message.
          -- Note: the `start_position' of `expression' is not automatically added by this call because it may be not
@@ -163,25 +176,43 @@ feature {ANY}
          else
             cancel
          end
-      ensure
-         warning_counter = old warning_counter + 1
       end
 
    print_as_warning is
-         -- Print `explanation' as a Warning report.
+         -- Print or save `explanation' as a Warning report.
          -- After printing, `explanation' and `positions' are reset.
       require
          not is_empty
       do
          if no_warning then
             cancel
-         else
-            do_print(once "Warning")
+         elseif positions.is_empty then
+            do_print(warning_tag)
+            warning_counter := warning_counter + 1
             sedb_breakpoint
+         else
+            save_error(warning_tag)
          end
-         warning_counter := warning_counter + 1
-      ensure
-         warning_counter = old warning_counter + 1
+      end
+
+   print_live_warnings is
+         -- Print all warnings not already printed, provided that they belong to a live type.
+      local
+         i: INTEGER; lt: LIVE_TYPE
+      do
+         if smart_eiffel.live_type_map /= Void then
+            from
+               i := smart_eiffel.live_type_map.lower
+            until
+               i > smart_eiffel.live_type_map.upper
+            loop
+               lt := smart_eiffel.live_type_map.item(i)
+               if not lt.run_time_set.is_empty then
+                  emit_warnings(lt.class_text)
+               end
+               i := i + 1
+            end
+         end
       end
 
    print_as_error is
@@ -190,6 +221,7 @@ feature {ANY}
       require
          not is_empty
       do
+         emit_all_warnings
          do_print(once "Error")
          sedb_breakpoint
          error_counter := error_counter + 1
@@ -209,6 +241,7 @@ feature {ANY}
       require
          not is_empty
       do
+         emit_all_warnings
          do_print(once "Fatal Error")
          sedb_breakpoint
          if action /= Void then
@@ -243,6 +276,130 @@ feature {ANY}
          -- Cancel only the positions, keeping the Message.
       do
          positions.clear_count
+      end
+
+feature {}
+   save_error (tag: STRING) is
+      require
+         not is_empty
+         not positions.is_empty
+      local
+         inttag: FIXED_STRING
+         errors: TAGGED_ERRORS
+         error: TAGGED_ERROR
+         i: INTEGER; saved: BOOLEAN
+         class_text: CLASS_TEXT
+      do
+         error := new_error
+         inttag := tag.intern
+         from
+            i := positions.lower
+         until
+            i > positions.upper
+         loop
+            class_text := positions.item(i).class_text
+            if class_text /= Void then
+               errors ::= class_text.tag(inttag)
+               if errors = Void then
+                  create errors.make
+                  class_text.set_tag(inttag, errors)
+               end
+               errors.data.add_last(error)
+               saved := True
+            end
+            i := i + 1
+         end
+         if saved then
+            cancel
+         else
+            do_print(tag)
+         end
+      ensure
+         is_empty
+      end
+
+   emit_all_warnings is
+      local
+         i: INTEGER
+         error: TAGGED_ERROR
+         class_text: CLASS_TEXT
+      do
+         error := new_error
+         cancel
+         from
+            i := error.positions.lower
+         until
+            i > error.positions.upper
+         loop
+            class_text := error.positions.item(i).class_text
+            if class_text /= Void then
+               emit_warnings(class_text)
+            end
+            i := i + 1
+         end
+         explanation.copy(error.explanation)
+         positions.copy(error.positions)
+         errors_pool.recycle(error)
+      ensure
+         explanation.is_equal(old explanation.twin)
+         positions.is_equal(old positions.twin)
+      end
+
+   emit_warnings (class_text: CLASS_TEXT) is
+      require
+         class_text /= Void
+      local
+         inttag: FIXED_STRING
+         errors: TAGGED_ERRORS
+         error: TAGGED_ERROR
+      do
+         inttag := warning_tag.intern
+         errors ::= class_text.tag(inttag)
+         if errors /= Void then
+            from
+            until
+               errors.data.is_empty
+            loop
+               error := errors.data.first
+               if not error.is_emitted then
+                  emit_error(warning_tag, error)
+                  warning_counter := warning_counter + 1
+               end
+               errors_pool.recycle(error)
+               errors.data.remove_first
+            end
+         end
+      end
+
+   emit_error (tag: STRING; error: TAGGED_ERROR) is
+      require
+         is_empty
+         not error.is_emitted
+      do
+         explanation.copy(error.explanation)
+         positions.copy(error.positions)
+         do_print(tag)
+         error.set_emitted
+         cancel
+      ensure
+         is_empty
+         error.is_emitted
+      end
+
+   errors_pool: RECYCLING_POOL[TAGGED_ERROR] is
+      once
+         create Result.make
+      end
+
+   new_error: TAGGED_ERROR is
+      do
+         --Result := errors_pool.item
+         --if Result = Void then
+         --   create Result.make(explanation, positions)
+         --else
+         --   Result.make(explanation, positions)
+         --end
+         create Result.make(explanation, positions)
       end
 
 feature {ANY}
@@ -540,6 +697,8 @@ feature {}
             tmp_file_read.disconnect
          end
       end
+
+   warning_tag: STRING is "Warning"
 
 end -- class ERROR_HANDLER
 --

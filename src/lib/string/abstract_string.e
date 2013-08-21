@@ -1091,29 +1091,46 @@ feature {ANY} -- Printing:
       end
 
 feature {ANY} -- String replacing
-        replacing (an_old, a_new: ABSTRACT_STRING): STRING is
-                -- Current with all occurrences of `an_old' string replaced with `a_new'.
-        local cut_from, oldsize, i: INTEGER
-        do
-        i := first_substring_index(an_old)
-        if not valid_index(i) then create Result.make_from_string(Current)
-        else
-            -- The size of Result will be usually similar to those of Current, so
-            create Result.with_capacity(Current.count)
-            -- will reasonably limit reallocations compared to a plain create Result.make_empty
-            oldsize := an_old.count
-            from cut_from := lower
-            until not valid_index(i)
-            loop
-                Result.append_substring(Current,cut_from,i-1)
-                Result.append(a_new)
-                cut_from := i+oldsize
-                i := substring_index(an_old,i+oldsize)
-            end
-            -- append the remaining part
-            Result.append_substring(Current,cut_from,upper)
-        end
-        end
+   replacing (an_old, a_new: ABSTRACT_STRING): STRING is
+         -- Current with all occurrences of `an_old' string replaced with `a_new'.
+      require
+         not an_old.is_empty
+         a_new /= Void
+      do
+         create Result.with_capacity(count)
+         replacing_in(an_old, a_new, Result)
+      ensure
+         Result /= Current
+         not Result.valid_index(Result.first_substring_index(an_old))
+         Result.first_substring_index(a_new) = first_substring_index(an_old) --| **** TODO to be improved
+      end
+
+   replacing_in (an_old, a_new: ABSTRACT_STRING; buffer: STRING) is
+         -- Current with all occurrences of `an_old' string replaced with `a_new' in `buffer'.
+      require
+         not an_old.is_empty
+         a_new /= Void
+         buffer /= Current
+      local
+         cut_from, oldsize, i: INTEGER
+      do
+         i := first_substring_index(an_old)
+         oldsize := an_old.count
+         from
+            cut_from := lower
+         until
+            not valid_index(i)
+         loop
+            buffer.append_substring(Current, cut_from, i - 1)
+            buffer.append(a_new)
+            cut_from := i + oldsize
+            i := substring_index(an_old, i + oldsize)
+         end
+         buffer.append_substring(Current, cut_from, upper)
+      ensure
+         not buffer.valid_index(buffer.substring_index(an_old, old (buffer.upper + buffer.lower)))
+         buffer.substring_index(a_new, old (buffer.upper + buffer.lower)) = old buffer.upper + first_substring_index(an_old) --| **** TODO to be improved
+      end
 
 feature {ANY} -- Other features:
    first: CHARACTER is
@@ -1145,7 +1162,7 @@ feature {ANY} -- Other features:
 
    substring_index (other: ABSTRACT_STRING; start_index: INTEGER): INTEGER is
          -- Position of first occurrence of `other' at or after `start_index'.
-                 -- If the is no occurrence Result will be an invalid index, usually 0 when lower is 1.
+         -- If there is no occurrence Result will be an invalid index, usually 0 when lower is 1.
          --
          -- See also `substring', `first_substring_index'.
       require

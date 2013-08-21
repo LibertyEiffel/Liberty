@@ -2,16 +2,17 @@
 -- See the Copyright notice at the end of this file.
 --
 class NONE
-   
-creation {ANY}
+
+create {ANY}
    make
-   
+
 feature {ANY}
-   
-   make is 
-      do 
-      end -- class NONE
-   --
+   make is
+      do
+      end
+
+end -- class NONE
+--
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --

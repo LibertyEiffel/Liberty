@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_INTEGER_CONSTANT3
-   
-creation make
-   
-feature 
 
-   make is 
+create {}
+   make
+
+feature {}
+   make is
       local
-    i8: INTEGER_8
-      do 
-    i8 := 128
+         i8: INTEGER_8
+      do
+         i8 := 128
       end
-   
+
 end -- class BAD_INTEGER_CONSTANT3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

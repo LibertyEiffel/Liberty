@@ -9,14 +9,15 @@ insert
          foo
       end
 
-creation
+create {}
    default_create
 
-feature
+feature {}
    foo (bidule: REAL) is
       do
          Precursor(bidule)
       end
+
 end -- class BAD_PRECURSOR13
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

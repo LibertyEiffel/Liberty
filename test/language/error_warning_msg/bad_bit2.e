@@ -3,23 +3,23 @@
 --
 class BAD_BIT2
 
-creation make
-   
-feature
+create {}
+   make
 
+feature {ANY}
    N1: INTEGER is 8;
 
    N2: INTEGER is 7;
 
    make is
       local
-    bn1: BIT N1;
+         bn1: BIT N1;
          bn2: BIT N2;
       do
-    if bn2 = bn1 then
-    end;
+         if bn2 = bn1 then
+         end;
       end;
-   
+
 end -- class BAD_BIT2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

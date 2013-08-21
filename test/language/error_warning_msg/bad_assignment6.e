@@ -3,16 +3,17 @@
 --
 class BAD_ASSIGNMENT6
 
-creation
+create {}
    make
-   
-feature
+
+feature {ANY}
    make is
       local
          any: ANY
       do
          any := True
       end
+
 end -- class BAD_ASSIGNMENT6
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

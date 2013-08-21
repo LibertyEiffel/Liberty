@@ -3,7 +3,7 @@
 --
 class TEST_EXCEPTIONS10
 
-inherit
+insert
    EXCEPTIONS
 
 create {}

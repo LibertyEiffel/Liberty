@@ -2,9 +2,11 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_PREFIX_MINUS1
-creation
+
+create {}
    make
-feature
+
+feature {}
    make is
       local
          i: INTEGER
@@ -14,6 +16,7 @@ feature
          --        -foo.abs
          --       -(foo.abs)
       end
+
 end -- class BAD_PREFIX_MINUS1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

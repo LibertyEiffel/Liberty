@@ -3,13 +3,12 @@
 --
 class AUX_RENAME1
 
-feature
-
-   f is 
-      do 
+feature {ANY}
+   f is
+      do
       end;
 
-   g is 
+   g is
       do
       end;
 

@@ -3,15 +3,15 @@
 --
 class BAD_CONSTANT3
    -- From a bug report of Philippe Ribet
-creation make
 
-feature
+create {} make
 
+feature {}
    Long_mask: INTEGER is 0x00000000FFFFFFFF
-   
+
    make is
       do
-    if Long_mask = 0 then end
+         if Long_mask = 0 then end
       end
 
 end -- class BAD_CONSTANT3

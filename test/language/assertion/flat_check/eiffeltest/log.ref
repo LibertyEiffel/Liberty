@@ -3,9 +3,9 @@ The "log.new" file must be identical to the "log.ref" file.
 The reference file is "log.ref" and this file must be created manually.
 If you confirm that "log.new" is correct, just overwrite "log.ref" with "log.new".
 --------------------------------------------------------------------------------
-Found 1 test_* file(s).
-Found 0 bad_* file(s).
-No subdirectory.
+Found 1 test_* file.
+Found 0 bad_* files.
+Found 0 subdirectories.
 --------------------------------------------------------------------------------
 Excluded command: "se c -boost test_flat_check01.e -o test_flat_check01.exe".
 By excluded.lst:  "se c -boost".
@@ -59,6 +59,30 @@ se c -no_gc -flat_check -all_check test_flat_check01.e -o test_flat_check01.exe
 Running (-no_gc -flat_check -all_check) "test_flat_check01.exe".
 se clean test_flat_check01.e
 Removing (-no_gc -flat_check -all_check) "test_flat_check01.exe".
+Excluded command: "se c -boost -bdw_gc test_flat_check01.e -o test_flat_check01.exe".
+By excluded.lst:  "se c -boost".
+Excluded command: "se c -boost -debug -bdw_gc test_flat_check01.e -o test_flat_check01.exe".
+By excluded.lst:  "se c -boost".
+Excluded command: "se c -no_check -bdw_gc test_flat_check01.e -o test_flat_check01.exe".
+By excluded.lst:  "se c -no_check".
+se c -flat_check -require_check -bdw_gc test_flat_check01.e -o test_flat_check01.exe
+Running (-flat_check -require_check -bdw_gc) "test_flat_check01.exe".
+se clean test_flat_check01.e
+Removing (-flat_check -require_check -bdw_gc) "test_flat_check01.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_flat_check01.e -o test_flat_check01.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_flat_check01.e -o test_flat_check01.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_flat_check01.exe".
+se clean test_flat_check01.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_flat_check01.exe".
+se c -flat_check -loop_check -bdw_gc test_flat_check01.e -o test_flat_check01.exe
+Running (-flat_check -loop_check -bdw_gc) "test_flat_check01.exe".
+se clean test_flat_check01.e
+Removing (-flat_check -loop_check -bdw_gc) "test_flat_check01.exe".
+se c -flat_check -all_check -bdw_gc test_flat_check01.e -o test_flat_check01.exe
+Running (-flat_check -all_check -bdw_gc) "test_flat_check01.exe".
+se clean test_flat_check01.e
+Removing (-flat_check -all_check -bdw_gc) "test_flat_check01.exe".
 Excluded command: "se c -all_check -debug test_flat_check01.e -o test_flat_check01.exe".
 By excluded.lst:  "se c -all_check -debug".
 Excluded command: "se c -require_check test_flat_check01.e -o test_flat_check01.exe".
@@ -81,6 +105,16 @@ Excluded command: "se c -no_gc -loop_check test_flat_check01.e -o test_flat_chec
 By excluded.lst:  "se c -no_gc -loop_check".
 Excluded command: "se c -no_gc -all_check test_flat_check01.e -o test_flat_check01.exe".
 By excluded.lst:  "se c -no_gc -all_check".
+Excluded command: "se c -require_check -bdw_gc test_flat_check01.e -o test_flat_check01.exe".
+By excluded.lst:  "se c -require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_flat_check01.e -o test_flat_check01.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_flat_check01.e -o test_flat_check01.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_flat_check01.e -o test_flat_check01.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_flat_check01.e -o test_flat_check01.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_flat_check01.e -o test_flat_check01.exe".
 By excluded.lst:  "se c -profile -boost".
 Excluded command: "se c -profile -all_check -debug test_flat_check01.e -o test_flat_check01.exe".
@@ -111,6 +145,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_flat_check01.e -o test_
 By excluded.lst:  "se c -profile -no_gc".
 Excluded command: "se c -profile -no_gc -all_check test_flat_check01.e -o test_flat_check01.exe".
 By excluded.lst:  "se c -profile -no_gc".
+Excluded command: "se c -profile -boost -bdw_gc test_flat_check01.e -o test_flat_check01.exe".
+By excluded.lst:  "se c -profile -boost".
+Excluded command: "se c -profile -no_check -bdw_gc test_flat_check01.e -o test_flat_check01.exe".
+By excluded.lst:  "se c -profile -no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_flat_check01.e -o test_flat_check01.exe".
+By excluded.lst:  "se c -profile -require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_flat_check01.e -o test_flat_check01.exe".
+By excluded.lst:  "se c -profile -ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_flat_check01.e -o test_flat_check01.exe".
+By excluded.lst:  "se c -profile -invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_flat_check01.e -o test_flat_check01.exe".
+By excluded.lst:  "se c -profile -loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_flat_check01.e -o test_flat_check01.exe".
+By excluded.lst:  "se c -profile -all_check".
 se c -profile -flat_check -require_check test_flat_check01.e -o test_flat_check01.exe
 Running (-profile -flat_check -require_check) "test_flat_check01.exe".
 Removing "profile.se" of "-profile -flat_check -require_check test_flat_check01.exe".
@@ -139,6 +187,8 @@ Removing (-profile -flat_check -all_check) "test_flat_check01.exe".
 Excluded command: "se c -no_split -boost test_flat_check01.e -o test_flat_check01.exe".
 By excluded.lst:  "se c -no_split".
 Excluded command: "se c -no_split -no_gc -boost test_flat_check01.e -o test_flat_check01.exe".
+By excluded.lst:  "se c -no_split".
+Excluded command: "se c -no_split -boost -bdw_gc test_flat_check01.e -o test_flat_check01.exe".
 By excluded.lst:  "se c -no_split".
 --------------------------------------------------------------------------------
 All entries of the "excluded.lst" file are used (good).

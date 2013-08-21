@@ -4,7 +4,7 @@ type COLLECTION[STRING].
 
 The source lines involved by the message are the following:
 
-Line 15 columns 3, 8 in BAD_TYPE1 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_type1.e):
-    c := l_integer;
-    ^    ^         
+Line 15 columns 10, 15 in BAD_TYPE1 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_type1.e):
+         c := l_integer;
+         ^    ^         
 ------

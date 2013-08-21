@@ -53,7 +53,7 @@ EOF
         shift
         (
             rm -f eiffeltest/LOCK
-            ulimit -t ${ULIMIT_TIME:-60}
+            ulimit -t ${ULIMIT_TIME:-600}
             ulimit -v ${ULIMIT_VIRT:-$((1024*1024*4))}
             if [ x$run == x-flat ]; then
                 nice se test -verbose -flat . > eiffeltest/log 2>&1

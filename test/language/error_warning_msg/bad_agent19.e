@@ -2,11 +2,11 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_AGENT19
-   
-create
+
+create {}
    main
 
-feature
+feature {ANY}
    main is
       local
          agent1, agent2: PROCEDURE[STRING]
@@ -18,7 +18,7 @@ feature
    foo (arg: STRING) is
       do
       end
-   
+
 end -- class BAD_AGENT19
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -3,7 +3,7 @@
 --
 class AUX_B
 inherit AUX_A redefine foo end
-feature
+feature {ANY}
    foo(bar: AUX_C) is
       do
       end
@@ -29,4 +29,3 @@ end -- class AUX_B
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-

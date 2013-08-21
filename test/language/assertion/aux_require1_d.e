@@ -6,7 +6,7 @@ class AUX_REQUIRE1_D
 inherit
    AUX_REQUIRE1_A
    AUX_REQUIRE1_C
-   
+
 creation {ANY}
    default_create
 
@@ -22,13 +22,13 @@ feature {}
          bad_counting_require
       do
       end
-   
+
    d_or_a_and_b is
       require else
          bad_counting_require
       do
       end
-   
+
    everywhere is
       require else
          bad_counting_require
@@ -48,43 +48,43 @@ feature {ANY}
       do
          counter.reset
          a_only
-         assert(counter.value = 1)
+         assert(counter.item = 1)
 
          counter.reset
          b_only
-         assert(counter.value = 1)
+         assert(counter.item = 1)
 
          counter.reset
          c_only
-         assert(counter.value = 1)
+         assert(counter.item = 1)
 
          counter.reset
          d_only
-         assert(counter.value = 1)
+         assert(counter.item = 1)
 
          counter.reset
          a_and_c
-         assert(counter.value = 2)
+         assert(counter.item = 2)
 
          counter.reset
          d_or_a_and_c
-         assert(counter.value = 3)
+         assert(counter.item = 3)
 
          counter.reset
          a_and_b
-         assert(counter.value = 3)
+         assert(counter.item = 3)
 
          counter.reset
          d_or_a_and_b
-         assert(counter.value = 4)
+         assert(counter.item = 4)
 
          counter.reset
          everywhere
-         assert(counter.value = 5)
+         assert(counter.item = 5)
 
          counter.reset
          partial
-         assert(counter.value = 7)
+         assert(counter.item = 7)
 
       end
 

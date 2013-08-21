@@ -3,14 +3,14 @@
 --
 class BAD_NAME3
 
-creation
+create {}
    thisIsWrong
 
-feature
+feature {}
    thisIsWrong is
       do
       end
-   
+
 end -- class BAD_NAME3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

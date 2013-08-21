@@ -3,25 +3,24 @@
 --
 class BAD_AGENT04
 
-creation make
+create {}
+   make
 
-feature
-
+feature {ANY}
    make is
       local
          my_agent: PROCEDURE[TUPLE[CHARACTER]];
-    tuple: TUPLE[CHARACTER];
+         tuple: TUPLE[CHARACTER];
       do
-    my_agent := agent proc(?);
-    tuple := ['a'];
-    my_agent.call([tuple.first],3);
+         my_agent := agent proc(?);
+         tuple := ['a'];
+         my_agent.call([tuple.first],3);
       end;
 
-feature {NONE}
-
+feature {}
    proc(i: CHARACTER) is
       do
-    std_output.put_character(i);
+         std_output.put_character(i);
       end;
 
 end -- class BAD_AGENT04

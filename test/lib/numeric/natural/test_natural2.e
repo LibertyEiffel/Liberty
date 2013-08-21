@@ -6,7 +6,7 @@ inherit
 create {}
    main
 
-feature
+feature {}
    main is
       local
          a8, b8, c8, d8: NATURAL_8

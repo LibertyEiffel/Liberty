@@ -2,8 +2,10 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_INSPECT12
-creation
+
+create {}
    main
+
 feature {}
    main is
       local
@@ -14,6 +16,7 @@ feature {}
          when Void .. 3 then -- Bad slice.
          end
       end
+
 end -- class BAD_INSPECT12
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 class BAD_ADDRESS_OF4
 
-creation
+create {}
    main
 
 feature {}
@@ -9,7 +9,6 @@ feature {}
          pointer: POINTER
       do
          pointer := $constant_attribute
-         
       end
 
    constant_attribute: INTEGER is 4

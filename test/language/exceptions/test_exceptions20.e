@@ -3,7 +3,7 @@
 --
 class TEST_EXCEPTIONS20
 
-inherit
+insert
    ANY
       redefine default_rescue
       end

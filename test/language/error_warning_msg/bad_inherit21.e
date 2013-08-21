@@ -3,16 +3,17 @@
 --
 class BAD_INHERIT21
 
-creation
+create {}
    main
 
-feature
+feature {}
    main is
       local
          aux: AUX_INHERIT21[STRING]
       do
          create aux
       end
+
 end -- class BAD_INHERIT21
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

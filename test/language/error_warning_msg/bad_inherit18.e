@@ -9,16 +9,15 @@ inherit
 insert
    AUX_INHERIT18B
 
-
-creation
+create {}
    make
-   
-feature
+
+feature {}
    make is
       do
          an_attribute := 1 -- No more attribute here !
       end
-   
+
 end -- class BAD_INHERIT18
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

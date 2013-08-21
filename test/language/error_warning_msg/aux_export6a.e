@@ -2,15 +2,16 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_EXPORT6A
-feature
+feature {ANY}
    f is
       do
-    if a1 = Void then
-    else 
-       create a1
-       a1.g
-    end
+         if a1 = Void then
+         else
+            create a1
+            a1.g
+         end
       end
+
    a1: AUX_EXPORT6A1
 end -- class AUX_EXPORT6A
 --

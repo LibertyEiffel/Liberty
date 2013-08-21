@@ -7,11 +7,13 @@ class BAD_CREATION2
 inherit
    AUX_CREATION2
       rename
-    make as aa_make
+         make as aa_make
       end;
-creation
+
+create {}
    make
-feature
+
+feature {}
 
 end -- class BAD_CREATION2
 --

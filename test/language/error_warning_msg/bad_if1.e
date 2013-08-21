@@ -3,14 +3,14 @@
 --
 class BAD_IF1
 
-creation make
+create {}
+   make
 
-feature
-   
+feature {}
    make is
       do
-    if 1
-    end
+         if 1
+         end
       end
 
 end -- class BAD_IF1

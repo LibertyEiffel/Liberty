@@ -13,7 +13,7 @@ default
 cluster
 
    "${path_tutorial}/number"
-   "${path_lib}/loadpath.se"
+   "${path_liberty_core}/loadpath.se"
 
 generate
 

@@ -5,7 +5,7 @@ class FOO
 
 inherit BAD_FILENAME2
 
-creation make
+create {} make
 
 end -- class FOO
 --

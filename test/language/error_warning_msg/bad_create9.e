@@ -3,17 +3,17 @@
 --
 class BAD_CREATE9
 
-creation
+create {}
    main
 
-feature
+feature {}
    main is
       local
          string: STRING
       do
          string := create {STRING}.does_not_exist
       end
-   
+
 end -- class BAD_CREATE9
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

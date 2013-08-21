@@ -8,13 +8,14 @@ inherit
    AUX_INHERIT14A
    AUX_INHERIT14B
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       do
       end;
+
 end -- class BAD_INHERIT14
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

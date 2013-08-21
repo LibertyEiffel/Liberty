@@ -3,28 +3,29 @@
 --
 class BAD_PRECURSOR09
 -- From a bug report from Joseph R. Kiniry (kiniry@acm.org)
-   
+
 inherit AUX_PRECURSOR09
       redefine
     foo
       end
 
-creation
+create {}
    make
 
-feature
+feature {}
    make is
       local
-    temp : like Current
+         temp : like Current
       do
-    temp := foo
+         temp := foo
       end
 
-   foo : like Current is
+feature {ANY}
+   foo: like Current is
       local
-    a : BAD_PRECURSOR09
+         a : BAD_PRECURSOR09
       do
-    a := Precursor
+         a := Precursor
       end
 
 end -- class BAD_PRECURSOR09

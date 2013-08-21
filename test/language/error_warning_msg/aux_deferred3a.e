@@ -3,7 +3,7 @@
 --
 class AUX_DEFERRED3A
 
-feature
+feature {ANY}
 
    deferred_foo is deferred end
 

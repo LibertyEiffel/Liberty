@@ -10,7 +10,7 @@ create {C_PRETTY_PRINTER}
    make
 
 feature {}
-   header_comment: STRING is "/* C Header Pass 2: */%N"
+   header_comment: STRING is "/* C Header Pass 3: */%N"
 
    pre_compile is
       do
@@ -19,7 +19,7 @@ feature {}
    do_compile (live_type: LIVE_TYPE) is
       do
          if live_type.canonical_type_mark.is_user_expanded and then live_type.writable_attributes /= Void then
-            live_type.writable_attributes.do_all(agent compile_expanded)
+            live_type.writable_attributes.do_all(agent compile_expanded(?))
          end
          live_type.canonical_type_mark.accept(Current)
       end

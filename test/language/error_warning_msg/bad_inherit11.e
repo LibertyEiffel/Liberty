@@ -4,7 +4,7 @@
 class BAD_INHERIT11
    -- See also test_jlp5/6
 
-inherit 
+inherit
    ANY
       rename io as foo
       end;
@@ -12,20 +12,21 @@ inherit
       rename io as bar
       end;
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
-      do 
-    if foo.is_connected then
-    end;
-    if bar.is_connected then
-    end;
-    check
-       foo = bar
-    end;
-      end 
+      do
+         if foo.is_connected then
+         end;
+         if bar.is_connected then
+         end;
+         check
+            foo = bar
+         end;
+      end
+
 end -- class BAD_INHERIT11
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

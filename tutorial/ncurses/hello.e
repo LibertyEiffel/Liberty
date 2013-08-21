@@ -6,7 +6,7 @@ class HELLO
 insert
    NCURSES_TOOLS
 
-creation
+create {}
    main
 
 feature {}

@@ -5,12 +5,12 @@ class BAD_INHERIT7
 
 inherit reference STRING
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is do end
-   
+
 end -- class BAD_INHERIT7
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

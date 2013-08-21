@@ -3,10 +3,10 @@
 --
 class BAD_LIKE14
 
-creation
+create {}
    make
-   
-feature
+
+feature {}
    make is
       do
       end
@@ -16,7 +16,7 @@ feature
          bar: like foo
       do
       end
-   
+
 end -- class BAD_LIKE14
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

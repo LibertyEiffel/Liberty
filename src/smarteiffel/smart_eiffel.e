@@ -1414,6 +1414,7 @@ feature {}
 feature {CLASS_CHECK}
    very_last_information is
       do
+         error_handler.print_live_warnings
          assignment_handler.echo_information
          feature_accumulator.echo_information
          eiffel_parser.echo_information

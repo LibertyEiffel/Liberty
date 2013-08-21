@@ -3,21 +3,22 @@
 --
 class AUX_ENSURE3
 
-feature
+feature {ANY}
    attr: INTEGER
-   
+
+feature {}
    make is
       do
          attr := attr + 1
       ensure
          attr = 2
       end
-   
+
    make2 is
       do
          attr := attr + 1
       end
-   
+
 end -- class AUX_ENSURE3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

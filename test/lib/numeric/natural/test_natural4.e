@@ -6,7 +6,7 @@ inherit
 create {}
    main
 
-feature
+feature {}
    main is
       local
          n64: NATURAL_64; debug_view: STRING

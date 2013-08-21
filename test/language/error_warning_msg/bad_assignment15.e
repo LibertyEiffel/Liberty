@@ -3,10 +3,10 @@
 --
 class BAD_ASSIGNMENT15
 
-creation
+create {}
    make
-   
-feature
+
+feature {ANY}
    make is
       local
          real_32: REAL_32
@@ -14,6 +14,7 @@ feature
       do
          real_32 := real_64
       end
+
 end -- class BAD_ASSIGNMENT15
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

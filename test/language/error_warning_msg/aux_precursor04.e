@@ -3,8 +3,7 @@
 --
 class AUX_PRECURSOR04
 
-feature
-
+feature {ANY}
    routine(i: INTEGER) is
       do
       end;

@@ -2,8 +2,8 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class AUX_RENAME5
-feature
-   item: AUX_RENAME5 is 
+feature {ANY}
+   item: AUX_RENAME5 is
       deferred
       end
 end -- class AUX_RENAME5
@@ -25,4 +25,3 @@ end -- class AUX_RENAME5
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-

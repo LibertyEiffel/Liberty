@@ -12788,7 +12788,8 @@ Running (-no_split -boost -bdw_gc) "test_sz550.exe".
 se clean test_sz550.e
 Removing (-no_split -boost -bdw_gc) "test_sz550.exe".
 --------------------------------------------------------------------------------
-se c bad_agent01.e -o bad_agent01.exe -output_error_warning_on bad_agent01.new
+se c bad_agent01.e -o bad_agent01.exe -style_warning -output_error_warning_on bad_agent01.new
+Removing "bad_agent01.new".
 --------------------------------------------------------------------------------
 All entries of the "excluded.lst" file are used (good).
 --------------------------------------------------------------------------------

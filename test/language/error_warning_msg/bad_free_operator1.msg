@@ -3,7 +3,7 @@
 
 The source lines involved by the message are the following:
 
-Line 14 columns 8, 13 in BAD_FREE_OPERATOR1 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_free_operator1.e):
-    s := "foo"-+"bar"
-         ^    ^      
+Line 14 columns 15, 20 in BAD_FREE_OPERATOR1 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_free_operator1.e):
+         s := "foo"-+"bar"
+              ^    ^      
 ------

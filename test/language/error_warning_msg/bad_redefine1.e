@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_REDEFINE1
-   
+
 inherit AUX_REDEFINE1 redefine foo end;
-   
-creation make
-   
-feature 
-   
-   make is 
+
+create {}
+   make
+
+feature {}
+   make is
       local
-    file: TEXT_FILE_WRITE;
+         file: TEXT_FILE_WRITE;
       do
-    check
-       foo(file) = 3
-    end;
+         check
+            foo(file) = 3
+         end;
       end;
-   
+
    foo(file: TEXT_FILE_WRITE): INTEGER is
       do
       end;

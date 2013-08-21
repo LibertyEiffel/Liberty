@@ -3,7 +3,7 @@
 --
 class AUX_PRECURSOR13
 
-feature
+feature {ANY}
    foo (bidule: NUMERIC) is
       do
       end
@@ -27,4 +27,3 @@ end -- class AUX_PRECURSOR13
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-

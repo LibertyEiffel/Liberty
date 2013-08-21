@@ -3,17 +3,17 @@
 --
 class BAD_LOCAL_LIST1
 
-creation make
-   
-feature
-   
+create {}
+   make
+
+feature {}
    make is
       local
-    bar, foo: INTEGER;
-    bar: INTEGER;
+         bar, foo: INTEGER;
+         bar: INTEGER;
       do
       end;
-   
+
 end -- class BAD_LOCAL_LIST1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

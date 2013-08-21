@@ -2,21 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_INHERIT1
-   
+
 inherit COLLECTION;
-   
-creation {ANY}
+
+create {ANY}
    make
-   
+
 feature {ANY}
-   
-   make is 
+   make is
       local
-    x: like item;
-      do 
+         x: like item;
+      do
 
       end;
-   
+
 end -- class BAD_INHERIT1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

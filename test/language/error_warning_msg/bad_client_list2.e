@@ -1,6 +1,6 @@
 class BAD_CLIENT_LIST2
 
-creation
+create {}
    main
 
 feature {2}
@@ -9,4 +9,3 @@ feature {2}
       end
 
 end
-   

@@ -3,13 +3,13 @@
 --
 class BAD_AGENT01
 
-creation make
+create {}
+   make
 
-feature
-
+feature {ANY}
    make is
       do
-    foo(?)
+         foo(?)
       end
 
    foo(i: INTEGER) is

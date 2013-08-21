@@ -5,9 +5,12 @@ class BAD_CREATION6
 --
 -- Because we must check that all creation procedures do exists.
 --
-creation
+
+create {}
    make
-feature
+
+feature {}
+
 end -- class BAD_CREATION6
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

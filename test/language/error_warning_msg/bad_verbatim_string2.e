@@ -2,21 +2,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_VERBATIM_STRING2
-   
-creation make
-   
-feature
-   
+
+create {}
+   make
+
+feature {}
    make is
       local
-    s: STRING;
+         s: STRING;
       do
-    s := "jjj%    
-          %hhh";
-    s := "[ hi
-          ]" ;
+          s := "jjj%    
+                %hhh";
+          s := "[ hi
+                ]" ;
       end;
-   
+
 end -- class BAD_VERBATIM_STRING2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -5,7 +5,7 @@ insert
    NCURSES_KEYS
    NCURSES_COLORS
 
-creation
+create {}
    main
 
 feature {}

@@ -3,7 +3,7 @@
 --
 deferred class AUX_REDEFINE16
 
-feature
+feature {ANY}
    foo is
       do
          bar -- In BAD_REDEFINE16, call to `bar1' or `bar2'?
@@ -33,4 +33,3 @@ end -- class AUX_REDEFINE16
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-

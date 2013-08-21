@@ -3,15 +3,15 @@
 --
 class BAD_PRECURSOR01
 
-inherit 
+inherit
    AUX_PRECURSOR
       redefine procedure
       end
 
-creation make
+create {}
+   make
 
-feature 
-
+feature {}
    make is
       do
     procedure
@@ -19,9 +19,9 @@ feature
 
    procedure is
       local
-    v: INTEGER
+         v: INTEGER
       do
-    v := Precursor
+         v := Precursor
       end
 
 end -- class BAD_PRECURSOR01

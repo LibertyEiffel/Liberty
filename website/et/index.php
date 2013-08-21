@@ -14,8 +14,6 @@ include "functions.php";
 
 // todo: move "all" stage content into separate site loads to prevent a big index.html download with "everything green" and none caring about the details
 
-$update = date ($dateFormat, filemtime("$stageout/current_stage.txt"));
-
 include "$templates/head.html";
 
 if(array_key_exists("manual_request", $_GET) && $_GET["manual_request"] == 1){
@@ -24,36 +22,37 @@ if(array_key_exists("manual_request", $_GET) && $_GET["manual_request"] == 1){
 
 if(array_key_exists('history', $_GET) && ($_GET["history"] > 0)){
     $stageout = $stageout . "_" . $_GET["history"];
-}
-
-$json = unserialize(file_get_contents($activeJsonObj));
-// see https://help.github.com/articles/post-receive-hooks
-echo "<p>active commits (" . count($json['commits']) . "):<br/>\n";
-foreach ($json['commits'] as $commit){
-    $committer = $commit['author']['name'];
-    // his email is: $commit['author']['email'];
-    echo "   <a href=\"" . $commitbaselink . $commit['id'] . "\">" . $commit['message'] . "</a> by $committer on " . date ($dateFormat, strtotime($commit['timestamp'])) . "<br/>\n";
-}
-echo "</p><p>\n";
-if(file_exists($request)){
-    $content = file_get_contents ($request);
-
-    if(preg_match("/new MANUAL/", $content)){
-        $state = "request pending (" . $content . ")";
+    $state = "history " . $_GET["history"] . " / " . $historysize;
+}else{
+    $json = unserialize(file_get_contents($activeJsonObj));
+    // see https://help.github.com/articles/post-receive-hooks
+    echo "<p>Active commits (" . count($json['commits']) . "):</p>\n<ul>\n";
+    foreach ($json['commits'] as $commit){
+        $committer = $commit['author']['name'];
+        // his email is: $commit['author']['email'];
+        echo "<li><a href=\"" . $commitbaselink . $commit['id'] . "\">" . $commit['message'] . "</a> by $committer on " . date ($dateFormat, strtotime($commit['timestamp'])) . "</li>\n";
+    }
+    echo "</ul>\n";
+    if(file_exists($lock)){
+        $currentStage = file_get_contents("$stageout/current_stage.txt");
+        $state = "working on " . file_get_contents($currentStage . "/stagename.txt");
     }else{
-        $state = "request pending (via git request)";
+        $state = "idle";
+    }
+    if(file_exists($request)){
+        $content = file_get_contents ($request);
+        if(preg_match("/new MANUAL/", $content)){
+            $state = $state . " &mdash; request pending (" . $content . ")";
+        }else{
+            $state = $state . " &mdash; request pending (via git request)";
+        }
     }
 
-}elseif(file_exists($lock)){
-    $currentStage = file_get_contents("$stageout/current_stage.txt");
-    $state = "working on " . file_get_contents($currentStage . "/stagename.txt");
-}else{
-    $state = "idle";
 }
 
-echo "state: $state<br/>\n";
-echo "last update: $update<br/>\n";
-echo "</p>\n";
+echo "<p><br/>State: $state</p>\n";
+$update = date ($dateFormat, filemtime("$stageout/current_stage.txt"));
+echo "<p>Last update: $update</p>\n";
 
 function filedatecompare($a,$b){
     $ac = filectime($a);
@@ -93,10 +92,11 @@ function printSubStages($dir){
         $stageName = file_get_contents("$stagedir/stagename.txt");
         if(file_exists("$stagedir/result.txt")){
             $stageresult = htmlForResult(file_get_contents("$stagedir/result.txt"));
+            $display_style = displayStyleForResult(file_get_contents("$stagedir/result.txt"));
         }else{
             $stageresult = htmlForResult("");
+            $display_style = displayStyleForResult("");
         }
-        // todo: also print retvalue
 
         if(file_exists("$stagedir/stagelink.txt")){
             $stagelink = file_get_contents("$stagedir/stagelink.txt");
@@ -109,7 +109,7 @@ function printSubStages($dir){
         echo "      <div style=\"display:inline;cursor:pointer;\" onclick=\"document.getElementById('stageout" . $stage . "').style.display='inline'\"><img src=\"$img/Plus_sign.png\" width=\"16\" height=\"16\" alt=\"show details\"/></div>\n";
         echo "      <div style=\"display:inline;cursor:pointer;\" onclick=\"document.getElementById('stageout" . $stage . "').style.display='none'\"><img src=\"$img/Minus_sign.png\" width=\"16\" height=\"16\" alt=\"hide details\"/></div>\n";
         echo "      </td></tr>\n";
-        echo "      <tr><td colspan=\"3\"><div style=\"display:none\" id=\"stageout" . $stage ."\">";
+        echo "      <tr><td colspan=\"3\"><div style=\"display:" . $display_style . "\" id=\"stageout" . $stage ."\">";
         echo "         <div class=\"substage\">";
         printSubStages($stagedir);
         echo "         </div>";

@@ -2,15 +2,15 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_WEAK_REFERENCE01
-   
-creation make
 
-feature {NONE}
+create {}
+   make
 
+feature {}
    make is
       local
-    bwr: WEAK_REFERENCE[INTEGER]
-      do    
+         bwr: WEAK_REFERENCE[INTEGER]
+      do
       end
 end -- class BAD_WEAK_REFERENCE01
 --

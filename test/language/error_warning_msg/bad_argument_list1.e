@@ -3,15 +3,15 @@
 --
 class BAD_ARGUMENT_LIST1
 
-creation make
-   
-feature
-   
+create {}
+   make
+
+feature {ANY}
    make is
       do
-    foo(1,2);
+         foo(1,2);
       end;
-   
+
    foo(bar, bar: INTEGER) is
       do
       end;

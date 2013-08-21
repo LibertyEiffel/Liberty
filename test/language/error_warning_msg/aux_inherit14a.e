@@ -5,8 +5,8 @@ class AUX_INHERIT14A
 inherit ANY
       rename out as o
       end
-   
-feature
+
+feature {ANY}
 end -- class AUX_INHERIT14A
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

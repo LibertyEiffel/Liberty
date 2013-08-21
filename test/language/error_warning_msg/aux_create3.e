@@ -3,15 +3,14 @@
 --
 class AUX_CREATE3
 
-creation
+create {ANY}
    make
 
-feature {NONE}
-
+feature {}
    make is
       do
       end
-   
+
 end -- class AUX_CREATE3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

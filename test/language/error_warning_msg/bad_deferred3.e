@@ -3,16 +3,15 @@
 --
 class BAD_DEFERRED3
 
-creation
+create {}
    make
 
-feature
-
+feature {}
    make is
       local
-    aux: AUX_DEFERRED3B
+         aux: AUX_DEFERRED3B
       do
-    create aux
+         create aux
       end
 
 end -- class BAD_DEFERRED3

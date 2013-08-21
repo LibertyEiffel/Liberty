@@ -2,18 +2,18 @@
 when the type of Current is BAD_EXPORT4. (See the next error report
 for details.)
 
-Line 15 column 7 in BAD_EXPORT4 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_export4.e):
-    aux.foo;
-        ^   
+Line 15 column 14 in BAD_EXPORT4 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_export4.e):
+         aux.foo;
+             ^   
 ------
 ****** Fatal Error: This feature is only exported to {AUX_EXPORT4}.
 
 The source lines involved by the message are the following:
 
-Line 6 column 10 in AUX_EXPORT4 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/aux_export4.e):
+Line 6 column 10 in AUX_EXPORT4 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export4.e):
 feature {AUX_EXPORT4}
          ^           
-Line 8 column 4 in AUX_EXPORT4 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/aux_export4.e):
+Line 7 column 4 in AUX_EXPORT4 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export4.e):
    foo is
    ^     
 ------

@@ -3,21 +3,20 @@
 --
 class BAD_ASSIGNMENT22
 
-creation
+create {}
    make
 
-feature
+feature {ANY}
    make is
       local
          c: COLLECTION[COMPARABLE]; a: ARRAY[INTEGER]
          comparable: COMPARABLE
       do
-         a := {ARRAY[INTEGER] 1, << 1.to_integer, 2 >> }
+         a := {ARRAY[INTEGER] 1, << 1.to_integer_32, 2 >> }
          c := a -- <-- Must be rejected.
          comparable := c.item(1)
       end
-   
-   
+
 end -- class BAD_ASSIGNMENT22
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

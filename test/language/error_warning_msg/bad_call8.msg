@@ -4,7 +4,7 @@ type REAL.)
 
 The source lines involved by the message are the following:
 
-Line 20 columns 32, 40 in BAD_CALL8 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_call8.e):
+Line 20 columns 38, 46 in BAD_CALL8 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_call8.e):
          toto := (toto * p_scalaire).rounded.to_integer_32
                                      ^       ^            
 ------

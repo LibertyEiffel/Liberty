@@ -3,17 +3,16 @@
 --
 class BAD_CONSTRAINT1
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       local
-    a: AUX_CONSTRAINT_A[STRING]
+         a: AUX_CONSTRAINT_A[STRING]
       do
-    create a.make("foo")
-    a.foo
-
+         create a.make("foo")
+         a.foo
       end
 
 end -- class BAD_CONSTRAINT1

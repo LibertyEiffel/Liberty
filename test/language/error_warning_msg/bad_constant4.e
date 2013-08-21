@@ -4,12 +4,12 @@
 class BAD_CONSTANT4
 -- From sz:478
 
-creation {ANY}
+create {ANY}
    run
 
 feature {ANY}
    a : ARRAY[ INTEGER ] is {ARRAY[ INTEGER ] 1, << 1, 3, 2 >> }
-   
+
    run is
       do
          if a.first = 1 then

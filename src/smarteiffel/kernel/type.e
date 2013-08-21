@@ -103,7 +103,7 @@ feature {}
                from
                   i := parent_lists.inherit_list.lower
                until
-                  i > parent_lists.inherit_list.upper
+                  parent_lists.inherit_list = Void or else i > parent_lists.inherit_list.upper
                loop
                   a_parent_edge := parent_lists.inherit_list.item(i)
                   --        parent_tm := a_parent_edge.type_mark.resolve_in(Current).canonical_type_mark

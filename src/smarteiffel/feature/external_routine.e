@@ -169,15 +169,24 @@ feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}
       local
          rb: like routine_body
       do
+         Result := Current
          if routine_body /= Void then
             rb := routine_body.simplify(type)
-            if rb = Void and is_generated_eiffel then
-               echo.w_put_string(once "Could not simplify generated code for ")
-               echo.w_put_line(first_name.to_string)
-               rb := routine_body
+            if rb /= Void or else not is_generated_eiffel then
+               Result := current_or_twin_init(local_vars, rb, is_generated_eiffel, ensure_assertion, require_assertion, True)
+            else
+               debug --| **** TODO: find why generated code does not simplify correctly (see TEST_JSON_04)
+                  sedb_breakpoint
+                  rb := routine_body.simplify(type)
+                  error_handler.add_position(start_position)
+                  error_handler.append(once "Could not simplify generated code for external routine: ")
+                  error_handler.append(type.canonical_type_mark.written_mark)
+                  error_handler.append(once ".")
+                  error_handler.append(first_name.to_string)
+                  error_handler.print_as_warning
+               end
             end
          end
-         Result := current_or_twin_init(local_vars, rb, is_generated_eiffel, ensure_assertion, require_assertion, True)
       end
 
 feature {ANY}

@@ -3,14 +3,14 @@
 --
 class bad_class5 -- Wrong class name here.
 
-creation
+create {}
    main
 
-feature
+feature {ANY}
    main is
       do
       end
-   
+
 end -- class bad_class5
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

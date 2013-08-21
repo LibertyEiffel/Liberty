@@ -13,10 +13,10 @@ feature {ANY}
       do
          tab := {ARRAY[STRING] 1, << "try", "test1", "test3", "abc", "hello world" >> }
          s.von_neuman_sort(tab)
-         assert(tab.is_equal_map({ARRAY[STRING] 1, << "abc", "hello world", "test1", "test3", "try" >> }))
+         assert(tab.is_equal({ARRAY[STRING] 1, << "abc", "hello world", "test1", "test3", "try" >> }))
          tab.add_last("+fr")
          s.von_neuman_sort(tab)
-         assert(tab.is_equal_map({ARRAY[STRING] 1, << "+fr", "abc", "hello world", "test1", "test3", "try" >> }))
+         assert(tab.is_equal({ARRAY[STRING] 1, << "+fr", "abc", "hello world", "test1", "test3", "try" >> }))
       end
 
    assert (b: BOOLEAN) is

@@ -3,8 +3,7 @@
 --
 class AUX_LOCAL_LIST4A
 
-feature
-   
+feature {ANY}
    foo: INTEGER;
 
 end -- class AUX_LOCAL_LIST4A
@@ -45,4 +44,3 @@ end -- class AUX_LOCAL_LIST4A
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-

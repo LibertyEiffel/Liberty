@@ -7,7 +7,7 @@ insert
    NCURSES_TOOLS
    NCURSES_KEYS
 
-creation
+create {}
    main
 
 feature {ANY}

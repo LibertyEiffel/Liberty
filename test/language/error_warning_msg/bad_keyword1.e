@@ -3,14 +3,13 @@
 --
 class BAD_KEYWORD1
 
-creation 
+create {}
    make
 
-feature
-
+feature {}
    make is
       local
-    create: INTEGER;
+         create: INTEGER;
       do
       end;
 

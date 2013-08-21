@@ -2,21 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_ASSERTION1
-   
-creation {ANY}
+
+create {ANY}
    make
-   
+
 feature {ANY}
-   
-   make is 
+   make is
       local
-    x: INTEGER;
-      do 
-    check
-       x := 3;
-    end;
+         x: INTEGER;
+      do
+         check
+            x := 3;
+         end;
       end;
-   
+
 end -- class BAD_ASSERTION1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

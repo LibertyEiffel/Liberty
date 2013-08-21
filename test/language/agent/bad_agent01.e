@@ -10,7 +10,7 @@ class BAD_AGENT01
 insert
    EIFFELTEST_TOOLS
 
-creation {}
+create {}
    make
 
 feature {}

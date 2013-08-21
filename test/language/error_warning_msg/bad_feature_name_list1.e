@@ -3,15 +3,14 @@
 --
 class BAD_FEATURE_NAME_LIST1
 
-creation
+create {}
    main, BAR
 
-feature
+feature {}
    main is
       do
       end
-   
-   
+
 end -- class BAD_FEATURE_NAME_LIST1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

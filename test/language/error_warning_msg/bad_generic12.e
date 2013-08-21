@@ -17,10 +17,10 @@ insert
          bar
       end
 
-creation
+create {}
    make
 
-feature
+feature {}
    make is
       local
          aux: AUX_GENERIC12[BAD_GENERIC12]

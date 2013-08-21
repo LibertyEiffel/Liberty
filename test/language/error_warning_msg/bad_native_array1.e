@@ -3,19 +3,19 @@
 --
 class BAD_NATIVE_ARRAY1
 
-creation make
-   
-feature 
+create {}
+   make
 
+feature {}
    store1: NATIVE_ARRAY[REAL];
 
    store2: NATIVE_ARRAY[INTEGER];
 
    make is
       do
-    store1 := store2;
+         store1 := store2;
       end;
-   
+
 end -- class BAD_NATIVE_ARRAY1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

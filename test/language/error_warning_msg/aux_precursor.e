@@ -3,8 +3,7 @@
 --
 class AUX_PRECURSOR
 
-feature 
-
+feature {ANY}
    function: INTEGER is
       do
       end;

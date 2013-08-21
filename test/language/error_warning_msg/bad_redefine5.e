@@ -2,22 +2,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_REDEFINE5
-   
+
 inherit
    AUX_REDEFINE5
       redefine frozen_routine
       end
-   
-creation {ANY}
+
+create {ANY}
    make
-   
+
 feature {ANY}
-   
-   make is 
-      do 
-    frozen_routine(Current)
+   make is
+      do
+         frozen_routine(Current)
       end
-   
+
    frozen_routine (other: AUX_REDEFINE5) is
       do
       end

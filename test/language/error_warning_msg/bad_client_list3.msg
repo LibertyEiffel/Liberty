@@ -1,7 +1,7 @@
-****** Fatal Error: Inside a client list, only plain class names
-are allowed. (Class names must use only upper-case letters.)
+****** Fatal Error: An anchored type cannot be used to indicate
+exportation status in a client list.
 
-Line 6 column 10 in BAD_CLIENT_LIST3 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_client_list3.e):
+Line 6 column 1 in BAD_CLIENT_LIST3 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_client_list3.e):
 feature {like Current}
-         ^            
+^                     
 ------

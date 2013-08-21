@@ -100,7 +100,7 @@ feature {}
             last_index := 0
             file_name_pattern := file_pattern(file_name)
             from
-               map(dir_name, file_name_pattern, agent set_last_index)
+               map(dir_name, file_name_pattern, agent set_last_index(?))
                i := last_index
             until
                i = 0

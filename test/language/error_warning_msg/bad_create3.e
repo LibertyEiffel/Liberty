@@ -3,13 +3,13 @@
 --
 class BAD_CREATE3
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       local
-    aux: AUX_CREATE3
+         aux: AUX_CREATE3
       do
          create aux
       end

@@ -3,7 +3,7 @@
 --
 class BAD_ATTRIBUTE2
 
-creation {}
+create {}
    default_create
 
 feature {}

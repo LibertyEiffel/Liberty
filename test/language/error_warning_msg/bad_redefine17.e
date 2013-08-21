@@ -4,7 +4,7 @@ insert
    AUX_REDEFINE17B
    AUX_REDEFINE17C
 
-creation
+create {}
    foo
 
 end -- class BAD_REDEFINE17

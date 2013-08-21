@@ -3,23 +3,23 @@
 --
 class BAD_LIKE3
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    an_attribute: INTEGER
-   
+
    make is
       do
-    an_attribute := a;
+         an_attribute := a;
       end;
-   
+
    a: like b;
 
-   b(arg: like b): like arg is 
+   b(arg: like b): like arg is
       do
       end;
-   
+
 end -- class BAD_LIKE3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

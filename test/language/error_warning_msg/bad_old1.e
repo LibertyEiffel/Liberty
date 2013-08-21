@@ -2,18 +2,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_OLD1
-creation make
-feature
-   
+
+create {}
+   make
+
+feature {}
    f (i: INTEGER) is
       do
       ensure
          illegal_assert: i = old (1 + old i)
       end
-   
+
    make is
       do
       end
+
 end -- class BAD_OLD1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

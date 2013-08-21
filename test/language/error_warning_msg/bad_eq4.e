@@ -2,15 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_EQ4
--- May be useful for beginners !
-create make
-   
-feature
+   -- May be useful for beginners !
+
+create {}
+   make
+
+feature {}
    make is
       do
-    if Current = Void then
-    end
+         if Current = Void then
+         end
       end
+
 end -- class BAD_EQ4
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

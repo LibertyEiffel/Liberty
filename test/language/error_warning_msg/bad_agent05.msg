@@ -3,7 +3,7 @@
 
 The source lines involved by the message are the following:
 
-Line 15 columns 3, 5 in BAD_AGENT05 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_agent05.e):
-    p.item(['a']);
-    ^ ^           
+Line 15 columns 10, 12 in BAD_AGENT05 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_agent05.e):
+         p.item(['a']);
+         ^ ^           
 ------

@@ -3,20 +3,24 @@
 --
 class BAD_AGENT08
 -- From: =?ISO-2022-JP?B?GyRCTFAzQBsoSg==?= <mmogaki@ybb.ne.jp>
-creation make
-feature
+
+create {}
+   make
+
+feature {ANY}
    make is
       local
-    r:ROUTINE[TUPLE[STRING]]
+         r:ROUTINE[TUPLE[STRING]]
       do
-    r := agent f(?,2)
-    --             ^-- type mismatch(should be STRING)
-    r.call(["TEST"])
+         r := agent f(?,2)
+         --             ^-- type mismatch(should be STRING)
+         r.call(["TEST"])
       end
-   
+
    f(s: STRING; i: STRING) is
       do
       end;
+
 end -- class BAD_AGENT08
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

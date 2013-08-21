@@ -3,15 +3,18 @@
 --
 class BAD_INTEGER_CONSTANT15
 -- SZ:512: from guillaume.lemaitre33@wanadoo.fr
-creation
+
+create {}
    main
-feature
+
+feature {}
    main is
       local
          integer: INTEGER
       do
          integer := {INTEGER}
       end
+
 end -- class BAD_INTEGER_CONSTANT15
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

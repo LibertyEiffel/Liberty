@@ -5,8 +5,8 @@ class BAD_IDENTIFIER2
 --
 -- Reported by Daniel F Moisset.
 --
-   
-creation
+
+create {}
    main
 
 feature {}
@@ -16,7 +16,7 @@ feature {}
       do
          showcursor := SDL_ShowCursor (0)
       end
-   
+
 end -- class BAD_IDENTIFIER1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

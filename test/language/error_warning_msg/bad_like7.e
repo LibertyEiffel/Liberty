@@ -3,21 +3,21 @@
 --
 class BAD_LIKE7
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       local
-    a: INTEGER;
+         a: INTEGER;
       do
-    a := b(a);
+         a := b(a);
       end;
-   
-   b(arg: like b): like arg is 
+
+   b(arg: like b): like arg is
       do
       end;
-   
+
 end -- class BAD_LIKE7
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

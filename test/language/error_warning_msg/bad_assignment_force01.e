@@ -2,7 +2,10 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_ASSIGNMENT_FORCE01
-create make
+
+create {}
+   make
+
 feature {}
    make is
       local
@@ -13,6 +16,7 @@ feature {}
          h := "titi"
          c ::= h
       end
+
 end -- class BAD_ASSIGNMENT_FORCE01
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

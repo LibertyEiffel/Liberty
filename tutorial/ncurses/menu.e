@@ -4,10 +4,10 @@ insert
    NCURSES_TOOLS
    NCURSES_COLORS
 
-creation{ANY}
+create {ANY}
    make
 
-feature{}
+feature {}
    root_window: NCURSES_WINDOW
 
    menubar: NCURSES_MENUBAR[STRING]

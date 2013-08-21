@@ -3,9 +3,9 @@ The "log.new" file must be identical to the "log.ref" file.
 The reference file is "log.ref" and this file must be created manually.
 If you confirm that "log.new" is correct, just overwrite "log.ref" with "log.new".
 --------------------------------------------------------------------------------
-Found 1 test_* file(s).
-Found 0 bad_* file(s).
-No subdirectory.
+Found 1 test_* file.
+Found 0 bad_* files.
+Found 0 subdirectories.
 --------------------------------------------------------------------------------
 se c -boost test_external_c01.e -o test_external_c01.exe glu_external_c01.c
 Running (-boost) "test_external_c01.exe".

@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_closure_free (an_argument_l307_c7: POINTER) is
+	ffi_closure_free (an_argument_l308_c7: POINTER) is
  		-- ffi_closure_free
 		external "plug_in"
 		alias "{
@@ -109,7 +109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_prep_closure (an_argument_l506_c7: POINTER; an_argument_l507_c7: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER is
+	ffi_prep_closure (an_argument_l509_c7: POINTER; an_argument_l510_c7: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER is
  		-- ffi_prep_closure
 		external "plug_in"
 		alias "{
@@ -119,7 +119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_prep_closure_loc (an_argument_l499_c7: POINTER; an_argument_l500_c7: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER is
+	ffi_prep_closure_loc (an_argument_l502_c7: POINTER; an_argument_l503_c7: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER is
  		-- ffi_prep_closure_loc
 		external "plug_in"
 		alias "{
@@ -129,7 +129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_prep_java_raw_closure (an_argument_l311_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER is
+	ffi_prep_java_raw_closure (an_argument_l312_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER is
  		-- ffi_prep_java_raw_closure
 		external "plug_in"
 		alias "{
@@ -139,7 +139,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_prep_java_raw_closure_loc (an_argument_l282_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER is
+	ffi_prep_java_raw_closure_loc (an_argument_l283_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER is
  		-- ffi_prep_java_raw_closure_loc
 		external "plug_in"
 		alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_prep_raw_closure (an_argument_l465_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER is
+	ffi_prep_raw_closure (an_argument_l468_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER is
  		-- ffi_prep_raw_closure
 		external "plug_in"
 		alias "{
@@ -209,7 +209,7 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_double (at line 180 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_double (at line 194 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_double: POINTER is
  		-- Address of ffi_type_double
 		external "plug_in"
@@ -220,7 +220,7 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_float (at line 179 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_float (at line 193 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_float: POINTER is
  		-- Address of ffi_type_float
 		external "plug_in"
@@ -231,7 +231,7 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_longdouble (at line 184 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_longdouble (at line 198 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_longdouble: POINTER is
  		-- Address of ffi_type_longdouble
 		external "plug_in"
@@ -242,7 +242,7 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_pointer (at line 181 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_pointer (at line 195 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_pointer: POINTER is
  		-- Address of ffi_type_pointer
 		external "plug_in"
@@ -253,7 +253,7 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_sint16 (at line 174 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_sint16 (at line 188 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_sint16: POINTER is
  		-- Address of ffi_type_sint16
 		external "plug_in"
@@ -264,7 +264,7 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_sint32 (at line 176 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_sint32 (at line 190 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_sint32: POINTER is
  		-- Address of ffi_type_sint32
 		external "plug_in"
@@ -275,7 +275,7 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_sint64 (at line 178 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_sint64 (at line 192 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_sint64: POINTER is
  		-- Address of ffi_type_sint64
 		external "plug_in"
@@ -286,7 +286,7 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_sint8 (at line 172 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_sint8 (at line 186 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_sint8: POINTER is
  		-- Address of ffi_type_sint8
 		external "plug_in"
@@ -297,7 +297,7 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_uint16 (at line 173 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_uint16 (at line 187 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_uint16: POINTER is
  		-- Address of ffi_type_uint16
 		external "plug_in"
@@ -308,7 +308,7 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_uint32 (at line 175 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_uint32 (at line 189 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_uint32: POINTER is
  		-- Address of ffi_type_uint32
 		external "plug_in"
@@ -319,7 +319,7 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_uint64 (at line 177 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_uint64 (at line 191 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_uint64: POINTER is
  		-- Address of ffi_type_uint64
 		external "plug_in"
@@ -330,7 +330,7 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_uint8 (at line 171 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_uint8 (at line 185 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_uint8: POINTER is
  		-- Address of ffi_type_uint8
 		external "plug_in"
@@ -341,7 +341,7 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_void (at line 170 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_void (at line 184 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_void: POINTER is
  		-- Address of ffi_type_void
 		external "plug_in"

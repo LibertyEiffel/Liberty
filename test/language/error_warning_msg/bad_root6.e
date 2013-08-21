@@ -4,7 +4,7 @@
 class BAD_ROOT6
    -- From sz:473
 
-creation {ANY}
+create {ANY}
    main
 
 feature {ANY}

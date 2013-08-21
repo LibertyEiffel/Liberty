@@ -2,16 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_LIKE12
--- This test is the simplified problem from SZ:95: which is too much 
+-- This test is the simplified problem from SZ:95: which is too much
 -- complex with 10 classes, multiple inheritance, generic types...
-creation make
-feature
+
+create {}
+   make
+
+feature {}
    make is
       local
          b: AUX_LIKE12B; x: INTEGER
       do
-    b.g(x)
+         b.g(x)
       end
+
 end -- class BAD_LIKE12
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

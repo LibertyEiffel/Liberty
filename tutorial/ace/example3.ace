@@ -30,7 +30,7 @@ cluster
          trace(yes)
       end
 
-   "${path_lib}/loadpath.se"
+   "${path_liberty_core}/loadpath.se"
 
 external
 

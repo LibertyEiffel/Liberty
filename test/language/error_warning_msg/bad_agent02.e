@@ -3,10 +3,10 @@
 --
 class BAD_AGENT02
 
-creation make
+create {}
+   make
 
-feature
-
+feature {ANY}
    make is
       local
          my_collection: COLLECTION[STRING]
@@ -17,7 +17,6 @@ feature
       end
 
 feature {}
-
    print_item(c: CHARACTER; item: STRING) is
       do
          number := number + 1
@@ -27,9 +26,9 @@ feature {}
          std_output.put_string(item)
          std_output.put_character('%N')
       end
-   
+
    number: INTEGER
-   
+
 end -- class BAD_AGENT02
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

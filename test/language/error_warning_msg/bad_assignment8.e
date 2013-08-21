@@ -3,16 +3,17 @@
 --
 class BAD_ASSIGNMENT8
 
-creation
+create {}
    make
-   
-feature
+
+feature {ANY}
    make is
       local
          any: ANY
       do
          any := 3.5
       end
+
 end -- class BAD_ASSIGNMENT8
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

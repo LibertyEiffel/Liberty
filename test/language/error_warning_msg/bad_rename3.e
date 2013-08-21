@@ -8,7 +8,7 @@ inherit
       rename do_nothing as print
       end
 
-creation {ANY}
+create {ANY}
    default_create
 
 end -- class BAD_RENAME3

@@ -3,7 +3,7 @@
 --
 class AUX_LIKE12B
 inherit AUX_LIKE12A redefine f end
-feature
+feature {ANY}
    f: ARRAY[like t]
 end -- class AUX_LIKE12B
 --

@@ -4,9 +4,10 @@
 class BAD_AGENT11
 -- From: Philippe Ribet <p.ribet@worldonline.fr>
 
-creation make
+create {}
+   make
 
-feature
+feature {ANY}
    make is
       do
          foo(agent io.put_string)

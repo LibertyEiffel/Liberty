@@ -3,18 +3,18 @@
 --
 class BAD_BIT1
 
-creation make
-   
-feature
-   
+create {}
+   make
+
+feature {ANY}
    make is
       local
-    b8: BIT 8;
+         b8: BIT 8;
          b16: BIT 16;
       do
-    b8 := b16;
+         b8 := b16;
       end;
-   
+
 end -- class BAD_BIT1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

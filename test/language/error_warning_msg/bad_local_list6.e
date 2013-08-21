@@ -3,10 +3,10 @@
 --
 class BAD_LOCAL_LIST6
 
-creation
+create {}
    main
 
-feature
+feature {}
    main is
       local
          clock1 clock2 CLOCK integer INTEGER
@@ -14,7 +14,7 @@ feature
          integer := clock1.value
          integer := clock2.value
       end
-   
+
 end -- class BAD_LOCAL_LIST6
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

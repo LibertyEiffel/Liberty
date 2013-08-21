@@ -5,7 +5,7 @@ class BAD_FILENAME2
 
 inherit AUX_FILENAME1
 
-creation make
+create {} make
 
 end -- class BAD_FILENAME2
 --

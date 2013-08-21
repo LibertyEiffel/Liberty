@@ -3,10 +3,11 @@
 --
 class BAD_SYNTAX02
 -- From sz:510
-creation
+
+create {}
    make
 
-feature
+feature {}
    make is
       do
          1

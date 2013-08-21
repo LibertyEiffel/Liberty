@@ -8,14 +8,14 @@ inherit
       export {ANY} some_unknown_feature
       end
 
-create
+create {}
    make
 
-feature
+feature {}
    make is
       do
       end
-   
+
 end -- class BAD_EXPORT9
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

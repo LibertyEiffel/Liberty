@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_REFERENCE1 -- For the new reference TYPE
-   
-creation make
 
-feature
+create {}
+   make
 
+feature {}
    make is
       local
-    ri: reference INTEGER_GENERAL
+         ri: reference INTEGER_GENERAL
       do
-    ri := ri
+         ri := ri
       end
-   
+
 end -- class BAD_REFERENCE1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

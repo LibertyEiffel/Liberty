@@ -6,10 +6,10 @@ class BAD_SYNTAX10
 -- Reported by Daniel F Moisset.
 --
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       do
          create text.make (<<G_TYPE_STRING>>)

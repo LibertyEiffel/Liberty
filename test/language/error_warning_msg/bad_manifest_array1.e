@@ -2,15 +2,17 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_MANIFEST_ARRAY1
-creation
+
+create {}
    make
-feature
+
+feature {}
    make is
       do
          if (<< "foo" , 3 >>) = Void then
          end
       end
-   
+
 end -- class BAD_MANIFEST_ARRAY1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

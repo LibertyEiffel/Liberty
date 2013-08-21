@@ -2,15 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_EXPORT6
-creation make
-feature
+
+create {}
+   make
+
+feature {}
    make is
       local
-    b: AUX_EXPORT6B
+         b: AUX_EXPORT6B
       do
-    create b
-    b.f
+         create b
+         b.f
       end
+
 end -- class BAD_EXPORT6
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

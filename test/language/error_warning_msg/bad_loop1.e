@@ -3,16 +3,16 @@
 --
 class BAD_LOOP1
 
-creation make
+create {}
+   make
 
-feature
-   
+feature {}
    make is
       do
-    from until 1
-    loop
+         from until 1
+         loop
 
-    end;
+         end;
       end;
 
 end -- class BAD_LOOP1

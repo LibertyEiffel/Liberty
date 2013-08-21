@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_CALL6
-creation
-   make
-   
-feature
 
+create {}
+   make
+
+feature {ANY}
    make is
       local
-    aux: AUX_CALL6
+         aux: AUX_CALL6
       do
-    aux.foo
+         aux.foo
       end
-   
+
 end -- class BAD_CALL6
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

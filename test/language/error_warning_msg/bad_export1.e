@@ -2,16 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_EXPORT1
-   -- From a bug report of John TYRRELL 
-creation make
-feature
+   -- From a bug report of John TYRRELL
+
+create {}
+   make
+
+feature {}
    make is
       local
-    b: AUX_EXPORT1B
+         b: AUX_EXPORT1B
       do
-    !!b
-    b.foo
+         !!b
+         b.foo
       end
+
 end -- class BAD_EXPORT1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

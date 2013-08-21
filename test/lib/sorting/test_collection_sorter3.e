@@ -110,7 +110,7 @@ feature {}
          sorter.von_neuman_sort(model)
          sorter.quick_sort(model)
          assert(sorter.is_sorted(model))
-         assert(resul.is_equal_map(model))
+         assert(resul.is_equal(model))
       end
 
    assert (b: BOOLEAN) is

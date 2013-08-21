@@ -2,14 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_INHERIT12
-create make
-feature
+
+create {}
+   make
+
+feature {}
    make is
       local
          d: AUX_INHERIT12_D
       do
          create d
       end
+
 end -- class BAD_INHERIT12
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

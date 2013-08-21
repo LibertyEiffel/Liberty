@@ -284,7 +284,7 @@ invariant
    capacity > 0 implies storage.is_not_null
    count <= capacity
    storage_lower >= 0
-   has_storage_signature implies check_storage_signature
+   storage_signature_count > 0 implies (has_storage_signature implies check_storage_signature)
    storage_signature_count = 0 or storage_signature_count = 4
 
 end -- class NATIVELY_STORED_STRING

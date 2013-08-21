@@ -4,7 +4,6 @@
 class AUX_UNDEFINE1
 
 feature {ANY}
-
    frozen test is
       do
       end

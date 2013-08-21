@@ -3,10 +3,10 @@ renamed as `make_foo'
 
 The source lines involved by the message are the following:
 
-Line 9 column 3 in BAD_REDEFINE3 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_redefine3.e):
+Line 9 column 5 in BAD_REDEFINE3 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_redefine3.e):
     make as make_foo
     ^               
-Line 11 column 3 in BAD_REDEFINE3 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_redefine3.e):
+Line 11 column 5 in BAD_REDEFINE3 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_redefine3.e):
     make
     ^   
 ------

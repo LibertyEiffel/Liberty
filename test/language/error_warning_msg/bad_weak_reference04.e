@@ -5,14 +5,15 @@ class BAD_WEAK_REFERENCE04
 
 inherit
    WEAK_REFERENCE[STRING]
-   
-creation make
 
-feature {NONE}
+create {}
+   make
 
+feature {}
    make is
       do
       end
+
 end -- class BAD_WEAK_REFERENCE04
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

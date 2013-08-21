@@ -2,17 +2,17 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_WEAK_REFERENCE02
-   
-creation make
 
-feature {NONE}
+create {}
+   make
 
+feature {}
    my_int: INTEGER
-   
+
    make is
       local
-    bwr: WEAK_REFERENCE[like my_int]
-      do    
+         bwr: WEAK_REFERENCE[like my_int]
+      do
       end
 end -- class BAD_WEAK_REFERENCE02
 --

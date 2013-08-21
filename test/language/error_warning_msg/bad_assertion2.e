@@ -2,19 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_ASSERTION2
-   
-creation {ANY}
+
+create {ANY}
    make
-   
+
 feature {}
-   
-   make is 
-      do 
-    check
-       3
-    end
+   make is
+      do
+         check
+            3
+         end
       end
-   
+
 end -- class BAD_ASSERTION2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
