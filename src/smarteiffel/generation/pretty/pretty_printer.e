@@ -574,9 +574,6 @@ feature {ANY} -- To run `pretty' in a STRING buffer:
          client_buffer.append(pretty_buffer)
       end
 
-feature {}
-   pretty_buffer: STRING is once ""
-
 feature {PRETTY, PRETTY_PRINTER_HANDLER}
    connect_to (path: STRING) is
          -- Note: because the output is buffered, the caller must not forget to call `disconnect' at the end.
@@ -674,8 +671,15 @@ feature {}
    buffer: STRING is
          -- The whole text is placed in this `buffer' before to be actually printed on the `out_stream'.
       once
-         create Result.make(500000)
+         create Result.make(initial_buffer_capacity)
       end
+
+   pretty_buffer: STRING is
+      once
+         create Result.make(initial_buffer_capacity)
+      end
+
+   initial_buffer_capacity: INTEGER is 100000
 
    out_stream_flag: BOOLEAN
          -- True indicates that the output have to be done on `out_stream'. False indicates that we just

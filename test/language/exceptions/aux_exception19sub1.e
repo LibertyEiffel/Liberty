@@ -6,9 +6,6 @@ class AUX_EXCEPTION19SUB1
 inherit
    AUX_EXCEPTION19SUB
 
-insert
-   EXCEPTIONS
-
 creation {ANY}
    make
 

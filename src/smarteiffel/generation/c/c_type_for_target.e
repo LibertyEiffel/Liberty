@@ -47,11 +47,9 @@ feature {NON_EMPTY_TUPLE_TYPE_MARK}
 feature {USER_GENERIC_TYPE_MARK}
    visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
       do
-         if visited.is_empty_expanded then
-            buffer.append(once "int")
-         else
-            buffer.extend('T')
-            visited.id.append_in(buffer)
+         buffer.extend('T')
+         visited.id.append_in(buffer)
+         if not visited.is_empty_expanded then
             buffer.extend('*')
          end
       end
@@ -83,11 +81,9 @@ feature {ANY_TYPE_MARK}
 feature {CLASS_TYPE_MARK}
    visit_class_type_mark (visited: CLASS_TYPE_MARK) is
       do
-         if visited.is_empty_expanded then
-            buffer.append(once "int")
-         else
-            buffer.extend('T')
-            visited.id.append_in(buffer)
+         buffer.extend('T')
+         visited.id.append_in(buffer)
+         if not visited.is_empty_expanded then
             buffer.extend('*')
          end
       end

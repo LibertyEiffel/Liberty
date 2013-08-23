@@ -330,7 +330,7 @@ feature {INTERNAL_LOCAL2}
             Precursor(visited)
             function_body.extend(')')
          elseif target_formal_type.is_user_expanded then
-            if not target_formal_type.is_empty_expanded then
+            if target_formal_type.has_external_type or else cpp.need_struct.for(target_formal_type.canonical_type_mark) then
                function_body.extend('&')
             end
             Precursor(visited)
@@ -368,18 +368,25 @@ feature {NO_DISPATCH}
 
 feature {NON_VOID_NO_DISPATCH}
    visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH) is
+      local
+         actual_type: TYPE
       do
          if visited.once_function = Void then
             Precursor(visited)
-         elseif visited.dynamic_type.is_user_expanded then
-            function_body.extend('&')
-            Precursor(visited)
          else
-            function_body.append(once "((")
-            function_body.append(cpp.target_type.for(target_formal_type.canonical_type_mark))
-            function_body.extend(')')
-            Precursor(visited)
-            function_body.extend(')')
+            actual_type := visited.dynamic_type
+            if actual_type.is_user_expanded then
+               if actual_type.has_external_type or else cpp.need_struct.for(actual_type.canonical_type_mark) then
+                  function_body.extend('&')
+               end
+               Precursor(visited)
+            else
+               function_body.append(once "((")
+               function_body.append(cpp.target_type.for(target_formal_type.canonical_type_mark))
+               function_body.extend(')')
+               Precursor(visited)
+               function_body.extend(')')
+            end
          end
       end
 
