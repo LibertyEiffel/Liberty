@@ -14,7 +14,7 @@ feature {ANY}
          (agent proc(?)).call(['l'])
          (agent proc(?)).call(['l'])
          (agent proc(?)).call(['o'])
-         (agent proc).call(['%N'])
+         (agent proc(?)).call(['%N'])
       end
 
 feature {}

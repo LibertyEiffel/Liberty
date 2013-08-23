@@ -16,9 +16,9 @@ feature {}
          ab: AUX_AGENT33AB; ac: AUX_AGENT33AC; b: AUX_AGENT33B; c: AUX_AGENT33C
       do
          create ab.make
-         ab.subscribe(agent rb)
+         ab.subscribe(agent rb(?))
          create ac.make
-         ac.subscribe(agent rc)
+         ac.subscribe(agent rc(?))
          create b
          create c
          ab.publish(b)

@@ -25,8 +25,8 @@ feature {ANY}
       local
          action: ROUTINE[TUPLE[AUX_AGENT24]]; action2: ROUTINE[TUPLE[INTEGER]]; a: AUX_AGENT24
       do
-         action2 := agent check_int
-         action := agent check_aux
+         action2 := agent check_int(?)
+         action := agent check_aux(?)
          a.set_n(666)
          expected := 666
          action.call([a])
