@@ -1,51 +1,51 @@
 class EXAMPLE3
-	-- This example show that using TUPLE you are able to send a signal
-	-- with arbitrary number of informations using SIGNAL_1
-	-- Of course it is simpler to use SIGNAL_2 for 2 variables.
-	-- NOTE: you can un-register your procedure from the signal. Have a look
-	-- at `last_connect_id' and `disconnect' in signal_*.e
-	-- `last_connect_id' has to be called just after `connect' call. Principle
-	-- is based on the same ideas as `last_string' in TEXT_FILE_READ.
+   -- This example show that using TUPLE you are able to send a signal
+   -- with arbitrary number of informations using SIGNAL_1
+   -- Of course it is simpler to use SIGNAL_2 for 2 variables.
+   -- NOTE: you can un-register your procedure from the signal. Have a look
+   -- at `last_connect_id' and `disconnect' in signal_*.e
+   -- `last_connect_id' has to be called just after `connect' call. Principle
+   -- is based on the same ideas as `last_string' in TEXT_FILE_READ.
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	value_changed: SIGNAL_1[TUPLE[STRING, INTEGER, INTEGER]] --declare variable of SIGNAL type, never inherit form SIGNAL.
+   value_changed: SIGNAL_1[TUPLE[STRING, INTEGER, INTEGER]] --declare variable of SIGNAL type, never inherit form SIGNAL.
 
-	value: INTEGER
+   value: INTEGER
 
-	desc: STRING
+   desc: STRING
 
 feature {}
-	make is
-		do
-			create value_changed.make
-			value_changed.connect(agent foo)
-			value_changed.connect(agent foo)
-			value_changed.connect(agent foo)
-			io.put_string("Enter description: ")
-			io.read_line
-			desc := io.last_string.twin
-			io.put_string("Enter integer value: ")
-			io.read_integer
-			value := io.last_integer
-			value_changed.emit([desc, value, value * value])
-			value := value + 1
-			value_changed.emit([desc, value, value * value])
-			value := value + 1
-			value_changed.emit([desc, value, value * value])
-		end
+   make is
+      do
+         create value_changed.make
+         value_changed.connect(agent foo(?))
+         value_changed.connect(agent foo(?))
+         value_changed.connect(agent foo(?))
+         io.put_string("Enter description: ")
+         io.read_line
+         desc := io.last_string.twin
+         io.put_string("Enter integer value: ")
+         io.read_integer
+         value := io.last_integer
+         value_changed.emit([desc, value, value * value])
+         value := value + 1
+         value_changed.emit([desc, value, value * value])
+         value := value + 1
+         value_changed.emit([desc, value, value * value])
+      end
 
 feature {ANY}
-	foo (v: TUPLE[STRING, INTEGER, INTEGER]) is
-		do
-			io.put_string(v.first)
-			io.put_string(once ": ")
-			io.put_integer(v.second)
-			io.put_string(once " ")
-			io.put_integer(v.third)
-			io.put_new_line
-		end
+   foo (v: TUPLE[STRING, INTEGER, INTEGER]) is
+      do
+         io.put_string(v.first)
+         io.put_string(once ": ")
+         io.put_integer(v.second)
+         io.put_string(once " ")
+         io.put_integer(v.third)
+         io.put_new_line
+      end
 
 end -- class EXAMPLE3
