@@ -180,7 +180,7 @@ feature {}
 
                         Should you have any question about Liberty Eiffel, feel free to contact us
                         by e-mail:
-                              libertyeiffel@librelist.com
+                              liberty-eiffel@gnu.org
 
                         You can also visit our web site:
                               http://www.liberty-eiffel.org
