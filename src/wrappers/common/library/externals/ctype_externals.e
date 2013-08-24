@@ -22,7 +22,7 @@ feature {} -- External calls
 		}"
 		end
 
-	isalnum_l (an_argument_l3380_c7: INTEGER; an_argument_l3381_c7: POINTER): INTEGER is
+	isalnum_l (an_argument_l3366_c7: INTEGER; an_argument_l3367_c7: POINTER): INTEGER is
  		-- isalnum_l
 		external "plug_in"
 		alias "{
@@ -42,7 +42,7 @@ feature {} -- External calls
 		}"
 		end
 
-	isalpha_l (an_argument_l3069_c7: INTEGER; an_argument_l3070_c7: POINTER): INTEGER is
+	isalpha_l (an_argument_l3054_c7: INTEGER; an_argument_l3055_c7: POINTER): INTEGER is
  		-- isalpha_l
 		external "plug_in"
 		alias "{
@@ -122,7 +122,7 @@ feature {} -- External calls
 		}"
 		end
 
-	isdigit_l (an_argument_l723_c7: INTEGER; an_argument_l724_c7: POINTER): INTEGER is
+	isdigit_l (an_argument_l726_c7: INTEGER; an_argument_l727_c7: POINTER): INTEGER is
  		-- isdigit_l
 		external "plug_in"
 		alias "{
@@ -142,7 +142,7 @@ feature {} -- External calls
 		}"
 		end
 
-	isgraph_l (an_argument_l702_c7: INTEGER; an_argument_l703_c7: POINTER): INTEGER is
+	isgraph_l (an_argument_l705_c7: INTEGER; an_argument_l706_c7: POINTER): INTEGER is
  		-- isgraph_l
 		external "plug_in"
 		alias "{
@@ -162,7 +162,7 @@ feature {} -- External calls
 		}"
 		end
 
-	islower_l (an_argument_l2095_c7: INTEGER; an_argument_l2096_c7: POINTER): INTEGER is
+	islower_l (an_argument_l2084_c7: INTEGER; an_argument_l2085_c7: POINTER): INTEGER is
  		-- islower_l
 		external "plug_in"
 		alias "{
@@ -182,7 +182,7 @@ feature {} -- External calls
 		}"
 		end
 
-	isprint_l (an_argument_l2272_c7: INTEGER; an_argument_l2273_c7: POINTER): INTEGER is
+	isprint_l (an_argument_l2255_c7: INTEGER; an_argument_l2256_c7: POINTER): INTEGER is
  		-- isprint_l
 		external "plug_in"
 		alias "{
@@ -202,7 +202,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ispunct_l (an_argument_l2246_c7: INTEGER; an_argument_l2247_c7: POINTER): INTEGER is
+	ispunct_l (an_argument_l2229_c7: INTEGER; an_argument_l2230_c7: POINTER): INTEGER is
  		-- ispunct_l
 		external "plug_in"
 		alias "{
@@ -222,7 +222,7 @@ feature {} -- External calls
 		}"
 		end
 
-	isspace_l (an_argument_l1509_c7: INTEGER; an_argument_l1510_c7: POINTER): INTEGER is
+	isspace_l (an_argument_l1497_c7: INTEGER; an_argument_l1498_c7: POINTER): INTEGER is
  		-- isspace_l
 		external "plug_in"
 		alias "{
@@ -242,7 +242,7 @@ feature {} -- External calls
 		}"
 		end
 
-	isupper_l (an_argument_l2189_c7: INTEGER; an_argument_l2190_c7: POINTER): INTEGER is
+	isupper_l (an_argument_l2178_c7: INTEGER; an_argument_l2179_c7: POINTER): INTEGER is
  		-- isupper_l
 		external "plug_in"
 		alias "{
@@ -262,7 +262,7 @@ feature {} -- External calls
 		}"
 		end
 
-	isxdigit_l (an_argument_l1437_c7: INTEGER; an_argument_l1438_c7: POINTER): INTEGER is
+	isxdigit_l (an_argument_l1428_c7: INTEGER; an_argument_l1429_c7: POINTER): INTEGER is
  		-- isxdigit_l
 		external "plug_in"
 		alias "{

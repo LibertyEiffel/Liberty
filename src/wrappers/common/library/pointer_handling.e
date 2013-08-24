@@ -41,4 +41,41 @@ feature {WRAPPER} -- Pointer referencing and de-referencing
       alias "(* ($a_pointer))"
       end
 
+feature {WRAPPER} -- Dealing with "char **" return types
+	strings_array_from (a_pointer: POINTER): FAST_ARRAY[FIXED_STRING] is
+		-- Build a FAST_ARRAY of STRINGs from `a_pointer' which must be of a
+		-- NULL-terminated array of C strings, that is a "char**" String
+		-- contents and array itself are copied.
+	local l: INTEGER_32; n: NATIVE_ARRAY[POINTER]
+	do
+		-- Find actual array size to avoid several reallocation of Result
+		n := n.from_pointer(a_pointer) -- remember that NATIVE_ARRAY is an expanded type
+		from l:=0 until n.item(l).is_null
+		loop 
+			l:=l+1
+		end
+		create Result.make(l)
+		-- Copying contents
+		from l:=0 until l>Result.upper
+		loop
+			Result.put(create {FIXED_STRING}.from_external_copy(n.item(l)),l)
+			l:=l+1
+		end
+	end
+
+	sized_strings_array_from (a_pointer: POINTER; a_size: INTEGER_32): FAST_ARRAY[FIXED_STRING] is
+		-- Build a FAST_ARRAY of STRINGs from `a_pointer' which must be of a
+		-- array of C strings of `a_size' elements. The actual C type must be
+		-- "char**" String contents and array itself are copied.
+	local i: INTEGER_32; n: NATIVE_ARRAY[POINTER]
+	do
+		create Result.make(a_size)
+		-- Copying contents
+		n := n.from_pointer (a_pointer) -- remember, NATIVE_ARRAY is expanded
+		from i:=0 until i>Result.upper
+		loop
+			Result.put(create {FIXED_STRING}.from_external_copy(n.item(i)),i)
+			i:=i+1
+		end
+	end
 end -- class POINTER_HANDLING

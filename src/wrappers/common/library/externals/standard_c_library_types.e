@@ -25,7 +25,7 @@ feature {ANY} -- variable-size types
 	end
 
 feature {ANY} -- C type definitions (typedefs)
-	uint64_t: NATURAL_64 is
+	uint64_t: like long_unsigned is
 		-- typedef uint64_t
 		-- Empty by design, used for anchored declarations.
 	do
@@ -53,14 +53,14 @@ feature {ANY} -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
-	uint_fast32_t: NATURAL is
+	uint_fast32_t: like long_unsigned is
 		-- typedef uint_fast32_t
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
 	end
 
-	off64_t: INTEGER_64 is
+	off64_t: like long is
 		-- typedef off64_t
 		-- Empty by design, used for anchored declarations.
 	do
@@ -74,14 +74,14 @@ feature {ANY} -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
-	int_least64_t: INTEGER_64 is
+	int_least64_t: like long is
 		-- typedef int_least64_t
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
 	end
 
-	intmax_t: INTEGER_64 is
+	intmax_t: like long is
 		-- typedef intmax_t
 		-- Empty by design, used for anchored declarations.
 	do
@@ -116,14 +116,14 @@ feature {ANY} -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
-	int64_t: INTEGER_64 is
+	int64_t: like long is
 		-- typedef int64_t
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
 	end
 
-	uintmax_t: NATURAL_64 is
+	uintmax_t: like long_unsigned is
 		-- typedef uintmax_t
 		-- Empty by design, used for anchored declarations.
 	do
@@ -137,21 +137,21 @@ feature {ANY} -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
-	size_t: NATURAL is
+	size_t: like long_unsigned is
 		-- typedef size_t
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
 	end
 
-	ssize_t: INTEGER is
+	ssize_t: like long is
 		-- typedef ssize_t
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
 	end
 
-	uintptr_t: NATURAL is
+	uintptr_t: like long_unsigned is
 		-- typedef uintptr_t
 		-- Empty by design, used for anchored declarations.
 	do
@@ -179,21 +179,21 @@ feature {ANY} -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
-	uint_fast64_t: NATURAL_64 is
+	uint_fast64_t: like long_unsigned is
 		-- typedef uint_fast64_t
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
 	end
 
-	ptrdiff_t: INTEGER is
+	ptrdiff_t: like long is
 		-- typedef ptrdiff_t
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
 	end
 
-	int_fast16_t: INTEGER is
+	int_fast16_t: like long is
 		-- typedef int_fast16_t
 		-- Empty by design, used for anchored declarations.
 	do
@@ -235,22 +235,8 @@ feature {ANY} -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
-	intptr_t: INTEGER is
-		-- typedef intptr_t
-		-- Empty by design, used for anchored declarations.
-	do
-	ensure Result.is_default
-	end
-
-	uint_fast16_t: NATURAL is
+	uint_fast16_t: like long_unsigned is
 		-- typedef uint_fast16_t
-		-- Empty by design, used for anchored declarations.
-	do
-	ensure Result.is_default
-	end
-
-	va_list: POINTER is
-		-- typedef va_list
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
@@ -277,7 +263,7 @@ feature {ANY} -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
-	int_fast32_t: INTEGER is
+	int_fast32_t: like long is
 		-- typedef int_fast32_t
 		-- Empty by design, used for anchored declarations.
 	do
@@ -291,14 +277,21 @@ feature {ANY} -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
-	int_fast64_t: INTEGER_64 is
+	int_fast64_t: like long is
 		-- typedef int_fast64_t
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
 	end
 
-	uint_least64_t: NATURAL_64 is
+	intptr_t: like long is
+		-- typedef intptr_t
+		-- Empty by design, used for anchored declarations.
+	do
+	ensure Result.is_default
+	end
+
+	uint_least64_t: like long_unsigned is
 		-- typedef uint_least64_t
 		-- Empty by design, used for anchored declarations.
 	do
