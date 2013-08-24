@@ -6,23 +6,23 @@ deferred class AUX_INHERIT13B
 insert
    ANY
 
-feature
-
+feature {ANY}
    foo is
       deferred
       end;
 
    bar is
       do
-    count := count + 2
+         count := count + 2
       end;
 
    foo2 is
       do
-    count := count + 7
+         count := count + 7
       end
 
    count: INTEGER
+
 end -- class AUX_INHERIT13B
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -14,7 +14,7 @@ feature {ANY}
    make is
       do
          i := 6
-         p := agent do_something
+         p := agent do_something(?)
          p.call([i.to_string])
          assert(assert_counter.item = 1)
       end

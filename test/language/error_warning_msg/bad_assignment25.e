@@ -3,10 +3,10 @@
 --
 class BAD_ASSIGNMENT25
 
-creation
+create {}
    main
 
-feature
+feature {ANY}
    main is
       local
          aux25: AUX_ASSIGNMENT25

@@ -3,17 +3,17 @@
 --
 class BAD_HEXADECIMAL2
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       local
-    i: INTEGER
+         i: INTEGER
       do
-    i := 0xFFg
+         i := 0xFFg
       end
-   
+
 end -- class BAD_HEXADECIMAL2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

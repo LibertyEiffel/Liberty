@@ -8,16 +8,16 @@ inherit
       redefine
          out
 
-creation
+create {}
    make
 
-feature
-
+feature {}
    make is
       do
-    true_error_here_to_keep_track_of_the_previous_warning
+         true_error_here_to_keep_track_of_the_previous_warning
       end
 
+feature {ANY}
    out: STRING is
       do
       end

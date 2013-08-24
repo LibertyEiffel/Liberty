@@ -5,8 +5,8 @@ class BAD_IDENTIFIER1
 --
 -- To follow SZ:476:
 --
-   
-creation
+
+create {}
    make
 
 feature {}
@@ -15,7 +15,7 @@ feature {}
          badIdentifier: STRING
       do
       end
-   
+
 end -- class BAD_IDENTIFIER1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -6,7 +6,7 @@ class BAD_UNUSED_LOCAL4
    --  - Has no writable attributes
    --  - Has an sedb_breakpoint instruction inside its creation procedure
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

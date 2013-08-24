@@ -3,7 +3,7 @@
 --
 class AUX_REQUIRE2
 
-feature
+feature {}
    attr: INTEGER
 
    make is

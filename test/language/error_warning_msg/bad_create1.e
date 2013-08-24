@@ -3,10 +3,10 @@
 --
 class BAD_CREATE1
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    t: STRING is
       once
          create t.make(100)

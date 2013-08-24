@@ -3,7 +3,7 @@ class EXAMPLE1
 	-- To start with agents, just read this first example.
 	--
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}

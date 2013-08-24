@@ -6,27 +6,27 @@ class BAD_LIKE1
 -- From : Antoine GARRIGUES
 --
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    an_attribute: INTEGER
-   
+
    make is
       do
-    an_attribute := a;
+         an_attribute := a;
       end;
-   
+
    a: like b is
       do
-    Result := b;
+         Result := b;
       end;
-   
+
    b: like a is
       do
-    Result := a;
+         Result := a;
       end;
-   
+
 end -- class BAD_LIKE1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

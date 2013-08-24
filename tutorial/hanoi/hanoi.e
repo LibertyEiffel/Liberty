@@ -8,7 +8,7 @@ class HANOI
 	--    hanoi
 	--
 
-inherit
+insert
 	ARGUMENTS
 		redefine out_in_tagged_out_memory
 		end

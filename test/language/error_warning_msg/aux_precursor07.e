@@ -3,8 +3,7 @@
 --
 class AUX_PRECURSOR07
 
-feature
-
+feature {ANY}
    routine is
       deferred
       end;

@@ -4,10 +4,10 @@
 class BAD_RENAME5
 inherit
    AUX_RENAME5
-      rename 
-         item as Current 
+      rename
+         item as Current
       end
-creation
+create {}
    make
 feature
    make is

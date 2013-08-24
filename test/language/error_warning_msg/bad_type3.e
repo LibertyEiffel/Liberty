@@ -2,15 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_TYPE3
-creation make
-feature 
-   make is 
+
+create {}
+   make
+
+feature {}
+   make is
       local
-    cltn_cr: COLLECTION[CHARACTER];
-    ai: ARRAY[INTEGER];
-      do 
-    cltn_cr := ai;
-      end; 
+         cltn_cr: COLLECTION[CHARACTER];
+         ai: ARRAY[INTEGER];
+      do
+         cltn_cr := ai;
+      end;
+
 end -- class BAD_TYPE3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

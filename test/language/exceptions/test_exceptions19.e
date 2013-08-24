@@ -4,7 +4,7 @@
 class TEST_EXCEPTIONS19
    -- From: alanz@ElectroSolv.co.za (Alan Zimmerman)
 
-inherit
+insert
    EXCEPTIONS
 
 create {}

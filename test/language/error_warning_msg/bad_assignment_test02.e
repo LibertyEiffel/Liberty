@@ -2,13 +2,17 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_ASSIGNMENT_TEST02
-create make
+
+create {}
+   make
+
 feature {}
    make is
       do
          if {STRING} ?:= Void then
          end
       end
+
 end -- class BAD_ASSIGNMENT_TEST02
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

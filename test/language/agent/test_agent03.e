@@ -32,9 +32,8 @@ feature {}
          agent2 := agent function2({APPLE})
          number := 0
          my_collection.do_all(agent function1(?))
-         number := 0
-         my_collection.do_all(agent function1)
-         (agent function1).call(["foo"])
+         assert(number = 3)
+         (agent function1(?)).call(["foo"])
       end
 
    function1 (s: STRING): STRING is

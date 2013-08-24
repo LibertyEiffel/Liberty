@@ -3,8 +3,7 @@
 --
 class AUX_LOCAL_LIST3
 
-feature
-   
+feature {ANY}
    bar: INTEGER;
 
 end -- class AUX_LOCAL_LIST3
@@ -45,4 +44,3 @@ end -- class AUX_LOCAL_LIST3
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-

@@ -2,7 +2,7 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class AUX_SELECT9RR
-feature
+feature {ANY}
    f is deferred end;
 end -- class AUX_SELECT9RR
 --

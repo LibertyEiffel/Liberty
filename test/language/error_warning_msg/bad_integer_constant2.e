@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_INTEGER_CONSTANT2
-   
-creation make
-   
-feature 
 
-   make is 
+create {}
+   make
+
+feature {}
+   make is
       local
-    i: INTEGER;
-      do 
-    i := 1234567;
-    i := 1_234_567;
-    i := 1_234A;
+         i: INTEGER;
+      do
+         i := 1234567;
+         i := 1_234_567;
+         i := 1_234A;
       end;
-   
+
 end -- class BAD_INTEGER_CONSTANT2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

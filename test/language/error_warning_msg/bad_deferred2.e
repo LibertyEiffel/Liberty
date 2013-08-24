@@ -3,11 +3,10 @@
 --
 class BAD_DEFERRED2
 
-creation
+create {}
    make
 
-feature
-
+feature {}
    make is
       do
       end
@@ -15,7 +14,7 @@ feature
    foo is
       deferred
       end
-   
+
 end -- class BAD_DEFERRED2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

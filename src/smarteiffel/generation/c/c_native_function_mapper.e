@@ -162,13 +162,13 @@ feature {NATIVE_BUILT_IN}
             end
          elseif as_to_pointer = name then
             if type_of_current.is_expanded and then not type_of_current.is_native_array then
-               error_handler.add_position(visited.start_position)
+               error_handler.add_position(rf8.start_position)
                error_handler.append(once "Invalid usage of feature `to_pointer' of class ANY. %
                                          %(The target which is of type ")
                error_handler.append(type_of_current.name.to_string)
-               error_handler.append(once " cannot be converted as a memory address.)")
+               error_handler.append(once " cannot be converted to a memory address.)")
                cpp.target_position_in_error_handler
-               error_handler.print_as_warning
+               error_handler.print_as_error
                function_body.append(once ",NULL")
             end
             function_body.append(once "((void*)(")

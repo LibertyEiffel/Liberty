@@ -40,7 +40,7 @@ cluster
            end 
 	
         -- The string cluster:
-        standard : "${path_lib}/string"
+        standard : "${path_liberty_core}/string"
            default
                assertion (require)
            option
@@ -50,7 +50,7 @@ cluster
            end 
 
         -- The basic io cluster:
-        basic_io : "${path_lib}/io/basic" 
+        basic_io : "${path_liberty_core}/io/basic" 
            default
                assertion (ensure)
            option
@@ -61,7 +61,7 @@ cluster
 
         -- SmartEiffel's standard library. Always put this last so 
         -- that you can override options for parts of the library.
-        standard: "${path_lib}/loadpath.se"
+        standard: "${path_liberty_core}/loadpath.se"
            default
                assertion (ensure)
 	   end

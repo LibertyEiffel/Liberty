@@ -3,9 +3,9 @@
 --
 class BAD_AGENT25
 
-creation
+create {}
    main
-   
+
 feature {ANY}
    main is
       do

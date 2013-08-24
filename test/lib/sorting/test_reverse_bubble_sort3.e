@@ -13,10 +13,10 @@ feature {ANY}
       do
          tab := {ARRAY[STRING] 1, << "try", "test1", "test3", "abc", "hello world" >> }
          s.bubble_sort(tab)
-         assert(tab.is_equal_map({ARRAY[STRING] 1, << "try", "test3", "test1", "hello world", "abc" >> }))
+         assert(tab.is_equal({ARRAY[STRING] 1, << "try", "test3", "test1", "hello world", "abc" >> }))
          tab.add_last("+fr")
          s.bubble_sort(tab)
-         assert(tab.is_equal_map({ARRAY[STRING] 1, << "try", "test3", "test1", "hello world", "abc", "+fr" >> }))
+         assert(tab.is_equal({ARRAY[STRING] 1, << "try", "test3", "test1", "hello world", "abc", "+fr" >> }))
       end
 
    assert (b: BOOLEAN) is

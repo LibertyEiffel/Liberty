@@ -3,7 +3,7 @@
 --
 class BAD_INHERIT20
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

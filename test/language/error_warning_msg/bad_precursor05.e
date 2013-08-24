@@ -3,23 +3,23 @@
 --
 class BAD_PRECURSOR05
 
-inherit 
+inherit
    AUX_PRECURSOR04
       redefine routine
       end;
 
-creation make
+create {}
+   make
 
-feature 
-
+feature {}
    make is
       do
-    routine(3);
+         routine(3);
       end;
 
    routine(i: INTEGER) is
       do
-    Precursor;
+         Precursor;
       end;
 
 end -- class BAD_PRECURSOR05

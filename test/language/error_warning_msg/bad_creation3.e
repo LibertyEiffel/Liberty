@@ -9,13 +9,15 @@ inherit
       rename
     make as bc2_make
       end;
-creation
+
+create {}
    make
-feature
+
+feature {}
    make is
       do
-    bc2_make;
-    -- autres initialisations
+         bc2_make;
+         -- autres initialisations
       end;
 
 end -- class BAD_CREATION3

@@ -3,17 +3,17 @@
 --
 class BAD_CREATE_DICTIONARY2
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       local
-    dico: DICTIONARY[INTEGER, INTEGER]
+         dico: DICTIONARY[INTEGER, INTEGER]
       do
-    create dico.make
+         create dico.make
       end
-   
+
 end -- class BAD_CREATE_DICTIONARY2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

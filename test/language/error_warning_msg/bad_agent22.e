@@ -6,9 +6,9 @@ class BAD_AGENT22
 -- SZ:407: from philippe.coucaud@antevista.com
 --
 
-creation {ANY}
+create {ANY}
    make
-   
+
 feature {ANY}
    fct (s: STRING): FAST_ARRAY[STRING] is
       do
@@ -16,7 +16,7 @@ feature {ANY}
       ensure
          Result.for_all(agent {STRING}.occurrences('%N').is_odd)
       end
-   
+
    make is
       local
          s: like fct

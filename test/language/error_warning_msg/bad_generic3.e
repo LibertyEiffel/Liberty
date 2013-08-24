@@ -1,18 +1,20 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class BAD_GENERIC3 
+class BAD_GENERIC3
    -- From a bug report of Frank ARNAUD
-creation make 
 
-feature 
+create {}
+   make
 
+feature {}
    make is
       local d: AUX_GENERIC3B[INTEGER];
       do
-    !!d;
-    d.machin(242);
+         !!d;
+         d.machin(242);
       end;
+
 end -- class BAD_GENERIC3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

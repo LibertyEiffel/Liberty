@@ -3,23 +3,23 @@
 --
 class BAD_LIKE5
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    a: like b;
-   
+
    b: like a;
-   
+
    make is
       do
-    foo(a,b);
+         foo(a,b);
       end;
-   
-   foo(arg1: like arg2; arg2: like a) is 
+
+   foo(arg1: like arg2; arg2: like a) is
       do
       end;
-   
+
 end -- class BAD_LIKE5
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

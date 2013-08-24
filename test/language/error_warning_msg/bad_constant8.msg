@@ -2,7 +2,7 @@
 attribute definition. Actually, feature `f' has an argument list.
 Bad constant-attribute definition.
 
-Line 16 column 2 in BAD_CONSTANT8 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_constant8.e):
+Line 16 column 4 in BAD_CONSTANT8 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_constant8.e):
    f (x: INTEGER): INTEGER is unique
    ^                                
 ------

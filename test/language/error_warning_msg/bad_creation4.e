@@ -2,8 +2,11 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_CREATION4
-creation default_create
-feature
+
+create {}
+   default_create
+
+feature {}
    x: AUX_CREATION4
 
    ga is

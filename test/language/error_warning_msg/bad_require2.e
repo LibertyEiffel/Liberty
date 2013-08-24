@@ -2,17 +2,17 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_REQUIRE2
-   
+
 inherit
    AUX_REQUIRE2
       redefine
          make, make2
       end
 
-creation
+create {}
    main
-   
-feature
+
+feature {}
    main is
       do
          make
@@ -21,7 +21,7 @@ feature
          attr := 0
          make2
       end
-   
+
    make is
       require --'require else' needed
          attr = 2

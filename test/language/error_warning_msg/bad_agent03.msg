@@ -1,11 +1,9 @@
-****** Fatal Error: To pass arguments of agents, only the explicit
-manifest TUPLE notation is allowed (i.e. the square bracketed
-tuple notation must be used here). Actually, this is to force
-you to show clearly what arguments you are passing to this agent.
-(Note: this explicit manifest TUPLE notation will not incurs extra
-memory allocation. Keep cool.)
+****** Fatal Error:  Bad assignment. Cannot assign `[1]' which
+is of type TUPLE[INTEGER_8] into `tuple' which is of type TUPLE[INTEGER_32].
 
-Line 17 column 17 in BAD_AGENT03 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_agent03.e):
-    my_agent.call(tuple);
-                  ^      
+The source lines involved by the message are the following:
+
+Line 16 columns 10, 19 in BAD_AGENT03 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_agent03.e):
+         tuple := [1];
+         ^        ^   
 ------

@@ -2,18 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_HASH_CODE1
-creation make
-feature
 
+create {}
+   make
+
+feature {}
    make is
       local
-    aux: AUX_HASH_CODE1
-    d: HASHED_DICTIONARY[INTEGER,AUX_HASH_CODE1]
+         aux: AUX_HASH_CODE1
+         d: HASHED_DICTIONARY[INTEGER,AUX_HASH_CODE1]
       do
-    create aux
-    create d.make
-    if d.has(aux) then
-    end
+         create aux
+         create d.make
+         if d.has(aux) then
+         end
       end
 
 end -- class BAD_HASH_CODE1

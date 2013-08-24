@@ -6,17 +6,17 @@ class BAD_TO_REAL_32
 -- No to_real_32 in REAL_32 !
 --
 
-creation
+create {}
    make
 
-feature
+feature {}
    make is
       local
          real_32: REAL_32
       do
          real_32 := real_32.to_real_32
       end
-   
+
 end -- class BAD_TO_REAL_32
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

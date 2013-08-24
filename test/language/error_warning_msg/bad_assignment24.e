@@ -3,15 +3,15 @@
 --
 class BAD_ASSIGNMENT24
 
-create
+create {}
    make
 
-feature
+feature {ANY}
    make is
       do
          Current := Current
       end
-   
+
 end -- class BAD_ASSIGNMENT24
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

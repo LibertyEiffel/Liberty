@@ -3,8 +3,7 @@
 --
 class AUX_REDEFINE5
 
-feature
-
+feature {ANY}
    frozen frozen_routine (other: AUX_REDEFINE5) is
       do
       end
@@ -28,4 +27,3 @@ end -- class AUX_REDEFINE5
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-

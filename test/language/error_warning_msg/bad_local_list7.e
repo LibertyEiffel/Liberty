@@ -3,7 +3,7 @@
 --
 class BAD_LOCAL_LIST7
 
-creation
+create {}
    main
 
 feature {}
@@ -12,7 +12,7 @@ feature {}
          string: STRING_g
       do
       end
-   
+
 end -- class BAD_LOCAL_LIST7
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -1,21 +1,25 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class BAD_SZ550
-   -- From smartzilla 550
+class BAD_ASSIGNMENT2B
+-- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
 
-creation {ANY}
+create {}
    make
 
 feature {ANY}
+   exp: AUX_ASSIGNMENT2EXP
+
    make is
       local
-         foo: PREDICATE[TUPLE]
+         ref: AUX_ASSIGNMENT2_REF
       do
-         foo := agent foo.item([])
+         !!ref
+         exp := ref -- This one is not allowed !
+         print(exp.i.to_string)
       end
 
-end -- class BAD_SZ550
+end -- class BAD_ASSIGNMENT2B
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

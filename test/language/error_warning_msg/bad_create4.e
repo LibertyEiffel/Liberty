@@ -3,10 +3,10 @@
 --
 class BAD_CREATE4
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       do
          create t

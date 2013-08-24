@@ -3,11 +3,10 @@
 --
 class BAD_FUNCTION1
 
-creation
+create {}
    make
 
-feature
-   
+feature {}
    make is
       do
     foo

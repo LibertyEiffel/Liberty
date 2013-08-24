@@ -21,7 +21,7 @@ feature {}
          p := agent foo([x])
          x := 4 -- This value has to be ignored
          p.call([[x]])
-         p := agent foo
+         p := agent foo(?)
          x := 1
          p.call([[x]])
       end

@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_REAL2
-   
-creation
+
+create {}
    make
-   
-feature 
-   make is 
+
+feature {}
+   make is
       local
          r: REAL
-      do 
+      do
          r := 1.;
          r := .5;
       end
-   
+
 end -- class BAD_REAL2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -4,7 +4,7 @@ INTEGER_8.
 
 The source lines involved by the message are the following:
 
-Line 15 columns 4, 17 in BAD_ASSIGNMENT10 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_assignment10.e):
+Line 15 columns 10, 23 in BAD_ASSIGNMENT10 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_assignment10.e):
          integer_8 := integer_32
          ^            ^         
 ------

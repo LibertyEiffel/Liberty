@@ -3,17 +3,17 @@
 --
 class BAD_MANIFEST_GENERIC1
 
-creation
+create {}
    make
 
-feature
+feature {}
    make is
       local
          set: SET[INTEGER]
       do
          set := {SET[INTEGER] << >> } -- Not the right way to make an empty set !
       end
-   
+
 end -- class BAD_MANIFEST_GENERIC1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

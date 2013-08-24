@@ -3,16 +3,16 @@
 --
 class BAD_ASSIGNMENT26
 
-creation
+create {}
    truc
 
-feature
+feature {ANY}
    truc is
       do
          bidule(0)
       end
 
-   bidule(machin: INTEGER) is
+   bidule (machin: INTEGER) is
       do
          machin := 0
       end

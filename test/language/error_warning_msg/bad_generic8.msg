@@ -3,10 +3,10 @@ actual generic).
 
 The source lines involved by the message are the following:
 
-Line 12 column 7 in BAD_GENERIC8 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_generic8.e):
+Line 12 column 13 in BAD_GENERIC8 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_generic8.e):
          a: AUX_GENERIC8
             ^           
-Line 4 column 19 in AUX_GENERIC8 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/aux_generic8.e):
+Line 4 column 19 in AUX_GENERIC8 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_generic8.e):
 class AUX_GENERIC8[E]
                   ^  
 ------

@@ -3,10 +3,10 @@
 --
 class BAD_ROOT4
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make(ga, bu, zo, meuh: INTEGER) is
       do
       end;

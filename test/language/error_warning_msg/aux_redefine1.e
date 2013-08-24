@@ -3,8 +3,7 @@
 --
 class AUX_REDEFINE1
 
-feature
-
+feature {ANY}
    foo(file: STD_FILE_WRITE) is do end;
 
 end -- class AUX_REDEFINE1
@@ -45,4 +44,3 @@ end -- class AUX_REDEFINE1
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-

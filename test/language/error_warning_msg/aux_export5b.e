@@ -3,7 +3,7 @@
 --
 class AUX_EXPORT5B
 inherit AUX_EXPORT5A redefine a1 end
-feature
+feature {ANY}
    a1: AUX_EXPORT5B1
 end -- class AUX_EXPORT5B
 --

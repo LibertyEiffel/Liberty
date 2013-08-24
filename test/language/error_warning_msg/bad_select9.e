@@ -3,16 +3,20 @@
 --
 class BAD_SELECT9
 -- From a bug report of Xavier CREGUT
-creation make
-feature
+
+create {}
+   make
+
+feature {}
    make is
       local
-    c: AUX_SELECT9CC; r: AUX_SELECT9RR
+         c: AUX_SELECT9CC; r: AUX_SELECT9RR
       do
-    create c
-    r := c
-    r.f
+         create c
+         r := c
+         r.f
       end
+
 end -- class BAD_SELECT9
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

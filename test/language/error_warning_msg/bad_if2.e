@@ -3,20 +3,20 @@
 --
 class BAD_IF2
 
-creation make
+create {}
+   make
 
-feature
-   
+feature {}
    make is
       do
-    if True
-    elseif 1
-    else
-    end
+         if True
+         elseif 1
+         else
+         end
 
-    if True then
+         if True then
       ensure
-      end
+         end
 
 end -- class BAD_IF2
 --

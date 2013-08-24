@@ -38,12 +38,12 @@ feature {ANY}
       do
          create aux_a
          create aux_b
-         ca_agent := agent callback_a
+         ca_agent := agent callback_a(?)
          ca_agent.call([aux_a])
          assert(aux_a.c = 2)
          -- never called in beta5 and beta6, works in -74:
          -- agent call is missing in
-         cb_agent := agent callback_b
+         cb_agent := agent callback_b(?)
          cb_agent.call([aux_b])
          assert(aux_b.c = 5)
       end

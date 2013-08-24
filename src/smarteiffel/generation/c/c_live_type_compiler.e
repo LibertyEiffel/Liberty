@@ -114,7 +114,7 @@ feature {}
 
    agent_address_of_c_define: PROCEDURE[TUPLE[ADDRESS_OF]] is
       once
-         Result := agent address_of_c_define
+         Result := agent address_of_c_define(?)
       end
 
    address_of_c_define (address_of: ADDRESS_OF) is

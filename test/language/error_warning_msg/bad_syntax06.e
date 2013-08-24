@@ -3,14 +3,14 @@
 --
 class BAD_SYNTAX06
 
-create
+create {}
    main
-   
+
 feature {}
    main -- Yes, the "is" keyword is missing.
       do
       end
-   
+
 end -- class BAD_SYNTAX06
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

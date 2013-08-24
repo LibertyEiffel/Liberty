@@ -2,7 +2,7 @@
 -- See the Copyright notice at the end of this file.
 --
 expanded class AUX_ASSIGNMENT2EXP
-feature
+feature {ANY}
    i : INTEGER  -- So that this class is not "dummy expanded"
 end -- class AUX_ASSIGNMENT2EXP
 --
@@ -23,4 +23,3 @@ end -- class AUX_ASSIGNMENT2EXP
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-

@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_INHERIT4
-   
-inherit 
+
+inherit
    AUX_SELECT
-      rename foo as clash 
+      rename foo as clash
       end;
 insert
    AUX_SELECT
       rename bar as clash
       end;
 
-creation make
-   
-feature
-   
-   make is 
-      do 
-    clash;
+create {}
+   make
+
+feature {}
+   make is
+      do
+         clash;
       end;
-   
+
 end -- class BAD_INHERIT4
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

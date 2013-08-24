@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_INTEGER1
-   
-creation make
-   
-feature 
 
+create {}
+   make
+
+feature {}
    bi: INTEGER is 3.5;
-   
-   make is 
+
+   make is
       local
-    i: INTEGER;
-      do 
-    i := bi;
+         i: INTEGER;
+      do
+         i := bi;
       end;
-   
+
 end -- class BAD_INTEGER1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

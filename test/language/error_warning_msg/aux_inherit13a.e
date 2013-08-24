@@ -6,8 +6,7 @@ deferred class AUX_INHERIT13A
 insert
    ANY
 
-feature
-
+feature {ANY}
    foo is
       deferred
       end;
@@ -18,13 +17,13 @@ feature
 
    foo2 is
       do
-    new_count := new_count + 5
+         new_count := new_count + 5
       end
 
    count: INTEGER
-   
+
    new_count: INTEGER
-   
+
 end -- class AUX_INHERIT13A
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

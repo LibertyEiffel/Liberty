@@ -8,14 +8,14 @@ inherit
    expanded AUX_INSERT1 -- Obsolete !
       end
 
-creation
+create {}
    make
-   
-feature
+
+feature {}
    make is
       do
       end
-   
+
 end -- class BAD_INSERT1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

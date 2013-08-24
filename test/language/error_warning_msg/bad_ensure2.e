@@ -5,11 +5,11 @@ class BAD_ENSURE2
 --
 -- From a bug report of Antoine GARRIGUES.
 --
-creation {ANY}
+
+create {ANY}
    make
 
-feature {NONE}
-
+feature {}
    t: INTEGER;
 
    make is

@@ -3,7 +3,7 @@
 --
 class AUX_ASSIGNMENT25
 
-feature
+feature {ANY}
    an_attribute: INTEGER
 
 end -- class AUX_ASSIGNMENT25

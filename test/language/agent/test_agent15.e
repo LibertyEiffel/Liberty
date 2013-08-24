@@ -17,7 +17,7 @@ feature {ANY}
       local
          h: AUX_AGENT15
       do
-         create h.make(agent cb)
+         create h.make(agent cb(?))
          h.fire(True)
       end
 

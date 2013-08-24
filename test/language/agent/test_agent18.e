@@ -14,7 +14,7 @@ feature {ANY}
       local
          f: FUNCTION[TUPLE[INTEGER, REAL], REAL]; d: REAL
       do
-         f := agent multiply
+         f := agent multiply(?, ?)
          f.call([{INTEGER_32 3}, 1.5])
          --assert(f.last_result = 6) -- *** NOT YET IMPLEMENTED
          d := f.item([{INTEGER_32 3}, 2.0])

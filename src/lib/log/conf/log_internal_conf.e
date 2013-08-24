@@ -409,7 +409,7 @@ feature {EIFFEL_TERMINAL_NODE_IMPL}
 
    default_path_resolver: FUNCTION[TUPLE[STRING], STRING] is
       once
-         Result := agent resolve_path
+         Result := agent resolve_path(?)
       end
 
    resolve_path (a_path: STRING): STRING is
@@ -505,7 +505,7 @@ feature {}
          path_resolver: FUNCTION[TUPLE[STRING], STRING]
       do
          if when_error = Void then
-            on_error := agent fatal_error
+            on_error := agent fatal_error(?)
          else
             on_error := when_error
          end

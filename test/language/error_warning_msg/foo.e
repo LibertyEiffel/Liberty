@@ -4,7 +4,6 @@
 class FOO
 
 feature {ANY}
-   
    make is
       do
       end;

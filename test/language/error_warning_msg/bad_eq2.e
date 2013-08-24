@@ -3,14 +3,16 @@
 --
 class BAD_EQ2
 
-create make
-   
-feature
+create {}
+   make
+
+feature {}
    make is
       do
-    if U"c" = "c" then
-    end
+         if U"c" = "c" then
+         end
       end
+
 end -- class BAD_EQ2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

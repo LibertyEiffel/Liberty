@@ -4,7 +4,7 @@
 class AUX_INHERIT12_A
 insert
    ANY
-feature
+feature {ANY}
    foo is
       do
       end

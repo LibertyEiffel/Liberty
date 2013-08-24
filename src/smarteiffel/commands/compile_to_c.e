@@ -221,7 +221,7 @@ feature {}
                   else
                      echo.w_put_string(once "[
                                              Liberty Eiffel does not (yet) support precompiled headers for
-                                             this C compiler. Please drop an e-mail liberty-eiffel.blogspot.com%N
+                                             this C compiler. Please drop an e-mail liberty-eiffel@gnu.org%N
                                              ]")
                   end
                end

@@ -9,9 +9,8 @@ inherit
       end;
    AUX_SELECT9BB
       end;
-   
-feature
 
+feature {ANY}
    f is
       do
          aa_f;

@@ -15,7 +15,7 @@ feature {ANY}
 feature {ANY}
    make is
       do
-         foo3 := agent bar
+         foo3 := agent bar(?, ?, ?)
       end
 
    bar (a: INTEGER; b: STRING; c: REAL_64) is

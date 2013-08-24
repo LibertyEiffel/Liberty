@@ -3,10 +3,10 @@
 --
 class BAD_ASSIGNMENT17
 
-creation
+create {}
    make
-   
-feature
+
+feature {ANY}
    make is
       local
          real_64: REAL_64
@@ -14,6 +14,7 @@ feature
       do
          real_64 := integer_64
       end
+
 end -- class BAD_ASSIGNMENT17
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

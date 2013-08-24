@@ -2,17 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_C_ARRAY1
-   
-inherit NATIVE_ARRAY;
-   
-creation make
-   
-feature 
-   
-   make is 
-      do 
+
+inherit
+   NATIVE_ARRAY;
+
+create {}
+   make
+
+feature {ANY}
+   make is
+      do
       end;
-   
+
 end -- class BAD_C_ARRAY1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

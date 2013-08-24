@@ -20,7 +20,7 @@ feature {}
 
                                                             "Configuration", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW log", "KW configuration",
                                                                                                                                 "Root", "Outputs", "Loggers",
-                                                                                                                                "KW end", "KW end of file" >> }, agent build_root >> };
+                                                                                                                                "KW end", "KW end of file" >> }, agent build_root(?, ?) >> };
                                                             "Root", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW root", "KW class name" >> }, Void >> };
                                                             "Outputs", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW output", "Output*" >> }, Void >> };
                                                             "Output*", {DESCENDING_NON_TERMINAL << epsilon, agent build_empty_list("Output*");
@@ -84,10 +84,10 @@ feature {}
 
                                                             -- Identifiers
 
-                                                            "KW class name",    create {DESCENDING_TERMINAL}.make(agent parse_class_name, Void);
-                                                            "KW entity name",   create {DESCENDING_TERMINAL}.make(agent parse_entity_name, Void);
-                                                            "KW string",        create {DESCENDING_TERMINAL}.make(agent parse_string, Void);
-                                                            "KW number",        create {DESCENDING_TERMINAL}.make(agent parse_number, Void);
+                                                            "KW class name",    create {DESCENDING_TERMINAL}.make(agent parse_class_name(?), Void);
+                                                            "KW entity name",   create {DESCENDING_TERMINAL}.make(agent parse_entity_name(?), Void);
+                                                            "KW string",        create {DESCENDING_TERMINAL}.make(agent parse_string(?), Void);
+                                                            "KW number",        create {DESCENDING_TERMINAL}.make(agent parse_number(?), Void);
 
                                                             -- Keywords
 
@@ -95,7 +95,7 @@ feature {}
                                                             "KW console",       create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "console"), Void);
                                                             "KW each",          create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "each"), Void);
                                                             "KW end",           create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "end"), Void);
-                                                            "KW end of file",   create {DESCENDING_TERMINAL}.make(agent parse_end, Void);
+                                                            "KW end of file",   create {DESCENDING_TERMINAL}.make(agent parse_end(?), Void);
                                                             "KW error",         create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "error"), Void);
                                                             "KW file",          create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "file"), Void);
                                                             "KW format",        create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "format"), Void);

@@ -3,7 +3,7 @@
 --
 class BAD_INHERIT17
 -- From sz:440
--- While this is probably legal Eiffel, it would be very hard to 
+-- While this is probably legal Eiffel, it would be very hard to
 -- compile properly -> "compiler limitation" message <FM-07/12/2004>
 --
 
@@ -13,10 +13,10 @@ inherit
          make as array_make
       end
 
-create
+create {}
    default_create, array_make
 
-feature
+feature {}
   x: STRING
 
 end -- class BAD_INHERIT17

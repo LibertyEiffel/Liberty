@@ -3,17 +3,18 @@
 --
 class BAD_CREATE_DICTIONARY1
 -- To check automatic replacement of DICTIONARY creation.
-creation make
 
-feature
+create {}
+   make
 
+feature {}
    make is
       local
-    dico: DICTIONARY[INTEGER, INTEGER]
+         dico: DICTIONARY[INTEGER, INTEGER]
       do
-    dico := create {DICTIONARY[INTEGER, INTEGER]}.make
+         dico := create {DICTIONARY[INTEGER, INTEGER]}.make
       end
-   
+
 end -- class BAD_CREATE_DICTIONARY1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

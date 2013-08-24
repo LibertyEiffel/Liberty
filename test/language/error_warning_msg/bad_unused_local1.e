@@ -4,16 +4,16 @@
 class BAD_UNUSED_LOCAL1
 -- To check that we are warned when some local is not used.
 
-creation
+create {}
    make
-   
-feature
+
+feature {}
    make is
       local
          unused: INTEGER
       do
       end
-   
+
 end -- class BAD_UNUSED_LOCAL1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

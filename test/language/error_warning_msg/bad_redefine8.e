@@ -7,17 +7,18 @@ inherit
    AUX_REDEFINE7A;
    AUX_REDEFINE7B redefine path end;
 
-creation make
+create {}
+   make
 
-feature
-
+feature {ANY}
     path: STRING;
 
+feature {}
     make is
       do
-    if path /= Void then
-       path := "Xavier Cregut";
-    end;
+         if path /= Void then
+            path := "Xavier Cregut";
+         end;
       end;
 
 end -- class BAD_REDEFINE8

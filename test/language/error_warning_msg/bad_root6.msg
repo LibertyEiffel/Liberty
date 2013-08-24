@@ -3,10 +3,10 @@ not allowed as a creation procedure.
 
 The source lines involved by the message are the following:
 
-Line 8 column 2 in BAD_ROOT6 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_root6.e):
+Line 8 column 4 in BAD_ROOT6 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_root6.e):
    main
    ^   
-Line 11 column 2 in BAD_ROOT6 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_root6.e):
+Line 11 column 4 in BAD_ROOT6 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_root6.e):
    main is
    ^      
 ------

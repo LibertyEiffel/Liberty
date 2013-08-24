@@ -4,19 +4,20 @@
 class BAD_CONSTRAINT3
 -- From: "Le Dressay" <ledressay@eugensystems.com>
 -- Qui font des jeux.
-creation make
 
-feature
+create {}
+   make
 
+feature {}
    make is
       local
-    loc: AUX_CONSTRAINT3[STRING,ANY]
+         loc: AUX_CONSTRAINT3[STRING,ANY]
       do
-    create loc
-    if loc.item1 = Void then end
-    if loc.item2 = Void then end
+         create loc
+         if loc.item1 = Void then end
+         if loc.item2 = Void then end
       end
-   
+
 end -- class BAD_CONSTRAINT3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

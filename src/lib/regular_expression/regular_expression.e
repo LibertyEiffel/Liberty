@@ -124,10 +124,10 @@ feature {ANY} -- matching capabilities
          Result := group_names_memory
       ensure
          Result /= Void
-         Result.for_all(agent (s: FIXED_STRING): BOOLEAN is do Result := s /= Void end)
+         Result.for_all(agent (s: FIXED_STRING): BOOLEAN is do Result := s /= Void end (?))
          Result.count = substrings_names.count
-         Result.for_all(agent (s: FIXED_STRING): BOOLEAN is do Result := substrings_names.fast_has(s) end)
-         Result.for_all(agent (s: FIXED_STRING): BOOLEAN is do Result := has_group_name(s) end)
+         Result.for_all(agent (s: FIXED_STRING): BOOLEAN is do Result := substrings_names.fast_has(s) end (?))
+         Result.for_all(agent (s: FIXED_STRING): BOOLEAN is do Result := has_group_name(s) end (?))
       end
 
    has_group_name (name: ABSTRACT_STRING): BOOLEAN is
@@ -774,7 +774,7 @@ invariant
                                                                            do
                                                                               Result := s /= Void
                                                                                  and then substrings_first_indexes.valid_index(i)
-                                                                           end))
+                                                                           end (?, ?)))
 
 end -- class REGULAR_EXPRESSION
 --

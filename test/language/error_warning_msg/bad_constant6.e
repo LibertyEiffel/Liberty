@@ -3,7 +3,7 @@
 --
 class BAD_CONSTANT6
 
-creation {ANY}
+create {ANY}
    run
 
 feature {ANY}

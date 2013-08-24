@@ -9,9 +9,9 @@ create {ANY}
 feature {}
    make is
       local
-    foo: INTEGER
+         foo: INTEGER
       do
-    foo.max(foo)
+         foo.max(foo)
       end
 
 end -- class BAD_CALL3

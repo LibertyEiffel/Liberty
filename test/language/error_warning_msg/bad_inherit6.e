@@ -5,13 +5,14 @@ class BAD_INHERIT6
 
 inherit PLATFORM[INTEGER]
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       do
       end
+
 end -- class BAD_INHERIT6
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

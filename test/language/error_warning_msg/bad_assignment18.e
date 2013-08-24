@@ -3,10 +3,10 @@
 --
 class BAD_ASSIGNMENT18
 
-creation
+create {}
    make
-   
-feature
+
+feature {ANY}
    make is
       local
          non_expanded: AUX_ASSIGNMENT18A
@@ -14,6 +14,7 @@ feature
       do
          non_expanded := actual_expanded
       end
+
 end -- class BAD_ASSIGNMENT18
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -87,7 +87,13 @@ feature {ANY}
          af_assigned := fs_assigned.anonymous_feature(target_type)
          af_assigner := af_assigned.assigner
          if af_assigner = Void then
-            not_yet_implemented --| **** should never happen?
+            error_handler.append(once "Such an expression cannot be on the left-hand side of an assignment operator. There is no assigner to `")
+            error_handler.append(l.feature_name.to_string)
+            error_handler.append(once "` in class ")
+            error_handler.append(target_type.canonical_type_mark.written_mark)
+            error_handler.append(once ".")
+            error_handler.add_position(start_position)
+            error_handler.print_as_fatal_error
          end
          fn := af_assigner.names.first
 

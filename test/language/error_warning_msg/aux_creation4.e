@@ -2,8 +2,8 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_CREATION4
-creation blub
-feature
+create {ANY} blub
+feature {ANY}
    borg is
       do
       end

@@ -3,7 +3,7 @@
 --
 expanded class AUX_EXPANDED3
 
-creation {ANY}
+create {ANY}
    make_1, make_2, make_3
 
 feature {ANY} -- Should be rejected
@@ -49,4 +49,3 @@ end -- class AUX_EXPANDED3
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-

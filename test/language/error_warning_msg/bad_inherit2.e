@@ -2,17 +2,17 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_INHERIT2
-   
+
 inherit BAD_INHERIT2;
-   
-creation make
-   
-feature
-   
-   make is 
-      do 
+
+create {}
+   make
+
+feature {}
+   make is
+      do
       end;
-   
+
 end -- class BAD_INHERIT2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

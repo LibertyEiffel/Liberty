@@ -10,22 +10,21 @@ inherit
    AUX_PRECURSOR10 redefine foo end
 insert
    AUX_PRECURSOR10 redefine foo end
-   
-creation
+
+create {}
    make
 
-feature
-
+feature {}
    make is
       do
-    foo
+         foo
       end
 
    foo is
       do
-     Precursor {AUX_PRECURSOR10} -- Is really ambiguous !
+         Precursor {AUX_PRECURSOR10} -- Is really ambiguous !
       end
-   
+
 end -- class BAD_PRECURSOR10
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

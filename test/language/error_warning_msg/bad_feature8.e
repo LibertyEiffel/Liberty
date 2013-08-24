@@ -3,14 +3,14 @@
 --
 class BAD_FEATURE8
 
-creation
+create {}
    main
 
-feature
+feature {}
    frozen Current is
       do
       end
-   
+
 end -- class BAD_FEATURE8
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

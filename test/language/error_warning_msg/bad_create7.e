@@ -3,17 +3,17 @@
 --
 class BAD_CREATE7
 
-creation
+create {}
    main
 
-feature
+feature {}
    main is
       local
          integer: INTEGER
       do
          integer := create {INTEGER}
       end
-   
+
 end -- class BAD_CREATE7
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

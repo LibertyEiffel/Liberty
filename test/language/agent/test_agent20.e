@@ -17,7 +17,7 @@ feature {ANY}
       local
          flawed: BOOLEAN
       do
-         assertion := agent is_flawed
+         assertion := agent is_flawed(?)
          create assertions.make
          assertions.add_last(assertion)
          flawed := assertions.last.item([ once "is flawed?"])

@@ -4,7 +4,7 @@ class PERMUT
 
 inherit
 	COMPARABLE
-		undefine copy, is_equal, fill_tagged_out_memory
+		undefine copy, is_equal, fill_tagged_out_memory, default_create, out_in_tagged_out_memory
 		end
 	FAST_ARRAY[INTEGER]
 

@@ -1,7 +1,2 @@
-se c -profile
-se c -no_gc
-se c -all_check -debug
-se c -all_check
-se c -loop_check
-se c -invariant_check
-se c -ensure_check
+Launching "se test" on "bad_plug_in3" subdirectory.
+se c bad_inspect4.e

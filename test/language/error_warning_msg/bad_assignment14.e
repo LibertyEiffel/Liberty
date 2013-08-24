@@ -3,10 +3,10 @@
 --
 class BAD_ASSIGNMENT14
 
-creation
+create {}
    make
-   
-feature
+
+feature {ANY}
    make is
       local
          integer_32: INTEGER_32
@@ -14,6 +14,7 @@ feature
       do
          integer_32 := integer_64
       end
+
 end -- class BAD_ASSIGNMENT14
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

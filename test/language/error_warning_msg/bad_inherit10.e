@@ -3,14 +3,19 @@
 --
 class BAD_INHERIT10
 -- To check inheritance cycle detection.
+
 inherit
    AUX_INHERIT10C
    AUX_INHERIT10A -- (Parent dans le cycle.)
-creation make
-feature
+
+create {}
+   make
+
+feature {}
    make is
       do
       end
+
 end -- class BAD_INHERIT10
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

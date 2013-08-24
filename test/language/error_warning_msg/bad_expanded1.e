@@ -5,24 +5,22 @@ class BAD_EXPANDED1
 --From a bug report of LEMAITRE Guillaume
 --SZ:345: expanded types does not conform.
 
-creation
+create {}
+   make
 
-  make
+feature {}
+   make is
+      local
+         clock : MICROSECOND_TIME
+      do
+         clock.update
+         golden_call( clock )
+      end
 
-feature
-
-  make is
-    local
-      clock : MICROSECOND_TIME
-    do
-      clock.update
-      golden_call( clock )
-    end
-
-  golden_call( p_clock : TIME ) is
-    do
-      std_output.put_integer( p_clock.second )
-    end
+   golden_call( p_clock : TIME ) is
+      do
+         std_output.put_integer( p_clock.second )
+      end
 
 end -- class BAD_EXPANDED1
 --

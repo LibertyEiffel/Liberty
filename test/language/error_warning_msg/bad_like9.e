@@ -3,11 +3,10 @@
 --
 class BAD_LIKE9
 
-creation
+create {}
    make
 
-feature
-
+feature {}
    make is
       local
          a: AUX_LIKE8A; b: AUX_LIKE8B
@@ -16,11 +15,11 @@ feature
          create b
          b := same_as(a)
       end
-   
+
    same_as(some: AUX_LIKE8B): like some is
       do
       end
-   
+
 end -- class BAD_LIKE9
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

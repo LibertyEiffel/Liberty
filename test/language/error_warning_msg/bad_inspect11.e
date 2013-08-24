@@ -2,8 +2,10 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_INSPECT11
-creation
+
+create {}
    main
+
 feature {}
    main is
       local
@@ -13,6 +15,7 @@ feature {}
          when 1 .. 3 then
          end
       end
+
 end -- class BAD_INSPECT11
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

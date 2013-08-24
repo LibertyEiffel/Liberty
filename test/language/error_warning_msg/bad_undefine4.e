@@ -2,28 +2,28 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_UNDEFINE4
-   
-inherit 
+
+inherit
    AUX_UNDEFINE3A
       undefine test
       end;
    AUX_UNDEFINE3B
       undefine test
       end;
-   
-creation make
-   
-feature {ANY}
 
+create {}
+   make
+
+feature {ANY}
    make is
       do
-    test
+         test
       end
 
    test is
       do
       end
-   
+
 end -- class BAD_UNDEFINE4
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

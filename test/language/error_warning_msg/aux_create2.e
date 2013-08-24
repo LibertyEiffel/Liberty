@@ -3,10 +3,10 @@
 --
 class AUX_CREATE2
 
-creation make
+create {ANY}
+   make
 
-feature
-
+feature {ANY}
    make: INTEGER is 1;
 
 end -- class AUX_CREATE2

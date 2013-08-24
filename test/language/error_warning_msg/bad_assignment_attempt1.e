@@ -5,18 +5,17 @@ class BAD_ASSIGNMENT_ATTEMPT1
 -- From a bug report of Cyril ADRIAN
 -- (Was originally TEST_CA1 de lib_test1 :-)
 
-creation
+create {}
    make
 
-feature
-
+feature {ANY}
    make is
       local
          a: AUX_CA1_A; b: AUX_CA1_B
       do
          b ?= a
          if b = Void then
-       std_output.put_string("Error in TEST_CA1%N");
+            std_output.put_string("Error in TEST_CA1%N");
          end
       end
 

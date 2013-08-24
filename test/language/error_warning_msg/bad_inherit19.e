@@ -3,10 +3,10 @@
 --
 class BAD_INHERIT19
 
-inherit
+insert
    AUX_INHERIT19
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

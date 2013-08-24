@@ -9,7 +9,7 @@ expanded class AUX_EXPANDED2
    --   - a creation clause that contains, along with an arbitrary (possibly null) number of procedures that take one or more
    --     arguments, exactly one procedure that takes no arguments
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY} -- Should be rejected
@@ -41,4 +41,3 @@ end -- class AUX_EXPANDED2
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-

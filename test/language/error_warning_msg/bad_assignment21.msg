@@ -3,7 +3,7 @@ of type ARRAY[INTEGER_32] into `c' which is of type COLLECTION[ANY].
 
 The source lines involved by the message are the following:
 
-Line 14 columns 4, 9 in BAD_ASSIGNMENT21 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_assignment21.e):
+Line 14 columns 10, 15 in BAD_ASSIGNMENT21 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_assignment21.e):
          c := a -- <-- Must be rejected.
          ^    ^                         
 ------

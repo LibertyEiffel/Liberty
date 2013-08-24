@@ -3,16 +3,17 @@
 --
 class BAD_ASSIGNMENT7
 
-creation
+create {}
    make
-   
-feature
+
+feature {ANY}
    make is
       local
          any: ANY; pointer: POINTER
       do
          any := pointer
       end
+
 end -- class BAD_ASSIGNMENT7
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

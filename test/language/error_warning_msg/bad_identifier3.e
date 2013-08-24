@@ -5,8 +5,8 @@ class BAD_IDENTIFIER3
 --
 -- Reported by Daniel F Moisset.
 --
-   
-creation
+
+create {}
    main
 
 feature {}
@@ -17,7 +17,7 @@ feature {}
    SDL_showCursor (status: INTEGER): INTEGER is
       do
       end
-   
+
 end -- class BAD_IDENTIFIER1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

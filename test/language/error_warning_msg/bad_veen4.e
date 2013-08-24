@@ -3,20 +3,19 @@
 --
 class BAD_VEEN4
 
-creation
+create {}
    make
 
-feature
-
+feature {}
    make is
       require
-    i -- No ... (*** but the message can be better :-()
+         i -- No ... (*** but the message can be better :-()
       local
-    i: BOOLEAN
+         i: BOOLEAN
       do
-    i := True
+         i := True
       end
-   
+
 end -- class BAD_VEEN4
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

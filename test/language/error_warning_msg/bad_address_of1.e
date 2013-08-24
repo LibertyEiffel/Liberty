@@ -5,15 +5,15 @@ class BAD_ADDRESS_OF1
 
 -- From a bug report of : Brian STRELIOFF
 
-creation make
+create {}
+   make
 
-feature
-
+feature {ANY}
    make is
       local
-    ptr: POINTER;
+         ptr: POINTER;
       do
-    prt := $Current;
+         prt := $Current;
       end;
 
 end -- class BAD_ADDRESS_OF1

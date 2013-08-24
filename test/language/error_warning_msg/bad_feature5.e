@@ -3,19 +3,18 @@
 --
 class BAD_FEATURE5
 
-creation
+create {}
    main
 
-feature
+feature {}
    my_function INTEGER is
       do
       end
-   
 
    main is
       do
       end
-   
+
 end -- class BAD_FEATURE5
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

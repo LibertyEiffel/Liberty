@@ -10,15 +10,16 @@ inherit
       redefine
     make
       end;
-   
-creation make
-   
-feature 
-   
+
+create {}
+   make
+
+feature {}
    make is
       do
-    make_foo;
+         make_foo;
       end;
+
 end -- class BAD_REDEFINE3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

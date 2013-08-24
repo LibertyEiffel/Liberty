@@ -30,8 +30,8 @@ feature {}
          e4 := "e4".intern
          e5 := "e5".intern
          e6 := "e6".intern
-         Result := {PARSE_TABLE[DESCENDING_PARSE_CONTEXT] << "Class", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "One_Class", "KW end of file" >> }, agent build_root >> };
-                                                             "Classes", { DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "One_Class+", "KW end of file" >> }, agent build_root >> };
+         Result := {PARSE_TABLE[DESCENDING_PARSE_CONTEXT] << "Class", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "One_Class", "KW end of file" >> }, agent build_root(?, ?) >> };
+                                                             "Classes", { DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "One_Class+", "KW end of file" >> }, agent build_root(?, ?) >> };
                                                              "One_Class+", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "One_Class" >> }, agent build_new_list("One_Class", "One_Class+");
                                                                                                        {FAST_ARRAY[STRING] << "One_Class", "One_Class+" >> }, agent build_continue_list("One_Class", 0, "One_Class+") >> };
                                                              "One_Class", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "Class_Header", "Obsolete", "Inherit", "Insert", "Class_Creation*", "Feature*", "Invariant", "KW end" >> }, Void >> };
@@ -318,11 +318,11 @@ feature {}
                                                              "KW obsolete", create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "obsolete"), Void);
                                                              "KW separate", create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "separate"), Void);
                                                              "KW expanded", create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "expanded"), Void);
-                                                             "KW string", create {DESCENDING_TERMINAL}.make(agent parse_string, Void);
-                                                             "KW entity name", create {DESCENDING_TERMINAL}.make(agent parse_entity_name, Void);
-                                                             "KW class name", create {DESCENDING_TERMINAL}.make(agent parse_class_name, Void);
-                                                             "KW number", create {DESCENDING_TERMINAL}.make(agent parse_number, Void);
-                                                             "KW character", create {DESCENDING_TERMINAL}.make(agent parse_character, Void);
+                                                             "KW string", create {DESCENDING_TERMINAL}.make(agent parse_string(?), Void);
+                                                             "KW entity name", create {DESCENDING_TERMINAL}.make(agent parse_entity_name(?), Void);
+                                                             "KW class name", create {DESCENDING_TERMINAL}.make(agent parse_class_name(?), Void);
+                                                             "KW number", create {DESCENDING_TERMINAL}.make(agent parse_number(?), Void);
+                                                             "KW character", create {DESCENDING_TERMINAL}.make(agent parse_character(?), Void);
                                                              "KW agent", create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "agent"), Void);
                                                              "KW parser", create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "parser"), Void);
                                                              "KW grammar", create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "grammar"), Void);
@@ -340,7 +340,7 @@ feature {}
                                                              "KW redefine", create {DESCENDING_TERMINAL}.make(agent parse_parent_clause(?, "redefine"), Void);
                                                              "KW undefine", create {DESCENDING_TERMINAL}.make(agent parse_parent_clause(?, "undefine"), Void);
                                                              "KW export", create {DESCENDING_TERMINAL}.make(agent parse_parent_clause(?, "export"), Void);
-                                                             "KW end of parent clause", create {DESCENDING_TERMINAL}.make(agent parse_end_of_parent_clause, Void);
+                                                             "KW end of parent clause", create {DESCENDING_TERMINAL}.make(agent parse_end_of_parent_clause(?), Void);
                                                              "KW local", create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "local"), Void);
                                                              "KW deferred", create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "deferred"), Void);
                                                              "KW attribute", create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "attribute"), Void);
@@ -386,7 +386,7 @@ feature {}
                                                              "KW ?=", create {DESCENDING_TERMINAL}.make(agent parse_symbol(?, "?=", ""), Void);
                                                              "KW |", create {DESCENDING_TERMINAL}.make(agent parse_symbol(?, "|", ""), Void);
                                                              "KW ;", create {DESCENDING_TERMINAL}.make(agent parse_symbol(?, ";", ";"), Void);
-                                                             "KW ;;", create {DESCENDING_TERMINAL}.make(agent parse_semi_colons, Void);
+                                                             "KW ;;", create {DESCENDING_TERMINAL}.make(agent parse_semi_colons(?), Void);
                                                              "KW (", create {DESCENDING_TERMINAL}.make(agent parse_symbol(?, "(", ""), Void);
                                                              "KW )", create {DESCENDING_TERMINAL}.make(agent parse_symbol(?, ")", ""), Void);
                                                              --"KW )*", create {DESCENDING_TERMINAL}.make(agent parse_symbol(?, ")*", ""), Void);
@@ -416,9 +416,9 @@ feature {}
                                                              "KW ->", create {DESCENDING_TERMINAL}.make(agent parse_symbol(?, "->", ""), Void);
                                                              "KW ..", create {DESCENDING_TERMINAL}.make(agent parse_symbol(?, "..", ""), Void);
                                                              "KW $", create {DESCENDING_TERMINAL}.make(agent parse_symbol(?, "$", ""), Void);
-                                                             "KW free operator", create {DESCENDING_TERMINAL}.make(agent parse_freeop, Void);
-                                                             "KW assertion comment", create {DESCENDING_TERMINAL}.make(agent parse_assertion_comment, Void);
-                                                             "KW end of file", create {DESCENDING_TERMINAL}.make(agent parse_end, Void) >> }
+                                                             "KW free operator", create {DESCENDING_TERMINAL}.make(agent parse_freeop(?), Void);
+                                                             "KW assertion comment", create {DESCENDING_TERMINAL}.make(agent parse_assertion_comment(?), Void);
+                                                             "KW end of file", create {DESCENDING_TERMINAL}.make(agent parse_end(?), Void) >> }
       end
 
    table_memory: PARSE_TABLE[DESCENDING_PARSE_CONTEXT]
@@ -429,7 +429,7 @@ feature {ANY}
          Result := table_memory
          if Result = Void then
             Result := the_table
-            Result.set_default_tree_builders(agent build_non_terminal, agent build_terminal)
+            Result.set_default_tree_builders(agent build_non_terminal(?, ?), agent build_terminal(?, ?))
             table_memory := Result
          end
       end

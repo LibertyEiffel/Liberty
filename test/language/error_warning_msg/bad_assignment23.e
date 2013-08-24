@@ -3,18 +3,17 @@
 --
 class BAD_ASSIGNMENT23
 
-creation
+create {}
    make
 
-feature
+feature {ANY}
    make is
       local
          comparable: COMPARABLE; integer: INTEGER
       do
          comparable := integer -- <-- Must be rejected.
       end
-   
-   
+
 end -- class BAD_ASSIGNMENT23
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

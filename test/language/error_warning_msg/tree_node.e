@@ -9,12 +9,10 @@ inherit
    end
 
 feature {ANY}
-
- make (i : like item) is
-   do
-     Precursor (i) {HIERARCHIC_GRAPH_NODE}
-
-   end
+   make (i : like item) is
+      do
+         Precursor (i) {HIERARCHIC_GRAPH_NODE}
+      end
 
 end -- class TREE_NODE
 --

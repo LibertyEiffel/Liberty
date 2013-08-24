@@ -7,23 +7,24 @@ inherit
    AUX_REDEFINE7A redefine path end;
    AUX_REDEFINE7B;
 
-creation make
+create {}
+   make
 
-feature
-
-    path: STRING;
-
-    make is
-      do
-    if path /= Void then
-       path := "Xavier Cregut";
-    end
-      end
+feature {ANY}
+   path: STRING;
 
    foo is
-    -- To really crashes because only the warning is to be kept.
+         -- To really crashes because only the warning is to be kept.
       do
-    i_want_to_crash_here_to_keep_track_of_the_previous_warning
+         i_want_to_crash_here_to_keep_track_of_the_previous_warning
+      end
+
+feature {}
+   make is
+      do
+         if path /= Void then
+            path := "Xavier Cregut";
+         end
       end
 
 end -- class BAD_REDEFINE7

@@ -2,9 +2,13 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_FEATURE2
-creation make
-feature
+
+create {}
+   make
+
+feature {}
    make is do i := 10 end
+
 end -- class BAD_FEATURE2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

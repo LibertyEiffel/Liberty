@@ -3,7 +3,8 @@
 --
 class BAD_FEATURE1
 
-creation make
+create {}
+   make
 
    i: INTEGER;
 

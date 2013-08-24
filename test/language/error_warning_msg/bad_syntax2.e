@@ -3,25 +3,25 @@
 --
 class BAD_SYNTAX2
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       local
-    i: INTEGER
+         i: INTEGER
       do
-    foo ()
-    inspect
-       i
-    when then
-    end
+         foo ()
+         inspect
+            i
+         when then
+         end
       end
 
    foo is
       do
       end
-   
+
 end -- class BAD_SYNTAX2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

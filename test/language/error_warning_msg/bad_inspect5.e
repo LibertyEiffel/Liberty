@@ -2,17 +2,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_INSPECT5
-creation make
-feature
+
+create {}
+   make
+
+feature {}
    make is
       local
-    i: INTEGER
+         i: INTEGER
       do
-    inspect
-       i
-    when ("foo").count then
-    end
+         inspect
+            i
+         when ("foo").count then
+         end
       end
+
 end -- class BAD_INSPECT5
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

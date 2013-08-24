@@ -9,7 +9,7 @@
 ./gcd
 ./hanoi
 ./io
-./iterator
+./iterator/loadpath.se
 ./language
 ./memory
 ./ncurses

@@ -77,7 +77,7 @@ feature {}
 
    agent_error: PROCEDURE[TUPLE[STRING]] is
       once
-         Result := agent set_error
+         Result := agent set_error(?)
       end
 
    set_error (a_error: STRING) is

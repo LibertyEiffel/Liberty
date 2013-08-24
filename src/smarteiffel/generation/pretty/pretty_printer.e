@@ -523,6 +523,23 @@ feature {PRETTY, PRETTY_PRINTER_HANDLER}
       end
 
 feature {ANY} -- To run `pretty' in a STRING buffer:
+   code_in (client_buffer: STRING; code: CODE) is
+         -- After this call, the prettyfied version of `code' has been appended in the `client_buffer'.
+      require
+         client_buffer /= Void
+         code /= Void
+      do
+         check
+         -- That pretty is not currently running in file mode.
+            not out_stream_flag
+         end
+         buffer.clear_count
+         code.pretty(0)
+         pretty_buffer.clear_count
+         buffer.replacing_in(once "%T", once "   ", pretty_buffer)
+         client_buffer.append(pretty_buffer)
+      end
+
    expression_in (client_buffer: STRING; expression: EXPRESSION) is
          -- After this call, the prettyfied version of `expression' has been appended in the `client_buffer'.
       require
@@ -535,7 +552,9 @@ feature {ANY} -- To run `pretty' in a STRING buffer:
          end
          buffer.clear_count
          expression.pretty(0)
-         client_buffer.append(buffer)
+         pretty_buffer.clear_count
+         buffer.replacing_in(once "%T", once "   ", pretty_buffer)
+         client_buffer.append(pretty_buffer)
       end
 
    instruction_in (client_buffer: STRING; instruction: INSTRUCTION) is
@@ -550,7 +569,9 @@ feature {ANY} -- To run `pretty' in a STRING buffer:
          end
          buffer.clear_count
          instruction.pretty(1)
-         client_buffer.append(buffer)
+         pretty_buffer.clear_count
+         buffer.replacing_in(once "%T", once "   ", pretty_buffer)
+         client_buffer.append(pretty_buffer)
       end
 
 feature {PRETTY, PRETTY_PRINTER_HANDLER}
@@ -650,8 +671,15 @@ feature {}
    buffer: STRING is
          -- The whole text is placed in this `buffer' before to be actually printed on the `out_stream'.
       once
-         create Result.make(500000)
+         create Result.make(initial_buffer_capacity)
       end
+
+   pretty_buffer: STRING is
+      once
+         create Result.make(initial_buffer_capacity)
+      end
+
+   initial_buffer_capacity: INTEGER is 100000
 
    out_stream_flag: BOOLEAN
          -- True indicates that the output have to be done on `out_stream'. False indicates that we just

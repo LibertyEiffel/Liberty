@@ -7,9 +7,22 @@ create {}
    make
 
 feature {}
+   storage_pickle: STRING
+
+   check_storage_pickle: BOOLEAN is
+      do
+         storage_pickle := "%N%
+         %                %"has_storage_signature%":   {%N%
+         %                    %"*%":     %"basic%",%N%
+         %                    %"type%":  %"BOOLEAN%",%N%
+         %                    %"value%": %"False%"%N%
+         %                },"
+         Result := True
+      end
+
    pickle: STRING is
       once
-         Result := "[
+         Result := ("[
                     {
                         "*":       "repository",
                         "version": "1",
@@ -27,12 +40,7 @@ feature {}
                                         "*":     "basic",
                                         "type":  "INTEGER_32",
                                         "value": "0"
-                                    },
-                                    "has_storage_signature":   {
-                                        "*":     "basic",
-                                        "type":  "BOOLEAN",
-                                        "value": "False"
-                                    },
+                                    },#(1)
                                     "generation":              {
                                         "*":     "basic",
                                         "type":  "INTEGER_32",
@@ -106,12 +114,7 @@ feature {}
                                         "*":     "basic",
                                         "type":  "INTEGER_32",
                                         "value": "0"
-                                    },
-                                    "has_storage_signature":   {
-                                        "*":     "basic",
-                                        "type":  "BOOLEAN",
-                                        "value": "False"
-                                    },
+                                    },#(1)
                                     "generation":              {
                                         "*":     "basic",
                                         "type":  "INTEGER_32",
@@ -204,11 +207,15 @@ feature {}
                         ]
                     }
 
-                    ]"
+                    ]" # storage_pickle).out
       end
 
    make is
       do
+         storage_pickle := once ""
+         check
+            check_storage_pickle
+         end
          test_commit
          test_update
       end

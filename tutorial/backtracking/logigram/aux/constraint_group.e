@@ -49,8 +49,8 @@ feature {ANY}
 			-- add the data of other to current
 		do
 			var_set.union(other.var_set)
-			logic.append_collection(other.logic)
-			couple.append_collection(other.couple)
+			logic.append_traversable(other.logic)
+			couple.append_traversable(other.couple)
 		end
 
 	build_nodes (builder: MASK_BUILDER): BACKTRACKING_NODE is

@@ -8,15 +8,13 @@ inherit
       rename default_create as make
       end
 
-creation
+create {ANY}
    default_create
 
-feature
-
+feature {ANY}
    default_create is
       do
       end
-
 
 end -- class AUX_CREATE5
 --
@@ -37,5 +35,3 @@ end -- class AUX_CREATE5
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-
-   

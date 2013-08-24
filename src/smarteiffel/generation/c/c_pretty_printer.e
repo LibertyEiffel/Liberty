@@ -3493,7 +3493,7 @@ feature {} -- ASSIGNMENT_TEST_POOL
       do
          split_c_file_padding_here
          echo.print_count(once "Assignment test (%"?:=%") function", assignment_test_pool.count)
-         assignment_test_pool.do_all(agent c_define_assignment_test_for)
+         assignment_test_pool.do_all(agent c_define_assignment_test_for(?, ?))
       end
 
    c_define_assignment_test_for (left_type, right_type: TYPE) is
@@ -3576,7 +3576,7 @@ feature {} -- MANIFEST_GENERIC_POOL
          smart_eiffel.is_ready
       do
          split_c_file_padding_here
-         manifest_generic_pool.do_all(agent c_define_manifest_generic_for)
+         manifest_generic_pool.do_all(agent c_define_manifest_generic_for(?))
       end
 
    c_define_manifest_generic_for (manifest_generic: MANIFEST_GENERIC) is
@@ -3754,7 +3754,7 @@ feature {} -- ONCE_ROUTINE_POOL
    c_variables_for_precomputable_routines is
          -- Generate the C code for once routine which are precomputable.
       do
-         once_routine_pool.do_all_precomputed(agent c_define_o_result_for)
+         once_routine_pool.do_all_precomputed(agent c_define_o_result_for(?))
       end
 
    c_define_o_result_for (non_void_no_dispatch: NON_VOID_NO_DISPATCH) is
@@ -3982,7 +3982,7 @@ feature {} -- CECIL_POOL
          save_out_h: like out_h
       do
          save_out_h := out_h
-         cecil_pool.do_all(agent cecil_define_users_for_file)
+         cecil_pool.do_all(agent cecil_define_users_for_file(?))
          out_h := save_out_h
       end
 
@@ -4094,7 +4094,7 @@ invariant
       do
          Result := (({NATIVE_C} ?:= native) or else ({NATIVE_C_PLUS_PLUS} ?:= native))
             and then (({RUN_FEATURE_7} ?:= rf) or else ({RUN_FEATURE_8} ?:= rf))
-      end)
+      end (?, ?))
 
 end -- class C_PRETTY_PRINTER
 --

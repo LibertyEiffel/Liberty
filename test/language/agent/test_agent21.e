@@ -16,7 +16,7 @@ feature {ANY}
    make is
       do
          create assertions.make
-         assertions.add_last(agent is_flawed)
+         assertions.add_last(agent is_flawed(?))
          assert(assertions.last.item([ once "is flawed?"]))
       end
 

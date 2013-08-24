@@ -45,7 +45,7 @@ feature {}
 		local
 			iterator: ITERATOR[CHARACTER]
 		do
-			iterator := ("foo").get_new_iterator
+			iterator := ("foo").new_iterator
 			my_loop("STRING", iterator)
 		end
 
@@ -53,7 +53,7 @@ feature {}
 		local
 			iterator: ITERATOR[CHARACTER]
 		do
-			iterator := {FAST_ARRAY[CHARACTER] <<'b', 'a', 'r'>> }.get_new_iterator
+			iterator := {FAST_ARRAY[CHARACTER] <<'b', 'a', 'r'>> }.new_iterator
 			my_loop("ARRAY", iterator)
 		end
 
@@ -65,7 +65,7 @@ feature {}
 			my_fa.add_last('f')
 			my_fa.add_last('O')
 			my_fa.add_last('o')
-			iterator := my_fa.get_new_iterator
+			iterator := my_fa.new_iterator
 			my_loop("FAST_ARRAY", iterator)
 		end
 
@@ -77,7 +77,7 @@ feature {}
 			ll.add_last('B')
 			ll.add_last('a')
 			ll.add_last('R')
-			iterator := ll.get_new_iterator
+			iterator := ll.new_iterator
 			my_loop("LINKED_LIST", iterator)
 		end
 
@@ -89,7 +89,7 @@ feature {}
 			twll.add_last('F')
 			twll.add_last('o')
 			twll.add_last('O')
-			iterator := twll.get_new_iterator
+			iterator := twll.new_iterator
 			my_loop("TWO_WAY_LINKED_LIST", iterator)
 		end
 
@@ -101,9 +101,9 @@ feature {}
 			d.put('o', 'B')
 			d.put('f', 'a')
 			d.put('O', 'R')
-			iterator := d.get_new_iterator_on_items
+			iterator := d.new_iterator_on_items
 			my_loop("DICTIONARY (items)", iterator)
-			iterator := d.get_new_iterator_on_keys
+			iterator := d.new_iterator_on_keys
 			my_loop("DICTIONARY (keys)", iterator)
 		end
 

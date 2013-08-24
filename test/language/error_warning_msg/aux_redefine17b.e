@@ -7,10 +7,10 @@ insert
    AUX_REDEFINE17A
       rename bar as bar1 end
 
-creation
+create {ANY}
    foo
 
-feature
+feature {ANY}
    bar1 is
       do
 --         io.put_integer(1)
@@ -35,4 +35,3 @@ end -- class AUX_REDEFINE17B
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-

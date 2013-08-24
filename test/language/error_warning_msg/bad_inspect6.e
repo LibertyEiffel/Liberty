@@ -2,20 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_INSPECT6
-creation make
-feature
 
+create {}
+   make
+
+feature {}
    wrong: REAL is 3.5
-   
+
    make is
       local
-    i: INTEGER
+         i: INTEGER
       do
-    inspect
-       i
-    when wrong then
-    end
+         inspect
+            i
+         when wrong then
+         end
       end
+
 end -- class BAD_INSPECT6
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

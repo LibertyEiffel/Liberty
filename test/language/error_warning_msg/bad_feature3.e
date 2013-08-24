@@ -4,28 +4,26 @@
 class
    BAD_FEATURE3
 
-creation
+create {}
    make
 
-feature -- Initialization
-   
+feature {} -- Initialization
    make is
-    -- Make
+         -- Make
       do
-    test_1
+         test_1
       end
-   
-feature {NONE} -- Test
-   
+
+feature {} -- Test
    test_1 is
       local
       do
-    !! s.make (20)
-    -- s is not an attribute of this class, 
-    -- this causes
-    -- SmartEiffel compile_to_c to crash.
+         !! s.make (20)
+         -- s is not an attribute of this class,
+         -- this causes
+         -- SmartEiffel compile_to_c to crash.
       end
-   
+
 end -- class    BAD_FEATURE3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

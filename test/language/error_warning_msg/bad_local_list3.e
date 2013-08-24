@@ -5,15 +5,15 @@ class BAD_LOCAL_LIST3
 
 inherit AUX_LOCAL_LIST3
 
-creation make
-   
-feature
-   
+create {}
+   make
+
+feature {}
    make is
       local
-    bar: INTEGER;
+         bar: INTEGER;
       do
-    bar := 3
+         bar := 3
       end;
 
 end -- class BAD_LOCAL_LIST3

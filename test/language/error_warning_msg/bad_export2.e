@@ -3,16 +3,16 @@
 --
 class BAD_EXPORT2
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       local
-    aux: AUX_EXPORT2A;
+         aux: AUX_EXPORT2A;
       do
-    !!aux;
-    aux.foo;
+         !!aux;
+         aux.foo;
       end;
 
 end -- class BAD_EXPORT2

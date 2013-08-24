@@ -3,18 +3,18 @@
 --
 class BAD_TUPLE_TOO_LONG1
 
-creation make
+create {}
+   make
 
-feature
-
+feature {}
    make is
       local
     t: TUPLE[INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER]
       do
-    if t = Void then
-    end
+         if t = Void then
+         end
       end
-   
+
 end -- class BAD_TUPLE_TOO_LONG1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

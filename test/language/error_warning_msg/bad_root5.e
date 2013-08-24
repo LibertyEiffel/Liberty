@@ -3,10 +3,10 @@
 --
 class BAD_ROOT5[E]
 
-create
+create {}
    make
 
-feature
+feature {}
    make is
       do
       end

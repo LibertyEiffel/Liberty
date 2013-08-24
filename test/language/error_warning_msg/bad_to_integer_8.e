@@ -6,17 +6,17 @@ class BAD_TO_INTEGER_8
 -- No to_integer_8 in INTEGER_8 !
 --
 
-creation
+create {}
    make
 
-feature
+feature {}
    make is
       local
          i8: INTEGER_8
       do
          i8 := i8.to_integer_8
       end
-   
+
 end -- class BAD_TO_INTEGER_8
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

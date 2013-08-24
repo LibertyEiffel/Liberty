@@ -3,19 +3,18 @@
 --
 class BAD_FEATURE7
 
-creation
+create {}
    main
 
-feature
+feature {}
    frozen my_function (arg1: INTEGER): INTEGER
       do
       end
-   
 
    main is
       do
       end
-   
+
 end -- class BAD_FEATURE7
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

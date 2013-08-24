@@ -4,7 +4,7 @@
 class BAD_EXPANDED3
    -- From sz:491
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

@@ -5,7 +5,8 @@ class BAD_SELECT7
 
 inherit BAD_SELECT1
 
-creation make
+create {}
+   make
 
 end -- class BAD_SELECT7
 --

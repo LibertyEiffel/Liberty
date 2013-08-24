@@ -4,10 +4,10 @@
 class AUX_SELECT9AA
 inherit
    AUX_SELECT9RR
-feature
+feature {ANY}
    f is
       do
-    io.put_string ("AA.f%N");
+         io.put_string ("AA.f%N");
       end;
 end -- class AUX_SELECT9AA
 --

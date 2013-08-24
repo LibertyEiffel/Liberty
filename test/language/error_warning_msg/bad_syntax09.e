@@ -2,8 +2,8 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_SYNTAX09
-   
-creation
+
+create {}
    main
 
 feature {}
@@ -11,7 +11,7 @@ feature {}
       do
          Class
       end
-   
+
 end -- class BAD_SYNTAX09
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

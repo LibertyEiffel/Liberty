@@ -3,7 +3,7 @@
 --
 expanded class AUX_UNUSED_LOCAL3
 
-creation
+create {ANY}
    make
 
 feature {}

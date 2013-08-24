@@ -3,7 +3,7 @@
 --
 class BAD_ASSIGNMENT_TEST03
 
-creation
+create {}
    main
 
 feature {}
@@ -16,7 +16,6 @@ feature {}
          b: AUX_ASSIGNMENT_TEST03_B
          c: AUX_ASSIGNMENT_TEST03_C
       do
-         c ?= aux1.get_x
          create aux1
          create aux2
          create aux3
@@ -28,8 +27,9 @@ feature {}
          end
          b ?= aux2.get_x
          c ?= aux3.get_x
+         c ?= aux1.get_x
       end
-   
+
 end -- class BAD_ASSIGNMENT_TEST03
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
