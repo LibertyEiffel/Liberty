@@ -6,7 +6,7 @@ expanded class FOREIGN_PARAMETERS
 feature {ANY}
    set (a_parameters: like parameters) is
       require
-         no_voids: a_parameters.for_all(agent (p: FOREIGN_OBJECT): BOOLEAN is do Result := p /= Void end)
+         no_voids: a_parameters.for_all(agent (p: FOREIGN_OBJECT): BOOLEAN is do Result := p /= Void end (?))
       do
          parameters := a_parameters
       ensure
@@ -55,7 +55,7 @@ feature {}
    parameters: TRAVERSABLE[FOREIGN_OBJECT]
 
 invariant
-   no_voids: parameters /= Void implies parameters.for_all(agent (p: FOREIGN_OBJECT): BOOLEAN is do Result := p /= Void end)
+   no_voids: parameters /= Void implies parameters.for_all(agent (p: FOREIGN_OBJECT): BOOLEAN is do Result := p /= Void end (?))
 
 end -- class FOREIGN_PARAMETERS
 --

@@ -18,7 +18,7 @@ feature {ANY}
          if a_helper /= Void then
             helper := a_helper
          else
-            helper := agent default_helper
+            helper := agent default_helper(?)
          end
       ensure
          a_helper /= Void implies helper = a_helper
@@ -66,7 +66,7 @@ feature {}
          a_argument /= Void
       do
          cli_argument := a_argument
-         helper := agent default_helper
+         helper := agent default_helper(?)
       ensure
          cli_argument = a_argument
       end
