@@ -13,7 +13,7 @@ feature {}
       local
          custom_option: COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[AUX_CLI_07_CUSTOM_OPTION]]
       do
-         custom_option := option_customs("c", "custom", "custom", "The custom option", agent validate, agent decode)
+         custom_option := option_customs("c", "custom", "custom", "The custom option", agent validate(?), agent decode(?))
          create args.make(custom_option and no_parameters)
 
          -- check the custom option building

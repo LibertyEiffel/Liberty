@@ -17,7 +17,7 @@ feature {}
          json: STRING
          num: JSON_NUMBER
       do
-         create parser.make(agent on_error)
+         create parser.make(agent on_error(?))
          text := parser.parse_json_text(create {STRING_INPUT_STREAM}.from_string("[%"24%", -27.013e4, -0.7]"))
          assert(error = Void)
          assert(text /= Void)

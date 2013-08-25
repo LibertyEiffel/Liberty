@@ -70,7 +70,7 @@ feature {REPOSITORY_IMPL}
             json_string(type), json_type;
          >>}
          shell_object.add(create {JSON_NUMBER}.make(1, ref.to_natural_64, 0.to_natural_64, 0, 0), json_ref)
-         push_object(Void, ref, agent create_object, shell_object)
+         push_object(Void, ref, agent create_object(?), shell_object)
       end
 
    end_layout is
@@ -256,7 +256,7 @@ feature {REPOSITORY_IMPL}
             json_array_element_type(array.type_generating_type), json_type;
          >>}
          shell_object.add(create {JSON_NUMBER}.make(1, array.type_attribute_count.to_natural_64, 0.to_natural_64, 0, 0), json_capacity);
-         push_object(name, 0, agent create_array, shell_object)
+         push_object(name, 0, agent create_array(?), shell_object)
       end
 
    end_array_layout (array: INTERNALS; name: STRING) is
@@ -266,7 +266,7 @@ feature {REPOSITORY_IMPL}
 
    start_embedded_layout (layout: INTERNALS; name: STRING) is
       do
-         push_object(name, 0, agent create_object, {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
+         push_object(name, 0, agent create_object(?), {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
             json_embedded,                            json_star;
             json_string(layout.type_generating_type), json_type;
          >>})

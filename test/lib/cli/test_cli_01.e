@@ -13,7 +13,7 @@ feature {}
       do
          -- the program takes no argument
          create args.make(no_parameters)
-         args.set_helper(agent call_usage)
+         args.set_helper(agent call_usage(?))
 
          -- an empty command line is valid
          setup

@@ -24,10 +24,26 @@ if(array_key_exists('history', $_GET) && ($_GET["history"] > 0)){
     $stageout = $stageout . "_" . $_GET["history"];
     $state = "history " . $_GET["history"] . " / " . $historysize;
 }else{
-    $json = unserialize(file_get_contents($activeJsonObj));
+    $json_array = unserialize(file_get_contents($activeJsonObj));
     // see https://help.github.com/articles/post-receive-hooks
-    echo "<p>Active commits (" . count($json['commits']) . "):</p>\n<ul>\n";
-    foreach ($json['commits'] as $commit){
+    if (array_key_exists('commits', $json_array) { // old mode, now obsolete but kept for transition
+        $json_count = count($json_array['commits']);
+        $json_commits = $json_array['commits'];
+    } else {
+        $json_count = 0;
+        $json_commits = array();
+        foreach ($json_array as $json) {
+            $json_count += count($json['commits']);
+            $json_array = array_merge($json_array, $json['commits']);
+        }
+    }
+    if ($json_count == 1) {
+        echo "<p>1 active commit:</p>\n";
+    } else {
+        echo "<p>" . $json_count . " active commits:</p>\n";
+    }
+    echo "<ul>\n";
+    foreach ($json_commits as $commit){
         $committer = $commit['author']['name'];
         // his email is: $commit['author']['email'];
         echo "<li><a href=\"" . $commitbaselink . $commit['id'] . "\">" . $commit['message'] . "</a> by $committer on " . date ($dateFormat, strtotime($commit['timestamp'])) . "</li>\n";

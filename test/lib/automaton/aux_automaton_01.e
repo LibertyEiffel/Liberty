@@ -98,23 +98,23 @@ feature {} -- automaton implementation
       once
          Result := {AUTOMATON[AUX_AUTOMATON_01_CONTEXT] <<
                                                           "start", {STATE[AUX_AUTOMATON_01_CONTEXT] <<
-                                                                                                      agent on_read_figure, agent transition("integral", ?);
-                                                                                                      agent on_read_dot, agent transition("after_dot", ?);
+                                                                                                      agent on_read_figure(?), agent transition("integral", ?);
+                                                                                                      agent on_read_dot(?), agent transition("after_dot", ?);
                                                                                                       agent otherwise, agent transition_end("error", ?)
                                                                                                       >>};
                                                           "integral", {STATE[AUX_AUTOMATON_01_CONTEXT] <<
-                                                                                                         agent on_read_figure, agent transition("integral", ?);
-                                                                                                         agent on_read_dot, agent transition("after_dot", ?);
-                                                                                                         agent on_end_of_text, agent transition_end("success", ?);
+                                                                                                         agent on_read_figure(?), agent transition("integral", ?);
+                                                                                                         agent on_read_dot(?), agent transition("after_dot", ?);
+                                                                                                         agent on_end_of_text(?), agent transition_end("success", ?);
                                                                                                          agent otherwise, agent transition_end("error", ?)
                                                                                                          >>};
                                                           "after_dot", {STATE[AUX_AUTOMATON_01_CONTEXT] <<
-                                                                                                          agent on_read_figure, agent transition("fractional", ?);
+                                                                                                          agent on_read_figure(?), agent transition("fractional", ?);
                                                                                                           agent otherwise, agent transition_end("error", ?)
                                                                                                           >>};
                                                           "fractional", {STATE[AUX_AUTOMATON_01_CONTEXT] <<
-                                                                                                           agent on_read_figure, agent transition("fractional", ?);
-                                                                                                           agent on_end_of_text, agent transition_end("success", ?);
+                                                                                                           agent on_read_figure(?), agent transition("fractional", ?);
+                                                                                                           agent on_end_of_text(?), agent transition_end("success", ?);
                                                                                                            agent otherwise, agent transition_end("error", ?)
                                                                                                            >>};
                                                           "success", {STATE[AUX_AUTOMATON_01_CONTEXT] <<
@@ -124,7 +124,7 @@ feature {} -- automaton implementation
                                                                                                       agent otherwise, agent finished
                                                                                                       >>}
                                                           >>}
-         Result.set_before_guards(agent read_next)
+         Result.set_before_guards(agent read_next(?))
       end
 
 invariant

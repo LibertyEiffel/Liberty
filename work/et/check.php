@@ -129,7 +129,8 @@ if(!$force){
 }
 
 file_put_contents ($lock, "started on " . date($dateFormat) . ($force?" with force":""));
-copy($requestJsonObj, $activeJsonObj);
+unlink($activeJsonObj);
+rename($requestJsonObj, $activeJsonObj);
 
 system("rm -rf ". $stageout . "_$historysize > /dev/null");
 

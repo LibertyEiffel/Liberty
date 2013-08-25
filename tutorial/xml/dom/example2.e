@@ -27,7 +27,7 @@ feature {}
          create in.connect_to(argument(1))
          if in.is_connected then
             -- then create the tree
-            create tree.with_error_handler(in.url, agent error)
+            create tree.with_error_handler(in.url, agent error(?, ?))
             -- now display the results
             version := tree.attribute_at(once U"version")
             if version /= Void then
