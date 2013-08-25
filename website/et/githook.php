@@ -3,6 +3,11 @@ include "config.php";
 $line = file_get_contents('php://input');
 list($key, $value)  = explode("=", $line);
 if($key == "payload"){
+  if (file_exists($requestJsonObj)) {
+    $json_array = json_decode(file_get_contents($requestJsonObj));
+  } else {
+    $json_array = array();
+  }
   $json_str = json_decode(urldecode($value), TRUE);
 
   if(json_last_error()){
@@ -12,10 +17,13 @@ if($key == "payload"){
   }
 
   $last_commit = $json_str['commits'][count($json_str['commits']) - 1]['author']['email'];
-  file_put_contents ($request, "new request on " . date('Y-m-d G:i:s') . "\n" 
-		     . urldecode($value)
-		     );
-  file_put_contents ($requestJsonObj, serialize($json_str));
+  file_put_contents($request, "new request on " . date('Y-m-d G:i:s') . "\n"
+                     . urldecode($value)
+                     );
+
+  $json_array[] = $json_str;
+
+  file_put_contents($requestJsonObj, serialize($json_array));
 
   chmod($request, 0666);
 }else{
