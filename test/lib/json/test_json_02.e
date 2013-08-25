@@ -15,7 +15,7 @@ feature {}
          encoder: JSON_ENCODER
          json: STRING
       do
-         create parser.make(agent on_error)
+         create parser.make(agent on_error(?))
          text := parser.parse_json_text(create {STRING_INPUT_STREAM}.from_string("{%"foo%": [%"24%", -27.013e4], %"barfop%": {%"test%": false}}"))
          assert(error = Void)
          assert(text /= Void)
