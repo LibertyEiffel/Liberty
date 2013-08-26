@@ -11,11 +11,15 @@ feature {ANY}
    make is
       do
          source.set(42)
-         copied.copy(source)
+		 copied.set(1000)
+		 copied.copy(source)
          label_assert("copied.value shall be 43", copied.value = 43)
-         copied := source
-         label_assert("copied.value shall be 43", copied.value = 43)
-      end
+	
+		 source.set (10)
+		 copied := source
+		 copied.set(1000)
+         label_assert("copied.value shall be 11", copied.value = 11)
+	 end
 
    copied, source: COPY_REDEFINED
 
