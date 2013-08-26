@@ -4,7 +4,7 @@ $line = file_get_contents('php://input');
 list($key, $value)  = explode("=", $line);
 if($key == "payload"){
   if (file_exists($requestJsonObj)) {
-    $json_array = json_decode(file_get_contents($requestJsonObj));
+    $json_array = unserialize(file_get_contents($requestJsonObj));
   } else {
     $json_array = array();
   }
