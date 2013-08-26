@@ -47,11 +47,13 @@ function substage($name, $link = ""){
   global $dateFormat;
 
   $substageDepth = count($stageStack);
-  array_push ($stageStack, iconv('utf-8', 'us-ascii//TRANSLIT', $name));
+  array_push($stageStack, iconv('utf-8', 'us-ascii//TRANSLIT', $name));
 
-  $stagedir = "$stageout/" . implode("/", $stageStack);
+  $fullStageName = implode("/", $stageStack);
 
-  if($verbose) echo "starting " . implode("/", $stageStack) . " in $stagedir ...\n";
+  $stagedir = "$stageout/" . $fullStageName;
+
+  if($verbose) echo "starting " . $fullStageName . " in $stagedir ...\n";
 
   file_put_contents("$stageout/current_stage.txt", $stagedir);
 
@@ -62,7 +64,7 @@ function substage($name, $link = ""){
   }
 
   file_put_contents("$stagedir/retValue.txt", "active (since " . date($dateFormat) .")");
-  file_put_contents("$stagedir/stagename.txt", "$name");
+  file_put_contents("$stagedir/stagename.txt", "$fullStageName");
   if(strlen($link) > 0){
       file_put_contents("$stagedir/stagelink.txt", "$link");
   }
@@ -81,9 +83,12 @@ function endsubstage(){
     touch($stagedir);
     sleep(2);
 
-    array_pop ($stageStack);
+    array_pop($stageStack);
 
-    $stagedir = "$stageout/" . implode("/", $stageStack);
+    $fullStageName = implode("/", $stageStack);
+    file_put_contents("$stagedir/stagename.txt", "$fullStageName");
+
+    $stagedir = "$stageout/" . $fullStageName;
 
     if($verbose) echo "new (old) stagedir is " . $stagedir ."\n";
 }
