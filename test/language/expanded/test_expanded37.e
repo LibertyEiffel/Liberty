@@ -3,7 +3,7 @@
 --
 class TEST_EXPANDED37
 
-create {}
+create {ANY}
    main
 
 feature {ANY}

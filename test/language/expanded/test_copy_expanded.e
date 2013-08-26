@@ -4,7 +4,7 @@ class TEST_COPY_EXPANDED
 insert
    EIFFELTEST_TOOLS
 
-create {}
+create {ANY}
    make
 
 feature {ANY}

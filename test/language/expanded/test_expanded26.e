@@ -4,7 +4,7 @@
 class TEST_EXPANDED26
    -- From a bug report of Robert A. Abernathy
 
-create {}
+create {ANY}
    make
 
 feature {ANY}

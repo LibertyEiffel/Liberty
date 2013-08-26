@@ -8,7 +8,7 @@ insert
    COLORS
    EIFFELTEST_TOOLS
 
-create {}
+create {ANY}
    make
 
 feature {ANY}
