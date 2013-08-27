@@ -5,7 +5,7 @@ inherit HASHED_DICTIONARY[LINKED_LIST[NODE], UNICODE_STRING]
 
 create {ANY} make
 
-feature 
+feature {ANY} 
 	store (a_node: NODE) is
 		-- Store `a_node' into Current, creating the container list if necessary.
 		require a_node/=Void

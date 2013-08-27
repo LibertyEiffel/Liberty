@@ -2,7 +2,7 @@ deferred class WRAPPABLE_NODE
 	-- A node of an XML file made by GccXml representing an entity that may be wrapped in Liberty. It may be wrapped either as a feature, as a class or a cluster.
 inherit NAMED_NODE
 insert NAME_CONVERTER
-feature -- Emittability
+feature {ANY} -- Emittability
 	is_to_be_emitted: BOOLEAN is
 		-- Shall Current node be wrapped?
 		deferred

@@ -10,7 +10,7 @@ inherit
 
 create {ANY} make
 
-feature 
+feature {ANY} 
 	store is
 		do
 			-- if not standard_typedefs.has(c_string_name) then

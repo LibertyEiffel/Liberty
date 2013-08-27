@@ -8,7 +8,7 @@ inherit
 		redefine compute_eiffel_name -- To make sure that it is a correct class name	
 		end
 
-feature
+feature {ANY}
 	emit_wrapper is
 		deferred
 		end

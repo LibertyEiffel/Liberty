@@ -4,7 +4,7 @@ class WORDS
 inherit HASHED_SET[STRING]
 create {ANY} make
 
-feature 
+feature {ANY} 
 	add_from_file (a_file_name: STRING) is
 		-- Add to Current the words read from the file named `a_file_name'. If
 		-- it does not exists or if it is not a file nothing is done.

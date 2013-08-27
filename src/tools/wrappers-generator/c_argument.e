@@ -11,7 +11,7 @@ insert
 
 create {ANY} make
 
-feature 
+feature {ANY} 
 	is_ellipsis: BOOLEAN is False
 
 	is_fundamental: BOOLEAN is

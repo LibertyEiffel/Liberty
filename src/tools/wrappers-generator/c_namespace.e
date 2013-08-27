@@ -12,7 +12,7 @@ inherit
 	STORABLE_NODE
 
 create {ANY} make
-feature 
+feature {ANY} 
 	store is
 		do
 			namespaces.put(Current,id)
@@ -53,12 +53,11 @@ feature
 	emit_wrapper is
 		-- The wrapper of a namespace actually is not any Liberty code but only
 		-- a directory that will be the cluster representing that namespace.
-	local cwd: STRING; bd: BASIC_DIRECTORY; outcome: BOOLEAN
 	do
+		-- local cwd: STRING; bd: BASIC_DIRECTORY;
 		-- Create a directory named like Current namespace that will contain everything defined in that namespace.
 		-- Try to create the directory and forget about the result
 		log_string("Faking creation of «"+path.to_string+"»directory%N")
-		outcome := False
 		-- 	outcome :=  bd.create_new_directory(path.to_string);
 		-- 	if path.is_directory then
 		-- 		are_members_wrapped:=True 

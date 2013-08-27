@@ -7,7 +7,7 @@ insert ANY
 		out_in_tagged_out_memory
 	end
 
-feature
+feature {ANY}
 	files: HASHED_DICTIONARY[C_FILE, UNICODE_STRING] is once create Result.make end
 	files_by_name: HASHED_DICTIONARY[C_FILE, STRING] is once create Result.make end
 	functions: LINKED_LIST[C_FUNCTION] is once create Result.make end
@@ -18,7 +18,7 @@ feature
 	variables: LINKED_LIST[C_VARIABLE] is once create Result.make end
 	composed_types: HASHED_DICTIONARY[COMPOSED_NODE, UNICODE_STRING] is once create Result.make end
 
-feature
+feature {ANY}
 	flags: WORDS is
 		-- Enumerations that will be forcefully wrapped as a flag.
 	once

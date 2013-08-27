@@ -14,7 +14,7 @@ insert
 
 create {ANY} make
 
-feature 
+feature {ANY} 
 	store is
 		do
 			files.put(Current,id)
@@ -111,7 +111,7 @@ feature
 			cached_eiffel_name.occurrences('.')=0
 		end
 
-feature -- Content
+feature {ANY} -- Content
 	features: FAST_ARRAY[WRAPPER_FEATURE] 
 	-- the functions and variables defined in Current file.
 	-- features used to be a LINKED_LIST[WRAPPER_FEATURE]; to get more stable

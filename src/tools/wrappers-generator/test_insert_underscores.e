@@ -1,7 +1,7 @@
 class TEST_INSERT_UNDERSCORES
 insert NAME_CONVERTER
 create {ANY} test
-feature 
+feature {ANY} 
 	test is
 		do
 			check

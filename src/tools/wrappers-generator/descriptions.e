@@ -5,7 +5,7 @@ insert
 	FILE_TOOLS
 	SHARED_SETTINGS
 	NAME_CONVERTER
-feature -- Descriptions reading
+feature {ANY} -- Descriptions reading
 	read_descriptions_from (a_file_name: STRING) is
 		-- Read description comment for classes and features from the file
 		-- named `a_file_name', 
@@ -106,7 +106,7 @@ feature -- Descriptions reading
 		end -- if has "--" prefix
 	end
 
-feature -- Outputting descriptions
+feature {ANY} -- Outputting descriptions
 	emit_description_on (a_description: COLLECTION[STRING]; a_formatter: FORMATTER) is
 			-- Put 'a_description' on 'a_formatter' formatting it as an Eiffel
 			-- comment with lines shorter that 'description_lenght' characters.
@@ -135,7 +135,7 @@ feature -- Outputting descriptions
 		end
 
 
-feature -- Queries
+feature {ANY} -- Queries
 	feature_description (a_class_name, a_feature_name: STRING): COLLECTION[STRING] is
 		-- The description of `a_feature_name' in `a_class_name'. Void when
 		-- there is no description.
@@ -152,7 +152,7 @@ feature -- Queries
 	end
 
 
-feature -- Descriptions
+feature {ANY} -- Descriptions
 	description_lenght: INTEGER is 70
 		
 	class_descriptions: HASHED_DICTIONARY[COLLECTION[STRING],STRING] is

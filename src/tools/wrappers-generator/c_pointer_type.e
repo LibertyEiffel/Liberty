@@ -8,7 +8,7 @@ inherit
 	TYPED_NODE
 
 create {ANY} make
-feature 
+feature {ANY} 
 	is_fundamental: BOOLEAN is True
 
 	is_void: BOOLEAN is False

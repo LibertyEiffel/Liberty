@@ -7,14 +7,14 @@ inherit
 	COMPARABLE undefine is_equal end
 insert NAME_CONVERTER
 
-feature -- Comparability
+feature {ANY} -- Comparability
    infix "<" (other: NAMED_NODE): BOOLEAN is
 	   -- Comparison made on the name used in the wrappers
 	  do
 		  Result := Current.eiffel_name < other.eiffel_name
       end
 
-feature
+feature {ANY}
 	is_anonymous: BOOLEAN is
 		-- Is Current node anonynmous?
 	do

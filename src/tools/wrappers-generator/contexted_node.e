@@ -2,7 +2,7 @@ deferred class CONTEXTED_NODE
 	-- A Gccxml node with "context" attribute
 inherit GCCXML_NODE
 insert SHARED_COLLECTIONS
-feature 
+feature {ANY} 
 
 	context: UNICODE_STRING is 
 		do 
