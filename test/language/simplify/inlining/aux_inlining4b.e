@@ -6,7 +6,7 @@ class AUX_INLINING4B
 inherit
    AUX_INLINING4
 
-creation {ANY}
+create {ANY}
    make
 
 end -- class AUX_INLINING4B
