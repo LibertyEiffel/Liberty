@@ -511,7 +511,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
                error_handler.print_as_fatal_error
             end
          end
-         if result_type /= other.result_type then
+         if result_type /= other.result_type and then new_type.inherits_from(parent_type) then -- no expanded VDRD.6 for inserted types
             if result_type = Void or else other.result_type = Void then
                error_handler.add_position(other.start_position)
                error_handler.add_position(start_position)
