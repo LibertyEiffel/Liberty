@@ -1,5 +1,8 @@
 class TEST_LAZY_STRING
 
+insert
+   EIFFELTEST_TOOLS
+
 create {}
    make
 
@@ -9,8 +12,8 @@ feature {}
          model: STRING
       do
          model := "My PID is " + pid.out + "."
-         assert(model.equals("My PID is " | &pid | "."))
-         assert(model.equals("My PID is #(1)." # &pid))
+         assert(model.is_equal("My PID is " | &pid | "."))
+         assert(model.is_equal("My PID is #(1)." # &pid))
       end
 
    pid: INTEGER_32 is 42
