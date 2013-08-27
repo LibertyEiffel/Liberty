@@ -16,7 +16,7 @@ feature {ANY}
       do
          create list.make
          list.add_last(x)
-         it := list.get_new_iterator
+         it := list.new_iterator
          it.start
          assert(it.item.val = 0)
          it.item.set(5)

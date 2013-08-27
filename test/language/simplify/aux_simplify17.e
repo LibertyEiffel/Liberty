@@ -3,7 +3,7 @@
 --
 class AUX_SIMPLIFY17
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

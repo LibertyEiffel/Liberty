@@ -1,15 +1,12 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class AUX_REDEFINE13A
+deferred class AUX_EXPANDED40_CONTEXT
 
 feature {ANY}
-   foo: like Current is
-      do
-         Result := Current
-      end
+   exp: AUX_EXPANDED40_EXP
 
-end -- class AUX_REDEFINE13A
+end -- class AUX_EXPANDED40_CONTEXT
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

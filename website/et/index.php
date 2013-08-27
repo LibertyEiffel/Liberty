@@ -34,7 +34,7 @@ if(array_key_exists('history', $_GET) && ($_GET["history"] > 0)){
         $json_commits = array();
         foreach ($json_array as $json) {
             $json_count += count($json['commits']);
-            $json_array = array_merge($json_array, $json['commits']);
+            $json_commits = array_merge($json_commits, $json['commits']);
         }
     }
     if ($json_count == 1) {

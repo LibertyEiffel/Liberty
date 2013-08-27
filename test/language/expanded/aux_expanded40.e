@@ -4,16 +4,16 @@
 expanded class AUX_EXPANDED40
 
 insert
-   GRAPHIC
+   AUX_EXPANDED40_CONTEXT
       redefine default_create
       end
 
 feature {ANY}
    default_create is
       local
-         v: VISION
+         x: AUX_EXPANDED40_EXP
       do
-         v := vision
+         x := exp
       end
 
    dummy is

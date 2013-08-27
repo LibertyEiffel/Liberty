@@ -1,20 +1,11 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class BAD_REDEFINE13
--- Invalid redefinition of a feature Result (VDRD.6 ?).
+expanded class AUX_EXPANDED40_EXP
 
-create {}
-   make
+-- empty class
 
-feature {}
-   make is
-      local
-         aux: AUX_REDEFINE13B
-      do
-      end
-
-end -- class BAD_REDEFINE13
+end -- class AUX_EXPANDED40_EXP
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
