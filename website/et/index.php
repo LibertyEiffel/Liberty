@@ -26,7 +26,7 @@ if(array_key_exists('history', $_GET) && ($_GET["history"] > 0)){
 }else{
     $json_array = unserialize(file_get_contents($activeJsonObj));
     // see https://help.github.com/articles/post-receive-hooks
-    if (array_key_exists('commits', $json_array) { // old mode, now obsolete but kept for transition
+    if (array_key_exists('commits', $json_array)) { // old mode, now obsolete but kept for transition
         $json_count = count($json_array['commits']);
         $json_commits = $json_array['commits'];
     } else {

@@ -3,7 +3,7 @@
 --
 class TEST_EXPANDED20
 
-create {}
+create {ANY}
    make
 
 feature {ANY}

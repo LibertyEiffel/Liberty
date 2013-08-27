@@ -6,7 +6,7 @@ class TEST_EXPANDED33
 insert
    EIFFELTEST_TOOLS
 
-create {}
+create {ANY}
    make
 
 feature {ANY}
@@ -20,7 +20,7 @@ feature {ANY}
          y.set(10)
          list.add_last(x)
          list.add_last(y)
-         it := list.get_new_iterator
+         it := list.new_iterator
          it.start
          i := list.lower
          list.item(i).set(1)
