@@ -1,29 +1,11 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-expanded class AUX_EXPANDED40
+expanded class AUX_EXPANDED40_EXP
 
-insert
-   AUX_EXPANDED40_CONTEXT
-      redefine default_create
-      end
+-- empty class
 
-feature {ANY}
-   default_create is
-      local
-         x: AUX_EXPANDED40_EXP
-      do
-         x := exp
-      end
-
-   dummy is
-      local
-         i: INTEGER
-      do
-         i := 2
-      end
-
-end -- class AUX_EXPANDED40
+end -- class AUX_EXPANDED40_EXP
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
