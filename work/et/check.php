@@ -85,9 +85,9 @@ function endsubstage(){
    array_pop($stageStack);
 
    $fullStageName = implode("/", $stageStack);
-   file_put_contents("$stagedir/stagename.txt", "$fullStageName");
 
    $stagedir = "$stageout/" . $fullStageName;
+   file_put_contents("$stageout/current_stage.txt", $stagedir);
 
    if($verbose) echo "new (old) stagedir is " . $stagedir ."\n";
 }
