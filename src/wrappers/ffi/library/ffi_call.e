@@ -59,7 +59,7 @@ feature {ANY} -- Preparation of a call
          end
          status.change_value(ffi_prep_cif(handle, default_abi, count, a_return_type, args))
          check
-            not status.is_ffi_bad_abi
+            not status.is_bad_abi
          end
       ensure
          function_set: function = a_function
