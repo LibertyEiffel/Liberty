@@ -157,11 +157,13 @@ function printSubStages($dir){
          $display_style = displayStyleForResult("");
       }
 
+      $stageStack = explode("/", $stageName);
+
       if(file_exists("$stagedir/stagelink.txt")){
          $stagelink = file_get_contents("$stagedir/stagelink.txt");
-         $stageHtml = "<a href=\"$stagelink\">$stageName</a>";
+         $stageHtml = "<a href=\"$stagelink\">" . end($stageStack) . "</a>";
       }else{
-         $stageHtml = $stageName;
+         $stageHtml = end($stageStack);
       }
 
       echo "  <tr><td>" . $stageHtml . "</td><td>" . $stageresult . "</td><td>";
