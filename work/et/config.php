@@ -13,6 +13,8 @@ $request = "$out/request.new";
 $requestJsonObj = "$out/request.serialjson";
 $activeJsonObj = "$out/active.serialjson";
 
+$timesHistory = "$out/times_history";
+
 $templates = "$out/html_templates";
 
 $dateFormat = "Y-m-d G:i:s O (T)";
