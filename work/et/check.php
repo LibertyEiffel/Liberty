@@ -1,5 +1,5 @@
 #!/usr/bin/php
-   <?php
+<?php
 include "config.php";
 include "functions.php";
 setlocale(LC_ALL, 'en_US.utf8');
@@ -72,7 +72,6 @@ function substage($name, $link = ""){
    touch($stagedir . "/cmd.txt");
    touch($stagedir . "/out.txt");
    touch($stagedir . "/err.txt");
-
 }
 
 function endsubstage(){
