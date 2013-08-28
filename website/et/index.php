@@ -80,7 +80,7 @@ if (file_exists($lock)) {
    $startTime = filemtime($lock);
    $start = date($dateFormat, $startTime);
    echo "<p>Started on: $start";
-   $actime_time = int(time() - $startTime);
+   $active_time = time() - $startTime;
    if (file_exists($timesHistory)) {
       $times = unserialize(file_get_contents($timesHistory));
       if (count($times) > 1) {
