@@ -13,7 +13,7 @@ insert
 
 create {ANY} make
 
-feature 
+feature {ANY} 
 	make (url: URL) is
 		do
 			create moved.make

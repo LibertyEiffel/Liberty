@@ -13,7 +13,8 @@ inherit
 	STORABLE_NODE
 
 create {ANY} make 
-feature
+
+feature {ANY}
 	store is
 		do
 			types.put(Current,id)

@@ -15,7 +15,7 @@ inherit
 	STORABLE_NODE -- inherited to add the non-void fields postcondition to the store command
 	NAMED_NODE -- all heirs (Class, Struct, Namespace, Union) are also named
 
-feature 
+feature {ANY} 
 	store is
 		deferred 
 		ensure fields/=Void

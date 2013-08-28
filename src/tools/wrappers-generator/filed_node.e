@@ -2,7 +2,7 @@ deferred class FILED_NODE
 	-- A Gccxml node with "file" attribute
 inherit GCCXML_NODE
 insert SHARED_COLLECTIONS
-feature 
+feature {ANY} 
 
 	file_id: UNICODE_STRING is 
 		do 

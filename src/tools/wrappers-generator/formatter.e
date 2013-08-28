@@ -17,13 +17,14 @@ feature {ANY}
 	clear, reset is
 			-- Clears the content of Current's buffer.
 		do
-			debug
-				if buffer.is_empty then
+			if buffer.is_empty then
+				debug
 					std_error.put_line(once "Unnecessary invocation of FORMATTER.reset")
-					print_run_time_stack
+					-- That's way too verbose print_run_time_stack
 				end
+			else 
+				buffer.clear_count
 			end
-			buffer.clear_count
 		end
 
 	reset_with (a_string: STRING) is
@@ -63,7 +64,7 @@ feature {ANY}
 		do
 			a_stream.put_string(buffer)
 			reset
-		ensure then is_empty
+		ensure is_empty
 		end
 
 	is_empty: BOOLEAN is

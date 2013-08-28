@@ -5,7 +5,7 @@ inherit XML_COMPOSITE_NODE
 insert 
 	SHARED_SETTINGS
 	DESCRIPTIONS
-feature -- Assigned name
+feature {ANY} -- Assigned name
 	assigned_name: STRING
 		-- The name under which Current will be forcefully wrapped to.
 
@@ -22,7 +22,7 @@ feature -- Assigned name
 			Result:= assigned_name/=Void
 		end
 
-feature -- Collection-like command
+feature {ANY} -- Collection-like command
 	do_all (a_procedure: PROCEDURE[TUPLE[GCCXML_NODE]]) is
 			-- Apply 'a_procedure' to all heir nodes of known type.
 		local i: INTEGER; node: GCCXML_NODE

@@ -280,7 +280,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strftime (a_s: POINTER; a_maxsize: NATURAL; a_format: POINTER; a_tp: POINTER): NATURAL is
+	strftime (a_s: POINTER; a_maxsize: like long_unsigned; a_format: POINTER; a_tp: POINTER): like long_unsigned is
  		-- strftime
 		external "plug_in"
 		alias "{
@@ -290,7 +290,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strftime_l (a_s: POINTER; a_maxsize: NATURAL; a_format: POINTER; a_tp: POINTER; a_loc: POINTER): NATURAL is
+	strftime_l (a_s: POINTER; a_maxsize: like long_unsigned; a_format: POINTER; a_tp: POINTER; a_loc: POINTER): like long_unsigned is
  		-- strftime_l
 		external "plug_in"
 		alias "{
@@ -400,7 +400,6 @@ feature {} -- External calls
 		}"
 		end
 
-	-- `hidden' variable __timezone skipped.
 	timezone: like long is
  		-- timezone
 		external "plug_in"
@@ -431,6 +430,7 @@ feature {} -- External calls
 		}"
 		end
 
+	-- `hidden' variable __timezone skipped.
 	tzname: POINTER is
  		-- tzname
 		external "plug_in"

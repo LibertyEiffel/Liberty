@@ -8,7 +8,7 @@ inherit
 	WRAPPER_FEATURE
 
 create {ANY} make
-feature 
+feature {ANY} 
 	store is
 		do
 			symbols.put(Current,c_string_name)

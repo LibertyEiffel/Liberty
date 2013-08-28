@@ -13,7 +13,7 @@ insert
 
 create {ANY} make
 
-feature 
+feature {ANY} 
 	value: STRING is
 		-- The numeric value of Current
 		do
@@ -30,12 +30,12 @@ feature
 				-- print(stored_eiffel_name)
 				enum ?= parent
 				if enum/=Void then
-					if enum.prefix_length > 0 then
+					if enum.longest_prefix > 0 then
 						-- this further test may be buggy and enum.prefix_length < c_string_name.count then
-						stored_eiffel_name.remove_head(enum.prefix_length)
+						stored_eiffel_name.remove_head(enum.longest_prefix)
 					else 
-						log("Enum value '@(1)' (at line @(2)) is the longest prefix: keeping the entire name to avoid problems%N",
-						<<c_string_name,line.out>>)
+						log("(1) enumeration values: value '@(2)' (at line @(3)) is the longest prefix: keeping name to avoid problems%N",
+						<<enum.values.count.to_string,c_string_name,line.out>>)
 					end
 				else print("The parent of C_ENUM_VALUE at line "+line.out+" is not a C_ENUM!%N")
 				end
@@ -50,7 +50,7 @@ feature
 			Result:=stored_eiffel_name
 		end
 
-feature -- Plain enumeration
+feature {ANY} -- Plain enumeration
 	append_to_buffers is
 		-- Append in `setters' the text of a command to set the enumeration
 		-- currently being emitted to the value of Current C_ENUM_VALUE for an
@@ -93,7 +93,7 @@ feature -- Plain enumeration
 		<<eiffel_name, c_string_name>>)
 	end
 
-feature -- "Flag" enumeration
+feature {ANY} -- "Flag" enumeration
 	append_as_flag_to_buffers is
 		-- Append in `setters' the text of setter and unsetter commands for the Current value of the enumeration currently being emitted.
 		-- Append in `queries' the text of a query to see if Current value is set 

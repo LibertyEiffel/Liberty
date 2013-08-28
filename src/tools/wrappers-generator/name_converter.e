@@ -7,7 +7,7 @@ insert
 	PLATFORM
 	EXCEPTIONS
 
-feature {} -- Auxiliary features
+feature  {ANY}-- Auxiliary features
 	eiffel_feature (a_name: STRING): STRING is
 		-- Translate `a_name' content into a proper feature name for the
 		-- Gnu-Eiffel language.  "CamelCase" is translated into "camel_case",

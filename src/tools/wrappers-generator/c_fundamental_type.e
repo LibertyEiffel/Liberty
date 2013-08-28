@@ -18,7 +18,7 @@ insert WRAPPER_GENERATOR_EXCEPTIONS
 
 create {ANY} make
 
-feature 
+feature {ANY} 
 	store is
 		do
 			types.fast_put(Current,id)

@@ -1,11 +1,11 @@
 deferred class GI_BASE_INFO
    -- A base class for all metadata types in GOBject Introspection repository.
    --
-   --    Example 2. Getting the Button of the Gtk typelib
-   --
-   --    1 GIBaseInfo *button_info = g_irepository_find_by_name(NULL, "Gtk", "Button");
+   --    Example: Getting the Button of the Gtk typelib
+   --   
+   --    local button_info: GI_BASE_INFO
+   --    1 button_info := {GI_REPOSITORY}.find_by_name("Gtk", "Button");
    --    2 ... use button_info ...
-   --    3 g_base_info_unref(button_info);
    --
 
 inherit
@@ -143,3 +143,21 @@ feature {}
    
 
 end -- class GI_BASE_INFO
+
+-- Copyright (C) 2013 Paolo Redaelli <paolo.redaelli@gmail.com>
+-- 
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Lesser General Public License
+-- as published by the Free Software Foundation; either version 2.1 of
+-- the License, or (at your option) any later version.
+-- 
+-- This library is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Lesser General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Lesser General Public
+-- License along with this library; if not, write to the Free Software
+-- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+-- 02110-1301 USA
+	

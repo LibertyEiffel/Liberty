@@ -3,7 +3,7 @@ deferred class WRAPPER_FEATURE
 inherit 
 	WRAPPABLE_NODE
 	FILED_NODE
-feature 
+feature {ANY} 
 	wrap_on (a_stream: OUTPUT_STREAM) is
 		-- Put the wrapper on `a_stream'
 	require 

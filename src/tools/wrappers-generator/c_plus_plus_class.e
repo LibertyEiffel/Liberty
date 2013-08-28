@@ -20,7 +20,7 @@ insert NAME_CONVERTER
 
 create {ANY} make
 
-feature 
+feature {ANY} 
 	store is
 		do
 			create {LINKED_LIST[C_FIELD]} fields.make

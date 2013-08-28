@@ -3,7 +3,7 @@ class UNIMPLEMENTED_NODE
 inherit GCCXML_NODE
 
 create {ANY} make
-feature 
+feature {ANY} 
 end -- class UNIMPLEMENTED_NODE
 
 -- Copyright 2011 Paolo Redaelli

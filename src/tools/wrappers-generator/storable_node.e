@@ -4,7 +4,7 @@ deferred class STORABLE_NODE
 	-- or an anchored declaration.
 inherit FILED_NODE
 insert SHARED_COLLECTIONS
-feature
+feature {ANY}
 	store is
 		-- Store current into the proper collection
 	deferred

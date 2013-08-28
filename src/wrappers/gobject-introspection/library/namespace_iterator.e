@@ -14,6 +14,7 @@ creation {GI_INFO_FACTORY, WRAPPER} from_repository_and_namespace
 feature {} -- Creation
 	from_repository_and_namespace (a_repository: GI_REPOSITORY; a_namespace: ABSTRACT_STRING) is
 		do 
+			("Iterator over #(1) namespace%N" # a_namespace).print_on(std_output)
 			repo_ptr := a_repository.handle
 			-- Since the string `a_namespace' may be changed during lifetime of
 			-- the iterator we copy it into a STRING
@@ -33,11 +34,12 @@ feature {ANY}
 
 	is_off: BOOLEAN is
 		do
-			Result := index<n_infos
+			Result := index>n_infos
 		end
 
 	item: GI_BASE_INFO is
 		do
+			("Iterator item #(1)%N" # &index).print_on(std_output)
 			Result := wrapper(g_irepository_get_info(repo_ptr,namespace.to_external,index))
 		end
 
@@ -55,3 +57,20 @@ feature {ANY}
 	iterable_generation: INTEGER 
 end -- class NAMESPACE_ITERATOR
 
+-- Copyright (C) 2013 Paolo Redaelli <paolo.redaelli@gmail.com>
+-- 
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Lesser General Public License
+-- as published by the Free Software Foundation; either version 2.1 of
+-- the License, or (at your option) any later version.
+-- 
+-- This library is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Lesser General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Lesser General Public
+-- License along with this library; if not, write to the Free Software
+-- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+-- 02110-1301 USA
+	

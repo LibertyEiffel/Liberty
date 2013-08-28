@@ -179,7 +179,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fmemopen (a_s: POINTER; a_len: NATURAL; a_modes: POINTER): POINTER is
+	fmemopen (a_s: POINTER; a_len: like long_unsigned; a_modes: POINTER): POINTER is
  		-- fmemopen
 		external "plug_in"
 		alias "{
@@ -290,7 +290,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fseeko64 (a_stream: POINTER; an_off: INTEGER_64; a_whence: INTEGER): INTEGER is
+	fseeko64 (a_stream: POINTER; an_off: like long; a_whence: INTEGER): INTEGER is
  		-- fseeko64
 		external "plug_in"
 		alias "{
@@ -340,7 +340,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ftello64 (a_stream: POINTER): INTEGER_64 is
+	ftello64 (a_stream: POINTER): like long is
  		-- ftello64
 		external "plug_in"
 		alias "{
@@ -370,7 +370,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fwrite (a_ptr: POINTER; a_size: NATURAL; a_n: NATURAL; a_s: POINTER): NATURAL is
+	fwrite (a_ptr: POINTER; a_size: like long_unsigned; a_n: like long_unsigned; a_s: POINTER): like long_unsigned is
  		-- fwrite
 		external "plug_in"
 		alias "{
@@ -380,7 +380,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fwrite_unlocked (a_ptr: POINTER; a_size: NATURAL; a_n: NATURAL; a_stream: POINTER): NATURAL is
+	fwrite_unlocked (a_ptr: POINTER; a_size: like long_unsigned; a_n: like long_unsigned; a_stream: POINTER): like long_unsigned is
  		-- fwrite_unlocked
 		external "plug_in"
 		alias "{
@@ -400,7 +400,8 @@ feature {} -- External calls
 		}"
 		end
 
-	getdelim (a_lineptr: POINTER; a_n: POINTER; a_delimiter: INTEGER; a_stream: POINTER): INTEGER is
+	-- `hidden' function __getdelim skipped.
+	getdelim (a_lineptr: POINTER; a_n: POINTER; a_delimiter: INTEGER; a_stream: POINTER): like long is
  		-- getdelim
 		external "plug_in"
 		alias "{
@@ -410,7 +411,6 @@ feature {} -- External calls
 		}"
 		end
 
-	-- `hidden' function __getdelim skipped.
 	getw (a_stream: POINTER): INTEGER is
  		-- getw
 		external "plug_in"
@@ -551,7 +551,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setbuffer (a_stream: POINTER; a_buf: POINTER; a_size: NATURAL) is
+	setbuffer (a_stream: POINTER; a_buf: POINTER; a_size: like long_unsigned) is
  		-- setbuffer
 		external "plug_in"
 		alias "{
@@ -571,7 +571,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setvbuf (a_stream: POINTER; a_buf: POINTER; a_modes: INTEGER; a_n: NATURAL): INTEGER is
+	setvbuf (a_stream: POINTER; a_buf: POINTER; a_modes: INTEGER; a_n: like long_unsigned): INTEGER is
  		-- setvbuf
 		external "plug_in"
 		alias "{

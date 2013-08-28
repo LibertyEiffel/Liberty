@@ -22,7 +22,7 @@ insert
 
 create {ANY} make
 
-feature 
+feature {ANY}
     store is
         do
             if is_named then
@@ -108,9 +108,6 @@ feature
         
     suffix: STRING is "_ENUM"
     
-    prefix_length: INTEGER 
-        -- The length of the longest common prefix of the enumeration - either plain or flag-like - currently being wrapped.
-
     have_flags_values: BOOLEAN is
         -- Can the values of `an_enumeration' be used as flags? They can be
         -- used as flags when they are different powers of 2, i.e.  setting
@@ -136,14 +133,11 @@ feature
         end
     end
 
-feature -- Emitting "normal" enumeration
+feature {ANY} -- Emitting "normal" enumeration
     append_enumeration_items is
         require has_children: values.count>0
         local i: INTEGER; 
         do
-            if values.count > 1 then prefix_length := longest_prefix
-            else prefix_length := 0
-            end
             initialize_validity_query
             setters.reset_with(once "%Tdefault_create,%N")
             values.first.append_to_buffers
@@ -183,15 +177,11 @@ feature -- Emitting "normal" enumeration
             validity_query.append(once " or else%N%T%T%T%T")
         end
 
-feature -- Emitting "flag" enumeration
+feature {ANY} -- Emitting "flag" enumeration
     append_flag_items is
         require has_children: values.count>0
         local i: INTEGER; 
         do
-            if values.count > 1 then prefix_length := longest_prefix
-            else prefix_length := 0
-            end
-
             initialize_flag_validity_query
             setters.reset_with(once "%Tdefault_create,%N")
 
@@ -250,26 +240,36 @@ feature {C_ENUM_VALUE} -- Implementation
     longest_prefix: INTEGER is
         -- The length of longest prefix common to all values of Current enumeration
         -- Useful to remove the common prefix of many enumeration values.
-    require has_values: values.count > 1 
+
+		-- Zero (0) when an enumeration has only one element 
     local i,upper: INTEGER
     do
-        from Result:=values.first.c_name.lower; upper:=shortest_length
-        until Result>=upper or else not same_character_at_index(Result)
-        loop Result:=Result+1
-        end
-        Result:=Result-1
-        -- Used during development of this feature. Disabled because it's too verbose
-        debug
-            if verbose then
-                print(once "'") print(values.first.c_name.as_utf8.substring(1,Result))
-                print(once "'(") print(Result.to_string) print(once " characters) is longest common prefix of ") 
-                from i:=values.lower until i>values.upper-1 loop
-                    print(values.item(i).c_name.out) print(once ", ")
-                    i:=i+1
-                end
-                print(values.last.c_string_name) print(once ".%N")
-            end
-        end
+		if values.count > 1 then
+			if prefix_length.is_default then 
+				from prefix_length:=values.first.c_name.lower; upper:=shortest_length
+				until prefix_length>=upper or else not same_character_at_index(prefix_length)
+				loop prefix_length:=prefix_length+1
+				end
+				prefix_length:=prefix_length-1
+				-- Used during development of this feature. Disabled because it's too verbose
+				debug
+					if verbose then
+						print(once "'") print(values.first.c_name.as_utf8.substring(1,prefix_length))
+						print(once "'(") print(prefix_length.to_string) print(once " characters) is longest common prefix of ") 
+						from i:=values.lower until i>values.upper-1 loop
+							print(values.item(i).c_name.out) print(once ", ")
+							i:=i+1
+						end
+						print(values.last.c_string_name) print(once ".%N")
+					end
+				end
+				Result:=prefix_length
+			else -- result has been already computed 
+				Result:=prefix_length
+			end
+		else -- enumeration has only one value
+			Result  := 0 
+		end
     ensure shorter_than_shortest_item: Result < shortest_length -- otherwise the shortest item will get an empty label  
     end
 
@@ -301,6 +301,7 @@ feature {C_ENUM_VALUE} -- Implementation
 
 feature {} -- Implementation
     hidden_values: like values
+	prefix_length: like longest_prefix
 
     same_character_at_index (an_index: INTEGER): BOOLEAN is 
         -- Do all values have the same characters at `an_index' in their name?

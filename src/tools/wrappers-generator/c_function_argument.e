@@ -7,7 +7,7 @@ inherit
 insert
 	SHARED_COLLECTIONS
 	EXCEPTIONS
-feature 
+feature {ANY} 
 	is_ellipsis: BOOLEAN is
 		-- Does Current argument make its function a variadic one?
 		deferred

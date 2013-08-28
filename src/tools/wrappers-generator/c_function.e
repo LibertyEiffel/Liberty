@@ -177,7 +177,7 @@ feature {ANY}
 	append_body is
 			-- Append the body of function to `buffer'
 		local
-			actual_c_symbol,description,dir: STRING
+			actual_c_symbol,description: STRING
 		do
 			description := c_string_name
 			if is_variadic then
@@ -190,11 +190,6 @@ feature {ANY}
 			if not has_arguments then actual_c_symbol := c_string_name+(once "()")
 			else actual_c_symbol := c_string_name
 			end
-			-- TODO: reimplement (if necessary) temporary code to handle output to standard output.
-			-- if directory=Void then dir:=once "the almighty standard output"
-			-- else dir := directory
-			-- end
-			-- end of temporary. TODO: remove when the tool is robust enought.
 			buffer.put_message(once "%
 			% 		-- @(1)%N%
 			%		external %"plug_in%"%N%

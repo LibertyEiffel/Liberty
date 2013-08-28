@@ -1,4 +1,4 @@
-class NATURAL
+class NATURAL_USAGE
 --
 -- Well, using NATURAL_8, NATURAL_16, NATURAL_32 and NATURAL_64 classes
 -- is pretty simple, but an example may be useful.
@@ -55,4 +55,4 @@ feature {ANY}
          io.put_string("%N")
       end
 
-end -- class NATURAL
+end -- class NATURAL_USAGE

@@ -44,7 +44,7 @@ feature {ANY} -- Interface prerequisites
 	ensure Result /=Void
 	end
 
-	prerequisites_iter: INTERFACE_PREREQUITES_ITERATOR is
+	prerequisites_iter: PREREQUISITES_ITERATOR is
 		do
 			Result.from_interface(Current)
 		end
@@ -72,11 +72,9 @@ feature {ANY} -- Methods
 
 	method (n: INTEGER): GI_FUNCTION_INFO is
 		-- the interface type method at index `n'.
-	require valid_index: n.in_range(0,methods_count-1)
 	do
 		create Result.from_external_pointer(g_interface_info_get_method(handle,n)) 
 		-- g_interface_info_get_method  Returns : the GIFunctionInfo. Free the struct by calling g_base_info_unref() when done. [transfer full]
-	ensure Result/=Void
 	end
 
 	find_method (a_name: ABSTRACT_STRING): GI_FUNCTION_INFO is
@@ -101,10 +99,8 @@ feature {ANY} -- Signals
 
 	signal (n: INTEGER): GI_SIGNAL_INFO is
 		-- The an interface type signal at index n.
-	require valid_n: n.in_range(0,signals_count-1)
 	do
 		create Result.from_external_pointer(g_interface_info_get_signal(handle,n))
-	ensure Result/=Void
 	end
 
 	find_signal (a_name: ABSTRACT_STRING): GI_SIGNAL_INFO is
@@ -122,7 +118,6 @@ feature {ANY} -- Virtual functions
 		-- the number of virtual functions that this interface type has. 
 	do
 		Result := g_interface_info_get_n_vfuncs(handle)
-	ensure Result>=0
 	end
 
 	virtual_function (n: INTEGER): GI_VFUNC_INFO is
@@ -133,9 +128,6 @@ feature {ANY} -- Virtual functions
 
 	find_virtual_function (a_name: ABSTRACT_STRING): GI_VFUNC_INFO is
 		-- The virtual function with `a_name'. Void if such a functon does not exist.
-	require 
-		a_name /= Void
-		not a_name.is_empty
 	local res: POINTER
 	do
 		res := g_interface_info_find_vfunc(handle,a_name.to_external) -- Note: ownership fully transferred
@@ -166,3 +158,21 @@ feature {ANY} -- Constants
 --    info :    a GIInterfaceInfo
 --    Returns : the GIStructInfo or NULL. Free it with g_base_info_unref() when done. [transfer full]
 end 
+
+-- Copyright (C) 2013 Paolo Redaelli <paolo.redaelli@gmail.com>
+-- 
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Lesser General Public License
+-- as published by the Free Software Foundation; either version 2.1 of
+-- the License, or (at your option) any later version.
+-- 
+-- This library is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Lesser General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Lesser General Public
+-- License along with this library; if not, write to the Free Software
+-- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+-- 02110-1301 USA
+	

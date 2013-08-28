@@ -5,8 +5,10 @@ inherit
 	NAMED_NODE
 	TYPED_NODE
 	FILED_NODE
+
 create {ANY} make
-feature 
+
+feature {ANY}
 	is_fundamental: BOOLEAN is False
 	is_void: BOOLEAN is False
 	has_wrapper: BOOLEAN is False

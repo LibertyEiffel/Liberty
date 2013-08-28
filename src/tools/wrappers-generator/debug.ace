@@ -12,7 +12,7 @@ default -- section of the system
    debug (yes);
    trace (no);
    collect (yes);
-   no_style_warning (no);
+   -- no_style_warning (no);
    no_warning (no);
    verbose (no);
    manifest_string_trace (no); -- yes);
@@ -36,14 +36,20 @@ cluster -- section
 	end 
 
    wrapping_facilities: "../../wrappers/common/loadpath.se"
-   xml: "./xml/loadpath.se" -- A slightly patched copy of SmartEiffel's xml cluster
-   unicode: "./unicode/" -- SmartEiffel Unicode support 
 
-   -- Pull in Liberty's standard library. Always put this last so 
-   -- that you can override options for parts of the library.
+   legacy_unicode: "${path_liberty}/src/tools/wrappers-generator/unicode"
+        -- default
+        --      assertion (boost)
+        -- end
 
-   liberty_standard: "../../lib/loadpath.se"
-   -- standard: "${path_lib}/loadpath.se" default assertion (require) end -- standard cluster 
+   lib: "${path_liberty}/src/lib/loadpath.se"
+		default
+        assertion(boost)
+		option
+			-- debug(all): FIXED_STRING -- `debug_string' is very useful
+			-- assertion(ensure): HASHED_DICTIONARY, FAST_ARRAY, STRING, PATH_NAME, POSIX_PATH_NAME
+		end
+
 external -- section for elements written in another language
 generate -- section
 

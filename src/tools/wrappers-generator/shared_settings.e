@@ -22,7 +22,7 @@ feature {ANY}
 			Result := settings.directory
 		end
 
-feature -- Plugin
+feature {ANY} -- Plugin
 	include: TEXT_FILE_WRITE is
 		once
 			create Result.make
@@ -33,7 +33,7 @@ feature -- Plugin
 		end
 
 
-feature -- Syntactic sugar
+feature {ANY} -- Syntactic sugar
 	verbose: BOOLEAN is
 		do
 			Result := settings.verbose
