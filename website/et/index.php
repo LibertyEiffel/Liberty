@@ -72,7 +72,7 @@ if(file_exists($request)){
    $state = $state . " &mdash; " . $content;
 }
 
-echo "<p>&nbsp;</p>"
+echo "<p>&nbsp;</p>";
 
 echo "<p>State: $state</p>\n";
 
@@ -100,10 +100,10 @@ if (file_exists($lock)) {
          }
          echo "</b><br/><font size='-1'>based on average running time: " . $time_mean . " seconds in the " . count($times) . " latest runs</font>";
       } else {
-         echo " &mdash; " $active_time " seconds ago";
+          echo " &mdash; " . $active_time . " seconds ago";
       }
    } else {
-      echo " &mdash; " $active_time " seconds ago";
+      echo " &mdash; " . $active_time . " seconds ago";
    }
    echo "</p>\n";
 }
@@ -111,7 +111,7 @@ if (file_exists($lock)) {
 $update = date($dateFormat, filemtime("$stageout/current_stage.txt"));
 echo "<p>Last update: $update</p>\n";
 
-echo "<p>&nbsp;</p>"
+echo "<p>&nbsp;</p>";
 
 function filedatecompare($a,$b){
    $ac = filectime($a);
