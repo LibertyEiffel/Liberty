@@ -58,7 +58,8 @@ echo "<ul>\n";
 foreach ($json_commits as $commit){
    $committer = $commit['author']['name'];
    // his email is: $commit['author']['email'];
-   $message = explode("\n", $commit['message'])[0]
+   $message_lines = explode("\n", $commit['message']);
+   $message = $message_lines[0];
    echo "<li><a href=\"" . $commitbaselink . $commit['id'] . "\">" . $message . "</a> by $committer on " . date ($dateFormat, strtotime($commit['timestamp'])) . "</li>\n";
 }
 echo "</ul>\n";
@@ -77,11 +78,24 @@ echo "<p>&nbsp;</p>";
 
 echo "<p>State: $state</p>\n";
 
+function legible_time($time) {
+   $seconds = $time % 60;
+   $minutes = (int)(($time - $seconds) / 60) % 60;
+   $hours = (int)((($time - $seconds) / 60) / 60);
+   if ($hours > 0) {
+      $result = $hours . ":" . ($minutes < 10 ? "0" : "") . $minutes . ":" . ($seconds < 10 ? "0" : "") . $seconds;
+   } else {
+      $result = ($minutes < 10 ? "0" : "") . $minutes . ":" . ($seconds < 10 ? "0" : "") . $seconds;
+   }
+   return $result;
+}
+
 if (file_exists($lock)) {
    $startTime = filemtime($lock);
    $start = date($dateFormat, $startTime);
    echo "<p>Started on: $start";
    $active_time = time() - $startTime;
+   echo " &mdash; " . legible_time($active_time) . " seconds ago";
    if (file_exists($timesHistory)) {
       $times = unserialize(file_get_contents($timesHistory));
       if (count($times) > 1) {
@@ -89,22 +103,19 @@ if (file_exists($lock)) {
          $time_count = 0;
          foreach ($times as $time) {
             $time_sum += $time;
-            $time_count += 1;
+            $time_count ++;
          }
-         $time_mean = (100.0 * $time_sum) / $time_count;
-         $completion = 100 - int($time_mean - $actime_time + 0.5);
-         echo " &mdash; estimated completion: <b>";
-         if ($completion > 0) {
-            echo $completion . "%";
+         $time_average = (int)($time_sum / $time_count + 0.5);
+         $completion_time = $time_average - $actime_time;
+         $completion = (int)((100 * $completion_time) / $time_average + 0.5);
+         echo ", estimated completion: ";
+         if ($completion < 100) {
+            echo "<b>" . $completion . "%</b> (ETA: in " . legible_time($completion_time) . ")";
          } else {
             echo "unknown";
          }
-         echo "</b><br/><font size='-1'>based on average running time: " . $time_mean . " seconds in the " . count($times) . " latest runs</font>";
-      } else {
-          echo " &mdash; " . $active_time . " seconds ago";
+         echo "<br/><font size='-1'>based on average running time: " . $time_average . " seconds in the " . count($times) . " latest runs</font>";
       }
-   } else {
-      echo " &mdash; " . $active_time . " seconds ago";
    }
    echo "</p>\n";
 }
