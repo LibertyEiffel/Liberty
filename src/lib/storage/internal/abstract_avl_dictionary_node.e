@@ -8,9 +8,12 @@ deferred class ABSTRACT_AVL_DICTIONARY_NODE[V_, K_]
 
 inherit
    AVL_TREE_NODE[K_]
-      rename item as key,
+      rename
+         item as key,
          set_item as set_key,
          safe_equal as safe_equal_key
+      redefine
+         recycle
       end
    ANY_AVL_DICTIONARY_NODE
 
@@ -121,6 +124,15 @@ feature {ABSTRACT_AVL_DICTIONARY}
       ensure
          value = v
          key = k
+      end
+
+feature {RECYCLING_POOL}
+   recycle is
+      local
+         v: V_
+      do
+         Precursor
+         value := v
       end
 
 end -- class ABSTRACT_AVL_DICTIONARY_NODE

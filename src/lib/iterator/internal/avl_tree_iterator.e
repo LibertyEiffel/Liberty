@@ -1,5 +1,8 @@
 deferred class AVL_TREE_ITERATOR[E_]
 
+inherit
+   RECYCLABLE
+
 --         4
 --      2     6
 --     1 3   5 7
@@ -8,29 +11,33 @@ feature {}
    nodes: STACK[AVL_TREE_NODE[E_]]
    cur: AVL_TREE_NODE[E_]
 
-   go_first is
+   go_leftmost (node: AVL_TREE_NODE[E_]) is
+      require
+         node = nodes.top
       local
-         node: AVL_TREE_NODE[E_]
+         left: like node
       do
-         node := nodes.top
-         if node.left = Void then
+         left := node.left
+         if left = Void then
             cur := node
          else
-            nodes.push(node.left)
-            go_first
+            nodes.push(left)
+            go_leftmost(left)
          end
       end
 
-   go_next is
+   go_next_node (node: AVL_TREE_NODE[E_]) is
+      require
+         node = nodes.top
       local
-         node: AVL_TREE_NODE[E_]
+         right: like node
       do
-         node := nodes.top
          if cur = node then
-            if node.right /= Void then
+            right := node.right
+            if right /= Void then
                nodes.pop
-               nodes.push(node.right)
-               go_first
+               nodes.push(right)
+               go_leftmost(right)
             else
                nodes.pop
                if nodes.is_empty then
@@ -44,8 +51,66 @@ feature {}
          end
       end
 
+   go_first (root: AVL_TREE_NODE[E_]) is
+      do
+         from
+         until
+            nodes.is_empty
+         loop
+            nodes.pop
+         end
+         nodes.push(root)
+         go_leftmost(root)
+      end
+
+   go_next is
+      require
+         not nodes.is_empty
+      do
+         go_next_node(nodes.top)
+      end
+
 feature {ANY}
    generation: INTEGER
+
+feature {RECYCLING_POOL}
+   recycle is
+      do
+         nodes_pool.recycle(nodes)
+      end
+
+feature {}
+   new_nodes: like nodes is
+      do
+         if nodes_pool.is_empty then
+            create Result.make
+         else
+            Result := nodes_pool.item
+         end
+      end
+
+   nodes_pool: RECYCLING_POOL[STACK[AVL_TREE_NODE[E_]]] is
+      local
+         key: FIXED_STRING
+      do
+         Result := nodes_pool_memory
+         if Result = Void then
+            key := generating_type.intern
+            Result ::= nodes_pools.fast_reference_at(key)
+            if Result = Void then
+               create Result.make
+               nodes_pools.add(Result, key)
+            end
+            nodes_pool_memory := Result
+         end
+      end
+
+   nodes_pool_memory: like nodes_pool
+
+   nodes_pools: HASHED_DICTIONARY[RECYCLING_POOL[STACK[AVL_TREE_NODE_ANY]], FIXED_STRING] is
+      once
+         create Result.make
+      end
 
 invariant
    nodes /= Void

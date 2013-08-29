@@ -16,7 +16,7 @@ insert
          {STACK} all
       redefine new_iterator
       end
-   ANY
+   RECYCLABLE
       -- To get reasonable default exports
       undefine default_create, out_in_tagged_out_memory, copy, is_equal
       end
@@ -39,6 +39,14 @@ feature {}
       do
          check
             False
+         end
+      end
+
+feature {RECYCLING_POOL}
+   recycle is
+      do
+         check
+            require_is_empty: is_empty
          end
       end
 

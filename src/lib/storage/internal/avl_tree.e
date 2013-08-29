@@ -474,11 +474,10 @@ feature {} -- Iterating internals:
 feature {}
    new_node: like a_new_node is
       do
-         Result := lost_nodes.item
-         if Result = Void then
+         if lost_nodes.is_empty then
             Result := a_new_node
          else
-            lost_nodes.set_item(Result.left)
+            Result := lost_nodes.item
          end
       end
 
@@ -489,10 +488,32 @@ feature {}
    discard_node (n: like a_new_node) is
       require
          n /= Void
-      deferred
+      do
+         lost_nodes.recycle(n)
       end
 
-   lost_nodes: WEAK_REFERENCE[like a_new_node]
+   lost_nodes: RECYCLING_POOL[like a_new_node] is
+      local
+         key: FIXED_STRING
+      do
+         Result := lost_nodes_memory
+         if Result = Void then
+            key := generating_type.intern
+            Result ::= lost_nodes_pool.fast_reference_at(key)
+            if Result = Void then
+               create Result.make
+               lost_nodes_pool.add(Result, key)
+            end
+            lost_nodes_memory := Result
+         end
+      end
+
+   lost_nodes_memory: like lost_nodes
+
+   lost_nodes_pool: HASHED_DICTIONARY[RECYCLING_POOL[AVL_TREE_NODE_ANY], FIXED_STRING] is
+      once
+         create Result.make
+      end
 
    ordered (e1, e2: E_): BOOLEAN is
          -- True if [e1, e2] is a correctly ordered sequence; usually, e1 < e2
@@ -506,6 +527,7 @@ invariant
    map /= Void
    not map_dirty implies map.count = count
    count > 0 implies root /= Void and then root.count = count
+   lost_nodes /= Void
 
 end -- class AVL_TREE
 --

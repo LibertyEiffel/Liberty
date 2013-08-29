@@ -18,7 +18,8 @@ class RECYCLING_POOL[R_ -> RECYCLABLE]
 insert
    STACK[R_]
       rename
-         item as collection_item
+         item as collection_item,
+         recycle as stack_recycle
       export
          {RECYCLING_POOL} lower, upper, storage, count;
          {ANY} is_empty;
