@@ -81,7 +81,7 @@ echo "<p>State: $state</p>\n";
 function legible_time($time) {
    $seconds = $time % 60;
    $minutes = (int)(($time - $seconds) / 60) % 60;
-   $hours = (int)((($time - $seconds) / 60) / 60);
+   $hours = (int)((($time - $seconds) / 60 - $minutes) / 60);
    if ($hours > 0) {
       $result = $hours . ":" . ($minutes < 10 ? "0" : "") . $minutes . ":" . ($seconds < 10 ? "0" : "") . $seconds;
    } else {
