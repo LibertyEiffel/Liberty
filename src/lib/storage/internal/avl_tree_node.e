@@ -9,6 +9,9 @@ deferred class AVL_TREE_NODE[E_]
    -- Landis (hence A.V.L.), 1960)
    --
 
+inherit
+   AVL_TREE_NODE_ANY
+
 insert
    AVL_CONSTANTS
 
@@ -34,9 +37,7 @@ feature {ANY}
    safe_equal: SAFE_EQUAL[E_]
 
 feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
-   left: like Current
-
-   right: like left
+   left, right: like Current
 
    item: E_
 
@@ -197,6 +198,16 @@ feature {}
          e1 /= Void
          e2 /= Void
       deferred
+      end
+
+feature {RECYCLING_POOL}
+   recycle is
+      local
+         e: E_
+      do
+         left := Void
+         right := Void
+         item := e
       end
 
 end -- class AVL_TREE_NODE

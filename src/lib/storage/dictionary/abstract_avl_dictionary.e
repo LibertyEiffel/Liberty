@@ -191,34 +191,11 @@ feature {}
          discard_node(n2)
       end
 
-   discard_node (n: like a_new_node) is
-      local
-         v: V_; k: K_
-      do
-         n.set(v, k)
-         n.set_left(lost_nodes.item)
-         lost_nodes.set_item(n)
-      end
-
-   common_lost_nodes: DICTIONARY[WEAK_REFERENCE[ANY_AVL_DICTIONARY_NODE], STRING] is
-      once
-         create {HASHED_DICTIONARY[WEAK_REFERENCE[ANY_AVL_DICTIONARY_NODE], STRING]} Result.make
-      end
-
    make is
       do
          create map.make(0)
-         lost_nodes ::= common_lost_nodes.reference_at(generating_type)
-         if lost_nodes = Void then
-            create lost_nodes.set_item(Void)
-            common_lost_nodes.add(lost_nodes, generating_type)
-         end
          next_generation
       end
-
-invariant
-   lost_nodes /= Void
-   lost_nodes = common_lost_nodes.at(generating_type)
 
 end -- class ABSTRACT_AVL_DICTIONARY
 --

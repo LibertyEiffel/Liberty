@@ -17,9 +17,7 @@ if($key == "payload"){
   }
 
   $last_commit = $json_str['commits'][count($json_str['commits']) - 1]['author']['email'];
-  file_put_contents($request, "new request on " . date('Y-m-d G:i:s') . "\n"
-                     . urldecode($value)
-                     );
+  file_put_contents($request, "new git request on " . date($dateFormat));
 
   $json_array[] = $json_str;
 

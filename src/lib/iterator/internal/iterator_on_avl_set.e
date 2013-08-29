@@ -13,9 +13,8 @@ feature {ANY}
    start is
       do
          if set.root /= Void then
-            nodes.push(set.root)
             generation := iterable_generation
-            go_first
+            go_first(set.root)
          end
       end
 
@@ -43,7 +42,7 @@ feature {}
          a_set /= Void
       do
          set := a_set
-         create nodes.make
+         nodes := new_nodes
          start
       ensure
          set = a_set

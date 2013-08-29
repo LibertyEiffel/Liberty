@@ -13,9 +13,8 @@ feature {ANY}
    start is
       do
          if dico.root /= Void then
-            nodes.push(dico.root)
             generation := iterable_generation
-            go_first
+            go_first(dico.root)
          end
       end
 
@@ -41,7 +40,7 @@ feature {}
    make (a_dico: like dico) is
       do
          dico := a_dico
-         create nodes.make
+         nodes := new_nodes
          start
       ensure
          dico = a_dico
