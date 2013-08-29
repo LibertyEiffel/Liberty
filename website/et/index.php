@@ -58,7 +58,8 @@ echo "<ul>\n";
 foreach ($json_commits as $commit){
    $committer = $commit['author']['name'];
    // his email is: $commit['author']['email'];
-   echo "<li><a href=\"" . $commitbaselink . $commit['id'] . "\">" . $commit['message'] . "</a> by $committer on " . date ($dateFormat, strtotime($commit['timestamp'])) . "</li>\n";
+   $message = explode("\n", $commit['message'])[0]
+   echo "<li><a href=\"" . $commitbaselink . $commit['id'] . "\">" . $message . "</a> by $committer on " . date ($dateFormat, strtotime($commit['timestamp'])) . "</li>\n";
 }
 echo "</ul>\n";
 if(file_exists($lock)){
