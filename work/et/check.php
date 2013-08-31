@@ -127,7 +127,7 @@ if(!$force){
       }
    }else{
       // no new request
-      echo "nothing to do.\n";
+      if($verbose) echo "nothing to do.\n";
       exit(0);
    }
    unlink($request);
@@ -303,7 +303,7 @@ endsubstage();
 file_put_contents("$stageout/current_stage.txt","");
 
 $times = unserialize(file_get_contents($timesHistory));
-$times[] = int(time() - $startTime);
+$times[] = (int)(time() - $startTime);
 $times = array_slice($times, -$historysize);
 file_put_contents($timesHistory, serialize($times));
 
