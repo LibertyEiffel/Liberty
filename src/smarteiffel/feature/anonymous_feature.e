@@ -525,25 +525,39 @@ feature {ANONYMOUS_FEATURE_MIXER}
             end
          end
          if Result then
-            if result_type /= Void then
+            if result_type = Void then
+               if other.result_type /= Void then
+                  error_handler.add_position(other.start_position)
+                  error_handler.add_position(start_position)
+                  error_handler.append(em_ohrbnto)
+                  Result := False
+               end
+            else
                --|*** warn assignment_handler? Only for alive functions in live-type
-               t1 := result_type.resolve_in(new_type)
-               t2 := other.result_type.resolve_in(parent_type)
-               if t1 = t2 then
-                  -- No modification, i.e. novariance is always allowed.
+               if other.result_type = Void then
+                  error_handler.add_position(other.start_position)
+                  error_handler.add_position(start_position)
+                  error_handler.append(em_ohrbnto)
+                  Result := False
                else
-                  inspect
-                     t1.insert_inherit_test(t2)
-                  when inherits_code then
-                     -- Both valid for an insert or inherit link.
-                  when inserts_code then
-                     if parent_edge.is_inherit_member then
+                  t1 := result_type.resolve_in(new_type)
+                  t2 := other.result_type.resolve_in(parent_type)
+                  if t1 = t2 then
+                     -- No modification, i.e. novariance is always allowed.
+                  else
+                     inspect
+                        t1.insert_inherit_test(t2)
+                     when inherits_code then
+                        -- Both valid for an insert or inherit link.
+                     when inserts_code then
+                        if parent_edge.is_inherit_member then
+                           valid_redefinition_error(other.result_type, parent_type, result_type, new_type)
+                           Result := False
+                        end
+                     when unrelated_code then
                         valid_redefinition_error(other.result_type, parent_type, result_type, new_type)
                         Result := False
                      end
-                  when unrelated_code then
-                     valid_redefinition_error(other.result_type, parent_type, result_type, new_type)
-                     Result := False
                   end
                end
             end
@@ -617,7 +631,7 @@ feature {ANONYMOUS_FEATURE}
       local
          i: INTEGER; arg1, arg2: FORMAL_ARG_LIST
       do
-         Result := result_type = Void = (other.result_type = Void)
+         Result := (result_type = Void) = (other.result_type = Void)
          if not Result then
             error_handler.append(em_ohrbnto)
          else
