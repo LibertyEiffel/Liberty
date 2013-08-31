@@ -302,7 +302,11 @@ endsubstage();
 
 file_put_contents("$stageout/current_stage.txt","");
 
-$times = unserialize(file_get_contents($timesHistory));
+if (file_exists($timesHistory)) {
+    $times = unserialize(file_get_contents($timesHistory));
+} else {
+    $times = array();
+}
 $times[] = int(time() - $startTime);
 $times = array_slice($times, -$historysize);
 file_put_contents($timesHistory, serialize($times));
