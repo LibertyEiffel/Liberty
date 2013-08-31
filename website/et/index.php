@@ -82,10 +82,13 @@ function legible_time($time) {
    $seconds = $time % 60;
    $minutes = (int)(($time - $seconds) / 60) % 60;
    $hours = (int)((($time - $seconds) / 60 - $minutes) / 60);
-   if ($hours > 0) {
-      $result = $hours . ":" . ($minutes < 10 ? "0" : "") . $minutes . ":" . ($seconds < 10 ? "0" : "") . $seconds;
+   $days = (int)(((($time - $seconds) / 60 - $minutes) / 60 - $hours) / 24);
+   if ($days > 0) {
+      $result = $days . " day" . ($days == 1 ? "" : "s") . ", " . $hours . ":" . ($minutes < 10 ? "0" : "") . $minutes . ":" . ($seconds < 10 ? "0" : "") . $seconds . " hour" . ($hours == 1 ? "" : "s");
+   } elseif ($hours > 0) {
+      $result = $hours . ":" . ($minutes < 10 ? "0" : "") . $minutes . ":" . ($seconds < 10 ? "0" : "") . $seconds . " hour" . ($hours == 1 ? "" : "s");
    } else {
-      $result = ($minutes < 10 ? "0" : "") . $minutes . ":" . ($seconds < 10 ? "0" : "") . $seconds;
+      $result = ($minutes < 10 ? "0" : "") . $minutes . ":" . ($seconds < 10 ? "0" : "") . $seconds . " minute" . ($minutes == 1 ? "" : "s");
    }
    return $result;
 }
@@ -95,7 +98,7 @@ if (file_exists($lock)) {
    $start = date($dateFormat, $startTime);
    echo "<p>Started on: $start";
    $active_time = time() - $startTime;
-   echo " &mdash; " . legible_time($active_time) . " seconds ago";
+   echo " &mdash; " . legible_time($active_time) . " ago";
    if (file_exists($timesHistory)) {
       $times = unserialize(file_get_contents($timesHistory));
       if (count($times) > 1) {
