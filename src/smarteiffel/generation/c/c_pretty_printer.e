@@ -2450,145 +2450,145 @@ feature {}
                -- (Calling Eiffel function flush would result in running sedb again whereas the user said s/he
                -- wanted to exit.)
                pending_c_function_body.append("if (sedb_status != SEDB_EXIT_MODE) ")
-               end
-               pending_c_function_body.extend('r')
-               smart_eiffel.se_atexit_id.append_in(pending_c_function_body)
-               pending_c_function_body.append(once "se_atexit(")
-               if not ace.boost then
-                  pending_c_function_body.append(once "&ds")
-               end
-               if ace.profile then
-                  if pending_c_function_body.last /= '(' then
-                     pending_c_function_body.extend(',')
-                  end
-                  pending_c_function_body.append(once "&local_profile")
-               end
-               if not ace.boost then
-                  if pending_c_function_body.last /= '(' then
-                     pending_c_function_body.extend(',')
-                  end
-                  pending_c_function_body.append(once "NULL/*Unused Target*/")
-               end
-               pending_c_function_body.append(once ");%N")
             end
-            memory.gc_info_before_exit
-            if ace.profile then
-               pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
+            pending_c_function_body.extend('r')
+            smart_eiffel.se_atexit_id.append_in(pending_c_function_body)
+            pending_c_function_body.append(once "se_atexit(")
+            if not ace.boost then
+               pending_c_function_body.append(once "&ds")
             end
             if ace.profile then
-               show_profile
+               if pending_c_function_body.last /= '(' then
+                  pending_c_function_body.extend(',')
+               end
+               pending_c_function_body.append(once "&local_profile")
             end
-            dump_pending_c_function(True)
+            if not ace.boost then
+               if pending_c_function_body.last /= '(' then
+                  pending_c_function_body.extend(',')
+               end
+               pending_c_function_body.append(once "NULL/*Unused Target*/")
+            end
+            pending_c_function_body.append(once ");%N")
+         end
+         memory.gc_info_before_exit
+         if ace.profile then
+            pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
+         end
+         if ace.profile then
+            show_profile
+         end
+         dump_pending_c_function(True)
 
-            --|*** if (not ace.no_split) and then split_count > 10 then
-            --|***    -- We are producing a quite large system, so just use a brand new file right-now:
-            --|***    ace.splitter.split_now
-            --|*** end
-            prepare_c_function
-            pending_c_function_signature.append(once "void initialize_eiffel_runtime(int argc,char*argv[])")
-            if ace.profile then
-               pending_c_function_body.append(once "se_local_profile_t local_profile, *parent_profile;%N")
-            end
-            if no_check then
+         --|*** if (not ace.no_split) and then split_count > 10 then
+         --|***    -- We are producing a quite large system, so just use a brand new file right-now:
+         --|***    ace.splitter.split_now
+         --|*** end
+         prepare_c_function
+         pending_c_function_signature.append(once "void initialize_eiffel_runtime(int argc,char*argv[])")
+         if ace.profile then
+            pending_c_function_body.append(once "se_local_profile_t local_profile, *parent_profile;%N")
+         end
+         if no_check then
+            pending_c_function_body.append(once "[
+                                                 se_frame_descriptor irfd={"<runtime init>",0,0,"",1};
+                                                 se_dump_stack ds = {NULL,NULL,0,NULL,NULL,0};
+                                                 ds.fd=&irfd;
+
+                                                 ]")
+            set_dump_stack_top_for(rf3.type_of_current, once "&ds", once "link")
+         end
+         pending_c_function_body.append(once "se_argc=argc;%Nse_argv=argv;%N")
+         pending_c_function_body.append(once "atexit(se_atexit);%N")
+         if ace.profile then
+            pending_c_function_body.append(once "parent_profile=&global_profile;%N")
+            pending_c_function_body.append(once "local_profile.profile=&runinit_profile;%N")
+            pending_c_function_body.append(once "start_profile(parent_profile, &local_profile);%N")
+         end
+         memory.initialize_runtime
+         exceptions_handler.initialize_runtime
+         if no_check then
+            initialize_path_table
+         end
+         if smart_eiffel.generator_used then
+            initialize_generator
+         end
+         if smart_eiffel.generating_type_used then
+            initialize_generating_type
+         end
+         if ace.profile then
+            initialize_profile
+         end
+         if not exceptions_handler.used then
+            if ace.no_check then
                pending_c_function_body.append(once "[
-                                                    se_frame_descriptor irfd={"<runtime init>",0,0,"",1};
-                                                    se_dump_stack ds = {NULL,NULL,0,NULL,NULL,0};
-                                                    ds.fd=&irfd;
-
-                                                    ]")
-               set_dump_stack_top_for(rf3.type_of_current, once "&ds", once "link")
-            end
-            pending_c_function_body.append(once "se_argc=argc;%Nse_argv=argv;%N")
-            pending_c_function_body.append(once "atexit(se_atexit);%N")
-            if ace.profile then
-               pending_c_function_body.append(once "parent_profile=&global_profile;%N")
-               pending_c_function_body.append(once "local_profile.profile=&runinit_profile;%N")
-               pending_c_function_body.append(once "start_profile(parent_profile, &local_profile);%N")
-            end
-            memory.initialize_runtime
-            exceptions_handler.initialize_runtime
-            if no_check then
-               initialize_path_table
-            end
-            if smart_eiffel.generator_used then
-               initialize_generator
-            end
-            if smart_eiffel.generating_type_used then
-               initialize_generating_type
-            end
-            if ace.profile then
-               initialize_profile
-            end
-            if not exceptions_handler.used then
-               if ace.no_check then
-                  pending_c_function_body.append(once "[
 #ifdef SIGINT
-                                                       signal(SIGINT,se_signal_handler);
+                                                    signal(SIGINT,se_signal_handler);
 #endif
 #ifdef SIGTERM
-                                                       signal(SIGTERM,se_signal_handler);
+                                                    signal(SIGTERM,se_signal_handler);
 #endif
 
                                                        ]")
-               end
-               pending_c_function_body.append(once "[
+            end
+            pending_c_function_body.append(once "[
 #ifdef SIGQUIT
-                                                    signal(SIGQUIT,se_signal_handler);
+                                                 signal(SIGQUIT,se_signal_handler);
 #endif
 #ifdef SIGILL
-                                                    signal(SIGILL,se_signal_handler);
+                                                 signal(SIGILL,se_signal_handler);
 #endif
 #ifdef SIGABRT
-                                                    signal(SIGABRT,se_signal_handler);
+                                                 signal(SIGABRT,se_signal_handler);
 #endif
 #ifdef SIGFPE
-                                                    signal(SIGFPE,se_signal_handler);
+                                                 signal(SIGFPE,se_signal_handler);
 #endif
 #ifdef SIGSEGV
-                                                    signal(SIGSEGV,se_signal_handler);
+                                                 signal(SIGSEGV,se_signal_handler);
 #endif
 #ifdef SIGBUS
-                                                    signal(SIGBUS,se_signal_handler);
+                                                 signal(SIGBUS,se_signal_handler);
 #endif
 #ifdef SIGSYS
-                                                    signal(SIGSYS,se_signal_handler);
+                                                 signal(SIGSYS,se_signal_handler);
 #endif
 #ifdef SIGTRAP
-                                                    signal(SIGTRAP,se_signal_handler);
+                                                 signal(SIGTRAP,se_signal_handler);
 #endif
 #ifdef SIGXCPU
-                                                    signal(SIGXCPU,se_signal_handler);
+                                                 signal(SIGXCPU,se_signal_handler);
 #endif
 #ifdef SIGXFSZ
-                                                    signal(SIGXFSZ,se_signal_handler);
+                                                 signal(SIGXFSZ,se_signal_handler);
 #endif
 
-                                                    ]")
-            end
-            c_call_initialize_manifest_strings
-            c_code_for_precomputable_routines
-            memory.post_initialize_runtime
-            if ace.sedb then
-               pending_c_function_body.append(once "se_general_trace_switch=1;%N")
-            end
-            internal_c_local := pending_c_function_lock_local(lt.type, once "root")
-            memory.allocation_of(internal_c_local, lt)
-            pending_c_function_body.append(once "eiffel_root_object=((T")
-            lt.id.append_in(pending_c_function_body)
-            pending_c_function_body.append(once "*)")
-            internal_c_local.append_in(pending_c_function_body)
-            pending_c_function_body.append(once ");%N")
-
-            internal_c_local.unlock
-            system_tools.auto_init_plugins
-            if ace.no_check then
-               set_dump_stack_top_for(rf3.type_of_current, once "(void*)0", once "unlink")
-            end
-            if ace.profile then
-               pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
-            end
-            dump_pending_c_function(True)
+                                                 ]")
          end
+         c_call_initialize_manifest_strings
+         c_code_for_precomputable_routines
+         memory.post_initialize_runtime
+         if ace.sedb then
+            pending_c_function_body.append(once "se_general_trace_switch=1;%N")
+         end
+         internal_c_local := pending_c_function_lock_local(lt.type, once "root")
+         memory.allocation_of(internal_c_local, lt)
+         pending_c_function_body.append(once "eiffel_root_object=((T")
+         lt.id.append_in(pending_c_function_body)
+         pending_c_function_body.append(once "*)")
+         internal_c_local.append_in(pending_c_function_body)
+         pending_c_function_body.append(once ");%N")
+
+         internal_c_local.unlock
+         system_tools.auto_init_plugins
+         if ace.no_check then
+            set_dump_stack_top_for(rf3.type_of_current, once "(void*)0", once "unlink")
+         end
+         if ace.profile then
+            pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
+         end
+         dump_pending_c_function(True)
+      end
 
    c_call_initialize_manifest_strings is
       require

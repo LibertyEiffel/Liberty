@@ -114,7 +114,14 @@ feature {C_PRETTY_PRINTER} -- C code phases
    gc_info_before_exit is
       do
          cpp.pending_c_function_body.append(once "GC_enable();%N%
-                                                 %gc_start();%N")
+                                                 %eiffel_root_object=NULL;%N%
+                                                 %GC_gcollect_and_unmap();%N%
+                                                 %handle(SE_HANDLE_ENTER_GC,NULL);%N")
+         if info_flag then
+            cpp.pending_c_function_body.append(once "GC_dump();%N")
+         end
+         cpp.pending_c_function_body.append(once "GC_invoke_finalizers();%N%
+                                                 %handle(SE_HANDLE_EXIT_GC,NULL);%N")
       end
 
    pre_cecil_define is
