@@ -11,3 +11,4 @@ se c -flat_check -require_check
 se c -flat_check -ensure_check
 se c -flat_check -invariant_check
 se c -flat_check -loop_check
+-bdw_gc

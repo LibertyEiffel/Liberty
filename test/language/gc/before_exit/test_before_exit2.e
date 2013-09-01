@@ -21,11 +21,11 @@ feature {}
       do
          if argument_count = 0 then
             file_tools.delete(once "before_exit.new")
-            assert(file_tools.file_exists(once "before_exit.ref"))
-            assert(not file_tools.file_exists(once "before_exit.new"))
-            assert(system.execute_command("#(1) --check" # command_name) = 0)
-            assert(file_tools.file_exists(once "before_exit.new"))
-            assert(file_tools.same_files(once "before_exit.new", "before_exit.ref"))
+            label_assert("before_exit.ref must exist", file_tools.file_exists(once "before_exit.ref"))
+            label_assert("before_exit.new must not exist", not file_tools.file_exists(once "before_exit.new"))
+            label_assert("check call must succeed", system.execute_command("#(1) --check" # command_name) = 0)
+            label_assert("before_exit.new must exist", file_tools.file_exists(once "before_exit.new"))
+            label_assert("before_exit.new and before_exit.ref must be identical", file_tools.same_files(once "before_exit.new", "before_exit.ref"))
          else
             assert(argument_count = 1)
             assert(argument(1).is_equal("--check"))
