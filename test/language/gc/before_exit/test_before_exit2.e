@@ -6,25 +6,31 @@ class TEST_BEFORE_EXIT2
 
 insert
    EIFFELTEST_TOOLS
+   ARGUMENTS
 
 create {}
    make
 
 feature {}
    file_tools: FILE_TOOLS
+   system: SYSTEM
 
    make is
       local
          aux: AUX_BEFORE_EXIT2
       do
-         -- Check first if the previous run was correct:
-         assert(file_tools.file_exists(once "before_exit.new"))
-         assert(file_tools.file_exists(once "before_exit.ref"))
-         assert(file_tools.same_files(once "before_exit.new", "before_exit.ref"))
-         -- Now removing:
-         file_tools.delete(once "before_exit.new")
-         assert(not file_tools.file_exists(once "before_exit.new"))
-         create aux.make
+         if argument_count = 0 then
+            file_tools.delete(once "before_exit.new")
+            assert(file_tools.file_exists(once "before_exit.ref"))
+            assert(not file_tools.file_exists(once "before_exit.new"))
+            assert(system.execute_command("#(1) --check" # command_name) = 0)
+            assert(file_tools.file_exists(once "before_exit.new"))
+            assert(file_tools.same_files(once "before_exit.new", "before_exit.ref"))
+         else
+            assert(argument_count = 1)
+            assert(argument(1).is_equal("--check"))
+            create aux.make
+         end
       end
 
 end -- class TEST_BEFORE_EXIT2
