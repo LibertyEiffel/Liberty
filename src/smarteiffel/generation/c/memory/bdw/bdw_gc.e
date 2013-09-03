@@ -115,7 +115,7 @@ feature {C_PRETTY_PRINTER} -- C code phases
       do
          cpp.pending_c_function_body.append(once "GC_enable();%N%
                                                  %eiffel_root_object=NULL;%N%
-                                                 %GC_gcollect_and_unmap();%N%
+                                                 %GC_gcollect();%N%
                                                  %handle(SE_HANDLE_ENTER_GC,NULL);%N")
          if info_flag then
             cpp.pending_c_function_body.append(once "GC_dump();%N")
