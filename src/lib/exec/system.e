@@ -38,20 +38,27 @@ feature {ANY}
          basic_putenv(variable.to_external, value.to_external)
       end
 
-   execute_command (system_command_line: STRING): INTEGER is
+   execute_command (system_command_line: ABSTRACT_STRING): INTEGER is
          -- To execute a `system_command_line' as for example, "ls -l" on UNIX.
          -- The `Result' depends of the actual operating system. As an exemple,
          -- this `execute' feature is under UNIX the equivalent of a `system' call.
       require
          only_one_command: not system_command_line.has('%N')
       local
+         s: STRING
          p: POINTER
       do
-         p := system_command_line.to_external
+         if s ?:= system_command_line then
+            s ::= system_command_line
+         else
+            s := once ""
+            s.make_from_string(system_command_line)
+         end
+         p := s.to_external
          Result := basic_system(p)
       end
 
-   execute_command_line (system_command_line: STRING) is
+   execute_command_line (system_command_line: ABSTRACT_STRING) is
          -- The equivalent of `execute_command' without `Result'.
       require
          only_one_command: not system_command_line.has('%N')

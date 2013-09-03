@@ -20,7 +20,7 @@ feature {ANY}
    dispose is
       do
          text_file_write.put_string("The before_exit run is ok.%N")
-         text_file_write.put_string("This file must be kept unchanged under svn control.%N")
+         text_file_write.put_string("This file must be kept unchanged under git control.%N")
          text_file_write.disconnect
       end
 

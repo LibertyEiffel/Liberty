@@ -221,9 +221,12 @@ EOF
     cd $LIBERTY_HOME/resources/smarteiffel-germ
 
     if [ ! -d $TARGET/bin/compile_to_c.d ]; then
-        progress 30 0 $MAXTOOLCOUNT "germ"
         test -d $TARGET/bin/compile_to_c.d || mkdir $TARGET/bin/compile_to_c.d
-        run $CC -c compile_to_c.c && run $CC compile_to_c.o -o $TARGET/bin/compile_to_c.d/compile_to_c || exit 1
+        grep -v '^#' compile_to_c.make | while read cmd; do
+            progress 30 0 $MAXTOOLCOUNT "germ: $cmd"
+            run $cmd || exit 1
+        done
+        mv a.out $TARGET/bin/compile_to_c.d/compile_to_c || exit 1
     fi
     cd $TARGET/bin/compile_to_c.d
 

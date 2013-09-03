@@ -24,11 +24,11 @@ feature {ANY}
 
    dispose is
       do
-         if counter.value = 0 then
+         if counter.item = 0 then
             text_file_write.put_string("The before_exit run is ok.%N")
-            text_file_write.put_string("This file must be kept unchanged under svn control.%N")
+            text_file_write.put_string("This file must be kept unchanged under git control.%N")
          else
-            text_file_write.put_string("ERROR *** in TEST_BEFORE_EXIT2 ***%N")
+            text_file_write.put_string("ERROR *** in TEST_BEFORE_EXIT2 (counter = #(1))***%N" # counter.item.out)
          end
          counter.increment
          text_file_write.disconnect

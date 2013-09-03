@@ -127,7 +127,7 @@ if(!$force){
       }
    }else{
       // no new request
-      echo "nothing to do.\n";
+      if($verbose) echo "nothing to do.\n";
       exit(0);
    }
    unlink($request);
@@ -211,8 +211,16 @@ function tutorialDir($dir){
             }else{
                $curRes = 0 - exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
             }
-            if($curRes > 0 || $result == 0){
-               $result = $curRes;
+            if($curRes <= 0) {
+                if($result <= 0){
+                    $result += $curRes;
+                }
+            }else{
+                if($result >= 0){
+                    $result += $curRes;
+                }else{
+                    $result = $curRes;
+                }
             }
             file_put_contents($stagedir ."/result.txt", $curRes);
             endsubstage();
@@ -222,16 +230,17 @@ function tutorialDir($dir){
          if(!endsWith($dirname, "aux")){
             substage(basename($dirname), str_replace($LibertyBase, $repobaselink, $dirname));
             $res = tutorialDir($dirname);
-            if($result == 0){
-               $result = $res;
-            }elseif($result > 0 && $res > 0){
-               $result = $result + $res;
-            }elseif($result > 0){
-               // no change
-            }elseif($res > 0){
-               $result = $res;
-            }elseif($result < 0 || $res < 0){
-               $result += $res;
+
+            if($res <= 0) {
+                if($result <= 0){
+                    $result += $res;
+                }
+            }else{
+                if($result >= 0){
+                    $result += $res;
+                }else{
+                    $result = $res;
+                }
             }
             endsubstage();
          }
@@ -302,8 +311,12 @@ endsubstage();
 
 file_put_contents("$stageout/current_stage.txt","");
 
-$times = unserialize(file_get_contents($timesHistory));
-$times[] = int(time() - $startTime);
+if (file_exists($timesHistory)) {
+    $times = unserialize(file_get_contents($timesHistory));
+} else {
+    $times = array();
+}
+$times[] = (int)(time() - $startTime);
 $times = array_slice($times, -$historysize);
 file_put_contents($timesHistory, serialize($times));
 
