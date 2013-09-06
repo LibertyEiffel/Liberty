@@ -3,8 +3,8 @@ The "log.new" file must be identical to the "log.ref" file.
 The reference file is "log.ref" and this file must be created manually.
 If you confirm that "log.new" is correct, just overwrite "log.ref" with "log.new".
 --------------------------------------------------------------------------------
-Found 21 test_* file(s).
-Found 0 bad_* file(s).
+Found 21 test_* files.
+Found 0 bad_* files.
 Found 1 subdirectory.
 --------------------------------------------------------------------------------
 se c -boost test_simplify01.e -o test_simplify01.exe
@@ -45,6 +45,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify01.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify01.e -o test_simplify01.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify01.e -o test_simplify01.exe
+Running (-boost -bdw_gc) "test_simplify01.exe".
+se clean test_simplify01.e
+Removing (-boost -bdw_gc) "test_simplify01.exe".
+se c -boost -debug -bdw_gc test_simplify01.e -o test_simplify01.exe
+Running (-boost -debug -bdw_gc) "test_simplify01.exe".
+se clean test_simplify01.e
+Removing (-boost -debug -bdw_gc) "test_simplify01.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify01.e -o test_simplify01.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify01.e -o test_simplify01.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify01.e -o test_simplify01.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify01.e -o test_simplify01.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify01.e -o test_simplify01.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify01.e -o test_simplify01.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify01.e -o test_simplify01.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify01.e -o test_simplify01.exe".
@@ -66,6 +86,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify01.e -o test_simplify01.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify01.e -o test_simplify01.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify01.e -o test_simplify01.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify01.e -o test_simplify01.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify01.e -o test_simplify01.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify01.e -o test_simplify01.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify01.e -o test_simplify01.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify01.e -o test_simplify01.exe
 Running (-profile -boost) "test_simplify01.exe".
@@ -103,6 +133,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify01.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify01.e -o test_simplify01.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify01.e -o test_simplify01.exe
+Running (-profile -boost -bdw_gc) "test_simplify01.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify01.exe".
+se clean test_simplify01.e
+Removing (-profile -boost -bdw_gc) "test_simplify01.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify01.e -o test_simplify01.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify01.e -o test_simplify01.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify01.e -o test_simplify01.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify01.e -o test_simplify01.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify01.e -o test_simplify01.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify01.e -o test_simplify01.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify01.e -o test_simplify01.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify01.e -o test_simplify01.exe".
@@ -121,6 +168,10 @@ se c -no_split -no_gc -boost test_simplify01.e -o test_simplify01.exe
 Running (-no_split -no_gc -boost) "test_simplify01.exe".
 se clean test_simplify01.e
 Removing (-no_split -no_gc -boost) "test_simplify01.exe".
+se c -no_split -boost -bdw_gc test_simplify01.e -o test_simplify01.exe
+Running (-no_split -boost -bdw_gc) "test_simplify01.exe".
+se clean test_simplify01.e
+Removing (-no_split -boost -bdw_gc) "test_simplify01.exe".
 se c -boost test_simplify02.e -o test_simplify02.exe
 Running (-boost) "test_simplify02.exe".
 se clean test_simplify02.e
@@ -159,6 +210,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify02.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify02.e -o test_simplify02.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify02.e -o test_simplify02.exe
+Running (-boost -bdw_gc) "test_simplify02.exe".
+se clean test_simplify02.e
+Removing (-boost -bdw_gc) "test_simplify02.exe".
+se c -boost -debug -bdw_gc test_simplify02.e -o test_simplify02.exe
+Running (-boost -debug -bdw_gc) "test_simplify02.exe".
+se clean test_simplify02.e
+Removing (-boost -debug -bdw_gc) "test_simplify02.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify02.e -o test_simplify02.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify02.e -o test_simplify02.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify02.e -o test_simplify02.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify02.e -o test_simplify02.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify02.e -o test_simplify02.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify02.e -o test_simplify02.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify02.e -o test_simplify02.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify02.e -o test_simplify02.exe".
@@ -180,6 +251,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify02.e -o test_simplify02.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify02.e -o test_simplify02.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify02.e -o test_simplify02.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify02.e -o test_simplify02.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify02.e -o test_simplify02.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify02.e -o test_simplify02.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify02.e -o test_simplify02.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify02.e -o test_simplify02.exe
 Running (-profile -boost) "test_simplify02.exe".
@@ -217,6 +298,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify02.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify02.e -o test_simplify02.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify02.e -o test_simplify02.exe
+Running (-profile -boost -bdw_gc) "test_simplify02.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify02.exe".
+se clean test_simplify02.e
+Removing (-profile -boost -bdw_gc) "test_simplify02.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify02.e -o test_simplify02.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify02.e -o test_simplify02.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify02.e -o test_simplify02.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify02.e -o test_simplify02.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify02.e -o test_simplify02.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify02.e -o test_simplify02.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify02.e -o test_simplify02.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify02.e -o test_simplify02.exe".
@@ -235,6 +333,10 @@ se c -no_split -no_gc -boost test_simplify02.e -o test_simplify02.exe
 Running (-no_split -no_gc -boost) "test_simplify02.exe".
 se clean test_simplify02.e
 Removing (-no_split -no_gc -boost) "test_simplify02.exe".
+se c -no_split -boost -bdw_gc test_simplify02.e -o test_simplify02.exe
+Running (-no_split -boost -bdw_gc) "test_simplify02.exe".
+se clean test_simplify02.e
+Removing (-no_split -boost -bdw_gc) "test_simplify02.exe".
 se c -boost test_simplify03.e -o test_simplify03.exe
 Running (-boost) "test_simplify03.exe".
 se clean test_simplify03.e
@@ -273,6 +375,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify03.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify03.e -o test_simplify03.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify03.e -o test_simplify03.exe
+Running (-boost -bdw_gc) "test_simplify03.exe".
+se clean test_simplify03.e
+Removing (-boost -bdw_gc) "test_simplify03.exe".
+se c -boost -debug -bdw_gc test_simplify03.e -o test_simplify03.exe
+Running (-boost -debug -bdw_gc) "test_simplify03.exe".
+se clean test_simplify03.e
+Removing (-boost -debug -bdw_gc) "test_simplify03.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify03.e -o test_simplify03.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify03.e -o test_simplify03.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify03.e -o test_simplify03.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify03.e -o test_simplify03.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify03.e -o test_simplify03.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify03.e -o test_simplify03.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify03.e -o test_simplify03.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify03.e -o test_simplify03.exe".
@@ -294,6 +416,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify03.e -o test_simplify03.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify03.e -o test_simplify03.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify03.e -o test_simplify03.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify03.e -o test_simplify03.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify03.e -o test_simplify03.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify03.e -o test_simplify03.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify03.e -o test_simplify03.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify03.e -o test_simplify03.exe
 Running (-profile -boost) "test_simplify03.exe".
@@ -331,6 +463,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify03.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify03.e -o test_simplify03.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify03.e -o test_simplify03.exe
+Running (-profile -boost -bdw_gc) "test_simplify03.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify03.exe".
+se clean test_simplify03.e
+Removing (-profile -boost -bdw_gc) "test_simplify03.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify03.e -o test_simplify03.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify03.e -o test_simplify03.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify03.e -o test_simplify03.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify03.e -o test_simplify03.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify03.e -o test_simplify03.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify03.e -o test_simplify03.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify03.e -o test_simplify03.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify03.e -o test_simplify03.exe".
@@ -349,6 +498,10 @@ se c -no_split -no_gc -boost test_simplify03.e -o test_simplify03.exe
 Running (-no_split -no_gc -boost) "test_simplify03.exe".
 se clean test_simplify03.e
 Removing (-no_split -no_gc -boost) "test_simplify03.exe".
+se c -no_split -boost -bdw_gc test_simplify03.e -o test_simplify03.exe
+Running (-no_split -boost -bdw_gc) "test_simplify03.exe".
+se clean test_simplify03.e
+Removing (-no_split -boost -bdw_gc) "test_simplify03.exe".
 se c -boost test_simplify04.e -o test_simplify04.exe
 Running (-boost) "test_simplify04.exe".
 se clean test_simplify04.e
@@ -387,6 +540,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify04.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify04.e -o test_simplify04.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify04.e -o test_simplify04.exe
+Running (-boost -bdw_gc) "test_simplify04.exe".
+se clean test_simplify04.e
+Removing (-boost -bdw_gc) "test_simplify04.exe".
+se c -boost -debug -bdw_gc test_simplify04.e -o test_simplify04.exe
+Running (-boost -debug -bdw_gc) "test_simplify04.exe".
+se clean test_simplify04.e
+Removing (-boost -debug -bdw_gc) "test_simplify04.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify04.e -o test_simplify04.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify04.e -o test_simplify04.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify04.e -o test_simplify04.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify04.e -o test_simplify04.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify04.e -o test_simplify04.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify04.e -o test_simplify04.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify04.e -o test_simplify04.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify04.e -o test_simplify04.exe".
@@ -408,6 +581,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify04.e -o test_simplify04.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify04.e -o test_simplify04.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify04.e -o test_simplify04.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify04.e -o test_simplify04.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify04.e -o test_simplify04.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify04.e -o test_simplify04.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify04.e -o test_simplify04.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify04.e -o test_simplify04.exe
 Running (-profile -boost) "test_simplify04.exe".
@@ -445,6 +628,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify04.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify04.e -o test_simplify04.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify04.e -o test_simplify04.exe
+Running (-profile -boost -bdw_gc) "test_simplify04.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify04.exe".
+se clean test_simplify04.e
+Removing (-profile -boost -bdw_gc) "test_simplify04.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify04.e -o test_simplify04.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify04.e -o test_simplify04.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify04.e -o test_simplify04.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify04.e -o test_simplify04.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify04.e -o test_simplify04.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify04.e -o test_simplify04.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify04.e -o test_simplify04.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify04.e -o test_simplify04.exe".
@@ -463,6 +663,10 @@ se c -no_split -no_gc -boost test_simplify04.e -o test_simplify04.exe
 Running (-no_split -no_gc -boost) "test_simplify04.exe".
 se clean test_simplify04.e
 Removing (-no_split -no_gc -boost) "test_simplify04.exe".
+se c -no_split -boost -bdw_gc test_simplify04.e -o test_simplify04.exe
+Running (-no_split -boost -bdw_gc) "test_simplify04.exe".
+se clean test_simplify04.e
+Removing (-no_split -boost -bdw_gc) "test_simplify04.exe".
 se c -boost test_simplify05.e -o test_simplify05.exe
 Running (-boost) "test_simplify05.exe".
 se clean test_simplify05.e
@@ -501,6 +705,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify05.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify05.e -o test_simplify05.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify05.e -o test_simplify05.exe
+Running (-boost -bdw_gc) "test_simplify05.exe".
+se clean test_simplify05.e
+Removing (-boost -bdw_gc) "test_simplify05.exe".
+se c -boost -debug -bdw_gc test_simplify05.e -o test_simplify05.exe
+Running (-boost -debug -bdw_gc) "test_simplify05.exe".
+se clean test_simplify05.e
+Removing (-boost -debug -bdw_gc) "test_simplify05.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify05.e -o test_simplify05.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify05.e -o test_simplify05.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify05.e -o test_simplify05.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify05.e -o test_simplify05.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify05.e -o test_simplify05.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify05.e -o test_simplify05.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify05.e -o test_simplify05.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify05.e -o test_simplify05.exe".
@@ -522,6 +746,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify05.e -o test_simplify05.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify05.e -o test_simplify05.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify05.e -o test_simplify05.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify05.e -o test_simplify05.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify05.e -o test_simplify05.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify05.e -o test_simplify05.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify05.e -o test_simplify05.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify05.e -o test_simplify05.exe
 Running (-profile -boost) "test_simplify05.exe".
@@ -559,6 +793,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify05.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify05.e -o test_simplify05.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify05.e -o test_simplify05.exe
+Running (-profile -boost -bdw_gc) "test_simplify05.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify05.exe".
+se clean test_simplify05.e
+Removing (-profile -boost -bdw_gc) "test_simplify05.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify05.e -o test_simplify05.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify05.e -o test_simplify05.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify05.e -o test_simplify05.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify05.e -o test_simplify05.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify05.e -o test_simplify05.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify05.e -o test_simplify05.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify05.e -o test_simplify05.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify05.e -o test_simplify05.exe".
@@ -577,6 +828,10 @@ se c -no_split -no_gc -boost test_simplify05.e -o test_simplify05.exe
 Running (-no_split -no_gc -boost) "test_simplify05.exe".
 se clean test_simplify05.e
 Removing (-no_split -no_gc -boost) "test_simplify05.exe".
+se c -no_split -boost -bdw_gc test_simplify05.e -o test_simplify05.exe
+Running (-no_split -boost -bdw_gc) "test_simplify05.exe".
+se clean test_simplify05.e
+Removing (-no_split -boost -bdw_gc) "test_simplify05.exe".
 se c -boost test_simplify06.e -o test_simplify06.exe
 Running (-boost) "test_simplify06.exe".
 se clean test_simplify06.e
@@ -615,6 +870,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify06.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify06.e -o test_simplify06.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify06.e -o test_simplify06.exe
+Running (-boost -bdw_gc) "test_simplify06.exe".
+se clean test_simplify06.e
+Removing (-boost -bdw_gc) "test_simplify06.exe".
+se c -boost -debug -bdw_gc test_simplify06.e -o test_simplify06.exe
+Running (-boost -debug -bdw_gc) "test_simplify06.exe".
+se clean test_simplify06.e
+Removing (-boost -debug -bdw_gc) "test_simplify06.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify06.e -o test_simplify06.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify06.e -o test_simplify06.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify06.e -o test_simplify06.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify06.e -o test_simplify06.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify06.e -o test_simplify06.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify06.e -o test_simplify06.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify06.e -o test_simplify06.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify06.e -o test_simplify06.exe".
@@ -636,6 +911,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify06.e -o test_simplify06.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify06.e -o test_simplify06.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify06.e -o test_simplify06.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify06.e -o test_simplify06.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify06.e -o test_simplify06.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify06.e -o test_simplify06.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify06.e -o test_simplify06.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify06.e -o test_simplify06.exe
 Running (-profile -boost) "test_simplify06.exe".
@@ -673,6 +958,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify06.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify06.e -o test_simplify06.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify06.e -o test_simplify06.exe
+Running (-profile -boost -bdw_gc) "test_simplify06.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify06.exe".
+se clean test_simplify06.e
+Removing (-profile -boost -bdw_gc) "test_simplify06.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify06.e -o test_simplify06.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify06.e -o test_simplify06.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify06.e -o test_simplify06.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify06.e -o test_simplify06.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify06.e -o test_simplify06.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify06.e -o test_simplify06.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify06.e -o test_simplify06.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify06.e -o test_simplify06.exe".
@@ -691,6 +993,10 @@ se c -no_split -no_gc -boost test_simplify06.e -o test_simplify06.exe
 Running (-no_split -no_gc -boost) "test_simplify06.exe".
 se clean test_simplify06.e
 Removing (-no_split -no_gc -boost) "test_simplify06.exe".
+se c -no_split -boost -bdw_gc test_simplify06.e -o test_simplify06.exe
+Running (-no_split -boost -bdw_gc) "test_simplify06.exe".
+se clean test_simplify06.e
+Removing (-no_split -boost -bdw_gc) "test_simplify06.exe".
 se c -boost test_simplify07.e -o test_simplify07.exe
 Running (-boost) "test_simplify07.exe".
 se clean test_simplify07.e
@@ -729,6 +1035,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify07.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify07.e -o test_simplify07.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify07.e -o test_simplify07.exe
+Running (-boost -bdw_gc) "test_simplify07.exe".
+se clean test_simplify07.e
+Removing (-boost -bdw_gc) "test_simplify07.exe".
+se c -boost -debug -bdw_gc test_simplify07.e -o test_simplify07.exe
+Running (-boost -debug -bdw_gc) "test_simplify07.exe".
+se clean test_simplify07.e
+Removing (-boost -debug -bdw_gc) "test_simplify07.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify07.e -o test_simplify07.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify07.e -o test_simplify07.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify07.e -o test_simplify07.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify07.e -o test_simplify07.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify07.e -o test_simplify07.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify07.e -o test_simplify07.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify07.e -o test_simplify07.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify07.e -o test_simplify07.exe".
@@ -750,6 +1076,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify07.e -o test_simplify07.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify07.e -o test_simplify07.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify07.e -o test_simplify07.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify07.e -o test_simplify07.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify07.e -o test_simplify07.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify07.e -o test_simplify07.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify07.e -o test_simplify07.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify07.e -o test_simplify07.exe
 Running (-profile -boost) "test_simplify07.exe".
@@ -787,6 +1123,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify07.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify07.e -o test_simplify07.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify07.e -o test_simplify07.exe
+Running (-profile -boost -bdw_gc) "test_simplify07.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify07.exe".
+se clean test_simplify07.e
+Removing (-profile -boost -bdw_gc) "test_simplify07.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify07.e -o test_simplify07.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify07.e -o test_simplify07.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify07.e -o test_simplify07.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify07.e -o test_simplify07.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify07.e -o test_simplify07.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify07.e -o test_simplify07.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify07.e -o test_simplify07.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify07.e -o test_simplify07.exe".
@@ -805,6 +1158,10 @@ se c -no_split -no_gc -boost test_simplify07.e -o test_simplify07.exe
 Running (-no_split -no_gc -boost) "test_simplify07.exe".
 se clean test_simplify07.e
 Removing (-no_split -no_gc -boost) "test_simplify07.exe".
+se c -no_split -boost -bdw_gc test_simplify07.e -o test_simplify07.exe
+Running (-no_split -boost -bdw_gc) "test_simplify07.exe".
+se clean test_simplify07.e
+Removing (-no_split -boost -bdw_gc) "test_simplify07.exe".
 se c -boost test_simplify08.e -o test_simplify08.exe
 Running (-boost) "test_simplify08.exe".
 se clean test_simplify08.e
@@ -843,6 +1200,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify08.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify08.e -o test_simplify08.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify08.e -o test_simplify08.exe
+Running (-boost -bdw_gc) "test_simplify08.exe".
+se clean test_simplify08.e
+Removing (-boost -bdw_gc) "test_simplify08.exe".
+se c -boost -debug -bdw_gc test_simplify08.e -o test_simplify08.exe
+Running (-boost -debug -bdw_gc) "test_simplify08.exe".
+se clean test_simplify08.e
+Removing (-boost -debug -bdw_gc) "test_simplify08.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify08.e -o test_simplify08.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify08.e -o test_simplify08.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify08.e -o test_simplify08.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify08.e -o test_simplify08.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify08.e -o test_simplify08.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify08.e -o test_simplify08.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify08.e -o test_simplify08.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify08.e -o test_simplify08.exe".
@@ -864,6 +1241,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify08.e -o test_simplify08.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify08.e -o test_simplify08.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify08.e -o test_simplify08.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify08.e -o test_simplify08.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify08.e -o test_simplify08.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify08.e -o test_simplify08.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify08.e -o test_simplify08.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify08.e -o test_simplify08.exe
 Running (-profile -boost) "test_simplify08.exe".
@@ -901,6 +1288,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify08.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify08.e -o test_simplify08.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify08.e -o test_simplify08.exe
+Running (-profile -boost -bdw_gc) "test_simplify08.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify08.exe".
+se clean test_simplify08.e
+Removing (-profile -boost -bdw_gc) "test_simplify08.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify08.e -o test_simplify08.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify08.e -o test_simplify08.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify08.e -o test_simplify08.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify08.e -o test_simplify08.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify08.e -o test_simplify08.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify08.e -o test_simplify08.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify08.e -o test_simplify08.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify08.e -o test_simplify08.exe".
@@ -919,6 +1323,10 @@ se c -no_split -no_gc -boost test_simplify08.e -o test_simplify08.exe
 Running (-no_split -no_gc -boost) "test_simplify08.exe".
 se clean test_simplify08.e
 Removing (-no_split -no_gc -boost) "test_simplify08.exe".
+se c -no_split -boost -bdw_gc test_simplify08.e -o test_simplify08.exe
+Running (-no_split -boost -bdw_gc) "test_simplify08.exe".
+se clean test_simplify08.e
+Removing (-no_split -boost -bdw_gc) "test_simplify08.exe".
 se c -boost test_simplify09.e -o test_simplify09.exe
 Running (-boost) "test_simplify09.exe".
 se clean test_simplify09.e
@@ -957,6 +1365,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify09.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify09.e -o test_simplify09.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify09.e -o test_simplify09.exe
+Running (-boost -bdw_gc) "test_simplify09.exe".
+se clean test_simplify09.e
+Removing (-boost -bdw_gc) "test_simplify09.exe".
+se c -boost -debug -bdw_gc test_simplify09.e -o test_simplify09.exe
+Running (-boost -debug -bdw_gc) "test_simplify09.exe".
+se clean test_simplify09.e
+Removing (-boost -debug -bdw_gc) "test_simplify09.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify09.e -o test_simplify09.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify09.e -o test_simplify09.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify09.e -o test_simplify09.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify09.e -o test_simplify09.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify09.e -o test_simplify09.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify09.e -o test_simplify09.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify09.e -o test_simplify09.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify09.e -o test_simplify09.exe".
@@ -978,6 +1406,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify09.e -o test_simplify09.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify09.e -o test_simplify09.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify09.e -o test_simplify09.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify09.e -o test_simplify09.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify09.e -o test_simplify09.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify09.e -o test_simplify09.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify09.e -o test_simplify09.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify09.e -o test_simplify09.exe
 Running (-profile -boost) "test_simplify09.exe".
@@ -1015,6 +1453,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify09.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify09.e -o test_simplify09.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify09.e -o test_simplify09.exe
+Running (-profile -boost -bdw_gc) "test_simplify09.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify09.exe".
+se clean test_simplify09.e
+Removing (-profile -boost -bdw_gc) "test_simplify09.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify09.e -o test_simplify09.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify09.e -o test_simplify09.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify09.e -o test_simplify09.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify09.e -o test_simplify09.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify09.e -o test_simplify09.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify09.e -o test_simplify09.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify09.e -o test_simplify09.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify09.e -o test_simplify09.exe".
@@ -1033,6 +1488,10 @@ se c -no_split -no_gc -boost test_simplify09.e -o test_simplify09.exe
 Running (-no_split -no_gc -boost) "test_simplify09.exe".
 se clean test_simplify09.e
 Removing (-no_split -no_gc -boost) "test_simplify09.exe".
+se c -no_split -boost -bdw_gc test_simplify09.e -o test_simplify09.exe
+Running (-no_split -boost -bdw_gc) "test_simplify09.exe".
+se clean test_simplify09.e
+Removing (-no_split -boost -bdw_gc) "test_simplify09.exe".
 se c -boost test_simplify10.e -o test_simplify10.exe
 Running (-boost) "test_simplify10.exe".
 se clean test_simplify10.e
@@ -1071,6 +1530,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify10.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify10.e -o test_simplify10.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify10.e -o test_simplify10.exe
+Running (-boost -bdw_gc) "test_simplify10.exe".
+se clean test_simplify10.e
+Removing (-boost -bdw_gc) "test_simplify10.exe".
+se c -boost -debug -bdw_gc test_simplify10.e -o test_simplify10.exe
+Running (-boost -debug -bdw_gc) "test_simplify10.exe".
+se clean test_simplify10.e
+Removing (-boost -debug -bdw_gc) "test_simplify10.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify10.e -o test_simplify10.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify10.e -o test_simplify10.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify10.e -o test_simplify10.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify10.e -o test_simplify10.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify10.e -o test_simplify10.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify10.e -o test_simplify10.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify10.e -o test_simplify10.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify10.e -o test_simplify10.exe".
@@ -1092,6 +1571,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify10.e -o test_simplify10.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify10.e -o test_simplify10.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify10.e -o test_simplify10.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify10.e -o test_simplify10.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify10.e -o test_simplify10.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify10.e -o test_simplify10.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify10.e -o test_simplify10.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify10.e -o test_simplify10.exe
 Running (-profile -boost) "test_simplify10.exe".
@@ -1129,6 +1618,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify10.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify10.e -o test_simplify10.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify10.e -o test_simplify10.exe
+Running (-profile -boost -bdw_gc) "test_simplify10.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify10.exe".
+se clean test_simplify10.e
+Removing (-profile -boost -bdw_gc) "test_simplify10.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify10.e -o test_simplify10.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify10.e -o test_simplify10.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify10.e -o test_simplify10.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify10.e -o test_simplify10.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify10.e -o test_simplify10.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify10.e -o test_simplify10.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify10.e -o test_simplify10.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify10.e -o test_simplify10.exe".
@@ -1147,6 +1653,10 @@ se c -no_split -no_gc -boost test_simplify10.e -o test_simplify10.exe
 Running (-no_split -no_gc -boost) "test_simplify10.exe".
 se clean test_simplify10.e
 Removing (-no_split -no_gc -boost) "test_simplify10.exe".
+se c -no_split -boost -bdw_gc test_simplify10.e -o test_simplify10.exe
+Running (-no_split -boost -bdw_gc) "test_simplify10.exe".
+se clean test_simplify10.e
+Removing (-no_split -boost -bdw_gc) "test_simplify10.exe".
 se c -boost test_simplify11.e -o test_simplify11.exe
 Running (-boost) "test_simplify11.exe".
 se clean test_simplify11.e
@@ -1185,6 +1695,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify11.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify11.e -o test_simplify11.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify11.e -o test_simplify11.exe
+Running (-boost -bdw_gc) "test_simplify11.exe".
+se clean test_simplify11.e
+Removing (-boost -bdw_gc) "test_simplify11.exe".
+se c -boost -debug -bdw_gc test_simplify11.e -o test_simplify11.exe
+Running (-boost -debug -bdw_gc) "test_simplify11.exe".
+se clean test_simplify11.e
+Removing (-boost -debug -bdw_gc) "test_simplify11.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify11.e -o test_simplify11.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify11.e -o test_simplify11.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify11.e -o test_simplify11.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify11.e -o test_simplify11.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify11.e -o test_simplify11.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify11.e -o test_simplify11.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify11.e -o test_simplify11.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify11.e -o test_simplify11.exe".
@@ -1206,6 +1736,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify11.e -o test_simplify11.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify11.e -o test_simplify11.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify11.e -o test_simplify11.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify11.e -o test_simplify11.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify11.e -o test_simplify11.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify11.e -o test_simplify11.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify11.e -o test_simplify11.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify11.e -o test_simplify11.exe
 Running (-profile -boost) "test_simplify11.exe".
@@ -1243,6 +1783,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify11.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify11.e -o test_simplify11.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify11.e -o test_simplify11.exe
+Running (-profile -boost -bdw_gc) "test_simplify11.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify11.exe".
+se clean test_simplify11.e
+Removing (-profile -boost -bdw_gc) "test_simplify11.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify11.e -o test_simplify11.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify11.e -o test_simplify11.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify11.e -o test_simplify11.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify11.e -o test_simplify11.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify11.e -o test_simplify11.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify11.e -o test_simplify11.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify11.e -o test_simplify11.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify11.e -o test_simplify11.exe".
@@ -1261,6 +1818,10 @@ se c -no_split -no_gc -boost test_simplify11.e -o test_simplify11.exe
 Running (-no_split -no_gc -boost) "test_simplify11.exe".
 se clean test_simplify11.e
 Removing (-no_split -no_gc -boost) "test_simplify11.exe".
+se c -no_split -boost -bdw_gc test_simplify11.e -o test_simplify11.exe
+Running (-no_split -boost -bdw_gc) "test_simplify11.exe".
+se clean test_simplify11.e
+Removing (-no_split -boost -bdw_gc) "test_simplify11.exe".
 se c -boost test_simplify12.e -o test_simplify12.exe
 Running (-boost) "test_simplify12.exe".
 se clean test_simplify12.e
@@ -1299,6 +1860,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify12.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify12.e -o test_simplify12.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify12.e -o test_simplify12.exe
+Running (-boost -bdw_gc) "test_simplify12.exe".
+se clean test_simplify12.e
+Removing (-boost -bdw_gc) "test_simplify12.exe".
+se c -boost -debug -bdw_gc test_simplify12.e -o test_simplify12.exe
+Running (-boost -debug -bdw_gc) "test_simplify12.exe".
+se clean test_simplify12.e
+Removing (-boost -debug -bdw_gc) "test_simplify12.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify12.e -o test_simplify12.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify12.e -o test_simplify12.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify12.e -o test_simplify12.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify12.e -o test_simplify12.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify12.e -o test_simplify12.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify12.e -o test_simplify12.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify12.e -o test_simplify12.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify12.e -o test_simplify12.exe".
@@ -1320,6 +1901,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify12.e -o test_simplify12.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify12.e -o test_simplify12.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify12.e -o test_simplify12.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify12.e -o test_simplify12.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify12.e -o test_simplify12.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify12.e -o test_simplify12.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify12.e -o test_simplify12.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify12.e -o test_simplify12.exe
 Running (-profile -boost) "test_simplify12.exe".
@@ -1357,6 +1948,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify12.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify12.e -o test_simplify12.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify12.e -o test_simplify12.exe
+Running (-profile -boost -bdw_gc) "test_simplify12.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify12.exe".
+se clean test_simplify12.e
+Removing (-profile -boost -bdw_gc) "test_simplify12.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify12.e -o test_simplify12.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify12.e -o test_simplify12.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify12.e -o test_simplify12.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify12.e -o test_simplify12.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify12.e -o test_simplify12.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify12.e -o test_simplify12.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify12.e -o test_simplify12.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify12.e -o test_simplify12.exe".
@@ -1375,6 +1983,10 @@ se c -no_split -no_gc -boost test_simplify12.e -o test_simplify12.exe
 Running (-no_split -no_gc -boost) "test_simplify12.exe".
 se clean test_simplify12.e
 Removing (-no_split -no_gc -boost) "test_simplify12.exe".
+se c -no_split -boost -bdw_gc test_simplify12.e -o test_simplify12.exe
+Running (-no_split -boost -bdw_gc) "test_simplify12.exe".
+se clean test_simplify12.e
+Removing (-no_split -boost -bdw_gc) "test_simplify12.exe".
 se c -boost test_simplify13.e -o test_simplify13.exe
 Running (-boost) "test_simplify13.exe".
 se clean test_simplify13.e
@@ -1413,6 +2025,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify13.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify13.e -o test_simplify13.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify13.e -o test_simplify13.exe
+Running (-boost -bdw_gc) "test_simplify13.exe".
+se clean test_simplify13.e
+Removing (-boost -bdw_gc) "test_simplify13.exe".
+se c -boost -debug -bdw_gc test_simplify13.e -o test_simplify13.exe
+Running (-boost -debug -bdw_gc) "test_simplify13.exe".
+se clean test_simplify13.e
+Removing (-boost -debug -bdw_gc) "test_simplify13.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify13.e -o test_simplify13.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify13.e -o test_simplify13.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify13.e -o test_simplify13.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify13.e -o test_simplify13.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify13.e -o test_simplify13.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify13.e -o test_simplify13.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify13.e -o test_simplify13.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify13.e -o test_simplify13.exe".
@@ -1434,6 +2066,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify13.e -o test_simplify13.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify13.e -o test_simplify13.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify13.e -o test_simplify13.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify13.e -o test_simplify13.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify13.e -o test_simplify13.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify13.e -o test_simplify13.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify13.e -o test_simplify13.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify13.e -o test_simplify13.exe
 Running (-profile -boost) "test_simplify13.exe".
@@ -1471,6 +2113,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify13.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify13.e -o test_simplify13.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify13.e -o test_simplify13.exe
+Running (-profile -boost -bdw_gc) "test_simplify13.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify13.exe".
+se clean test_simplify13.e
+Removing (-profile -boost -bdw_gc) "test_simplify13.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify13.e -o test_simplify13.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify13.e -o test_simplify13.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify13.e -o test_simplify13.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify13.e -o test_simplify13.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify13.e -o test_simplify13.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify13.e -o test_simplify13.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify13.e -o test_simplify13.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify13.e -o test_simplify13.exe".
@@ -1489,6 +2148,10 @@ se c -no_split -no_gc -boost test_simplify13.e -o test_simplify13.exe
 Running (-no_split -no_gc -boost) "test_simplify13.exe".
 se clean test_simplify13.e
 Removing (-no_split -no_gc -boost) "test_simplify13.exe".
+se c -no_split -boost -bdw_gc test_simplify13.e -o test_simplify13.exe
+Running (-no_split -boost -bdw_gc) "test_simplify13.exe".
+se clean test_simplify13.e
+Removing (-no_split -boost -bdw_gc) "test_simplify13.exe".
 se c -boost test_simplify14.e -o test_simplify14.exe
 Running (-boost) "test_simplify14.exe".
 se clean test_simplify14.e
@@ -1527,6 +2190,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify14.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify14.e -o test_simplify14.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify14.e -o test_simplify14.exe
+Running (-boost -bdw_gc) "test_simplify14.exe".
+se clean test_simplify14.e
+Removing (-boost -bdw_gc) "test_simplify14.exe".
+se c -boost -debug -bdw_gc test_simplify14.e -o test_simplify14.exe
+Running (-boost -debug -bdw_gc) "test_simplify14.exe".
+se clean test_simplify14.e
+Removing (-boost -debug -bdw_gc) "test_simplify14.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify14.e -o test_simplify14.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify14.e -o test_simplify14.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify14.e -o test_simplify14.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify14.e -o test_simplify14.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify14.e -o test_simplify14.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify14.e -o test_simplify14.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify14.e -o test_simplify14.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify14.e -o test_simplify14.exe".
@@ -1548,6 +2231,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify14.e -o test_simplify14.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify14.e -o test_simplify14.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify14.e -o test_simplify14.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify14.e -o test_simplify14.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify14.e -o test_simplify14.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify14.e -o test_simplify14.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify14.e -o test_simplify14.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify14.e -o test_simplify14.exe
 Running (-profile -boost) "test_simplify14.exe".
@@ -1585,6 +2278,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify14.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify14.e -o test_simplify14.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify14.e -o test_simplify14.exe
+Running (-profile -boost -bdw_gc) "test_simplify14.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify14.exe".
+se clean test_simplify14.e
+Removing (-profile -boost -bdw_gc) "test_simplify14.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify14.e -o test_simplify14.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify14.e -o test_simplify14.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify14.e -o test_simplify14.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify14.e -o test_simplify14.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify14.e -o test_simplify14.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify14.e -o test_simplify14.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify14.e -o test_simplify14.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify14.e -o test_simplify14.exe".
@@ -1603,6 +2313,10 @@ se c -no_split -no_gc -boost test_simplify14.e -o test_simplify14.exe
 Running (-no_split -no_gc -boost) "test_simplify14.exe".
 se clean test_simplify14.e
 Removing (-no_split -no_gc -boost) "test_simplify14.exe".
+se c -no_split -boost -bdw_gc test_simplify14.e -o test_simplify14.exe
+Running (-no_split -boost -bdw_gc) "test_simplify14.exe".
+se clean test_simplify14.e
+Removing (-no_split -boost -bdw_gc) "test_simplify14.exe".
 se c -boost test_simplify15.e -o test_simplify15.exe
 Running (-boost) "test_simplify15.exe".
 se clean test_simplify15.e
@@ -1641,6 +2355,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify15.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify15.e -o test_simplify15.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify15.e -o test_simplify15.exe
+Running (-boost -bdw_gc) "test_simplify15.exe".
+se clean test_simplify15.e
+Removing (-boost -bdw_gc) "test_simplify15.exe".
+se c -boost -debug -bdw_gc test_simplify15.e -o test_simplify15.exe
+Running (-boost -debug -bdw_gc) "test_simplify15.exe".
+se clean test_simplify15.e
+Removing (-boost -debug -bdw_gc) "test_simplify15.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify15.e -o test_simplify15.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify15.e -o test_simplify15.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify15.e -o test_simplify15.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify15.e -o test_simplify15.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify15.e -o test_simplify15.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify15.e -o test_simplify15.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify15.e -o test_simplify15.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify15.e -o test_simplify15.exe".
@@ -1662,6 +2396,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify15.e -o test_simplify15.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify15.e -o test_simplify15.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify15.e -o test_simplify15.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify15.e -o test_simplify15.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify15.e -o test_simplify15.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify15.e -o test_simplify15.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify15.e -o test_simplify15.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify15.e -o test_simplify15.exe
 Running (-profile -boost) "test_simplify15.exe".
@@ -1699,6 +2443,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify15.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify15.e -o test_simplify15.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify15.e -o test_simplify15.exe
+Running (-profile -boost -bdw_gc) "test_simplify15.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify15.exe".
+se clean test_simplify15.e
+Removing (-profile -boost -bdw_gc) "test_simplify15.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify15.e -o test_simplify15.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify15.e -o test_simplify15.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify15.e -o test_simplify15.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify15.e -o test_simplify15.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify15.e -o test_simplify15.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify15.e -o test_simplify15.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify15.e -o test_simplify15.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify15.e -o test_simplify15.exe".
@@ -1717,6 +2478,10 @@ se c -no_split -no_gc -boost test_simplify15.e -o test_simplify15.exe
 Running (-no_split -no_gc -boost) "test_simplify15.exe".
 se clean test_simplify15.e
 Removing (-no_split -no_gc -boost) "test_simplify15.exe".
+se c -no_split -boost -bdw_gc test_simplify15.e -o test_simplify15.exe
+Running (-no_split -boost -bdw_gc) "test_simplify15.exe".
+se clean test_simplify15.e
+Removing (-no_split -boost -bdw_gc) "test_simplify15.exe".
 se c -boost test_simplify16.e -o test_simplify16.exe
 Running (-boost) "test_simplify16.exe".
 se clean test_simplify16.e
@@ -1755,6 +2520,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify16.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify16.e -o test_simplify16.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify16.e -o test_simplify16.exe
+Running (-boost -bdw_gc) "test_simplify16.exe".
+se clean test_simplify16.e
+Removing (-boost -bdw_gc) "test_simplify16.exe".
+se c -boost -debug -bdw_gc test_simplify16.e -o test_simplify16.exe
+Running (-boost -debug -bdw_gc) "test_simplify16.exe".
+se clean test_simplify16.e
+Removing (-boost -debug -bdw_gc) "test_simplify16.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify16.e -o test_simplify16.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify16.e -o test_simplify16.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify16.e -o test_simplify16.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify16.e -o test_simplify16.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify16.e -o test_simplify16.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify16.e -o test_simplify16.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify16.e -o test_simplify16.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify16.e -o test_simplify16.exe".
@@ -1776,6 +2561,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify16.e -o test_simplify16.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify16.e -o test_simplify16.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify16.e -o test_simplify16.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify16.e -o test_simplify16.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify16.e -o test_simplify16.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify16.e -o test_simplify16.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify16.e -o test_simplify16.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify16.e -o test_simplify16.exe
 Running (-profile -boost) "test_simplify16.exe".
@@ -1813,6 +2608,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify16.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify16.e -o test_simplify16.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify16.e -o test_simplify16.exe
+Running (-profile -boost -bdw_gc) "test_simplify16.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify16.exe".
+se clean test_simplify16.e
+Removing (-profile -boost -bdw_gc) "test_simplify16.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify16.e -o test_simplify16.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify16.e -o test_simplify16.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify16.e -o test_simplify16.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify16.e -o test_simplify16.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify16.e -o test_simplify16.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify16.e -o test_simplify16.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify16.e -o test_simplify16.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify16.e -o test_simplify16.exe".
@@ -1831,6 +2643,10 @@ se c -no_split -no_gc -boost test_simplify16.e -o test_simplify16.exe
 Running (-no_split -no_gc -boost) "test_simplify16.exe".
 se clean test_simplify16.e
 Removing (-no_split -no_gc -boost) "test_simplify16.exe".
+se c -no_split -boost -bdw_gc test_simplify16.e -o test_simplify16.exe
+Running (-no_split -boost -bdw_gc) "test_simplify16.exe".
+se clean test_simplify16.e
+Removing (-no_split -boost -bdw_gc) "test_simplify16.exe".
 se c -boost test_simplify17.e -o test_simplify17.exe
 Running (-boost) "test_simplify17.exe".
 se clean test_simplify17.e
@@ -1869,6 +2685,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify17.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify17.e -o test_simplify17.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify17.e -o test_simplify17.exe
+Running (-boost -bdw_gc) "test_simplify17.exe".
+se clean test_simplify17.e
+Removing (-boost -bdw_gc) "test_simplify17.exe".
+se c -boost -debug -bdw_gc test_simplify17.e -o test_simplify17.exe
+Running (-boost -debug -bdw_gc) "test_simplify17.exe".
+se clean test_simplify17.e
+Removing (-boost -debug -bdw_gc) "test_simplify17.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify17.e -o test_simplify17.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify17.e -o test_simplify17.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify17.e -o test_simplify17.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify17.e -o test_simplify17.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify17.e -o test_simplify17.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify17.e -o test_simplify17.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify17.e -o test_simplify17.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify17.e -o test_simplify17.exe".
@@ -1890,6 +2726,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify17.e -o test_simplify17.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify17.e -o test_simplify17.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify17.e -o test_simplify17.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify17.e -o test_simplify17.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify17.e -o test_simplify17.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify17.e -o test_simplify17.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify17.e -o test_simplify17.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify17.e -o test_simplify17.exe
 Running (-profile -boost) "test_simplify17.exe".
@@ -1927,6 +2773,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify17.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify17.e -o test_simplify17.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify17.e -o test_simplify17.exe
+Running (-profile -boost -bdw_gc) "test_simplify17.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify17.exe".
+se clean test_simplify17.e
+Removing (-profile -boost -bdw_gc) "test_simplify17.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify17.e -o test_simplify17.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify17.e -o test_simplify17.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify17.e -o test_simplify17.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify17.e -o test_simplify17.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify17.e -o test_simplify17.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify17.e -o test_simplify17.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify17.e -o test_simplify17.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify17.e -o test_simplify17.exe".
@@ -1945,6 +2808,10 @@ se c -no_split -no_gc -boost test_simplify17.e -o test_simplify17.exe
 Running (-no_split -no_gc -boost) "test_simplify17.exe".
 se clean test_simplify17.e
 Removing (-no_split -no_gc -boost) "test_simplify17.exe".
+se c -no_split -boost -bdw_gc test_simplify17.e -o test_simplify17.exe
+Running (-no_split -boost -bdw_gc) "test_simplify17.exe".
+se clean test_simplify17.e
+Removing (-no_split -boost -bdw_gc) "test_simplify17.exe".
 se c -boost test_simplify18.e -o test_simplify18.exe
 Running (-boost) "test_simplify18.exe".
 se clean test_simplify18.e
@@ -1983,6 +2850,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify18.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify18.e -o test_simplify18.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify18.e -o test_simplify18.exe
+Running (-boost -bdw_gc) "test_simplify18.exe".
+se clean test_simplify18.e
+Removing (-boost -bdw_gc) "test_simplify18.exe".
+se c -boost -debug -bdw_gc test_simplify18.e -o test_simplify18.exe
+Running (-boost -debug -bdw_gc) "test_simplify18.exe".
+se clean test_simplify18.e
+Removing (-boost -debug -bdw_gc) "test_simplify18.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify18.e -o test_simplify18.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify18.e -o test_simplify18.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify18.e -o test_simplify18.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify18.e -o test_simplify18.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify18.e -o test_simplify18.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify18.e -o test_simplify18.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify18.e -o test_simplify18.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify18.e -o test_simplify18.exe".
@@ -2004,6 +2891,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify18.e -o test_simplify18.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify18.e -o test_simplify18.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify18.e -o test_simplify18.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify18.e -o test_simplify18.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify18.e -o test_simplify18.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify18.e -o test_simplify18.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify18.e -o test_simplify18.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify18.e -o test_simplify18.exe
 Running (-profile -boost) "test_simplify18.exe".
@@ -2041,6 +2938,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify18.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify18.e -o test_simplify18.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify18.e -o test_simplify18.exe
+Running (-profile -boost -bdw_gc) "test_simplify18.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify18.exe".
+se clean test_simplify18.e
+Removing (-profile -boost -bdw_gc) "test_simplify18.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify18.e -o test_simplify18.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify18.e -o test_simplify18.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify18.e -o test_simplify18.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify18.e -o test_simplify18.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify18.e -o test_simplify18.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify18.e -o test_simplify18.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify18.e -o test_simplify18.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify18.e -o test_simplify18.exe".
@@ -2059,6 +2973,10 @@ se c -no_split -no_gc -boost test_simplify18.e -o test_simplify18.exe
 Running (-no_split -no_gc -boost) "test_simplify18.exe".
 se clean test_simplify18.e
 Removing (-no_split -no_gc -boost) "test_simplify18.exe".
+se c -no_split -boost -bdw_gc test_simplify18.e -o test_simplify18.exe
+Running (-no_split -boost -bdw_gc) "test_simplify18.exe".
+se clean test_simplify18.e
+Removing (-no_split -boost -bdw_gc) "test_simplify18.exe".
 se c -boost test_simplify19.e -o test_simplify19.exe
 Running (-boost) "test_simplify19.exe".
 se clean test_simplify19.e
@@ -2097,6 +3015,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify19.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify19.e -o test_simplify19.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify19.e -o test_simplify19.exe
+Running (-boost -bdw_gc) "test_simplify19.exe".
+se clean test_simplify19.e
+Removing (-boost -bdw_gc) "test_simplify19.exe".
+se c -boost -debug -bdw_gc test_simplify19.e -o test_simplify19.exe
+Running (-boost -debug -bdw_gc) "test_simplify19.exe".
+se clean test_simplify19.e
+Removing (-boost -debug -bdw_gc) "test_simplify19.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify19.e -o test_simplify19.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify19.e -o test_simplify19.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify19.e -o test_simplify19.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify19.e -o test_simplify19.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify19.e -o test_simplify19.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify19.e -o test_simplify19.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify19.e -o test_simplify19.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify19.e -o test_simplify19.exe".
@@ -2118,6 +3056,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify19.e -o test_simplify19.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify19.e -o test_simplify19.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify19.e -o test_simplify19.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify19.e -o test_simplify19.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify19.e -o test_simplify19.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify19.e -o test_simplify19.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify19.e -o test_simplify19.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify19.e -o test_simplify19.exe
 Running (-profile -boost) "test_simplify19.exe".
@@ -2155,6 +3103,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify19.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify19.e -o test_simplify19.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify19.e -o test_simplify19.exe
+Running (-profile -boost -bdw_gc) "test_simplify19.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify19.exe".
+se clean test_simplify19.e
+Removing (-profile -boost -bdw_gc) "test_simplify19.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify19.e -o test_simplify19.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify19.e -o test_simplify19.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify19.e -o test_simplify19.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify19.e -o test_simplify19.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify19.e -o test_simplify19.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify19.e -o test_simplify19.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify19.e -o test_simplify19.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify19.e -o test_simplify19.exe".
@@ -2173,6 +3138,10 @@ se c -no_split -no_gc -boost test_simplify19.e -o test_simplify19.exe
 Running (-no_split -no_gc -boost) "test_simplify19.exe".
 se clean test_simplify19.e
 Removing (-no_split -no_gc -boost) "test_simplify19.exe".
+se c -no_split -boost -bdw_gc test_simplify19.e -o test_simplify19.exe
+Running (-no_split -boost -bdw_gc) "test_simplify19.exe".
+se clean test_simplify19.e
+Removing (-no_split -boost -bdw_gc) "test_simplify19.exe".
 se c -boost test_simplify20.e -o test_simplify20.exe
 Running (-boost) "test_simplify20.exe".
 se clean test_simplify20.e
@@ -2211,6 +3180,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify20.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify20.e -o test_simplify20.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify20.e -o test_simplify20.exe
+Running (-boost -bdw_gc) "test_simplify20.exe".
+se clean test_simplify20.e
+Removing (-boost -bdw_gc) "test_simplify20.exe".
+se c -boost -debug -bdw_gc test_simplify20.e -o test_simplify20.exe
+Running (-boost -debug -bdw_gc) "test_simplify20.exe".
+se clean test_simplify20.e
+Removing (-boost -debug -bdw_gc) "test_simplify20.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify20.e -o test_simplify20.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify20.e -o test_simplify20.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify20.e -o test_simplify20.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify20.e -o test_simplify20.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify20.e -o test_simplify20.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify20.e -o test_simplify20.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify20.e -o test_simplify20.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify20.e -o test_simplify20.exe".
@@ -2232,6 +3221,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify20.e -o test_simplify20.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify20.e -o test_simplify20.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify20.e -o test_simplify20.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify20.e -o test_simplify20.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify20.e -o test_simplify20.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify20.e -o test_simplify20.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify20.e -o test_simplify20.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify20.e -o test_simplify20.exe
 Running (-profile -boost) "test_simplify20.exe".
@@ -2269,6 +3268,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify20.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify20.e -o test_simplify20.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify20.e -o test_simplify20.exe
+Running (-profile -boost -bdw_gc) "test_simplify20.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify20.exe".
+se clean test_simplify20.e
+Removing (-profile -boost -bdw_gc) "test_simplify20.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify20.e -o test_simplify20.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify20.e -o test_simplify20.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify20.e -o test_simplify20.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify20.e -o test_simplify20.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify20.e -o test_simplify20.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify20.e -o test_simplify20.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify20.e -o test_simplify20.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify20.e -o test_simplify20.exe".
@@ -2287,6 +3303,10 @@ se c -no_split -no_gc -boost test_simplify20.e -o test_simplify20.exe
 Running (-no_split -no_gc -boost) "test_simplify20.exe".
 se clean test_simplify20.e
 Removing (-no_split -no_gc -boost) "test_simplify20.exe".
+se c -no_split -boost -bdw_gc test_simplify20.e -o test_simplify20.exe
+Running (-no_split -boost -bdw_gc) "test_simplify20.exe".
+se clean test_simplify20.e
+Removing (-no_split -boost -bdw_gc) "test_simplify20.exe".
 se c -boost test_simplify21.e -o test_simplify21.exe
 Running (-boost) "test_simplify21.exe".
 se clean test_simplify21.e
@@ -2325,6 +3345,26 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_simplify21.e -o test
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -flat_check -all_check test_simplify21.e -o test_simplify21.exe".
 By excluded.lst:  "-all_check".
+se c -boost -bdw_gc test_simplify21.e -o test_simplify21.exe
+Running (-boost -bdw_gc) "test_simplify21.exe".
+se clean test_simplify21.e
+Removing (-boost -bdw_gc) "test_simplify21.exe".
+se c -boost -debug -bdw_gc test_simplify21.e -o test_simplify21.exe
+Running (-boost -debug -bdw_gc) "test_simplify21.exe".
+se clean test_simplify21.e
+Removing (-boost -debug -bdw_gc) "test_simplify21.exe".
+Excluded command: "se c -no_check -bdw_gc test_simplify21.e -o test_simplify21.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -flat_check -require_check -bdw_gc test_simplify21.e -o test_simplify21.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify21.e -o test_simplify21.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -flat_check -invariant_check -bdw_gc test_simplify21.e -o test_simplify21.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -flat_check -loop_check -bdw_gc test_simplify21.e -o test_simplify21.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -flat_check -all_check -bdw_gc test_simplify21.e -o test_simplify21.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -all_check -debug test_simplify21.e -o test_simplify21.exe".
 By excluded.lst:  "-all_check".
 Excluded command: "se c -require_check test_simplify21.e -o test_simplify21.exe".
@@ -2346,6 +3386,16 @@ By excluded.lst:  "-invariant_check".
 Excluded command: "se c -no_gc -loop_check test_simplify21.e -o test_simplify21.exe".
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -no_gc -all_check test_simplify21.e -o test_simplify21.exe".
+By excluded.lst:  "-all_check".
+Excluded command: "se c -require_check -bdw_gc test_simplify21.e -o test_simplify21.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -ensure_check -bdw_gc test_simplify21.e -o test_simplify21.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_simplify21.e -o test_simplify21.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_simplify21.e -o test_simplify21.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -all_check -bdw_gc test_simplify21.e -o test_simplify21.exe".
 By excluded.lst:  "-all_check".
 se c -profile -boost test_simplify21.e -o test_simplify21.exe
 Running (-profile -boost) "test_simplify21.exe".
@@ -2383,6 +3433,23 @@ Excluded command: "se c -profile -no_gc -loop_check test_simplify21.e -o test_si
 By excluded.lst:  "-loop_check".
 Excluded command: "se c -profile -no_gc -all_check test_simplify21.e -o test_simplify21.exe".
 By excluded.lst:  "-all_check".
+se c -profile -boost -bdw_gc test_simplify21.e -o test_simplify21.exe
+Running (-profile -boost -bdw_gc) "test_simplify21.exe".
+Removing "profile.se" of "-profile -boost -bdw_gc test_simplify21.exe".
+se clean test_simplify21.e
+Removing (-profile -boost -bdw_gc) "test_simplify21.exe".
+Excluded command: "se c -profile -no_check -bdw_gc test_simplify21.e -o test_simplify21.exe".
+By excluded.lst:  "-no_check".
+Excluded command: "se c -profile -require_check -bdw_gc test_simplify21.e -o test_simplify21.exe".
+By excluded.lst:  "-require_check".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_simplify21.e -o test_simplify21.exe".
+By excluded.lst:  "-ensure_check".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_simplify21.e -o test_simplify21.exe".
+By excluded.lst:  "-invariant_check".
+Excluded command: "se c -profile -loop_check -bdw_gc test_simplify21.e -o test_simplify21.exe".
+By excluded.lst:  "-loop_check".
+Excluded command: "se c -profile -all_check -bdw_gc test_simplify21.e -o test_simplify21.exe".
+By excluded.lst:  "-all_check".
 Excluded command: "se c -profile -flat_check -require_check test_simplify21.e -o test_simplify21.exe".
 By excluded.lst:  "-require_check".
 Excluded command: "se c -profile -flat_check -ensure_check test_simplify21.e -o test_simplify21.exe".
@@ -2401,9 +3468,12 @@ se c -no_split -no_gc -boost test_simplify21.e -o test_simplify21.exe
 Running (-no_split -no_gc -boost) "test_simplify21.exe".
 se clean test_simplify21.e
 Removing (-no_split -no_gc -boost) "test_simplify21.exe".
+se c -no_split -boost -bdw_gc test_simplify21.e -o test_simplify21.exe
+Running (-no_split -boost -bdw_gc) "test_simplify21.exe".
+se clean test_simplify21.e
+Removing (-no_split -boost -bdw_gc) "test_simplify21.exe".
 --------------------------------------------------------------------------------
 Launching "se test" on "inlining" subdirectory.
-Abnormal exit status of "Launching "se test" on "inlining" subdirectory.".
 --------------------------------------------------------------------------------
 All entries of the "excluded.lst" file are used (good).
 --------------------------------------------------------------------------------
