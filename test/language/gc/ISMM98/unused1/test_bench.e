@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   tuning: INTEGER is 40000
+   tuning: INTEGER is 40_000
 
    make is
       local

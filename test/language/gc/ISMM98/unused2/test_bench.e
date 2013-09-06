@@ -6,8 +6,8 @@ class TEST_BENCH
 create {}
    make
 
-feature {ANY} --   tuning : INTEGER is 4_000_000; BDW BOUCLE !!!
-   tuning: INTEGER is 1000000
+feature {ANY} --| **** TODO: tuning : INTEGER is 4_000_000; BDW BOUCLE !!!
+   tuning: INTEGER is 1_000_000
 
    make is
       local

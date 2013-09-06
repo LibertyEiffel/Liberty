@@ -18,13 +18,13 @@ feature {ANY}
          i, j: INTEGER
       do
          from
-            i := 4000
-            create array.make(1, 2000)
+            i := 4_000
+            create array.make(1, 2_000)
          until
             i = 0
          loop
             from
-               j := 2000
+               j := 2_000
             until
                j = 0
             loop

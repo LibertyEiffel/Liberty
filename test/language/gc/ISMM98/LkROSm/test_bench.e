@@ -14,7 +14,7 @@ feature {ANY}
          i, j: INTEGER
       do
          from
-            i := 200000
+            i := 200_000
          until
             i = 0
          loop
