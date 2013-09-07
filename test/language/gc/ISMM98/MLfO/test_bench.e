@@ -13,13 +13,13 @@ feature {ANY}
       local
          i: INTEGER
       do
-         create s1.make(64000)
+         create s1.make(64_000)
          from
-            i := 40000
+            i := 40_000
          until
             i = 0
          loop
-            create s2.make(64000)
+            create s2.make(64_000)
             i := i - 1
          end
       end
