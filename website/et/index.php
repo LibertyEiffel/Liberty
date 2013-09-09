@@ -76,9 +76,9 @@ function legible_time($time) {
       $result = "";
    }
    if ($hours > 0) {
-      $result += $hours . ":" . ($minutes < 10 ? "0" : "") . $minutes . ":" . ($seconds < 10 ? "0" : "") . $seconds . " hour" . ($hours == 1 ? "" : "s");
+      $result = $result . $hours . ":" . ($minutes < 10 ? "0" : "") . $minutes . ":" . ($seconds < 10 ? "0" : "") . $seconds . " hour" . ($hours == 1 ? "" : "s");
    } else {
-      $result += ($minutes < 10 ? "0" : "") . $minutes . ":" . ($seconds < 10 ? "0" : "") . $seconds . " minute" . ($minutes == 1 ? "" : "s");
+      $result = $result . ($minutes < 10 ? "0" : "") . $minutes . ":" . ($seconds < 10 ? "0" : "") . $seconds . " minute" . ($minutes == 1 ? "" : "s");
    }
    return $result;
 }
