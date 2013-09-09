@@ -1370,6 +1370,7 @@ feature {STRING_HANDLER}
             j := j + 1
          end
       end
+
 feature {} -- The states of the finite state automaton used in `arg' feature
    always_print_state: INTEGER is -1
    normal_state: INTEGER is 0

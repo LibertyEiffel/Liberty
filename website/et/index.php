@@ -51,9 +51,9 @@ if (array_key_exists('commits', $json_array)) { // old mode, now obsolete but ke
    }
 }
 if ($json_count == 1) {
-   echo "<p>1 active commit:</p>\n";
+   echo "<h2><span class='dropcap'>1</span> commit</h2>\n";
 } else {
-   echo "<p>" . $json_count . " active commits:</p>\n";
+   echo "<h2><span class='dropcap'>" . $json_count . "</span> commits</h2>\n";
 }
 echo "<ul>\n";
 foreach ($json_commits as $commit){
@@ -64,68 +64,72 @@ foreach ($json_commits as $commit){
    echo "<li><a href=\"" . $commitbaselink . $commit['id'] . "\">" . $message . "</a> by $committer on " . date ($dateFormat, strtotime($commit['timestamp'])) . "</li>\n";
 }
 echo "</ul>\n";
-if(file_exists($lock)){
-   $currentStage = file_get_contents("$stageout/current_stage.txt");
-   $state = "working on " . file_get_contents($currentStage . "/stagename.txt");
-}else{
-   $state = "idle";
-}
-if(file_exists($request)){
-   $content = file_get_contents($request);
-   $state = $state . " &mdash; " . $content;
-}
-
-echo "<p>&nbsp;</p>";
-
-echo "<p>State: $state</p>\n";
 
 function legible_time($time) {
    $seconds = $time % 60;
    $minutes = (int)(($time - $seconds) / 60) % 60;
-   $hours = (int)((($time - $seconds) / 60 - $minutes) / 60);
+   $hours = (int)((($time - $seconds) / 60 - $minutes) / 60) % 24;
    $days = (int)(((($time - $seconds) / 60 - $minutes) / 60 - $hours) / 24);
    if ($days > 0) {
-      $result = $days . " day" . ($days == 1 ? "" : "s") . ", " . $hours . ":" . ($minutes < 10 ? "0" : "") . $minutes . ":" . ($seconds < 10 ? "0" : "") . $seconds . " hour" . ($hours == 1 ? "" : "s");
-   } elseif ($hours > 0) {
-      $result = $hours . ":" . ($minutes < 10 ? "0" : "") . $minutes . ":" . ($seconds < 10 ? "0" : "") . $seconds . " hour" . ($hours == 1 ? "" : "s");
+      $result = $days . " day" . ($days == 1 ? "" : "s") . ", ";
    } else {
-      $result = ($minutes < 10 ? "0" : "") . $minutes . ":" . ($seconds < 10 ? "0" : "") . $seconds . " minute" . ($minutes == 1 ? "" : "s");
+      $result = "";
+   }
+   if ($hours > 0) {
+      $result = $result . $hours . ":" . ($minutes < 10 ? "0" : "") . $minutes . ":" . ($seconds < 10 ? "0" : "") . $seconds . " hour" . ($hours == 1 ? "" : "s");
+   } else {
+      $result = $result . ($minutes < 10 ? "0" : "") . $minutes . ":" . ($seconds < 10 ? "0" : "") . $seconds . " minute" . ($minutes == 1 ? "" : "s");
    }
    return $result;
 }
 
-if (file_exists($lock)) {
-   $startTime = filemtime($lock);
-   $start = date($dateFormat, $startTime);
-   echo "<p>Started on: $start";
-   $active_time = time() - $startTime;
-   echo " &mdash; " . legible_time($active_time) . " ago</p>\n";
-   if (file_exists($timesHistory)) {
-      $times = unserialize(file_get_contents($timesHistory));
-      if (count($times) > 1) {
-         $time_sum = 0;
-         $time_count = 0;
-         foreach ($times as $time) {
-            $time_sum += $time;
-            $time_count ++;
+if ($history == 0){
+   if(file_exists($lock)){
+      $currentStage = file_get_contents("$stageout/current_stage.txt");
+      $state = "Working on " . file_get_contents($currentStage . "/stagename.txt");
+   }else{
+      $state = "Idle";
+   }
+   if(file_exists($request)){
+      $content = file_get_contents($request);
+      $state = $state . " &mdash; " . $content;
+   }
+
+   echo "<h2><span class='dropcap'>S</span>tate</h2>\n<p>$state</p>\n";
+
+   if (file_exists($lock)) {
+      $startTime = filemtime($lock);
+      $start = date($dateFormat, $startTime);
+      echo "<p>Started on: $start";
+      $active_time = time() - $startTime;
+      echo " &mdash; " . legible_time($active_time) . " ago</p>\n";
+      if (file_exists($timesHistory)) {
+         $times = unserialize(file_get_contents($timesHistory));
+         if (count($times) > 1) {
+            $time_sum = 0;
+            $time_count = 0;
+            foreach ($times as $time) {
+               $time_sum += $time;
+               $time_count ++;
+            }
+            echo "<p style='float:right;font-size:0.875em;'>Estimated completion: ";
+            $time_average = (int)($time_sum / $time_count + 0.5);
+            if ($active_time < $time_average) {
+               $completion = (int)((100.0 * $active_time) / $time_average + 0.5);
+               echo "<b>" . $completion . "%</b>\n<br/>ETA: in " . legible_time($time_average - $active_time);
+            } else {
+               echo "unknown";
+            }
+            echo "\n<br/>(Based on average running time: " . legible_time($time_average) . " in the " . count($times) . " latest runs)</p>\n";
          }
-         echo "<p style='float:right;font-size:0.875em;'>Estimated completion: ";
-         $time_average = (int)($time_sum / $time_count + 0.5);
-         if ($active_time < $time_average) {
-            $completion = (int)((100.0 * $active_time) / $time_average + 0.5);
-            echo "<b>" . $completion . "%</b>\n<br/>ETA: in " . legible_time($time_average - $active_time);
-         } else {
-            echo "unknown";
-         }
-         echo "\n<br/>(Based on average running time: " . legible_time($time_average) . " in the " . count($times) . " latest runs)</p>\n";
       }
    }
+
+   $update = date($dateFormat, filemtime("$stageout/current_stage.txt"));
+   echo "<p>Last update: $update</p>\n";
 }
 
-$update = date($dateFormat, filemtime("$stageout/current_stage.txt"));
-echo "<p>Last update: $update</p>\n";
-
-echo "<p>&nbsp;</p>";
+echo "<h2><span class='dropcap'>D</span>etails</h2>\n";
 
 function filedatecompare($a,$b){
    $ac = filectime($a);
