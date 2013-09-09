@@ -118,7 +118,7 @@ if (file_exists($lock)) {
          } else {
             echo "unknown";
          }
-         echo "<br/><font size='-1'>based on average running time: " . $time_average . " seconds in the " . count($times) . " latest runs</font>";
+         echo "<br/><font size='-1'>Based on average running time: " . legible_time($time_average) . " in the " . count($times) . " latest runs</font>";
       }
    }
    echo "</p>\n";
