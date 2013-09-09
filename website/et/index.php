@@ -112,9 +112,8 @@ if (file_exists($lock)) {
          echo ", estimated completion: ";
          $time_average = (int)($time_sum / $time_count + 0.5);
          if ($active_time < $time_average) {
-            $completion_time = $time_average - $actime_time;
-            $completion = (int)((100 * $completion_time) / $time_average + 0.5);
-            echo "<b>" . $completion . "%</b> (ETA: in " . legible_time($completion_time) . ")";
+            $completion = (int)((100.0 * $active_time) / $time_average + 0.5);
+            echo "<b>" . $completion . "%</b> (ETA: in " . legible_time($time_average - $active_time) . ")";
          } else {
             echo "unknown";
          }
