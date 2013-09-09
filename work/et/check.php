@@ -22,8 +22,15 @@ foreach ($argv as $arg){
    }
 }
 
-$stageStack = array();
-$stageStackNo = array();
+$stageStackName = array();
+$stageStackTime = array();
+
+if (file_exists($timesHistory)) {
+    $times = unserialize(file_get_contents($timesHistory));
+} else {
+    $times = array();
+}
+$times = timesArray($times);
 
 // ends current stage and terminates ET
 // call for stages where continuing is not useful
@@ -43,13 +50,16 @@ function substage($name, $link = ""){
    global $stagedir;
    global $out, $stageout;
    global $verbose;
-   global $substageNo, $stageStack, $stageStackNo, $lastsubStageNo;
+   global $stageStackName, $stageStackTime;
    global $dateFormat;
+   global $times;
 
-   $substageDepth = count($stageStack);
-   array_push($stageStack, iconv('utf-8', 'us-ascii//TRANSLIT', $name));
+   $substageDepth = count($stageStackName);
+   array_push($stageStackName, iconv('utf-8', 'us-ascii//TRANSLIT', $name));
+   $startTime = time();
+   array_push($stageStackTime, $startTime);
 
-   $fullStageName = implode("/", $stageStack);
+   $fullStageName = implode("/", $stageStackName);
 
    $stagedir = "$stageout/" . $fullStageName;
 
@@ -68,23 +78,28 @@ function substage($name, $link = ""){
    if(strlen($link) > 0){
       file_put_contents("$stagedir/stagelink.txt", "$link");
    }
-   file_put_contents("$stagedir/start.txt", time());
+   file_put_contents("$stagedir/start.txt", $startTime);
    touch($stagedir . "/cmd.txt");
    touch($stagedir . "/out.txt");
    touch($stagedir . "/err.txt");
 }
 
 function endsubstage(){
-   global $stageStack, $verbose, $stage, $stagedir, $stageout;
+   global $stageStackName, $stackStackTime, $verbose, $stage, $stagedir, $stageout, $times;
 
-   if($verbose) echo "end substage $stage/" . implode("/", $stageStack) . " ...(" . $stagedir ."\n";
-   file_put_contents("$stagedir/end.txt", time());
+   $fullStageName = implode("/", $stageStackName);
+   $startTime = array_pop($stageStackTime);
+   $endTime = time();
+   recordTime($times, $fullStageName, (int)($endTime - $startTime), $historysize);
+
+   if($verbose) echo "end substage $stage/" . implode("/", $stageStackName) . " ...(" . $stagedir ."\n";
+   file_put_contents("$stagedir/end.txt", $endTime);
    touch($stagedir);
    sleep(2);
 
-   array_pop($stageStack);
+   array_pop($stageStackName);
 
-   $fullStageName = implode("/", $stageStack);
+   $fullStageName = implode("/", $stageStackName);
 
    $stagedir = "$stageout/" . $fullStageName;
    file_put_contents("$stageout/current_stage.txt", $stagedir);
@@ -311,13 +326,7 @@ endsubstage();
 
 file_put_contents("$stageout/current_stage.txt","");
 
-if (file_exists($timesHistory)) {
-    $times = unserialize(file_get_contents($timesHistory));
-} else {
-    $times = array();
-}
-$times[] = (int)(time() - $startTime);
-$times = array_slice($times, -$historysize);
+recordTime($times, "", (int)(time() - $startTime), $historysize);
 file_put_contents($timesHistory, serialize($times));
 
 unlink($lock);
