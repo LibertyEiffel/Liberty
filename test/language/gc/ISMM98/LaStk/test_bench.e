@@ -16,7 +16,7 @@ feature {ANY}
          until
             i < 0
          loop
-            recurse(50000)
+            recurse(50_000)
             i := i - 1
          end
       end

@@ -15,7 +15,7 @@ feature {ANY}
       local
          i, limit: INTEGER
       do
-         limit := 70000000
+         limit := 70_000_000
          from
             i := 0
          until

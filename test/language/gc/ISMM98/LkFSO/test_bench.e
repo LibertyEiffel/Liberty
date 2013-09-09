@@ -16,7 +16,7 @@ feature {ANY}
          i: INTEGER
       do
          from
-            i := 23000000
+            i := 23_000_000
          until
             i = 0
          loop

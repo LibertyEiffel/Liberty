@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   tuning: INTEGER is 4000000
+   tuning: INTEGER is 4_000_000
 
    link1, link2: LINK[INTEGER]
 

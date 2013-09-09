@@ -177,7 +177,7 @@ feature {EIFFELTEST_TOOLS}
 feature {}
    test_failed: REFERENCE[PROCEDURE[TUPLE[INTEGER, ABSTRACT_STRING, ABSTRACT_STRING, ABSTRACT_STRING]]] is
       once
-         create Result.set_item(agent default_test_failed)
+         create Result.set_item(agent default_test_failed(?, ?, ?, ?))
       end
 
    default_test_failed (id: INTEGER; lbl, gen, ass_flag: ABSTRACT_STRING) is
