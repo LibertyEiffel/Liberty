@@ -14,9 +14,8 @@ create {}
    make
 
 feature {ANY}
-   t1: ARRAY[REFERENCE[ANY]]
-
-   t2: ARRAY[REFERENCE[ANY]]
+   t1: ARRAY[REFERENCE[ABSTRACT_STRING]]
+   t2: ARRAY[REFERENCE[ABSTRACT_STRING]]
 
    make is
       local

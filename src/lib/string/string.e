@@ -234,23 +234,29 @@ feature {ANY} -- Modification:
       local
          d, i, j: INTEGER
       do
-         i := count
-         j := other.count
-         d := storage_lower - j
-         if d < 0 then
-            -- the string to be prepended is bigger than the unused space available in the buffer before the beginning of the string.
-            ensure_capacity(i + j)
-         end
-         if i = 0 or else d = 0 then
-            storage_lower := 0
-         elseif d > 0 then
-            storage_lower := d
+         if other = Current then --| **** TODO -- this fixes TEST_ALG09 using a quick and dirty special case :-(
+            ensure_capacity(count * 2 + storage_lower)
+            slice_copy(count, Current, lower, upper)
+            count := count * 2
          else
-            storage.move(storage_lower, storage_lower + i - 1, -d)
-            storage_lower := 0
+            i := count
+            j := other.count
+            d := storage_lower - j
+            if d < 0 then
+               -- the string to be prepended is bigger than the unused space available in the buffer before the beginning of the string.
+               ensure_capacity(i + j)
+            end
+            if i = 0 or else d = 0 then
+               storage_lower := 0
+            elseif d > 0 then
+               storage_lower := d
+            else
+               storage.move(storage_lower, storage_lower + i - 1, -d)
+               storage_lower := 0
+            end
+            slice_copy(0, other, other.lower, other.upper)
+            count := i + j
          end
-         slice_copy(0, other, other.lower, other.upper)
-         count := i + j
       ensure
          (old other.twin + old twin).is_equal(Current)
       end
