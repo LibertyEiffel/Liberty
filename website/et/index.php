@@ -99,7 +99,7 @@ if (file_exists($lock)) {
    $start = date($dateFormat, $startTime);
    echo "<p>Started on: $start";
    $active_time = time() - $startTime;
-   echo " &mdash; " . legible_time($active_time) . " ago";
+   echo " &mdash; " . legible_time($active_time) . " ago</p>\n";
    if (file_exists($timesHistory)) {
       $times = unserialize(file_get_contents($timesHistory));
       if (count($times) > 1) {
@@ -109,18 +109,17 @@ if (file_exists($lock)) {
             $time_sum += $time;
             $time_count ++;
          }
-         echo ", estimated completion: ";
+         echo "<p style='float:right;font-size:0.875em;'>Estimated completion: ";
          $time_average = (int)($time_sum / $time_count + 0.5);
          if ($active_time < $time_average) {
             $completion = (int)((100.0 * $active_time) / $time_average + 0.5);
-            echo "<b>" . $completion . "%</b> (ETA: in " . legible_time($time_average - $active_time) . ")";
+            echo "<b>" . $completion . "%</b>\n<br/>ETA: in " . legible_time($time_average - $active_time);
          } else {
             echo "unknown";
          }
-         echo "<br/><font size='-1'>Based on average running time: " . legible_time($time_average) . " in the " . count($times) . " latest runs</font>";
+         echo "\n<br/>(Based on average running time: " . legible_time($time_average) . " in the " . count($times) . " latest runs)</p>\n";
       }
    }
-   echo "</p>\n";
 }
 
 $update = date($dateFormat, filemtime("$stageout/current_stage.txt"));
