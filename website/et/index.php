@@ -51,9 +51,9 @@ if (array_key_exists('commits', $json_array)) { // old mode, now obsolete but ke
    }
 }
 if ($json_count == 1) {
-   echo "<h2><span class='dropcap'>1</span> active commit</h2>\n";
+   echo "<h2><span class='dropcap'>1</span> commit</h2>\n";
 } else {
-   echo "<h2><span class='dropcap'>" . $json_count . "</span> active commits</h2>\n";
+   echo "<h2><span class='dropcap'>" . $json_count . "</span> commits</h2>\n";
 }
 echo "<ul>\n";
 foreach ($json_commits as $commit){
