@@ -1050,7 +1050,7 @@ feature {SMART_EIFFEL}
             else
                tfw.put_string(once "dead ")
             end
-            tfw.put_character('%N')
+            tfw.put_new_line
          end
          assignment_handler.id_extra_information(tfw, Current)
          run_time_set.id_extra_information(tfw)

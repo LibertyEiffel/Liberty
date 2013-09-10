@@ -60,8 +60,7 @@ feature {}
             end
          else
             tfw.put_character('|')
-            tfw.put_string(cluster_name)
-            tfw.put_new_line
+            tfw.put_line(cluster_name)
             cluster := smart_eiffel.cluster_named(cluster_name)
             check
                cluster /= Void
@@ -100,9 +99,10 @@ feature {}
                check
                   smart_eiffel.cluster_of(create {CLASS_NAME}.unknown_position(string_aliaser.hashed_string(class_name_of(name.to_string))), False) = Void
                end
+               tfw.put_new_line
             end
             tfw.put_character('#')
-            tfw.put_character('%N')
+            tfw.put_new_line
             i := i + 1
          end
       end
