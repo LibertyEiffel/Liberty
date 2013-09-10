@@ -114,17 +114,15 @@ feature {PARSER, CLASS_TEXT, LIVE_TYPE, C_PRETTY_PRINTER}
       require
          hashed_string /= Void
          cluster /= Void
+         is_aliased: hashed_string = string_aliaser.hashed_string(hashed_string)
       local
-         p: POSITION; ids: like id_memory
+         ids: like id_memory
       do
          ids := cluster_id_memory(cluster)
          if ids.fast_has(hashed_string) then
             Result := ids.fast_at(hashed_string)
          elseif max_id = min_id - 1 then
-            error_handler.append(once "Too many live types (the maximum is ")
-            error_handler.append_integer(p.maximum_free_id)
-            error_handler.append(once "). Cannot go on: please send a mail at smarteiffel@loria.fr")
-            error_handler.print_as_fatal_error
+            too_many_live_types_error
          else
             max_id := max_id + 1
             Result := max_id
@@ -147,16 +145,12 @@ feature {EIFFEL_PARSER}
          -- it is chosen high.
       require
          hashed_string /= Void
-      local
-         p: POSITION
+         is_aliased: hashed_string = string_aliaser.hashed_string(hashed_string)
       do
          if id_memory.fast_has(hashed_string) then
             Result := id_memory.fast_at(hashed_string)
          elseif min_id = max_id + 1 then
-            error_handler.append(once "Too many live types (the maximum is ")
-            error_handler.append_integer(p.maximum_free_id)
-            error_handler.append(once "). Cannot go on: please send a mail at smarteiffel@loria.fr")
-            error_handler.print_as_fatal_error
+            too_many_live_types_error
          else
             min_id := min_id - 1
             Result := min_id
@@ -169,6 +163,21 @@ feature {EIFFEL_PARSER}
             echo.put_integer(Result)
             echo.put_new_line
          end
+      end
+
+feature {}
+   too_many_live_types_error is
+      require
+         max_id = min_id - 1
+      local
+         p: POSITION
+      do
+         error_handler.append(once "Too many live types (the maximum is ")
+         error_handler.append_integer(p.maximum_free_id)
+         error_handler.append(once "). Cannot go on: please try removing your .id file or calling %"se clean%". If that fails, please send an e-mail at liberty-eiffel@gnu.org")
+         error_handler.print_as_fatal_error
+      ensure
+         dead: False
       end
 
 feature {POSITION}
