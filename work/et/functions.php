@@ -15,7 +15,7 @@ function endsWith($haystack, $needle)
 }
 
 function timesArray($times) {
-   if (array_key_exists["per-stage"]) return $times;
+   if (array_key_exists("per-stage")) return $times;
    $result = array();
    $result["per-stage"] = array();
    $result["per-stage"]["/"] = $times;
