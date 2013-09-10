@@ -11,7 +11,10 @@ inherit
       end
 
 create {}
-   make, default_create
+   make
+
+create {TEST_JB03}
+   default_create
 
 feature {ANY}
    x: TEST_JB03

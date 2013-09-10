@@ -105,6 +105,9 @@ if ($history == 0){
       echo " &mdash; " . legible_time($active_time) . " ago</p>\n";
       if (file_exists($timesHistory)) {
          $times = unserialize(file_get_contents($timesHistory));
+         if (array_key_exists("per-stage")) {
+            $times = $times["per-stage"]["/"];
+         }
          if (count($times) > 1) {
             $time_sum = 0;
             $time_count = 0;
@@ -112,7 +115,7 @@ if ($history == 0){
                $time_sum += $time;
                $time_count ++;
             }
-            echo "<p style='float:right;font-size:0.875em;'>Estimated completion: ";
+            echo "<p style='float:right;font-size:0.875em;width:350px;'>Estimated completion: ";
             $time_average = (int)($time_sum / $time_count + 0.5);
             if ($active_time < $time_average) {
                $completion = (int)((100.0 * $active_time) / $time_average + 0.5);

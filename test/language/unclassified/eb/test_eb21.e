@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    make is
       local
-         p: POINTER; a: ANY; s: STRING
+         p: POINTER; a: ABSTRACT_STRING; s: STRING
       do
          p := malloc(1)
          p := p + 1
@@ -17,9 +17,9 @@ feature {ANY}
          a := s
          p := a.to_pointer
          a := Void
-         a := p.to_any
-         assert(a = s)
-         a := Void
+         --a := p.to_any
+         --assert(a = s)
+         --a := Void
       end
 
    malloc (x: INTEGER): POINTER is
