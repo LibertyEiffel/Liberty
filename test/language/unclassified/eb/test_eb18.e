@@ -9,14 +9,14 @@ create {}
 feature {ANY}
    make is
       local
-         a, b: ARRAY[ANY]
+         a, b: ARRAY[STORABLE]
       do
          create a.make(1, 1)
          create b.make(1, 1)
          a.put(a, 1)
-         b.put(b, 1)
-         if not a.is_equal_map(b) then
-            -- print("ERROR TEST_EB18%N");
+         b.put(a, 1) --| **** the initial test was put(b) but it seems fairly stupid (infinite recursion)
+         if not a.is_equal(b) then
+            io.put_string("ERROR TEST_EB18%N");
          end
       end
 
