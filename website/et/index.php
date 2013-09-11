@@ -105,7 +105,7 @@ if ($history == 0){
       echo " &mdash; " . legible_time($active_time) . " ago</p>\n";
       if (file_exists($timesHistory)) {
          $times = unserialize(file_get_contents($timesHistory));
-         if (array_key_exists("per-stage")) {
+         if (array_key_exists("per-stage", $times)) {
             $times = $times["per-stage"]["/"];
          }
          if (count($times) > 1) {
