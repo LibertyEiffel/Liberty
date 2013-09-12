@@ -4,6 +4,9 @@
 class TEST_FP2
    -- From a bug report of  Francois PENNANEACH
 
+insert
+   EIFFELTEST_TOOLS
+
 create {}
    make
 
@@ -17,20 +20,6 @@ feature {ANY}
          assert(d.c_count = 1)
          assert(d.d_count = 1)
       end
-
-   assert (b: BOOLEAN) is
-      do
-         cpt := cpt + 1
-         if not b then
-            std_output.put_string("TEST_FP2: ERROR Test # ")
-            std_output.put_integer(cpt)
-            std_output.put_string("%N")
-         else
-            --std_output.put_string("Yes%N");
-         end
-      end
-
-   cpt: INTEGER
 
 end -- class TEST_FP2
 --

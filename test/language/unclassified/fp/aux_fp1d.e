@@ -13,12 +13,13 @@ insert
       rename init as c_init
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    d_count: INTEGER
 
+feature {}
    init is
       do
          c_init
