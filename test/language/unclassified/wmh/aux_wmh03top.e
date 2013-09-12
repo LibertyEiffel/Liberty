@@ -1,10 +1,11 @@
 class AUX_WMH03TOP
-feature
-   done1: BOOLEAN;
+
+feature {ANY}
+   done1: BOOLEAN
+
    execute is
       do
-    done1 := True;
+         done1 := True
       end
-end
 
-
+end -- class AUX_WMH03TOP

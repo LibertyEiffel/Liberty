@@ -1,16 +1,18 @@
 class TEST_WMH03
--- From a bug report of "Wai Ming, HO" <waimingh@irisa.fr>
+   -- From a bug report of "Wai Ming, HO" <waimingh@irisa.fr>
+
 create {}
-feature
+   make
+
+feature {}
    make is
       local
-    t : AUX_WMH03TOP
-    b : AUX_WMH03BOTTOM
+         t: AUX_WMH03TOP; b: AUX_WMH03BOTTOM
       do
-    !!t;
-    t.execute
-    !!b;
-    b.execute
+         create t
+         t.execute
+         create b
+         b.execute
       end
-end
 
+end -- class TEST_WMH03
