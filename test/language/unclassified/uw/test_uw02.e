@@ -1,20 +1,20 @@
 class TEST_UW02
--- From a bug report of Ulrich Windl
+   -- From a bug report of Ulrich Windl
+
 create {}
    make
 
-feature
+feature {ANY}
    make is
       local
-    s: STRING;
+         s: STRING
       do
-    s := dummy_once;
-      end; -- make
-   
+         s := dummy_once
+      end
 
    dummy_once: STRING is
       do
-    Result := "Is this stupid ;-)";
-      end;
+         Result := "Is this stupid ;-)"
+      end
 
-end 
+end -- class TEST_UW02

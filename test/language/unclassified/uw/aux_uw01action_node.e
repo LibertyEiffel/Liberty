@@ -1,31 +1,35 @@
 indexing
-   description: "nodes representing an action";
-   status: "See notice at end of class";
-   author: "Ulrich Windl <Ulrich.Windl@rz.uni-regensburg.de>";
-   version: "$Revision$";
-   last_modification: "$Date$";
+   description:
+      "nodes representing an action"
+   status:
+      "See notice at end of class"
+   author:
+      "Ulrich Windl <Ulrich.Windl@rz.uni-regensburg.de>"
+   version:
+      "$Revision$"
+   last_modification:
+      "$Date$"
 deferred class AUX_UW01ACTION_NODE
 
-feature
-   
-   extra_io : AUX_UW01EXTRA_IO is   
+feature {ANY}
+   extra_io: AUX_UW01EXTRA_IO is
          -- shared EXTRA_IO object
       once
-         !!Result.make
-      end; -- extra_io
-   
+         create Result.make
+      end
+
    execute is
          -- perform action
       deferred
-      end; -- execute
-   
-   language : AUX_UW01LANGUAGE;
-         -- language to use
-   
+      end
+
+   language: AUX_UW01LANGUAGE
+      -- language to use
+
 invariant
    good_language: language /= Void
-   
-end -- AUX_UW01ACTION_NODE
+
+end -- class AUX_UW01ACTION_NODE
 -- Copyright (c) 1998 by Ulrich Windl
 -- Copyright (c) 1998 by Klinikum der Universität Regensburg,
 --      D-93042 Regensburg
