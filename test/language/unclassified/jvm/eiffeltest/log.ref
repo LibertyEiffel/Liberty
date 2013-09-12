@@ -3,9 +3,9 @@ The "log.new" file must be identical to the "log.ref" file.
 The reference file is "log.ref" and this file must be created manually.
 If you confirm that "log.new" is correct, just overwrite "log.ref" with "log.new".
 --------------------------------------------------------------------------------
-Found 30 test_* file(s).
-Found 0 bad_* file(s).
-No subdirectory.
+Found 30 test_* files.
+Found 0 bad_* files.
+Found 0 subdirectories.
 --------------------------------------------------------------------------------
 se c -boost test_jvm1.e -o test_jvm1.exe
 Running (-boost) "test_jvm1.exe".
@@ -55,8 +55,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm1.e -o test_jvm1.
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm1.e -o test_jvm1.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm1.e -o test_jvm1.exe
+Running (-boost -bdw_gc) "test_jvm1.exe".
+se clean test_jvm1.e
+Removing (-boost -bdw_gc) "test_jvm1.exe".
+se c -boost -debug -bdw_gc test_jvm1.e -o test_jvm1.exe
+Running (-boost -debug -bdw_gc) "test_jvm1.exe".
+se clean test_jvm1.e
+Removing (-boost -debug -bdw_gc) "test_jvm1.exe".
+se c -no_check -bdw_gc test_jvm1.e -o test_jvm1.exe
+Running (-no_check -bdw_gc) "test_jvm1.exe".
+se clean test_jvm1.e
+Removing (-no_check -bdw_gc) "test_jvm1.exe".
+se c -flat_check -require_check -bdw_gc test_jvm1.e -o test_jvm1.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm1.exe".
+se clean test_jvm1.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm1.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm1.e -o test_jvm1.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm1.e -o test_jvm1.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm1.exe".
+se clean test_jvm1.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm1.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm1.e -o test_jvm1.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm1.exe".
+se clean test_jvm1.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm1.exe".
+se c -flat_check -all_check -bdw_gc test_jvm1.e -o test_jvm1.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm1.exe".
+se clean test_jvm1.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm1.exe".
 Excluded command: "se c -all_check -debug test_jvm1.e -o test_jvm1.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm1.e -o test_jvm1.exe
 Running (-require_check) "test_jvm1.exe".
 se clean test_jvm1.e
@@ -79,6 +109,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm1.e -o test_jvm1.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm1.e -o test_jvm1.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm1.e -o test_jvm1.exe
+Running (-require_check -bdw_gc) "test_jvm1.exe".
+se clean test_jvm1.e
+Removing (-require_check -bdw_gc) "test_jvm1.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm1.e -o test_jvm1.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm1.e -o test_jvm1.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm1.e -o test_jvm1.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm1.e -o test_jvm1.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm1.e -o test_jvm1.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm1.e -o test_jvm1.exe".
@@ -109,6 +151,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm1.e -o test_jvm1.exe
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm1.e -o test_jvm1.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm1.e -o test_jvm1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm1.e -o test_jvm1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm1.e -o test_jvm1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm1.e -o test_jvm1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm1.e -o test_jvm1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm1.e -o test_jvm1.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm1.e -o test_jvm1.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm1.e -o test_jvm1.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm1.e -o test_jvm1.exe".
@@ -127,6 +183,10 @@ se c -no_split -no_gc -boost test_jvm1.e -o test_jvm1.exe
 Running (-no_split -no_gc -boost) "test_jvm1.exe".
 se clean test_jvm1.e
 Removing (-no_split -no_gc -boost) "test_jvm1.exe".
+se c -no_split -boost -bdw_gc test_jvm1.e -o test_jvm1.exe
+Running (-no_split -boost -bdw_gc) "test_jvm1.exe".
+se clean test_jvm1.e
+Removing (-no_split -boost -bdw_gc) "test_jvm1.exe".
 se c -boost test_jvm10.e -o test_jvm10.exe
 Running (-boost) "test_jvm10.exe".
 se clean test_jvm10.e
@@ -175,8 +235,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm10.e -o test_jvm1
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm10.e -o test_jvm10.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm10.e -o test_jvm10.exe
+Running (-boost -bdw_gc) "test_jvm10.exe".
+se clean test_jvm10.e
+Removing (-boost -bdw_gc) "test_jvm10.exe".
+se c -boost -debug -bdw_gc test_jvm10.e -o test_jvm10.exe
+Running (-boost -debug -bdw_gc) "test_jvm10.exe".
+se clean test_jvm10.e
+Removing (-boost -debug -bdw_gc) "test_jvm10.exe".
+se c -no_check -bdw_gc test_jvm10.e -o test_jvm10.exe
+Running (-no_check -bdw_gc) "test_jvm10.exe".
+se clean test_jvm10.e
+Removing (-no_check -bdw_gc) "test_jvm10.exe".
+se c -flat_check -require_check -bdw_gc test_jvm10.e -o test_jvm10.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm10.exe".
+se clean test_jvm10.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm10.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm10.e -o test_jvm10.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm10.e -o test_jvm10.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm10.exe".
+se clean test_jvm10.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm10.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm10.e -o test_jvm10.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm10.exe".
+se clean test_jvm10.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm10.exe".
+se c -flat_check -all_check -bdw_gc test_jvm10.e -o test_jvm10.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm10.exe".
+se clean test_jvm10.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm10.exe".
 Excluded command: "se c -all_check -debug test_jvm10.e -o test_jvm10.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm10.e -o test_jvm10.exe
 Running (-require_check) "test_jvm10.exe".
 se clean test_jvm10.e
@@ -199,6 +289,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm10.e -o test_jvm10.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm10.e -o test_jvm10.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm10.e -o test_jvm10.exe
+Running (-require_check -bdw_gc) "test_jvm10.exe".
+se clean test_jvm10.e
+Removing (-require_check -bdw_gc) "test_jvm10.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm10.e -o test_jvm10.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm10.e -o test_jvm10.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm10.e -o test_jvm10.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm10.e -o test_jvm10.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm10.e -o test_jvm10.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm10.e -o test_jvm10.exe".
@@ -229,6 +331,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm10.e -o test_jvm10.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm10.e -o test_jvm10.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm10.e -o test_jvm10.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm10.e -o test_jvm10.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm10.e -o test_jvm10.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm10.e -o test_jvm10.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm10.e -o test_jvm10.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm10.e -o test_jvm10.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm10.e -o test_jvm10.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm10.e -o test_jvm10.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm10.e -o test_jvm10.exe".
@@ -247,6 +363,10 @@ se c -no_split -no_gc -boost test_jvm10.e -o test_jvm10.exe
 Running (-no_split -no_gc -boost) "test_jvm10.exe".
 se clean test_jvm10.e
 Removing (-no_split -no_gc -boost) "test_jvm10.exe".
+se c -no_split -boost -bdw_gc test_jvm10.e -o test_jvm10.exe
+Running (-no_split -boost -bdw_gc) "test_jvm10.exe".
+se clean test_jvm10.e
+Removing (-no_split -boost -bdw_gc) "test_jvm10.exe".
 se c -boost test_jvm11.e -o test_jvm11.exe
 Running (-boost) "test_jvm11.exe".
 se clean test_jvm11.e
@@ -295,8 +415,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm11.e -o test_jvm1
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm11.e -o test_jvm11.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm11.e -o test_jvm11.exe
+Running (-boost -bdw_gc) "test_jvm11.exe".
+se clean test_jvm11.e
+Removing (-boost -bdw_gc) "test_jvm11.exe".
+se c -boost -debug -bdw_gc test_jvm11.e -o test_jvm11.exe
+Running (-boost -debug -bdw_gc) "test_jvm11.exe".
+se clean test_jvm11.e
+Removing (-boost -debug -bdw_gc) "test_jvm11.exe".
+se c -no_check -bdw_gc test_jvm11.e -o test_jvm11.exe
+Running (-no_check -bdw_gc) "test_jvm11.exe".
+se clean test_jvm11.e
+Removing (-no_check -bdw_gc) "test_jvm11.exe".
+se c -flat_check -require_check -bdw_gc test_jvm11.e -o test_jvm11.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm11.exe".
+se clean test_jvm11.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm11.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm11.e -o test_jvm11.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm11.e -o test_jvm11.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm11.exe".
+se clean test_jvm11.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm11.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm11.e -o test_jvm11.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm11.exe".
+se clean test_jvm11.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm11.exe".
+se c -flat_check -all_check -bdw_gc test_jvm11.e -o test_jvm11.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm11.exe".
+se clean test_jvm11.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm11.exe".
 Excluded command: "se c -all_check -debug test_jvm11.e -o test_jvm11.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm11.e -o test_jvm11.exe
 Running (-require_check) "test_jvm11.exe".
 se clean test_jvm11.e
@@ -319,6 +469,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm11.e -o test_jvm11.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm11.e -o test_jvm11.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm11.e -o test_jvm11.exe
+Running (-require_check -bdw_gc) "test_jvm11.exe".
+se clean test_jvm11.e
+Removing (-require_check -bdw_gc) "test_jvm11.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm11.e -o test_jvm11.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm11.e -o test_jvm11.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm11.e -o test_jvm11.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm11.e -o test_jvm11.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm11.e -o test_jvm11.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm11.e -o test_jvm11.exe".
@@ -349,6 +511,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm11.e -o test_jvm11.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm11.e -o test_jvm11.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm11.e -o test_jvm11.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm11.e -o test_jvm11.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm11.e -o test_jvm11.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm11.e -o test_jvm11.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm11.e -o test_jvm11.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm11.e -o test_jvm11.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm11.e -o test_jvm11.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm11.e -o test_jvm11.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm11.e -o test_jvm11.exe".
@@ -367,6 +543,10 @@ se c -no_split -no_gc -boost test_jvm11.e -o test_jvm11.exe
 Running (-no_split -no_gc -boost) "test_jvm11.exe".
 se clean test_jvm11.e
 Removing (-no_split -no_gc -boost) "test_jvm11.exe".
+se c -no_split -boost -bdw_gc test_jvm11.e -o test_jvm11.exe
+Running (-no_split -boost -bdw_gc) "test_jvm11.exe".
+se clean test_jvm11.e
+Removing (-no_split -boost -bdw_gc) "test_jvm11.exe".
 se c -boost test_jvm12.e -o test_jvm12.exe
 Running (-boost) "test_jvm12.exe".
 se clean test_jvm12.e
@@ -415,8 +595,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm12.e -o test_jvm1
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm12.e -o test_jvm12.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm12.e -o test_jvm12.exe
+Running (-boost -bdw_gc) "test_jvm12.exe".
+se clean test_jvm12.e
+Removing (-boost -bdw_gc) "test_jvm12.exe".
+se c -boost -debug -bdw_gc test_jvm12.e -o test_jvm12.exe
+Running (-boost -debug -bdw_gc) "test_jvm12.exe".
+se clean test_jvm12.e
+Removing (-boost -debug -bdw_gc) "test_jvm12.exe".
+se c -no_check -bdw_gc test_jvm12.e -o test_jvm12.exe
+Running (-no_check -bdw_gc) "test_jvm12.exe".
+se clean test_jvm12.e
+Removing (-no_check -bdw_gc) "test_jvm12.exe".
+se c -flat_check -require_check -bdw_gc test_jvm12.e -o test_jvm12.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm12.exe".
+se clean test_jvm12.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm12.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm12.e -o test_jvm12.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm12.e -o test_jvm12.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm12.exe".
+se clean test_jvm12.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm12.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm12.e -o test_jvm12.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm12.exe".
+se clean test_jvm12.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm12.exe".
+se c -flat_check -all_check -bdw_gc test_jvm12.e -o test_jvm12.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm12.exe".
+se clean test_jvm12.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm12.exe".
 Excluded command: "se c -all_check -debug test_jvm12.e -o test_jvm12.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm12.e -o test_jvm12.exe
 Running (-require_check) "test_jvm12.exe".
 se clean test_jvm12.e
@@ -439,6 +649,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm12.e -o test_jvm12.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm12.e -o test_jvm12.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm12.e -o test_jvm12.exe
+Running (-require_check -bdw_gc) "test_jvm12.exe".
+se clean test_jvm12.e
+Removing (-require_check -bdw_gc) "test_jvm12.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm12.e -o test_jvm12.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm12.e -o test_jvm12.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm12.e -o test_jvm12.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm12.e -o test_jvm12.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm12.e -o test_jvm12.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm12.e -o test_jvm12.exe".
@@ -469,6 +691,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm12.e -o test_jvm12.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm12.e -o test_jvm12.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm12.e -o test_jvm12.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm12.e -o test_jvm12.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm12.e -o test_jvm12.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm12.e -o test_jvm12.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm12.e -o test_jvm12.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm12.e -o test_jvm12.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm12.e -o test_jvm12.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm12.e -o test_jvm12.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm12.e -o test_jvm12.exe".
@@ -487,6 +723,10 @@ se c -no_split -no_gc -boost test_jvm12.e -o test_jvm12.exe
 Running (-no_split -no_gc -boost) "test_jvm12.exe".
 se clean test_jvm12.e
 Removing (-no_split -no_gc -boost) "test_jvm12.exe".
+se c -no_split -boost -bdw_gc test_jvm12.e -o test_jvm12.exe
+Running (-no_split -boost -bdw_gc) "test_jvm12.exe".
+se clean test_jvm12.e
+Removing (-no_split -boost -bdw_gc) "test_jvm12.exe".
 se c -boost test_jvm13.e -o test_jvm13.exe
 Running (-boost) "test_jvm13.exe".
 se clean test_jvm13.e
@@ -535,8 +775,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm13.e -o test_jvm1
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm13.e -o test_jvm13.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm13.e -o test_jvm13.exe
+Running (-boost -bdw_gc) "test_jvm13.exe".
+se clean test_jvm13.e
+Removing (-boost -bdw_gc) "test_jvm13.exe".
+se c -boost -debug -bdw_gc test_jvm13.e -o test_jvm13.exe
+Running (-boost -debug -bdw_gc) "test_jvm13.exe".
+se clean test_jvm13.e
+Removing (-boost -debug -bdw_gc) "test_jvm13.exe".
+se c -no_check -bdw_gc test_jvm13.e -o test_jvm13.exe
+Running (-no_check -bdw_gc) "test_jvm13.exe".
+se clean test_jvm13.e
+Removing (-no_check -bdw_gc) "test_jvm13.exe".
+se c -flat_check -require_check -bdw_gc test_jvm13.e -o test_jvm13.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm13.exe".
+se clean test_jvm13.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm13.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm13.e -o test_jvm13.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm13.e -o test_jvm13.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm13.exe".
+se clean test_jvm13.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm13.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm13.e -o test_jvm13.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm13.exe".
+se clean test_jvm13.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm13.exe".
+se c -flat_check -all_check -bdw_gc test_jvm13.e -o test_jvm13.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm13.exe".
+se clean test_jvm13.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm13.exe".
 Excluded command: "se c -all_check -debug test_jvm13.e -o test_jvm13.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm13.e -o test_jvm13.exe
 Running (-require_check) "test_jvm13.exe".
 se clean test_jvm13.e
@@ -559,6 +829,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm13.e -o test_jvm13.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm13.e -o test_jvm13.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm13.e -o test_jvm13.exe
+Running (-require_check -bdw_gc) "test_jvm13.exe".
+se clean test_jvm13.e
+Removing (-require_check -bdw_gc) "test_jvm13.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm13.e -o test_jvm13.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm13.e -o test_jvm13.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm13.e -o test_jvm13.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm13.e -o test_jvm13.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm13.e -o test_jvm13.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm13.e -o test_jvm13.exe".
@@ -589,6 +871,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm13.e -o test_jvm13.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm13.e -o test_jvm13.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm13.e -o test_jvm13.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm13.e -o test_jvm13.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm13.e -o test_jvm13.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm13.e -o test_jvm13.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm13.e -o test_jvm13.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm13.e -o test_jvm13.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm13.e -o test_jvm13.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm13.e -o test_jvm13.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm13.e -o test_jvm13.exe".
@@ -607,6 +903,10 @@ se c -no_split -no_gc -boost test_jvm13.e -o test_jvm13.exe
 Running (-no_split -no_gc -boost) "test_jvm13.exe".
 se clean test_jvm13.e
 Removing (-no_split -no_gc -boost) "test_jvm13.exe".
+se c -no_split -boost -bdw_gc test_jvm13.e -o test_jvm13.exe
+Running (-no_split -boost -bdw_gc) "test_jvm13.exe".
+se clean test_jvm13.e
+Removing (-no_split -boost -bdw_gc) "test_jvm13.exe".
 se c -boost test_jvm14.e -o test_jvm14.exe
 Running (-boost) "test_jvm14.exe".
 se clean test_jvm14.e
@@ -655,8 +955,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm14.e -o test_jvm1
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm14.e -o test_jvm14.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm14.e -o test_jvm14.exe
+Running (-boost -bdw_gc) "test_jvm14.exe".
+se clean test_jvm14.e
+Removing (-boost -bdw_gc) "test_jvm14.exe".
+se c -boost -debug -bdw_gc test_jvm14.e -o test_jvm14.exe
+Running (-boost -debug -bdw_gc) "test_jvm14.exe".
+se clean test_jvm14.e
+Removing (-boost -debug -bdw_gc) "test_jvm14.exe".
+se c -no_check -bdw_gc test_jvm14.e -o test_jvm14.exe
+Running (-no_check -bdw_gc) "test_jvm14.exe".
+se clean test_jvm14.e
+Removing (-no_check -bdw_gc) "test_jvm14.exe".
+se c -flat_check -require_check -bdw_gc test_jvm14.e -o test_jvm14.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm14.exe".
+se clean test_jvm14.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm14.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm14.e -o test_jvm14.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm14.e -o test_jvm14.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm14.exe".
+se clean test_jvm14.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm14.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm14.e -o test_jvm14.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm14.exe".
+se clean test_jvm14.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm14.exe".
+se c -flat_check -all_check -bdw_gc test_jvm14.e -o test_jvm14.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm14.exe".
+se clean test_jvm14.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm14.exe".
 Excluded command: "se c -all_check -debug test_jvm14.e -o test_jvm14.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm14.e -o test_jvm14.exe
 Running (-require_check) "test_jvm14.exe".
 se clean test_jvm14.e
@@ -679,6 +1009,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm14.e -o test_jvm14.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm14.e -o test_jvm14.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm14.e -o test_jvm14.exe
+Running (-require_check -bdw_gc) "test_jvm14.exe".
+se clean test_jvm14.e
+Removing (-require_check -bdw_gc) "test_jvm14.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm14.e -o test_jvm14.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm14.e -o test_jvm14.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm14.e -o test_jvm14.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm14.e -o test_jvm14.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm14.e -o test_jvm14.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm14.e -o test_jvm14.exe".
@@ -709,6 +1051,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm14.e -o test_jvm14.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm14.e -o test_jvm14.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm14.e -o test_jvm14.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm14.e -o test_jvm14.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm14.e -o test_jvm14.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm14.e -o test_jvm14.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm14.e -o test_jvm14.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm14.e -o test_jvm14.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm14.e -o test_jvm14.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm14.e -o test_jvm14.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm14.e -o test_jvm14.exe".
@@ -727,6 +1083,10 @@ se c -no_split -no_gc -boost test_jvm14.e -o test_jvm14.exe
 Running (-no_split -no_gc -boost) "test_jvm14.exe".
 se clean test_jvm14.e
 Removing (-no_split -no_gc -boost) "test_jvm14.exe".
+se c -no_split -boost -bdw_gc test_jvm14.e -o test_jvm14.exe
+Running (-no_split -boost -bdw_gc) "test_jvm14.exe".
+se clean test_jvm14.e
+Removing (-no_split -boost -bdw_gc) "test_jvm14.exe".
 se c -boost test_jvm15.e -o test_jvm15.exe
 Running (-boost) "test_jvm15.exe".
 se clean test_jvm15.e
@@ -775,8 +1135,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm15.e -o test_jvm1
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm15.e -o test_jvm15.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm15.e -o test_jvm15.exe
+Running (-boost -bdw_gc) "test_jvm15.exe".
+se clean test_jvm15.e
+Removing (-boost -bdw_gc) "test_jvm15.exe".
+se c -boost -debug -bdw_gc test_jvm15.e -o test_jvm15.exe
+Running (-boost -debug -bdw_gc) "test_jvm15.exe".
+se clean test_jvm15.e
+Removing (-boost -debug -bdw_gc) "test_jvm15.exe".
+se c -no_check -bdw_gc test_jvm15.e -o test_jvm15.exe
+Running (-no_check -bdw_gc) "test_jvm15.exe".
+se clean test_jvm15.e
+Removing (-no_check -bdw_gc) "test_jvm15.exe".
+se c -flat_check -require_check -bdw_gc test_jvm15.e -o test_jvm15.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm15.exe".
+se clean test_jvm15.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm15.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm15.e -o test_jvm15.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm15.e -o test_jvm15.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm15.exe".
+se clean test_jvm15.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm15.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm15.e -o test_jvm15.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm15.exe".
+se clean test_jvm15.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm15.exe".
+se c -flat_check -all_check -bdw_gc test_jvm15.e -o test_jvm15.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm15.exe".
+se clean test_jvm15.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm15.exe".
 Excluded command: "se c -all_check -debug test_jvm15.e -o test_jvm15.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm15.e -o test_jvm15.exe
 Running (-require_check) "test_jvm15.exe".
 se clean test_jvm15.e
@@ -799,6 +1189,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm15.e -o test_jvm15.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm15.e -o test_jvm15.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm15.e -o test_jvm15.exe
+Running (-require_check -bdw_gc) "test_jvm15.exe".
+se clean test_jvm15.e
+Removing (-require_check -bdw_gc) "test_jvm15.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm15.e -o test_jvm15.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm15.e -o test_jvm15.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm15.e -o test_jvm15.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm15.e -o test_jvm15.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm15.e -o test_jvm15.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm15.e -o test_jvm15.exe".
@@ -829,6 +1231,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm15.e -o test_jvm15.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm15.e -o test_jvm15.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm15.e -o test_jvm15.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm15.e -o test_jvm15.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm15.e -o test_jvm15.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm15.e -o test_jvm15.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm15.e -o test_jvm15.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm15.e -o test_jvm15.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm15.e -o test_jvm15.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm15.e -o test_jvm15.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm15.e -o test_jvm15.exe".
@@ -847,6 +1263,10 @@ se c -no_split -no_gc -boost test_jvm15.e -o test_jvm15.exe
 Running (-no_split -no_gc -boost) "test_jvm15.exe".
 se clean test_jvm15.e
 Removing (-no_split -no_gc -boost) "test_jvm15.exe".
+se c -no_split -boost -bdw_gc test_jvm15.e -o test_jvm15.exe
+Running (-no_split -boost -bdw_gc) "test_jvm15.exe".
+se clean test_jvm15.e
+Removing (-no_split -boost -bdw_gc) "test_jvm15.exe".
 se c -boost test_jvm16.e -o test_jvm16.exe
 Running (-boost) "test_jvm16.exe".
 se clean test_jvm16.e
@@ -895,8 +1315,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm16.e -o test_jvm1
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm16.e -o test_jvm16.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm16.e -o test_jvm16.exe
+Running (-boost -bdw_gc) "test_jvm16.exe".
+se clean test_jvm16.e
+Removing (-boost -bdw_gc) "test_jvm16.exe".
+se c -boost -debug -bdw_gc test_jvm16.e -o test_jvm16.exe
+Running (-boost -debug -bdw_gc) "test_jvm16.exe".
+se clean test_jvm16.e
+Removing (-boost -debug -bdw_gc) "test_jvm16.exe".
+se c -no_check -bdw_gc test_jvm16.e -o test_jvm16.exe
+Running (-no_check -bdw_gc) "test_jvm16.exe".
+se clean test_jvm16.e
+Removing (-no_check -bdw_gc) "test_jvm16.exe".
+se c -flat_check -require_check -bdw_gc test_jvm16.e -o test_jvm16.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm16.exe".
+se clean test_jvm16.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm16.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm16.e -o test_jvm16.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm16.e -o test_jvm16.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm16.exe".
+se clean test_jvm16.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm16.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm16.e -o test_jvm16.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm16.exe".
+se clean test_jvm16.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm16.exe".
+se c -flat_check -all_check -bdw_gc test_jvm16.e -o test_jvm16.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm16.exe".
+se clean test_jvm16.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm16.exe".
 Excluded command: "se c -all_check -debug test_jvm16.e -o test_jvm16.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm16.e -o test_jvm16.exe
 Running (-require_check) "test_jvm16.exe".
 se clean test_jvm16.e
@@ -919,6 +1369,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm16.e -o test_jvm16.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm16.e -o test_jvm16.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm16.e -o test_jvm16.exe
+Running (-require_check -bdw_gc) "test_jvm16.exe".
+se clean test_jvm16.e
+Removing (-require_check -bdw_gc) "test_jvm16.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm16.e -o test_jvm16.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm16.e -o test_jvm16.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm16.e -o test_jvm16.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm16.e -o test_jvm16.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm16.e -o test_jvm16.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm16.e -o test_jvm16.exe".
@@ -949,6 +1411,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm16.e -o test_jvm16.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm16.e -o test_jvm16.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm16.e -o test_jvm16.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm16.e -o test_jvm16.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm16.e -o test_jvm16.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm16.e -o test_jvm16.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm16.e -o test_jvm16.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm16.e -o test_jvm16.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm16.e -o test_jvm16.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm16.e -o test_jvm16.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm16.e -o test_jvm16.exe".
@@ -967,6 +1443,10 @@ se c -no_split -no_gc -boost test_jvm16.e -o test_jvm16.exe
 Running (-no_split -no_gc -boost) "test_jvm16.exe".
 se clean test_jvm16.e
 Removing (-no_split -no_gc -boost) "test_jvm16.exe".
+se c -no_split -boost -bdw_gc test_jvm16.e -o test_jvm16.exe
+Running (-no_split -boost -bdw_gc) "test_jvm16.exe".
+se clean test_jvm16.e
+Removing (-no_split -boost -bdw_gc) "test_jvm16.exe".
 se c -boost test_jvm17.e -o test_jvm17.exe
 Running (-boost) "test_jvm17.exe".
 se clean test_jvm17.e
@@ -1015,8 +1495,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm17.e -o test_jvm1
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm17.e -o test_jvm17.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm17.e -o test_jvm17.exe
+Running (-boost -bdw_gc) "test_jvm17.exe".
+se clean test_jvm17.e
+Removing (-boost -bdw_gc) "test_jvm17.exe".
+se c -boost -debug -bdw_gc test_jvm17.e -o test_jvm17.exe
+Running (-boost -debug -bdw_gc) "test_jvm17.exe".
+se clean test_jvm17.e
+Removing (-boost -debug -bdw_gc) "test_jvm17.exe".
+se c -no_check -bdw_gc test_jvm17.e -o test_jvm17.exe
+Running (-no_check -bdw_gc) "test_jvm17.exe".
+se clean test_jvm17.e
+Removing (-no_check -bdw_gc) "test_jvm17.exe".
+se c -flat_check -require_check -bdw_gc test_jvm17.e -o test_jvm17.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm17.exe".
+se clean test_jvm17.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm17.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm17.e -o test_jvm17.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm17.e -o test_jvm17.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm17.exe".
+se clean test_jvm17.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm17.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm17.e -o test_jvm17.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm17.exe".
+se clean test_jvm17.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm17.exe".
+se c -flat_check -all_check -bdw_gc test_jvm17.e -o test_jvm17.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm17.exe".
+se clean test_jvm17.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm17.exe".
 Excluded command: "se c -all_check -debug test_jvm17.e -o test_jvm17.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm17.e -o test_jvm17.exe
 Running (-require_check) "test_jvm17.exe".
 se clean test_jvm17.e
@@ -1039,6 +1549,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm17.e -o test_jvm17.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm17.e -o test_jvm17.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm17.e -o test_jvm17.exe
+Running (-require_check -bdw_gc) "test_jvm17.exe".
+se clean test_jvm17.e
+Removing (-require_check -bdw_gc) "test_jvm17.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm17.e -o test_jvm17.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm17.e -o test_jvm17.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm17.e -o test_jvm17.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm17.e -o test_jvm17.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm17.e -o test_jvm17.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm17.e -o test_jvm17.exe".
@@ -1069,6 +1591,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm17.e -o test_jvm17.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm17.e -o test_jvm17.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm17.e -o test_jvm17.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm17.e -o test_jvm17.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm17.e -o test_jvm17.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm17.e -o test_jvm17.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm17.e -o test_jvm17.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm17.e -o test_jvm17.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm17.e -o test_jvm17.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm17.e -o test_jvm17.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm17.e -o test_jvm17.exe".
@@ -1087,6 +1623,10 @@ se c -no_split -no_gc -boost test_jvm17.e -o test_jvm17.exe
 Running (-no_split -no_gc -boost) "test_jvm17.exe".
 se clean test_jvm17.e
 Removing (-no_split -no_gc -boost) "test_jvm17.exe".
+se c -no_split -boost -bdw_gc test_jvm17.e -o test_jvm17.exe
+Running (-no_split -boost -bdw_gc) "test_jvm17.exe".
+se clean test_jvm17.e
+Removing (-no_split -boost -bdw_gc) "test_jvm17.exe".
 se c -boost test_jvm18.e -o test_jvm18.exe
 Running (-boost) "test_jvm18.exe".
 se clean test_jvm18.e
@@ -1135,8 +1675,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm18.e -o test_jvm1
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm18.e -o test_jvm18.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm18.e -o test_jvm18.exe
+Running (-boost -bdw_gc) "test_jvm18.exe".
+se clean test_jvm18.e
+Removing (-boost -bdw_gc) "test_jvm18.exe".
+se c -boost -debug -bdw_gc test_jvm18.e -o test_jvm18.exe
+Running (-boost -debug -bdw_gc) "test_jvm18.exe".
+se clean test_jvm18.e
+Removing (-boost -debug -bdw_gc) "test_jvm18.exe".
+se c -no_check -bdw_gc test_jvm18.e -o test_jvm18.exe
+Running (-no_check -bdw_gc) "test_jvm18.exe".
+se clean test_jvm18.e
+Removing (-no_check -bdw_gc) "test_jvm18.exe".
+se c -flat_check -require_check -bdw_gc test_jvm18.e -o test_jvm18.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm18.exe".
+se clean test_jvm18.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm18.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm18.e -o test_jvm18.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm18.e -o test_jvm18.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm18.exe".
+se clean test_jvm18.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm18.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm18.e -o test_jvm18.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm18.exe".
+se clean test_jvm18.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm18.exe".
+se c -flat_check -all_check -bdw_gc test_jvm18.e -o test_jvm18.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm18.exe".
+se clean test_jvm18.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm18.exe".
 Excluded command: "se c -all_check -debug test_jvm18.e -o test_jvm18.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm18.e -o test_jvm18.exe
 Running (-require_check) "test_jvm18.exe".
 se clean test_jvm18.e
@@ -1159,6 +1729,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm18.e -o test_jvm18.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm18.e -o test_jvm18.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm18.e -o test_jvm18.exe
+Running (-require_check -bdw_gc) "test_jvm18.exe".
+se clean test_jvm18.e
+Removing (-require_check -bdw_gc) "test_jvm18.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm18.e -o test_jvm18.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm18.e -o test_jvm18.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm18.e -o test_jvm18.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm18.e -o test_jvm18.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm18.e -o test_jvm18.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm18.e -o test_jvm18.exe".
@@ -1189,6 +1771,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm18.e -o test_jvm18.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm18.e -o test_jvm18.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm18.e -o test_jvm18.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm18.e -o test_jvm18.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm18.e -o test_jvm18.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm18.e -o test_jvm18.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm18.e -o test_jvm18.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm18.e -o test_jvm18.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm18.e -o test_jvm18.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm18.e -o test_jvm18.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm18.e -o test_jvm18.exe".
@@ -1207,6 +1803,10 @@ se c -no_split -no_gc -boost test_jvm18.e -o test_jvm18.exe
 Running (-no_split -no_gc -boost) "test_jvm18.exe".
 se clean test_jvm18.e
 Removing (-no_split -no_gc -boost) "test_jvm18.exe".
+se c -no_split -boost -bdw_gc test_jvm18.e -o test_jvm18.exe
+Running (-no_split -boost -bdw_gc) "test_jvm18.exe".
+se clean test_jvm18.e
+Removing (-no_split -boost -bdw_gc) "test_jvm18.exe".
 se c -boost test_jvm19.e -o test_jvm19.exe
 Running (-boost) "test_jvm19.exe".
 se clean test_jvm19.e
@@ -1255,8 +1855,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm19.e -o test_jvm1
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm19.e -o test_jvm19.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm19.e -o test_jvm19.exe
+Running (-boost -bdw_gc) "test_jvm19.exe".
+se clean test_jvm19.e
+Removing (-boost -bdw_gc) "test_jvm19.exe".
+se c -boost -debug -bdw_gc test_jvm19.e -o test_jvm19.exe
+Running (-boost -debug -bdw_gc) "test_jvm19.exe".
+se clean test_jvm19.e
+Removing (-boost -debug -bdw_gc) "test_jvm19.exe".
+se c -no_check -bdw_gc test_jvm19.e -o test_jvm19.exe
+Running (-no_check -bdw_gc) "test_jvm19.exe".
+se clean test_jvm19.e
+Removing (-no_check -bdw_gc) "test_jvm19.exe".
+se c -flat_check -require_check -bdw_gc test_jvm19.e -o test_jvm19.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm19.exe".
+se clean test_jvm19.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm19.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm19.e -o test_jvm19.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm19.e -o test_jvm19.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm19.exe".
+se clean test_jvm19.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm19.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm19.e -o test_jvm19.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm19.exe".
+se clean test_jvm19.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm19.exe".
+se c -flat_check -all_check -bdw_gc test_jvm19.e -o test_jvm19.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm19.exe".
+se clean test_jvm19.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm19.exe".
 Excluded command: "se c -all_check -debug test_jvm19.e -o test_jvm19.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm19.e -o test_jvm19.exe
 Running (-require_check) "test_jvm19.exe".
 se clean test_jvm19.e
@@ -1279,6 +1909,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm19.e -o test_jvm19.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm19.e -o test_jvm19.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm19.e -o test_jvm19.exe
+Running (-require_check -bdw_gc) "test_jvm19.exe".
+se clean test_jvm19.e
+Removing (-require_check -bdw_gc) "test_jvm19.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm19.e -o test_jvm19.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm19.e -o test_jvm19.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm19.e -o test_jvm19.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm19.e -o test_jvm19.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm19.e -o test_jvm19.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm19.e -o test_jvm19.exe".
@@ -1309,6 +1951,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm19.e -o test_jvm19.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm19.e -o test_jvm19.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm19.e -o test_jvm19.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm19.e -o test_jvm19.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm19.e -o test_jvm19.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm19.e -o test_jvm19.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm19.e -o test_jvm19.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm19.e -o test_jvm19.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm19.e -o test_jvm19.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm19.e -o test_jvm19.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm19.e -o test_jvm19.exe".
@@ -1327,6 +1983,10 @@ se c -no_split -no_gc -boost test_jvm19.e -o test_jvm19.exe
 Running (-no_split -no_gc -boost) "test_jvm19.exe".
 se clean test_jvm19.e
 Removing (-no_split -no_gc -boost) "test_jvm19.exe".
+se c -no_split -boost -bdw_gc test_jvm19.e -o test_jvm19.exe
+Running (-no_split -boost -bdw_gc) "test_jvm19.exe".
+se clean test_jvm19.e
+Removing (-no_split -boost -bdw_gc) "test_jvm19.exe".
 se c -boost test_jvm2.e -o test_jvm2.exe
 Running (-boost) "test_jvm2.exe".
 se clean test_jvm2.e
@@ -1375,8 +2035,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm2.e -o test_jvm2.
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm2.e -o test_jvm2.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm2.e -o test_jvm2.exe
+Running (-boost -bdw_gc) "test_jvm2.exe".
+se clean test_jvm2.e
+Removing (-boost -bdw_gc) "test_jvm2.exe".
+se c -boost -debug -bdw_gc test_jvm2.e -o test_jvm2.exe
+Running (-boost -debug -bdw_gc) "test_jvm2.exe".
+se clean test_jvm2.e
+Removing (-boost -debug -bdw_gc) "test_jvm2.exe".
+se c -no_check -bdw_gc test_jvm2.e -o test_jvm2.exe
+Running (-no_check -bdw_gc) "test_jvm2.exe".
+se clean test_jvm2.e
+Removing (-no_check -bdw_gc) "test_jvm2.exe".
+se c -flat_check -require_check -bdw_gc test_jvm2.e -o test_jvm2.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm2.exe".
+se clean test_jvm2.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm2.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm2.e -o test_jvm2.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm2.e -o test_jvm2.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm2.exe".
+se clean test_jvm2.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm2.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm2.e -o test_jvm2.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm2.exe".
+se clean test_jvm2.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm2.exe".
+se c -flat_check -all_check -bdw_gc test_jvm2.e -o test_jvm2.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm2.exe".
+se clean test_jvm2.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm2.exe".
 Excluded command: "se c -all_check -debug test_jvm2.e -o test_jvm2.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm2.e -o test_jvm2.exe
 Running (-require_check) "test_jvm2.exe".
 se clean test_jvm2.e
@@ -1399,6 +2089,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm2.e -o test_jvm2.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm2.e -o test_jvm2.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm2.e -o test_jvm2.exe
+Running (-require_check -bdw_gc) "test_jvm2.exe".
+se clean test_jvm2.e
+Removing (-require_check -bdw_gc) "test_jvm2.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm2.e -o test_jvm2.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm2.e -o test_jvm2.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm2.e -o test_jvm2.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm2.e -o test_jvm2.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm2.e -o test_jvm2.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm2.e -o test_jvm2.exe".
@@ -1429,6 +2131,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm2.e -o test_jvm2.exe
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm2.e -o test_jvm2.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm2.e -o test_jvm2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm2.e -o test_jvm2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm2.e -o test_jvm2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm2.e -o test_jvm2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm2.e -o test_jvm2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm2.e -o test_jvm2.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm2.e -o test_jvm2.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm2.e -o test_jvm2.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm2.e -o test_jvm2.exe".
@@ -1447,6 +2163,10 @@ se c -no_split -no_gc -boost test_jvm2.e -o test_jvm2.exe
 Running (-no_split -no_gc -boost) "test_jvm2.exe".
 se clean test_jvm2.e
 Removing (-no_split -no_gc -boost) "test_jvm2.exe".
+se c -no_split -boost -bdw_gc test_jvm2.e -o test_jvm2.exe
+Running (-no_split -boost -bdw_gc) "test_jvm2.exe".
+se clean test_jvm2.e
+Removing (-no_split -boost -bdw_gc) "test_jvm2.exe".
 se c -boost test_jvm20.e -o test_jvm20.exe
 Running (-boost) "test_jvm20.exe".
 se clean test_jvm20.e
@@ -1495,8 +2215,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm20.e -o test_jvm2
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm20.e -o test_jvm20.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm20.e -o test_jvm20.exe
+Running (-boost -bdw_gc) "test_jvm20.exe".
+se clean test_jvm20.e
+Removing (-boost -bdw_gc) "test_jvm20.exe".
+se c -boost -debug -bdw_gc test_jvm20.e -o test_jvm20.exe
+Running (-boost -debug -bdw_gc) "test_jvm20.exe".
+se clean test_jvm20.e
+Removing (-boost -debug -bdw_gc) "test_jvm20.exe".
+se c -no_check -bdw_gc test_jvm20.e -o test_jvm20.exe
+Running (-no_check -bdw_gc) "test_jvm20.exe".
+se clean test_jvm20.e
+Removing (-no_check -bdw_gc) "test_jvm20.exe".
+se c -flat_check -require_check -bdw_gc test_jvm20.e -o test_jvm20.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm20.exe".
+se clean test_jvm20.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm20.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm20.e -o test_jvm20.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm20.e -o test_jvm20.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm20.exe".
+se clean test_jvm20.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm20.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm20.e -o test_jvm20.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm20.exe".
+se clean test_jvm20.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm20.exe".
+se c -flat_check -all_check -bdw_gc test_jvm20.e -o test_jvm20.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm20.exe".
+se clean test_jvm20.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm20.exe".
 Excluded command: "se c -all_check -debug test_jvm20.e -o test_jvm20.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm20.e -o test_jvm20.exe
 Running (-require_check) "test_jvm20.exe".
 se clean test_jvm20.e
@@ -1519,6 +2269,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm20.e -o test_jvm20.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm20.e -o test_jvm20.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm20.e -o test_jvm20.exe
+Running (-require_check -bdw_gc) "test_jvm20.exe".
+se clean test_jvm20.e
+Removing (-require_check -bdw_gc) "test_jvm20.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm20.e -o test_jvm20.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm20.e -o test_jvm20.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm20.e -o test_jvm20.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm20.e -o test_jvm20.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm20.e -o test_jvm20.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm20.e -o test_jvm20.exe".
@@ -1549,6 +2311,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm20.e -o test_jvm20.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm20.e -o test_jvm20.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm20.e -o test_jvm20.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm20.e -o test_jvm20.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm20.e -o test_jvm20.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm20.e -o test_jvm20.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm20.e -o test_jvm20.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm20.e -o test_jvm20.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm20.e -o test_jvm20.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm20.e -o test_jvm20.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm20.e -o test_jvm20.exe".
@@ -1567,6 +2343,10 @@ se c -no_split -no_gc -boost test_jvm20.e -o test_jvm20.exe
 Running (-no_split -no_gc -boost) "test_jvm20.exe".
 se clean test_jvm20.e
 Removing (-no_split -no_gc -boost) "test_jvm20.exe".
+se c -no_split -boost -bdw_gc test_jvm20.e -o test_jvm20.exe
+Running (-no_split -boost -bdw_gc) "test_jvm20.exe".
+se clean test_jvm20.e
+Removing (-no_split -boost -bdw_gc) "test_jvm20.exe".
 se c -boost test_jvm21.e -o test_jvm21.exe
 Running (-boost) "test_jvm21.exe".
 se clean test_jvm21.e
@@ -1615,8 +2395,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm21.e -o test_jvm2
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm21.e -o test_jvm21.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm21.e -o test_jvm21.exe
+Running (-boost -bdw_gc) "test_jvm21.exe".
+se clean test_jvm21.e
+Removing (-boost -bdw_gc) "test_jvm21.exe".
+se c -boost -debug -bdw_gc test_jvm21.e -o test_jvm21.exe
+Running (-boost -debug -bdw_gc) "test_jvm21.exe".
+se clean test_jvm21.e
+Removing (-boost -debug -bdw_gc) "test_jvm21.exe".
+se c -no_check -bdw_gc test_jvm21.e -o test_jvm21.exe
+Running (-no_check -bdw_gc) "test_jvm21.exe".
+se clean test_jvm21.e
+Removing (-no_check -bdw_gc) "test_jvm21.exe".
+se c -flat_check -require_check -bdw_gc test_jvm21.e -o test_jvm21.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm21.exe".
+se clean test_jvm21.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm21.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm21.e -o test_jvm21.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm21.e -o test_jvm21.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm21.exe".
+se clean test_jvm21.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm21.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm21.e -o test_jvm21.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm21.exe".
+se clean test_jvm21.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm21.exe".
+se c -flat_check -all_check -bdw_gc test_jvm21.e -o test_jvm21.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm21.exe".
+se clean test_jvm21.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm21.exe".
 Excluded command: "se c -all_check -debug test_jvm21.e -o test_jvm21.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm21.e -o test_jvm21.exe
 Running (-require_check) "test_jvm21.exe".
 se clean test_jvm21.e
@@ -1639,6 +2449,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm21.e -o test_jvm21.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm21.e -o test_jvm21.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm21.e -o test_jvm21.exe
+Running (-require_check -bdw_gc) "test_jvm21.exe".
+se clean test_jvm21.e
+Removing (-require_check -bdw_gc) "test_jvm21.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm21.e -o test_jvm21.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm21.e -o test_jvm21.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm21.e -o test_jvm21.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm21.e -o test_jvm21.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm21.e -o test_jvm21.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm21.e -o test_jvm21.exe".
@@ -1669,6 +2491,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm21.e -o test_jvm21.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm21.e -o test_jvm21.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm21.e -o test_jvm21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm21.e -o test_jvm21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm21.e -o test_jvm21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm21.e -o test_jvm21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm21.e -o test_jvm21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm21.e -o test_jvm21.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm21.e -o test_jvm21.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm21.e -o test_jvm21.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm21.e -o test_jvm21.exe".
@@ -1687,6 +2523,10 @@ se c -no_split -no_gc -boost test_jvm21.e -o test_jvm21.exe
 Running (-no_split -no_gc -boost) "test_jvm21.exe".
 se clean test_jvm21.e
 Removing (-no_split -no_gc -boost) "test_jvm21.exe".
+se c -no_split -boost -bdw_gc test_jvm21.e -o test_jvm21.exe
+Running (-no_split -boost -bdw_gc) "test_jvm21.exe".
+se clean test_jvm21.e
+Removing (-no_split -boost -bdw_gc) "test_jvm21.exe".
 se c -boost test_jvm22.e -o test_jvm22.exe
 Running (-boost) "test_jvm22.exe".
 se clean test_jvm22.e
@@ -1735,8 +2575,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm22.e -o test_jvm2
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm22.e -o test_jvm22.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm22.e -o test_jvm22.exe
+Running (-boost -bdw_gc) "test_jvm22.exe".
+se clean test_jvm22.e
+Removing (-boost -bdw_gc) "test_jvm22.exe".
+se c -boost -debug -bdw_gc test_jvm22.e -o test_jvm22.exe
+Running (-boost -debug -bdw_gc) "test_jvm22.exe".
+se clean test_jvm22.e
+Removing (-boost -debug -bdw_gc) "test_jvm22.exe".
+se c -no_check -bdw_gc test_jvm22.e -o test_jvm22.exe
+Running (-no_check -bdw_gc) "test_jvm22.exe".
+se clean test_jvm22.e
+Removing (-no_check -bdw_gc) "test_jvm22.exe".
+se c -flat_check -require_check -bdw_gc test_jvm22.e -o test_jvm22.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm22.exe".
+se clean test_jvm22.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm22.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm22.e -o test_jvm22.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm22.e -o test_jvm22.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm22.exe".
+se clean test_jvm22.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm22.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm22.e -o test_jvm22.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm22.exe".
+se clean test_jvm22.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm22.exe".
+se c -flat_check -all_check -bdw_gc test_jvm22.e -o test_jvm22.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm22.exe".
+se clean test_jvm22.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm22.exe".
 Excluded command: "se c -all_check -debug test_jvm22.e -o test_jvm22.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm22.e -o test_jvm22.exe
 Running (-require_check) "test_jvm22.exe".
 se clean test_jvm22.e
@@ -1759,6 +2629,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm22.e -o test_jvm22.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm22.e -o test_jvm22.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm22.e -o test_jvm22.exe
+Running (-require_check -bdw_gc) "test_jvm22.exe".
+se clean test_jvm22.e
+Removing (-require_check -bdw_gc) "test_jvm22.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm22.e -o test_jvm22.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm22.e -o test_jvm22.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm22.e -o test_jvm22.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm22.e -o test_jvm22.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm22.e -o test_jvm22.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm22.e -o test_jvm22.exe".
@@ -1789,6 +2671,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm22.e -o test_jvm22.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm22.e -o test_jvm22.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm22.e -o test_jvm22.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm22.e -o test_jvm22.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm22.e -o test_jvm22.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm22.e -o test_jvm22.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm22.e -o test_jvm22.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm22.e -o test_jvm22.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm22.e -o test_jvm22.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm22.e -o test_jvm22.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm22.e -o test_jvm22.exe".
@@ -1807,6 +2703,10 @@ se c -no_split -no_gc -boost test_jvm22.e -o test_jvm22.exe
 Running (-no_split -no_gc -boost) "test_jvm22.exe".
 se clean test_jvm22.e
 Removing (-no_split -no_gc -boost) "test_jvm22.exe".
+se c -no_split -boost -bdw_gc test_jvm22.e -o test_jvm22.exe
+Running (-no_split -boost -bdw_gc) "test_jvm22.exe".
+se clean test_jvm22.e
+Removing (-no_split -boost -bdw_gc) "test_jvm22.exe".
 se c -boost test_jvm23.e -o test_jvm23.exe
 Running (-boost) "test_jvm23.exe".
 se clean test_jvm23.e
@@ -1855,8 +2755,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm23.e -o test_jvm2
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm23.e -o test_jvm23.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm23.e -o test_jvm23.exe
+Running (-boost -bdw_gc) "test_jvm23.exe".
+se clean test_jvm23.e
+Removing (-boost -bdw_gc) "test_jvm23.exe".
+se c -boost -debug -bdw_gc test_jvm23.e -o test_jvm23.exe
+Running (-boost -debug -bdw_gc) "test_jvm23.exe".
+se clean test_jvm23.e
+Removing (-boost -debug -bdw_gc) "test_jvm23.exe".
+se c -no_check -bdw_gc test_jvm23.e -o test_jvm23.exe
+Running (-no_check -bdw_gc) "test_jvm23.exe".
+se clean test_jvm23.e
+Removing (-no_check -bdw_gc) "test_jvm23.exe".
+se c -flat_check -require_check -bdw_gc test_jvm23.e -o test_jvm23.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm23.exe".
+se clean test_jvm23.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm23.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm23.e -o test_jvm23.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm23.e -o test_jvm23.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm23.exe".
+se clean test_jvm23.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm23.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm23.e -o test_jvm23.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm23.exe".
+se clean test_jvm23.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm23.exe".
+se c -flat_check -all_check -bdw_gc test_jvm23.e -o test_jvm23.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm23.exe".
+se clean test_jvm23.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm23.exe".
 Excluded command: "se c -all_check -debug test_jvm23.e -o test_jvm23.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm23.e -o test_jvm23.exe
 Running (-require_check) "test_jvm23.exe".
 se clean test_jvm23.e
@@ -1879,6 +2809,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm23.e -o test_jvm23.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm23.e -o test_jvm23.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm23.e -o test_jvm23.exe
+Running (-require_check -bdw_gc) "test_jvm23.exe".
+se clean test_jvm23.e
+Removing (-require_check -bdw_gc) "test_jvm23.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm23.e -o test_jvm23.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm23.e -o test_jvm23.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm23.e -o test_jvm23.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm23.e -o test_jvm23.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm23.e -o test_jvm23.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm23.e -o test_jvm23.exe".
@@ -1909,6 +2851,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm23.e -o test_jvm23.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm23.e -o test_jvm23.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm23.e -o test_jvm23.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm23.e -o test_jvm23.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm23.e -o test_jvm23.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm23.e -o test_jvm23.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm23.e -o test_jvm23.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm23.e -o test_jvm23.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm23.e -o test_jvm23.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm23.e -o test_jvm23.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm23.e -o test_jvm23.exe".
@@ -1927,6 +2883,10 @@ se c -no_split -no_gc -boost test_jvm23.e -o test_jvm23.exe
 Running (-no_split -no_gc -boost) "test_jvm23.exe".
 se clean test_jvm23.e
 Removing (-no_split -no_gc -boost) "test_jvm23.exe".
+se c -no_split -boost -bdw_gc test_jvm23.e -o test_jvm23.exe
+Running (-no_split -boost -bdw_gc) "test_jvm23.exe".
+se clean test_jvm23.e
+Removing (-no_split -boost -bdw_gc) "test_jvm23.exe".
 se c -boost test_jvm24.e -o test_jvm24.exe
 Running (-boost) "test_jvm24.exe".
 se clean test_jvm24.e
@@ -1975,8 +2935,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm24.e -o test_jvm2
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm24.e -o test_jvm24.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm24.e -o test_jvm24.exe
+Running (-boost -bdw_gc) "test_jvm24.exe".
+se clean test_jvm24.e
+Removing (-boost -bdw_gc) "test_jvm24.exe".
+se c -boost -debug -bdw_gc test_jvm24.e -o test_jvm24.exe
+Running (-boost -debug -bdw_gc) "test_jvm24.exe".
+se clean test_jvm24.e
+Removing (-boost -debug -bdw_gc) "test_jvm24.exe".
+se c -no_check -bdw_gc test_jvm24.e -o test_jvm24.exe
+Running (-no_check -bdw_gc) "test_jvm24.exe".
+se clean test_jvm24.e
+Removing (-no_check -bdw_gc) "test_jvm24.exe".
+se c -flat_check -require_check -bdw_gc test_jvm24.e -o test_jvm24.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm24.exe".
+se clean test_jvm24.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm24.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm24.e -o test_jvm24.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm24.e -o test_jvm24.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm24.exe".
+se clean test_jvm24.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm24.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm24.e -o test_jvm24.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm24.exe".
+se clean test_jvm24.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm24.exe".
+se c -flat_check -all_check -bdw_gc test_jvm24.e -o test_jvm24.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm24.exe".
+se clean test_jvm24.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm24.exe".
 Excluded command: "se c -all_check -debug test_jvm24.e -o test_jvm24.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm24.e -o test_jvm24.exe
 Running (-require_check) "test_jvm24.exe".
 se clean test_jvm24.e
@@ -1999,6 +2989,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm24.e -o test_jvm24.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm24.e -o test_jvm24.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm24.e -o test_jvm24.exe
+Running (-require_check -bdw_gc) "test_jvm24.exe".
+se clean test_jvm24.e
+Removing (-require_check -bdw_gc) "test_jvm24.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm24.e -o test_jvm24.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm24.e -o test_jvm24.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm24.e -o test_jvm24.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm24.e -o test_jvm24.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm24.e -o test_jvm24.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm24.e -o test_jvm24.exe".
@@ -2029,6 +3031,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm24.e -o test_jvm24.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm24.e -o test_jvm24.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm24.e -o test_jvm24.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm24.e -o test_jvm24.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm24.e -o test_jvm24.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm24.e -o test_jvm24.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm24.e -o test_jvm24.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm24.e -o test_jvm24.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm24.e -o test_jvm24.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm24.e -o test_jvm24.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm24.e -o test_jvm24.exe".
@@ -2047,6 +3063,10 @@ se c -no_split -no_gc -boost test_jvm24.e -o test_jvm24.exe
 Running (-no_split -no_gc -boost) "test_jvm24.exe".
 se clean test_jvm24.e
 Removing (-no_split -no_gc -boost) "test_jvm24.exe".
+se c -no_split -boost -bdw_gc test_jvm24.e -o test_jvm24.exe
+Running (-no_split -boost -bdw_gc) "test_jvm24.exe".
+se clean test_jvm24.e
+Removing (-no_split -boost -bdw_gc) "test_jvm24.exe".
 se c -boost test_jvm25.e -o test_jvm25.exe
 Running (-boost) "test_jvm25.exe".
 se clean test_jvm25.e
@@ -2095,8 +3115,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm25.e -o test_jvm2
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm25.e -o test_jvm25.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm25.e -o test_jvm25.exe
+Running (-boost -bdw_gc) "test_jvm25.exe".
+se clean test_jvm25.e
+Removing (-boost -bdw_gc) "test_jvm25.exe".
+se c -boost -debug -bdw_gc test_jvm25.e -o test_jvm25.exe
+Running (-boost -debug -bdw_gc) "test_jvm25.exe".
+se clean test_jvm25.e
+Removing (-boost -debug -bdw_gc) "test_jvm25.exe".
+se c -no_check -bdw_gc test_jvm25.e -o test_jvm25.exe
+Running (-no_check -bdw_gc) "test_jvm25.exe".
+se clean test_jvm25.e
+Removing (-no_check -bdw_gc) "test_jvm25.exe".
+se c -flat_check -require_check -bdw_gc test_jvm25.e -o test_jvm25.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm25.exe".
+se clean test_jvm25.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm25.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm25.e -o test_jvm25.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm25.e -o test_jvm25.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm25.exe".
+se clean test_jvm25.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm25.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm25.e -o test_jvm25.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm25.exe".
+se clean test_jvm25.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm25.exe".
+se c -flat_check -all_check -bdw_gc test_jvm25.e -o test_jvm25.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm25.exe".
+se clean test_jvm25.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm25.exe".
 Excluded command: "se c -all_check -debug test_jvm25.e -o test_jvm25.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm25.e -o test_jvm25.exe
 Running (-require_check) "test_jvm25.exe".
 se clean test_jvm25.e
@@ -2119,6 +3169,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm25.e -o test_jvm25.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm25.e -o test_jvm25.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm25.e -o test_jvm25.exe
+Running (-require_check -bdw_gc) "test_jvm25.exe".
+se clean test_jvm25.e
+Removing (-require_check -bdw_gc) "test_jvm25.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm25.e -o test_jvm25.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm25.e -o test_jvm25.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm25.e -o test_jvm25.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm25.e -o test_jvm25.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm25.e -o test_jvm25.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm25.e -o test_jvm25.exe".
@@ -2149,6 +3211,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm25.e -o test_jvm25.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm25.e -o test_jvm25.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm25.e -o test_jvm25.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm25.e -o test_jvm25.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm25.e -o test_jvm25.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm25.e -o test_jvm25.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm25.e -o test_jvm25.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm25.e -o test_jvm25.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm25.e -o test_jvm25.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm25.e -o test_jvm25.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm25.e -o test_jvm25.exe".
@@ -2167,6 +3243,10 @@ se c -no_split -no_gc -boost test_jvm25.e -o test_jvm25.exe
 Running (-no_split -no_gc -boost) "test_jvm25.exe".
 se clean test_jvm25.e
 Removing (-no_split -no_gc -boost) "test_jvm25.exe".
+se c -no_split -boost -bdw_gc test_jvm25.e -o test_jvm25.exe
+Running (-no_split -boost -bdw_gc) "test_jvm25.exe".
+se clean test_jvm25.e
+Removing (-no_split -boost -bdw_gc) "test_jvm25.exe".
 se c -boost test_jvm26.e -o test_jvm26.exe
 Running (-boost) "test_jvm26.exe".
 se clean test_jvm26.e
@@ -2215,8 +3295,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm26.e -o test_jvm2
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm26.e -o test_jvm26.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm26.e -o test_jvm26.exe
+Running (-boost -bdw_gc) "test_jvm26.exe".
+se clean test_jvm26.e
+Removing (-boost -bdw_gc) "test_jvm26.exe".
+se c -boost -debug -bdw_gc test_jvm26.e -o test_jvm26.exe
+Running (-boost -debug -bdw_gc) "test_jvm26.exe".
+se clean test_jvm26.e
+Removing (-boost -debug -bdw_gc) "test_jvm26.exe".
+se c -no_check -bdw_gc test_jvm26.e -o test_jvm26.exe
+Running (-no_check -bdw_gc) "test_jvm26.exe".
+se clean test_jvm26.e
+Removing (-no_check -bdw_gc) "test_jvm26.exe".
+se c -flat_check -require_check -bdw_gc test_jvm26.e -o test_jvm26.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm26.exe".
+se clean test_jvm26.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm26.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm26.e -o test_jvm26.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm26.e -o test_jvm26.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm26.exe".
+se clean test_jvm26.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm26.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm26.e -o test_jvm26.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm26.exe".
+se clean test_jvm26.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm26.exe".
+se c -flat_check -all_check -bdw_gc test_jvm26.e -o test_jvm26.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm26.exe".
+se clean test_jvm26.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm26.exe".
 Excluded command: "se c -all_check -debug test_jvm26.e -o test_jvm26.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm26.e -o test_jvm26.exe
 Running (-require_check) "test_jvm26.exe".
 se clean test_jvm26.e
@@ -2239,6 +3349,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm26.e -o test_jvm26.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm26.e -o test_jvm26.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm26.e -o test_jvm26.exe
+Running (-require_check -bdw_gc) "test_jvm26.exe".
+se clean test_jvm26.e
+Removing (-require_check -bdw_gc) "test_jvm26.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm26.e -o test_jvm26.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm26.e -o test_jvm26.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm26.e -o test_jvm26.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm26.e -o test_jvm26.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm26.e -o test_jvm26.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm26.e -o test_jvm26.exe".
@@ -2269,6 +3391,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm26.e -o test_jvm26.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm26.e -o test_jvm26.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm26.e -o test_jvm26.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm26.e -o test_jvm26.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm26.e -o test_jvm26.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm26.e -o test_jvm26.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm26.e -o test_jvm26.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm26.e -o test_jvm26.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm26.e -o test_jvm26.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm26.e -o test_jvm26.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm26.e -o test_jvm26.exe".
@@ -2287,6 +3423,10 @@ se c -no_split -no_gc -boost test_jvm26.e -o test_jvm26.exe
 Running (-no_split -no_gc -boost) "test_jvm26.exe".
 se clean test_jvm26.e
 Removing (-no_split -no_gc -boost) "test_jvm26.exe".
+se c -no_split -boost -bdw_gc test_jvm26.e -o test_jvm26.exe
+Running (-no_split -boost -bdw_gc) "test_jvm26.exe".
+se clean test_jvm26.e
+Removing (-no_split -boost -bdw_gc) "test_jvm26.exe".
 se c -boost test_jvm27.e -o test_jvm27.exe
 Running (-boost) "test_jvm27.exe".
 se clean test_jvm27.e
@@ -2335,8 +3475,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm27.e -o test_jvm2
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm27.e -o test_jvm27.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm27.e -o test_jvm27.exe
+Running (-boost -bdw_gc) "test_jvm27.exe".
+se clean test_jvm27.e
+Removing (-boost -bdw_gc) "test_jvm27.exe".
+se c -boost -debug -bdw_gc test_jvm27.e -o test_jvm27.exe
+Running (-boost -debug -bdw_gc) "test_jvm27.exe".
+se clean test_jvm27.e
+Removing (-boost -debug -bdw_gc) "test_jvm27.exe".
+se c -no_check -bdw_gc test_jvm27.e -o test_jvm27.exe
+Running (-no_check -bdw_gc) "test_jvm27.exe".
+se clean test_jvm27.e
+Removing (-no_check -bdw_gc) "test_jvm27.exe".
+se c -flat_check -require_check -bdw_gc test_jvm27.e -o test_jvm27.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm27.exe".
+se clean test_jvm27.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm27.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm27.e -o test_jvm27.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm27.e -o test_jvm27.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm27.exe".
+se clean test_jvm27.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm27.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm27.e -o test_jvm27.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm27.exe".
+se clean test_jvm27.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm27.exe".
+se c -flat_check -all_check -bdw_gc test_jvm27.e -o test_jvm27.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm27.exe".
+se clean test_jvm27.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm27.exe".
 Excluded command: "se c -all_check -debug test_jvm27.e -o test_jvm27.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm27.e -o test_jvm27.exe
 Running (-require_check) "test_jvm27.exe".
 se clean test_jvm27.e
@@ -2359,6 +3529,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm27.e -o test_jvm27.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm27.e -o test_jvm27.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm27.e -o test_jvm27.exe
+Running (-require_check -bdw_gc) "test_jvm27.exe".
+se clean test_jvm27.e
+Removing (-require_check -bdw_gc) "test_jvm27.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm27.e -o test_jvm27.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm27.e -o test_jvm27.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm27.e -o test_jvm27.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm27.e -o test_jvm27.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm27.e -o test_jvm27.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm27.e -o test_jvm27.exe".
@@ -2389,6 +3571,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm27.e -o test_jvm27.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm27.e -o test_jvm27.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm27.e -o test_jvm27.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm27.e -o test_jvm27.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm27.e -o test_jvm27.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm27.e -o test_jvm27.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm27.e -o test_jvm27.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm27.e -o test_jvm27.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm27.e -o test_jvm27.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm27.e -o test_jvm27.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm27.e -o test_jvm27.exe".
@@ -2407,6 +3603,10 @@ se c -no_split -no_gc -boost test_jvm27.e -o test_jvm27.exe
 Running (-no_split -no_gc -boost) "test_jvm27.exe".
 se clean test_jvm27.e
 Removing (-no_split -no_gc -boost) "test_jvm27.exe".
+se c -no_split -boost -bdw_gc test_jvm27.e -o test_jvm27.exe
+Running (-no_split -boost -bdw_gc) "test_jvm27.exe".
+se clean test_jvm27.e
+Removing (-no_split -boost -bdw_gc) "test_jvm27.exe".
 se c -boost test_jvm28.e -o test_jvm28.exe
 Running (-boost) "test_jvm28.exe".
 se clean test_jvm28.e
@@ -2455,8 +3655,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm28.e -o test_jvm2
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm28.e -o test_jvm28.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm28.e -o test_jvm28.exe
+Running (-boost -bdw_gc) "test_jvm28.exe".
+se clean test_jvm28.e
+Removing (-boost -bdw_gc) "test_jvm28.exe".
+se c -boost -debug -bdw_gc test_jvm28.e -o test_jvm28.exe
+Running (-boost -debug -bdw_gc) "test_jvm28.exe".
+se clean test_jvm28.e
+Removing (-boost -debug -bdw_gc) "test_jvm28.exe".
+se c -no_check -bdw_gc test_jvm28.e -o test_jvm28.exe
+Running (-no_check -bdw_gc) "test_jvm28.exe".
+se clean test_jvm28.e
+Removing (-no_check -bdw_gc) "test_jvm28.exe".
+se c -flat_check -require_check -bdw_gc test_jvm28.e -o test_jvm28.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm28.exe".
+se clean test_jvm28.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm28.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm28.e -o test_jvm28.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm28.e -o test_jvm28.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm28.exe".
+se clean test_jvm28.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm28.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm28.e -o test_jvm28.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm28.exe".
+se clean test_jvm28.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm28.exe".
+se c -flat_check -all_check -bdw_gc test_jvm28.e -o test_jvm28.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm28.exe".
+se clean test_jvm28.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm28.exe".
 Excluded command: "se c -all_check -debug test_jvm28.e -o test_jvm28.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm28.e -o test_jvm28.exe
 Running (-require_check) "test_jvm28.exe".
 se clean test_jvm28.e
@@ -2479,6 +3709,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm28.e -o test_jvm28.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm28.e -o test_jvm28.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm28.e -o test_jvm28.exe
+Running (-require_check -bdw_gc) "test_jvm28.exe".
+se clean test_jvm28.e
+Removing (-require_check -bdw_gc) "test_jvm28.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm28.e -o test_jvm28.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm28.e -o test_jvm28.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm28.e -o test_jvm28.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm28.e -o test_jvm28.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm28.e -o test_jvm28.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm28.e -o test_jvm28.exe".
@@ -2509,6 +3751,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm28.e -o test_jvm28.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm28.e -o test_jvm28.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm28.e -o test_jvm28.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm28.e -o test_jvm28.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm28.e -o test_jvm28.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm28.e -o test_jvm28.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm28.e -o test_jvm28.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm28.e -o test_jvm28.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm28.e -o test_jvm28.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm28.e -o test_jvm28.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm28.e -o test_jvm28.exe".
@@ -2527,6 +3783,10 @@ se c -no_split -no_gc -boost test_jvm28.e -o test_jvm28.exe
 Running (-no_split -no_gc -boost) "test_jvm28.exe".
 se clean test_jvm28.e
 Removing (-no_split -no_gc -boost) "test_jvm28.exe".
+se c -no_split -boost -bdw_gc test_jvm28.e -o test_jvm28.exe
+Running (-no_split -boost -bdw_gc) "test_jvm28.exe".
+se clean test_jvm28.e
+Removing (-no_split -boost -bdw_gc) "test_jvm28.exe".
 se c -boost test_jvm29.e -o test_jvm29.exe
 Running (-boost) "test_jvm29.exe".
 se clean test_jvm29.e
@@ -2575,8 +3835,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm29.e -o test_jvm2
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm29.e -o test_jvm29.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm29.e -o test_jvm29.exe
+Running (-boost -bdw_gc) "test_jvm29.exe".
+se clean test_jvm29.e
+Removing (-boost -bdw_gc) "test_jvm29.exe".
+se c -boost -debug -bdw_gc test_jvm29.e -o test_jvm29.exe
+Running (-boost -debug -bdw_gc) "test_jvm29.exe".
+se clean test_jvm29.e
+Removing (-boost -debug -bdw_gc) "test_jvm29.exe".
+se c -no_check -bdw_gc test_jvm29.e -o test_jvm29.exe
+Running (-no_check -bdw_gc) "test_jvm29.exe".
+se clean test_jvm29.e
+Removing (-no_check -bdw_gc) "test_jvm29.exe".
+se c -flat_check -require_check -bdw_gc test_jvm29.e -o test_jvm29.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm29.exe".
+se clean test_jvm29.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm29.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm29.e -o test_jvm29.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm29.e -o test_jvm29.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm29.exe".
+se clean test_jvm29.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm29.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm29.e -o test_jvm29.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm29.exe".
+se clean test_jvm29.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm29.exe".
+se c -flat_check -all_check -bdw_gc test_jvm29.e -o test_jvm29.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm29.exe".
+se clean test_jvm29.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm29.exe".
 Excluded command: "se c -all_check -debug test_jvm29.e -o test_jvm29.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm29.e -o test_jvm29.exe
 Running (-require_check) "test_jvm29.exe".
 se clean test_jvm29.e
@@ -2599,6 +3889,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm29.e -o test_jvm29.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm29.e -o test_jvm29.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm29.e -o test_jvm29.exe
+Running (-require_check -bdw_gc) "test_jvm29.exe".
+se clean test_jvm29.e
+Removing (-require_check -bdw_gc) "test_jvm29.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm29.e -o test_jvm29.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm29.e -o test_jvm29.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm29.e -o test_jvm29.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm29.e -o test_jvm29.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm29.e -o test_jvm29.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm29.e -o test_jvm29.exe".
@@ -2629,6 +3931,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm29.e -o test_jvm29.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm29.e -o test_jvm29.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm29.e -o test_jvm29.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm29.e -o test_jvm29.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm29.e -o test_jvm29.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm29.e -o test_jvm29.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm29.e -o test_jvm29.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm29.e -o test_jvm29.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm29.e -o test_jvm29.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm29.e -o test_jvm29.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm29.e -o test_jvm29.exe".
@@ -2647,6 +3963,10 @@ se c -no_split -no_gc -boost test_jvm29.e -o test_jvm29.exe
 Running (-no_split -no_gc -boost) "test_jvm29.exe".
 se clean test_jvm29.e
 Removing (-no_split -no_gc -boost) "test_jvm29.exe".
+se c -no_split -boost -bdw_gc test_jvm29.e -o test_jvm29.exe
+Running (-no_split -boost -bdw_gc) "test_jvm29.exe".
+se clean test_jvm29.e
+Removing (-no_split -boost -bdw_gc) "test_jvm29.exe".
 se c -boost test_jvm3.e -o test_jvm3.exe
 Running (-boost) "test_jvm3.exe".
 se clean test_jvm3.e
@@ -2695,8 +4015,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm3.e -o test_jvm3.
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm3.e -o test_jvm3.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm3.e -o test_jvm3.exe
+Running (-boost -bdw_gc) "test_jvm3.exe".
+se clean test_jvm3.e
+Removing (-boost -bdw_gc) "test_jvm3.exe".
+se c -boost -debug -bdw_gc test_jvm3.e -o test_jvm3.exe
+Running (-boost -debug -bdw_gc) "test_jvm3.exe".
+se clean test_jvm3.e
+Removing (-boost -debug -bdw_gc) "test_jvm3.exe".
+se c -no_check -bdw_gc test_jvm3.e -o test_jvm3.exe
+Running (-no_check -bdw_gc) "test_jvm3.exe".
+se clean test_jvm3.e
+Removing (-no_check -bdw_gc) "test_jvm3.exe".
+se c -flat_check -require_check -bdw_gc test_jvm3.e -o test_jvm3.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm3.exe".
+se clean test_jvm3.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm3.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm3.e -o test_jvm3.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm3.e -o test_jvm3.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm3.exe".
+se clean test_jvm3.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm3.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm3.e -o test_jvm3.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm3.exe".
+se clean test_jvm3.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm3.exe".
+se c -flat_check -all_check -bdw_gc test_jvm3.e -o test_jvm3.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm3.exe".
+se clean test_jvm3.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm3.exe".
 Excluded command: "se c -all_check -debug test_jvm3.e -o test_jvm3.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm3.e -o test_jvm3.exe
 Running (-require_check) "test_jvm3.exe".
 se clean test_jvm3.e
@@ -2719,6 +4069,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm3.e -o test_jvm3.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm3.e -o test_jvm3.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm3.e -o test_jvm3.exe
+Running (-require_check -bdw_gc) "test_jvm3.exe".
+se clean test_jvm3.e
+Removing (-require_check -bdw_gc) "test_jvm3.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm3.e -o test_jvm3.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm3.e -o test_jvm3.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm3.e -o test_jvm3.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm3.e -o test_jvm3.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm3.e -o test_jvm3.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm3.e -o test_jvm3.exe".
@@ -2749,6 +4111,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm3.e -o test_jvm3.exe
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm3.e -o test_jvm3.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm3.e -o test_jvm3.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm3.e -o test_jvm3.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm3.e -o test_jvm3.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm3.e -o test_jvm3.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm3.e -o test_jvm3.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm3.e -o test_jvm3.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm3.e -o test_jvm3.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm3.e -o test_jvm3.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm3.e -o test_jvm3.exe".
@@ -2767,6 +4143,10 @@ se c -no_split -no_gc -boost test_jvm3.e -o test_jvm3.exe
 Running (-no_split -no_gc -boost) "test_jvm3.exe".
 se clean test_jvm3.e
 Removing (-no_split -no_gc -boost) "test_jvm3.exe".
+se c -no_split -boost -bdw_gc test_jvm3.e -o test_jvm3.exe
+Running (-no_split -boost -bdw_gc) "test_jvm3.exe".
+se clean test_jvm3.e
+Removing (-no_split -boost -bdw_gc) "test_jvm3.exe".
 se c -boost test_jvm30.e -o test_jvm30.exe
 Running (-boost) "test_jvm30.exe".
 se clean test_jvm30.e
@@ -2815,8 +4195,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm30.e -o test_jvm3
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm30.e -o test_jvm30.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm30.e -o test_jvm30.exe
+Running (-boost -bdw_gc) "test_jvm30.exe".
+se clean test_jvm30.e
+Removing (-boost -bdw_gc) "test_jvm30.exe".
+se c -boost -debug -bdw_gc test_jvm30.e -o test_jvm30.exe
+Running (-boost -debug -bdw_gc) "test_jvm30.exe".
+se clean test_jvm30.e
+Removing (-boost -debug -bdw_gc) "test_jvm30.exe".
+se c -no_check -bdw_gc test_jvm30.e -o test_jvm30.exe
+Running (-no_check -bdw_gc) "test_jvm30.exe".
+se clean test_jvm30.e
+Removing (-no_check -bdw_gc) "test_jvm30.exe".
+se c -flat_check -require_check -bdw_gc test_jvm30.e -o test_jvm30.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm30.exe".
+se clean test_jvm30.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm30.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm30.e -o test_jvm30.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm30.e -o test_jvm30.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm30.exe".
+se clean test_jvm30.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm30.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm30.e -o test_jvm30.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm30.exe".
+se clean test_jvm30.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm30.exe".
+se c -flat_check -all_check -bdw_gc test_jvm30.e -o test_jvm30.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm30.exe".
+se clean test_jvm30.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm30.exe".
 Excluded command: "se c -all_check -debug test_jvm30.e -o test_jvm30.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm30.e -o test_jvm30.exe
 Running (-require_check) "test_jvm30.exe".
 se clean test_jvm30.e
@@ -2839,6 +4249,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm30.e -o test_jvm30.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm30.e -o test_jvm30.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm30.e -o test_jvm30.exe
+Running (-require_check -bdw_gc) "test_jvm30.exe".
+se clean test_jvm30.e
+Removing (-require_check -bdw_gc) "test_jvm30.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm30.e -o test_jvm30.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm30.e -o test_jvm30.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm30.e -o test_jvm30.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm30.e -o test_jvm30.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm30.e -o test_jvm30.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm30.e -o test_jvm30.exe".
@@ -2869,6 +4291,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm30.e -o test_jvm30.e
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm30.e -o test_jvm30.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm30.e -o test_jvm30.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm30.e -o test_jvm30.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm30.e -o test_jvm30.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm30.e -o test_jvm30.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm30.e -o test_jvm30.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm30.e -o test_jvm30.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm30.e -o test_jvm30.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm30.e -o test_jvm30.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm30.e -o test_jvm30.exe".
@@ -2887,6 +4323,10 @@ se c -no_split -no_gc -boost test_jvm30.e -o test_jvm30.exe
 Running (-no_split -no_gc -boost) "test_jvm30.exe".
 se clean test_jvm30.e
 Removing (-no_split -no_gc -boost) "test_jvm30.exe".
+se c -no_split -boost -bdw_gc test_jvm30.e -o test_jvm30.exe
+Running (-no_split -boost -bdw_gc) "test_jvm30.exe".
+se clean test_jvm30.e
+Removing (-no_split -boost -bdw_gc) "test_jvm30.exe".
 se c -boost test_jvm4.e -o test_jvm4.exe
 Running (-boost) "test_jvm4.exe".
 se clean test_jvm4.e
@@ -2935,8 +4375,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm4.e -o test_jvm4.
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm4.e -o test_jvm4.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm4.e -o test_jvm4.exe
+Running (-boost -bdw_gc) "test_jvm4.exe".
+se clean test_jvm4.e
+Removing (-boost -bdw_gc) "test_jvm4.exe".
+se c -boost -debug -bdw_gc test_jvm4.e -o test_jvm4.exe
+Running (-boost -debug -bdw_gc) "test_jvm4.exe".
+se clean test_jvm4.e
+Removing (-boost -debug -bdw_gc) "test_jvm4.exe".
+se c -no_check -bdw_gc test_jvm4.e -o test_jvm4.exe
+Running (-no_check -bdw_gc) "test_jvm4.exe".
+se clean test_jvm4.e
+Removing (-no_check -bdw_gc) "test_jvm4.exe".
+se c -flat_check -require_check -bdw_gc test_jvm4.e -o test_jvm4.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm4.exe".
+se clean test_jvm4.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm4.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm4.e -o test_jvm4.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm4.e -o test_jvm4.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm4.exe".
+se clean test_jvm4.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm4.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm4.e -o test_jvm4.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm4.exe".
+se clean test_jvm4.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm4.exe".
+se c -flat_check -all_check -bdw_gc test_jvm4.e -o test_jvm4.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm4.exe".
+se clean test_jvm4.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm4.exe".
 Excluded command: "se c -all_check -debug test_jvm4.e -o test_jvm4.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm4.e -o test_jvm4.exe
 Running (-require_check) "test_jvm4.exe".
 se clean test_jvm4.e
@@ -2959,6 +4429,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm4.e -o test_jvm4.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm4.e -o test_jvm4.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm4.e -o test_jvm4.exe
+Running (-require_check -bdw_gc) "test_jvm4.exe".
+se clean test_jvm4.e
+Removing (-require_check -bdw_gc) "test_jvm4.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm4.e -o test_jvm4.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm4.e -o test_jvm4.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm4.e -o test_jvm4.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm4.e -o test_jvm4.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm4.e -o test_jvm4.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm4.e -o test_jvm4.exe".
@@ -2989,6 +4471,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm4.e -o test_jvm4.exe
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm4.e -o test_jvm4.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm4.e -o test_jvm4.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm4.e -o test_jvm4.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm4.e -o test_jvm4.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm4.e -o test_jvm4.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm4.e -o test_jvm4.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm4.e -o test_jvm4.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm4.e -o test_jvm4.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm4.e -o test_jvm4.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm4.e -o test_jvm4.exe".
@@ -3007,6 +4503,10 @@ se c -no_split -no_gc -boost test_jvm4.e -o test_jvm4.exe
 Running (-no_split -no_gc -boost) "test_jvm4.exe".
 se clean test_jvm4.e
 Removing (-no_split -no_gc -boost) "test_jvm4.exe".
+se c -no_split -boost -bdw_gc test_jvm4.e -o test_jvm4.exe
+Running (-no_split -boost -bdw_gc) "test_jvm4.exe".
+se clean test_jvm4.e
+Removing (-no_split -boost -bdw_gc) "test_jvm4.exe".
 se c -boost test_jvm5.e -o test_jvm5.exe
 Running (-boost) "test_jvm5.exe".
 se clean test_jvm5.e
@@ -3055,8 +4555,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm5.e -o test_jvm5.
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm5.e -o test_jvm5.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm5.e -o test_jvm5.exe
+Running (-boost -bdw_gc) "test_jvm5.exe".
+se clean test_jvm5.e
+Removing (-boost -bdw_gc) "test_jvm5.exe".
+se c -boost -debug -bdw_gc test_jvm5.e -o test_jvm5.exe
+Running (-boost -debug -bdw_gc) "test_jvm5.exe".
+se clean test_jvm5.e
+Removing (-boost -debug -bdw_gc) "test_jvm5.exe".
+se c -no_check -bdw_gc test_jvm5.e -o test_jvm5.exe
+Running (-no_check -bdw_gc) "test_jvm5.exe".
+se clean test_jvm5.e
+Removing (-no_check -bdw_gc) "test_jvm5.exe".
+se c -flat_check -require_check -bdw_gc test_jvm5.e -o test_jvm5.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm5.exe".
+se clean test_jvm5.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm5.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm5.e -o test_jvm5.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm5.e -o test_jvm5.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm5.exe".
+se clean test_jvm5.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm5.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm5.e -o test_jvm5.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm5.exe".
+se clean test_jvm5.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm5.exe".
+se c -flat_check -all_check -bdw_gc test_jvm5.e -o test_jvm5.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm5.exe".
+se clean test_jvm5.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm5.exe".
 Excluded command: "se c -all_check -debug test_jvm5.e -o test_jvm5.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm5.e -o test_jvm5.exe
 Running (-require_check) "test_jvm5.exe".
 se clean test_jvm5.e
@@ -3079,6 +4609,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm5.e -o test_jvm5.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm5.e -o test_jvm5.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm5.e -o test_jvm5.exe
+Running (-require_check -bdw_gc) "test_jvm5.exe".
+se clean test_jvm5.e
+Removing (-require_check -bdw_gc) "test_jvm5.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm5.e -o test_jvm5.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm5.e -o test_jvm5.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm5.e -o test_jvm5.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm5.e -o test_jvm5.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm5.e -o test_jvm5.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm5.e -o test_jvm5.exe".
@@ -3109,6 +4651,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm5.e -o test_jvm5.exe
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm5.e -o test_jvm5.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm5.e -o test_jvm5.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm5.e -o test_jvm5.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm5.e -o test_jvm5.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm5.e -o test_jvm5.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm5.e -o test_jvm5.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm5.e -o test_jvm5.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm5.e -o test_jvm5.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm5.e -o test_jvm5.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm5.e -o test_jvm5.exe".
@@ -3127,6 +4683,10 @@ se c -no_split -no_gc -boost test_jvm5.e -o test_jvm5.exe
 Running (-no_split -no_gc -boost) "test_jvm5.exe".
 se clean test_jvm5.e
 Removing (-no_split -no_gc -boost) "test_jvm5.exe".
+se c -no_split -boost -bdw_gc test_jvm5.e -o test_jvm5.exe
+Running (-no_split -boost -bdw_gc) "test_jvm5.exe".
+se clean test_jvm5.e
+Removing (-no_split -boost -bdw_gc) "test_jvm5.exe".
 se c -boost test_jvm6.e -o test_jvm6.exe
 Running (-boost) "test_jvm6.exe".
 se clean test_jvm6.e
@@ -3175,8 +4735,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm6.e -o test_jvm6.
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm6.e -o test_jvm6.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm6.e -o test_jvm6.exe
+Running (-boost -bdw_gc) "test_jvm6.exe".
+se clean test_jvm6.e
+Removing (-boost -bdw_gc) "test_jvm6.exe".
+se c -boost -debug -bdw_gc test_jvm6.e -o test_jvm6.exe
+Running (-boost -debug -bdw_gc) "test_jvm6.exe".
+se clean test_jvm6.e
+Removing (-boost -debug -bdw_gc) "test_jvm6.exe".
+se c -no_check -bdw_gc test_jvm6.e -o test_jvm6.exe
+Running (-no_check -bdw_gc) "test_jvm6.exe".
+se clean test_jvm6.e
+Removing (-no_check -bdw_gc) "test_jvm6.exe".
+se c -flat_check -require_check -bdw_gc test_jvm6.e -o test_jvm6.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm6.exe".
+se clean test_jvm6.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm6.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm6.e -o test_jvm6.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm6.e -o test_jvm6.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm6.exe".
+se clean test_jvm6.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm6.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm6.e -o test_jvm6.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm6.exe".
+se clean test_jvm6.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm6.exe".
+se c -flat_check -all_check -bdw_gc test_jvm6.e -o test_jvm6.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm6.exe".
+se clean test_jvm6.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm6.exe".
 Excluded command: "se c -all_check -debug test_jvm6.e -o test_jvm6.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm6.e -o test_jvm6.exe
 Running (-require_check) "test_jvm6.exe".
 se clean test_jvm6.e
@@ -3199,6 +4789,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm6.e -o test_jvm6.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm6.e -o test_jvm6.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm6.e -o test_jvm6.exe
+Running (-require_check -bdw_gc) "test_jvm6.exe".
+se clean test_jvm6.e
+Removing (-require_check -bdw_gc) "test_jvm6.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm6.e -o test_jvm6.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm6.e -o test_jvm6.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm6.e -o test_jvm6.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm6.e -o test_jvm6.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm6.e -o test_jvm6.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm6.e -o test_jvm6.exe".
@@ -3229,6 +4831,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm6.e -o test_jvm6.exe
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm6.e -o test_jvm6.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm6.e -o test_jvm6.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm6.e -o test_jvm6.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm6.e -o test_jvm6.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm6.e -o test_jvm6.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm6.e -o test_jvm6.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm6.e -o test_jvm6.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm6.e -o test_jvm6.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm6.e -o test_jvm6.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm6.e -o test_jvm6.exe".
@@ -3247,6 +4863,10 @@ se c -no_split -no_gc -boost test_jvm6.e -o test_jvm6.exe
 Running (-no_split -no_gc -boost) "test_jvm6.exe".
 se clean test_jvm6.e
 Removing (-no_split -no_gc -boost) "test_jvm6.exe".
+se c -no_split -boost -bdw_gc test_jvm6.e -o test_jvm6.exe
+Running (-no_split -boost -bdw_gc) "test_jvm6.exe".
+se clean test_jvm6.e
+Removing (-no_split -boost -bdw_gc) "test_jvm6.exe".
 se c -boost test_jvm7.e -o test_jvm7.exe
 Running (-boost) "test_jvm7.exe".
 se clean test_jvm7.e
@@ -3295,8 +4915,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm7.e -o test_jvm7.
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm7.e -o test_jvm7.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm7.e -o test_jvm7.exe
+Running (-boost -bdw_gc) "test_jvm7.exe".
+se clean test_jvm7.e
+Removing (-boost -bdw_gc) "test_jvm7.exe".
+se c -boost -debug -bdw_gc test_jvm7.e -o test_jvm7.exe
+Running (-boost -debug -bdw_gc) "test_jvm7.exe".
+se clean test_jvm7.e
+Removing (-boost -debug -bdw_gc) "test_jvm7.exe".
+se c -no_check -bdw_gc test_jvm7.e -o test_jvm7.exe
+Running (-no_check -bdw_gc) "test_jvm7.exe".
+se clean test_jvm7.e
+Removing (-no_check -bdw_gc) "test_jvm7.exe".
+se c -flat_check -require_check -bdw_gc test_jvm7.e -o test_jvm7.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm7.exe".
+se clean test_jvm7.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm7.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm7.e -o test_jvm7.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm7.e -o test_jvm7.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm7.exe".
+se clean test_jvm7.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm7.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm7.e -o test_jvm7.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm7.exe".
+se clean test_jvm7.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm7.exe".
+se c -flat_check -all_check -bdw_gc test_jvm7.e -o test_jvm7.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm7.exe".
+se clean test_jvm7.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm7.exe".
 Excluded command: "se c -all_check -debug test_jvm7.e -o test_jvm7.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm7.e -o test_jvm7.exe
 Running (-require_check) "test_jvm7.exe".
 se clean test_jvm7.e
@@ -3319,6 +4969,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm7.e -o test_jvm7.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm7.e -o test_jvm7.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm7.e -o test_jvm7.exe
+Running (-require_check -bdw_gc) "test_jvm7.exe".
+se clean test_jvm7.e
+Removing (-require_check -bdw_gc) "test_jvm7.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm7.e -o test_jvm7.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm7.e -o test_jvm7.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm7.e -o test_jvm7.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm7.e -o test_jvm7.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm7.e -o test_jvm7.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm7.e -o test_jvm7.exe".
@@ -3349,6 +5011,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm7.e -o test_jvm7.exe
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm7.e -o test_jvm7.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm7.e -o test_jvm7.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm7.e -o test_jvm7.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm7.e -o test_jvm7.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm7.e -o test_jvm7.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm7.e -o test_jvm7.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm7.e -o test_jvm7.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm7.e -o test_jvm7.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm7.e -o test_jvm7.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm7.e -o test_jvm7.exe".
@@ -3367,6 +5043,10 @@ se c -no_split -no_gc -boost test_jvm7.e -o test_jvm7.exe
 Running (-no_split -no_gc -boost) "test_jvm7.exe".
 se clean test_jvm7.e
 Removing (-no_split -no_gc -boost) "test_jvm7.exe".
+se c -no_split -boost -bdw_gc test_jvm7.e -o test_jvm7.exe
+Running (-no_split -boost -bdw_gc) "test_jvm7.exe".
+se clean test_jvm7.e
+Removing (-no_split -boost -bdw_gc) "test_jvm7.exe".
 se c -boost test_jvm8.e -o test_jvm8.exe
 Running (-boost) "test_jvm8.exe".
 se clean test_jvm8.e
@@ -3415,8 +5095,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm8.e -o test_jvm8.
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm8.e -o test_jvm8.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm8.e -o test_jvm8.exe
+Running (-boost -bdw_gc) "test_jvm8.exe".
+se clean test_jvm8.e
+Removing (-boost -bdw_gc) "test_jvm8.exe".
+se c -boost -debug -bdw_gc test_jvm8.e -o test_jvm8.exe
+Running (-boost -debug -bdw_gc) "test_jvm8.exe".
+se clean test_jvm8.e
+Removing (-boost -debug -bdw_gc) "test_jvm8.exe".
+se c -no_check -bdw_gc test_jvm8.e -o test_jvm8.exe
+Running (-no_check -bdw_gc) "test_jvm8.exe".
+se clean test_jvm8.e
+Removing (-no_check -bdw_gc) "test_jvm8.exe".
+se c -flat_check -require_check -bdw_gc test_jvm8.e -o test_jvm8.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm8.exe".
+se clean test_jvm8.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm8.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm8.e -o test_jvm8.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm8.e -o test_jvm8.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm8.exe".
+se clean test_jvm8.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm8.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm8.e -o test_jvm8.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm8.exe".
+se clean test_jvm8.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm8.exe".
+se c -flat_check -all_check -bdw_gc test_jvm8.e -o test_jvm8.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm8.exe".
+se clean test_jvm8.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm8.exe".
 Excluded command: "se c -all_check -debug test_jvm8.e -o test_jvm8.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm8.e -o test_jvm8.exe
 Running (-require_check) "test_jvm8.exe".
 se clean test_jvm8.e
@@ -3439,6 +5149,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm8.e -o test_jvm8.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm8.e -o test_jvm8.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm8.e -o test_jvm8.exe
+Running (-require_check -bdw_gc) "test_jvm8.exe".
+se clean test_jvm8.e
+Removing (-require_check -bdw_gc) "test_jvm8.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm8.e -o test_jvm8.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm8.e -o test_jvm8.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm8.e -o test_jvm8.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm8.e -o test_jvm8.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm8.e -o test_jvm8.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm8.e -o test_jvm8.exe".
@@ -3469,6 +5191,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm8.e -o test_jvm8.exe
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm8.e -o test_jvm8.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm8.e -o test_jvm8.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm8.e -o test_jvm8.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm8.e -o test_jvm8.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm8.e -o test_jvm8.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm8.e -o test_jvm8.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm8.e -o test_jvm8.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm8.e -o test_jvm8.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm8.e -o test_jvm8.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm8.e -o test_jvm8.exe".
@@ -3487,6 +5223,10 @@ se c -no_split -no_gc -boost test_jvm8.e -o test_jvm8.exe
 Running (-no_split -no_gc -boost) "test_jvm8.exe".
 se clean test_jvm8.e
 Removing (-no_split -no_gc -boost) "test_jvm8.exe".
+se c -no_split -boost -bdw_gc test_jvm8.e -o test_jvm8.exe
+Running (-no_split -boost -bdw_gc) "test_jvm8.exe".
+se clean test_jvm8.e
+Removing (-no_split -boost -bdw_gc) "test_jvm8.exe".
 se c -boost test_jvm9.e -o test_jvm9.exe
 Running (-boost) "test_jvm9.exe".
 se clean test_jvm9.e
@@ -3535,8 +5275,38 @@ Excluded command: "se c -no_gc -flat_check -loop_check test_jvm9.e -o test_jvm9.
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -flat_check -all_check test_jvm9.e -o test_jvm9.exe".
 By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_jvm9.e -o test_jvm9.exe
+Running (-boost -bdw_gc) "test_jvm9.exe".
+se clean test_jvm9.e
+Removing (-boost -bdw_gc) "test_jvm9.exe".
+se c -boost -debug -bdw_gc test_jvm9.e -o test_jvm9.exe
+Running (-boost -debug -bdw_gc) "test_jvm9.exe".
+se clean test_jvm9.e
+Removing (-boost -debug -bdw_gc) "test_jvm9.exe".
+se c -no_check -bdw_gc test_jvm9.e -o test_jvm9.exe
+Running (-no_check -bdw_gc) "test_jvm9.exe".
+se clean test_jvm9.e
+Removing (-no_check -bdw_gc) "test_jvm9.exe".
+se c -flat_check -require_check -bdw_gc test_jvm9.e -o test_jvm9.exe
+Running (-flat_check -require_check -bdw_gc) "test_jvm9.exe".
+se clean test_jvm9.e
+Removing (-flat_check -require_check -bdw_gc) "test_jvm9.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm9.e -o test_jvm9.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_jvm9.e -o test_jvm9.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_jvm9.exe".
+se clean test_jvm9.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_jvm9.exe".
+se c -flat_check -loop_check -bdw_gc test_jvm9.e -o test_jvm9.exe
+Running (-flat_check -loop_check -bdw_gc) "test_jvm9.exe".
+se clean test_jvm9.e
+Removing (-flat_check -loop_check -bdw_gc) "test_jvm9.exe".
+se c -flat_check -all_check -bdw_gc test_jvm9.e -o test_jvm9.exe
+Running (-flat_check -all_check -bdw_gc) "test_jvm9.exe".
+se clean test_jvm9.e
+Removing (-flat_check -all_check -bdw_gc) "test_jvm9.exe".
 Excluded command: "se c -all_check -debug test_jvm9.e -o test_jvm9.exe".
-By excluded.lst:  "se c -all_check".
+By excluded.lst:  "se c -all_check -debug".
 se c -require_check test_jvm9.e -o test_jvm9.exe
 Running (-require_check) "test_jvm9.exe".
 se clean test_jvm9.e
@@ -3559,6 +5329,18 @@ Excluded command: "se c -no_gc -loop_check test_jvm9.e -o test_jvm9.exe".
 By excluded.lst:  "se c -no_gc".
 Excluded command: "se c -no_gc -all_check test_jvm9.e -o test_jvm9.exe".
 By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_jvm9.e -o test_jvm9.exe
+Running (-require_check -bdw_gc) "test_jvm9.exe".
+se clean test_jvm9.e
+Removing (-require_check -bdw_gc) "test_jvm9.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_jvm9.e -o test_jvm9.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_jvm9.e -o test_jvm9.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_jvm9.e -o test_jvm9.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_jvm9.e -o test_jvm9.exe".
+By excluded.lst:  "se c -all_check".
 Excluded command: "se c -profile -boost test_jvm9.e -o test_jvm9.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -all_check -debug test_jvm9.e -o test_jvm9.exe".
@@ -3589,6 +5371,20 @@ Excluded command: "se c -profile -no_gc -loop_check test_jvm9.e -o test_jvm9.exe
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -no_gc -all_check test_jvm9.e -o test_jvm9.exe".
 By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_jvm9.e -o test_jvm9.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_jvm9.e -o test_jvm9.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_jvm9.e -o test_jvm9.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_jvm9.e -o test_jvm9.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_jvm9.e -o test_jvm9.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_jvm9.e -o test_jvm9.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_jvm9.e -o test_jvm9.exe".
+By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -require_check test_jvm9.e -o test_jvm9.exe".
 By excluded.lst:  "se c -profile".
 Excluded command: "se c -profile -flat_check -ensure_check test_jvm9.e -o test_jvm9.exe".
@@ -3607,6 +5403,10 @@ se c -no_split -no_gc -boost test_jvm9.e -o test_jvm9.exe
 Running (-no_split -no_gc -boost) "test_jvm9.exe".
 se clean test_jvm9.e
 Removing (-no_split -no_gc -boost) "test_jvm9.exe".
+se c -no_split -boost -bdw_gc test_jvm9.e -o test_jvm9.exe
+Running (-no_split -boost -bdw_gc) "test_jvm9.exe".
+se clean test_jvm9.e
+Removing (-no_split -boost -bdw_gc) "test_jvm9.exe".
 --------------------------------------------------------------------------------
 All entries of the "excluded.lst" file are used (good).
 --------------------------------------------------------------------------------
