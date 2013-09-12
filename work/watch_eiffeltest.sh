@@ -11,13 +11,14 @@ case x$1 in
             awk -vcol=$(tput cols) 'BEGIN {printf("[1;34m"); for(i=0;i<col;i++)printf("-"); printf("[m\n")}'
             abnormals=$(
                 {
-                    grep Abnormal $eiffeltest/log.new
-                    test -e $eiffeltest/log && grep 'Error:' $eiffeltest/log
+                    grep Abnormal $eiffeltest/log.new || {
+                        test -e $eiffeltest/log && grep -i 'error' $eiffeltest/log
+                    }
                 } | wc -l
             )
             warns=$(
                 {
-                    test -e $eiffeltest/log && grep 'Warning:' $eiffeltest/log
+                    test -e $eiffeltest/log && grep -i 'warning' $eiffeltest/log
                 } | wc -l
             )
             case $abnormals in
