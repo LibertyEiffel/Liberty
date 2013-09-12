@@ -10,14 +10,14 @@ create {}
 feature {ANY}
    make is
       local
-         a: ANY; b: ARRAY[ANY]
+         a: STORABLE; b: ARRAY[STORABLE]
       do
          a := die(b)
       end
 
-   die (arg: ARRAY[ANY]): ANY is
+   die (arg: ARRAY[STORABLE]): STORABLE is
       do
-         Result := {ARRAY[ANY] 1, << "", arg >> }
+         Result := {ARRAY[STORABLE] 1, << "", arg >> }
       end
 
 end -- class TEST_PD04
