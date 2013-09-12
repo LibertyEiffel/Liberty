@@ -3,7 +3,7 @@
 --
 deferred class AUX_FP1A
 
-feature {ANY}
+feature {}
    make is
       do
          init

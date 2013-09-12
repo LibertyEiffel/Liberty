@@ -6,12 +6,13 @@ class AUX_FP1B
 inherit
    AUX_FP1A
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    b_count: INTEGER
 
+feature {}
    init is
       do
          b_count := b_count + 1

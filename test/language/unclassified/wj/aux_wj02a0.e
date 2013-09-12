@@ -1,9 +1,14 @@
 class AUX_WJ02A0
-creation make
-feature
+
+create {ANY}
+   make
+
+feature {ANY}
    make (s: STRING) is
       do
-    x0 := s;
+         x0 := s
       end
-  x0: STRING;
-end 
+
+   x0: STRING
+
+end -- class AUX_WJ02A0

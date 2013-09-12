@@ -1,119 +1,123 @@
 indexing
-   description: "nodes with two actions, yes and no, and link to parent%
-   % node";
-   status: "See notice at end of class";
-   author: "Ulrich Windl <Ulrich.Windl@rz.uni-regensburg.de>";
-   version: "$Revision$";
-   last_modification: "$Date$"
+   description:
+      "nodes with two actions, yes and no, and link to parent node"
+   status:
+      "See notice at end of class"
+   author:
+      "Ulrich Windl <Ulrich.Windl@rz.uni-regensburg.de>"
+   version:
+      "$Revision$"
+   last_modification:
+      "$Date$"
 deferred class AUX_UW01YES_NO_NODE
 
 inherit
    AUX_UW01ACTION_NODE
-      redefine
-         out
-      end;
+      redefine out
+      end
 
-feature
-   
-   yes : AUX_UW01YES_NO_NODE;   -- yes action
-   no  : AUX_UW01YES_NO_NODE;   -- no action
-   parent  : AUX_UW01YES_NO_NODE;   -- parent
-   description : STRING;   -- description
-   last_answer : BOOLEAN;   -- last answer
-   
-feature -- operations
-   
-   make_simple(desc : STRING) is
+feature {ANY}
+   yes: AUX_UW01YES_NO_NODE -- yes action
+
+   no: AUX_UW01YES_NO_NODE -- no action
+
+   parent: AUX_UW01YES_NO_NODE -- parent
+
+   description: STRING -- description
+
+   last_answer: BOOLEAN -- last answer
+
+feature {ANY} -- operations
+   make_simple (desc: STRING) is
          -- set minimum features of node
       require
          valid_desc: desc /= Void and then desc.count > 0
       do
-         description := desc;
-         !AUX_UW01PREFERRED_LANGUAGE!language
-      end; -- make_simple
-   
-   make_full(y, n, p : AUX_UW01YES_NO_NODE; desc : STRING) is
-         -- initialize node with name `nam', yes link `y', 
+         description := desc
+         create {AUX_UW01PREFERRED_LANGUAGE} language
+      end
+
+   make_full (y, n, p: AUX_UW01YES_NO_NODE; desc: STRING) is
+         -- initialize node with name `nam', yes link `y',
          -- no link `n', and parent `p'
       require
          valid_desc: desc /= Void and then desc.count > 0
       do
-         yes := y;
-         no := n;
-         parent := p;
-         description := desc;
-         !AUX_UW01PREFERRED_LANGUAGE!language
-      end; -- make_full
-   
-   set_yes_node(new_node : AUX_UW01YES_NO_NODE) is
+         yes := y
+         no := n
+         parent := p
+         description := desc
+         create {AUX_UW01PREFERRED_LANGUAGE} language
+      end
+
+   set_yes_node (new_node: AUX_UW01YES_NO_NODE) is
          -- change `yes' to `new_node'
       do
          yes := new_node
-      end; -- set_yes_node
-   
-   set_no_node(new_node : AUX_UW01YES_NO_NODE) is
+      end
+
+   set_no_node (new_node: AUX_UW01YES_NO_NODE) is
          -- change `no' to `new_node'
       do
          no := new_node
-      end; -- set_no_node
-   
-   set_parent_node(new_node : AUX_UW01YES_NO_NODE) is
+      end
+
+   set_parent_node (new_node: AUX_UW01YES_NO_NODE) is
          -- change `parent' to `new_node'
       do
          parent := new_node
-      end; -- set_parent_node
-   
+      end
+
    yes_action is
          -- perform "yes" action
       require
          valid_choice: yes /= Void
       do
-         yes.execute;
-      end; -- yes_action
+         yes.execute
+      end
 
    no_action is
          -- perform "no" action
       require
          valid_choice: no /= Void
       do
-         no.execute;
-      end; -- no_action
-   
+         no.execute
+      end
+
    read_answer is
          -- Ask yes/no question and set `last_answer'
       deferred
-      end; -- read_answer
-   
-   decision : AUX_UW01YES_NO_NODE is
+      end
+
+   decision: AUX_UW01YES_NO_NODE is
          -- decide which action to take
       do
          if last_answer then
-            Result := yes;
+            Result := yes
             if yes /= Void then
                yes_action
             end
          else
-            Result := no;
+            Result := no
             if no /= Void then
                no_action
             end
-         end;
-      end; -- decision
+         end
+      end
 
-feature -- I/O
-   
-   out : STRING is
+feature {ANY} -- I/O
+   out: STRING is
          -- printable representation
       do
          Result := description.out
-      end; -- out
-      
-invariant
-   valid_description: description /= Void and then description.count > 0;
-   --consistent_yes: yes /= Void implies yes.parent = Current;
-   --consistent_no: no /= Void implies no.parent = Current
+      end
 
-end -- AUX_UW01YES_NO_NODE
+invariant
+   valid_description: description /= Void and then description.count > 0
+      --consistent_yes: yes /= Void implies yes.parent = Current;
+      --consistent_no: no /= Void implies no.parent = Current
+
+end -- class AUX_UW01YES_NO_NODE
 -- Copyright (c) 1998 by Ulrich Windl
 -- Copyright (c) 1998 by Klinikum der Universität Regensburg,
 --      D-93042 Regensburg

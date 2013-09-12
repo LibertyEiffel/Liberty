@@ -1,6 +1,9 @@
 class AUX_WJ01A0
-creation make
-feature
+
+create {ANY}
+   make
+
+feature {ANY}
    make (s: STRING) is
       do
          x0 := s
@@ -8,5 +11,7 @@ feature
             x0 := s.twin
          end
       end
-  x0: STRING;
-end 
+
+   x0: STRING
+
+end -- class AUX_WJ01A0

@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    make is
       local
-         a: ARRAY[ANY]
+         a: ARRAY[ABSTRACT_STRING]
       do
          a := {ARRAY[STRING] 1, << "foo" >> }
          assert(a.upper = 1)
