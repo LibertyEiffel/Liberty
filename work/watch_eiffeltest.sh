@@ -9,10 +9,30 @@ case x$1 in
         } |
         while read eiffeltest; do
             awk -vcol=$(tput cols) 'BEGIN {printf("[1;34m"); for(i=0;i<col;i++)printf("-"); printf("[m\n")}'
-            abnormals=$(grep Abnormal $eiffeltest/log.new | wc -l)
+            abnormals=$(
+                {
+                    grep Abnormal $eiffeltest/log.new
+                    test -e $eiffeltest/log && grep 'Error:' $eiffeltest/log
+                } | wc -l
+            )
+            warns=$(
+                {
+                    test -e $eiffeltest/log && grep 'Warning:' $eiffeltest/log
+                } | wc -l
+            )
             case $abnormals in
                 0)
-                    echo '[1;32m'$eiffeltest'[m'
+                    case $warns in
+                        0)
+                            echo '[1;32m'$eiffeltest'[m'
+                            ;;
+                        1)
+                            echo '[1;35m'$eiffeltest' -- 1 warning[m'
+                            ;;
+                        *)
+                            echo '[1;35m'$eiffeltest' -- '$warns' warnings[m'
+                            ;;
+                    esac
                     ;;
                 1)
                     echo '[1;31m'$eiffeltest' -- 1 anomaly[m'
