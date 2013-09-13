@@ -5,7 +5,7 @@ creation make
 feature {}
    make is
       do
-		  if argument_count
+			--  if argument_count
       end
 
 end
