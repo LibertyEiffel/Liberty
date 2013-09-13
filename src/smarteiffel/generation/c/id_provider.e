@@ -114,7 +114,6 @@ feature {PARSER, CLASS_TEXT, LIVE_TYPE, C_PRETTY_PRINTER}
       require
          hashed_string /= Void
          cluster /= Void
-         is_aliased: hashed_string = string_aliaser.hashed_string(hashed_string)
       local
          ids: like id_memory
       do
@@ -145,7 +144,6 @@ feature {EIFFEL_PARSER}
          -- it is chosen high.
       require
          hashed_string /= Void
-         is_aliased: hashed_string = string_aliaser.hashed_string(hashed_string)
       do
          if id_memory.fast_has(hashed_string) then
             Result := id_memory.fast_at(hashed_string)
