@@ -43,6 +43,13 @@ feature {ANY} -- Explicit conversions:
          Result.to_natural_32 = Current
       end
 
+   to_naturel_32: NATURAL_32 is
+	   	-- Dummy, no-op convertion, useful to achieve 32-64 bit portability
+      do
+		  Result:=Current
+	  end
+
+		  
    to_natural_64: NATURAL_64 is
          -- Explicit conversion to NATURAL_64.
       external "built_in"

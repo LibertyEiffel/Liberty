@@ -1,6 +1,5 @@
 indexing
-   description:
-      "Wrapper for a generic C structure"
+   description: "Wrapper for a generic C structure"
    copyright:
       "[
                (C) 2005,2008 Paolo Redaelli, Raphael Mack <mail@raphael-mack.de>
@@ -19,8 +18,8 @@ indexing
                Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
                02110-1301 USA
          ]"
-   license:
-      "LGPL v2 or later"
+   license: "LGPL v2 or later"
+
 deferred class C_STRUCT
    -- Wrapper for a data structure implemented in C programming language.
 

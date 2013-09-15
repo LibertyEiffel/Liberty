@@ -20,6 +20,7 @@ indexing
                Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
                02110-1301 USA
          ]"
+
 deferred class WRAPPER
    -- Deferred class handling low-level C interfaces. Its heirs will fully
    -- expose each other their internals.
