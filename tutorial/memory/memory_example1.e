@@ -1,4 +1,4 @@
-class EXAMPLE1
+class MEMORY_EXAMPLE1
 	--
 	-- Here is a little cookbook for people using very small computers.
 	-- We suppose here that the goal is to save memory.
@@ -17,10 +17,10 @@ insert
 	MEMORY
 
 creation {ANY}
-	my_main
+	main
 
 feature {ANY}
-	my_main is
+	main is
 		local
 			long_loop: INTEGER; foo: STRING
 		do
@@ -50,4 +50,4 @@ feature {ANY}
 			io.put_new_line
 		end
 
-end -- class EXAMPLE1
+end -- class MEMORY_EXAMPLE1
