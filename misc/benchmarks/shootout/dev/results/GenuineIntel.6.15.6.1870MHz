@@ -1,0 +1,64 @@
+hostname	: kamas
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 15
+model name	: Intel(R) Core(TM)2 CPU          6300  @ 1.86GHz
+stepping	: 6
+cpu MHz		: 1866.886
+cache size	: 2048 KB
+physical id	: 0
+siblings	: 2
+core id		: 0
+cpu cores	: 2
+fdiv_bug	: no
+hlt_bug		: no
+f00f_bug	: no
+coma_bug	: no
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 10
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe nx lm constant_tsc pni monitor ds_cpl vmx est tm2 cx16 xtpr lahf_lm
+bogomips	: 3736.51
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 15
+model name	: Intel(R) Core(TM)2 CPU          6300  @ 1.86GHz
+stepping	: 6
+cpu MHz		: 1866.886
+cache size	: 2048 KB
+physical id	: 0
+siblings	: 2
+core id		: 1
+cpu cores	: 2
+fdiv_bug	: no
+hlt_bug		: no
+f00f_bug	: no
+coma_bug	: no
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 10
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe nx lm constant_tsc pni monitor ds_cpl vmx est tm2 cx16 xtpr lahf_lm
+bogomips	: 3733.74
+
+binary-trees (SE=9098, gcc=4.1.2 20061115): 1.53
+fannkuch (SE=9098, gcc=4.1.2 20061115): 5.46
+fasta (SE=9098, gcc=4.1.2 20061115): 11.15
+k-nucleotide (SE=9098, gcc=4.1.2 20061115): 6.94
+mandelbrot (SE=9098, gcc=4.1.2 20061115): 1.74
+n-body (SE=9098, gcc=4.1.2 20061115): 16.08
+nsieve (SE=9098, gcc=4.1.2 20061115): 0.3
+nsieve-bits (SE=9098, gcc=4.1.2 20061115): 0.94
+partial-sums (SE=9098, gcc=4.1.2 20061115): 1.78
+pidigits (SE=9098, gcc=4.1.2 20061115): 2.22
+recursive (SE=9098, gcc=4.1.2 20061115): 1.83
+regex-dna (SE=9098, gcc=4.1.2 20061115): 11.95
+reverse-complement (SE=9098, gcc=4.1.2 20061115): 1.43
+spectral-norm (SE=9098, gcc=4.1.2 20061115): 23.99
+startup (SE=9098, gcc=4.1.2 20061115): 0.09
+sum-col (SE=9098, gcc=4.1.2 20061115): 4.91
+thread-ring (SE=9098, gcc=4.1.2 20061115): 0.04

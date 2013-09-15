@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+
+$min_time = 999999.9;
+
+while (<>) {
+    if ( /([0-9]+:)?([0-9.]+)user.*?([0-9]+:)?([0-9.]+)system/ ) {
+	$t = $1 * 60 + $2 + $3 * 60 + $4;
+	if ($t < $min_time) {
+	    $min_time = $t;
+	}
+    }
+}
+
+print "$min_time\n";

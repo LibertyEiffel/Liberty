@@ -1,0 +1,185 @@
+hostname	: askil
+processor	: 0
+vendor_id	: AuthenticAMD
+cpu family	: 15
+model		: 67
+model name	: AMD Athlon(tm) 64 X2 Dual Core Processor 5200+
+stepping	: 2
+cpu MHz		: 2611.912
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 2
+core id		: 0
+cpu cores	: 2
+fdiv_bug	: no
+hlt_bug		: no
+f00f_bug	: no
+coma_bug	: no
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 1
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt lm 3dnowext 3dnow pni cx16 lahf_lm cmp_legacy svm cr8legacy ts fid vid ttp tm stc
+bogomips	: 5227.84
+
+processor	: 1
+vendor_id	: AuthenticAMD
+cpu family	: 15
+model		: 67
+model name	: AMD Athlon(tm) 64 X2 Dual Core Processor 5200+
+stepping	: 2
+cpu MHz		: 2611.912
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 2
+core id		: 1
+cpu cores	: 2
+fdiv_bug	: no
+hlt_bug		: no
+f00f_bug	: no
+coma_bug	: no
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 1
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt lm 3dnowext 3dnow pni cx16 lahf_lm cmp_legacy svm cr8legacy ts fid vid ttp tm stc
+bogomips	: 5223.86
+
+binary-trees (gcc=4.1.2 20061115): 1.75
+fannkuch (gcc=4.1.2 20061115): 3.53
+fasta (gcc=4.1.2 20061115): 5.74
+k-nucleotide (gcc=4.1.2 20061115): 3.05
+mandelbrot (gcc=4.1.2 20061115): 1.1
+n-body (gcc=4.1.2 20061115): 7.6
+nsieve (gcc=4.1.2 20061115): 0.31
+nsieve-bits (gcc=4.1.2 20061115): 0.78
+partial-sums (gcc=4.1.2 20061115): 1.1
+pidigits (gcc=4.1.2 20061115): 0.26
+recursive (gcc=4.1.2 20061115): 1.34
+regex-dna (gcc=4.1.2 20061115): 3.86
+reverse-complement (gcc=4.1.2 20061115): 0.23
+spectral-norm (gcc=4.1.2 20061115): 10.34
+startup (gcc=4.1.2 20061115): 0.03
+sum-col (gcc=4.1.2 20061115): 2.35
+thread-ring (gcc=4.1.2 20061115): 19.01
+binary-trees (g++=4.1.2 20061115): 2.28
+fannkuch (g++=4.1.2 20061115): 5.07
+fasta (g++=4.1.2 20061115): 5.52
+k-nucleotide (g++=4.1.2 20061115): 2.64
+mandelbrot (g++=4.1.2 20061115): 1.28
+meteor-contest (g++=4.1.2 20061115): 0.07
+n-body (g++=4.1.2 20061115): 6.93
+nsieve (g++=4.1.2 20061115): 0.31
+nsieve-bits (g++=4.1.2 20061115): 0.77
+partial-sums (g++=4.1.2 20061115): 1.09
+pidigits (g++=4.1.2 20061115): 0.27
+recursive (g++=4.1.2 20061115): 1.45
+regex-dna (g++=4.1.2 20061115): 3.78
+reverse-complement (g++=4.1.2 20061115): 0.22
+spectral-norm (g++=4.1.2 20061115): 8.34
+startup (g++=4.1.2 20061115): 0.23
+sum-col (g++=4.1.2 20061115): 3.45
+binary-trees (SE=2.3, gcc=4.1.2 20061115): 1.14
+fannkuch (SE=2.3, gcc=4.1.2 20061115): 5.32
+fasta (SE=2.3, gcc=4.1.2 20061115): 7.2
+k-nucleotide (SE=2.3, gcc=4.1.2 20061115): 7.93
+mandelbrot (SE=2.3, gcc=4.1.2 20061115): 1.5
+n-body (SE=2.3, gcc=4.1.2 20061115): 7.96
+nsieve (SE=2.3, gcc=4.1.2 20061115): 0.33
+nsieve-bits (SE=2.3, gcc=4.1.2 20061115): 0.94
+partial-sums (SE=2.3, gcc=4.1.2 20061115): 1.07
+pidigits (SE=2.3, gcc=4.1.2 20061115): 2.08
+recursive (SE=2.3, gcc=4.1.2 20061115): 1.46
+regex-dna (SE=2.3, gcc=4.1.2 20061115): 12.08
+reverse-complement (SE=2.3, gcc=4.1.2 20061115): 1.46
+spectral-norm (SE=2.3, gcc=4.1.2 20061115): 10.08
+startup (SE=2.3, gcc=4.1.2 20061115): 0.07
+sum-col (SE=2.3, gcc=4.1.2 20061115): 5.25
+binary-trees (SE=9098, gcc=4.1.2 20061115): 1.29
+fannkuch (SE=9098, gcc=4.1.2 20061115): 4.98
+fasta (SE=9098, gcc=4.1.2 20061115): 7.15
+k-nucleotide (SE=9098, gcc=4.1.2 20061115): 7.73
+mandelbrot (SE=9098, gcc=4.1.2 20061115): 1.5
+n-body (SE=9098, gcc=4.1.2 20061115): 7.96
+nsieve (SE=9098, gcc=4.1.2 20061115): 0.33
+nsieve-bits (SE=9098, gcc=4.1.2 20061115): 0.94
+partial-sums (SE=9098, gcc=4.1.2 20061115): 1.08
+pidigits (SE=9098, gcc=4.1.2 20061115): 2.05
+recursive (SE=9098, gcc=4.1.2 20061115): 1.39
+regex-dna (SE=9098, gcc=4.1.2 20061115): 14.1
+reverse-complement (SE=9098, gcc=4.1.2 20061115): 1.77
+spectral-norm (SE=9098, gcc=4.1.2 20061115): 10.02
+startup (SE=9098, gcc=4.1.2 20061115): 0.07
+sum-col (SE=9098, gcc=4.1.2 20061115): 5.8
+binary-trees (SE=2.2, gcc=4.1.2 20061115): 1.15
+fannkuch (SE=2.2, gcc=4.1.2 20061115): 5.31
+fasta (SE=2.2, gcc=4.1.2 20061115): 7.18
+k-nucleotide (SE=2.2, gcc=4.1.2 20061115): 4.99
+mandelbrot (SE=2.2, gcc=4.1.2 20061115): 1.5
+n-body (SE=2.2, gcc=4.1.2 20061115): 7.67
+nsieve (SE=2.2, gcc=4.1.2 20061115): 0.34
+nsieve-bits (SE=2.2, gcc=4.1.2 20061115): 0.94
+partial-sums (SE=2.2, gcc=4.1.2 20061115): 1.08
+pidigits (SE=2.2, gcc=4.1.2 20061115): 2.1
+recursive (SE=2.2, gcc=4.1.2 20061115): 1.38
+reverse-complement (SE=2.2, gcc=4.1.2 20061115): 1.34
+spectral-norm (SE=2.2, gcc=4.1.2 20061115): 10.02
+startup (SE=2.2, gcc=4.1.2 20061115): 0.08
+sum-col (SE=2.2, gcc=4.1.2 20061115): 4.65
+binary-trees (SE=2.1, gcc=4.1.2 20061115): 1.11
+fannkuch (SE=2.1, gcc=4.1.2 20061115): 5.6
+fasta (SE=2.1, gcc=4.1.2 20061115): 7.28
+k-nucleotide (SE=2.1, gcc=4.1.2 20061115): 5.04
+mandelbrot (SE=2.1, gcc=4.1.2 20061115): 1.46
+n-body (SE=2.1, gcc=4.1.2 20061115): 7.77
+nsieve (SE=2.1, gcc=4.1.2 20061115): 0.34
+nsieve-bits (SE=2.1, gcc=4.1.2 20061115): 0.94
+partial-sums (SE=2.1, gcc=4.1.2 20061115): 1.08
+pidigits (SE=2.1, gcc=4.1.2 20061115): 2.12
+recursive (SE=2.1, gcc=4.1.2 20061115): 1.43
+reverse-complement (SE=2.1, gcc=4.1.2 20061115): 1.22
+spectral-norm (SE=2.1, gcc=4.1.2 20061115): 10.02
+startup (SE=2.1, gcc=4.1.2 20061115): 0.08
+sum-col (SE=2.1, gcc=4.1.2 20061115): 3.95
+binary-trees (SE=2.0, gcc=4.1.2 20061115): 1.12
+fannkuch (SE=2.0, gcc=4.1.2 20061115): 5.44
+fasta (SE=2.0, gcc=4.1.2 20061115): 7.11
+k-nucleotide (SE=2.0, gcc=4.1.2 20061115): 4.95
+mandelbrot (SE=2.0, gcc=4.1.2 20061115): 1.5
+n-body (SE=2.0, gcc=4.1.2 20061115): 7.68
+nsieve (SE=2.0, gcc=4.1.2 20061115): 0.34
+nsieve-bits (SE=2.0, gcc=4.1.2 20061115): 0.94
+partial-sums (SE=2.0, gcc=4.1.2 20061115): 1.08
+pidigits (SE=2.0, gcc=4.1.2 20061115): 2.08
+recursive (SE=2.0, gcc=4.1.2 20061115): 1.78
+reverse-complement (SE=2.0, gcc=4.1.2 20061115): 1.65
+spectral-norm (SE=2.0, gcc=4.1.2 20061115): 10.08
+startup (SE=2.0, gcc=4.1.2 20061115): 0.07
+sum-col (SE=2.0, gcc=4.1.2 20061115): 4.29
+binary-trees (SE=1.1, gcc=4.1.2 20061115): 1.18
+fannkuch (SE=1.1, gcc=4.1.2 20061115): 5.17
+fasta (SE=1.1, gcc=4.1.2 20061115): 6.71
+k-nucleotide (SE=1.1, gcc=4.1.2 20061115): 4.07
+mandelbrot (SE=1.1, gcc=4.1.2 20061115): 1.52
+n-body (SE=1.1, gcc=4.1.2 20061115): 7.84
+nsieve (SE=1.1, gcc=4.1.2 20061115): 0.34
+nsieve-bits (SE=1.1, gcc=4.1.2 20061115): 0.95
+partial-sums (SE=1.1, gcc=4.1.2 20061115): 1.07
+recursive (SE=1.1, gcc=4.1.2 20061115): 1.44
+reverse-complement (SE=1.1, gcc=4.1.2 20061115): 0.46
+spectral-norm (SE=1.1, gcc=4.1.2 20061115): 10.02
+startup (SE=1.1, gcc=4.1.2 20061115): 0.07
+sum-col (SE=1.1, gcc=4.1.2 20061115): 1.17
+binary-trees (SE=1.0, gcc=4.1.2 20061115): 1.12
+fannkuch (SE=1.0, gcc=4.1.2 20061115): 5.46
+fasta (SE=1.0, gcc=4.1.2 20061115): 6.78
+k-nucleotide (SE=1.0, gcc=4.1.2 20061115): 4.07
+n-body (SE=1.0, gcc=4.1.2 20061115): 7.69
+nsieve (SE=1.0, gcc=4.1.2 20061115): 0.34
+nsieve-bits (SE=1.0, gcc=4.1.2 20061115): 1.07
+partial-sums (SE=1.0, gcc=4.1.2 20061115): 1.07
+recursive (SE=1.0, gcc=4.1.2 20061115): 1.44
+reverse-complement (SE=1.0, gcc=4.1.2 20061115): 0.48
+spectral-norm (SE=1.0, gcc=4.1.2 20061115): 10.02
+startup (SE=1.0, gcc=4.1.2 20061115): 0.08
+sum-col (SE=1.0, gcc=4.1.2 20061115): 1.19

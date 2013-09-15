@@ -1,0 +1,44 @@
+These values are eiffel time / best implementation time.
+Timings come from the shootout benchmark site, on May 11th 2008.
+SmartEiffel reference release is 2.3.
+
+Ideal value is 1.0, higher is worse.
+
+binary-trees:1.284
+chameneos: no program, to be implemented!
+fannkuch:1.364
+fasta:1.241
+k-nucleotide:9.377
+mandelbrot:1.154
+meteor-contest: no program and ignored with default weights
+n-body:1.014
+nsieve:1.004
+nsieve-bits:1.634
+partial-sums:1.726
+pidigits:2.177
+recursive:1.095
+regex-dna:7.293
+reverse-complement:4.722
+spectral-norm:1.125
+startup:2.083 -- ignored with default weights
+sum-col:2.335
+thread-ring: no program
+
+
+Points to have a look at:
+- binary-trees: SmartEiffel 2.2 was better
+- fannkuch: why does gcc have so good results on AMD processor?
+- fasta: SmartEiffel 1.1 was better
+- k-nucleotide: SmartEiffel 1.x was better.
+- mandelbrot: SmartEiffel 2.1 was better
+- n-body: SmartEiffel 2.2 was better
+- nsieve-bits: SmartEiffel 2.3 was better
+- regex-dna: SmartEiffel 2.3 was better on AMD processor
+- reverse-complement: SmartEiffel 1.x was better
+- sum-col: SmartEiffel 1.1 was better
+
+64 bits relative comments:
+- binary-trees: SmartEiffel 2.1 was better, big cache penality? gcc 4.2 does help svn SmartEiffel.
+- fannkuch: SmartEiffel 1.1 was better, gcc 4.2 is worse than 4.1 with svn SmartEiffel
+- nsieve: big cache penality?
+
