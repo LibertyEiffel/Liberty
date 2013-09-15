@@ -9,45 +9,45 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := (a_value & (gi_field_is_readable_low_level | 
-				gi_field_is_writable_low_level)).to_boolean
+            Result := (a_value & (readable_low_level | 
+				writable_low_level)).to_boolean
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_gi_field_is_readable is
+	set_readable is
 		do
-			value := value.bit_or(gi_field_is_readable_low_level)
+			value := value.bit_or(readable_low_level)
 		end
 
-	unset_gi_field_is_readable is
+	unset_readable is
 		do
-			value := value.bit_xor(gi_field_is_readable_low_level)
+			value := value.bit_xor(readable_low_level)
 		end
 
-	set_gi_field_is_writable is
+	set_writable is
 		do
-			value := value.bit_or(gi_field_is_writable_low_level)
+			value := value.bit_or(writable_low_level)
 		end
 
-	unset_gi_field_is_writable is
+	unset_writable is
 		do
-			value := value.bit_xor(gi_field_is_writable_low_level)
+			value := value.bit_xor(writable_low_level)
 		end
 
 feature {ANY} -- Queries
-	is_gi_field_is_readable: BOOLEAN is
+	is_readable: BOOLEAN is
 		do
-			Result := (value=gi_field_is_readable_low_level)
+			Result := (value=readable_low_level)
 		end
 
-	is_gi_field_is_writable: BOOLEAN is
+	is_writable: BOOLEAN is
 		do
-			Result := (value=gi_field_is_writable_low_level)
+			Result := (value=writable_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	gi_field_is_readable_low_level: INTEGER is
+	readable_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -56,7 +56,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_field_is_writable_low_level: INTEGER is
+	writable_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

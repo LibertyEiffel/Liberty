@@ -9,46 +9,46 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_invoke_error_argument_mismatch_low_level)  or else
-				(a_value = g_invoke_error_failed_low_level)  or else
-				(a_value = g_invoke_error_symbol_not_found_low_level) )
+            Result := ((a_value = argument_mismatch_low_level)  or else
+				(a_value = failed_low_level)  or else
+				(a_value = symbol_not_found_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_invoke_error_argument_mismatch is
+	set_argument_mismatch is
 		do
-			value := g_invoke_error_argument_mismatch_low_level
+			value := argument_mismatch_low_level
 		end
 
-	set_g_invoke_error_failed is
+	set_failed is
 		do
-			value := g_invoke_error_failed_low_level
+			value := failed_low_level
 		end
 
-	set_g_invoke_error_symbol_not_found is
+	set_symbol_not_found is
 		do
-			value := g_invoke_error_symbol_not_found_low_level
+			value := symbol_not_found_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_invoke_error_argument_mismatch: BOOLEAN is
+	is_argument_mismatch: BOOLEAN is
 		do
-			Result := (value=g_invoke_error_argument_mismatch_low_level)
+			Result := (value=argument_mismatch_low_level)
 		end
 
-	is_g_invoke_error_failed: BOOLEAN is
+	is_failed: BOOLEAN is
 		do
-			Result := (value=g_invoke_error_failed_low_level)
+			Result := (value=failed_low_level)
 		end
 
-	is_g_invoke_error_symbol_not_found: BOOLEAN is
+	is_symbol_not_found: BOOLEAN is
 		do
-			Result := (value=g_invoke_error_symbol_not_found_low_level)
+			Result := (value=symbol_not_found_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_invoke_error_argument_mismatch_low_level: INTEGER is
+	argument_mismatch_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_invoke_error_failed_low_level: INTEGER is
+	failed_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_invoke_error_symbol_not_found_low_level: INTEGER is
+	symbol_not_found_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

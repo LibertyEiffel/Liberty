@@ -9,101 +9,101 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_bookmark_file_error_app_not_registered_low_level)  or else
-				(a_value = g_bookmark_file_error_file_not_found_low_level)  or else
-				(a_value = g_bookmark_file_error_invalid_uri_low_level)  or else
-				(a_value = g_bookmark_file_error_invalid_value_low_level)  or else
-				(a_value = g_bookmark_file_error_read_low_level)  or else
-				(a_value = g_bookmark_file_error_unknown_encoding_low_level)  or else
-				(a_value = g_bookmark_file_error_uri_not_found_low_level)  or else
-				(a_value = g_bookmark_file_error_write_low_level) )
+            Result := ((a_value = app_not_registered_low_level)  or else
+				(a_value = file_not_found_low_level)  or else
+				(a_value = invalid_uri_low_level)  or else
+				(a_value = invalid_value_low_level)  or else
+				(a_value = read_low_level)  or else
+				(a_value = unknown_encoding_low_level)  or else
+				(a_value = uri_not_found_low_level)  or else
+				(a_value = write_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_bookmark_file_error_app_not_registered is
+	set_app_not_registered is
 		do
-			value := g_bookmark_file_error_app_not_registered_low_level
+			value := app_not_registered_low_level
 		end
 
-	set_g_bookmark_file_error_file_not_found is
+	set_file_not_found is
 		do
-			value := g_bookmark_file_error_file_not_found_low_level
+			value := file_not_found_low_level
 		end
 
-	set_g_bookmark_file_error_invalid_uri is
+	set_invalid_uri is
 		do
-			value := g_bookmark_file_error_invalid_uri_low_level
+			value := invalid_uri_low_level
 		end
 
-	set_g_bookmark_file_error_invalid_value is
+	set_invalid_value is
 		do
-			value := g_bookmark_file_error_invalid_value_low_level
+			value := invalid_value_low_level
 		end
 
-	set_g_bookmark_file_error_read is
+	set_read is
 		do
-			value := g_bookmark_file_error_read_low_level
+			value := read_low_level
 		end
 
-	set_g_bookmark_file_error_unknown_encoding is
+	set_unknown_encoding is
 		do
-			value := g_bookmark_file_error_unknown_encoding_low_level
+			value := unknown_encoding_low_level
 		end
 
-	set_g_bookmark_file_error_uri_not_found is
+	set_uri_not_found is
 		do
-			value := g_bookmark_file_error_uri_not_found_low_level
+			value := uri_not_found_low_level
 		end
 
-	set_g_bookmark_file_error_write is
+	set_write is
 		do
-			value := g_bookmark_file_error_write_low_level
+			value := write_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_bookmark_file_error_app_not_registered: BOOLEAN is
+	is_app_not_registered: BOOLEAN is
 		do
-			Result := (value=g_bookmark_file_error_app_not_registered_low_level)
+			Result := (value=app_not_registered_low_level)
 		end
 
-	is_g_bookmark_file_error_file_not_found: BOOLEAN is
+	is_file_not_found: BOOLEAN is
 		do
-			Result := (value=g_bookmark_file_error_file_not_found_low_level)
+			Result := (value=file_not_found_low_level)
 		end
 
-	is_g_bookmark_file_error_invalid_uri: BOOLEAN is
+	is_invalid_uri: BOOLEAN is
 		do
-			Result := (value=g_bookmark_file_error_invalid_uri_low_level)
+			Result := (value=invalid_uri_low_level)
 		end
 
-	is_g_bookmark_file_error_invalid_value: BOOLEAN is
+	is_invalid_value: BOOLEAN is
 		do
-			Result := (value=g_bookmark_file_error_invalid_value_low_level)
+			Result := (value=invalid_value_low_level)
 		end
 
-	is_g_bookmark_file_error_read: BOOLEAN is
+	is_read: BOOLEAN is
 		do
-			Result := (value=g_bookmark_file_error_read_low_level)
+			Result := (value=read_low_level)
 		end
 
-	is_g_bookmark_file_error_unknown_encoding: BOOLEAN is
+	is_unknown_encoding: BOOLEAN is
 		do
-			Result := (value=g_bookmark_file_error_unknown_encoding_low_level)
+			Result := (value=unknown_encoding_low_level)
 		end
 
-	is_g_bookmark_file_error_uri_not_found: BOOLEAN is
+	is_uri_not_found: BOOLEAN is
 		do
-			Result := (value=g_bookmark_file_error_uri_not_found_low_level)
+			Result := (value=uri_not_found_low_level)
 		end
 
-	is_g_bookmark_file_error_write: BOOLEAN is
+	is_write: BOOLEAN is
 		do
-			Result := (value=g_bookmark_file_error_write_low_level)
+			Result := (value=write_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_bookmark_file_error_app_not_registered_low_level: INTEGER is
+	app_not_registered_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -112,7 +112,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_bookmark_file_error_file_not_found_low_level: INTEGER is
+	file_not_found_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -121,7 +121,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_bookmark_file_error_invalid_uri_low_level: INTEGER is
+	invalid_uri_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -130,7 +130,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_bookmark_file_error_invalid_value_low_level: INTEGER is
+	invalid_value_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -139,7 +139,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_bookmark_file_error_read_low_level: INTEGER is
+	read_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -148,7 +148,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_bookmark_file_error_unknown_encoding_low_level: INTEGER is
+	unknown_encoding_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -157,7 +157,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_bookmark_file_error_uri_not_found_low_level: INTEGER is
+	uri_not_found_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -166,7 +166,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_bookmark_file_error_write_low_level: INTEGER is
+	write_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

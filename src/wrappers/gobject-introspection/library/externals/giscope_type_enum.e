@@ -9,57 +9,57 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = gi_scope_type_async_low_level)  or else
-				(a_value = gi_scope_type_call_low_level)  or else
-				(a_value = gi_scope_type_invalid_low_level)  or else
-				(a_value = gi_scope_type_notified_low_level) )
+            Result := ((a_value = async_low_level)  or else
+				(a_value = call_low_level)  or else
+				(a_value = invalid_low_level)  or else
+				(a_value = notified_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_gi_scope_type_async is
+	set_async is
 		do
-			value := gi_scope_type_async_low_level
+			value := async_low_level
 		end
 
-	set_gi_scope_type_call is
+	set_call is
 		do
-			value := gi_scope_type_call_low_level
+			value := call_low_level
 		end
 
-	set_gi_scope_type_invalid is
+	set_invalid is
 		do
-			value := gi_scope_type_invalid_low_level
+			value := invalid_low_level
 		end
 
-	set_gi_scope_type_notified is
+	set_notified is
 		do
-			value := gi_scope_type_notified_low_level
+			value := notified_low_level
 		end
 
 feature {ANY} -- Queries
-	is_gi_scope_type_async: BOOLEAN is
+	is_async: BOOLEAN is
 		do
-			Result := (value=gi_scope_type_async_low_level)
+			Result := (value=async_low_level)
 		end
 
-	is_gi_scope_type_call: BOOLEAN is
+	is_call: BOOLEAN is
 		do
-			Result := (value=gi_scope_type_call_low_level)
+			Result := (value=call_low_level)
 		end
 
-	is_gi_scope_type_invalid: BOOLEAN is
+	is_invalid: BOOLEAN is
 		do
-			Result := (value=gi_scope_type_invalid_low_level)
+			Result := (value=invalid_low_level)
 		end
 
-	is_gi_scope_type_notified: BOOLEAN is
+	is_notified: BOOLEAN is
 		do
-			Result := (value=gi_scope_type_notified_low_level)
+			Result := (value=notified_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	gi_scope_type_async_low_level: INTEGER is
+	async_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_scope_type_call_low_level: INTEGER is
+	call_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_scope_type_invalid_low_level: INTEGER is
+	invalid_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_scope_type_notified_low_level: INTEGER is
+	notified_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

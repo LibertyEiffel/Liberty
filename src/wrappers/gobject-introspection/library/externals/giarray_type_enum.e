@@ -9,57 +9,57 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = gi_array_type_array_low_level)  or else
-				(a_value = gi_array_type_byte_array_low_level)  or else
-				(a_value = gi_array_type_c_low_level)  or else
-				(a_value = gi_array_type_ptr_array_low_level) )
+            Result := ((a_value = array_low_level)  or else
+				(a_value = byte_array_low_level)  or else
+				(a_value = c_low_level)  or else
+				(a_value = ptr_array_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_gi_array_type_array is
+	set_array is
 		do
-			value := gi_array_type_array_low_level
+			value := array_low_level
 		end
 
-	set_gi_array_type_byte_array is
+	set_byte_array is
 		do
-			value := gi_array_type_byte_array_low_level
+			value := byte_array_low_level
 		end
 
-	set_gi_array_type_c is
+	set_c is
 		do
-			value := gi_array_type_c_low_level
+			value := c_low_level
 		end
 
-	set_gi_array_type_ptr_array is
+	set_ptr_array is
 		do
-			value := gi_array_type_ptr_array_low_level
+			value := ptr_array_low_level
 		end
 
 feature {ANY} -- Queries
-	is_gi_array_type_array: BOOLEAN is
+	is_array: BOOLEAN is
 		do
-			Result := (value=gi_array_type_array_low_level)
+			Result := (value=array_low_level)
 		end
 
-	is_gi_array_type_byte_array: BOOLEAN is
+	is_byte_array: BOOLEAN is
 		do
-			Result := (value=gi_array_type_byte_array_low_level)
+			Result := (value=byte_array_low_level)
 		end
 
-	is_gi_array_type_c: BOOLEAN is
+	is_c: BOOLEAN is
 		do
-			Result := (value=gi_array_type_c_low_level)
+			Result := (value=c_low_level)
 		end
 
-	is_gi_array_type_ptr_array: BOOLEAN is
+	is_ptr_array: BOOLEAN is
 		do
-			Result := (value=gi_array_type_ptr_array_low_level)
+			Result := (value=ptr_array_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	gi_array_type_array_low_level: INTEGER is
+	array_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_array_type_byte_array_low_level: INTEGER is
+	byte_array_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_array_type_c_low_level: INTEGER is
+	c_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_array_type_ptr_array_low_level: INTEGER is
+	ptr_array_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

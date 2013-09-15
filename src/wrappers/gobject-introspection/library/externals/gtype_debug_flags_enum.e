@@ -9,57 +9,57 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_type_debug_mask_low_level)  or else
-				(a_value = g_type_debug_none_low_level)  or else
-				(a_value = g_type_debug_objects_low_level)  or else
-				(a_value = g_type_debug_signals_low_level) )
+            Result := ((a_value = mask_low_level)  or else
+				(a_value = none_low_level)  or else
+				(a_value = objects_low_level)  or else
+				(a_value = signals_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_type_debug_mask is
+	set_mask is
 		do
-			value := g_type_debug_mask_low_level
+			value := mask_low_level
 		end
 
-	set_g_type_debug_none is
+	set_none is
 		do
-			value := g_type_debug_none_low_level
+			value := none_low_level
 		end
 
-	set_g_type_debug_objects is
+	set_objects is
 		do
-			value := g_type_debug_objects_low_level
+			value := objects_low_level
 		end
 
-	set_g_type_debug_signals is
+	set_signals is
 		do
-			value := g_type_debug_signals_low_level
+			value := signals_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_type_debug_mask: BOOLEAN is
+	is_mask: BOOLEAN is
 		do
-			Result := (value=g_type_debug_mask_low_level)
+			Result := (value=mask_low_level)
 		end
 
-	is_g_type_debug_none: BOOLEAN is
+	is_none: BOOLEAN is
 		do
-			Result := (value=g_type_debug_none_low_level)
+			Result := (value=none_low_level)
 		end
 
-	is_g_type_debug_objects: BOOLEAN is
+	is_objects: BOOLEAN is
 		do
-			Result := (value=g_type_debug_objects_low_level)
+			Result := (value=objects_low_level)
 		end
 
-	is_g_type_debug_signals: BOOLEAN is
+	is_signals: BOOLEAN is
 		do
-			Result := (value=g_type_debug_signals_low_level)
+			Result := (value=signals_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_type_debug_mask_low_level: INTEGER is
+	mask_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_type_debug_none_low_level: INTEGER is
+	none_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_type_debug_objects_low_level: INTEGER is
+	objects_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_type_debug_signals_low_level: INTEGER is
+	signals_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

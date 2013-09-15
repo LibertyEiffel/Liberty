@@ -9,46 +9,46 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_checksum_md5_low_level)  or else
-				(a_value = g_checksum_sha1_low_level)  or else
-				(a_value = g_checksum_sha256_low_level) )
+            Result := ((a_value = md5_low_level)  or else
+				(a_value = sha1_low_level)  or else
+				(a_value = sha256_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_checksum_md5 is
+	set_md5 is
 		do
-			value := g_checksum_md5_low_level
+			value := md5_low_level
 		end
 
-	set_g_checksum_sha1 is
+	set_sha1 is
 		do
-			value := g_checksum_sha1_low_level
+			value := sha1_low_level
 		end
 
-	set_g_checksum_sha256 is
+	set_sha256 is
 		do
-			value := g_checksum_sha256_low_level
+			value := sha256_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_checksum_md5: BOOLEAN is
+	is_md5: BOOLEAN is
 		do
-			Result := (value=g_checksum_md5_low_level)
+			Result := (value=md5_low_level)
 		end
 
-	is_g_checksum_sha1: BOOLEAN is
+	is_sha1: BOOLEAN is
 		do
-			Result := (value=g_checksum_sha1_low_level)
+			Result := (value=sha1_low_level)
 		end
 
-	is_g_checksum_sha256: BOOLEAN is
+	is_sha256: BOOLEAN is
 		do
-			Result := (value=g_checksum_sha256_low_level)
+			Result := (value=sha256_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_checksum_md5_low_level: INTEGER is
+	md5_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_checksum_sha1_low_level: INTEGER is
+	sha1_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_checksum_sha256_low_level: INTEGER is
+	sha256_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

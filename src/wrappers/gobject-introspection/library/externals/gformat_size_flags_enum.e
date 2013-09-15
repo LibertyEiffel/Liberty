@@ -9,46 +9,46 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_format_size_default_low_level)  or else
-				(a_value = g_format_size_iec_units_low_level)  or else
-				(a_value = g_format_size_long_format_low_level) )
+            Result := ((a_value = default_external_low_level)  or else
+				(a_value = iec_units_low_level)  or else
+				(a_value = long_format_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_format_size_default is
+	set_default_external is
 		do
-			value := g_format_size_default_low_level
+			value := default_external_low_level
 		end
 
-	set_g_format_size_iec_units is
+	set_iec_units is
 		do
-			value := g_format_size_iec_units_low_level
+			value := iec_units_low_level
 		end
 
-	set_g_format_size_long_format is
+	set_long_format is
 		do
-			value := g_format_size_long_format_low_level
+			value := long_format_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_format_size_default: BOOLEAN is
+	is_default_external: BOOLEAN is
 		do
-			Result := (value=g_format_size_default_low_level)
+			Result := (value=default_external_low_level)
 		end
 
-	is_g_format_size_iec_units: BOOLEAN is
+	is_iec_units: BOOLEAN is
 		do
-			Result := (value=g_format_size_iec_units_low_level)
+			Result := (value=iec_units_low_level)
 		end
 
-	is_g_format_size_long_format: BOOLEAN is
+	is_long_format: BOOLEAN is
 		do
-			Result := (value=g_format_size_long_format_low_level)
+			Result := (value=long_format_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_format_size_default_low_level: INTEGER is
+	default_external_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_format_size_iec_units_low_level: INTEGER is
+	iec_units_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_format_size_long_format_low_level: INTEGER is
+	long_format_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
