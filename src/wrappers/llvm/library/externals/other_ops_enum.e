@@ -16,6 +16,7 @@ feature {ANY} -- Validity
 				(a_value = icmp_low_level)  or else
 				(a_value = insert_element_low_level)  or else
 				(a_value = insert_value_low_level)  or else
+				(a_value = landing_pad_low_level)  or else
 				(a_value = other_ops_begin_low_level)  or else
 				(a_value = other_ops_end_low_level)  or else
 				(a_value = phi_low_level)  or else
@@ -61,6 +62,11 @@ feature {ANY} -- Setters
 	set_insert_value is
 		do
 			value := insert_value_low_level
+		end
+
+	set_landing_pad is
+		do
+			value := landing_pad_low_level
 		end
 
 	set_other_ops_begin is
@@ -137,6 +143,11 @@ feature {ANY} -- Queries
 	is_insert_value: BOOLEAN is
 		do
 			Result := (value=insert_value_low_level)
+		end
+
+	is_landing_pad: BOOLEAN is
+		do
+			Result := (value=landing_pad_low_level)
 		end
 
 	is_other_ops_begin: BOOLEAN is
@@ -240,6 +251,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "InsertValue"
+ 			}"
+ 		end
+
+	landing_pad_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LandingPad"
  			}"
  		end
 

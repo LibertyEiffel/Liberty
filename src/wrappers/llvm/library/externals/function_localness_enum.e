@@ -9,46 +9,46 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = fl_no_low_level)  or else
-				(a_value = fl_unknown_low_level)  or else
-				(a_value = fl_yes_low_level) )
+            Result := ((a_value = no_low_level)  or else
+				(a_value = unknown_low_level)  or else
+				(a_value = yes_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_fl_no is
+	set_no is
 		do
-			value := fl_no_low_level
+			value := no_low_level
 		end
 
-	set_fl_unknown is
+	set_unknown is
 		do
-			value := fl_unknown_low_level
+			value := unknown_low_level
 		end
 
-	set_fl_yes is
+	set_yes is
 		do
-			value := fl_yes_low_level
+			value := yes_low_level
 		end
 
 feature {ANY} -- Queries
-	is_fl_no: BOOLEAN is
+	is_no: BOOLEAN is
 		do
-			Result := (value=fl_no_low_level)
+			Result := (value=no_low_level)
 		end
 
-	is_fl_unknown: BOOLEAN is
+	is_unknown: BOOLEAN is
 		do
-			Result := (value=fl_unknown_low_level)
+			Result := (value=unknown_low_level)
 		end
 
-	is_fl_yes: BOOLEAN is
+	is_yes: BOOLEAN is
 		do
-			Result := (value=fl_yes_low_level)
+			Result := (value=yes_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	fl_no_low_level: INTEGER is
+	no_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fl_unknown_low_level: INTEGER is
+	unknown_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fl_yes_low_level: INTEGER is
+	yes_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

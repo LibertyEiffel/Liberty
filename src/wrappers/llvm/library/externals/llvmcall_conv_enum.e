@@ -9,68 +9,68 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = llvmccall_conv_low_level)  or else
-				(a_value = llvmcold_call_conv_low_level)  or else
-				(a_value = llvmfast_call_conv_low_level)  or else
-				(a_value = llvmx86fastcall_call_conv_low_level)  or else
-				(a_value = llvmx86stdcall_call_conv_low_level) )
+            Result := ((a_value = ccall_conv_low_level)  or else
+				(a_value = cold_call_conv_low_level)  or else
+				(a_value = fast_call_conv_low_level)  or else
+				(a_value = x86fastcall_call_conv_low_level)  or else
+				(a_value = x86stdcall_call_conv_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_llvmccall_conv is
+	set_ccall_conv is
 		do
-			value := llvmccall_conv_low_level
+			value := ccall_conv_low_level
 		end
 
-	set_llvmcold_call_conv is
+	set_cold_call_conv is
 		do
-			value := llvmcold_call_conv_low_level
+			value := cold_call_conv_low_level
 		end
 
-	set_llvmfast_call_conv is
+	set_fast_call_conv is
 		do
-			value := llvmfast_call_conv_low_level
+			value := fast_call_conv_low_level
 		end
 
-	set_llvmx86fastcall_call_conv is
+	set_x86fastcall_call_conv is
 		do
-			value := llvmx86fastcall_call_conv_low_level
+			value := x86fastcall_call_conv_low_level
 		end
 
-	set_llvmx86stdcall_call_conv is
+	set_x86stdcall_call_conv is
 		do
-			value := llvmx86stdcall_call_conv_low_level
+			value := x86stdcall_call_conv_low_level
 		end
 
 feature {ANY} -- Queries
-	is_llvmccall_conv: BOOLEAN is
+	is_ccall_conv: BOOLEAN is
 		do
-			Result := (value=llvmccall_conv_low_level)
+			Result := (value=ccall_conv_low_level)
 		end
 
-	is_llvmcold_call_conv: BOOLEAN is
+	is_cold_call_conv: BOOLEAN is
 		do
-			Result := (value=llvmcold_call_conv_low_level)
+			Result := (value=cold_call_conv_low_level)
 		end
 
-	is_llvmfast_call_conv: BOOLEAN is
+	is_fast_call_conv: BOOLEAN is
 		do
-			Result := (value=llvmfast_call_conv_low_level)
+			Result := (value=fast_call_conv_low_level)
 		end
 
-	is_llvmx86fastcall_call_conv: BOOLEAN is
+	is_x86fastcall_call_conv: BOOLEAN is
 		do
-			Result := (value=llvmx86fastcall_call_conv_low_level)
+			Result := (value=x86fastcall_call_conv_low_level)
 		end
 
-	is_llvmx86stdcall_call_conv: BOOLEAN is
+	is_x86stdcall_call_conv: BOOLEAN is
 		do
-			Result := (value=llvmx86stdcall_call_conv_low_level)
+			Result := (value=x86stdcall_call_conv_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	llvmccall_conv_low_level: INTEGER is
+	ccall_conv_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -79,7 +79,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmcold_call_conv_low_level: INTEGER is
+	cold_call_conv_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -88,7 +88,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmfast_call_conv_low_level: INTEGER is
+	fast_call_conv_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -97,7 +97,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmx86fastcall_call_conv_low_level: INTEGER is
+	x86fastcall_call_conv_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -106,7 +106,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmx86stdcall_call_conv_low_level: INTEGER is
+	x86stdcall_call_conv_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

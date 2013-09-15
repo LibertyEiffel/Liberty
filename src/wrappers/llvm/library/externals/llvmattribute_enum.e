@@ -9,266 +9,299 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = llvmalignment_low_level)  or else
-				(a_value = llvmalways_inline_attribute_low_level)  or else
-				(a_value = llvmby_val_attribute_low_level)  or else
-				(a_value = llvmin_reg_attribute_low_level)  or else
-				(a_value = llvminline_hint_attribute_low_level)  or else
-				(a_value = llvmnaked_attribute_low_level)  or else
-				(a_value = llvmnest_attribute_low_level)  or else
-				(a_value = llvmno_alias_attribute_low_level)  or else
-				(a_value = llvmno_capture_attribute_low_level)  or else
-				(a_value = llvmno_implicit_float_attribute_low_level)  or else
-				(a_value = llvmno_inline_attribute_low_level)  or else
-				(a_value = llvmno_red_zone_attribute_low_level)  or else
-				(a_value = llvmno_return_attribute_low_level)  or else
-				(a_value = llvmno_unwind_attribute_low_level)  or else
-				(a_value = llvmoptimize_for_size_attribute_low_level)  or else
-				(a_value = llvmread_none_attribute_low_level)  or else
-				(a_value = llvmread_only_attribute_low_level)  or else
-				(a_value = llvmsext_attribute_low_level)  or else
-				(a_value = llvmstack_alignment_low_level)  or else
-				(a_value = llvmstack_protect_attribute_low_level)  or else
-				(a_value = llvmstack_protect_req_attribute_low_level)  or else
-				(a_value = llvmstruct_ret_attribute_low_level)  or else
-				(a_value = llvmzext_attribute_low_level) )
+            Result := ((a_value = alignment_low_level)  or else
+				(a_value = always_inline_attribute_low_level)  or else
+				(a_value = by_val_attribute_low_level)  or else
+				(a_value = in_reg_attribute_low_level)  or else
+				(a_value = inline_hint_attribute_low_level)  or else
+				(a_value = naked_attribute_low_level)  or else
+				(a_value = nest_attribute_low_level)  or else
+				(a_value = no_alias_attribute_low_level)  or else
+				(a_value = no_capture_attribute_low_level)  or else
+				(a_value = no_implicit_float_attribute_low_level)  or else
+				(a_value = no_inline_attribute_low_level)  or else
+				(a_value = no_red_zone_attribute_low_level)  or else
+				(a_value = no_return_attribute_low_level)  or else
+				(a_value = no_unwind_attribute_low_level)  or else
+				(a_value = non_lazy_bind_low_level)  or else
+				(a_value = optimize_for_size_attribute_low_level)  or else
+				(a_value = read_none_attribute_low_level)  or else
+				(a_value = read_only_attribute_low_level)  or else
+				(a_value = returns_twice_low_level)  or else
+				(a_value = sext_attribute_low_level)  or else
+				(a_value = stack_alignment_low_level)  or else
+				(a_value = stack_protect_attribute_low_level)  or else
+				(a_value = stack_protect_req_attribute_low_level)  or else
+				(a_value = struct_ret_attribute_low_level)  or else
+				(a_value = uwtable_low_level)  or else
+				(a_value = zext_attribute_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_llvmalignment is
+	set_alignment is
 		do
-			value := llvmalignment_low_level
+			value := alignment_low_level
 		end
 
-	set_llvmalways_inline_attribute is
+	set_always_inline_attribute is
 		do
-			value := llvmalways_inline_attribute_low_level
+			value := always_inline_attribute_low_level
 		end
 
-	set_llvmby_val_attribute is
+	set_by_val_attribute is
 		do
-			value := llvmby_val_attribute_low_level
+			value := by_val_attribute_low_level
 		end
 
-	set_llvmin_reg_attribute is
+	set_in_reg_attribute is
 		do
-			value := llvmin_reg_attribute_low_level
+			value := in_reg_attribute_low_level
 		end
 
-	set_llvminline_hint_attribute is
+	set_inline_hint_attribute is
 		do
-			value := llvminline_hint_attribute_low_level
+			value := inline_hint_attribute_low_level
 		end
 
-	set_llvmnaked_attribute is
+	set_naked_attribute is
 		do
-			value := llvmnaked_attribute_low_level
+			value := naked_attribute_low_level
 		end
 
-	set_llvmnest_attribute is
+	set_nest_attribute is
 		do
-			value := llvmnest_attribute_low_level
+			value := nest_attribute_low_level
 		end
 
-	set_llvmno_alias_attribute is
+	set_no_alias_attribute is
 		do
-			value := llvmno_alias_attribute_low_level
+			value := no_alias_attribute_low_level
 		end
 
-	set_llvmno_capture_attribute is
+	set_no_capture_attribute is
 		do
-			value := llvmno_capture_attribute_low_level
+			value := no_capture_attribute_low_level
 		end
 
-	set_llvmno_implicit_float_attribute is
+	set_no_implicit_float_attribute is
 		do
-			value := llvmno_implicit_float_attribute_low_level
+			value := no_implicit_float_attribute_low_level
 		end
 
-	set_llvmno_inline_attribute is
+	set_no_inline_attribute is
 		do
-			value := llvmno_inline_attribute_low_level
+			value := no_inline_attribute_low_level
 		end
 
-	set_llvmno_red_zone_attribute is
+	set_no_red_zone_attribute is
 		do
-			value := llvmno_red_zone_attribute_low_level
+			value := no_red_zone_attribute_low_level
 		end
 
-	set_llvmno_return_attribute is
+	set_no_return_attribute is
 		do
-			value := llvmno_return_attribute_low_level
+			value := no_return_attribute_low_level
 		end
 
-	set_llvmno_unwind_attribute is
+	set_no_unwind_attribute is
 		do
-			value := llvmno_unwind_attribute_low_level
+			value := no_unwind_attribute_low_level
 		end
 
-	set_llvmoptimize_for_size_attribute is
+	set_non_lazy_bind is
 		do
-			value := llvmoptimize_for_size_attribute_low_level
+			value := non_lazy_bind_low_level
 		end
 
-	set_llvmread_none_attribute is
+	set_optimize_for_size_attribute is
 		do
-			value := llvmread_none_attribute_low_level
+			value := optimize_for_size_attribute_low_level
 		end
 
-	set_llvmread_only_attribute is
+	set_read_none_attribute is
 		do
-			value := llvmread_only_attribute_low_level
+			value := read_none_attribute_low_level
 		end
 
-	set_llvmsext_attribute is
+	set_read_only_attribute is
 		do
-			value := llvmsext_attribute_low_level
+			value := read_only_attribute_low_level
 		end
 
-	set_llvmstack_alignment is
+	set_returns_twice is
 		do
-			value := llvmstack_alignment_low_level
+			value := returns_twice_low_level
 		end
 
-	set_llvmstack_protect_attribute is
+	set_sext_attribute is
 		do
-			value := llvmstack_protect_attribute_low_level
+			value := sext_attribute_low_level
 		end
 
-	set_llvmstack_protect_req_attribute is
+	set_stack_alignment is
 		do
-			value := llvmstack_protect_req_attribute_low_level
+			value := stack_alignment_low_level
 		end
 
-	set_llvmstruct_ret_attribute is
+	set_stack_protect_attribute is
 		do
-			value := llvmstruct_ret_attribute_low_level
+			value := stack_protect_attribute_low_level
 		end
 
-	set_llvmzext_attribute is
+	set_stack_protect_req_attribute is
 		do
-			value := llvmzext_attribute_low_level
+			value := stack_protect_req_attribute_low_level
+		end
+
+	set_struct_ret_attribute is
+		do
+			value := struct_ret_attribute_low_level
+		end
+
+	set_uwtable is
+		do
+			value := uwtable_low_level
+		end
+
+	set_zext_attribute is
+		do
+			value := zext_attribute_low_level
 		end
 
 feature {ANY} -- Queries
-	is_llvmalignment: BOOLEAN is
+	is_alignment: BOOLEAN is
 		do
-			Result := (value=llvmalignment_low_level)
+			Result := (value=alignment_low_level)
 		end
 
-	is_llvmalways_inline_attribute: BOOLEAN is
+	is_always_inline_attribute: BOOLEAN is
 		do
-			Result := (value=llvmalways_inline_attribute_low_level)
+			Result := (value=always_inline_attribute_low_level)
 		end
 
-	is_llvmby_val_attribute: BOOLEAN is
+	is_by_val_attribute: BOOLEAN is
 		do
-			Result := (value=llvmby_val_attribute_low_level)
+			Result := (value=by_val_attribute_low_level)
 		end
 
-	is_llvmin_reg_attribute: BOOLEAN is
+	is_in_reg_attribute: BOOLEAN is
 		do
-			Result := (value=llvmin_reg_attribute_low_level)
+			Result := (value=in_reg_attribute_low_level)
 		end
 
-	is_llvminline_hint_attribute: BOOLEAN is
+	is_inline_hint_attribute: BOOLEAN is
 		do
-			Result := (value=llvminline_hint_attribute_low_level)
+			Result := (value=inline_hint_attribute_low_level)
 		end
 
-	is_llvmnaked_attribute: BOOLEAN is
+	is_naked_attribute: BOOLEAN is
 		do
-			Result := (value=llvmnaked_attribute_low_level)
+			Result := (value=naked_attribute_low_level)
 		end
 
-	is_llvmnest_attribute: BOOLEAN is
+	is_nest_attribute: BOOLEAN is
 		do
-			Result := (value=llvmnest_attribute_low_level)
+			Result := (value=nest_attribute_low_level)
 		end
 
-	is_llvmno_alias_attribute: BOOLEAN is
+	is_no_alias_attribute: BOOLEAN is
 		do
-			Result := (value=llvmno_alias_attribute_low_level)
+			Result := (value=no_alias_attribute_low_level)
 		end
 
-	is_llvmno_capture_attribute: BOOLEAN is
+	is_no_capture_attribute: BOOLEAN is
 		do
-			Result := (value=llvmno_capture_attribute_low_level)
+			Result := (value=no_capture_attribute_low_level)
 		end
 
-	is_llvmno_implicit_float_attribute: BOOLEAN is
+	is_no_implicit_float_attribute: BOOLEAN is
 		do
-			Result := (value=llvmno_implicit_float_attribute_low_level)
+			Result := (value=no_implicit_float_attribute_low_level)
 		end
 
-	is_llvmno_inline_attribute: BOOLEAN is
+	is_no_inline_attribute: BOOLEAN is
 		do
-			Result := (value=llvmno_inline_attribute_low_level)
+			Result := (value=no_inline_attribute_low_level)
 		end
 
-	is_llvmno_red_zone_attribute: BOOLEAN is
+	is_no_red_zone_attribute: BOOLEAN is
 		do
-			Result := (value=llvmno_red_zone_attribute_low_level)
+			Result := (value=no_red_zone_attribute_low_level)
 		end
 
-	is_llvmno_return_attribute: BOOLEAN is
+	is_no_return_attribute: BOOLEAN is
 		do
-			Result := (value=llvmno_return_attribute_low_level)
+			Result := (value=no_return_attribute_low_level)
 		end
 
-	is_llvmno_unwind_attribute: BOOLEAN is
+	is_no_unwind_attribute: BOOLEAN is
 		do
-			Result := (value=llvmno_unwind_attribute_low_level)
+			Result := (value=no_unwind_attribute_low_level)
 		end
 
-	is_llvmoptimize_for_size_attribute: BOOLEAN is
+	is_non_lazy_bind: BOOLEAN is
 		do
-			Result := (value=llvmoptimize_for_size_attribute_low_level)
+			Result := (value=non_lazy_bind_low_level)
 		end
 
-	is_llvmread_none_attribute: BOOLEAN is
+	is_optimize_for_size_attribute: BOOLEAN is
 		do
-			Result := (value=llvmread_none_attribute_low_level)
+			Result := (value=optimize_for_size_attribute_low_level)
 		end
 
-	is_llvmread_only_attribute: BOOLEAN is
+	is_read_none_attribute: BOOLEAN is
 		do
-			Result := (value=llvmread_only_attribute_low_level)
+			Result := (value=read_none_attribute_low_level)
 		end
 
-	is_llvmsext_attribute: BOOLEAN is
+	is_read_only_attribute: BOOLEAN is
 		do
-			Result := (value=llvmsext_attribute_low_level)
+			Result := (value=read_only_attribute_low_level)
 		end
 
-	is_llvmstack_alignment: BOOLEAN is
+	is_returns_twice: BOOLEAN is
 		do
-			Result := (value=llvmstack_alignment_low_level)
+			Result := (value=returns_twice_low_level)
 		end
 
-	is_llvmstack_protect_attribute: BOOLEAN is
+	is_sext_attribute: BOOLEAN is
 		do
-			Result := (value=llvmstack_protect_attribute_low_level)
+			Result := (value=sext_attribute_low_level)
 		end
 
-	is_llvmstack_protect_req_attribute: BOOLEAN is
+	is_stack_alignment: BOOLEAN is
 		do
-			Result := (value=llvmstack_protect_req_attribute_low_level)
+			Result := (value=stack_alignment_low_level)
 		end
 
-	is_llvmstruct_ret_attribute: BOOLEAN is
+	is_stack_protect_attribute: BOOLEAN is
 		do
-			Result := (value=llvmstruct_ret_attribute_low_level)
+			Result := (value=stack_protect_attribute_low_level)
 		end
 
-	is_llvmzext_attribute: BOOLEAN is
+	is_stack_protect_req_attribute: BOOLEAN is
 		do
-			Result := (value=llvmzext_attribute_low_level)
+			Result := (value=stack_protect_req_attribute_low_level)
+		end
+
+	is_struct_ret_attribute: BOOLEAN is
+		do
+			Result := (value=struct_ret_attribute_low_level)
+		end
+
+	is_uwtable: BOOLEAN is
+		do
+			Result := (value=uwtable_low_level)
+		end
+
+	is_zext_attribute: BOOLEAN is
+		do
+			Result := (value=zext_attribute_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	llvmalignment_low_level: INTEGER is
+	alignment_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -277,7 +310,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmalways_inline_attribute_low_level: INTEGER is
+	always_inline_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -286,7 +319,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmby_val_attribute_low_level: INTEGER is
+	by_val_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -295,7 +328,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmin_reg_attribute_low_level: INTEGER is
+	in_reg_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -304,7 +337,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvminline_hint_attribute_low_level: INTEGER is
+	inline_hint_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -313,7 +346,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmnaked_attribute_low_level: INTEGER is
+	naked_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -322,7 +355,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmnest_attribute_low_level: INTEGER is
+	nest_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -331,7 +364,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmno_alias_attribute_low_level: INTEGER is
+	no_alias_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -340,7 +373,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmno_capture_attribute_low_level: INTEGER is
+	no_capture_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -349,7 +382,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmno_implicit_float_attribute_low_level: INTEGER is
+	no_implicit_float_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -358,7 +391,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmno_inline_attribute_low_level: INTEGER is
+	no_inline_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -367,7 +400,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmno_red_zone_attribute_low_level: INTEGER is
+	no_red_zone_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -376,7 +409,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmno_return_attribute_low_level: INTEGER is
+	no_return_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -385,7 +418,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmno_unwind_attribute_low_level: INTEGER is
+	no_unwind_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -394,7 +427,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmoptimize_for_size_attribute_low_level: INTEGER is
+	non_lazy_bind_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMNonLazyBind"
+ 			}"
+ 		end
+
+	optimize_for_size_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -403,7 +445,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmread_none_attribute_low_level: INTEGER is
+	read_none_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -412,7 +454,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmread_only_attribute_low_level: INTEGER is
+	read_only_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -421,7 +463,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmsext_attribute_low_level: INTEGER is
+	returns_twice_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMReturnsTwice"
+ 			}"
+ 		end
+
+	sext_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -430,7 +481,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmstack_alignment_low_level: INTEGER is
+	stack_alignment_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -439,7 +490,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmstack_protect_attribute_low_level: INTEGER is
+	stack_protect_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -448,7 +499,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmstack_protect_req_attribute_low_level: INTEGER is
+	stack_protect_req_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -457,7 +508,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmstruct_ret_attribute_low_level: INTEGER is
+	struct_ret_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -466,7 +517,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmzext_attribute_low_level: INTEGER is
+	uwtable_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMUWTable"
+ 			}"
+ 		end
+
+	zext_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

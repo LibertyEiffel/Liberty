@@ -103,85 +103,85 @@ feature {ANY} -- Linkage commands
    set_external_linkage is
       local l: like linkage
       do
-         llvmset_linkage(handle,l.llvmexternal_linkage_low_level)
+         llvmset_linkage(handle,l.external_linkage_low_level)
       end
 
    set_link_once_any_linkage is
       local l: like linkage
       do
-         llvmset_linkage(handle,l.llvmlink_once_any_linkage_low_level)
+         llvmset_linkage(handle,l.link_once_any_linkage_low_level)
       end
 
    set_link_once_odrlinkage is
       local l: like linkage
       do
-         llvmset_linkage(handle,l.llvmlink_once_odrlinkage_low_level)
+         llvmset_linkage(handle,l.link_once_odrlinkage_low_level)
       end
 
    set_weak_any_linkage is
       local l: like linkage
       do
-         llvmset_linkage(handle,l.llvmweak_any_linkage_low_level)
+         llvmset_linkage(handle,l.weak_any_linkage_low_level)
       end
 
    set_weak_odrlinkage is
       local l: like linkage
       do
-         llvmset_linkage(handle,l.llvmweak_odrlinkage_low_level)
+         llvmset_linkage(handle,l.weak_odrlinkage_low_level)
       end
 
    set_appending_linkage is
       local l: like linkage
       do
-         llvmset_linkage(handle,l.llvmappending_linkage_low_level)
+         llvmset_linkage(handle,l.appending_linkage_low_level)
       end
 
    set_internal_linkage is
       local l: like linkage
       do
-         llvmset_linkage(handle,l.llvminternal_linkage_low_level)
+         llvmset_linkage(handle,l.internal_linkage_low_level)
       end
 
    set_private_linkage is
       local l: like linkage
       do
-         llvmset_linkage(handle,l.llvmprivate_linkage_low_level)
+         llvmset_linkage(handle,l.private_linkage_low_level)
       end
 
    set_dllimport_linkage is
       local l: like linkage
       do
-         llvmset_linkage(handle,l.llvmdllimport_linkage_low_level)
+         llvmset_linkage(handle,l.dllimport_linkage_low_level)
       end
 
    set_dllexport_linkage is
       local l: like linkage
       do
-         llvmset_linkage(handle,l.llvmdllexport_linkage_low_level)
+         llvmset_linkage(handle,l.dllexport_linkage_low_level)
       end
 
    set_external_weak_linkage is
       local l: like linkage
       do
-         llvmset_linkage(handle,l.llvmexternal_weak_linkage_low_level)
+         llvmset_linkage(handle,l.external_weak_linkage_low_level)
       end
 
    set_ghost_linkage is
       local l: like linkage
       do
-         llvmset_linkage(handle,l.llvmghost_linkage_low_level)
+         llvmset_linkage(handle,l.ghost_linkage_low_level)
       end
 
    set_common_linkage is
       local l: like linkage
       do
-         llvmset_linkage(handle,l.llvmcommon_linkage_low_level)
+         llvmset_linkage(handle,l.common_linkage_low_level)
       end
 
    set_linker_private_linkage is
       local l: like linkage
       do
-         llvmset_linkage(handle,l.llvmlinker_private_linkage_low_level)
+         llvmset_linkage(handle,l.linker_private_linkage_low_level)
       end
 
 end -- class LLVM_GLOBAL_VALUE
