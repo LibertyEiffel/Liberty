@@ -14,7 +14,7 @@ creation {ANY}
 feature {ANY}
 	make is
 		local
-			size, i, iter, x, y: INTEGER; zr, zi, cr, ci, pr, pi, limit: DOUBLE; stop, gone: BOOLEAN
+			size, i, iter, x, y: INTEGER; zr, zi, cr, ci, pr, pi, limit: REAL_64; stop, gone: BOOLEAN
 			bit, bit_accu: INTEGER_8
 		do
 			check
