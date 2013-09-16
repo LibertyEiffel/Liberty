@@ -19,7 +19,7 @@ feature {ANY} -- Creation
       do
          Result:=llvmget_pointer_address_space(handle)
       end
-invariant type_kind.is_llvmpointer_type_kind
+invariant type_kind.is_pointer_type_kind
 end -- class LLVM_POINTER_TYPE
 
 -- Copyright 2009 Paolo Redaelli

@@ -9,6 +9,9 @@ feature {ANY} -- Commodity features
 		ensure Result/=Void -- Result.type.is_equal(bool)
 		end
 end -- class LLVM_VALUES_FACTORY
+
+-- Copyright 2009,2010,2013 Paolo Redaelli - 2013 Cyril Adrian 
+
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --
 -- This library is free software: you can redistribute it and/or modify
@@ -21,6 +24,6 @@ end -- class LLVM_VALUES_FACTORY
 -- GNU General Public License for more details.
 --
 -- You should have received a copy of the GNU General Public License
--- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
+-- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.-- This file is part of LLVM wrappers for Liberty Eiffel.
 --
 

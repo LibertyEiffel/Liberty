@@ -72,7 +72,7 @@ feature {} -- Implementation
    -- LLVM's ProgrammersManual in the cyclic types section. refine type
    -- feature shalle be redefined.
 
-invariant type_kind.is_llvmstruct_type_kind
+invariant type_kind.is_struct_type_kind
 end -- class LLVM_STRUCT_TYPE
 
 -- Copyright 2009 Paolo Redaelli

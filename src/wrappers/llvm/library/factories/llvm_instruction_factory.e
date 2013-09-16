@@ -9,7 +9,7 @@ feature {ANY}
 	wrapper (p: POINTER): LLVM_INSTRUCTION is
 		do
 			not_yet_implemented -- The implementation will follow LLVM_VALUE_FACTORY style
-	end
+		end
 end -- class LLVM_INSTRUCTION_FACTORY
 
 -- Copyright 2009 Paolo Redaelli

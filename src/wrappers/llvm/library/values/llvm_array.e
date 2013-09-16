@@ -9,7 +9,7 @@ create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
 create {ANY} named
 
-feature {} -- Creatuon
+feature {} -- Creation
 	named (a_context: LLVM_CONTEXT; a_name: ABSTRACT_STRING) is
 		-- Create a structure with `a_name' in `a_context'
 	require a_name /= Void

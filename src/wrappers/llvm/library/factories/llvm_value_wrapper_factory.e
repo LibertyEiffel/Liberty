@@ -22,25 +22,24 @@ feature {WRAPPER, WRAPPER_HANDLER}
          -- substituted by an inspect instruction, if only inspect allowed
          -- compound values like type.void_type_kind_low_level as when
          -- values.
-         if     type.is_llvmvoid_type_kind then
+         if     type.is_void_type_kind then
             debug
                std_error.put_string("What's the correct value of a Void type? Creating a plain LLVM_VALUE.%N")
                std_output.flush
             end
             create {LLVM_VALUE} Result.from_external_pointer(p)
-         elseif type.is_llvmdouble_type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
-         elseif type.is_llvmx86_fp80type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
-         elseif type.is_llvmfp128type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
-         elseif type.is_llvmppc_fp128type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
-         elseif type.is_llvmlabel_type_kind then raise("LLVM_VALUE_FACTORY got a label type")
-         elseif type.is_llvminteger_type_kind then create {LLVM_CONSTANT_INT} Result.from_external_pointer(p)
-         elseif type.is_llvmfunction_type_kind then create {LLVM_FUNCTION} Result.from_external_pointer(p)
-         elseif type.is_llvmstruct_type_kind then not_yet_implemented
-         elseif type.is_llvmarray_type_kind then not_yet_implemented
-         elseif type.is_llvmpointer_type_kind then not_yet_implemented
-         elseif type.is_llvmopaque_type_kind then not_yet_implemented
-         elseif type.is_llvmvector_type_kind then not_yet_implemented
-         elseif type.is_llvmmetadata_type_kind then not_yet_implemented
+         elseif type.is_double_type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
+         elseif type.is_x86_fp80type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
+         elseif type.is_fp128type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
+         elseif type.is_ppc_fp128type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
+         elseif type.is_label_type_kind then create {LLVM_LABEL} Result.from_external_pointer(p)
+         elseif type.is_integer_type_kind then create {LLVM_CONSTANT_INT} Result.from_external_pointer(p)
+         elseif type.is_function_type_kind then create {LLVM_FUNCTION} Result.from_external_pointer(p)
+         elseif type.is_struct_type_kind then raise("struct not_yet_implemented")
+         elseif type.is_array_type_kind then create {LLVM_ARRAY} Result.from_external_pointer(p)
+         elseif type.is_pointer_type_kind then  raise ("not_yet_implemented")
+         elseif type.is_vector_type_kind then  raise ("not_yet_implemented")
+         elseif type.is_metadata_type_kind then  raise ("not_yet_implemented")
          else not_yet_implemented
          end
       end

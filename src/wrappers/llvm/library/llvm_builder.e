@@ -176,13 +176,6 @@ feature {ANY} -- Terminators
 		ensure Result/=Void
 		end
 
-	unwind: LLVM_VALUE is
-		-- A newly created 'unwind' instruction that will unwind the stack, continuing control flow at the first callee in the dynamic call stack which used an invoke instruction to perform the call. This is primarily used to implement exception handling.
-	do
-		create Result.from_external_pointer(llvmbuild_unwind(handle))
-	ensure Result/=Void
-	end
-
 	unreachable: LLVM_VALUE is
 		-- A newly create 'unreachable' instruction; it has no defined
 		-- semantics. This instruction is used to inform the optimizer that a
@@ -1136,6 +1129,8 @@ feature {}
 		end
 
 end -- class LLVM_BUILDER	
+-- Copyright 2009,2010,2013 Paolo Redaelli - 2013 Cyril Adrian 
+
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --
 -- This library is free software: you can redistribute it and/or modify

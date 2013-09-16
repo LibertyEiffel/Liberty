@@ -17,7 +17,7 @@ feature {ANY}
       do
          Result:=llvmget_vector_size(handle)
       end
-invariant type_kind.is_llvmvector_type_kind
+invariant type_kind.is_vector_type_kind
 end -- class LLVM_VECTOR_TYPE
 
 -- Copyright 2009 Paolo Redaelli

@@ -102,8 +102,9 @@ feature {ANY}
       do
          Result := llvmget_int_type_width(handle)
       end
+
 invariant
-   type_kind.is_llvminteger_type_kind
+   type_kind.is_integer_type_kind
 
 end -- class LLVM_INTEGER_TYPE
 

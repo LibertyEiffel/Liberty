@@ -13,7 +13,7 @@ feature {ANY} -- Creation
       do
          handle:=llvmvoid_type_in_context(a_context.handle)
       end
-invariant type_kind.is_llvmvoid_type_kind
+invariant type_kind.is_void_type_kind
 end -- class LLVM_VOID_TYPE
 
 -- Copyright 2009 Paolo Redaelli

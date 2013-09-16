@@ -17,7 +17,7 @@ feature {ANY}
       do
          Result:=llvmget_array_length(handle)
       end
-invariant type_kind.is_llvmarray_type_kind
+invariant type_kind.is_array_type_kind
 end -- class LLVM_ARRAY_TYPE
 
 -- Copyright 2009 Paolo Redaelli

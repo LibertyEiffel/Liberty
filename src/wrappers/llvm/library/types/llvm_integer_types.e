@@ -13,6 +13,9 @@ feature {ANY} -- Shared integer types
    int_64: LLVM_INTEGER_TYPE is once create Result.with_64_bits end
 
 end -- class LLVM_INTEGER_TYPES
+
+-- Copyright 2009,2010,2013 Paolo Redaelli - 2013 Cyril Adrian 
+
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --
 -- This library is free software: you can redistribute it and/or modify
