@@ -11,6 +11,11 @@ inherit
       redefine out_in_tagged_out_memory, fill_tagged_out_memory, is_equal, infix "<=", infix ">", infix ">="
       end
 
+insert
+   REAL_PRECISION
+      redefine out_in_tagged_out_memory, fill_tagged_out_memory, is_equal, precision
+      end
+
 feature {ANY}
    is_equal (other: like Current): BOOLEAN is
       do
@@ -86,6 +91,16 @@ feature {ANY}
 
    infix "~=" (other: like Current): BOOLEAN is
       deferred
+      end
+
+   precision: INTEGER_8 is
+      do
+         Result := Precursor
+         if Result > mantissa_bits then
+            Result := mantissa_bits
+         end
+      ensure then
+         Result <= mantissa_bits
       end
 
    is_subnormal: BOOLEAN is

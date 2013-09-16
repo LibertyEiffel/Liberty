@@ -16,7 +16,7 @@ feature {ANY}
 
    is_near_equal (other: like Current): BOOLEAN is
       do
-         Result := (re - other.re).abs * 2.0 ^ 45 < re.abs and (im - other.im).abs * 2.0 ^ 45 < im.abs
+         Result := re ~= other.re and im ~= other.im
       end
 
    re: REAL

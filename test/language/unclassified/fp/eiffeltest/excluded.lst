@@ -5,3 +5,5 @@ se c -all_check
 se c -loop_check
 se c -invariant_check
 se c -ensure_check
+test_fp1
+test_fp2

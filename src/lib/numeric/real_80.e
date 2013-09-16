@@ -34,7 +34,7 @@ feature {ANY}
 
    infix "~=" (other: like Current): BOOLEAN is
       do
-         Result := (Current - other).abs * ({REAL_80 2.0} ^ (mantissa_bits - 3)) <= Current.abs
+         Result := (Current - other).abs * ({REAL_80 2.0} ^ (mantissa_bits - precision)) <= Current.abs
       end
 
    hash_code: INTEGER is
