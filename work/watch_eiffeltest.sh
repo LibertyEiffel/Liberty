@@ -44,11 +44,9 @@ case x$1 in
             esac
             if [ -e $eiffeltest/LOCK ]; then
                 echo 'Running since '$(stat --format='%z' $eiffeltest/LOCK)
-            else
-                echo 'Not running'
+                echo
+                tail -n 5 $eiffeltest/log.new | sed 's/^/[1;34m    | [1;33m/;s/$/[m/'
             fi
-            echo
-            tail -n 5 $eiffeltest/log.new | sed 's/^/[1;34m    | [1;33m/;s/$/[m/'
             echo
             (
                 cd $eiffeltest
