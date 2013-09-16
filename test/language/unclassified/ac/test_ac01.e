@@ -6,6 +6,7 @@ class TEST_AC01
 
 insert
    EIFFELTEST_TOOLS
+   REAL_PRECISION
 
 create {}
    make
@@ -18,6 +19,7 @@ feature {ANY}
          c1: AUX_AC_COMPLEX; c2: AUX_AC_COMPLEX; c3: AUX_AC_COMPLEX; rnd_generator: PRESS_RANDOM_NUMBER_GENERATOR
          i: INTEGER
       do
+         set_precision(10) -- really not precise!!
          from
             create rnd_generator.make
             i := 0
@@ -63,17 +65,27 @@ feature {ANY}
 
    test_times (x, y, z: AUX_AC_COMPLEX) is
       local
-         one: AUX_AC_COMPLEX
+         one, p1, p2: AUX_AC_COMPLEX
       do
          one := one.one
          assert((x * one).is_equal(x))
-         assert((x * y).is_near_equal(y * x))
-         assert((x * y * z).is_near_equal(x * (y * z)))
+
+         p1 := x * y
+         p2 := y * x
+         assert(p1.is_near_equal(p2))
+
+         p1 := x * y * z
+         p2 := x * (y * z)
+         assert(p1.is_near_equal(p2))
       end
 
    test_plus_and_times (x, y, z: AUX_AC_COMPLEX) is
+      local
+         p1, p2: AUX_AC_COMPLEX
       do
-         assert(((x + y) * z).is_near_equal(x * z + y * z))
+         p1 := (x + y) * z
+         p2 := x * z + y * z
+         assert(p1.is_near_equal(p2))
       end
 
 end -- class TEST_AC01

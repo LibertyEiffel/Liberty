@@ -1,65 +1,34 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class REAL_128
-
-insert
-   REAL_GENERAL
-
-feature {ANY} -- Conversions:
-   force_to_real_32: REAL_32 is
-      external "built_in"
-      end
-
-   force_to_real_64: REAL_64 is
-      external "built_in"
-      end
-
-   force_to_integer_64: INTEGER_64 is
-      external "built_in"
-      end
-
-   force_to_integer_32: INTEGER_32 is
-      external "built_in"
-      end
-
-   force_to_integer_16: INTEGER_16 is
-      external "built_in"
-      end
+expanded class REAL_PRECISION
 
 feature {ANY}
-   zero: REAL_32 is 0.0
-
-   one: REAL_32 is 1.0
-
-   infix "~=" (other: like Current): BOOLEAN is
+   set_precision (a_precision: like precision) is
+         -- Set the mantissa precision, used by the `~=' operator
+         -- The nearer to 0, the more precise.
+      require
+         a_precision >= 0
       do
-         Result := (Current - other).abs * ({REAL_128 2.0} ^ (mantissa_bits - precision)) <= Current.abs
+         precision_ref.set_item(a_precision)
+      ensure
+         precision = a_precision
       end
 
-   hash_code: INTEGER is
+   precision: INTEGER_8 is
       do
-         Result := force_to_integer_32
-         if Result < 0 then
-            Result := -(Result + 1)
-         end
+         Result := precision_ref.item
+      ensure
+         Result >= 0
       end
-
-   mantissa_bits: INTEGER_8 is 112
-
-   exponent_bits: INTEGER_8 is 15
 
 feature {}
-   sprintf (buffer: NATIVE_ARRAY[CHARACTER]; mode: CHARACTER; f: INTEGER; value: REAL_128) is
-      external "plug_in"
-      alias "{
-         location: "${sys}/runtime"
-         module_name: "basic_sprintf"
-         feature_name: "sprintf_real_extended"
-         }"
+   precision_ref: REFERENCE[INTEGER_8] is
+      once
+         create Result.set_item(3)
       end
 
-end -- class REAL_128
+end -- class REAL_PRECISION
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
