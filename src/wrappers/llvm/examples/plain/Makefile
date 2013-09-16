@@ -16,12 +16,13 @@ example.bc: llvm_example
 	./llvm_example >example.bc
 
 llvm_example: llvm_example.e
-	@echo "Building the Liberty application (the warning suppression flag '-w' is used because SmartEiffel or my low level code does not interact well with const)"
+	@echo "Building the Liberty application \nNote: the warning suppression flag '-w' is used because generated low level code does not interact well with C const"
 	compile_to_c -no-split -all-check llvm_example 
-	gcc -w `llvm-config --cflags all` -c llvm_example.c
-	g++ -Xlinker --no-as-needed llvm_example.o -o llvm_example `llvm-config --libs --cflags --ldflags core bitwriter` 
+	gcc -w `llvm-config --cflags` -c llvm_example.c
+	g++ -Xlinker --no-as-needed llvm_example.o -o llvm_example `llvm-config --libs --ldflags core bitwriter` 
 
 clean:
-	rm *.c *.o llvm_example example example.bc example.s
 	clean llvm_example
+	rm *.c *.o llvm_example example example.bc example.s
+	
 
