@@ -45,12 +45,6 @@ feature {ANY} -- Conversions:
          Result = Current
       end
 
-   to_integer_32: INTEGER_32 is
-	   -- Dummy, no-op converton to ease 32/64-bit portability.
-	  do
-		  Result:=Current
-	  end
-
    to_integer_64: INTEGER_64 is
          -- Explicit conversion to INTEGER_64.
       do
