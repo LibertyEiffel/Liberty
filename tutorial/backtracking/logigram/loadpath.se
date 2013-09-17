@@ -1,5 +1,5 @@
 .
-./aux
-./aux/constraints
-./aux/exprs
+./auxiliary
+./auxiliary/constraints
+./auxiliary/exprs
 
