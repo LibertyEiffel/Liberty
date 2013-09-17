@@ -1,0 +1,7 @@
+# Ignore compiled files
+*.[coh]
+# Ignore tests
+*.log
+server
+client
+

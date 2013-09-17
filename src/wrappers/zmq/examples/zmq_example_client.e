@@ -1,6 +1,8 @@
 class ZMQ_EXAMPLE_CLIENT
 insert
-	UNISTD_EXTERNALS -- Some low-level Posix calls
+	MULTIPROCESSING
+	ANY
+
 create {ANY} make
 feature {ANY} 
 	context: ZMQ_CONTEXT
@@ -11,7 +13,7 @@ feature {ANY}
 		local  now: TIME; exc: ZMQ_EXCEPTION; my_pid: ABSTRACT_STRING
 		do
 			use_zmq
-			my_pid := &getpid
+			my_pid := & process_id
 			create context -- Initialise 0MQ context 
 			socket := context.new_req_socket -- to send requests and receive replies
 			-- Connect it to port 5555 on localhost using the TCP transport
