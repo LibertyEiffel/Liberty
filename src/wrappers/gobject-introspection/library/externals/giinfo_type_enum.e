@@ -9,233 +9,233 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = gi_info_type_arg_low_level)  or else
-				(a_value = gi_info_type_boxed_low_level)  or else
-				(a_value = gi_info_type_callback_low_level)  or else
-				(a_value = gi_info_type_constant_low_level)  or else
-				(a_value = gi_info_type_enum_low_level)  or else
-				(a_value = gi_info_type_field_low_level)  or else
-				(a_value = gi_info_type_flags_low_level)  or else
-				(a_value = gi_info_type_function_low_level)  or else
-				(a_value = gi_info_type_interface_low_level)  or else
-				(a_value = gi_info_type_invalid_low_level)  or else
-				(a_value = gi_info_type_invalid_0_low_level)  or else
-				(a_value = gi_info_type_object_low_level)  or else
-				(a_value = gi_info_type_property_low_level)  or else
-				(a_value = gi_info_type_signal_low_level)  or else
-				(a_value = gi_info_type_struct_low_level)  or else
-				(a_value = gi_info_type_type_low_level)  or else
-				(a_value = gi_info_type_union_low_level)  or else
-				(a_value = gi_info_type_unresolved_low_level)  or else
-				(a_value = gi_info_type_value_low_level)  or else
-				(a_value = gi_info_type_vfunc_low_level) )
+            Result := ((a_value = arg_low_level)  or else
+				(a_value = boxed_low_level)  or else
+				(a_value = callback_low_level)  or else
+				(a_value = constant_low_level)  or else
+				(a_value = enum_low_level)  or else
+				(a_value = field_low_level)  or else
+				(a_value = flags_low_level)  or else
+				(a_value = function_low_level)  or else
+				(a_value = interface_low_level)  or else
+				(a_value = invalid_low_level)  or else
+				(a_value = invalid_0_low_level)  or else
+				(a_value = object_low_level)  or else
+				(a_value = property_low_level)  or else
+				(a_value = signal_low_level)  or else
+				(a_value = struct_low_level)  or else
+				(a_value = type_low_level)  or else
+				(a_value = union_low_level)  or else
+				(a_value = unresolved_low_level)  or else
+				(a_value = value_low_level)  or else
+				(a_value = vfunc_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_gi_info_type_arg is
+	set_arg is
 		do
-			value := gi_info_type_arg_low_level
+			value := arg_low_level
 		end
 
-	set_gi_info_type_boxed is
+	set_boxed is
 		do
-			value := gi_info_type_boxed_low_level
+			value := boxed_low_level
 		end
 
-	set_gi_info_type_callback is
+	set_callback is
 		do
-			value := gi_info_type_callback_low_level
+			value := callback_low_level
 		end
 
-	set_gi_info_type_constant is
+	set_constant is
 		do
-			value := gi_info_type_constant_low_level
+			value := constant_low_level
 		end
 
-	set_gi_info_type_enum is
+	set_enum is
 		do
-			value := gi_info_type_enum_low_level
+			value := enum_low_level
 		end
 
-	set_gi_info_type_field is
+	set_field is
 		do
-			value := gi_info_type_field_low_level
+			value := field_low_level
 		end
 
-	set_gi_info_type_flags is
+	set_flags is
 		do
-			value := gi_info_type_flags_low_level
+			value := flags_low_level
 		end
 
-	set_gi_info_type_function is
+	set_function is
 		do
-			value := gi_info_type_function_low_level
+			value := function_low_level
 		end
 
-	set_gi_info_type_interface is
+	set_interface is
 		do
-			value := gi_info_type_interface_low_level
+			value := interface_low_level
 		end
 
-	set_gi_info_type_invalid is
+	set_invalid is
 		do
-			value := gi_info_type_invalid_low_level
+			value := invalid_low_level
 		end
 
-	set_gi_info_type_invalid_0 is
+	set_invalid_0 is
 		do
-			value := gi_info_type_invalid_0_low_level
+			value := invalid_0_low_level
 		end
 
-	set_gi_info_type_object is
+	set_object is
 		do
-			value := gi_info_type_object_low_level
+			value := object_low_level
 		end
 
-	set_gi_info_type_property is
+	set_property is
 		do
-			value := gi_info_type_property_low_level
+			value := property_low_level
 		end
 
-	set_gi_info_type_signal is
+	set_signal is
 		do
-			value := gi_info_type_signal_low_level
+			value := signal_low_level
 		end
 
-	set_gi_info_type_struct is
+	set_struct is
 		do
-			value := gi_info_type_struct_low_level
+			value := struct_low_level
 		end
 
-	set_gi_info_type_type is
+	set_type is
 		do
-			value := gi_info_type_type_low_level
+			value := type_low_level
 		end
 
-	set_gi_info_type_union is
+	set_union is
 		do
-			value := gi_info_type_union_low_level
+			value := union_low_level
 		end
 
-	set_gi_info_type_unresolved is
+	set_unresolved is
 		do
-			value := gi_info_type_unresolved_low_level
+			value := unresolved_low_level
 		end
 
-	set_gi_info_type_value is
+	set_value is
 		do
-			value := gi_info_type_value_low_level
+			value := value_low_level
 		end
 
-	set_gi_info_type_vfunc is
+	set_vfunc is
 		do
-			value := gi_info_type_vfunc_low_level
+			value := vfunc_low_level
 		end
 
 feature {ANY} -- Queries
-	is_gi_info_type_arg: BOOLEAN is
+	is_arg: BOOLEAN is
 		do
-			Result := (value=gi_info_type_arg_low_level)
+			Result := (value=arg_low_level)
 		end
 
-	is_gi_info_type_boxed: BOOLEAN is
+	is_boxed: BOOLEAN is
 		do
-			Result := (value=gi_info_type_boxed_low_level)
+			Result := (value=boxed_low_level)
 		end
 
-	is_gi_info_type_callback: BOOLEAN is
+	is_callback: BOOLEAN is
 		do
-			Result := (value=gi_info_type_callback_low_level)
+			Result := (value=callback_low_level)
 		end
 
-	is_gi_info_type_constant: BOOLEAN is
+	is_constant: BOOLEAN is
 		do
-			Result := (value=gi_info_type_constant_low_level)
+			Result := (value=constant_low_level)
 		end
 
-	is_gi_info_type_enum: BOOLEAN is
+	is_enum: BOOLEAN is
 		do
-			Result := (value=gi_info_type_enum_low_level)
+			Result := (value=enum_low_level)
 		end
 
-	is_gi_info_type_field: BOOLEAN is
+	is_field: BOOLEAN is
 		do
-			Result := (value=gi_info_type_field_low_level)
+			Result := (value=field_low_level)
 		end
 
-	is_gi_info_type_flags: BOOLEAN is
+	is_flags: BOOLEAN is
 		do
-			Result := (value=gi_info_type_flags_low_level)
+			Result := (value=flags_low_level)
 		end
 
-	is_gi_info_type_function: BOOLEAN is
+	is_function: BOOLEAN is
 		do
-			Result := (value=gi_info_type_function_low_level)
+			Result := (value=function_low_level)
 		end
 
-	is_gi_info_type_interface: BOOLEAN is
+	is_interface: BOOLEAN is
 		do
-			Result := (value=gi_info_type_interface_low_level)
+			Result := (value=interface_low_level)
 		end
 
-	is_gi_info_type_invalid: BOOLEAN is
+	is_invalid: BOOLEAN is
 		do
-			Result := (value=gi_info_type_invalid_low_level)
+			Result := (value=invalid_low_level)
 		end
 
-	is_gi_info_type_invalid_0: BOOLEAN is
+	is_invalid_0: BOOLEAN is
 		do
-			Result := (value=gi_info_type_invalid_0_low_level)
+			Result := (value=invalid_0_low_level)
 		end
 
-	is_gi_info_type_object: BOOLEAN is
+	is_object: BOOLEAN is
 		do
-			Result := (value=gi_info_type_object_low_level)
+			Result := (value=object_low_level)
 		end
 
-	is_gi_info_type_property: BOOLEAN is
+	is_property: BOOLEAN is
 		do
-			Result := (value=gi_info_type_property_low_level)
+			Result := (value=property_low_level)
 		end
 
-	is_gi_info_type_signal: BOOLEAN is
+	is_signal: BOOLEAN is
 		do
-			Result := (value=gi_info_type_signal_low_level)
+			Result := (value=signal_low_level)
 		end
 
-	is_gi_info_type_struct: BOOLEAN is
+	is_struct: BOOLEAN is
 		do
-			Result := (value=gi_info_type_struct_low_level)
+			Result := (value=struct_low_level)
 		end
 
-	is_gi_info_type_type: BOOLEAN is
+	is_type: BOOLEAN is
 		do
-			Result := (value=gi_info_type_type_low_level)
+			Result := (value=type_low_level)
 		end
 
-	is_gi_info_type_union: BOOLEAN is
+	is_union: BOOLEAN is
 		do
-			Result := (value=gi_info_type_union_low_level)
+			Result := (value=union_low_level)
 		end
 
-	is_gi_info_type_unresolved: BOOLEAN is
+	is_unresolved: BOOLEAN is
 		do
-			Result := (value=gi_info_type_unresolved_low_level)
+			Result := (value=unresolved_low_level)
 		end
 
-	is_gi_info_type_value: BOOLEAN is
+	is_value: BOOLEAN is
 		do
-			Result := (value=gi_info_type_value_low_level)
+			Result := (value=value_low_level)
 		end
 
-	is_gi_info_type_vfunc: BOOLEAN is
+	is_vfunc: BOOLEAN is
 		do
-			Result := (value=gi_info_type_vfunc_low_level)
+			Result := (value=vfunc_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	gi_info_type_arg_low_level: INTEGER is
+	arg_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -244,7 +244,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_boxed_low_level: INTEGER is
+	boxed_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -253,7 +253,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_callback_low_level: INTEGER is
+	callback_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -262,7 +262,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_constant_low_level: INTEGER is
+	constant_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -271,7 +271,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_enum_low_level: INTEGER is
+	enum_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -280,7 +280,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_field_low_level: INTEGER is
+	field_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -289,7 +289,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_flags_low_level: INTEGER is
+	flags_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -298,7 +298,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_function_low_level: INTEGER is
+	function_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -307,7 +307,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_interface_low_level: INTEGER is
+	interface_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -316,7 +316,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_invalid_low_level: INTEGER is
+	invalid_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -325,7 +325,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_invalid_0_low_level: INTEGER is
+	invalid_0_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -334,7 +334,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_object_low_level: INTEGER is
+	object_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -343,7 +343,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_property_low_level: INTEGER is
+	property_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -352,7 +352,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_signal_low_level: INTEGER is
+	signal_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -361,7 +361,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_struct_low_level: INTEGER is
+	struct_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -370,7 +370,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_type_low_level: INTEGER is
+	type_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -379,7 +379,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_union_low_level: INTEGER is
+	union_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -388,7 +388,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_unresolved_low_level: INTEGER is
+	unresolved_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -397,7 +397,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_value_low_level: INTEGER is
+	value_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -406,7 +406,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_info_type_vfunc_low_level: INTEGER is
+	vfunc_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

@@ -44,8 +44,8 @@ feature {ANY} -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
-	llvmtype_handle_ref: POINTER is
-		-- typedef LLVMTypeHandleRef
+	llvmtarget_library_info_ref: POINTER is
+		-- typedef LLVMTargetLibraryInfoRef
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
@@ -67,6 +67,13 @@ feature {ANY} -- C type definitions (typedefs)
 
 	llvmbasic_block_ref: POINTER is
 		-- typedef LLVMBasicBlockRef
+		-- Empty by design, used for anchored declarations.
+	do
+	ensure Result.is_default
+	end
+
+	llvmtarget_data_ref: POINTER is
+		-- typedef LLVMTargetDataRef
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
@@ -109,13 +116,6 @@ feature {ANY} -- C type definitions (typedefs)
 
 	llvmpass_registry_ref: POINTER is
 		-- typedef LLVMPassRegistryRef
-		-- Empty by design, used for anchored declarations.
-	do
-	ensure Result.is_default
-	end
-
-	llvmtarget_data_ref: POINTER is
-		-- typedef LLVMTargetDataRef
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default

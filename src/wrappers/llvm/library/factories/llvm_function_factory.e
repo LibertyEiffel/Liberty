@@ -18,6 +18,9 @@ feature {WRAPPER, WRAPPER_HANDLER}
 		create Result.from_external_pointer(a_pointer)
 	end
 end -- class LLVM_FUNCTION_FACTORY
+
+-- Copyright 2009,2010,2013 Paolo Redaelli - 2013 Cyril Adrian 
+
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --
 -- This library is free software: you can redistribute it and/or modify

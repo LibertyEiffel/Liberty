@@ -9,46 +9,46 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_key_file_keep_comments_low_level)  or else
-				(a_value = g_key_file_keep_translations_low_level)  or else
-				(a_value = g_key_file_none_low_level) )
+            Result := ((a_value = keep_comments_low_level)  or else
+				(a_value = keep_translations_low_level)  or else
+				(a_value = none_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_key_file_keep_comments is
+	set_keep_comments is
 		do
-			value := g_key_file_keep_comments_low_level
+			value := keep_comments_low_level
 		end
 
-	set_g_key_file_keep_translations is
+	set_keep_translations is
 		do
-			value := g_key_file_keep_translations_low_level
+			value := keep_translations_low_level
 		end
 
-	set_g_key_file_none is
+	set_none is
 		do
-			value := g_key_file_none_low_level
+			value := none_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_key_file_keep_comments: BOOLEAN is
+	is_keep_comments: BOOLEAN is
 		do
-			Result := (value=g_key_file_keep_comments_low_level)
+			Result := (value=keep_comments_low_level)
 		end
 
-	is_g_key_file_keep_translations: BOOLEAN is
+	is_keep_translations: BOOLEAN is
 		do
-			Result := (value=g_key_file_keep_translations_low_level)
+			Result := (value=keep_translations_low_level)
 		end
 
-	is_g_key_file_none: BOOLEAN is
+	is_none: BOOLEAN is
 		do
-			Result := (value=g_key_file_none_low_level)
+			Result := (value=none_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_key_file_keep_comments_low_level: INTEGER is
+	keep_comments_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_key_file_keep_translations_low_level: INTEGER is
+	keep_translations_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_key_file_none_low_level: INTEGER is
+	none_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

@@ -98,7 +98,8 @@ feature {ANY}
 
    hash_code: INTEGER is
       do
-         not_yet_implemented
+		  Result := (real+imaginary).hash_code
+		  -- Note: it is debatabe if such an hash code implementation is actually useful.  
       end
 
    real_sign: INTEGER_8 is
@@ -144,7 +145,10 @@ feature {ANY}
 
    is_near_equal, infix "~=" (other: like Current): BOOLEAN is
       do
-         Result := (real ~= other.real) and (imaginary ~= other.imaginary)
+		  debug
+			  print(&Current + " ~= " + &other + "%N") 
+		  end
+		  Result := (real ~= other.real) and (imaginary ~= other.imaginary)
       end
 
    conjugate: like Current is

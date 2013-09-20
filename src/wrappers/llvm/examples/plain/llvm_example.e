@@ -131,7 +131,7 @@ feature {} -- tests agents
 			Result := a_value.name.is_equal(a_name)
 		end
 feature {ANY} -- data
-	calling_convention: LLVMCALLCONV_ENUM
+	calling_convention: LLVMCALL_CONV_ENUM
 	module: LLVM_MODULE 
 	builder: LLVM_BUILDER  
 	block: LLVM_BASIC_BLOCK 

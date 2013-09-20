@@ -9,101 +9,101 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_normalize_all_low_level)  or else
-				(a_value = g_normalize_all_compose_low_level)  or else
-				(a_value = g_normalize_default_low_level)  or else
-				(a_value = g_normalize_default_compose_low_level)  or else
-				(a_value = g_normalize_nfc_low_level)  or else
-				(a_value = g_normalize_nfd_low_level)  or else
-				(a_value = g_normalize_nfkc_low_level)  or else
-				(a_value = g_normalize_nfkd_low_level) )
+            Result := ((a_value = all_low_level)  or else
+				(a_value = all_compose_low_level)  or else
+				(a_value = default_compose_low_level)  or else
+				(a_value = default_external_low_level)  or else
+				(a_value = nfc_low_level)  or else
+				(a_value = nfd_low_level)  or else
+				(a_value = nfkc_low_level)  or else
+				(a_value = nfkd_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_normalize_all is
+	set_all is
 		do
-			value := g_normalize_all_low_level
+			value := all_low_level
 		end
 
-	set_g_normalize_all_compose is
+	set_all_compose is
 		do
-			value := g_normalize_all_compose_low_level
+			value := all_compose_low_level
 		end
 
-	set_g_normalize_default is
+	set_default_compose is
 		do
-			value := g_normalize_default_low_level
+			value := default_compose_low_level
 		end
 
-	set_g_normalize_default_compose is
+	set_default_external is
 		do
-			value := g_normalize_default_compose_low_level
+			value := default_external_low_level
 		end
 
-	set_g_normalize_nfc is
+	set_nfc is
 		do
-			value := g_normalize_nfc_low_level
+			value := nfc_low_level
 		end
 
-	set_g_normalize_nfd is
+	set_nfd is
 		do
-			value := g_normalize_nfd_low_level
+			value := nfd_low_level
 		end
 
-	set_g_normalize_nfkc is
+	set_nfkc is
 		do
-			value := g_normalize_nfkc_low_level
+			value := nfkc_low_level
 		end
 
-	set_g_normalize_nfkd is
+	set_nfkd is
 		do
-			value := g_normalize_nfkd_low_level
+			value := nfkd_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_normalize_all: BOOLEAN is
+	is_all: BOOLEAN is
 		do
-			Result := (value=g_normalize_all_low_level)
+			Result := (value=all_low_level)
 		end
 
-	is_g_normalize_all_compose: BOOLEAN is
+	is_all_compose: BOOLEAN is
 		do
-			Result := (value=g_normalize_all_compose_low_level)
+			Result := (value=all_compose_low_level)
 		end
 
-	is_g_normalize_default: BOOLEAN is
+	is_default_compose: BOOLEAN is
 		do
-			Result := (value=g_normalize_default_low_level)
+			Result := (value=default_compose_low_level)
 		end
 
-	is_g_normalize_default_compose: BOOLEAN is
+	is_default_external: BOOLEAN is
 		do
-			Result := (value=g_normalize_default_compose_low_level)
+			Result := (value=default_external_low_level)
 		end
 
-	is_g_normalize_nfc: BOOLEAN is
+	is_nfc: BOOLEAN is
 		do
-			Result := (value=g_normalize_nfc_low_level)
+			Result := (value=nfc_low_level)
 		end
 
-	is_g_normalize_nfd: BOOLEAN is
+	is_nfd: BOOLEAN is
 		do
-			Result := (value=g_normalize_nfd_low_level)
+			Result := (value=nfd_low_level)
 		end
 
-	is_g_normalize_nfkc: BOOLEAN is
+	is_nfkc: BOOLEAN is
 		do
-			Result := (value=g_normalize_nfkc_low_level)
+			Result := (value=nfkc_low_level)
 		end
 
-	is_g_normalize_nfkd: BOOLEAN is
+	is_nfkd: BOOLEAN is
 		do
-			Result := (value=g_normalize_nfkd_low_level)
+			Result := (value=nfkd_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_normalize_all_low_level: INTEGER is
+	all_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -112,7 +112,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_normalize_all_compose_low_level: INTEGER is
+	all_compose_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -121,16 +121,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_normalize_default_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_NORMALIZE_DEFAULT"
- 			}"
- 		end
-
-	g_normalize_default_compose_low_level: INTEGER is
+	default_compose_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -139,7 +130,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_normalize_nfc_low_level: INTEGER is
+	default_external_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_NORMALIZE_DEFAULT"
+ 			}"
+ 		end
+
+	nfc_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -148,7 +148,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_normalize_nfd_low_level: INTEGER is
+	nfd_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -157,7 +157,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_normalize_nfkc_low_level: INTEGER is
+	nfkc_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -166,7 +166,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_normalize_nfkd_low_level: INTEGER is
+	nfkd_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

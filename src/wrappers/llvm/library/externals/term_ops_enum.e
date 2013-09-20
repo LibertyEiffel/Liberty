@@ -12,12 +12,12 @@ feature {ANY} -- Validity
             Result := ((a_value = br_low_level)  or else
 				(a_value = indirect_br_low_level)  or else
 				(a_value = invoke_low_level)  or else
+				(a_value = resume_low_level)  or else
 				(a_value = ret_low_level)  or else
 				(a_value = switch_low_level)  or else
 				(a_value = term_ops_begin_low_level)  or else
 				(a_value = term_ops_end_low_level)  or else
-				(a_value = unreachable_low_level)  or else
-				(a_value = unwind_low_level) )
+				(a_value = unreachable_low_level) )
 		end
 
 feature {ANY} -- Setters
@@ -35,6 +35,11 @@ feature {ANY} -- Setters
 	set_invoke is
 		do
 			value := invoke_low_level
+		end
+
+	set_resume is
+		do
+			value := resume_low_level
 		end
 
 	set_ret is
@@ -62,11 +67,6 @@ feature {ANY} -- Setters
 			value := unreachable_low_level
 		end
 
-	set_unwind is
-		do
-			value := unwind_low_level
-		end
-
 feature {ANY} -- Queries
 	is_br: BOOLEAN is
 		do
@@ -81,6 +81,11 @@ feature {ANY} -- Queries
 	is_invoke: BOOLEAN is
 		do
 			Result := (value=invoke_low_level)
+		end
+
+	is_resume: BOOLEAN is
+		do
+			Result := (value=resume_low_level)
 		end
 
 	is_ret: BOOLEAN is
@@ -108,11 +113,6 @@ feature {ANY} -- Queries
 			Result := (value=unreachable_low_level)
 		end
 
-	is_unwind: BOOLEAN is
-		do
-			Result := (value=unwind_low_level)
-		end
-
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	br_low_level: INTEGER is
 		external "plug_in"
@@ -138,6 +138,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "Invoke"
+ 			}"
+ 		end
+
+	resume_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "Resume"
  			}"
  		end
 
@@ -183,15 +192,6 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "Unreachable"
- 			}"
- 		end
-
-	unwind_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "Unwind"
  			}"
  		end
 

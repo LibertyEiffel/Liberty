@@ -1,0 +1,17 @@
+binary-trees:	-pipe -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -L/usr/local/lib  
+fannkuch:	-pipe -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -L/usr/local/lib  
+fasta:		-pipe -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -mfpmath=sse -msse2 -L/usr/local/lib  
+k-nucleotide:	-pipe -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -L/usr/local/lib  
+mandelbrot:	-pipe -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -L/usr/local/lib  
+meteor-contest:	-pipe -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -L/usr/local/lib  
+n-body:		-pipe -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -mfpmath=sse -msse2 -L/usr/local/lib  
+nsieve:		-pipe -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -L/usr/local/lib  
+nsieve-bits:	-pipe -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -L/usr/local/lib  
+partial-sums:	-pipe -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -L/usr/local/lib  
+pidigits:	-pipe -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -L/usr/local/lib -lgmp -lgmpxx 
+recursive:	-pipe -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -L/usr/local/lib  
+regex-dna:	-pipe -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -L/usr/local/lib -lboost_regex 
+reverse-complement:-pipe -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -L/usr/local/lib  
+spectral-norm:	-pipe -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -mfpmath=sse -msse2 -L/usr/local/lib  
+startup:	-pipe -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -L/usr/local/lib  
+sum-col:	-pipe -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -L/usr/local/lib  

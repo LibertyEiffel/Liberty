@@ -9,189 +9,189 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = llvmarray_type_kind_low_level)  or else
-				(a_value = llvmdouble_type_kind_low_level)  or else
-				(a_value = llvmfloat_type_kind_low_level)  or else
-				(a_value = llvmfp128type_kind_low_level)  or else
-				(a_value = llvmfunction_type_kind_low_level)  or else
-				(a_value = llvminteger_type_kind_low_level)  or else
-				(a_value = llvmlabel_type_kind_low_level)  or else
-				(a_value = llvmmetadata_type_kind_low_level)  or else
-				(a_value = llvmopaque_type_kind_low_level)  or else
-				(a_value = llvmpointer_type_kind_low_level)  or else
-				(a_value = llvmppc_fp128type_kind_low_level)  or else
-				(a_value = llvmstruct_type_kind_low_level)  or else
-				(a_value = llvmvector_type_kind_low_level)  or else
-				(a_value = llvmvoid_type_kind_low_level)  or else
-				(a_value = llvmx86_fp80type_kind_low_level)  or else
-				(a_value = llvmx86_mmxtype_kind_low_level) )
+            Result := ((a_value = array_type_kind_low_level)  or else
+				(a_value = double_type_kind_low_level)  or else
+				(a_value = float_type_kind_low_level)  or else
+				(a_value = fp128type_kind_low_level)  or else
+				(a_value = function_type_kind_low_level)  or else
+				(a_value = half_type_kind_low_level)  or else
+				(a_value = integer_type_kind_low_level)  or else
+				(a_value = label_type_kind_low_level)  or else
+				(a_value = metadata_type_kind_low_level)  or else
+				(a_value = pointer_type_kind_low_level)  or else
+				(a_value = ppc_fp128type_kind_low_level)  or else
+				(a_value = struct_type_kind_low_level)  or else
+				(a_value = vector_type_kind_low_level)  or else
+				(a_value = void_type_kind_low_level)  or else
+				(a_value = x86_fp80type_kind_low_level)  or else
+				(a_value = x86_mmxtype_kind_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_llvmarray_type_kind is
+	set_array_type_kind is
 		do
-			value := llvmarray_type_kind_low_level
+			value := array_type_kind_low_level
 		end
 
-	set_llvmdouble_type_kind is
+	set_double_type_kind is
 		do
-			value := llvmdouble_type_kind_low_level
+			value := double_type_kind_low_level
 		end
 
-	set_llvmfloat_type_kind is
+	set_float_type_kind is
 		do
-			value := llvmfloat_type_kind_low_level
+			value := float_type_kind_low_level
 		end
 
-	set_llvmfp128type_kind is
+	set_fp128type_kind is
 		do
-			value := llvmfp128type_kind_low_level
+			value := fp128type_kind_low_level
 		end
 
-	set_llvmfunction_type_kind is
+	set_function_type_kind is
 		do
-			value := llvmfunction_type_kind_low_level
+			value := function_type_kind_low_level
 		end
 
-	set_llvminteger_type_kind is
+	set_half_type_kind is
 		do
-			value := llvminteger_type_kind_low_level
+			value := half_type_kind_low_level
 		end
 
-	set_llvmlabel_type_kind is
+	set_integer_type_kind is
 		do
-			value := llvmlabel_type_kind_low_level
+			value := integer_type_kind_low_level
 		end
 
-	set_llvmmetadata_type_kind is
+	set_label_type_kind is
 		do
-			value := llvmmetadata_type_kind_low_level
+			value := label_type_kind_low_level
 		end
 
-	set_llvmopaque_type_kind is
+	set_metadata_type_kind is
 		do
-			value := llvmopaque_type_kind_low_level
+			value := metadata_type_kind_low_level
 		end
 
-	set_llvmpointer_type_kind is
+	set_pointer_type_kind is
 		do
-			value := llvmpointer_type_kind_low_level
+			value := pointer_type_kind_low_level
 		end
 
-	set_llvmppc_fp128type_kind is
+	set_ppc_fp128type_kind is
 		do
-			value := llvmppc_fp128type_kind_low_level
+			value := ppc_fp128type_kind_low_level
 		end
 
-	set_llvmstruct_type_kind is
+	set_struct_type_kind is
 		do
-			value := llvmstruct_type_kind_low_level
+			value := struct_type_kind_low_level
 		end
 
-	set_llvmvector_type_kind is
+	set_vector_type_kind is
 		do
-			value := llvmvector_type_kind_low_level
+			value := vector_type_kind_low_level
 		end
 
-	set_llvmvoid_type_kind is
+	set_void_type_kind is
 		do
-			value := llvmvoid_type_kind_low_level
+			value := void_type_kind_low_level
 		end
 
-	set_llvmx86_fp80type_kind is
+	set_x86_fp80type_kind is
 		do
-			value := llvmx86_fp80type_kind_low_level
+			value := x86_fp80type_kind_low_level
 		end
 
-	set_llvmx86_mmxtype_kind is
+	set_x86_mmxtype_kind is
 		do
-			value := llvmx86_mmxtype_kind_low_level
+			value := x86_mmxtype_kind_low_level
 		end
 
 feature {ANY} -- Queries
-	is_llvmarray_type_kind: BOOLEAN is
+	is_array_type_kind: BOOLEAN is
 		do
-			Result := (value=llvmarray_type_kind_low_level)
+			Result := (value=array_type_kind_low_level)
 		end
 
-	is_llvmdouble_type_kind: BOOLEAN is
+	is_double_type_kind: BOOLEAN is
 		do
-			Result := (value=llvmdouble_type_kind_low_level)
+			Result := (value=double_type_kind_low_level)
 		end
 
-	is_llvmfloat_type_kind: BOOLEAN is
+	is_float_type_kind: BOOLEAN is
 		do
-			Result := (value=llvmfloat_type_kind_low_level)
+			Result := (value=float_type_kind_low_level)
 		end
 
-	is_llvmfp128type_kind: BOOLEAN is
+	is_fp128type_kind: BOOLEAN is
 		do
-			Result := (value=llvmfp128type_kind_low_level)
+			Result := (value=fp128type_kind_low_level)
 		end
 
-	is_llvmfunction_type_kind: BOOLEAN is
+	is_function_type_kind: BOOLEAN is
 		do
-			Result := (value=llvmfunction_type_kind_low_level)
+			Result := (value=function_type_kind_low_level)
 		end
 
-	is_llvminteger_type_kind: BOOLEAN is
+	is_half_type_kind: BOOLEAN is
 		do
-			Result := (value=llvminteger_type_kind_low_level)
+			Result := (value=half_type_kind_low_level)
 		end
 
-	is_llvmlabel_type_kind: BOOLEAN is
+	is_integer_type_kind: BOOLEAN is
 		do
-			Result := (value=llvmlabel_type_kind_low_level)
+			Result := (value=integer_type_kind_low_level)
 		end
 
-	is_llvmmetadata_type_kind: BOOLEAN is
+	is_label_type_kind: BOOLEAN is
 		do
-			Result := (value=llvmmetadata_type_kind_low_level)
+			Result := (value=label_type_kind_low_level)
 		end
 
-	is_llvmopaque_type_kind: BOOLEAN is
+	is_metadata_type_kind: BOOLEAN is
 		do
-			Result := (value=llvmopaque_type_kind_low_level)
+			Result := (value=metadata_type_kind_low_level)
 		end
 
-	is_llvmpointer_type_kind: BOOLEAN is
+	is_pointer_type_kind: BOOLEAN is
 		do
-			Result := (value=llvmpointer_type_kind_low_level)
+			Result := (value=pointer_type_kind_low_level)
 		end
 
-	is_llvmppc_fp128type_kind: BOOLEAN is
+	is_ppc_fp128type_kind: BOOLEAN is
 		do
-			Result := (value=llvmppc_fp128type_kind_low_level)
+			Result := (value=ppc_fp128type_kind_low_level)
 		end
 
-	is_llvmstruct_type_kind: BOOLEAN is
+	is_struct_type_kind: BOOLEAN is
 		do
-			Result := (value=llvmstruct_type_kind_low_level)
+			Result := (value=struct_type_kind_low_level)
 		end
 
-	is_llvmvector_type_kind: BOOLEAN is
+	is_vector_type_kind: BOOLEAN is
 		do
-			Result := (value=llvmvector_type_kind_low_level)
+			Result := (value=vector_type_kind_low_level)
 		end
 
-	is_llvmvoid_type_kind: BOOLEAN is
+	is_void_type_kind: BOOLEAN is
 		do
-			Result := (value=llvmvoid_type_kind_low_level)
+			Result := (value=void_type_kind_low_level)
 		end
 
-	is_llvmx86_fp80type_kind: BOOLEAN is
+	is_x86_fp80type_kind: BOOLEAN is
 		do
-			Result := (value=llvmx86_fp80type_kind_low_level)
+			Result := (value=x86_fp80type_kind_low_level)
 		end
 
-	is_llvmx86_mmxtype_kind: BOOLEAN is
+	is_x86_mmxtype_kind: BOOLEAN is
 		do
-			Result := (value=llvmx86_mmxtype_kind_low_level)
+			Result := (value=x86_mmxtype_kind_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	llvmarray_type_kind_low_level: INTEGER is
+	array_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -200,7 +200,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmdouble_type_kind_low_level: INTEGER is
+	double_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -209,7 +209,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmfloat_type_kind_low_level: INTEGER is
+	float_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -218,7 +218,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmfp128type_kind_low_level: INTEGER is
+	fp128type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -227,7 +227,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmfunction_type_kind_low_level: INTEGER is
+	function_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -236,7 +236,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvminteger_type_kind_low_level: INTEGER is
+	half_type_kind_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMHalfTypeKind"
+ 			}"
+ 		end
+
+	integer_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -245,7 +254,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmlabel_type_kind_low_level: INTEGER is
+	label_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -254,7 +263,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmmetadata_type_kind_low_level: INTEGER is
+	metadata_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -263,16 +272,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmopaque_type_kind_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMOpaqueTypeKind"
- 			}"
- 		end
-
-	llvmpointer_type_kind_low_level: INTEGER is
+	pointer_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -281,7 +281,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmppc_fp128type_kind_low_level: INTEGER is
+	ppc_fp128type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -290,7 +290,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmstruct_type_kind_low_level: INTEGER is
+	struct_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -299,7 +299,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmvector_type_kind_low_level: INTEGER is
+	vector_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -308,7 +308,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmvoid_type_kind_low_level: INTEGER is
+	void_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -317,7 +317,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmx86_fp80type_kind_low_level: INTEGER is
+	x86_fp80type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -326,7 +326,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmx86_mmxtype_kind_low_level: INTEGER is
+	x86_mmxtype_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

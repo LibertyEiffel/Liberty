@@ -9,79 +9,79 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = op_div_by_zero_low_level)  or else
-				(a_value = op_inexact_low_level)  or else
-				(a_value = op_invalid_op_low_level)  or else
-				(a_value = op_ok_low_level)  or else
-				(a_value = op_overflow_low_level)  or else
-				(a_value = op_underflow_low_level) )
+            Result := ((a_value = div_by_zero_low_level)  or else
+				(a_value = inexact_low_level)  or else
+				(a_value = invalid_op_low_level)  or else
+				(a_value = ok_low_level)  or else
+				(a_value = overflow_low_level)  or else
+				(a_value = underflow_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_op_div_by_zero is
+	set_div_by_zero is
 		do
-			value := op_div_by_zero_low_level
+			value := div_by_zero_low_level
 		end
 
-	set_op_inexact is
+	set_inexact is
 		do
-			value := op_inexact_low_level
+			value := inexact_low_level
 		end
 
-	set_op_invalid_op is
+	set_invalid_op is
 		do
-			value := op_invalid_op_low_level
+			value := invalid_op_low_level
 		end
 
-	set_op_ok is
+	set_ok is
 		do
-			value := op_ok_low_level
+			value := ok_low_level
 		end
 
-	set_op_overflow is
+	set_overflow is
 		do
-			value := op_overflow_low_level
+			value := overflow_low_level
 		end
 
-	set_op_underflow is
+	set_underflow is
 		do
-			value := op_underflow_low_level
+			value := underflow_low_level
 		end
 
 feature {ANY} -- Queries
-	is_op_div_by_zero: BOOLEAN is
+	is_div_by_zero: BOOLEAN is
 		do
-			Result := (value=op_div_by_zero_low_level)
+			Result := (value=div_by_zero_low_level)
 		end
 
-	is_op_inexact: BOOLEAN is
+	is_inexact: BOOLEAN is
 		do
-			Result := (value=op_inexact_low_level)
+			Result := (value=inexact_low_level)
 		end
 
-	is_op_invalid_op: BOOLEAN is
+	is_invalid_op: BOOLEAN is
 		do
-			Result := (value=op_invalid_op_low_level)
+			Result := (value=invalid_op_low_level)
 		end
 
-	is_op_ok: BOOLEAN is
+	is_ok: BOOLEAN is
 		do
-			Result := (value=op_ok_low_level)
+			Result := (value=ok_low_level)
 		end
 
-	is_op_overflow: BOOLEAN is
+	is_overflow: BOOLEAN is
 		do
-			Result := (value=op_overflow_low_level)
+			Result := (value=overflow_low_level)
 		end
 
-	is_op_underflow: BOOLEAN is
+	is_underflow: BOOLEAN is
 		do
-			Result := (value=op_underflow_low_level)
+			Result := (value=underflow_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	op_div_by_zero_low_level: INTEGER is
+	div_by_zero_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -90,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	op_inexact_low_level: INTEGER is
+	inexact_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +99,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	op_invalid_op_low_level: INTEGER is
+	invalid_op_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,7 +108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	op_ok_low_level: INTEGER is
+	ok_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -117,7 +117,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	op_overflow_low_level: INTEGER is
+	overflow_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -126,7 +126,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	op_underflow_low_level: INTEGER is
+	underflow_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

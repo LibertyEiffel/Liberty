@@ -1,0 +1,18 @@
+binary-trees:	-pipe -Wall -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -lm
+chameneos-redux:-pipe -Wall -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -lpthread
+fannkuch:	-pipe -Wall -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+fasta:		-pipe -Wall -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -mfpmath=sse -msse2
+k-nucleotide:	-pipe -Wall -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+mandelbrot:	-pipe -Wall -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -D_ISOC9X_SOURCE -mfpmath=sse -msse2 -lm
+n-body:		-pipe -Wall -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -mfpmath=sse -msse2  -lm
+nsieve:		-pipe -Wall -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -std=c99
+nsieve-bits:	-pipe -Wall -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+partial-sums:	-pipe -Wall -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -lm
+pidigits:	-pipe -Wall -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -lgmp
+recursive:	-pipe -Wall -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+regex-dna:	-pipe -Wall -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -lpcre
+reverse-complement:-pipe -Wall -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+spectral-norm:	-pipe -Wall -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -lm
+sum-col:	-pipe -Wall -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+startup:	-pipe -Wall -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -ffreestanding -nostartfiles -s -static
+thread-ring:	-pipe -Wall -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -lpthread

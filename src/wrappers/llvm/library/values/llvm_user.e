@@ -24,6 +24,9 @@ feature {ANY} -- TODO:Important Public Members of the User class
 -- op_iterator op_end() - Get an iterator to the end of the operand list.
 -- Together, these methods make up the iterator based interface to the operands of a User.
 end -- class LLVM_USER
+
+-- Copyright 2009,2010,2013 Paolo Redaelli - 2013 Cyril Adrian 
+
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --
 -- This library is free software: you can redistribute it and/or modify

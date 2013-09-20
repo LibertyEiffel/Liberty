@@ -9,57 +9,57 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_irepository_error_library_not_found_low_level)  or else
-				(a_value = g_irepository_error_namespace_mismatch_low_level)  or else
-				(a_value = g_irepository_error_namespace_version_conflict_low_level)  or else
-				(a_value = g_irepository_error_typelib_not_found_low_level) )
+            Result := ((a_value = library_not_found_low_level)  or else
+				(a_value = namespace_mismatch_low_level)  or else
+				(a_value = namespace_version_conflict_low_level)  or else
+				(a_value = typelib_not_found_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_irepository_error_library_not_found is
+	set_library_not_found is
 		do
-			value := g_irepository_error_library_not_found_low_level
+			value := library_not_found_low_level
 		end
 
-	set_g_irepository_error_namespace_mismatch is
+	set_namespace_mismatch is
 		do
-			value := g_irepository_error_namespace_mismatch_low_level
+			value := namespace_mismatch_low_level
 		end
 
-	set_g_irepository_error_namespace_version_conflict is
+	set_namespace_version_conflict is
 		do
-			value := g_irepository_error_namespace_version_conflict_low_level
+			value := namespace_version_conflict_low_level
 		end
 
-	set_g_irepository_error_typelib_not_found is
+	set_typelib_not_found is
 		do
-			value := g_irepository_error_typelib_not_found_low_level
+			value := typelib_not_found_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_irepository_error_library_not_found: BOOLEAN is
+	is_library_not_found: BOOLEAN is
 		do
-			Result := (value=g_irepository_error_library_not_found_low_level)
+			Result := (value=library_not_found_low_level)
 		end
 
-	is_g_irepository_error_namespace_mismatch: BOOLEAN is
+	is_namespace_mismatch: BOOLEAN is
 		do
-			Result := (value=g_irepository_error_namespace_mismatch_low_level)
+			Result := (value=namespace_mismatch_low_level)
 		end
 
-	is_g_irepository_error_namespace_version_conflict: BOOLEAN is
+	is_namespace_version_conflict: BOOLEAN is
 		do
-			Result := (value=g_irepository_error_namespace_version_conflict_low_level)
+			Result := (value=namespace_version_conflict_low_level)
 		end
 
-	is_g_irepository_error_typelib_not_found: BOOLEAN is
+	is_typelib_not_found: BOOLEAN is
 		do
-			Result := (value=g_irepository_error_typelib_not_found_low_level)
+			Result := (value=typelib_not_found_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_irepository_error_library_not_found_low_level: INTEGER is
+	library_not_found_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_irepository_error_namespace_mismatch_low_level: INTEGER is
+	namespace_mismatch_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_irepository_error_namespace_version_conflict_low_level: INTEGER is
+	namespace_version_conflict_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_irepository_error_typelib_not_found_low_level: INTEGER is
+	typelib_not_found_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

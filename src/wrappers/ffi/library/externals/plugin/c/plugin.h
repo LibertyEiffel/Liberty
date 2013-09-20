@@ -52,14 +52,6 @@
 
 #define ffi_raw_closure_struct_set_cif(a_structure,a_value) do {((( ffi_raw_closure*)(a_structure)))->cif = (a_value);}while(0)
 
-#define ffi_raw_closure_struct_get_translate_args(a_structure) ((( ffi_raw_closure*) (a_structure))->translate_args)
-
-#define ffi_raw_closure_struct_set_translate_args(a_structure,a_value) do {((( ffi_raw_closure*)(a_structure)))->translate_args = (a_value);}while(0)
-
-#define ffi_raw_closure_struct_get_this_closure(a_structure) ((( ffi_raw_closure*) (a_structure))->this_closure)
-
-#define ffi_raw_closure_struct_set_this_closure(a_structure,a_value) do {((( ffi_raw_closure*)(a_structure)))->this_closure = (a_value);}while(0)
-
 #define ffi_raw_closure_struct_get_fun(a_structure) ((( ffi_raw_closure*) (a_structure))->fun)
 
 #define ffi_raw_closure_struct_set_fun(a_structure,a_value) do {((( ffi_raw_closure*)(a_structure)))->fun = (a_value);}while(0)
@@ -76,14 +68,6 @@
 #define ffi_java_raw_closure_struct_get_cif(a_structure) ((( ffi_java_raw_closure*) (a_structure))->cif)
 
 #define ffi_java_raw_closure_struct_set_cif(a_structure,a_value) do {((( ffi_java_raw_closure*)(a_structure)))->cif = (a_value);}while(0)
-
-#define ffi_java_raw_closure_struct_get_translate_args(a_structure) ((( ffi_java_raw_closure*) (a_structure))->translate_args)
-
-#define ffi_java_raw_closure_struct_set_translate_args(a_structure,a_value) do {((( ffi_java_raw_closure*)(a_structure)))->translate_args = (a_value);}while(0)
-
-#define ffi_java_raw_closure_struct_get_this_closure(a_structure) ((( ffi_java_raw_closure*) (a_structure))->this_closure)
-
-#define ffi_java_raw_closure_struct_set_this_closure(a_structure,a_value) do {((( ffi_java_raw_closure*)(a_structure)))->this_closure = (a_value);}while(0)
 
 #define ffi_java_raw_closure_struct_get_fun(a_structure) ((( ffi_java_raw_closure*) (a_structure))->fun)
 

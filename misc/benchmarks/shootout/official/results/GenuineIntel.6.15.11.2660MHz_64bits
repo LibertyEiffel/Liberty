@@ -1,0 +1,299 @@
+hostname	: xapel
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 15
+model name	: Intel(R) Xeon(R) CPU           X5355  @ 2.66GHz
+stepping	: 11
+cpu MHz		: 2660.031
+cache size	: 4096 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 10
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm syscall nx lm constant_tsc pni monitor ds_cpl vmx est tm2 cx16 xtpr lahf_lm
+bogomips	: 5324.73
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 38 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 15
+model name	: Intel(R) Xeon(R) CPU           X5355  @ 2.66GHz
+stepping	: 11
+cpu MHz		: 2660.031
+cache size	: 4096 KB
+physical id	: 1
+siblings	: 4
+core id		: 0
+cpu cores	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 10
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm syscall nx lm constant_tsc pni monitor ds_cpl vmx est tm2 cx16 xtpr lahf_lm
+bogomips	: 5319.99
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 38 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 15
+model name	: Intel(R) Xeon(R) CPU           X5355  @ 2.66GHz
+stepping	: 11
+cpu MHz		: 2660.031
+cache size	: 4096 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 10
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm syscall nx lm constant_tsc pni monitor ds_cpl vmx est tm2 cx16 xtpr lahf_lm
+bogomips	: 5319.96
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 38 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 15
+model name	: Intel(R) Xeon(R) CPU           X5355  @ 2.66GHz
+stepping	: 11
+cpu MHz		: 2660.031
+cache size	: 4096 KB
+physical id	: 1
+siblings	: 4
+core id		: 1
+cpu cores	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 10
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm syscall nx lm constant_tsc pni monitor ds_cpl vmx est tm2 cx16 xtpr lahf_lm
+bogomips	: 5319.96
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 38 bits physical, 48 bits virtual
+power management:
+
+processor	: 4
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 15
+model name	: Intel(R) Xeon(R) CPU           X5355  @ 2.66GHz
+stepping	: 11
+cpu MHz		: 2660.031
+cache size	: 4096 KB
+physical id	: 0
+siblings	: 4
+core id		: 2
+cpu cores	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 10
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm syscall nx lm constant_tsc pni monitor ds_cpl vmx est tm2 cx16 xtpr lahf_lm
+bogomips	: 5319.92
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 38 bits physical, 48 bits virtual
+power management:
+
+processor	: 5
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 15
+model name	: Intel(R) Xeon(R) CPU           X5355  @ 2.66GHz
+stepping	: 11
+cpu MHz		: 2660.031
+cache size	: 4096 KB
+physical id	: 1
+siblings	: 4
+core id		: 2
+cpu cores	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 10
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm syscall nx lm constant_tsc pni monitor ds_cpl vmx est tm2 cx16 xtpr lahf_lm
+bogomips	: 5319.96
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 38 bits physical, 48 bits virtual
+power management:
+
+processor	: 6
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 15
+model name	: Intel(R) Xeon(R) CPU           X5355  @ 2.66GHz
+stepping	: 11
+cpu MHz		: 2660.031
+cache size	: 4096 KB
+physical id	: 0
+siblings	: 4
+core id		: 3
+cpu cores	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 10
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm syscall nx lm constant_tsc pni monitor ds_cpl vmx est tm2 cx16 xtpr lahf_lm
+bogomips	: 5319.95
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 38 bits physical, 48 bits virtual
+power management:
+
+processor	: 7
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 15
+model name	: Intel(R) Xeon(R) CPU           X5355  @ 2.66GHz
+stepping	: 11
+cpu MHz		: 2660.031
+cache size	: 4096 KB
+physical id	: 1
+siblings	: 4
+core id		: 3
+cpu cores	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 10
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm syscall nx lm constant_tsc pni monitor ds_cpl vmx est tm2 cx16 xtpr lahf_lm
+bogomips	: 5319.97
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 38 bits physical, 48 bits virtual
+power management:
+
+binary-trees (gcc=4.2.3): 1.38
+fannkuch (gcc=4.2.3): 4.15
+fasta (gcc=4.2.3): 5.32
+k-nucleotide (gcc=4.2.3): 2.83
+mandelbrot (gcc=4.2.3): 0.88
+n-body (gcc=4.2.3): 8.41
+nsieve (gcc=4.2.3): 0.18
+nsieve-bits (gcc=4.2.3): 0.44
+partial-sums (gcc=4.2.3): 0.86
+pidigits (gcc=4.2.3): 0.32
+recursive (gcc=4.2.3): 1.02
+regex-dna (gcc=4.2.3): 2.75
+spectral-norm (gcc=4.2.3): 19.82
+startup (gcc=4.2.3): 0.04
+sum-col (gcc=4.2.3): 1.45
+thread-ring (gcc=4.2.3): 21.85
+binary-trees (SE=2.3, gcc=4.2.3): 2.14
+fannkuch (SE=2.3, gcc=4.2.3): 3.43
+fasta (SE=2.3, gcc=4.2.3): 6.43
+mandelbrot (SE=2.3, gcc=4.2.3): 1.52
+n-body (SE=2.3, gcc=4.2.3): 10.19
+nsieve (SE=2.3, gcc=4.2.3): 0.19
+nsieve-bits (SE=2.3, gcc=4.2.3): 0.45
+partial-sums (SE=2.3, gcc=4.2.3): 0.9
+pidigits (SE=2.3, gcc=4.2.3): 1.03
+recursive (SE=2.3, gcc=4.2.3): 1.09
+regex-dna (SE=2.3, gcc=4.2.3): 7.26
+reverse-complement (SE=2.3, gcc=4.2.3): 0.93
+spectral-norm (SE=2.3, gcc=4.2.3): 20.02
+startup (SE=2.3, gcc=4.2.3): 0.12
+sum-col (SE=2.3, gcc=4.2.3): 3.18
+binary-trees (SE=9098, gcc=4.2.3): 1.82
+fannkuch (SE=9098, gcc=4.2.3): 3.93
+fasta (SE=9098, gcc=4.2.3): 7.27
+k-nucleotide (SE=9098, gcc=4.2.3): 6.27
+mandelbrot (SE=9098, gcc=4.2.3): 1.51
+n-body (SE=9098, gcc=4.2.3): 10.19
+nsieve (SE=9098, gcc=4.2.3): 0.18
+nsieve-bits (SE=9098, gcc=4.2.3): 0.47
+partial-sums (SE=9098, gcc=4.2.3): 0.9
+pidigits (SE=9098, gcc=4.2.3): 1
+recursive (SE=9098, gcc=4.2.3): 1.11
+regex-dna (SE=9098, gcc=4.2.3): 6.94
+reverse-complement (SE=9098, gcc=4.2.3): 0.92
+spectral-norm (SE=9098, gcc=4.2.3): 20.02
+startup (SE=9098, gcc=4.2.3): 0.09
+sum-col (SE=9098, gcc=4.2.3): 3.24
+binary-trees (SE=2.2, gcc=4.2.3): 2.14
+fannkuch (SE=2.2, gcc=4.2.3): 3.42
+fasta (SE=2.2, gcc=4.2.3): 6.43
+mandelbrot (SE=2.2, gcc=4.2.3): 1.52
+n-body (SE=2.2, gcc=4.2.3): 10.13
+nsieve (SE=2.2, gcc=4.2.3): 0.19
+nsieve-bits (SE=2.2, gcc=4.2.3): 0.45
+partial-sums (SE=2.2, gcc=4.2.3): 0.91
+pidigits (SE=2.2, gcc=4.2.3): 1.02
+recursive (SE=2.2, gcc=4.2.3): 1.1
+reverse-complement (SE=2.2, gcc=4.2.3): 0.94
+spectral-norm (SE=2.2, gcc=4.2.3): 20.02
+startup (SE=2.2, gcc=4.2.3): 0.13
+sum-col (SE=2.2, gcc=4.2.3): 3.25
+binary-trees (SE=2.1, gcc=4.2.3): 1.89
+fannkuch (SE=2.1, gcc=4.2.3): 3.98
+fasta (SE=2.1, gcc=4.2.3): 6.36
+mandelbrot (SE=2.1, gcc=4.2.3): 1.52
+n-body (SE=2.1, gcc=4.2.3): 10.2
+nsieve (SE=2.1, gcc=4.2.3): 0.19
+nsieve-bits (SE=2.1, gcc=4.2.3): 0.44
+partial-sums (SE=2.1, gcc=4.2.3): 0.9
+pidigits (SE=2.1, gcc=4.2.3): 1
+recursive (SE=2.1, gcc=4.2.3): 1.1
+reverse-complement (SE=2.1, gcc=4.2.3): 0.74
+spectral-norm (SE=2.1, gcc=4.2.3): 20.02
+startup (SE=2.1, gcc=4.2.3): 0.11
+sum-col (SE=2.1, gcc=4.2.3): 2.35
+binary-trees (SE=2.0, gcc=4.2.3): 1.9
+fannkuch (SE=2.0, gcc=4.2.3): 3.2
+fasta (SE=2.0, gcc=4.2.3): 6.44
+mandelbrot (SE=2.0, gcc=4.2.3): 1.6
+n-body (SE=2.0, gcc=4.2.3): 10.2
+nsieve (SE=2.0, gcc=4.2.3): 0.19
+nsieve-bits (SE=2.0, gcc=4.2.3): 0.45
+partial-sums (SE=2.0, gcc=4.2.3): 0.9
+pidigits (SE=2.0, gcc=4.2.3): 0.98
+recursive (SE=2.0, gcc=4.2.3): 1.13
+reverse-complement (SE=2.0, gcc=4.2.3): 0.83
+spectral-norm (SE=2.0, gcc=4.2.3): 20.02
+startup (SE=2.0, gcc=4.2.3): 0.06
+sum-col (SE=2.0, gcc=4.2.3): 2.39
+binary-trees (SE=1.1, gcc=4.2.3): 2.14
+fannkuch (SE=1.1, gcc=4.2.3): 3.18
+fasta (SE=1.1, gcc=4.2.3): 6.26
+mandelbrot (SE=1.1, gcc=4.2.3): 1.6
+n-body (SE=1.1, gcc=4.2.3): 10.19
+nsieve (SE=1.1, gcc=4.2.3): 0.18
+nsieve-bits (SE=1.1, gcc=4.2.3): 0.45
+partial-sums (SE=1.1, gcc=4.2.3): 0.9
+recursive (SE=1.1, gcc=4.2.3): 1.1
+reverse-complement (SE=1.1, gcc=4.2.3): 0.24
+spectral-norm (SE=1.1, gcc=4.2.3): 20.02
+startup (SE=1.1, gcc=4.2.3): 0.1
+sum-col (SE=1.1, gcc=4.2.3): 0.71
+binary-trees (SE=1.0, gcc=4.2.3): 2.13
+fannkuch (SE=1.0, gcc=4.2.3): 3.91
+fasta (SE=1.0, gcc=4.2.3): 6.29
+n-body (SE=1.0, gcc=4.2.3): 10.18
+nsieve (SE=1.0, gcc=4.2.3): 0.18
+nsieve-bits (SE=1.0, gcc=4.2.3): 0.5
+partial-sums (SE=1.0, gcc=4.2.3): 0.9
+recursive (SE=1.0, gcc=4.2.3): 1.11
+reverse-complement (SE=1.0, gcc=4.2.3): 0.25
+spectral-norm (SE=1.0, gcc=4.2.3): 20.02
+startup (SE=1.0, gcc=4.2.3): 0.1
+sum-col (SE=1.0, gcc=4.2.3): 0.72

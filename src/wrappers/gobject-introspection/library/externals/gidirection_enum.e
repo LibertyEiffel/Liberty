@@ -9,46 +9,46 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = gi_direction_in_low_level)  or else
-				(a_value = gi_direction_inout_low_level)  or else
-				(a_value = gi_direction_out_low_level) )
+            Result := ((a_value = in_low_level)  or else
+				(a_value = inout_low_level)  or else
+				(a_value = out_external_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_gi_direction_in is
+	set_in is
 		do
-			value := gi_direction_in_low_level
+			value := in_low_level
 		end
 
-	set_gi_direction_inout is
+	set_inout is
 		do
-			value := gi_direction_inout_low_level
+			value := inout_low_level
 		end
 
-	set_gi_direction_out is
+	set_out_external is
 		do
-			value := gi_direction_out_low_level
+			value := out_external_low_level
 		end
 
 feature {ANY} -- Queries
-	is_gi_direction_in: BOOLEAN is
+	is_in: BOOLEAN is
 		do
-			Result := (value=gi_direction_in_low_level)
+			Result := (value=in_low_level)
 		end
 
-	is_gi_direction_inout: BOOLEAN is
+	is_inout: BOOLEAN is
 		do
-			Result := (value=gi_direction_inout_low_level)
+			Result := (value=inout_low_level)
 		end
 
-	is_gi_direction_out: BOOLEAN is
+	is_out_external: BOOLEAN is
 		do
-			Result := (value=gi_direction_out_low_level)
+			Result := (value=out_external_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	gi_direction_in_low_level: INTEGER is
+	in_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_direction_inout_low_level: INTEGER is
+	inout_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_direction_out_low_level: INTEGER is
+	out_external_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

@@ -1,0 +1,64 @@
+hostname	: askil
+processor	: 0
+vendor_id	: AuthenticAMD
+cpu family	: 15
+model		: 67
+model name	: AMD Athlon(tm) 64 X2 Dual Core Processor 5200+
+stepping	: 2
+cpu MHz		: 2611.912
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 2
+core id		: 0
+cpu cores	: 2
+fdiv_bug	: no
+hlt_bug		: no
+f00f_bug	: no
+coma_bug	: no
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 1
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt lm 3dnowext 3dnow pni cx16 lahf_lm cmp_legacy svm cr8legacy ts fid vid ttp tm stc
+bogomips	: 5227.84
+
+processor	: 1
+vendor_id	: AuthenticAMD
+cpu family	: 15
+model		: 67
+model name	: AMD Athlon(tm) 64 X2 Dual Core Processor 5200+
+stepping	: 2
+cpu MHz		: 2611.912
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 2
+core id		: 1
+cpu cores	: 2
+fdiv_bug	: no
+hlt_bug		: no
+f00f_bug	: no
+coma_bug	: no
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 1
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt lm 3dnowext 3dnow pni cx16 lahf_lm cmp_legacy svm cr8legacy ts fid vid ttp tm stc
+bogomips	: 5223.86
+
+binary-trees (SE=9098, gcc=4.1.2 20061115): 1.26
+fannkuch (SE=9098, gcc=4.1.2 20061115): 4.96
+fasta (SE=9098, gcc=4.1.2 20061115): 7.14
+k-nucleotide (SE=9098, gcc=4.1.2 20061115): 7.7
+mandelbrot (SE=9098, gcc=4.1.2 20061115): 1.5
+n-body (SE=9098, gcc=4.1.2 20061115): 7.96
+nsieve (SE=9098, gcc=4.1.2 20061115): 0.33
+nsieve-bits (SE=9098, gcc=4.1.2 20061115): 0.94
+partial-sums (SE=9098, gcc=4.1.2 20061115): 1.08
+pidigits (SE=9098, gcc=4.1.2 20061115): 2.05
+recursive (SE=9098, gcc=4.1.2 20061115): 1.4
+regex-dna (SE=9098, gcc=4.1.2 20061115): 14.15
+reverse-complement (SE=9098, gcc=4.1.2 20061115): 1.51
+spectral-norm (SE=9098, gcc=4.1.2 20061115): 10.02
+startup (SE=9098, gcc=4.1.2 20061115): 0.08
+sum-col (SE=9098, gcc=4.1.2 20061115): 4.94
+thread-ring (SE=9098, gcc=4.1.2 20061115): 0.02

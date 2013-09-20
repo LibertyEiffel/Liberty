@@ -9,123 +9,123 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_param_construct_low_level)  or else
-				(a_value = g_param_construct_only_low_level)  or else
-				(a_value = g_param_deprecated_low_level)  or else
-				(a_value = g_param_lax_validation_low_level)  or else
-				(a_value = g_param_private_low_level)  or else
-				(a_value = g_param_readable_low_level)  or else
-				(a_value = g_param_static_blurb_low_level)  or else
-				(a_value = g_param_static_name_low_level)  or else
-				(a_value = g_param_static_nick_low_level)  or else
-				(a_value = g_param_writable_low_level) )
+            Result := ((a_value = construct_low_level)  or else
+				(a_value = construct_only_low_level)  or else
+				(a_value = deprecated_low_level)  or else
+				(a_value = lax_validation_low_level)  or else
+				(a_value = private_low_level)  or else
+				(a_value = readable_low_level)  or else
+				(a_value = static_blurb_low_level)  or else
+				(a_value = static_name_low_level)  or else
+				(a_value = static_nick_low_level)  or else
+				(a_value = writable_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_param_construct is
+	set_construct is
 		do
-			value := g_param_construct_low_level
+			value := construct_low_level
 		end
 
-	set_g_param_construct_only is
+	set_construct_only is
 		do
-			value := g_param_construct_only_low_level
+			value := construct_only_low_level
 		end
 
-	set_g_param_deprecated is
+	set_deprecated is
 		do
-			value := g_param_deprecated_low_level
+			value := deprecated_low_level
 		end
 
-	set_g_param_lax_validation is
+	set_lax_validation is
 		do
-			value := g_param_lax_validation_low_level
+			value := lax_validation_low_level
 		end
 
-	set_g_param_private is
+	set_private is
 		do
-			value := g_param_private_low_level
+			value := private_low_level
 		end
 
-	set_g_param_readable is
+	set_readable is
 		do
-			value := g_param_readable_low_level
+			value := readable_low_level
 		end
 
-	set_g_param_static_blurb is
+	set_static_blurb is
 		do
-			value := g_param_static_blurb_low_level
+			value := static_blurb_low_level
 		end
 
-	set_g_param_static_name is
+	set_static_name is
 		do
-			value := g_param_static_name_low_level
+			value := static_name_low_level
 		end
 
-	set_g_param_static_nick is
+	set_static_nick is
 		do
-			value := g_param_static_nick_low_level
+			value := static_nick_low_level
 		end
 
-	set_g_param_writable is
+	set_writable is
 		do
-			value := g_param_writable_low_level
+			value := writable_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_param_construct: BOOLEAN is
+	is_construct: BOOLEAN is
 		do
-			Result := (value=g_param_construct_low_level)
+			Result := (value=construct_low_level)
 		end
 
-	is_g_param_construct_only: BOOLEAN is
+	is_construct_only: BOOLEAN is
 		do
-			Result := (value=g_param_construct_only_low_level)
+			Result := (value=construct_only_low_level)
 		end
 
-	is_g_param_deprecated: BOOLEAN is
+	is_deprecated: BOOLEAN is
 		do
-			Result := (value=g_param_deprecated_low_level)
+			Result := (value=deprecated_low_level)
 		end
 
-	is_g_param_lax_validation: BOOLEAN is
+	is_lax_validation: BOOLEAN is
 		do
-			Result := (value=g_param_lax_validation_low_level)
+			Result := (value=lax_validation_low_level)
 		end
 
-	is_g_param_private: BOOLEAN is
+	is_private: BOOLEAN is
 		do
-			Result := (value=g_param_private_low_level)
+			Result := (value=private_low_level)
 		end
 
-	is_g_param_readable: BOOLEAN is
+	is_readable: BOOLEAN is
 		do
-			Result := (value=g_param_readable_low_level)
+			Result := (value=readable_low_level)
 		end
 
-	is_g_param_static_blurb: BOOLEAN is
+	is_static_blurb: BOOLEAN is
 		do
-			Result := (value=g_param_static_blurb_low_level)
+			Result := (value=static_blurb_low_level)
 		end
 
-	is_g_param_static_name: BOOLEAN is
+	is_static_name: BOOLEAN is
 		do
-			Result := (value=g_param_static_name_low_level)
+			Result := (value=static_name_low_level)
 		end
 
-	is_g_param_static_nick: BOOLEAN is
+	is_static_nick: BOOLEAN is
 		do
-			Result := (value=g_param_static_nick_low_level)
+			Result := (value=static_nick_low_level)
 		end
 
-	is_g_param_writable: BOOLEAN is
+	is_writable: BOOLEAN is
 		do
-			Result := (value=g_param_writable_low_level)
+			Result := (value=writable_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_param_construct_low_level: INTEGER is
+	construct_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -134,7 +134,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_param_construct_only_low_level: INTEGER is
+	construct_only_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -143,7 +143,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_param_deprecated_low_level: INTEGER is
+	deprecated_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -152,7 +152,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_param_lax_validation_low_level: INTEGER is
+	lax_validation_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -161,7 +161,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_param_private_low_level: INTEGER is
+	private_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -170,7 +170,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_param_readable_low_level: INTEGER is
+	readable_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -179,7 +179,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_param_static_blurb_low_level: INTEGER is
+	static_blurb_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -188,7 +188,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_param_static_name_low_level: INTEGER is
+	static_name_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -197,7 +197,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_param_static_nick_low_level: INTEGER is
+	static_nick_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -206,7 +206,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_param_writable_low_level: INTEGER is
+	writable_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

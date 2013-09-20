@@ -9,79 +9,79 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_markup_collect_boolean_low_level)  or else
-				(a_value = g_markup_collect_invalid_low_level)  or else
-				(a_value = g_markup_collect_optional_low_level)  or else
-				(a_value = g_markup_collect_strdup_low_level)  or else
-				(a_value = g_markup_collect_string_low_level)  or else
-				(a_value = g_markup_collect_tristate_low_level) )
+            Result := ((a_value = boolean_low_level)  or else
+				(a_value = invalid_low_level)  or else
+				(a_value = optional_low_level)  or else
+				(a_value = strdup_low_level)  or else
+				(a_value = string_low_level)  or else
+				(a_value = tristate_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_markup_collect_boolean is
+	set_boolean is
 		do
-			value := g_markup_collect_boolean_low_level
+			value := boolean_low_level
 		end
 
-	set_g_markup_collect_invalid is
+	set_invalid is
 		do
-			value := g_markup_collect_invalid_low_level
+			value := invalid_low_level
 		end
 
-	set_g_markup_collect_optional is
+	set_optional is
 		do
-			value := g_markup_collect_optional_low_level
+			value := optional_low_level
 		end
 
-	set_g_markup_collect_strdup is
+	set_strdup is
 		do
-			value := g_markup_collect_strdup_low_level
+			value := strdup_low_level
 		end
 
-	set_g_markup_collect_string is
+	set_string is
 		do
-			value := g_markup_collect_string_low_level
+			value := string_low_level
 		end
 
-	set_g_markup_collect_tristate is
+	set_tristate is
 		do
-			value := g_markup_collect_tristate_low_level
+			value := tristate_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_markup_collect_boolean: BOOLEAN is
+	is_boolean: BOOLEAN is
 		do
-			Result := (value=g_markup_collect_boolean_low_level)
+			Result := (value=boolean_low_level)
 		end
 
-	is_g_markup_collect_invalid: BOOLEAN is
+	is_invalid: BOOLEAN is
 		do
-			Result := (value=g_markup_collect_invalid_low_level)
+			Result := (value=invalid_low_level)
 		end
 
-	is_g_markup_collect_optional: BOOLEAN is
+	is_optional: BOOLEAN is
 		do
-			Result := (value=g_markup_collect_optional_low_level)
+			Result := (value=optional_low_level)
 		end
 
-	is_g_markup_collect_strdup: BOOLEAN is
+	is_strdup: BOOLEAN is
 		do
-			Result := (value=g_markup_collect_strdup_low_level)
+			Result := (value=strdup_low_level)
 		end
 
-	is_g_markup_collect_string: BOOLEAN is
+	is_string: BOOLEAN is
 		do
-			Result := (value=g_markup_collect_string_low_level)
+			Result := (value=string_low_level)
 		end
 
-	is_g_markup_collect_tristate: BOOLEAN is
+	is_tristate: BOOLEAN is
 		do
-			Result := (value=g_markup_collect_tristate_low_level)
+			Result := (value=tristate_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_markup_collect_boolean_low_level: INTEGER is
+	boolean_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -90,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_markup_collect_invalid_low_level: INTEGER is
+	invalid_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +99,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_markup_collect_optional_low_level: INTEGER is
+	optional_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,7 +108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_markup_collect_strdup_low_level: INTEGER is
+	strdup_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -117,7 +117,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_markup_collect_string_low_level: INTEGER is
+	string_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -126,7 +126,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_markup_collect_tristate_low_level: INTEGER is
+	tristate_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

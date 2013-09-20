@@ -9,640 +9,640 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_regex_error_assertion_expected_low_level)  or else
-				(a_value = g_regex_error_backtracking_control_verb_argument_forbidden_low_level)  or else
-				(a_value = g_regex_error_backtracking_control_verb_argument_required_low_level)  or else
-				(a_value = g_regex_error_character_value_too_large_low_level)  or else
-				(a_value = g_regex_error_compile_low_level)  or else
-				(a_value = g_regex_error_define_repetion_low_level)  or else
-				(a_value = g_regex_error_duplicate_subpattern_name_low_level)  or else
-				(a_value = g_regex_error_expression_too_large_low_level)  or else
-				(a_value = g_regex_error_extra_subpattern_name_low_level)  or else
-				(a_value = g_regex_error_hex_code_too_large_low_level)  or else
-				(a_value = g_regex_error_inconsistent_newline_options_low_level)  or else
-				(a_value = g_regex_error_inexistent_subpattern_reference_low_level)  or else
-				(a_value = g_regex_error_infinite_loop_low_level)  or else
-				(a_value = g_regex_error_internal_low_level)  or else
-				(a_value = g_regex_error_invalid_condition_low_level)  or else
-				(a_value = g_regex_error_invalid_control_char_low_level)  or else
-				(a_value = g_regex_error_invalid_data_character_low_level)  or else
-				(a_value = g_regex_error_invalid_escape_in_character_class_low_level)  or else
-				(a_value = g_regex_error_invalid_octal_value_low_level)  or else
-				(a_value = g_regex_error_invalid_relative_reference_low_level)  or else
-				(a_value = g_regex_error_malformed_condition_low_level)  or else
-				(a_value = g_regex_error_malformed_property_low_level)  or else
-				(a_value = g_regex_error_match_low_level)  or else
-				(a_value = g_regex_error_memory_error_low_level)  or else
-				(a_value = g_regex_error_missing_back_reference_low_level)  or else
-				(a_value = g_regex_error_missing_control_char_low_level)  or else
-				(a_value = g_regex_error_missing_digit_low_level)  or else
-				(a_value = g_regex_error_missing_name_low_level)  or else
-				(a_value = g_regex_error_missing_subpattern_name_low_level)  or else
-				(a_value = g_regex_error_missing_subpattern_name_terminator_low_level)  or else
-				(a_value = g_regex_error_name_too_long_low_level)  or else
-				(a_value = g_regex_error_not_supported_in_class_low_level)  or else
-				(a_value = g_regex_error_nothing_to_repeat_low_level)  or else
-				(a_value = g_regex_error_number_too_big_low_level)  or else
-				(a_value = g_regex_error_optimize_low_level)  or else
-				(a_value = g_regex_error_posix_collating_elements_not_supported_low_level)  or else
-				(a_value = g_regex_error_posix_named_class_outside_class_low_level)  or else
-				(a_value = g_regex_error_quantifier_too_big_low_level)  or else
-				(a_value = g_regex_error_quantifiers_out_of_order_low_level)  or else
-				(a_value = g_regex_error_range_out_of_order_low_level)  or else
-				(a_value = g_regex_error_replace_low_level)  or else
-				(a_value = g_regex_error_single_byte_match_in_lookbehind_low_level)  or else
-				(a_value = g_regex_error_stray_backslash_low_level)  or else
-				(a_value = g_regex_error_subpattern_name_too_long_low_level)  or else
-				(a_value = g_regex_error_too_many_branches_in_define_low_level)  or else
-				(a_value = g_regex_error_too_many_conditional_branches_low_level)  or else
-				(a_value = g_regex_error_too_many_forward_references_low_level)  or else
-				(a_value = g_regex_error_too_many_subpatterns_low_level)  or else
-				(a_value = g_regex_error_unknown_backtracking_control_verb_low_level)  or else
-				(a_value = g_regex_error_unknown_posix_class_name_low_level)  or else
-				(a_value = g_regex_error_unknown_property_low_level)  or else
-				(a_value = g_regex_error_unmatched_parenthesis_low_level)  or else
-				(a_value = g_regex_error_unrecognized_character_low_level)  or else
-				(a_value = g_regex_error_unrecognized_escape_low_level)  or else
-				(a_value = g_regex_error_unterminated_character_class_low_level)  or else
-				(a_value = g_regex_error_unterminated_comment_low_level)  or else
-				(a_value = g_regex_error_variable_length_lookbehind_low_level) )
+            Result := ((a_value = assertion_expected_low_level)  or else
+				(a_value = backtracking_control_verb_argument_forbidden_low_level)  or else
+				(a_value = backtracking_control_verb_argument_required_low_level)  or else
+				(a_value = character_value_too_large_low_level)  or else
+				(a_value = compile_low_level)  or else
+				(a_value = define_repetion_low_level)  or else
+				(a_value = duplicate_subpattern_name_low_level)  or else
+				(a_value = expression_too_large_low_level)  or else
+				(a_value = extra_subpattern_name_low_level)  or else
+				(a_value = hex_code_too_large_low_level)  or else
+				(a_value = inconsistent_newline_options_low_level)  or else
+				(a_value = inexistent_subpattern_reference_low_level)  or else
+				(a_value = infinite_loop_low_level)  or else
+				(a_value = internal_low_level)  or else
+				(a_value = invalid_condition_low_level)  or else
+				(a_value = invalid_control_char_low_level)  or else
+				(a_value = invalid_data_character_low_level)  or else
+				(a_value = invalid_escape_in_character_class_low_level)  or else
+				(a_value = invalid_octal_value_low_level)  or else
+				(a_value = invalid_relative_reference_low_level)  or else
+				(a_value = malformed_condition_low_level)  or else
+				(a_value = malformed_property_low_level)  or else
+				(a_value = match_low_level)  or else
+				(a_value = memory_error_low_level)  or else
+				(a_value = missing_back_reference_low_level)  or else
+				(a_value = missing_control_char_low_level)  or else
+				(a_value = missing_digit_low_level)  or else
+				(a_value = missing_name_low_level)  or else
+				(a_value = missing_subpattern_name_low_level)  or else
+				(a_value = missing_subpattern_name_terminator_low_level)  or else
+				(a_value = name_too_long_low_level)  or else
+				(a_value = not_supported_in_class_low_level)  or else
+				(a_value = nothing_to_repeat_low_level)  or else
+				(a_value = number_too_big_low_level)  or else
+				(a_value = optimize_low_level)  or else
+				(a_value = posix_collating_elements_not_supported_low_level)  or else
+				(a_value = posix_named_class_outside_class_low_level)  or else
+				(a_value = quantifier_too_big_low_level)  or else
+				(a_value = quantifiers_out_of_order_low_level)  or else
+				(a_value = range_out_of_order_low_level)  or else
+				(a_value = replace_low_level)  or else
+				(a_value = single_byte_match_in_lookbehind_low_level)  or else
+				(a_value = stray_backslash_low_level)  or else
+				(a_value = subpattern_name_too_long_low_level)  or else
+				(a_value = too_many_branches_in_define_low_level)  or else
+				(a_value = too_many_conditional_branches_low_level)  or else
+				(a_value = too_many_forward_references_low_level)  or else
+				(a_value = too_many_subpatterns_low_level)  or else
+				(a_value = unknown_backtracking_control_verb_low_level)  or else
+				(a_value = unknown_posix_class_name_low_level)  or else
+				(a_value = unknown_property_low_level)  or else
+				(a_value = unmatched_parenthesis_low_level)  or else
+				(a_value = unrecognized_character_low_level)  or else
+				(a_value = unrecognized_escape_low_level)  or else
+				(a_value = unterminated_character_class_low_level)  or else
+				(a_value = unterminated_comment_low_level)  or else
+				(a_value = variable_length_lookbehind_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_regex_error_assertion_expected is
+	set_assertion_expected is
 		do
-			value := g_regex_error_assertion_expected_low_level
+			value := assertion_expected_low_level
 		end
 
-	set_g_regex_error_backtracking_control_verb_argument_forbidden is
+	set_backtracking_control_verb_argument_forbidden is
 		do
-			value := g_regex_error_backtracking_control_verb_argument_forbidden_low_level
+			value := backtracking_control_verb_argument_forbidden_low_level
 		end
 
-	set_g_regex_error_backtracking_control_verb_argument_required is
+	set_backtracking_control_verb_argument_required is
 		do
-			value := g_regex_error_backtracking_control_verb_argument_required_low_level
+			value := backtracking_control_verb_argument_required_low_level
 		end
 
-	set_g_regex_error_character_value_too_large is
+	set_character_value_too_large is
 		do
-			value := g_regex_error_character_value_too_large_low_level
+			value := character_value_too_large_low_level
 		end
 
-	set_g_regex_error_compile is
+	set_compile is
 		do
-			value := g_regex_error_compile_low_level
+			value := compile_low_level
 		end
 
-	set_g_regex_error_define_repetion is
+	set_define_repetion is
 		do
-			value := g_regex_error_define_repetion_low_level
+			value := define_repetion_low_level
 		end
 
-	set_g_regex_error_duplicate_subpattern_name is
+	set_duplicate_subpattern_name is
 		do
-			value := g_regex_error_duplicate_subpattern_name_low_level
+			value := duplicate_subpattern_name_low_level
 		end
 
-	set_g_regex_error_expression_too_large is
+	set_expression_too_large is
 		do
-			value := g_regex_error_expression_too_large_low_level
+			value := expression_too_large_low_level
 		end
 
-	set_g_regex_error_extra_subpattern_name is
+	set_extra_subpattern_name is
 		do
-			value := g_regex_error_extra_subpattern_name_low_level
+			value := extra_subpattern_name_low_level
 		end
 
-	set_g_regex_error_hex_code_too_large is
+	set_hex_code_too_large is
 		do
-			value := g_regex_error_hex_code_too_large_low_level
+			value := hex_code_too_large_low_level
 		end
 
-	set_g_regex_error_inconsistent_newline_options is
+	set_inconsistent_newline_options is
 		do
-			value := g_regex_error_inconsistent_newline_options_low_level
+			value := inconsistent_newline_options_low_level
 		end
 
-	set_g_regex_error_inexistent_subpattern_reference is
+	set_inexistent_subpattern_reference is
 		do
-			value := g_regex_error_inexistent_subpattern_reference_low_level
+			value := inexistent_subpattern_reference_low_level
 		end
 
-	set_g_regex_error_infinite_loop is
+	set_infinite_loop is
 		do
-			value := g_regex_error_infinite_loop_low_level
+			value := infinite_loop_low_level
 		end
 
-	set_g_regex_error_internal is
+	set_internal is
 		do
-			value := g_regex_error_internal_low_level
+			value := internal_low_level
 		end
 
-	set_g_regex_error_invalid_condition is
+	set_invalid_condition is
 		do
-			value := g_regex_error_invalid_condition_low_level
+			value := invalid_condition_low_level
 		end
 
-	set_g_regex_error_invalid_control_char is
+	set_invalid_control_char is
 		do
-			value := g_regex_error_invalid_control_char_low_level
+			value := invalid_control_char_low_level
 		end
 
-	set_g_regex_error_invalid_data_character is
+	set_invalid_data_character is
 		do
-			value := g_regex_error_invalid_data_character_low_level
+			value := invalid_data_character_low_level
 		end
 
-	set_g_regex_error_invalid_escape_in_character_class is
+	set_invalid_escape_in_character_class is
 		do
-			value := g_regex_error_invalid_escape_in_character_class_low_level
+			value := invalid_escape_in_character_class_low_level
 		end
 
-	set_g_regex_error_invalid_octal_value is
+	set_invalid_octal_value is
 		do
-			value := g_regex_error_invalid_octal_value_low_level
+			value := invalid_octal_value_low_level
 		end
 
-	set_g_regex_error_invalid_relative_reference is
+	set_invalid_relative_reference is
 		do
-			value := g_regex_error_invalid_relative_reference_low_level
+			value := invalid_relative_reference_low_level
 		end
 
-	set_g_regex_error_malformed_condition is
+	set_malformed_condition is
 		do
-			value := g_regex_error_malformed_condition_low_level
+			value := malformed_condition_low_level
 		end
 
-	set_g_regex_error_malformed_property is
+	set_malformed_property is
 		do
-			value := g_regex_error_malformed_property_low_level
+			value := malformed_property_low_level
 		end
 
-	set_g_regex_error_match is
+	set_match is
 		do
-			value := g_regex_error_match_low_level
+			value := match_low_level
 		end
 
-	set_g_regex_error_memory_error is
+	set_memory_error is
 		do
-			value := g_regex_error_memory_error_low_level
+			value := memory_error_low_level
 		end
 
-	set_g_regex_error_missing_back_reference is
+	set_missing_back_reference is
 		do
-			value := g_regex_error_missing_back_reference_low_level
+			value := missing_back_reference_low_level
 		end
 
-	set_g_regex_error_missing_control_char is
+	set_missing_control_char is
 		do
-			value := g_regex_error_missing_control_char_low_level
+			value := missing_control_char_low_level
 		end
 
-	set_g_regex_error_missing_digit is
+	set_missing_digit is
 		do
-			value := g_regex_error_missing_digit_low_level
+			value := missing_digit_low_level
 		end
 
-	set_g_regex_error_missing_name is
+	set_missing_name is
 		do
-			value := g_regex_error_missing_name_low_level
+			value := missing_name_low_level
 		end
 
-	set_g_regex_error_missing_subpattern_name is
+	set_missing_subpattern_name is
 		do
-			value := g_regex_error_missing_subpattern_name_low_level
+			value := missing_subpattern_name_low_level
 		end
 
-	set_g_regex_error_missing_subpattern_name_terminator is
+	set_missing_subpattern_name_terminator is
 		do
-			value := g_regex_error_missing_subpattern_name_terminator_low_level
+			value := missing_subpattern_name_terminator_low_level
 		end
 
-	set_g_regex_error_name_too_long is
+	set_name_too_long is
 		do
-			value := g_regex_error_name_too_long_low_level
+			value := name_too_long_low_level
 		end
 
-	set_g_regex_error_not_supported_in_class is
+	set_not_supported_in_class is
 		do
-			value := g_regex_error_not_supported_in_class_low_level
+			value := not_supported_in_class_low_level
 		end
 
-	set_g_regex_error_nothing_to_repeat is
+	set_nothing_to_repeat is
 		do
-			value := g_regex_error_nothing_to_repeat_low_level
+			value := nothing_to_repeat_low_level
 		end
 
-	set_g_regex_error_number_too_big is
+	set_number_too_big is
 		do
-			value := g_regex_error_number_too_big_low_level
+			value := number_too_big_low_level
 		end
 
-	set_g_regex_error_optimize is
+	set_optimize is
 		do
-			value := g_regex_error_optimize_low_level
+			value := optimize_low_level
 		end
 
-	set_g_regex_error_posix_collating_elements_not_supported is
+	set_posix_collating_elements_not_supported is
 		do
-			value := g_regex_error_posix_collating_elements_not_supported_low_level
+			value := posix_collating_elements_not_supported_low_level
 		end
 
-	set_g_regex_error_posix_named_class_outside_class is
+	set_posix_named_class_outside_class is
 		do
-			value := g_regex_error_posix_named_class_outside_class_low_level
+			value := posix_named_class_outside_class_low_level
 		end
 
-	set_g_regex_error_quantifier_too_big is
+	set_quantifier_too_big is
 		do
-			value := g_regex_error_quantifier_too_big_low_level
+			value := quantifier_too_big_low_level
 		end
 
-	set_g_regex_error_quantifiers_out_of_order is
+	set_quantifiers_out_of_order is
 		do
-			value := g_regex_error_quantifiers_out_of_order_low_level
+			value := quantifiers_out_of_order_low_level
 		end
 
-	set_g_regex_error_range_out_of_order is
+	set_range_out_of_order is
 		do
-			value := g_regex_error_range_out_of_order_low_level
+			value := range_out_of_order_low_level
 		end
 
-	set_g_regex_error_replace is
+	set_replace is
 		do
-			value := g_regex_error_replace_low_level
+			value := replace_low_level
 		end
 
-	set_g_regex_error_single_byte_match_in_lookbehind is
+	set_single_byte_match_in_lookbehind is
 		do
-			value := g_regex_error_single_byte_match_in_lookbehind_low_level
+			value := single_byte_match_in_lookbehind_low_level
 		end
 
-	set_g_regex_error_stray_backslash is
+	set_stray_backslash is
 		do
-			value := g_regex_error_stray_backslash_low_level
+			value := stray_backslash_low_level
 		end
 
-	set_g_regex_error_subpattern_name_too_long is
+	set_subpattern_name_too_long is
 		do
-			value := g_regex_error_subpattern_name_too_long_low_level
+			value := subpattern_name_too_long_low_level
 		end
 
-	set_g_regex_error_too_many_branches_in_define is
+	set_too_many_branches_in_define is
 		do
-			value := g_regex_error_too_many_branches_in_define_low_level
+			value := too_many_branches_in_define_low_level
 		end
 
-	set_g_regex_error_too_many_conditional_branches is
+	set_too_many_conditional_branches is
 		do
-			value := g_regex_error_too_many_conditional_branches_low_level
+			value := too_many_conditional_branches_low_level
 		end
 
-	set_g_regex_error_too_many_forward_references is
+	set_too_many_forward_references is
 		do
-			value := g_regex_error_too_many_forward_references_low_level
+			value := too_many_forward_references_low_level
 		end
 
-	set_g_regex_error_too_many_subpatterns is
+	set_too_many_subpatterns is
 		do
-			value := g_regex_error_too_many_subpatterns_low_level
+			value := too_many_subpatterns_low_level
 		end
 
-	set_g_regex_error_unknown_backtracking_control_verb is
+	set_unknown_backtracking_control_verb is
 		do
-			value := g_regex_error_unknown_backtracking_control_verb_low_level
+			value := unknown_backtracking_control_verb_low_level
 		end
 
-	set_g_regex_error_unknown_posix_class_name is
+	set_unknown_posix_class_name is
 		do
-			value := g_regex_error_unknown_posix_class_name_low_level
+			value := unknown_posix_class_name_low_level
 		end
 
-	set_g_regex_error_unknown_property is
+	set_unknown_property is
 		do
-			value := g_regex_error_unknown_property_low_level
+			value := unknown_property_low_level
 		end
 
-	set_g_regex_error_unmatched_parenthesis is
+	set_unmatched_parenthesis is
 		do
-			value := g_regex_error_unmatched_parenthesis_low_level
+			value := unmatched_parenthesis_low_level
 		end
 
-	set_g_regex_error_unrecognized_character is
+	set_unrecognized_character is
 		do
-			value := g_regex_error_unrecognized_character_low_level
+			value := unrecognized_character_low_level
 		end
 
-	set_g_regex_error_unrecognized_escape is
+	set_unrecognized_escape is
 		do
-			value := g_regex_error_unrecognized_escape_low_level
+			value := unrecognized_escape_low_level
 		end
 
-	set_g_regex_error_unterminated_character_class is
+	set_unterminated_character_class is
 		do
-			value := g_regex_error_unterminated_character_class_low_level
+			value := unterminated_character_class_low_level
 		end
 
-	set_g_regex_error_unterminated_comment is
+	set_unterminated_comment is
 		do
-			value := g_regex_error_unterminated_comment_low_level
+			value := unterminated_comment_low_level
 		end
 
-	set_g_regex_error_variable_length_lookbehind is
+	set_variable_length_lookbehind is
 		do
-			value := g_regex_error_variable_length_lookbehind_low_level
+			value := variable_length_lookbehind_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_regex_error_assertion_expected: BOOLEAN is
+	is_assertion_expected: BOOLEAN is
 		do
-			Result := (value=g_regex_error_assertion_expected_low_level)
+			Result := (value=assertion_expected_low_level)
 		end
 
-	is_g_regex_error_backtracking_control_verb_argument_forbidden: BOOLEAN is
+	is_backtracking_control_verb_argument_forbidden: BOOLEAN is
 		do
-			Result := (value=g_regex_error_backtracking_control_verb_argument_forbidden_low_level)
+			Result := (value=backtracking_control_verb_argument_forbidden_low_level)
 		end
 
-	is_g_regex_error_backtracking_control_verb_argument_required: BOOLEAN is
+	is_backtracking_control_verb_argument_required: BOOLEAN is
 		do
-			Result := (value=g_regex_error_backtracking_control_verb_argument_required_low_level)
+			Result := (value=backtracking_control_verb_argument_required_low_level)
 		end
 
-	is_g_regex_error_character_value_too_large: BOOLEAN is
+	is_character_value_too_large: BOOLEAN is
 		do
-			Result := (value=g_regex_error_character_value_too_large_low_level)
+			Result := (value=character_value_too_large_low_level)
 		end
 
-	is_g_regex_error_compile: BOOLEAN is
+	is_compile: BOOLEAN is
 		do
-			Result := (value=g_regex_error_compile_low_level)
+			Result := (value=compile_low_level)
 		end
 
-	is_g_regex_error_define_repetion: BOOLEAN is
+	is_define_repetion: BOOLEAN is
 		do
-			Result := (value=g_regex_error_define_repetion_low_level)
+			Result := (value=define_repetion_low_level)
 		end
 
-	is_g_regex_error_duplicate_subpattern_name: BOOLEAN is
+	is_duplicate_subpattern_name: BOOLEAN is
 		do
-			Result := (value=g_regex_error_duplicate_subpattern_name_low_level)
+			Result := (value=duplicate_subpattern_name_low_level)
 		end
 
-	is_g_regex_error_expression_too_large: BOOLEAN is
+	is_expression_too_large: BOOLEAN is
 		do
-			Result := (value=g_regex_error_expression_too_large_low_level)
+			Result := (value=expression_too_large_low_level)
 		end
 
-	is_g_regex_error_extra_subpattern_name: BOOLEAN is
+	is_extra_subpattern_name: BOOLEAN is
 		do
-			Result := (value=g_regex_error_extra_subpattern_name_low_level)
+			Result := (value=extra_subpattern_name_low_level)
 		end
 
-	is_g_regex_error_hex_code_too_large: BOOLEAN is
+	is_hex_code_too_large: BOOLEAN is
 		do
-			Result := (value=g_regex_error_hex_code_too_large_low_level)
+			Result := (value=hex_code_too_large_low_level)
 		end
 
-	is_g_regex_error_inconsistent_newline_options: BOOLEAN is
+	is_inconsistent_newline_options: BOOLEAN is
 		do
-			Result := (value=g_regex_error_inconsistent_newline_options_low_level)
+			Result := (value=inconsistent_newline_options_low_level)
 		end
 
-	is_g_regex_error_inexistent_subpattern_reference: BOOLEAN is
+	is_inexistent_subpattern_reference: BOOLEAN is
 		do
-			Result := (value=g_regex_error_inexistent_subpattern_reference_low_level)
+			Result := (value=inexistent_subpattern_reference_low_level)
 		end
 
-	is_g_regex_error_infinite_loop: BOOLEAN is
+	is_infinite_loop: BOOLEAN is
 		do
-			Result := (value=g_regex_error_infinite_loop_low_level)
+			Result := (value=infinite_loop_low_level)
 		end
 
-	is_g_regex_error_internal: BOOLEAN is
+	is_internal: BOOLEAN is
 		do
-			Result := (value=g_regex_error_internal_low_level)
+			Result := (value=internal_low_level)
 		end
 
-	is_g_regex_error_invalid_condition: BOOLEAN is
+	is_invalid_condition: BOOLEAN is
 		do
-			Result := (value=g_regex_error_invalid_condition_low_level)
+			Result := (value=invalid_condition_low_level)
 		end
 
-	is_g_regex_error_invalid_control_char: BOOLEAN is
+	is_invalid_control_char: BOOLEAN is
 		do
-			Result := (value=g_regex_error_invalid_control_char_low_level)
+			Result := (value=invalid_control_char_low_level)
 		end
 
-	is_g_regex_error_invalid_data_character: BOOLEAN is
+	is_invalid_data_character: BOOLEAN is
 		do
-			Result := (value=g_regex_error_invalid_data_character_low_level)
+			Result := (value=invalid_data_character_low_level)
 		end
 
-	is_g_regex_error_invalid_escape_in_character_class: BOOLEAN is
+	is_invalid_escape_in_character_class: BOOLEAN is
 		do
-			Result := (value=g_regex_error_invalid_escape_in_character_class_low_level)
+			Result := (value=invalid_escape_in_character_class_low_level)
 		end
 
-	is_g_regex_error_invalid_octal_value: BOOLEAN is
+	is_invalid_octal_value: BOOLEAN is
 		do
-			Result := (value=g_regex_error_invalid_octal_value_low_level)
+			Result := (value=invalid_octal_value_low_level)
 		end
 
-	is_g_regex_error_invalid_relative_reference: BOOLEAN is
+	is_invalid_relative_reference: BOOLEAN is
 		do
-			Result := (value=g_regex_error_invalid_relative_reference_low_level)
+			Result := (value=invalid_relative_reference_low_level)
 		end
 
-	is_g_regex_error_malformed_condition: BOOLEAN is
+	is_malformed_condition: BOOLEAN is
 		do
-			Result := (value=g_regex_error_malformed_condition_low_level)
+			Result := (value=malformed_condition_low_level)
 		end
 
-	is_g_regex_error_malformed_property: BOOLEAN is
+	is_malformed_property: BOOLEAN is
 		do
-			Result := (value=g_regex_error_malformed_property_low_level)
+			Result := (value=malformed_property_low_level)
 		end
 
-	is_g_regex_error_match: BOOLEAN is
+	is_match: BOOLEAN is
 		do
-			Result := (value=g_regex_error_match_low_level)
+			Result := (value=match_low_level)
 		end
 
-	is_g_regex_error_memory_error: BOOLEAN is
+	is_memory_error: BOOLEAN is
 		do
-			Result := (value=g_regex_error_memory_error_low_level)
+			Result := (value=memory_error_low_level)
 		end
 
-	is_g_regex_error_missing_back_reference: BOOLEAN is
+	is_missing_back_reference: BOOLEAN is
 		do
-			Result := (value=g_regex_error_missing_back_reference_low_level)
+			Result := (value=missing_back_reference_low_level)
 		end
 
-	is_g_regex_error_missing_control_char: BOOLEAN is
+	is_missing_control_char: BOOLEAN is
 		do
-			Result := (value=g_regex_error_missing_control_char_low_level)
+			Result := (value=missing_control_char_low_level)
 		end
 
-	is_g_regex_error_missing_digit: BOOLEAN is
+	is_missing_digit: BOOLEAN is
 		do
-			Result := (value=g_regex_error_missing_digit_low_level)
+			Result := (value=missing_digit_low_level)
 		end
 
-	is_g_regex_error_missing_name: BOOLEAN is
+	is_missing_name: BOOLEAN is
 		do
-			Result := (value=g_regex_error_missing_name_low_level)
+			Result := (value=missing_name_low_level)
 		end
 
-	is_g_regex_error_missing_subpattern_name: BOOLEAN is
+	is_missing_subpattern_name: BOOLEAN is
 		do
-			Result := (value=g_regex_error_missing_subpattern_name_low_level)
+			Result := (value=missing_subpattern_name_low_level)
 		end
 
-	is_g_regex_error_missing_subpattern_name_terminator: BOOLEAN is
+	is_missing_subpattern_name_terminator: BOOLEAN is
 		do
-			Result := (value=g_regex_error_missing_subpattern_name_terminator_low_level)
+			Result := (value=missing_subpattern_name_terminator_low_level)
 		end
 
-	is_g_regex_error_name_too_long: BOOLEAN is
+	is_name_too_long: BOOLEAN is
 		do
-			Result := (value=g_regex_error_name_too_long_low_level)
+			Result := (value=name_too_long_low_level)
 		end
 
-	is_g_regex_error_not_supported_in_class: BOOLEAN is
+	is_not_supported_in_class: BOOLEAN is
 		do
-			Result := (value=g_regex_error_not_supported_in_class_low_level)
+			Result := (value=not_supported_in_class_low_level)
 		end
 
-	is_g_regex_error_nothing_to_repeat: BOOLEAN is
+	is_nothing_to_repeat: BOOLEAN is
 		do
-			Result := (value=g_regex_error_nothing_to_repeat_low_level)
+			Result := (value=nothing_to_repeat_low_level)
 		end
 
-	is_g_regex_error_number_too_big: BOOLEAN is
+	is_number_too_big: BOOLEAN is
 		do
-			Result := (value=g_regex_error_number_too_big_low_level)
+			Result := (value=number_too_big_low_level)
 		end
 
-	is_g_regex_error_optimize: BOOLEAN is
+	is_optimize: BOOLEAN is
 		do
-			Result := (value=g_regex_error_optimize_low_level)
+			Result := (value=optimize_low_level)
 		end
 
-	is_g_regex_error_posix_collating_elements_not_supported: BOOLEAN is
+	is_posix_collating_elements_not_supported: BOOLEAN is
 		do
-			Result := (value=g_regex_error_posix_collating_elements_not_supported_low_level)
+			Result := (value=posix_collating_elements_not_supported_low_level)
 		end
 
-	is_g_regex_error_posix_named_class_outside_class: BOOLEAN is
+	is_posix_named_class_outside_class: BOOLEAN is
 		do
-			Result := (value=g_regex_error_posix_named_class_outside_class_low_level)
+			Result := (value=posix_named_class_outside_class_low_level)
 		end
 
-	is_g_regex_error_quantifier_too_big: BOOLEAN is
+	is_quantifier_too_big: BOOLEAN is
 		do
-			Result := (value=g_regex_error_quantifier_too_big_low_level)
+			Result := (value=quantifier_too_big_low_level)
 		end
 
-	is_g_regex_error_quantifiers_out_of_order: BOOLEAN is
+	is_quantifiers_out_of_order: BOOLEAN is
 		do
-			Result := (value=g_regex_error_quantifiers_out_of_order_low_level)
+			Result := (value=quantifiers_out_of_order_low_level)
 		end
 
-	is_g_regex_error_range_out_of_order: BOOLEAN is
+	is_range_out_of_order: BOOLEAN is
 		do
-			Result := (value=g_regex_error_range_out_of_order_low_level)
+			Result := (value=range_out_of_order_low_level)
 		end
 
-	is_g_regex_error_replace: BOOLEAN is
+	is_replace: BOOLEAN is
 		do
-			Result := (value=g_regex_error_replace_low_level)
+			Result := (value=replace_low_level)
 		end
 
-	is_g_regex_error_single_byte_match_in_lookbehind: BOOLEAN is
+	is_single_byte_match_in_lookbehind: BOOLEAN is
 		do
-			Result := (value=g_regex_error_single_byte_match_in_lookbehind_low_level)
+			Result := (value=single_byte_match_in_lookbehind_low_level)
 		end
 
-	is_g_regex_error_stray_backslash: BOOLEAN is
+	is_stray_backslash: BOOLEAN is
 		do
-			Result := (value=g_regex_error_stray_backslash_low_level)
+			Result := (value=stray_backslash_low_level)
 		end
 
-	is_g_regex_error_subpattern_name_too_long: BOOLEAN is
+	is_subpattern_name_too_long: BOOLEAN is
 		do
-			Result := (value=g_regex_error_subpattern_name_too_long_low_level)
+			Result := (value=subpattern_name_too_long_low_level)
 		end
 
-	is_g_regex_error_too_many_branches_in_define: BOOLEAN is
+	is_too_many_branches_in_define: BOOLEAN is
 		do
-			Result := (value=g_regex_error_too_many_branches_in_define_low_level)
+			Result := (value=too_many_branches_in_define_low_level)
 		end
 
-	is_g_regex_error_too_many_conditional_branches: BOOLEAN is
+	is_too_many_conditional_branches: BOOLEAN is
 		do
-			Result := (value=g_regex_error_too_many_conditional_branches_low_level)
+			Result := (value=too_many_conditional_branches_low_level)
 		end
 
-	is_g_regex_error_too_many_forward_references: BOOLEAN is
+	is_too_many_forward_references: BOOLEAN is
 		do
-			Result := (value=g_regex_error_too_many_forward_references_low_level)
+			Result := (value=too_many_forward_references_low_level)
 		end
 
-	is_g_regex_error_too_many_subpatterns: BOOLEAN is
+	is_too_many_subpatterns: BOOLEAN is
 		do
-			Result := (value=g_regex_error_too_many_subpatterns_low_level)
+			Result := (value=too_many_subpatterns_low_level)
 		end
 
-	is_g_regex_error_unknown_backtracking_control_verb: BOOLEAN is
+	is_unknown_backtracking_control_verb: BOOLEAN is
 		do
-			Result := (value=g_regex_error_unknown_backtracking_control_verb_low_level)
+			Result := (value=unknown_backtracking_control_verb_low_level)
 		end
 
-	is_g_regex_error_unknown_posix_class_name: BOOLEAN is
+	is_unknown_posix_class_name: BOOLEAN is
 		do
-			Result := (value=g_regex_error_unknown_posix_class_name_low_level)
+			Result := (value=unknown_posix_class_name_low_level)
 		end
 
-	is_g_regex_error_unknown_property: BOOLEAN is
+	is_unknown_property: BOOLEAN is
 		do
-			Result := (value=g_regex_error_unknown_property_low_level)
+			Result := (value=unknown_property_low_level)
 		end
 
-	is_g_regex_error_unmatched_parenthesis: BOOLEAN is
+	is_unmatched_parenthesis: BOOLEAN is
 		do
-			Result := (value=g_regex_error_unmatched_parenthesis_low_level)
+			Result := (value=unmatched_parenthesis_low_level)
 		end
 
-	is_g_regex_error_unrecognized_character: BOOLEAN is
+	is_unrecognized_character: BOOLEAN is
 		do
-			Result := (value=g_regex_error_unrecognized_character_low_level)
+			Result := (value=unrecognized_character_low_level)
 		end
 
-	is_g_regex_error_unrecognized_escape: BOOLEAN is
+	is_unrecognized_escape: BOOLEAN is
 		do
-			Result := (value=g_regex_error_unrecognized_escape_low_level)
+			Result := (value=unrecognized_escape_low_level)
 		end
 
-	is_g_regex_error_unterminated_character_class: BOOLEAN is
+	is_unterminated_character_class: BOOLEAN is
 		do
-			Result := (value=g_regex_error_unterminated_character_class_low_level)
+			Result := (value=unterminated_character_class_low_level)
 		end
 
-	is_g_regex_error_unterminated_comment: BOOLEAN is
+	is_unterminated_comment: BOOLEAN is
 		do
-			Result := (value=g_regex_error_unterminated_comment_low_level)
+			Result := (value=unterminated_comment_low_level)
 		end
 
-	is_g_regex_error_variable_length_lookbehind: BOOLEAN is
+	is_variable_length_lookbehind: BOOLEAN is
 		do
-			Result := (value=g_regex_error_variable_length_lookbehind_low_level)
+			Result := (value=variable_length_lookbehind_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_regex_error_assertion_expected_low_level: INTEGER is
+	assertion_expected_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -651,7 +651,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_backtracking_control_verb_argument_forbidden_low_level: INTEGER is
+	backtracking_control_verb_argument_forbidden_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -660,7 +660,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_backtracking_control_verb_argument_required_low_level: INTEGER is
+	backtracking_control_verb_argument_required_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -669,7 +669,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_character_value_too_large_low_level: INTEGER is
+	character_value_too_large_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -678,7 +678,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_compile_low_level: INTEGER is
+	compile_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -687,7 +687,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_define_repetion_low_level: INTEGER is
+	define_repetion_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -696,7 +696,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_duplicate_subpattern_name_low_level: INTEGER is
+	duplicate_subpattern_name_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -705,7 +705,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_expression_too_large_low_level: INTEGER is
+	expression_too_large_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -714,7 +714,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_extra_subpattern_name_low_level: INTEGER is
+	extra_subpattern_name_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -723,7 +723,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_hex_code_too_large_low_level: INTEGER is
+	hex_code_too_large_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -732,7 +732,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_inconsistent_newline_options_low_level: INTEGER is
+	inconsistent_newline_options_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -741,7 +741,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_inexistent_subpattern_reference_low_level: INTEGER is
+	inexistent_subpattern_reference_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -750,7 +750,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_infinite_loop_low_level: INTEGER is
+	infinite_loop_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -759,7 +759,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_internal_low_level: INTEGER is
+	internal_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -768,7 +768,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_invalid_condition_low_level: INTEGER is
+	invalid_condition_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -777,7 +777,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_invalid_control_char_low_level: INTEGER is
+	invalid_control_char_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -786,7 +786,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_invalid_data_character_low_level: INTEGER is
+	invalid_data_character_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -795,7 +795,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_invalid_escape_in_character_class_low_level: INTEGER is
+	invalid_escape_in_character_class_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -804,7 +804,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_invalid_octal_value_low_level: INTEGER is
+	invalid_octal_value_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -813,7 +813,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_invalid_relative_reference_low_level: INTEGER is
+	invalid_relative_reference_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -822,7 +822,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_malformed_condition_low_level: INTEGER is
+	malformed_condition_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -831,7 +831,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_malformed_property_low_level: INTEGER is
+	malformed_property_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -840,7 +840,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_match_low_level: INTEGER is
+	match_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -849,7 +849,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_memory_error_low_level: INTEGER is
+	memory_error_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -858,7 +858,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_missing_back_reference_low_level: INTEGER is
+	missing_back_reference_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -867,7 +867,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_missing_control_char_low_level: INTEGER is
+	missing_control_char_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -876,7 +876,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_missing_digit_low_level: INTEGER is
+	missing_digit_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -885,7 +885,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_missing_name_low_level: INTEGER is
+	missing_name_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -894,7 +894,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_missing_subpattern_name_low_level: INTEGER is
+	missing_subpattern_name_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -903,7 +903,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_missing_subpattern_name_terminator_low_level: INTEGER is
+	missing_subpattern_name_terminator_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -912,7 +912,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_name_too_long_low_level: INTEGER is
+	name_too_long_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -921,7 +921,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_not_supported_in_class_low_level: INTEGER is
+	not_supported_in_class_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -930,7 +930,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_nothing_to_repeat_low_level: INTEGER is
+	nothing_to_repeat_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -939,7 +939,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_number_too_big_low_level: INTEGER is
+	number_too_big_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -948,7 +948,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_optimize_low_level: INTEGER is
+	optimize_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -957,7 +957,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_posix_collating_elements_not_supported_low_level: INTEGER is
+	posix_collating_elements_not_supported_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -966,7 +966,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_posix_named_class_outside_class_low_level: INTEGER is
+	posix_named_class_outside_class_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -975,7 +975,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_quantifier_too_big_low_level: INTEGER is
+	quantifier_too_big_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -984,7 +984,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_quantifiers_out_of_order_low_level: INTEGER is
+	quantifiers_out_of_order_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -993,7 +993,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_range_out_of_order_low_level: INTEGER is
+	range_out_of_order_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1002,7 +1002,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_replace_low_level: INTEGER is
+	replace_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1011,7 +1011,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_single_byte_match_in_lookbehind_low_level: INTEGER is
+	single_byte_match_in_lookbehind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1020,7 +1020,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_stray_backslash_low_level: INTEGER is
+	stray_backslash_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1029,7 +1029,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_subpattern_name_too_long_low_level: INTEGER is
+	subpattern_name_too_long_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1038,7 +1038,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_too_many_branches_in_define_low_level: INTEGER is
+	too_many_branches_in_define_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1047,7 +1047,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_too_many_conditional_branches_low_level: INTEGER is
+	too_many_conditional_branches_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1056,7 +1056,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_too_many_forward_references_low_level: INTEGER is
+	too_many_forward_references_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1065,7 +1065,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_too_many_subpatterns_low_level: INTEGER is
+	too_many_subpatterns_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1074,7 +1074,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_unknown_backtracking_control_verb_low_level: INTEGER is
+	unknown_backtracking_control_verb_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1083,7 +1083,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_unknown_posix_class_name_low_level: INTEGER is
+	unknown_posix_class_name_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1092,7 +1092,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_unknown_property_low_level: INTEGER is
+	unknown_property_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1101,7 +1101,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_unmatched_parenthesis_low_level: INTEGER is
+	unmatched_parenthesis_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1110,7 +1110,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_unrecognized_character_low_level: INTEGER is
+	unrecognized_character_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1119,7 +1119,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_unrecognized_escape_low_level: INTEGER is
+	unrecognized_escape_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1128,7 +1128,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_unterminated_character_class_low_level: INTEGER is
+	unterminated_character_class_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1137,7 +1137,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_unterminated_comment_low_level: INTEGER is
+	unterminated_comment_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1146,7 +1146,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_error_variable_length_lookbehind_low_level: INTEGER is
+	variable_length_lookbehind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

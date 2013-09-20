@@ -83,34 +83,13 @@ feature {ANY} -- Commands
 
 
 feature {ANY} -- Types
-	add_type (a_name: STRING; a_type: LLVM_TYPE) is
-	require
-		a_name/=Void
-		a_type/=Void
-	local res: INTEGER_32
-	do
-		res := llvmadd_type_name(handle,a_name.to_external,a_type.handle)
-	ensure 
-		name_untouched: a_name.is_equal(old a_name)
-	end
-
-	delete_type (a_name: STRING) is
-	require
-		a_name/=Void
-	do
-		llvmdelete_type_name(handle,a_name.to_external)
-	ensure 
-		name_untouched: a_name.is_equal(old a_name)
-	end
-
-	type_at (a_name: STRING): LLVM_TYPE is
+	type_at (a_name: ABSTRACT_STRING): LLVM_TYPE is
 	require
 		a_name/=Void
 	do
 		Result := type_wrapper_or_void(llvmget_type_by_name(handle,a_name.to_external))
-	ensure 
-		name_untouched: a_name.is_equal(old a_name)
 	end
+
 feature {ANY} -- Aliases
 	new_alias (a_type: LLVM_TYPE; an_aliasee: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_GLOBAL_ALIAS is
 		-- TODO: does LLVMAddAlias actually return a LLVM_GLOBAL_ALIAS?

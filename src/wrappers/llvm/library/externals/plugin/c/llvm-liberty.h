@@ -10,6 +10,11 @@ extern unsigned int __builtin_bswap32(unsigned int _data);
 extern unsigned long __builtin_bswap64(unsigned long _data);
 #endif 
 
+#ifndef __builtin_unreachable
+#	include <stdlib.h>
+#	define __builtin_unreachable abort
+#endif
+
 #include <llvm-c/Analysis.h>
 #include <llvm-c/BitReader.h>
 #include <llvm-c/BitWriter.h>

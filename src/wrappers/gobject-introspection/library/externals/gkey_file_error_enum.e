@@ -9,79 +9,79 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_key_file_error_group_not_found_low_level)  or else
-				(a_value = g_key_file_error_invalid_value_low_level)  or else
-				(a_value = g_key_file_error_key_not_found_low_level)  or else
-				(a_value = g_key_file_error_not_found_low_level)  or else
-				(a_value = g_key_file_error_parse_low_level)  or else
-				(a_value = g_key_file_error_unknown_encoding_low_level) )
+            Result := ((a_value = group_not_found_low_level)  or else
+				(a_value = invalid_value_low_level)  or else
+				(a_value = key_not_found_low_level)  or else
+				(a_value = not_found_low_level)  or else
+				(a_value = parse_low_level)  or else
+				(a_value = unknown_encoding_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_key_file_error_group_not_found is
+	set_group_not_found is
 		do
-			value := g_key_file_error_group_not_found_low_level
+			value := group_not_found_low_level
 		end
 
-	set_g_key_file_error_invalid_value is
+	set_invalid_value is
 		do
-			value := g_key_file_error_invalid_value_low_level
+			value := invalid_value_low_level
 		end
 
-	set_g_key_file_error_key_not_found is
+	set_key_not_found is
 		do
-			value := g_key_file_error_key_not_found_low_level
+			value := key_not_found_low_level
 		end
 
-	set_g_key_file_error_not_found is
+	set_not_found is
 		do
-			value := g_key_file_error_not_found_low_level
+			value := not_found_low_level
 		end
 
-	set_g_key_file_error_parse is
+	set_parse is
 		do
-			value := g_key_file_error_parse_low_level
+			value := parse_low_level
 		end
 
-	set_g_key_file_error_unknown_encoding is
+	set_unknown_encoding is
 		do
-			value := g_key_file_error_unknown_encoding_low_level
+			value := unknown_encoding_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_key_file_error_group_not_found: BOOLEAN is
+	is_group_not_found: BOOLEAN is
 		do
-			Result := (value=g_key_file_error_group_not_found_low_level)
+			Result := (value=group_not_found_low_level)
 		end
 
-	is_g_key_file_error_invalid_value: BOOLEAN is
+	is_invalid_value: BOOLEAN is
 		do
-			Result := (value=g_key_file_error_invalid_value_low_level)
+			Result := (value=invalid_value_low_level)
 		end
 
-	is_g_key_file_error_key_not_found: BOOLEAN is
+	is_key_not_found: BOOLEAN is
 		do
-			Result := (value=g_key_file_error_key_not_found_low_level)
+			Result := (value=key_not_found_low_level)
 		end
 
-	is_g_key_file_error_not_found: BOOLEAN is
+	is_not_found: BOOLEAN is
 		do
-			Result := (value=g_key_file_error_not_found_low_level)
+			Result := (value=not_found_low_level)
 		end
 
-	is_g_key_file_error_parse: BOOLEAN is
+	is_parse: BOOLEAN is
 		do
-			Result := (value=g_key_file_error_parse_low_level)
+			Result := (value=parse_low_level)
 		end
 
-	is_g_key_file_error_unknown_encoding: BOOLEAN is
+	is_unknown_encoding: BOOLEAN is
 		do
-			Result := (value=g_key_file_error_unknown_encoding_low_level)
+			Result := (value=unknown_encoding_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_key_file_error_group_not_found_low_level: INTEGER is
+	group_not_found_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -90,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_key_file_error_invalid_value_low_level: INTEGER is
+	invalid_value_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +99,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_key_file_error_key_not_found_low_level: INTEGER is
+	key_not_found_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,7 +108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_key_file_error_not_found_low_level: INTEGER is
+	not_found_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -117,7 +117,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_key_file_error_parse_low_level: INTEGER is
+	parse_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -126,7 +126,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_key_file_error_unknown_encoding_low_level: INTEGER is
+	unknown_encoding_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

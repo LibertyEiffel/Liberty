@@ -1,5 +1,5 @@
 class ZMQ_STRING_MESSAGE
--- A ØMQ message containing some human-readable text.
+	-- A ØMQ message containing some human-readable text.
 
 inherit
    ZMQ_MESSAGE
@@ -17,11 +17,10 @@ inherit
       undefine
          default_create
       redefine
-         ensure_capacity,
-         set_count,
-         set_storage,
-         storage
+         ensure_capacity
       end
+
+   -- TODO: actually this string should be OBSERVABLE from a ZMQ_RECEIVING_SOCKET, fulfilling the same purpose of the ad-hoc update feature 
 
 create {ANY}
    default_create, from_string
@@ -37,10 +36,9 @@ feature {} -- Creation
          -- Initialize a text message with the same memory area of `a_message'
       do
          not_yet_implemented
-         allocate
-         if zmq_msg_copy(handle, a_message.handle)/=0 then
-
-         end
+         -- allocate
+         -- if zmq_msg_copy(handle, a_message.handle)/=0 then
+         -- end
       end
 
    from_string (a_string: ABSTRACT_STRING) is
@@ -54,15 +52,15 @@ feature {} -- Creation
          allocate
          -- Intern `a_string' to get a plain memory area containing the actual
          -- content and store the interned string to avoid it being collected.
-
-         is_successful := zmq_msg_init_size(handle, integer_to_size_t (a_string.count + 1))=0
-         -- the +1 needs to account for the trailing terminating zero
+		 storage := storage.calloc(a_string.count+1)
+         count := a_string.count
+		 capacity := a_string.count+1
+         storage.copy_from(a_string.intern.storage, capacity)
+         is_successful := zmq_msg_init_data (handle, storage.to_pointer, integer_to_size_t (capacity),default_pointer,default_pointer)=0
+		 -- TODO: use 4th and 5th arguments, free function and hint.
          if not is_successful then --handle error
             not_yet_implemented
          end
-         storage.copy_from(a_string.intern.storage, a_string.count)
-         count := a_string.count
-         capacity := count
       end
 
 feature {ANY}
@@ -70,32 +68,17 @@ feature {ANY}
       do
          count := size.to_integer_32
          capacity := count
+		 storage := storage.from_pointer(zmq_msg_data(handle))
       end
 
 feature {ANY} -- Specializing natively stored string
-   set_count (new_count: like count) is
-      do
-         count := new_count
-      end
-
    ensure_capacity (needed_capacity: like capacity) is
-         -- local new: like handle; rc: INTEGER_32
+	 local new: like handle; rc: INTEGER_32
       do
          if needed_capacity > count then
-            not_yet_implemented
-            -- new := malloc(struct_size)
-            --rc := zmq_msg_init_size(handle,needed_capacity)
+			 not_yet_implemented
+             -- storage := storage.realloc(count, needed_capacity) if zmq_msg_init_size(handle, storage.to_pointer, 
          end
-      end
-
-   set_storage (new_storage: like storage; new_capacity: like capacity) is
-      do
-         not_yet_implemented
-      end
-
-   storage: NATIVE_ARRAY[CHARACTER] is
-      do
-         Result := Result.from_pointer(zmq_msg_data(handle))
       end
 
    hash_code: INTEGER_32 is

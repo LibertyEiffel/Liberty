@@ -9,7 +9,8 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = cstring_kind_low_level)  or else
+            Result := ((a_value = char_kind_low_level)  or else
+				(a_value = cstring_kind_low_level)  or else
 				(a_value = dec_ikind_low_level)  or else
 				(a_value = dec_lkind_low_level)  or else
 				(a_value = dec_llkind_low_level)  or else
@@ -26,6 +27,11 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
+	set_char_kind is
+		do
+			value := char_kind_low_level
+		end
+
 	set_cstring_kind is
 		do
 			value := cstring_kind_low_level
@@ -92,6 +98,11 @@ feature {ANY} -- Setters
 		end
 
 feature {ANY} -- Queries
+	is_char_kind: BOOLEAN is
+		do
+			Result := (value=char_kind_low_level)
+		end
+
 	is_cstring_kind: BOOLEAN is
 		do
 			Result := (value=cstring_kind_low_level)
@@ -158,6 +169,15 @@ feature {ANY} -- Queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
+	char_kind_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "CharKind"
+ 			}"
+ 		end
+
 	cstring_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{

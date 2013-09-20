@@ -9,343 +9,343 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_unicode_close_punctuation_low_level)  or else
-				(a_value = g_unicode_connect_punctuation_low_level)  or else
-				(a_value = g_unicode_control_low_level)  or else
-				(a_value = g_unicode_currency_symbol_low_level)  or else
-				(a_value = g_unicode_dash_punctuation_low_level)  or else
-				(a_value = g_unicode_decimal_number_low_level)  or else
-				(a_value = g_unicode_enclosing_mark_low_level)  or else
-				(a_value = g_unicode_final_punctuation_low_level)  or else
-				(a_value = g_unicode_format_low_level)  or else
-				(a_value = g_unicode_initial_punctuation_low_level)  or else
-				(a_value = g_unicode_letter_number_low_level)  or else
-				(a_value = g_unicode_line_separator_low_level)  or else
-				(a_value = g_unicode_lowercase_letter_low_level)  or else
-				(a_value = g_unicode_math_symbol_low_level)  or else
-				(a_value = g_unicode_modifier_letter_low_level)  or else
-				(a_value = g_unicode_modifier_symbol_low_level)  or else
-				(a_value = g_unicode_non_spacing_mark_low_level)  or else
-				(a_value = g_unicode_open_punctuation_low_level)  or else
-				(a_value = g_unicode_other_letter_low_level)  or else
-				(a_value = g_unicode_other_number_low_level)  or else
-				(a_value = g_unicode_other_punctuation_low_level)  or else
-				(a_value = g_unicode_other_symbol_low_level)  or else
-				(a_value = g_unicode_paragraph_separator_low_level)  or else
-				(a_value = g_unicode_private_use_low_level)  or else
-				(a_value = g_unicode_space_separator_low_level)  or else
-				(a_value = g_unicode_spacing_mark_low_level)  or else
-				(a_value = g_unicode_surrogate_low_level)  or else
-				(a_value = g_unicode_titlecase_letter_low_level)  or else
-				(a_value = g_unicode_unassigned_low_level)  or else
-				(a_value = g_unicode_uppercase_letter_low_level) )
+            Result := ((a_value = close_punctuation_low_level)  or else
+				(a_value = connect_punctuation_low_level)  or else
+				(a_value = control_low_level)  or else
+				(a_value = currency_symbol_low_level)  or else
+				(a_value = dash_punctuation_low_level)  or else
+				(a_value = decimal_number_low_level)  or else
+				(a_value = enclosing_mark_low_level)  or else
+				(a_value = final_punctuation_low_level)  or else
+				(a_value = format_low_level)  or else
+				(a_value = initial_punctuation_low_level)  or else
+				(a_value = letter_number_low_level)  or else
+				(a_value = line_separator_low_level)  or else
+				(a_value = lowercase_letter_low_level)  or else
+				(a_value = math_symbol_low_level)  or else
+				(a_value = modifier_letter_low_level)  or else
+				(a_value = modifier_symbol_low_level)  or else
+				(a_value = non_spacing_mark_low_level)  or else
+				(a_value = open_punctuation_low_level)  or else
+				(a_value = other_letter_low_level)  or else
+				(a_value = other_number_low_level)  or else
+				(a_value = other_punctuation_low_level)  or else
+				(a_value = other_symbol_low_level)  or else
+				(a_value = paragraph_separator_low_level)  or else
+				(a_value = private_use_low_level)  or else
+				(a_value = space_separator_low_level)  or else
+				(a_value = spacing_mark_low_level)  or else
+				(a_value = surrogate_low_level)  or else
+				(a_value = titlecase_letter_low_level)  or else
+				(a_value = unassigned_low_level)  or else
+				(a_value = uppercase_letter_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_unicode_close_punctuation is
+	set_close_punctuation is
 		do
-			value := g_unicode_close_punctuation_low_level
+			value := close_punctuation_low_level
 		end
 
-	set_g_unicode_connect_punctuation is
+	set_connect_punctuation is
 		do
-			value := g_unicode_connect_punctuation_low_level
+			value := connect_punctuation_low_level
 		end
 
-	set_g_unicode_control is
+	set_control is
 		do
-			value := g_unicode_control_low_level
+			value := control_low_level
 		end
 
-	set_g_unicode_currency_symbol is
+	set_currency_symbol is
 		do
-			value := g_unicode_currency_symbol_low_level
+			value := currency_symbol_low_level
 		end
 
-	set_g_unicode_dash_punctuation is
+	set_dash_punctuation is
 		do
-			value := g_unicode_dash_punctuation_low_level
+			value := dash_punctuation_low_level
 		end
 
-	set_g_unicode_decimal_number is
+	set_decimal_number is
 		do
-			value := g_unicode_decimal_number_low_level
+			value := decimal_number_low_level
 		end
 
-	set_g_unicode_enclosing_mark is
+	set_enclosing_mark is
 		do
-			value := g_unicode_enclosing_mark_low_level
+			value := enclosing_mark_low_level
 		end
 
-	set_g_unicode_final_punctuation is
+	set_final_punctuation is
 		do
-			value := g_unicode_final_punctuation_low_level
+			value := final_punctuation_low_level
 		end
 
-	set_g_unicode_format is
+	set_format is
 		do
-			value := g_unicode_format_low_level
+			value := format_low_level
 		end
 
-	set_g_unicode_initial_punctuation is
+	set_initial_punctuation is
 		do
-			value := g_unicode_initial_punctuation_low_level
+			value := initial_punctuation_low_level
 		end
 
-	set_g_unicode_letter_number is
+	set_letter_number is
 		do
-			value := g_unicode_letter_number_low_level
+			value := letter_number_low_level
 		end
 
-	set_g_unicode_line_separator is
+	set_line_separator is
 		do
-			value := g_unicode_line_separator_low_level
+			value := line_separator_low_level
 		end
 
-	set_g_unicode_lowercase_letter is
+	set_lowercase_letter is
 		do
-			value := g_unicode_lowercase_letter_low_level
+			value := lowercase_letter_low_level
 		end
 
-	set_g_unicode_math_symbol is
+	set_math_symbol is
 		do
-			value := g_unicode_math_symbol_low_level
+			value := math_symbol_low_level
 		end
 
-	set_g_unicode_modifier_letter is
+	set_modifier_letter is
 		do
-			value := g_unicode_modifier_letter_low_level
+			value := modifier_letter_low_level
 		end
 
-	set_g_unicode_modifier_symbol is
+	set_modifier_symbol is
 		do
-			value := g_unicode_modifier_symbol_low_level
+			value := modifier_symbol_low_level
 		end
 
-	set_g_unicode_non_spacing_mark is
+	set_non_spacing_mark is
 		do
-			value := g_unicode_non_spacing_mark_low_level
+			value := non_spacing_mark_low_level
 		end
 
-	set_g_unicode_open_punctuation is
+	set_open_punctuation is
 		do
-			value := g_unicode_open_punctuation_low_level
+			value := open_punctuation_low_level
 		end
 
-	set_g_unicode_other_letter is
+	set_other_letter is
 		do
-			value := g_unicode_other_letter_low_level
+			value := other_letter_low_level
 		end
 
-	set_g_unicode_other_number is
+	set_other_number is
 		do
-			value := g_unicode_other_number_low_level
+			value := other_number_low_level
 		end
 
-	set_g_unicode_other_punctuation is
+	set_other_punctuation is
 		do
-			value := g_unicode_other_punctuation_low_level
+			value := other_punctuation_low_level
 		end
 
-	set_g_unicode_other_symbol is
+	set_other_symbol is
 		do
-			value := g_unicode_other_symbol_low_level
+			value := other_symbol_low_level
 		end
 
-	set_g_unicode_paragraph_separator is
+	set_paragraph_separator is
 		do
-			value := g_unicode_paragraph_separator_low_level
+			value := paragraph_separator_low_level
 		end
 
-	set_g_unicode_private_use is
+	set_private_use is
 		do
-			value := g_unicode_private_use_low_level
+			value := private_use_low_level
 		end
 
-	set_g_unicode_space_separator is
+	set_space_separator is
 		do
-			value := g_unicode_space_separator_low_level
+			value := space_separator_low_level
 		end
 
-	set_g_unicode_spacing_mark is
+	set_spacing_mark is
 		do
-			value := g_unicode_spacing_mark_low_level
+			value := spacing_mark_low_level
 		end
 
-	set_g_unicode_surrogate is
+	set_surrogate is
 		do
-			value := g_unicode_surrogate_low_level
+			value := surrogate_low_level
 		end
 
-	set_g_unicode_titlecase_letter is
+	set_titlecase_letter is
 		do
-			value := g_unicode_titlecase_letter_low_level
+			value := titlecase_letter_low_level
 		end
 
-	set_g_unicode_unassigned is
+	set_unassigned is
 		do
-			value := g_unicode_unassigned_low_level
+			value := unassigned_low_level
 		end
 
-	set_g_unicode_uppercase_letter is
+	set_uppercase_letter is
 		do
-			value := g_unicode_uppercase_letter_low_level
+			value := uppercase_letter_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_unicode_close_punctuation: BOOLEAN is
+	is_close_punctuation: BOOLEAN is
 		do
-			Result := (value=g_unicode_close_punctuation_low_level)
+			Result := (value=close_punctuation_low_level)
 		end
 
-	is_g_unicode_connect_punctuation: BOOLEAN is
+	is_connect_punctuation: BOOLEAN is
 		do
-			Result := (value=g_unicode_connect_punctuation_low_level)
+			Result := (value=connect_punctuation_low_level)
 		end
 
-	is_g_unicode_control: BOOLEAN is
+	is_control: BOOLEAN is
 		do
-			Result := (value=g_unicode_control_low_level)
+			Result := (value=control_low_level)
 		end
 
-	is_g_unicode_currency_symbol: BOOLEAN is
+	is_currency_symbol: BOOLEAN is
 		do
-			Result := (value=g_unicode_currency_symbol_low_level)
+			Result := (value=currency_symbol_low_level)
 		end
 
-	is_g_unicode_dash_punctuation: BOOLEAN is
+	is_dash_punctuation: BOOLEAN is
 		do
-			Result := (value=g_unicode_dash_punctuation_low_level)
+			Result := (value=dash_punctuation_low_level)
 		end
 
-	is_g_unicode_decimal_number: BOOLEAN is
+	is_decimal_number: BOOLEAN is
 		do
-			Result := (value=g_unicode_decimal_number_low_level)
+			Result := (value=decimal_number_low_level)
 		end
 
-	is_g_unicode_enclosing_mark: BOOLEAN is
+	is_enclosing_mark: BOOLEAN is
 		do
-			Result := (value=g_unicode_enclosing_mark_low_level)
+			Result := (value=enclosing_mark_low_level)
 		end
 
-	is_g_unicode_final_punctuation: BOOLEAN is
+	is_final_punctuation: BOOLEAN is
 		do
-			Result := (value=g_unicode_final_punctuation_low_level)
+			Result := (value=final_punctuation_low_level)
 		end
 
-	is_g_unicode_format: BOOLEAN is
+	is_format: BOOLEAN is
 		do
-			Result := (value=g_unicode_format_low_level)
+			Result := (value=format_low_level)
 		end
 
-	is_g_unicode_initial_punctuation: BOOLEAN is
+	is_initial_punctuation: BOOLEAN is
 		do
-			Result := (value=g_unicode_initial_punctuation_low_level)
+			Result := (value=initial_punctuation_low_level)
 		end
 
-	is_g_unicode_letter_number: BOOLEAN is
+	is_letter_number: BOOLEAN is
 		do
-			Result := (value=g_unicode_letter_number_low_level)
+			Result := (value=letter_number_low_level)
 		end
 
-	is_g_unicode_line_separator: BOOLEAN is
+	is_line_separator: BOOLEAN is
 		do
-			Result := (value=g_unicode_line_separator_low_level)
+			Result := (value=line_separator_low_level)
 		end
 
-	is_g_unicode_lowercase_letter: BOOLEAN is
+	is_lowercase_letter: BOOLEAN is
 		do
-			Result := (value=g_unicode_lowercase_letter_low_level)
+			Result := (value=lowercase_letter_low_level)
 		end
 
-	is_g_unicode_math_symbol: BOOLEAN is
+	is_math_symbol: BOOLEAN is
 		do
-			Result := (value=g_unicode_math_symbol_low_level)
+			Result := (value=math_symbol_low_level)
 		end
 
-	is_g_unicode_modifier_letter: BOOLEAN is
+	is_modifier_letter: BOOLEAN is
 		do
-			Result := (value=g_unicode_modifier_letter_low_level)
+			Result := (value=modifier_letter_low_level)
 		end
 
-	is_g_unicode_modifier_symbol: BOOLEAN is
+	is_modifier_symbol: BOOLEAN is
 		do
-			Result := (value=g_unicode_modifier_symbol_low_level)
+			Result := (value=modifier_symbol_low_level)
 		end
 
-	is_g_unicode_non_spacing_mark: BOOLEAN is
+	is_non_spacing_mark: BOOLEAN is
 		do
-			Result := (value=g_unicode_non_spacing_mark_low_level)
+			Result := (value=non_spacing_mark_low_level)
 		end
 
-	is_g_unicode_open_punctuation: BOOLEAN is
+	is_open_punctuation: BOOLEAN is
 		do
-			Result := (value=g_unicode_open_punctuation_low_level)
+			Result := (value=open_punctuation_low_level)
 		end
 
-	is_g_unicode_other_letter: BOOLEAN is
+	is_other_letter: BOOLEAN is
 		do
-			Result := (value=g_unicode_other_letter_low_level)
+			Result := (value=other_letter_low_level)
 		end
 
-	is_g_unicode_other_number: BOOLEAN is
+	is_other_number: BOOLEAN is
 		do
-			Result := (value=g_unicode_other_number_low_level)
+			Result := (value=other_number_low_level)
 		end
 
-	is_g_unicode_other_punctuation: BOOLEAN is
+	is_other_punctuation: BOOLEAN is
 		do
-			Result := (value=g_unicode_other_punctuation_low_level)
+			Result := (value=other_punctuation_low_level)
 		end
 
-	is_g_unicode_other_symbol: BOOLEAN is
+	is_other_symbol: BOOLEAN is
 		do
-			Result := (value=g_unicode_other_symbol_low_level)
+			Result := (value=other_symbol_low_level)
 		end
 
-	is_g_unicode_paragraph_separator: BOOLEAN is
+	is_paragraph_separator: BOOLEAN is
 		do
-			Result := (value=g_unicode_paragraph_separator_low_level)
+			Result := (value=paragraph_separator_low_level)
 		end
 
-	is_g_unicode_private_use: BOOLEAN is
+	is_private_use: BOOLEAN is
 		do
-			Result := (value=g_unicode_private_use_low_level)
+			Result := (value=private_use_low_level)
 		end
 
-	is_g_unicode_space_separator: BOOLEAN is
+	is_space_separator: BOOLEAN is
 		do
-			Result := (value=g_unicode_space_separator_low_level)
+			Result := (value=space_separator_low_level)
 		end
 
-	is_g_unicode_spacing_mark: BOOLEAN is
+	is_spacing_mark: BOOLEAN is
 		do
-			Result := (value=g_unicode_spacing_mark_low_level)
+			Result := (value=spacing_mark_low_level)
 		end
 
-	is_g_unicode_surrogate: BOOLEAN is
+	is_surrogate: BOOLEAN is
 		do
-			Result := (value=g_unicode_surrogate_low_level)
+			Result := (value=surrogate_low_level)
 		end
 
-	is_g_unicode_titlecase_letter: BOOLEAN is
+	is_titlecase_letter: BOOLEAN is
 		do
-			Result := (value=g_unicode_titlecase_letter_low_level)
+			Result := (value=titlecase_letter_low_level)
 		end
 
-	is_g_unicode_unassigned: BOOLEAN is
+	is_unassigned: BOOLEAN is
 		do
-			Result := (value=g_unicode_unassigned_low_level)
+			Result := (value=unassigned_low_level)
 		end
 
-	is_g_unicode_uppercase_letter: BOOLEAN is
+	is_uppercase_letter: BOOLEAN is
 		do
-			Result := (value=g_unicode_uppercase_letter_low_level)
+			Result := (value=uppercase_letter_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_unicode_close_punctuation_low_level: INTEGER is
+	close_punctuation_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -354,7 +354,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_connect_punctuation_low_level: INTEGER is
+	connect_punctuation_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -363,7 +363,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_control_low_level: INTEGER is
+	control_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -372,7 +372,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_currency_symbol_low_level: INTEGER is
+	currency_symbol_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -381,7 +381,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_dash_punctuation_low_level: INTEGER is
+	dash_punctuation_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -390,7 +390,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_decimal_number_low_level: INTEGER is
+	decimal_number_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -399,7 +399,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_enclosing_mark_low_level: INTEGER is
+	enclosing_mark_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -408,7 +408,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_final_punctuation_low_level: INTEGER is
+	final_punctuation_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -417,7 +417,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_format_low_level: INTEGER is
+	format_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -426,7 +426,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_initial_punctuation_low_level: INTEGER is
+	initial_punctuation_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -435,7 +435,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_letter_number_low_level: INTEGER is
+	letter_number_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -444,7 +444,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_line_separator_low_level: INTEGER is
+	line_separator_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -453,7 +453,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_lowercase_letter_low_level: INTEGER is
+	lowercase_letter_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -462,7 +462,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_math_symbol_low_level: INTEGER is
+	math_symbol_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -471,7 +471,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_modifier_letter_low_level: INTEGER is
+	modifier_letter_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -480,7 +480,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_modifier_symbol_low_level: INTEGER is
+	modifier_symbol_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -489,7 +489,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_non_spacing_mark_low_level: INTEGER is
+	non_spacing_mark_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -498,7 +498,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_open_punctuation_low_level: INTEGER is
+	open_punctuation_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -507,7 +507,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_other_letter_low_level: INTEGER is
+	other_letter_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -516,7 +516,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_other_number_low_level: INTEGER is
+	other_number_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -525,7 +525,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_other_punctuation_low_level: INTEGER is
+	other_punctuation_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -534,7 +534,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_other_symbol_low_level: INTEGER is
+	other_symbol_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -543,7 +543,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_paragraph_separator_low_level: INTEGER is
+	paragraph_separator_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -552,7 +552,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_private_use_low_level: INTEGER is
+	private_use_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -561,7 +561,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_space_separator_low_level: INTEGER is
+	space_separator_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -570,7 +570,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_spacing_mark_low_level: INTEGER is
+	spacing_mark_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -579,7 +579,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_surrogate_low_level: INTEGER is
+	surrogate_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -588,7 +588,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_titlecase_letter_low_level: INTEGER is
+	titlecase_letter_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -597,7 +597,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_unassigned_low_level: INTEGER is
+	unassigned_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -606,7 +606,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_uppercase_letter_low_level: INTEGER is
+	uppercase_letter_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

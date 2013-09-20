@@ -9,109 +9,109 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := (a_value & (gi_function_is_constructor_low_level | 
-				gi_function_is_getter_low_level | 
-				gi_function_is_method_low_level | 
-				gi_function_is_setter_low_level | 
-				gi_function_throws_low_level | 
-				gi_function_wraps_vfunc_low_level)).to_boolean
+            Result := (a_value & (is_constructor_low_level | 
+				is_getter_low_level | 
+				is_method_low_level | 
+				is_setter_low_level | 
+				throws_low_level | 
+				wraps_vfunc_low_level)).to_boolean
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_gi_function_is_constructor is
+	set_is_constructor is
 		do
-			value := value.bit_or(gi_function_is_constructor_low_level)
+			value := value.bit_or(is_constructor_low_level)
 		end
 
-	unset_gi_function_is_constructor is
+	unset_is_constructor is
 		do
-			value := value.bit_xor(gi_function_is_constructor_low_level)
+			value := value.bit_xor(is_constructor_low_level)
 		end
 
-	set_gi_function_is_getter is
+	set_is_getter is
 		do
-			value := value.bit_or(gi_function_is_getter_low_level)
+			value := value.bit_or(is_getter_low_level)
 		end
 
-	unset_gi_function_is_getter is
+	unset_is_getter is
 		do
-			value := value.bit_xor(gi_function_is_getter_low_level)
+			value := value.bit_xor(is_getter_low_level)
 		end
 
-	set_gi_function_is_method is
+	set_is_method is
 		do
-			value := value.bit_or(gi_function_is_method_low_level)
+			value := value.bit_or(is_method_low_level)
 		end
 
-	unset_gi_function_is_method is
+	unset_is_method is
 		do
-			value := value.bit_xor(gi_function_is_method_low_level)
+			value := value.bit_xor(is_method_low_level)
 		end
 
-	set_gi_function_is_setter is
+	set_is_setter is
 		do
-			value := value.bit_or(gi_function_is_setter_low_level)
+			value := value.bit_or(is_setter_low_level)
 		end
 
-	unset_gi_function_is_setter is
+	unset_is_setter is
 		do
-			value := value.bit_xor(gi_function_is_setter_low_level)
+			value := value.bit_xor(is_setter_low_level)
 		end
 
-	set_gi_function_throws is
+	set_throws is
 		do
-			value := value.bit_or(gi_function_throws_low_level)
+			value := value.bit_or(throws_low_level)
 		end
 
-	unset_gi_function_throws is
+	unset_throws is
 		do
-			value := value.bit_xor(gi_function_throws_low_level)
+			value := value.bit_xor(throws_low_level)
 		end
 
-	set_gi_function_wraps_vfunc is
+	set_wraps_vfunc is
 		do
-			value := value.bit_or(gi_function_wraps_vfunc_low_level)
+			value := value.bit_or(wraps_vfunc_low_level)
 		end
 
-	unset_gi_function_wraps_vfunc is
+	unset_wraps_vfunc is
 		do
-			value := value.bit_xor(gi_function_wraps_vfunc_low_level)
+			value := value.bit_xor(wraps_vfunc_low_level)
 		end
 
 feature {ANY} -- Queries
-	is_gi_function_is_constructor: BOOLEAN is
+	is_is_constructor: BOOLEAN is
 		do
-			Result := (value=gi_function_is_constructor_low_level)
+			Result := (value=is_constructor_low_level)
 		end
 
-	is_gi_function_is_getter: BOOLEAN is
+	is_is_getter: BOOLEAN is
 		do
-			Result := (value=gi_function_is_getter_low_level)
+			Result := (value=is_getter_low_level)
 		end
 
-	is_gi_function_is_method: BOOLEAN is
+	is_is_method: BOOLEAN is
 		do
-			Result := (value=gi_function_is_method_low_level)
+			Result := (value=is_method_low_level)
 		end
 
-	is_gi_function_is_setter: BOOLEAN is
+	is_is_setter: BOOLEAN is
 		do
-			Result := (value=gi_function_is_setter_low_level)
+			Result := (value=is_setter_low_level)
 		end
 
-	is_gi_function_throws: BOOLEAN is
+	is_throws: BOOLEAN is
 		do
-			Result := (value=gi_function_throws_low_level)
+			Result := (value=throws_low_level)
 		end
 
-	is_gi_function_wraps_vfunc: BOOLEAN is
+	is_wraps_vfunc: BOOLEAN is
 		do
-			Result := (value=gi_function_wraps_vfunc_low_level)
+			Result := (value=wraps_vfunc_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	gi_function_is_constructor_low_level: INTEGER is
+	is_constructor_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -120,7 +120,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_function_is_getter_low_level: INTEGER is
+	is_getter_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -129,7 +129,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_function_is_method_low_level: INTEGER is
+	is_method_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -138,7 +138,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_function_is_setter_low_level: INTEGER is
+	is_setter_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -147,7 +147,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_function_throws_low_level: INTEGER is
+	throws_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -156,7 +156,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_function_wraps_vfunc_low_level: INTEGER is
+	wraps_vfunc_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

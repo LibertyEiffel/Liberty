@@ -9,46 +9,46 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_module_bind_lazy_low_level)  or else
-				(a_value = g_module_bind_local_low_level)  or else
-				(a_value = g_module_bind_mask_low_level) )
+            Result := ((a_value = lazy_low_level)  or else
+				(a_value = local_external_low_level)  or else
+				(a_value = mask_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_module_bind_lazy is
+	set_lazy is
 		do
-			value := g_module_bind_lazy_low_level
+			value := lazy_low_level
 		end
 
-	set_g_module_bind_local is
+	set_local_external is
 		do
-			value := g_module_bind_local_low_level
+			value := local_external_low_level
 		end
 
-	set_g_module_bind_mask is
+	set_mask is
 		do
-			value := g_module_bind_mask_low_level
+			value := mask_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_module_bind_lazy: BOOLEAN is
+	is_lazy: BOOLEAN is
 		do
-			Result := (value=g_module_bind_lazy_low_level)
+			Result := (value=lazy_low_level)
 		end
 
-	is_g_module_bind_local: BOOLEAN is
+	is_local_external: BOOLEAN is
 		do
-			Result := (value=g_module_bind_local_low_level)
+			Result := (value=local_external_low_level)
 		end
 
-	is_g_module_bind_mask: BOOLEAN is
+	is_mask: BOOLEAN is
 		do
-			Result := (value=g_module_bind_mask_low_level)
+			Result := (value=mask_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_module_bind_lazy_low_level: INTEGER is
+	lazy_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_module_bind_local_low_level: INTEGER is
+	local_external_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_module_bind_mask_low_level: INTEGER is
+	mask_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

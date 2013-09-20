@@ -9,90 +9,90 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_markup_error_bad_utf8_low_level)  or else
-				(a_value = g_markup_error_empty_low_level)  or else
-				(a_value = g_markup_error_invalid_content_low_level)  or else
-				(a_value = g_markup_error_missing_attribute_low_level)  or else
-				(a_value = g_markup_error_parse_low_level)  or else
-				(a_value = g_markup_error_unknown_attribute_low_level)  or else
-				(a_value = g_markup_error_unknown_element_low_level) )
+            Result := ((a_value = bad_utf8_low_level)  or else
+				(a_value = empty_low_level)  or else
+				(a_value = invalid_content_low_level)  or else
+				(a_value = missing_attribute_low_level)  or else
+				(a_value = parse_low_level)  or else
+				(a_value = unknown_attribute_low_level)  or else
+				(a_value = unknown_element_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_markup_error_bad_utf8 is
+	set_bad_utf8 is
 		do
-			value := g_markup_error_bad_utf8_low_level
+			value := bad_utf8_low_level
 		end
 
-	set_g_markup_error_empty is
+	set_empty is
 		do
-			value := g_markup_error_empty_low_level
+			value := empty_low_level
 		end
 
-	set_g_markup_error_invalid_content is
+	set_invalid_content is
 		do
-			value := g_markup_error_invalid_content_low_level
+			value := invalid_content_low_level
 		end
 
-	set_g_markup_error_missing_attribute is
+	set_missing_attribute is
 		do
-			value := g_markup_error_missing_attribute_low_level
+			value := missing_attribute_low_level
 		end
 
-	set_g_markup_error_parse is
+	set_parse is
 		do
-			value := g_markup_error_parse_low_level
+			value := parse_low_level
 		end
 
-	set_g_markup_error_unknown_attribute is
+	set_unknown_attribute is
 		do
-			value := g_markup_error_unknown_attribute_low_level
+			value := unknown_attribute_low_level
 		end
 
-	set_g_markup_error_unknown_element is
+	set_unknown_element is
 		do
-			value := g_markup_error_unknown_element_low_level
+			value := unknown_element_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_markup_error_bad_utf8: BOOLEAN is
+	is_bad_utf8: BOOLEAN is
 		do
-			Result := (value=g_markup_error_bad_utf8_low_level)
+			Result := (value=bad_utf8_low_level)
 		end
 
-	is_g_markup_error_empty: BOOLEAN is
+	is_empty: BOOLEAN is
 		do
-			Result := (value=g_markup_error_empty_low_level)
+			Result := (value=empty_low_level)
 		end
 
-	is_g_markup_error_invalid_content: BOOLEAN is
+	is_invalid_content: BOOLEAN is
 		do
-			Result := (value=g_markup_error_invalid_content_low_level)
+			Result := (value=invalid_content_low_level)
 		end
 
-	is_g_markup_error_missing_attribute: BOOLEAN is
+	is_missing_attribute: BOOLEAN is
 		do
-			Result := (value=g_markup_error_missing_attribute_low_level)
+			Result := (value=missing_attribute_low_level)
 		end
 
-	is_g_markup_error_parse: BOOLEAN is
+	is_parse: BOOLEAN is
 		do
-			Result := (value=g_markup_error_parse_low_level)
+			Result := (value=parse_low_level)
 		end
 
-	is_g_markup_error_unknown_attribute: BOOLEAN is
+	is_unknown_attribute: BOOLEAN is
 		do
-			Result := (value=g_markup_error_unknown_attribute_low_level)
+			Result := (value=unknown_attribute_low_level)
 		end
 
-	is_g_markup_error_unknown_element: BOOLEAN is
+	is_unknown_element: BOOLEAN is
 		do
-			Result := (value=g_markup_error_unknown_element_low_level)
+			Result := (value=unknown_element_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_markup_error_bad_utf8_low_level: INTEGER is
+	bad_utf8_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -101,7 +101,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_markup_error_empty_low_level: INTEGER is
+	empty_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -110,7 +110,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_markup_error_invalid_content_low_level: INTEGER is
+	invalid_content_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -119,7 +119,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_markup_error_missing_attribute_low_level: INTEGER is
+	missing_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -128,7 +128,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_markup_error_parse_low_level: INTEGER is
+	parse_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -137,7 +137,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_markup_error_unknown_attribute_low_level: INTEGER is
+	unknown_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -146,7 +146,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_markup_error_unknown_element_low_level: INTEGER is
+	unknown_element_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

@@ -95,7 +95,8 @@ feature {ANY} -- Command
 		if is_unsuccessful then throw(zmq_exception) end
 	end
 
-feature {ZMQ_RECEIVING_SOCKET} update is
+feature {ZMQ_RECEIVING_SOCKET} 
+	update is
 		-- Do whatever is needed to update the status of Current. Used by
 		-- receive commands of a ZMQ_RECEIVING_SOCKET.  For example a
 		-- ZMQ_STRING_MESSAGE will look for its actual lenght after being

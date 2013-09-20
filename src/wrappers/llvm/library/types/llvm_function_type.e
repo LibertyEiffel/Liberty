@@ -9,7 +9,7 @@ inherit
    LLVM_TYPE
       --undefine fill_tagged_out_memory
       redefine copy end
-      LLVM_TYPE_FACTORY
+  LLVM_TYPE_FACTORY
       -- TODO: enable access to the type of the argument of the function; it may be a
       -- C_ARRAY[LLVM_TYPE]
       --      undefine is_equal -- use is_equal from LLVM_TYPE
@@ -78,7 +78,7 @@ feature {ANY}
          Result:=llvmis_function_var_arg(handle).to_boolean
       end
 
-invariant type_kind.is_llvmfunction_type_kind
+invariant type_kind.is_function_type_kind
 end -- LLVM_FUNCTION_TYPE
 
 -- Copyright 2009 Paolo Redaelli

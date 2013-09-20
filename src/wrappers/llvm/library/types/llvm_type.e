@@ -36,8 +36,7 @@ feature {ANY} -- Queries
    type_kind: LLVMTYPE_KIND_ENUM is
          -- The actual type of Current
       do
-         Result.change_value
-         (llvmget_type_kind(handle))
+         Result.change_value (llvmget_type_kind(handle))
       end
 
 
@@ -46,7 +45,7 @@ feature {ANY} -- Queries
    -- equivalent.
    context: LLVM_CONTEXT is
       do
-create Result.from_external_pointer(llvmget_type_context(handle))
+		  create Result.from_external_pointer(llvmget_type_context(handle))
       end
 
    struct_size: like size_t is
@@ -65,40 +64,40 @@ create Result.from_external_pointer(llvmget_type_context(handle))
    is_integer: BOOLEAN is
          -- Is Current an integer type?
       do
-         Result := type_kind.is_llvminteger_type_kind
+         Result := type_kind.is_integer_type_kind
       end
 
    is_floating_point: BOOLEAN is
          -- Is Current a floating point type?
       do
-         Result := type_kind.is_llvmdouble_type_kind or else
-         type_kind.is_llvmx86_fp80type_kind or else
-         type_kind.is_llvmfp128type_kind or else
-         type_kind.is_llvmppc_fp128type_kind
+         Result := type_kind.is_double_type_kind or else
+         type_kind.is_x86_fp80type_kind or else
+         type_kind.is_fp128type_kind or else
+         type_kind.is_ppc_fp128type_kind
       end
 
    is_vector: BOOLEAN is
          -- Is Current a vector?
       do
-         Result := type_kind.is_llvmvector_type_kind
+         Result := type_kind.is_vector_type_kind
       end
 
    is_pointer: BOOLEAN is
          -- Is Current a pointer?
       do
-         Result := type_kind.is_llvmpointer_type_kind
+         Result := type_kind.is_pointer_type_kind
       end
 
    is_struct: BOOLEAN is
          -- Is Current a struct type?
       do
-         Result := type_kind.is_llvmstruct_type_kind
+         Result := type_kind.is_struct_type_kind
       end
 
    is_array: BOOLEAN is
          -- Is Current an array type?
       do
-         Result := type_kind.is_llvmarray_type_kind
+         Result := type_kind.is_array_type_kind
       end
 
    -- is_abstract: BOOLEAN is -- is Current abstract, i.e. does it contain opaque type anywhere in its definition.

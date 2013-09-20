@@ -9,46 +9,46 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = llvmdefault_visibility_low_level)  or else
-				(a_value = llvmhidden_visibility_low_level)  or else
-				(a_value = llvmprotected_visibility_low_level) )
+            Result := ((a_value = default_visibility_low_level)  or else
+				(a_value = hidden_visibility_low_level)  or else
+				(a_value = protected_visibility_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_llvmdefault_visibility is
+	set_default_visibility is
 		do
-			value := llvmdefault_visibility_low_level
+			value := default_visibility_low_level
 		end
 
-	set_llvmhidden_visibility is
+	set_hidden_visibility is
 		do
-			value := llvmhidden_visibility_low_level
+			value := hidden_visibility_low_level
 		end
 
-	set_llvmprotected_visibility is
+	set_protected_visibility is
 		do
-			value := llvmprotected_visibility_low_level
+			value := protected_visibility_low_level
 		end
 
 feature {ANY} -- Queries
-	is_llvmdefault_visibility: BOOLEAN is
+	is_default_visibility: BOOLEAN is
 		do
-			Result := (value=llvmdefault_visibility_low_level)
+			Result := (value=default_visibility_low_level)
 		end
 
-	is_llvmhidden_visibility: BOOLEAN is
+	is_hidden_visibility: BOOLEAN is
 		do
-			Result := (value=llvmhidden_visibility_low_level)
+			Result := (value=hidden_visibility_low_level)
 		end
 
-	is_llvmprotected_visibility: BOOLEAN is
+	is_protected_visibility: BOOLEAN is
 		do
-			Result := (value=llvmprotected_visibility_low_level)
+			Result := (value=protected_visibility_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	llvmdefault_visibility_low_level: INTEGER is
+	default_visibility_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmhidden_visibility_low_level: INTEGER is
+	hidden_visibility_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmprotected_visibility_low_level: INTEGER is
+	protected_visibility_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

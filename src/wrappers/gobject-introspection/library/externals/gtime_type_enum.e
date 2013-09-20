@@ -9,46 +9,46 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_time_type_daylight_low_level)  or else
-				(a_value = g_time_type_standard_low_level)  or else
-				(a_value = g_time_type_universal_low_level) )
+            Result := ((a_value = daylight_low_level)  or else
+				(a_value = standard_low_level)  or else
+				(a_value = universal_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_time_type_daylight is
+	set_daylight is
 		do
-			value := g_time_type_daylight_low_level
+			value := daylight_low_level
 		end
 
-	set_g_time_type_standard is
+	set_standard is
 		do
-			value := g_time_type_standard_low_level
+			value := standard_low_level
 		end
 
-	set_g_time_type_universal is
+	set_universal is
 		do
-			value := g_time_type_universal_low_level
+			value := universal_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_time_type_daylight: BOOLEAN is
+	is_daylight: BOOLEAN is
 		do
-			Result := (value=g_time_type_daylight_low_level)
+			Result := (value=daylight_low_level)
 		end
 
-	is_g_time_type_standard: BOOLEAN is
+	is_standard: BOOLEAN is
 		do
-			Result := (value=g_time_type_standard_low_level)
+			Result := (value=standard_low_level)
 		end
 
-	is_g_time_type_universal: BOOLEAN is
+	is_universal: BOOLEAN is
 		do
-			Result := (value=g_time_type_universal_low_level)
+			Result := (value=universal_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_time_type_daylight_low_level: INTEGER is
+	daylight_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_time_type_standard_low_level: INTEGER is
+	standard_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_time_type_universal_low_level: INTEGER is
+	universal_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

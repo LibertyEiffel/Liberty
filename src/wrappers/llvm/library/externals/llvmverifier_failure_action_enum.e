@@ -9,46 +9,46 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = llvmabort_process_action_low_level)  or else
-				(a_value = llvmprint_message_action_low_level)  or else
-				(a_value = llvmreturn_status_action_low_level) )
+            Result := ((a_value = abort_process_action_low_level)  or else
+				(a_value = print_message_action_low_level)  or else
+				(a_value = return_status_action_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_llvmabort_process_action is
+	set_abort_process_action is
 		do
-			value := llvmabort_process_action_low_level
+			value := abort_process_action_low_level
 		end
 
-	set_llvmprint_message_action is
+	set_print_message_action is
 		do
-			value := llvmprint_message_action_low_level
+			value := print_message_action_low_level
 		end
 
-	set_llvmreturn_status_action is
+	set_return_status_action is
 		do
-			value := llvmreturn_status_action_low_level
+			value := return_status_action_low_level
 		end
 
 feature {ANY} -- Queries
-	is_llvmabort_process_action: BOOLEAN is
+	is_abort_process_action: BOOLEAN is
 		do
-			Result := (value=llvmabort_process_action_low_level)
+			Result := (value=abort_process_action_low_level)
 		end
 
-	is_llvmprint_message_action: BOOLEAN is
+	is_print_message_action: BOOLEAN is
 		do
-			Result := (value=llvmprint_message_action_low_level)
+			Result := (value=print_message_action_low_level)
 		end
 
-	is_llvmreturn_status_action: BOOLEAN is
+	is_return_status_action: BOOLEAN is
 		do
-			Result := (value=llvmreturn_status_action_low_level)
+			Result := (value=return_status_action_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	llvmabort_process_action_low_level: INTEGER is
+	abort_process_action_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmprint_message_action_low_level: INTEGER is
+	print_message_action_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmreturn_status_action_low_level: INTEGER is
+	return_status_action_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

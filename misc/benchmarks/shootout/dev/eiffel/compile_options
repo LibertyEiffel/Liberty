@@ -1,0 +1,17 @@
+binary-trees:	-clean -boost -no_split -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+fannkuch:	-clean -boost -no_split -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+fasta:		-clean -boost -no_split -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -mfpmath=sse -msse2
+k-nucleotide:	-clean -boost -no_split -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+mandelbrot:	-clean -boost -no_split -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+n-body:		-clean -boost -no_split -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -mfpmath=sse -msse2
+nsieve:		-clean -boost -no_split -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+nsieve-bits:	-clean -boost -no_split -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+partial-sums:	-clean -boost -no_split -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+pidigits:	-clean -boost -no_split -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+recursive:	-clean -boost -no_split -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+regex-dna:	-clean -boost -no_split -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+reverse-complement: -clean -boost -no_split -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+spectral-norm:	-clean -boost -no_split -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+startup:	-clean -boost -no_split -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4')
+sum-col:	-clean -boost -no_split -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -no_gc
+thread-ring:	-clean -boost -no_split -O3 -fomit-frame-pointer $(uname -m |grep -q -E 'x86_64' || echo '-march=pentium4') -no_gc

@@ -1,7 +1,8 @@
 class ZMQ_EXAMPLE_SERVER
 	-- Port of the server of the simple example at http://www.zeromq.org/area:docs-v20
 insert 
-	UNISTD_EXTERNALS -- Some low-level Posix calls
+	MULTIPROCESSING 
+	ANY
 create {} make
 feature {ANY}
 	context: ZMQ_CONTEXT
@@ -9,13 +10,15 @@ feature {ANY}
 	request, answer: ZMQ_STRING_MESSAGE
 
 	make is
-		local now: TIME; exc: ZMQ_EXCEPTION; my_pid: ABSTRACT_STRING
+		local now: TIME; exc: ZMQ_EXCEPTION; my_pid: ABSTRACT_STRING; endpoint: STRING
 		do
 			--use_zmq
-			my_pid := & getpid
+			my_pid := & process_id
 			create context
 			socket := context.new_rep_socket
 			-- Bind to the TCP transport and port 5555 on the 'lo' interface
+			-- endpoint := once "tcp://*:5555"
+			--socket.bind(endpoint)
 			socket.bind("tcp://*:5555")
 			
 			if socket.is_successful then

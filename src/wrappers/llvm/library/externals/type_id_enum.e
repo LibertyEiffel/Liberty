@@ -15,12 +15,12 @@ feature {ANY} -- Validity
 				(a_value = float_ty_id_low_level)  or else
 				(a_value = fp128ty_id_low_level)  or else
 				(a_value = function_ty_id_low_level)  or else
+				(a_value = half_ty_id_low_level)  or else
 				(a_value = integer_ty_id_low_level)  or else
 				(a_value = label_ty_id_low_level)  or else
 				(a_value = last_primitive_ty_id_low_level)  or else
 				(a_value = metadata_ty_id_low_level)  or else
 				(a_value = num_type_ids_low_level)  or else
-				(a_value = opaque_ty_id_low_level)  or else
 				(a_value = pointer_ty_id_low_level)  or else
 				(a_value = ppc_fp128ty_id_low_level)  or else
 				(a_value = struct_ty_id_low_level)  or else
@@ -62,6 +62,11 @@ feature {ANY} -- Setters
 			value := function_ty_id_low_level
 		end
 
+	set_half_ty_id is
+		do
+			value := half_ty_id_low_level
+		end
+
 	set_integer_ty_id is
 		do
 			value := integer_ty_id_low_level
@@ -85,11 +90,6 @@ feature {ANY} -- Setters
 	set_num_type_ids is
 		do
 			value := num_type_ids_low_level
-		end
-
-	set_opaque_ty_id is
-		do
-			value := opaque_ty_id_low_level
 		end
 
 	set_pointer_ty_id is
@@ -158,6 +158,11 @@ feature {ANY} -- Queries
 			Result := (value=function_ty_id_low_level)
 		end
 
+	is_half_ty_id: BOOLEAN is
+		do
+			Result := (value=half_ty_id_low_level)
+		end
+
 	is_integer_ty_id: BOOLEAN is
 		do
 			Result := (value=integer_ty_id_low_level)
@@ -181,11 +186,6 @@ feature {ANY} -- Queries
 	is_num_type_ids: BOOLEAN is
 		do
 			Result := (value=num_type_ids_low_level)
-		end
-
-	is_opaque_ty_id: BOOLEAN is
-		do
-			Result := (value=opaque_ty_id_low_level)
 		end
 
 	is_pointer_ty_id: BOOLEAN is
@@ -278,6 +278,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
+	half_ty_id_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "HalfTyID"
+ 			}"
+ 		end
+
 	integer_ty_id_low_level: INTEGER is
 		external "plug_in"
  		alias "{
@@ -320,15 +329,6 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "NumTypeIDs"
- 			}"
- 		end
-
-	opaque_ty_id_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "OpaqueTyID"
  			}"
  		end
 

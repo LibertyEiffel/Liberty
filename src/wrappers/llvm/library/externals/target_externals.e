@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	llvmabialignment_of_type (an_argument_l604_c7: POINTER; an_argument_l605_c7: POINTER): NATURAL is
+	llvmabialignment_of_type (an_argument_l620_c7: POINTER; an_argument_l621_c7: POINTER): NATURAL is
  		-- LLVMABIAlignmentOfType
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmabisize_of_type (an_argument_l2125_c7: POINTER; an_argument_l2126_c7: POINTER): NATURAL_64 is
+	llvmabisize_of_type (an_argument_l2166_c7: POINTER; an_argument_l2167_c7: POINTER): NATURAL_64 is
  		-- LLVMABISizeOfType
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmadd_target_data (an_argument_l958_c7: POINTER; an_argument_l959_c7: POINTER) is
+	llvmadd_target_data (an_argument_l988_c7: POINTER; an_argument_l989_c7: POINTER) is
  		-- LLVMAddTargetData
 		external "plug_in"
 		alias "{
@@ -39,7 +39,17 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbyte_order (an_argument_l2657_c7: POINTER): INTEGER is
+	llvmadd_target_library_info (an_argument_l7114_c7: POINTER; an_argument_l7115_c7: POINTER) is
+ 		-- LLVMAddTargetLibraryInfo
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMAddTargetLibraryInfo"
+		}"
+		end
+
+	llvmbyte_order (an_argument_l2716_c7: POINTER): INTEGER is
  		-- LLVMByteOrder
 		external "plug_in"
 		alias "{
@@ -49,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcall_frame_alignment_of_type (an_argument_l7204_c7: POINTER; an_argument_l7205_c7: POINTER): NATURAL is
+	llvmcall_frame_alignment_of_type (an_argument_l7255_c7: POINTER; an_argument_l7256_c7: POINTER): NATURAL is
  		-- LLVMCallFrameAlignmentOfType
 		external "plug_in"
 		alias "{
@@ -59,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcopy_string_rep_of_target_data (an_argument_l6367_c7: POINTER): POINTER is
+	llvmcopy_string_rep_of_target_data (an_argument_l6170_c7: POINTER): POINTER is
  		-- LLVMCopyStringRepOfTargetData
 		external "plug_in"
 		alias "{
@@ -79,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmdispose_target_data (an_argument_l3442_c7: POINTER) is
+	llvmdispose_target_data (an_argument_l3508_c7: POINTER) is
  		-- LLVMDisposeTargetData
 		external "plug_in"
 		alias "{
@@ -89,13 +99,43 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmelement_at_offset (an_argument_l1025_c7: POINTER; a_struct_ty: POINTER; an_offset: NATURAL_64): NATURAL is
+	llvmelement_at_offset (an_argument_l1062_c7: POINTER; a_struct_ty: POINTER; an_offset: NATURAL_64): NATURAL is
  		-- LLVMElementAtOffset
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMElementAtOffset"
+		}"
+		end
+
+	llvminitialize_all_asm_parsers is
+ 		-- LLVMInitializeAllAsmParsers
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMInitializeAllAsmParsers()"
+		}"
+		end
+
+	llvminitialize_all_asm_printers is
+ 		-- LLVMInitializeAllAsmPrinters
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMInitializeAllAsmPrinters()"
+		}"
+		end
+
+	llvminitialize_all_disassemblers is
+ 		-- LLVMInitializeAllDisassemblers
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMInitializeAllDisassemblers()"
 		}"
 		end
 
@@ -106,6 +146,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMInitializeAllTargetInfos()"
+		}"
+		end
+
+	llvminitialize_all_target_mcs is
+ 		-- LLVMInitializeAllTargetMCs
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMInitializeAllTargetMCs()"
 		}"
 		end
 
@@ -129,7 +179,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmint_ptr_type (an_argument_l5181_c7: POINTER): POINTER is
+	llvmint_ptr_type (an_argument_l4983_c7: POINTER): POINTER is
  		-- LLVMIntPtrType
 		external "plug_in"
 		alias "{
@@ -139,17 +189,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvminvalidate_struct_layout (an_argument_l4683_c7: POINTER; a_struct_ty: POINTER) is
- 		-- LLVMInvalidateStructLayout
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "LLVMInvalidateStructLayout"
-		}"
-		end
-
-	llvmoffset_of_element (an_argument_l5176_c7: POINTER; a_struct_ty: POINTER; an_element: NATURAL): NATURAL_64 is
+	llvmoffset_of_element (an_argument_l4978_c7: POINTER; a_struct_ty: POINTER; an_element: NATURAL): NATURAL_64 is
  		-- LLVMOffsetOfElement
 		external "plug_in"
 		alias "{
@@ -159,7 +199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmpointer_size (an_argument_l4368_c7: POINTER): NATURAL is
+	llvmpointer_size (an_argument_l4170_c7: POINTER): NATURAL is
  		-- LLVMPointerSize
 		external "plug_in"
 		alias "{
@@ -169,7 +209,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmpreferred_alignment_of_global (an_argument_l738_c7: POINTER; a_global_var: POINTER): NATURAL is
+	llvmpreferred_alignment_of_global (an_argument_l767_c7: POINTER; a_global_var: POINTER): NATURAL is
  		-- LLVMPreferredAlignmentOfGlobal
 		external "plug_in"
 		alias "{
@@ -179,7 +219,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmpreferred_alignment_of_type (an_argument_l2574_c7: POINTER; an_argument_l2575_c7: POINTER): NATURAL is
+	llvmpreferred_alignment_of_type (an_argument_l2635_c7: POINTER; an_argument_l2636_c7: POINTER): NATURAL is
  		-- LLVMPreferredAlignmentOfType
 		external "plug_in"
 		alias "{
@@ -189,7 +229,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmsize_of_type_in_bits (an_argument_l498_c7: POINTER; an_argument_l499_c7: POINTER): NATURAL_64 is
+	llvmsize_of_type_in_bits (an_argument_l513_c7: POINTER; an_argument_l514_c7: POINTER): NATURAL_64 is
  		-- LLVMSizeOfTypeInBits
 		external "plug_in"
 		alias "{
@@ -199,7 +239,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmstore_size_of_type (an_argument_l5777_c7: POINTER; an_argument_l5778_c7: POINTER): NATURAL_64 is
+	llvmstore_size_of_type (an_argument_l5609_c7: POINTER; an_argument_l5610_c7: POINTER): NATURAL_64 is
  		-- LLVMStoreSizeOfType
 		external "plug_in"
 		alias "{
@@ -210,6 +250,8 @@ feature {} -- External calls
 		end
 
 	-- function unwrap in unwrapped namespace llvm skipped.
+	-- function unwrap in unwrapped namespace llvm skipped.
+	-- function wrap in unwrapped namespace llvm skipped.
 	-- function wrap in unwrapped namespace llvm skipped.
 
 end -- class TARGET_EXTERNALS

@@ -14,6 +14,8 @@ feature {ANY} -- Validity
 				(a_value = block_address_val_low_level)  or else
 				(a_value = constant_aggregate_zero_val_low_level)  or else
 				(a_value = constant_array_val_low_level)  or else
+				(a_value = constant_data_array_val_low_level)  or else
+				(a_value = constant_data_vector_val_low_level)  or else
 				(a_value = constant_expr_val_low_level)  or else
 				(a_value = constant_first_val_low_level)  or else
 				(a_value = constant_fpval_low_level)  or else
@@ -59,6 +61,16 @@ feature {ANY} -- Setters
 	set_constant_array_val is
 		do
 			value := constant_array_val_low_level
+		end
+
+	set_constant_data_array_val is
+		do
+			value := constant_data_array_val_low_level
+		end
+
+	set_constant_data_vector_val is
+		do
+			value := constant_data_vector_val_low_level
 		end
 
 	set_constant_expr_val is
@@ -175,6 +187,16 @@ feature {ANY} -- Queries
 	is_constant_array_val: BOOLEAN is
 		do
 			Result := (value=constant_array_val_low_level)
+		end
+
+	is_constant_data_array_val: BOOLEAN is
+		do
+			Result := (value=constant_data_array_val_low_level)
+		end
+
+	is_constant_data_vector_val: BOOLEAN is
+		do
+			Result := (value=constant_data_vector_val_low_level)
 		end
 
 	is_constant_expr_val: BOOLEAN is
@@ -310,6 +332,24 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "ConstantArrayVal"
+ 			}"
+ 		end
+
+	constant_data_array_val_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "ConstantDataArrayVal"
+ 			}"
+ 		end
+
+	constant_data_vector_val_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "ConstantDataVectorVal"
  			}"
  		end
 

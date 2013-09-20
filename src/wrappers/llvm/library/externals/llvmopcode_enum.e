@@ -9,585 +9,651 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = llvmadd_low_level)  or else
-				(a_value = llvmalloca_low_level)  or else
-				(a_value = llvmand_low_level)  or else
-				(a_value = llvmashr_low_level)  or else
-				(a_value = llvmbit_cast_low_level)  or else
-				(a_value = llvmbr_low_level)  or else
-				(a_value = llvmcall_low_level)  or else
-				(a_value = llvmextract_element_low_level)  or else
-				(a_value = llvmextract_value_low_level)  or else
-				(a_value = llvmfadd_low_level)  or else
-				(a_value = llvmfcmp_low_level)  or else
-				(a_value = llvmfdiv_low_level)  or else
-				(a_value = llvmfmul_low_level)  or else
-				(a_value = llvmfpext_low_level)  or else
-				(a_value = llvmfpto_si_low_level)  or else
-				(a_value = llvmfpto_ui_low_level)  or else
-				(a_value = llvmfptrunc_low_level)  or else
-				(a_value = llvmfrem_low_level)  or else
-				(a_value = llvmfsub_low_level)  or else
-				(a_value = llvmget_element_ptr_low_level)  or else
-				(a_value = llvmicmp_low_level)  or else
-				(a_value = llvmindirect_br_low_level)  or else
-				(a_value = llvminsert_element_low_level)  or else
-				(a_value = llvminsert_value_low_level)  or else
-				(a_value = llvmint_to_ptr_low_level)  or else
-				(a_value = llvminvoke_low_level)  or else
-				(a_value = llvmload_low_level)  or else
-				(a_value = llvmlshr_low_level)  or else
-				(a_value = llvmmul_low_level)  or else
-				(a_value = llvmor_low_level)  or else
-				(a_value = llvmphi_low_level)  or else
-				(a_value = llvmptr_to_int_low_level)  or else
-				(a_value = llvmret_low_level)  or else
-				(a_value = llvmsdiv_low_level)  or else
-				(a_value = llvmselect_low_level)  or else
-				(a_value = llvmsext_low_level)  or else
-				(a_value = llvmshl_low_level)  or else
-				(a_value = llvmshuffle_vector_low_level)  or else
-				(a_value = llvmsito_fp_low_level)  or else
-				(a_value = llvmsrem_low_level)  or else
-				(a_value = llvmstore_low_level)  or else
-				(a_value = llvmsub_low_level)  or else
-				(a_value = llvmswitch_low_level)  or else
-				(a_value = llvmtrunc_low_level)  or else
-				(a_value = llvmudiv_low_level)  or else
-				(a_value = llvmuito_fp_low_level)  or else
-				(a_value = llvmunreachable_low_level)  or else
-				(a_value = llvmunwind_low_level)  or else
-				(a_value = llvmurem_low_level)  or else
-				(a_value = llvmvaarg_low_level)  or else
-				(a_value = llvmxor_low_level)  or else
-				(a_value = llvmzext_low_level) )
+            Result := ((a_value = add_low_level)  or else
+				(a_value = alloca_low_level)  or else
+				(a_value = and_external_low_level)  or else
+				(a_value = ashr_low_level)  or else
+				(a_value = atomic_cmp_xchg_low_level)  or else
+				(a_value = atomic_rmw_low_level)  or else
+				(a_value = bit_cast_low_level)  or else
+				(a_value = br_low_level)  or else
+				(a_value = call_low_level)  or else
+				(a_value = extract_element_low_level)  or else
+				(a_value = extract_value_low_level)  or else
+				(a_value = fadd_low_level)  or else
+				(a_value = fcmp_low_level)  or else
+				(a_value = fdiv_low_level)  or else
+				(a_value = fence_low_level)  or else
+				(a_value = fmul_low_level)  or else
+				(a_value = fpext_low_level)  or else
+				(a_value = fpto_si_low_level)  or else
+				(a_value = fpto_ui_low_level)  or else
+				(a_value = fptrunc_low_level)  or else
+				(a_value = frem_low_level)  or else
+				(a_value = fsub_low_level)  or else
+				(a_value = get_element_ptr_low_level)  or else
+				(a_value = icmp_low_level)  or else
+				(a_value = indirect_br_low_level)  or else
+				(a_value = insert_element_low_level)  or else
+				(a_value = insert_value_low_level)  or else
+				(a_value = int_to_ptr_low_level)  or else
+				(a_value = invoke_low_level)  or else
+				(a_value = landing_pad_low_level)  or else
+				(a_value = load_low_level)  or else
+				(a_value = lshr_low_level)  or else
+				(a_value = mul_low_level)  or else
+				(a_value = or_external_low_level)  or else
+				(a_value = phi_low_level)  or else
+				(a_value = ptr_to_int_low_level)  or else
+				(a_value = resume_low_level)  or else
+				(a_value = ret_low_level)  or else
+				(a_value = sdiv_low_level)  or else
+				(a_value = select_external_low_level)  or else
+				(a_value = sext_low_level)  or else
+				(a_value = shl_low_level)  or else
+				(a_value = shuffle_vector_low_level)  or else
+				(a_value = sito_fp_low_level)  or else
+				(a_value = srem_low_level)  or else
+				(a_value = store_low_level)  or else
+				(a_value = sub_low_level)  or else
+				(a_value = switch_low_level)  or else
+				(a_value = trunc_low_level)  or else
+				(a_value = udiv_low_level)  or else
+				(a_value = uito_fp_low_level)  or else
+				(a_value = unreachable_low_level)  or else
+				(a_value = urem_low_level)  or else
+				(a_value = user_op1_low_level)  or else
+				(a_value = user_op2_low_level)  or else
+				(a_value = vaarg_low_level)  or else
+				(a_value = xor_external_low_level)  or else
+				(a_value = zext_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_llvmadd is
+	set_add is
 		do
-			value := llvmadd_low_level
+			value := add_low_level
 		end
 
-	set_llvmalloca is
+	set_alloca is
 		do
-			value := llvmalloca_low_level
+			value := alloca_low_level
 		end
 
-	set_llvmand is
+	set_and_external is
 		do
-			value := llvmand_low_level
+			value := and_external_low_level
 		end
 
-	set_llvmashr is
+	set_ashr is
 		do
-			value := llvmashr_low_level
+			value := ashr_low_level
 		end
 
-	set_llvmbit_cast is
+	set_atomic_cmp_xchg is
 		do
-			value := llvmbit_cast_low_level
+			value := atomic_cmp_xchg_low_level
 		end
 
-	set_llvmbr is
+	set_atomic_rmw is
 		do
-			value := llvmbr_low_level
+			value := atomic_rmw_low_level
 		end
 
-	set_llvmcall is
+	set_bit_cast is
 		do
-			value := llvmcall_low_level
+			value := bit_cast_low_level
 		end
 
-	set_llvmextract_element is
+	set_br is
 		do
-			value := llvmextract_element_low_level
+			value := br_low_level
 		end
 
-	set_llvmextract_value is
+	set_call is
 		do
-			value := llvmextract_value_low_level
+			value := call_low_level
 		end
 
-	set_llvmfadd is
+	set_extract_element is
 		do
-			value := llvmfadd_low_level
+			value := extract_element_low_level
 		end
 
-	set_llvmfcmp is
+	set_extract_value is
 		do
-			value := llvmfcmp_low_level
+			value := extract_value_low_level
 		end
 
-	set_llvmfdiv is
+	set_fadd is
 		do
-			value := llvmfdiv_low_level
+			value := fadd_low_level
 		end
 
-	set_llvmfmul is
+	set_fcmp is
 		do
-			value := llvmfmul_low_level
+			value := fcmp_low_level
 		end
 
-	set_llvmfpext is
+	set_fdiv is
 		do
-			value := llvmfpext_low_level
+			value := fdiv_low_level
 		end
 
-	set_llvmfpto_si is
+	set_fence is
 		do
-			value := llvmfpto_si_low_level
+			value := fence_low_level
 		end
 
-	set_llvmfpto_ui is
+	set_fmul is
 		do
-			value := llvmfpto_ui_low_level
+			value := fmul_low_level
 		end
 
-	set_llvmfptrunc is
+	set_fpext is
 		do
-			value := llvmfptrunc_low_level
+			value := fpext_low_level
 		end
 
-	set_llvmfrem is
+	set_fpto_si is
 		do
-			value := llvmfrem_low_level
+			value := fpto_si_low_level
 		end
 
-	set_llvmfsub is
+	set_fpto_ui is
 		do
-			value := llvmfsub_low_level
+			value := fpto_ui_low_level
 		end
 
-	set_llvmget_element_ptr is
+	set_fptrunc is
 		do
-			value := llvmget_element_ptr_low_level
+			value := fptrunc_low_level
 		end
 
-	set_llvmicmp is
+	set_frem is
 		do
-			value := llvmicmp_low_level
+			value := frem_low_level
 		end
 
-	set_llvmindirect_br is
+	set_fsub is
 		do
-			value := llvmindirect_br_low_level
+			value := fsub_low_level
 		end
 
-	set_llvminsert_element is
+	set_get_element_ptr is
 		do
-			value := llvminsert_element_low_level
+			value := get_element_ptr_low_level
 		end
 
-	set_llvminsert_value is
+	set_icmp is
 		do
-			value := llvminsert_value_low_level
+			value := icmp_low_level
 		end
 
-	set_llvmint_to_ptr is
+	set_indirect_br is
 		do
-			value := llvmint_to_ptr_low_level
+			value := indirect_br_low_level
 		end
 
-	set_llvminvoke is
+	set_insert_element is
 		do
-			value := llvminvoke_low_level
+			value := insert_element_low_level
 		end
 
-	set_llvmload is
+	set_insert_value is
 		do
-			value := llvmload_low_level
+			value := insert_value_low_level
 		end
 
-	set_llvmlshr is
+	set_int_to_ptr is
 		do
-			value := llvmlshr_low_level
+			value := int_to_ptr_low_level
 		end
 
-	set_llvmmul is
+	set_invoke is
 		do
-			value := llvmmul_low_level
+			value := invoke_low_level
 		end
 
-	set_llvmor is
+	set_landing_pad is
 		do
-			value := llvmor_low_level
+			value := landing_pad_low_level
 		end
 
-	set_llvmphi is
+	set_load is
 		do
-			value := llvmphi_low_level
+			value := load_low_level
 		end
 
-	set_llvmptr_to_int is
+	set_lshr is
 		do
-			value := llvmptr_to_int_low_level
+			value := lshr_low_level
 		end
 
-	set_llvmret is
+	set_mul is
 		do
-			value := llvmret_low_level
+			value := mul_low_level
 		end
 
-	set_llvmsdiv is
+	set_or_external is
 		do
-			value := llvmsdiv_low_level
+			value := or_external_low_level
 		end
 
-	set_llvmselect is
+	set_phi is
 		do
-			value := llvmselect_low_level
+			value := phi_low_level
 		end
 
-	set_llvmsext is
+	set_ptr_to_int is
 		do
-			value := llvmsext_low_level
+			value := ptr_to_int_low_level
 		end
 
-	set_llvmshl is
+	set_resume is
 		do
-			value := llvmshl_low_level
+			value := resume_low_level
 		end
 
-	set_llvmshuffle_vector is
+	set_ret is
 		do
-			value := llvmshuffle_vector_low_level
+			value := ret_low_level
 		end
 
-	set_llvmsito_fp is
+	set_sdiv is
 		do
-			value := llvmsito_fp_low_level
+			value := sdiv_low_level
 		end
 
-	set_llvmsrem is
+	set_select_external is
 		do
-			value := llvmsrem_low_level
+			value := select_external_low_level
 		end
 
-	set_llvmstore is
+	set_sext is
 		do
-			value := llvmstore_low_level
+			value := sext_low_level
 		end
 
-	set_llvmsub is
+	set_shl is
 		do
-			value := llvmsub_low_level
+			value := shl_low_level
 		end
 
-	set_llvmswitch is
+	set_shuffle_vector is
 		do
-			value := llvmswitch_low_level
+			value := shuffle_vector_low_level
 		end
 
-	set_llvmtrunc is
+	set_sito_fp is
 		do
-			value := llvmtrunc_low_level
+			value := sito_fp_low_level
 		end
 
-	set_llvmudiv is
+	set_srem is
 		do
-			value := llvmudiv_low_level
+			value := srem_low_level
 		end
 
-	set_llvmuito_fp is
+	set_store is
 		do
-			value := llvmuito_fp_low_level
+			value := store_low_level
 		end
 
-	set_llvmunreachable is
+	set_sub is
 		do
-			value := llvmunreachable_low_level
+			value := sub_low_level
 		end
 
-	set_llvmunwind is
+	set_switch is
 		do
-			value := llvmunwind_low_level
+			value := switch_low_level
 		end
 
-	set_llvmurem is
+	set_trunc is
 		do
-			value := llvmurem_low_level
+			value := trunc_low_level
 		end
 
-	set_llvmvaarg is
+	set_udiv is
 		do
-			value := llvmvaarg_low_level
+			value := udiv_low_level
 		end
 
-	set_llvmxor is
+	set_uito_fp is
 		do
-			value := llvmxor_low_level
+			value := uito_fp_low_level
 		end
 
-	set_llvmzext is
+	set_unreachable is
 		do
-			value := llvmzext_low_level
+			value := unreachable_low_level
+		end
+
+	set_urem is
+		do
+			value := urem_low_level
+		end
+
+	set_user_op1 is
+		do
+			value := user_op1_low_level
+		end
+
+	set_user_op2 is
+		do
+			value := user_op2_low_level
+		end
+
+	set_vaarg is
+		do
+			value := vaarg_low_level
+		end
+
+	set_xor_external is
+		do
+			value := xor_external_low_level
+		end
+
+	set_zext is
+		do
+			value := zext_low_level
 		end
 
 feature {ANY} -- Queries
-	is_llvmadd: BOOLEAN is
+	is_add: BOOLEAN is
 		do
-			Result := (value=llvmadd_low_level)
+			Result := (value=add_low_level)
 		end
 
-	is_llvmalloca: BOOLEAN is
+	is_alloca: BOOLEAN is
 		do
-			Result := (value=llvmalloca_low_level)
+			Result := (value=alloca_low_level)
 		end
 
-	is_llvmand: BOOLEAN is
+	is_and_external: BOOLEAN is
 		do
-			Result := (value=llvmand_low_level)
+			Result := (value=and_external_low_level)
 		end
 
-	is_llvmashr: BOOLEAN is
+	is_ashr: BOOLEAN is
 		do
-			Result := (value=llvmashr_low_level)
+			Result := (value=ashr_low_level)
 		end
 
-	is_llvmbit_cast: BOOLEAN is
+	is_atomic_cmp_xchg: BOOLEAN is
 		do
-			Result := (value=llvmbit_cast_low_level)
+			Result := (value=atomic_cmp_xchg_low_level)
 		end
 
-	is_llvmbr: BOOLEAN is
+	is_atomic_rmw: BOOLEAN is
 		do
-			Result := (value=llvmbr_low_level)
+			Result := (value=atomic_rmw_low_level)
 		end
 
-	is_llvmcall: BOOLEAN is
+	is_bit_cast: BOOLEAN is
 		do
-			Result := (value=llvmcall_low_level)
+			Result := (value=bit_cast_low_level)
 		end
 
-	is_llvmextract_element: BOOLEAN is
+	is_br: BOOLEAN is
 		do
-			Result := (value=llvmextract_element_low_level)
+			Result := (value=br_low_level)
 		end
 
-	is_llvmextract_value: BOOLEAN is
+	is_call: BOOLEAN is
 		do
-			Result := (value=llvmextract_value_low_level)
+			Result := (value=call_low_level)
 		end
 
-	is_llvmfadd: BOOLEAN is
+	is_extract_element: BOOLEAN is
 		do
-			Result := (value=llvmfadd_low_level)
+			Result := (value=extract_element_low_level)
 		end
 
-	is_llvmfcmp: BOOLEAN is
+	is_extract_value: BOOLEAN is
 		do
-			Result := (value=llvmfcmp_low_level)
+			Result := (value=extract_value_low_level)
 		end
 
-	is_llvmfdiv: BOOLEAN is
+	is_fadd: BOOLEAN is
 		do
-			Result := (value=llvmfdiv_low_level)
+			Result := (value=fadd_low_level)
 		end
 
-	is_llvmfmul: BOOLEAN is
+	is_fcmp: BOOLEAN is
 		do
-			Result := (value=llvmfmul_low_level)
+			Result := (value=fcmp_low_level)
 		end
 
-	is_llvmfpext: BOOLEAN is
+	is_fdiv: BOOLEAN is
 		do
-			Result := (value=llvmfpext_low_level)
+			Result := (value=fdiv_low_level)
 		end
 
-	is_llvmfpto_si: BOOLEAN is
+	is_fence: BOOLEAN is
 		do
-			Result := (value=llvmfpto_si_low_level)
+			Result := (value=fence_low_level)
 		end
 
-	is_llvmfpto_ui: BOOLEAN is
+	is_fmul: BOOLEAN is
 		do
-			Result := (value=llvmfpto_ui_low_level)
+			Result := (value=fmul_low_level)
 		end
 
-	is_llvmfptrunc: BOOLEAN is
+	is_fpext: BOOLEAN is
 		do
-			Result := (value=llvmfptrunc_low_level)
+			Result := (value=fpext_low_level)
 		end
 
-	is_llvmfrem: BOOLEAN is
+	is_fpto_si: BOOLEAN is
 		do
-			Result := (value=llvmfrem_low_level)
+			Result := (value=fpto_si_low_level)
 		end
 
-	is_llvmfsub: BOOLEAN is
+	is_fpto_ui: BOOLEAN is
 		do
-			Result := (value=llvmfsub_low_level)
+			Result := (value=fpto_ui_low_level)
 		end
 
-	is_llvmget_element_ptr: BOOLEAN is
+	is_fptrunc: BOOLEAN is
 		do
-			Result := (value=llvmget_element_ptr_low_level)
+			Result := (value=fptrunc_low_level)
 		end
 
-	is_llvmicmp: BOOLEAN is
+	is_frem: BOOLEAN is
 		do
-			Result := (value=llvmicmp_low_level)
+			Result := (value=frem_low_level)
 		end
 
-	is_llvmindirect_br: BOOLEAN is
+	is_fsub: BOOLEAN is
 		do
-			Result := (value=llvmindirect_br_low_level)
+			Result := (value=fsub_low_level)
 		end
 
-	is_llvminsert_element: BOOLEAN is
+	is_get_element_ptr: BOOLEAN is
 		do
-			Result := (value=llvminsert_element_low_level)
+			Result := (value=get_element_ptr_low_level)
 		end
 
-	is_llvminsert_value: BOOLEAN is
+	is_icmp: BOOLEAN is
 		do
-			Result := (value=llvminsert_value_low_level)
+			Result := (value=icmp_low_level)
 		end
 
-	is_llvmint_to_ptr: BOOLEAN is
+	is_indirect_br: BOOLEAN is
 		do
-			Result := (value=llvmint_to_ptr_low_level)
+			Result := (value=indirect_br_low_level)
 		end
 
-	is_llvminvoke: BOOLEAN is
+	is_insert_element: BOOLEAN is
 		do
-			Result := (value=llvminvoke_low_level)
+			Result := (value=insert_element_low_level)
 		end
 
-	is_llvmload: BOOLEAN is
+	is_insert_value: BOOLEAN is
 		do
-			Result := (value=llvmload_low_level)
+			Result := (value=insert_value_low_level)
 		end
 
-	is_llvmlshr: BOOLEAN is
+	is_int_to_ptr: BOOLEAN is
 		do
-			Result := (value=llvmlshr_low_level)
+			Result := (value=int_to_ptr_low_level)
 		end
 
-	is_llvmmul: BOOLEAN is
+	is_invoke: BOOLEAN is
 		do
-			Result := (value=llvmmul_low_level)
+			Result := (value=invoke_low_level)
 		end
 
-	is_llvmor: BOOLEAN is
+	is_landing_pad: BOOLEAN is
 		do
-			Result := (value=llvmor_low_level)
+			Result := (value=landing_pad_low_level)
 		end
 
-	is_llvmphi: BOOLEAN is
+	is_load: BOOLEAN is
 		do
-			Result := (value=llvmphi_low_level)
+			Result := (value=load_low_level)
 		end
 
-	is_llvmptr_to_int: BOOLEAN is
+	is_lshr: BOOLEAN is
 		do
-			Result := (value=llvmptr_to_int_low_level)
+			Result := (value=lshr_low_level)
 		end
 
-	is_llvmret: BOOLEAN is
+	is_mul: BOOLEAN is
 		do
-			Result := (value=llvmret_low_level)
+			Result := (value=mul_low_level)
 		end
 
-	is_llvmsdiv: BOOLEAN is
+	is_or_external: BOOLEAN is
 		do
-			Result := (value=llvmsdiv_low_level)
+			Result := (value=or_external_low_level)
 		end
 
-	is_llvmselect: BOOLEAN is
+	is_phi: BOOLEAN is
 		do
-			Result := (value=llvmselect_low_level)
+			Result := (value=phi_low_level)
 		end
 
-	is_llvmsext: BOOLEAN is
+	is_ptr_to_int: BOOLEAN is
 		do
-			Result := (value=llvmsext_low_level)
+			Result := (value=ptr_to_int_low_level)
 		end
 
-	is_llvmshl: BOOLEAN is
+	is_resume: BOOLEAN is
 		do
-			Result := (value=llvmshl_low_level)
+			Result := (value=resume_low_level)
 		end
 
-	is_llvmshuffle_vector: BOOLEAN is
+	is_ret: BOOLEAN is
 		do
-			Result := (value=llvmshuffle_vector_low_level)
+			Result := (value=ret_low_level)
 		end
 
-	is_llvmsito_fp: BOOLEAN is
+	is_sdiv: BOOLEAN is
 		do
-			Result := (value=llvmsito_fp_low_level)
+			Result := (value=sdiv_low_level)
 		end
 
-	is_llvmsrem: BOOLEAN is
+	is_select_external: BOOLEAN is
 		do
-			Result := (value=llvmsrem_low_level)
+			Result := (value=select_external_low_level)
 		end
 
-	is_llvmstore: BOOLEAN is
+	is_sext: BOOLEAN is
 		do
-			Result := (value=llvmstore_low_level)
+			Result := (value=sext_low_level)
 		end
 
-	is_llvmsub: BOOLEAN is
+	is_shl: BOOLEAN is
 		do
-			Result := (value=llvmsub_low_level)
+			Result := (value=shl_low_level)
 		end
 
-	is_llvmswitch: BOOLEAN is
+	is_shuffle_vector: BOOLEAN is
 		do
-			Result := (value=llvmswitch_low_level)
+			Result := (value=shuffle_vector_low_level)
 		end
 
-	is_llvmtrunc: BOOLEAN is
+	is_sito_fp: BOOLEAN is
 		do
-			Result := (value=llvmtrunc_low_level)
+			Result := (value=sito_fp_low_level)
 		end
 
-	is_llvmudiv: BOOLEAN is
+	is_srem: BOOLEAN is
 		do
-			Result := (value=llvmudiv_low_level)
+			Result := (value=srem_low_level)
 		end
 
-	is_llvmuito_fp: BOOLEAN is
+	is_store: BOOLEAN is
 		do
-			Result := (value=llvmuito_fp_low_level)
+			Result := (value=store_low_level)
 		end
 
-	is_llvmunreachable: BOOLEAN is
+	is_sub: BOOLEAN is
 		do
-			Result := (value=llvmunreachable_low_level)
+			Result := (value=sub_low_level)
 		end
 
-	is_llvmunwind: BOOLEAN is
+	is_switch: BOOLEAN is
 		do
-			Result := (value=llvmunwind_low_level)
+			Result := (value=switch_low_level)
 		end
 
-	is_llvmurem: BOOLEAN is
+	is_trunc: BOOLEAN is
 		do
-			Result := (value=llvmurem_low_level)
+			Result := (value=trunc_low_level)
 		end
 
-	is_llvmvaarg: BOOLEAN is
+	is_udiv: BOOLEAN is
 		do
-			Result := (value=llvmvaarg_low_level)
+			Result := (value=udiv_low_level)
 		end
 
-	is_llvmxor: BOOLEAN is
+	is_uito_fp: BOOLEAN is
 		do
-			Result := (value=llvmxor_low_level)
+			Result := (value=uito_fp_low_level)
 		end
 
-	is_llvmzext: BOOLEAN is
+	is_unreachable: BOOLEAN is
 		do
-			Result := (value=llvmzext_low_level)
+			Result := (value=unreachable_low_level)
+		end
+
+	is_urem: BOOLEAN is
+		do
+			Result := (value=urem_low_level)
+		end
+
+	is_user_op1: BOOLEAN is
+		do
+			Result := (value=user_op1_low_level)
+		end
+
+	is_user_op2: BOOLEAN is
+		do
+			Result := (value=user_op2_low_level)
+		end
+
+	is_vaarg: BOOLEAN is
+		do
+			Result := (value=vaarg_low_level)
+		end
+
+	is_xor_external: BOOLEAN is
+		do
+			Result := (value=xor_external_low_level)
+		end
+
+	is_zext: BOOLEAN is
+		do
+			Result := (value=zext_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	llvmadd_low_level: INTEGER is
+	add_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -596,7 +662,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmalloca_low_level: INTEGER is
+	alloca_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -605,7 +671,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmand_low_level: INTEGER is
+	and_external_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -614,7 +680,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmashr_low_level: INTEGER is
+	ashr_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -623,7 +689,25 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmbit_cast_low_level: INTEGER is
+	atomic_cmp_xchg_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMAtomicCmpXchg"
+ 			}"
+ 		end
+
+	atomic_rmw_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMAtomicRMW"
+ 			}"
+ 		end
+
+	bit_cast_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -632,7 +716,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmbr_low_level: INTEGER is
+	br_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -641,7 +725,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmcall_low_level: INTEGER is
+	call_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -650,7 +734,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmextract_element_low_level: INTEGER is
+	extract_element_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -659,7 +743,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmextract_value_low_level: INTEGER is
+	extract_value_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -668,7 +752,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmfadd_low_level: INTEGER is
+	fadd_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -677,7 +761,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmfcmp_low_level: INTEGER is
+	fcmp_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -686,7 +770,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmfdiv_low_level: INTEGER is
+	fdiv_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -695,7 +779,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmfmul_low_level: INTEGER is
+	fence_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMFence"
+ 			}"
+ 		end
+
+	fmul_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -704,7 +797,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmfpext_low_level: INTEGER is
+	fpext_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -713,7 +806,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmfpto_si_low_level: INTEGER is
+	fpto_si_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -722,7 +815,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmfpto_ui_low_level: INTEGER is
+	fpto_ui_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -731,7 +824,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmfptrunc_low_level: INTEGER is
+	fptrunc_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -740,7 +833,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmfrem_low_level: INTEGER is
+	frem_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -749,7 +842,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmfsub_low_level: INTEGER is
+	fsub_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -758,7 +851,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmget_element_ptr_low_level: INTEGER is
+	get_element_ptr_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -767,7 +860,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmicmp_low_level: INTEGER is
+	icmp_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -776,7 +869,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmindirect_br_low_level: INTEGER is
+	indirect_br_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -785,7 +878,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvminsert_element_low_level: INTEGER is
+	insert_element_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -794,7 +887,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvminsert_value_low_level: INTEGER is
+	insert_value_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -803,7 +896,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmint_to_ptr_low_level: INTEGER is
+	int_to_ptr_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -812,7 +905,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvminvoke_low_level: INTEGER is
+	invoke_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -821,7 +914,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmload_low_level: INTEGER is
+	landing_pad_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMLandingPad"
+ 			}"
+ 		end
+
+	load_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -830,7 +932,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmlshr_low_level: INTEGER is
+	lshr_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -839,7 +941,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmmul_low_level: INTEGER is
+	mul_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -848,7 +950,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmor_low_level: INTEGER is
+	or_external_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -857,7 +959,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmphi_low_level: INTEGER is
+	phi_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -866,7 +968,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmptr_to_int_low_level: INTEGER is
+	ptr_to_int_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -875,7 +977,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmret_low_level: INTEGER is
+	resume_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMResume"
+ 			}"
+ 		end
+
+	ret_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -884,7 +995,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmsdiv_low_level: INTEGER is
+	sdiv_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -893,7 +1004,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmselect_low_level: INTEGER is
+	select_external_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -902,7 +1013,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmsext_low_level: INTEGER is
+	sext_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -911,7 +1022,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmshl_low_level: INTEGER is
+	shl_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -920,7 +1031,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmshuffle_vector_low_level: INTEGER is
+	shuffle_vector_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -929,7 +1040,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmsito_fp_low_level: INTEGER is
+	sito_fp_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -938,7 +1049,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmsrem_low_level: INTEGER is
+	srem_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -947,7 +1058,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmstore_low_level: INTEGER is
+	store_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -956,7 +1067,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmsub_low_level: INTEGER is
+	sub_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -965,7 +1076,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmswitch_low_level: INTEGER is
+	switch_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -974,7 +1085,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmtrunc_low_level: INTEGER is
+	trunc_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -983,7 +1094,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmudiv_low_level: INTEGER is
+	udiv_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -992,7 +1103,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmuito_fp_low_level: INTEGER is
+	uito_fp_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1001,7 +1112,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmunreachable_low_level: INTEGER is
+	unreachable_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1010,16 +1121,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmunwind_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMUnwind"
- 			}"
- 		end
-
-	llvmurem_low_level: INTEGER is
+	urem_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1028,7 +1130,25 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmvaarg_low_level: INTEGER is
+	user_op1_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMUserOp1"
+ 			}"
+ 		end
+
+	user_op2_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMUserOp2"
+ 			}"
+ 		end
+
+	vaarg_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1037,7 +1157,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmxor_low_level: INTEGER is
+	xor_external_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1046,7 +1166,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	llvmzext_low_level: INTEGER is
+	zext_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

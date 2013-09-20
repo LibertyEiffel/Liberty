@@ -39,6 +39,16 @@ feature {} -- External calls
 		}"
 		end
 
+	llvmadd_clause (a_landing_pad: POINTER; a_clause_val: POINTER) is
+ 		-- LLVMAddClause
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMAddClause"
+		}"
+		end
+
 	llvmadd_destination (an_indirect_br: POINTER; a_dest: POINTER) is
  		-- LLVMAddDestination
 		external "plug_in"
@@ -99,7 +109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmadd_instr_attribute (an_instr: POINTER; an_index: NATURAL; an_argument_l3300_c7: INTEGER) is
+	llvmadd_instr_attribute (an_instr: POINTER; an_index: NATURAL; an_argument_l3370_c7: INTEGER) is
  		-- LLVMAddInstrAttribute
 		external "plug_in"
 		alias "{
@@ -109,13 +119,13 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmadd_type_name (a_m: POINTER; a_name: POINTER; a_ty: POINTER): INTEGER is
- 		-- LLVMAddTypeName
+	llvmadd_named_metadata_operand (a_m: POINTER; a_name: POINTER; a_val: POINTER) is
+ 		-- LLVMAddNamedMetadataOperand
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "LLVMAddTypeName"
+			feature_name: "LLVMAddNamedMetadataOperand"
 		}"
 		end
 
@@ -179,7 +189,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_add (an_argument_l6785_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_add (an_argument_l6825_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildAdd
 		external "plug_in"
 		alias "{
@@ -189,7 +199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_aggregate_ret (an_argument_l6419_c7: POINTER; a_ret_vals: POINTER; a_n: NATURAL): POINTER is
+	llvmbuild_aggregate_ret (an_argument_l6221_c7: POINTER; a_ret_vals: POINTER; a_n: NATURAL): POINTER is
  		-- LLVMBuildAggregateRet
 		external "plug_in"
 		alias "{
@@ -199,7 +209,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_alloca (an_argument_l8465_c7: POINTER; a_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_alloca (an_argument_l8543_c7: POINTER; a_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildAlloca
 		external "plug_in"
 		alias "{
@@ -209,7 +219,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_and (an_argument_l6940_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_and (an_argument_l6977_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildAnd
 		external "plug_in"
 		alias "{
@@ -219,7 +229,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_array_alloca (an_argument_l3497_c7: POINTER; a_ty: POINTER; a_val: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_array_alloca (an_argument_l3570_c7: POINTER; a_ty: POINTER; a_val: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildArrayAlloca
 		external "plug_in"
 		alias "{
@@ -229,7 +239,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_array_malloc (an_argument_l1471_c7: POINTER; a_ty: POINTER; a_val: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_array_malloc (an_argument_l1507_c7: POINTER; a_ty: POINTER; a_val: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildArrayMalloc
 		external "plug_in"
 		alias "{
@@ -239,7 +249,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_ashr (an_argument_l4463_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_ashr (an_argument_l4263_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildAShr
 		external "plug_in"
 		alias "{
@@ -259,7 +269,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_bit_cast (an_argument_l3061_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_bit_cast (an_argument_l3123_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildBitCast
 		external "plug_in"
 		alias "{
@@ -269,7 +279,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_br (an_argument_l5861_c7: POINTER; a_dest: POINTER): POINTER is
+	llvmbuild_br (an_argument_l5681_c7: POINTER; a_dest: POINTER): POINTER is
  		-- LLVMBuildBr
 		external "plug_in"
 		alias "{
@@ -279,7 +289,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_call (an_argument_l6721_c7: POINTER; a_fn: POINTER; an_args: POINTER; a_num_args: NATURAL; a_name: POINTER): POINTER is
+	llvmbuild_call (an_argument_l8406_c7: POINTER; a_fn: POINTER; an_args: POINTER; a_num_args: NATURAL; a_name: POINTER): POINTER is
  		-- LLVMBuildCall
 		external "plug_in"
 		alias "{
@@ -299,7 +309,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_cond_br (an_argument_l6648_c7: POINTER; an_if_external: POINTER; a_then_external: POINTER; an_else_external: POINTER): POINTER is
+	llvmbuild_cond_br (an_argument_l6446_c7: POINTER; an_if_external: POINTER; a_then_external: POINTER; an_else_external: POINTER): POINTER is
  		-- LLVMBuildCondBr
 		external "plug_in"
 		alias "{
@@ -309,7 +319,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_exact_sdiv (an_argument_l8153_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_exact_sdiv (an_argument_l8209_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildExactSDiv
 		external "plug_in"
 		alias "{
@@ -319,7 +329,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_extract_element (an_argument_l990_c7: POINTER; a_vec_val: POINTER; an_index: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_extract_element (an_argument_l1019_c7: POINTER; a_vec_val: POINTER; an_index: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildExtractElement
 		external "plug_in"
 		alias "{
@@ -329,7 +339,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_extract_value (an_argument_l1531_c7: POINTER; an_agg_val: POINTER; an_index: NATURAL; a_name: POINTER): POINTER is
+	llvmbuild_extract_value (an_argument_l1566_c7: POINTER; an_agg_val: POINTER; an_index: NATURAL; a_name: POINTER): POINTER is
  		-- LLVMBuildExtractValue
 		external "plug_in"
 		alias "{
@@ -339,7 +349,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_fadd (an_argument_l7826_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_fadd (an_argument_l7890_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildFAdd
 		external "plug_in"
 		alias "{
@@ -349,7 +359,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_fcmp (an_argument_l1727_c7: POINTER; an_op: INTEGER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_fcmp (an_argument_l1770_c7: POINTER; an_op: INTEGER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildFCmp
 		external "plug_in"
 		alias "{
@@ -359,7 +369,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_fdiv (an_argument_l2744_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_fdiv (an_argument_l2807_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildFDiv
 		external "plug_in"
 		alias "{
@@ -369,7 +379,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_fmul (an_argument_l5196_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_fmul (an_argument_l5013_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildFMul
 		external "plug_in"
 		alias "{
@@ -379,7 +389,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_fneg (an_argument_l6007_c7: POINTER; a_v: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_fneg (an_argument_l5821_c7: POINTER; a_v: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildFNeg
 		external "plug_in"
 		alias "{
@@ -389,7 +399,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_fpcast (an_argument_l4892_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_fpcast (an_argument_l4699_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildFPCast
 		external "plug_in"
 		alias "{
@@ -399,7 +409,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_fpext (an_argument_l4881_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_fpext (an_argument_l4688_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildFPExt
 		external "plug_in"
 		alias "{
@@ -409,7 +419,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_fpto_si (an_argument_l3649_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_fpto_si (an_argument_l3710_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildFPToSI
 		external "plug_in"
 		alias "{
@@ -419,7 +429,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_fpto_ui (an_argument_l3694_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_fpto_ui (an_argument_l3753_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildFPToUI
 		external "plug_in"
 		alias "{
@@ -429,7 +439,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_fptrunc (an_argument_l7889_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_fptrunc (an_argument_l7968_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildFPTrunc
 		external "plug_in"
 		alias "{
@@ -439,7 +449,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_free (an_argument_l5497_c7: POINTER; a_pointer_val: POINTER): POINTER is
+	llvmbuild_free (an_argument_l5318_c7: POINTER; a_pointer_val: POINTER): POINTER is
  		-- LLVMBuildFree
 		external "plug_in"
 		alias "{
@@ -449,7 +459,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_frem (an_argument_l1999_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_frem (an_argument_l2037_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildFRem
 		external "plug_in"
 		alias "{
@@ -459,7 +469,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_fsub (an_argument_l3431_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_fsub (an_argument_l3497_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildFSub
 		external "plug_in"
 		alias "{
@@ -499,7 +509,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_icmp (an_argument_l6392_c7: POINTER; an_op: INTEGER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_icmp (an_argument_l6195_c7: POINTER; an_op: INTEGER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildICmp
 		external "plug_in"
 		alias "{
@@ -529,7 +539,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_insert_element (an_argument_l2463_c7: POINTER; a_vec_val: POINTER; an_elt_val: POINTER; an_index: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_insert_element (an_argument_l2503_c7: POINTER; a_vec_val: POINTER; an_elt_val: POINTER; an_index: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildInsertElement
 		external "plug_in"
 		alias "{
@@ -539,7 +549,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_insert_value (an_argument_l5135_c7: POINTER; an_agg_val: POINTER; an_elt_val: POINTER; an_index: NATURAL; a_name: POINTER): POINTER is
+	llvmbuild_insert_value (an_argument_l4932_c7: POINTER; an_agg_val: POINTER; an_elt_val: POINTER; an_index: NATURAL; a_name: POINTER): POINTER is
  		-- LLVMBuildInsertValue
 		external "plug_in"
 		alias "{
@@ -549,7 +559,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_int_cast (an_argument_l2648_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_int_cast (an_argument_l2710_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildIntCast
 		external "plug_in"
 		alias "{
@@ -559,7 +569,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_int_to_ptr (an_argument_l5803_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_int_to_ptr (an_argument_l5630_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildIntToPtr
 		external "plug_in"
 		alias "{
@@ -569,7 +579,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_invoke (an_argument_l1109_c7: POINTER; a_fn: POINTER; an_args: POINTER; a_num_args: NATURAL; a_then_external: POINTER; a_catch: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_invoke (an_argument_l1140_c7: POINTER; a_fn: POINTER; an_args: POINTER; a_num_args: NATURAL; a_then_external: POINTER; a_catch: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildInvoke
 		external "plug_in"
 		alias "{
@@ -579,7 +589,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_is_not_null (an_argument_l1413_c7: POINTER; a_val: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_is_not_null (an_argument_l1446_c7: POINTER; a_val: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildIsNotNull
 		external "plug_in"
 		alias "{
@@ -589,7 +599,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_is_null (an_argument_l8427_c7: POINTER; a_val: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_is_null (an_argument_l8506_c7: POINTER; a_val: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildIsNull
 		external "plug_in"
 		alias "{
@@ -599,7 +609,17 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_load (an_argument_l178_c7: POINTER; a_pointer_val: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_landing_pad (a_b: POINTER; a_ty: POINTER; a_pers_fn: POINTER; a_num_clauses: NATURAL; a_name: POINTER): POINTER is
+ 		-- LLVMBuildLandingPad
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMBuildLandingPad"
+		}"
+		end
+
+	llvmbuild_load (an_argument_l2351_c7: POINTER; a_pointer_val: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildLoad
 		external "plug_in"
 		alias "{
@@ -609,7 +629,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_lshr (an_argument_l1979_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_lshr (an_argument_l7012_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildLShr
 		external "plug_in"
 		alias "{
@@ -619,7 +639,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_malloc (an_argument_l5215_c7: POINTER; a_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_malloc (an_argument_l5032_c7: POINTER; a_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildMalloc
 		external "plug_in"
 		alias "{
@@ -629,7 +649,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_mul (an_argument_l4250_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_mul (an_argument_l4067_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildMul
 		external "plug_in"
 		alias "{
@@ -639,7 +659,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_neg (an_argument_l5062_c7: POINTER; a_v: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_neg (an_argument_l4866_c7: POINTER; a_v: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildNeg
 		external "plug_in"
 		alias "{
@@ -649,7 +669,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_not (an_argument_l5210_c7: POINTER; a_v: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_not (an_argument_l5027_c7: POINTER; a_v: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildNot
 		external "plug_in"
 		alias "{
@@ -659,7 +679,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_nswadd (an_argument_l8445_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_nswadd (an_argument_l8524_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildNSWAdd
 		external "plug_in"
 		alias "{
@@ -669,7 +689,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_nswmul (an_argument_l480_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_nswmul (an_argument_l495_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildNSWMul
 		external "plug_in"
 		alias "{
@@ -689,7 +709,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_nswsub (an_argument_l4448_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_nswsub (an_argument_l4249_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildNSWSub
 		external "plug_in"
 		alias "{
@@ -699,7 +719,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_nuwadd (an_argument_l7770_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_nuwadd (an_argument_l7834_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildNUWAdd
 		external "plug_in"
 		alias "{
@@ -709,7 +729,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_nuwmul (an_argument_l5228_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_nuwmul (an_argument_l5055_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildNUWMul
 		external "plug_in"
 		alias "{
@@ -729,7 +749,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_nuwsub (an_argument_l3479_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_nuwsub (an_argument_l3552_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildNUWSub
 		external "plug_in"
 		alias "{
@@ -739,7 +759,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_or (an_argument_l6055_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_or (an_argument_l5873_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildOr
 		external "plug_in"
 		alias "{
@@ -749,7 +769,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_phi (an_argument_l7282_c7: POINTER; a_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_phi (an_argument_l7348_c7: POINTER; a_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildPhi
 		external "plug_in"
 		alias "{
@@ -759,7 +779,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_pointer_cast (an_argument_l7352_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_pointer_cast (an_argument_l7420_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildPointerCast
 		external "plug_in"
 		alias "{
@@ -769,7 +789,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_ptr_diff (an_argument_l5836_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_ptr_diff (an_argument_l5661_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildPtrDiff
 		external "plug_in"
 		alias "{
@@ -779,7 +799,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_ptr_to_int (an_argument_l3543_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_ptr_to_int (an_argument_l3620_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildPtrToInt
 		external "plug_in"
 		alias "{
@@ -789,7 +809,17 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_ret (an_argument_l1995_c7: POINTER; a_v: POINTER): POINTER is
+	llvmbuild_resume (a_b: POINTER; an_exn: POINTER): POINTER is
+ 		-- LLVMBuildResume
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMBuildResume"
+		}"
+		end
+
+	llvmbuild_ret (an_argument_l1753_c7: POINTER; a_v: POINTER): POINTER is
  		-- LLVMBuildRet
 		external "plug_in"
 		alias "{
@@ -799,7 +829,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_ret_void (an_argument_l7248_c7: POINTER): POINTER is
+	llvmbuild_ret_void (an_argument_l7308_c7: POINTER): POINTER is
  		-- LLVMBuildRetVoid
 		external "plug_in"
 		alias "{
@@ -809,7 +839,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_sdiv (an_argument_l5716_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_sdiv (an_argument_l5542_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildSDiv
 		external "plug_in"
 		alias "{
@@ -819,7 +849,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_select (an_argument_l6509_c7: POINTER; an_if_external: POINTER; a_then_external: POINTER; an_else_external: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_select (an_argument_l6311_c7: POINTER; an_if_external: POINTER; a_then_external: POINTER; an_else_external: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildSelect
 		external "plug_in"
 		alias "{
@@ -829,7 +859,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_sext (an_argument_l7046_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_sext (an_argument_l7103_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildSExt
 		external "plug_in"
 		alias "{
@@ -839,7 +869,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_sext_or_bit_cast (an_argument_l5505_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_sext_or_bit_cast (an_argument_l5326_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildSExtOrBitCast
 		external "plug_in"
 		alias "{
@@ -849,7 +879,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_shl (an_argument_l2197_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_shl (an_argument_l2234_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildShl
 		external "plug_in"
 		alias "{
@@ -859,7 +889,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_shuffle_vector (an_argument_l2475_c7: POINTER; a_v1: POINTER; a_v2: POINTER; a_mask: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_shuffle_vector (an_argument_l2514_c7: POINTER; a_v1: POINTER; a_v2: POINTER; a_mask: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildShuffleVector
 		external "plug_in"
 		alias "{
@@ -869,7 +899,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_sito_fp (an_argument_l3675_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_sito_fp (an_argument_l6942_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildSIToFP
 		external "plug_in"
 		alias "{
@@ -879,7 +909,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_srem (an_argument_l4968_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_srem (an_argument_l4772_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildSRem
 		external "plug_in"
 		alias "{
@@ -889,7 +919,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_store (an_argument_l2039_c7: POINTER; a_val: POINTER; a_ptr: POINTER): POINTER is
+	llvmbuild_store (an_argument_l2078_c7: POINTER; a_val: POINTER; a_ptr: POINTER): POINTER is
  		-- LLVMBuildStore
 		external "plug_in"
 		alias "{
@@ -909,7 +939,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_sub (an_argument_l2397_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_sub (an_argument_l2443_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildSub
 		external "plug_in"
 		alias "{
@@ -919,7 +949,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_switch (an_argument_l5401_c7: POINTER; a_v: POINTER; an_else_external: POINTER; a_num_cases: NATURAL): POINTER is
+	llvmbuild_switch (an_argument_l7988_c7: POINTER; a_v: POINTER; an_else_external: POINTER; a_num_cases: NATURAL): POINTER is
  		-- LLVMBuildSwitch
 		external "plug_in"
 		alias "{
@@ -929,7 +959,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_trunc (an_argument_l5830_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_trunc (an_argument_l5651_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildTrunc
 		external "plug_in"
 		alias "{
@@ -939,7 +969,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_trunc_or_bit_cast (an_argument_l1734_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_trunc_or_bit_cast (an_argument_l1777_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildTruncOrBitCast
 		external "plug_in"
 		alias "{
@@ -949,7 +979,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_udiv (an_argument_l109_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_udiv (an_argument_l103_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildUDiv
 		external "plug_in"
 		alias "{
@@ -959,7 +989,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_uito_fp (an_argument_l4328_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_uito_fp (an_argument_l4130_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildUIToFP
 		external "plug_in"
 		alias "{
@@ -969,7 +999,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_unreachable (an_argument_l457_c7: POINTER): POINTER is
+	llvmbuild_unreachable (an_argument_l475_c7: POINTER): POINTER is
  		-- LLVMBuildUnreachable
 		external "plug_in"
 		alias "{
@@ -979,17 +1009,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_unwind (an_argument_l559_c7: POINTER): POINTER is
- 		-- LLVMBuildUnwind
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "LLVMBuildUnwind"
-		}"
-		end
-
-	llvmbuild_urem (an_argument_l2136_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_urem (an_argument_l4993_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildURem
 		external "plug_in"
 		alias "{
@@ -999,7 +1019,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_vaarg (an_argument_l6291_c7: POINTER; a_list: POINTER; a_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_vaarg (an_argument_l6093_c7: POINTER; a_list: POINTER; a_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildVAArg
 		external "plug_in"
 		alias "{
@@ -1009,7 +1029,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_xor (an_argument_l8192_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_xor (an_argument_l8245_c7: POINTER; a_lhs: POINTER; a_rhs: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildXor
 		external "plug_in"
 		alias "{
@@ -1019,7 +1039,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_zext (an_argument_l769_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_zext (an_argument_l798_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildZExt
 		external "plug_in"
 		alias "{
@@ -1029,7 +1049,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmbuild_zext_or_bit_cast (an_argument_l903_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
+	llvmbuild_zext_or_bit_cast (an_argument_l933_c7: POINTER; a_val: POINTER; a_dest_ty: POINTER; a_name: POINTER): POINTER is
  		-- LLVMBuildZExtOrBitCast
 		external "plug_in"
 		alias "{
@@ -1416,6 +1436,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMConstMul"
+		}"
+		end
+
+	llvmconst_named_struct (a_struct_ty: POINTER; a_constant_vals: POINTER; a_count: NATURAL): POINTER is
+ 		-- LLVMConstNamedStruct
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMConstNamedStruct"
 		}"
 		end
 
@@ -1969,16 +1999,6 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcreate_type_handle (a_potentially_abstract_ty: POINTER): POINTER is
- 		-- LLVMCreateTypeHandle
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "LLVMCreateTypeHandle"
-		}"
-		end
-
 	llvmdelete_basic_block (a_bb: POINTER) is
  		-- LLVMDeleteBasicBlock
 		external "plug_in"
@@ -2006,16 +2026,6 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMDeleteGlobal"
-		}"
-		end
-
-	llvmdelete_type_name (a_m: POINTER; a_name: POINTER) is
- 		-- LLVMDeleteTypeName
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "LLVMDeleteTypeName"
 		}"
 		end
 
@@ -2076,16 +2086,6 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMDisposePassManager"
-		}"
-		end
-
-	llvmdispose_type_handle (a_type_handle: POINTER) is
- 		-- LLVMDisposeTypeHandle
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "LLVMDisposeTypeHandle"
 		}"
 		end
 
@@ -2226,6 +2226,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMGetBasicBlockParent"
+		}"
+		end
+
+	llvmget_basic_block_terminator (a_bb: POINTER): POINTER is
+ 		-- LLVMGetBasicBlockTerminator
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMGetBasicBlockTerminator"
 		}"
 		end
 
@@ -2409,6 +2419,16 @@ feature {} -- External calls
 		}"
 		end
 
+	llvmget_icmp_predicate (an_inst: POINTER): INTEGER is
+ 		-- LLVMGetICmpPredicate
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMGetICmpPredicate"
+		}"
+		end
+
 	llvmget_incoming_block (a_phi_node: POINTER; an_index: NATURAL): POINTER is
  		-- LLVMGetIncomingBlock
 		external "plug_in"
@@ -2456,6 +2476,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMGetInstructionCallConv"
+		}"
+		end
+
+	llvmget_instruction_opcode (an_inst: POINTER): INTEGER is
+ 		-- LLVMGetInstructionOpcode
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMGetInstructionOpcode"
 		}"
 		end
 
@@ -2569,6 +2599,16 @@ feature {} -- External calls
 		}"
 		end
 
+	llvmget_mdstring (a_v: POINTER; a_len: POINTER): POINTER is
+ 		-- LLVMGetMDString
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMGetMDString"
+		}"
+		end
+
 	llvmget_metadata (a_val: POINTER; a_kind_id: NATURAL): POINTER is
  		-- LLVMGetMetadata
 		external "plug_in"
@@ -2606,6 +2646,26 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMGetNamedGlobal"
+		}"
+		end
+
+	llvmget_named_metadata_num_operands (a_m: POINTER; a_name: POINTER): NATURAL is
+ 		-- LLVMGetNamedMetadataNumOperands
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMGetNamedMetadataNumOperands"
+		}"
+		end
+
+	llvmget_named_metadata_operands (a_m: POINTER; a_name: POINTER; a_dest: POINTER) is
+ 		-- LLVMGetNamedMetadataOperands
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMGetNamedMetadataOperands"
 		}"
 		end
 
@@ -2819,6 +2879,26 @@ feature {} -- External calls
 		}"
 		end
 
+	llvmget_struct_name (a_ty: POINTER): POINTER is
+ 		-- LLVMGetStructName
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMGetStructName"
+		}"
+		end
+
+	llvmget_switch_default_dest (a_switch_instr: POINTER): POINTER is
+ 		-- LLVMGetSwitchDefaultDest
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMGetSwitchDefaultDest"
+		}"
+		end
+
 	llvmget_target (a_m: POINTER): POINTER is
  		-- LLVMGetTarget
 		external "plug_in"
@@ -2856,16 +2936,6 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMGetTypeKind"
-		}"
-		end
-
-	llvmget_type_name (a_m: POINTER; a_ty: POINTER): POINTER is
- 		-- LLVMGetTypeName
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "LLVMGetTypeName"
 		}"
 		end
 
@@ -2929,6 +2999,36 @@ feature {} -- External calls
 		}"
 		end
 
+	llvmget_volatile (a_memory_access_inst: POINTER): INTEGER is
+ 		-- LLVMGetVolatile
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMGetVolatile"
+		}"
+		end
+
+	llvmhalf_type: POINTER is
+ 		-- LLVMHalfType
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMHalfType()"
+		}"
+		end
+
+	llvmhalf_type_in_context (a_c: POINTER): POINTER is
+ 		-- LLVMHalfTypeInContext
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMHalfTypeInContext"
+		}"
+		end
+
 	llvmhas_metadata (a_val: POINTER): INTEGER is
  		-- LLVMHasMetadata
 		external "plug_in"
@@ -2936,6 +3036,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMHasMetadata"
+		}"
+		end
+
+	llvminitialize_core (a_r: POINTER) is
+ 		-- LLVMInitializeCore
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMInitializeCore"
 		}"
 		end
 
@@ -2986,6 +3096,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMInsertIntoBuilderWithName"
+		}"
+		end
+
+	llvminstruction_erase_from_parent (an_inst: POINTER) is
+ 		-- LLVMInstructionEraseFromParent
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMInstructionEraseFromParent"
 		}"
 		end
 
@@ -3159,6 +3279,16 @@ feature {} -- External calls
 		}"
 		end
 
+	llvmis_ablock_address (a_val: POINTER): POINTER is
+ 		-- LLVMIsABlockAddress
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMIsABlockAddress"
+		}"
+		end
+
 	llvmis_abranch_inst (a_val: POINTER): POINTER is
  		-- LLVMIsABranchInst
 		external "plug_in"
@@ -3309,16 +3439,6 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmis_aehselector_inst (a_val: POINTER): POINTER is
- 		-- LLVMIsAEHSelectorInst
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "LLVMIsAEHSelectorInst"
-		}"
-		end
-
 	llvmis_aextract_element_inst (a_val: POINTER): POINTER is
  		-- LLVMIsAExtractElementInst
 		external "plug_in"
@@ -3449,6 +3569,16 @@ feature {} -- External calls
 		}"
 		end
 
+	llvmis_aindirect_br_inst (a_val: POINTER): POINTER is
+ 		-- LLVMIsAIndirectBrInst
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMIsAIndirectBrInst"
+		}"
+		end
+
 	llvmis_ainline_asm (a_val: POINTER): POINTER is
  		-- LLVMIsAInlineAsm
 		external "plug_in"
@@ -3519,6 +3649,16 @@ feature {} -- External calls
 		}"
 		end
 
+	llvmis_alanding_pad_inst (a_val: POINTER): POINTER is
+ 		-- LLVMIsALandingPadInst
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMIsALandingPadInst"
+		}"
+		end
+
 	llvmis_aload_inst (a_val: POINTER): POINTER is
  		-- LLVMIsALoadInst
 		external "plug_in"
@@ -3526,6 +3666,26 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMIsALoadInst"
+		}"
+		end
+
+	llvmis_amdnode (a_val: POINTER): POINTER is
+ 		-- LLVMIsAMDNode
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMIsAMDNode"
+		}"
+		end
+
+	llvmis_amdstring (a_val: POINTER): POINTER is
+ 		-- LLVMIsAMDString
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMIsAMDString"
 		}"
 		end
 
@@ -3586,6 +3746,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMIsAPtrToIntInst"
+		}"
+		end
+
+	llvmis_aresume_inst (a_val: POINTER): POINTER is
+ 		-- LLVMIsAResumeInst
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMIsAResumeInst"
 		}"
 		end
 
@@ -3719,16 +3889,6 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmis_aunwind_inst (a_val: POINTER): POINTER is
- 		-- LLVMIsAUnwindInst
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "LLVMIsAUnwindInst"
-		}"
-		end
-
 	llvmis_auser (a_val: POINTER): POINTER is
  		-- LLVMIsAUser
 		external "plug_in"
@@ -3806,6 +3966,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMIsNull"
+		}"
+		end
+
+	llvmis_opaque_struct (a_struct_ty: POINTER): INTEGER is
+ 		-- LLVMIsOpaqueStruct
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMIsOpaqueStruct"
 		}"
 		end
 
@@ -3949,26 +4119,6 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmopaque_type: POINTER is
- 		-- LLVMOpaqueType
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "LLVMOpaqueType()"
-		}"
-		end
-
-	llvmopaque_type_in_context (a_c: POINTER): POINTER is
- 		-- LLVMOpaqueTypeInContext
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "LLVMOpaqueTypeInContext"
-		}"
-		end
-
 	llvmpointer_type (an_element_type: POINTER; an_address_space: NATURAL): POINTER is
  		-- LLVMPointerType
 		external "plug_in"
@@ -4029,16 +4179,6 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmrefine_type (an_abstract_ty: POINTER; a_concrete_ty: POINTER) is
- 		-- LLVMRefineType
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "LLVMRefineType"
-		}"
-		end
-
 	llvmremove_attribute (an_arg: POINTER; a_pa: INTEGER) is
  		-- LLVMRemoveAttribute
 		external "plug_in"
@@ -4046,6 +4186,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMRemoveAttribute"
+		}"
+		end
+
+	llvmremove_basic_block_from_parent (a_bb: POINTER) is
+ 		-- LLVMRemoveBasicBlockFromParent
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMRemoveBasicBlockFromParent"
 		}"
 		end
 
@@ -4059,7 +4209,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmremove_instr_attribute (an_instr: POINTER; an_index: NATURAL; an_argument_l8492_c7: INTEGER) is
+	llvmremove_instr_attribute (an_instr: POINTER; an_index: NATURAL; an_argument_l8576_c7: INTEGER) is
  		-- LLVMRemoveInstrAttribute
 		external "plug_in"
 		alias "{
@@ -4076,16 +4226,6 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMReplaceAllUsesWith"
-		}"
-		end
-
-	llvmresolve_type_handle (a_type_handle: POINTER): POINTER is
- 		-- LLVMResolveTypeHandle
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "LLVMResolveTypeHandle"
 		}"
 		end
 
@@ -4116,6 +4256,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMSetAlignment"
+		}"
+		end
+
+	llvmset_cleanup (a_landing_pad: POINTER; a_val: INTEGER) is
+ 		-- LLVMSetCleanup
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMSetCleanup"
 		}"
 		end
 
@@ -4319,6 +4469,16 @@ feature {} -- External calls
 		}"
 		end
 
+	llvmset_volatile (a_memory_access_inst: POINTER; an_is_volatile: INTEGER) is
+ 		-- LLVMSetVolatile
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMSetVolatile"
+		}"
+		end
+
 	llvmsize_of (a_ty: POINTER): POINTER is
  		-- LLVMSizeOf
 		external "plug_in"
@@ -4326,6 +4486,26 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMSizeOf"
+		}"
+		end
+
+	llvmstruct_create_named (a_c: POINTER; a_name: POINTER): POINTER is
+ 		-- LLVMStructCreateNamed
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMStructCreateNamed"
+		}"
+		end
+
+	llvmstruct_set_body (a_struct_ty: POINTER; an_element_types: POINTER; an_element_count: NATURAL; a_packed: INTEGER) is
+ 		-- LLVMStructSetBody
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMStructSetBody"
 		}"
 		end
 
@@ -4346,6 +4526,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMStructTypeInContext"
+		}"
+		end
+
+	llvmtype_is_sized (a_ty: POINTER): INTEGER is
+ 		-- LLVMTypeIsSized
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMTypeIsSized"
 		}"
 		end
 
@@ -4463,8 +4653,6 @@ feature {} -- External calls
 	-- function unwrap in unwrapped namespace llvm skipped.
 	-- function unwrap in unwrapped namespace llvm skipped.
 	-- function unwrap in unwrapped namespace llvm skipped.
-	-- function unwrap in unwrapped namespace llvm skipped.
-	-- function wrap in unwrapped namespace llvm skipped.
 	-- function wrap in unwrapped namespace llvm skipped.
 	-- function wrap in unwrapped namespace llvm skipped.
 	-- function wrap in unwrapped namespace llvm skipped.

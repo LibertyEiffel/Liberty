@@ -9,77 +9,77 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := (a_value & (gi_vfunc_must_chain_up_low_level | 
-				gi_vfunc_must_not_override_low_level | 
-				gi_vfunc_must_override_low_level | 
-				gi_vfunc_throws_low_level)).to_boolean
+            Result := (a_value & (must_chain_up_low_level | 
+				must_not_override_low_level | 
+				must_override_low_level | 
+				throws_low_level)).to_boolean
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_gi_vfunc_must_chain_up is
+	set_must_chain_up is
 		do
-			value := value.bit_or(gi_vfunc_must_chain_up_low_level)
+			value := value.bit_or(must_chain_up_low_level)
 		end
 
-	unset_gi_vfunc_must_chain_up is
+	unset_must_chain_up is
 		do
-			value := value.bit_xor(gi_vfunc_must_chain_up_low_level)
+			value := value.bit_xor(must_chain_up_low_level)
 		end
 
-	set_gi_vfunc_must_not_override is
+	set_must_not_override is
 		do
-			value := value.bit_or(gi_vfunc_must_not_override_low_level)
+			value := value.bit_or(must_not_override_low_level)
 		end
 
-	unset_gi_vfunc_must_not_override is
+	unset_must_not_override is
 		do
-			value := value.bit_xor(gi_vfunc_must_not_override_low_level)
+			value := value.bit_xor(must_not_override_low_level)
 		end
 
-	set_gi_vfunc_must_override is
+	set_must_override is
 		do
-			value := value.bit_or(gi_vfunc_must_override_low_level)
+			value := value.bit_or(must_override_low_level)
 		end
 
-	unset_gi_vfunc_must_override is
+	unset_must_override is
 		do
-			value := value.bit_xor(gi_vfunc_must_override_low_level)
+			value := value.bit_xor(must_override_low_level)
 		end
 
-	set_gi_vfunc_throws is
+	set_throws is
 		do
-			value := value.bit_or(gi_vfunc_throws_low_level)
+			value := value.bit_or(throws_low_level)
 		end
 
-	unset_gi_vfunc_throws is
+	unset_throws is
 		do
-			value := value.bit_xor(gi_vfunc_throws_low_level)
+			value := value.bit_xor(throws_low_level)
 		end
 
 feature {ANY} -- Queries
-	is_gi_vfunc_must_chain_up: BOOLEAN is
+	is_must_chain_up: BOOLEAN is
 		do
-			Result := (value=gi_vfunc_must_chain_up_low_level)
+			Result := (value=must_chain_up_low_level)
 		end
 
-	is_gi_vfunc_must_not_override: BOOLEAN is
+	is_must_not_override: BOOLEAN is
 		do
-			Result := (value=gi_vfunc_must_not_override_low_level)
+			Result := (value=must_not_override_low_level)
 		end
 
-	is_gi_vfunc_must_override: BOOLEAN is
+	is_must_override: BOOLEAN is
 		do
-			Result := (value=gi_vfunc_must_override_low_level)
+			Result := (value=must_override_low_level)
 		end
 
-	is_gi_vfunc_throws: BOOLEAN is
+	is_throws: BOOLEAN is
 		do
-			Result := (value=gi_vfunc_throws_low_level)
+			Result := (value=throws_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	gi_vfunc_must_chain_up_low_level: INTEGER is
+	must_chain_up_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -88,7 +88,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_vfunc_must_not_override_low_level: INTEGER is
+	must_not_override_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -97,7 +97,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_vfunc_must_override_low_level: INTEGER is
+	must_override_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -106,7 +106,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_vfunc_throws_low_level: INTEGER is
+	throws_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

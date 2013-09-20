@@ -1,0 +1,71 @@
+#!/usr/bin/perl
+
+use strict;
+
+my $cont;
+system "cat ../results/recent_times";
+print "\nNothing have to run on the system while benchmark is runing. Check nothing else has run, even screensaver, else results may be wrong.\n";
+print "Confirm you want to backup thoses timings. [n/Y]\n";
+chomp($cont = <>);
+if ($cont ne '' and $cont ne 'y' and $cont ne 'Y') {
+    print "User abort.\n" ;
+    exit 1;
+}
+
+my %cpu;
+open CPU, "/proc/cpuinfo" or die "Error: $!";
+while (<CPU>) {
+    if ( /^(.*?)\s*: (.*)/ ) {
+	$cpu{$1}=$2;
+    }
+}
+close CPU or die "Error: $! $?";
+
+my $filename="../results/$cpu{'vendor_id'}.$cpu{'cpu family'}.$cpu{'model'}.$cpu{'stepping'}." . int($cpu{'cpu MHz'} /10 + 0.5) * 10 . "MHz";
+
+my $amd64=`uname -m`;
+if ($amd64 =~ /x86_64/) {
+    $filename .= "_64bits";
+}
+
+if (! -f $filename) {
+    system "echo \"hostname	: `uname -n`\" > $filename";
+    system "cat /proc/cpuinfo >> $filename";
+}
+
+my $cmd;
+my $version="";
+if ($ENV{LANGUAGE} eq "Eiffel") {
+    my $tmp=`compile -version | grep '[0-9]' |head -1`;
+    if ($tmp =~ /\?/) {
+	do {
+	    print "Unofficial eiffel release. Please enter version identification: ";
+	    chomp($version = <>);
+	}
+	while ($version eq "");
+
+    } elsif ($tmp =~ /([0-9.]+)/) {
+	$version="$1";
+    } else {
+	print "Undefined eiffel version\n";
+	exit 1;
+    }
+    $version="SE=$version, ";
+    $cmd="gcc";
+}
+if ($ENV{LANGUAGE} eq "C") {
+    $cmd="gcc";
+}
+if ($ENV{LANGUAGE} eq "C++") {
+    $cmd="g++";
+}
+if (!defined $cmd) {
+    print "Usage error, no LANGUAGE defined.\n";
+    exit 1;
+}
+my $tmp= `$cmd --version |grep '[0-9]' |head -1`;
+if ($tmp =~ / ([0-9. ]+) /) {
+    $version .= "$cmd=$1";
+}
+system "cat ../results/recent_times | sed 's/$ENV{LANGUAGE}/($version)/' >> $filename";
+print "Backup done in $filename.\n";

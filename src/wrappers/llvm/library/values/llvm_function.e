@@ -184,6 +184,7 @@ feature {ANY} -- Parameters
 -- void LLVMAddAttribute(LLVMValueRef Arg, LLVMAttribute PA);
 -- void LLVMRemoveAttribute(LLVMValueRef Arg, LLVMAttribute PA);
 -- void LLVMSetParamAlignment(LLVMValueRef Arg, unsigned align);
+
 feature {ANY} -- Deleting
 	delete is
 		-- Delete Current function. 

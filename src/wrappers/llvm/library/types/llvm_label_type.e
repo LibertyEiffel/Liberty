@@ -17,7 +17,7 @@ feature {ANY} -- Creation
          handle:=llvmlabel_type_in_context(a_context.handle)
       end
 
-invariant type_kind.is_llvmlabel_type_kind
+invariant type_kind.is_label_type_kind
 end -- class LLVM_LABEL_TYPE
 
 -- Copyright 2009 Paolo Redaelli

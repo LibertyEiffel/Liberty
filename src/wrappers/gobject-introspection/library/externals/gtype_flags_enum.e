@@ -9,45 +9,45 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := (a_value & (g_type_flag_abstract_low_level | 
-				g_type_flag_value_abstract_low_level)).to_boolean
+            Result := (a_value & (abstract_low_level | 
+				value_abstract_low_level)).to_boolean
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_type_flag_abstract is
+	set_abstract is
 		do
-			value := value.bit_or(g_type_flag_abstract_low_level)
+			value := value.bit_or(abstract_low_level)
 		end
 
-	unset_g_type_flag_abstract is
+	unset_abstract is
 		do
-			value := value.bit_xor(g_type_flag_abstract_low_level)
+			value := value.bit_xor(abstract_low_level)
 		end
 
-	set_g_type_flag_value_abstract is
+	set_value_abstract is
 		do
-			value := value.bit_or(g_type_flag_value_abstract_low_level)
+			value := value.bit_or(value_abstract_low_level)
 		end
 
-	unset_g_type_flag_value_abstract is
+	unset_value_abstract is
 		do
-			value := value.bit_xor(g_type_flag_value_abstract_low_level)
+			value := value.bit_xor(value_abstract_low_level)
 		end
 
 feature {ANY} -- Queries
-	is_g_type_flag_abstract: BOOLEAN is
+	is_abstract: BOOLEAN is
 		do
-			Result := (value=g_type_flag_abstract_low_level)
+			Result := (value=abstract_low_level)
 		end
 
-	is_g_type_flag_value_abstract: BOOLEAN is
+	is_value_abstract: BOOLEAN is
 		do
-			Result := (value=g_type_flag_value_abstract_low_level)
+			Result := (value=value_abstract_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_type_flag_abstract_low_level: INTEGER is
+	abstract_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -56,7 +56,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_type_flag_value_abstract_low_level: INTEGER is
+	value_abstract_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

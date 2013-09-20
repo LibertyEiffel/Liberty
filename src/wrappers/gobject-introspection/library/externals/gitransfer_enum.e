@@ -9,46 +9,46 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = gi_transfer_container_low_level)  or else
-				(a_value = gi_transfer_everything_low_level)  or else
-				(a_value = gi_transfer_nothing_low_level) )
+            Result := ((a_value = container_low_level)  or else
+				(a_value = everything_low_level)  or else
+				(a_value = nothing_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_gi_transfer_container is
+	set_container is
 		do
-			value := gi_transfer_container_low_level
+			value := container_low_level
 		end
 
-	set_gi_transfer_everything is
+	set_everything is
 		do
-			value := gi_transfer_everything_low_level
+			value := everything_low_level
 		end
 
-	set_gi_transfer_nothing is
+	set_nothing is
 		do
-			value := gi_transfer_nothing_low_level
+			value := nothing_low_level
 		end
 
 feature {ANY} -- Queries
-	is_gi_transfer_container: BOOLEAN is
+	is_container: BOOLEAN is
 		do
-			Result := (value=gi_transfer_container_low_level)
+			Result := (value=container_low_level)
 		end
 
-	is_gi_transfer_everything: BOOLEAN is
+	is_everything: BOOLEAN is
 		do
-			Result := (value=gi_transfer_everything_low_level)
+			Result := (value=everything_low_level)
 		end
 
-	is_gi_transfer_nothing: BOOLEAN is
+	is_nothing: BOOLEAN is
 		do
-			Result := (value=gi_transfer_nothing_low_level)
+			Result := (value=nothing_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	gi_transfer_container_low_level: INTEGER is
+	container_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_transfer_everything_low_level: INTEGER is
+	everything_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gi_transfer_nothing_low_level: INTEGER is
+	nothing_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

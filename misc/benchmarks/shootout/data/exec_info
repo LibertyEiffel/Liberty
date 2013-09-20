@@ -1,0 +1,20 @@
+startup:$timing perl -e "foreach \$i (1..200) {system \"$cmd\";}"
+
+binary-trees:$timing $cmd 16
+chameneos-redux:$timing $cmd 6000000
+fannkuch:$timing $cmd 11
+fasta:$timing $cmd 25000000
+k-nucleotide:fasta.exe 1000000 > /tmp/input; $timing $cmd 1000000 < /tmp/input
+mandelbrot:$timing $cmd 3000
+meteor-contest:$timing $cmd 2098
+n-body:$timing $cmd 20000000
+nsieve:$timing $cmd 9
+nsieve-bits:$timing $cmd 11
+partial-sums:$timing $cmd 2500000
+pidigits:$timing $cmd 2500
+recursive:$timing $cmd 11
+regex-dna:fasta.exe 500000 > /tmp/input; $timing $cmd 500000 < /tmp/input
+reverse-complement:fasta.exe 2500000 > /tmp/input; $timing $cmd 2500000 < /tmp/input
+spectral-norm:$timing $cmd 5500
+sum-col:perl -e 'foreach $i (1..21000) { system "cat ../../data/sum-col.input"; }' > /tmp/input ; $timing $cmd < /tmp/input
+thread-ring:$timing $cmd 10000000

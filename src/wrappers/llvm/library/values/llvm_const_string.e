@@ -40,6 +40,9 @@ feature {} -- Creation
 		(a_context.handle, a_text.to_external, (a_text.count+1).to_natural_32, do_not_null_terminate.to_integer))
 	end
 end -- class LLVM_CONST_STRING
+
+-- Copyright 2009,2010,2013 Paolo Redaelli - 2013 Cyril Adrian 
+
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --
 -- This library is free software: you can redistribute it and/or modify

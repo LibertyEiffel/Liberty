@@ -9,57 +9,57 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_io_status_again_low_level)  or else
-				(a_value = g_io_status_eof_low_level)  or else
-				(a_value = g_io_status_error_low_level)  or else
-				(a_value = g_io_status_normal_low_level) )
+            Result := ((a_value = again_low_level)  or else
+				(a_value = eof_low_level)  or else
+				(a_value = error_low_level)  or else
+				(a_value = normal_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_io_status_again is
+	set_again is
 		do
-			value := g_io_status_again_low_level
+			value := again_low_level
 		end
 
-	set_g_io_status_eof is
+	set_eof is
 		do
-			value := g_io_status_eof_low_level
+			value := eof_low_level
 		end
 
-	set_g_io_status_error is
+	set_error is
 		do
-			value := g_io_status_error_low_level
+			value := error_low_level
 		end
 
-	set_g_io_status_normal is
+	set_normal is
 		do
-			value := g_io_status_normal_low_level
+			value := normal_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_io_status_again: BOOLEAN is
+	is_again: BOOLEAN is
 		do
-			Result := (value=g_io_status_again_low_level)
+			Result := (value=again_low_level)
 		end
 
-	is_g_io_status_eof: BOOLEAN is
+	is_eof: BOOLEAN is
 		do
-			Result := (value=g_io_status_eof_low_level)
+			Result := (value=eof_low_level)
 		end
 
-	is_g_io_status_error: BOOLEAN is
+	is_error: BOOLEAN is
 		do
-			Result := (value=g_io_status_error_low_level)
+			Result := (value=error_low_level)
 		end
 
-	is_g_io_status_normal: BOOLEAN is
+	is_normal: BOOLEAN is
 		do
-			Result := (value=g_io_status_normal_low_level)
+			Result := (value=normal_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_io_status_again_low_level: INTEGER is
+	again_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_io_status_eof_low_level: INTEGER is
+	eof_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_io_status_error_low_level: INTEGER is
+	error_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_io_status_normal_low_level: INTEGER is
+	normal_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

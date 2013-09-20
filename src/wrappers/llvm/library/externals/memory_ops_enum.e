@@ -10,6 +10,9 @@ feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
             Result := ((a_value = alloca_low_level)  or else
+				(a_value = atomic_cmp_xchg_low_level)  or else
+				(a_value = atomic_rmw_low_level)  or else
+				(a_value = fence_low_level)  or else
 				(a_value = get_element_ptr_low_level)  or else
 				(a_value = load_low_level)  or else
 				(a_value = memory_ops_begin_low_level)  or else
@@ -22,6 +25,21 @@ feature {ANY} -- Setters
 	set_alloca is
 		do
 			value := alloca_low_level
+		end
+
+	set_atomic_cmp_xchg is
+		do
+			value := atomic_cmp_xchg_low_level
+		end
+
+	set_atomic_rmw is
+		do
+			value := atomic_rmw_low_level
+		end
+
+	set_fence is
+		do
+			value := fence_low_level
 		end
 
 	set_get_element_ptr is
@@ -53,6 +71,21 @@ feature {ANY} -- Queries
 	is_alloca: BOOLEAN is
 		do
 			Result := (value=alloca_low_level)
+		end
+
+	is_atomic_cmp_xchg: BOOLEAN is
+		do
+			Result := (value=atomic_cmp_xchg_low_level)
+		end
+
+	is_atomic_rmw: BOOLEAN is
+		do
+			Result := (value=atomic_rmw_low_level)
+		end
+
+	is_fence: BOOLEAN is
+		do
+			Result := (value=fence_low_level)
 		end
 
 	is_get_element_ptr: BOOLEAN is
@@ -87,6 +120,33 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "Alloca"
+ 			}"
+ 		end
+
+	atomic_cmp_xchg_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "AtomicCmpXchg"
+ 			}"
+ 		end
+
+	atomic_rmw_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "AtomicRMW"
+ 			}"
+ 		end
+
+	fence_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "Fence"
  			}"
  		end
 
