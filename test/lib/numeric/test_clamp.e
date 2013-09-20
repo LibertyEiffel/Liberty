@@ -1,8 +1,9 @@
 -- This file is part of LibertyEiffel Libraries.
 -- See the Copyright notice at the end of this file.
 
-class TEST_BOUNDED_BY
+class TEST_CLAMP
 	-- Testing COMPARABLE.bounded_by
+	-- The feature bounded_by is called clamp in other languages.
 insert EIFFELTEST_TOOLS
 
 create {}
