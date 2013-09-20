@@ -249,7 +249,7 @@ function tutorialDir($dir){
          }
       }
       foreach (glob("$dir/*", GLOB_ONLYDIR) as $dirname){
-         if(!endsWith($dirname, "aux")){
+         if(!endsWith($dirname, "auxiliary")){
             if (substage(basename($dirname), str_replace($LibertyBase, $repobaselink, $dirname))){
                $res = tutorialDir($dirname);
 
