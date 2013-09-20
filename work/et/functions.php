@@ -15,7 +15,7 @@ function endsWith($haystack, $needle)
 }
 
 function timesArray($times) {
-    if (array_key_exists("per-stage", $times)) return $times;
+   if (array_key_exists("per-stage", $times)) return $times;
    $result = array();
    $result["per-stage"] = array();
    $result["per-stage"]["/"] = $times;
@@ -23,8 +23,14 @@ function timesArray($times) {
 }
 
 function recordTime(&$times, $stageName, $time, $historysize) {
-   $stageTimes = $times["per-stage"]["/" . $stageName];
+   $key = "/" . $stageName;
+   if (array_key_exists($key, $times["per-stage"])) {
+      $stageTimes = $times["per-stage"][$key];
+   } else {
+      $stageTimes = array();
+   }
    $stageTimes[] = $time;
    $stageTimes = array_slice($stageTimes, $historysize);
+   $times["per-stage"][$key] = $stageTimes;
 }
 ?>
