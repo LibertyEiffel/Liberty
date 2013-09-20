@@ -87,7 +87,7 @@ function substage($name, $link = ""){
 }
 
 function endsubstage(){
-   global $stageStackName, $stackStackTime, $verbose, $stage, $stagedir, $stageout, $times;
+    global $stageStackName, $stageStackTime, $verbose, $stage, $stagedir, $stageout, $times, $historysize;
 
    $fullStageName = implode("/", $stageStackName);
    $startTime = array_pop($stageStackTime);
