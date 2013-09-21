@@ -87,7 +87,7 @@ function substage($name, $link = ""){
 }
 
 function endsubstage(){
-   global $stageStackName, $stackStackTime, $verbose, $stage, $stagedir, $stageout, $times;
+    global $stageStackName, $stageStackTime, $verbose, $stage, $stagedir, $stageout, $times, $historysize;
 
    $fullStageName = implode("/", $stageStackName);
    $startTime = array_pop($stageStackTime);
@@ -249,7 +249,7 @@ function tutorialDir($dir){
          }
       }
       foreach (glob("$dir/*", GLOB_ONLYDIR) as $dirname){
-         if(!endsWith($dirname, "aux")){
+         if(!endsWith($dirname, "auxiliary")){
             if (substage(basename($dirname), str_replace($LibertyBase, $repobaselink, $dirname))){
                $res = tutorialDir($dirname);
 
