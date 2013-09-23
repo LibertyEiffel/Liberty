@@ -278,7 +278,7 @@ feature {ANY} -- InterProcess Communication
         pid: like process_id
 
 feature {ANY} -- Low-Level Virtual Machine data
-        calling_convention: LLVMCALLCONV_ENUM
+        calling_convention: LLVMCALL_CONV_ENUM
         module: LLVM_MODULE
         builder: LLVM_BUILDER
         block: LLVM_BASIC_BLOCK
