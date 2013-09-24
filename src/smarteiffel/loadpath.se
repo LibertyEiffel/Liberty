@@ -12,7 +12,6 @@
 ./generation/context
 ./generation/eiffeldoc
 ./generation/fake_generator
-./generation/llvm/loadpath.se
 ./generation/pretty
 ./generation/run/loadpath.se
 ./generation/sedb
