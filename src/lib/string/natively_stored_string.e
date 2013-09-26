@@ -230,6 +230,9 @@ feature {STRING_HANDLER}
       do
          storage := new_storage
          capacity := new_capacity
+         check
+            check_set_storage_signature
+         end
       ensure
          storage = new_storage
          capacity = new_capacity
