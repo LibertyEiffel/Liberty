@@ -36,7 +36,7 @@ feature {}
          end
          aux_wr := Void
          generate_garbage
-         mem.collection_on
+         mem.collection_off
          mem.full_collect
          assert(aux_wr_nb_disposed = 0) -- Test # 28
          from
@@ -63,7 +63,7 @@ feature {}
             end
             i := i - 1
          end
-         assert(aux_wr_nb_disposed = wr_voided) -- Test # 43
+         assert(aux_wr_nb_disposed <= wr_voided) -- Test # 43
       end
 
    Nb_items: INTEGER is 13

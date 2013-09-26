@@ -12,14 +12,14 @@ create {}
    make
 
 feature {}
-   wr_count: INTEGER is 1000
+   wr_count: INTEGER is 1_000
 
    make is
       local
          mem: MEMORY; aux_wr: AUX_WEAK_REF01; wr: WEAK_REFERENCE[AUX_WEAK_REF01]; i, void_count: INTEGER
       do
-         assert(mem.collecting)
-         -- Test # 1
+         label_assert("mem.collecting", mem.collecting)
+
          create list.make
          create weak_list.make
          from
@@ -36,16 +36,17 @@ feature {}
          aux_wr := Void
          wr := Void
          generate_garbage
-         mem.collection_on
+         mem.collection_off
+         label_assert("not mem.collecting", not mem.collecting)
          mem.full_collect
-         assert(aux_wr_disposed = 0) -- Test # 2
+         label_assert("check no weak refs disposed", aux_wr_disposed = 0)
+
          from
             i := 1
          until
             i > wr_count
          loop
-            assert(weak_list.item(i).item = list.item(i))
-            -- Tests # 3..2+wr_count
+            label_assert("check weak_list.item(#(1))" # i.out, weak_list.item(i).item = list.item(i))
             i := i + 1
          end
          from
@@ -60,7 +61,8 @@ feature {}
          mem.collection_on
          mem.full_collect
          -- Actually, the next test is quite pessimistic
-         assert(aux_wr_disposed > wr_count / 2) -- Test # 3+wr_count
+         label_assert("check some weak refs disposed (#(1))" # aux_wr_disposed.out, aux_wr_disposed > wr_count / 2)
+
          from
             i := 1
          until
@@ -71,7 +73,8 @@ feature {}
             end
             i := i + 1
          end
-         assert(void_count = aux_wr_disposed) -- Test # 4+wr_count
+         -- Should be equal, but there may be other GC during the following call
+         label_assert("check disposed weak refs are set to Void (#(1) = #(2))" # void_count.out # aux_wr_disposed.out, void_count >= aux_wr_disposed)
       end
 
    generate_garbage is
@@ -81,7 +84,7 @@ feature {}
          from
             i := 1
          until
-            i = 10000
+            i = 10_000
          loop
             create s.make_from_string("quark           ends here")
             i := i + 1

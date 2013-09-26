@@ -1,9 +1,9 @@
-se c -boost
-se c -require_check
-se c -profile
-se c -no_gc
-se c -all_check
-se c -loop_check
-se c -invariant_check
-se c -ensure_check
-se c -no_split -no_gc
+-boost
+-require_check
+-profile
+-all_check
+-loop_check
+-invariant_check
+-ensure_check
+-no_gc
+-bdw_gc
