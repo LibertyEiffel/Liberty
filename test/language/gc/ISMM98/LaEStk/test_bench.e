@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    make is
       do
-         recurse(50000)
+         recurse(25_000)
       end
 
    recurse (i: INTEGER) is
@@ -21,7 +21,7 @@ feature {ANY}
          else
             -- trigger the GC
             from
-               j := 7000000
+               j := 7_000_000
             until
                j < 0
             loop

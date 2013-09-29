@@ -1,18 +1,8 @@
 -no_gc
-se c -profile -flat_check
-se c -profile -no_check
-se c -profile -require_check
-se c -profile -ensure_check
-se c -profile -invariant_check
-se c -profile -loop_check
-se c -profile -all_check
+-profile
+-flat_check
 se c -require_check
 se c -ensure_check
 se c -invariant_check
 se c -loop_check
 se c -all_check
-se c -flat_check -all_check -debug
-se c -flat_check -require_check
-se c -flat_check -ensure_check
-se c -flat_check -invariant_check
-se c -flat_check -loop_check
