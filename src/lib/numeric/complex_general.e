@@ -11,7 +11,7 @@ insert
       rename sign as real_sign
       redefine out, fill_tagged_out_memory
       end
-   MATH_CONSTANTS -- to get Phi
+   MATH_CONSTANTS -- to get Pi
       undefine is_equal, out, fill_tagged_out_memory
       end
    EXCEPTIONS
@@ -169,17 +169,17 @@ feature {ANY} -- Polar representation
    phase: A_SIZE is
       require not is_zero
       do
-         not_yet_implemented -- Phi is not converted automaticaaly to A_SIZE
+         not_yet_implemented -- Pi is not converted automaticaaly to A_SIZE
          -- inspect real.sign
          -- when  1 then Result := imaginary.atan2(real) -- same as (imaginary/real).atan
          -- when -1 then
-         --     if imaginary.sign = -1 then Result := imaginary.atan2(real) + Phi
-         --     else Result := imaginary.atan2(real) - Phi
+         --     if imaginary.sign = -1 then Result := imaginary.atan2(real) + Pi
+         --     else Result := imaginary.atan2(real) - Pi
          --     end
          -- else
          --     inspect imaginary.sign
-         --     when  1 then Result :=  Phi/2.0
-         --     when -1 then Result := -Phi/2.0
+         --     when  1 then Result :=  Pi/2.0
+         --     when -1 then Result := -Pi/2.0
          --     when  0 then raise_exception(Precondition)
          --     end
          -- end
@@ -194,12 +194,23 @@ feature {ANY} -- Polar representation
 
 feature {ANY} -- Object Printing:
    out: STRING is
+      -- do
+      --    Result := "("
+      --    real.append_in(Result)
+      --    Result.append(once ", ")
+      --    imaginary.append_in(Result)
+      --    Result.append_character(')')
+  local real_digits, imaginary_digits: INTEGER
       do
-         Result := "("
-         real.append_in(Result)
-         Result.append(once ", ")
-         imaginary.append_in(Result)
-         Result.append_character(')')
+		  -- This is a far and large heuristic way to compute significant decimal digits of floating point number
+		  real_digits := real.mantissa_bits.to_integer_32//3
+		  imaginary_digits := imaginary.mantissa_bits.to_integer_32//3
+		  create Result.with_capacity(real_digits+imaginary_digits+6)
+		  Result.append(once "(")
+		  real.append_in_scientific(Result,real_digits)
+		  Result.append(once ", ")
+		  imaginary.append_in_scientific(Result,imaginary_digits)
+		  Result.append(once ")")
       end
 
    fill_tagged_out_memory is
