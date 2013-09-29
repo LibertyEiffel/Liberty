@@ -25,7 +25,7 @@ feature {ANY}
             i = 0
          loop
             from
-               size := 5000
+               size := 5_000
             until
                size = 0
             loop
