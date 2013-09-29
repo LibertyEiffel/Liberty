@@ -22,7 +22,7 @@ function timesArray($times) {
    return $result;
 }
 
-function recordTime(&$times, $stageName, $time, $historysize) {
+function recordTime($times, $stageName, $time, $historysize) {
    $key = "/" . $stageName;
    if (array_key_exists($key, $times["per-stage"])) {
       $stageTimes = $times["per-stage"][$key];
@@ -32,5 +32,6 @@ function recordTime(&$times, $stageName, $time, $historysize) {
    $stageTimes[] = $time;
    $stageTimes = array_slice($stageTimes, $historysize);
    $times["per-stage"][$key] = $stageTimes;
+   return $times;
 }
 ?>

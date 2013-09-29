@@ -35,10 +35,7 @@ $times = timesArray($times);
 // ends current stage and terminates ET
 // call for stages where continuing is not useful
 function failed(){
-   global $out;
-   global $verbose;
-   global $lock;
-   global $stagedir;
+   global $out, $verbose, $lock, $stagedir;
    $outStr = file_get_contents($stagedir . "/out.txt");
    $stagename = file_get_contents($stagedir ."/stagename.txt");
    echo "stage $stagedir ($stagename) failed:\n\n--------\n" . $outStr . "\n--------";
@@ -47,12 +44,7 @@ function failed(){
 }
 
 function substage($name, $link = ""){
-   global $stagedir;
-   global $out, $stageout;
-   global $verbose;
-   global $stageStackName, $stageStackTime;
-   global $dateFormat;
-   global $times;
+   global $stagedir, $stageout, $verbose, $stageStackName, $stageStackTime, $dateFormat;
 
    $substageDepth = count($stageStackName);
    array_push($stageStackName, iconv('utf-8', 'us-ascii//TRANSLIT', $name));
@@ -87,12 +79,12 @@ function substage($name, $link = ""){
 }
 
 function endsubstage(){
-    global $stageStackName, $stageStackTime, $verbose, $stage, $stagedir, $stageout, $times, $historysize;
+   global $stageStackName, $stageStackTime, $verbose, $stage, $stagedir, $stageout, $times, $historysize;
 
    $fullStageName = implode("/", $stageStackName);
    $startTime = array_pop($stageStackTime);
    $endTime = time();
-   recordTime($times, $fullStageName, (int)($endTime - $startTime), $historysize);
+   $times = recordTime($times, $fullStageName, (int)($endTime - $startTime), $historysize);
 
    if($verbose) echo "end substage $stage/" . implode("/", $stageStackName) . " ...(" . $stagedir ."\n";
    file_put_contents("$stagedir/end.txt", $endTime);
@@ -120,7 +112,7 @@ function execute($cmd, $simple = true, $ulimit_time = 600, $ulimit_virt = 419430
    global $verbose;
    if($verbose) echo "executing '$cmd'\n";
    file_put_contents($stagedir . "/cmd.txt", $cmd);
-   system("( ulimit -t " . $ulimit_time . " ; ulimit -v " . $ulimit_virt . " ; " . $cmd . " ) > '" . $stagedir . "/out.txt' 2>'" .$stagedir . "/err.txt'", $retval);
+   system("( ulimit -t " . $ulimit_time . " ; ulimit -v " . $ulimit_virt . " ; ulimit -m " . $ulimit_virt . " ; " . $cmd . " ) > '" . $stagedir . "/out.txt' 2>'" .$stagedir . "/err.txt'", $retval);
    file_put_contents($stagedir . "/retValue.txt", $retval);
    if($simple)    file_put_contents($stagedir ."/result.txt", $retval);
 
@@ -338,7 +330,7 @@ if (substage("TestSuite")){
 
 file_put_contents("$stageout/current_stage.txt","");
 
-recordTime($times, "", (int)(time() - $startTime), $historysize);
+$times = recordTime($times, "", (int)(time() - $startTime), $historysize);
 file_put_contents($timesHistory, serialize($times));
 
 unlink($lock);
