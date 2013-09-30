@@ -7,7 +7,7 @@ class TEST_BENCH
    -- arrays.
    -- Compiled with SmartEiffel, this benchmark has an important memory
    -- footprint, because SE's GC does not merge memory blocks
-   -- and thus recycles poorly the dead arrays.
+   -- and thus recycles poorly the dead arrays.????????????????
 
 create {}
    make
@@ -21,12 +21,12 @@ feature {ANY}
       do
          create random.with_seed(74363)
          from
-            i := 30000
+            i := 30_000
          until
             i = 0
          loop
             random.next
-            create array_int.make(0, random.last_integer(50000))
+            create array_int.make(0, random.last_integer(50_000))
             i := i - 1
          end
       end

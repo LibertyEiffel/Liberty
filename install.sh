@@ -231,7 +231,7 @@ EOF
     cd $TARGET/bin/compile_to_c.d
 
     progress 30 1 $MAXTOOLCOUNT "T1: compile_to_c"
-    run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c.new || exit 1
+    run ./compile_to_c -verbose -boost -no_gc compile_to_c -o compile_to_c.new || exit 1
     grep -v '^#' compile_to_c.make | while read cmd; do
         progress 30 1 $MAXTOOLCOUNT "T1: $cmd"
         run $cmd || exit 1
@@ -244,7 +244,7 @@ EOF
         rm compile_to_c.make
         cp -a compile_to_c.new compile_to_c
         progress 30 2 $MAXTOOLCOUNT "T2: compile_to_c"
-        run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c.new || exit 1
+        run ./compile_to_c -verbose -boost -no_gc compile_to_c -o compile_to_c.new || exit 1
         grep -v '^#' compile_to_c.make | while read cmd; do
             progress 30 2 $MAXTOOLCOUNT "T2: $cmd"
             run $cmd || exit 1
@@ -257,7 +257,7 @@ EOF
             rm compile_to_c.make
             cp -a compile_to_c.new compile_to_c
             progress 30 3 $MAXTOOLCOUNT "T3: compile_to_c"
-            run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c.new || exit 1
+            run ./compile_to_c -verbose -boost -no_gc compile_to_c -o compile_to_c.new || exit 1
             progress 30 3 $MAXTOOLCOUNT "T3: save"
             mkdir T3
             cp -a compile_to_c* T3/
@@ -317,12 +317,12 @@ EOF
         run ../compile -verbose -boost $GC $tool -o $tool || exit 1
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done <<EOF
-11 yes pretty
-12 yes short
-13 yes class_check
-14 yes finder
-15 yes eiffeldoc
-16 yes extract_internals
+11 no  pretty
+12 no  short
+13 no  class_check
+14 no  finder
+15 bdw eiffeldoc
+16 no  extract_internals
 EOF
 
     while read i gc tool; do
@@ -342,7 +342,7 @@ EOF
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done <<EOF
 17 _   wrappers-generator
-18 yes mocker
+18 bdw mocker
 EOF
 
     progress 30 $(($MAXTOOLCOUNT - 1)) $MAXTOOLCOUNT "se_make.sh"
@@ -643,6 +643,8 @@ else
                 generate_wrappers
                 ;;
             x-bootstrap)
+                ulimit -m $((1024 * 1024 * 4))
+                ulimit -v $((1024 * 1024 * 4))
                 bootstrap
                 ;;
             x-compile)

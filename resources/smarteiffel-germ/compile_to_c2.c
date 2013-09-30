@@ -64,1086 +64,6 @@ void se_signal_handler(int sig) {
   se_print_run_time_stack();
   exit(EXIT_FAILURE);
 }
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
-
-/*
-   This file (SmartEiffel/sys/runtime/gc_lib.c) is automatically included
-   when the Garbage Collector is used (default, unless option -no_gc has been
-   selected).
-*/
-/*
-   The `mark_stack_and_registers' C function is called by the Garbage
-   Collector (GC) of SmartEiffel. It has to be customized for some systems,
-   but also for some C compilers. This file provides some definitions in the
-   end and has to be completed for systems which need specific work.
-
-   On some architectures, addresses increase as the stack grows; or,
-   conversely, addresses decrease as the stack grows. A C compiler may be
-   clever enough to hide some root object inside registers. Unfortunately all
-   registers are not always accessible via the C `setjmp' function!
-
-   Thus, in order to be able to use the GC on your architecture/C-compiler,
-   you have to provide the correct `mark_stack_and_registers' function.
-
-   What is the `mark_stack_and_registers' function supposed to do?  The
-   `mark_stack_and_registers' function is supposed to notify the GC with all
-   the possible roots one can find in the C stack and registers by calling the
-   `gc_mark' function. A root is an object which must not be collected.  The
-   SmartEiffel GC already knows about some root objects like once function
-   results or manifest strings. The `mark_stack_and_registers' function has to
-   notify the other possible roots. Obviously, one can find in the C stack any
-   kind of adresses, but the `gc_mark' function is clever enough to determine
-   if the passed pointer is an Eiffel object or not.  When the passed pointer
-   reaches some Eiffel object, this object as well as its descendant(s) are
-   automatically marked as un-collectable.
-
-   In order to provide the most appropriate `mark_stack_and_registers'
-   function, the very first question is to know about the way the C stack is
-   managed (addresses of the stack may increase or decrease as the C stack
-   grows). The DEFAULT BEHAVIOUR FOR UNKNOWN SYSTEMS is to consider ADDRESSES
-   DECREASE AS THE STACK GROWS, as it's the most common case.  The global C
-   variable `stack_bottom' is set with some pointer which is supposed to be
-   the bottom of the stack (this variable is automatically initialized in the
-   C main function).  Note: using the current stack pointer inside
-   `mark_stack_and_registers', it is quite obvious to determine if addresses
-   increase or not as the C stack grows.  Note2: on some systems, the stack is
-   not in contiguous addresses. In such case, `mark_stack_and_registers' has
-   to go through all the stack fragments.
-
-   Some roots may be stored only in registers and not in the C stack.  In
-   order to reach the registers as well, the first attempt is to use setjmp,
-   in the hope that setjmp will save registers in the stack!  Note: this
-   technique do not work on processors using windows registers (such as sparc
-   processors).
-
-*/
-
-
-#ifdef SE_BOOST
-#    define GC_BUG(tag, expr) do {if (expr) {    \
-         handle(SE_HANDLE_RUNTIME_ERROR, NULL); \
-         se_print_run_time_stack();             \
-         {int *i=0;*i=0;}                       \
-         exit(EXIT_FAILURE);                    \
-      }} while(0)
-#else
-#    define GC_BUG(tag, expr) do {if (expr) {                    \
-         char msg[512];                                         \
-         sprintf(msg, "GC BUG: %s (%s).\n", tag, #expr);        \
-         error0(msg, NULL);                                     \
-      }} while(0)
-#endif
-
-
-int se_gc_strategy = SE_GC_DEFAULT_MEMORY_STRATEGY;
-
-int collector_counter = 0;
-
-static void gcna_align_mark(rsoc*c,void*o);
-static rsoc*rsocfl=NULL; /* ReSizable Object Chunk Free List. */
-
-void**stack_bottom=NULL;
-mch**gcmt=NULL; /* Garbage Collector Main Table. */
-int gcmt_max=2048;
-int gcmt_used=0;
-fsoc*fsocfl=NULL; /* Fixed Size Object Chunk Free List. */
-int gc_is_off=1;
-unsigned int fsoc_count=0;
-unsigned int rsoc_count=0;
-void*gcmt_tail_addr=NULL;
-
-static int chunk_rounded(int size) {
-  int rounded_size = size;
-  int diff = rounded_size%RSOC_SIZE;
-
-  if (diff != 0) rounded_size += (RSOC_SIZE-diff);
-  return rounded_size;
-}
-
-/* Return the index where chunk `c' is (or is to be) in the `gcmt',
-   between `min' and `max' indexes. */
-static unsigned int binary_search_in_gcmt(register unsigned int min,
-                                          register unsigned int max,
-                                          register mch* c){
-  register unsigned int mid;
-  while (min<max){
-    mid=(min+max)>>1;
-    if (gcmt[mid]<c)
-      min=mid+1;
-    else
-      max=mid;
-  }
-  if (gcmt[min]<c)
-    return min+1;
-  else
-    return min;
-}
-
-static void may_free_rsocfl(void) {
-  /* May free all chunks of `rsocfl' (ReSizable Object Chunk Free List)
-     in some circumstances.
-  */
-  rsoc* next; register rsoc *current;
-  unsigned int count = rsocfl_count();
-  register unsigned int where = gcmt_used;
-  register unsigned int how_many;
-
-  if ((count > 50) && (count > (rsoc_count >> 1))) {
-    current=rsocfl;
-    rsocfl=NULL;
-    while (NULL != current) {
-      next=current->next;
-      if (current->isize == current->header.size) {
-        where = binary_search_in_gcmt(0, where-1, (mch*)current);
-        how_many = gcmt_used - 1 - where;
-        if (how_many > 0)
-          memmove(gcmt+where, gcmt+where+1, how_many*sizeof(mch*));
-        free(current); gcmt_used--; rsoc_count--;
-      }
-      else {
-        current->next=rsocfl;
-        rsocfl=current;
-      }
-      current = next;
-    }
-  }
-}
-
-int gc_memory_used(void) {
-  int i;
-  int result = 0;
-  mch* mch;
-  for (i = gcmt_used; i --> 0; ) {
-    mch = gcmt[i];
-    switch(mch->state_type) {
-    case RSO_USED_CHUNK:
-    case FSO_USED_CHUNK:
-    case FSO_STORE_CHUNK:
-      result += mch->size;
-      break;
-    default:
-      break;
-    }
-  }
-  return result;
-}
-
-void gc_sweep(void) {
-  mch** p2 = gcmt;
-  mch** p1 = gcmt+1;
-  mch**eogcmt=gcmt+gcmt_used;
-  if (FREE_CHUNK((*p2)->state_type)) {
-    if (RSO_FREE_CHUNK == ((*p2)->state_type)) {
-      ((rsoc*)(*p2))->next=NULL;
-      rsocfl=((rsoc*)(*p2));
-    }
-    else {
-      rsocfl=NULL;
-    }
-  }
-  else {
-    ((*gcmt)->swfp)(*p2);
-    if (RSO_FREE_CHUNK==((*p2)->state_type)) {
-      ((rsoc*)(*p2))->next=NULL;
-      rsocfl=((rsoc*)(*p2));
-    }
-    else {
-      rsocfl=NULL;
-    }
-  }
-  while (p1 < eogcmt) {
-    if (FREE_CHUNK((*p1)->state_type)) {
-      if (RSO_FREE_CHUNK == ((*p1)->state_type)) {
-        if (RSO_FREE_CHUNK == ((*p2)->state_type)) {
-          if ( (((rsoc*)*p1)->isize==0) && ((char*)(*p2))+(*p2)->size == ((char*)(*p1))) {
-            ((*p2)->size)+=((*p1)->size);
-            p1++;
-          }
-          else {
-            ((rsoc*)(*p1))->next=rsocfl;
-            rsocfl=((rsoc*)(*p1));
-            *(p2+1)=*p1; p2++; p1++;
-          }
-        }
-        else {
-          ((rsoc*)(*p1))->next=rsocfl;
-          rsocfl=((rsoc*)(*p1));
-          *(p2+1)=*p1; p2++; p1++;
-        }
-      }
-      else {
-        *(p2+1)=*p1; p2++; p1++;
-      }
-    }
-    else {
-      ((*p1)->swfp)(*p1);
-      if (RSO_FREE_CHUNK == ((*p1)->state_type)) {
-        if (RSO_FREE_CHUNK == ((*p2)->state_type)) {
-          if ( (((rsoc*)*p1)->isize==0) && ((char*)(*p2))+(*p2)->size == ((char*)(*p1))) {
-            ((*p2)->size)+=((*p1)->size);
-            p1++;
-          }
-          else {
-            ((rsoc*)(*p1))->next=rsocfl;
-            rsocfl=((rsoc*)(*p1));
-            *(p2+1)=*p1; p2++; p1++;
-          }
-        }
-        else {
-          ((rsoc*)(*p1))->next=rsocfl;
-          rsocfl=((rsoc*)(*p1));
-          *(p2+1)=*p1; p2++; p1++;
-        }
-      }
-      else {
-        *(p2+1)=*p1; p2++; p1++;
-      }
-    }
-  }
-  gcmt_used=(p2-gcmt)+1;
-  may_free_rsocfl();
-}
-
-/* return the mch containing p or NULL if p is not
- * a valid address or was externally allocated
- */
-mch * gc_find_chunk(void * p){
-  if ((p>((void*)*gcmt))&&(p<=gcmt_tail_addr)) {
-    int i1=0;
-    int i2=gcmt_used-1;
-    int m=i2>>1;
-    mch*c;
-    for (;i2>i1;m=((i1+i2)>>1)) {
-      if (p<=((void*)gcmt[m+1])) {
-        i2=m;
-      }
-      else {
-        i1=m+1;
-      }
-    }
-    c=gcmt[i2];
-    if((char*)p<(char*)c+c->size)   /* check for upper bound */
-      if (!(FREE_CHUNK(c->state_type))){
-        return c;
-      }
-  }
-  return NULL;
-}
-
-void gc_mark(void*p) {
-  mch * c;
-  c = gc_find_chunk(p);
-  if(NULL != c) {
-    (c->amfp)(c,p);
-  }
-}
-
-int gc_stack_size(void) {
-  void*stack_top[2]={NULL,NULL};
-  if (stack_top > stack_bottom) {
-    return ((void**)stack_top)-((void**)stack_bottom);
-  }
-  else {
-    return ((void**)stack_bottom)-((void**)stack_top);
-  }
-}
-
-/*
-  To delay Garbage Collection when the stack is too large.
-  To allow fast increase of ceils.
-*/
-#define FSOC_LIMIT (10240/((FSOC_SIZE)>>10))
-#define RSOC_LIMIT (10240/((RSOC_SIZE)>>10))
-
-/*
-  When stack is too large, collection may be delayed.
-*/
-#define GCLARGESTACK 50000
-
-int garbage_delayed(void) {
-  /*
-    To delay the first GC call.
-  */
-  if (gc_stack_size() > GCLARGESTACK) {
-    if (fsoc_count_ceil <= fsoc_count) {
-      if (rsoc_count_ceil <= rsoc_count) {
-        if ((fsoc_count<FSOC_LIMIT)&&(rsoc_count<RSOC_LIMIT)) {
-          fsoc_count_ceil++;
-          rsoc_count_ceil++;
-          return 1;
-        }
-        else return 0;
-      }
-      else {
-        if (fsoc_count<FSOC_LIMIT) {
-          fsoc_count_ceil++;
-          return 1;
-        }
-        else return 0;
-      }
-    }
-    else {
-      if (rsoc_count_ceil <= rsoc_count) {
-        if (rsoc_count<RSOC_LIMIT) {
-          rsoc_count_ceil++;
-          return 1;
-        }
-        else return 0;
-      }
-      else return 0;
-    }
-  }
-  else {
-    return 0;
-  }
-}
-
-void gc_update_ceils(void) {
-  /* This function is automatically called after each collection
-     cycle.
-  */
-  if (se_gc_strategy == SE_GC_LOW_MEMORY_STRATEGY) {
-    fsoc_count_ceil = fsoc_count;
-    rsoc_count_ceil = rsoc_count;
-    /* Todo: we should also consider to free unused chunks here. */
-    return;
-  }
-  if (se_gc_strategy == SE_GC_HIGH_MEMORY_STRATEGY) {
-    fsoc_count_ceil = (256 + fsoc_count) << 2;
-    rsoc_count_ceil = (256 + rsoc_count) << 2;
-    return;
-  }
-  /* The SE_GC_DEFAULT_MEMORY_STRATEGY. */
-  /* Compute fsoc_count_ceil: */
-
-  /* The lines commented out with --perf-- were killing performance under certain circumstances, *
-   * especially with gcc -O3 <FM-15/04/2005>                                                     */
-
-  /* --perf-- if (fsocfl == NULL) { */
-  if (fsoc_count >= fsoc_count_ceil) {
-    if (fsoc_count_ceil < FSOC_LIMIT) {
-      fsoc_count_ceil <<= 1;
-    }
-    else {
-      unsigned int c = fsoc_count + (fsoc_count/3);
-      if (fsoc_count_ceil < c)
-        fsoc_count_ceil = c;
-    }
-  }
-  /* --perf-- }
-     else {
-     if (fsoc_count_ceil < fsoc_count) {
-     fsoc_count_ceil = fsoc_count;
-     }
-     }
-  */
-  /* Compute rsoc_count_ceil: */
-  /* --perf-- if (rsocfl == NULL) {*/
-  if (rsoc_count >= rsoc_count_ceil) {
-    if (rsoc_count_ceil < RSOC_LIMIT) {
-      rsoc_count_ceil <<= 1;
-    }
-    else {
-      unsigned int c = rsoc_count + (rsoc_count / 3);
-      if (rsoc_count_ceil < c) {
-        rsoc_count_ceil = c;
-      }
-    }
-  }
-  /* --perf -- }
-     else {
-     if (rsoc_count_ceil < rsoc_count) {
-     rsoc_count_ceil = rsoc_count;
-     }
-     }
-  */
-}
-
-static void gc_add_into_gcmt(mch*c) {
-  /* Update the `gcmt' (Garbage Collector Main Table) by adding the
-     new `mch' (Memory Chunk Header).`gcmt_used' is updated.
-  */
-  unsigned int where=0;
-  unsigned how_many;
-  if (gcmt_used>0){
-    where=binary_search_in_gcmt(0, gcmt_used-1, c);
-    if (gcmt_used == gcmt_max) {
-      gcmt_max <<= 1;
-      gcmt = ((mch**)(se_realloc(gcmt,(gcmt_max+1)*sizeof(mch*))));
-    }
-    how_many = gcmt_used - where;
-    if (how_many > 0)
-      memmove(gcmt+where+1, gcmt+where, how_many*sizeof(mch*));
-  }
-  gcmt[where]=c;
-  gcmt_used++;
-}
-
-static char*rso_from_store(na_env*nae,unsigned int size) {
-  rsoh*r=(nae->store);
-  GC_BUG("zero-size for rso_from_store()", size==0);
-  nae->store_left-=size;
-  if ((nae->store_left) > sizeof(rsoh)) {
-    r->header.size=size;
-    nae->store=((rsoh*)(((char*)(nae->store))+size));
-  }
-  else {
-    r->header.size=size+nae->store_left;
-    nae->store_left=0;
-  }
-  (r->header.magic_flag)=RSOH_UNMARKED;
-  ((void)memset((r+1),0,r->header.size-sizeof(rsoh)));
-  return (char*)(r+1);
-}
-
-static void rsoc_sweep(rsoc*c) {
-  na_env*nae=c->nae;
-  rsoh*gp=(rsoh*)&(c->first_header);
-  rsoh*pp;
-  rsoh*eoc=((rsoh*)(((char*)c)+c->header.size));
-  c->free_list_of_large=NULL;
-  if (c->header.size > RSOC_SIZE) {
-    if (gp->header.magic_flag == RSOH_MARKED) {
-      gp->header.magic_flag=RSOH_UNMARKED;
-      /* No need to register chunks with no free_list_of_large
-      c->next=nae->chunk_list;
-      nae->chunk_list=c;
-      */
-    }
-    else {
-      c->header.state_type=RSO_FREE_CHUNK;
-    }
-    return;
-  }
-
-  while (gp<eoc) {
-    while (gp->header.magic_flag == RSOH_MARKED) {
-      gp->header.magic_flag=RSOH_UNMARKED;
-      GC_BUG("rsoc_sweep(), unmarking marked rsoh", gp->header.size==0);
-      gp=((rsoh*)(((char*)gp)+gp->header.size));
-      if(gp>=eoc) {
-        /* No need to register chunks with no free_list_of_large
-        c->next=nae->chunk_list;
-        nae->chunk_list=c;
-        */
-        return;
-      }
-    }
-
-    gp->header.magic_flag=RSOH_FREE;
-    GC_BUG("rsoc_sweep(), sweeping unmaked rsoh", gp->header.size==0);
-    pp=(rsoh*)(((char*)gp)+gp->header.size);
-    while ((pp<eoc)&&(pp->header.magic_flag != RSOH_MARKED)) {
-      gp->header.size+=pp->header.size;
-      GC_BUG("rsoc_sweep(), coalescing unmarked rsoh", pp->header.size==0);
-      pp=((rsoh*)(((char*)pp)+pp->header.size));
-    }
-
-    if (gp->header.size >= RSOC_MIN_STORE) {
-      if (nae->store_left==0) {
-        nae->store_left=gp->header.size;
-        nae->store=gp;
-        nae->store_chunk=c;
-      }
-      else if (nae->store->header.size < gp->header.size) {
-        ((fll_rsoh*)nae->store)->nextflol=nae->store_chunk->free_list_of_large;
-        nae->store_chunk->free_list_of_large=((fll_rsoh*)nae->store);
-        nae->store_left=gp->header.size;
-        nae->store=gp;
-        nae->store_chunk=c;
-      }
-      else {
-        ((fll_rsoh*)gp)->nextflol=c->free_list_of_large;
-        c->free_list_of_large=((fll_rsoh*)gp);
-      }
-    }
-    GC_BUG("rsoc_sweep(), checking next rsoh", pp==gp);
-    gp=pp;
-  }
-
-  if (((rsoh*)(&c->first_header))->header.size >=
-      (c->header.size-sizeof(rsoc)+sizeof(rsoh))){
-    c->header.state_type=RSO_FREE_CHUNK;
-    nae->store_chunk=NULL;
-    nae->store_left=0;
-  }
-  else{
-    c->next=nae->chunk_list;
-    nae->chunk_list=c;
-  }
-}
-
-/* *** To be removed */
-static const rsoc MRSOC = {
-    {
-        RSOC_SIZE,
-        RSO_USED_CHUNK,
-        ((void(*)(mch*,void*))gcna_align_mark),
-        ((void(*)(mch*))rsoc_sweep)
-    },
-    0,
-    NULL,
-    NULL,
-    NULL,
-    {
-      {
-        0,
-        RSOH_MARKED
-      }
-    }
-};
-
-static void rsoc_malloc(na_env*nae) {
-  rsoc* r = ((rsoc*)(se_malloc(RSOC_SIZE)));
-  rsoc_count++;
-  *r=MRSOC;
-  r->nae=nae;
-  r->isize=RSOC_SIZE;
-  nae->store=(&(r->first_header));
-  nae->store_left=RSOC_SIZE-sizeof(rsoc)+sizeof(rsoh);
-  nae->store_chunk=r;
-  r->next=nae->chunk_list;
-  nae->chunk_list=r;
-  gc_add_into_gcmt((mch*)r);
-}
-
-static rsoc* rsocfl_best_fit(unsigned int size) {
-  register unsigned int best_size = 0;
-  unsigned int acceptable_loss;
-  register rsoc *pc, *best_pc, *best_c, *c;
-  if (NULL==rsocfl)
-    return NULL;
-  pc=NULL;
-  best_pc=NULL;
-  best_c=NULL;
-  c=rsocfl;
-  if (SE_GC_DEFAULT_MEMORY_STRATEGY == se_gc_strategy)
-    acceptable_loss = (size >> 4);
-  else if (SE_GC_LOW_MEMORY_STRATEGY == se_gc_strategy)
-    acceptable_loss = 0;
-  else /* SE_GC_HIGH_MEMORY_STRATEGY == se_gc_strategy */
-    acceptable_loss = (size >> 2);
-
-  while ((NULL!=c)&&(NULL==best_c)){
-    if (c->header.size>=size){
-      best_c=c;
-      best_pc=pc;
-      best_size=c->header.size;
-    }
-    pc=c;
-    c=c->next;
-  }
-  if (NULL==c){
-    if (NULL != best_pc)
-      best_pc->next=best_c->next;
-    else if (best_c==rsocfl)
-      rsocfl=best_c->next;
-    return best_c;
-  }
-  if ((best_size - size) > acceptable_loss){
-    do {
-      if ((c->header.size >= size) && (c->header.size < best_size)) {
-        best_c = c;
-        best_pc = pc;
-        best_size = c->header.size;
-        if ((best_size - size) <= acceptable_loss) break;
-      }
-      pc=c;
-      c=c->next;
-    }
-    while(NULL!=c);
-  }
-  if (NULL==best_pc) {
-    rsocfl = best_c->next;
-  }
-  else {
-    best_pc->next=best_c->next;
-  }
-  return best_c;
-}
-
-static int get_store_in(rsoc*c,unsigned int size) {
-  na_env*nae=c->nae;
-  fll_rsoh*pf=NULL;
-  fll_rsoh*f=c->free_list_of_large;
-  while (f != NULL) {
-    if (f->rsoh_field.size >= size) {
-      nae->store_left=f->rsoh_field.size;
-      nae->store=(rsoh*)f;
-      GC_BUG("check nae store size", nae->store->header.size==0);
-      nae->store_chunk=c;
-      if (pf == NULL) {
-        c->free_list_of_large=f->nextflol;
-      }
-      else {
-        pf->nextflol=f->nextflol;
-      }
-      return 1;
-    }
-    pf = f;
-    f = f->nextflol;
-  }
-  return 0;
-}
-
-char*new_na_from_chunk_list(na_env*nae,unsigned int size) {
-  rsoc*c=nae->chunk_list;
-  unsigned int csize;
-  GC_BUG("zero-size for new_na_from_chunk_list()", size==0);
-  while (c != NULL) {
-    if (get_store_in(c,size)) {
-      return rso_from_store(nae,size);
-    }
-    c = c->next;
-  }
-  csize=size+(sizeof(rsoc)-sizeof(rsoh));
-  c=rsocfl_best_fit(csize);
-  if (c != NULL){
-    if (c->header.size > RSOC_SIZE) {
-      if (c->header.size-csize > RSOC_MIN_STORE*4) {
-        int csize_left=c->header.size-csize;
-        if ((csize_left%sizeof(void*))!=0) {
-          csize_left-=(csize_left%sizeof(void*));
-          csize=c->header.size-csize_left;
-        }
-        c->header.size=csize_left;
-        c->next=rsocfl;
-        rsocfl=c;
-        c=(rsoc*)(((char*)c)+csize_left);
-        c->isize=0; /* c split from a larger chunk */
-        gc_add_into_gcmt((mch*)c);
-        c->header.amfp=(void(*)(mch*,void*))gcna_align_mark;
-        c->header.swfp=(void(*)(mch*))rsoc_sweep;
-      }
-      /* since objects bigger than RSOC_SIZE must be the only object in their chunk, we do not want to have
-         some store left after them. Therefore, we do not set csize to c->header.size in an else block
-         here. */
-      c->header.size=csize;
-    }
-    else {
-      csize=c->header.size;
-    }
-    c->header.state_type=RSO_USED_CHUNK;
-    c->free_list_of_large=NULL;
-    c->nae=nae;
-    nae->store=(&(c->first_header));
-    nae->store_left=csize-sizeof(rsoc)+sizeof(rsoh);
-    nae->store_chunk=c;
-    /* No need to register chunks with no free_list_of_large
-    c->next=nae->chunk_list;
-    nae->chunk_list=c;
-    */
-    return rso_from_store(nae,size);
-  }
-  return NULL;
-}
-
-/* size in bytes, including header size */
-char*new_na(na_env*nae,unsigned int size) {
-  GC_BUG("zero-size for new_na()", size == 0);
-  if (nae->store_left>0) {
-    nae->store->header.size=nae->store_left;
-    nae->store->header.magic_flag=RSOH_FREE;
-    if (nae->store_left >= RSOC_MIN_STORE) {
-      ((fll_rsoh*)(nae->store))->nextflol=nae->store_chunk->free_list_of_large;
-      nae->store_chunk->free_list_of_large=((fll_rsoh*)nae->store);
-    }
-    nae->store_left=0;
-  }
-  if ((nae->store_chunk!=NULL)&&(get_store_in(nae->store_chunk,size))) {
-    return rso_from_store(nae,size);
-  }
-  {
-    char*r=new_na_from_chunk_list(nae,size);
-    if (r!=NULL)
-      return r;
-  }
-  if (rsoc_count<rsoc_count_ceil) {
-    if((size+sizeof(rsoc)-sizeof(rsoh))>RSOC_SIZE){
-      rsoc*c;
-      rsoh*r;
-      unsigned int rounded_size= chunk_rounded(size+sizeof(rsoc)-sizeof(rsoh));
-      c=((rsoc*)(se_malloc(rounded_size)));
-      r=(&(c->first_header));
-      rsoc_count++;
-      *c=MRSOC;
-      c->isize = rounded_size;
-      c->header.size=rounded_size;
-      c->nae=nae;
-      /* No need to register chunks with no free_list_of_large
-      c->next=nae->chunk_list;
-      nae->chunk_list=c;
-      */
-      gc_add_into_gcmt((mch*)c);
-      r->header.size=size;
-      GC_BUG("check rsoh size from nae", r->header.size==0);
-      (r->header.magic_flag)=RSOH_UNMARKED;
-      ((void)memset((r+1),0,size-sizeof(rsoh)));
-      return (char*)(r+1);
-    }
-    else {
-      rsoc_malloc(nae);
-      return rso_from_store(nae,size);
-    }
-  }
-  gc_start();
-  if (size<=(nae->store_left)) {
-    return rso_from_store(nae,size);
-  }
-  {
-    char*r=new_na_from_chunk_list(nae,size);
-    if (r!=NULL) {
-      return r;
-    }
-  }
-  if((size+sizeof(rsoc)-sizeof(rsoh))>RSOC_SIZE){
-    rsoc*c;
-    rsoh*r;
-    unsigned int rounded_size = chunk_rounded(size+sizeof(rsoc)-sizeof(rsoh));
-    c=((rsoc*)(se_malloc(rounded_size)));
-    r=(&(c->first_header));
-    rsoc_count++;
-    *c=MRSOC;
-    c->isize = rounded_size;
-    c->header.size=rounded_size;
-    c->nae=nae;
-    /* No need to register chunks with no free_list_of_large
-    c->next=nae->chunk_list;
-    nae->chunk_list=c;
-    */
-    gc_add_into_gcmt((mch*)c);
-    r->header.size=size;
-    (r->header.magic_flag)=RSOH_UNMARKED;
-    ((void)memset((r+1),0,size-sizeof(rsoh)));
-    gc_update_ceils();
-    return (char*)(r+1);
-  }
-  else {
-    rsoc_malloc(nae);
-    gc_update_ceils();
-    return rso_from_store(nae,size);
-  }
-}
-
-static void gcna_align_mark(rsoc*c,void*o) {
-  na_env* nae = c->nae;
-  fll_rsoh* f;
-  fll_rsoh* pf;
-  char* b = (char*)&(c->first_header);
-
-  /* properly aligned ? */
-  if (((((char*)o)-((char*)c))%sizeof(void*)) != 0) {
-      return;
-  }
-  /* already marked ? */
-  if ((((rsoh*)o)-1)->header.magic_flag != RSOH_UNMARKED) {
-      return;
-  }
-  if (((char*)o) < ((char*)(c+1))) {
-      return;
-  }
-  /* a large chunck ? */
-  if (c->header.size > RSOC_SIZE) {
-      if (o == (c+1)) {
-        nae->gc_mark((T0*)o);
-      }
-      return;
-  }
-  pf=NULL;
-  f=c->free_list_of_large;
-  while ((f != NULL) && (f < ((fll_rsoh*)o))) {
-      pf=f;
-      f=f->nextflol;
-  }
-  if (pf == NULL) {
-      pf=(fll_rsoh*)b;
-  }
-  while ((((rsoh*)pf)+1) < (rsoh*)o) {
-      GC_BUG("gcna_align_mark(), zero-size rsoh", pf->rsoh_field.size==0);
-      pf = ((fll_rsoh*)(((char*)pf)+pf->rsoh_field.size));
-  }
-  if (o == (((rsoh*)pf)+1)) {
-      nae->gc_mark((T0*)o);
-  }
-}
-
-unsigned int rsocfl_count(void) {
-  /* Returns the number of items in the ReSizable Object Free List.
-  */
-  register unsigned int r=0;
-  register rsoc*p=rsocfl;
-  while (p!=NULL) {
-    r++;
-    p=p->next;
-  }
-  return r;
-}
-
-unsigned int fsocfl_count(void) {
-  register unsigned int r=0;
-  register fsoc*p=fsocfl;
-  while (p!=NULL) {
-    r++;
-    p=p->next;
-  }
-  return r;
-}
-
-void gc_dispose_before_exit(void) {
-  mch** p = gcmt;
-  mch**eogcmt=gcmt+gcmt_used;
-  handle(SE_HANDLE_ENTER_GC,NULL);
-  while (p < eogcmt) {
-    if (((*p)->state_type == FSO_STORE_CHUNK) ||
-        ((*p)->state_type == FSO_USED_CHUNK)) {
-      ((*p)->swfp)(*p);
-    }
-    p++;
-  }
-  handle(SE_HANDLE_EXIT_GC,NULL);
-}
-
-fsoc* gc_fsoc_get1(void) {
-  /* Get a `fsoc' (Fixed Size Object Chunk) from the free fsoc list or
-     allocate a new one (using `se_malloc') only when the ceil is not
-     yet reached. Otherwise, call the `gc_start()' function and
-     return NULL.
-  */
-  fsoc* result;
-  if (fsocfl != NULL) {
-    result = fsocfl;
-    fsocfl = fsocfl->next;
-    return result;
-  }
-  else if (fsoc_count_ceil > fsoc_count) {
-    result = ((fsoc*)se_malloc(FSOC_SIZE));
-    fsoc_count++;
-    gc_add_into_gcmt((mch*)result);
-    return result;
-  }
-  else {
-    gc_start();
-    return NULL;
-  }
-}
-
-fsoc* gc_fsoc_get2(void) {
-  /* Get a `fsoc' (Fixed Size Object Chunk) or force the allocation of a
-     new `fsoc' (using the `se_malloc' function). Update various ceils
-     accordingly.
-  */
-  fsoc* result;
-  if (fsocfl != NULL) {
-    result = fsocfl;
-    fsocfl=fsocfl->next;
-    return result;
-  }
-  else {
-    result = ((fsoc*)(se_malloc(FSOC_SIZE)));
-    fsoc_count++;
-    gc_update_ceils();
-    gc_add_into_gcmt((mch*)result);
-    return result;
-  }
-}
-
-#if defined(__sparc__) || defined(sparc) || defined(__sparc)
-/* For SPARC architecture.
-   As this part contains assembly code (asm), you must not use
-   the flag -ansi of gcc compiler.
-*/
-
-void mark_loop(void) {
-  void** max = stack_bottom;
-  void** stack_pointer;
-  void* stack_top[2]={NULL,NULL};
-  stack_pointer = stack_top;
-  /* Addresses decrease as the stack grows. */
-  while (stack_pointer <= max) {
-    gc_mark(*(stack_pointer++));
-  }
-}
-
-void mark_stack_and_registers(void) {
-#  if defined(__sparcv9)
-  asm(" flushw");
-#  else
-  asm(" ta      0x3   ! ST_FLUSH_WINDOWS");
-#  endif
-  mark_loop();
-}
-
-#elif defined(__ELATE__) || defined(ELATE)
-/* GNU Eiffel's VP (Virtual Processor) garbage collector for Elate.
-   (c) 2000 Rudi Chiarito <rudi@amiga.com>
-
-   Thanks to Andy Stout and Kevin Croombs at Tao Group for their
-   precious help!
-
-   ChangeLog:
-   - 2000-06-12 Rudi Chiarito <rudi@amiga.com>
-     * Version 1.0
-   - 2001-01-01 Joseph Kiniry <kiniry@acm.org>
-     * Integrated with new SE 0.75b
-   - 2001-08-10 Rudi Chiarito <rudi@amiga.com>
-     * Inlined and optimised range marking
-     * Added some more comments
-     * Added conditional breakpoint in mark_stack_and_registers
-   - 2002-09-21 Rudi Chiarito <rudi@amiga.com>
-     * Removed redundant 'ret'
-*/
-
-__inline__ void mark_stack_and_registers(void)
-{
-
-  void *pointer_to_gc_mark = &gc_mark;
-
-  __asm__ __volatile__
-  (
-    /*
-      WARNING: funky code ahead!
-      \t and \n are needed to make the final output easier to read
-      while debugging. Hopefully you'll never have to bother with all
-      of this.
-
-      Registers:
-        p0  pointer to stack block
-        p1  pointer to gc_mark()
-        p2  scratch pointer
-        i0  length of current stack block
-        i1  scratch register
-    */
-
-#  ifdef __ELATE_SE_DEBUG_GC
-   "\tqcall sys/cii/breakpt,(-:-)\n"
-#  endif
-
-   "\tsync\n"                          /* spill all the registers */
-   "\tsyncreg\n"                       /* to the stack */
-
-   "\tcpy.p %0,p1\n"                   /* pointer to gc_mark() */
-
-   /* pointer to the current stack block */
-   "\tcpy.p [gp+PROC_STACK],p0\n"
-
-   /* point to last location in the block, before the descriptor */
-   "\tcpy.p p0 + ([(p0 - STK_SIZE) + STK_LENGTH] - STK_SIZE - 4),p2\n"
-
-   /* mark the contents of the current stack block */
-   "\twhile p2>=sp\n"
-      "\t\tgos p1,(p2 : -)\n"
-      "\t\tsub.p 4,p2\n"
-   "\tendwhile\n"
-
-   /* now scan other blocks (if any) */
-
-   "\tloop\n"
-      "\t\tcpy.p [p0 - STK_SIZE + STK_LINK],p0\n" /* get next block */
-      "\t\tbreakif p0=NULL\n"
-
-      /* point to last location in the block, before the descriptor */
-      "\t\tcpy.p p0 + ([(p0 - STK_SIZE) + STK_LENGTH] - STK_SIZE - 4),p2\n"
-
-      /* mark this block */
-      "\t\twhile p2>=p0\n"
-
-         "\t\t\tgos p1,(p2 : -)\n"
-         "\t\t\tsub.p 4,p2\n"
-      "\t\tendwhile\n"
-   "\tendloop\n"
-
-   : /* no output */
-   : "p" (pointer_to_gc_mark)
-   : "p0", "p1", "p2", "i0"
-   );
-}
-
-#elif defined(__hppa__) || defined(__hppa) || defined(__hp9000) || \
-      defined(__hp9000s300) || defined(hp9000s300) || \
-      defined(__hp9000s700) || defined(hp9000s700) || \
-      defined(__hp9000s800) || defined(hp9000s800) || defined(hp9000s820)
-
-/****************************************************************************
- * Generic code for architectures where addresses increase as the stack grows.
- ****************************************************************************/
-
-void mark_stack_and_registers(void){
-  void** max = stack_bottom;
-  JMP_BUF registers;   /* The jmp_buf buffer is in the C stack. */
-  void**stack_pointer; /* Used to traverse the stack and registers assuming
-                          that `setjmp' will save registers in the C stack.
-                       */
-
-  (void)SETJMP(registers);  /* To fill the C stack with registers. */
-  stack_pointer = (void**)(void*)(&registers) + ((sizeof(JMP_BUF)/sizeof(void*))-1);
-  /* stack_pointer will traverse the JMP_BUF as well (jmp_buf size is added,
-     otherwise stack_pointer would be below the registers structure). */
-
-#  if !defined(SE_BOOST)
-  if (stack_pointer < max) {
-    fprintf(stderr, "Wrong stack direction: your stack decrease as the stack grows (or complex stack management). Please drop an e-mail to SmartEiffel@loria.fr\n");
-    exit(1); }
-#  endif
-
-  while (stack_pointer >= max) {
-    gc_mark(*(stack_pointer--));
-  }
-}
-#else
-
-/****************************************************************************
- * Generic code for architectures where addresses decrease as the stack grows.
- ****************************************************************************/
-
-void mark_stack_and_registers(void){
-  void** max = stack_bottom;
-  JMP_BUF registers;   /* The jmp_buf buffer is in the C stack. */
-  void**stack_pointer; /* Used to traverse the stack and registers assuming
-                          that `setjmp' will save registers in the C stack.
-                       */
-
-  (void)SETJMP(registers);  /* To fill the C stack with registers. */
-  stack_pointer = (void**)(void*)(&registers);
-
-#  if !defined(SE_BOOST)
-  if (stack_pointer > max) {
-    fprintf(stderr, "Wrong stack direction: the stack addresses increase as the stack grows (or complex stack management). Please drop an e-mail to SmartEiffel@loria.fr\n");
-    exit(1); }
-#  endif
-
-  while (stack_pointer <= max) {
-    gc_mark(*(stack_pointer++));
-  }
-}
-#endif
-unsigned int fsoc_count_ceil=2688;
-unsigned int rsoc_count_ceil=408;
 
 /*INTEGER_32*/T6 r2in_range(T2 C,T2 a1,T2 a2){
 /*[INTERNAL_C_LOCAL list*/
@@ -1292,21 +212,21 @@ T3 R='\0';
 R=/*RF8:to_character*/((T3)(/*RF8:+*/((int32_t)(C))+(INT32_C(48))/*:RF8*/))/*:RF8*/;
 return R;
 }/*--*/
-T0*oBC1633string_buffer=(void*)0;
-int fBC1633string_buffer=0;
+T0*oBC82string_buffer=(void*)0;
+int fBC82string_buffer=0;
 
 /*INTEGER_32*/T0* r2string_buffer(void){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
-if(fBC1633string_buffer==0){fBC1633string_buffer=1;{
-tmp0/*new*/=/*alloc*/((T0*)(new7()));
+if(fBC82string_buffer==0){fBC82string_buffer=1;{
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T7))));
 *((T7*)tmp0/*new*/)=M7;
 /*RF3:make*/r7make(((T7*)tmp0/*new*/),INT32_C(128));
-/*:RF3*/oBC1633string_buffer=tmp0/*new*/;
+/*:RF3*/oBC82string_buffer=tmp0/*new*/;
 /*tmp0.unlock*/
 }}
-return oBC1633string_buffer;
+return oBC82string_buffer;
 }/*--*/
 
 /*INTEGER_32*/void r2to_hexadecimal_in(T2 C,T0* a1){
@@ -1784,15 +704,15 @@ return R;
 
 /*REAL_64*/void r5append_in_format(T5 C,T0* a1,T2 a2){
 T2 _i=0;
-/*RF7:sprintf*/sprintf_real_64(oBC1858sprintf_buffer,((T3)'f'),a2,C);
+/*RF7:sprintf*/sprintf_real_64(oBC307sprintf_buffer,((T3)'f'),a2,C);
 /*:RF7*/_i=INT32_C(0);
 while(1){
-/*until*/if((/*RF8:item*/(oBC1858sprintf_buffer)[_i]/*:RF8*/)==(((T3)'\000'))) break;
-/*RF3:extend*/r7extend(((T7*)a1),/*RF8:item*/(oBC1858sprintf_buffer)[_i]/*:RF8*/);
+/*until*/if((/*RF8:item*/(oBC307sprintf_buffer)[_i]/*:RF8*/)==(((T3)'\000'))) break;
+/*RF3:extend*/r7extend(((T7*)a1),/*RF8:item*/(oBC307sprintf_buffer)[_i]/*:RF8*/);
 /*:RF3*/_i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 }/*--*/
-T9 oBC1858sprintf_buffer=(void*)0;
+T9 oBC307sprintf_buffer=(void*)0;
 
 /*INTEGER_64*/T6 r11in_range(T11 C,T11 a1,T11 a2){
 /*[INTERNAL_C_LOCAL list*/
@@ -1818,7 +738,7 @@ return R;
 /*INTEGER_64*/T0* r11to_number(T11 C){
 T0* R=(void*)0;
 int _number_tools=0;
-R=/*RF4:from_integer_64*/r1862from_integer_64(C)/*:RF4*/;
+R=/*RF4:from_integer_64*/r312from_integer_64(C)/*:RF4*/;
 return R;
 }/*--*/
 
@@ -1962,14 +882,14 @@ return R;
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
-if(fBC1633string_buffer==0){fBC1633string_buffer=1;{
-tmp0/*new*/=/*alloc*/((T0*)(new7()));
+if(fBC82string_buffer==0){fBC82string_buffer=1;{
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T7))));
 *((T7*)tmp0/*new*/)=M7;
 /*RF3:make*/r7make(((T7*)tmp0/*new*/),INT32_C(128));
-/*:RF3*/oBC1633string_buffer=tmp0/*new*/;
+/*:RF3*/oBC82string_buffer=tmp0/*new*/;
 /*tmp0.unlock*/
 }}
-return oBC1633string_buffer;
+return oBC82string_buffer;
 }/*--*/
 
 /*POINTER*/T8 r8_ix_43(T8 C,T2 a1){
@@ -2004,7 +924,7 @@ int fBC8string_buffer=0;
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
 if(fBC8string_buffer==0){fBC8string_buffer=1;{
-tmp0/*new*/=/*alloc*/((T0*)(new7()));
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T7))));
 *((T7*)tmp0/*new*/)=M7;
 /*RF3:make*/r7make(((T7*)tmp0/*new*/),INT32_C(64));
 /*:RF3*/oBC8string_buffer=tmp0/*new*/;
@@ -2083,7 +1003,7 @@ return R;
 
 /*NATIVE_ARRAY[CHARACTER]*/T9 r9realloc(T9 C,T2 a1,T2 a2){
 T9 R=(void*)0;
-R=/*RF8:calloc*/new9(a2)/*:RF8*/;
+R=/*RF8:calloc*/se_calloc(a2,sizeof(T3))/*:RF8*/;
 /*RF3:copy_from*/r9copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
@@ -2233,14 +1153,14 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[STRING]*/T2598 r2598realloc(T2598 C,T2 a1,T2 a2){
-T2598 R=(void*)0;
-R=/*RF8:calloc*/new2598(a2)/*:RF8*/;
-/*RF3:copy_from*/r2598copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
+/*NATIVE_ARRAY[STRING]*/T1048 r1048realloc(T1048 C,T2 a1,T2 a2){
+T1048 R=(void*)0;
+R=/*RF8:calloc*/se_calloc(a2,sizeof(T0*))/*:RF8*/;
+/*RF3:copy_from*/r1048copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[STRING]*/T2 r2598fast_index_of(T2598 C,T0* a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[STRING]*/T2 r1048fast_index_of(T1048 C,T0* a1,T2 a2,T2 a3){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -2259,11 +1179,11 @@ R=/*RF8:+*/((int32_t)(R))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[STRING]*/void r2598copy_from(T2598 C,T2598 a1,T2 a2){
-/*RF3:copy_slice_from*/r2598copy_slice_from(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[STRING]*/void r1048copy_from(T1048 C,T1048 a1,T2 a2){
+/*RF3:copy_slice_from*/r1048copy_slice_from(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[STRING]*/T6 r2598safe_equal(T0* a1,T0* a2){
+/*NATIVE_ARRAY[STRING]*/T6 r1048safe_equal(T0* a1,T0* a2){
 T6 R=0;
 T0* _e_type=(void*)0;
 if((a1)==((void*)(a2))){
@@ -2285,7 +1205,7 @@ R=((T6)(/*RF4:is_equal*/r7is_equal(((T7*)a1),a2)/*:RF4*/));
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[STRING]*/void r2598clear(T2598 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[STRING]*/void r1048clear(T1048 C,T2 a1,T2 a2){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2296,7 +1216,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[STRING]*/void r2598set_slice_with(T2598 C,T0* a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[STRING]*/void r1048set_slice_with(T1048 C,T0* a1,T2 a2,T2 a3){
 T2 _i=0;
 _i=a2;
 while(1){
@@ -2306,7 +1226,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[STRING]*/void r2598clear_all(T2598 C,T2 a1){
+/*NATIVE_ARRAY[STRING]*/void r1048clear_all(T1048 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2317,7 +1237,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[STRING]*/void r2598remove(T2598 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[STRING]*/void r1048remove(T1048 C,T2 a1,T2 a2){
 T2 _i=0;
 _i=a1;
 while(1){
@@ -2327,11 +1247,11 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[STRING]*/void r2598set_all_with(T2598 C,T0* a1,T2 a2){
-/*RF3:set_slice_with*/r2598set_slice_with(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[STRING]*/void r1048set_all_with(T1048 C,T0* a1,T2 a2){
+/*RF3:set_slice_with*/r1048set_slice_with(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[STRING]*/T2 r2598first_index_of(T2598 C,T0* a1,T2 a2){
+/*NATIVE_ARRAY[STRING]*/T2 r1048first_index_of(T1048 C,T0* a1,T2 a2){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -2341,7 +1261,7 @@ tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(R))>(a2)/*:RF8*/));
 if(tmp0/*or else*/){
 }
 else{
-tmp0/*or else*/=((T6)(/*RF4:safe_equal*/r2598safe_equal(a1,/*RF8:item*/(C)[R]/*:RF8*/)/*:RF4*/));
+tmp0/*or else*/=((T6)(/*RF4:safe_equal*/r1048safe_equal(a1,/*RF8:item*/(C)[R]/*:RF8*/)/*:RF4*/));
 }
 /*until*/if(tmp0/*or else*/) break;
 R=/*RF8:+*/((int32_t)(R))+(INT32_C(1))/*:RF8*/;
@@ -2349,13 +1269,13 @@ R=/*RF8:+*/((int32_t)(R))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[STRING]*/void r2598copy_slice_from(T2598 C,T2598 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[STRING]*/void r1048copy_slice_from(T1048 C,T1048 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=a2;
 memcpy((C)+(INT32_C(0)),(a1)+a3tmp,((a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[STRING,STRING]]*/void r2615clear_all(T2615 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[STRING,STRING]]*/void r1065clear_all(T1065 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2366,18 +1286,18 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_STRING]*/T2620 r2620realloc(T2620 C,T2 a1,T2 a2){
-T2620 R=(void*)0;
-R=/*RF8:calloc*/new2620(a2)/*:RF8*/;
-/*RF3:copy_from*/r2620copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
+/*NATIVE_ARRAY[HASHED_STRING]*/T1070 r1070realloc(T1070 C,T2 a1,T2 a2){
+T1070 R=(void*)0;
+R=/*RF8:calloc*/se_calloc(a2,sizeof(T0*))/*:RF8*/;
+/*RF3:copy_from*/r1070copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_STRING]*/void r2620copy_from(T2620 C,T2620 a1,T2 a2){
-/*RF3:copy_slice_from*/r2620copy_slice_from(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[HASHED_STRING]*/void r1070copy_from(T1070 C,T1070 a1,T2 a2){
+/*RF3:copy_slice_from*/r1070copy_slice_from(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[HASHED_STRING]*/void r2620clear(T2620 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[HASHED_STRING]*/void r1070clear(T1070 C,T2 a1,T2 a2){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2388,7 +1308,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_STRING]*/void r2620clear_all(T2620 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_STRING]*/void r1070clear_all(T1070 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2399,24 +1319,24 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_STRING]*/void r2620copy_slice_from(T2620 C,T2620 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[HASHED_STRING]*/void r1070copy_slice_from(T1070 C,T1070 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=a2;
 memcpy((C)+(INT32_C(0)),(a1)+a3tmp,((a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[CLASS_TEXT]*/T2624 r2624realloc(T2624 C,T2 a1,T2 a2){
-T2624 R=(void*)0;
-R=/*RF8:calloc*/new2624(a2)/*:RF8*/;
-/*RF3:copy_from*/r2624copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
+/*NATIVE_ARRAY[CLASS_TEXT]*/T1074 r1074realloc(T1074 C,T2 a1,T2 a2){
+T1074 R=(void*)0;
+R=/*RF8:calloc*/se_calloc(a2,sizeof(T0*))/*:RF8*/;
+/*RF3:copy_from*/r1074copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[CLASS_TEXT]*/void r2624copy_from(T2624 C,T2624 a1,T2 a2){
-/*RF3:copy_slice_from*/r2624copy_slice_from(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[CLASS_TEXT]*/void r1074copy_from(T1074 C,T1074 a1,T2 a2){
+/*RF3:copy_slice_from*/r1074copy_slice_from(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[CLASS_TEXT]*/void r2624clear(T2624 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[CLASS_TEXT]*/void r1074clear(T1074 C,T2 a1,T2 a2){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2427,7 +1347,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[CLASS_TEXT]*/void r2624clear_all(T2624 C,T2 a1){
+/*NATIVE_ARRAY[CLASS_TEXT]*/void r1074clear_all(T1074 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2438,24 +1358,24 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[CLASS_TEXT]*/void r2624copy_slice_from(T2624 C,T2624 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[CLASS_TEXT]*/void r1074copy_slice_from(T1074 C,T1074 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=a2;
 memcpy((C)+(INT32_C(0)),(a1)+a3tmp,((a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[INTEGER_16]*/T2625 r2625realloc(T2625 C,T2 a1,T2 a2){
-T2625 R=(void*)0;
-R=/*RF8:calloc*/new2625(a2)/*:RF8*/;
-/*RF3:copy_from*/r2625copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
+/*NATIVE_ARRAY[INTEGER_16]*/T1075 r1075realloc(T1075 C,T2 a1,T2 a2){
+T1075 R=(void*)0;
+R=/*RF8:calloc*/se_calloc(a2,sizeof(T10))/*:RF8*/;
+/*RF3:copy_from*/r1075copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_16]*/void r2625copy_from(T2625 C,T2625 a1,T2 a2){
-/*RF3:copy_slice_from*/r2625copy_slice_from(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[INTEGER_16]*/void r1075copy_from(T1075 C,T1075 a1,T2 a2){
+/*RF3:copy_slice_from*/r1075copy_slice_from(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[INTEGER_16]*/void r2625clear_all(T2625 C,T2 a1){
+/*NATIVE_ARRAY[INTEGER_16]*/void r1075clear_all(T1075 C,T2 a1){
 T10 _v=0;
 T2 _i=0;
 _i=a1;
@@ -2466,24 +1386,24 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_16]*/void r2625copy_slice_from(T2625 C,T2625 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[INTEGER_16]*/void r1075copy_slice_from(T1075 C,T1075 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=a2;
 memcpy((C)+(INT32_C(0)),(a1)+a3tmp,((a3)-a3tmp+1)*sizeof(T10));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[CLUSTER]*/T2629 r2629realloc(T2629 C,T2 a1,T2 a2){
-T2629 R=(void*)0;
-R=/*RF8:calloc*/new2629(a2)/*:RF8*/;
-/*RF3:copy_from*/r2629copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
+/*NATIVE_ARRAY[CLUSTER]*/T1079 r1079realloc(T1079 C,T2 a1,T2 a2){
+T1079 R=(void*)0;
+R=/*RF8:calloc*/se_calloc(a2,sizeof(T0*))/*:RF8*/;
+/*RF3:copy_from*/r1079copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[CLUSTER]*/void r2629copy_from(T2629 C,T2629 a1,T2 a2){
-/*RF3:copy_slice_from*/r2629copy_slice_from(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[CLUSTER]*/void r1079copy_from(T1079 C,T1079 a1,T2 a2){
+/*RF3:copy_slice_from*/r1079copy_slice_from(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[CLUSTER]*/void r2629clear_all(T2629 C,T2 a1){
+/*NATIVE_ARRAY[CLUSTER]*/void r1079clear_all(T1079 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2494,13 +1414,13 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[CLUSTER]*/void r2629copy_slice_from(T2629 C,T2629 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[CLUSTER]*/void r1079copy_slice_from(T1079 C,T1079 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=a2;
 memcpy((C)+(INT32_C(0)),(a1)+a3tmp,((a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[RUN_FEATURE,NATIVE]]*/void r2653clear_all(T2653 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[RUN_FEATURE,NATIVE]]*/void r1103clear_all(T1103 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2511,14 +1431,14 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[LIVE_TYPE]*/T2654 r2654realloc(T2654 C,T2 a1,T2 a2){
-T2654 R=(void*)0;
-R=/*RF8:calloc*/new2654(a2)/*:RF8*/;
-/*RF3:copy_from*/r2654copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
+/*NATIVE_ARRAY[LIVE_TYPE]*/T1104 r1104realloc(T1104 C,T2 a1,T2 a2){
+T1104 R=(void*)0;
+R=/*RF8:calloc*/se_calloc(a2,sizeof(T0*))/*:RF8*/;
+/*RF3:copy_from*/r1104copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[LIVE_TYPE]*/T2 r2654fast_index_of(T2654 C,T0* a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[LIVE_TYPE]*/T2 r1104fast_index_of(T1104 C,T0* a1,T2 a2,T2 a3){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -2537,11 +1457,11 @@ R=/*RF8:+*/((int32_t)(R))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[LIVE_TYPE]*/void r2654copy_from(T2654 C,T2654 a1,T2 a2){
-/*RF3:copy_slice_from*/r2654copy_slice_from(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[LIVE_TYPE]*/void r1104copy_from(T1104 C,T1104 a1,T2 a2){
+/*RF3:copy_slice_from*/r1104copy_slice_from(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[LIVE_TYPE]*/void r2654clear(T2654 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[LIVE_TYPE]*/void r1104clear(T1104 C,T2 a1,T2 a2){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2552,7 +1472,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[LIVE_TYPE]*/void r2654clear_all(T2654 C,T2 a1){
+/*NATIVE_ARRAY[LIVE_TYPE]*/void r1104clear_all(T1104 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2563,13 +1483,13 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[LIVE_TYPE]*/void r2654copy_slice_from(T2654 C,T2654 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[LIVE_TYPE]*/void r1104copy_slice_from(T1104 C,T1104 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=a2;
 memcpy((C)+(INT32_C(0)),(a1)+a3tmp,((a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[HASHED_DICTIONARY[CLASS_TEXT,HASHED_STRING],STRING]]*/void r2669clear_all(T2669 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[HASHED_DICTIONARY[CLASS_TEXT,HASHED_STRING],STRING]]*/void r1119clear_all(T1119 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2580,7 +1500,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CLASS_TEXT,HASHED_STRING]]*/void r2672clear_all(T2672 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CLASS_TEXT,HASHED_STRING]]*/void r1122clear_all(T1122 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2591,14 +1511,14 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/T2674 r2674realloc(T2674 C,T2 a1,T2 a2){
-T2674 R=(void*)0;
-R=/*RF8:calloc*/new2674(a2)/*:RF8*/;
-/*RF3:copy_from*/r2674copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
+/*NATIVE_ARRAY[INTEGER_32]*/T1124 r1124realloc(T1124 C,T2 a1,T2 a2){
+T1124 R=(void*)0;
+R=/*RF8:calloc*/se_calloc(a2,sizeof(T2))/*:RF8*/;
+/*RF3:copy_from*/r1124copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/T2 r2674fast_index_of(T2674 C,T2 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[INTEGER_32]*/T2 r1124fast_index_of(T1124 C,T2 a1,T2 a2,T2 a3){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -2617,11 +1537,11 @@ R=/*RF8:+*/((int32_t)(R))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/void r2674copy_from(T2674 C,T2674 a1,T2 a2){
-/*RF3:copy_slice_from*/r2674copy_slice_from(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[INTEGER_32]*/void r1124copy_from(T1124 C,T1124 a1,T2 a2){
+/*RF3:copy_slice_from*/r1124copy_slice_from(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/void r2674move(T2674 C,T2 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[INTEGER_32]*/void r1124move(T1124 C,T2 a1,T2 a2,T2 a3){
 T2 _i=0;
 if((a3)==(INT8_C(0))){
 }
@@ -2645,7 +1565,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/void r2674clear(T2674 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[INTEGER_32]*/void r1124clear(T1124 C,T2 a1,T2 a2){
 T2 _v=0;
 T2 _i=0;
 _i=a1;
@@ -2656,7 +1576,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/void r2674set_slice_with(T2674 C,T2 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[INTEGER_32]*/void r1124set_slice_with(T1124 C,T2 a1,T2 a2,T2 a3){
 T2 _i=0;
 _i=a2;
 while(1){
@@ -2666,7 +1586,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/void r2674clear_all(T2674 C,T2 a1){
+/*NATIVE_ARRAY[INTEGER_32]*/void r1124clear_all(T1124 C,T2 a1){
 T2 _v=0;
 T2 _i=0;
 _i=a1;
@@ -2677,7 +1597,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/void r2674remove(T2674 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[INTEGER_32]*/void r1124remove(T1124 C,T2 a1,T2 a2){
 T2 _i=0;
 _i=a1;
 while(1){
@@ -2687,28 +1607,28 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/void r2674set_all_with(T2674 C,T2 a1,T2 a2){
-/*RF3:set_slice_with*/r2674set_slice_with(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[INTEGER_32]*/void r1124set_all_with(T1124 C,T2 a1,T2 a2){
+/*RF3:set_slice_with*/r1124set_slice_with(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/void r2674copy_slice_from(T2674 C,T2674 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[INTEGER_32]*/void r1124copy_slice_from(T1124 C,T1124 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=a2;
 memcpy((C)+(INT32_C(0)),(a1)+a3tmp,((a3)-a3tmp+1)*sizeof(T2));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[TYPE_MARK]*/T2705 r2705realloc(T2705 C,T2 a1,T2 a2){
-T2705 R=(void*)0;
-R=/*RF8:calloc*/new2705(a2)/*:RF8*/;
-/*RF3:copy_from*/r2705copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
+/*NATIVE_ARRAY[TYPE_MARK]*/T1155 r1155realloc(T1155 C,T2 a1,T2 a2){
+T1155 R=(void*)0;
+R=/*RF8:calloc*/se_calloc(a2,sizeof(T0*))/*:RF8*/;
+/*RF3:copy_from*/r1155copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[TYPE_MARK]*/void r2705copy_from(T2705 C,T2705 a1,T2 a2){
-/*RF3:copy_slice_from*/r2705copy_slice_from(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[TYPE_MARK]*/void r1155copy_from(T1155 C,T1155 a1,T2 a2){
+/*RF3:copy_slice_from*/r1155copy_slice_from(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[TYPE_MARK]*/void r2705clear(T2705 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[TYPE_MARK]*/void r1155clear(T1155 C,T2 a1,T2 a2){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2719,7 +1639,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[TYPE_MARK]*/void r2705set_slice_with(T2705 C,T0* a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[TYPE_MARK]*/void r1155set_slice_with(T1155 C,T0* a1,T2 a2,T2 a3){
 T2 _i=0;
 _i=a2;
 while(1){
@@ -2729,7 +1649,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[TYPE_MARK]*/void r2705clear_all(T2705 C,T2 a1){
+/*NATIVE_ARRAY[TYPE_MARK]*/void r1155clear_all(T1155 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2740,17 +1660,17 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[TYPE_MARK]*/void r2705set_all_with(T2705 C,T0* a1,T2 a2){
-/*RF3:set_slice_with*/r2705set_slice_with(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[TYPE_MARK]*/void r1155set_all_with(T1155 C,T0* a1,T2 a2){
+/*RF3:set_slice_with*/r1155set_slice_with(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[TYPE_MARK]*/void r2705copy_slice_from(T2705 C,T2705 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[TYPE_MARK]*/void r1155copy_slice_from(T1155 C,T1155 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=a2;
 memcpy((C)+(INT32_C(0)),(a1)+a3tmp,((a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[TYPE,HASHED_STRING]]*/void r2708clear_all(T2708 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[TYPE,HASHED_STRING]]*/void r1158clear_all(T1158 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2761,7 +1681,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[DICTIONARY[INTEGER_16,HASHED_STRING],STRING]]*/void r2725clear_all(T2725 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[DICTIONARY[INTEGER_16,HASHED_STRING],STRING]]*/void r1175clear_all(T1175 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2772,7 +1692,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[INTEGER_16,HASHED_STRING]]*/void r2728clear_all(T2728 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[INTEGER_16,HASHED_STRING]]*/void r1178clear_all(T1178 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2783,7 +1703,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_SET_NODE[HASHED_STRING]]*/void r2729clear_all(T2729 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_SET_NODE[HASHED_STRING]]*/void r1179clear_all(T1179 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2794,7 +1714,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CECIL_FILE,STRING]]*/void r2739clear_all(T2739 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CECIL_FILE,STRING]]*/void r1189clear_all(T1189 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2805,82 +1725,82 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[POSITION]*/T2742 r2742realloc(T2742 C,T2 a1,T2 a2){
-T2742 R=(void*)0;
-R=/*RF8:calloc*/r2742calloc(C,a2)/*:RF8*/;
-/*RF3:copy_from*/r2742copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
+/*NATIVE_ARRAY[POSITION]*/T1192 r1192realloc(T1192 C,T2 a1,T2 a2){
+T1192 R=(void*)0;
+R=/*RF8:calloc*/r1192calloc(C,a2)/*:RF8*/;
+/*RF3:copy_from*/r1192copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[POSITION]*/void r2742copy_from(T2742 C,T2742 a1,T2 a2){
-/*RF3:copy_slice_from*/r2742copy_slice_from(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[POSITION]*/void r1192copy_from(T1192 C,T1192 a1,T2 a2){
+/*RF3:copy_slice_from*/r1192copy_slice_from(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[POSITION]*/T2742 r2742calloc(T2742 C,T2 a1){
-T2742 R=(void*)0;
-R=new2742(a1);
-r2742clear_all(R,a1-1);
+/*NATIVE_ARRAY[POSITION]*/T1192 r1192calloc(T1192 C,T2 a1){
+T1192 R=(void*)0;
+R=se_calloc(a1,sizeof(T344));
+r1192clear_all(R,a1-1);
 ;
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[POSITION]*/void r2742clear(T2742 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[POSITION]*/void r1192clear(T1192 C,T2 a1,T2 a2){
 /*[INTERNAL_C_LOCAL list*/
-T1894 tmp0;
+T344 tmp0;
 /*INTERNAL_C_LOCAL list]*/
-T1894 _v={0};
+T344 _v={0};
 T2 _i=0;
-tmp0/*locexp*/=M1894;
-/*RF3:default_create*/r1894default_create(&tmp0/*locexp*/);
+tmp0/*locexp*/=M344;
+/*RF3:default_create*/r344default_create(&tmp0/*locexp*/);
 /*:RF3*/_v=tmp0/*locexp*/;
 /*tmp0.unlock*/
 _i=a1;
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>(a2)/*:RF8*/) break;
 /*RF7:put*/{
-T1894 a1tmp=_v;
-memcpy(&((C)[_i]),&a1tmp,sizeof(T1894));}
+T344 a1tmp=_v;
+memcpy(&((C)[_i]),&a1tmp,sizeof(T344));}
 /*:RF7*/_i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 }/*--*/
 
-/*NATIVE_ARRAY[POSITION]*/void r2742clear_all(T2742 C,T2 a1){
+/*NATIVE_ARRAY[POSITION]*/void r1192clear_all(T1192 C,T2 a1){
 /*[INTERNAL_C_LOCAL list*/
-T1894 tmp0;
+T344 tmp0;
 /*INTERNAL_C_LOCAL list]*/
-T1894 _v={0};
+T344 _v={0};
 T2 _i=0;
-tmp0/*locexp*/=M1894;
-/*RF3:default_create*/r1894default_create(&tmp0/*locexp*/);
+tmp0/*locexp*/=M344;
+/*RF3:default_create*/r344default_create(&tmp0/*locexp*/);
 /*:RF3*/_v=tmp0/*locexp*/;
 /*tmp0.unlock*/
 _i=a1;
 while(1){
 /*until*/if(/*RF8:<*/((int32_t)(_i))<(INT32_C(0))/*:RF8*/) break;
 /*RF7:put*/{
-T1894 a1tmp=_v;
-memcpy(&((C)[_i]),&a1tmp,sizeof(T1894));}
+T344 a1tmp=_v;
+memcpy(&((C)[_i]),&a1tmp,sizeof(T344));}
 /*:RF7*/_i=/*RF8:-*/((int32_t)(_i))-(INT32_C(1))/*:RF8*/;
 }
 }/*--*/
 
-/*NATIVE_ARRAY[POSITION]*/void r2742slice_copy(T2742 C,T2 a1,T2742 a2,T2 a3,T2 a4){
+/*NATIVE_ARRAY[POSITION]*/void r1192slice_copy(T1192 C,T2 a1,T1192 a2,T2 a3,T2 a4){
 /*[INTERNAL_C_LOCAL list*/
 T2 tmp0;
 /*INTERNAL_C_LOCAL list]*/
 tmp0/*copy index*/=a3;
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(tmp0/*copy index*/))>(a4)/*:RF8*/) break;
-/*RF7:copy*/memcpy(&(/*NAI*/(C[/*RF8:-*/((int32_t)(/*RF8:+*/((int32_t)(tmp0/*copy index*/))+(a1)/*:RF8*/))-(a3)/*:RF8*/])),&/*NAI*/((a2)[tmp0/*copy index*/]),sizeof(T1894));
+/*RF7:copy*/memcpy(&(/*NAI*/(C[/*RF8:-*/((int32_t)(/*RF8:+*/((int32_t)(tmp0/*copy index*/))+(a1)/*:RF8*/))-(a3)/*:RF8*/])),&/*NAI*/((a2)[tmp0/*copy index*/]),sizeof(T344));
 /*:RF7*/tmp0/*copy index*/=/*RF8:+*/((int32_t)(tmp0/*copy index*/))+(INT8_C(1))/*:RF8*/;
 }
 }/*--*/
 
-/*NATIVE_ARRAY[POSITION]*/void r2742copy_slice_from(T2742 C,T2742 a1,T2 a2,T2 a3){
-/*RF7:slice_copy*/r2742slice_copy(C,INT32_C(0),a1,a2,a3);
+/*NATIVE_ARRAY[POSITION]*/void r1192copy_slice_from(T1192 C,T1192 a1,T2 a2,T2 a3){
+/*RF7:slice_copy*/r1192slice_copy(C,INT32_C(0),a1,a2,a3);
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FAST_ARRAY[FIXED_STRING],INTEGER_32]]*/void r2743clear_all(T2743 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FAST_ARRAY[FIXED_STRING],INTEGER_32]]*/void r1193clear_all(T1193 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2891,14 +1811,14 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FIXED_STRING]*/T2746 r2746realloc(T2746 C,T2 a1,T2 a2){
-T2746 R=(void*)0;
-R=/*RF8:calloc*/new2746(a2)/*:RF8*/;
-/*RF3:copy_from*/r2746copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
+/*NATIVE_ARRAY[FIXED_STRING]*/T1196 r1196realloc(T1196 C,T2 a1,T2 a2){
+T1196 R=(void*)0;
+R=/*RF8:calloc*/se_calloc(a2,sizeof(T0*))/*:RF8*/;
+/*RF3:copy_from*/r1196copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[FIXED_STRING]*/T2 r2746fast_index_of(T2746 C,T0* a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[FIXED_STRING]*/T2 r1196fast_index_of(T1196 C,T0* a1,T2 a2,T2 a3){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -2917,11 +1837,11 @@ R=/*RF8:+*/((int32_t)(R))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[FIXED_STRING]*/void r2746copy_from(T2746 C,T2746 a1,T2 a2){
-/*RF3:copy_slice_from*/r2746copy_slice_from(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[FIXED_STRING]*/void r1196copy_from(T1196 C,T1196 a1,T2 a2){
+/*RF3:copy_slice_from*/r1196copy_slice_from(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[FIXED_STRING]*/void r2746clear(T2746 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[FIXED_STRING]*/void r1196clear(T1196 C,T2 a1,T2 a2){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2932,7 +1852,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FIXED_STRING]*/void r2746clear_all(T2746 C,T2 a1){
+/*NATIVE_ARRAY[FIXED_STRING]*/void r1196clear_all(T1196 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2943,7 +1863,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FIXED_STRING]*/void r2746remove(T2746 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[FIXED_STRING]*/void r1196remove(T1196 C,T2 a1,T2 a2){
 T2 _i=0;
 _i=a1;
 while(1){
@@ -2953,24 +1873,24 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FIXED_STRING]*/void r2746copy_slice_from(T2746 C,T2746 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[FIXED_STRING]*/void r1196copy_slice_from(T1196 C,T1196 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=a2;
 memcpy((C)+(INT32_C(0)),(a1)+a3tmp,((a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[TAGGED_ERROR]*/T2749 r2749realloc(T2749 C,T2 a1,T2 a2){
-T2749 R=(void*)0;
-R=/*RF8:calloc*/new2749(a2)/*:RF8*/;
-/*RF3:copy_from*/r2749copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
+/*NATIVE_ARRAY[TAGGED_ERROR]*/T1199 r1199realloc(T1199 C,T2 a1,T2 a2){
+T1199 R=(void*)0;
+R=/*RF8:calloc*/se_calloc(a2,sizeof(T0*))/*:RF8*/;
+/*RF3:copy_from*/r1199copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[TAGGED_ERROR]*/void r2749copy_from(T2749 C,T2749 a1,T2 a2){
-/*RF3:copy_slice_from*/r2749copy_slice_from(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[TAGGED_ERROR]*/void r1199copy_from(T1199 C,T1199 a1,T2 a2){
+/*RF3:copy_slice_from*/r1199copy_slice_from(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[TAGGED_ERROR]*/void r2749clear(T2749 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[TAGGED_ERROR]*/void r1199clear(T1199 C,T2 a1,T2 a2){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2981,7 +1901,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[TAGGED_ERROR]*/void r2749clear_all(T2749 C,T2 a1){
+/*NATIVE_ARRAY[TAGGED_ERROR]*/void r1199clear_all(T1199 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -2992,13 +1912,13 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[TAGGED_ERROR]*/void r2749copy_slice_from(T2749 C,T2749 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[TAGGED_ERROR]*/void r1199copy_slice_from(T1199 C,T1199 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=a2;
 memcpy((C)+(INT32_C(0)),(a1)+a3tmp,((a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]]*/void r2755clear_all(T2755 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]]*/void r1205clear_all(T1205 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -3009,18 +1929,18 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FEATURE_NAME]*/T2756 r2756realloc(T2756 C,T2 a1,T2 a2){
-T2756 R=(void*)0;
-R=/*RF8:calloc*/new2756(a2)/*:RF8*/;
-/*RF3:copy_from*/r2756copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
+/*NATIVE_ARRAY[FEATURE_NAME]*/T1206 r1206realloc(T1206 C,T2 a1,T2 a2){
+T1206 R=(void*)0;
+R=/*RF8:calloc*/se_calloc(a2,sizeof(T0*))/*:RF8*/;
+/*RF3:copy_from*/r1206copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[FEATURE_NAME]*/void r2756copy_from(T2756 C,T2756 a1,T2 a2){
-/*RF3:copy_slice_from*/r2756copy_slice_from(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[FEATURE_NAME]*/void r1206copy_from(T1206 C,T1206 a1,T2 a2){
+/*RF3:copy_slice_from*/r1206copy_slice_from(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[FEATURE_NAME]*/void r2756clear(T2756 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[FEATURE_NAME]*/void r1206clear(T1206 C,T2 a1,T2 a2){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -3031,7 +1951,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FEATURE_NAME]*/void r2756clear_all(T2756 C,T2 a1){
+/*NATIVE_ARRAY[FEATURE_NAME]*/void r1206clear_all(T1206 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -3042,24 +1962,24 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FEATURE_NAME]*/void r2756copy_slice_from(T2756 C,T2756 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[FEATURE_NAME]*/void r1206copy_slice_from(T1206 C,T1206 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=a2;
 memcpy((C)+(INT32_C(0)),(a1)+a3tmp,((a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[CLASSES]*/T2759 r2759realloc(T2759 C,T2 a1,T2 a2){
-T2759 R=(void*)0;
-R=/*RF8:calloc*/new2759(a2)/*:RF8*/;
-/*RF3:copy_from*/r2759copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
+/*NATIVE_ARRAY[CLASSES]*/T1209 r1209realloc(T1209 C,T2 a1,T2 a2){
+T1209 R=(void*)0;
+R=/*RF8:calloc*/se_calloc(a2,sizeof(T0*))/*:RF8*/;
+/*RF3:copy_from*/r1209copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[CLASSES]*/void r2759copy_from(T2759 C,T2759 a1,T2 a2){
-/*RF3:copy_slice_from*/r2759copy_slice_from(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[CLASSES]*/void r1209copy_from(T1209 C,T1209 a1,T2 a2){
+/*RF3:copy_slice_from*/r1209copy_slice_from(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[CLASSES]*/void r2759clear(T2759 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[CLASSES]*/void r1209clear(T1209 C,T2 a1,T2 a2){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -3070,7 +1990,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[CLASSES]*/void r2759clear_all(T2759 C,T2 a1){
+/*NATIVE_ARRAY[CLASSES]*/void r1209clear_all(T1209 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -3081,13 +2001,13 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[CLASSES]*/void r2759copy_slice_from(T2759 C,T2759 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[CLASSES]*/void r1209copy_slice_from(T1209 C,T1209 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=a2;
 memcpy((C)+(INT32_C(0)),(a1)+a3tmp,((a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CLASSES,STRING]]*/void r2769clear_all(T2769 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CLASSES,STRING]]*/void r1219clear_all(T1219 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -3098,7 +2018,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FAST_ARRAY[STRING],CLASS_NAME]]*/void r2772clear_all(T2772 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FAST_ARRAY[STRING],CLASS_NAME]]*/void r1222clear_all(T1222 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -3109,7 +2029,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_SET_NODE[CLASS_NAME]]*/void r2773clear_all(T2773 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_SET_NODE[CLASS_NAME]]*/void r1223clear_all(T1223 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -3120,7 +2040,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[INTEGER_32,CLASS_NAME]]*/void r2778clear_all(T2778 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[INTEGER_32,CLASS_NAME]]*/void r1228clear_all(T1228 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -3131,18 +2051,18 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FEATURE_TEXT]*/T2780 r2780realloc(T2780 C,T2 a1,T2 a2){
-T2780 R=(void*)0;
-R=/*RF8:calloc*/new2780(a2)/*:RF8*/;
-/*RF3:copy_from*/r2780copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
+/*NATIVE_ARRAY[FEATURE_TEXT]*/T1230 r1230realloc(T1230 C,T2 a1,T2 a2){
+T1230 R=(void*)0;
+R=/*RF8:calloc*/se_calloc(a2,sizeof(T0*))/*:RF8*/;
+/*RF3:copy_from*/r1230copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[FEATURE_TEXT]*/void r2780copy_from(T2780 C,T2780 a1,T2 a2){
-/*RF3:copy_slice_from*/r2780copy_slice_from(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[FEATURE_TEXT]*/void r1230copy_from(T1230 C,T1230 a1,T2 a2){
+/*RF3:copy_slice_from*/r1230copy_slice_from(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[FEATURE_TEXT]*/void r2780clear(T2780 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[FEATURE_TEXT]*/void r1230clear(T1230 C,T2 a1,T2 a2){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -3153,7 +2073,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FEATURE_TEXT]*/void r2780clear_all(T2780 C,T2 a1){
+/*NATIVE_ARRAY[FEATURE_TEXT]*/void r1230clear_all(T1230 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -3164,20 +2084,20 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FEATURE_TEXT]*/void r2780copy_slice_from(T2780 C,T2780 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[FEATURE_TEXT]*/void r1230copy_slice_from(T1230 C,T1230 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=a2;
 memcpy((C)+(INT32_C(0)),(a1)+a3tmp,((a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[PARENT_EDGE]*/T2784 r2784realloc(T2784 C,T2 a1,T2 a2){
-T2784 R=(void*)0;
-R=/*RF8:calloc*/new2784(a2)/*:RF8*/;
-/*RF3:copy_from*/r2784copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
+/*NATIVE_ARRAY[PARENT_EDGE]*/T1234 r1234realloc(T1234 C,T2 a1,T2 a2){
+T1234 R=(void*)0;
+R=/*RF8:calloc*/se_calloc(a2,sizeof(T0*))/*:RF8*/;
+/*RF3:copy_from*/r1234copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[PARENT_EDGE]*/T2 r2784fast_index_of(T2784 C,T0* a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[PARENT_EDGE]*/T2 r1234fast_index_of(T1234 C,T0* a1,T2 a2,T2 a3){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -3196,11 +2116,11 @@ R=/*RF8:+*/((int32_t)(R))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[PARENT_EDGE]*/void r2784copy_from(T2784 C,T2784 a1,T2 a2){
-/*RF3:copy_slice_from*/r2784copy_slice_from(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[PARENT_EDGE]*/void r1234copy_from(T1234 C,T1234 a1,T2 a2){
+/*RF3:copy_slice_from*/r1234copy_slice_from(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[PARENT_EDGE]*/void r2784clear(T2784 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[PARENT_EDGE]*/void r1234clear(T1234 C,T2 a1,T2 a2){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -3211,7 +2131,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[PARENT_EDGE]*/void r2784clear_all(T2784 C,T2 a1){
+/*NATIVE_ARRAY[PARENT_EDGE]*/void r1234clear_all(T1234 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -3222,7 +2142,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[PARENT_EDGE]*/void r2784remove(T2784 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[PARENT_EDGE]*/void r1234remove(T1234 C,T2 a1,T2 a2){
 T2 _i=0;
 _i=a1;
 while(1){
@@ -3232,24 +2152,24 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[PARENT_EDGE]*/void r2784copy_slice_from(T2784 C,T2784 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[PARENT_EDGE]*/void r1234copy_slice_from(T1234 C,T1234 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=a2;
 memcpy((C)+(INT32_C(0)),(a1)+a3tmp,((a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[EXPRESSION]*/T2785 r2785realloc(T2785 C,T2 a1,T2 a2){
-T2785 R=(void*)0;
-R=/*RF8:calloc*/new2785(a2)/*:RF8*/;
-/*RF3:copy_from*/r2785copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
+/*NATIVE_ARRAY[EXPRESSION]*/T1235 r1235realloc(T1235 C,T2 a1,T2 a2){
+T1235 R=(void*)0;
+R=/*RF8:calloc*/se_calloc(a2,sizeof(T0*))/*:RF8*/;
+/*RF3:copy_from*/r1235copy_from(R,C,/*RF8:-*/((int32_t)(a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[EXPRESSION]*/void r2785copy_from(T2785 C,T2785 a1,T2 a2){
-/*RF3:copy_slice_from*/r2785copy_slice_from(C,a1,INT32_C(0),a2);
+/*NATIVE_ARRAY[EXPRESSION]*/void r1235copy_from(T1235 C,T1235 a1,T2 a2){
+/*RF3:copy_slice_from*/r1235copy_slice_from(C,a1,INT32_C(0),a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[EXPRESSION]*/void r2785clear(T2785 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[EXPRESSION]*/void r1235clear(T1235 C,T2 a1,T2 a2){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -3260,7 +2180,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[EXPRESSION]*/void r2785clear_all(T2785 C,T2 a1){
+/*NATIVE_ARRAY[EXPRESSION]*/void r1235clear_all(T1235 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
@@ -3271,7 +2191,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[EXPRESSION]*/void r2785copy_slice_from(T2785 C,T2785 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[EXPRESSION]*/void r1235copy_slice_from(T1235 C,T1235 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=a2;
 memcpy((C)+(INT32_C(0)),(a1)+a3tmp,((a3)-a3tmp+1)*sizeof(T0*));}

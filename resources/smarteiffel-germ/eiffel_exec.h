@@ -293,7 +293,7 @@ typedef int_least8_t int8_t;
 
 /* Intel Itanium */
 #  if defined(__ia64__) || defined(_IA64) || defined(__IA64__) || \
-      defined(_M_IA64) || defined(_M_AMD64) || defined(_M_IX86)
+      defined(_M_IA64) || defined(_M_AMD64) || defined(_M_IX86) || defined(_AMD64_)
 #    define BYTE_ORDER      LITTLE_ENDIAN
 #  endif
 
