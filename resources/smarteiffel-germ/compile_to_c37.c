@@ -764,7 +764,6 @@ T0* _elt_type=(void*)0;
 
 /*GC_HANDLER*/void r713define1(void){
 /*RF3:put_string*/r123put_string((T123*)(/*RF6:echo*/r713echo()/*:RF6*/),ms713_1607908341Abc713A);
-/*:RF3*//*RF3:write_out_h_buffer*/r114write_out_h_buffer((T114*)(/*RF6:cpp*/r713cpp()/*:RF6*/));
 /*:RF3*//*RF3:compute_ceils*/r713compute_ceils();
 /*:RF3*/}/*--*/
 
