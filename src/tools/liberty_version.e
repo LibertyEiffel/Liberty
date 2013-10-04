@@ -22,7 +22,7 @@ feature {ANY}
          end
       end
 
-   liberty_release: STRING is "2013.09 (Charles Adler, Jr.)"
+   liberty_release: STRING is "2013.10 (Charles Adler, Jr.)"
 
    liberty_dates: ABSTRACT_STRING is
       deferred
