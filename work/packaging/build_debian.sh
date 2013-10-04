@@ -24,11 +24,11 @@ while [ x$1 != x ]; do
             ;;
         -release*)
             codename=release
-            tag="-2~release"${1#-release}
+            tag="~release"${1#-release}
             ;;
         -rc*)
             codename=rc
-            tag="-1~rc"${1#-rc}
+            tag="~rc"${1#-rc}
             ;;
         -pbuilder)
             pbuilder=TRUE
