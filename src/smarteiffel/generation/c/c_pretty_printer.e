@@ -2092,10 +2092,10 @@ feature {FEATURE_CALL, C_EXPRESSION_COMPILATION_MIXIN}
             pending_c_function_body.append(anonymous_feature.names.first.to_string)
             pending_c_function_body.append(once ") */ ")
             if anonymous_feature.result_type = Void then
-               code := create {VOID_PROC_CALL}.make(target.start_position, feature_stamp, tgt_type)
+               create {VOID_PROC_CALL} code.make(target.start_position, feature_stamp, tgt_type)
             else
                assignment_evobt := True -- see below `start_assignment' and `check_assignment'
-               code := create {VOID_CALL}.make(target.start_position, feature_stamp, tgt_type)
+               create {VOID_CALL} code.make(target.start_position, feature_stamp, tgt_type)
             end
             code_compiler.compile(code, type)
          else
@@ -2110,13 +2110,14 @@ feature {FEATURE_CALL, C_EXPRESSION_COMPILATION_MIXIN}
       end
 
 feature {C_CODE_COMPILER}
-   start_assignment is
+   start_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
          -- Called just before compiling the left (written to) expression of an assignment
       require
          not in_assignment
       do
          in_assignment := True
          assignment_evobt := False
+         memory.start_assignment(assignment, type)
       ensure
          in_assignment
       end
@@ -2129,6 +2130,16 @@ feature {C_CODE_COMPILER}
          in_assignment
       do
          Result := not assignment_evobt
+      ensure
+         in_assignment
+      end
+
+   end_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+      require
+         in_assignment
+      do
+         memory.end_assignment(assignment, type)
+         in_assignment := False
       ensure
          not in_assignment
       end

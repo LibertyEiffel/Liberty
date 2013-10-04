@@ -291,6 +291,15 @@ feature {C_NATIVE_PROCEDURE_MAPPER}
          end
       end
 
+feature {C_PRETTY_PRINTER}
+   start_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+      do
+      end
+
+   end_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+      do
+      end
+
 feature {C_COMPILATION_MIXIN}
    need_struct_for (type_mark: TYPE_MARK): BOOLEAN is
       do
@@ -313,7 +322,7 @@ feature {C_COMPILATION_MIXIN}
       do
          flag := native_array_collector.must_collect(type_mark.type.live_type)
          if flag /= Void and then flag.item then
-            cpp.out_c_buffer.append(once ",(void*)0,0")
+            cpp.out_c_buffer.append(once "(void*)0,0,")
          end
       end
 

@@ -52,6 +52,7 @@ feature {}
          if type_mark.is_reference and then type_mark.type.live_type.is_tagged then
             out_h.append(once "Tid id;")
          end
+         cpp.memory.extra_c_struct(type_mark)
          if wa /= Void then
             from
                i := wa.lower
@@ -67,7 +68,6 @@ feature {}
                i := i + 1
             end
          end
-         cpp.memory.extra_c_struct(type_mark)
          out_h.append(once "};%N")
          flush_out_h
          if type_mark.is_expanded then
@@ -178,6 +178,7 @@ feature {}
                live_type.id.append_in(out_c)
                out_c.extend(',')
             end
+            cpp.memory.extra_c_model(live_type.canonical_type_mark)
             from
                i := wa.lower
             until
@@ -191,7 +192,6 @@ feature {}
                out_c.append(cpp.initializer.for(t))
                i := i + 1
             end
-            cpp.memory.extra_c_model(live_type.canonical_type_mark)
             out_c.extend('}')
          end
       end

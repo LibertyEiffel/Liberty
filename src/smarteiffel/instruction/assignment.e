@@ -10,7 +10,7 @@ class ASSIGNMENT
    --
 
 inherit
-   INSTRUCTION
+   ASSIGNMENT_INSTRUCTION
 
 create {ANY}
    make
@@ -19,16 +19,6 @@ create {ANY}
    inline_make
 
 feature {ANY}
-   left_side: EXPRESSION
-
-   right_side: EXPRESSION
-
-   end_mark_comment: BOOLEAN is False
-
-   side_effect_free (type: TYPE): BOOLEAN is
-      do
-      end
-
    simplify (type: TYPE): INSTRUCTION is
       local
          rs: like right_side
@@ -40,17 +30,6 @@ feature {ANY}
          else
             Result := Current
          end
-      end
-
-   use_current (type: TYPE): BOOLEAN is
-      do
-         Result := left_side.use_current(type)
-         Result := Result or else right_side.use_current(type)
-      end
-
-   start_position: POSITION is
-      do
-         Result := left_side.start_position
       end
 
    specialize_in (type: TYPE): like Current is
@@ -137,17 +116,6 @@ feature {ANY}
                create {ASSIGNMENT} Result.make(l, r)
             end
          end
-      end
-
-   has_been_specialized: BOOLEAN is
-      do
-         Result := left_side.has_been_specialized
-         Result := Result and right_side.has_been_specialized
-      end
-
-   safety_check (type: TYPE) is
-      do
-         right_side.safety_check(type)
       end
 
    pretty (indent_level: INTEGER) is
@@ -330,11 +298,6 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             code_accumulator_index := code_accumulator_index + 1
          end
       end
-
-invariant
-   left_side /= Void
-
-   right_side /= Void
 
 end -- class ASSIGNMENT
 --

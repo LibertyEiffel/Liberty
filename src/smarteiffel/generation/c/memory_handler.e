@@ -210,6 +210,15 @@ feature {C_NATIVE_PROCEDURE_MAPPER}
       deferred
       end
 
+feature {C_PRETTY_PRINTER}
+   start_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+      deferred
+      end
+
+   end_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+      deferred
+      end
+
 feature {C_COMPILATION_MIXIN}
    need_struct_for (type_mark: TYPE_MARK): BOOLEAN is
       require

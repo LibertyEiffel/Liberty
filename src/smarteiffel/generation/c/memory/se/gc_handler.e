@@ -114,6 +114,7 @@ feature {C_PRETTY_PRINTER}
    define1 is
       do
          echo.put_string(once "Adding SmartEiffel Garbage Collector.%N")
+         cpp.write_out_h_buffer
          compute_ceils
       end
 
@@ -488,6 +489,15 @@ feature {C_NATIVE_PROCEDURE_MAPPER}
          cpp.pending_c_function_body.append(once "];%N")
          mark_for(once "elt", elt_type.live_type, False)
          cpp.pending_c_function_body.append(once "/*mark_item*/}")
+      end
+
+feature {C_PRETTY_PRINTER}
+   start_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+      do
+      end
+
+   end_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+      do
       end
 
 feature {C_COMPILATION_MIXIN}

@@ -191,6 +191,15 @@ feature {C_NATIVE_PROCEDURE_MAPPER}
          cpp.pending_c_function_body.append(once "{/*mark_item*/}%N")
       end
 
+feature {C_PRETTY_PRINTER}
+   start_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+      do
+      end
+
+   end_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+      do
+      end
+
 feature {C_COMPILATION_MIXIN}
    need_struct_for (type_mark: TYPE_MARK): BOOLEAN is
       do

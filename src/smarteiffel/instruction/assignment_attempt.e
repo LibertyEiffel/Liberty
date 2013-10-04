@@ -7,7 +7,7 @@ class ASSIGNMENT_ATTEMPT
    --
 
 inherit
-   INSTRUCTION
+   ASSIGNMENT_INSTRUCTION
 
 insert
    PLATFORM
@@ -16,27 +16,8 @@ create {ANY}
    make
 
 feature {ANY}
-   left_side: EXPRESSION
-
-   right_side: EXPRESSION
-
    forced_flag: BOOLEAN
          -- Indicate that it is a forced one (i.e ::=).
-
-   end_mark_comment: BOOLEAN is False
-
-   side_effect_free (type: TYPE): BOOLEAN is
-      do
-      end
-
-   use_current (type: TYPE): BOOLEAN is
-      do
-         if left_side.use_current(type) then
-            Result := True
-         else
-            Result := right_side.use_current(type)
-         end
-      end
 
    simplify (type: TYPE): INSTRUCTION is
       local
@@ -120,11 +101,6 @@ feature {ANY}
                end
             end
          end
-      end
-
-   start_position: POSITION is
-      do
-         Result := left_side.start_position
       end
 
    specialize_in (type: TYPE): like Current is
@@ -229,17 +205,6 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is
-      do
-         Result := left_side.has_been_specialized
-         Result := Result and right_side.has_been_specialized
-      end
-
-   safety_check (type: TYPE) is
-      do
-         right_side.safety_check(type)
-      end
-
    pretty (indent_level: INTEGER) is
       local
          semi_colon_flag: BOOLEAN; expression_with_comment: EXPRESSION_WITH_COMMENT
@@ -342,11 +307,6 @@ feature {}
          right_side := rs
          forced_flag := f
       end
-
-invariant
-   left_side.is_writable
-
-   right_side /= Void
 
 end -- class ASSIGNMENT_ATTEMPT
 --

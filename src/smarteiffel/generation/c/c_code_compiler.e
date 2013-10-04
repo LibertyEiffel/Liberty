@@ -130,7 +130,7 @@ feature {ASSIGNMENT_ATTEMPT}
          elseif visited.right_side.non_void_no_dispatch_type(type) /= Void then
             -- We are sure of the right-hand side:
             if right_type.can_be_assigned_to(left_type) then
-               cpp.start_assignment
+               cpp.start_assignment(visited, type)
                compile_expression(visited.left_side)
                if cpp.check_assignment then
                   function_body.append(once "=((void*)")
@@ -139,18 +139,20 @@ feature {ASSIGNMENT_ATTEMPT}
                else
                   function_body.append(once ";%N")
                end
+               cpp.end_assignment(visited, type)
             elseif visited.forced_flag then
                function_body.append(once "error1(%"Invalid ::= assignment (inserted type).%",")
                cpp.put_position(visited.start_position)
                function_body.append(once ");%N")
             else
-               cpp.start_assignment
+               cpp.start_assignment(visited, type)
                compile_expression(visited.left_side)
                if cpp.check_assignment then
                   function_body.append(once "=NULL;")
                else
                   function_body.append(once ";%N")
                end
+               cpp.end_assignment(visited, type)
             end
          else
             from
@@ -178,7 +180,7 @@ feature {ASSIGNMENT_ATTEMPT}
             end
             if right_run_time_set.count = counter1 then
                -- They can be all assigned into `left_side':
-               cpp.start_assignment
+               cpp.start_assignment(visited, type)
                compile_expression(visited.left_side)
                if cpp.check_assignment then
                   function_body.append(once "=((void*)")
@@ -187,12 +189,13 @@ feature {ASSIGNMENT_ATTEMPT}
                else
                   function_body.append(once ";%N")
                end
+               cpp.end_assignment(visited, type)
             elseif right_run_time_set.count = counter2 then
                -- Conversely, all possibilities of the right-hand side are all non-assignable into
                -- the left-hand side. We must still take care of the fact that the right-hand can be
                -- non Void:
                if visited.forced_flag then
-                  cpp.start_assignment
+                  cpp.start_assignment(visited, type)
                   compile_expression(visited.left_side)
                   if cpp.check_assignment then
                      function_body.append(once "=((void*)")
@@ -205,22 +208,24 @@ feature {ASSIGNMENT_ATTEMPT}
                   else
                      function_body.append(once ";%N")
                   end
+                  cpp.end_assignment(visited, type)
                else
                   if not visited.right_side.side_effect_free(type) then
                      compile_expression(visited.right_side)
                      function_body.append(once ";%N")
                   end
-                  cpp.start_assignment
+                  cpp.start_assignment(visited, type)
                   compile_expression(visited.left_side)
                   if cpp.check_assignment then
                      function_body.append(once "=NULL;%N")
                   else
                      function_body.append(once ";%N")
                   end
+                  cpp.end_assignment(visited, type)
                end
             else
                -- General translation scheme:
-               cpp.start_assignment
+               cpp.start_assignment(visited, type)
                compile_expression(visited.left_side)
                if cpp.check_assignment then
                   function_body.append(once "=((void*)")
@@ -260,6 +265,7 @@ feature {ASSIGNMENT_ATTEMPT}
                else
                   function_body.append(once ";%N")
                end
+               cpp.end_assignment(visited, type)
             end
          end
       end
@@ -269,16 +275,14 @@ feature {ASSIGNMENT}
       local
          cast_t0: BOOLEAN; right_type: TYPE
       do
+         cpp.start_assignment(visited, type)
+         compile_expression(visited.left_side)
          if visited.right_side.is_void then
-            cpp.start_assignment
-            compile_expression(visited.left_side)
             if cpp.check_assignment then
                function_body.extend('=')
                compile_expression(visited.right_side)
             end
          else
-            cpp.start_assignment
-            compile_expression(visited.left_side)
             if cpp.check_assignment then
                right_type := visited.right_side.resolve_in(type)
                if visited.right_side.is_current then
@@ -300,8 +304,9 @@ feature {ASSIGNMENT}
          end
          function_body.append(once ";%N")
          if right_type /= Void and then right_type.is_native_array then
-            cpp.memory.assigned_native_array(visited, type)
+            cpp.memory.assigned_native_array(visited, type) --| **** TODO: BDW specific => move in end_assignment
          end
+         cpp.end_assignment(visited, type)
       end
 
 feature {ASSIGNMENT_CALL_ASSIGNER}
