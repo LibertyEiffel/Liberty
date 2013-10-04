@@ -114,7 +114,6 @@ feature {C_PRETTY_PRINTER}
    define1 is
       do
          echo.put_string(once "Adding SmartEiffel Garbage Collector.%N")
-         cpp.write_out_h_buffer
          compute_ceils
       end
 
