@@ -61,7 +61,7 @@ feature {ANY}
       require
          class_name /= Void
       do
-         Result := ace.cluster_of(class_name, report_error)
+         Result := ace.cluster_of(class_name, Void, report_error)
       ensure
          report_error implies Result /= Void
       end
@@ -1782,6 +1782,36 @@ feature {}
          create Result.make
       end
 
+feature {ACE}
+   root_class_text (root_class_name: STRING): CLASS_TEXT is
+      local
+         hashed_root_class_name: HASHED_STRING; root_name: CLASS_NAME
+      do
+         hashed_root_class_name := string_aliaser.hashed_string(root_class_name)
+         create root_name.unknown_position(hashed_root_class_name)
+         if cwd_cluster /= Void then
+            echo.put_string(once "Looking for ")
+            echo.put_string(root_class_name)
+            echo.put_string(once " starting from cluster ")
+            echo.put_line(cwd_cluster.name)
+         end
+         Result := ace.class_text(root_name, True, True, cwd_cluster)
+      end
+
+feature {}
+   cwd_cluster: CLUSTER is
+      local
+         bd: BASIC_DIRECTORY; cwd_path: STRING
+      once
+         cwd_path := string_aliaser.string(bd.current_working_directory.out)
+         Result := ace.cluster_by_directory_path(cwd_path)
+         if Result = Void then
+            echo.put_string(once "The current directory ")
+            echo.put_string(cwd_path)
+            echo.put_line(once " does not belong to any known cluster.")
+         end
+      end
+
 feature {}
    echo_magic_count (msg: STRING) is
       require
@@ -1800,18 +1830,16 @@ feature {}
          not root_class_name.is_empty
          not root_procedure_name.is_empty
       local
-         root_fn: FEATURE_NAME; root: CLASS_TEXT; root_type: TYPE; root_name: CLASS_NAME
-         hashed_root_class_name: HASHED_STRING; i: INTEGER; lt: LIVE_TYPE
+         root_fn: FEATURE_NAME; root: CLASS_TEXT; root_type: TYPE
+         i: INTEGER; lt: LIVE_TYPE
          fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE
       do
-         hashed_root_class_name := string_aliaser.hashed_string(root_class_name)
          if ace.no_check then
             set_generator_used
             set_generating_type_used
          end
          ace.parse_include
-         create root_name.unknown_position(hashed_root_class_name)
-         root := class_text(root_name, True)
+         root := root_class_text(root_class_name)
          if root = Void then
             error_handler.append(once "Cannot load root class ")
             error_handler.append(root_class_name)

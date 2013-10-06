@@ -58,11 +58,10 @@ feature {ANY}
       require
          root_class_names.count = 1
       local
-         bc: CLASS_TEXT; cn: CLASS_NAME
+         bc: CLASS_TEXT
       do
          if root_procedure_name_memory = Void then
-            create cn.unknown_position(root_class_name)
-            bc := smart_eiffel.class_text(cn, True)
+            bc := smart_eiffel.root_class_text(root_class_name.to_string)
             root_procedure_name_memory := bc.default_root_procedure_name
          end
          Result := root_procedure_name_memory
@@ -609,7 +608,7 @@ feature {SMART_EIFFEL} -- Class loading
          Result /= Void implies Result.name.is_equal(cluster_name)
       end
 
-   cluster_of (class_name: CLASS_NAME; report_error: BOOLEAN): CLUSTER is
+   cluster_of (class_name: CLASS_NAME; start_cluster: CLUSTER; report_error: BOOLEAN): CLUSTER is
       require
          class_name /= Void
       local
@@ -626,15 +625,19 @@ feature {SMART_EIFFEL} -- Class loading
          -- CLASSES.clusters_of knows how to skip a subtree, and in this feature we use `last_origin' to the
          -- same effect.
          ct := class_name.start_position.class_text
-         if ct = Void then
+         if ct = Void and then start_cluster = Void then
             Result := best_cluster_of(universe, class_name, report_error, Void)
          else
             -- OK, the class name is written in some other class.
             -- We try to find the closest class to that one in steps getting gradually up the tree.
-            check
-               ct.cluster /= Void
+            if start_cluster /= Void then
+               origin := start_cluster.tree
+            else
+               check
+                  ct.cluster /= Void
+               end
+               origin := ct.cluster.tree
             end
-            origin := ct.cluster.tree
             from
             until
                Result /= Void or else origin = Void
@@ -744,7 +747,7 @@ feature {}
             Result := pov.reference_at(class_name.hashed_name)
          end
          if Result = Void then
-            cluster := cluster_of(class_name, report_error)
+            cluster := cluster_of(class_name, cluster, report_error)
             if cluster /= Void then
                Result := cluster.class_text(class_name, report_error, load)
                if Result /= Void then
@@ -778,6 +781,15 @@ feature {SMART_EIFFEL}
          if file_path /= Void then
             universe.parse_include
          end
+      end
+
+   cluster_by_directory_path (path: STRING): CLUSTER is
+      require
+         not path.is_empty
+      do
+         Result := universe.cluster_by_directory_path(path)
+      ensure
+         Result /= Void implies Result.directory_path.is_equal(path)
       end
 
 feature {ACE_CHECK}
@@ -1887,15 +1899,6 @@ feature {}
       end
 
    root_procedure_name_memory: STRING
-
-   cluster_by_directory_path (path: STRING): CLUSTER is
-      require
-         not path.is_empty
-      do
-         Result := universe.cluster_by_directory_path(path)
-      ensure
-         Result /= Void implies Result.directory_path.is_equal(path)
-      end
 
    has_cluster (c: CLUSTER): BOOLEAN is
       require
