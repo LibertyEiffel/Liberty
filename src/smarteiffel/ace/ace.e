@@ -624,20 +624,22 @@ feature {SMART_EIFFEL} -- Class loading
          -- Note that we optimize a bit to avoid scanning again and again a growing subtree.
          -- CLASSES.clusters_of knows how to skip a subtree, and in this feature we use `last_origin' to the
          -- same effect.
-         ct := class_name.start_position.class_text
-         if ct = Void and then start_cluster = Void then
-            Result := best_cluster_of(universe, class_name, report_error, Void)
+         if start_cluster /= Void then
+            origin := start_cluster.tree
          else
-            -- OK, the class name is written in some other class.
-            -- We try to find the closest class to that one in steps getting gradually up the tree.
-            if start_cluster /= Void then
-               origin := start_cluster.tree
-            else
+            ct := class_name.start_position.class_text
+            if ct /= Void then
                check
                   ct.cluster /= Void
                end
                origin := ct.cluster.tree
             end
+         end
+         if origin = Void then
+            Result := best_cluster_of(universe, class_name, report_error, Void)
+         else
+            -- OK, the class name is written in some other class.
+            -- We try to find the closest class to that one in steps getting gradually up the tree.
             from
             until
                Result /= Void or else origin = Void
