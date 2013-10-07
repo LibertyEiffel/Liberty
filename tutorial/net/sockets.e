@@ -9,19 +9,19 @@ create {ANY}
 feature {}
    make is
       local
-         tcp: TCP_ACCESS; host: HOST; ip: IP_ADDRESS
+         tcp: TCP_ACCESS; host: HOST; ip: IPV4_ADDRESS
       do
          -- The example just tries to connect to a well-known ftp server
          create host.make(once "ftp.funet.fi")
-         create tcp.make(host, 21)
+         create tcp.make(host, 21, True)
          test_socket(tcp)
          -- Now the following lines start a real server, listening on port 2001.
          create ip.make(127, 0, 0, 1)
-         create tcp.make(ip, 2001)
+         create tcp.make(ip, 2001, True)
          test_server(tcp)
       end
 
-   test_socket (access: ACCESS) is
+   test_socket (access: TCP_ACCESS) is
          -- First tutorial: simple network connection
       local
          ios: SOCKET_INPUT_OUTPUT_STREAM
@@ -46,7 +46,7 @@ feature {}
          end
       end
 
-   test_server (access: ACCESS) is
+   test_server (access: TCP_ACCESS) is
          -- Second tutorial: create a server. This one is trivial, see MULTIPLEX_SERVER for a real-life
          -- example
       local
@@ -61,9 +61,9 @@ feature {}
 
          if server.can_connect then
             -- Create a job that uses this server
-            create job.make(server)
+            create job.make(server, True)
             -- Add a handler: the agent is called by the server when an incoming connection happens
-            job.when_connect(agent handle_connect)
+            job.when_connect(agent handle_connect(?))
             -- Add the job to the sequencer stack
             stack.add_job(job)
             io.put_string(once "Accepting connections on port ")

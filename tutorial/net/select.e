@@ -64,7 +64,7 @@ feature {ANY}
          tcp: TCP_ACCESS; tcp_host: HOST
       do
          create tcp_host.make(host)
-         create tcp.make(tcp_host, port)
+         create tcp.make(tcp_host, port, True)
          ios := tcp.stream
          if ios = Void or else not is_connected then
             std_output.put_line(tcp.error)

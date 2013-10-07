@@ -20,10 +20,10 @@ feature {ANY}
          host: LOCALHOST; tcp: TCP_ACCESS; server: HTTP_SERVER
       do
          create host.make
-         create tcp.make(host, 8080)
+         create tcp.make(host, 8080, True)
          tcp.set_address_reuse(True) -- to be able to reuse a port in TIME_WAIT state
-         create server.make(agent error_handler, agent new_connection)
-         server.set_logger(agent log)
+         create server.make(agent error_handler(?), agent new_connection)
+         server.set_logger(agent log(?))
          server.start(tcp)
       end
 

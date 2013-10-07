@@ -19,7 +19,7 @@ feature {}
       do
          -- Start a server on the local machine, listening on port 2001
          create host.make("localhost")
-         create tcp.make(host, 2001)
+         create tcp.make(host, 2001, True)
          start(tcp)
       end
 

@@ -30,7 +30,7 @@ feature {}
          end
          -- standard Gimp server settings: localhost:10008
          create host.make
-         create tcp.make(host, 10008)
+         create tcp.make(host, 10008, True)
 
          ios := tcp.stream
          if ios = Void then

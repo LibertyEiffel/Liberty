@@ -96,7 +96,7 @@ feature {}
          cwd, path: STRING; bd: BASIC_DIRECTORY; ft: FILE_TOOLS; i, o: INTEGER
       do
          cwd := once ""
-         cwd.copy(bd.current_working_directory)
+         cwd.make_from_string(bd.current_working_directory)
          path := once ""
          o := 1
          from

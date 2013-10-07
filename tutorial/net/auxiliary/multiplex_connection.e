@@ -53,8 +53,8 @@ feature {SERVER}
          -- connection is plugged.
       do
          Precursor(a_io)
-         a_io.unset_timeout
-         a_io.when_disconnect(agent handle_disconnect)
+         --a_io.unset_timeout
+         a_io.when_disconnect(agent handle_disconnect(?))
          a_io.put_string(once "Hello! There are three commands available:%
                               % bye, shutdown and halt.%N")
       end
@@ -63,7 +63,7 @@ feature {}
    make (a_server: like server) is
       do
          counter.increment
-         id := counter.value
+         id := counter.item
          server := a_server
       end
 

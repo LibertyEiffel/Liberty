@@ -3,6 +3,9 @@ class EXAMPLE_HTTP_CLIENT
    -- Some ideas and first draft of this class kindly provided by Serge [mailto:se@sir.nensi.net]
    --
 
+inherit
+   XML_NODE_VISITOR
+
 insert
    PROTOCOLS
 
@@ -23,68 +26,27 @@ feature {}
 
    test_socket (url: URL) is
       local
-         input: INPUT_STREAM; tree: XML_TREE; version: STRING
+         input: INPUT_STREAM; tree: XML_TREE; version: UNICODE_STRING
       do
-         url.set_error_handler(agent std_error.put_line)
+         url.set_error_handler(agent std_error.put_line(?))
          url.connect
          if url.is_connected then
             input := url.input
-            create tree.with_error_handler(input, agent error)
-            version := tree.attribute_at(once "version")
+            create tree.with_error_handler(input.url, agent error(?, ?))
+            version := tree.attribute_at(once U"version")
             if version /= Void then
                io.put_string(once "XML version: ")
-               io.put_string(version)
+               io.put_string(version.as_utf8)
                io.put_new_line
             end
 
-            display_node(tree.root, 0)
+            check
+               indent = 0
+            end
+            tree.root.accept(Current)
             url.disconnect
          else
             std_error.put_line("URL not connected!")
-         end
-      end
-
-   display_node (node: XML_NODE; indent: INTEGER) is
-      local
-         i: INTEGER
-      do
-         from
-            i := 1
-         until
-            i > indent
-         loop
-            io.put_string(once "  ")
-            i := i + 1
-         end
-         io.put_string(node.name)
-         if node.attributes_count > 0 then
-            io.put_character('(')
-            from
-               i := 1
-            until
-               i > node.attributes_count
-            loop
-               if i > 1 then
-                  io.put_string(once ", ")
-               end
-               -- if
-               io.put_string(node.attribute_name(i))
-               io.put_character('=')
-               io.put_string(node.attribute_value(i))
-               i := i + 1
-            end
-
-            io.put_character(')')
-         end
-
-         io.put_new_line
-         from
-            i := 1
-         until
-            i > node.children_count
-         loop
-            display_node(node.child(i), indent + 1)
-            i := i + 1
          end
       end
 
@@ -97,5 +59,60 @@ feature {}
          std_error.put_string("!%N")
          die_with_code(1)
       end
+
+feature {XML_COMPOSITE_NODE}
+   visit_composite_node (node: XML_COMPOSITE_NODE) is
+      local
+         i: INTEGER
+      do
+         from
+            i := 1
+         until
+            i > indent
+         loop
+            io.put_string(once "  ")
+            i := i + 1
+         end
+         io.put_string(node.name.as_utf8)
+         if node.attributes_count > 0 then
+            io.put_character('(')
+            from
+               i := 1
+            until
+               i > node.attributes_count
+            loop
+               if i > 1 then
+                  io.put_string(once ", ")
+               end
+               -- if
+               io.put_string(node.attribute_name(i).as_utf8)
+               io.put_character('=')
+               io.put_string(node.attribute_value(i).as_utf8)
+               i := i + 1
+            end
+
+            io.put_character(')')
+         end
+
+         io.put_new_line
+         indent := indent + 1
+         from
+            i := 1
+         until
+            i > node.children_count
+         loop
+            node.child(i).accept(Current)
+            i := i + 1
+         end
+         indent := indent - 1
+      end
+
+feature {XML_DATA_NODE}
+   visit_data_node (node: XML_DATA_NODE) is
+      do
+      end
+
+feature {}
+   indent: INTEGER
 
 end -- class EXAMPLE_HTTP_CLIENT
