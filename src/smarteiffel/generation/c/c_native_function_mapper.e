@@ -524,6 +524,7 @@ feature {}
                      when 'a' .. 'z', 'A' .. 'Z', '0' .. '9', '_' then
                         arg.extend(cc)
                         i := i + 1
+                        stop := i > c_code.count
                      else
                         stop := True
                         i := i - 1
