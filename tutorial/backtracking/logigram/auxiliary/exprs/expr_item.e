@@ -3,30 +3,30 @@
 class EXPR_ITEM
 
 inherit
-	EXPR
+   EXPR
 
-creation {ANY}
-	make
+create {ANY}
+   make
 
 feature {ANY}
-	item: ITEM
+   item: ITEM
 
-	make (it: ITEM) is
-		require
-			it.is_like_integer
-		do
-			item := it
-		end
+   make (it: ITEM) is
+      require
+         it.is_like_integer
+      do
+         item := it
+      end
 
-	to_integer: INTEGER is
-		do
-			Result := item.to_integer
-		end
+   to_integer: INTEGER is
+      do
+         Result := item.to_integer
+      end
 
-	get_items (collector: ITEM_COLLECTOR) is
-		do
-			collector.put(item)
-		end
+   get_items (collector: ITEM_COLLECTOR) is
+      do
+         collector.put(item)
+      end
 
 end -- class EXPR_ITEM
 --

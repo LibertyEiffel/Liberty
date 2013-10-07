@@ -1,6 +1,19 @@
-class PROLOG_DATABASE creation make feature
-   make is do end
-   asserta is do end
-   assertz is do end
+class PROLOG_DATABASE
 
-end
+create {ANY}
+   make
+
+feature {ANY}
+   make is
+      do
+      end
+
+   asserta is
+      do
+      end
+
+   assertz is
+      do
+      end
+
+end -- class PROLOG_DATABASE

@@ -2,125 +2,125 @@
 --
 class GROUP
 
-creation {ANY}
-	make_atomic, make_numeric, make_ordered
+create {ANY}
+   make_atomic, make_numeric, make_ordered
 
 feature {ANY}
-	item: ITEM_ITEM
+   item: ITEM_ITEM
 
-	item_array: FAST_ARRAY[like item]
+   item_array: FAST_ARRAY[like item]
 
-	item_dictionary: AVL_DICTIONARY[like item, STRING]
+   item_dictionary: AVL_DICTIONARY[like item, STRING]
 
-	var: ITEM_VAR
+   var: ITEM_VAR
 
-	var_dictionary: AVL_DICTIONARY[like var, STRING]
+   var_dictionary: AVL_DICTIONARY[like var, STRING]
 
-	width: INTEGER
+   width: INTEGER
 
-	is_atomic: BOOLEAN
+   is_atomic: BOOLEAN
 
-	is_numeric: BOOLEAN
+   is_numeric: BOOLEAN
 
-	is_ordered: BOOLEAN
+   is_ordered: BOOLEAN
 
-	is_like_integer: BOOLEAN is
-		do
-			Result := not is_atomic
-		end
+   is_like_integer: BOOLEAN is
+      do
+         Result := not is_atomic
+      end
 
-	name: STRING
+   name: STRING
 
-	index: INTEGER
+   index: INTEGER
 
-	make (the_name: STRING; the_index: INTEGER) is
-		do
-			name := the_name
-			index := the_index
-			create item_array.with_capacity(10)
-			create item_dictionary.make
-			create var_dictionary.make
-			is_numeric := False
-			is_ordered := False
-			is_atomic := False
-			width := name.count
-		end
+   make (the_name: STRING; the_index: INTEGER) is
+      do
+         name := the_name
+         index := the_index
+         create item_array.with_capacity(10)
+         create item_dictionary.make
+         create var_dictionary.make
+         is_numeric := False
+         is_ordered := False
+         is_atomic := False
+         width := name.count
+      end
 
-	make_atomic (the_name: STRING; the_index: INTEGER) is
-		do
-			make(the_name, the_index)
-			is_atomic := True
-		end
+   make_atomic (the_name: STRING; the_index: INTEGER) is
+      do
+         make(the_name, the_index)
+         is_atomic := True
+      end
 
-	make_numeric (the_name: STRING; the_index: INTEGER) is
-		do
-			make(the_name, the_index)
-			is_numeric := True
-		end
+   make_numeric (the_name: STRING; the_index: INTEGER) is
+      do
+         make(the_name, the_index)
+         is_numeric := True
+      end
 
-	make_ordered (the_name: STRING; the_index: INTEGER) is
-		do
-			make(the_name, the_index)
-			is_ordered := True
-		end
+   make_ordered (the_name: STRING; the_index: INTEGER) is
+      do
+         make(the_name, the_index)
+         is_ordered := True
+      end
 
-	add_item (item_name: STRING) is
-		require
-			is_numeric implies item_name.is_integer
-		do
-			create item.make(Current, item_name, 1 + item_array.upper)
-			item_array.add_last(item)
-			item_dictionary.add(item, item.name)
-			width := width.max(item.name.count)
-		end
+   add_item (item_name: STRING) is
+      require
+         is_numeric implies item_name.is_integer
+      do
+         create item.make(Current, item_name, 1 + item_array.upper)
+         item_array.add_last(item)
+         item_dictionary.add(item, item.name)
+         width := width.max(item.name.count)
+      end
 
-	goto_name (item_name: STRING) is
-		do
-			item := item_dictionary.at(item_name)
-		end
+   goto_name (item_name: STRING) is
+      do
+         item := item_dictionary.at(item_name)
+      end
 
-	goto_index (item_index: INTEGER) is
-		do
-			item := item_array.item(item_index)
-		end
+   goto_index (item_index: INTEGER) is
+      do
+         item := item_array.item(item_index)
+      end
 
-	item_count: INTEGER is
-		do
-			Result := item_array.count
-		end
+   item_count: INTEGER is
+      do
+         Result := item_array.count
+      end
 
-	get_var (var_name: STRING) is
-		do
-			var := var_dictionary.reference_at(var_name)
-			if var = Void then
-				create var.make(Current, var_name)
-				var_dictionary.add(var, var.name)
-			end
-		end
+   get_var (var_name: STRING) is
+      do
+         var := var_dictionary.reference_at(var_name)
+         if var = Void then
+            create var.make(Current, var_name)
+            var_dictionary.add(var, var.name)
+         end
+      end
 
-	get_anonymous_var is
-		local
-			nam: STRING; n: INTEGER
-		do
-			from
-				nam := "_var_"
-				n := var_dictionary.count
-				n.append_in(nam)
-				var := var_dictionary.reference_at(name)
-			until
-				var = Void
-			loop
-				nam.resize(5)
-				n := n + 1
-				n.append_in(nam)
-				var := var_dictionary.reference_at(name)
-			end
-			create var.make(Current, nam)
-			var_dictionary.add(var, var.name)
-		end
+   get_anonymous_var is
+      local
+         nam: STRING; n: INTEGER
+      do
+         from
+            nam := "_var_"
+            n := var_dictionary.count
+            n.append_in(nam)
+            var := var_dictionary.reference_at(name)
+         until
+            var = Void
+         loop
+            nam.resize(5)
+            n := n + 1
+            n.append_in(nam)
+            var := var_dictionary.reference_at(name)
+         end
+         create var.make(Current, nam)
+         var_dictionary.add(var, var.name)
+      end
 
 invariant
-	is_numeric or is_ordered or is_atomic
+   is_numeric or is_ordered or is_atomic
 
 end -- class GROUP
 --

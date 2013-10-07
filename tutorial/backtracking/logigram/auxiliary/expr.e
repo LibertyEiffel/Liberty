@@ -3,13 +3,13 @@
 deferred class EXPR
 
 feature {ANY}
-	to_integer: INTEGER is
-		deferred
-		end
+   to_integer: INTEGER is
+      deferred
+      end
 
-	get_items (collector: ITEM_COLLECTOR) is
-		deferred
-		end
+   get_items (collector: ITEM_COLLECTOR) is
+      deferred
+      end
 
 end -- class EXPR
 --

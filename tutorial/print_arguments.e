@@ -6,7 +6,7 @@ class PRINT_ARGUMENTS
 insert
    ARGUMENTS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -26,4 +26,4 @@ feature {ANY}
          std_output.put_character('%N')
       end
 
-end
+end -- class PRINT_ARGUMENTS

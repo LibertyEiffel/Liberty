@@ -1,10 +1,12 @@
 class CURSOR
---
--- Playing with the CURSOR position in the NCURSES window.
---
+   --
+   -- Playing with the CURSOR position in the NCURSES window.
+   --
 
 insert
-   NCURSES_TOOLS; NCURSES_KEYS; CHARACTER_CONSTANTS
+   NCURSES_TOOLS
+   NCURSES_KEYS
+   CHARACTER_CONSTANTS
 
 create {}
    main
@@ -13,10 +15,9 @@ feature {}
    main is
       do
          ncurses.enable
-
          root_window := ncurses.get_root_window
-
          -- No more echo while keyboard keys are typed:
+
          ncurses.set_echoing_policy(False)
 
          root_window.put_string("You can move the cursor using arrows of your keyboard...%N")
@@ -44,40 +45,48 @@ feature {}
             cursor_x := cursor_x.min(root_window.width - 1)
             cursor_y := cursor_y.min(root_window.height - 1)
          end
-
          -- Back to the cursor position:
          root_window.set_cursor(cursor_x, cursor_y)
 
          inspect
             translate_to_unique_character_code(key_code)
-         when Ctrl_b then -- Backward:
+         when Ctrl_b then
+            -- Backward:
             if root_window.valid_cursor_x(cursor_x - 1) then
                cursor_x := cursor_x - 1
             end
+
             root_window.set_cursor(cursor_x, cursor_y)
-         when Ctrl_f then -- Forward:
+         when Ctrl_f then
+            -- Forward:
             if root_window.valid_cursor_x(cursor_x + 1) then
                cursor_x := cursor_x + 1
             end
+
             root_window.set_cursor(cursor_x, cursor_y)
-         when Ctrl_n then -- Next line:
+         when Ctrl_n then
+            -- Next line:
             if root_window.valid_cursor_y(cursor_y + 1) then
                cursor_y := cursor_y + 1
             end
+
             root_window.set_cursor(cursor_x, cursor_y)
-         when Ctrl_p then -- Previous line:
+         when Ctrl_p then
+            -- Previous line:
             if root_window.valid_cursor_y(cursor_y - 1) then
                cursor_y := cursor_y - 1
             end
+
             root_window.set_cursor(cursor_x, cursor_y)
-         when Ctrl_a then -- Beginning of line:
+         when Ctrl_a then
+            -- Beginning of line:
             cursor_x := 0
             root_window.set_cursor(cursor_x, cursor_y)
-         when Ctrl_e then -- End of line:
+         when Ctrl_e then
+            -- End of line:
             cursor_x := root_window.width - 1
             root_window.set_cursor(cursor_x, cursor_y)
-         else
-            -- No move.
+         else -- No move.
          end
          if key_code.to_character.to_upper = 'Q' then
             ncurses.disable

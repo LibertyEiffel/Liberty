@@ -1,13 +1,12 @@
 class MY_VALIDATING_TREE
---
--- Just to show how to simply have some home-crafted validation.
--- The principle is to redefine the `new_node' factory.
---
+   --
+   -- Just to show how to simply have some home-crafted validation.
+   -- The principle is to redefine the `new_node' factory.
+   --
 
 inherit
    XML_TREE
-      redefine
-         new_node
+      redefine new_node
       end
 
 create {EXAMPLE2}
@@ -54,4 +53,4 @@ feature {}
          end
       end
 
-end
+end -- class MY_VALIDATING_TREE

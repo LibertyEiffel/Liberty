@@ -25,6 +25,7 @@ feature {}
             std_output.put_line(std_input.last_string)
             std_input.read_line
          end
+
          std_input.restore_default_input
          std_output.restore_default_output
       end

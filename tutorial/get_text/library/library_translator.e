@@ -1,12 +1,12 @@
 class LIBRARY_TRANSLATOR
 
 inherit
-	DOMAIN_GET_TEXT[STRING]
+   DOMAIN_GET_TEXT[STRING]
 
-creation
-	connect_to
+create {ANY}
+   connect_to
 
 feature {ANY}
-	text_domain: STRING is "library_example_library"
+   text_domain: STRING is "library_example_library"
 
-end
+end -- class LIBRARY_TRANSLATOR

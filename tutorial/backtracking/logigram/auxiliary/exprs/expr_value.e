@@ -3,22 +3,22 @@
 class EXPR_VALUE
 
 inherit
-	EXPR
+   EXPR
 
-creation {ANY}
-	make
+create {ANY}
+   make
 
 feature {ANY}
-	make (value: INTEGER) is
-		do
-			to_integer := value
-		end
+   make (value: INTEGER) is
+      do
+         to_integer := value
+      end
 
-	to_integer: INTEGER
+   to_integer: INTEGER
 
-	get_items (collector: ITEM_COLLECTOR) is
-		do
-		end
+   get_items (collector: ITEM_COLLECTOR) is
+      do
+      end
 
 end -- class EXPR_VALUE
 --

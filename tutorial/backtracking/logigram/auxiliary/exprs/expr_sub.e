@@ -3,16 +3,16 @@
 class EXPR_SUB
 
 inherit
-	EXPR_BINARY
+   EXPR_BINARY
 
-creation {ANY}
-	make
+create {ANY}
+   make
 
 feature {ANY}
-	to_integer: INTEGER is
-		do
-			Result := left.to_integer - right.to_integer
-		end
+   to_integer: INTEGER is
+      do
+         Result := left.to_integer - right.to_integer
+      end
 
 end -- class EXPR_SUB
 --

@@ -1,20 +1,20 @@
 class EXAMPLE2
--- Signal example2
--- expected:
--- a: 0 0
--- b: 3 3
--- c: 3 5
--- d: 3 5
--- e: 7 7
--- f: 9 9
--- This example show that you may connect two objects, even if they
--- don't know each other and they don't have been written for.
--- This class connect two objects of A type so that they stay
--- synchronized. You may imagine that one is a cursor and the other
--- is a spin button, both represent the same quantity. So you want
--- that each change on one of them update the value shown by the other.
+   -- Signal example2
+   -- expected:
+   -- a: 0 0
+   -- b: 3 3
+   -- c: 3 5
+   -- d: 3 5
+   -- e: 7 7
+   -- f: 9 9
+   -- This example show that you may connect two objects, even if they
+   -- don't know each other and they don't have been written for.
+   -- This class connect two objects of A type so that they stay
+   -- synchronized. You may imagine that one is a cursor and the other
+   -- is a spin button, both represent the same quantity. So you want
+   -- that each change on one of them update the value shown by the other.
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

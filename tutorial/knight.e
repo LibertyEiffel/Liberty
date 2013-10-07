@@ -18,7 +18,7 @@ insert
       redefine print_on
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}
@@ -32,18 +32,23 @@ feature {}
          if not size.in_range(chess_minimum, chess_maximum) then
             size := ask("Chess-board size: ", chess_minimum, chess_maximum)
          end
+
          if argument_count >= 2 and then argument(2).is_integer then
             line := argument(2).to_integer
          end
+
          if not line.in_range(1, size) then
             line := ask("Start line: ", 1, size)
          end
+
          if argument_count >= 3 and then argument(3).is_integer then
             column := argument(3).to_integer
          end
+
          if not column.in_range(1, size) then
             column := ask("Start column: ", 1, size)
          end
+
          knight(size, line, column)
       end
 
@@ -57,12 +62,12 @@ feature {}
 
    line_move: FAST_ARRAY[INTEGER] is
       once
-         Result := {FAST_ARRAY[INTEGER] <<-2, -1, 1, 2, 2, 1, -1, -2>> }
+         Result := {FAST_ARRAY[INTEGER] << -2, -1, 1, 2, 2, 1, -1, -2 >> }
       end
 
    column_move: FAST_ARRAY[INTEGER] is
       once
-         Result := {FAST_ARRAY[INTEGER] <<1, 2, 2, 1, -1, -2, -2, -1>> }
+         Result := {FAST_ARRAY[INTEGER] << 1, 2, 2, 1, -1, -2, -2, -1 >> }
       end
 
    knight (size, line, column: INTEGER) is
@@ -80,6 +85,7 @@ feature {}
          else
             io.put_string("Sorry, there is no solution.%N")
          end
+
          io.put_string("%NNumber of tries : ")
          io.put_integer(nb_tries)
          io.put_new_line

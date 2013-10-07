@@ -1,9 +1,9 @@
 class EXAMPLE1
---
--- This simple example just uses XML_TREE.
---
--- See EXAMPLE2 on how to extend XML_TREE to add validation features.
---
+   --
+   -- This simple example just uses XML_TREE.
+   --
+   -- See EXAMPLE2 on how to extend XML_TREE to add validation features.
+   --
 
 inherit
    XML_NODE_VISITOR
@@ -17,9 +17,7 @@ create {}
 feature {}
    make is
       local
-         in: TEXT_FILE_READ
-         tree: XML_TREE
-         version: UNICODE_STRING
+         in: TEXT_FILE_READ; tree: XML_TREE; version: UNICODE_STRING
       do
          if argument_count = 0 then
             std_error.put_line(once "Usage: #(1) <file.xml>" # command_name)
@@ -37,7 +35,10 @@ feature {}
                io.put_string(version.as_utf8)
                io.put_new_line
             end
-            check indent = 0 end
+
+            check
+               indent = 0
+            end
             tree.root.accept(Current)
          end
       end
@@ -46,8 +47,7 @@ feature {}
 
 feature {XML_DATA_NODE}
    visit_data_node (node: XML_DATA_NODE) is
-      do
-         -- data not displayed in this example
+      do -- data not displayed in this example
       end
 
 feature {XML_COMPOSITE_NODE}
@@ -79,8 +79,10 @@ feature {XML_COMPOSITE_NODE}
                io.put_string(node.attribute_value(i).as_utf8)
                i := i + 1
             end
+
             io.put_character(')')
          end
+
          io.put_new_line
          from
             start_indent := indent
@@ -94,6 +96,7 @@ feature {XML_COMPOSITE_NODE}
             node.child(i).accept(Current)
             i := i + 1
          end
+
          indent := start_indent
       end
 
@@ -107,4 +110,4 @@ feature {XML_COMPOSITE_NODE}
          die_with_code(1)
       end
 
-end
+end -- class EXAMPLE1

@@ -1,21 +1,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class CONSTRAINT_NO
-	--
-	-- the 2 items can not be associated (forbidden association)
+   --
+   -- the 2 items can not be associated (forbidden association)
 
 inherit
-	CONSTRAINT_COUPLE
+   CONSTRAINT_COUPLE
 
-creation {ANY}
-	make
+create {ANY}
+   make
 
 feature {ANY}
-	build_masks (builder: MASK_BUILDER) is
-		do
-			builder.goto(item1, item2)
-			builder.and_no
-		end
+   build_masks (builder: MASK_BUILDER) is
+      do
+         builder.goto(item1, item2)
+         builder.and_no
+      end
 
 end -- class CONSTRAINT_NO
 --

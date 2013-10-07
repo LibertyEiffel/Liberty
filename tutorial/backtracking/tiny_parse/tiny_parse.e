@@ -1,11 +1,14 @@
 class TINY_PARSE
+
 insert
-	ARGUMENTS
-creation make
+   ARGUMENTS
+
+create {}
+   make
+
 feature {}
    make is
-      do
-			--  if argument_count
+      do --  if argument_count
       end
 
-end
+end -- class TINY_PARSE

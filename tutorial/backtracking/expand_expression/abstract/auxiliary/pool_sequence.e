@@ -3,16 +3,16 @@
 class POOL_SEQUENCE
 
 inherit
-	ABSTRACT_BACKTRACKING_POOL[EXPAND_SEQUENCE]
+   ABSTRACT_BACKTRACKING_POOL[EXPAND_SEQUENCE]
 
-creation {ANY}
-	make
+create {ANY}
+   make
 
 feature {ANY}
-	get_fresh_instance: EXPAND_SEQUENCE is
-		do
-			create Result
-		end
+   get_fresh_instance: EXPAND_SEQUENCE is
+      do
+         create Result
+      end
 
 end -- class POOL_SEQUENCE
 --

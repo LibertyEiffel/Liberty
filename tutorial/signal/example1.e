@@ -5,7 +5,7 @@ class EXAMPLE1
    -- informed each time the value (position) change so that you can
    -- correctly redraw at the new place.
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

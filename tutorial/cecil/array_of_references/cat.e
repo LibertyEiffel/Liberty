@@ -1,9 +1,9 @@
 class CAT
 
 inherit
-	ANIMAL
+   ANIMAL
 
 feature {ANY}
-	cry: STRING is "MEOW"
+   cry: STRING is "MEOW"
 
 end -- class CAT

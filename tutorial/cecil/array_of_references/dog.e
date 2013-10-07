@@ -1,12 +1,12 @@
 class DOG
 
 inherit
-	ANIMAL
+   ANIMAL
 
 feature {ANY}
-	cry: STRING is
-		do
-			Result := "BARK"
-		end
+   cry: STRING is
+      do
+         Result := "BARK"
+      end
 
 end -- class DOG

@@ -3,29 +3,29 @@
 class EXPAND_SEQUENCE
 
 inherit
-	ABSTRACT_BACKTRACKING_SEQUENCE
-	EXPRESSION_ITEM_GLOBALS
+   ABSTRACT_BACKTRACKING_SEQUENCE
+   EXPRESSION_ITEM_GLOBALS
 
 feature {ABSTRACT_BACKTRACKING}
-	next_sequence (explorer: EXPAND_EXPRESSION) is
-		do
-			if Iterate and then item.type = And_item then
-				explorer.goto_item(item.first)
-				item := item.second
-			else
-				explorer.goto_item(item)
-				explorer.pop_sequence
-			end
-		end
+   next_sequence (explorer: EXPAND_EXPRESSION) is
+      do
+         if Iterate and then item.type = And_item then
+            explorer.goto_item(item.first)
+            item := item.second
+         else
+            explorer.goto_item(item)
+            explorer.pop_sequence
+         end
+      end
 
 feature {}
-	item: EXPRESSION_ITEM
+   item: EXPRESSION_ITEM
 
 feature {EXPAND_EXPRESSION}
-	make (itm: EXPRESSION_ITEM) is
-		do
-			item := itm
-		end
+   make (itm: EXPRESSION_ITEM) is
+      do
+         item := itm
+      end
 
 end -- class EXPAND_SEQUENCE
 --

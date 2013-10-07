@@ -7,7 +7,7 @@ class SPREAD_ILLNESS
    -- Also try Optimised version adding options "-boost -O2"
    --
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}
@@ -19,12 +19,12 @@ feature {}
 
    di: ARRAY[INTEGER_8] is
       once
-         Result := {ARRAY[INTEGER_8] 1, <<-1, -1, -1, 0, 1, 1, 1, 0>> }
+         Result := {ARRAY[INTEGER_8] 1, << -1, -1, -1, 0, 1, 1, 1, 0 >> }
       end
 
    dj: ARRAY[INTEGER_8] is
       once
-         Result := {ARRAY[INTEGER_8] 1, <<-1, 0, 1, 1, 1, 0, -1, -1>> }
+         Result := {ARRAY[INTEGER_8] 1, << -1, 0, 1, 1, 1, 0, -1, -1 >> }
       end
 
    error_msg: STRING is "Error : do it again !%N"
@@ -38,6 +38,7 @@ feature {}
          else
             io.put_string(once "[n]")
          end
+
          io.flush
          io.read_line
          io.last_string.to_lower
@@ -76,28 +77,27 @@ feature {}
    first_day is
          -- Create the world in the 1st day's state.
       local
-         i, j: INTEGER ill_state: INTEGER_8; ok: BOOLEAN
+         i, j: INTEGER; ill_state: INTEGER_8; ok: BOOLEAN
       do
          if yes_or_no("Default First World", True) then
-            world1 := {ARRAY2[INTEGER_8] 1, 18, 1, 18,
-                                         << 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
-                                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
-                                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
-                                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
-                                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
-                                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
-                                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
-                                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
-                                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1;
-                                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
-                                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
-                                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
-                                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
-                                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
-                                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
-                                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
-                                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
-                                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 >> }
+            world1 := {ARRAY2[INTEGER_8] 1, 18, 1, 18, << 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+                                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+                                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+                                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+                                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+                                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+                                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+                                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+                                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1;
+                                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+                                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+                                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+                                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+                                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+                                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+                                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+                                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+                                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 >> }
          else
             io.put_string(once "World size: ")
             io.flush
@@ -149,7 +149,7 @@ feature {}
                         ill_state := io.last_integer.to_integer_8
                         ill_state := ill_state.max(1)
                         ill_state := ill_state.min(4)
-                        world1.put(- ill_state, i, j)
+                        world1.put(-ill_state, i, j)
                      else
                         io.put_string(error_msg)
                      end
@@ -176,6 +176,7 @@ feature {}
             io.put_string(once "--")
             i := i + 1
          end
+
          io.put_string(once "+%N")
          from
             i := world1.lower1
@@ -195,14 +196,16 @@ feature {}
                when healthy then
                   io.put_character('O')
                else
-                  io.put_character((- world2.item(i, j)).digit)
+                  io.put_character((-world2.item(i, j)).digit)
                end
                io.put_character(' ')
                j := j + 1
             end
+
             io.put_string(once "|%N")
             i := i + 1
          end
+
          io.put_string(once "+-")
          from
             i := world1.lower1
@@ -212,6 +215,7 @@ feature {}
             io.put_string(once "--")
             i := i + 1
          end
+
          io.put_string(once "+%N")
       end
 
@@ -250,7 +254,7 @@ feature {}
          -- When ill, inspects if must be death or more ill or cured.
       do
          inspect
-            - world1.item(i, j)
+            -world1.item(i, j)
          when 1 then
             world2.put(-2, i, j)
          when 2 then

@@ -3,37 +3,37 @@
 class ITEM_ITEM
 
 inherit
-	ITEM
+   ITEM
 
-creation {ANY}
-	make
+create {ANY}
+   make
 
 feature {ANY}
-	index: INTEGER
+   index: INTEGER
 
-	to_integer: INTEGER is
-		do
-			Result := value
-		end
+   to_integer: INTEGER is
+      do
+         Result := value
+      end
 
-	make (the_group: like group; the_name: like name; the_index: like index) is
-		require
-			the_group.is_numeric implies the_name.is_integer
-		do
-			group := the_group
-			name := the_name
-			index := the_index
-			if group.is_numeric then
-				value := name.to_integer
-			elseif group.is_ordered then
-				value := the_index
-			end
-		end
+   make (the_group: like group; the_name: like name; the_index: like index) is
+      require
+         the_group.is_numeric implies the_name.is_integer
+      do
+         group := the_group
+         name := the_name
+         index := the_index
+         if group.is_numeric then
+            value := name.to_integer
+         elseif group.is_ordered then
+            value := the_index
+         end
+      end
 
-	is_off: BOOLEAN is False
+   is_off: BOOLEAN is False
 
 feature {}
-	value: INTEGER
+   value: INTEGER
 
 end -- class ITEM_ITEM
 --
