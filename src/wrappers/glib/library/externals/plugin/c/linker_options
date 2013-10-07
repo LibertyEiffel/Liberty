@@ -1,2 +1,0 @@
-[UNIX]
-glib: "$(pkg-config --libs glib-2.0 gthread-2.0)"

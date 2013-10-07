@@ -1,2 +1,0 @@
-[UNIX]
-llvm: "$(llvm-config --cflags --libs --ldflags core bitwriter) -Xlinker --no-as-needed"
