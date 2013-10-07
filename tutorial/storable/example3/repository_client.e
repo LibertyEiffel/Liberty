@@ -31,12 +31,11 @@ feature {} -- Implementation
          access: TCP_ACCESS
       do
          -- Create the client socket
-         create access.make(create {LOCALHOST}.make, 2001)
+         create access.make(create {LOCALHOST}.make, 2001, True)
          sedb_breakpoint
          -- Ensure that readings from the sockets at that access point are synchronous (because we don't use
          -- the sequencer mechanics, we need some low-level system to ensure that we have data to read)
 
-         access.set_read_sync(True)
          ios := access.stream
          if ios = Void then
             if access.error = Void then

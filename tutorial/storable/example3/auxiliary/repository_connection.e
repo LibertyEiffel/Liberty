@@ -14,7 +14,7 @@ create {REPOSITORY_SERVER}
 feature {LOOP_ITEM}
    continue is
       do
-         server.update_from_stream(ios)
+         server.update_from_io_stream(ios)
          if not ios.is_connected then
             if ios.error /= Void then
                std_error.put_line(ios.error)
@@ -27,10 +27,10 @@ feature {SERVER}
    set_io (a_io: like ios) is
       do
          Precursor(a_io)
-         a_io.when_disconnect(agent handle_disconnect)
+         a_io.when_disconnect(agent handle_disconnect(?))
          -- Start by sending the repository
          std_error.put_line(once "Sending repository")
-         server.write_to_stream(a_io)
+         server.write_to_io_stream(a_io)
          a_io.flush
          std_error.put_line(once "Repository sent")
       end
@@ -47,9 +47,16 @@ feature {}
       end
 
    make (a_server: like server) is
+      require
+         a_server /= Void
       do
          std_error.put_line(once "New connection")
          server := a_server
+      ensure
+         server = a_server
       end
+
+invariant
+   server /= Void
 
 end -- class REPOSITORY_CONNECTION

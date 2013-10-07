@@ -8,7 +8,6 @@ inherit
    REPOSITORY[STRING]
       -- The server itself is a repository in regard to its connections.
    XML_STREAM_REPOSITORY[STRING]
-      export {REPOSITORY_CONNECTION} update_from_stream, write_to_stream
       redefine make
       end
 
@@ -20,6 +19,21 @@ insert
 create {ANY}
    make
 
+feature {REPOSITORY_CONNECTION}
+   update_from_io_stream (io_stream: INPUT_STREAM) is
+      require
+         io_stream.is_connected
+      do
+         update_from_stream(io_stream)
+      end
+
+   write_to_io_stream (io_stream: OUTPUT_STREAM) is
+      require
+         io_stream.is_connected
+      do
+         write_to_stream(create {XML_REPOSITORY_OUTPUT}.make(io_stream, "1"))
+      end
+
 feature {}
    make is
       local
@@ -28,7 +42,7 @@ feature {}
          Precursor
          -- Start a server on the local machine, listening on port 2001
          create host.make("localhost")
-         create tcp.make(host, 2001)
+         create tcp.make(host, 2001, True)
          start(tcp)
       end
 
