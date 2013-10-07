@@ -22,4 +22,8 @@ $dateFormat = "Y-m-d G:i:s O (T)";
 $publicBase = "";
 $img = "$publicBase/images";
 
+$gitBranch = "master";
+if (file_exists("$BaseDir/branch")) {
+   $gitBranch = trim(file_get_contents("$BaseDir/branch"));
+}
 ?>

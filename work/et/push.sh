@@ -1,4 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 cd /home/et/Liberty_savannah
-git pull > ../pull.out
-git push github master 2> push.err > ../push.out
+branch=`cat ~/branch`
+{
+    git fetch origin
+    echo
+    git checkout $branch
+} > ../pull.out
+git push github $branch 2> push.err > ../push.out
