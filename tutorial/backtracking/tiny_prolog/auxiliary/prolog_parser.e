@@ -4,11 +4,17 @@ create {ANY}
    make
 
 feature {ANY}
-   make (b: BASE) is
+   make (b: like base) is
       do
          base := b
          state := 0
          create stack_of_states.with_capacity(10)
+      end
+
+   put_line (s: STRING) is
+      do
+         put_string(s)
+         put_character('%N')
       end
 
    put_string (s: STRING) is
@@ -34,7 +40,7 @@ feature {ANY}
          end
       end
 
-   base: BASE
+   base: PROLOG_DATABASE
 
    state: INTEGER
 

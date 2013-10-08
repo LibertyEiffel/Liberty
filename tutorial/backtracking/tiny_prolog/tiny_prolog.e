@@ -9,17 +9,17 @@ feature {ANY}
          create base.make
          create parser.make(base)
          from
-            io.get_line
+            io.read_line
          until
             io.end_of_input
          loop
-            parser.put_line(io.last_string)
-            io.get_line
+            parser.put_string(io.last_string)
+            io.read_line
          end
       end
 
-   base: BASE
+   base: PROLOG_DATABASE
 
-   parser: PARSER
+   parser: PROLOG_PARSER
 
 end -- class TINY_PROLOG
