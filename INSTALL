@@ -4,6 +4,11 @@ to play with Liberty and, why not, even to contribute?
 Liberty Eiffel is the heir of SmartEiffel. As such, SmartEiffel tools
 are integrated and maintained as part of Liberty Eiffel.
 
+Please note that SmartEiffel can be already installed on your system.
+Particularily, Liberty Eiffel will use its own configuration files. It
+can also use your old SmartEiffel configuration files, although it is
+not advised.
+
 The installation procedure is as follows: go to the Liberty directory and type
 
     ./install.sh
