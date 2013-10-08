@@ -4,10 +4,6 @@ to play with Liberty and, why not, even to contribute?
 Liberty Eiffel is the heir of SmartEiffel. As such, SmartEiffel tools
 are integrated and maintained as part of Liberty Eiffel.
 
-Please note that SmartEiffel should not be already installed on your system.
-Particularily, any /etc/serc file will prevent you from installing Liberty
-correctly.
-
 The installation procedure is as follows: go to the Liberty directory and type
 
     ./install.sh

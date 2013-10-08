@@ -12,36 +12,50 @@ feature {ANY}
    config (st: like system_tools): SE_CONFIG is
       local
          basic_directory: BASIC_DIRECTORY; chain: SERC_CHAIN; s: STRING; def: SERC_DEFAULTS
-         file_tools: FILE_TOOLS
+         file_tools: FILE_TOOLS; xdg: XDG
       once
+         echo.put_line("Configuration chain (the lower the more specific):")
+
          create chain.make
          create def.make
          chain.add(def)
          basic_directory.ensure_system_notation
 
          if basic_directory.unix_notation or else basic_directory.cygwin_notation then
-            if file_tools.is_readable(once "/sys/rc") then
+            xdg.set_package("liberty-eiffel")
+            if file_tools.is_readable("/sys/rc") then
                st.set_system_name(elate_system)
                def.set_os(elate_system)
-               add_to_chain(chain, once "/lang/eiffel/.serc")
+               add_to_chain(chain, "/lang/eiffel/.serc", "    ")
+               add_to_chain(chain, "/lang/eiffel/.liberty-eiffel", "    ")
             else
                def.set_os(unix_system)
-               if file_tools.is_readable(once "/etc/issue") then
-                  def.set_flavor(once "Linux")
+               if file_tools.is_readable("/etc/issue") then
+                  def.set_flavor("Linux")
                end
             end
-            add_to_chain(chain, once "/etc/serc")
+            add_to_chain(chain, "/etc/serc", "    ")
+            add_to_chain(chain, "/etc/xdg/liberty-eiffel", "    ")
+            add_to_chain(chain, "/etc/liberty-eiffel", "    ")
+            add_to_chain(chain, xdg.config_home, "    ")
             s := home_env
             if s /= Void then
-               s.append(once "/.serc")
-               add_to_chain(chain, s)
+               s.append("/.serc")
+               add_to_chain(chain, s, "    ")
+               s.remove_suffix("/.serc")
+               s.append("/.liberty-eiffel")
+               add_to_chain(chain, s, "    ")
             end
          elseif basic_directory.windows_notation then
-            add_to_chain(chain, once "C:\SE.CFG")
+            add_to_chain(chain, "C:\SE.CFG", "    ")
+            add_to_chain(chain, "C:\LIBERTY.CFG", "    ")
             s := userprofile_env
             if s /= Void then
-               s.append(once "\SE.CFG")
-               add_to_chain(chain, s)
+               s.append("\SE.CFG")
+               add_to_chain(chain, s, "    ")
+               s.remove_suffix("\SE.CFG")
+               s.append("\LIBERTY.CFG")
+               add_to_chain(chain, s, "    ")
             end
             def.set_os(windows_system)
          elseif basic_directory.macintosh_notation then
@@ -54,10 +68,12 @@ feature {ANY}
 
          s := seconf_env
          if s /= Void then
-            add_to_chain(chain, s)
+            add_to_chain(chain, s, "    ")
          end
 
          Result := chain
+
+         echo.put_new_line
       end
 
 feature {SYSTEM_TOOLS}
@@ -94,13 +110,17 @@ feature {}
       end
 
 feature {}
-   add_to_chain (chain: SERC_CHAIN; rc: STRING) is
+   add_to_chain (chain: SERC_CHAIN; rc: ABSTRACT_STRING; indent: STRING) is
       local
          basic_directory: BASIC_DIRECTORY; serc: SERC; subchain: SERC_CHAIN; entries: FAST_ARRAY[STRING]
          sorter: COLLECTION_SORTER[STRING]; i: INTEGER; s: STRING
       do
          basic_directory.connect_to(rc)
          if basic_directory.is_connected then
+            echo.put_string(indent)
+            echo.put_string(once "* ")
+            echo.put_line(rc)
+
             -- scan the directory and create all the entries with a ".se" suffix, alphabetically sorted
             from
                create entries.make(0)
@@ -112,7 +132,7 @@ feature {}
                s.copy(basic_directory.last_entry)
                s.to_lower
                if s.has_suffix(once ".se") and then s.first /= '.' then
-                  s := rc.twin
+                  s := rc.out
                   s.extend('/')
                   s.append(basic_directory.last_entry)
                   sorter.add(entries, s)
@@ -120,13 +140,14 @@ feature {}
                basic_directory.read_entry
             end
             basic_directory.disconnect
+
             from
                create subchain.make
                i := entries.lower
             until
                i > entries.upper
             loop
-               add_to_chain(subchain, entries.item(i))
+               add_to_chain(subchain, entries.item(i), indent + "    ")
                i := i + 1
             end
             if not subchain.is_empty then
@@ -134,9 +155,12 @@ feature {}
             end
          else
             s := once ""
-            s.copy(rc)
+            s.make_from_string(rc)
             parser_buffer.load_file(s)
             if parser_buffer.is_ready then
+               echo.put_string(indent)
+               echo.put_string(once "> ")
+               echo.put_line(rc)
                create serc.make
                chain.add(serc)
             end

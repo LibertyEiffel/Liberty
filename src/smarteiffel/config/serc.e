@@ -112,9 +112,6 @@ feature {}
          i: ITERATOR[STRING]; cmode: SE_C_MODE; m, cc, ccp, clp, csp, cco, clo, pc, pcp, plp, psp, pco, plo, so, tmp: STRING
       do
          my_path := parser_buffer.path.twin
-         echo.put_string(once "Using the configuration file: ")
-         echo.put_string(my_path)
-         echo.put_new_line
          ini_parser.a_inifile
          create my_environment.make
          create my_loadpaths.make

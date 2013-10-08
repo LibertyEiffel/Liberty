@@ -58,10 +58,10 @@ function bootstrap()
         cd ..
     fi
 
-    if [ ! -d serc ]; then
-        title "Preparing SmartEiffel environment"
-        mkdir serc
-        cd serc
+    if [ ! -d liberty-eiffel ]; then
+        title "Preparing Liberty environment"
+        mkdir liberty-eiffel
+        cd liberty-eiffel
         cat > liberty.se <<EOF
 [General]
 bin: $TARGET/bin
@@ -210,12 +210,12 @@ EOF
         cd ..
     fi
 
-    if [ -L $HOME/.serc ]; then
-        rm $HOME/.serc
-    elif [ -e $HOME/.serc ]; then
-        mv $HOME/.serc $HOME/.serc~
+    if [ -L $HOME/.config/liberty-eiffel ]; then
+        rm $HOME/.config/liberty-eiffel
+    elif [ -e $HOME/.config/liberty-eiffel ]; then
+        mv $HOME/.config/liberty-eiffel $HOME/.confg/liberty-eiffel~
     fi
-    ln -s $TARGET/serc $HOME/.serc
+    ln -s $TARGET/liberty-eiffel $HOME/.config/liberty-eiffel
 
     title "Bootstrapping SmartEiffel tools"
     cd $LIBERTY_HOME/resources/smarteiffel-germ
@@ -416,7 +416,7 @@ function do_pkg_tools()
 {
     PUBLIC=$DESTDIR/usr/bin
     PRIVATE=$DESTDIR/usr/lib/liberty-eiffel/bin
-    ETC=$DESTDIR/etc/serc
+    ETC=$DESTDIR/etc/xdg/liberty-eiffel
     SHORT=$DESTDIR/usr/share/liberty-eiffel/short
     SYS=$DESTDIR/usr/share/liberty-eiffel/sys
     SITE_LISP=$DESTDIR/usr/share/emacs/site-lisp/liberty-eiffel
@@ -546,7 +546,7 @@ function _do_pkg_src()
     src=$2
 
     SRC=$DESTDIR/usr/share/liberty-eiffel/src
-    ETC=$DESTDIR/etc/serc
+    ETC=$DESTDIR/etc/xdg/liberty-eiffel
 
     install -d -m 0755 -o root -g root $SRC $ETC
 
