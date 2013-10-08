@@ -218,7 +218,14 @@ function tutorialDir($dir){
          if(is_file($filename) && preg_match("/(.*)\.e$/", $filename)){
             $class = strtoupper(basename($filename, ".e"));
             if (substage("class $class", str_replace($LibertyBase, $repobaselink, $filename))){
-               $ret = execute("cd $dir && se c -o " . basename($filename, ".e") . " $class && se clean $class");
+               $cmdfile = "$dir/" . basename($filename, ".e") . ".cmd";
+               if (file_exists($cmdfile)) {
+                  $cmd = trim(file_get_contents($cmdfile));
+               } else {
+                  $cmd = "se c $class"
+               }
+               $ret = execute("cd $dir && $cmd -o " . basename($filename, ".e") . " && se clean $class");
+               /* TODO : if an "output" file exists, execute the program and compare the output */
                if($ret > 0){
                   $curRes = $ret;
                }else{
