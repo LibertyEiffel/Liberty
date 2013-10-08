@@ -6,6 +6,12 @@ inherit
    ABSTRACT_BACKTRACKING_ALTERNATIVE
    EXPRESSION_ITEM_GLOBALS
 
+feature {ANY}
+   pool: POOL_ALTERNATIVE is
+      once
+         create Result.make
+      end
+
 feature {ABSTRACT_BACKTRACKING}
    next_alternative (explorer: EXPAND_EXPRESSION) is
       do

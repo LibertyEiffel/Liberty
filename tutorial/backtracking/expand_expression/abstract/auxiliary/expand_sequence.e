@@ -6,6 +6,12 @@ inherit
    ABSTRACT_BACKTRACKING_SEQUENCE
    EXPRESSION_ITEM_GLOBALS
 
+feature {ANY}
+   pool: POOL_SEQUENCE is
+      once
+         create Result.make
+      end
+
 feature {ABSTRACT_BACKTRACKING}
    next_sequence (explorer: EXPAND_EXPRESSION) is
       do
