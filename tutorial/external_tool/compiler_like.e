@@ -57,7 +57,7 @@ feature {}
             if is_help_flag(arg) then
             elseif is_version_flag(arg) then
             elseif is_verbose_flag(arg) then
-            elseif is_no_style_warning_flag(arg) then
+            elseif is_style_warning_flag(arg) then
             elseif is_no_warning_flag(arg) then
             elseif is_a_compilation_level_flag(arg) then
             elseif is_flat_check_flag(arg) then
@@ -80,7 +80,7 @@ feature {}
    is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
       do
          -- This is called by smart_eiffel.ace from a loop similar to the one in parse_arguments
-         Result := is_version_flag(arg) or else is_no_style_warning_flag(arg) or else is_no_warning_flag(arg) or else is_verbose_flag(arg)
+         Result := is_version_flag(arg) or else is_style_warning_flag(arg) or else is_no_warning_flag(arg) or else is_verbose_flag(arg)
       end
 
    valid_argument_for_ace_mode: STRING is "Only the flags -verbose, -version and -help are allowed%Nin ACE file mode.%N"
@@ -114,8 +114,8 @@ feature {}
                            Use with any mode from require_check to debug_check
 
     Warning levels:
-      -no_style_warning   Don't print warnings about style violations
-      -no_warning         Don't print any warnings (implies -no_style_warning)
+      -style_warning      Print warnings about style violations
+      -no_warning         Don't print any warnings
 
    ]"
 
