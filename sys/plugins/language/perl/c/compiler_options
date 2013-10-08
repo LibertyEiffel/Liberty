@@ -1,0 +1,2 @@
+[UNIX]
+args: -I$(perl -MConfig -e 'print $Config{archlib}') -I$(perl -MConfig -e 'print $Config{archlib}')/CORE $(perl -MConfig -e 'print $Config{ccflags}')

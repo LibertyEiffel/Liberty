@@ -12,6 +12,7 @@ io/loadpath.se
 iterator/loadpath.se
 json/loadpath.se
 kernel/loadpath.se
+language/
 log/loadpath.se
 message_formatter/
 misc/loadpath.se
