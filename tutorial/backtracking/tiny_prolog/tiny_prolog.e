@@ -13,7 +13,7 @@ feature {ANY}
          until
             io.end_of_input
          loop
-            parser.put_string(io.last_string)
+            parser.put_line(io.last_string)
             io.read_line
          end
       end
