@@ -49,4 +49,8 @@ feature {}
          create random_number_generator.with_seed(seed)
       end
 
+feature {ANY} -- Check that the underlying traversable has not changed
+   iterable_generation: INTEGER is 0
+   generation: INTEGER is 0
+
 end -- class ITERATOR_ON_RANDOM_GENERATOR

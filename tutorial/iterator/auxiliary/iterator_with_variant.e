@@ -47,6 +47,17 @@ feature {ANY}
          Result := basic_iterator.is_off
       end
 
+feature {ANY} -- Check that the underlying traversable has not changed
+   iterable_generation: INTEGER is
+      do
+         Result := basic_iterator.iterable_generation
+      end
+
+   generation: INTEGER is
+      do
+         Result := basic_iterator.generation
+      end
+
 feature {}
    basic_iterator: ITERATOR[X]
       -- The true (fast) iterator.
