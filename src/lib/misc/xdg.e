@@ -14,7 +14,8 @@ feature {ANY}
    set_package (a_package: ABSTRACT_STRING) is
          -- Be sure to call that method before any other!!
       require
-         ensure_system_notation: system_notation.is_valid_path(current_working_directory.out)
+         require_system_notation
+         is_unix_notation: unix_notation or else cygwin_notation
          valid_package_name: system_notation.is_valid_file_name(a_package.out)
          set_only_once: package = Void
       once
