@@ -274,7 +274,7 @@ feature {} -- Internal
          -- and `backtrack'.
 
    search is
-         -- Common search loop to search_first and serch_next
+         -- Common search loop to search_first and search_next
       do
          from
          until
