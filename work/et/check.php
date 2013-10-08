@@ -222,7 +222,7 @@ function tutorialDir($dir){
                if (file_exists($cmdfile)) {
                   $cmd = trim(file_get_contents($cmdfile));
                } else {
-                  $cmd = "se c $class"
+                  $cmd = "se c $class";
                }
                $ret = execute("cd $dir && $cmd -o " . basename($filename, ".e") . " && se clean $class");
                /* TODO : if an "output" file exists, execute the program and compare the output */
