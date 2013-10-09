@@ -4,21 +4,21 @@ expanded class EIF_STUFF
    --
 
 feature {ANY}
-   adopted: FAST_ARRAY[ANY] is
+   adopted: FAST_ARRAY[ABSTRACT_STRING] is
       once
          create Result.with_capacity(16)
       end
 
-   adopt (object: ANY) is
+   adopt (object: ABSTRACT_STRING) is
          -- A reference to object is stored in `adopted' to avoid
-         -- it's collection at GC time.
+         -- its collection at GC time.
       do
          if not adopted.fast_has(object) then
             adopted.add_last(object)
          end
       end
 
-   wean (object: ANY) is
+   wean (object: ABSTRACT_STRING) is
          -- Remove the reference to `object' in adopted.
       local
          i: INTEGER
