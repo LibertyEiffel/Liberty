@@ -5,6 +5,7 @@ cli/loadpath.se
 design_patterns/
 exec/loadpath.se
 foreign_interface/
+get_text/loadpath.se
 html/
 html/internal/
 i18n/
