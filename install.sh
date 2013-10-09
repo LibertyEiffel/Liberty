@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 MAXTOOLCOUNT=20
 
@@ -215,9 +215,9 @@ EOF
     if [ -L $HOME/.config/liberty-eiffel ]; then
         rm $HOME/.config/liberty-eiffel
     elif [ -e $HOME/.config/liberty-eiffel ]; then
-        mv $HOME/.config/liberty-eiffel $HOME/.confg/liberty-eiffel~
+        mv $HOME/.config/liberty-eiffel $HOME/.config/liberty-eiffel~
     fi
-    ln -s $TARGET/liberty-eiffel $HOME/.config/liberty-eiffel
+    ln -s $TARGET/liberty-eiffel $HOME/.config/
 
     title "Bootstrapping SmartEiffel tools"
     cd $LIBERTY_HOME/resources/smarteiffel-germ
