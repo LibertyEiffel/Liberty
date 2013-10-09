@@ -210,14 +210,15 @@ EOF
         cd ..
     fi
 
-    test -d $HOME/.config || mkdir -p $HOME/.config
+    export CONFIG_DIR=${HOME:-/home/$USER}/.config
+    test -d $CONFIG_DIR || mkdir -p $CONFIG_DIR
 
-    if [ -L $HOME/.config/liberty-eiffel ]; then
-        rm $HOME/.config/liberty-eiffel
-    elif [ -e $HOME/.config/liberty-eiffel ]; then
-        mv $HOME/.config/liberty-eiffel $HOME/.config/liberty-eiffel~
+    if [ -L $CONFIG_DIR/liberty-eiffel ]; then
+        rm $CONFIG_DIR/liberty-eiffel
+    elif [ -e $CONFIG_DIR/liberty-eiffel ]; then
+        mv $CONFIG_DIR/liberty-eiffel $CONFIG_DIR/liberty-eiffel~
     fi
-    ln -s $TARGET/liberty-eiffel $HOME/.config/
+    ln -s $TARGET/liberty-eiffel $CONFIG_DIR/
 
     title "Bootstrapping SmartEiffel tools"
     cd $LIBERTY_HOME/resources/smarteiffel-germ
