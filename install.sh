@@ -210,6 +210,8 @@ EOF
         cd ..
     fi
 
+    test -d $HOME/.config || mkdir -p $HOME/.config
+
     if [ -L $HOME/.config/liberty-eiffel ]; then
         rm $HOME/.config/liberty-eiffel
     elif [ -e $HOME/.config/liberty-eiffel ]; then
