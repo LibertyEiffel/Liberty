@@ -4049,12 +4049,11 @@ feature {} -- CECIL_POOL
             end
          end
          pending_c_function_signature.extend(')')
-         if result_type_mark /= Void or else cecil_entry.is_creation then
-            if cecil_entry.is_creation then
-               pending_c_function_body.append(result_type.for_external(cecil_entry.target_type_mark))
-            else
-               pending_c_function_body.append(result_type.for_external(result_type_mark))
-            end
+         if cecil_entry.is_creation then
+            pending_c_function_body.append(result_type.for_external(cecil_entry.target_type_mark))
+            pending_c_function_body.append(once " C;%N")
+         elseif result_type_mark /= Void then
+            pending_c_function_body.append(result_type.for_external(result_type_mark))
             pending_c_function_body.append(once " R;%N")
          end
          memory.pre_cecil_define
@@ -4078,23 +4077,28 @@ feature {} -- CECIL_POOL
                cecil_entry.target_type.live_type.id.append_in(pending_c_function_body)
                pending_c_function_body.append(once ";%N")
             end
-            pending_c_function_body.append(once "R=")
+            pending_c_function_body.append(once "C=")
             internal_c_local.append_in(pending_c_function_body)
             internal_c_local.unlock
-            pending_c_function_body.append(once ";%N}%N")
+            pending_c_function_body.append(once ";%N}")
          end
          if cecil_entry.code = Void then
             -- Well, nothing to do.
          elseif result_type_mark = Void then
             code_compiler.compile(cecil_entry.code, type)
          else
+            check
+               not cecil_entry.is_creation
+            end
             compound_expression_compiler.compile(once "R=", cecil_entry.code.to_expression, once ";%N", type)
          end
          memory.post_cecil_define
          if ace.no_check then
             set_dump_stack_top_for(cecil_entry.target_type, once "ds.caller", once "unlink")
          end
-         if result_type_mark /= Void or else cecil_entry.is_creation then
+         if cecil_entry.is_creation then
+            pending_c_function_body.append(once "return C;%N")
+         elseif result_type_mark /= Void then
             pending_c_function_body.append(once "return R;%N")
          end
          dump_pending_c_function(True)
