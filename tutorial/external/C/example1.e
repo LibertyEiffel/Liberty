@@ -38,7 +38,7 @@ feature {ANY}
          -- To send `Current' address to the C world:
          any_to_c(Current)
          -- To send a STRING to the C world:
-         any_to_c("Hi")
+         any_to_c(create {ANY_STRING}.make_from_string("Hi"))
          -- To get an INTEGER from the C world:
          i := c_int2eiffel
          io.put_integer(i)
