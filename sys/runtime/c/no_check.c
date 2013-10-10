@@ -402,7 +402,6 @@ void error0(char* m, char* vv) {
   fprintf(SE_ERR,f,m);
   if (vv!=NULL)
     fprintf(SE_ERR,f,vv);
-  {int *i=0;*i=0;}
   exit(EXIT_FAILURE);
 #endif
 }
