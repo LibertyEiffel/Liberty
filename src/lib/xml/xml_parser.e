@@ -14,6 +14,9 @@ class XML_PARSER
    --
 insert
    XML_PARSER_TOOLS
+      redefine
+         next, end_of_input
+      end
 
 create {ANY}
    connect_to, make
@@ -38,6 +41,7 @@ feature {ANY}
          not is_connected
          a_url.is_connected implies a_url.read
       do
+         make
          if not a_url.is_connected and then a_url.can_connect then
             a_url.read_only
             a_url.connect
@@ -46,28 +50,29 @@ feature {ANY}
             check
                a_url.read
             end
-            if buffer = Void then
-               create buffer.connect_to(a_url, Void)
-            else
-               buffer.connect_to(a_url, Void)
-            end
+            connect_buffer(a_url)
          end
       ensure
-         a_url.is_connected implies a_url = buffer.url
+         a_url.is_connected implies (a_url = buffer.url and then is_connected)
       end
 
    disconnect is
       require
          is_connected
       do
-         buffer.disconnect
+         from
+         until
+            not is_connected
+         loop
+            disconnect_buffer
+         end
       ensure
          not is_connected
       end
 
    is_connected: BOOLEAN is
       do
-         Result := buffer /= Void and then buffer.is_connected
+         Result := open_buffers /= Void and then not open_buffers.is_empty and then buffer.is_connected
       end
 
 feature {}
@@ -125,14 +130,19 @@ feature {}
                      if current_character = ';'.code then
                         if entity.is_equal(once U"lt") then
                            data.add_last('<'.code)
+                           next
                         elseif entity.is_equal(once U"gt") then
                            data.add_last('>'.code)
+                           next
                         elseif entity.is_equal(once U"amp") then
                            data.add_last('&'.code)
+                           next
                         elseif entity.is_equal(once U"apos") then
                            data.add_last('%''.code)
+                           next
                         elseif entity.is_equal(once U"quot") then
                            data.add_last('"'.code)
+                           next
                         else
                            if validator /= Void then
                               entity_value := validator.entity(entity, l, c)
@@ -146,7 +156,8 @@ feature {}
                               callbacks.parse_error(l, c, once "Unknown entity")
                               Result := Parse_error
                            else
-                              data.append(entity_value)
+                              next
+                              connect_buffer_entity_value(entity_value)
                            end
                         end
                      else
@@ -155,9 +166,9 @@ feature {}
                      end
                   else
                      data.add_last(current_character)
+                     next
                   end
                end
-               next
             end
             if not data.is_empty then
                if validator /= Void and then not validator.is_valid_data(data, l, c) then
@@ -524,11 +535,33 @@ feature {}
    Parse_error: INTEGER is -1
 
 feature {}
-   buffer: UNICODE_PARSER_BUFFER
+   next is
+      do
+         if buffer.end_of_input then
+            disconnect_buffer
+         end
+         buffer.next
+      end
+
+   end_of_input: BOOLEAN is
+      do
+         Result := buffer.end_of_input and then open_buffers.count = 1
+      end
+
+feature {}
+   buffer: UNICODE_PARSER_BUFFER is
+      do
+         if not open_buffers.is_empty then
+            Result := open_buffers.top
+         end
+      ensure
+         definition: Result = open_buffers.top
+      end
 
    make is
          -- Create a not connected parser
       do
+         create open_buffers.make
       end
 
    dtd_parser: XML_DTD_PARSER is
@@ -539,6 +572,60 @@ feature {}
    validator: XML_VALIDATOR is
       do
          Result := callbacks.validator
+      end
+
+   open_buffers: STACK[UNICODE_PARSER_BUFFER]
+
+   closed_buffers: RECYCLING_POOL[UNICODE_PARSER_BUFFER] is
+      once
+         create Result.make
+      end
+
+   connect_buffer (a_url: URL) is
+      local
+         buf: like buffer
+      do
+         if not closed_buffers.is_empty then
+            buf := closed_buffers.item
+         end
+         if buf = Void then
+            create buf.connect_to(a_url, Void)
+         else
+            buf.connect_to(a_url, Void)
+         end
+         if buf.is_connected then
+            check
+               a_url = buf.url
+            end
+            open_buffers.push(buf)
+         end
+      ensure
+         a_url.is_connected implies (
+            open_buffers.count = old open_buffers.count + 1
+            and then a_url = buffer.url
+         )
+      end
+
+   connect_buffer_entity_value (entity_value: UNICODE_STRING) is
+         --| **** TODO: hunt memory leaks
+      require
+         entity_value /= Void
+      local
+         sis: STRING_INPUT_STREAM
+      do
+         create sis.from_string(entity_value.as_utf8)
+         connect_buffer(sis.url)
+      end
+
+   disconnect_buffer is
+      require
+         not open_buffers.is_empty
+      do
+         buffer.disconnect
+         open_buffers.pop
+      ensure
+         open_buffers.count = old open_buffers.count - 1
+         not (old buffer).is_connected
       end
 
 end -- class XML_PARSER
