@@ -311,18 +311,18 @@ function testDir($dir) {
    }
 
    $tests = count(glob("$dir/test_*.e")) + count(glob("$dir/bad_*.e")) + count(glob("$dir/ace_*.ace"));
-   $hasEiffelTest = is_dir("$dir/eiffeltest");
    if ($tests > 0) {
+      $hasEiffelTest = is_dir("$dir/eiffeltest");
       if ($hasEiffelTest) {
          $res = execute("se test -flat $dir");
          if ($res == 0) {
-            $warnCnt = exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
+            $warnCnt = exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg("$stagedir/err.txt") . " | wc -l");
             $res = -$warnCnt;
          } else {
-            $res = exec("grep " . escapeshellarg("Abnormal:") . " " . escapeshellarg($stagedir . "/eiffeltest/log.new") . " | wc -l");
+            $res = exec("grep " . escapeshellarg("Abnormal") . " " . escapeshellarg("$dir/eiffeltest/log.new") . " | wc -l");
          }
       } else {
-         file_put_contents($stagedir ."/err.txt", "missing eiffeltest directory - please add to repository");
+         file_put_contents("$stagedir/err.txt", "missing eiffeltest directory - please add to repository");
          $res = 1;
       }
       if ($res <= 0) {
