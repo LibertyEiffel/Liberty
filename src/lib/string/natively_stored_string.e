@@ -189,12 +189,13 @@ feature {STRING_HANDLER}
       require
          needed_capacity >= 0
       local
-         new_capacity: like capacity
+         actual_capacity, new_capacity: like capacity
       do
          storage_signature_count := 0
          check
             check_can_have_storage_signature
          end
+         actual_capacity := capacity + storage_signature_count
          if storage.is_null then -- implies capacity = 0 (see invariant)
             check
                not has_storage_signature
@@ -210,7 +211,7 @@ feature {STRING_HANDLER}
                has_storage_signature implies check_storage_signature
             end
             new_capacity := needed_capacity.max((capacity #* 2).max(32))
-            storage := storage.realloc(capacity, new_capacity + storage_signature_count)
+            storage := storage.realloc(actual_capacity, new_capacity + storage_signature_count)
             capacity := new_capacity
             check
                check_set_storage_signature
@@ -261,6 +262,9 @@ feature {} -- storage signature: only in all_check mode
          has_storage_signature
       end
 
+feature {STRING_HANDLER}
+   has_storage_signature: BOOLEAN
+
    check_storage_signature: BOOLEAN is
       require
          has_storage_signature
@@ -281,7 +285,6 @@ feature {} -- storage signature: only in all_check mode
       end
 
    storage_signature_count: INTEGER
-   has_storage_signature: BOOLEAN
 
 invariant
    capacity > 0 implies storage.is_not_null

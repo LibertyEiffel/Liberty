@@ -409,6 +409,7 @@ feature {} -- Invariant checking:
 
    original: like Current
 
+feature {STRING_HANDLER}
    check_can_have_storage_signature: BOOLEAN is
       do
          Result := True
