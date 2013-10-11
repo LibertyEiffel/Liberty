@@ -28,7 +28,6 @@ feature {}
          s.append(once "def")
          assert(s.has_storage_signature implies s.check_storage_signature)
          io.put_line(s)
-         sedb_breakpoint
       end
 
 end

@@ -129,6 +129,7 @@ feature {}
                         create_hashed_string(as_native_array),
                         create_hashed_string(as_native_array_collector),
                         create_hashed_string(as_native_array_internals),
+                        create_hashed_string(as_natural),
                         create_hashed_string(as_natural_8),
                         create_hashed_string(as_natural_16),
                         create_hashed_string(as_natural_32),
