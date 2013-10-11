@@ -3248,7 +3248,7 @@ feature {}
          if ace.profile then
             pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
          end
-         pending_c_function_body.append(once "return((T0*)s);")
+         pending_c_function_body.append(once "return((T0*)s);%N")
       end
 
 feature {C_EXPRESSION_COMPILATION_MIXIN}

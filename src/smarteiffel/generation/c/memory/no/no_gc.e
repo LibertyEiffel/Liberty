@@ -68,9 +68,6 @@ feature {C_PRETTY_PRINTER} -- specific objects
    manifest_string_in (c_code: STRING; string_at_run_time: BOOLEAN) is
       do
          c_code.append(once "s=((T7*)se_malloc(sizeof(T7)));%N")
-         if string_at_run_time and then smart_eiffel.type_string.live_type.is_tagged then
-            c_code.append(once "s->id=7;%N")
-         end
       end
 
    native9_in (c_code: STRING; string_at_run_time: BOOLEAN) is
