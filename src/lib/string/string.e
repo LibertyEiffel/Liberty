@@ -102,8 +102,8 @@ feature {ANY} -- Modification:
          --
          -- See also `clear_count_and_capacity'.
       do
-         count := 0
          storage_lower := 0
+         count := 0
       ensure
          is_empty: count = 0
                    capacity = old capacity
@@ -160,14 +160,14 @@ feature {ANY} -- Modification:
          valid_end_index: end_index <= s.count
          meaningful_interval: start_index <= end_index + 1
       local
-         needed_capacity: INTEGER
+         c: INTEGER
       do
-         needed_capacity := end_index - start_index + 1
-         if needed_capacity > capacity then
-            ensure_capacity(needed_capacity)
+         c := end_index - start_index + 1
+         if c > 0 then
+            ensure_capacity(c)
+            slice_copy(0, s, start_index, end_index)
          end
-         slice_copy(0, s, start_index, end_index)
-         count := needed_capacity
+         count := c
       end
 
    fill_with (c: CHARACTER) is
@@ -199,9 +199,7 @@ feature {ANY} -- Modification:
       do
          -- Note: pre-computing needed capacity may be costly for ROPEs. Consider moving it into the NATIVELY_STORED_STRING-specific part of the feature.
          needed_capacity := count + s.count + storage_lower
-         if needed_capacity > capacity then
-            ensure_capacity(needed_capacity)
-         end
+         ensure_capacity(needed_capacity)
          slice_copy(upper, s, s.lower, s.upper)
          count := needed_capacity - storage_lower
       end
@@ -218,9 +216,7 @@ feature {ANY} -- Modification:
          needed_capacity: INTEGER
       do
          needed_capacity := count + storage_lower + end_index - start_index + 1
-         if needed_capacity > capacity then
-            ensure_capacity(needed_capacity)
-         end
+         ensure_capacity(needed_capacity)
          slice_copy(upper, s, start_index, end_index)
          count := needed_capacity
       end
@@ -445,12 +441,12 @@ feature {ANY} -- Modification:
          i: INTEGER
       do
          from
-            i := count
+            i := 1
          until
-            i = 0
+            i > count
          loop
             put(item(i).to_lower, i)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -462,12 +458,12 @@ feature {ANY} -- Modification:
          i: INTEGER
       do
          from
-            i := count
+            i := 1
          until
-            i = 0
+            i > count
          loop
             put(item(i).to_upper, i)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -617,12 +613,16 @@ feature {ANY} -- Modification:
       local
          i: INTEGER
       do
-         from i := 1
-         until i > count or else not item(i).is_separator -- i.e. not a blank like ' '
-         loop i := i + 1
+         from
+            i := 1
+         until
+            i > count or else not item(i).is_separator -- i.e. not a blank like ' '
+         loop
+            i := i + 1
          end
          remove_head(i - 1)
-      ensure stripped: is_empty or else not first.is_separator
+      ensure
+         stripped: is_empty or else not first.is_separator
       end
 
    right_adjust is
@@ -631,10 +631,13 @@ feature {ANY} -- Modification:
          -- See also `remove_tail', `last'.
       do
          from
-                 until count = 0 or else not item(count).is_separator
-         loop count := count - 1
+         until
+            count = 0 or else not item(count).is_separator
+         loop
+            count := count - 1
          end
-          ensure stripped: is_empty or else not last.is_separator
+      ensure
+         stripped: is_empty or else not last.is_separator
       end
 
 feature {ANY} -- Other features:
@@ -972,8 +975,7 @@ feature {ANY} -- Interfacing with C string:
    from_external_sized_copy (p: POINTER; size: INTEGER) is
          -- Internal `storage' is set using a copy of `p'.
          -- 'size' characters are copied, setting then 'count' to 'size'.
-         -- Also consider `from_external' to choose the most
-         -- appropriate.
+         -- Also consider `from_external' to choose the most appropriate.
       require
          p.is_not_null
          size >= 0
@@ -988,7 +990,7 @@ feature {ANY} -- Interfacing with C string:
          until
             count = size
          loop
-            storage.put(s.item(count),count)
+            storage.put(s.item(count), count)
             count := count + 1
          end
          next_generation

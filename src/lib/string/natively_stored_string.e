@@ -196,7 +196,7 @@ feature {STRING_HANDLER}
             check_can_have_storage_signature
          end
          actual_capacity := capacity + storage_signature_count
-         if storage.is_null then -- implies capacity = 0 (see invariant)
+         if storage.is_null then -- implies actual_capacity = 0
             check
                not has_storage_signature
             end
@@ -205,20 +205,22 @@ feature {STRING_HANDLER}
             capacity := new_capacity
             check
                check_set_storage_signature
+               has_storage_signature implies check_valid_storage_signature
             end
          elseif capacity < needed_capacity then
             check
-               has_storage_signature implies check_storage_signature
+               has_storage_signature implies check_valid_storage_signature
             end
-            new_capacity := needed_capacity.max((capacity #* 2).max(32))
+            new_capacity := needed_capacity.max((capacity #* 2).max(32 - storage_signature_count))
             storage := storage.realloc(actual_capacity, new_capacity + storage_signature_count)
             capacity := new_capacity
             check
                check_set_storage_signature
+               has_storage_signature implies check_valid_storage_signature
             end
          else
             check
-               has_storage_signature implies check_storage_signature
+               has_storage_signature implies check_valid_storage_signature
             end
          end
       ensure
@@ -229,6 +231,10 @@ feature {STRING_HANDLER}
       require
          count <= new_capacity
       do
+         storage_signature_count := 0
+         check
+            check_can_have_storage_signature
+         end
          storage := new_storage
          capacity := new_capacity
          check
@@ -242,7 +248,6 @@ feature {STRING_HANDLER}
 feature {STRING_HANDLER}
    copy_slice_to_native (start_index, end_index: INTEGER; target: NATIVE_ARRAY[CHARACTER]; target_offset: INTEGER) is
       do
-         ensure_capacity(storage_lower + end_index - start_index + 1)
          target.slice_copy(target_offset, storage, storage_lower + start_index - lower, storage_lower + end_index - lower)
       end
 
@@ -265,7 +270,7 @@ feature {} -- storage signature: only in all_check mode
 feature {STRING_HANDLER}
    has_storage_signature: BOOLEAN
 
-   check_storage_signature: BOOLEAN is
+   check_valid_storage_signature: BOOLEAN is
       require
          has_storage_signature
       do
@@ -280,7 +285,12 @@ feature {STRING_HANDLER}
 
    check_can_have_storage_signature: BOOLEAN is
       do
-         storage_signature_count := 4
+         if storage_signature_count = 0 then
+            storage_signature_count := 4
+            check
+               check_set_storage_signature
+            end
+         end
          Result := True
       end
 
@@ -290,7 +300,7 @@ invariant
    capacity > 0 implies storage.is_not_null
    count <= capacity
    storage_lower >= 0
-   storage_signature_count > 0 implies (has_storage_signature implies check_storage_signature)
+   storage_signature_count > 0 implies (has_storage_signature implies check_valid_storage_signature)
    storage_signature_count = 0 or storage_signature_count = 4
 
 end -- class NATIVELY_STORED_STRING

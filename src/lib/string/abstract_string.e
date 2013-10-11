@@ -1356,6 +1356,10 @@ feature {}
 
 feature {STRING_HANDLER}
    copy_slice_to_native (start_index, end_index: INTEGER; target: NATIVE_ARRAY[CHARACTER]; target_offset: INTEGER) is
+      require
+         start_index >= lower
+         end_index <= upper
+         start_index <= end_index
       local
          i, j: INTEGER
       do
