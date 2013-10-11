@@ -92,7 +92,7 @@ feature {ANY}
    generation: INTEGER
 
 feature {}
-   frozen next_generation is
+   next_generation is
       do
          generation := generation + 1
       ensure
