@@ -55,19 +55,15 @@ feature {}
                   io.put_real(number.force_to_real_64)
                   io.put_character(')')
                end
-
-               io.put_character('%N')
+               io.put_new_line
             else
                io.put_string(once "Error: ")
-               io.put_string(number_tools.parser_buffer.last_error)
-               io.put_character('%N')
+               print_error(number_tools.parser_buffer.last_error)
             end
          else
             io.put_string(once "Syntax error: ")
-            io.put_string(number_tools.parser_buffer.last_error)
-            io.put_character('%N')
-            io.put_string(formula)
-            io.put_character('%N')
+            print_error(number_tools.parser_buffer.last_error)
+            io.put_line(formula)
             from
                i := 1
             until
@@ -78,6 +74,22 @@ feature {}
             end
 
             io.put_string(once "^%N")
+         end
+      end
+
+   print_error (error: PARSE_ERROR) is
+      require
+         error /= Void
+      local
+         err: PARSE_ERROR
+      do
+         from
+            err := error
+         until
+            err = Void
+         loop
+            io.put_line(err.message)
+            err := err.next
          end
       end
 
