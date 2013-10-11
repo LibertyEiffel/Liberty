@@ -366,7 +366,7 @@ feature {}
             sa.append_in(pending_c_function_body)
          end
          pending_c_function_body.append(once "];%Nse_profile_t sorted_all_profile[")
-         (n + i + a + sa + 3).append_in(pending_c_function_body)
+         (n + i + a + sa + 4).append_in(pending_c_function_body)
 
          -- sorting profiles
 
@@ -423,8 +423,11 @@ feature {}
          pending_c_function_body.append(once "sorted_all_profile[")
          (n + i + a + sa + 2).append_in(pending_c_function_body)
          pending_c_function_body.append(once "]=atexit_profile;%N")
-         pending_c_function_body.append(once "qsort(sorted_all_profile, ")
+         pending_c_function_body.append(once "sorted_all_profile[")
          (n + i + a + sa + 3).append_in(pending_c_function_body)
+         pending_c_function_body.append(once "]=se_ms_profile;%N")
+         pending_c_function_body.append(once "qsort(sorted_all_profile, ")
+         (n + i + a + sa + 4).append_in(pending_c_function_body)
          pending_c_function_body.append(once ", sizeof(se_profile_t), profile_comparator);%N")
 
          -- summary
@@ -441,6 +444,7 @@ feature {}
          pending_c_function_body.append(once "print_profile(profile_file, &root_profile);%N")
          pending_c_function_body.append(once "print_profile(profile_file, &runinit_profile);%N")
          pending_c_function_body.append(once "print_profile(profile_file, &atexit_profile);%N")
+         pending_c_function_body.append(once "print_profile(profile_file, &se_ms_profile);%N")
          pending_c_function_body.append(once "fprintf(profile_file, %"\n-------------------------------------------------------------------------------\n%");%Ni=")
          n.append_in(pending_c_function_body)
          pending_c_function_body.append(once ";while (i-->0) {%Nprint_profile(profile_file, sorted_profile+i);%N}%N")
@@ -513,6 +517,7 @@ feature {}
             write_extern_1(once "se_profile_t root_profile")
             write_extern_1(once "se_profile_t runinit_profile")
             write_extern_1(once "se_profile_t atexit_profile")
+            write_extern_1(once "se_profile_t se_ms_profile")
             write_extern_1(once "se_local_profile_t global_profile")
          end
       end
@@ -2789,6 +2794,7 @@ feature {}
             pending_c_function_body.append(once "init_profile(&root_profile, %"<root>%");%N")
             pending_c_function_body.append(once "init_profile(&runinit_profile, %"<runinit>%");%N")
             pending_c_function_body.append(once "init_profile(&atexit_profile, %"<atexit>%");%N")
+            pending_c_function_body.append(once "init_profile(&se_ms_profile, %"<se_ms>%");%N")
             pending_c_function_body.append(once "global_profile.profile=&root_profile;%N")
             pending_c_function_body.append(once "get_profiler_started(&master_profile);%N")
             pending_c_function_body.append(once "start_profile(&master_profile, &global_profile);%N")
@@ -3196,17 +3202,53 @@ feature {}
    common_body_for_se_string_and_se_ms (string_at_run_time: BOOLEAN) is
       require
          pending_c_function
+      local
+         lt: LIVE_TYPE
       do
+         lt := manifest_string_pool.se_ms.type_of_current.live_type
+         check
+            lt.id = 7
+         end
+         if ace.no_check then
+            pending_c_function_body.append(once "se_dump_stack ds={NULL,NULL,0,NULL,NULL,NULL,0};%N%
+                                                %ds.caller=se_dst;%N%
+                                                %ds.exception_origin=NULL;%N%
+                                                %ds.locals=NULL;%N")
+         end
+         if ace.profile then
+            pending_c_function_body.append(once "se_local_profile_t local_profile, *parent_profile;%N")
+         end
          pending_c_function_body.append(once "T7*")
          memory.manifest_string_in(pending_c_function_body, string_at_run_time)
-         pending_c_function_body.append(once "s->_count=c;%N%
-                                             %s->_capacity=c+1;%N%
-                                             %s->_storage_lower=0;%N%
-                                             %s->_storage=((T9)")
-         memory.native9_in(pending_c_function_body, string_at_run_time)
-         pending_c_function_body.append(once "(c+1));%N%
-                                             %memcpy(s->_storage,e,c+1);%N%
-                                             %return((T0*)s);")
+         --pending_c_function_body.append(once "s->_count=c;%N%
+         --                                    %s->_capacity=c;%N%
+         --                                    %s->_storage_lower=0;%N%
+         --                                    %s->_storage=((T9)")
+         --memory.native9_in(pending_c_function_body, string_at_run_time)
+         --pending_c_function_body.append(once "(c+4));%N%
+         --                                    %memcpy(s->_storage,e,c);%N%
+         --                                    %s->_storage[c]='\0';%N%
+         --                                    %s->_storage[c+1]='%/3/';%N%
+         --                                    %s->_storage[c+2]='%/9/';%N%
+         --                                    %s->_storage[c+3]='%/27/';%N")
+         if ace.profile then
+            pending_c_function_body.append(once "parent_profile=&global_profile;%N")
+            pending_c_function_body.append(once "local_profile.profile=&se_ms_profile;%N")
+            pending_c_function_body.append(once "start_profile(parent_profile, &local_profile);%N")
+         end
+         pending_c_function_body.append(once "*s=M7;%N")
+         pending_c_function_body.append(once "r7from_external_sized_copy(")
+         if ace.no_check then
+            pending_c_function_body.append(once "&ds,")
+         end
+         if ace.profile then
+            pending_c_function_body.append(once "&local_profile,")
+         end
+         pending_c_function_body.append(once "s,e,c);%N")
+         if ace.profile then
+            pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
+         end
+         pending_c_function_body.append(once "return((T0*)s);")
       end
 
 feature {C_EXPRESSION_COMPILATION_MIXIN}

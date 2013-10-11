@@ -331,6 +331,11 @@ feature {ANY}
          Result := string_aliaser.hashed_string(as_make)
       end
 
+   from_external_sized_copy_name: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_from_external_sized_copy)
+      end
+
    count_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_count)

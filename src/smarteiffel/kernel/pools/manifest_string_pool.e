@@ -144,6 +144,10 @@ feature {EXTERNAL_FUNCTION, SMART_EIFFEL}
          else
             dummy := smart_eiffel.collect(string_type, fs, True)
          end
+         if string_from_external_sized_copy_stamp = Void then
+            string_from_external_sized_copy_stamp := string_type.feature_stamp_of(from_external_sized_copy_name)
+         end
+         dummy := smart_eiffel.collect(string_type, string_from_external_sized_copy_stamp, True)
       end
 
 feature {SMART_EIFFEL}
@@ -211,6 +215,19 @@ feature {ANY}
          Result := storage_alias.item(i)
       end
 
+   se_ms: RUN_FEATURE is
+         -- The one of `unicode_string_manifest_initialize_stamp'.
+      require
+         first_manifest_string_collected_flag
+      do
+         Result := se_ms_
+         if Result = Void then
+            -- Yes, this is the very first usage of `se_ums':
+            Result := string_from_external_sized_copy_stamp.run_feature_for(smart_eiffel.type_string)
+            se_ms_ := Result
+         end
+      end
+
    se_ums: RUN_FEATURE is
          -- The one of `unicode_string_manifest_initialize_stamp'.
       require
@@ -244,6 +261,9 @@ feature {}
          create {HASHED_SET[STRING]} Result.with_capacity(4096)
       end
 
+   string_from_external_sized_copy_stamp: FEATURE_STAMP
+         -- Feature stamp for {STRING}.from_external_sized_copy which is the body of `se_ms' and `se_string'.
+
    unicode_string_manifest_initialize_stamp: FEATURE_STAMP
          -- Feature stamp for {UNICODE_STRING}.manifest_initialize which is actually the body of `se_ums'.
 
@@ -251,6 +271,7 @@ feature {}
          -- Is cached here too in order to get `se_ums' later.
 
 feature {}
+   se_ms_: RUN_FEATURE
    se_ums_: RUN_FEATURE
 
 end -- class MANIFEST_STRING_POOL

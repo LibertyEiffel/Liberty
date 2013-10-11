@@ -242,6 +242,7 @@ feature {}
                         create_hashed_string(as_floor),
                         create_hashed_string(as_flush),
                         create_hashed_string(as_fourth),
+                        create_hashed_string(as_from_external_sized_copy),
                         create_hashed_string(as_from_pointer),
                         create_hashed_string(as_full_collect),
                         create_hashed_string(as_generating_type),
