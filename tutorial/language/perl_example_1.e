@@ -1,4 +1,4 @@
--- compilation command line: se c perl_example_1.e -no_split `perl -MExtUtils::Embed -e ccopts -e ldopts`
+-- compilation command line: se c perl_example_1.e
 class PERL_EXAMPLE_1
 
 create {ANY}
@@ -54,7 +54,10 @@ feature {}
                             %perl variable name space is avoided.%N%
                             %2^10=")
 
-         perl.expression(once "2**10")
+         perl.expression(once "2**10+0")
+         -- "+0" converts to int and don't ask me why 2**10 is not treated as integer by perl 
+         -- interpreter
+         
          io.put_integer(perl.last_integer)
          io.put_new_line
          perl.destroy
