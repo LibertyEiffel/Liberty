@@ -288,7 +288,7 @@ feature {STRING_HANDLER}
          if storage_signature_count = 0 then
             storage_signature_count := 4
             check
-               check_set_storage_signature
+               storage.is_not_null implies check_set_storage_signature
             end
          end
          Result := True
