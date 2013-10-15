@@ -201,7 +201,9 @@ feature {STRING_HANDLER}
                not has_storage_signature
             end
             new_capacity := needed_capacity
-            storage := storage.calloc(new_capacity + storage_signature_count)
+            if new_capacity + storage_signature_count > 0 then
+               storage := storage.calloc(new_capacity + storage_signature_count)
+            end
             capacity := new_capacity
             check
                check_set_storage_signature
