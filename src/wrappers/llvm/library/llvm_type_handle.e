@@ -17,13 +17,15 @@ feature {ANY}
 		-- `a_type' is potentially an abstract type.
 	require a_type/=Void
 	do
-		handle:=llvmcreate_type_handle(a_type.handle)
+      not_yet_implemented -- Rmk, 2013-10-15: made this class compilable
+--		handle:=llvmcreate_type_handle(a_type.handle)
 	end
 
 	type: LLVM_TYPE is
 		-- Current resolved into an effective type. 
 	do
-		Result:=type_wrapper(llvmresolve_type_handle(handle))
+      not_yet_implemented -- Rmk, 2013-10-15: made this class compilable
+--		Result:=type_wrapper(llvmresolve_type_handle(handle))
 	end
 
 	-- TODO: provide refining support:  void LLVMRefineType(LLVMTypeRef AbstractTy, LLVMTypeRef ConcreteTy);
@@ -31,7 +33,8 @@ feature {ANY}
 feature {ANY} -- Disposing
 	dispose is
 		do
-			llvmdispose_type_handle(handle)
+         not_yet_implemented -- Rmk, 2013-10-15: made this class compilable
+			-- llvmdispose_type_handle(handle)
 		end
 
 	struct_size: like size_t is do not_yet_implemented end 
