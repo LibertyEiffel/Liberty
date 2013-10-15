@@ -366,7 +366,7 @@ feature {}
             sa.append_in(pending_c_function_body)
          end
          pending_c_function_body.append(once "];%Nse_profile_t sorted_all_profile[")
-         (n + i + a + sa + 4).append_in(pending_c_function_body)
+         (n + i + a + sa + 3).append_in(pending_c_function_body)
 
          -- sorting profiles
 
@@ -423,11 +423,8 @@ feature {}
          pending_c_function_body.append(once "sorted_all_profile[")
          (n + i + a + sa + 2).append_in(pending_c_function_body)
          pending_c_function_body.append(once "]=atexit_profile;%N")
-         pending_c_function_body.append(once "sorted_all_profile[")
-         (n + i + a + sa + 3).append_in(pending_c_function_body)
-         pending_c_function_body.append(once "]=se_ms_profile;%N")
          pending_c_function_body.append(once "qsort(sorted_all_profile, ")
-         (n + i + a + sa + 4).append_in(pending_c_function_body)
+         (n + i + a + sa + 3).append_in(pending_c_function_body)
          pending_c_function_body.append(once ", sizeof(se_profile_t), profile_comparator);%N")
 
          -- summary
@@ -444,7 +441,6 @@ feature {}
          pending_c_function_body.append(once "print_profile(profile_file, &root_profile);%N")
          pending_c_function_body.append(once "print_profile(profile_file, &runinit_profile);%N")
          pending_c_function_body.append(once "print_profile(profile_file, &atexit_profile);%N")
-         pending_c_function_body.append(once "print_profile(profile_file, &se_ms_profile);%N")
          pending_c_function_body.append(once "fprintf(profile_file, %"\n-------------------------------------------------------------------------------\n%");%Ni=")
          n.append_in(pending_c_function_body)
          pending_c_function_body.append(once ";while (i-->0) {%Nprint_profile(profile_file, sorted_profile+i);%N}%N")
@@ -517,7 +513,6 @@ feature {}
             write_extern_1(once "se_profile_t root_profile")
             write_extern_1(once "se_profile_t runinit_profile")
             write_extern_1(once "se_profile_t atexit_profile")
-            write_extern_1(once "se_profile_t se_ms_profile")
             write_extern_1(once "se_local_profile_t global_profile")
          end
       end
@@ -1122,6 +1117,12 @@ feature {}
          pending_c_function
       do
          pending_c_function_body.append(once "(T7*)se_string(")
+         if ace.no_check then
+            pending_c_function_body.append(once "&ds,")
+         end
+         if ace.profile then
+            pending_c_function_body.append(once "&local_profile,")
+         end
          string_to_c_code(c_string, pending_c_function_body)
          pending_c_function_body.extend(')')
       end
@@ -2611,11 +2612,17 @@ feature {}
          cpp.pending_c_function
       do
          if manifest_string_pool.collected_once_count > 0 then
-            if ace.profile and then manifest_string_pool.first_unicode_manifest_string_collected_flag then
-               cpp.pending_c_function_body.append(once "se_msi1(&local_profile);%N")
-            else
-               cpp.pending_c_function_body.append(once "se_msi1();%N")
+            cpp.pending_c_function_body.append(once "se_msi1(")
+            if ace.no_check then
+               cpp.pending_c_function_body.append(once "&ds")
             end
+            if ace.profile then
+               if ace.no_check then
+                  cpp.pending_c_function_body.extend(',')
+               end
+               cpp.pending_c_function_body.append(once "&local_profile")
+            end
+            cpp.pending_c_function_body.append(once ");%N")
          end
       ensure
          cpp.pending_c_function
@@ -2794,7 +2801,6 @@ feature {}
             pending_c_function_body.append(once "init_profile(&root_profile, %"<root>%");%N")
             pending_c_function_body.append(once "init_profile(&runinit_profile, %"<runinit>%");%N")
             pending_c_function_body.append(once "init_profile(&atexit_profile, %"<atexit>%");%N")
-            pending_c_function_body.append(once "init_profile(&se_ms_profile, %"<se_ms>%");%N")
             pending_c_function_body.append(once "global_profile.profile=&root_profile;%N")
             pending_c_function_body.append(once "get_profiler_started(&master_profile);%N")
             pending_c_function_body.append(once "start_profile(&master_profile, &global_profile);%N")
@@ -3051,7 +3057,7 @@ feature {}
    c_define2_manifest_string_pool is
       local
          i, j, fn_count, mdc, id: INTEGER; ms: MANIFEST_STRING; no_check: BOOLEAN; lt: LIVE_TYPE
-         internal_c_local: INTERNAL_C_LOCAL; string_at_run_time: BOOLEAN
+         internal_c_local: INTERNAL_C_LOCAL; string_at_run_time: BOOLEAN; se_msi_signature, se_msi_call: STRING
       do
          string_at_run_time := smart_eiffel.is_at_run_time(as_string)
          split_c_file_padding_here
@@ -3075,13 +3081,27 @@ feature {}
          --
          if string_at_run_time then
             prepare_c_function
-            pending_c_function_signature.copy(once "T0*se_ms(int c,char*e)")
+            pending_c_function_signature.copy(once "T0*se_ms(")
+            if no_check then
+               pending_c_function_signature.append("se_dump_stack*caller,")
+            end
+            if ace.profile then
+               pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
+            end
+            pending_c_function_signature.append(once "int c,char*e)")
             pending_c_function_body.copy(once "/* Allocate a Manifest STRING given its length and chars array.*/%N")
             common_body_for_se_string_and_se_ms(string_at_run_time)
             dump_pending_c_function(True)
             --
             prepare_c_function
-            pending_c_function_signature.copy(once "T0*se_string(char*e)")
+            pending_c_function_signature.copy(once "T0*se_string(")
+            if no_check then
+               pending_c_function_signature.append("se_dump_stack*caller,")
+            end
+            if ace.profile then
+               pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
+            end
+            pending_c_function_signature.append(once "char*e)")
             pending_c_function_body.copy(once "/* Allocate an Eiffel STRING by copying C char*e (must be a well-formed C string with terminal \0) */%N%
                                                   %int c=strlen(e);%N")
             common_body_for_se_string_and_se_ms(string_at_run_time)
@@ -3089,6 +3109,27 @@ feature {}
          end
          --
          if mdc > 0 then
+            se_msi_signature := once ""
+            se_msi_signature.clear_count
+            se_msi_call := once ""
+            se_msi_call.clear_count
+            if no_check then
+               se_msi_signature.append(once "se_dump_stack*caller")
+               se_msi_call.append(once "&ds")
+            end
+            if ace.profile then
+               if not se_msi_signature.is_empty then
+                  se_msi_signature.extend(',')
+                  check not se_msi_call.is_empty end
+                  se_msi_call.extend(',')
+               end
+               se_msi_signature.append(once "se_local_profile_t*parent_profile")
+               se_msi_call.append(once "&local_profile")
+            end
+            if se_msi_signature.is_empty then
+               se_msi_signature.copy(once "void")
+               check se_msi_call.is_empty end
+            end
             from
                -- For the *.c file:
                i := 1
@@ -3099,36 +3140,35 @@ feature {}
                prepare_c_function
                pending_c_function_signature.copy(once "void se_msi")
                fn_count.append_in(pending_c_function_signature)
-               if ace.profile and then manifest_string_pool.first_unicode_manifest_string_collected_flag then
-                  pending_c_function_signature.append(once "(se_local_profile_t*parent_profile)")
-               else
-                  pending_c_function_signature.append(once "(void)")
+               pending_c_function_signature.extend('(')
+               pending_c_function_signature.append(se_msi_signature)
+               pending_c_function_signature.extend(')')
+               if ace.profile then
+                  pending_c_function_body.append(once "se_local_profile_t local_profile;%Nstatic se_profile_t prof;%Nstatic int prof_init=0;%N")
+               end
+               if no_check then
+                  pending_c_function_body.append(once "se_frame_descriptor fd={%"<global-once-")
+                  fn_count.append_in(pending_c_function_body)
+                  pending_c_function_body.append(once ">%",0,0,%"%",1};%N")
+                  pending_c_function_body.append(once "[
+                                                        se_dump_stack ds;
+                                                        ds.fd=&fd;
+                                                        ds.p=0;
+                                                        ds.caller=caller;
+                                                        ds.exception_origin=NULL;
+                                                        ds.locals=NULL;
+                                                        ds.depth=0;
+
+                                                        ]")
+               end
+               if ace.profile then
+                  pending_c_function_body.append(once "if (!prof_init){memset(&prof,0,sizeof(prof));prof_init=1;}%N")
+                  pending_c_function_body.append(once "local_profile.profile=&prof;%N")
+                  pending_c_function_body.append(once "init_profile(&prof, %"se_msi")
+                  fn_count.append_in(pending_c_function_body)
+                  pending_c_function_body.append(once "%");%Nstart_profile(parent_profile, &local_profile);%N")
                end
                from
-                  if manifest_string_pool.first_unicode_manifest_string_collected_flag then
-                     if ace.profile then
-                        pending_c_function_body.append(once "se_local_profile_t local_profile;%Nstatic se_profile_t prof;%N")
-                     end
-                     if no_check then
-                        pending_c_function_body.append(once "[
-                                                              se_frame_descriptor fd={"<global-once>",0,0,"",1};
-                                                              se_dump_stack ds;
-                                                              ds.fd=&fd;
-                                                              ds.p=0;
-                                                              ds.caller=NULL;
-                                                              ds.exception_origin=NULL;
-                                                              ds.locals=NULL;
-                                                              ds.depth=0;
-
-                                                              ]")
-                     end
-                     if ace.profile then
-                        pending_c_function_body.append(once "local_profile.profile=&prof;%N")
-                        pending_c_function_body.append(once "init_profile(&prof, %"se_msi")
-                        fn_count.append_in(pending_c_function_body)
-                        pending_c_function_body.append(once "%");%Nstart_profile(parent_profile, &local_profile);%N")
-                     end
-                  end
                   j := nb_ms_per_function
                until
                   j = 0 or else i > mdc
@@ -3149,13 +3189,12 @@ feature {}
                if i <= mdc then
                   pending_c_function_body.append(once "se_msi")
                   fn_count.append_in(pending_c_function_body)
-                  if ace.profile and then manifest_string_pool.first_unicode_manifest_string_collected_flag then
-                     pending_c_function_body.append(once "(&local_profile);%N")
-                  else
-                     pending_c_function_body.append(once "();")
-                  end
+                  pending_c_function_body.extend('(')
+                  pending_c_function_body.append(se_msi_call)
+                  pending_c_function_body.extend(')')
+                  pending_c_function_body.extend(';')
                end
-               if ace.profile and then manifest_string_pool.first_unicode_manifest_string_collected_flag then
+               if ace.profile then
                   pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
                end
                dump_pending_c_function(True)
@@ -3209,37 +3248,20 @@ feature {}
          check
             lt.id = 7
          end
-         if ace.no_check then
-            pending_c_function_body.append(once "se_dump_stack ds={NULL,NULL,0,NULL,NULL,NULL,0};%N%
-                                                %ds.caller=se_dst;%N%
-                                                %ds.exception_origin=NULL;%N%
-                                                %ds.locals=NULL;%N")
-         end
          if ace.profile then
-            pending_c_function_body.append(once "se_local_profile_t local_profile, *parent_profile;%N")
+            pending_c_function_body.append(once "se_local_profile_t local_profile;%Nstatic se_profile_t prof;%Nstatic int prof_init=0;%N")
          end
          pending_c_function_body.append(once "T7*")
          memory.manifest_string_in(pending_c_function_body, string_at_run_time)
-         --pending_c_function_body.append(once "s->_count=c;%N%
-         --                                    %s->_capacity=c;%N%
-         --                                    %s->_storage_lower=0;%N%
-         --                                    %s->_storage=((T9)")
-         --memory.native9_in(pending_c_function_body, string_at_run_time)
-         --pending_c_function_body.append(once "(c+4));%N%
-         --                                    %memcpy(s->_storage,e,c);%N%
-         --                                    %s->_storage[c]='\0';%N%
-         --                                    %s->_storage[c+1]='%/3/';%N%
-         --                                    %s->_storage[c+2]='%/9/';%N%
-         --                                    %s->_storage[c+3]='%/27/';%N")
          if ace.profile then
-            pending_c_function_body.append(once "parent_profile=&global_profile;%N")
-            pending_c_function_body.append(once "local_profile.profile=&se_ms_profile;%N")
+            pending_c_function_body.append(once "if (!prof_init){memset(&prof,0,sizeof(prof));prof_init=1;}%N")
+            pending_c_function_body.append(once "local_profile.profile=&prof;%N")
             pending_c_function_body.append(once "start_profile(parent_profile, &local_profile);%N")
          end
          pending_c_function_body.append(once "*s=M7;%N")
          pending_c_function_body.append(once "r7from_external_sized_copy(")
          if ace.no_check then
-            pending_c_function_body.append(once "&ds,")
+            pending_c_function_body.append(once "caller,")
          end
          if ace.profile then
             pending_c_function_body.append(once "&local_profile,")
@@ -3260,6 +3282,12 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
       do
          trace := manifest_string_trace(ms, buffer)
          buffer.append(once "se_ms(")
+         if ace.no_check then
+            buffer.append(once "&ds,")
+         end
+         if ace.profile then
+            buffer.append(once "&local_profile,")
+         end
          ms.count.append_in(buffer)
          buffer.extend(',')
          if ms.alias_link = Void then
