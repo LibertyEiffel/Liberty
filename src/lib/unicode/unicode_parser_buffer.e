@@ -42,6 +42,7 @@ feature {ANY}
 
    disconnect is
       do
+         url.disconnect
          url := Void
          backlog.clear_count
       ensure
@@ -127,6 +128,7 @@ feature {ANY}
                   if n < 0x00000080 then
                      backlog.add_last(n)
                   else
+                     breakpoint
                      input.read_character
                      if not input.end_of_input then
                         if n & 0x000000e0 = 0x000000c0 then
@@ -346,7 +348,7 @@ feature {}
 feature {RECYCLING_POOL}
    recycle is
       do
-         url := Void
+         disconnect
       end
 
 end -- class UNICODE_PARSER_BUFFER
