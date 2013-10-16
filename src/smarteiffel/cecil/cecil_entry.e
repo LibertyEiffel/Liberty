@@ -67,9 +67,12 @@ feature {ANY}
 
    adapt_for (type: TYPE): like Current is
       do
-         check
-            False
+         if code /= Void then
+            code := code.adapt_for(type)
          end
+         Result := Current
+      ensure
+         Result = Current
       end
 
    use_current (type: TYPE): BOOLEAN is
@@ -88,7 +91,7 @@ feature {ANY}
 
    collect (type: TYPE): TYPE is
       local
-         fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE
+         fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; lt: LIVE_TYPE
       do
          if code /= Void then
             Result := code.collect(type)
@@ -108,6 +111,11 @@ feature {ANY}
                error_handler.print_as_fatal_error
             end
          end
+         lt := smart_eiffel.collect_one_type(target_type, True)
+         echo.put_string(once "Cecil: {")
+         echo.put_string(lt.name.to_string)
+         echo.put_string(once "}.")
+         echo.put_line(feature_name.to_string)
       end
 
    has_been_specialized: BOOLEAN is
@@ -235,7 +243,7 @@ feature {ANY}
             type.is_any
          end
          code_accumulator.open_new_context
-         code.inline_dynamic_dispatch_(code_accumulator, type)
+         code.inline_dynamic_dispatch_(code_accumulator, target_type)
          code := code_accumulator.current_context_to_code
          code_accumulator.close_current_context
       end

@@ -121,7 +121,7 @@ feature {WHEN_CLAUSE}
          Result.has_been_specialized
       end
 
-   compute_values (type: TYPE; values: ARRAY[INTEGER]): like values is
+   compute_values (type: TYPE; values: RING_ARRAY[INTEGER]): like values is
       deferred
       ensure
          Result /= Void
@@ -155,7 +155,7 @@ feature {WHEN_CLAUSE, WHEN_ITEM}
       end
 
 feature {}
-   locate_in_values (values: ARRAY[INTEGER]; v: INTEGER): INTEGER is
+   locate_in_values (values: RING_ARRAY[INTEGER]; v: INTEGER): INTEGER is
          -- Returns index in values table where `v' would be inserted.
       require
          values /= Void

@@ -111,7 +111,7 @@ feature {WHEN_CLAUSE}
          Result := current_or_twin_init(lower.adapt_for(t), upper.adapt_for(t))
       end
 
-   compute_values (type: TYPE; values: ARRAY[INTEGER]): like values is
+   compute_values (type: TYPE; values: RING_ARRAY[INTEGER]): like values is
       local
          l, u, i: INTEGER
       do

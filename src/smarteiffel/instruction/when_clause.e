@@ -603,6 +603,8 @@ feature {INSPECT_STATEMENT}
                   values.is_equal(debug_values)
                end
             end
+         elseif list.is_empty then
+            create values.make(1, 0)
          else
             from
                i := list.lower
@@ -744,7 +746,7 @@ feature {WHEN_CLAUSE, MANIFEST_STRING_INSPECT_STATEMENT, MANIFEST_STRING_INSPECT
    list: FAST_ARRAY[WHEN_ITEM]
 
 feature {WHEN_CLAUSE, WHEN_CLAUSE_VISITOR}
-   values: ARRAY[INTEGER]
+   values: RING_ARRAY[INTEGER]
          -- To store pairs of range values in the canonical form as described below.
          -- The number of items is always pair. A WHEN_ITEM_2 is represented with two
          -- values but a WHEN_ITEM_1 is also represented with two values (the same one

@@ -634,7 +634,7 @@ feature {TYPE_MARK}
          Result /= Void
       end
 
-feature {AGENT_POOL, CREATE_SUPPORT, ASSIGNMENT, ASSIGNMENT_ATTEMPT, CREATE_WRITABLE, EFFECTIVE_ARG_LIST}
+feature {AGENT_POOL, CREATE_SUPPORT, ASSIGNMENT, ASSIGNMENT_ATTEMPT, CREATE_WRITABLE, EFFECTIVE_ARG_LIST, CECIL_ENTRY}
    collect_one_type (type: TYPE; at_run_time: BOOLEAN): LIVE_TYPE is
          -- Make live the given `type'.
       require
@@ -645,6 +645,7 @@ feature {AGENT_POOL, CREATE_SUPPORT, ASSIGNMENT, ASSIGNMENT_ATTEMPT, CREATE_WRIT
          Result := type.live_type
          if Result = Void then
             create Result.make(type)
+            magic_count_increment
             check
                not type.is_expanded implies not Result.at_run_time
                type_dictionary.reference_at(type.long_name).live_type = Result
@@ -664,9 +665,12 @@ feature {AGENT_POOL, CREATE_SUPPORT, ASSIGNMENT, ASSIGNMENT_ATTEMPT, CREATE_WRIT
                end
             end
             Result.set_at_run_time
+            magic_count_increment
          end
       ensure
+         definition: Result = type.live_type
          is_alive: type.live_type /= Void
+         -- hence: Result /= Void
       end
 
 feature {ANONYMOUS_FEATURE, RUN_FEATURE, ARGUMENT_NAME2, LOCAL_NAME2, RESULT, E_OLD, INSPECT_STATEMENT}
@@ -1918,6 +1922,9 @@ feature {}
                   root_procedure ?= root_type.live_type.at(root_fn)
                   check
                      root_is_run_feature_3: root_procedure /= Void
+                  end
+                  if nb_errors = 0 and then cecil_pool /= Void then
+                     cecil_pool.adapt
                   end
                end
             end

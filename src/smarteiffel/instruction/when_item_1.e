@@ -111,7 +111,7 @@ feature {WHEN_ITEM_1}
       end
 
 feature {WHEN_CLAUSE}
-   compute_values (type: TYPE; values: ARRAY[INTEGER]): like values is
+   compute_values (type: TYPE; values: RING_ARRAY[INTEGER]): like values is
       local
          i, v: INTEGER
       do

@@ -40,6 +40,9 @@ feature {ACE, COMMAND_LINE_TOOLS, C_PLUGIN}
             when State_collected then
                file.parse
                file.collect(smart_eiffel.type_any)
+            when State_adapted then
+               sedb_breakpoint
+               check False end
             end
          end
       ensure
@@ -109,12 +112,35 @@ feature {SMART_EIFFEL}
          end
       end
 
+   adapt is
+      require
+         state = State_collected
+      local
+         i: INTEGER
+      do
+         if cecil_files /= Void then
+            echo.put_string(once "Adapting Cecil features.%N")
+            from
+               i := cecil_files.lower
+            until
+               i > cecil_files.upper
+            loop
+               cecil_files.item(i).adapt_for(smart_eiffel.type_any)
+               i := i + 1
+            end
+         end
+         state := State_adapted
+      ensure
+         state = State_adapted
+      end
+
 feature {ANY}
    state: INTEGER
 
    State_initial: INTEGER is 0
    State_parsed: INTEGER is 1
    State_collected: INTEGER is 2
+   State_adapted: INTEGER is 3
 
    do_all (action: PROCEDURE[TUPLE[CECIL_FILE]]) is
       require
@@ -130,7 +156,7 @@ feature {CECIL_FILE}
          -- Non Void if some -cecil option is used.
 
 invariant
-   valid_state: state.in_range(State_initial, State_collected)
+   valid_state: state.in_range(State_initial, State_adapted)
 
 end -- class CECIL_POOL
 --

@@ -927,9 +927,9 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
          check
             visited.dynamic_dispatch_temporary1.side_effect_free(type)
          end
-         function_body.append(once "((")
+         function_body.append(once "(((T0*)(")
          visited.dynamic_dispatch_temporary1.accept(Current)
-         function_body.append(once ")->id)")
+         function_body.append(once "))->id)")
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY1}
