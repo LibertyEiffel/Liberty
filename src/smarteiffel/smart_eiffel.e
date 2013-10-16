@@ -634,7 +634,7 @@ feature {TYPE_MARK}
          Result /= Void
       end
 
-feature {AGENT_POOL, CREATE_SUPPORT, ASSIGNMENT, ASSIGNMENT_ATTEMPT, CREATE_WRITABLE, EFFECTIVE_ARG_LIST, CECIL_ENTRY}
+feature {AGENT_POOL, CREATE_SUPPORT, ASSIGNMENT, ASSIGNMENT_ATTEMPT, CREATE_WRITABLE, EFFECTIVE_ARG_LIST}
    collect_one_type (type: TYPE; at_run_time: BOOLEAN): LIVE_TYPE is
          -- Make live the given `type'.
       require

@@ -91,7 +91,7 @@ feature {ANY}
 
    collect (type: TYPE): TYPE is
       local
-         fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; lt: LIVE_TYPE
+         fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE
       do
          if code /= Void then
             Result := code.collect(type)
@@ -111,11 +111,6 @@ feature {ANY}
                error_handler.print_as_fatal_error
             end
          end
-         lt := smart_eiffel.collect_one_type(target_type, True)
-         echo.put_string(once "Cecil: {")
-         echo.put_string(lt.name.to_string)
-         echo.put_string(once "}.")
-         echo.put_line(feature_name.to_string)
       end
 
    has_been_specialized: BOOLEAN is
