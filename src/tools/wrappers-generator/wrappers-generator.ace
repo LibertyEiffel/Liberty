@@ -23,11 +23,6 @@ cluster -- section
          assertion (all)
       end
 
-   legacy_unicode: "${path_liberty}/src/tools/wrappers-generator/unicode"
-      -- default
-      --      assertion (boost)
-      -- end
-
    lib: "${path_liberty}/src/lib/loadpath.se"
       default
          assertion(boost)

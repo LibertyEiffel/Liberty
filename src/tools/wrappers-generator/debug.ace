@@ -16,7 +16,7 @@ default -- section of the system
    no_warning (no);
    verbose (no);
    manifest_string_trace (no); -- yes);
-   high_memory_compiler (yes);	
+   high_memory_compiler (yes);
    profile (no);
 
 cluster -- section
@@ -29,26 +29,21 @@ cluster -- section
    -- as follows:
 
    wrappers_generator: "."
-	-- All the classes of wrappers-generator, including a sligthly patched
-	-- xml cluster from SmartEiffel
-	default
-		assertion (all)
-	end 
+        -- All the classes of wrappers-generator, including a sligthly patched
+        -- xml cluster from SmartEiffel
+        default
+                assertion (all)
+        end
 
    wrapping_facilities: "../../wrappers/common/loadpath.se"
 
-   legacy_unicode: "${path_liberty}/src/tools/wrappers-generator/unicode"
-        -- default
-        --      assertion (boost)
-        -- end
-
    lib: "${path_liberty}/src/lib/loadpath.se"
-		default
-        assertion(boost)
-		option
-			-- debug(all): FIXED_STRING -- `debug_string' is very useful
-			-- assertion(ensure): HASHED_DICTIONARY, FAST_ARRAY, STRING, PATH_NAME, POSIX_PATH_NAME
-		end
+                default
+                   assertion(boost)
+                option
+                        -- debug(all): FIXED_STRING -- `debug_string' is very useful
+                        -- assertion(ensure): HASHED_DICTIONARY, FAST_ARRAY, STRING, PATH_NAME, POSIX_PATH_NAME
+                end
 
 external -- section for elements written in another language
 generate -- section
