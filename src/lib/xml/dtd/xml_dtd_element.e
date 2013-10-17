@@ -103,7 +103,7 @@ feature {} -- The element's structure
          building_stack.add_last(n)
       end
 
-   build_set (n: BACKTRACKING_NODE) is
+   build_push (n: BACKTRACKING_NODE) is
       do
          building_stack.put(n, building_stack.upper)
       end
@@ -127,22 +127,22 @@ feature {XML_DTD_VALIDATOR} -- Building element's structure
 
    close_exactly_one is
       do
-         build_set(node_and_end(build_top))
+         build_push(node_and_end(build_top))
       end
 
    close_zero_or_one is
       do
-         build_set(zero_or_one_node(build_top))
+         build_push(zero_or_one_node(build_top))
       end
 
    close_zero_or_more is
       do
-         build_set(zero_or_more_node(build_top))
+         build_push(zero_or_more_node(build_top))
       end
 
    close_one_or_more is
       do
-         build_set(one_or_more_node(build_top))
+         build_push(one_or_more_node(build_top))
       end
 
    add_list is
@@ -155,7 +155,7 @@ feature {XML_DTD_VALIDATOR} -- Building element's structure
          build_pop
          l := build_top
          create n.make(l, r)
-         build_set(n)
+         build_push(n)
       ensure
          building_stack.count = old building_stack.count - 1
       end
@@ -170,7 +170,7 @@ feature {XML_DTD_VALIDATOR} -- Building element's structure
          build_pop
          l := build_top
          create n.make(l, r)
-         build_set(n)
+         build_push(n)
       ensure
          building_stack.count = old building_stack.count - 1
       end
@@ -227,7 +227,7 @@ feature {} -- Multiplicity helpers
       local
          a: BACKTRACKING_NODE_AND_PAIR; b: BACKTRACKING_NODE_OR_TRUE
       do
-         create b.make(a_node)
+         create b.make(a_node) -- a
          create a.make(a_node, b)
          b.set_node(a)
          Result := a
@@ -235,12 +235,12 @@ feature {} -- Multiplicity helpers
 
    zero_or_more_node (a_node: BACKTRACKING_NODE): BACKTRACKING_NODE is
       local
-         c: BACKTRACKING_NODE_OR_TRUE; d: BACKTRACKING_NODE_AND_PAIR
+         a: BACKTRACKING_NODE_AND_PAIR; b: BACKTRACKING_NODE_OR_TRUE
       do
-         create c.make(a_node)
-         create d.make(a_node, c)
-         c.set_node(d)
-         Result := c
+         create b.make(a_node) -- a
+         create a.make(a_node, b)
+         b.set_node(a)
+         Result := b
       end
 
    zero_or_one_node (a_node: BACKTRACKING_NODE): BACKTRACKING_NODE is

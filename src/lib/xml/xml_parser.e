@@ -191,7 +191,7 @@ feature {}
                      c := column
                      name := read_name
                      if name = Void then
-                        callbacks.parse_error(l, c, once "Tag name expected")
+                        callbacks.parse_error(l, c, once "Closing tag name expected")
                         Result := Parse_error
                      else
                         skip_blanks
@@ -236,7 +236,7 @@ feature {}
                         callbacks.parse_error(l, c, once "Syntax error")
                         Result := Parse_error
                      end
-                  elseif at_root and then skip('?') then
+                  elseif skip('?') then
                      skip_blanks
                      if skip_word(once "xml") then
                         from
@@ -257,7 +257,11 @@ feature {}
                            end
                         end
                         if Result /= Parse_error then
-                           callbacks.xml_header(l, c)
+                           if at_root then
+                              callbacks.xml_header(l, c)
+                           else
+                              -- ignored!! (valid xml file included via an entity?)
+                           end
                            again := True
                         end
                      else
@@ -295,7 +299,7 @@ feature {}
                      c := column
                      name := read_name
                      if name = Void then
-                        callbacks.parse_error(l, c, once "Tag name expected")
+                        callbacks.parse_error(l, c, once "Opening tag name expected")
                         Result := Parse_error
                      else
                         skip_blanks
@@ -327,11 +331,15 @@ feature {}
                               if skip('>') then
                                  done := True
                                  open := True
+                                 open_close := False
                               elseif skip2('/', '>') then
                                  done := True
+                                 open := False
                                  open_close := True
                               else
                                  done := Result /= Parse_again
+                                 open := False
+                                 open_close := False
                               end
                            until
                               done
@@ -340,11 +348,15 @@ feature {}
                               if skip('>') then
                                  done := True
                                  open := True
+                                 open_close := False
                               elseif skip2('/', '>') then
                                  done := True
+                                 open := False
                                  open_close := True
                               else
                                  done := Result /= Parse_again
+                                 open := False
+                                 open_close := False
                               end
                            end
                            if Result /= Parse_error then
@@ -555,7 +567,7 @@ feature {}
             Result := open_buffers.top
          end
       ensure
-         definition: Result = open_buffers.top
+         definition: open_buffers.is_empty or else Result = open_buffers.top
       end
 
    make is
