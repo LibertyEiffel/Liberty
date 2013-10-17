@@ -1775,7 +1775,7 @@ tmp1/*or else*/=((T6)((_origin)==((void*)((void*)0))));
 R=/*RF4:best_cluster_of*/r276best_cluster_of(_origin,a1,(T6)(a3),_last_origin)/*:RF4*/;
 _last_origin=_origin;
 /*[inspectDynamicDispatch*/
-switch(((_origin)->id)){
+switch((((T0*)(_origin))->id)){
 case 688:
 tmp2/*parent*/=(/*RF2:parent*/(((T688*)_origin))->_parent/*Tpppip*//*:RF2*/);
 break;
@@ -2382,7 +2382,7 @@ _d=/*RF6:distances_*/r276distances_()/*:RF6*/;
 /*RF3:clear_count*/r1032clear_count(((T1032*)_c));
 /*:RF3*//*RF3:clear_count*/r1041clear_count(((T1041*)_d));
 /*:RF3*//*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 688:
 /*RF3:clusters_of*/r688clusters_of(((T688*)a1),a2,(T6)(a3),a4,_c,_d,INT32_C(0));
 /*:RF3*/break;
@@ -2415,7 +2415,7 @@ if(a3){
 /*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r286explanation()/*:RF6*/),(/*RF2:name*/((T439*)(/*RF8:item*/((/*RF2:storage*/(((T1032*)_c))->_storage/*iini*//*:RF2*/))[INT32_C(1)]/*:RF8*/))->_name/*7pci5p*//*:RF2*/));
 /*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r286explanation()/*:RF6*/),ms276_1091711046Abc276A);
 /*:RF3*//*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 688:
 tmp1/*to_string*/=ms688_8777401Abc688A;
 break;

@@ -1275,7 +1275,7 @@ int a3tmp=a2;
 memcpy((C)+(INT32_C(0)),(a1)+a3tmp,((a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[STRING,STRING]]*/void r1067clear_all(T1067 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[STRING,STRING]]*/void r1064clear_all(T1064 C,T2 a1){
 T0* _v=(void*)0;
 T2 _i=0;
 _i=a1;
