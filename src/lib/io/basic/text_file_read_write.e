@@ -25,19 +25,26 @@ feature {ANY}
          -- Open for reading and writing. The stream is positioned at the
          -- beginning of the file.
       local
-         s: POINTER; tfw: TEXT_FILE_WRITE
+         s: POINTER; tfw: TEXT_FILE_WRITE; exists: BOOLEAN
       do
-         if not (create {FILE_TOOLS}).is_readable(new_path) then
+         if (create {FILE_TOOLS}).is_readable(new_path) then
+            exists := True
+         else
             create tfw.connect_to(new_path)
-            tfw.disconnect
+            if tfw.is_connected then
+               tfw.disconnect
+               exists := True
+            end
          end
-         check
-            (create {FILE_TOOLS}).is_readable(new_path)
-         end
-         s := text_file_read_write_open(new_path.to_external)
-         if s.is_not_null then
-            stream := s
-            set_path(new_path)
+         if exists then
+            check
+               (create {FILE_TOOLS}).is_readable(new_path)
+            end
+            s := text_file_read_write_open(new_path.to_external)
+            if s.is_not_null then
+               stream := s
+               set_path(new_path)
+            end
          end
       end
 
@@ -45,19 +52,26 @@ feature {ANY}
          -- Open for reading and writing. The file is created if it does not
          -- exist. The stream is positioned at the end of the file.
       local
-         s: POINTER; tfw: TEXT_FILE_WRITE
+         s: POINTER; tfw: TEXT_FILE_WRITE; exists: BOOLEAN
       do
-         if not (create {FILE_TOOLS}).is_readable(new_path) then
+         if (create {FILE_TOOLS}).is_readable(new_path) then
+            exists := True
+         else
             create tfw.connect_to(new_path)
-            tfw.disconnect
+            if tfw.is_connected then
+               tfw.disconnect
+               exists := True
+            end
          end
-         check
-            (create {FILE_TOOLS}).is_readable(new_path)
-         end
-         s := text_file_read_write_append(new_path.to_external)
-         if s.is_not_null then
-            stream := s
-            set_path(new_path)
+         if exists then
+            check
+               (create {FILE_TOOLS}).is_readable(new_path)
+            end
+            s := text_file_read_write_append(new_path.to_external)
+            if s.is_not_null then
+               stream := s
+               set_path(new_path)
+            end
          end
       end
 
