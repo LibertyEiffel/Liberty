@@ -158,7 +158,7 @@ mkdir($stageout, 0755);
 copy($activeJsonObj, $stageout . "/saved.serialjson");
 
 if (substage("git pull")) {
-   if (execute("cd $LibertyBase && git pull origin $gitBranch") != 0) {
+   if (execute("cd $LibertyBase && git fetch origin && git checkout $gitBranch && git merge --ff-only FETCH_HEAD") != 0) {
       failed();
    }
    endsubstage();
