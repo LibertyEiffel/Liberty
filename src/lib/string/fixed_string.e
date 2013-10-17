@@ -31,14 +31,14 @@ feature {ANY} -- Creation:
          new_count := model.count
          if new_count > 0 and then model.last = '%U' then
             new_capacity := new_count
-            if new_capacity > 0 then
-               storage := storage.calloc(new_capacity)
-               model.copy_slice_to_native(model.lower, model.upper, storage, 0)
-            end
+            storage := storage.calloc(new_capacity)
+            model.copy_slice_to_native(model.lower, model.upper, storage, 0)
          else
             new_capacity := new_count + 1
             storage := storage.calloc(new_capacity)
-            model.copy_slice_to_native(model.lower, model.upper, storage, 0)
+            if new_count > 0 then
+               model.copy_slice_to_native(model.lower, model.upper, storage, 0)
+            end
             storage.put('%U', new_count)
          end
          capacity := new_capacity
