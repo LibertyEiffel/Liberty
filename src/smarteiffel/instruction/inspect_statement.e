@@ -605,6 +605,14 @@ feature {INSPECT_STATEMENT, EXTERNAL_ROUTINE}
       end
 
 feature {MANIFEST_STRING_INSPECTOR}
+   is_empty_call (type: TYPE; e_local: EXPRESSION): FUNCTION_CALL_0 is
+      local
+         fn_is_empty: FEATURE_NAME
+      do
+         create fn_is_empty.ordinary_name(is_empty_name, start_position)
+         create Result.make_specialized(e_local, e_local.resolve_in(type), fn_is_empty)
+      end
+
    item_call (type: TYPE; e_local: EXPRESSION): FUNCTION_CALL_1 is
       local
          fn_item: FEATURE_NAME; args: EFFECTIVE_ARG_LIST
@@ -729,7 +737,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          if exp.is_stored_in_some_local_variable then
             -- Well, no need to add a new extra local.
          else
-            create internal_local2.make(expression.start_position, exp, once "inspectExpression", False)
+            create internal_local2.make(expression.start_position, exp, once "inspectDynamicDispatchExpression", False)
             code_accumulator.current_context.add_last(create {ASSIGNMENT}.make(internal_local2, exp))
             exp := internal_local2
          end

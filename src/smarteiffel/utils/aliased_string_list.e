@@ -244,6 +244,8 @@ feature {} -- Hard coded feature names:
 
    as_do_at_exit: STRING is "do_at_exit"
 
+   as_is_empty: STRING is "is_empty"
+
    as_is_infinity: STRING is "is_infinity"
 
    as_is_normal: STRING is "is_normal"

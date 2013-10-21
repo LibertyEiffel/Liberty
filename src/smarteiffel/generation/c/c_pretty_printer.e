@@ -3079,7 +3079,7 @@ feature {}
             end
          end
          --
-         if string_at_run_time then
+         if string_at_run_time and then manifest_string_pool.first_manifest_string_collected_flag then
             prepare_c_function
             pending_c_function_signature.copy(once "T0*se_ms(")
             if no_check then
@@ -3090,7 +3090,7 @@ feature {}
             end
             pending_c_function_signature.append(once "int c,char*e)")
             pending_c_function_body.copy(once "/* Allocate a Manifest STRING given its length and chars array.*/%N")
-            common_body_for_se_string_and_se_ms(string_at_run_time)
+            common_body_for_se_string_and_se_ms
             dump_pending_c_function(True)
             --
             prepare_c_function
@@ -3104,7 +3104,7 @@ feature {}
             pending_c_function_signature.append(once "char*e)")
             pending_c_function_body.copy(once "/* Allocate an Eiffel STRING by copying C char*e (must be a well-formed C string with terminal \0) */%N%
                                                   %int c=strlen(e);%N")
-            common_body_for_se_string_and_se_ms(string_at_run_time)
+            common_body_for_se_string_and_se_ms
             dump_pending_c_function(True)
          end
          --
@@ -3238,8 +3238,10 @@ feature {}
          end
       end
 
-   common_body_for_se_string_and_se_ms (string_at_run_time: BOOLEAN) is
+   common_body_for_se_string_and_se_ms is
       require
+         smart_eiffel.is_at_run_time(as_string)
+         manifest_string_pool.first_manifest_string_collected_flag
          pending_c_function
       local
          lt: LIVE_TYPE
@@ -3252,7 +3254,7 @@ feature {}
             pending_c_function_body.append(once "se_local_profile_t local_profile;%Nstatic se_profile_t prof;%Nstatic int prof_init=0;%N")
          end
          pending_c_function_body.append(once "T7*")
-         memory.manifest_string_in(pending_c_function_body, string_at_run_time)
+         memory.manifest_string_in(pending_c_function_body, True)
          if ace.profile then
             pending_c_function_body.append(once "if (!prof_init){memset(&prof,0,sizeof(prof));prof_init=1;}%N")
             pending_c_function_body.append(once "local_profile.profile=&prof;%N")

@@ -574,7 +574,7 @@ feature {}
          Result.else_compound = ec
       end
 
-   with_else (sp: like start_position; e: like expression; tc: like then_compound;   ec: like else_compound) is
+   with_else (sp: like start_position; e: like expression; tc: like then_compound; ec: like else_compound) is
       require
          not sp.is_unknown
          e /= Void

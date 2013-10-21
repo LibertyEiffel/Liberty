@@ -326,6 +326,11 @@ feature {ANY}
          Result := string_aliaser.hashed_string(as_item)
       end
 
+   is_empty_name: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_is_empty)
+      end
+
    make_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_make)
