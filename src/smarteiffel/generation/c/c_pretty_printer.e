@@ -3087,20 +3087,7 @@ feature {}
                check
                   lt.id = 7
                end
-               prepare_c_function
-               pending_c_function_signature.copy(once "T0*se_ms(")
-               if no_check then
-                  pending_c_function_signature.append("se_dump_stack*caller,")
-               end
-               if ace.profile then
-                  pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
-               end
-               pending_c_function_signature.append(once "int c,char*e)")
-               pending_c_function_body.copy(once "/* Allocate a Manifest STRING written in the Eiffel code */%N")
-               common_body_for_se_string_and_se_ms
-               dump_pending_c_function(True)
             end
-            --
             prepare_c_function
             pending_c_function_signature.copy(once "T0*se_string(")
             if no_check then
@@ -3110,7 +3097,7 @@ feature {}
                pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
             end
             pending_c_function_signature.append(once "int c,char*e)")
-            pending_c_function_body.copy(once "/* Allocate an Eiffel STRING for specific internal strings */%N")
+            pending_c_function_body.copy(once "/* Allocate an Eiffel STRING given its size and native storage */%N")
             common_body_for_se_string_and_se_ms
             dump_pending_c_function(True)
          end
@@ -3283,7 +3270,7 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
          trace: BOOLEAN
       do
          trace := manifest_string_trace(ms, buffer)
-         buffer.append(once "se_ms(")
+         buffer.append(once "se_string(")
          if ace.no_check then
             buffer.append(once "&ds,")
          end
