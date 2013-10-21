@@ -1123,6 +1123,8 @@ feature {}
          if ace.profile then
             pending_c_function_body.append(once "&local_profile,")
          end
+         c_string.count.append_in(pending_c_function_body)
+         pending_c_function_body.extend(',')
          string_to_c_code(c_string, pending_c_function_body)
          pending_c_function_body.extend(')')
       end
@@ -3094,7 +3096,7 @@ feature {}
                   pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
                end
                pending_c_function_signature.append(once "int c,char*e)")
-               pending_c_function_body.copy(once "/* Allocate a Manifest STRING given its length and chars array.*/%N")
+               pending_c_function_body.copy(once "/* Allocate a Manifest STRING written in the Eiffel code */%N")
                common_body_for_se_string_and_se_ms
                dump_pending_c_function(True)
             end
@@ -3107,9 +3109,8 @@ feature {}
             if ace.profile then
                pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
             end
-            pending_c_function_signature.append(once "char*e)")
-            pending_c_function_body.copy(once "/* Allocate an Eiffel STRING by copying C char*e (must be a well-formed C string with terminal \0) */%N%
-                                                  %int c=strlen(e);%N")
+            pending_c_function_signature.append(once "int c,char*e)")
+            pending_c_function_body.copy(once "/* Allocate an Eiffel STRING for specific internal strings */%N")
             common_body_for_se_string_and_se_ms
             dump_pending_c_function(True)
          end
