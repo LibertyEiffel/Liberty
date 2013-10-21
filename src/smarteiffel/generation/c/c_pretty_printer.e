@@ -3098,7 +3098,29 @@ feature {}
             end
             pending_c_function_signature.append(once "int c,char*e)")
             pending_c_function_body.copy(once "/* Allocate an Eiffel STRING given its size and native storage */%N")
-            common_body_for_se_string_and_se_ms
+            if ace.profile then
+               pending_c_function_body.append(once "se_local_profile_t local_profile;%Nstatic se_profile_t prof;%Nstatic int prof_init=0;%N")
+            end
+            pending_c_function_body.append(once "T7*")
+            memory.manifest_string_in(pending_c_function_body, True)
+            if ace.profile then
+               pending_c_function_body.append(once "if (!prof_init){memset(&prof,0,sizeof(prof));prof_init=1;}%N")
+               pending_c_function_body.append(once "local_profile.profile=&prof;%N")
+               pending_c_function_body.append(once "start_profile(parent_profile, &local_profile);%N")
+            end
+            pending_c_function_body.append(once "*s=M7;%N")
+            pending_c_function_body.append(once "r7from_external_sized_copy(")
+            if ace.no_check then
+               pending_c_function_body.append(once "caller,")
+            end
+            if ace.profile then
+               pending_c_function_body.append(once "&local_profile,")
+            end
+            pending_c_function_body.append(once "s,e,c);%N")
+            if ace.profile then
+               pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
+            end
+            pending_c_function_body.append(once "return((T0*)s);%N")
             dump_pending_c_function(True)
          end
          --
@@ -3230,36 +3252,6 @@ feature {}
             internal_c_local.unlock
             dump_pending_c_function(True)
          end
-      end
-
-   common_body_for_se_string_and_se_ms is
-      require
-         smart_eiffel.is_at_run_time(as_string)
-         pending_c_function
-      do
-         if ace.profile then
-            pending_c_function_body.append(once "se_local_profile_t local_profile;%Nstatic se_profile_t prof;%Nstatic int prof_init=0;%N")
-         end
-         pending_c_function_body.append(once "T7*")
-         memory.manifest_string_in(pending_c_function_body, True)
-         if ace.profile then
-            pending_c_function_body.append(once "if (!prof_init){memset(&prof,0,sizeof(prof));prof_init=1;}%N")
-            pending_c_function_body.append(once "local_profile.profile=&prof;%N")
-            pending_c_function_body.append(once "start_profile(parent_profile, &local_profile);%N")
-         end
-         pending_c_function_body.append(once "*s=M7;%N")
-         pending_c_function_body.append(once "r7from_external_sized_copy(")
-         if ace.no_check then
-            pending_c_function_body.append(once "caller,")
-         end
-         if ace.profile then
-            pending_c_function_body.append(once "&local_profile,")
-         end
-         pending_c_function_body.append(once "s,e,c);%N")
-         if ace.profile then
-            pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
-         end
-         pending_c_function_body.append(once "return((T0*)s);%N")
       end
 
 feature {C_EXPRESSION_COMPILATION_MIXIN}
