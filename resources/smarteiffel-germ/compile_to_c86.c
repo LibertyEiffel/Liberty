@@ -31,9 +31,12 @@ T3 tmp0;
 T2 tmp1;
 /*INTERNAL_C_LOCAL list]*/
 T6 R=0;
-tmp0/*inspectExpression*/=/*RF4:item*/r7item(((T7*)a1),INT8_C(1))/*:RF4*/;
+if(((/*RF2:count*/(((T7*)a1))->_count/*Tiiiini*//*:RF2*/))==(INT8_C(0))){
+}
+else{
+tmp0/*inspectDynamicDispatchExpression*/=/*RF4:item*/r7item(((T7*)a1),INT8_C(1))/*:RF4*/;
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 43:
 if(((/*RF2:count*/(((T7*)a1))->_count/*Tiiiini*//*:RF2*/))==(INT8_C(1))){
 tmp1/*state*/=INT8_C(1);
@@ -111,6 +114,7 @@ R=((T6)(1));
 break;
 }
 /*inspect]*/
+}
 return R;
 }/*--*/
 
@@ -5171,9 +5175,9 @@ _void_call_flag=((T6)(1));
 }
 else{
 _run_time_set=(/*RF2:run_time_set*/(((T375*)_target_live_type))->_run_time_set/*T3pppcp4piipp4pippi6p*//*:RF2*/);
-tmp2/*inspectExpression*/=/*RF4:count*/r539count(((T539*)_run_time_set))/*:RF4*/;
+tmp2/*inspectDynamicDispatchExpression*/=/*RF4:count*/r539count(((T539*)_run_time_set))/*:RF4*/;
 /*[inspect*/
-switch(tmp2/*inspectExpression*/){
+switch(tmp2/*inspectDynamicDispatchExpression*/){
 case 0:
 _void_call_flag=((T6)(1));
 break;

@@ -611,9 +611,9 @@ else{
 tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>(_n)/*:RF8*/));
 }
 /*until*/if(tmp0/*or else*/) break;
-tmp1/*inspectExpression*/=/*RF4:item*/r7item(((T7*)a1),_i)/*:RF4*/;
+tmp1/*inspectDynamicDispatchExpression*/=/*RF4:item*/r7item(((T7*)a1),_i)/*:RF4*/;
 /*[inspect*/
-switch(tmp1/*inspectExpression*/){
+switch(tmp1/*inspectDynamicDispatchExpression*/){
 case 48:
 case 49:
 case 50:
@@ -769,7 +769,7 @@ int fBC274memory=0;
 
 /*STRING_ALIASER*/T0* r274memory(void){
 if(fBC274memory==0){fBC274memory=1;{
-oBC274memory=se_manifest1047(259,
+oBC274memory=se_manifest1047(260,
 /*RF4:create_hashed_string*/r274create_hashed_string(ms33_2104Abc33A)/*:RF4*/,
 /*RF4:create_hashed_string*/r274create_hashed_string(ms33_961210799Abc33A)/*:RF4*/,
 /*RF4:create_hashed_string*/r274create_hashed_string(ms33_53339Abc33A)/*:RF4*/,
@@ -915,6 +915,7 @@ oBC274memory=se_manifest1047(259,
 /*RF4:create_hashed_string*/r274create_hashed_string(ms33_1937220099Abc33A)/*:RF4*/,
 /*RF4:create_hashed_string*/r274create_hashed_string(ms33_10377643Abc33A)/*:RF4*/,
 /*RF4:create_hashed_string*/r274create_hashed_string(ms33_1297432701Abc33A)/*:RF4*/,
+/*RF4:create_hashed_string*/r274create_hashed_string(ms33_10377126Abc33A)/*:RF4*/,
 /*RF4:create_hashed_string*/r274create_hashed_string(ms33_51915068Abc33A)/*:RF4*/,
 /*RF4:create_hashed_string*/r274create_hashed_string(ms33_577213499Abc33A)/*:RF4*/,
 /*RF4:create_hashed_string*/r274create_hashed_string(ms33_1297876698Abc33A)/*:RF4*/,
@@ -1091,9 +1092,9 @@ T2 tmp0;
 T0* tmp1;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
-tmp0/*inspectExpression*/=(/*RF2:item*/(((T1048*)oBC290mode))->_item/*i*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:item*/(((T1048*)oBC290mode))->_item/*i*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case -1:
 tmp1/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T712))));
 *((T712*)tmp1/*new*/)=M712;
@@ -1215,9 +1216,9 @@ if((/*RF4:has*/r1052has(((T1052*)/*ND*/(T0*)((/*RF2:cecil_files*/(C)->_cecil_fil
 /*:RF3*/_file=tmp0/*new*/;
 /*tmp0.unlock*/
 /*RF3:add*/r1052add(((T1052*)/*ND*/(T0*)((/*RF2:cecil_files*/(C)->_cecil_files/*pi*//*:RF2*/))),_file,a1);
-/*:RF3*/tmp1/*inspectExpression*/=(/*RF2:state*/(C)->_state/*pi*//*:RF2*/);
+/*:RF3*/tmp1/*inspectDynamicDispatchExpression*/=(/*RF2:state*/(C)->_state/*pi*//*:RF2*/);
 /*[inspect*/
-switch(tmp1/*inspectExpression*/){
+switch(tmp1/*inspectDynamicDispatchExpression*/){
 case 0:
 break;
 case 1:

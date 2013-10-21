@@ -2475,9 +2475,9 @@ return R;
 T2 tmp0;
 T0* tmp1;
 /*INTERNAL_C_LOCAL list]*/
-tmp0/*inspectExpression*/=(/*RF2:pretty_code*/(C)->_pretty_code/*Ti8ppp*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:pretty_code*/(C)->_pretty_code/*Ti8ppp*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 18:
 /*RF3:append*/r7append(((T7*)a1),ms33_1594034Abc33A);
 /*:RF3*/break;

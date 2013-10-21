@@ -3600,9 +3600,9 @@ T0* tmp1;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
 /*SFN*/(C->_computing_result_type/*pp8pc*/)=/*RF8:+*/((int8_t)((/*RF2:computing_result_type*/(C)->_computing_result_type/*pp8pc*//*:RF2*/)))+(INT8_C(1))/*:RF8*/;
-tmp0/*inspectExpression*/=(/*RF2:computing_result_type*/(C)->_computing_result_type/*pp8pc*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:computing_result_type*/(C)->_computing_result_type/*pp8pc*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 1:
 if(((/*RF2:signature_ready*/(C)->_signature_ready/*pp8pc*//*:RF2*/))==(0)){
 /*RF3:specialize_signature*/r645specialize_signature(C,a1);

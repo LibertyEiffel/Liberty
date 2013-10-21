@@ -3399,9 +3399,9 @@ _void_call_flag=((T6)(1));
 }
 else{
 _run_time_set=(/*RF2:run_time_set*/(((T375*)_target_live_type))->_run_time_set/*T3pppcp4piipp4pippi6p*//*:RF2*/);
-tmp2/*inspectExpression*/=/*RF4:count*/r539count(((T539*)_run_time_set))/*:RF4*/;
+tmp2/*inspectDynamicDispatchExpression*/=/*RF4:count*/r539count(((T539*)_run_time_set))/*:RF4*/;
 /*[inspect*/
-switch(tmp2/*inspectExpression*/){
+switch(tmp2/*inspectDynamicDispatchExpression*/){
 case 0:
 _void_call_flag=((T6)(1));
 break;

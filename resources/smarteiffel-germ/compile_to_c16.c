@@ -32,9 +32,9 @@ T2 tmp0;
 T6 R=0;
 R=((T6)(/*RF4:is_version_flag_no_exit*/r29is_version_flag_no_exit(C,a1)/*:RF4*/));
 if(R){
-tmp0/*inspectExpression*/=/*RF4:argument_count*/r29argument_count()/*:RF4*/;
+tmp0/*inspectDynamicDispatchExpression*/=/*RF4:argument_count*/r29argument_count()/*:RF4*/;
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 1:
 /*RF7:die_with_code*/se_die(INT32_C(0));
 /*:RF7*/break;
@@ -279,9 +279,9 @@ T3 _arg_char='\0';
 _i_arg=(/*RF2:count*/(((T7*)a2))->_count/*Tiiiini*//*:RF2*/);
 if(/*RF8:>=*/((int32_t)(_i_arg))>=(INT32_C(2))/*:RF8*/){
 _i_flag=(/*RF2:count*/(((T7*)a1))->_count/*Tiiiini*//*:RF2*/);
-tmp0/*inspectExpression*/=/*RF4:first*/r7first(((T7*)a2))/*:RF4*/;
+tmp0/*inspectDynamicDispatchExpression*/=/*RF4:first*/r7first(((T7*)a2))/*:RF4*/;
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 45:
 if((/*RF4:item*/r7item(((T7*)a2),INT32_C(2))/*:RF4*/)==(((T3)'\055'))){
 R=((T6)((/*RF8:+*/((int32_t)(_i_flag))+(INT32_C(2))/*:RF8*/)==(_i_arg)));
@@ -740,9 +740,9 @@ _echo_verbose_status_save=((T6)((/*RF2:is_verbose*/((T123*)(/*RF6:echo*/r29echo(
 /*RF3:put_string*/r123put_string((T123*)(/*RF6:echo*/r29echo()/*:RF6*/),ms29_1464431905Abc29A);
 /*:RF3*/(/*RF2:is_verbose*/((T123*)(/*RF6:echo*/r29echo()/*:RF6*/))->_is_verbose/*3pip*//*:RF2*/)=((T6)(_echo_verbose_status_save));
 }
-tmp2/*inspectExpression*/=/*RF4:argument_count*/r29argument_count()/*:RF4*/;
+tmp2/*inspectDynamicDispatchExpression*/=/*RF4:argument_count*/r29argument_count()/*:RF4*/;
 /*[inspect*/
-switch(tmp2/*inspectExpression*/){
+switch(tmp2/*inspectDynamicDispatchExpression*/){
 case 1:
 /*RF7:die_with_code*/se_die(INT32_C(0));
 /*:RF7*/break;
@@ -1206,9 +1206,9 @@ T3 _arg_char='\0';
 _i_arg=(/*RF2:count*/(((T7*)a2))->_count/*Tiiiini*//*:RF2*/);
 if(/*RF8:>=*/((int32_t)(_i_arg))>=(INT32_C(2))/*:RF8*/){
 _i_flag=(/*RF2:count*/(((T7*)a1))->_count/*Tiiiini*//*:RF2*/);
-tmp0/*inspectExpression*/=/*RF4:first*/r7first(((T7*)a2))/*:RF4*/;
+tmp0/*inspectDynamicDispatchExpression*/=/*RF4:first*/r7first(((T7*)a2))/*:RF4*/;
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 45:
 if((/*RF4:item*/r7item(((T7*)a2),INT32_C(2))/*:RF4*/)==(((T3)'\055'))){
 R=((T6)((/*RF8:+*/((int32_t)(_i_flag))+(INT32_C(2))/*:RF8*/)==(_i_arg)));

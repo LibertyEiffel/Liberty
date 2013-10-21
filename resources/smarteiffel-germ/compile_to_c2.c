@@ -460,9 +460,9 @@ if((C)==(a1)){
 R=((T6)(1));
 }
 else{
-tmp0/*inspectExpression*/=/*RF8:code*/T3code(C)/*:RF8*/;
+tmp0/*inspectDynamicDispatchExpression*/=/*RF8:code*/T3code(C)/*:RF8*/;
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 65:
 case 66:
 case 67:

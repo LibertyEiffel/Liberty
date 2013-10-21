@@ -4356,9 +4356,9 @@ tmp1/*simplify*/=/*RF4:simplify*/r671simplify(((T671*)/*RF8:item*/((/*RF2:storag
 /*RF3:simplify_add*/r402simplify_add(_l,tmp1/*simplify*/);
 /*:RF3*/_i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
-tmp2/*inspectExpression*/=/*RF4:count*/r1251count(((T1251*)_l))/*:RF4*/;
+tmp2/*inspectDynamicDispatchExpression*/=/*RF4:count*/r1251count(((T1251*)_l))/*:RF4*/;
 /*[inspect*/
-switch(tmp2/*inspectExpression*/){
+switch(tmp2/*inspectDynamicDispatchExpression*/){
 case 0:
 break;
 case 1:

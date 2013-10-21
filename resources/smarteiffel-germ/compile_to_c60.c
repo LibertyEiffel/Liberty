@@ -2056,10 +2056,10 @@ else{
 R=ms468_898426Abc468A;
 /*RF3:clear_count*/r7clear_count(((T7*)R));
 /*:RF3*//*RF3:extend*/r7extend(((T7*)R),((T3)'\047'));
-/*:RF3*/tmp0/*inspectExpression*/=(/*RF2:value*/(C)->_value/*Tpci*//*:RF2*/);
+/*:RF3*/tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:value*/(C)->_value/*Tpci*//*:RF2*/);
 /*[inspect*/
 
-if(((64<=tmp0/*inspectExpression*/)&&(tmp0/*inspectExpression*/<=126))){
+if(((64<=tmp0/*inspectDynamicDispatchExpression*/)&&(tmp0/*inspectDynamicDispatchExpression*/<=126))){
 /*RF3:extend*/r7extend(((T7*)R),(/*RF2:value*/(C)->_value/*Tpci*//*:RF2*/));
 /*:RF3*/}
  else{/*RF3:character_coding*/r468character_coding((/*RF2:value*/(C)->_value/*Tpci*//*:RF2*/),R);

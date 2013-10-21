@@ -1043,9 +1043,9 @@ return R;
 T2 tmp0;
 /*INTERNAL_C_LOCAL list]*/
 T3 R='\0';
-tmp0/*inspectExpression*/=(/*RF2:bit_count*/(C)->_bit_count/*Ti2ppp*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:bit_count*/(C)->_bit_count/*Ti2ppp*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 32:
 R=((T3)'f');
 break;
@@ -1073,9 +1073,9 @@ return oBC441real_64_name;
 T2 tmp0;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
-tmp0/*inspectExpression*/=(/*RF2:bit_count*/(C)->_bit_count/*Ti2ppp*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:bit_count*/(C)->_bit_count/*Ti2ppp*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 32:
 R=/*RF4:type_real_32*/r108type_real_32(((T108*)oBC32smart_eiffel))/*:RF4*/;
 break;
@@ -1099,9 +1099,9 @@ return R;
 T2 tmp0;
 /*INTERNAL_C_LOCAL list]*/
 T2 R=0;
-tmp0/*inspectExpression*/=(/*RF2:bit_count*/(C)->_bit_count/*Ti2ppp*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:bit_count*/(C)->_bit_count/*Ti2ppp*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 32:
 R=INT32_C(4);
 break;

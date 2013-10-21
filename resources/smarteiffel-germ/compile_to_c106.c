@@ -2945,9 +2945,9 @@ _t2=tmp5/*resolve_in*/;
 if((_t1)==((void*)(_t2))){
 }
 else{
-tmp6/*inspectExpression*/=/*RF4:insert_inherit_test*/r279insert_inherit_test(((T279*)_t1),_t2)/*:RF4*/;
+tmp6/*inspectDynamicDispatchExpression*/=/*RF4:insert_inherit_test*/r279insert_inherit_test(((T279*)_t1),_t2)/*:RF4*/;
 /*[inspect*/
-switch(tmp6/*inspectExpression*/){
+switch(tmp6/*inspectDynamicDispatchExpression*/){
 case 2:
 break;
 case 1:
@@ -4085,6 +4085,46 @@ R=/*RF4:current_or_twin_init*/r747current_or_twin_init(C,tmp0/*specialize_and_ch
 /*WHEN_ITEM_2*/void r747set_lower_upper_manifest_expression(T747* C,T0* a1){
 /*SFN*/(C->_lower_manifest_expression/*T4p*/)=/*RF4:manifest_expression_check*/r747manifest_expression_check((/*RF2:lower*/(C)->_lower/*T4p*//*:RF2*/),a1)/*:RF4*/;
 /*SFN*/(C->_upper_manifest_expression/*T4p*/)=/*RF4:manifest_expression_check*/r747manifest_expression_check((/*RF2:upper*/(C)->_upper/*T4p*//*:RF2*/),a1)/*:RF4*/;
+}/*--*/
+
+/*WHEN_ITEM_2*/T6 r747is_empty_string(T747* C){
+/*[INTERNAL_C_LOCAL list*/
+T6 tmp0;
+T6 tmp1;
+/*INTERNAL_C_LOCAL list]*/
+T6 R=0;
+T0* _manifest_string=(void*)0;
+/*[inspectDynamicDispatch*/
+switch((((T0*)((/*RF2:lower_manifest_expression*/(C)->_lower_manifest_expression/*T4p*//*:RF2*/)))->id)){
+case 387:
+tmp0/*is_manifest_string*/=((T6)(1));
+break;
+default:;
+tmp0/*is_manifest_string*/=((T6)(0));
+}
+/*inspect]*/
+if(tmp0/*is_manifest_string*/){
+_manifest_string=(/*RF2:lower_manifest_expression*/(C)->_lower_manifest_expression/*T4p*//*:RF2*/);
+R=((T6)(((/*RF2:count*/((T7*)((/*RF2:to_string*/(((T387*)_manifest_string))->_to_string/*Ti6pppi*//*:RF2*/)))->_count/*Tiiiini*//*:RF2*/))==(INT8_C(0))));
+}
+/*auto-unlock tmp0*/tmp0/*and then*/=((T6)((R)==(0)));
+if(tmp0/*and then*/){
+/*[inspectDynamicDispatch*/
+switch((((T0*)((/*RF2:upper_manifest_expression*/(C)->_upper_manifest_expression/*T4p*//*:RF2*/)))->id)){
+case 387:
+tmp1/*is_manifest_string*/=((T6)(1));
+break;
+default:;
+tmp1/*is_manifest_string*/=((T6)(0));
+}
+/*inspect]*/
+tmp0/*and then*/=((T6)(tmp1/*is_manifest_string*/));
+}
+if(tmp0/*and then*/){
+_manifest_string=(/*RF2:upper_manifest_expression*/(C)->_upper_manifest_expression/*T4p*//*:RF2*/);
+R=((T6)(((/*RF2:count*/((T7*)((/*RF2:to_string*/(((T387*)_manifest_string))->_to_string/*Ti6pppi*//*:RF2*/)))->_count/*Tiiiini*//*:RF2*/))==(INT8_C(0))));
+}
+return R;
 }/*--*/
 
 /*WHEN_ITEM_2*/void r747validity_check(T747* C,T0* a1,T0* a2,T0* a3){

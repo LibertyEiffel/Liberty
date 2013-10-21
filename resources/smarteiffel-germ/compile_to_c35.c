@@ -1029,9 +1029,9 @@ T2 tmp0;
 /*:RF3*//*RF3:echo_phase_information*/r541echo_phase_information(C,ms541_1899804731Abc541A,INT32_C(7));
 /*:RF3*//*RF3:echo_phase_information*/r541echo_phase_information(C,ms541_1134353920Abc541A,INT32_C(8));
 /*:RF3*//*RF3:echo_phase_information*/r541echo_phase_information(C,ms541_251231528Abc541A,INT32_C(9));
-/*:RF3*/tmp0/*inspectExpression*/=(/*RF2:safety_check_state*/(C)->_safety_check_state/*piIpppii*//*:RF2*/);
+/*:RF3*/tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:safety_check_state*/(C)->_safety_check_state/*piIpppii*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 13:
 /*RF3:append*/r7append((T7*)(/*RF6:explanation*/r286explanation()/*:RF6*/),ms541_456083848Abc541A);
 /*:RF3*//*RF3:print_as_warning*/r286print_as_warning(((T286*)oBC32error_handler));
@@ -3704,9 +3704,9 @@ while(1){
 _agent_args=/*RF4:item*/r1148item(((T1148*)/*ND*/(T0*)(/*RF6:launcher_collected_memory*/r121launcher_collected_memory()/*:RF6*/)),_i)/*:RF4*/;
 _launcher_type=(/*RF2:agent_type*/(((T569*)_agent_args))->_agent_type/*2p*//*:RF2*/);
 if((a3)!=((void*)(_launcher_type))){
-tmp1/*inspectExpression*/=/*RF4:insert_inherit_test*/r279insert_inherit_test(((T279*)a3),_launcher_type)/*:RF4*/;
+tmp1/*inspectDynamicDispatchExpression*/=/*RF4:insert_inherit_test*/r279insert_inherit_test(((T279*)a3),_launcher_type)/*:RF4*/;
 /*[inspect*/
-switch(tmp1/*inspectExpression*/){
+switch(tmp1/*inspectDynamicDispatchExpression*/){
 case 0:
 break;
 default:;

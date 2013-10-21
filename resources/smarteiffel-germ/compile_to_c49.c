@@ -669,9 +669,9 @@ T2 tmp0;
 /*SFN*/(C->_pretty_view/*T2piIi*/)=a2;
 /*RF3:make*/r378make(C,a4,a1);
 /*:RF3*//*SFN*/(C->_result_type_memory/*T2piIi*/)=a3;
-tmp0/*inspectExpression*/=(/*RF2:bit_count_memory*/(((T414*)a3))->_bit_count_memory/*Ti2ppp*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:bit_count_memory*/(((T414*)a3))->_bit_count_memory/*Ti2ppp*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 8:
 if((/*RF4:fit_integer_8*/r11fit_integer_8(a4)/*:RF4*/)==(0)){
 /*RF3:add_position*/r286add_position(a1);
@@ -743,9 +743,9 @@ T2 tmp0;
 T0* R=(void*)0;
 R=(/*RF2:result_type_memory*/(C)->_result_type_memory/*T2piIi*//*:RF2*/);
 if((R)==((void*)((void*)0))){
-tmp0/*inspectExpression*/=(/*RF2:size*/(C)->_size/*T2piIi*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:size*/(C)->_size/*T2piIi*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 8:
 R=(/*RF2:canonical_type_mark*/((T279*)(/*RF4:type_integer_8*/r108type_integer_8(((T108*)oBC32smart_eiffel))/*:RF4*/))->_canonical_type_mark/*7pppi5pp3pp5p*//*:RF2*/);
 break;
@@ -768,9 +768,9 @@ return R;
 T2 tmp0;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
-tmp0/*inspectExpression*/=(/*RF2:bit_count_memory*/((T414*)(/*RF4:result_type*/r378result_type(C)/*:RF4*/))->_bit_count_memory/*Ti2ppp*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:bit_count_memory*/((T414*)(/*RF4:result_type*/r378result_type(C)/*:RF4*/))->_bit_count_memory/*Ti2ppp*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 8:
 R=/*RF4:type_integer_8*/r108type_integer_8(((T108*)oBC32smart_eiffel))/*:RF4*/;
 break;
@@ -1136,9 +1136,9 @@ if(((/*RF2:result_type*/(C)->_result_type/*T3pi*//*:RF2*/))==((void*)((void*)0))
 R=/*RF4:type_real_64*/r108type_real_64(((T108*)oBC32smart_eiffel))/*:RF4*/;
 }
 else{
-tmp0/*inspectExpression*/=(/*RF2:bit_count*/((T441*)((/*RF2:result_type*/(C)->_result_type/*T3pi*//*:RF2*/)))->_bit_count/*Ti2ppp*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:bit_count*/((T441*)((/*RF2:result_type*/(C)->_result_type/*T3pi*//*:RF2*/)))->_bit_count/*Ti2ppp*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 32:
 R=/*RF4:type_real_32*/r108type_real_32(((T108*)oBC32smart_eiffel))/*:RF4*/;
 break;

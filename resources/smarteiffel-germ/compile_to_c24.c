@@ -734,9 +734,9 @@ tmp0/*is_integer*/=((T6)(0));
 /*inspect]*/
 if(tmp0/*is_integer*/){
 _integer_type_mark=(/*RF2:type*/(C)->_type/*p9p*//*:RF2*/);
-tmp1/*inspectExpression*/=(/*RF2:bit_count_memory*/(((T414*)_integer_type_mark))->_bit_count_memory/*Ti2ppp*//*:RF2*/);
+tmp1/*inspectDynamicDispatchExpression*/=(/*RF2:bit_count_memory*/(((T414*)_integer_type_mark))->_bit_count_memory/*Ti2ppp*//*:RF2*/);
 /*[inspect*/
-switch(tmp1/*inspectExpression*/){
+switch(tmp1/*inspectDynamicDispatchExpression*/){
 case 8:
 if((/*RF4:fit_integer_8*/r11fit_integer_8((/*RF2:value_memory*/(((T378*)_integer_constant))->_value_memory/*T2piIi*//*:RF2*/))/*:RF4*/)==(0)){
 /*RF3:add_position*/r286add_position(/*RF4:start_position*/r414start_position(((T414*)_integer_type_mark))/*:RF4*/);

@@ -403,6 +403,28 @@ R=/*RF4:current_or_twin_init*/r386current_or_twin_init(C,tmp0/*specialize_and_ch
 /*:RF3*/return R;
 }/*--*/
 
+/*WHEN_ITEM_1*/T6 r386is_empty_string(T386* C){
+/*[INTERNAL_C_LOCAL list*/
+T6 tmp0;
+/*INTERNAL_C_LOCAL list]*/
+T6 R=0;
+T0* _manifest_string=(void*)0;
+/*[inspectDynamicDispatch*/
+switch((((T0*)((/*RF2:manifest_expression*/(C)->_manifest_expression/*T2p*//*:RF2*/)))->id)){
+case 387:
+tmp0/*is_manifest_string*/=((T6)(1));
+break;
+default:;
+tmp0/*is_manifest_string*/=((T6)(0));
+}
+/*inspect]*/
+if(tmp0/*is_manifest_string*/){
+_manifest_string=(/*RF2:manifest_expression*/(C)->_manifest_expression/*T2p*//*:RF2*/);
+R=((T6)(((/*RF2:count*/((T7*)((/*RF2:to_string*/(((T387*)_manifest_string))->_to_string/*Ti6pppi*//*:RF2*/)))->_count/*Tiiiini*//*:RF2*/))==(INT8_C(0))));
+}
+return R;
+}/*--*/
+
 /*WHEN_ITEM_1*/void r386validity_check(T386* C,T0* a1,T0* a2,T0* a3){
 /*[inspectDynamicDispatch*/
 switch((((T0*)(a3))->id)){

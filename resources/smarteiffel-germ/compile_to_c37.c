@@ -1978,9 +1978,9 @@ return R;
 T1 tmp0;
 T344 tmp1;
 /*INTERNAL_C_LOCAL list]*/
-tmp0/*inspectExpression*/=(/*RF2:state*/(C)->_state/*10pcipp4p*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:state*/(C)->_state/*10pcipp4p*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 2:
 /*[inspectDynamicDispatch*/
 switch((((T0*)(a1))->id)){
@@ -3110,9 +3110,12 @@ T3 tmp0;
 T2 tmp1;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
-tmp0/*inspectExpression*/=/*RF4:item*/r7item(((T7*)a1),INT8_C(1))/*:RF4*/;
+if(((/*RF2:count*/(((T7*)a1))->_count/*Tiiiini*//*:RF2*/))==(INT8_C(0))){
+}
+else{
+tmp0/*inspectDynamicDispatchExpression*/=/*RF4:item*/r7item(((T7*)a1),INT8_C(1))/*:RF4*/;
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 73:
 if((/*RF4:item*/r7item(((T7*)a1),INT8_C(2))/*:RF4*/)==(((T3)'N'))){
 if((/*RF4:item*/r7item(((T7*)a1),INT8_C(3))/*:RF4*/)==(((T3)'T'))){
@@ -3229,6 +3232,7 @@ R=(/*RF2:to_string*/((T103*)(/*RF6:natural_alias*/r575natural_alias()/*:RF6*/))-
 break;
 }
 /*inspect]*/
+}
 return R;
 }/*--*/
 T0*oBC575real_alias=(void*)0;
