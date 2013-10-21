@@ -319,7 +319,7 @@ function testDir($dir) {
             $warnCnt = exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg("$stagedir/err.txt") . " | wc -l");
             $res = -$warnCnt;
          } else {
-            $res += exec("grep " . escapeshellarg("Abnormal") . " " . escapeshellarg("$dir/eiffeltest/log.new") . " | wc -l");
+            $res += exec("grep " . escapeshellarg("Abnormal:") . " " . escapeshellarg("$dir/eiffeltest/log.new") . " | wc -l");
          }
       } else {
          file_put_contents("$stagedir/err.txt", "missing eiffeltest directory - please add to repository");
