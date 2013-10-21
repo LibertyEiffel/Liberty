@@ -41,14 +41,14 @@ feature {}
          i: INTEGER; arg: STRING
       once
          from
-            i := se_argc
-            create Result.make(i)
+            i := 0
+            create Result.make(se_argc)
          until
-            i = 0
+            i >= se_argc
          loop
-            i := i - 1
             arg := se_argv(i)
             Result.put(arg, i)
+            i := i + 1
          end
       ensure
          not Result.is_empty
