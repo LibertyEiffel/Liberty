@@ -310,7 +310,9 @@ feature {NATIVE_BUILT_IN}
             if ace.profile then
                function_body.append(once "&local_profile,")
             end
-            function_body.append(once "se_argv[")
+            function_body.append(once "strlen(se_argv[")
+            cpp.put_ith_argument(1)
+            function_body.append(once "]), se_argv[")
             cpp.put_ith_argument(1)
             function_body.append(once "]))")
          elseif as_native_array = bcn then

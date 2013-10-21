@@ -256,6 +256,7 @@ feature {}
                         create_hashed_string(as_is_deep_equal),
                         create_hashed_string(as_is_equal),
                         create_hashed_string(as_is_infinity),
+                        create_hashed_string(as_is_empty),
                         create_hashed_string(as_is_normal),
                         create_hashed_string(as_is_not_a_number),
                         create_hashed_string(as_is_not_null),

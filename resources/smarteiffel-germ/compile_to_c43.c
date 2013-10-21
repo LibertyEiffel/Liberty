@@ -182,7 +182,7 @@ return R;
 
 /*BOOLEAN_TYPE_MARK*/void r388accept(T388* C,T0* a1){
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 624:
 /*RF3:visit_boolean_type_mark*/r624visit_boolean_type_mark((T0*)C);
 /*:RF3*/break;
@@ -214,7 +214,7 @@ if(tmp0/*or else*/){
 }
 else{
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 388:
 tmp1/*signature_resolve_in*/=/*RF4:signature_resolve_in*/r388signature_resolve_in(a2)/*:RF4*/;
 break;
@@ -585,7 +585,7 @@ return R;
 
 /*CHARACTER_TYPE_MARK*/void r442accept(T442* C,T0* a1){
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 624:
 /*RF3:visit_character_type_mark*/r624visit_character_type_mark((T0*)C);
 /*:RF3*/break;
@@ -617,7 +617,7 @@ if(tmp0/*or else*/){
 }
 else{
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 388:
 tmp1/*signature_resolve_in*/=/*RF4:signature_resolve_in*/r388signature_resolve_in(a2)/*:RF4*/;
 break;
@@ -945,9 +945,9 @@ return R;
 T2 tmp0;
 /*INTERNAL_C_LOCAL list]*/
 T3 R='\0';
-tmp0/*inspectExpression*/=(/*RF2:bit_count_memory*/(C)->_bit_count_memory/*Ti2ppp*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:bit_count_memory*/(C)->_bit_count_memory/*Ti2ppp*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 8:
 R=((T3)'c');
 break;
@@ -969,9 +969,9 @@ return R;
 T2 tmp0;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
-tmp0/*inspectExpression*/=(/*RF2:bit_count_memory*/(C)->_bit_count_memory/*Ti2ppp*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:bit_count_memory*/(C)->_bit_count_memory/*Ti2ppp*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 8:
 R=/*RF4:type_integer_8*/r108type_integer_8(((T108*)oBC32smart_eiffel))/*:RF4*/;
 break;
@@ -998,9 +998,9 @@ return R;
 T2 tmp0;
 /*INTERNAL_C_LOCAL list]*/
 T2 R=0;
-tmp0/*inspectExpression*/=(/*RF2:bit_count_memory*/(C)->_bit_count_memory/*Ti2ppp*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:bit_count_memory*/(C)->_bit_count_memory/*Ti2ppp*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 8:
 R=INT32_C(1);
 break;
@@ -1114,7 +1114,7 @@ if(tmp0/*or else*/){
 }
 else{
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 388:
 tmp1/*signature_resolve_in*/=/*RF4:signature_resolve_in*/r388signature_resolve_in(a2)/*:RF4*/;
 break;
@@ -1214,7 +1214,7 @@ T6 R=0;
 T0* _integer_type_mark=(void*)0;
 T0* _real_type_mark=(void*)0;
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 414:
 tmp0/*is_integer*/=((T6)(1));
 break;
@@ -1228,7 +1228,7 @@ R=((T6)(/*RF8:<=*/((int32_t)((/*RF2:bit_count_memory*/(C)->_bit_count_memory/*Ti
 }
 else{
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 388:
 tmp1/*class_text_name*/=(/*RF2:class_text_name*/(((T388*)a1))->_class_text_name/*Tppp*//*:RF2*/);
 break;
@@ -1286,7 +1286,7 @@ R=((T6)(1));
 }
 else{
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 441:
 tmp2/*is_real*/=((T6)(1));
 break;
@@ -1459,7 +1459,7 @@ return R;
 
 /*INTEGER_TYPE_MARK*/void r414accept(T414* C,T0* a1){
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 624:
 /*RF3:visit_integer_type_mark*/r624visit_integer_type_mark((T0*)C);
 /*:RF3*/break;
@@ -1664,9 +1664,9 @@ return R;
 T2 tmp0;
 /*INTERNAL_C_LOCAL list]*/
 T3 R='\0';
-tmp0/*inspectExpression*/=(/*RF2:bit_count*/(C)->_bit_count/*Ti2ppp*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:bit_count*/(C)->_bit_count/*Ti2ppp*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 8:
 R=((T3)'c');
 break;
@@ -1697,9 +1697,9 @@ return oBC440natural_name;
 T2 tmp0;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
-tmp0/*inspectExpression*/=(/*RF2:bit_count*/(C)->_bit_count/*Ti2ppp*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:bit_count*/(C)->_bit_count/*Ti2ppp*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 8:
 R=/*RF4:type_natural_8*/r108type_natural_8(((T108*)oBC32smart_eiffel))/*:RF4*/;
 break;
@@ -1819,7 +1819,7 @@ if(tmp0/*or else*/){
 }
 else{
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 388:
 tmp1/*signature_resolve_in*/=/*RF4:signature_resolve_in*/r388signature_resolve_in(a2)/*:RF4*/;
 break;
@@ -1903,7 +1903,7 @@ T0* tmp1;
 T6 R=0;
 T0* _natural_type_mark=(void*)0;
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 440:
 tmp0/*is_natural*/=((T6)(1));
 break;
@@ -1917,7 +1917,7 @@ R=((T6)(/*RF8:<=*/((int32_t)((/*RF2:bit_count*/(C)->_bit_count/*Ti2ppp*//*:RF2*/
 }
 else{
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 388:
 tmp1/*class_text_name*/=(/*RF2:class_text_name*/(((T388*)a1))->_class_text_name/*Tppp*//*:RF2*/);
 break;
@@ -2046,9 +2046,9 @@ return R;
 T2 tmp0;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
-tmp0/*inspectExpression*/=(/*RF2:bit_count*/(C)->_bit_count/*Ti2ppp*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:bit_count*/(C)->_bit_count/*Ti2ppp*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 8:
 R=/*RF6:natural_8_name*/r440natural_8_name()/*:RF6*/;
 break;
@@ -2152,7 +2152,7 @@ return oBC440natural_16_name;
 
 /*NATURAL_TYPE_MARK*/void r440accept(T440* C,T0* a1){
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 576:
 /*RF3:visit_natural_type_mark*/r576visit_natural_type_mark((T0*)C);
 /*:RF3*/break;

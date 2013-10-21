@@ -64,7 +64,7 @@ if(((/*RF2:rank*/(C)->_rank/*Tpipi*//*:RF2*/))==(INT8_C(0))){
 /*:RF3*/}
 if(((/*RF2:curly_type*/(C)->_curly_type/*Tpipi*//*:RF2*/))!=((void*)((void*)0))){
 /*[inspectDynamicDispatch*/
-switch((((/*RF2:curly_type*/(C)->_curly_type/*Tpipi*//*:RF2*/))->id)){
+switch((((T0*)((/*RF2:curly_type*/(C)->_curly_type/*Tpipi*//*:RF2*/)))->id)){
 case 415:
 /*RF3:specialize_in*/r415specialize_in(((T415*)(/*RF2:curly_type*/(C)->_curly_type/*Tpipi*//*:RF2*/)),a1);
 /*:RF3*/break;
@@ -126,7 +126,7 @@ T0* _ct=(void*)0;
 R=((T0*)(C));
 if(((/*RF2:curly_type*/(C)->_curly_type/*Tpipi*//*:RF2*/))!=((void*)((void*)0))){
 /*[inspectDynamicDispatch*/
-switch((((/*RF2:curly_type*/(C)->_curly_type/*Tpipi*//*:RF2*/))->id)){
+switch((((T0*)((/*RF2:curly_type*/(C)->_curly_type/*Tpipi*//*:RF2*/)))->id)){
 case 388:
 tmp0/*specialize_thru*/=/*RF4:specialize_thru*/r388specialize_thru(((T388*)(/*RF2:curly_type*/(C)->_curly_type/*Tpipi*//*:RF2*/)),a1,a2,a3)/*:RF4*/;
 break;
@@ -218,7 +218,7 @@ return R;
 
 /*OPEN_OPERAND*/void r480accept(T480* C,T0* a1){
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 125:
 /*RF3:visit_open_operand*/r125visit_open_operand(((T125*)a1),(T0*)C);
 /*:RF3*/break;
@@ -247,7 +247,7 @@ T0* tmp1;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
 /*[inspectDynamicDispatch*/
-switch((((/*RF2:curly_type*/(C)->_curly_type/*Tpipi*//*:RF2*/))->id)){
+switch((((T0*)((/*RF2:curly_type*/(C)->_curly_type/*Tpipi*//*:RF2*/)))->id)){
 case 388:
 tmp0/*declaration_type*/=/*RF4:declaration_type*/r388declaration_type(((T388*)(/*RF2:curly_type*/(C)->_curly_type/*Tpipi*//*:RF2*/)))/*:RF4*/;
 break;
@@ -313,7 +313,7 @@ tmp0/*declaration_type*/=(void*)0;
 }
 /*inspect]*/
 /*[inspectDynamicDispatch*/
-switch(((tmp0/*declaration_type*/)->id)){
+switch((((T0*)(tmp0/*declaration_type*/))->id)){
 case 388:
 tmp1/*type*/=/*RF4:type*/r388type()/*:RF4*/;
 break;
@@ -434,7 +434,7 @@ R=/*RF4:reference_at*/r1455reference_at((T1455*)((/*RF2:resolved_memory*/(C)->_r
 }
 if((R)==((void*)((void*)0))){
 /*[inspectDynamicDispatch*/
-switch((((/*RF2:curly_type*/(C)->_curly_type/*Tpipi*//*:RF2*/))->id)){
+switch((((T0*)((/*RF2:curly_type*/(C)->_curly_type/*Tpipi*//*:RF2*/)))->id)){
 case 388:
 /*reusing tmp0*/tmp0/*resolve_in*/=/*RF4:resolve_in*/r388resolve_in(a1)/*:RF4*/;
 break;
@@ -669,9 +669,9 @@ T2 tmp0;
 /*SFN*/(C->_pretty_view/*T2piIi*/)=a2;
 /*RF3:make*/r378make(C,a4,a1);
 /*:RF3*//*SFN*/(C->_result_type_memory/*T2piIi*/)=a3;
-tmp0/*inspectExpression*/=(/*RF2:bit_count_memory*/(((T414*)a3))->_bit_count_memory/*Ti2ppp*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:bit_count_memory*/(((T414*)a3))->_bit_count_memory/*Ti2ppp*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 8:
 if((/*RF4:fit_integer_8*/r11fit_integer_8(a4)/*:RF4*/)==(0)){
 /*RF3:add_position*/r286add_position(a1);
@@ -710,7 +710,7 @@ return R;
 
 /*INTEGER_CONSTANT*/void r378accept(T378* C,T0* a1){
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 125:
 break;
 case 625:
@@ -743,9 +743,9 @@ T2 tmp0;
 T0* R=(void*)0;
 R=(/*RF2:result_type_memory*/(C)->_result_type_memory/*T2piIi*//*:RF2*/);
 if((R)==((void*)((void*)0))){
-tmp0/*inspectExpression*/=(/*RF2:size*/(C)->_size/*T2piIi*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:size*/(C)->_size/*T2piIi*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 8:
 R=(/*RF2:canonical_type_mark*/((T279*)(/*RF4:type_integer_8*/r108type_integer_8(((T108*)oBC32smart_eiffel))/*:RF4*/))->_canonical_type_mark/*7pppi5pp3pp5p*//*:RF2*/);
 break;
@@ -768,9 +768,9 @@ return R;
 T2 tmp0;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
-tmp0/*inspectExpression*/=(/*RF2:bit_count_memory*/((T414*)(/*RF4:result_type*/r378result_type(C)/*:RF4*/))->_bit_count_memory/*Ti2ppp*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:bit_count_memory*/((T414*)(/*RF4:result_type*/r378result_type(C)/*:RF4*/))->_bit_count_memory/*Ti2ppp*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 8:
 R=/*RF4:type_integer_8*/r108type_integer_8(((T108*)oBC32smart_eiffel))/*:RF4*/;
 break;
@@ -790,7 +790,7 @@ return R;
 /*INTEGER_CONSTANT*/T0* r378collect(T378* C,T0* a1){
 T0* R=(void*)0;
 R=/*RF4:resolve_in*/r378resolve_in(C,a1)/*:RF4*/;
-/*RF3:collect_constant*/r108collect_constant(R);
+/*RF3:collect_constant*/r108collect_constant(((T108*)oBC32smart_eiffel),R);
 /*:RF3*/return R;
 }/*--*/
 
@@ -1106,7 +1106,7 @@ return R;
 
 /*REAL_CONSTANT*/void r481accept(T481* C,T0* a1){
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 125:
 break;
 case 625:
@@ -1136,9 +1136,9 @@ if(((/*RF2:result_type*/(C)->_result_type/*T3pi*//*:RF2*/))==((void*)((void*)0))
 R=/*RF4:type_real_64*/r108type_real_64(((T108*)oBC32smart_eiffel))/*:RF4*/;
 }
 else{
-tmp0/*inspectExpression*/=(/*RF2:bit_count*/((T441*)((/*RF2:result_type*/(C)->_result_type/*T3pi*//*:RF2*/)))->_bit_count/*Ti2ppp*//*:RF2*/);
+tmp0/*inspectDynamicDispatchExpression*/=(/*RF2:bit_count*/((T441*)((/*RF2:result_type*/(C)->_result_type/*T3pi*//*:RF2*/)))->_bit_count/*Ti2ppp*//*:RF2*/);
 /*[inspect*/
-switch(tmp0/*inspectExpression*/){
+switch(tmp0/*inspectDynamicDispatchExpression*/){
 case 32:
 R=/*RF4:type_real_32*/r108type_real_32(((T108*)oBC32smart_eiffel))/*:RF4*/;
 break;
@@ -1156,7 +1156,7 @@ return R;
 /*REAL_CONSTANT*/T0* r481collect(T481* C,T0* a1){
 T0* R=(void*)0;
 R=/*RF4:resolve_in*/r481resolve_in(C,a1)/*:RF4*/;
-/*RF3:collect_constant*/r108collect_constant(R);
+/*RF3:collect_constant*/r108collect_constant(((T108*)oBC32smart_eiffel),R);
 /*:RF3*/return R;
 }/*--*/
 
@@ -1234,7 +1234,7 @@ tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1091*)a2))->_u
 }
 /*until*/if(tmp0/*or else*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*RF8:item*/((/*RF2:storage*/(((T1091*)a2))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/)->id)){
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/(((T1091*)a2))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
 case 354:
 tmp1/*use_current*/=((T6)(/*RF4:use_current*/r354use_current(((T354*)/*RF8:item*/((/*RF2:storage*/(((T1091*)a2))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/));
 break;
@@ -1402,7 +1402,7 @@ R=(/*RF2:created_type*/(C)->_created_type/*Ti3pi3pi*//*:RF2*/);
 }
 else{
 /*[inspectDynamicDispatch*/
-switch((((/*RF2:type_mark*/(C)->_type_mark/*Ti3pi3pi*//*:RF2*/))->id)){
+switch((((T0*)((/*RF2:type_mark*/(C)->_type_mark/*Ti3pi3pi*//*:RF2*/)))->id)){
 case 388:
 tmp0/*type*/=/*RF4:type*/r388type()/*:RF4*/;
 break;
@@ -1510,7 +1510,7 @@ T0* _destination_type=(void*)0;
 R=(/*RF2:optional_arguments*/(C)->_optional_arguments/*Ti3pi3pi*//*:RF2*/);
 _list_idx=(/*RF2:upper*/(((T1091*)R))->_upper/*iini*//*:RF2*/);
 /*[inspectDynamicDispatch*/
-switch((((tmp0/*ddt1*/=(/*RF4:anonymous_feature*/r88anonymous_feature((T88*)((/*RF2:manifest_make_feature_stamp*/(C)->_manifest_make_feature_stamp/*Ti3pi3pi*//*:RF2*/)),(/*RF2:created_type*/(C)->_created_type/*Ti3pi3pi*//*:RF2*/))/*:RF4*/)))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF4:anonymous_feature*/r88anonymous_feature((T88*)((/*RF2:manifest_make_feature_stamp*/(C)->_manifest_make_feature_stamp/*Ti3pi3pi*//*:RF2*/)),(/*RF2:created_type*/(C)->_created_type/*Ti3pi3pi*//*:RF2*/))/*:RF4*/))))->id)){
 case 407:
 tmp1/*arguments*/=(/*RF2:arguments*/(((T407*)tmp0/*ddt1*/))->_arguments/*Tpp13p*//*:RF2*/);
 break;
@@ -1548,7 +1548,7 @@ while(1){
 _exp1=/*RF8:item*/((/*RF2:storage*/(((T1091*)R))->_storage/*iini*//*:RF2*/))[_list_idx]/*:RF8*/;
 _destination_type_mark=/*RF4:type_mark*/r360type_mark(((T360*)_formal_arg_list),_fal_idx)/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch(((_destination_type_mark)->id)){
+switch((((T0*)(_destination_type_mark))->id)){
 case 388:
 /*reusing tmp0*/tmp0/*resolve_in*/=/*RF4:resolve_in*/r388resolve_in((/*RF2:created_type*/(C)->_created_type/*Ti3pi3pi*//*:RF2*/))/*:RF4*/;
 break;
@@ -1643,17 +1643,17 @@ T2 _list_idx=0;
 T0* _expression=(void*)0;
 R=(/*RF2:created_type*/(C)->_created_type/*Ti3pi3pi*//*:RF2*/);
 if(/*RF4:is_native_array*/r279is_native_array(((T279*)R))/*:RF4*/){
-_dummy=/*RF4:collect*/r108collect(R,/*RF4:feature_stamp_of*/r279feature_stamp_of(((T279*)R),/*RF6:calloc_name*/r482calloc_name()/*:RF6*/)/*:RF4*/,(T6)(1))/*:RF4*/;
-_dummy=/*RF4:collect*/r108collect(R,/*RF4:feature_stamp_of*/r279feature_stamp_of(((T279*)R),/*RF6:put_name*/r482put_name()/*:RF6*/)/*:RF4*/,(T6)(1))/*:RF4*/;
+_dummy=/*RF4:collect*/r108collect(((T108*)oBC32smart_eiffel),R,/*RF4:feature_stamp_of*/r279feature_stamp_of(((T279*)R),/*RF6:calloc_name*/r482calloc_name()/*:RF6*/)/*:RF4*/,(T6)(1))/*:RF4*/;
+_dummy=/*RF4:collect*/r108collect(((T108*)oBC32smart_eiffel),R,/*RF4:feature_stamp_of*/r279feature_stamp_of(((T279*)R),/*RF6:put_name*/r482put_name()/*:RF6*/)/*:RF4*/,(T6)(1))/*:RF4*/;
 }
 else{
-_dummy=/*RF4:collect*/r108collect(R,(/*RF2:manifest_make_feature_stamp*/(C)->_manifest_make_feature_stamp/*Ti3pi3pi*//*:RF2*/),(T6)(1))/*:RF4*/;
-_dummy=/*RF4:collect*/r108collect(R,(/*RF2:manifest_put_feature_stamp*/(C)->_manifest_put_feature_stamp/*Ti3pi3pi*//*:RF2*/),(T6)(1))/*:RF4*/;
+_dummy=/*RF4:collect*/r108collect(((T108*)oBC32smart_eiffel),R,(/*RF2:manifest_make_feature_stamp*/(C)->_manifest_make_feature_stamp/*Ti3pi3pi*//*:RF2*/),(T6)(1))/*:RF4*/;
+_dummy=/*RF4:collect*/r108collect(((T108*)oBC32smart_eiffel),R,(/*RF2:manifest_put_feature_stamp*/(C)->_manifest_put_feature_stamp/*Ti3pi3pi*//*:RF2*/),(T6)(1))/*:RF4*/;
 }
 if(((/*RF2:optional_arguments*/(C)->_optional_arguments/*Ti3pi3pi*//*:RF2*/))!=((void*)((void*)0))){
 _list_idx=(/*RF2:upper*/((T1091*)((/*RF2:optional_arguments*/(C)->_optional_arguments/*Ti3pi3pi*//*:RF2*/)))->_upper/*iini*//*:RF2*/);
 /*[inspectDynamicDispatch*/
-switch((((tmp0/*ddt1*/=(/*RF4:anonymous_feature*/r88anonymous_feature((T88*)((/*RF2:manifest_make_feature_stamp*/(C)->_manifest_make_feature_stamp/*Ti3pi3pi*//*:RF2*/)),(/*RF2:created_type*/(C)->_created_type/*Ti3pi3pi*//*:RF2*/))/*:RF4*/)))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF4:anonymous_feature*/r88anonymous_feature((T88*)((/*RF2:manifest_make_feature_stamp*/(C)->_manifest_make_feature_stamp/*Ti3pi3pi*//*:RF2*/)),(/*RF2:created_type*/(C)->_created_type/*Ti3pi3pi*//*:RF2*/))/*:RF4*/))))->id)){
 case 407:
 tmp1/*arguments*/=(/*RF2:arguments*/(((T407*)tmp0/*ddt1*/))->_arguments/*Tpp13p*//*:RF2*/);
 break;
@@ -1690,7 +1690,7 @@ while(1){
 /*until*/if(/*RF8:<*/((int32_t)(_list_idx))<(INT32_C(0))/*:RF8*/) break;
 _expression=/*RF8:item*/((/*RF2:storage*/((T1091*)((/*RF2:optional_arguments*/(C)->_optional_arguments/*Ti3pi3pi*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_list_idx]/*:RF8*/;
 /*[inspectDynamicDispatch*/
-switch(((_expression)->id)){
+switch((((T0*)(_expression))->id)){
 case 403:
 tmp2/*is_void*/=((T6)(1));
 break;
@@ -1709,7 +1709,7 @@ tmp2/*is_void*/=((T6)(0));
 /*inspect]*/
 if((tmp2/*is_void*/)==(0)){
 /*[inspectDynamicDispatch*/
-switch(((_expression)->id)){
+switch((((T0*)(_expression))->id)){
 case 354:
 /*reusing tmp0*/tmp0/*collect*/=/*RF4:collect*/r354collect(((T354*)_expression),a1)/*:RF4*/;
 break;
@@ -1929,7 +1929,7 @@ tmp0/*collect*/=/*RF4:collect*/r663collect(((T663*)_expression),a1)/*:RF4*/;
 /*inspect]*/
 _expression_type=tmp0/*collect*/;
 /*[inspectDynamicDispatch*/
-switch(((/*auto-unlock tmp0*/(tmp0/*ddt1*/=(/*RF4:type_mark*/r360type_mark(((T360*)_formal_arg_list),_fal_idx)/*:RF4*/)))->id)){
+switch((((T0*)(/*auto-unlock tmp0*/(tmp0/*ddt1*/=(/*RF4:type_mark*/r360type_mark(((T360*)_formal_arg_list),_fal_idx)/*:RF4*/))))->id)){
 case 388:
 /*auto-unlock tmp1*/tmp1/*resolve_in*/=/*RF4:resolve_in*/r388resolve_in((/*RF2:created_type*/(C)->_created_type/*Ti3pi3pi*//*:RF2*/))/*:RF4*/;
 break;
@@ -2003,7 +2003,7 @@ _fal_idx=/*RF8:-*/((int32_t)(_fal_idx))-(INT32_C(1))/*:RF8*/;
 }
 }
 /*[inspectDynamicDispatch*/
-switch(((/*reusing tmp0*/(tmp0/*ddt1*/=(/*RF4:anonymous_feature*/r88anonymous_feature((T88*)((/*RF2:manifest_put_feature_stamp*/(C)->_manifest_put_feature_stamp/*Ti3pi3pi*//*:RF2*/)),(/*RF2:created_type*/(C)->_created_type/*Ti3pi3pi*//*:RF2*/))/*:RF4*/)))->id)){
+switch((((T0*)(/*reusing tmp0*/(tmp0/*ddt1*/=(/*RF4:anonymous_feature*/r88anonymous_feature((T88*)((/*RF2:manifest_put_feature_stamp*/(C)->_manifest_put_feature_stamp/*Ti3pi3pi*//*:RF2*/)),(/*RF2:created_type*/(C)->_created_type/*Ti3pi3pi*//*:RF2*/))/*:RF4*/))))->id)){
 case 407:
 /*auto-unlock tmp1*/tmp1/*arguments*/=(/*RF2:arguments*/(((T407*)tmp0/*ddt1*/))->_arguments/*Tpp13p*//*:RF2*/);
 break;
@@ -2043,7 +2043,7 @@ while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_list_idx))>((/*RF2:upper*/((T1091*)((/*RF2:item_list*/(C)->_item_list/*Ti3pi3pi*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 _expression=/*RF8:item*/((/*RF2:storage*/((T1091*)((/*RF2:item_list*/(C)->_item_list/*Ti3pi3pi*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_list_idx]/*:RF8*/;
 /*[inspectDynamicDispatch*/
-switch(((_expression)->id)){
+switch((((T0*)(_expression))->id)){
 case 403:
 /*auto-unlock tmp2*/tmp2/*is_void*/=((T6)(1));
 break;
@@ -2062,7 +2062,7 @@ tmp2/*is_void*/=((T6)(0));
 /*inspect]*/
 if((tmp2/*is_void*/)==(0)){
 /*[inspectDynamicDispatch*/
-switch(((_expression)->id)){
+switch((((T0*)(_expression))->id)){
 case 354:
 /*reusing tmp0*/tmp0/*collect*/=/*RF4:collect*/r354collect(((T354*)_expression),a1)/*:RF4*/;
 break;
@@ -2282,7 +2282,7 @@ tmp0/*collect*/=/*RF4:collect*/r663collect(((T663*)_expression),a1)/*:RF4*/;
 /*inspect]*/
 _expression_type=tmp0/*collect*/;
 /*[inspectDynamicDispatch*/
-switch(((/*auto-unlock tmp0*/(tmp0/*ddt1*/=(/*RF4:type_mark*/r360type_mark(((T360*)_formal_arg_list),_fal_idx)/*:RF4*/)))->id)){
+switch((((T0*)(/*auto-unlock tmp0*/(tmp0/*ddt1*/=(/*RF4:type_mark*/r360type_mark(((T360*)_formal_arg_list),_fal_idx)/*:RF4*/))))->id)){
 case 388:
 /*auto-unlock tmp1*/tmp1/*resolve_in*/=/*RF4:resolve_in*/r388resolve_in((/*RF2:created_type*/(C)->_created_type/*Ti3pi3pi*//*:RF2*/))/*:RF4*/;
 break;
@@ -2382,7 +2382,7 @@ T0* R=(void*)0;
 T0* _oa=(void*)0;
 T0* _il=(void*)0;
 /*[inspectDynamicDispatch*/
-switch((((/*RF2:type_mark*/(C)->_type_mark/*Ti3pi3pi*//*:RF2*/))->id)){
+switch((((T0*)((/*RF2:type_mark*/(C)->_type_mark/*Ti3pi3pi*//*:RF2*/)))->id)){
 case 415:
 /*RF3:specialize_in*/r415specialize_in(((T415*)(/*RF2:type_mark*/(C)->_type_mark/*Ti3pi3pi*//*:RF2*/)),a1);
 /*:RF3*/break;
@@ -2452,7 +2452,7 @@ tmp0/*or else*/=((T6)((_exp1)!=((void*)(_exp2))));
 /*until*/if(tmp0/*or else*/) break;
 _exp1=/*RF8:item*/((/*RF2:storage*/(((T1091*)a3))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/;
 /*[inspectDynamicDispatch*/
-switch(((_exp1)->id)){
+switch((((T0*)(_exp1))->id)){
 case 354:
 /*RF3:inline_dynamic_dispatch_*/r354inline_dynamic_dispatch_(((T354*)_exp1),a1,a2);
 /*:RF3*/break;
@@ -2670,7 +2670,7 @@ default:;
 /*:RF3*/}
 /*inspect]*/
 /*[inspectDynamicDispatch*/
-switch((((tmp1/*ddt1*/=(/*RF4:last*/r1133last((T1133*)((/*RF2:current_context*/(((T334*)a1))->_current_context/*ipip*//*:RF2*/)))/*:RF4*/)))->id)){
+switch((((T0*)((tmp1/*ddt1*/=(/*RF4:last*/r1133last((T1133*)((/*RF2:current_context*/(((T334*)a1))->_current_context/*ipip*//*:RF2*/)))/*:RF4*/))))->id)){
 case 348:
 tmp2/*to_expression*/=/*RF4:to_expression*/r348to_expression(((T348*)tmp1/*ddt1*/))/*:RF4*/;
 break;
@@ -2995,7 +2995,7 @@ R=/*RF8:twin*/r1091twin(((T1091*)a3))/*:RF8*/;
 /*:RF3*/while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1091*)R))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*RF8:item*/((/*RF2:storage*/(((T1091*)R))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/)->id)){
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/(((T1091*)R))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
 case 354:
 /*RF3:inline_dynamic_dispatch_*/r354inline_dynamic_dispatch_(((T354*)/*RF8:item*/((/*RF2:storage*/(((T1091*)R))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1,a2);
 /*:RF3*/break;
@@ -3213,7 +3213,7 @@ default:;
 /*:RF3*/}
 /*inspect]*/
 /*[inspectDynamicDispatch*/
-switch(((/*reusing tmp1*/(tmp1/*ddt1*/=(/*RF4:last*/r1133last((T1133*)((/*RF2:current_context*/(((T334*)a1))->_current_context/*ipip*//*:RF2*/)))/*:RF4*/)))->id)){
+switch((((T0*)(/*reusing tmp1*/(tmp1/*ddt1*/=(/*RF4:last*/r1133last((T1133*)((/*RF2:current_context*/(((T334*)a1))->_current_context/*ipip*//*:RF2*/)))/*:RF4*/))))->id)){
 case 348:
 /*auto-unlock tmp2*/tmp2/*to_expression*/=/*RF4:to_expression*/r348to_expression(((T348*)tmp1/*ddt1*/))/*:RF4*/;
 break;
@@ -3589,7 +3589,7 @@ if(((/*RF2:optional_arguments*/(C)->_optional_arguments/*Ti3pi3pi*//*:RF2*/))!=(
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
 /*[inspectDynamicDispatch*/
-switch((((/*RF2:type_mark*/(C)->_type_mark/*Ti3pi3pi*//*:RF2*/))->id)){
+switch((((T0*)((/*RF2:type_mark*/(C)->_type_mark/*Ti3pi3pi*//*:RF2*/)))->id)){
 case 388:
 tmp0/*resolve_in*/=/*RF4:resolve_in*/r388resolve_in(a1)/*:RF4*/;
 break;
@@ -3675,7 +3675,7 @@ T0* _tm=(void*)0;
 T0* _oa=(void*)0;
 T0* _il=(void*)0;
 /*[inspectDynamicDispatch*/
-switch((((/*RF2:type_mark*/(C)->_type_mark/*Ti3pi3pi*//*:RF2*/))->id)){
+switch((((T0*)((/*RF2:type_mark*/(C)->_type_mark/*Ti3pi3pi*//*:RF2*/)))->id)){
 case 388:
 tmp0/*specialize_thru*/=/*RF4:specialize_thru*/r388specialize_thru(((T388*)(/*RF2:type_mark*/(C)->_type_mark/*Ti3pi3pi*//*:RF2*/)),a1,a2,a3)/*:RF4*/;
 break;
@@ -3778,7 +3778,7 @@ T0* _creation_clause_list=(void*)0;
 T0* _mcn=(void*)0;
 if(((/*RF2:created_type*/(C)->_created_type/*Ti3pi3pi*//*:RF2*/))==((void*)((void*)0))){
 /*[inspectDynamicDispatch*/
-switch((((/*RF2:type_mark*/(C)->_type_mark/*Ti3pi3pi*//*:RF2*/))->id)){
+switch((((T0*)((/*RF2:type_mark*/(C)->_type_mark/*Ti3pi3pi*//*:RF2*/)))->id)){
 case 388:
 tmp0/*resolve_in*/=/*RF4:resolve_in*/r388resolve_in(a1)/*:RF4*/;
 break;
@@ -3878,7 +3878,7 @@ if((/*RF4:has_creation_check*/r96has_creation_check(((T96*)_class_to_create),_mc
 /*SFN*/(C->_manifest_make_feature_stamp/*Ti3pi3pi*/)=/*RF4:feature_stamp_of*/r279feature_stamp_of((T279*)((/*RF2:created_type*/(C)->_created_type/*Ti3pi3pi*//*:RF2*/)),/*RF6:manifest_make_name*/r482manifest_make_name()/*:RF6*/)/*:RF4*/;
 _af=/*RF4:anonymous_feature*/r88anonymous_feature((T88*)((/*RF2:manifest_make_feature_stamp*/(C)->_manifest_make_feature_stamp/*Ti3pi3pi*//*:RF2*/)),(/*RF2:created_type*/(C)->_created_type/*Ti3pi3pi*//*:RF2*/))/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch(((_af)->id)){
+switch((((T0*)(_af))->id)){
 case 407:
 /*auto-unlock tmp0*/tmp0/*arguments*/=(/*RF2:arguments*/(((T407*)_af))->_arguments/*Tpp13p*//*:RF2*/);
 break;
@@ -3919,7 +3919,7 @@ if(/*RF8:>*/((int32_t)(/*RF4:count*/r360count(((T360*)_formal_arg_list))/*:RF4*/
 else{
 if((/*RF4:count*/r360count(((T360*)_formal_arg_list))/*:RF4*/)!=(/*RF8:+*/((int32_t)(/*RF4:count*/r1091count((T1091*)((/*RF2:optional_arguments*/(C)->_optional_arguments/*Ti3pi3pi*//*:RF2*/)))/*:RF4*/))+(INT32_C(1))/*:RF8*/)){
 /*[inspectDynamicDispatch*/
-switch(((/*auto-unlock tmp0*/(tmp0/*ddt1*/=(/*RF4:first*/r1091first((T1091*)((/*RF2:optional_arguments*/(C)->_optional_arguments/*Ti3pi3pi*//*:RF2*/)))/*:RF4*/)))->id)){
+switch((((T0*)(/*auto-unlock tmp0*/(tmp0/*ddt1*/=(/*RF4:first*/r1091first((T1091*)((/*RF2:optional_arguments*/(C)->_optional_arguments/*Ti3pi3pi*//*:RF2*/)))/*:RF4*/))))->id)){
 case 354:
 tmp1/*start_position*/=/*RF4:start_position*/r354start_position(((T354*)tmp0/*ddt1*/))/*:RF4*/;
 break;
@@ -4140,7 +4140,7 @@ tmp1/*start_position*/=/*RF4:start_position*/r663start_position(((T663*)tmp0/*dd
 /*tmp0.unlock*/
 /*RF3:add_position*/r286add_position(tmp1/*start_position*/);
 /*:RF3*//*[inspectDynamicDispatch*/
-switch(((_af)->id)){
+switch((((T0*)(_af))->id)){
 case 407:
 /*auto-unlock tmp1*/tmp1/*start_position*/=/*RF4:start_position*/r407start_position(((T407*)_af))/*:RF4*/;
 break;
@@ -4205,7 +4205,7 @@ else{
 /*RF3:add_position*/r286add_position((/*RF2:irregular_position*/(C)->_irregular_position/*Ti3pi3pi*//*:RF2*/));
 /*:RF3*/}
 /*[inspectDynamicDispatch*/
-switch((((/*RF2:value_memory*/(((T679*)_cst_att_boolean))->_value_memory/*T9p*//*:RF2*/))->id)){
+switch((((T0*)((/*RF2:value_memory*/(((T679*)_cst_att_boolean))->_value_memory/*T9p*//*:RF2*/)))->id)){
 case 392:
 /*auto-unlock tmp1*/tmp1/*start_position*/=(/*RF2:start_position*/(((T392*)(/*RF2:value_memory*/(((T679*)_cst_att_boolean))->_value_memory/*T9p*//*:RF2*/)))->_start_position/*Ti*//*:RF2*/);
 break;
@@ -4324,7 +4324,7 @@ T344 tmp1;
 T6 tmp2;
 /*INTERNAL_C_LOCAL list]*/
 /*[inspectDynamicDispatch*/
-switch(((a2)->id)){
+switch((((T0*)(a2))->id)){
 case 415:
 tmp0/*is_static*/=((T6)(/*RF4:is_static*/r415is_static(((T415*)a2))/*:RF4*/));
 break;
@@ -4356,7 +4356,7 @@ tmp0/*is_static*/=((T6)(1));
 /*inspect]*/
 if((tmp0/*is_static*/)==(0)){
 /*[inspectDynamicDispatch*/
-switch(((a2)->id)){
+switch((((T0*)(a2))->id)){
 case 388:
 tmp1/*start_position*/=/*RF4:start_position*/r388start_position(((T388*)a2))/*:RF4*/;
 break;
@@ -4423,7 +4423,7 @@ tmp1/*start_position*/=/*RF4:start_position*/r505start_position(((T505*)a2))/*:R
 /*inspect]*/
 /*RF3:add_position*/r286add_position(tmp1/*start_position*/);
 /*:RF3*//*[inspectDynamicDispatch*/
-switch(((a2)->id)){
+switch((((T0*)(a2))->id)){
 case 501:
 case 503:
 case 504:
@@ -4482,7 +4482,7 @@ tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1091*)a2))->_u
 /*until*/if(tmp0/*or else*/) break;
 _exp1=/*RF8:item*/((/*RF2:storage*/(((T1091*)a2))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/;
 /*[inspectDynamicDispatch*/
-switch(((_exp1)->id)){
+switch((((T0*)(_exp1))->id)){
 case 354:
 tmp1/*simplify*/=/*RF4:simplify*/r354simplify(((T354*)_exp1),a1)/*:RF4*/;
 break;
@@ -4698,7 +4698,7 @@ R=/*RF8:twin*/r1091twin(((T1091*)a2))/*:RF8*/;
 /*:RF3*/while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1091*)R))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*RF8:item*/((/*RF2:storage*/(((T1091*)R))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/)->id)){
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/(((T1091*)R))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
 case 354:
 /*auto-unlock tmp1*/tmp1/*simplify*/=/*RF4:simplify*/r354simplify(((T354*)/*RF8:item*/((/*RF2:storage*/(((T1091*)R))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 break;
@@ -4951,7 +4951,7 @@ tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1091*)a2))->_u
 /*until*/if(tmp0/*or else*/) break;
 _exp1=/*RF8:item*/((/*RF2:storage*/(((T1091*)a2))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/;
 /*[inspectDynamicDispatch*/
-switch(((_exp1)->id)){
+switch((((T0*)(_exp1))->id)){
 case 354:
 tmp1/*specialize_in*/=/*RF4:specialize_in*/r354specialize_in(((T354*)_exp1),a1)/*:RF4*/;
 break;
@@ -5155,7 +5155,7 @@ R=/*RF8:twin*/r1091twin(((T1091*)a2))/*:RF8*/;
 /*:RF3*/while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1091*)R))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*RF8:item*/((/*RF2:storage*/(((T1091*)R))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/)->id)){
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/(((T1091*)R))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
 case 354:
 /*auto-unlock tmp1*/tmp1/*specialize_in*/=/*RF4:specialize_in*/r354specialize_in(((T354*)/*RF8:item*/((/*RF2:storage*/(((T1091*)R))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 break;
@@ -5369,7 +5369,7 @@ _i=INT32_C(0);
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1091*)((/*RF2:optional_arguments*/(C)->_optional_arguments/*Ti3pi3pi*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*RF8:item*/((/*RF2:storage*/((T1091*)((/*RF2:optional_arguments*/(C)->_optional_arguments/*Ti3pi3pi*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/)->id)){
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1091*)((/*RF2:optional_arguments*/(C)->_optional_arguments/*Ti3pi3pi*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
 case 354:
 /*RF3:pretty*/r354pretty(((T354*)/*RF8:item*/((/*RF2:storage*/((T1091*)((/*RF2:optional_arguments*/(C)->_optional_arguments/*Ti3pi3pi*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/break;
@@ -5562,7 +5562,7 @@ default:;
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1091*)((/*RF2:item_list*/(C)->_item_list/*Ti3pi3pi*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*RF8:item*/((/*RF2:storage*/((T1091*)((/*RF2:item_list*/(C)->_item_list/*Ti3pi3pi*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/)->id)){
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1091*)((/*RF2:item_list*/(C)->_item_list/*Ti3pi3pi*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
 case 354:
 /*RF3:pretty*/r354pretty(((T354*)/*RF8:item*/((/*RF2:storage*/((T1091*)((/*RF2:item_list*/(C)->_item_list/*Ti3pi3pi*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/break;
@@ -5797,7 +5797,7 @@ tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1091*)a4))->_u
 /*until*/if(tmp0/*or else*/) break;
 _exp1=/*RF8:item*/((/*RF2:storage*/(((T1091*)a4))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/;
 /*[inspectDynamicDispatch*/
-switch(((_exp1)->id)){
+switch((((T0*)(_exp1))->id)){
 case 354:
 tmp1/*specialize_thru*/=/*RF4:specialize_thru*/r354specialize_thru(((T354*)_exp1),a1,a2,a3)/*:RF4*/;
 break;
@@ -5994,7 +5994,7 @@ R=/*RF8:twin*/r1091twin(((T1091*)a4))/*:RF8*/;
 /*:RF3*/while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1091*)R))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*RF8:item*/((/*RF2:storage*/(((T1091*)R))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/)->id)){
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/(((T1091*)R))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
 case 354:
 /*auto-unlock tmp1*/tmp1/*specialize_thru*/=/*RF4:specialize_thru*/r354specialize_thru(((T354*)/*RF8:item*/((/*RF2:storage*/(((T1091*)R))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1,a2,a3)/*:RF4*/;
 break;
@@ -6196,7 +6196,7 @@ R=(/*RF2:created_type*/(C)->_created_type/*Ti3pi3pi*//*:RF2*/);
 }
 else{
 /*[inspectDynamicDispatch*/
-switch((((/*RF2:type_mark*/(C)->_type_mark/*Ti3pi3pi*//*:RF2*/))->id)){
+switch((((T0*)((/*RF2:type_mark*/(C)->_type_mark/*Ti3pi3pi*//*:RF2*/)))->id)){
 case 388:
 tmp0/*resolve_in*/=/*RF4:resolve_in*/r388resolve_in(a1)/*:RF4*/;
 break;
@@ -6282,7 +6282,7 @@ T0* tmp2;
 T0* R=(void*)0;
 T0* _expression_type=(void*)0;
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 403:
 tmp0/*is_void*/=((T6)(1));
 break;
@@ -6302,7 +6302,7 @@ tmp0/*is_void*/=((T6)(0));
 if(tmp0/*is_void*/){
 if(/*RF4:is_expanded*/r279is_expanded(((T279*)a4))/*:RF4*/){
 /*[inspectDynamicDispatch*/
-switch(((a3)->id)){
+switch((((T0*)(a3))->id)){
 case 388:
 tmp1/*start_position*/=/*RF4:start_position*/r388start_position(((T388*)a3))/*:RF4*/;
 break;
@@ -6369,7 +6369,7 @@ tmp1/*start_position*/=/*RF4:start_position*/r505start_position(((T505*)a3))/*:R
 /*inspect]*/
 /*RF3:add_position*/r286add_position(tmp1/*start_position*/);
 /*:RF3*//*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 354:
 /*auto-unlock tmp1*/tmp1/*start_position*/=/*RF4:start_position*/r354start_position(((T354*)a1))/*:RF4*/;
 break;
@@ -6597,7 +6597,7 @@ R=a1;
 }
 else{
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 354:
 tmp2/*specialize_and_check*/=/*RF4:specialize_and_check*/r354specialize_and_check(((T354*)a1),a2)/*:RF4*/;
 break;
@@ -6772,7 +6772,7 @@ tmp2/*specialize_and_check*/=a1;
 /*inspect]*/
 R=tmp2/*specialize_and_check*/;
 /*[inspectDynamicDispatch*/
-switch(((R)->id)){
+switch((((T0*)(R))->id)){
 case 354:
 /*auto-unlock tmp2*/tmp2/*resolve_in*/=/*RF4:resolve_in*/r354resolve_in(((T354*)R),a2)/*:RF4*/;
 break;
@@ -6990,7 +6990,7 @@ tmp2/*resolve_in*/=(void*)0;
 _expression_type=tmp2/*resolve_in*/;
 if((/*RF4:can_be_assigned_to*/r279can_be_assigned_to(((T279*)_expression_type),a4)/*:RF4*/)==(0)){
 /*[inspectDynamicDispatch*/
-switch(((a3)->id)){
+switch((((T0*)(a3))->id)){
 case 388:
 /*auto-unlock tmp1*/tmp1/*start_position*/=/*RF4:start_position*/r388start_position(((T388*)a3))/*:RF4*/;
 break;
@@ -7057,7 +7057,7 @@ tmp1/*start_position*/=/*RF4:start_position*/r505start_position(((T505*)a3))/*:R
 /*inspect]*/
 /*RF3:add_position*/r286add_position(tmp1/*start_position*/);
 /*:RF3*//*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 354:
 /*auto-unlock tmp1*/tmp1/*start_position*/=/*RF4:start_position*/r354start_position(((T354*)a1))/*:RF4*/;
 break;
@@ -7305,7 +7305,7 @@ T0* _destination_type_mark=(void*)0;
 T0* _destination_type=(void*)0;
 R=(/*RF2:item_list*/(C)->_item_list/*Ti3pi3pi*//*:RF2*/);
 /*[inspectDynamicDispatch*/
-switch((((tmp0/*ddt1*/=(/*RF4:anonymous_feature*/r88anonymous_feature((T88*)((/*RF2:manifest_put_feature_stamp*/(C)->_manifest_put_feature_stamp/*Ti3pi3pi*//*:RF2*/)),(/*RF2:created_type*/(C)->_created_type/*Ti3pi3pi*//*:RF2*/))/*:RF4*/)))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF4:anonymous_feature*/r88anonymous_feature((T88*)((/*RF2:manifest_put_feature_stamp*/(C)->_manifest_put_feature_stamp/*Ti3pi3pi*//*:RF2*/)),(/*RF2:created_type*/(C)->_created_type/*Ti3pi3pi*//*:RF2*/))/*:RF4*/))))->id)){
 case 407:
 tmp1/*arguments*/=(/*RF2:arguments*/(((T407*)tmp0/*ddt1*/))->_arguments/*Tpp13p*//*:RF2*/);
 break;
@@ -7346,7 +7346,7 @@ while(1){
 _exp1=/*RF8:item*/((/*RF2:storage*/(((T1091*)R))->_storage/*iini*//*:RF2*/))[_list_idx]/*:RF8*/;
 _destination_type_mark=/*RF4:type_mark*/r360type_mark(((T360*)_formal_arg_list),_fal_idx)/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch(((_destination_type_mark)->id)){
+switch((((T0*)(_destination_type_mark))->id)){
 case 388:
 /*reusing tmp0*/tmp0/*resolve_in*/=/*RF4:resolve_in*/r388resolve_in((/*RF2:created_type*/(C)->_created_type/*Ti3pi3pi*//*:RF2*/))/*:RF4*/;
 break;
@@ -7446,7 +7446,7 @@ tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1091*)a2))->_u
 /*until*/if(tmp0/*or else*/) break;
 _exp1=/*RF8:item*/((/*RF2:storage*/(((T1091*)a2))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/;
 /*[inspectDynamicDispatch*/
-switch(((_exp1)->id)){
+switch((((T0*)(_exp1))->id)){
 case 354:
 tmp1/*adapt_for*/=/*RF4:adapt_for*/r354adapt_for(((T354*)_exp1),a1)/*:RF4*/;
 break;
@@ -7617,7 +7617,7 @@ R=/*RF8:twin*/r1091twin(((T1091*)a2))/*:RF8*/;
 /*:RF3*/while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1091*)R))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*RF8:item*/((/*RF2:storage*/(((T1091*)R))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/)->id)){
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/(((T1091*)R))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
 case 354:
 /*auto-unlock tmp1*/tmp1/*adapt_for*/=/*RF4:adapt_for*/r354adapt_for(((T354*)/*RF8:item*/((/*RF2:storage*/(((T1091*)R))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 break;
@@ -7789,7 +7789,7 @@ _i=INT32_C(0);
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1091*)a2))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*RF8:item*/((/*RF2:storage*/(((T1091*)a2))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/)->id)){
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/(((T1091*)a2))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
 case 354:
 /*RF3:safety_check*/r354safety_check(((T354*)/*RF8:item*/((/*RF2:storage*/(((T1091*)a2))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/break;
@@ -7946,7 +7946,7 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 
 /*MANIFEST_GENERIC*/void r482accept(T482* C,T0* a1){
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 125:
 /*RF3:visit_manifest_generic*/r125visit_manifest_generic(((T125*)a1),(T0*)C);
 /*:RF3*/break;

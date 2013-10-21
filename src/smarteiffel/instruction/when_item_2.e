@@ -43,6 +43,20 @@ feature {ANY}
          visitor.visit_when_item_2(Current)
       end
 
+   is_empty_string: BOOLEAN is
+      local
+         manifest_string: MANIFEST_STRING
+      do
+         if lower_manifest_expression.is_manifest_string then
+            manifest_string ::= lower_manifest_expression
+            Result := manifest_string.to_string.is_empty
+         end
+         if not Result and then upper_manifest_expression.is_manifest_string then
+            manifest_string ::= upper_manifest_expression
+            Result := manifest_string.to_string.is_empty
+         end
+      end
+
 feature {WHEN_ITEM_2}
    init (l: like lower; u: like upper) is
       require

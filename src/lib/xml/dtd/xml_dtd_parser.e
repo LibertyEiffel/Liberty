@@ -858,7 +858,6 @@ feature {}
                Result.clear_count
             end
             read_stream_in(Result, u)
-            u.disconnect
             url_pool.recycle(u)
          else
             set_error(once "Cannot find entity system file")
@@ -892,7 +891,6 @@ feature {}
                   Result.clear_count
                end
                read_stream_in(Result, u)
-               u.disconnect
                url_pool.recycle(u)
             end
          end
@@ -920,7 +918,7 @@ feature {}
          b.disconnect
          buffer_pool.recycle(b)
       ensure
-         u.input.end_of_input
+         not u.is_connected
       end
 
 feature {}

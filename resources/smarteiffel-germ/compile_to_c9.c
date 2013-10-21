@@ -1621,7 +1621,7 @@ return oBC339common_free_nodes;
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
-R=/*RF8:item*/(((T1187*)((/*RF2:free_nodes*/(C)->_free_nodes/*piiini*//*:RF2*/)))->o)/*:RF8*/;
+R=/*RF8:item*/(((T1185*)((/*RF2:free_nodes*/(C)->_free_nodes/*piiini*//*:RF2*/)))->o)/*:RF8*/;
 if((R)==((void*)((void*)0))){
 tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1184))));
 *((T1184*)tmp0/*new*/)=M1184;
@@ -1630,7 +1630,7 @@ tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1184))));
 /*tmp0.unlock*/
 }
 else{
-/*RF7:set_item*/(((T1187*)((/*RF2:free_nodes*/(C)->_free_nodes/*piiini*//*:RF2*/)))->o)=(T0*)((/*RF2:next*/(((T1184*)R))->_next/*2p*//*:RF2*/));
+/*RF7:set_item*/(((T1185*)((/*RF2:free_nodes*/(C)->_free_nodes/*piiini*//*:RF2*/)))->o)=(T0*)((/*RF2:next*/(((T1184*)R))->_next/*2p*//*:RF2*/));
 /*:RF7*//*RF3:make*/r1184make(((T1184*)R),a1,a2);
 /*:RF3*/}
 return R;
@@ -1907,8 +1907,8 @@ T0* tmp0;
 if(((/*RF2:free_nodes*/(C)->_free_nodes/*piiini*//*:RF2*/))==((void*)((void*)0))){
 /*SFN*/(C->_free_nodes/*piiini*/)=/*RF4:fast_reference_at*/r1188fast_reference_at(((T1188*)/*ND*/(T0*)(/*RF6:common_free_nodes*/r1047common_free_nodes()/*:RF6*/)),/*RF8:generating_type*/(T0*)(t[1047])/*:RF8*/)/*:RF4*/;
 if(((/*RF2:free_nodes*/(C)->_free_nodes/*piiini*//*:RF2*/))==((void*)((void*)0))){
-tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1187))));
-*((T1187*)tmp0/*new*/)=M1187;
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1185))));
+*((T1185*)tmp0/*new*/)=M1185;
 /*SFN*/(C->_free_nodes/*piiini*/)=tmp0/*new*/;
 /*tmp0.unlock*/
 /*RF3:add*/r1188add(((T1188*)/*ND*/(T0*)(/*RF6:common_free_nodes*/r1047common_free_nodes()/*:RF6*/)),(/*RF2:free_nodes*/(C)->_free_nodes/*piiini*//*:RF2*/),/*RF8:generating_type*/(T0*)(t[1047])/*:RF8*/);
@@ -2973,7 +2973,7 @@ return R;
 
 /*COLLECTION_SORTER[STRING]*/void r1060add(T0* a1,T0* a2){
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1025:
 /*RF3:add*/r1025add(((T1025*)a1),a2,/*RF4:insert_index*/r1060insert_index(a1,a2)/*:RF4*/);
 /*:RF3*/break;
@@ -2993,7 +2993,7 @@ T2 _i=0;
 if(/*RF8:<*/((int32_t)(a2))<(a3)/*:RF8*/){
 _i=/*RF8:+*/((int32_t)(/*RF8:+*/((int32_t)(a2))+(/*RF8:#//*/((int32_t)(/*RF8:-*/((int32_t)(a3))-(a2)/*:RF8*/))/(INT32_C(2))/*:RF8*/)/*:RF8*/))+(INT32_C(1))/*:RF8*/;
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1025:
 /*RF3:swap*/r1025swap(((T1025*)a1),a2,_i);
 /*:RF3*/break;
@@ -3006,7 +3006,7 @@ _i=/*RF8:+*/((int32_t)(a2))+(INT32_C(1))/*:RF8*/;
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>(a3)/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1025:
 tmp0/*item*/=/*RF8:item*/((/*RF2:storage*/(((T1025*)a1))->_storage/*Tiini*//*:RF2*/))[_i]/*:RF8*/;
 break;
@@ -3015,7 +3015,7 @@ tmp0/*item*/=/*RF4:item*/r1031item(((T1031*)a1),_i)/*:RF4*/;
 }
 /*inspect]*/
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1025:
 tmp1/*item*/=/*RF8:item*/((/*RF2:storage*/(((T1025*)a1))->_storage/*Tiini*//*:RF2*/))[a2]/*:RF8*/;
 break;
@@ -3026,7 +3026,7 @@ tmp1/*item*/=/*RF4:item*/r1031item(((T1031*)a1),a2)/*:RF4*/;
 if(/*RF4:lt*/r1060lt(tmp0/*item*/,tmp1/*item*/)/*:RF4*/){
 _middle=/*RF8:+*/((int32_t)(_middle))+(INT32_C(1))/*:RF8*/;
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1025:
 /*RF3:swap*/r1025swap(((T1025*)a1),_middle,_i);
 /*:RF3*/break;
@@ -3038,7 +3038,7 @@ default:;
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1025:
 /*RF3:swap*/r1025swap(((T1025*)a1),a2,_middle);
 /*:RF3*/break;
@@ -3061,7 +3061,7 @@ T2 R=0;
 T2 _min=0;
 T2 _max=0;
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1025:
 tmp0/*lower*/=INT32_C(0);
 break;
@@ -3071,7 +3071,7 @@ tmp0/*lower*/=(/*RF2:lower*/(((T1031*)a1))->_lower/*Tiiini*//*:RF2*/);
 /*inspect]*/
 _min=tmp0/*lower*/;
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1025:
 tmp1/*upper*/=(/*RF2:upper*/(((T1025*)a1))->_upper/*Tiini*//*:RF2*/);
 break;
@@ -3084,7 +3084,7 @@ while(1){
 /*until*/if((_min)==(_max)) break;
 R=/*RF8:#//*/((int32_t)(/*RF8:+*/((int32_t)(_min))+(_max)/*:RF8*/))/(INT32_C(2))/*:RF8*/;
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1025:
 tmp2/*item*/=/*RF8:item*/((/*RF2:storage*/(((T1025*)a1))->_storage/*Tiini*//*:RF2*/))[R]/*:RF8*/;
 break;
@@ -3115,7 +3115,7 @@ T2 tmp0;
 T2 tmp1;
 /*INTERNAL_C_LOCAL list]*/
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1025:
 tmp0/*lower*/=INT32_C(0);
 break;
@@ -3124,7 +3124,7 @@ tmp0/*lower*/=(/*RF2:lower*/(((T1031*)a1))->_lower/*Tiiini*//*:RF2*/);
 }
 /*inspect]*/
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1025:
 tmp1/*upper*/=(/*RF2:upper*/(((T1025*)a1))->_upper/*Tiini*//*:RF2*/);
 break;
@@ -3161,7 +3161,7 @@ T2 _c_upper=0;
 T0* _elt1=(void*)0;
 T0* _elt2=(void*)0;
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1025:
 tmp0/*lower*/=INT32_C(0);
 break;
@@ -3171,7 +3171,7 @@ tmp0/*lower*/=(/*RF2:lower*/(((T1031*)a1))->_lower/*Tiiini*//*:RF2*/);
 /*inspect]*/
 _i=tmp0/*lower*/;
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1025:
 tmp1/*upper*/=(/*RF2:upper*/(((T1025*)a1))->_upper/*Tiini*//*:RF2*/);
 break;
@@ -3183,7 +3183,7 @@ _c_upper=tmp1/*upper*/;
 R=((T6)(1));
 if(/*RF8:>*/((int32_t)(_c_upper))>(_i)/*:RF8*/){
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1025:
 tmp2/*item*/=/*RF8:item*/((/*RF2:storage*/(((T1025*)a1))->_storage/*Tiini*//*:RF2*/))[_i]/*:RF8*/;
 break;
@@ -3202,7 +3202,7 @@ tmp3/*or else*/=((T6)(/*RF8:>=*/((int32_t)(_i))>=(_c_upper)/*:RF8*/));
 /*until*/if(tmp3/*or else*/) break;
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1025:
 tmp4/*item*/=/*RF8:item*/((/*RF2:storage*/(((T1025*)a1))->_storage/*Tiini*//*:RF2*/))[_i]/*:RF8*/;
 break;

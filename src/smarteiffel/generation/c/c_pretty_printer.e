@@ -1123,6 +1123,8 @@ feature {}
          if ace.profile then
             pending_c_function_body.append(once "&local_profile,")
          end
+         c_string.count.append_in(pending_c_function_body)
+         pending_c_function_body.extend(',')
          string_to_c_code(c_string, pending_c_function_body)
          pending_c_function_body.extend(')')
       end
@@ -3080,19 +3082,12 @@ feature {}
          end
          --
          if string_at_run_time then
-            prepare_c_function
-            pending_c_function_signature.copy(once "T0*se_ms(")
-            if no_check then
-               pending_c_function_signature.append("se_dump_stack*caller,")
+            if manifest_string_pool.first_manifest_string_collected_flag then
+               lt := manifest_string_pool.se_ms.type_of_current.live_type
+               check
+                  lt.id = 7
+               end
             end
-            if ace.profile then
-               pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
-            end
-            pending_c_function_signature.append(once "int c,char*e)")
-            pending_c_function_body.copy(once "/* Allocate a Manifest STRING given its length and chars array.*/%N")
-            common_body_for_se_string_and_se_ms(string_at_run_time)
-            dump_pending_c_function(True)
-            --
             prepare_c_function
             pending_c_function_signature.copy(once "T0*se_string(")
             if no_check then
@@ -3101,10 +3096,31 @@ feature {}
             if ace.profile then
                pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
             end
-            pending_c_function_signature.append(once "char*e)")
-            pending_c_function_body.copy(once "/* Allocate an Eiffel STRING by copying C char*e (must be a well-formed C string with terminal \0) */%N%
-                                                  %int c=strlen(e);%N")
-            common_body_for_se_string_and_se_ms(string_at_run_time)
+            pending_c_function_signature.append(once "int c,char*e)")
+            pending_c_function_body.copy(once "/* Allocate an Eiffel STRING given its size and native storage */%N")
+            if ace.profile then
+               pending_c_function_body.append(once "se_local_profile_t local_profile;%Nstatic se_profile_t prof;%Nstatic int prof_init=0;%N")
+            end
+            pending_c_function_body.append(once "T7*")
+            memory.manifest_string_in(pending_c_function_body, True)
+            if ace.profile then
+               pending_c_function_body.append(once "if (!prof_init){memset(&prof,0,sizeof(prof));prof_init=1;}%N")
+               pending_c_function_body.append(once "local_profile.profile=&prof;%N")
+               pending_c_function_body.append(once "start_profile(parent_profile, &local_profile);%N")
+            end
+            pending_c_function_body.append(once "*s=M7;%N")
+            pending_c_function_body.append(once "r7from_external_sized_copy(")
+            if ace.no_check then
+               pending_c_function_body.append(once "caller,")
+            end
+            if ace.profile then
+               pending_c_function_body.append(once "&local_profile,")
+            end
+            pending_c_function_body.append(once "s,e,c);%N")
+            if ace.profile then
+               pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
+            end
+            pending_c_function_body.append(once "return((T0*)s);%N")
             dump_pending_c_function(True)
          end
          --
@@ -3238,41 +3254,6 @@ feature {}
          end
       end
 
-   common_body_for_se_string_and_se_ms (string_at_run_time: BOOLEAN) is
-      require
-         pending_c_function
-      local
-         lt: LIVE_TYPE
-      do
-         lt := manifest_string_pool.se_ms.type_of_current.live_type
-         check
-            lt.id = 7
-         end
-         if ace.profile then
-            pending_c_function_body.append(once "se_local_profile_t local_profile;%Nstatic se_profile_t prof;%Nstatic int prof_init=0;%N")
-         end
-         pending_c_function_body.append(once "T7*")
-         memory.manifest_string_in(pending_c_function_body, string_at_run_time)
-         if ace.profile then
-            pending_c_function_body.append(once "if (!prof_init){memset(&prof,0,sizeof(prof));prof_init=1;}%N")
-            pending_c_function_body.append(once "local_profile.profile=&prof;%N")
-            pending_c_function_body.append(once "start_profile(parent_profile, &local_profile);%N")
-         end
-         pending_c_function_body.append(once "*s=M7;%N")
-         pending_c_function_body.append(once "r7from_external_sized_copy(")
-         if ace.no_check then
-            pending_c_function_body.append(once "caller,")
-         end
-         if ace.profile then
-            pending_c_function_body.append(once "&local_profile,")
-         end
-         pending_c_function_body.append(once "s,e,c);%N")
-         if ace.profile then
-            pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
-         end
-         pending_c_function_body.append(once "return((T0*)s);%N")
-      end
-
 feature {C_EXPRESSION_COMPILATION_MIXIN}
    se_ms_c_call_in (buffer: STRING; ms: MANIFEST_STRING) is
       require
@@ -3281,7 +3262,7 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
          trace: BOOLEAN
       do
          trace := manifest_string_trace(ms, buffer)
-         buffer.append(once "se_ms(")
+         buffer.append(once "se_string(")
          if ace.no_check then
             buffer.append(once "&ds,")
          end

@@ -981,7 +981,7 @@ T0* tmp2;
 T2 _i=0;
 T2 _up=0;
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1093:
 tmp0/*count*/=/*RF4:count*/r1093count(((T1093*)a1))/*:RF4*/;
 break;
@@ -993,7 +993,7 @@ tmp0/*count*/=/*RF4:count*/r1097count(((T1097*)a1))/*:RF4*/;
 }
 /*inspect]*/
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1093:
 tmp1/*lower*/=(/*RF2:lower*/(((T1093*)a1))->_lower/*Tiiini*//*:RF2*/);
 break;
@@ -1006,7 +1006,7 @@ tmp1/*lower*/=(/*RF2:lower*/(((T1097*)a1))->_lower/*Tiiini*//*:RF2*/);
 /*inspect]*/
 /*RF3:with_capacity*/r1094with_capacity(C,tmp0/*count*/,tmp1/*lower*/);
 /*:RF3*//*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1093:
 /*auto-unlock tmp0*/tmp0/*lower*/=(/*RF2:lower*/(((T1093*)a1))->_lower/*Tiiini*//*:RF2*/);
 break;
@@ -1019,7 +1019,7 @@ tmp0/*lower*/=(/*RF2:lower*/(((T1097*)a1))->_lower/*Tiiini*//*:RF2*/);
 /*inspect]*/
 _i=tmp0/*lower*/;
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1093:
 /*auto-unlock tmp0*/tmp0/*upper*/=(/*RF2:upper*/(((T1093*)a1))->_upper/*Tiiini*//*:RF2*/);
 break;
@@ -1035,7 +1035,7 @@ _up=tmp0/*upper*/;
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>(_up)/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 1093:
 tmp2/*item*/=/*RF4:item*/r1093item(((T1093*)a1),_i)/*:RF4*/;
 break;

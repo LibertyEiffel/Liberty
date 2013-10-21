@@ -55,7 +55,7 @@ tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1038*)((/*RF2:g
 /*until*/if(tmp0/*or else*/) break;
 _tm1=/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch(((_tm1)->id)){
+switch((((T0*)(_tm1))->id)){
 case 388:
 tmp1/*to_static*/=/*RF4:to_static*/r388to_static(((T388*)_tm1),a1,(T6)(a2))/*:RF4*/;
 break;
@@ -132,7 +132,7 @@ _gl=/*RF8:twin*/r1038twin((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8pp
 /*:RF3*/while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1038*)_gl))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*auto-unlock tmp1*/(tmp1/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/)))->id)){
+switch((((T0*)(/*auto-unlock tmp1*/(tmp1/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/))))->id)){
 case 388:
 tmp2/*to_static*/=/*RF4:to_static*/r388to_static(((T388*)tmp1/*ddt1*/),a1,(T6)(a2))/*:RF4*/;
 break;
@@ -232,7 +232,7 @@ tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1038*)((/*RF2:g
 /*until*/if(tmp0/*or else*/) break;
 _tm1=/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch(((_tm1)->id)){
+switch((((T0*)(_tm1))->id)){
 case 388:
 tmp1/*declaration_type*/=/*RF4:declaration_type*/r388declaration_type(((T388*)_tm1))/*:RF4*/;
 break;
@@ -306,7 +306,7 @@ _gl=/*RF8:twin*/r1038twin((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8pp
 /*:RF3*/while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1038*)_gl))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*auto-unlock tmp1*/(tmp1/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/)))->id)){
+switch((((T0*)(/*auto-unlock tmp1*/(tmp1/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/))))->id)){
 case 388:
 tmp2/*declaration_type*/=/*RF4:declaration_type*/r388declaration_type(((T388*)tmp1/*ddt1*/))/*:RF4*/;
 break;
@@ -412,7 +412,7 @@ if(/*RF8:>*/((int32_t)(_i))>((/*RF2:lower*/((T1038*)((/*RF2:generic_list*/(C)->_
 /*RF3:extend*/r7extend(((T7*)_ln),((T3)'\054'));
 /*:RF3*/}
 /*[inspectDynamicDispatch*/
-switch((((tmp0/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/)))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 388:
 tmp1/*long_name*/=/*RF6:long_name*/r388long_name()/*:RF6*/;
 break;
@@ -494,7 +494,7 @@ T0* tmp1;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
 /*[inspectDynamicDispatch*/
-switch((((tmp0/*ddt1*/=(/*RF4:to_static*/r415to_static(C,a1,(T6)(0))/*:RF4*/)))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF4:to_static*/r415to_static(C,a1,(T6)(0))/*:RF4*/))))->id)){
 case 388:
 tmp1/*type*/=/*RF4:type*/r388type()/*:RF4*/;
 break;
@@ -609,7 +609,7 @@ _i=(/*RF2:lower*/((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((tmp0/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/)))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 415:
 /*RF3:specialize_in*/r415specialize_in(((T415*)tmp0/*ddt1*/),a1);
 /*:RF3*/break;
@@ -676,7 +676,7 @@ tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1038*)((/*RF2:g
 }
 /*until*/if(tmp0/*or else*/) break;
 /*[inspectDynamicDispatch*/
-switch((((tmp1/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/)))->id)){
+switch((((T0*)((tmp1/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 415:
 tmp2/*is_static*/=((T6)(/*RF4:is_static*/r415is_static(((T415*)tmp1/*ddt1*/))/*:RF4*/));
 break;
@@ -775,7 +775,7 @@ tmp1/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1038*)((/*RF2:g
 /*until*/if(tmp1/*or else*/) break;
 _tm1=/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch(((_tm1)->id)){
+switch((((T0*)(_tm1))->id)){
 case 388:
 tmp2/*declaration_type*/=/*RF4:declaration_type*/r388declaration_type(((T388*)_tm1))/*:RF4*/;
 break;
@@ -873,7 +873,7 @@ _gl=/*RF8:twin*/r1038twin(((T1038*)_gl))/*:RF8*/;
 /*:RF3*/while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1038*)_gl))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*auto-unlock tmp2*/(tmp2/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/)))->id)){
+switch((((T0*)(/*auto-unlock tmp2*/(tmp2/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 388:
 tmp4/*declaration_type*/=/*RF4:declaration_type*/r388declaration_type(((T388*)tmp2/*ddt1*/))/*:RF4*/;
 break;
@@ -973,7 +973,7 @@ tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1038*)((/*RF2:g
 /*until*/if(tmp0/*or else*/) break;
 _tm1=/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch(((_tm1)->id)){
+switch((((T0*)(_tm1))->id)){
 case 388:
 tmp1/*specialize_thru*/=/*RF4:specialize_thru*/r388specialize_thru(((T388*)_tm1),a1,a2,a3)/*:RF4*/;
 break;
@@ -1050,7 +1050,7 @@ _gl=/*RF8:twin*/r1038twin((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8pp
 /*:RF3*/while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1038*)_gl))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*auto-unlock tmp1*/(tmp1/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/)))->id)){
+switch((((T0*)(/*auto-unlock tmp1*/(tmp1/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/))))->id)){
 case 388:
 tmp2/*specialize_thru*/=/*RF4:specialize_thru*/r388specialize_thru(((T388*)tmp1/*ddt1*/),a1,a2,a3)/*:RF4*/;
 break;
@@ -1121,7 +1121,7 @@ tmp2/*specialize_thru*/=/*RF4:specialize_thru*/r505specialize_thru(((T505*)tmp1/
 }
 R=/*RF8:twin*/r415twin(C)/*:RF8*/;
 /*[inspectDynamicDispatch*/
-switch(((R)->id)){
+switch((((T0*)(R))->id)){
 case 415:
 /*RF3:set_generic_list*/r415set_generic_list(((T415*)R),_gl);
 /*:RF3*/break;
@@ -1143,7 +1143,7 @@ default:;
 /*inspect]*/
 }
 /*[inspectDynamicDispatch*/
-switch(((R)->id)){
+switch((((T0*)(R))->id)){
 case 415:
 /*RF3:update_static_memory*/r415update_static_memory(((T415*)R),a3);
 /*:RF3*/break;
@@ -1205,7 +1205,7 @@ if(tmp0/*or else*/){
 }
 else{
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 388:
 tmp1/*signature_resolve_in*/=/*RF4:signature_resolve_in*/r388signature_resolve_in(a2)/*:RF4*/;
 break;
@@ -1311,7 +1311,7 @@ r344default_create(&(((T94*)tmp0/*new*/)->_start_position));
 /*tmp0.unlock*/
 /*RF3:put*/r1038put((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),a2,INT32_C(1));
 /*:RF3*//*[inspectDynamicDispatch*/
-switch(((a2)->id)){
+switch((((T0*)(a2))->id)){
 case 388:
 /*reusing tmp0*/tmp0/*written_mark*/=(/*RF2:to_string*/((T103*)(/*RF6:written_name*/r388written_name()/*:RF6*/))->_to_string/*ip*//*:RF2*/);
 break;
@@ -1410,7 +1410,7 @@ _i=(/*RF2:lower*/(((T1038*)_gl))->_lower/*iiini*//*:RF2*/);
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1038*)_gl))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((tmp0/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/)))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/))))->id)){
 case 388:
 tmp1/*written_name*/=/*RF6:written_name*/r388written_name()/*:RF6*/;
 break;
@@ -1491,7 +1491,7 @@ if((_i)!=(INT8_C(0))){
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1038*)_gl))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*reusing tmp0*/(tmp0/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/)))->id)){
+switch((((T0*)(/*reusing tmp0*/(tmp0/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/))))->id)){
 case 388:
 /*auto-unlock tmp1*/tmp1/*written_mark*/=(/*RF2:to_string*/((T103*)(/*RF6:written_name*/r388written_name()/*:RF6*/))->_to_string/*ip*//*:RF2*/);
 break;
@@ -1634,7 +1634,7 @@ _i=(/*RF2:lower*/(((T1038*)_gl))->_lower/*iiini*//*:RF2*/);
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1038*)_gl))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*reusing tmp0*/(tmp0/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/)))->id)){
+switch((((T0*)(/*reusing tmp0*/(tmp0/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 388:
 tmp1/*signature_resolve_in*/=/*RF4:signature_resolve_in*/r388signature_resolve_in(a1)/*:RF4*/;
 break;
@@ -1753,7 +1753,7 @@ tmp1/*or else*/=((T6)((_tm1)!=((void*)(_tm2))));
 /*until*/if(tmp1/*or else*/) break;
 _tm1=/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch(((_tm1)->id)){
+switch((((T0*)(_tm1))->id)){
 case 388:
 tmp2/*at*/=/*RF4:at*/r388at(((T388*)_tm1),a1)/*:RF4*/;
 break;
@@ -1829,7 +1829,7 @@ if((_tm1)!=((void*)(_tm2))){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 _tm1=/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch(((_tm1)->id)){
+switch((((T0*)(_tm1))->id)){
 case 388:
 /*auto-unlock tmp2*/tmp2/*at*/=/*RF4:at*/r388at(((T388*)_tm1),a1)/*:RF4*/;
 break;
@@ -1932,7 +1932,7 @@ return R;
 
 /*NATIVE_ARRAY_TYPE_MARK*/void r415accept(T415* C,T0* a1){
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 576:
 /*RF3:visit_native_array_type_mark*/r576visit_native_array_type_mark(((T576*)a1),(T0*)C);
 /*:RF3*/break;
@@ -2025,7 +2025,7 @@ T0* _cn=(void*)0;
 T0* _gl=(void*)0;
 _hs=/*RF4:hashed_string*/r274hashed_string(ms33_548331507Abc33A)/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch((((tmp0/*ddt1*/=(/*RF4:elements_type*/r415elements_type(C)/*:RF4*/)))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF4:elements_type*/r415elements_type(C)/*:RF4*/))))->id)){
 case 388:
 tmp1/*at*/=/*RF4:at*/r388at(((T388*)tmp0/*ddt1*/),a1)/*:RF4*/;
 break;
@@ -2124,7 +2124,7 @@ T2 _i=0;
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((tmp0/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/)))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 388:
 /*RF3:pretty_in*/r388pretty_in(a1);
 /*:RF3*/break;
@@ -2241,7 +2241,7 @@ tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1038*)((/*RF2:g
 /*until*/if(tmp0/*or else*/) break;
 _tm1=/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch(((_tm1)->id)){
+switch((((T0*)(_tm1))->id)){
 case 388:
 tmp1/*to_static*/=/*RF4:to_static*/r388to_static(((T388*)_tm1),a1,(T6)(a2))/*:RF4*/;
 break;
@@ -2318,7 +2318,7 @@ _gl=/*RF8:twin*/r1038twin((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8pp
 /*:RF3*/while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1038*)_gl))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*auto-unlock tmp1*/(tmp1/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/)))->id)){
+switch((((T0*)(/*auto-unlock tmp1*/(tmp1/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/))))->id)){
 case 388:
 tmp2/*to_static*/=/*RF4:to_static*/r388to_static(((T388*)tmp1/*ddt1*/),a1,(T6)(a2))/*:RF4*/;
 break;
@@ -2418,7 +2418,7 @@ tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1038*)((/*RF2:g
 /*until*/if(tmp0/*or else*/) break;
 _tm1=/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch(((_tm1)->id)){
+switch((((T0*)(_tm1))->id)){
 case 388:
 tmp1/*declaration_type*/=/*RF4:declaration_type*/r388declaration_type(((T388*)_tm1))/*:RF4*/;
 break;
@@ -2492,7 +2492,7 @@ _gl=/*RF8:twin*/r1038twin((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8pp
 /*:RF3*/while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1038*)_gl))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*auto-unlock tmp1*/(tmp1/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/)))->id)){
+switch((((T0*)(/*auto-unlock tmp1*/(tmp1/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/))))->id)){
 case 388:
 tmp2/*declaration_type*/=/*RF4:declaration_type*/r388declaration_type(((T388*)tmp1/*ddt1*/))/*:RF4*/;
 break;
@@ -2607,7 +2607,7 @@ if(/*RF8:>*/((int32_t)(_i))>((/*RF2:lower*/((T1038*)((/*RF2:generic_list*/(C)->_
 /*RF3:extend*/r7extend(((T7*)_ln),((T3)'\054'));
 /*:RF3*/}
 /*[inspectDynamicDispatch*/
-switch((((tmp0/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/)))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 388:
 tmp1/*long_name*/=/*RF6:long_name*/r388long_name()/*:RF6*/;
 break;
@@ -2689,7 +2689,7 @@ T0* tmp1;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
 /*[inspectDynamicDispatch*/
-switch((((tmp0/*ddt1*/=(/*RF4:to_static*/r467to_static(C,a1,(T6)(0))/*:RF4*/)))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF4:to_static*/r467to_static(C,a1,(T6)(0))/*:RF4*/))))->id)){
 case 388:
 tmp1/*type*/=/*RF4:type*/r388type()/*:RF4*/;
 break;
@@ -2795,7 +2795,7 @@ _i=(/*RF2:lower*/((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((tmp0/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/)))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 415:
 /*RF3:specialize_in*/r415specialize_in(((T415*)tmp0/*ddt1*/),a1);
 /*:RF3*/break;
@@ -2861,7 +2861,7 @@ tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1038*)((/*RF2:g
 }
 /*until*/if(tmp0/*or else*/) break;
 /*[inspectDynamicDispatch*/
-switch((((tmp1/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/)))->id)){
+switch((((T0*)((tmp1/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 415:
 tmp2/*is_static*/=((T6)(/*RF4:is_static*/r415is_static(((T415*)tmp1/*ddt1*/))/*:RF4*/));
 break;
@@ -2954,7 +2954,7 @@ tmp1/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1038*)((/*RF2:g
 /*until*/if(tmp1/*or else*/) break;
 _tm1=/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch(((_tm1)->id)){
+switch((((T0*)(_tm1))->id)){
 case 388:
 tmp2/*declaration_type*/=/*RF4:declaration_type*/r388declaration_type(((T388*)_tm1))/*:RF4*/;
 break;
@@ -3052,7 +3052,7 @@ _gl=/*RF8:twin*/r1038twin(((T1038*)_gl))/*:RF8*/;
 /*:RF3*/while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1038*)_gl))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*auto-unlock tmp2*/(tmp2/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/)))->id)){
+switch((((T0*)(/*auto-unlock tmp2*/(tmp2/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 388:
 tmp4/*declaration_type*/=/*RF4:declaration_type*/r388declaration_type(((T388*)tmp2/*ddt1*/))/*:RF4*/;
 break;
@@ -3152,7 +3152,7 @@ tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1038*)((/*RF2:g
 /*until*/if(tmp0/*or else*/) break;
 _tm1=/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch(((_tm1)->id)){
+switch((((T0*)(_tm1))->id)){
 case 388:
 tmp1/*specialize_thru*/=/*RF4:specialize_thru*/r388specialize_thru(((T388*)_tm1),a1,a2,a3)/*:RF4*/;
 break;
@@ -3229,7 +3229,7 @@ _gl=/*RF8:twin*/r1038twin((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8pp
 /*:RF3*/while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1038*)_gl))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*auto-unlock tmp1*/(tmp1/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/)))->id)){
+switch((((T0*)(/*auto-unlock tmp1*/(tmp1/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/))))->id)){
 case 388:
 tmp2/*specialize_thru*/=/*RF4:specialize_thru*/r388specialize_thru(((T388*)tmp1/*ddt1*/),a1,a2,a3)/*:RF4*/;
 break;
@@ -3300,7 +3300,7 @@ tmp2/*specialize_thru*/=/*RF4:specialize_thru*/r505specialize_thru(((T505*)tmp1/
 }
 R=/*RF8:twin*/r467twin(C)/*:RF8*/;
 /*[inspectDynamicDispatch*/
-switch(((R)->id)){
+switch((((T0*)(R))->id)){
 case 415:
 /*RF3:set_generic_list*/r415set_generic_list(((T415*)R),_gl);
 /*:RF3*/break;
@@ -3322,7 +3322,7 @@ default:;
 /*inspect]*/
 }
 /*[inspectDynamicDispatch*/
-switch(((R)->id)){
+switch((((T0*)(R))->id)){
 case 415:
 /*RF3:update_static_memory*/r415update_static_memory(((T415*)R),a3);
 /*:RF3*/break;
@@ -3381,7 +3381,7 @@ T344 tmp1;
 T0* _tm=(void*)0;
 _tm=/*RF4:first*/r1038first((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)))/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch(((_tm)->id)){
+switch((((T0*)(_tm))->id)){
 case 410:
 tmp0/*is_expanded*/=((T6)((/*RF2:is_expanded*/((T96*)(/*RF4:class_text*/r410class_text(((T410*)_tm))/*:RF4*/))->_is_expanded/*Tppi4pip9ppp4psp*//*:RF2*/)));
 break;
@@ -3407,7 +3407,7 @@ tmp0/*is_expanded*/=((T6)(0));
 if(tmp0/*is_expanded*/){
 /*RF3:add_type_mark*/r286add_type_mark(_tm);
 /*:RF3*//*[inspectDynamicDispatch*/
-switch(((_tm)->id)){
+switch((((T0*)(_tm))->id)){
 case 388:
 tmp1/*start_position*/=/*RF4:start_position*/r388start_position(((T388*)_tm))/*:RF4*/;
 break;
@@ -3490,7 +3490,7 @@ if(tmp0/*or else*/){
 }
 else{
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 388:
 tmp1/*signature_resolve_in*/=/*RF4:signature_resolve_in*/r388signature_resolve_in(a2)/*:RF4*/;
 break;
@@ -3596,7 +3596,7 @@ r344default_create(&(((T94*)tmp0/*new*/)->_start_position));
 /*tmp0.unlock*/
 /*RF3:put*/r1038put((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),a2,INT32_C(1));
 /*:RF3*//*[inspectDynamicDispatch*/
-switch(((a2)->id)){
+switch((((T0*)(a2))->id)){
 case 388:
 /*reusing tmp0*/tmp0/*written_mark*/=(/*RF2:to_string*/((T103*)(/*RF6:written_name*/r388written_name()/*:RF6*/))->_to_string/*ip*//*:RF2*/);
 break;
@@ -3695,7 +3695,7 @@ _i=(/*RF2:lower*/(((T1038*)_gl))->_lower/*iiini*//*:RF2*/);
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1038*)_gl))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((tmp0/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/)))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/))))->id)){
 case 388:
 tmp1/*written_name*/=/*RF6:written_name*/r388written_name()/*:RF6*/;
 break;
@@ -3776,7 +3776,7 @@ if((_i)!=(INT8_C(0))){
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1038*)_gl))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*reusing tmp0*/(tmp0/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/)))->id)){
+switch((((T0*)(/*reusing tmp0*/(tmp0/*ddt1*/=(/*RF4:item*/r1038item(((T1038*)_gl),_i)/*:RF4*/))))->id)){
 case 388:
 /*auto-unlock tmp1*/tmp1/*written_mark*/=(/*RF2:to_string*/((T103*)(/*RF6:written_name*/r388written_name()/*:RF6*/))->_to_string/*ip*//*:RF2*/);
 break;
@@ -3919,7 +3919,7 @@ _i=(/*RF2:lower*/(((T1038*)_gl))->_lower/*iiini*//*:RF2*/);
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T1038*)_gl))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch(((/*reusing tmp0*/(tmp0/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/)))->id)){
+switch((((T0*)(/*reusing tmp0*/(tmp0/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 388:
 tmp1/*signature_resolve_in*/=/*RF4:signature_resolve_in*/r388signature_resolve_in(a1)/*:RF4*/;
 break;
@@ -4017,7 +4017,7 @@ T0* tmp1;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
 /*[inspectDynamicDispatch*/
-switch((((tmp0/*ddt1*/=(/*RF4:first*/r1038first((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)))/*:RF4*/)))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF4:first*/r1038first((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)))/*:RF4*/))))->id)){
 case 388:
 tmp1/*type*/=/*RF4:type*/r388type()/*:RF4*/;
 break;
@@ -4102,7 +4102,7 @@ tmp1/*or else*/=((T6)((_tm1)!=((void*)(_tm2))));
 /*until*/if(tmp1/*or else*/) break;
 _tm1=/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch(((_tm1)->id)){
+switch((((T0*)(_tm1))->id)){
 case 388:
 tmp2/*at*/=/*RF4:at*/r388at(((T388*)_tm1),a1)/*:RF4*/;
 break;
@@ -4178,7 +4178,7 @@ if((_tm1)!=((void*)(_tm2))){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 _tm1=/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch(((_tm1)->id)){
+switch((((T0*)(_tm1))->id)){
 case 388:
 /*auto-unlock tmp2*/tmp2/*at*/=/*RF4:at*/r388at(((T388*)_tm1),a1)/*:RF4*/;
 break;
@@ -4281,7 +4281,7 @@ return R;
 
 /*WEAK_REFERENCE_TYPE_MARK*/void r467accept(T467* C,T0* a1){
 /*[inspectDynamicDispatch*/
-switch(((a1)->id)){
+switch((((T0*)(a1))->id)){
 case 576:
 /*RF3:visit_weak_reference_type_mark*/r576visit_weak_reference_type_mark(((T576*)a1),(T0*)C);
 /*:RF3*/break;
@@ -4409,7 +4409,7 @@ T2 _i=0;
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)))->_upper/*iiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((tmp0/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/)))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF4:item*/r1038item((T1038*)((/*RF2:generic_list*/(C)->_generic_list/*T8ppp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 388:
 /*RF3:pretty_in*/r388pretty_in(a1);
 /*:RF3*/break;

@@ -158,20 +158,20 @@ va_end(pa);
 return ((T0*)C);
 }/*--*/
 
-T0* se_manifest1141(int argc,...){
+T0* se_manifest1140(int argc,...){
 /*HASHED_SET[STRING]*/
-T1141*C;
+T1140*C;
 va_list pa;
 int i=0;
 int imax;
 va_start(pa,argc);
-C=se_malloc(sizeof(T1141));
-*C=M1141;
-r1141manifest_make(C,argc);
+C=se_malloc(sizeof(T1140));
+*C=M1140;
+r1140manifest_make(C,argc);
 imax=argc;
 while (i < imax) {
 T0* element=((T0*)(va_arg(pa,T0*)));
-r1141manifest_put(C,i++,element);
+r1140manifest_put(C,i++,element);
 }
 va_end(pa);
 return ((T0*)C);
