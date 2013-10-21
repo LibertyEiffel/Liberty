@@ -20,7 +20,7 @@ insert
       redefine out_in_tagged_out_memory
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -79,6 +79,7 @@ feature {ANY}
             else
                col := col + 1
             end
+
             nb := nb + 1
          end
          tagged_out_memory.extend('%N')

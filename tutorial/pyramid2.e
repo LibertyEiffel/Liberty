@@ -8,7 +8,7 @@ insert
       redefine print_on
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}
@@ -90,6 +90,7 @@ feature {}
                      i := i + 1
                   end
                end
+
                nb := nb - 1
             end
          end
@@ -152,6 +153,7 @@ feature {ANY}
                end
                column := column + 1
             end
+
             file.put_new_line
             line := line + 1
             blanks.add_last(' ')

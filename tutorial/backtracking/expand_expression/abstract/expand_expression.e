@@ -32,26 +32,22 @@ class EXPAND_EXPRESSION
 
 inherit
    ABSTRACT_BACKTRACKING
-      undefine
-         default_create
+      undefine default_create
       end
    MINI_PARSER_BUFFER
       -- a nicer name when inherited!
-      rename
-         next as next_character
+      rename next as next_character
       end
    EXPRESSION_ITEM_GLOBALS
-      undefine
-         default_create
+      undefine default_create
       end
 
 insert
    EXCEPTIONS
-      undefine
-         default_create
+      undefine default_create
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY} -- make
@@ -250,6 +246,7 @@ feature {ANY} -- parsing
             next_character
             skip_separators
          end
+
          if end_reached or else (once "+)").has(current_character) then
             -- if already a termination, return the empty item
             Result := the_empty_item
@@ -261,6 +258,7 @@ feature {ANY} -- parsing
             if end_reached or else current_character /= ')' then
                raise(once "unbounded '('")
             end
+
             next_character
             skip_separators
          else
@@ -273,6 +271,7 @@ feature {ANY} -- parsing
                buffer.add_last(current_character)
                next_character
             end
+
             create Result.make_value(buffer.twin)
             skip_separators
          end

@@ -1,12 +1,11 @@
 class EXAMPLE2
---
--- This example is a bit more complex since it uses a subclass of XML_TREE to provide some validation.
---
+   --
+   -- This example is a bit more complex since it uses a subclass of XML_TREE to provide some validation.
+   --
 
 inherit
    EXAMPLE1
-      redefine
-         make
+      redefine make
       end
 
 create {}
@@ -15,9 +14,7 @@ create {}
 feature {}
    make is
       local
-         in: TEXT_FILE_READ
-         tree: MY_VALIDATING_TREE
-         version: UNICODE_STRING
+         in: TEXT_FILE_READ; tree: MY_VALIDATING_TREE; version: UNICODE_STRING
       do
          if argument_count = 0 then
             std_error.put_line(once "Usage: #(1) <file.xml>" # command_name)
@@ -35,8 +32,9 @@ feature {}
                io.put_string(version.as_utf8)
                io.put_new_line
             end
+
             tree.root.accept(Current)
          end
       end
 
-end
+end -- class EXAMPLE2

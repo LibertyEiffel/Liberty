@@ -342,11 +342,20 @@ feature {ANY} -- File path handling tools:
 
    ensure_system_notation is
       local
-         p: FIXED_STRING
+         dummy: BOOLEAN
       once
-         p := current_working_directory
+         dummy := require_system_notation
       ensure
          system_notation /= Void
+      end
+
+   require_system_notation: BOOLEAN is
+         -- Same as `ensure_system_notation', useful for contracts
+      once
+         Result := current_working_directory /= Void
+      ensure
+         system_notation /= Void
+         Result
       end
 
 feature {ANY} -- Disk modification:

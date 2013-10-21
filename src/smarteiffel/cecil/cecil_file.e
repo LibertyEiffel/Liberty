@@ -125,6 +125,25 @@ feature {CECIL_POOL}
          end
       end
 
+   adapt_for (type: TYPE) is
+      local
+         i: INTEGER; entry: CECIL_ENTRY
+      do
+         if entries /= Void then
+            from
+               i := entries.lower
+            until
+               i > entries.upper
+            loop
+               entry := entries.item(i).adapt_for(type)
+               check
+                  entry = entries.item(i)
+               end
+               i := i + 1
+            end
+         end
+      end
+
 feature {}
    entries: FAST_ARRAY[CECIL_ENTRY]
          -- List of `entries' parsed from the `path' file.

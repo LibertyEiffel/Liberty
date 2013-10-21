@@ -3,64 +3,64 @@
 class ITEM_VAR
 
 inherit
-	ITEM
+   ITEM
 
-creation {ANY}
-	make
+create {ANY}
+   make
 
 feature {ANY}
-	item: ITEM
+   item: ITEM
 
-	index: INTEGER is
-		do
-			Result := item.index
-		end
+   index: INTEGER is
+      do
+         Result := item.index
+      end
 
-	to_integer: INTEGER is
-		do
-			Result := item.to_integer
-		end
+   to_integer: INTEGER is
+      do
+         Result := item.to_integer
+      end
 
-	make (the_group: like group; the_name: like name) is
-		do
-			group := the_group
-			name := the_name
-		end
+   make (the_group: like group; the_name: like name) is
+      do
+         group := the_group
+         name := the_name
+      end
 
-	start is
-		do
-			if group.item_count = 0 then
-				item := Void
-			else
-				goto_index(0)
-			end
-		end
+   start is
+      do
+         if group.item_count = 0 then
+            item := Void
+         else
+            goto_index(0)
+         end
+      end
 
-	is_off: BOOLEAN is
-		do
-			Result := item = Void
-		ensure
-			Result = (item = Void)
-		end
+   is_off: BOOLEAN is
+      do
+         Result := item = Void
+      ensure
+         Result = (item = Void)
+      end
 
-	next is
-		do
-			if item.index + 1 < group.item_count then
-				goto_index(item.index + 1)
-			else
-				item := Void
-			end
-		end
+   next is
+      do
+         if item.index + 1 < group.item_count then
+            goto_index(item.index + 1)
+         else
+            item := Void
+         end
+      end
 
-	goto_index (idx: INTEGER) is
-		require
-			idx.in_range(0, group.item_count - 1)
-		do
-			group.goto_index(idx)
-			item := group.item
-		ensure
-			not is_off
-		end
+   goto_index (idx: INTEGER) is
+      require
+         idx.in_range(0, group.item_count - 1)
+      do
+         group.goto_index(idx)
+         item := group.item
+      ensure
+         not is_off
+      end
 
 end -- class ITEM_VAR
 --

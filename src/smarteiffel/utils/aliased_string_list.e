@@ -220,6 +220,8 @@ feature {} -- Hard coded feature names:
 
    as_force_to_real_64: STRING is "force_to_real_64"
 
+   as_from_external_sized_copy: STRING is "from_external_sized_copy"
+
    as_from_pointer: STRING is "from_pointer"
 
    as_full_collect: STRING is "full_collect"
@@ -241,6 +243,8 @@ feature {} -- Hard coded feature names:
    as_is_equal: STRING is "is_equal"
 
    as_do_at_exit: STRING is "do_at_exit"
+
+   as_is_empty: STRING is "is_empty"
 
    as_is_infinity: STRING is "is_infinity"
 

@@ -1,7 +1,7 @@
 class HELLO
---
--- Basic example to start with NCURSES.
---
+   --
+   -- Basic example to start with NCURSES.
+   --
 
 insert
    NCURSES_TOOLS
@@ -23,7 +23,6 @@ feature {}
          root_window.put_string_at("Q or q to quit.", 0, 2)
          ncurses.when_key_pressed(agent key_press(?))
          ncurses.start
-
          -- At the end, the terminal is reset in its normal state:
          std_output.put_string("...normal terminal mode restored.%N")
       end

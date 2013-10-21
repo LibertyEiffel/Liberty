@@ -93,7 +93,7 @@ feature {ANY} -- Testing:
          definition: Result = item(i)
       end
 
-    infix "^" (a_range: INTEGER_RANGE): ABSTRACT_STRING is
+    infix "^" (a_range: INTEGER_RANGE[INTEGER]): ABSTRACT_STRING is
         -- Substring of items in `a_range' .
     require valid_range: valid_index(a_range.lower) and valid_index(a_range.upper)
     do
@@ -1356,6 +1356,10 @@ feature {}
 
 feature {STRING_HANDLER}
    copy_slice_to_native (start_index, end_index: INTEGER; target: NATIVE_ARRAY[CHARACTER]; target_offset: INTEGER) is
+      require
+         start_index >= lower
+         end_index <= upper
+         start_index <= end_index
       local
          i, j: INTEGER
       do

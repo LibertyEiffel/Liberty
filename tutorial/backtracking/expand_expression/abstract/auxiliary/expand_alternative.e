@@ -3,34 +3,40 @@
 class EXPAND_ALTERNATIVE
 
 inherit
-	ABSTRACT_BACKTRACKING_ALTERNATIVE
-	EXPRESSION_ITEM_GLOBALS
+   ABSTRACT_BACKTRACKING_ALTERNATIVE
+   EXPRESSION_ITEM_GLOBALS
+
+feature {ANY}
+   pool: POOL_ALTERNATIVE is
+      once
+         create Result.make
+      end
 
 feature {ABSTRACT_BACKTRACKING}
-	next_alternative (explorer: EXPAND_EXPRESSION) is
-		do
-			explorer.stack.resize(count)
-			if Iterate and then item.type = Or_item then
-				explorer.goto_item(item.first)
-				item := item.second
-				explorer.continue_alternative
-			else
-				explorer.goto_item(item)
-				explorer.pop_alternative
-			end
-		end
+   next_alternative (explorer: EXPAND_EXPRESSION) is
+      do
+         explorer.stack.resize(count)
+         if Iterate and then item.type = Or_item then
+            explorer.goto_item(item.first)
+            item := item.second
+            explorer.continue_alternative
+         else
+            explorer.goto_item(item)
+            explorer.pop_alternative
+         end
+      end
 
 feature {}
-	item: EXPRESSION_ITEM
+   item: EXPRESSION_ITEM
 
-	count: INTEGER
+   count: INTEGER
 
 feature {EXPAND_EXPRESSION}
-	make (itm: EXPRESSION_ITEM; cnt: INTEGER) is
-		do
-			count := cnt
-			item := itm
-		end
+   make (itm: EXPRESSION_ITEM; cnt: INTEGER) is
+      do
+         count := cnt
+         item := itm
+      end
 
 end -- class EXPAND_ALTERNATIVE
 --

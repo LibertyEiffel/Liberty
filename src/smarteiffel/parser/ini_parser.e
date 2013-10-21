@@ -454,11 +454,13 @@ feature {}
                inspect
                   cc
                when ' ', '%T' then
+                  buffer.clear_count
                   buffer.extend(cc)
                   state := 1
                when '-' then
                   l := line
                   c := column
+                  buffer.clear_count
                   state := 2
                else
                   token_buffer.extend(cc)
@@ -476,7 +478,6 @@ feature {}
                   state := 2
                else
                   token_buffer.append(buffer)
-                  buffer.clear_count
                   token_buffer.extend(cc)
                   state := 0
                end
@@ -497,7 +498,6 @@ feature {}
                   token_buffer.append(buffer)
                   token_buffer.extend('-')
                   token_buffer.extend(cc)
-                  buffer.clear_count
                   state := 0
                end
             when 3 then

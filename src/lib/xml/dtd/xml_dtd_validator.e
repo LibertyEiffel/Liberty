@@ -37,6 +37,10 @@ feature {XML_PARSER}
          else
             Result := point.is_valid_child(Current, node_name)
          end
+         if not Result then
+            sedb_breakpoint
+            Result := point.is_valid_child(Current, node_name)
+         end
          if Result then
             Result := get_element(node_name).is_valid_attributes(attributes)
          end
@@ -187,18 +191,18 @@ feature {} -- Attributes string management
 
    clear_attributes is
       local
-         i: INTEGER
+         key, item: UNICODE_STRING
       do
          from
-            i := attributes.lower
          until
-            i > attributes.upper
+            attributes.is_empty
          loop
-            free_string(attributes.key(i))
-            free_string(attributes.item(i))
-            i := i + 1
+            key := attributes.key(attributes.lower)
+            item := attributes.item(attributes.lower)
+            attributes.fast_remove(key)
+            free_string(key)
+            free_string(item)
          end
-         attributes.clear_count
       end
 
 feature {XML_DTD_PARSER}

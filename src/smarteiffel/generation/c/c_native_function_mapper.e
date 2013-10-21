@@ -303,7 +303,16 @@ feature {NATIVE_BUILT_IN}
          elseif as_se_argc = name then
             function_body.append(as_se_argc)
          elseif as_se_argv = name then
-            function_body.append(once "((T0*)se_string(se_argv[")
+            function_body.append(once "((T0*)se_string(")
+            if ace.no_check then
+               function_body.append(once "&ds,")
+            end
+            if ace.profile then
+               function_body.append(once "&local_profile,")
+            end
+            function_body.append(once "strlen(se_argv[")
+            cpp.put_ith_argument(1)
+            function_body.append(once "]), se_argv[")
             cpp.put_ith_argument(1)
             function_body.append(once "]))")
          elseif as_native_array = bcn then
@@ -524,6 +533,7 @@ feature {}
                      when 'a' .. 'z', 'A' .. 'Z', '0' .. '9', '_' then
                         arg.extend(cc)
                         i := i + 1
+                        stop := i > c_code.count
                      else
                         stop := True
                         i := i - 1

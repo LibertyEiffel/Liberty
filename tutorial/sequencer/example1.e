@@ -1,44 +1,45 @@
 class EXAMPLE1
-	-- Simple exemple that show how to do multiple cooperative jobs in parallel.
+   -- Simple exemple that show how to do multiple cooperative jobs in parallel.
 
-creation {ANY}
-	make
+create {ANY}
+   make
 
 feature {}
-	lm: LOOP_STACK
+   lm: LOOP_STACK
 
-	counter: INTEGER
+   counter: INTEGER
 
-	continue: BOOLEAN
+   continue: BOOLEAN
 
-	make is
-		local
-			job1, job2: SIMPLE_BACKGROUND_JOB
-		do
-			create lm.make
-			create job1.set_work(agent work1, Void, 1)
-			create job2.set_work(agent work2, Void, 1)
-			lm.add_job(job1)
-			lm.add_job(job2)
-			continue := True
-			lm.run
-		end
+   make is
+      local
+         job1, job2: SIMPLE_BACKGROUND_JOB
+      do
+         create lm.make
+         create job1.set_work(agent work1, Void, 1)
+         create job2.set_work(agent work2, Void, 1)
+         lm.add_job(job1)
+         lm.add_job(job2)
+         continue := True
+         lm.run
+      end
 
-	work1: BOOLEAN is
-		do
-			io.put_integer(counter)
-			io.put_new_line
-			counter := counter + 1
-			if counter > 5 then
-				continue := False
-			end
-			Result := continue
-		end
+   work1: BOOLEAN is
+      do
+         io.put_integer(counter)
+         io.put_new_line
+         counter := counter + 1
+         if counter > 5 then
+            continue := False
+         end
 
-	work2: BOOLEAN is
-		do
-			io.put_string("Hello !%N")
-			Result := continue
-		end
+         Result := continue
+      end
+
+   work2: BOOLEAN is
+      do
+         io.put_string("Hello !%N")
+         Result := continue
+      end
 
 end -- class EXAMPLE1

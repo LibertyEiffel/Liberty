@@ -1,7 +1,7 @@
 class STREAM_READ_LINE
--- This example show how to use read_line.
--- The reading pattern is different from the one used with read_character.
--- It HAS to be different.
+   -- This example show how to use read_line.
+   -- The reading pattern is different from the one used with read_character.
+   -- It HAS to be different.
 
 create {ANY}
    make
@@ -27,8 +27,7 @@ feature {}
          end
          tfr.disconnect
       end
+      -- NOTE: last_string always returns the same STRING object, it's up
+      -- to you to make a copy if you need to keep the string value.
 
-   -- NOTE: last_string always returns the same STRING object, it's up
-   -- to you to make a copy if you need to keep the string value.
-
-end
+end -- class STREAM_READ_LINE

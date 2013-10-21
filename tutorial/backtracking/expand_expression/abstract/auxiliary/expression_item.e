@@ -1,78 +1,78 @@
 -- See the Copyright notice at the end of this file.
 --
 class EXPRESSION_ITEM
-	-- very raw class to make the expresion tree
-	-- not any safety check is done, be careful
-	-- no comment
+   -- very raw class to make the expresion tree
+   -- not any safety check is done, be careful
+   -- no comment
 
 inherit
-	EXPRESSION_ITEM_GLOBALS
-		redefine out
-		end
+   EXPRESSION_ITEM_GLOBALS
+      redefine out
+      end
 
-creation {ANY}
-	make_or, make_and, make_value, make_failure, make_success, make_empty
+create {ANY}
+   make_or, make_and, make_value, make_failure, make_success, make_empty
 
 feature {ANY}
-	first, second: like Current
+   first, second: like Current
 
-	type: INTEGER
+   type: INTEGER
 
-	value: STRING
+   value: STRING
 
-	make_failure is
-		do
-			type := Failure_item
-		end
+   make_failure is
+      do
+         type := Failure_item
+      end
 
-	make_success is
-		do
-			type := Success_item
-		end
+   make_success is
+      do
+         type := Success_item
+      end
 
-	make_empty is
-		do
-			type := Empty_item
-		end
+   make_empty is
+      do
+         type := Empty_item
+      end
 
-	make_value (val: STRING) is
-		do
-			type := Value_item
-			value := val
-		end
+   make_value (val: STRING) is
+      do
+         type := Value_item
+         value := val
+      end
 
-	make_or (f, s: like Current) is
-		do
-			type := Or_item
-			first := f
-			second := s
-		end
+   make_or (f, s: like Current) is
+      do
+         type := Or_item
+         first := f
+         second := s
+      end
 
-	make_and (f, s: like Current) is
-		do
-			type := And_item
-			first := f
-			second := s
-		end
+   make_and (f, s: like Current) is
+      do
+         type := And_item
+         first := f
+         second := s
+      end
 
-	out: STRING is
-		do
-			inspect
-				type
-			when Empty_item then
-				Result := to_pointer.out + ": empty"
-			when Failure_item then
-				Result := to_pointer.out + ": failure"
-			when Success_item then
-				Result := to_pointer.out + ": success"
-			when Value_item then
-				Result := to_pointer.out + ": value=" + value
-			when And_item then
-				Result := to_pointer.out + ": " + first.to_pointer.out + " and " + second.to_pointer.out
-			when Or_item then
-				Result := to_pointer.out + ": " + first.to_pointer.out + " or " + second.to_pointer.out
-			end
-		end
+   out: STRING is
+      do
+         inspect
+            type
+         when Empty_item then
+            Result := to_pointer.out + ": empty"
+         when Failure_item then
+            Result := to_pointer.out + ": failure"
+         when Success_item then
+            Result := to_pointer.out + ": success"
+         when Value_item then
+            Result := to_pointer.out + ": value=" + value
+         when And_item then
+            Result := to_pointer.out + ": " + first.to_pointer.out + " and " + second.to_pointer.out
+         when Or_item then
+            Result := to_pointer.out + ": " + first.to_pointer.out + " or " + second.to_pointer.out
+         end
+      end
 
 end -- class EXPRESSION_ITEM
 --

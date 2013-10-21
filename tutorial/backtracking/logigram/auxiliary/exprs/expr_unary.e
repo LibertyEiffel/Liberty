@@ -3,20 +3,20 @@
 deferred class EXPR_UNARY
 
 inherit
-	EXPR
+   EXPR
 
 feature {ANY}
-	expr: EXPR
+   expr: EXPR
 
-	make (e: EXPR) is
-		do
-			expr := e
-		end
+   make (e: EXPR) is
+      do
+         expr := e
+      end
 
-	get_items (collector: ITEM_COLLECTOR) is
-		do
-			expr.get_items(collector)
-		end
+   get_items (collector: ITEM_COLLECTOR) is
+      do
+         expr.get_items(collector)
+      end
 
 end -- class EXPR_UNARY
 --

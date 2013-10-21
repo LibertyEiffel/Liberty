@@ -3,32 +3,32 @@
 class PERMUT
 
 inherit
-	COMPARABLE
-		undefine copy, is_equal, fill_tagged_out_memory, default_create, out_in_tagged_out_memory
-		end
-	FAST_ARRAY[INTEGER]
+   COMPARABLE
+      undefine copy, is_equal, fill_tagged_out_memory, default_create, out_in_tagged_out_memory
+      end
+   FAST_ARRAY[INTEGER]
 
-creation {ANY}
-	make, from_collection
+create {ANY}
+   make, from_collection
 
 feature {ANY}
-	infix "<" (other: like Current): BOOLEAN is
-		local
-			i: INTEGER; up: INTEGER
-		do
-			from
-				up := upper.min(other.upper)
-			until
-				i > up or else item(i) /= other.item(i)
-			loop
-				i := i + 1
-			end
-			if i <= up then
-				Result := item(i) < other.item(i)
-			else
-				Result := i <= other.upper
-			end
-		end
+   infix "<" (other: like Current): BOOLEAN is
+      local
+         i: INTEGER; up: INTEGER
+      do
+         from
+            up := upper.min(other.upper)
+         until
+            i > up or else item(i) /= other.item(i)
+         loop
+            i := i + 1
+         end
+         if i <= up then
+            Result := item(i) < other.item(i)
+         else
+            Result := i <= other.upper
+         end
+      end
 
 end -- class PERMUT
 --

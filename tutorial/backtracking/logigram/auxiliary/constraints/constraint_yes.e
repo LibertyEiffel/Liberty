@@ -1,21 +1,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class CONSTRAINT_YES
-	--
-	-- the 2 items are mandatory associated
+   --
+   -- the 2 items are mandatory associated
 
 inherit
-	CONSTRAINT_COUPLE
+   CONSTRAINT_COUPLE
 
-creation {ANY}
-	make
+create {ANY}
+   make
 
 feature {ANY}
-	build_masks (builder: MASK_BUILDER) is
-		do
-			builder.goto(item1, item2)
-			builder.and_yes
-		end
+   build_masks (builder: MASK_BUILDER) is
+      do
+         builder.goto(item1, item2)
+         builder.and_yes
+      end
 
 end -- class CONSTRAINT_YES
 --

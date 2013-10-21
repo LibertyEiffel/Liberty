@@ -7,7 +7,7 @@ class EXAMPLE3
    -- `last_connect_id' has to be called just after `connect' call. Principle
    -- is based on the same ideas as `last_string' in TEXT_FILE_READ.
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

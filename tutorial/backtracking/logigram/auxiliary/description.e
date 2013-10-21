@@ -2,115 +2,115 @@
 --
 class DESCRIPTION
 
-creation {ANY}
-	make
+create {ANY}
+   make
 
 feature {ANY}
-	group: GROUP
+   group: GROUP
 
-	group_array: FAST_ARRAY[like group]
+   group_array: FAST_ARRAY[like group]
 
-	group_dictionary: AVL_DICTIONARY[like group, STRING]
+   group_dictionary: AVL_DICTIONARY[like group, STRING]
 
-	constraints: CONSTRAINT_SET
+   constraints: CONSTRAINT_SET
 
-	make is
-		do
-			create group_array.with_capacity(10)
-			create group_dictionary.make
-			create constraints.make
-		end
+   make is
+      do
+         create group_array.with_capacity(10)
+         create group_dictionary.make
+         create constraints.make
+      end
 
-	add_group_atomic (name: STRING) is
-		do
-			create group.make_atomic(name, 1 + group_array.upper)
-			add_group
-		end
+   add_group_atomic (name: STRING) is
+      do
+         create group.make_atomic(name, 1 + group_array.upper)
+         add_group
+      end
 
-	add_group_numeric (name: STRING) is
-		do
-			create group.make_numeric(name, 1 + group_array.upper)
-			add_group
-		end
+   add_group_numeric (name: STRING) is
+      do
+         create group.make_numeric(name, 1 + group_array.upper)
+         add_group
+      end
 
-	add_group_ordered (name: STRING) is
-		do
-			create group.make_ordered(name, 1 + group_array.upper)
-			add_group
-		end
+   add_group_ordered (name: STRING) is
+      do
+         create group.make_ordered(name, 1 + group_array.upper)
+         add_group
+      end
 
-	get_item (group_name, item_name: STRING): ITEM_ITEM is
-		do
-			goto_name(group_name)
-			group.goto_name(item_name)
-			Result := group.item
-		end
+   get_item (group_name, item_name: STRING): ITEM_ITEM is
+      do
+         goto_name(group_name)
+         group.goto_name(item_name)
+         Result := group.item
+      end
 
-	get_group (group_name: STRING): GROUP is
-		do
-			goto_name(group_name)
-			Result := group
-		end
+   get_group (group_name: STRING): GROUP is
+      do
+         goto_name(group_name)
+         Result := group
+      end
 
-	goto_name (group_name: STRING) is
-		do
-			group := group_dictionary.at(group_name)
-		end
+   goto_name (group_name: STRING) is
+      do
+         group := group_dictionary.at(group_name)
+      end
 
-	goto_index (group_index: INTEGER) is
-		do
-			group := group_array.item(group_index)
-		end
+   goto_index (group_index: INTEGER) is
+      do
+         group := group_array.item(group_index)
+      end
 
-	group_count: INTEGER is
-		do
-			Result := group_array.count
-		end
+   group_count: INTEGER is
+      do
+         Result := group_array.count
+      end
 
-	is_valid: BOOLEAN is
-		local
-			i: INTEGER
-		do
-			if not group_array.is_empty then
-				from
-					Result := True
-					i := group_array.lower + 1
-				until
-					i > group_array.upper
-				loop
-					Result := group_array.first.item_count = group_array.item(i).item_count
-					i := i + 1
-				end
-			end
-		end
+   is_valid: BOOLEAN is
+      local
+         i: INTEGER
+      do
+         if not group_array.is_empty then
+            from
+               Result := True
+               i := group_array.lower + 1
+            until
+               i > group_array.upper
+            loop
+               Result := group_array.first.item_count = group_array.item(i).item_count
+               i := i + 1
+            end
+         end
+      end
 
-	dimension: INTEGER is
-		require
-			is_valid
-		do
-			Result := group_array.first.item_count
-		end
+   dimension: INTEGER is
+      require
+         is_valid
+      do
+         Result := group_array.first.item_count
+      end
 
-	get_var (group_name, var_name: STRING): ITEM_VAR is
-		do
-			goto_name(group_name)
-			group.get_var(var_name)
-			Result := group.var
-		end
+   get_var (group_name, var_name: STRING): ITEM_VAR is
+      do
+         goto_name(group_name)
+         group.get_var(var_name)
+         Result := group.var
+      end
 
-	get_anonymous_var (group_name: STRING): ITEM_VAR is
-		do
-			goto_name(group_name)
-			group.get_anonymous_var
-			Result := group.var
-		end
+   get_anonymous_var (group_name: STRING): ITEM_VAR is
+      do
+         goto_name(group_name)
+         group.get_anonymous_var
+         Result := group.var
+      end
 
 feature {}
-	add_group is
-		do
-			group_array.add_last(group)
-			group_dictionary.add(group, group.name)
-		end
+   add_group is
+      do
+         group_array.add_last(group)
+         group_dictionary.add(group, group.name)
+      end
 
 end -- class DESCRIPTION
 --

@@ -33,3 +33,5 @@
 #define perl_interpreter_destroy perl_interpreter_destroy_()
 #define se_SvIVX(sv) SvIVX((SV*)(sv))
 #define se_SvIOK(sv) SvIOK((SV*)(sv))
+
+PerlInterpreter *my_perl;  /***    The Perl interpreter    ***/

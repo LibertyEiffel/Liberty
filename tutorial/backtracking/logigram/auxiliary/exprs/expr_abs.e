@@ -3,16 +3,16 @@
 class EXPR_ABS
 
 inherit
-	EXPR_UNARY
+   EXPR_UNARY
 
-creation {ANY}
-	make
+create {ANY}
+   make
 
 feature {ANY}
-	to_integer: INTEGER is
-		do
-			Result := expr.to_integer.abs
-		end
+   to_integer: INTEGER is
+      do
+         Result := expr.to_integer.abs
+      end
 
 end -- class EXPR_ABS
 --

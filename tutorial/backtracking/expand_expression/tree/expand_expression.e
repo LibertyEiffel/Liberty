@@ -32,28 +32,22 @@ class EXPAND_EXPRESSION
 
 inherit
    BACKTRACKING
-      undefine
-         default_create
+      undefine default_create
       end
-   
    MINI_PARSER_BUFFER
       -- a nicer name when inherited!
-      rename
-         next as next_character
+      rename next as next_character
       end
-   
    BACKTRACKING_NODE_GLOBALS
-      undefine
-         default_create
+      undefine default_create
       end
 
 insert
    EXCEPTIONS
-      undefine
-         default_create
+      undefine default_create
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY} -- make
@@ -84,7 +78,9 @@ feature {ANY} -- enumeration of expansions
    root: BACKTRACKING_NODE
 
    stack: FAST_ARRAY[STRING]
+
    context: FAST_ARRAY[INTEGER]
+
    top: INTEGER
 
    expand_all is
@@ -153,9 +149,10 @@ feature {ANY} -- enumeration of expansions
    context_cut is
          -- no cut allowed
       do
-         check False end
+         check
+            False
+         end
       end
-
 
 feature {ANY} -- parsing
    parse is
@@ -231,6 +228,7 @@ feature {ANY} -- parsing
             next_character
             skip_separators
          end
+
          if end_reached or else (once "+)").has(current_character) then
             -- if already a termination, return the empty item
             Result := the_true_node
@@ -242,6 +240,7 @@ feature {ANY} -- parsing
             if end_reached or else current_character /= ')' then
                raise(once "unbounded '('")
             end
+
             next_character
             skip_separators
          else
@@ -254,6 +253,7 @@ feature {ANY} -- parsing
                buffer.add_last(current_character)
                next_character
             end
+
             create {STRING_NODE} Result.make(buffer.twin)
             skip_separators
          end

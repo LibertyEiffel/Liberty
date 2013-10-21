@@ -31,7 +31,7 @@ inherit
       redefine is_equal, copy, compare, three_way_comparison, out_in_tagged_out_memory, fill_tagged_out_memory
       end
    TRAVERSABLE[INTEGER]
-      redefine is_equal, copy, out_in_tagged_out_memory, fill_tagged_out_memory
+      redefine is_equal, copy, out_in_tagged_out_memory, fill_tagged_out_memory, next_generation
       end
    SEARCHABLE[INTEGER]
       redefine is_equal, copy, out_in_tagged_out_memory, fill_tagged_out_memory
@@ -1861,6 +1861,26 @@ feature {}
             low_surrogate_indexes.add_last(lsi.item(i))
             low_surrogate_values.add_last(lsv.item(i))
             i := i + 1
+         end
+      end
+
+feature {}
+   debug_utf8: STRING
+
+   set_debug_utf8 is
+      do
+         if debug_utf8 = Void then
+            debug_utf8 := to_utf8
+         else
+            debug_utf8.copy(as_utf8)
+         end
+      end
+
+   next_generation is
+      do
+         Precursor
+         debug
+            set_debug_utf8
          end
       end
 

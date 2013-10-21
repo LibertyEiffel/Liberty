@@ -3,16 +3,16 @@
 class CONSTRAINT_NOT_EQUAL
 
 inherit
-	CONSTRAINT_RELATIONAL
+   CONSTRAINT_RELATIONAL
 
-creation {ANY}
-	make
+create {ANY}
+   make
 
 feature {ANY}
-	to_boolean: BOOLEAN is
-		do
-			Result := left.to_integer /= right.to_integer
-		end
+   to_boolean: BOOLEAN is
+      do
+         Result := left.to_integer /= right.to_integer
+      end
 
 end -- class CONSTRAINT_NOT_EQUAL
 --

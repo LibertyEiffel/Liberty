@@ -1,14 +1,14 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class CONSTRAINT
-	--
-	-- any constraint
+   --
+   -- any constraint
 
 feature {ANY}
-	get_items (collector: ITEM_COLLECTOR) is
-			-- collect the items
-		deferred
-		end
+   get_items (collector: ITEM_COLLECTOR) is
+         -- collect the items
+      deferred
+      end
 
 end -- class CONSTRAINT
 --

@@ -1,8 +1,8 @@
 class DOWNCASTING
---
--- This tutorial presents various examples allowing safe downcasting (the way you can assign an object
--- of a general type into some more specific one).
---
+   --
+   -- This tutorial presents various examples allowing safe downcasting (the way you can assign an object
+   -- of a general type into some more specific one).
+   --
 
 create {ANY}
    make
@@ -10,10 +10,7 @@ create {ANY}
 feature {}
    make is
       local
-         a: ABSTRACT_STRING
-         s: STRING
-         col: COLLECTION[INTEGER]
-         array: ARRAY[INTEGER]
+         a: ABSTRACT_STRING; s: STRING; col: COLLECTION[INTEGER]; array: ARRAY[INTEGER]
       do
          s := "Hello%N"
          a := s -- standard valid assignment
@@ -25,22 +22,24 @@ feature {}
             std_output.put_string(once "Void")
          end
 
-         if s ?:= a then -- Could `a' be assigned to `s'?
+         if s ?:= a then
+            -- Could `a' be assigned to `s'?
             std_output.put_string(once "We can put `a' in `s'.%N")
             s ::= a -- force the assignment because we know it's allowed (it's a require of `::=' operator)
          else
             std_output.put_string(once "`a' cannot be put in `s'.%N")
          end
 
-         if {STRING} ?:= a then -- Could `a' be assigned to a STRING? (very useful in assertions)
+         if {STRING} ?:= a then
+            -- Could `a' be assigned to a STRING? (very useful in assertions)
             std_output.put_string(once "`a' is a STRING.%N")
             s ::= a -- force the assignment because we know it's allowed (it's a require of `::=' operator)
          else
             std_output.put_string(once "`a' is not a STRING.%N")
          end
 
-         col := {ARRAY[INTEGER] 1, << 1, 2, 3 >> } -- see tutorial/manifest_expression.e
-
+         col := {ARRAY[INTEGER] 1, << 1, 2, 3 >> }
+         -- see tutorial/manifest_expression.e
          -- Sometimes, thanks to the way the system is built, the type is
          -- known so we are sure the assignment is always valid.
          -- In this case, we don't need to do an assignment attempt
@@ -50,8 +49,7 @@ feature {}
          check
             array /= Void
          end
-
          array ::= col -- New way.
-
       end
-end
+
+end -- class DOWNCASTING

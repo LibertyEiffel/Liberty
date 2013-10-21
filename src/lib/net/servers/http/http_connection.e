@@ -152,7 +152,7 @@ feature {SERVER}
    set_io (a_io: like ios) is
       do
          Precursor(a_io)
-         a_io.when_disconnect(agent handle_disconnect)
+         a_io.when_disconnect(agent handle_disconnect(?))
       end
 
 feature {}

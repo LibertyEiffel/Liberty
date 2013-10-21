@@ -26,7 +26,12 @@
 -- ------------------------------------------------------------------------------------------------------------
 */
 
-static PerlInterpreter *my_perl;  /***    The Perl interpreter    ***/
+/* as long as we have only one pler interpreter instance it shall be named
+my_perl and be non-static. If this name is problematic either MULTIPLICITY
+option in perl may be used, or the perl plugin has to be adapted, such that
+calls to the lowlevel perl API are only in se-perl.c.
+*/
+PerlInterpreter *my_perl;  /***    The Perl interpreter    ***/
 
 static void xs_init (pTHX);
 

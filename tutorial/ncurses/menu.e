@@ -14,8 +14,7 @@ feature {}
 
    make is
       local
-         items: HASHED_DICTIONARY[HASHED_DICTIONARY[STRING, STRING], STRING]
-         item: HASHED_DICTIONARY[STRING, STRING]
+         items: HASHED_DICTIONARY[HASHED_DICTIONARY[STRING, STRING], STRING]; item: HASHED_DICTIONARY[STRING, STRING]
       do
          ncurses.enable
          root_window := ncurses.get_root_window
@@ -67,6 +66,7 @@ feature {}
                root_window.put_string_at("You selected the item ", 1, menubar.height + 5)
                root_window.put_string(selected)
             end
+
             root_window.redraw_now
          elseif key_code.to_character.to_upper = 'Q' then
             ncurses.disable

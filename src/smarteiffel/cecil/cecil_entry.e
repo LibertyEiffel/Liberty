@@ -67,9 +67,12 @@ feature {ANY}
 
    adapt_for (type: TYPE): like Current is
       do
-         check
-            False
+         if code /= Void then
+            code := code.adapt_for(type)
          end
+         Result := Current
+      ensure
+         Result = Current
       end
 
    use_current (type: TYPE): BOOLEAN is
@@ -235,7 +238,7 @@ feature {ANY}
             type.is_any
          end
          code_accumulator.open_new_context
-         code.inline_dynamic_dispatch_(code_accumulator, type)
+         code.inline_dynamic_dispatch_(code_accumulator, target_type)
          code := code_accumulator.current_context_to_code
          code_accumulator.close_current_context
       end

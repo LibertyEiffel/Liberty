@@ -3,7 +3,7 @@ class FIBONACCI
 insert
    ARGUMENTS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -30,4 +30,4 @@ feature {ANY}
          end
       end
 
-end
+end -- class FIBONACCI

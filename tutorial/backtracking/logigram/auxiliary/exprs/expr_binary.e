@@ -3,22 +3,22 @@
 deferred class EXPR_BINARY
 
 inherit
-	EXPR
+   EXPR
 
 feature {ANY}
-	left, right: EXPR
+   left, right: EXPR
 
-	make (lft, rght: EXPR) is
-		do
-			left := lft
-			right := rght
-		end
+   make (lft, rght: EXPR) is
+      do
+         left := lft
+         right := rght
+      end
 
-	get_items (collector: ITEM_COLLECTOR) is
-		do
-			left.get_items(collector)
-			right.get_items(collector)
-		end
+   get_items (collector: ITEM_COLLECTOR) is
+      do
+         left.get_items(collector)
+         right.get_items(collector)
+      end
 
 end -- class EXPR_BINARY
 --

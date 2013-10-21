@@ -3,7 +3,7 @@ class EXAMPLE0
    -- This example show use of SIGNAL_0. This signal only mean that an
    -- event occured.
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

@@ -162,11 +162,17 @@ feature {ANY} -- Conversions:
          end
       end
 
-   infix "|..|" (other: INTEGER): INTEGER_RANGE is
+   infix "|..|" (other: INTEGER): INTEGER_RANGE[INTEGER] is
       require
          Current <= other
       do
-         create Result.make(Current, other)
+         create Result.make(Current, other, integer_range_noop, integer_range_noop)
+      end
+
+feature {}
+   integer_range_noop: FUNCTION[TUPLE[INTEGER], INTEGER] is
+      once
+         Result := agent (i: INTEGER): INTEGER is do Result := i end (?)
       end
 
 feature {ANY}
@@ -216,7 +222,7 @@ feature {}
          }"
       end
 
-   
+
 
 end -- class INTEGER_32
 --

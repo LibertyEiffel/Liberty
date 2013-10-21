@@ -1,7 +1,7 @@
 class STREAM_READ_CHARACTER
--- This example show how to use read_character.
--- The reading pattern is different from the one used with read_line.
--- It HAS to be different.
+   -- This example show how to use read_character.
+   -- The reading pattern is different from the one used with read_line.
+   -- It HAS to be different.
 
 create {ANY}
    make
@@ -23,4 +23,4 @@ feature {}
          tfr.disconnect
       end
 
-end
+end -- class STREAM_READ_CHARACTER

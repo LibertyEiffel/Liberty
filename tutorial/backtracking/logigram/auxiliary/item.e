@@ -3,40 +3,40 @@
 deferred class ITEM
 
 inherit
-	HASHABLE
-	ANY
+   HASHABLE
+   ANY
 
 feature {ANY}
-	group: GROUP
+   group: GROUP
 
-	name: STRING
+   name: STRING
 
-	index: INTEGER is
-		require
-			not is_off
-		deferred
-		end
+   index: INTEGER is
+      require
+         not is_off
+      deferred
+      end
 
-	is_like_integer: BOOLEAN is
-		do
-			Result := group.is_like_integer
-		end
+   is_like_integer: BOOLEAN is
+      do
+         Result := group.is_like_integer
+      end
 
-	to_integer: INTEGER is
-		require
-			is_like_integer
-			not is_off
-		deferred
-		end
+   to_integer: INTEGER is
+      require
+         is_like_integer
+         not is_off
+      deferred
+      end
 
-	is_off: BOOLEAN is
-		deferred
-		end
+   is_off: BOOLEAN is
+      deferred
+      end
 
-	hash_code: INTEGER is
-		do
-			Result := to_pointer.hash_code
-		end
+   hash_code: INTEGER is
+      do
+         Result := to_pointer.hash_code
+      end
 
 end -- class ITEM
 --

@@ -20,7 +20,7 @@ TOOL=compile_to_c
 BUILD=true
 GDB=false
 
-SE_BIN=$(grep ^bin: $HOME/.serc/liberty.se | cut -c6-)
+SE_BIN=$(grep ^bin: $HOME/.config/liberty-eiffel/liberty.se | cut -c6-)
 
 while [ $# -gt 0 ]; do
     case x"$1" in

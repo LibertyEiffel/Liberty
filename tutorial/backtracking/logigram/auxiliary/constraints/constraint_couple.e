@@ -1,37 +1,37 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class CONSTRAINT_COUPLE
-	--
-	-- constraint on a couple of items NOT in the same group
-	--
+   --
+   -- constraint on a couple of items NOT in the same group
+   --
 
 inherit
-	CONSTRAINT
+   CONSTRAINT
 
 feature {ANY}
-	item1, item2: ITEM
-			-- the couple of items
+   item1, item2: ITEM
+      -- the couple of items
 
-	make (i1, i2: ITEM) is
-			-- creation
-		require
-			i1.group /= i2.group
-		do
-			item1 := i1
-			item2 := i2
-		end
+   make (i1, i2: ITEM) is
+         -- creation
+      require
+         i1.group /= i2.group
+      do
+         item1 := i1
+         item2 := i2
+      end
 
-	get_items (collector: ITEM_COLLECTOR) is
-			-- collect the items
-		do
-			collector.put(item1)
-			collector.put(item2)
-		end
+   get_items (collector: ITEM_COLLECTOR) is
+         -- collect the items
+      do
+         collector.put(item1)
+         collector.put(item2)
+      end
 
-	build_masks (builder: MASK_BUILDER) is
-			-- creation of the mask for the constaint
-		deferred
-		end
+   build_masks (builder: MASK_BUILDER) is
+         -- creation of the mask for the constaint
+      deferred
+      end
 
 end -- class CONSTRAINT_COUPLE
 --

@@ -1,68 +1,68 @@
 -- See the Copyright notice at the end of this file.
 --
 class ITEM_COLLECTOR
-	-- 
-	-- collector of items in the constraints
-	--
+   --
+   -- collector of items in the constraints
+   --
 
-creation {ANY}
-	make
+create {ANY}
+   make
 
 feature {ANY}
-	item_set: HASHED_SET[ITEM_ITEM]
-		-- the collected items
+   item_set: HASHED_SET[ITEM_ITEM]
+      -- the collected items
 
-	var_set: HASHED_SET[ITEM_VAR]
-		-- the collected vars
+   var_set: HASHED_SET[ITEM_VAR]
+      -- the collected vars
 
-	make is
-		do
-			create item_set.with_capacity(10)
-			create var_set.with_capacity(10)
-		ensure
-			not (has_item or has_var)
-		end
+   make is
+      do
+         create item_set.with_capacity(10)
+         create var_set.with_capacity(10)
+      ensure
+         not (has_item or has_var)
+      end
 
-	clear is
-		do
-			item_set.clear_count
-			var_set.clear_count
-		ensure
-			not (has_item or has_var)
-		end
+   clear is
+      do
+         item_set.clear_count
+         var_set.clear_count
+      ensure
+         not (has_item or has_var)
+      end
 
-	has_var: BOOLEAN is
-		do
-			Result := var_set.count > 0
-		ensure
-			Result = (var_set.count > 0)
-		end
+   has_var: BOOLEAN is
+      do
+         Result := var_set.count > 0
+      ensure
+         Result = (var_set.count > 0)
+      end
 
-	has_item: BOOLEAN is
-		do
-			Result := item_set.count > 0
-		ensure
-			Result = (item_set.count > 0)
-		end
+   has_item: BOOLEAN is
+      do
+         Result := item_set.count > 0
+      ensure
+         Result = (item_set.count > 0)
+      end
 
-	put (item: ITEM) is
-			-- records the item in item_set or in var_set
-			-- depending on the real type of item that can
-			-- be ITEM_VAR or ITEM_ITEM
-		local
-			itm: ITEM_ITEM; var: ITEM_VAR
-		do
-			itm ?= item
-			if itm /= Void then
-				item_set.add(itm)
-			else
-				var ?= item
-				check
-					var /= Void
-				end
-				var_set.add(var)
-			end
-		end
+   put (item: ITEM) is
+         -- records the item in item_set or in var_set
+         -- depending on the real type of item that can
+         -- be ITEM_VAR or ITEM_ITEM
+      local
+         itm: ITEM_ITEM; var: ITEM_VAR
+      do
+         itm ?= item
+         if itm /= Void then
+            item_set.add(itm)
+         else
+            var ?= item
+            check
+               var /= Void
+            end
+            var_set.add(var)
+         end
+      end
 
 end -- class ITEM_COLLECTOR
 --

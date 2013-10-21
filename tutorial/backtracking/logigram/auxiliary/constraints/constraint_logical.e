@@ -3,12 +3,12 @@
 deferred class CONSTRAINT_LOGICAL
 
 inherit
-	CONSTRAINT
+   CONSTRAINT
 
 feature {ANY}
-	to_boolean: BOOLEAN is
-		deferred
-		end
+   to_boolean: BOOLEAN is
+      deferred
+      end
 
 end -- class CONSTRAINT_LOGICAL
 --

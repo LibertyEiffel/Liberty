@@ -15,9 +15,9 @@ $force = false;
 $verbose = false;
 
 foreach ($argv as $arg){
-   if($arg == "--force"){
+   if ($arg == "--force") {
       $force = true;
-   }elseif($arg == "--verbose"){
+   } elseif ($arg == "--verbose") {
       $verbose = true;
    }
 }
@@ -55,19 +55,19 @@ function substage($name, $link = ""){
 
    $stagedir = "$stageout/" . $fullStageName;
 
-   if($verbose) echo "starting " . $fullStageName . " in $stagedir ...\n";
+   if ($verbose) echo "starting " . $fullStageName . " in $stagedir ...\n";
 
    file_put_contents("$stageout/current_stage.txt", $stagedir);
 
-   if(!is_dir($stagedir)){
+   if (!is_dir($stagedir)) {
       mkdir($stagedir, 0755);
-   }else{
+   } else {
       system("rm -rf ". $stagedir . "/* > /dev/null");
    }
 
    file_put_contents("$stagedir/retValue.txt", "active (since " . date($dateFormat) .")");
    file_put_contents("$stagedir/stagename.txt", "$fullStageName");
-   if(strlen($link) > 0){
+   if (strlen($link) > 0) {
       file_put_contents("$stagedir/stagelink.txt", "$link");
    }
    file_put_contents("$stagedir/start.txt", $startTime);
@@ -86,7 +86,7 @@ function endsubstage(){
    $endTime = time();
    $times = recordTime($times, $fullStageName, (int)($endTime - $startTime), $historysize);
 
-   if($verbose) echo "end substage $stage/" . implode("/", $stageStackName) . " ...(" . $stagedir ."\n";
+   if ($verbose) echo "end substage $stage/" . implode("/", $stageStackName) . " ...(" . $stagedir ."\n";
    file_put_contents("$stagedir/end.txt", $endTime);
    touch($stagedir);
    sleep(2);
@@ -98,7 +98,7 @@ function endsubstage(){
    $stagedir = "$stageout/" . $fullStageName;
    file_put_contents("$stageout/current_stage.txt", $stagedir);
 
-   if($verbose) echo "new (old) stagedir is " . $stagedir ."\n";
+   if ($verbose) echo "new (old) stagedir is " . $stagedir ."\n";
 }
 
 // returns:
@@ -110,33 +110,33 @@ function execute($cmd, $simple = true, $ulimit_time = 600, $ulimit_virt = 419430
    global $stagedir;
    global $out;
    global $verbose;
-   if($verbose) echo "executing '$cmd'\n";
+   if ($verbose) echo "executing '$cmd'\n";
    file_put_contents($stagedir . "/cmd.txt", $cmd);
    system("( ulimit -t " . $ulimit_time . " ; ulimit -v " . $ulimit_virt . " ; ulimit -m " . $ulimit_virt . " ; " . $cmd . " ) > '" . $stagedir . "/out.txt' 2>'" .$stagedir . "/err.txt'", $retval);
    file_put_contents($stagedir . "/retValue.txt", $retval);
-   if($simple)    file_put_contents($stagedir ."/result.txt", $retval);
+   if ($simple) file_put_contents($stagedir ."/result.txt", $retval);
 
    return $retval;
 }
 
-if($verbose) echo "wakeup ET...\n";
+if ($verbose) echo "wakeup ET...\n";
 
-if(file_exists($lock)){
-   if($verbose) echo "still working on last update (you may want to kill the active process and rm $lock)\n";
+if (file_exists($lock)) {
+   if ($verbose) echo "still working on last update (you may want to kill the active process and rm $lock)\n";
    exit(1);
 }
 
-if(!$force){
+if (!$force) {
    system("users | grep et > /dev/null", $retVal);
-   if(file_exists($request)){
+   if (file_exists($request)) {
       $reqStr = file_get_contents($request);
-      if(!preg_match("/MANUAL/", $reqStr) && ($retVal == 0)){
+      if (!preg_match("/MANUAL/", $reqStr) && ($retVal == 0)) {
          echo "et logged in - nothing done while in maintainance, please logout\n";
          exit(2);
       }
-   }else{
+   } else {
       // no new request
-      if($verbose) echo "nothing to do.\n";
+      if ($verbose) echo "nothing to do.\n";
       exit(0);
    }
    unlink($request);
@@ -149,7 +149,7 @@ rename($requestJsonObj, $activeJsonObj);
 
 system("rm -rf ". $stageout . "_$historysize > /dev/null");
 
-for($i = $historysize; $i > 1 ; $i--){
+for ($i = $historysize; $i > 1 ; $i--) {
    system("mv " . $stageout . "_" . ($i - 1) . " " . $stageout . "_" . $i . " > /dev/null");
 }
 system("mv " . $stageout . " " . $stageout . "_1 > /dev/null");
@@ -157,81 +157,95 @@ system("mv " . $stageout . " " . $stageout . "_1 > /dev/null");
 mkdir($stageout, 0755);
 copy($activeJsonObj, $stageout . "/saved.serialjson");
 
-if (substage("git pull")){
-   if(execute("cd $LibertyBase && git pull") != 0){
+if (substage("git pull")) {
+   if (execute("cd $LibertyBase && git fetch origin && git checkout $gitBranch && git merge --ff-only FETCH_HEAD") != 0) {
       failed();
    }
    endsubstage();
 }
 
-if (substage("bootstrap")){
-   if(execute("cd $LibertyBase && ./install.sh -plain -bootstrap", $ulimit_time = 3600) > 0){
+if (substage("bootstrap")) {
+   if (execute("cd $LibertyBase && ./install.sh -plain -bootstrap", $ulimit_time = 3600) > 0) {
       failed();
    }
    endsubstage();
 }
 
-if (substage("class check ANY")){
-   if(execute("se class_check ANY") > 0){
+if (substage("class check ANY")) {
+   if (execute("se class_check ANY") > 0) {
       failed();
    }
    endsubstage();
 }
 
 //- se doc
-if (substage("eiffeldoc")){
+if (substage("eiffeldoc")) {
    execute("$LibertyBase/work/build_doc.sh -plain", $ulimit_time = 3600);
    endsubstage();
 }
 
 //- debian packaging
-if (substage("debian packaging")){
+if (substage("debian packaging")) {
    execute("$LibertyBase/work/packaging/build_debian.sh", $ulimit_time = 3600);
    endsubstage();
 }
 
-function tutorialDir($dir){
+function tutorialDir($dir) {
    global $stagedir;
    global $dateFormat;
    global $repobaselink, $LibertyBase;
    $result = 0;
    $acecnt = count(glob("$dir/*.ace"));
 
-   if($acecnt > 0){
-      foreach (glob("$dir/*.ace") as $acefilename){
-         if (substage("ACE file " . basename($acefilename), str_replace($LibertyBase, $repobaselink, $acefilename))){
+   if ($acecnt > 0) {
+      foreach (glob("$dir/*.ace") as $acefilename) {
+         if (substage("ACE file " . basename($acefilename), str_replace($LibertyBase, $repobaselink, $acefilename))) {
             $ret = execute("cd $dir && se c --clean " . $acefilename);
-            if($ret > 0){
+            if ($ret > 0) {
                $curRes = $ret;
-            }else{
+            } else {
                $curRes = 0 - exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
             }
-            if($curRes > 0 || $result == 0){
+            if ($curRes > 0 || $result == 0) {
                $result = $curRes;
             }
             file_put_contents($stagedir ."/result.txt", $curRes);
             endsubstage();
          }
       }
-   }else{
-      foreach (glob("$dir/*") as $filename){
-         if(is_file($filename) && preg_match("/(.*)\.e$/", $filename)){
+   } else {
+      foreach (glob("$dir/*") as $filename) {
+         if (is_file($filename) && preg_match("/(.*)\.e$/", $filename)) {
             $class = strtoupper(basename($filename, ".e"));
-            if (substage("class $class", str_replace($LibertyBase, $repobaselink, $filename))){
-               $ret = execute("cd $dir && se c -o " . basename($filename, ".e") . " $class && se clean $class");
-               if($ret > 0){
-                  $curRes = $ret;
-               }else{
-                  $curRes = 0 - exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
+            if (substage("class $class", str_replace($LibertyBase, $repobaselink, $filename))) {
+               $exe = basename($filename, ".e");
+               $cmdfile = "$dir/$exe.cmd";
+               if (file_exists($cmdfile)) {
+                  $cmd = trim(file_get_contents($cmdfile));
+               } else {
+                  $cmd = "se c $class";
                }
-               if($curRes <= 0) {
-                  if($result <= 0){
+               $ret = execute("cd $dir && $cmd -clean -o $exe");
+               if ($ret > 0) {
+                  $curRes = $ret;
+               } else {
+                  $warnCnt = exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
+                  $curRes = -$warnCnt;
+                  if (file_exists("$dir/output")) {
+                     $ret = execute("$dir/$exe > $dir/$exe.out && diff -u $dir/output $dir/$exe.out");
+                     if ($ret > 0) {
+                        $curRes = $ret;
+                     }
+                  }
+               }
+               if ($curRes <= 0) {
+                  if ($result <= 0) {
                      $result += $curRes;
                   }
-               }else{
-                  if($result >= 0){
+               } else {
+                  if ($result >= 0) {
                      $result += $curRes;
-                  }else{
+                  } else {
                      $result = $curRes;
                   }
                }
@@ -240,52 +254,54 @@ function tutorialDir($dir){
             }
          }
       }
-      foreach (glob("$dir/*", GLOB_ONLYDIR) as $dirname){
-         if(!endsWith($dirname, "auxiliary")){
-            if (substage(basename($dirname), str_replace($LibertyBase, $repobaselink, $dirname))){
-               $res = tutorialDir($dirname);
+   }
 
-               if($res <= 0) {
-                  if($result <= 0){
-                     $result += $res;
-                  }
-               }else{
-                  if($result >= 0){
-                     $result += $res;
-                  }else{
-                     $result = $res;
-                  }
+   foreach (glob("$dir/*", GLOB_ONLYDIR) as $dirname) {
+      if (!startsWith(basename($dirname), "aux")) {
+         if (substage(basename($dirname), str_replace($LibertyBase, $repobaselink, $dirname))) {
+            $res = tutorialDir($dirname);
+
+            if ($res <= 0) {
+               if ($result <= 0) {
+                  $result += $res;
                }
-               endsubstage();
+            } else {
+               if ($result >= 0) {
+                  $result += $res;
+               } else {
+                  $result = $res;
+               }
             }
+            endsubstage();
          }
       }
    }
+
    file_put_contents($stagedir ."/result.txt", $result);
    return $result;
 }
-if (substage("compile tutorial")){
+if (substage("compile tutorial")) {
    tutorialDir("$LibertyBase/tutorial");
    endsubstage();
 }
 
-function testDir($dir){
+function testDir($dir) {
    global $stagedir;
    global $repobaselink, $LibertyBase;
    $result = 0;
 
-   foreach (glob("$dir/*", GLOB_ONLYDIR) as $dirname){
-      if(basename($dirname) != "eiffeltest"){
-         if (substage(basename($dirname), str_replace($LibertyBase, $repobaselink, $dirname))){
+   foreach (glob("$dir/*", GLOB_ONLYDIR) as $dirname) {
+      if (basename($dirname) != "eiffeltest") {
+         if (substage(basename($dirname), str_replace($LibertyBase, $repobaselink, $dirname))) {
             $res = testDir($dirname);
-            if($res <= 0) {
-               if($result <= 0){
+            if ($res <= 0) {
+               if ($result <= 0) {
                   $result += $res;
                }
-            }else{
-               if($result >= 0){
+            } else {
+               if ($result >= 0) {
                   $result += $res;
-               }else{
+               } else {
                   $result = $res;
                }
             }
@@ -295,26 +311,28 @@ function testDir($dir){
    }
 
    $tests = count(glob("$dir/test_*.e")) + count(glob("$dir/bad_*.e")) + count(glob("$dir/ace_*.ace"));
-   $hasEiffelTest = is_dir("$dir/eiffeltest");
-   if($tests > 0){
-      if($hasEiffelTest){
+   if ($tests > 0) {
+      $hasEiffelTest = is_dir("$dir/eiffeltest");
+      if ($hasEiffelTest) {
          $res = execute("se test -flat $dir");
-         if($res == 0){
-            $warnCnt = exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
+         if ($res == 0) {
+            $warnCnt = exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg("$stagedir/err.txt") . " | wc -l");
             $res = -$warnCnt;
+         } else {
+            $res += exec("grep " . escapeshellarg("Abnormal:") . " " . escapeshellarg("$dir/eiffeltest/log.new") . " | wc -l");
          }
-      }else{
-         file_put_contents($stagedir ."/err.txt", "missing eiffeltest directory - please add to repository");
+      } else {
+         file_put_contents("$stagedir/err.txt", "missing eiffeltest directory - please add to repository");
          $res = 1;
       }
-      if($res <= 0) {
-         if($result <= 0){
+      if ($res <= 0) {
+         if ($result <= 0) {
             $result += $res;
          }
-      }else{
-         if($result >= 0){
+      } else {
+         if ($result >= 0) {
             $result += $res;
-         }else{
+         } else {
             $result = $res;
          }
       }
@@ -323,7 +341,7 @@ function testDir($dir){
    file_put_contents($stagedir ."/result.txt", $result);
    return $result;
 }
-if (substage("TestSuite")){
+if (substage("TestSuite")) {
    testDir("$LibertyBase/test");
    endsubstage();
 }
@@ -335,7 +353,7 @@ file_put_contents($timesHistory, serialize($times));
 
 unlink($lock);
 
-if($verbose) echo "good night.\n";
+if ($verbose) echo "good night.\n";
 
 exit(0);
 ?>

@@ -3,30 +3,30 @@
 class NODE_MASK
 
 inherit
-	BACKTRACKING_NODE
+   BACKTRACKING_NODE
 
-creation {ANY}
-	make
+create {ANY}
+   make
 
 feature {ANY}
-	mask: BIT_STRING
+   mask: BIT_STRING
 
-	index: INTEGER
+   index: INTEGER
 
-	make (i: INTEGER; m: BIT_STRING) is
-		do
-			index := i
-			mask := m
-		end
+   make (i: INTEGER; m: BIT_STRING) is
+      do
+         index := i
+         mask := m
+      end
 
-	explore (situation: SITUATION) is
-		do
-			if situation.change(index, mask) then
-				situation.continue
-			else
-				situation.backtrack
-			end
-		end
+   explore (situation: SITUATION) is
+      do
+         if situation.change(index, mask) then
+            situation.continue
+         else
+            situation.backtrack
+         end
+      end
 
 end -- class NODE_MASK
 --

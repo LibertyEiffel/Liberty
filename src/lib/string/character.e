@@ -290,6 +290,24 @@ feature {ANY}
          Result := (code - 1).to_character
       end
 
+   infix "|..|" (other: CHARACTER): INTEGER_RANGE[CHARACTER] is
+      require
+         Current <= other
+      do
+         create Result.make(code.to_integer_32, other.code.to_integer_32, integer_range_itemize, integer_range_indexize)
+      end
+
+feature {}
+   integer_range_itemize: FUNCTION[TUPLE[INTEGER], CHARACTER] is
+      once
+         Result := agent (i: INTEGER): CHARACTER is do Result := i.to_character end (?)
+      end
+
+   integer_range_indexize: FUNCTION[TUPLE[CHARACTER], INTEGER] is
+      once
+         Result := agent (i: CHARACTER): INTEGER is do Result := i.code.to_integer_32 end (?)
+      end
+
 feature {ANY} -- Conversions:
    to_hexadecimal: STRING is
          -- Create a new STRING giving the `code' in hexadecimal.

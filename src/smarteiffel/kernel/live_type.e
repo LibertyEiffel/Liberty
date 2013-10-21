@@ -575,6 +575,10 @@ feature {SMART_EIFFEL}
          until
             i > live_features.upper
          loop
+            debug
+               echo.put_string(once "    ")
+               echo.put_line(live_features.key(i).name.to_string)
+            end
             rf := live_features.key(i).run_feature_for(type)
             check
                rf.type_of_current.live_type = Current

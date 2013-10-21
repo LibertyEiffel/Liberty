@@ -1,10 +1,10 @@
 class NATURAL_USAGE
---
--- Well, using NATURAL_8, NATURAL_16, NATURAL_32 and NATURAL_64 classes
--- is pretty simple, but an example may be useful.
---
+   --
+   -- Well, using NATURAL_8, NATURAL_16, NATURAL_32 and NATURAL_64 classes
+   -- is pretty simple, but an example may be useful.
+   --
 
-creation {ANY}
+create {ANY}
    main
 
 feature {ANY}
@@ -14,24 +14,23 @@ feature {ANY}
       do
          -- To initialize some NATURAL_8 variable with 1:
          n8 := 1.to_natural_8
-
          -- To initialize some NATURAL_16 variable with 1:
-         n16 := 1.to_natural_16
 
+         n16 := 1.to_natural_16
          -- As you may have guess:
+
          n32 := 1.to_natural_32
          n64 := 1.to_natural_64
-
          -- To increment a NATURAL_8:
+
          n8 := n8 + 1.to_natural_8
-
          -- To increment a NATURAL_16:
-         n16 := n16 + 1.to_natural_16
 
+         n16 := n16 + 1.to_natural_16
          -- As you have guess:
+
          n32 := n32 + 1.to_natural_32
          n64 := n64 + 1.to_natural_64
-
          -- Obviously, there are many other available features in NATURAL_* classes.
          --
          -- Finally, note that nothing is implicit! There is no automatic promotion/conversion.

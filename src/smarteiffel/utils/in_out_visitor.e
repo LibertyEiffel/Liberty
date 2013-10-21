@@ -763,7 +763,6 @@ feature {}
       local
          i: INTEGER
       do
-         visited.class_text_name.accept(Current)
          if visited.generic_list /= Void then
             from
                i := visited.generic_list.lower

@@ -13,7 +13,8 @@ fi
 
 if [ x$plain == x ]; then
     plain=FALSE
-elif [ x"$(tty)" == "not a tty" ]; then
+fi
+if [ x"$(tty)" == "not a tty" ]; then
     plain=TRUE
 fi
 if [ $plain != TRUE ]; then

@@ -1,7 +1,7 @@
 class PANEL
---
--- Playing with the PANEL widget.
---
+   --
+   -- Playing with the PANEL widget.
+   --
 
 insert
    NCURSES_TOOLS
@@ -19,8 +19,7 @@ feature {ANY}
 
    main is
       local
-         root_window, sub_window: NCURSES_WINDOW
-         labels: FAST_ARRAY[NCURSES_LABEL]
+         root_window, sub_window: NCURSES_WINDOW; labels: FAST_ARRAY[NCURSES_LABEL]
       do
          ncurses.enable
          ncurses.set_cursor_visibility(invisible_cursor_mode)
@@ -30,17 +29,15 @@ feature {ANY}
 
          sub_window := root_window.create_sub_window(4, 2, 40, 6)
          sub_window.draw_border
-
          -- We create a NCURSES_PANEL that fits inside the `sub_window' (beware of the border):
          create ncurses_panel.make(sub_window, 1, 1, sub_window.width - 2, sub_window.height - 2)
          --create ncurses_panel.no_tabs(sub_window, 1, 1, sub_window.width - 2, sub_window.height - 2)
-
          -- We create three tabs in this ncurses_panel:
+
          create tabs.with_capacity(3)
          tabs.add_last(ncurses_panel.add_tab("Tic"))
          tabs.add_last(ncurses_panel.add_tab("Tac"))
          tabs.add_last(ncurses_panel.add_tab("Toe"))
-
          -- In each tab, we create a label:
          create labels.with_capacity(3)
          labels.add_last(create {NCURSES_LABEL}.make(tabs.item(0), "Tic Panel 0 (first)", 2, 3, 25, 1))
