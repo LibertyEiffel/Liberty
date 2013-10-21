@@ -3079,19 +3079,25 @@ feature {}
             end
          end
          --
-         if string_at_run_time and then manifest_string_pool.first_manifest_string_collected_flag then
-            prepare_c_function
-            pending_c_function_signature.copy(once "T0*se_ms(")
-            if no_check then
-               pending_c_function_signature.append("se_dump_stack*caller,")
+         if string_at_run_time then
+            if manifest_string_pool.first_manifest_string_collected_flag then
+               lt := manifest_string_pool.se_ms.type_of_current.live_type
+               check
+                  lt.id = 7
+               end
+               prepare_c_function
+               pending_c_function_signature.copy(once "T0*se_ms(")
+               if no_check then
+                  pending_c_function_signature.append("se_dump_stack*caller,")
+               end
+               if ace.profile then
+                  pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
+               end
+               pending_c_function_signature.append(once "int c,char*e)")
+               pending_c_function_body.copy(once "/* Allocate a Manifest STRING given its length and chars array.*/%N")
+               common_body_for_se_string_and_se_ms
+               dump_pending_c_function(True)
             end
-            if ace.profile then
-               pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
-            end
-            pending_c_function_signature.append(once "int c,char*e)")
-            pending_c_function_body.copy(once "/* Allocate a Manifest STRING given its length and chars array.*/%N")
-            common_body_for_se_string_and_se_ms
-            dump_pending_c_function(True)
             --
             prepare_c_function
             pending_c_function_signature.copy(once "T0*se_string(")
@@ -3241,15 +3247,8 @@ feature {}
    common_body_for_se_string_and_se_ms is
       require
          smart_eiffel.is_at_run_time(as_string)
-         manifest_string_pool.first_manifest_string_collected_flag
          pending_c_function
-      local
-         lt: LIVE_TYPE
       do
-         lt := manifest_string_pool.se_ms.type_of_current.live_type
-         check
-            lt.id = 7
-         end
          if ace.profile then
             pending_c_function_body.append(once "se_local_profile_t local_profile;%Nstatic se_profile_t prof;%Nstatic int prof_init=0;%N")
          end
