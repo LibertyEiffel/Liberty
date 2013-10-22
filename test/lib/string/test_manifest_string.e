@@ -17,16 +17,16 @@ feature {}
          debug
             assert(s.has_storage_signature)
          end
-         assert(s.has_storage_signature implies s.check_storage_signature)
+         assert(s.has_storage_signature implies s.check_valid_storage_signature)
          io.put_line(s)
          s := once "abc"
          debug
             assert(s.has_storage_signature)
          end
-         assert(s.has_storage_signature implies s.check_storage_signature)
+         assert(s.has_storage_signature implies s.check_valid_storage_signature)
          s.clear_count
          s.append(once "def")
-         assert(s.has_storage_signature implies s.check_storage_signature)
+         assert(s.has_storage_signature implies s.check_valid_storage_signature)
          io.put_line(s)
       end
 
