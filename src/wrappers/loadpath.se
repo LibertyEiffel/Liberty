@@ -1,5 +1,4 @@
 ./common/loadpath.se
-./llvm/library/loadpath.se
 ./ffi/library/loadpath.se
 ./posix/loadpath.se
 ./readline/library/loadpath.se
