@@ -186,6 +186,766 @@ void _handle(se_handler_action_t action, void*data) {
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------
 */
+#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
+/* macro read is used of read_stdin */
+
+void io_copy (char*source, char*target) {
+  /* We use the low-level descriptor functions rather than stream-oriented functions.
+   * This allows us to copy the file's permissions. */
+
+  int src;
+  int tgt;
+  struct stat info;
+  static char *buffer = NULL;
+  static int bufsize = 0;
+  int read_count, write_count, written;
+
+  src=open (source, O_RDONLY);
+  if (fstat (src, &info))
+    return; /* Ooops */
+  if (bufsize < info.st_blksize)
+    buffer=se_realloc (buffer, info.st_blksize);
+  tgt=creat (target, info.st_mode);
+  do {
+    read_count = read (src, buffer, info.st_blksize);
+    write_count = 0; written = 0;
+    while  ((write_count < read_count) && (written >= 0))
+      {
+	written = write (tgt, buffer + write_count, read_count - write_count);
+	write_count += written;
+      }
+  } while ((read_count > 0) && (written >= 0));
+  close (src);
+  close (tgt);
+}
+
+int io_same_physical_file(char*path1,char*path2) {
+  struct stat info1, info2;
+  if (stat(path1, &info1))
+    return 0; /* oops */
+  if (stat(path2, &info2))
+    return 0; /* oops */
+  return (info1.st_dev == info2.st_dev) && (info1.st_ino == info2.st_ino);
+}
+
+#else
+#define IO_COPY_BUFSIZE 4096
+
+int read_stdin(EIF_CHARACTER *buffer, int size) {
+  int c;
+  c = getc(stdin);
+  if (c==EOF)
+    return 0;
+  *buffer = (EIF_CHARACTER)c;
+  return 1;
+}
+
+void io_copy(char*source, char*target) {
+  static char *buffer = NULL;
+  int read_count;
+  FILE*src=fopen(source, "rb");
+  FILE*tgt=fopen(target, "wb");
+
+  if(!buffer)
+    buffer = (char*)se_malloc(IO_COPY_BUFSIZE);
+
+  while ((read_count = fread(buffer, 1, IO_COPY_BUFSIZE, src)), read_count) {
+    size_t dummy = fwrite(buffer, 1, read_count, tgt);
+  }
+  fclose(src);
+  fclose(tgt);
+}
+
+int io_same_physical_file(char*path1,char*path2) {
+  /* default implementation returns true only if the paths are the same */
+  return !strcmp(path1, path2);
+}
+#endif
+
+int io_file_exists(char*source) {
+  FILE*src=fopen(source, "rb");
+  if (src!=NULL) {
+    fclose(src);
+    return 1;
+  }
+  else {
+    return (errno != ENOENT);
+  }
+}
+/*
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
+*/
+EIF_BOOLEAN mbi_inc (int32_t *p) {
+    if ((++(*p)) == 0) {
+      return 1;
+    }
+    else {
+      return 0;
+    }
+}
+
+EIF_BOOLEAN mbi_add (int32_t a, int32_t b, int32_t *p) {
+  (*p) = a + b;
+  if (((uint32_t)(*p)) < ((uint32_t)(a))) {
+    return 1;
+  }
+  else {
+    return 0;
+  }
+}
+
+EIF_BOOLEAN mbi_add_with_inc (int32_t a, int32_t b, int32_t *p) {
+  (*p) = a + b + 1;
+  if (((uint32_t)(*p)) <= ((uint32_t)(a))) {
+    return 1;
+  }
+  else {
+    return 0;
+  }
+}
+
+EIF_BOOLEAN mbi_dec (int32_t *p) {
+    if (((*p)--) == 0) {
+      return 1;
+    }
+    else {
+      return 0;
+    }
+}
+
+EIF_BOOLEAN mbi_subtract (int32_t a, int32_t b, int32_t *p) {
+  (*p) = a - b;
+  if (((uint32_t)(*p)) > ((uint32_t)(a))) {
+    return 1;
+  }
+  else {
+    return 0;
+  }
+}
+
+EIF_BOOLEAN mbi_subtract_with_dec (int32_t a, int32_t b, int32_t *p) {
+  (*p) = a - b - 1;
+  if (((uint32_t)(*p)) >= ((uint32_t)(a))) {
+    return 1;
+  }
+  else {
+    return 0;
+  }
+}
+
+EIF_INTEGER mbi_multiply (int32_t a, int32_t b, int32_t *p) {
+  uint64_t x;
+  x = ((uint64_t)((uint32_t)(a))) * ((uint32_t)(b));
+  (*p) = (uint32_t)(x);
+  return ((uint32_t)(x >> 32));
+}
+
+EIF_INTEGER mbi_multiply_with_add (int32_t a, int32_t b, int32_t c, int32_t *p) {
+  uint64_t x;
+  x = ((uint64_t)((uint32_t)(a))) * ((uint32_t)(b)) + ((uint32_t)(c));
+  (*p) = (uint32_t)(x);
+  return ((uint32_t)(x >> 32));
+}
+
+EIF_INTEGER mbi_multiply_with_2_add (int32_t a, int32_t b, int32_t c, int32_t d, int32_t *p) {
+  uint64_t x;
+  x = ((uint64_t)((uint32_t)(a))) * ((uint32_t)(b)) + ((uint32_t)(c)) + ((uint32_t)(d));
+  (*p) = (uint32_t)(x);
+  return ((uint32_t)(x >> 32));
+}
+
+EIF_INTEGER mbi_divide (int32_t a, int32_t b, int32_t d, int32_t *r) {
+  uint64_t x;
+  x = (((uint64_t)((uint32_t)(a))) << 32) + ((uint32_t)(b));
+  (*r) = (uint32_t)(x % ((uint32_t)(d)));
+  return ((uint32_t)(x / ((uint32_t)(d))));
+}
+/*
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
+*/
+#if basic_exec_system == basic_exec_system_posix
+static char** envp(void) {
+  static char* result[] = {"PATH=/sbin:/usr/sbin:/bin:/usr/bin", NULL};
+  return result;
+}
+
+static int arr_size(char** arr){
+  int size = 0;
+  while(arr[size] != NULL) {
+    size++;
+  }
+  return size;
+}
+
+static int find_variable(char** env, char* var){
+  int location;
+  int src_size;
+  if(var == NULL || env == NULL)
+    return -1;
+  src_size = strchr(var, '=') - var + 1;
+  for(location = 0; env[location] != NULL; location++){
+    if(strncasecmp(env[location], var, src_size) == 0){
+      return location;
+    }
+  }
+  return -1;
+}
+
+static void check_write(int expected, int actual) {
+   if (actual != expected) {
+    handle(SE_HANDLE_RUNTIME_ERROR, NULL);
+#ifdef SE_EXCEPTIONS
+    internal_exception_handler(Routine_failure);
+#elif !defined(SE_BOOST)
+    error0("Routine failure: could not write.", NULL);
+#else
+    fprintf(SE_ERR,"Routine failure (write returned %d but expected %d).\n", actual, expected);
+    exit(EXIT_FAILURE);
+#endif
+  }
+}
+
+EIF_BOOLEAN basic_exec_posix_execute(se_exec_data_t*data, char*prog, char**args, EIF_BOOLEAN keep_env, char**add_env, int* in_fd, int* out_fd, int* err_fd) {
+  int id = fork();
+  if (id == 0) {
+    /* child */
+
+    if(in_fd) {
+      dup2(in_fd[0], 0);
+      close(in_fd[1]);
+    }
+
+    if(out_fd) {
+      dup2(out_fd[1], 1);
+      close(out_fd[0]);
+    }
+
+    if(err_fd) {
+      dup2(err_fd[1], 2);
+      close(err_fd[0]);
+    }
+
+    if (prog == NULL && args == NULL) {
+      data->running = 1;
+      data->child = 1;
+#ifdef SE_SEDB
+      sedb_duplicate();
+#endif
+      return 1;
+    } else {
+      if (add_env == NULL && keep_env) {
+        execvp(prog, args); /* NO RETURN in child */
+        se_print_run_time_stack();
+        exit(1);
+      }else{
+        char** new_env;
+        char** old_env;
+        int old_size, add_size;
+        int src, dest = 0;
+        if(keep_env){
+          old_env = environ;
+        }else{
+          old_env = envp();
+        }
+        old_size = arr_size(old_env);
+        add_size = arr_size(add_env);
+        new_env = malloc(sizeof(void*) * (old_size + add_size));
+
+        /* we first copy the pointers from the old env */
+        for(src = 0; src < old_size; src++){
+          new_env[dest++] = old_env[src];
+        }
+
+        /* now the ones from add_env */
+        for(src = 0; src < add_size; src++){
+          int override = find_variable(old_env, add_env[src]);
+          if (override >= 0){
+            new_env[override] = add_env[src];
+          }else{
+            new_env[dest++] = add_env[src];
+          }
+        }
+
+        execve(prog, args, new_env); /* NO RETURN in child */
+        se_print_run_time_stack();
+        exit(1);
+      }
+    }
+  }
+  else if (id > 0) {
+    /* father */
+    data->id = id;
+    data->running = 1;
+    data->child = 0;
+    if(in_fd) close(in_fd[0]);
+    if(out_fd) close(out_fd[1]);
+    if(err_fd) close(err_fd[1]);
+    return 1;
+  } else {
+    return 0; /* ... in father only */
+  }
+}
+
+EIF_BOOLEAN basic_exec_is_finished(se_exec_data_t*data) {
+  EIF_BOOLEAN result = (EIF_BOOLEAN)0;
+  int status;
+  if (data->running) {
+    int id = waitpid(data->id, &status, WNOHANG);
+    if (id == data->id) {
+      /* child is finished */
+      result = (EIF_BOOLEAN)(id == data->id);
+      basic_exec_cleanup(data, status);
+    }
+  }
+  else{
+    result = (EIF_BOOLEAN)1;
+  }
+  return result;
+}
+
+void basic_exec_wait(se_exec_data_t*data) {
+  int status;
+  if (data->running) {
+    int id = waitpid(data->id, &status, 0);
+    if (id == data->id) {
+      basic_exec_cleanup(data, status);
+    }
+  }
+}
+
+void basic_exec_cleanup(se_exec_data_t*data, int status) {
+  data->status = WEXITSTATUS(status);
+  data->running = 0;
+}
+
+EIF_INTEGER basic_exec_posix_get_character (EIF_INTEGER fd) {
+  EIF_INTEGER result = -1;
+  char buf[1];
+  ssize_t r = read(fd, buf, 1);
+  if (r > 0) {
+    result = 0xff & ((EIF_INTEGER)(buf[0]));
+  }
+  return result;
+}
+
+void basic_exec_posix_put_character(EIF_INTEGER fd, EIF_CHARACTER c) {
+  char buf[1];
+  buf[0] = c;
+  check_write(1, write(fd, buf, 1));
+}
+
+void basic_exec_posix_wait_any(se_exec_data_t*data) {
+  data->id = wait(&data->status);
+}
+
+void basic_exec_posix_any_finished(se_exec_data_t*data) {
+  data->id = waitpid(-1, &data->status, WNOHANG);
+}
+
+/*
+ * See http://stackoverflow.com/questions/282176/waitpid-equivalent-with-timeout
+ *
+ * (with specific adaptation to Liberty Eiffel)
+ */
+static int waitpid_selfpipe[2];
+static EIF_OBJECT waitpid_input;
+
+static void waitpid_sigh(int n) {
+   check_write(1, write(waitpid_selfpipe[1], "", 1));
+}
+
+void basic_exec_waitpid_init(EIF_OBJECT obj) {
+   waitpid_input = obj;
+}
+
+EIF_INTEGER basic_exec_waitpid_fd(void) {
+   static init = 0;
+   static struct sigaction act;
+   if (!init) {
+      init = 1;
+      if (pipe(waitpid_selfpipe) == -1) {
+         waitpid_selfpipe[0] = -1;
+      }
+      else {
+         fcntl(waitpid_selfpipe[0], F_SETFL, fcntl(waitpid_selfpipe[0], F_GETFL) | O_NONBLOCK);
+         fcntl(waitpid_selfpipe[1], F_SETFL, fcntl(waitpid_selfpipe[1], F_GETFL) | O_NONBLOCK);
+         memset(&act, 0, sizeof(act));
+         act.sa_handler = waitpid_sigh;
+         sigaction(SIGCHLD, &act, NULL);
+      }
+   }
+   return waitpid_selfpipe[0];
+}
+
+EIF_INTEGER basic_exec_waitpid_read_buffer(void*data) {
+   static char dummy[4096];
+   char *buffer = (char*)data;
+   int pid, status;
+
+   while (read(waitpid_selfpipe[0], dummy, sizeof(dummy)) > 0);
+
+   while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
+      oob_info(waitpid_input, pid, status);
+   }
+
+   buffer[0] = 0;
+   return 1;
+}
+#else
+EIF_INTEGER basic_exec_posix_get_character (EIF_INTEGER fd) {
+  return 0;
+}
+
+void basic_exec_posix_put_character(EIF_INTEGER fd, EIF_CHARACTER c) {
+}
+
+void basic_exec_posix_wait_any(se_exec_data_t*data) {
+}
+
+void basic_exec_posix_any_finished(se_exec_data_t*data) {
+}
+
+EIF_BOOLEAN basic_exec_posix_execute(se_exec_data_t*data, char*prog, char**args, EIF_BOOLEAN keep_env, char**add_env, int* in_fd, int* out_fd, int* err_fd) {
+  return 0;
+}
+#endif
+/*
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
+*/
+#if basic_exec_system == basic_exec_system_none
+/* Dummy implementation that always reports an error back to the Eiffel side */
+
+EIF_BOOLEAN basic_exec_execute(se_exec_data_t*data, char*prog, char**args, EIF_BOOLEAN keep_env, char**add_env, int* in_fd, int* out_fd, int* err_fd) {
+  return 0;
+}
+
+EIF_BOOLEAN basic_exec_is_finished(se_exec_data_t*data) {
+  return (EIF_BOOLEAN)0;
+}
+
+void basic_exec_wait(se_exec_data_t*data) {
+}
+
+EIF_INTEGER basic_exec_get_character (EIF_INTEGER fd) {
+  return (EIF_INTEGER)0;
+}
+
+void basic_exec_put_character(EIF_INTEGER fd, EIF_CHARACTER c) {
+}
+
+void basic_exec_cleanup(se_exec_data_t*data, int status) {
+}
+
+void basic_exec_waitpid_init(EIF_OBJECT obj) {
+}
+
+EIF_INTEGER basic_exec_waitpid_fd(void) {
+   return -1;
+}
+
+EIF_INTEGER basic_exec_waitpid_read_buffer(void*data) {
+   return -1;
+}
+#else
+#endif
+/*
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
+*/
+#if basic_exec_system == basic_exec_system_win32
+static char* envp(void) {
+  static char* result = "\0";/* *** Maybe call GetFullPathName to set =C: and friends */
+  return result;
+}
+
+EIF_BOOLEAN basic_exec_win32_execute(se_exec_data_t*data, char*args, EIF_BOOLEAN keep_env, char*add_env, HANDLE*in_h, HANDLE*out_h, HANDLE*err_h) {
+  STARTUPINFO start_info;
+  EIF_BOOLEAN result = 0;
+
+  ZeroMemory( &start_info, sizeof(STARTUPINFO) );
+
+  start_info.cb = sizeof(STARTUPINFO);
+  if(in_h) {
+    start_info.hStdInput = in_h[0];
+    SetHandleInformation(in_h[1], HANDLE_FLAG_INHERIT, 0);
+  } else {
+    start_info.hStdInput = GetStdHandle(STD_INPUT_HANDLE);
+  }
+  if(INVALID_HANDLE_VALUE == start_info.hStdInput) goto leave;
+  if(out_h) {
+    start_info.hStdOutput = out_h[1];
+    SetHandleInformation(out_h[0], HANDLE_FLAG_INHERIT, 0);
+  } else {
+    start_info.hStdOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+  }
+  if(INVALID_HANDLE_VALUE == start_info.hStdOutput) goto leave;
+  if(err_h) {
+    start_info.hStdError = err_h[1];
+    SetHandleInformation(err_h[0], HANDLE_FLAG_INHERIT, 0);
+  } else {
+    start_info.hStdError = GetStdHandle(STD_ERROR_HANDLE);
+  }
+  if(INVALID_HANDLE_VALUE == start_info.hStdError) goto leave;
+  start_info.dwFlags |= STARTF_USESTDHANDLES;
+
+  if(CreateProcess(NULL, args,
+                   NULL,                                /* process security attributes          */
+                   NULL,                                /* primary thread security attributes   */
+                   TRUE,                                /* handles are inherited                */
+                   0,                                   /* creation flags                       */
+                   keep_env?NULL:envp(),
+                   NULL,                                /* use parent's current directory       */
+                   &start_info,                         /* STARTUPINFO pointer                  */
+                   &data->process_information)) {       /* receives PROCESS_INFORMATION         */
+    CloseHandle(data->process_information.hThread);
+    data->running = 1;
+    result = 1;
+  }
+ leave:
+  if(in_h) CloseHandle(in_h[0]);
+  if(out_h) CloseHandle(out_h[1]);
+  if(err_h) CloseHandle(err_h[1]);
+  return result;
+}
+
+EIF_BOOLEAN basic_exec_init_pipe(HANDLE*pipe) {
+  SECURITY_ATTRIBUTES security_attributes;
+
+  // Set the bInheritHandle flag so pipe handles are inherited.
+
+  security_attributes.nLength = sizeof(SECURITY_ATTRIBUTES);
+  security_attributes.bInheritHandle = TRUE;
+  security_attributes.lpSecurityDescriptor = NULL;
+
+  return CreatePipe(pipe, pipe+1, &security_attributes, 0);
+}
+
+EIF_BOOLEAN basic_exec_is_finished(se_exec_data_t*data) {
+  EIF_BOOLEAN result = (EIF_BOOLEAN)0;
+  if (data->running) {
+    result = (WaitForSingleObject(data->process_information.hProcess, 0) == WAIT_OBJECT_0);
+    if (result) {
+      /* child is finished */
+      DWORD status;
+      GetExitCodeProcess(data->process_information.hProcess, &status);
+      /* *** Could have failed */
+      basic_exec_cleanup(data, status);
+    }
+  }
+  else{
+    result = (EIF_BOOLEAN)1;
+  }
+  return result;
+}
+
+void basic_exec_wait(se_exec_data_t*data) {
+  if (data->running) {
+    DWORD status;
+    WaitForSingleObject(data->process_information.hProcess, INFINITE);
+    GetExitCodeProcess(data->process_information.hProcess, &status);
+    /* *** Any of these calls could have failed, right? */
+    basic_exec_cleanup(data, status);
+  }
+}
+
+EIF_INTEGER basic_exec_win32_get_character (HANDLE h) {
+  char result;
+  DWORD num_read;
+
+  ReadFile(h, &result, 1, &num_read, NULL);
+  if(!num_read) return -1;
+  return result;
+}
+
+void basic_exec_win32_put_character(HANDLE h, EIF_CHARACTER c) {
+  DWORD num_written;
+
+  WriteFile(h, &c, 1, &num_written, NULL);
+  /* *** Do something if num_written!=1 or WriteFile returned 0. */
+}
+
+void basic_exec_cleanup(se_exec_data_t*data, int status) {
+  data->status = status;
+  data->running = 0;
+  CloseHandle(data->process_information.hProcess);
+}
+
+EIF_BOOLEAN basic_exec_win32_wait_any(HANDLE*handles, DWORD count, se_exec_data_t*data) {
+  DWORD result = WaitForMultipleObjects(count, handles, FALSE, INFINITE);
+  EIF_BOOLEAN success = (result < (WAIT_OBJECT_0 + count));
+  if(success) {
+    int index = result - WAIT_OBJECT_0;
+    HANDLE handle = handles[index];
+    GetExitCodeProcess(handle, &data->status);
+    data->process_information.hProcess = handle;
+  }
+  return success;
+}
+
+EIF_BOOLEAN basic_exec_win32_any_finished(HANDLE*handles, DWORD count, se_exec_data_t*data ) {
+  DWORD result = WaitForMultipleObjects(count, handles, FALSE, 0);
+  EIF_BOOLEAN success = (result < (WAIT_OBJECT_0 + count));
+  if(success) {
+    int index = result - WAIT_OBJECT_0;
+    HANDLE handle = handles[index];
+    GetExitCodeProcess(handle, &data->status);
+    data->process_information.hProcess = handle;
+  }
+  return success;
+}
+
+void basic_exec_waitpid_init(EIF_OBJECT obj) {
+}
+
+EIF_INTEGER basic_exec_waitpid_fd(void) {
+   return -1;
+}
+
+EIF_INTEGER basic_exec_waitpid_read_buffer(void*data) {
+   return -1;
+}
+#else
+EIF_INTEGER basic_exec_win32_get_character (void *h) {
+  return 0;
+}
+
+void basic_exec_win32_put_character(void *h, EIF_CHARACTER c) {
+}
+
+EIF_BOOLEAN basic_exec_win32_wait_any(void*handles, int count, se_exec_data_t*data) {
+  return 0;
+}
+
+EIF_BOOLEAN basic_exec_win32_any_finished(void*handles, int count, se_exec_data_t*data) {
+  return 0;
+}
+
+EIF_BOOLEAN basic_exec_win32_execute(se_exec_data_t*data, char*args, EIF_BOOLEAN keep_env, char*add_env, void*in_h, void*out_h, void*err_h) {
+  return 0;
+}
+#endif
+/*
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
+*/
 #ifdef WIN32
 #define SIMULATED_MODE
 /* The simulated mode for WIN32.
@@ -584,766 +1344,6 @@ EIF_BOOLEAN directory_rmdir(EIF_POINTER directory_path){
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------
 */
-#if basic_exec_system == basic_exec_system_win32
-static char* envp(void) {
-  static char* result = "\0";/* *** Maybe call GetFullPathName to set =C: and friends */
-  return result;
-}
-
-EIF_BOOLEAN basic_exec_win32_execute(se_exec_data_t*data, char*args, EIF_BOOLEAN keep_env, char*add_env, HANDLE*in_h, HANDLE*out_h, HANDLE*err_h) {
-  STARTUPINFO start_info;
-  EIF_BOOLEAN result = 0;
-
-  ZeroMemory( &start_info, sizeof(STARTUPINFO) );
-
-  start_info.cb = sizeof(STARTUPINFO);
-  if(in_h) {
-    start_info.hStdInput = in_h[0];
-    SetHandleInformation(in_h[1], HANDLE_FLAG_INHERIT, 0);
-  } else {
-    start_info.hStdInput = GetStdHandle(STD_INPUT_HANDLE);
-  }
-  if(INVALID_HANDLE_VALUE == start_info.hStdInput) goto leave;
-  if(out_h) {
-    start_info.hStdOutput = out_h[1];
-    SetHandleInformation(out_h[0], HANDLE_FLAG_INHERIT, 0);
-  } else {
-    start_info.hStdOutput = GetStdHandle(STD_OUTPUT_HANDLE);
-  }
-  if(INVALID_HANDLE_VALUE == start_info.hStdOutput) goto leave;
-  if(err_h) {
-    start_info.hStdError = err_h[1];
-    SetHandleInformation(err_h[0], HANDLE_FLAG_INHERIT, 0);
-  } else {
-    start_info.hStdError = GetStdHandle(STD_ERROR_HANDLE);
-  }
-  if(INVALID_HANDLE_VALUE == start_info.hStdError) goto leave;
-  start_info.dwFlags |= STARTF_USESTDHANDLES;
-
-  if(CreateProcess(NULL, args,
-                   NULL,                                /* process security attributes          */
-                   NULL,                                /* primary thread security attributes   */
-                   TRUE,                                /* handles are inherited                */
-                   0,                                   /* creation flags                       */
-                   keep_env?NULL:envp(),
-                   NULL,                                /* use parent's current directory       */
-                   &start_info,                         /* STARTUPINFO pointer                  */
-                   &data->process_information)) {       /* receives PROCESS_INFORMATION         */
-    CloseHandle(data->process_information.hThread);
-    data->running = 1;
-    result = 1;
-  }
- leave:
-  if(in_h) CloseHandle(in_h[0]);
-  if(out_h) CloseHandle(out_h[1]);
-  if(err_h) CloseHandle(err_h[1]);
-  return result;
-}
-
-EIF_BOOLEAN basic_exec_init_pipe(HANDLE*pipe) {
-  SECURITY_ATTRIBUTES security_attributes;
-
-  // Set the bInheritHandle flag so pipe handles are inherited.
-
-  security_attributes.nLength = sizeof(SECURITY_ATTRIBUTES);
-  security_attributes.bInheritHandle = TRUE;
-  security_attributes.lpSecurityDescriptor = NULL;
-
-  return CreatePipe(pipe, pipe+1, &security_attributes, 0);
-}
-
-EIF_BOOLEAN basic_exec_is_finished(se_exec_data_t*data) {
-  EIF_BOOLEAN result = (EIF_BOOLEAN)0;
-  if (data->running) {
-    result = (WaitForSingleObject(data->process_information.hProcess, 0) == WAIT_OBJECT_0);
-    if (result) {
-      /* child is finished */
-      DWORD status;
-      GetExitCodeProcess(data->process_information.hProcess, &status);
-      /* *** Could have failed */
-      basic_exec_cleanup(data, status);
-    }
-  }
-  else{
-    result = (EIF_BOOLEAN)1;
-  }
-  return result;
-}
-
-void basic_exec_wait(se_exec_data_t*data) {
-  if (data->running) {
-    DWORD status;
-    WaitForSingleObject(data->process_information.hProcess, INFINITE);
-    GetExitCodeProcess(data->process_information.hProcess, &status);
-    /* *** Any of these calls could have failed, right? */
-    basic_exec_cleanup(data, status);
-  }
-}
-
-EIF_INTEGER basic_exec_win32_get_character (HANDLE h) {
-  char result;
-  DWORD num_read;
-
-  ReadFile(h, &result, 1, &num_read, NULL);
-  if(!num_read) return -1;
-  return result;
-}
-
-void basic_exec_win32_put_character(HANDLE h, EIF_CHARACTER c) {
-  DWORD num_written;
-
-  WriteFile(h, &c, 1, &num_written, NULL);
-  /* *** Do something if num_written!=1 or WriteFile returned 0. */
-}
-
-void basic_exec_cleanup(se_exec_data_t*data, int status) {
-  data->status = status;
-  data->running = 0;
-  CloseHandle(data->process_information.hProcess);
-}
-
-EIF_BOOLEAN basic_exec_win32_wait_any(HANDLE*handles, DWORD count, se_exec_data_t*data) {
-  DWORD result = WaitForMultipleObjects(count, handles, FALSE, INFINITE);
-  EIF_BOOLEAN success = (result < (WAIT_OBJECT_0 + count));
-  if(success) {
-    int index = result - WAIT_OBJECT_0;
-    HANDLE handle = handles[index];
-    GetExitCodeProcess(handle, &data->status);
-    data->process_information.hProcess = handle;
-  }
-  return success;
-}
-
-EIF_BOOLEAN basic_exec_win32_any_finished(HANDLE*handles, DWORD count, se_exec_data_t*data ) {
-  DWORD result = WaitForMultipleObjects(count, handles, FALSE, 0);
-  EIF_BOOLEAN success = (result < (WAIT_OBJECT_0 + count));
-  if(success) {
-    int index = result - WAIT_OBJECT_0;
-    HANDLE handle = handles[index];
-    GetExitCodeProcess(handle, &data->status);
-    data->process_information.hProcess = handle;
-  }
-  return success;
-}
-
-void basic_exec_waitpid_init(EIF_OBJECT obj) {
-}
-
-EIF_INTEGER basic_exec_waitpid_fd(void) {
-   return -1;
-}
-
-EIF_INTEGER basic_exec_waitpid_read_buffer(void*data) {
-   return -1;
-}
-#else
-EIF_INTEGER basic_exec_win32_get_character (void *h) {
-  return 0;
-}
-
-void basic_exec_win32_put_character(void *h, EIF_CHARACTER c) {
-}
-
-EIF_BOOLEAN basic_exec_win32_wait_any(void*handles, int count, se_exec_data_t*data) {
-  return 0;
-}
-
-EIF_BOOLEAN basic_exec_win32_any_finished(void*handles, int count, se_exec_data_t*data) {
-  return 0;
-}
-
-EIF_BOOLEAN basic_exec_win32_execute(se_exec_data_t*data, char*args, EIF_BOOLEAN keep_env, char*add_env, void*in_h, void*out_h, void*err_h) {
-  return 0;
-}
-#endif
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
-#if basic_exec_system == basic_exec_system_posix
-static char** envp(void) {
-  static char* result[] = {"PATH=/sbin:/usr/sbin:/bin:/usr/bin", NULL};
-  return result;
-}
-
-static int arr_size(char** arr){
-  int size = 0;
-  while(arr[size] != NULL) {
-    size++;
-  }
-  return size;
-}
-
-static int find_variable(char** env, char* var){
-  int location;
-  int src_size;
-  if(var == NULL || env == NULL)
-    return -1;
-  src_size = strchr(var, '=') - var + 1;
-  for(location = 0; env[location] != NULL; location++){
-    if(strncasecmp(env[location], var, src_size) == 0){
-      return location;
-    }
-  }
-  return -1;
-}
-
-static void check_write(int expected, int actual) {
-   if (actual != expected) {
-    handle(SE_HANDLE_RUNTIME_ERROR, NULL);
-#ifdef SE_EXCEPTIONS
-    internal_exception_handler(Routine_failure);
-#elif !defined(SE_BOOST)
-    error0("Routine failure: could not write.", NULL);
-#else
-    fprintf(SE_ERR,"Routine failure (write returned %d but expected %d).\n", actual, expected);
-    exit(EXIT_FAILURE);
-#endif
-  }
-}
-
-EIF_BOOLEAN basic_exec_posix_execute(se_exec_data_t*data, char*prog, char**args, EIF_BOOLEAN keep_env, char**add_env, int* in_fd, int* out_fd, int* err_fd) {
-  int id = fork();
-  if (id == 0) {
-    /* child */
-
-    if(in_fd) {
-      dup2(in_fd[0], 0);
-      close(in_fd[1]);
-    }
-
-    if(out_fd) {
-      dup2(out_fd[1], 1);
-      close(out_fd[0]);
-    }
-
-    if(err_fd) {
-      dup2(err_fd[1], 2);
-      close(err_fd[0]);
-    }
-
-    if (prog == NULL && args == NULL) {
-      data->running = 1;
-      data->child = 1;
-#ifdef SE_SEDB
-      sedb_duplicate();
-#endif
-      return 1;
-    } else {
-      if (add_env == NULL && keep_env) {
-        execvp(prog, args); /* NO RETURN in child */
-        se_print_run_time_stack();
-        exit(1);
-      }else{
-        char** new_env;
-        char** old_env;
-        int old_size, add_size;
-        int src, dest = 0;
-        if(keep_env){
-          old_env = environ;
-        }else{
-          old_env = envp();
-        }
-        old_size = arr_size(old_env);
-        add_size = arr_size(add_env);
-        new_env = malloc(sizeof(void*) * (old_size + add_size));
-
-        /* we first copy the pointers from the old env */
-        for(src = 0; src < old_size; src++){
-          new_env[dest++] = old_env[src];
-        }
-
-        /* now the ones from add_env */
-        for(src = 0; src < add_size; src++){
-          int override = find_variable(old_env, add_env[src]);
-          if (override >= 0){
-            new_env[override] = add_env[src];
-          }else{
-            new_env[dest++] = add_env[src];
-          }
-        }
-
-        execve(prog, args, new_env); /* NO RETURN in child */
-        se_print_run_time_stack();
-        exit(1);
-      }
-    }
-  }
-  else if (id > 0) {
-    /* father */
-    data->id = id;
-    data->running = 1;
-    data->child = 0;
-    if(in_fd) close(in_fd[0]);
-    if(out_fd) close(out_fd[1]);
-    if(err_fd) close(err_fd[1]);
-    return 1;
-  } else {
-    return 0; /* ... in father only */
-  }
-}
-
-EIF_BOOLEAN basic_exec_is_finished(se_exec_data_t*data) {
-  EIF_BOOLEAN result = (EIF_BOOLEAN)0;
-  int status;
-  if (data->running) {
-    int id = waitpid(data->id, &status, WNOHANG);
-    if (id == data->id) {
-      /* child is finished */
-      result = (EIF_BOOLEAN)(id == data->id);
-      basic_exec_cleanup(data, status);
-    }
-  }
-  else{
-    result = (EIF_BOOLEAN)1;
-  }
-  return result;
-}
-
-void basic_exec_wait(se_exec_data_t*data) {
-  int status;
-  if (data->running) {
-    int id = waitpid(data->id, &status, 0);
-    if (id == data->id) {
-      basic_exec_cleanup(data, status);
-    }
-  }
-}
-
-void basic_exec_cleanup(se_exec_data_t*data, int status) {
-  data->status = WEXITSTATUS(status);
-  data->running = 0;
-}
-
-EIF_INTEGER basic_exec_posix_get_character (EIF_INTEGER fd) {
-  EIF_INTEGER result = -1;
-  char buf[1];
-  ssize_t r = read(fd, buf, 1);
-  if (r > 0) {
-    result = 0xff & ((EIF_INTEGER)(buf[0]));
-  }
-  return result;
-}
-
-void basic_exec_posix_put_character(EIF_INTEGER fd, EIF_CHARACTER c) {
-  char buf[1];
-  buf[0] = c;
-  check_write(1, write(fd, buf, 1));
-}
-
-void basic_exec_posix_wait_any(se_exec_data_t*data) {
-  data->id = wait(&data->status);
-}
-
-void basic_exec_posix_any_finished(se_exec_data_t*data) {
-  data->id = waitpid(-1, &data->status, WNOHANG);
-}
-
-/*
- * See http://stackoverflow.com/questions/282176/waitpid-equivalent-with-timeout
- *
- * (with specific adaptation to Liberty Eiffel)
- */
-static int waitpid_selfpipe[2];
-static EIF_OBJECT waitpid_input;
-
-static void waitpid_sigh(int n) {
-   check_write(1, write(waitpid_selfpipe[1], "", 1));
-}
-
-void basic_exec_waitpid_init(EIF_OBJECT obj) {
-   waitpid_input = obj;
-}
-
-EIF_INTEGER basic_exec_waitpid_fd(void) {
-   static init = 0;
-   static struct sigaction act;
-   if (!init) {
-      init = 1;
-      if (pipe(waitpid_selfpipe) == -1) {
-         waitpid_selfpipe[0] = -1;
-      }
-      else {
-         fcntl(waitpid_selfpipe[0], F_SETFL, fcntl(waitpid_selfpipe[0], F_GETFL) | O_NONBLOCK);
-         fcntl(waitpid_selfpipe[1], F_SETFL, fcntl(waitpid_selfpipe[1], F_GETFL) | O_NONBLOCK);
-         memset(&act, 0, sizeof(act));
-         act.sa_handler = waitpid_sigh;
-         sigaction(SIGCHLD, &act, NULL);
-      }
-   }
-   return waitpid_selfpipe[0];
-}
-
-EIF_INTEGER basic_exec_waitpid_read_buffer(void*data) {
-   static char dummy[4096];
-   char *buffer = (char*)data;
-   int pid, status;
-
-   while (read(waitpid_selfpipe[0], dummy, sizeof(dummy)) > 0);
-
-   while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
-      oob_info(waitpid_input, pid, status);
-   }
-
-   buffer[0] = 0;
-   return 1;
-}
-#else
-EIF_INTEGER basic_exec_posix_get_character (EIF_INTEGER fd) {
-  return 0;
-}
-
-void basic_exec_posix_put_character(EIF_INTEGER fd, EIF_CHARACTER c) {
-}
-
-void basic_exec_posix_wait_any(se_exec_data_t*data) {
-}
-
-void basic_exec_posix_any_finished(se_exec_data_t*data) {
-}
-
-EIF_BOOLEAN basic_exec_posix_execute(se_exec_data_t*data, char*prog, char**args, EIF_BOOLEAN keep_env, char**add_env, int* in_fd, int* out_fd, int* err_fd) {
-  return 0;
-}
-#endif
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
-#if basic_exec_system == basic_exec_system_none
-/* Dummy implementation that always reports an error back to the Eiffel side */
-
-EIF_BOOLEAN basic_exec_execute(se_exec_data_t*data, char*prog, char**args, EIF_BOOLEAN keep_env, char**add_env, int* in_fd, int* out_fd, int* err_fd) {
-  return 0;
-}
-
-EIF_BOOLEAN basic_exec_is_finished(se_exec_data_t*data) {
-  return (EIF_BOOLEAN)0;
-}
-
-void basic_exec_wait(se_exec_data_t*data) {
-}
-
-EIF_INTEGER basic_exec_get_character (EIF_INTEGER fd) {
-  return (EIF_INTEGER)0;
-}
-
-void basic_exec_put_character(EIF_INTEGER fd, EIF_CHARACTER c) {
-}
-
-void basic_exec_cleanup(se_exec_data_t*data, int status) {
-}
-
-void basic_exec_waitpid_init(EIF_OBJECT obj) {
-}
-
-EIF_INTEGER basic_exec_waitpid_fd(void) {
-   return -1;
-}
-
-EIF_INTEGER basic_exec_waitpid_read_buffer(void*data) {
-   return -1;
-}
-#else
-#endif
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
-EIF_BOOLEAN mbi_inc (int32_t *p) {
-    if ((++(*p)) == 0) {
-      return 1;
-    }
-    else {
-      return 0;
-    }
-}
-
-EIF_BOOLEAN mbi_add (int32_t a, int32_t b, int32_t *p) {
-  (*p) = a + b;
-  if (((uint32_t)(*p)) < ((uint32_t)(a))) {
-    return 1;
-  }
-  else {
-    return 0;
-  }
-}
-
-EIF_BOOLEAN mbi_add_with_inc (int32_t a, int32_t b, int32_t *p) {
-  (*p) = a + b + 1;
-  if (((uint32_t)(*p)) <= ((uint32_t)(a))) {
-    return 1;
-  }
-  else {
-    return 0;
-  }
-}
-
-EIF_BOOLEAN mbi_dec (int32_t *p) {
-    if (((*p)--) == 0) {
-      return 1;
-    }
-    else {
-      return 0;
-    }
-}
-
-EIF_BOOLEAN mbi_subtract (int32_t a, int32_t b, int32_t *p) {
-  (*p) = a - b;
-  if (((uint32_t)(*p)) > ((uint32_t)(a))) {
-    return 1;
-  }
-  else {
-    return 0;
-  }
-}
-
-EIF_BOOLEAN mbi_subtract_with_dec (int32_t a, int32_t b, int32_t *p) {
-  (*p) = a - b - 1;
-  if (((uint32_t)(*p)) >= ((uint32_t)(a))) {
-    return 1;
-  }
-  else {
-    return 0;
-  }
-}
-
-EIF_INTEGER mbi_multiply (int32_t a, int32_t b, int32_t *p) {
-  uint64_t x;
-  x = ((uint64_t)((uint32_t)(a))) * ((uint32_t)(b));
-  (*p) = (uint32_t)(x);
-  return ((uint32_t)(x >> 32));
-}
-
-EIF_INTEGER mbi_multiply_with_add (int32_t a, int32_t b, int32_t c, int32_t *p) {
-  uint64_t x;
-  x = ((uint64_t)((uint32_t)(a))) * ((uint32_t)(b)) + ((uint32_t)(c));
-  (*p) = (uint32_t)(x);
-  return ((uint32_t)(x >> 32));
-}
-
-EIF_INTEGER mbi_multiply_with_2_add (int32_t a, int32_t b, int32_t c, int32_t d, int32_t *p) {
-  uint64_t x;
-  x = ((uint64_t)((uint32_t)(a))) * ((uint32_t)(b)) + ((uint32_t)(c)) + ((uint32_t)(d));
-  (*p) = (uint32_t)(x);
-  return ((uint32_t)(x >> 32));
-}
-
-EIF_INTEGER mbi_divide (int32_t a, int32_t b, int32_t d, int32_t *r) {
-  uint64_t x;
-  x = (((uint64_t)((uint32_t)(a))) << 32) + ((uint32_t)(b));
-  (*r) = (uint32_t)(x % ((uint32_t)(d)));
-  return ((uint32_t)(x / ((uint32_t)(d))));
-}
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
-#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
-/* macro read is used of read_stdin */
-
-void io_copy (char*source, char*target) {
-  /* We use the low-level descriptor functions rather than stream-oriented functions.
-   * This allows us to copy the file's permissions. */
-
-  int src;
-  int tgt;
-  struct stat info;
-  static char *buffer = NULL;
-  static int bufsize = 0;
-  int read_count, write_count, written;
-
-  src=open (source, O_RDONLY);
-  if (fstat (src, &info))
-    return; /* Ooops */
-  if (bufsize < info.st_blksize)
-    buffer=se_realloc (buffer, info.st_blksize);
-  tgt=creat (target, info.st_mode);
-  do {
-    read_count = read (src, buffer, info.st_blksize);
-    write_count = 0; written = 0;
-    while  ((write_count < read_count) && (written >= 0))
-      {
-	written = write (tgt, buffer + write_count, read_count - write_count);
-	write_count += written;
-      }
-  } while ((read_count > 0) && (written >= 0));
-  close (src);
-  close (tgt);
-}
-
-int io_same_physical_file(char*path1,char*path2) {
-  struct stat info1, info2;
-  if (stat(path1, &info1))
-    return 0; /* oops */
-  if (stat(path2, &info2))
-    return 0; /* oops */
-  return (info1.st_dev == info2.st_dev) && (info1.st_ino == info2.st_ino);
-}
-
-#else
-#define IO_COPY_BUFSIZE 4096
-
-int read_stdin(EIF_CHARACTER *buffer, int size) {
-  int c;
-  c = getc(stdin);
-  if (c==EOF)
-    return 0;
-  *buffer = (EIF_CHARACTER)c;
-  return 1;
-}
-
-void io_copy(char*source, char*target) {
-  static char *buffer = NULL;
-  int read_count;
-  FILE*src=fopen(source, "rb");
-  FILE*tgt=fopen(target, "wb");
-
-  if(!buffer)
-    buffer = (char*)se_malloc(IO_COPY_BUFSIZE);
-
-  while ((read_count = fread(buffer, 1, IO_COPY_BUFSIZE, src)), read_count) {
-    size_t dummy = fwrite(buffer, 1, read_count, tgt);
-  }
-  fclose(src);
-  fclose(tgt);
-}
-
-int io_same_physical_file(char*path1,char*path2) {
-  /* default implementation returns true only if the paths are the same */
-  return !strcmp(path1, path2);
-}
-#endif
-
-int io_file_exists(char*source) {
-  FILE*src=fopen(source, "rb");
-  if (src!=NULL) {
-    fclose(src);
-    return 1;
-  }
-  else {
-    return (errno != ENOENT);
-  }
-}
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
 
 EIF_INTEGER fstat_st_size(EIF_POINTER path) {
 
@@ -1430,49 +1430,6 @@ EIF_BOOLEAN fstat_st_is_dir(EIF_POINTER path) {
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------
 */
-void sprintf_real_64(EIF_CHARACTER* b, EIF_CHARACTER m, int32_t f, real64_t r) {
-  char fmt[32];
-  fmt[0]='%';
-  fmt[1]='.';
-  sprintf(fmt+2, "%d%c", f, m);
-  sprintf((char*)b, fmt, r);
-}
-
-void sprintf_real_extended(EIF_CHARACTER* b, EIF_CHARACTER m, int32_t f, real_extended_t r) {
-  char fmt[32];
-  fmt[0]='%';
-  fmt[1]='.';
-  sprintf(fmt+2, "%dL%c", f, m);
-  sprintf((char*)b, fmt, r);
-}
-
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
 EIF_INTEGER basic_microsecond_microsecond = 0;
 EIF_INTEGER_64 basic_microsecond_time = 0;
 
@@ -1501,6 +1458,49 @@ void _basic_microsecond_update(void) {
   basic_microsecond_microsecond = ((uptime - ref_uptime) % 1000) * 1000;
 #endif
 }
+/*
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
+*/
+void sprintf_real_64(EIF_CHARACTER* b, EIF_CHARACTER m, int32_t f, real64_t r) {
+  char fmt[32];
+  fmt[0]='%';
+  fmt[1]='.';
+  sprintf(fmt+2, "%d%c", f, m);
+  sprintf((char*)b, fmt, r);
+}
+
+void sprintf_real_extended(EIF_CHARACTER* b, EIF_CHARACTER m, int32_t f, real_extended_t r) {
+  char fmt[32];
+  fmt[0]='%';
+  fmt[1]='.';
+  sprintf(fmt+2, "%dL%c", f, m);
+  sprintf((char*)b, fmt, r);
+}
+
 
 int se_cmpT533(T533* o1,T533* o2){
 int R=0;
@@ -1732,7 +1732,7 @@ T541 M541={(void*)0,{0,{0}},0,0,(void*)0,0,0};
 T1036 M1036={0,0,0,(void*)0,0};
 T334 M334={0,(void*)0,0,(void*)0};
 T107 M107=(void*)0;
-T105 M105={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0};
+T105 M105={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0,0};
 T113 M113=(void*)0;
 T122 M122=(void*)0;
 T121 M121={0};
@@ -1743,7 +1743,7 @@ T1038 M1038={0,0,0,(void*)0,0};
 T1039 M1039={(void*)0,0,0,0,(void*)0,0};
 T1040 M1040={(void*)0,0,(void*)0,0,0,0,(void*)0,0};
 T1041 M1041={0,0,(void*)0,0};
-T298 M298={298,(void*)0,(void*)0,0,0,0,0,0,0,(void*)0};
+T299 M299={299,(void*)0,(void*)0,0,0,0,0,0,0,(void*)0};
 T1042 M1042={(void*)0,0,0,0,(void*)0,0};
 T117 M117={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0,(void*)0,0,(void*)0,(void*)0,(void*)0,(void*)0};
 T431 M431={431,(void*)0,0,(void*)0};
@@ -1755,7 +1755,7 @@ T1048 M1048={0};
 T712 M712={712,0};
 T713 M713={713,(void*)0,(void*)0,(void*)0,0};
 T714 M714={714,0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
-T310 M310={310,(void*)0,(void*)0,(void*)0,(void*)0};
+T311 M311={311,(void*)0,(void*)0,(void*)0,(void*)0};
 T333 M333={(void*)0,(void*)0,(void*)0};
 T1052 M1052={(void*)0,0,(void*)0,0,0,0,(void*)0,0};
 T539 M539={(void*)0,(void*)0};
@@ -2156,7 +2156,7 @@ T671 M671={671,(void*)0,(void*)0,(void*)0,(void*)0,0,(void*)0};
 T1465 M1465={(void*)0};
 T1466 M1466={0,0,(void*)0,0};
 T1467 M1467={0,0,(void*)0,0};
-T312 M312=0;
+T313 M313=0;
 T1468 M1468={(void*)0,0,0,0,(void*)0,0};
 T1469 M1469={0,0,(void*)0,0};
 T1475 M1475={0,0,(void*)0,0};
@@ -2192,7 +2192,7 @@ T1495 M1495={0,0,(void*)0,0};
 T1496 M1496={0,{0},(void*)0,(void*)0,0};
 T1497 M1497={1497,0,0,(void*)0,0};
 T660 M660={660,(void*)0,{0}};
-T721 M721={721,0};
+T722 M722={722,0};
 T1502 M1502={(void*)0,(void*)0};
 T997 M997={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,{0},0,0,{(void*)0,(void*)0},(void*)0,(void*)0,0};
 T565 M565={(void*)0,(void*)0,0,0};
@@ -2212,10 +2212,10 @@ T1537 M1537={0,0,(void*)0,0};
 T824 M824={824,0};
 T1539 M1539={(void*)0,0,0,0,(void*)0,0};
 T1540 M1540={0,0,(void*)0,0};
-T726 M726={0,0,0,0,(void*)0};
+T727 M727={0,0,0,0,(void*)0};
 T1541 M1541={0,0,(void*)0,0};
 T1545 M1545={(void*)0,(void*)0,(void*)0};
-T723 M723={723,(void*)0,0,0};
+T724 M724={724,(void*)0,0,0};
 T1564 M1564={0,0,(void*)0,0};
 T800 M800={800,(void*)0};
 T1565 M1565={(void*)0,0,0,0,(void*)0,0};
@@ -2251,7 +2251,6 @@ char*s114_40A="(";
 char*s114_41A=")";
 char*s626_7233618A="INT8_MIN";
 char*s33_42A="*";
-char*s114_37656465A="T0*se_ms(";
 char*s33_43A="+";
 char*s114_44A=",";
 char*s114_36951A="(T0*)";
@@ -2427,6 +2426,7 @@ char*s34_10703002A="no_check";
 char*s114_1312728230A="print_profile(profile_file, &runinit_profile);\n";
 char*s628_264A=");";
 char*s633_265A="-(";
+char*s633_1665734122A="strlen(se_argv[";
 char*s626_184795A="(T0*)(";
 char*s611_436987A="resexp";
 char*s448_1428348580A="This type mark is not a TUPLE type mark.";
@@ -2900,7 +2900,6 @@ char*s448_540477054A=", this type mark is not a TUPLE. (This is actually ";
 char*s85_1761241425A="Adding Cecil file: ";
 char*s118_992A="   ";
 char*s114_1500500537A=" live TYPEs:\n";
-char*s114_437715A="se_ms(";
 char*s101_1587734026A="Void cannot be the left-hand side of the binary \"\\\\\" operator.";
 char*s827_903312259A="return wr->o;\n";
 char*s830_160930A="))-1)\175""";
@@ -2916,7 +2915,6 @@ char*s110_851047233A="\nThe type of your operating system was automatically  com
 char*s114_1346694814A="if (sedb_status != SEDB_EXIT_MODE) ";
 char*s108_1365578385A="Starting simplify";
 char*s101_1090616383A="Unable to find a class definition in \"";
-char*s633_10937506A="se_argv[";
 char*s114_308580A="NULL;\n";
 char*s675_247541875A="copy index";
 char*s457_1436450217A="A string constant cannot be an assigner.";
@@ -4241,6 +4239,7 @@ char*s610_1199620901A="fprintf(file,\"\\n\\t  \");\n";
 char*s33_911175911A="internals_from_generating_type";
 char*s628_1631421108A="/*storage*/=((";
 char*s997_28287A="\" at ";
+char*s633_755813960A="]), se_argv[";
 char*s276_261396584A="The value of the environment variable \"SmartEiffel\" is:\n\"";
 char*s33_169371474A="DISPOSABLE";
 char*s284_1539722017A=" correct items).\n";
@@ -4358,7 +4357,6 @@ char*s34_16264A="from";
 char*s34_9790205A="deferred";
 char*s576_1476287022A="typedef T0 T";
 char*s827_646707803A=")se_malloc((*n)*sizeof(T";
-char*s114_984785217A="/* Allocate an Eiffel STRING by copying C char*e (must be a well-formed C string with terminal \\0) */\nint c=strlen(e);\n";
 char*s101_99041221A="\' instead.";
 char*s626_7225250A="INT32_C(";
 char*s626_2187584A="se_cmp1";
@@ -4656,7 +4654,6 @@ char*s426_1878889060A="Feature `manifest_make\' must have at least one INTEGER a
 char*s114_18131599A="se_dump_stack*,";
 char*s542_1185594A="/sys/rc";
 char*s830_784300160A=";\no2=o1+c->count_minus_one;\nfor(;o1<=o2;o1++)\173""\nif((o1->header.flag)==FSOH_MARKED)\173""\no1->header.flag=FSOH_UNMARKED;\n";
-char*s114_355630820A="/* Allocate a Manifest STRING given its length and chars array.*/\n";
 char*s827_1812279886A="void*result=GC_MALLOC_ATOMIC(n*sizeof(bdw_Twr));\nse_check_malloc(result);\nreturn result;\n";
 char*s33_243411981A="bit_rotate";
 char*s33_1419919903A="Maximum_character_code";
@@ -4670,7 +4667,6 @@ char*s832_1682659883A=".chunk_list=NULL;\n";
 char*s830_1007239A="*b=((gc";
 char*s791_630125369A="**** Fatal error: no $#(1) defined!";
 char*s101_2028592127A="Removed unexpected blank space(s) just before this dot (assume you really want to call a procedure using the previous manifest expression as the target).";
-char*s114_1948346A="char*e)";
 char*s96_1838187926A="class-name: ";
 char*s476_1163823042A="\nSee SmartEiffel/tutorial/external/C++ directory for more information.\n (Internal state = ";
 char*s791_17725666A="#(1)/#(2)";
@@ -5002,6 +4998,7 @@ char*s102_744085684A="Right hand side expression of \?= assignment expected here
 char*s114_1173628471A="]=runinit_profile;\n";
 char*s565_146251545A=".unlock*/\n";
 char*s33_267647687A="standard_is_equal";
+char*s114_825893997A="/* Allocate an Eiffel STRING given its size and native storage */\n";
 char*s477_380590A="access";
 char*s827_1832086881A="(o)==NULL&&GC_should_invoke_finalizers())bdw_run_finalizers();\n";
 char*s404_988692517A="\"). You can use the Void comparison only when other type mark is a reference type or, if it is an expanded type, it must be an anchor or some formal generic argument. Fix this error first.";
@@ -5165,6 +5162,7 @@ char*s101_1694969179A="Such an expression cannot be on the left-hand side of an 
 char*s114_1836282258A="se_local_profile_t global_profile";
 char*s626_1188262106A="/*$*/((void*)W";
 char*s101_825716016A="Name of the current class expected.";
+char*s114_273731430A="se_string(";
 char*s33_1549680A="REAL_32";
 char*s828_130382376A=";\nstruct B";
 char*s475_1848584263A="Double definition found for key ";

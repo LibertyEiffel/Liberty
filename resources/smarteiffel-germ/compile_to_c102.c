@@ -4211,7 +4211,8 @@ _dummy=tmp1/*collect*/;
 /*[inspectDynamicDispatch*/
 switch((((T0*)((/*RF2:native*/(C)->_native/*Tp13p*//*:RF2*/)))->id)){
 case 473:
-break;
+/*RF3:collect*/r473collect(a1,(T0*)C);
+/*:RF3*/break;
 case 475:
 /*RF3:collect*/r475collect(((T475*)(/*RF2:native*/(C)->_native/*Tp13p*//*:RF2*/)),a1,(T0*)C);
 /*:RF3*/break;

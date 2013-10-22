@@ -731,7 +731,7 @@ return R;
 
 /*C_COMPOUND_EXPRESSION_COMPILER*/T0* r632pending_c_function_counter_tag_key(void){
 if(fBC607pending_c_function_counter_tag_key==0){fBC607pending_c_function_counter_tag_key=1;{
-oBC607pending_c_function_counter_tag_key=/*RF4:intern*/r7intern(((T7*)se_ms(30,s607_386149138A)))/*:RF4*/;
+oBC607pending_c_function_counter_tag_key=/*RF4:intern*/r7intern(((T7*)se_string(30,s607_386149138A)))/*:RF4*/;
 }}
 return oBC607pending_c_function_counter_tag_key;
 }/*--*/
@@ -2010,7 +2010,7 @@ return R;
 
 /*C_COMPOUND_EXPRESSION_COMPILER*/T0* r632internal_c_local_tag_key(void){
 if(fBC607internal_c_local_tag_key==0){fBC607internal_c_local_tag_key=1;{
-oBC607internal_c_local_tag_key=/*RF4:intern*/r7intern(((T7*)se_ms(20,s607_1359151955A)))/*:RF4*/;
+oBC607internal_c_local_tag_key=/*RF4:intern*/r7intern(((T7*)se_string(20,s607_1359151955A)))/*:RF4*/;
 }}
 return oBC607internal_c_local_tag_key;
 }/*--*/

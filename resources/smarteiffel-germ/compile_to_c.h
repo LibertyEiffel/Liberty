@@ -639,22 +639,114 @@ void _handle(se_handler_action_t action, void*data);
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------
 */
-#ifndef WIN32
-#  include <dirent.h>
-#endif
-#ifndef WIN32
-#  include <unistd.h>
+#include <errno.h>
+
+#define text_file_read_open(p) (fopen(((char*)(p)),"r"))
+#define text_file_write_open(p) (fopen(((char*)(p)),"w"))
+#define text_file_write_append(p) (fopen(((char*)(p)),"a"))
+#define text_file_read_write_open(p) (fopen(((char*)(p)),"r+"))
+#define text_file_read_write_append(p) (fopen(((char*)(p)),"a+"))
+#define binary_file_read_open(p) (fopen(((char*)(p)),"rb"))
+#define binary_file_write_open(p) (fopen(((char*)(p)),"wb"))
+#define binary_file_write_append(p) (fopen(((char*)(p)),"ab"))
+#define io_fclose(p) (fclose((FILE*)(p)))
+#define io_flush(p) (fflush((FILE*)(p)))
+#define io_getc(f) (getc(((FILE*)(f))))
+#define io_putc(b, f) (putc((b),((FILE*)(f))))
+#define io_ungetc(b, f) (ungetc((b), (FILE*)(f)))
+#define io_fread(b, n, f) (fread((void *)(b),(size_t)(1), (size_t)(n),(FILE*)(f)))
+#define io_fwrite(b, n, f) (fwrite((void *)(b),(size_t)(1), (size_t)(n),(FILE*)(f)))
+#define io_feof(f) (feof(((FILE*)(f))))
+#define io_rename(o, n) (rename(((char*)(o)),((char*)(n))))
+#define io_remove(f) (remove(((char*)(f))))
+#define io_fseek(f, o) (fseek((FILE*)(f),(o),SEEK_SET))
+#define io_ftell(f) ((EIF_INTEGER_64)ftell((FILE*)(f)))
+
+#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
+#  define read_stdin(b, s) (read(STDIN_FILENO, b, s))
+#else
+   extern int read_stdin(EIF_CHARACTER *buffer, int size);
 #endif
 
-EIF_POINTER directory_open(EIF_POINTER path);
-EIF_POINTER directory_read_entry(EIF_POINTER dirstream);
-EIF_POINTER directory_get_entry_name(EIF_POINTER entry);
-EIF_BOOLEAN directory_close(EIF_POINTER dirstream);
-#define directory_current_working_directory (directory_cwd())
-EIF_POINTER directory_cwd(void);
-EIF_BOOLEAN directory_chdir(EIF_POINTER destination);
-EIF_BOOLEAN directory_mkdir(EIF_POINTER directory_path);
-EIF_BOOLEAN directory_rmdir(EIF_POINTER directory_path);
+extern void io_copy(char*source, char*target);
+extern int io_file_exists(char*source);
+extern int io_same_physical_file(char*path1,char*path2);
+/*
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
+*/
+#define pointer_hash_code(p) (((unsigned int)(unsigned long)(p))>>1)
+#define pointer_to_natural_32(p) ((unsigned int) (p))
+#define pointer_to_any(p) ((T0*)(p))
+#define pointer_plus(p, o) (((char*)(p))+o)
+/*
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
+*/
+#define mbi_unsigned_32_to_integer_64(x) (((int64_t)((uint32_t)(x))))
+#define mbi_unsigned_less_than(a,b) ((((uint32_t)(a)) < ((uint32_t)(b))))
+#define mbi_unsigned_greater_than(a,b) ((((uint32_t)(a)) > ((uint32_t)(b))))
+#define mbi_unsigned_greater_or_equal(a,b) ((((uint32_t)(a)) >= ((uint32_t)(b))))
+#define mbi_storage_at(s, n) (((s)+(n)))
+EIF_BOOLEAN mbi_inc (int32_t *p);
+EIF_BOOLEAN mbi_add (int32_t a, int32_t b, int32_t *p);
+EIF_BOOLEAN mbi_add_with_inc (int32_t a, int32_t b, int32_t *p);
+EIF_BOOLEAN mbi_dec (int32_t *p);
+EIF_BOOLEAN mbi_subtract (int32_t a, int32_t b, int32_t *p);
+EIF_BOOLEAN mbi_subtract_with_dec (int32_t a, int32_t b, int32_t *p);
+EIF_INTEGER mbi_multiply (int32_t a, int32_t b, int32_t *p);
+EIF_INTEGER mbi_multiply_with_add (int32_t a, int32_t b, int32_t c, int32_t *p);
+EIF_INTEGER mbi_multiply_with_2_add (int32_t a, int32_t b, int32_t c, int32_t d, int32_t *p);
+EIF_INTEGER mbi_divide (int32_t a, int32_t b, int32_t d, int32_t *r);
+
+
+
 /*
 -- ------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
@@ -853,111 +945,22 @@ extern EIF_INTEGER basic_exec_waitpid_read_buffer(void*);
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------
 */
-#define mbi_unsigned_32_to_integer_64(x) (((int64_t)((uint32_t)(x))))
-#define mbi_unsigned_less_than(a,b) ((((uint32_t)(a)) < ((uint32_t)(b))))
-#define mbi_unsigned_greater_than(a,b) ((((uint32_t)(a)) > ((uint32_t)(b))))
-#define mbi_unsigned_greater_or_equal(a,b) ((((uint32_t)(a)) >= ((uint32_t)(b))))
-#define mbi_storage_at(s, n) (((s)+(n)))
-EIF_BOOLEAN mbi_inc (int32_t *p);
-EIF_BOOLEAN mbi_add (int32_t a, int32_t b, int32_t *p);
-EIF_BOOLEAN mbi_add_with_inc (int32_t a, int32_t b, int32_t *p);
-EIF_BOOLEAN mbi_dec (int32_t *p);
-EIF_BOOLEAN mbi_subtract (int32_t a, int32_t b, int32_t *p);
-EIF_BOOLEAN mbi_subtract_with_dec (int32_t a, int32_t b, int32_t *p);
-EIF_INTEGER mbi_multiply (int32_t a, int32_t b, int32_t *p);
-EIF_INTEGER mbi_multiply_with_add (int32_t a, int32_t b, int32_t c, int32_t *p);
-EIF_INTEGER mbi_multiply_with_2_add (int32_t a, int32_t b, int32_t c, int32_t d, int32_t *p);
-EIF_INTEGER mbi_divide (int32_t a, int32_t b, int32_t d, int32_t *r);
-
-
-
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
-#define basic_getenv(v) (getenv((char*)v))
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
-#include <errno.h>
-
-#define text_file_read_open(p) (fopen(((char*)(p)),"r"))
-#define text_file_write_open(p) (fopen(((char*)(p)),"w"))
-#define text_file_write_append(p) (fopen(((char*)(p)),"a"))
-#define text_file_read_write_open(p) (fopen(((char*)(p)),"r+"))
-#define text_file_read_write_append(p) (fopen(((char*)(p)),"a+"))
-#define binary_file_read_open(p) (fopen(((char*)(p)),"rb"))
-#define binary_file_write_open(p) (fopen(((char*)(p)),"wb"))
-#define binary_file_write_append(p) (fopen(((char*)(p)),"ab"))
-#define io_fclose(p) (fclose((FILE*)(p)))
-#define io_flush(p) (fflush((FILE*)(p)))
-#define io_getc(f) (getc(((FILE*)(f))))
-#define io_putc(b, f) (putc((b),((FILE*)(f))))
-#define io_ungetc(b, f) (ungetc((b), (FILE*)(f)))
-#define io_fread(b, n, f) (fread((void *)(b),(size_t)(1), (size_t)(n),(FILE*)(f)))
-#define io_fwrite(b, n, f) (fwrite((void *)(b),(size_t)(1), (size_t)(n),(FILE*)(f)))
-#define io_feof(f) (feof(((FILE*)(f))))
-#define io_rename(o, n) (rename(((char*)(o)),((char*)(n))))
-#define io_remove(f) (remove(((char*)(f))))
-#define io_fseek(f, o) (fseek((FILE*)(f),(o),SEEK_SET))
-#define io_ftell(f) ((EIF_INTEGER_64)ftell((FILE*)(f)))
-
-#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
-#  define read_stdin(b, s) (read(STDIN_FILENO, b, s))
-#else
-   extern int read_stdin(EIF_CHARACTER *buffer, int size);
+#ifndef WIN32
+#  include <dirent.h>
+#endif
+#ifndef WIN32
+#  include <unistd.h>
 #endif
 
-extern void io_copy(char*source, char*target);
-extern int io_file_exists(char*source);
-extern int io_same_physical_file(char*path1,char*path2);
+EIF_POINTER directory_open(EIF_POINTER path);
+EIF_POINTER directory_read_entry(EIF_POINTER dirstream);
+EIF_POINTER directory_get_entry_name(EIF_POINTER entry);
+EIF_BOOLEAN directory_close(EIF_POINTER dirstream);
+#define directory_current_working_directory (directory_cwd())
+EIF_POINTER directory_cwd(void);
+EIF_BOOLEAN directory_chdir(EIF_POINTER destination);
+EIF_BOOLEAN directory_mkdir(EIF_POINTER directory_path);
+EIF_BOOLEAN directory_rmdir(EIF_POINTER directory_path);
 /*
 -- ------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
@@ -990,36 +993,6 @@ EIF_INTEGER fstat_st_size(EIF_POINTER path);
 EIF_INTEGER_64 fstat_st_mtime(EIF_POINTER path);
 EIF_BOOLEAN fstat_st_is_file(EIF_POINTER path);
 EIF_BOOLEAN fstat_st_is_dir(EIF_POINTER path);
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
-#define sprintf_pointer(buffer, pointer) sprintf((char*)(buffer),"%p",pointer)
-void sprintf_real_64(EIF_CHARACTER* b, EIF_CHARACTER m, int32_t f, real64_t r);
-void sprintf_real_extended(EIF_CHARACTER* b, EIF_CHARACTER m, int32_t f, real_extended_t r);
 /*
 -- ------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
@@ -1082,10 +1055,37 @@ void _basic_microsecond_update(void);
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------
 */
-#define pointer_hash_code(p) (((unsigned int)(unsigned long)(p))>>1)
-#define pointer_to_natural_32(p) ((unsigned int) (p))
-#define pointer_to_any(p) ((T0*)(p))
-#define pointer_plus(p, o) (((char*)(p))+o)
+#define sprintf_pointer(buffer, pointer) sprintf((char*)(buffer),"%p",pointer)
+void sprintf_real_64(EIF_CHARACTER* b, EIF_CHARACTER m, int32_t f, real64_t r);
+void sprintf_real_extended(EIF_CHARACTER* b, EIF_CHARACTER m, int32_t f, real_extended_t r);
+/*
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
+*/
+#define basic_getenv(v) (getenv((char*)v))
 /* C Header Pass 1: */
 typedef union _se_agent se_agent;
 typedef struct _se_agent0 se_agent0;
@@ -1187,7 +1187,7 @@ typedef struct S1038 T1038;
 typedef struct S1039 T1039;
 typedef struct S1040 T1040;
 typedef struct S1041 T1041;
-typedef struct S298 T298;
+typedef struct S299 T299;
 typedef struct S1042 T1042;
 typedef struct S117 T117;
 typedef struct S431 T431;
@@ -1199,7 +1199,7 @@ typedef struct S1048 T1048;
 typedef struct S712 T712;
 typedef struct S713 T713;
 typedef struct S714 T714;
-typedef struct S310 T310;
+typedef struct S311 T311;
 typedef struct S333 T333;
 typedef struct S1052 T1052;
 typedef struct S539 T539;
@@ -1625,7 +1625,7 @@ typedef struct S671 T671;
 typedef struct S1465 T1465;
 typedef struct S1466 T1466;
 typedef struct S1467 T1467;
-typedef int T312;
+typedef int T313;
 typedef struct S1468 T1468;
 typedef struct S1469 T1469;
 typedef struct S1475 T1475;
@@ -1661,7 +1661,7 @@ typedef struct S1495 T1495;
 typedef struct S1496 T1496;
 typedef struct S1497 T1497;
 typedef struct S660 T660;
-typedef struct S721 T721;
+typedef struct S722 T722;
 typedef struct S1502 T1502;
 typedef int T1508;
 typedef struct S997 T997;
@@ -1692,11 +1692,11 @@ typedef struct S1537 T1537;
 typedef struct S824 T824;
 typedef struct S1539 T1539;
 typedef struct S1540 T1540;
-typedef struct S726 T726;
+typedef struct S727 T727;
 typedef struct S1541 T1541;
 /*BUG:NA@runtime!*/typedef void*T558;
 typedef struct S1545 T1545;
-typedef struct S723 T723;
+typedef struct S724 T724;
 typedef T0 T1551;
 typedef T0 T1554;
 typedef T0 T1557;
@@ -2364,7 +2364,7 @@ extern T1036 M1036;
 struct S334{T2 _sedb_counter;T0* _current_context;T2 _context_level;T0* _code_stack;};
 extern T334 M334;
 extern T107 M107;
-struct S105{T0* _se_ums_;T0* _se_ms_;T0* _unicode_string_type;T0* _unicode_string_manifest_initialize_stamp;T0* _string_from_external_sized_copy_stamp;T6 _first_unicode_manifest_string_collected_flag;T6 _first_manifest_string_collected_flag;};
+struct S105{T0* _se_ums_;T0* _se_ms_;T0* _unicode_string_type;T0* _unicode_string_manifest_initialize_stamp;T0* _string_from_external_sized_copy_stamp;T6 _first_unicode_manifest_string_collected_flag;T6 _first_manifest_string_collected_flag;T6 _is_string_collected;};
 extern T105 M105;
 extern T113 M113;
 extern T122 M122;
@@ -2383,8 +2383,8 @@ struct S1040{T0* _free_nodes;T2 _cache_buckets;T0* _cache_node;T2 _cache_user;T2
 extern T1040 M1040;
 struct S1041{T2 _upper;T2 _capacity;T1131 _storage;T2 _generation;};
 extern T1041 M1041;
-struct S298{Tid id;T0* _original;T0* _holders;T6 _is_interned;T6 _immutable;T2 _hash_code;T2 _capacity;T2 _count;T2 _storage_lower;T9 _storage;};
-extern T298 M298;
+struct S299{Tid id;T0* _original;T0* _holders;T6 _is_interned;T6 _immutable;T2 _hash_code;T2 _capacity;T2 _count;T2 _storage_lower;T9 _storage;};
+extern T299 M299;
 struct S1042{T0* _free_nodes;T2 _cache_user;T2 _count;T2 _capacity;T1162 _buckets;T2 _generation;};
 extern T1042 M1042;
 struct S117{T0* _insert_seeds;T0* _seeds;T0* _insert_problem_seeds;T0* _seeds_of_current_feature;T0* _insert_seeds_of_current_feature;T0* _feature_stamps_memory;T0* _features_dictionary;T0* _free;T0* _features;T0* _feature_stamp;T1 _state;T2 _waiting_type;T0* _current_mixer;T6 _specialize_and_check_in_progress;T0* _pending_list;T0* _specialize_and_check_list;T0* _current_fn;T0* _context_type;};
@@ -2406,8 +2406,8 @@ struct S713{Tid id;T0* _assign_na;T0* _gc_define2;T0* _native_array_collector;T6
 extern T713 M713;
 struct S714{Tid id;T6 _dispose_flag;T0* _native_array_collector;T0* _need_mark;T0* _before_mark_compiler;T0* _info_compiler;T0* _functions_compiler;T0* _header_compiler;T6 _info_flag;};
 extern T714 M714;
-struct S310{Tid id;T0* _memory__;T0* _memory_;T0* _storage;T0* _template;};
-extern T310 M310;
+struct S311{Tid id;T0* _memory__;T0* _memory_;T0* _storage;T0* _template;};
+extern T311 M311;
 struct S333{T0* _entries;T0* _path_h;T0* _path;};
 extern T333 M333;
 struct S1052{T0* _free_nodes;T2 _cache_buckets;T0* _cache_node;T2 _cache_user;T2 _count;T2 _capacity;T1193 _buckets;T2 _generation;};
@@ -3197,7 +3197,7 @@ struct S1466{T2 _upper;T2 _capacity;T1499 _storage;T2 _generation;};
 extern T1466 M1466;
 struct S1467{T2 _upper;T2 _capacity;T1500 _storage;T2 _generation;};
 extern T1467 M1467;
-extern T312 M312;
+extern T313 M313;
 struct S1468{T0* _free_nodes;T2 _count;T2 _capacity;T2 _cache_user;T1501 _buckets;T2 _generation;};
 extern T1468 M1468;
 struct S1469{T2 _upper;T2 _capacity;T1504 _storage;T2 _generation;};
@@ -3268,8 +3268,8 @@ struct S1497{Tid id;T2 _upper;T2 _capacity;T1507 _storage;T2 _generation;};
 extern T1497 M1497;
 struct S660{Tid id;T0* _list;T344 _start_position;};
 extern T660 M660;
-struct S721{Tid id;T11 _value;};
-extern T721 M721;
+struct S722{Tid id;T11 _value;};
+extern T722 M722;
 struct S1502{T0* _next;T0* _item;};
 extern T1502 M1502;
 struct S997{T0* _c_auto_init_plugin_deps_name;T0* _c_auto_init_plugin_deps_location;T0* _c_auto_init_function_name;T0* _c_compiler_options;T0* _c_linker_options;T0* _c_library_paths;T0* _c_libraries;T0* _c_header_paths;T0* _c_headers;T0* _c_sources;T344 _start_position;T6 _is_included;T6 _auto_init_done;T533 _bd;T0* _path;T0* _name;T2 _hash_code;};
@@ -3308,14 +3308,14 @@ struct S1539{T0* _free_nodes;T2 _cache_user;T2 _count;T2 _capacity;T1546 _bucket
 extern T1539 M1539;
 struct S1540{T2 _upper;T2 _capacity;T1548 _storage;T2 _generation;};
 extern T1540 M1540;
-struct S726{T6 _negative;T2 _offset;T2 _integer_length;T2 _capacity;T1131 _storage;};
-extern T726 M726;
+struct S727{T6 _negative;T2 _offset;T2 _integer_length;T2 _capacity;T1131 _storage;};
+extern T727 M727;
 struct S1541{T2 _upper;T2 _capacity;T1549 _storage;T2 _generation;};
 extern T1541 M1541;
 struct S1545{T0* _next;T0* _key;T0* _item;};
 extern T1545 M1545;
-struct S723{Tid id;T1131 _storage;T2 _capacity;T6 _negative;};
-extern T723 M723;
+struct S724{Tid id;T1131 _storage;T2 _capacity;T6 _negative;};
+extern T724 M724;
 struct S1564{T2 _upper;T2 _capacity;T1239 _storage;T2 _generation;};
 extern T1564 M1564;
 struct S800{Tid id;T0* _item;};
@@ -3356,7 +3356,6 @@ extern char*s114_40A;
 extern char*s114_41A;
 extern char*s626_7233618A;
 extern char*s33_42A;
-extern char*s114_37656465A;
 extern char*s33_43A;
 extern char*s114_44A;
 extern char*s114_36951A;
@@ -3532,6 +3531,7 @@ extern char*s34_10703002A;
 extern char*s114_1312728230A;
 extern char*s628_264A;
 extern char*s633_265A;
+extern char*s633_1665734122A;
 extern char*s626_184795A;
 extern char*s611_436987A;
 extern char*s448_1428348580A;
@@ -4005,7 +4005,6 @@ extern char*s448_540477054A;
 extern char*s85_1761241425A;
 extern char*s118_992A;
 extern char*s114_1500500537A;
-extern char*s114_437715A;
 extern char*s101_1587734026A;
 extern char*s827_903312259A;
 extern char*s830_160930A;
@@ -4021,7 +4020,6 @@ extern char*s110_851047233A;
 extern char*s114_1346694814A;
 extern char*s108_1365578385A;
 extern char*s101_1090616383A;
-extern char*s633_10937506A;
 extern char*s114_308580A;
 extern char*s675_247541875A;
 extern char*s457_1436450217A;
@@ -5342,6 +5340,7 @@ extern char*s610_1199620901A;
 extern char*s33_911175911A;
 extern char*s628_1631421108A;
 extern char*s997_28287A;
+extern char*s633_755813960A;
 extern char*s276_261396584A;
 extern char*s33_169371474A;
 extern char*s284_1539722017A;
@@ -5459,7 +5458,6 @@ extern char*s34_16264A;
 extern char*s34_9790205A;
 extern char*s576_1476287022A;
 extern char*s827_646707803A;
-extern char*s114_984785217A;
 extern char*s101_99041221A;
 extern char*s626_7225250A;
 extern char*s626_2187584A;
@@ -5757,7 +5755,6 @@ extern char*s426_1878889060A;
 extern char*s114_18131599A;
 extern char*s542_1185594A;
 extern char*s830_784300160A;
-extern char*s114_355630820A;
 extern char*s827_1812279886A;
 extern char*s33_243411981A;
 extern char*s33_1419919903A;
@@ -5771,7 +5768,6 @@ extern char*s832_1682659883A;
 extern char*s830_1007239A;
 extern char*s791_630125369A;
 extern char*s101_2028592127A;
-extern char*s114_1948346A;
 extern char*s96_1838187926A;
 extern char*s476_1163823042A;
 extern char*s791_17725666A;
@@ -6103,6 +6099,7 @@ extern char*s102_744085684A;
 extern char*s114_1173628471A;
 extern char*s565_146251545A;
 extern char*s33_267647687A;
+extern char*s114_825893997A;
 extern char*s477_380590A;
 extern char*s827_1832086881A;
 extern char*s404_988692517A;
@@ -6266,6 +6263,7 @@ extern char*s101_1694969179A;
 extern char*s114_1836282258A;
 extern char*s626_1188262106A;
 extern char*s101_825716016A;
+extern char*s114_273731430A;
 extern char*s33_1549680A;
 extern char*s828_130382376A;
 extern char*s475_1848584263A;
@@ -6521,7 +6519,7 @@ extern int fBC82string_buffer;
 /*INTEGER_16*/void r10append_in(T10 C,T0* a1);
 /*INTEGER_16*/T3 r10decimal_digit(T10 C);
 /*REAL_64*/void r5append_in_format(T5 C,T0* a1,T2 a2);
-extern T9 oBC307sprintf_buffer;
+extern T9 oBC308sprintf_buffer;
 /*INTEGER_64*/T6 r11in_range(T11 C,T11 a1,T11 a2);
 /*INTEGER_64*/T6 r11fit_integer_8(T11 C);
 /*INTEGER_64*/T0* r11to_number(T11 C);
@@ -7725,8 +7723,8 @@ extern T0*oBC17tagged_out_memory_ref;
 /*FAST_ARRAY[CHARACTER]*/void r1568put(T1568* C,T3 a1,T2 a2);
 /*FAST_ARRAY[CHARACTER]*/void r1568next_generation(T1568* C);
 /*FAST_ARRAY[CHARACTER]*/T2 r1568count(T1568* C);
-extern T0*oBC300common_free_nodes;
-extern int fBC300common_free_nodes;
+extern T0*oBC301common_free_nodes;
+extern int fBC301common_free_nodes;
 /*HASHED_DICTIONARY[STRING,STRING]*/T0* r1027common_free_nodes(void);
 /*HASHED_DICTIONARY[STRING,STRING]*/void r1027make(T1027* C);
 /*HASHED_DICTIONARY[STRING,STRING]*/T0* r1027key(T1027* C,T2 a1);
@@ -8526,9 +8524,9 @@ extern int fBC709lost_nodes_pool;
 /*ORDERED_DICTIONARY[ORDERED_DICTIONARY[STRING,STRING],STRING]*/T2 r1214hash_code(T0* a1);
 /*ORDERED_DICTIONARY[ORDERED_DICTIONARY[STRING,STRING],STRING]*/T0* r1214new_iterator_on_keys(T1214* C);
 /*ORDERED_DICTIONARY[ORDERED_DICTIONARY[STRING,STRING],STRING]*/T6 r1214has(T1214* C,T0* a1);
-/*ORDERED_DICTIONARY[ORDERED_DICTIONARY[STRING,STRING],STRING]*/void r1214_P_300_add(T1214* C,T0* a1,T0* a2);
-/*ORDERED_DICTIONARY[ORDERED_DICTIONARY[STRING,STRING],STRING]*/void r1214_P_300_clear_count(T1214* C);
-/*ORDERED_DICTIONARY[ORDERED_DICTIONARY[STRING,STRING],STRING]*/void r1214_P_300_create_with_capacity(T1214* C,T2 a1);
+/*ORDERED_DICTIONARY[ORDERED_DICTIONARY[STRING,STRING],STRING]*/void r1214_P_301_add(T1214* C,T0* a1,T0* a2);
+/*ORDERED_DICTIONARY[ORDERED_DICTIONARY[STRING,STRING],STRING]*/void r1214_P_301_clear_count(T1214* C);
+/*ORDERED_DICTIONARY[ORDERED_DICTIONARY[STRING,STRING],STRING]*/void r1214_P_301_create_with_capacity(T1214* C,T2 a1);
 /*ORDERED_DICTIONARY[STRING,STRING]*/T1215*create1215make(void);
 /*ORDERED_DICTIONARY[STRING,STRING]*/T0* r1215common_free_nodes(void);
 /*ORDERED_DICTIONARY[STRING,STRING]*/void r1215make(T1215* C);
@@ -8554,10 +8552,10 @@ extern int fBC709lost_nodes_pool;
 /*ORDERED_DICTIONARY[STRING,STRING]*/T2 r1215hash_code(T0* a1);
 /*ORDERED_DICTIONARY[STRING,STRING]*/T0* r1215new_iterator_on_keys(T1215* C);
 /*ORDERED_DICTIONARY[STRING,STRING]*/T6 r1215has(T1215* C,T0* a1);
-/*ORDERED_DICTIONARY[STRING,STRING]*/void r1215_P_300_put(T1215* C,T0* a1,T0* a2);
-/*ORDERED_DICTIONARY[STRING,STRING]*/void r1215_P_300_add(T1215* C,T0* a1,T0* a2);
-/*ORDERED_DICTIONARY[STRING,STRING]*/void r1215_P_300_clear_count(T1215* C);
-/*ORDERED_DICTIONARY[STRING,STRING]*/void r1215_P_300_create_with_capacity(T1215* C,T2 a1);
+/*ORDERED_DICTIONARY[STRING,STRING]*/void r1215_P_301_put(T1215* C,T0* a1,T0* a2);
+/*ORDERED_DICTIONARY[STRING,STRING]*/void r1215_P_301_add(T1215* C,T0* a1,T0* a2);
+/*ORDERED_DICTIONARY[STRING,STRING]*/void r1215_P_301_clear_count(T1215* C);
+/*ORDERED_DICTIONARY[STRING,STRING]*/void r1215_P_301_create_with_capacity(T1215* C,T2 a1);
 /*HASHED_DICTIONARY[CLUSTER,STRING]*/T0* r1217common_free_nodes(void);
 /*HASHED_DICTIONARY[CLUSTER,STRING]*/void r1217make(T1217* C);
 /*HASHED_DICTIONARY[CLUSTER,STRING]*/T0* r1217key(T1217* C,T2 a1);
@@ -9626,27 +9624,27 @@ extern int fBC276new_clusters;
 /*ACE*/T2 r276assertion_level_of(T276* C,T0* a1);
 /*ACE*/T6 r276sedb(T276* C);
 /*ACE*/T6 r276a_cluster_clause(T276* C);
-typedef struct _se_agenT114f114l4078c31 se_agenT114f114l4078c31;
-struct _se_agenT114f114l4078c31{Tid id;
+typedef struct _se_agenT114f114l4057c31 se_agenT114f114l4057c31;
+struct _se_agenT114f114l4057c31{Tid id;
 int creation_mold_id;
-void(*afp)(se_agenT114f114l4078c31*,T0*);
+void(*afp)(se_agenT114f114l4057c31*,T0*);
 int (*eq)(se_agent*,se_agent*);
 T0* closed_C;T0* closed_a1;};
-/*agent creation*/T0*agenT114f114l4078c31(T0* closed_C,T0* closed_a1);
-typedef struct _se_agenT114f114l4067c28 se_agenT114f114l4067c28;
-struct _se_agenT114f114l4067c28{Tid id;
+/*agent creation*/T0*agenT114f114l4057c31(T0* closed_C,T0* closed_a1);
+typedef struct _se_agenT114f114l4046c28 se_agenT114f114l4046c28;
+struct _se_agenT114f114l4046c28{Tid id;
 int creation_mold_id;
-void(*afp)(se_agenT114f114l4067c28*,T0*);
+void(*afp)(se_agenT114f114l4046c28*,T0*);
 int (*eq)(se_agent*,se_agent*);
 T0* closed_C;};
-/*agent creation*/T0*agenT114f114l4067c28(T0* closed_C);
-typedef struct _se_agenT114f114l3839c47 se_agenT114f114l3839c47;
-struct _se_agenT114f114l3839c47{Tid id;
+/*agent creation*/T0*agenT114f114l4046c28(T0* closed_C);
+typedef struct _se_agenT114f114l3818c47 se_agenT114f114l3818c47;
+struct _se_agenT114f114l3818c47{Tid id;
 int creation_mold_id;
-void(*afp)(se_agenT114f114l3839c47*,T0*);
+void(*afp)(se_agenT114f114l3818c47*,T0*);
 int (*eq)(se_agent*,se_agent*);
 T0* closed_C;};
-/*agent creation*/T0*agenT114f114l3839c47(T0* closed_C);
+/*agent creation*/T0*agenT114f114l3818c47(T0* closed_C);
 typedef struct _se_agenT114f114l596c22 se_agenT114f114l596c22;
 struct _se_agenT114f114l596c22{Tid id;
 int creation_mold_id;
@@ -9661,34 +9659,34 @@ void(*afp)(se_agenT114f114l653c22*,T0*);
 int (*eq)(se_agent*,se_agent*);
 };
 /*agent creation*/T0*agenT114f114l653c22(void);
-typedef struct _se_agenT114f114l3858c55 se_agenT114f114l3858c55;
-struct _se_agenT114f114l3858c55{Tid id;
+typedef struct _se_agenT114f114l3837c55 se_agenT114f114l3837c55;
+struct _se_agenT114f114l3837c55{Tid id;
 int creation_mold_id;
-void(*afp)(se_agenT114f114l3858c55*,T0*);
+void(*afp)(se_agenT114f114l3837c55*,T0*);
 int (*eq)(se_agent*,se_agent*);
 T0* closed_C;T0* closed_a2;};
-/*agent creation*/T0*agenT114f114l3858c55(T0* closed_C,T0* closed_a2);
-typedef struct _se_agenT114f114l3819c48 se_agenT114f114l3819c48;
-struct _se_agenT114f114l3819c48{Tid id;
+/*agent creation*/T0*agenT114f114l3837c55(T0* closed_C,T0* closed_a2);
+typedef struct _se_agenT114f114l3798c48 se_agenT114f114l3798c48;
+struct _se_agenT114f114l3798c48{Tid id;
 int creation_mold_id;
-void(*afp)(se_agenT114f114l3819c48*);
+void(*afp)(se_agenT114f114l3798c48*);
 int (*eq)(se_agent*,se_agent*);
 };
-/*agent creation*/T0*agenT114f114l3819c48(void);
-typedef struct _se_agenT114f114l3661c39 se_agenT114f114l3661c39;
-struct _se_agenT114f114l3661c39{Tid id;
+/*agent creation*/T0*agenT114f114l3798c48(void);
+typedef struct _se_agenT114f114l3640c39 se_agenT114f114l3640c39;
+struct _se_agenT114f114l3640c39{Tid id;
 int creation_mold_id;
-void(*afp)(se_agenT114f114l3661c39*,T0*);
+void(*afp)(se_agenT114f114l3640c39*,T0*);
 int (*eq)(se_agent*,se_agent*);
 T0* closed_C;};
-/*agent creation*/T0*agenT114f114l3661c39(T0* closed_C);
-typedef struct _se_agenT114f114l3578c38 se_agenT114f114l3578c38;
-struct _se_agenT114f114l3578c38{Tid id;
+/*agent creation*/T0*agenT114f114l3640c39(T0* closed_C);
+typedef struct _se_agenT114f114l3557c38 se_agenT114f114l3557c38;
+struct _se_agenT114f114l3557c38{Tid id;
 int creation_mold_id;
-void(*afp)(se_agenT114f114l3578c38*,T0*,T0*);
+void(*afp)(se_agenT114f114l3557c38*,T0*,T0*);
 int (*eq)(se_agent*,se_agent*);
 T0* closed_C;};
-/*agent creation*/T0*agenT114f114l3578c38(T0* closed_C);
+/*agent creation*/T0*agenT114f114l3557c38(T0* closed_C);
 /*C_PRETTY_PRINTER*/T0* r114cecil_pool(void);
 extern T0*oBC114c_code;
 extern int fBC114c_code;
@@ -9860,7 +9858,6 @@ extern int fBC114out_h_buffer;
 /*C_PRETTY_PRINTER*/void r114write_extern_1(T114* C,T0* a1);
 /*C_PRETTY_PRINTER*/void r114write_extern_0(T114* C,T0* a1);
 /*C_PRETTY_PRINTER*/void r114stack_push(T114* C,T2 a1);
-/*C_PRETTY_PRINTER*/void r114common_body_for_se_string_and_se_ms(T114* C);
 /*C_PRETTY_PRINTER*/T0* r114out_c(void);
 /*C_PRETTY_PRINTER*/void r114write_make_file(T114* C);
 /*C_PRETTY_PRINTER*/void r114start_profile_agent_creation(T0* a1);
@@ -11360,20 +11357,20 @@ T0* closed_C;};
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r632_P_626_visit_call_infix_lt(T632* C,T0* a1);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r632_P_626_visit_precursor_expression(T632* C,T0* a1);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r632_P_626_visit_expression_with_comment(T632* C,T0* a1);
-typedef struct _se_agenT633f633l668c61 se_agenT633f633l668c61;
-struct _se_agenT633f633l668c61{Tid id;
+typedef struct _se_agenT633f633l670c61 se_agenT633f633l670c61;
+struct _se_agenT633f633l670c61{Tid id;
 int creation_mold_id;
-void(*afp)(se_agenT633f633l668c61*);
+void(*afp)(se_agenT633f633l670c61*);
 int (*eq)(se_agent*,se_agent*);
 };
-/*agent creation*/T0*agenT633f633l668c61(void);
-typedef struct _se_agenT633f633l684c61 se_agenT633f633l684c61;
-struct _se_agenT633f633l684c61{Tid id;
+/*agent creation*/T0*agenT633f633l670c61(void);
+typedef struct _se_agenT633f633l686c61 se_agenT633f633l686c61;
+struct _se_agenT633f633l686c61{Tid id;
 int creation_mold_id;
-void(*afp)(se_agenT633f633l684c61*);
+void(*afp)(se_agenT633f633l686c61*);
 int (*eq)(se_agent*,se_agent*);
 T0* closed_C;};
-/*agent creation*/T0*agenT633f633l684c61(T0* closed_C);
+/*agent creation*/T0*agenT633f633l686c61(T0* closed_C);
 extern T0*oBC32capacity_name;
 extern int fBC32capacity_name;
 /*C_NATIVE_FUNCTION_MAPPER*/T0* r633capacity_name(void);
@@ -11836,20 +11833,20 @@ extern int fBC107graph_node_dictionary;
 /*ASSIGNMENT_HANDLER*/void r107reset(void);
 /*ASSIGNMENT_HANDLER*/T0* r107implicit_cast_(T0* a1,T0* a2,T0* a3);
 /*ASSIGNMENT_HANDLER*/void r107collect_normal(T107* C,T0* a1,T0* a2);
-typedef struct _se_agenT105f105l177c20 se_agenT105f105l177c20;
-struct _se_agenT105f105l177c20{Tid id;
+typedef struct _se_agenT105f105l183c20 se_agenT105f105l183c20;
+struct _se_agenT105f105l183c20{Tid id;
 int creation_mold_id;
-T6(*afp)(se_agenT105f105l177c20*,T0*);
+T6(*afp)(se_agenT105f105l183c20*,T0*);
 int (*eq)(se_agent*,se_agent*);
 T6 R;};
-/*agent creation*/T0*agenT105f105l177c20(void);
-typedef struct _se_agenT105f105l167c20 se_agenT105f105l167c20;
-struct _se_agenT105f105l167c20{Tid id;
+/*agent creation*/T0*agenT105f105l183c20(void);
+typedef struct _se_agenT105f105l173c20 se_agenT105f105l173c20;
+struct _se_agenT105f105l173c20{Tid id;
 int creation_mold_id;
-T6(*afp)(se_agenT105f105l167c20*,T0*);
+T6(*afp)(se_agenT105f105l173c20*,T0*);
 int (*eq)(se_agent*,se_agent*);
 T6 R;};
-/*agent creation*/T0*agenT105f105l167c20(void);
+/*agent creation*/T0*agenT105f105l173c20(void);
 /*MANIFEST_STRING_POOL*/void r105collect_string(T105* C,T0* a1);
 /*MANIFEST_STRING_POOL*/T0* r105se_ums(T105* C);
 extern T0*oBC105agent_exists_in_collected_storage_id_set;
@@ -12044,38 +12041,38 @@ extern int fBC444long_name;
 /*STRING_TYPE_MARK*/T0* r444weak_reference_argument(T444* C,T0* a1);
 /*STRING_TYPE_MARK*/T0* r444resolve_in(T0* a1);
 /*STRING_TYPE_MARK*/T6 r444is_agent(void);
-/*FIXED_STRING*/T6 r298is_equal(T298* C,T0* a1);
-/*FIXED_STRING*/T0* r298intern(T298* C);
-/*FIXED_STRING*/void r298unlock_tagged_out(void);
-/*FIXED_STRING*/T3 r298first(T298* C);
-/*FIXED_STRING*/T0* r298tagged_out_memory_pool(void);
-/*FIXED_STRING*/void r298fill_tagged_out_memory(T298* C);
-/*FIXED_STRING*/void r298lock_tagged_out(void);
-extern T0*oBC298weakrefs;
-extern int fBC298weakrefs;
-/*FIXED_STRING*/T0* r298weakrefs(void);
-/*FIXED_STRING*/void r298make_from_string(T298* C,T0* a1);
-/*FIXED_STRING*/T0* r298new_holders(T298* C);
-/*FIXED_STRING*/T0* r298_ix_35(T298* C,T0* a1);
-/*FIXED_STRING*/T6 r298is_shared(T298* C);
-/*FIXED_STRING*/void r298unshare(T298* C);
-/*FIXED_STRING*/T8 r298to_external(T298* C);
-/*FIXED_STRING*/T2 r298computed_hash_code(T298* C);
-/*FIXED_STRING*/T2 r298upper(T298* C);
-/*FIXED_STRING*/T3 r298item(T298* C,T2 a1);
-/*FIXED_STRING*/T6 r298_ix_60(T298* C,T0* a1);
-/*FIXED_STRING*/T6 r298same_as(T298* C,T0* a1);
-/*FIXED_STRING*/T0* r298interned(void);
-/*FIXED_STRING*/T0* r298tagged_out_memory(void);
-extern T0*oBC298holders_memory;
-extern int fBC298holders_memory;
-/*FIXED_STRING*/T0* r298holders_memory(void);
-/*FIXED_STRING*/void r298do_intern(T298* C,T0* a1);
-/*FIXED_STRING*/T0* r298out(T298* C);
-/*FIXED_STRING*/void r298copy_slice_to_native(T298* C,T2 a1,T2 a2,T9 a3,T2 a4);
-/*FIXED_STRING*/T0* r298tagged_out_memories(void);
-/*FIXED_STRING*/void r298print_on(T298* C,T0* a1);
-/*FIXED_STRING*/T6 r298has(T298* C,T3 a1);
+/*FIXED_STRING*/T6 r299is_equal(T299* C,T0* a1);
+/*FIXED_STRING*/T0* r299intern(T299* C);
+/*FIXED_STRING*/void r299unlock_tagged_out(void);
+/*FIXED_STRING*/T3 r299first(T299* C);
+/*FIXED_STRING*/T0* r299tagged_out_memory_pool(void);
+/*FIXED_STRING*/void r299fill_tagged_out_memory(T299* C);
+/*FIXED_STRING*/void r299lock_tagged_out(void);
+extern T0*oBC299weakrefs;
+extern int fBC299weakrefs;
+/*FIXED_STRING*/T0* r299weakrefs(void);
+/*FIXED_STRING*/void r299make_from_string(T299* C,T0* a1);
+/*FIXED_STRING*/T0* r299new_holders(T299* C);
+/*FIXED_STRING*/T0* r299_ix_35(T299* C,T0* a1);
+/*FIXED_STRING*/T6 r299is_shared(T299* C);
+/*FIXED_STRING*/void r299unshare(T299* C);
+/*FIXED_STRING*/T8 r299to_external(T299* C);
+/*FIXED_STRING*/T2 r299computed_hash_code(T299* C);
+/*FIXED_STRING*/T2 r299upper(T299* C);
+/*FIXED_STRING*/T3 r299item(T299* C,T2 a1);
+/*FIXED_STRING*/T6 r299_ix_60(T299* C,T0* a1);
+/*FIXED_STRING*/T6 r299same_as(T299* C,T0* a1);
+/*FIXED_STRING*/T0* r299interned(void);
+/*FIXED_STRING*/T0* r299tagged_out_memory(void);
+extern T0*oBC299holders_memory;
+extern int fBC299holders_memory;
+/*FIXED_STRING*/T0* r299holders_memory(void);
+/*FIXED_STRING*/void r299do_intern(T299* C,T0* a1);
+/*FIXED_STRING*/T0* r299out(T299* C);
+/*FIXED_STRING*/void r299copy_slice_to_native(T299* C,T2 a1,T2 a2,T9 a3,T2 a4);
+/*FIXED_STRING*/T0* r299tagged_out_memories(void);
+/*FIXED_STRING*/void r299print_on(T299* C,T0* a1);
+/*FIXED_STRING*/T6 r299has(T299* C,T3 a1);
 /*FEATURE_ACCUMULATOR*/void r117make(T117* C);
 /*FEATURE_ACCUMULATOR*/void r117finalize(T117* C);
 /*FEATURE_ACCUMULATOR*/void r117finish_insert_seeds(T117* C);
@@ -12237,23 +12234,23 @@ extern int fBC714switch_list;
 /*GC_HANDLER*/void r714mark_for(T0* a1,T0* a2,T6 a3);
 /*GC_HANDLER*/void r714agent_pool_gc_info(void);
 /*GC_HANDLER*/void r714define_gc_info(T714* C,T0* a1);
-/*PARTIALLY_FILLED_STRING*/void r310unlock_tagged_out(void);
-/*PARTIALLY_FILLED_STRING*/T0* r310tagged_out_memory_pool(void);
-/*PARTIALLY_FILLED_STRING*/void r310lock_tagged_out(void);
-/*PARTIALLY_FILLED_STRING*/void r310put_arg(T310* C,T0* a1);
-/*PARTIALLY_FILLED_STRING*/T0* r310_ix_35(T310* C,T0* a1);
-/*PARTIALLY_FILLED_STRING*/T2 r310upper(T310* C);
-/*PARTIALLY_FILLED_STRING*/T3 r310item(T310* C,T2 a1);
-/*PARTIALLY_FILLED_STRING*/void r310out_in_tagged_out_memory(T310* C);
-/*PARTIALLY_FILLED_STRING*/T0* r310memory(T310* C);
-/*PARTIALLY_FILLED_STRING*/void r310parse_template(T310* C);
-/*PARTIALLY_FILLED_STRING*/T0* r310tagged_out_memory(void);
-/*PARTIALLY_FILLED_STRING*/T0* r310out(T310* C);
-/*PARTIALLY_FILLED_STRING*/void r310from_string_and_arg(T310* C,T0* a1,T0* a2);
-/*PARTIALLY_FILLED_STRING*/void r310copy_slice_to_native(T310* C,T2 a1,T2 a2,T9 a3,T2 a4);
-/*PARTIALLY_FILLED_STRING*/T0* r310tagged_out_memories(void);
-/*PARTIALLY_FILLED_STRING*/void r310print_on(T310* C,T0* a1);
-/*PARTIALLY_FILLED_STRING*/T2 r310count(T310* C);
+/*PARTIALLY_FILLED_STRING*/void r311unlock_tagged_out(void);
+/*PARTIALLY_FILLED_STRING*/T0* r311tagged_out_memory_pool(void);
+/*PARTIALLY_FILLED_STRING*/void r311lock_tagged_out(void);
+/*PARTIALLY_FILLED_STRING*/void r311put_arg(T311* C,T0* a1);
+/*PARTIALLY_FILLED_STRING*/T0* r311_ix_35(T311* C,T0* a1);
+/*PARTIALLY_FILLED_STRING*/T2 r311upper(T311* C);
+/*PARTIALLY_FILLED_STRING*/T3 r311item(T311* C,T2 a1);
+/*PARTIALLY_FILLED_STRING*/void r311out_in_tagged_out_memory(T311* C);
+/*PARTIALLY_FILLED_STRING*/T0* r311memory(T311* C);
+/*PARTIALLY_FILLED_STRING*/void r311parse_template(T311* C);
+/*PARTIALLY_FILLED_STRING*/T0* r311tagged_out_memory(void);
+/*PARTIALLY_FILLED_STRING*/T0* r311out(T311* C);
+/*PARTIALLY_FILLED_STRING*/void r311from_string_and_arg(T311* C,T0* a1,T0* a2);
+/*PARTIALLY_FILLED_STRING*/void r311copy_slice_to_native(T311* C,T2 a1,T2 a2,T9 a3,T2 a4);
+/*PARTIALLY_FILLED_STRING*/T0* r311tagged_out_memories(void);
+/*PARTIALLY_FILLED_STRING*/void r311print_on(T311* C,T0* a1);
+/*PARTIALLY_FILLED_STRING*/T2 r311count(T311* C);
 /*CECIL_FILE*/void r333parse(T333* C);
 /*CECIL_FILE*/void r333make(T333* C,T0* a1);
 /*CECIL_FILE*/T0* r333eiffel_parser(void);
@@ -12285,9 +12282,9 @@ extern T0*oBC791package_name;
 extern T0*oBC791config_home;
 extern int fBC791config_home;
 /*XDG*/T0* r791config_home(T791 C);
+/*XDG*/T0* r791_inline_agent17(T791 C);
 extern int fBC791set_package;
 /*XDG*/void r791set_package(T0* a1);
-/*XDG*/T0* r791_inline_agent10(T791 C);
 extern T0*oBC791config_home_;
 extern int fBC791config_home_;
 /*XDG*/T0* r791config_home_(T791 C);
@@ -13451,6 +13448,7 @@ extern int fBC448procedure_name;
 /*NATIVE_BUILT_IN*/void r473pretty(T473* C,T2 a1,T6 a2);
 /*NATIVE_BUILT_IN*/void r473parse_external_type(T473* C,T0* a1,T0* a2);
 /*NATIVE_BUILT_IN*/void r473accept(T473* C,T0* a1);
+/*NATIVE_BUILT_IN*/void r473collect(T0* a1,T0* a2);
 /*NATIVE_BUILT_IN*/T344 r473start_position(T473* C);
 /*NATIVE_BUILT_IN*/T6 r473use_current(T0* a1);
 /*NATIVE_BUILT_IN*/void r473crash(T473* C);
@@ -17653,7 +17651,7 @@ extern int fBC652declaration_type;
 /*AGENT_INSTRUCTION*/T0* r671inline_dynamic_dispatch(T671* C,T0* a1,T0* a2);
 /*AGENT_INSTRUCTION*/T0* r671to_instruction(T671* C);
 /*AGENT_INSTRUCTION*/T0* r671current_or_twin_init(T671* C,T0* a1,T0* a2);
-/*NUMBER_TOOLS*/T0* r312from_integer_64(T11 a1);
+/*NUMBER_TOOLS*/T0* r313from_integer_64(T11 a1);
 /*INLINE_MEMO*/T0* r536expression(T536* C);
 /*INLINE_MEMO*/T0* r536instruction(T536* C);
 /*PRECOMPUTABLE_ROUTINE_DETECTOR*/void r125visit_compound(T125* C,T0* a1);
@@ -18088,37 +18086,37 @@ extern int fBC125type_stack;
 /*FAKE_TUPLE*/T2 r660count(T660* C);
 /*FAKE_TUPLE*/T0* r660resolve_in(T660* C,T0* a1);
 /*FAKE_TUPLE*/T0* r660to_instruction(T660* C);
-/*INTEGER_64_NUMBER*/void r721make(T721* C,T11 a1);
-/*INTEGER_64_NUMBER*/T11 r721to_integer_64(T721* C);
-/*INTEGER_64_NUMBER*/T0* r721multiply_with_big_integer_number(T721* C,T0* a1);
-extern T0*oBC311zero;
-extern T0*oBC311mutable_register1;
-extern int fBC311mutable_register1;
-/*INTEGER_64_NUMBER*/T0* r721mutable_register1(void);
-extern T0*oBC311mutable_register2;
-extern int fBC311mutable_register2;
-/*INTEGER_64_NUMBER*/T0* r721mutable_register2(void);
-extern T0*oBC311mutable_register3;
-extern int fBC311mutable_register3;
-/*INTEGER_64_NUMBER*/T0* r721mutable_register3(void);
-/*INTEGER_64_NUMBER*/T0* r721_ix_42(T721* C,T0* a1);
-/*INTEGER_64_NUMBER*/T0* r721_ix_43(T721* C,T0* a1);
-/*INTEGER_64_NUMBER*/T6 r721is_integer_32(T721* C);
-/*INTEGER_64_NUMBER*/T0* r721_px_45(T721* C);
-/*INTEGER_64_NUMBER*/T0* r721_ix_45(T721* C,T0* a1);
-/*INTEGER_64_NUMBER*/T6 r721is_integer_16(T721* C);
-/*INTEGER_64_NUMBER*/T0* r721add_with_big_integer_number(T721* C,T0* a1);
-/*INTEGER_64_NUMBER*/T6 r721is_integer_8(T721* C);
-/*INTEGER_64_NUMBER*/T0* r721_ix_6442(T721* C,T11 a1);
-/*INTEGER_64_NUMBER*/T0* r721_ix_6443(T721* C,T11 a1);
-/*INTEGER_64_NUMBER*/T10 r721to_integer_16(T721* C);
-/*INTEGER_64_NUMBER*/T0* r721to_string(T721* C);
-/*INTEGER_64_NUMBER*/T1 r721to_integer_8(T721* C);
-/*INTEGER_64_NUMBER*/T2 r721to_integer_32(T721* C);
-/*INTEGER_64_NUMBER*/void r721append_in(T721* C,T0* a1);
-extern T0*oBC311string_buffer;
-extern int fBC311string_buffer;
-/*INTEGER_64_NUMBER*/T0* r721string_buffer(void);
+/*INTEGER_64_NUMBER*/void r722make(T722* C,T11 a1);
+/*INTEGER_64_NUMBER*/T11 r722to_integer_64(T722* C);
+/*INTEGER_64_NUMBER*/T0* r722multiply_with_big_integer_number(T722* C,T0* a1);
+extern T0*oBC312zero;
+extern T0*oBC312mutable_register1;
+extern int fBC312mutable_register1;
+/*INTEGER_64_NUMBER*/T0* r722mutable_register1(void);
+extern T0*oBC312mutable_register2;
+extern int fBC312mutable_register2;
+/*INTEGER_64_NUMBER*/T0* r722mutable_register2(void);
+extern T0*oBC312mutable_register3;
+extern int fBC312mutable_register3;
+/*INTEGER_64_NUMBER*/T0* r722mutable_register3(void);
+/*INTEGER_64_NUMBER*/T0* r722_ix_42(T722* C,T0* a1);
+/*INTEGER_64_NUMBER*/T0* r722_ix_43(T722* C,T0* a1);
+/*INTEGER_64_NUMBER*/T6 r722is_integer_32(T722* C);
+/*INTEGER_64_NUMBER*/T0* r722_px_45(T722* C);
+/*INTEGER_64_NUMBER*/T0* r722_ix_45(T722* C,T0* a1);
+/*INTEGER_64_NUMBER*/T6 r722is_integer_16(T722* C);
+/*INTEGER_64_NUMBER*/T0* r722add_with_big_integer_number(T722* C,T0* a1);
+/*INTEGER_64_NUMBER*/T6 r722is_integer_8(T722* C);
+/*INTEGER_64_NUMBER*/T0* r722_ix_6442(T722* C,T11 a1);
+/*INTEGER_64_NUMBER*/T0* r722_ix_6443(T722* C,T11 a1);
+/*INTEGER_64_NUMBER*/T10 r722to_integer_16(T722* C);
+/*INTEGER_64_NUMBER*/T0* r722to_string(T722* C);
+/*INTEGER_64_NUMBER*/T1 r722to_integer_8(T722* C);
+/*INTEGER_64_NUMBER*/T2 r722to_integer_32(T722* C);
+/*INTEGER_64_NUMBER*/void r722append_in(T722* C,T0* a1);
+extern T0*oBC312string_buffer;
+extern int fBC312string_buffer;
+/*INTEGER_64_NUMBER*/T0* r722string_buffer(void);
 /*C_PLUGIN*/T6 r997is_equal(T997* C,T0* a1);
 /*C_PLUGIN*/void r997make(T997* C,T344 a1,T0* a2,T0* a3);
 /*C_PLUGIN*/void r997add_c_source(T997* C,T0* a1);
@@ -18160,59 +18158,59 @@ extern int fBC644internal_c_local_pool;
 /*C_SPLITTER_LEGACY_ITERATOR*/void r808start(T808* C);
 /*C_SPLITTER_LEGACY_ITERATOR*/T0* r808item(T808* C);
 /*TAGGED_FLAG*/void r824as_true(T824* C);
-/*MUTABLE_BIG_INTEGER*/void r726subtract_magnitude_raw_reverse(T726* C,T0* a1);
-/*MUTABLE_BIG_INTEGER*/T11 r726to_integer_64(T726* C);
-/*MUTABLE_BIG_INTEGER*/T6 r726is_one_negative(T726* C);
-/*MUTABLE_BIG_INTEGER*/T2 r726divide_one_word(T726* C,T2 a1);
-/*MUTABLE_BIG_INTEGER*/void r726add(T726* C,T0* a1);
-/*MUTABLE_BIG_INTEGER*/void r726copy(T726* C,T0* a1);
-/*MUTABLE_BIG_INTEGER*/T6 r726is_integer_64(T726* C);
-extern T0*oBC726char_buffer;
-extern int fBC726char_buffer;
-/*MUTABLE_BIG_INTEGER*/T0* r726char_buffer(void);
-/*MUTABLE_BIG_INTEGER*/void r726subtract_magnitude_raw_truncated(T726* C,T0* a1);
-/*MUTABLE_BIG_INTEGER*/void r726add_integer_64(T726* C,T11 a1);
-/*MUTABLE_BIG_INTEGER*/void r726negate(T726* C);
-/*MUTABLE_BIG_INTEGER*/T2 r726append_in_char_buffer(T726* C);
-/*MUTABLE_BIG_INTEGER*/void r726subtract_magnitude_raw(T726* C,T0* a1);
-/*MUTABLE_BIG_INTEGER*/T6 r726is_one(T726* C);
-/*MUTABLE_BIG_INTEGER*/void r726multiply_to(T726* C,T0* a1,T0* a2);
-/*MUTABLE_BIG_INTEGER*/void r726subtract_magnitude_raw_reverse_truncated(T726* C,T0* a1);
-/*MUTABLE_BIG_INTEGER*/T2 r726capacity_from_upper_bound(T2 a1,T2 a2);
-/*MUTABLE_BIG_INTEGER*/void r726multiply_to_like_human(T726* C,T0* a1,T0* a2);
-/*MUTABLE_BIG_INTEGER*/T0* r726to_integer_general_number(T726* C);
-extern T0*oBC726register1;
-extern int fBC726register1;
-/*MUTABLE_BIG_INTEGER*/T0* r726register1(void);
-/*MUTABLE_BIG_INTEGER*/void r726set_with_zero(T726* C);
-/*MUTABLE_BIG_INTEGER*/void r726from_integer(T726* C,T2 a1);
-/*MUTABLE_BIG_INTEGER*/void r726subtract_magnitude(T726* C,T0* a1);
-/*MUTABLE_BIG_INTEGER*/void r726from_native_array(T726* C,T1131 a1,T2 a2,T6 a3);
-/*MUTABLE_BIG_INTEGER*/T2 r726capacity_from_lower_bound(T2 a1,T2 a2);
-/*MUTABLE_BIG_INTEGER*/void r726add_magnitude(T726* C,T0* a1);
-/*MUTABLE_BIG_INTEGER*/void r726set_all(T726* C,T1131 a1,T2 a2,T2 a3,T2 a4,T6 a5);
-/*MUTABLE_BIG_INTEGER*/void r726append_in(T726* C,T0* a1);
-/*MUTABLE_BIG_INTEGER*/void r726from_integer_64(T726* C,T11 a1);
-/*BIG_INTEGER_NUMBER*/T11 r723to_integer_64(T723* C);
-/*BIG_INTEGER_NUMBER*/T0* r723multiply_with_big_integer_number(T723* C,T0* a1);
-/*BIG_INTEGER_NUMBER*/T0* r723mutable_register1(void);
-/*BIG_INTEGER_NUMBER*/T0* r723mutable_register2(void);
-/*BIG_INTEGER_NUMBER*/T0* r723mutable_register3(void);
-/*BIG_INTEGER_NUMBER*/T0* r723_ix_42(T723* C,T0* a1);
-/*BIG_INTEGER_NUMBER*/T0* r723_ix_43(T723* C,T0* a1);
-/*BIG_INTEGER_NUMBER*/void r723put_into_mutable_big_integer(T723* C,T0* a1);
-/*BIG_INTEGER_NUMBER*/T0* r723_ix_45(T723* C,T0* a1);
-/*BIG_INTEGER_NUMBER*/T0* r723_px_45(T723* C);
-/*BIG_INTEGER_NUMBER*/T0* r723add_with_big_integer_number(T723* C,T0* a1);
-/*BIG_INTEGER_NUMBER*/T0* r723_ix_6442(T723* C,T11 a1);
-/*BIG_INTEGER_NUMBER*/T0* r723_ix_6443(T723* C,T11 a1);
-/*BIG_INTEGER_NUMBER*/T10 r723to_integer_16(T723* C);
-/*BIG_INTEGER_NUMBER*/T0* r723to_string(T723* C);
-/*BIG_INTEGER_NUMBER*/T1 r723to_integer_8(T723* C);
-/*BIG_INTEGER_NUMBER*/void r723from_native_array(T723* C,T1131 a1,T2 a2,T6 a3);
-/*BIG_INTEGER_NUMBER*/T2 r723to_integer_32(T723* C);
-/*BIG_INTEGER_NUMBER*/void r723append_in(T723* C,T0* a1);
-/*BIG_INTEGER_NUMBER*/T0* r723string_buffer(void);
+/*MUTABLE_BIG_INTEGER*/void r727subtract_magnitude_raw_reverse(T727* C,T0* a1);
+/*MUTABLE_BIG_INTEGER*/T11 r727to_integer_64(T727* C);
+/*MUTABLE_BIG_INTEGER*/T6 r727is_one_negative(T727* C);
+/*MUTABLE_BIG_INTEGER*/T2 r727divide_one_word(T727* C,T2 a1);
+/*MUTABLE_BIG_INTEGER*/void r727add(T727* C,T0* a1);
+/*MUTABLE_BIG_INTEGER*/void r727copy(T727* C,T0* a1);
+/*MUTABLE_BIG_INTEGER*/T6 r727is_integer_64(T727* C);
+extern T0*oBC727char_buffer;
+extern int fBC727char_buffer;
+/*MUTABLE_BIG_INTEGER*/T0* r727char_buffer(void);
+/*MUTABLE_BIG_INTEGER*/void r727subtract_magnitude_raw_truncated(T727* C,T0* a1);
+/*MUTABLE_BIG_INTEGER*/void r727add_integer_64(T727* C,T11 a1);
+/*MUTABLE_BIG_INTEGER*/void r727negate(T727* C);
+/*MUTABLE_BIG_INTEGER*/T2 r727append_in_char_buffer(T727* C);
+/*MUTABLE_BIG_INTEGER*/void r727subtract_magnitude_raw(T727* C,T0* a1);
+/*MUTABLE_BIG_INTEGER*/T6 r727is_one(T727* C);
+/*MUTABLE_BIG_INTEGER*/void r727multiply_to(T727* C,T0* a1,T0* a2);
+/*MUTABLE_BIG_INTEGER*/void r727subtract_magnitude_raw_reverse_truncated(T727* C,T0* a1);
+/*MUTABLE_BIG_INTEGER*/T2 r727capacity_from_upper_bound(T2 a1,T2 a2);
+/*MUTABLE_BIG_INTEGER*/void r727multiply_to_like_human(T727* C,T0* a1,T0* a2);
+/*MUTABLE_BIG_INTEGER*/T0* r727to_integer_general_number(T727* C);
+extern T0*oBC727register1;
+extern int fBC727register1;
+/*MUTABLE_BIG_INTEGER*/T0* r727register1(void);
+/*MUTABLE_BIG_INTEGER*/void r727set_with_zero(T727* C);
+/*MUTABLE_BIG_INTEGER*/void r727from_integer(T727* C,T2 a1);
+/*MUTABLE_BIG_INTEGER*/void r727subtract_magnitude(T727* C,T0* a1);
+/*MUTABLE_BIG_INTEGER*/void r727from_native_array(T727* C,T1131 a1,T2 a2,T6 a3);
+/*MUTABLE_BIG_INTEGER*/T2 r727capacity_from_lower_bound(T2 a1,T2 a2);
+/*MUTABLE_BIG_INTEGER*/void r727add_magnitude(T727* C,T0* a1);
+/*MUTABLE_BIG_INTEGER*/void r727set_all(T727* C,T1131 a1,T2 a2,T2 a3,T2 a4,T6 a5);
+/*MUTABLE_BIG_INTEGER*/void r727append_in(T727* C,T0* a1);
+/*MUTABLE_BIG_INTEGER*/void r727from_integer_64(T727* C,T11 a1);
+/*BIG_INTEGER_NUMBER*/T11 r724to_integer_64(T724* C);
+/*BIG_INTEGER_NUMBER*/T0* r724multiply_with_big_integer_number(T724* C,T0* a1);
+/*BIG_INTEGER_NUMBER*/T0* r724mutable_register1(void);
+/*BIG_INTEGER_NUMBER*/T0* r724mutable_register2(void);
+/*BIG_INTEGER_NUMBER*/T0* r724mutable_register3(void);
+/*BIG_INTEGER_NUMBER*/T0* r724_ix_42(T724* C,T0* a1);
+/*BIG_INTEGER_NUMBER*/T0* r724_ix_43(T724* C,T0* a1);
+/*BIG_INTEGER_NUMBER*/void r724put_into_mutable_big_integer(T724* C,T0* a1);
+/*BIG_INTEGER_NUMBER*/T0* r724_ix_45(T724* C,T0* a1);
+/*BIG_INTEGER_NUMBER*/T0* r724_px_45(T724* C);
+/*BIG_INTEGER_NUMBER*/T0* r724add_with_big_integer_number(T724* C,T0* a1);
+/*BIG_INTEGER_NUMBER*/T0* r724_ix_6442(T724* C,T11 a1);
+/*BIG_INTEGER_NUMBER*/T0* r724_ix_6443(T724* C,T11 a1);
+/*BIG_INTEGER_NUMBER*/T10 r724to_integer_16(T724* C);
+/*BIG_INTEGER_NUMBER*/T0* r724to_string(T724* C);
+/*BIG_INTEGER_NUMBER*/T1 r724to_integer_8(T724* C);
+/*BIG_INTEGER_NUMBER*/void r724from_native_array(T724* C,T1131 a1,T2 a2,T6 a3);
+/*BIG_INTEGER_NUMBER*/T2 r724to_integer_32(T724* C);
+/*BIG_INTEGER_NUMBER*/void r724append_in(T724* C,T0* a1);
+/*BIG_INTEGER_NUMBER*/T0* r724string_buffer(void);
 /*TAGGED_INTERNAL_C_LOCAL*/void r800set_item(T800* C,T0* a1);
 /*TAGGED_INTEGER*/void r798set_item(T798* C,T2 a1);
 void agent_launcher_o475(/*agent*/T0*a,T0* a1);
@@ -18234,15 +18232,15 @@ void agent_launcher_o662(/*agent*/T0*a,T0* a1);
 void agent_launcher_o463(/*agent*/T0*a,T0* a1);
 void agent_launcher_o333o7(/*agent*/T0*a,T0* a1,T0* a2);
 union _se_agent{T0 s0;se_agent0 u0;
-se_agenT114f114l4078c31 uagenT114f114l4078c31;
-se_agenT114f114l4067c28 uagenT114f114l4067c28;
-se_agenT114f114l3839c47 uagenT114f114l3839c47;
+se_agenT114f114l4057c31 uagenT114f114l4057c31;
+se_agenT114f114l4046c28 uagenT114f114l4046c28;
+se_agenT114f114l3818c47 uagenT114f114l3818c47;
 se_agenT114f114l596c22 uagenT114f114l596c22;
 se_agenT114f114l653c22 uagenT114f114l653c22;
-se_agenT114f114l3858c55 uagenT114f114l3858c55;
-se_agenT114f114l3819c48 uagenT114f114l3819c48;
-se_agenT114f114l3661c39 uagenT114f114l3661c39;
-se_agenT114f114l3578c38 uagenT114f114l3578c38;
+se_agenT114f114l3837c55 uagenT114f114l3837c55;
+se_agenT114f114l3798c48 uagenT114f114l3798c48;
+se_agenT114f114l3640c39 uagenT114f114l3640c39;
+se_agenT114f114l3557c38 uagenT114f114l3557c38;
 se_agenT108f108l346c38 uagenT108f108l346c38;
 se_agenT576f577l25c44 uagenT576f577l25c44;
 se_agenT608f577l25c44 uagenT608f577l25c44;
@@ -18259,12 +18257,12 @@ se_agenT628f628l61c33 uagenT628f628l61c33;
 se_agenT628f628l1073c37 uagenT628f628l1073c37;
 se_agenT628f628l1081c32 uagenT628f628l1081c32;
 se_agenT628f628l1028c35 uagenT628f628l1028c35;
-se_agenT633f633l668c61 uagenT633f633l668c61;
-se_agenT633f633l684c61 uagenT633f633l684c61;
+se_agenT633f633l670c61 uagenT633f633l670c61;
+se_agenT633f633l686c61 uagenT633f633l686c61;
 se_agenT375f375l155c36 uagenT375f375l155c36;
 se_agenT375f375l473c44 uagenT375f375l473c44;
-se_agenT105f105l177c20 uagenT105f105l177c20;
-se_agenT105f105l167c20 uagenT105f105l167c20;
+se_agenT105f105l183c20 uagenT105f105l183c20;
+se_agenT105f105l173c20 uagenT105f105l173c20;
 se_agenT791f791l126c52 uagenT791f791l126c52;
 };
 /*
@@ -18993,7 +18991,6 @@ extern T0*ms457_161769183Abc457A;
 extern T0*ms636_1245850444Abc636A;
 extern T0*ms827_719514099Abc827A;
 extern T0*ms276_416541Abc276A;
-extern T0*ms114_437715Abc114A;
 extern T0*ms114_245Abc625A;
 extern T0*ms714_614557109Abc714A;
 extern T0*ms114_245Abc626A;
@@ -19184,6 +19181,7 @@ extern T0*ms412_1382321814Abc412A;
 extern T0*ms276_3073Abc34A;
 extern T0*ms112_207986277Abc112A;
 extern T0*ms645_1711825865Abc645A;
+extern T0*ms114_825893997Abc114A;
 extern T0*ms123_203714719Abc123A;
 extern T0*ms633_4204001Abc633A;
 extern T0*ms101_1744209811Abc101B;
@@ -19308,6 +19306,7 @@ extern T0*ms633_32650Abc633B;
 extern T0*ms633_32650Abc633A;
 extern T0*ms114_282Abc634A;
 extern T0*ms404_988692517Abc404A;
+extern T0*ms114_273731430Abc114A;
 extern T0*ms623_4571007Abc623A;
 extern T0*ms395_529996976Abc395A;
 extern T0*ms475_58Abc475A;
@@ -19550,7 +19549,6 @@ extern T0*ms441_1478Abc441A;
 extern T0*ms751_1613492996Abc751A;
 extern T0*ms114_395316170Abc114A;
 extern T0*ms401_376Abc401A;
-extern T0*ms114_355630820Abc114A;
 extern T0*ms101_1301660112Abc101A;
 extern T0*ms34_937397683Abc34A;
 extern T0*ms611_10937200Abc611A;
@@ -19892,7 +19890,6 @@ extern T0*ms114_400297641Abc114D;
 extern T0*ms828_130382376Abc828A;
 extern T0*ms101_928941315Abc101A;
 extern T0*ms114_400297641Abc114E;
-extern T0*ms114_400297641Abc114F;
 extern T0*ms114_1295Abc576A;
 extern T0*ms33_16616Abc33A;
 extern T0*ms114_273430980Abc114A;
@@ -20023,6 +20020,7 @@ extern T0*ms33_1554777Abc33A;
 extern T0*ms101_1617443474Abc101A;
 extern T0*ms457_46Abc282A;
 extern T0*ms425_1288915017Abc425A;
+extern T0*ms633_755813960Abc633A;
 extern T0*ms457_46Abc282B;
 extern T0*ms714_6580Abc714A;
 extern T0*ms101_1593742473Abc101A;
@@ -20365,7 +20363,6 @@ extern T0*ms101_342864313Abc101A;
 extern T0*ms114_5395053Abc611A;
 extern T0*ms124_150325744Abc124A;
 extern T0*ms830_1040644265Abc830A;
-extern T0*ms114_984785217Abc114A;
 extern T0*ms34_10193105Abc34A;
 extern T0*ms110_530877013Abc110A;
 extern T0*ms114_273715710Abc114A;
@@ -20466,7 +20463,6 @@ extern T0*ms539_927498134Abc539A;
 extern T0*ms101_791727511Abc101A;
 extern T0*ms713_645592960Abc713A;
 extern T0*ms286_7207Abc806A;
-extern T0*ms114_1948346Abc114A;
 extern T0*ms101_1414519430Abc101A;
 extern T0*ms713_1517878904Abc713A;
 extern T0*ms114_1533928773Abc114A;
@@ -21165,7 +21161,6 @@ extern T0*ms626_226Abc628A;
 extern T0*ms283_15195Abc283A;
 extern T0*ms108_5873980Abc108A;
 extern T0*ms101_1471861047Abc101A;
-extern T0*ms633_10937506Abc633A;
 extern T0*ms628_206419907Abc628A;
 extern T0*ms626_226Abc626B;
 extern T0*ms624_7454Abc624A;
@@ -21922,6 +21917,7 @@ extern T0*ms114_77412Abc628A;
 extern T0*ms101_156243902Abc101A;
 extern T0*ms645_81368369Abc645A;
 extern T0*ms541_456083848Abc541A;
+extern T0*ms633_1665734122Abc633A;
 extern T0*ms607_257Abc607A;
 extern T0*ms114_1460025642Abc114A;
 extern T0*ms34_436911Abc34A;
@@ -22461,7 +22457,6 @@ extern T0*ms101_2018315248Abc101A;
 extern T0*ms33_64Abc33A;
 extern T0*ms714_1891487260Abc714A;
 extern T0*ms114_826425832Abc114A;
-extern T0*ms114_37656465Abc114A;
 extern T0*ms470_789350917Abc470A;
 extern T0*ms371_1360462097Abc371A;
 extern T0*ms335_1306325004Abc335A;
@@ -22605,10 +22600,10 @@ extern T0*ms751_1139569132Abc751A;
 extern T0*ms108_572614135Abc108B;
 extern T0*ms108_572614135Abc108A;
 extern T0*ms276_17696Abc114A;
+extern T0*ms33_14150Abc311A;
 extern T0*ms101_370754643Abc101A;
 extern T0*ms477_380590Abc477A;
 extern T0*ms714_8475Abc714A;
-extern T0*ms33_14150Abc310A;
 extern T0*ms114_1724182721Abc114B;
 extern T0*ms101_1223700793Abc101A;
 extern T0*ms114_1724182721Abc114A;
@@ -22669,8 +22664,7 @@ extern T0*ms830_1523807481Abc830A;
 extern T0*ms342_1149307517Abc342A;
 extern T0*ms412_581709925Abc412A;
 extern T0*ms102_1038536453Abc102A;
-T0*se_ms(int c,char*e);
-T0*se_string(char*e);
+T0*se_string(int c,char*e);
 void se_msi1(void);
 void se_msi2(void);
 void se_msi3(void);
@@ -22795,7 +22789,7 @@ int can_assign_to668_from350(T0* expression);
 int can_assign_to755_from337(T0* expression);
 int can_assign_to413_from337(T0* expression);
 int can_assign_to38_from39(T0* expression);
-int can_assign_to298_from38(T0* expression);
+int can_assign_to299_from38(T0* expression);
 int can_assign_to350_from347(T0* expression);
 int can_assign_to659_from347(T0* expression);
 int can_assign_to349_from347(T0* expression);
