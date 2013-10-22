@@ -1,6 +1,0 @@
-../common/loadpath.se
-../cairo/library/loadpath.se
-../glib/library/loadpath.se
-../gobject/library/loadpath.se
-../pango/library/loadpath.se
-./library/loadpath.se
