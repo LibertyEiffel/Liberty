@@ -1,10 +1,10 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class INTEGER_RANGE_ITERATOR
+class INTEGER_RANGE_ITERATOR[E_]
 
 inherit
-   ITERATOR[INTEGER]
+   ITERATOR[E_]
 
 create {INTEGER_RANGE}
    make
@@ -12,36 +12,51 @@ create {INTEGER_RANGE}
 feature {ANY}
    start is
       do
-         item := lower
+         item_ := lower
       end
 
    is_off: BOOLEAN is
       do
-         Result := item > upper
+         Result := item_ > upper
       end
 
-   item: INTEGER
+   item: E_ is
+      do
+         Result := itemize.item([item_])
+      end
 
    next is
       do
-         item := item + 1
+         item_ := item_ + 1
       end
 
 feature {}
    lower: INTEGER
    upper: INTEGER
+   item_: INTEGER
 
-   make (low, up: INTEGER) is
+   make (low, up: INTEGER; a_itemize: like itemize) is
       require
          low <= up
+         a_itemize /= Void
       do
          lower := low
          upper := up
+         itemize := a_itemize
+      ensure
+         lower = low
+         upper = up
+         itemize = a_itemize
       end
+
+   itemize: FUNCTION[TUPLE[INTEGER], E_]
 
 feature {ANY} -- Read-only, hence always valid
    iterable_generation: INTEGER is 0
    generation: INTEGER is 0
+
+invariant
+   itemize /= Void
 
 end -- class INTEGER_RANGE_ITERATOR
 --
