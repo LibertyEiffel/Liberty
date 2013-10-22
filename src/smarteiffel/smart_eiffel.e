@@ -1939,7 +1939,7 @@ feature {}
 
    collect_from_root (root_type: TYPE; root_feature: FEATURE_STAMP) is
       local
-         string_type, tmp: TYPE; i, magic: INTEGER
+         tmp: TYPE; i, magic: INTEGER
       do
          status.set_collecting
          assignment_handler.reset
@@ -1963,8 +1963,7 @@ feature {}
          -- Collect all the live features:
          if ace.no_check then
             -- STRINGs are needed for runtime support:
-            string_type := type_string
-            manifest_string_pool.collect_string(string_type)
+            manifest_string_pool.collect_string(type_string)
          end
          from
             magic := -1 -- Iterate at least once

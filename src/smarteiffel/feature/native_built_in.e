@@ -45,7 +45,13 @@ feature {EXTERNAL_FUNCTION}
 
 feature {EXTERNAL_ROUTINE}
    collect (type: TYPE; external_routine: EXTERNAL_ROUTINE) is
+      local
+         name: STRING
       do
+         name := external_routine.first_name.to_string
+         if as_se_argv = name then
+            manifest_string_pool.collect_string(smart_eiffel.type_string)
+         end
       end
 
 feature {EXTERNAL_TYPE}

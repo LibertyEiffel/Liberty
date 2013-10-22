@@ -3059,9 +3059,8 @@ feature {}
    c_define2_manifest_string_pool is
       local
          i, j, fn_count, mdc, id: INTEGER; ms: MANIFEST_STRING; no_check: BOOLEAN; lt: LIVE_TYPE
-         internal_c_local: INTERNAL_C_LOCAL; string_at_run_time: BOOLEAN; se_msi_signature, se_msi_call: STRING
+         internal_c_local: INTERNAL_C_LOCAL; se_msi_signature, se_msi_call: STRING
       do
-         string_at_run_time := smart_eiffel.is_at_run_time(as_string)
          split_c_file_padding_here
          no_check := ace.no_check
          mdc := manifest_string_pool.collected_once_count
@@ -3081,13 +3080,13 @@ feature {}
             end
          end
          --
-         if string_at_run_time then
-            if manifest_string_pool.first_manifest_string_collected_flag then
+         if smart_eiffel.is_at_run_time(as_string) and then manifest_string_pool.is_string_collected then
+
                lt := manifest_string_pool.se_ms.type_of_current.live_type
                check
                   lt.id = 7
                end
-            end
+
             prepare_c_function
             pending_c_function_signature.copy(once "T0*se_string(")
             if no_check then

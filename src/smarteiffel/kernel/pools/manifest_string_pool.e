@@ -122,7 +122,7 @@ feature {}
          buffer.count > old buffer.count
       end
 
-feature {EXTERNAL_FUNCTION, SMART_EIFFEL}
+feature {EXTERNAL_FUNCTION, SMART_EIFFEL, NATIVE_BUILT_IN}
    collect_string (string_type: TYPE) is
       require
          string_type.is_string
@@ -148,7 +148,13 @@ feature {EXTERNAL_FUNCTION, SMART_EIFFEL}
             string_from_external_sized_copy_stamp := string_type.feature_stamp_of(from_external_sized_copy_name)
          end
          dummy := smart_eiffel.collect(string_type, string_from_external_sized_copy_stamp, True)
+         is_string_collected := True
+      ensure
+         is_string_collected
       end
+
+feature {ANY}
+   is_string_collected: BOOLEAN
 
 feature {SMART_EIFFEL}
    reset is
@@ -216,7 +222,7 @@ feature {ANY}
       end
 
    se_ms: RUN_FEATURE is
-         -- The one of `unicode_string_manifest_initialize_stamp'.
+         -- The one of `string_from_external_sized_copy_stamp'.
       require
          first_manifest_string_collected_flag
       do
