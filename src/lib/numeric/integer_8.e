@@ -103,11 +103,22 @@ feature {ANY} -- Conversions:
          end
       end
 
-   infix "|..|" (other: INTEGER): INTEGER_RANGE is
+   infix "|..|" (other: INTEGER_8): INTEGER_RANGE[INTEGER_8] is
       require
          Current <= other
       do
-         create Result.make(to_integer_32, other)
+         create Result.make(to_integer_32, other.to_integer_32, integer_range_itemize, integer_range_indexize)
+      end
+
+feature {}
+   integer_range_itemize: FUNCTION[TUPLE[INTEGER], INTEGER_8] is
+      once
+         Result := agent (i: INTEGER): INTEGER_8 is do Result := i.to_integer_8 end (?)
+      end
+
+   integer_range_indexize: FUNCTION[TUPLE[INTEGER_8], INTEGER] is
+      once
+         Result := agent (i: INTEGER_8): INTEGER is do Result := i.to_integer_32 end (?)
       end
 
 feature {ANY}

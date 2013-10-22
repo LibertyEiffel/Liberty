@@ -93,7 +93,7 @@ feature {ANY} -- Testing:
          definition: Result = item(i)
       end
 
-    infix "^" (a_range: INTEGER_RANGE): ABSTRACT_STRING is
+    infix "^" (a_range: INTEGER_RANGE[INTEGER]): ABSTRACT_STRING is
         -- Substring of items in `a_range' .
     require valid_range: valid_index(a_range.lower) and valid_index(a_range.upper)
     do

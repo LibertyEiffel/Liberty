@@ -1,10 +1,10 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class INTEGER_RANGE
+class INTEGER_RANGE[E_->COMPARABLE]
 
 inherit
-   TRAVERSABLE[INTEGER]
+   TRAVERSABLE[E_]
       redefine
          out_in_tagged_out_memory
       end
@@ -18,9 +18,11 @@ feature {ANY}
 
    out_in_tagged_out_memory is
       do
-         lower.append_in(tagged_out_memory)
-         tagged_out_memory.append(once "|..|")
-         upper.append_in(tagged_out_memory)
+         tagged_out_memory.extend('[')
+         first.out_in_tagged_out_memory
+         tagged_out_memory.append(once "..")
+         last.out_in_tagged_out_memory
+         tagged_out_memory.extend(']')
       end
 
    count: INTEGER is
@@ -28,24 +30,24 @@ feature {ANY}
          Result := upper - lower + 1
       end
 
-   first: INTEGER is
+   first: E_ is
       do
-         Result := lower
+         Result := item(lower)
       end
 
-   last: INTEGER is
+   last: E_ is
       do
-         Result := upper
+         Result := item(upper)
       end
 
-   new_iterator: ITERATOR[INTEGER] is
+   new_iterator: ITERATOR[E_] is
       do
-         create {INTEGER_RANGE_ITERATOR} Result.make(lower, upper)
+         create {INTEGER_RANGE_ITERATOR[E_]} Result.make(lower, upper, itemize)
       end
 
-   item (i: INTEGER): INTEGER is
+   item (i: INTEGER): E_ is
       do
-         Result := i
+         Result := itemize.item([i])
       end
 
    is_empty: BOOLEAN is False
@@ -55,23 +57,40 @@ feature {ANY}
          Result := i.in_range(lower, upper)
       end
 
-   index_of, fast_index_of, reverse_index_of, fast_reverse_index_of (i, start: INTEGER): INTEGER is
+   index_of, fast_index_of, reverse_index_of, fast_reverse_index_of (i: E_; start: INTEGER): INTEGER is
       do
-         Result := i
+         Result := indexize.item([i])
       end
 
-   first_index_of, fast_first_index_of, last_index_of, fast_last_index_of (i: INTEGER): INTEGER is
+   first_index_of, fast_first_index_of, last_index_of, fast_last_index_of (i: E_): INTEGER is
       do
-         Result := i
+         Result := indexize.item([i])
       end
 
-   make (low, up: INTEGER) is
+   make (low, up: INTEGER; a_itemize: like itemize; a_indexize: like indexize) is
       require
          low <= up
+         a_itemize /= Void
+         a_indexize /= Void
       do
          lower := low
          upper := up
+         itemize := a_itemize
+         indexize := a_indexize
+      ensure
+         lower = low
+         upper = up
+         itemize = a_itemize
+         indexize = a_indexize
       end
+
+feature {}
+   itemize: FUNCTION[TUPLE[INTEGER], E_]
+   indexize: FUNCTION[TUPLE[E_], INTEGER]
+
+invariant
+   itemize /= Void
+   indexize /= Void
 
 end -- class INTEGER_RANGE
 --
