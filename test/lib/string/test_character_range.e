@@ -1,43 +1,52 @@
 class TEST_CHARACTER_RANGE
 
 insert
+   ARGUMENTS
    EIFFELTEST_TOOLS
 
 create {}
    make
 
 feature {}
+   power: INTEGER
    counter: INTEGER
 
    make is
       do
-         generate(8, new_range, "")
-         assert(counter = 26 ^ 8)
-      end
-
-   generate (depth: INTEGER; range: like new_range; buffer: STRING) is
-      do
-         if depth = 0 then
+         if argument_count > 0 and then argument(1).is_integer then
+            power := argument(1).to_integer
             debug
-               std_output.put_line(buffer)
+               io.put_line("power is #(1)" # &power)
             end
          else
+            power := 4
+         end
+         generate(power, range.new_iterator, "")
+         assert(counter = range.count ^ power)
+      end
+
+   generate (depth: INTEGER; it: ITERATOR[CHARACTER]; buffer: STRING) is
+      do
+         assert(buffer.count = power - depth)
+         if depth = 0 then
+            counter := counter + 1
+         else
             from
-               range.start
+               it.start
             until
-               range.is_off
+               it.is_off
             loop
-               buffer.extend(range.item)
-               generate(depth - 1, new_range, buffer)
+               buffer.extend(it.item)
+               generate(depth - 1, range.new_iterator, buffer)
                buffer.remove_last
-               range.next
+               it.next
             end
          end
       end
 
-   new_range: ITERATOR[CHARACTER] is
-      do
-         Result := ('a' |..| 'z').new_iterator
+   range: ITERABLE[CHARACTER] is
+      once
+         Result := 'a' |..| 'z'
       end
 
 end -- class TEST_CHARACTER_RANGE
