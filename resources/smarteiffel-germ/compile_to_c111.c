@@ -3391,7 +3391,7 @@ return R;
 
 /*MICROSOFT_PATH_NAME*/T0* r795drive_specification(T795* C){
 T0* R=(void*)0;
-R=se_ms(2,s795_498A);
+R=se_string(2,s795_498A);
 /*RF3:clear_count*/r7clear_count(((T7*)R));
 /*:RF3*/if(((/*RF2:drive*/(C)->_drive/*Tppcp*//*:RF2*/))!=(((T3)'\000'))){
 /*RF3:extend*/r7extend(((T7*)R),(/*RF2:drive*/(C)->_drive/*Tppcp*//*:RF2*/));

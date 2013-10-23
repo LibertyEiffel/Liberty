@@ -364,16 +364,16 @@ int can_assign_to38_from39(T0* expression){
 if (expression == NULL) return 1;
 switch (expression->id) {
 case 7/*STRING*/: return 1;
-case 298/*FIXED_STRING*/: return 1;
+case 299/*FIXED_STRING*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to298_from38(T0* expression){
+int can_assign_to299_from38(T0* expression){
 /* FIXED_STRING ?:= NATIVELY_STORED_STRING */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 298/*FIXED_STRING*/: return 1;
+case 299/*FIXED_STRING*/: return 1;
 }
 return 0;
 }/*--*/

@@ -552,10 +552,10 @@ T0* R=(void*)0;
 
 /*ASSERTION_LIST*/void r433not_yet_implemented(T433* C){
 /*RF3:breakpoint*/r433breakpoint(C);
-/*:RF3*//*RF3:put_string*/r80put_string(((T80*)oBC17std_error),se_ms(223,s17_1216703285A));
+/*:RF3*//*RF3:put_string*/r80put_string(((T80*)oBC17std_error),se_string(223,s17_1216703285A));
 /*:RF3*//*RF7:io_putc*/io_putc(((T3)'\040'),/*NVND*/(stderr));
 /*:RF7*//*RF3:put_string*/r80put_string(((T80*)oBC17std_error),/*RF8:generating_type*/(T0*)(t[(C)->id])/*:RF8*/);
-/*:RF3*//*RF3:put_string*/r80put_string(((T80*)oBC17std_error),se_ms(3,s17_1210A));
+/*:RF3*//*RF3:put_string*/r80put_string(((T80*)oBC17std_error),se_string(3,s17_1210A));
 /*:RF3*//*RF3:crash*/r433crash(C);
 /*:RF3*/}/*--*/
 
@@ -801,7 +801,7 @@ if(((/*RF2:comment1*/(C)->_comment1/*T4p*//*:RF2*/))!=((void*)((void*)0))){
 if(((/*RF2:tag*/(C)->_tag/*T4p*//*:RF2*/))!=((void*)((void*)0))){
 /*RF3:set_indent_level*/r118set_indent_level(a1);
 /*:RF3*//*RF3:put_string*/r118put_string((/*RF2:to_string*/((T103*)((/*RF2:hashed_name*/((T460*)((/*RF2:tag*/(C)->_tag/*T4p*//*:RF2*/)))->_hashed_name/*ip*//*:RF2*/)))->_to_string/*ip*//*:RF2*/));
-/*:RF3*//*RF3:put_string*/r118put_string(se_ms(2,s123_322A));
+/*:RF3*//*RF3:put_string*/r118put_string(se_string(2,s123_322A));
 /*:RF3*/}
 if(((/*RF2:comment2*/(C)->_comment2/*T4p*//*:RF2*/))!=((void*)((void*)0))){
 /*RF3:pretty*/r427pretty((T427*)((/*RF2:comment2*/(C)->_comment2/*T4p*//*:RF2*/)),a1);

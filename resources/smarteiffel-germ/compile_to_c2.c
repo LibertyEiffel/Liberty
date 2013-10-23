@@ -704,15 +704,15 @@ return R;
 
 /*REAL_64*/void r5append_in_format(T5 C,T0* a1,T2 a2){
 T2 _i=0;
-/*RF7:sprintf*/sprintf_real_64(oBC307sprintf_buffer,((T3)'f'),a2,C);
+/*RF7:sprintf*/sprintf_real_64(oBC308sprintf_buffer,((T3)'f'),a2,C);
 /*:RF7*/_i=INT32_C(0);
 while(1){
-/*until*/if((/*RF8:item*/(oBC307sprintf_buffer)[_i]/*:RF8*/)==(((T3)'\000'))) break;
-/*RF3:extend*/r7extend(((T7*)a1),/*RF8:item*/(oBC307sprintf_buffer)[_i]/*:RF8*/);
+/*until*/if((/*RF8:item*/(oBC308sprintf_buffer)[_i]/*:RF8*/)==(((T3)'\000'))) break;
+/*RF3:extend*/r7extend(((T7*)a1),/*RF8:item*/(oBC308sprintf_buffer)[_i]/*:RF8*/);
 /*:RF3*/_i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 }/*--*/
-T9 oBC307sprintf_buffer=(void*)0;
+T9 oBC308sprintf_buffer=(void*)0;
 
 /*INTEGER_64*/T6 r11in_range(T11 C,T11 a1,T11 a2){
 /*[INTERNAL_C_LOCAL list*/
@@ -738,7 +738,7 @@ return R;
 /*INTEGER_64*/T0* r11to_number(T11 C){
 T0* R=(void*)0;
 int _number_tools=0;
-R=/*RF4:from_integer_64*/r312from_integer_64(C)/*:RF4*/;
+R=/*RF4:from_integer_64*/r313from_integer_64(C)/*:RF4*/;
 return R;
 }/*--*/
 
@@ -1855,7 +1855,7 @@ if((a2)==((void*)((void*)0))){
 }
 else{
 if((_e_type)==((void*)((void*)0))){
-R=((T6)(/*RF4:is_equal*/r298is_equal(((T298*)a1),a2)/*:RF4*/));
+R=((T6)(/*RF4:is_equal*/r299is_equal(((T299*)a1),a2)/*:RF4*/));
 }
 }
 }

@@ -2171,11 +2171,11 @@ tmp4/*or else*/=((T6)((_written_site)==((void*)(ms33_548214405Abc33A))));
 if(/*RF4:or*/r6_ix_or((T6)(tmp4/*or else*/),(T6)((_written_site)==((void*)(ms33_1223768616Abc33A))))/*:RF4*/){
 }
 else{
-/*RF3:fatal_error_for*/r373fatal_error_for(C,se_ms(69,s373_1881300092A),a1,_lt,_rt);
+/*RF3:fatal_error_for*/r373fatal_error_for(C,se_string(69,s373_1881300092A),a1,_lt,_rt);
 /*:RF3*/}
 }
 if((/*RF4:can_be_assigned_to*/r279can_be_assigned_to(((T279*)_rt),_lt)/*:RF4*/)==(0)){
-/*RF3:fatal_error_for*/r373fatal_error_for(C,se_ms(16,s373_292944046A),a1,_lt,_rt);
+/*RF3:fatal_error_for*/r373fatal_error_for(C,se_string(16,s373_292944046A),a1,_lt,_rt);
 /*:RF3*/}
 else{
 if(/*RF4:is_user_expanded*/r279is_user_expanded(((T279*)_rt))/*:RF4*/){

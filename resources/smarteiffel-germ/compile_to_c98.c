@@ -1048,7 +1048,7 @@ int fBC826tag_key=0;
 
 /*LIVE_TYPE_NATIVE_ARRAY_COLLECTOR*/T0* r826tag_key(void){
 if(fBC826tag_key==0){fBC826tag_key=1;{
-oBC826tag_key=/*RF4:intern*/r7intern(((T7*)se_ms(26,s826_936093505A)))/*:RF4*/;
+oBC826tag_key=/*RF4:intern*/r7intern(((T7*)se_string(26,s826_936093505A)))/*:RF4*/;
 }}
 return oBC826tag_key;
 }/*--*/

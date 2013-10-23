@@ -390,9 +390,9 @@ if(tmp0/*and then*/){
 tmp0/*and then*/=((T6)(a2));
 }
 if(tmp0/*and then*/){
-/*RF3:w_put_string*/r123w_put_string((T123*)(/*RF6:echo*/r439echo()/*:RF6*/),se_ms(31,s439_1628100917A));
+/*RF3:w_put_string*/r123w_put_string((T123*)(/*RF6:echo*/r439echo()/*:RF6*/),se_string(31,s439_1628100917A));
 /*:RF3*//*RF3:w_put_string*/r123w_put_string((T123*)(/*RF6:echo*/r439echo()/*:RF6*/),(/*RF2:to_string*/(((T103*)a1))->_to_string/*ip*//*:RF2*/));
-/*:RF3*//*RF3:w_put_string*/r123w_put_string((T123*)(/*RF6:echo*/r439echo()/*:RF6*/),se_ms(3,s439_1112A));
+/*:RF3*//*RF3:w_put_string*/r123w_put_string((T123*)(/*RF6:echo*/r439echo()/*:RF6*/),se_string(3,s439_1112A));
 /*:RF3*/_buffer=ms110_0Abc439A;
 /*RF3:clear_count*/r7clear_count(((T7*)_buffer));
 /*:RF3*//*RF3:view_in*/r276view_in(((T276*)oBC32ace),_buffer);
@@ -589,7 +589,7 @@ if(((/*RF2:name*/(C)->_name/*7pci5p*//*:RF2*/))!=((void*)((void*)0))){
 /*:RF3*//*RF3:extend*/r7extend(((T7*)a1),((T3)'\n'));
 /*:RF3*/if(((/*RF2:file_path*/(((T276*)oBC32ace))->_file_path/*p2pipippppppppp3ppiiiippcpii*//*:RF2*/))!=((void*)((void*)0))){
 if(((/*RF2:include_list*/(C)->_include_list/*7pci5p*//*:RF2*/))!=((void*)((void*)0))){
-/*RF3:append*/r7append(((T7*)a1),se_ms(11,s439_397816412A));
+/*RF3:append*/r7append(((T7*)a1),se_string(11,s439_397816412A));
 /*:RF3*/_i=INT32_C(0);
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1025*)((/*RF2:include_list*/(C)->_include_list/*7pci5p*//*:RF2*/)))->_upper/*Tiini*//*:RF2*/))/*:RF8*/) break;
@@ -602,7 +602,7 @@ while(1){
 /*RF3:extend*/r7extend(((T7*)a1),((T3)'\n'));
 /*:RF3*/}
 if(((/*RF2:exclude_list*/(C)->_exclude_list/*7pci5p*//*:RF2*/))!=((void*)((void*)0))){
-/*RF3:append*/r7append(((T7*)a1),se_ms(11,s439_397660162A));
+/*RF3:append*/r7append(((T7*)a1),se_string(11,s439_397660162A));
 /*:RF3*/_i=INT32_C(0);
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1025*)((/*RF2:exclude_list*/(C)->_exclude_list/*7pci5p*//*:RF2*/)))->_upper/*Tiini*//*:RF2*/))/*:RF8*/) break;
@@ -614,7 +614,7 @@ while(1){
 }
 /*RF3:extend*/r7extend(((T7*)a1),((T3)'\n'));
 /*:RF3*/}
-/*RF3:append*/r7append(((T7*)a1),se_ms(22,s439_892969089A));
+/*RF3:append*/r7append(((T7*)a1),se_string(22,s439_892969089A));
 /*:RF3*//*RF3:append*/r7append(((T7*)a1),/*RF4:level_name*/r439level_name((/*RF2:default_assertion_level*/(C)->_default_assertion_level/*7pci5p*//*:RF2*/))/*:RF4*/);
 /*:RF3*//*RF3:extend*/r7extend(((T7*)a1),((T3)'\051'));
 /*:RF3*/}

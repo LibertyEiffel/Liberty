@@ -771,10 +771,10 @@ if((ms33_48672249Abc33A)==((void*)((/*RF2:name*/(C)->_name/*T4p*//*:RF2*/)))){
 }/*--*/
 
 /*C_NATIVE_PROCEDURE_MAPPER*/void r634not_yet_implemented(T634* C){
-/*RF7:sedb_breakpoint*//*:RF7*//*RF3:put_string*/r80put_string(((T80*)oBC17std_error),se_ms(223,s17_1216703285A));
+/*RF7:sedb_breakpoint*//*:RF7*//*RF3:put_string*/r80put_string(((T80*)oBC17std_error),se_string(223,s17_1216703285A));
 /*:RF3*//*RF7:io_putc*/io_putc(((T3)'\040'),/*NVND*/(stderr));
 /*:RF7*//*RF3:put_string*/r80put_string(((T80*)oBC17std_error),/*RF8:generating_type*/(T0*)(t[(C)->id])/*:RF8*/);
-/*:RF3*//*RF3:put_string*/r80put_string(((T80*)oBC17std_error),se_ms(3,s17_1210A));
+/*:RF3*//*RF3:put_string*/r80put_string(((T80*)oBC17std_error),se_string(3,s17_1210A));
 /*:RF3*//*RF3:crash*/r634crash(C);
 /*:RF3*/}/*--*/
 
@@ -810,7 +810,7 @@ if(tmp1/*and then*/){
 tmp1/*and then*/=((T6)(((/*RF2:upper*/((T1025*)((/*RF2:signature*/(((T477*)a1))->_signature/*Tppi3ppppp*//*:RF2*/)))->_upper/*Tiini*//*:RF2*/))!=(a5)));
 }
 if(tmp1/*and then*/){
-/*RF3:bad_external*/r477bad_external(((T477*)a1),se_ms(46,s633_1836091144A));
+/*RF3:bad_external*/r477bad_external(((T477*)a1),se_string(46,s633_1836091144A));
 /*:RF3*/}
 if((a3)==(0)){
 _tcbd=((T6)(/*RF4:target_cannot_be_dropped*/r114target_cannot_be_dropped((T114*)(/*RF6:cpp*/r634cpp()/*:RF6*/))/*:RF4*/));
@@ -837,7 +837,7 @@ tmp2/*start_position*/=/*RF4:start_position*/r675start_position(((T675*)a2))/*:R
 }
 /*inspect]*/
 /*RF3:add_position*/r286add_position(tmp2/*start_position*/);
-/*:RF3*//*RF3:bad_external*/r477bad_external(((T477*)a1),se_ms(42,s633_1240185282A));
+/*:RF3*//*RF3:bad_external*/r477bad_external(((T477*)a1),se_string(42,s633_1240185282A));
 /*:RF3*/}
 }
 else{
@@ -859,7 +859,7 @@ tmp2/*start_position*/=/*RF4:start_position*/r675start_position(((T675*)a2))/*:R
 }
 /*inspect]*/
 /*RF3:add_position*/r286add_position(tmp2/*start_position*/);
-/*:RF3*//*RF3:bad_external*/r477bad_external(((T477*)a1),se_ms(42,s633_1689502217A));
+/*:RF3*//*RF3:bad_external*/r477bad_external(((T477*)a1),se_string(42,s633_1689502217A));
 /*:RF3*/}
 }
 }

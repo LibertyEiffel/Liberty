@@ -2594,10 +2594,10 @@ return R;
 /*:RF7*/}/*--*/
 
 /*PROCESS_FACTORY*/void r529not_yet_implemented(T529* C){
-/*RF7:sedb_breakpoint*//*:RF7*//*RF3:put_string*/r80put_string(((T80*)oBC17std_error),se_ms(223,s17_1216703285A));
+/*RF7:sedb_breakpoint*//*:RF7*//*RF3:put_string*/r80put_string(((T80*)oBC17std_error),se_string(223,s17_1216703285A));
 /*:RF3*//*RF7:io_putc*/io_putc(((T3)'\040'),/*NVND*/(stderr));
 /*:RF7*//*RF3:put_string*/r80put_string(((T80*)oBC17std_error),/*RF8:generating_type*/(T0*)(t[529])/*:RF8*/);
-/*:RF3*//*RF3:put_string*/r80put_string(((T80*)oBC17std_error),se_ms(3,s17_1210A));
+/*:RF3*//*RF3:put_string*/r80put_string(((T80*)oBC17std_error),se_string(3,s17_1210A));
 /*:RF3*//*RF3:crash*/r529crash(C);
 /*:RF3*/}/*--*/
 
@@ -2706,7 +2706,7 @@ _p=/*RF8:-*/((int32_t)(_p))-(INT32_C(1))/*:RF8*/;
 
 /*POSIX_PATH_NAME*/void r793make_empty(T793* C){
 if(((/*RF2:to_string*/(C)->_to_string/*Tp*//*:RF2*/))==((void*)((void*)0))){
-/*SFN*/(C->_to_string/*Tp*/)=se_ms(0,s110_0A);
+/*SFN*/(C->_to_string/*Tp*/)=se_string(0,s110_0A);
 }
 else{
 /*RF3:clear_count*/r7clear_count((T7*)((/*RF2:to_string*/(C)->_to_string/*Tp*//*:RF2*/)));
