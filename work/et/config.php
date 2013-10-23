@@ -13,6 +13,7 @@ $request = "$out/request.new";
 $requestJsonObj = "$out/request.serialjson";
 $activeJsonObj = "$out/active.serialjson";
 
+$currentTimes = "$out/current_times";
 $timesHistory = "$out/times_history";
 
 $templates = "$out/html_templates";
