@@ -84,8 +84,14 @@ feature {ANY}
 
    out_in_tagged_out_memory is
       do
-         if protocol = Void or else is_stream then
-            Precursor {URL_VALIDITY}
+         if is_stream then
+            tagged_out_memory.append(once "URL(stream)")
+         elseif protocol = Void then
+            if uri = Void then
+               tagged_out_memory.append(once "URL(?)")
+            else
+               tagged_out_memory.append(uri.uri)
+            end
          else
             tagged_out_memory.append(protocol.name)
             tagged_out_memory.extend(':')
