@@ -745,20 +745,6 @@ feature {WHEN_CLAUSE, CODE, EIFFEL_PARSER, INTROSPECTION_HANDLER, MANIFEST_STRIN
 feature {WHEN_CLAUSE, MANIFEST_STRING_INSPECT_STATEMENT, MANIFEST_STRING_INSPECTOR, WHEN_CLAUSE_VISITOR}
    list: FAST_ARRAY[WHEN_ITEM]
 
-   is_empty_string: BOOLEAN is
-      local
-         i: INTEGER
-      do
-         from
-            i := list.lower
-         until
-            Result or else i > list.upper
-         loop
-            Result := list.item(i).is_empty_string
-            i := i + 1
-         end
-      end
-
 feature {WHEN_CLAUSE, WHEN_CLAUSE_VISITOR}
    values: RING_ARRAY[INTEGER]
          -- To store pairs of range values in the canonical form as described below.

@@ -88,16 +88,6 @@ feature {WHEN_CLAUSE}
          Result := expression.side_effect_free(type)
       end
 
-   is_empty_string: BOOLEAN is
-      local
-         manifest_string: MANIFEST_STRING
-      do
-         if manifest_expression.is_manifest_string then
-            manifest_string ::= manifest_expression
-            Result := manifest_string.to_string.is_empty
-         end
-      end
-
 feature {WHEN_ITEM_1}
    set_manifest_expression (type: TYPE) is
       do

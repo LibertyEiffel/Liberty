@@ -2,12 +2,13 @@
 -- See the Copyright notice at the end of this file.
 --
 class MANIFEST_STRING_INSPECTOR
-   --
-   -- *** I am quite sure that this class is not so useful. All the stuff should be now included into
-   -- the INSPECT_STATEMENT class. Please, consider do the removal job... or replace this comment
-   -- with an explaination telling us why this MANIFEST_STRING_INSPECTOR is still useful.
-   -- *** Dom. May 20th 2008 ***
-   --
+   --|
+   --| *** I am quite sure that this class is not so useful. All the stuff should be now included into
+   --| the INSPECT_STATEMENT class. Please, consider do the removal job... or replace this comment
+   --| with an explaination telling us why this MANIFEST_STRING_INSPECTOR is still useful.
+   --| *** Dom. May 20th 2008 ***
+   --|
+
 insert
    GLOBALS
 
@@ -75,6 +76,7 @@ feature {}
                         error_handler.print_as_fatal_error
                      elseif s.is_empty then
                         empty_position := ms.start_position
+                        empty_index := i
                      end
                      wi1.set_expression_value(headers.count)
                      headers.add_last(s)
@@ -111,14 +113,16 @@ feature {}
       end
 
    empty_position: POSITION
+   empty_index: INTEGER
 
 feature {INSPECT_STATEMENT}
    simplify (type: TYPE; inspect_statement: INSPECT_STATEMENT): INSTRUCTION is
       local
-         exp, count_call, local_expression: EXPRESSION; assign_expression, string_inspect, if_empty_instruction: INSTRUCTION
+         exp, count_call, local_expression: EXPRESSION; assign_expression, string_inspect: INSTRUCTION
          item_call: FUNCTION_CALL_1; i, s, c: INTEGER; inspect_compound, compound: COMPOUND
          when_clause: WHEN_CLAUSE; state_inspect: OTHER_INSPECT_STATEMENT; state_local: INTERNAL_LOCAL2
          if_empty: IFTHENELSE; is_empty_call: FUNCTION_CALL_0
+         empty_string_compound: INSTRUCTION
       do
          exp := inspect_statement.expression.simplify(type)
          if exp.is_stored_in_some_local_variable then
@@ -136,7 +140,6 @@ feature {INSPECT_STATEMENT}
          from
             s := 1
             i := inspect_statement.when_list.lower
-            if_empty_instruction := inspect_statement.else_compound
          until
             i > inspect_statement.when_list.upper
          loop
@@ -151,9 +154,6 @@ feature {INSPECT_STATEMENT}
                s := s + c
             end
             when_clause.set_compound(inspect_statement.when_list.item(i).compound)
-            if inspect_statement.when_list.item(i).is_empty_string then
-               if_empty_instruction := inspect_statement.when_list.item(i).compound
-            end
             i := i + 1
          end
          if not inspect_statement.else_position.is_unknown then
@@ -161,7 +161,12 @@ feature {INSPECT_STATEMENT}
          end
          state_inspect.force_internal_values(type)
          create inspect_compound.make_2(string_inspect, state_inspect)
-         create if_empty.with_else(exp.start_position, is_empty_call, if_empty_instruction, inspect_compound)
+         if has_empty then
+            empty_string_compound := inspect_statement.when_list.item(empty_index).compound
+         else
+            empty_string_compound := inspect_statement.else_compound
+         end
+         create if_empty.with_else(exp.start_position, is_empty_call, empty_string_compound, inspect_compound)
          if assign_expression = Void then
             Result := if_empty.simplify(type)
          else

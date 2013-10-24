@@ -32,10 +32,6 @@ feature {WHEN_CLAUSE}
       deferred
       end
 
-   is_empty_string: BOOLEAN is
-      deferred
-      end
-
 feature {WHEN_CLAUSE}
    validity_check_continued (type, expression_type: TYPE; occurrence_1: WHEN_ITEM): BOOLEAN is
       require

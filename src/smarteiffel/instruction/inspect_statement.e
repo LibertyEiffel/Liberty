@@ -377,7 +377,7 @@ feature {ANY}
             else
                error_handler.add_position(expression.start_position)
                error_handler.append(once "For inspect statement, the expression type can be only INTEGER, %
-                                     %CHARACTER or STRING. (Actually ")
+                                         %CHARACTER, STRING, or FIXED_STRING. (Actually ")
                error_handler.add_expression(expression)
                error_handler.append(once " is of type ")
                error_handler.add_type(expression_type)

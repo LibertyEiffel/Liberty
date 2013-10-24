@@ -4902,7 +4902,7 @@ feature {}
             inspect_expression := last_expression
             if inspect_expression.is_void then
                error_handler.add_position(inspect_expression.start_position)
-               error_handler.append(once "Void is not a valid BOOLEAN expression (just after keyword %"inspect%").")
+               error_handler.append(once "Void is not a valid inspect expression (just after keyword %"inspect%").")
                error_handler.print_as_fatal_error
             end
             from
