@@ -103,6 +103,7 @@ feature {}
          elseif is_help_flag(arg) then
          elseif is_case_insensitive_flag(arg) then
          elseif is_no_warning_flag(arg) then
+         elseif is_flymake_mode_flag(arg) then
          elseif is_style_warning_flag(arg) then
          elseif arg.item(1) = '-' then
             Result := False

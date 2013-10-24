@@ -27,6 +27,9 @@ feature {ANY}
    style_warning: BOOLEAN
          -- To display style warning messages.
 
+   flymake_mode: BOOLEAN
+         -- To display messages in a format recognized by emacs (flymake)
+
    is_empty: BOOLEAN is
          -- True when nothing stored in `explanation' and `positions'.
       do
@@ -41,6 +44,11 @@ feature {ANY}
    set_style_warning is
       do
          style_warning := True
+      end
+
+   set_flymake_mode is
+      do
+         flymake_mode := True
       end
 
    append (s: STRING) is
@@ -426,18 +434,56 @@ feature {}
          create Result.with_capacity(16)
       end
 
-   do_print (heading: STRING) is
+   do_print (tag: STRING) is
+      do
+         if flymake_mode then
+            do_print_flymake(tag)
+         else
+            do_print_standard(tag)
+         end
+         cancel
+      ensure
+         is_empty
+      end
+
+   do_print_flymake (tag: STRING) is
+      local
+         err: INTEGER; pos: POSITION
+      do
+         from
+            err := positions.lower
+         until
+            err > positions.upper
+         loop
+            pos := positions.item(err)
+            echo.w_put_string(pos.path)
+            echo.w_put_character(':')
+            echo.w_put_integer(pos.line)
+            echo.w_put_character(':')
+            echo.w_put_integer(pos.column)
+            if err < positions.upper then
+               echo.put_line(once ": and")
+            end
+            err := err + 1
+         end
+         echo.w_put_string(once ": ")
+         echo.w_put_string(tag)
+         echo.w_put_string(once ": ")
+         echo.w_put_line(explanation)
+      end
+
+   do_print_standard (tag: STRING) is
       local
          i, cpt: INTEGER; cc: CHARACTER
       do
          echo.w_put_string(fz_error_stars)
-         echo.w_put_string(heading)
+         echo.w_put_string(tag)
          echo.w_put_character(':')
          echo.w_put_character(' ')
          --
          from
             i := explanation.lower
-            cpt := 9 + heading.count
+            cpt := 9 + tag.count
          until
             i > explanation.upper
          loop
@@ -468,10 +514,7 @@ feature {}
             echo.w_put_string(once "The source lines involved by the message are the following:%N%N")
          end
          display_lines
-         cancel
          echo.w_put_string(once "------%N")
-      ensure
-         is_empty
       end
 
    get_positions_on_same_line (p: FAST_ARRAY[POSITION]) is

@@ -16,6 +16,8 @@ feature {} -- Most of them are command flag names:
 
    fz_c_mode: STRING is "c_mode"
 
+   fz_flymake_mode: STRING is "flymake_mode"
+
    fz_gc_info: STRING is "gc_info"
 
    fz_help: STRING is "help"

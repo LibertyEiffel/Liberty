@@ -129,6 +129,8 @@ feature {}
                argi := argi + 1
             elseif is_case_insensitive_flag(arg) then
                argi := argi + 1
+            elseif is_flymake_mode_flag(arg) then
+               argi := argi + 1
             elseif is_style_warning_flag(arg) then
                argi := argi + 1
             elseif is_no_warning_flag(arg) then
@@ -186,9 +188,12 @@ feature {}
 
    is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
       do
-         if is_version_flag(arg) or else is_style_warning_flag(arg) or else is_no_warning_flag(arg) or else is_verbose_flag(arg) or else is_relax_flag(arg) then
-            Result := True
-         end
+         Result := is_version_flag(arg)
+            or else is_flymake_mode_flag(arg)
+            or else is_style_warning_flag(arg)
+            or else is_no_warning_flag(arg)
+            or else is_verbose_flag(arg)
+            or else is_relax_flag(arg)
       end
 
    valid_argument_for_ace_mode: STRING is "Only the flags -verbose, -version, -help and -relax are allowed in ACE%Nfile mode.%N"

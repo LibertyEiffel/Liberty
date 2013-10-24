@@ -62,7 +62,8 @@ feature {}
          loop
             arg := argument(i)
             if is_some_flag(arg) then
-               if is_style_warning_flag(arg) then
+               if is_flymake_mode_flag(arg) then
+               elseif is_style_warning_flag(arg) then
                elseif is_no_warning_flag(arg) then
                elseif is_verbose_flag(arg) then
                elseif is_help_flag(arg) then

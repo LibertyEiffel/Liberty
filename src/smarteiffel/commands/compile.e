@@ -352,6 +352,7 @@ feature {}
    is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
       do
          Result := is_version_flag(arg)
+            or else is_flymake_mode_flag(arg)
             or else is_style_warning_flag(arg)
             or else is_no_warning_flag(arg)
             or else is_verbose_flag(arg)

@@ -288,6 +288,14 @@ feature {}
          end
       end
 
+   is_flymake_mode_flag (flag: STRING): BOOLEAN is
+      do
+         if flag_match(fz_flymake_mode, flag) then
+            Result := True
+            error_handler.set_flymake_mode
+         end
+      end
+
    is_no_warning_flag (flag: STRING): BOOLEAN is
       do
          if flag_match(fz_no_warning, flag) then
