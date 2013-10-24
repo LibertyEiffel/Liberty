@@ -8,6 +8,10 @@ class MANIFEST_STRING_INSPECTOR
    --| with an explaination telling us why this MANIFEST_STRING_INSPECTOR is still useful.
    --| *** Dom. May 20th 2008 ***
    --|
+   --| Dominique is right (once again). This object has no own state but borrows its state from its
+   --| INSPECT_STATEMENT owner.
+   --| *** CAD October 24th 2013 ***
+   --|
 
 insert
    GLOBALS
