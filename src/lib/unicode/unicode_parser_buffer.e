@@ -348,7 +348,9 @@ feature {}
 feature {RECYCLING_POOL}
    recycle is
       do
-         disconnect
+         if is_connected then
+            disconnect
+         end
       end
 
 end -- class UNICODE_PARSER_BUFFER
