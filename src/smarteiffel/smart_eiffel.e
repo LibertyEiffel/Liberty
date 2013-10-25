@@ -413,6 +413,16 @@ feature {FEATURE_CALL, WRITABLE_ATTRIBUTE_NAME, MANIFEST_STRING_POOL, CREATION_C
          tmp_fs := fs
 -- *** But we must now have two types... *** Dom march 16th 2006 ***
          af := tmp_fs.anonymous_feature(type)
+         if af = Void then
+            error_handler.add_position(fs.name.start_position)
+            error_handler.append("Cannot collect feature {")
+            error_handler.append(lt.name.to_string)
+            error_handler.append("}.`")
+            error_handler.append(fs.name.to_string)
+            error_handler.append("': anonymous feature not found")
+            error_handler.print_as_internal_error
+         end
+
          tm := af.result_type
          if tm /= Void then
             Result := tm.resolve_in(type)
