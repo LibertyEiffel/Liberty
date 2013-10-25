@@ -352,7 +352,7 @@ feature {ANY}
                end
                -- Next, we try insert links:
                from
-                  i := 1
+                  --i := 1
                until
                   Result /= unrelated_code or else i > parent_lists.insert_count
                loop
@@ -397,7 +397,7 @@ feature {FEATURE_STAMP, CLASS_TEXT}
                   insert_inherit_code := parent.insert_inherit_test(other)
                   if insert_inherit_code = inherits_code or else
                      (can_insert and then insert_inherit_code = inserts_code)
-                   then
+                  then
                      Result := parent.obvious_resolve_static_binding(other, can_insert)
                   end
                end
@@ -406,7 +406,7 @@ feature {FEATURE_STAMP, CLASS_TEXT}
          end
          if can_insert then
             from
-               i := 1
+               --i := 1
             until
                Result or else i > parent_lists.insert_count
             loop

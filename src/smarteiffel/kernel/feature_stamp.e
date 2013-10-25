@@ -144,7 +144,7 @@ feature {ANY}
          visitor.visit_feature_stamp(Current)
       end
 
-feature {FEATURE_ACCUMULATOR, FEATURE_STAMP}
+feature {FEATURE_ACCUMULATOR}
    rename_notify (context_type, parent_type: TYPE; parent_edge: PARENT_EDGE; parent_feature_stamp: FEATURE_STAMP) is
       require
          context_type /= Void
@@ -180,7 +180,7 @@ feature {FEATURE_ACCUMULATOR, FEATURE_STAMP}
                      rename_up_context_class.item(index) = context_class
                      rename_up_parent_class.item(index) = parent_class
                   end
-                  -- We have already been notifiyed:
+                  -- We have already been notified:
                   do_add := False
                else
                   index := rename_up_edge.fast_index_of(parent_edge, index + 1)
@@ -353,15 +353,13 @@ feature {FEATURE_STAMP}
                               Result := Result.resolve_static_binding_for_inherit(child_class, new_class)
                            end
                         end
-                     else
-                        if context_class.inherits_from(declaration_class) then
-                           child_class := rename_down_child_class.item(i)
-                           if child_class = new_class then
-                              -- Exactly what we are looking for:
-                              Result := rename_down_child_feature_stamp.item(i)
-                           elseif new_class.inherits_from(child_class) then
-                              Result := rename_down_child_feature_stamp.item(i).resolve_static_binding_for_inherit(child_class, new_class)
-                           end
+                     elseif context_class.inherits_from(declaration_class) then
+                        child_class := rename_down_child_class.item(i)
+                        if child_class = new_class then
+                           -- Exactly what we are looking for:
+                           Result := rename_down_child_feature_stamp.item(i)
+                        elseif new_class.inherits_from(child_class) then
+                           Result := rename_down_child_feature_stamp.item(i).resolve_static_binding_for_inherit(child_class, new_class)
                         end
                      end
                   end
@@ -420,7 +418,6 @@ feature {FEATURE_STAMP}
             end
             from
                i := rename_down_context_class.lower
-
             until
                i > rename_down_context_class.upper
             loop
