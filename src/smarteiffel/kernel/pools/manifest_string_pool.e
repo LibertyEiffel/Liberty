@@ -60,21 +60,23 @@ feature {MANIFEST_STRING}
             end
             collected_once_variables.put(ms, Result)
          end
-         if unicode_flag and then not first_unicode_manifest_string_collected_flag then
-            first_unicode_manifest_string_collected_flag := True
-            if unicode_string_manifest_initialize_stamp = Void then
-               check
-                  type.is_unicode_string
+         if unicode_flag then
+            if not first_unicode_manifest_string_collected_flag then
+               first_unicode_manifest_string_collected_flag := True
+               if unicode_string_manifest_initialize_stamp = Void then
+                  check
+                     type.is_unicode_string
+                  end
+                  unicode_string_type := type
+                  unicode_string_manifest_initialize_stamp := type.feature_stamp_of(manifest_initialize_name)
                end
-               unicode_string_type := type
-               unicode_string_manifest_initialize_stamp := type.feature_stamp_of(manifest_initialize_name)
+               dummy := smart_eiffel.collect(type, unicode_string_manifest_initialize_stamp, True)
             end
-            dummy := smart_eiffel.collect(type, unicode_string_manifest_initialize_stamp, True)
-         end
-         -- In all cases, we need at least make STRING live:
-         if not first_manifest_string_collected_flag then
-            first_manifest_string_collected_flag := True
-            collect_string(type)
+         else
+            if not first_manifest_string_collected_flag then
+               first_manifest_string_collected_flag := True
+               collect_string(type)
+            end
          end
       ensure
          once_flag implies Result /= Void
