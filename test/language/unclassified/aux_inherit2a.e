@@ -3,6 +3,9 @@
 --
 class AUX_INHERIT2A
 
+insert
+   EIFFELTEST_TOOLS
+
 feature {ANY}
    make is
       do
@@ -17,21 +20,6 @@ feature {ANY}
 
 feature {}
    reset_count: INTEGER
-
-feature {}
-   assert (b: BOOLEAN) is
-      do
-         cpt := cpt + 1
-         if not b then
-            std_output.put_string("TEST_INHERIT2: ERROR Test # ")
-            std_output.put_integer(cpt)
-            std_output.put_string("%N")
-         else
-            -- std_output.put_string("Yes%N");
-         end
-      end
-
-   cpt: INTEGER
 
 end -- class AUX_INHERIT2A
 --
