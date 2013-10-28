@@ -270,14 +270,12 @@ feature {ANY} -- Modification:
          k := s.count
          count := j + k
          dk := k - storage_lower
-         if dk > 0 then
-            ensure_capacity(j + dk)
-         end
          if dk <= 0 then
             storage.move(storage_lower, i - lower + storage_lower, -k)
             storage_lower := -dk
             slice_copy(i - lower, s, s.lower, s.upper)
          else
+            ensure_capacity(count)
             if storage_lower > 0 then
                storage.move(storage_lower, i + storage_lower - lower, -storage_lower)
             end
