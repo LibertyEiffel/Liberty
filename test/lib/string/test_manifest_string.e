@@ -8,26 +8,37 @@ create {}
    make
 
 feature {}
+   check_mode: BOOLEAN
+
    make is
       local
          s: STRING
       do
+         check
+            set_check_mode
+         end
          s := ""
          s.append(once "abc")
          debug
-            assert(s.has_storage_signature)
+            assert(check_mode implies s.has_storage_signature)
          end
          assert(s.has_storage_signature implies s.check_valid_storage_signature)
          io.put_line(s)
          s := once "abc"
          debug
-            assert(s.has_storage_signature)
+            assert(check_mode implies s.has_storage_signature)
          end
          assert(s.has_storage_signature implies s.check_valid_storage_signature)
          s.clear_count
          s.append(once "def")
          assert(s.has_storage_signature implies s.check_valid_storage_signature)
          io.put_line(s)
+      end
+
+   set_check_mode: BOOLEAN is
+      do
+         check_mode := True
+         Result := True
       end
 
 end
