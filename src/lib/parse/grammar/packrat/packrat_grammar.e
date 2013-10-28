@@ -142,22 +142,22 @@ feature {}
             -- ----------------------------------------------------------------------
             -- THE LOW-LEVEL PATTERNS (hardcoded)
 
-            "'<-'",        create {PACKRAT_TERMINAL}.make(agent parse_string(?, "<-"), agent reduce_image_left_arrow);
-            "'/'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "/"),  agent reduce_image_slash);
-            "[!&]",        create {PACKRAT_TERMINAL}.make(agent parse_lookahead,       agent reduce_image_not_and);
-            "[*+?]",       create {PACKRAT_TERMINAL}.make(agent parse_quantifier,      agent reduce_image_star_plus_why);
-            "'('",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "("),  agent reduce_image_open_paren);
-            "')'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, ")"),  agent reduce_image_close_paren);
-            ".",           create {PACKRAT_TERMINAL}.make(agent parse_any,             agent reduce_image_anychar);
-            "[']",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "%'"), agent reduce_image_quote);
-            "'-'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "-"),  agent reduce_image_hyphen);
-            "'.'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "."),  agent reduce_image_dot);
-            "'['",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "["),  agent reduce_image_open_bracket);
-            "']'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "]"),  agent reduce_image_close_bracket);
-            "'{'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "{"),  agent reduce_image_open_curly);
-            "'}'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "}"),  agent reduce_image_close_curly);
-            "[a-zA-Z]",    create {PACKRAT_TERMINAL}.make(agent parse_character,       agent reduce_image_letter);
-            "[ \t\n]",     create {PACKRAT_TERMINAL}.make(agent parse_space,           agent reduce_image_space);
+            "'<-'",        create {PACKRAT_TERMINAL}.make(agent parse_string(?, "<-"), agent reduce_image_left_arrow(?));
+            "'/'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "/"),  agent reduce_image_slash(?));
+            "[!&]",        create {PACKRAT_TERMINAL}.make(agent parse_lookahead,       agent reduce_image_not_and(?));
+            "[*+?]",       create {PACKRAT_TERMINAL}.make(agent parse_quantifier,      agent reduce_image_star_plus_why(?));
+            "'('",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "("),  agent reduce_image_open_paren(?));
+            "')'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, ")"),  agent reduce_image_close_paren(?));
+            ".",           create {PACKRAT_TERMINAL}.make(agent parse_any,             agent reduce_image_anychar(?));
+            "[']",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "%'"), agent reduce_image_quote(?));
+            "'-'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "-"),  agent reduce_image_hyphen(?));
+            "'.'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "."),  agent reduce_image_dot(?));
+            "'['",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "["),  agent reduce_image_open_bracket(?));
+            "']'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "]"),  agent reduce_image_close_bracket(?));
+            "'{'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "{"),  agent reduce_image_open_curly(?));
+            "'}'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "}"),  agent reduce_image_close_curly(?));
+            "[a-zA-Z]",    create {PACKRAT_TERMINAL}.make(agent parse_character,       agent reduce_image_letter(?));
+            "[ \t\n]",     create {PACKRAT_TERMINAL}.make(agent parse_space,           agent reduce_image_space(?));
          >> }
       end
 
