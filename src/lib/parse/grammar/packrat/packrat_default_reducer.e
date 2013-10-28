@@ -79,7 +79,7 @@ feature {PACKRAT_GRAMMAR}
    reduce_pattern is
       do
          last_pattern := seq(first_alternative, one, Void, Void)
-         last_choice.do_all(agent reduce_pattern_map)
+         last_choice.do_all(agent reduce_pattern_map(?))
          reset_choice
       end
 
@@ -147,7 +147,7 @@ feature {PACKRAT_GRAMMAR}
          terminal_name := (once ".").intern
          terminal ::= atom(terminal_name)
          if terminal = Void then
-            create terminal.make(agent parse_any, Void)
+            create terminal.make(agent parse_any(?), Void)
             add_atom(terminal_name, terminal)
          end
          last_primary := ref(terminal_name)
