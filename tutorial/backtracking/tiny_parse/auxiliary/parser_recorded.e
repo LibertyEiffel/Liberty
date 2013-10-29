@@ -1,4 +1,4 @@
-class PARSER_FIXED
+class PARSER_RECORDED
 
 inherit PARSER_TOKEN
 

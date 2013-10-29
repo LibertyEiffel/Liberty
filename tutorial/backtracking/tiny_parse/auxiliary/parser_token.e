@@ -3,7 +3,7 @@ deferred class PARSER_TOKEN
 inherit PARSER_PARSEABLE
 
 feature {ANY}
-   expr: REGULAR_EXPRESSION_ROOT
+   expr: REGULAR_EXPRESSION
 
    make (exp: like expr) is
       do
@@ -12,8 +12,7 @@ feature {ANY}
 
    parse (parser: PARSER) is
       do
-         if parser.match(expr)
-         then
+         if parser.match(expr) then
             parser.continue
          else
             parser.backtrack

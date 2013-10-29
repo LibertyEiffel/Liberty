@@ -6,7 +6,6 @@ create {ANY}
 feature {ANY}
    make is
       do
-         create regexp_builder.make
       end
 
    begin_grammar is
@@ -38,15 +37,25 @@ feature {ANY}
 
    end_rule_sequence is
       do
-         rule.set_sequence(stack)
+         rule.set_sequence(stack.twin)
          stack.clear_count
       end
 
    end_rule_alternative is
       do
-         rule.set_alternative(stack)
-         defined_rule.set_item
+         rule.set_alternative(stack.twin)
+         defined_rule.set_item(rule)
          stack.clear_count
+      end
+
+   begin_terminal (terminal_name: STRING) is
+      do
+         not_yet_implemented
+      end
+
+   end_rule is
+      do
+         not_yet_implemented
       end
 
    add_rulename (name: STRING) is
@@ -92,27 +101,34 @@ feature {ANY}
       do
       end
 
+   create_parser is
+      require
+         is_valid
+         not has_error
+      do
+         not_yet_implemented
+      ensure
+         parser /= Void
+      end
+
+   parser: PARSER
+
    is_valid: BOOLEAN
-
    grammar: PARSER_GRAMMAR
-
    has_error: BOOLEAN
 
 feature {ANY}
    prepare_regular_expression (expr: STRING) is
       do
-         regexp_builder.set_expression(expr)
-         regexp_builder.build
-         if regexp_builder.has_error then
+         regexp_root := regexp_builder.convert_posix_pattern(expr)
+         if regexp_builder.last_error_message /= Void then
             has_error := True
-         else
-            regexp_root := regexp_builder.regular_expression
          end
       end
 
-   regexp_builder: POSIX_REGULAR_EXPRESSION_BUILDER
+   regexp_builder: REGULAR_EXPRESSION_BUILDER
 
-   regexp_root: REGULAR_EXPRESSION_ROOT
+   regexp_root: REGULAR_EXPRESSION
 
 feature {ANY}
    select_rule (name: STRING) is
@@ -120,7 +136,7 @@ feature {ANY}
          rule := grammar.rules.reference_at(name)
          if rule = Void then
             create rule.make(name.twin)
-            grammar.rules.add(rule.rule.name)
+            grammar.rules.add(rule, rule.name)
          end
       end
 

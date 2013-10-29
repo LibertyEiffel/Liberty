@@ -53,4 +53,18 @@ feature {ANY}
          push_and_mark_end(what)
       end
 
+   match (regexp: REGULAR_EXPRESSION): BOOLEAN is
+      do
+         not_yet_implemented
+      end
+
+feature {}
+   stack: FAST_ARRAY[PARSER_MARK]
+   position: INTEGER
+
+   pool_of_mark_end: PARSER_POOL_OF_MARK_END is
+      once
+         create Result.make
+      end
+
 end -- class PARSER

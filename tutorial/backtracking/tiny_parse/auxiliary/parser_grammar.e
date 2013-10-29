@@ -6,6 +6,20 @@ create {ANY}
 feature {ANY}
    make is
       do
+         create rules.make
+      end
+
+feature {PARSER_BUILDER}
+   root: PARSER_RULE
+   rules: HASHED_DICTIONARY[PARSER_RULE, STRING]
+
+   set_root (a_root: like root) is
+      do
+         root := a_root
+      end
+
+   set_blanks (a_blanks: REGULAR_EXPRESSION) is
+      do
       end
 
 feature {PARSER_GRAMMAR}
@@ -83,7 +97,7 @@ feature {PARSER_GRAMMAR}
 
    --  sequence    = <seq-term>.
          builder.begin_rule(once "sequence")
-            builder.add_rulename(once "seq-term"
+            builder.add_rulename(once "seq-term")
             builder.simple_list
          builder.end_rule_sequence
 

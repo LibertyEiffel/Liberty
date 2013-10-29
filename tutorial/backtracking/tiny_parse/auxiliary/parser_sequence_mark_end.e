@@ -6,12 +6,12 @@ inherit
 feature {ANY}
    parseable: PARSER_PARSEABLE
 
-   set_parseable(value: like parseable) is
+   set_parseable (value: like parseable) is
       do
          parseable := value
       end
 
-   next_sequence(parser: PARSER) is
+   next_sequence (parser: PARSER) is
       do
          parser.push_mark_end(parseable)
          parser.pop_sequence
