@@ -1,0 +1,5 @@
+class PARSER_OPTIONAL
+
+inherit PARSER_PARSEABLE
+
+end
