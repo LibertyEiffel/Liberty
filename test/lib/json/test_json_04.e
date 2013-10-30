@@ -7,17 +7,115 @@ create {}
    make
 
 feature {}
+   make is
+      do
+         prepare_storage_pickle
+         test_commit
+         test_update
+      end
+
+   test_commit is
+      local
+         str: STRING
+         strout: STRING_OUTPUT_STREAM
+         repo: JSON_STREAM_REPOSITORY[STRING]
+      do
+         str := ""
+         create strout.connect_to(str)
+         create repo.connect_to(Void, strout)
+
+         repo.put("foobar", "test")
+         repo.put("hello world", "greetings")
+
+         assert(repo.is_commitable)
+         repo.commit
+         assert(str.is_equal(pickle))
+      end
+
+   test_update is
+      local
+         strin: STRING_INPUT_STREAM
+         repo: JSON_STREAM_REPOSITORY[STRING]
+         value: STRING
+      do
+         create strin.from_string(pickle)
+         create repo.connect_to(strin, Void)
+         repo.update
+
+         assert(repo.count = 2)
+
+         assert(repo.has("test"))
+         value := repo.at("test")
+         assert(value.is_equal("foobar"))
+         assert(repo.has("greetings"))
+         value := repo.at("greetings")
+         assert(value.is_equal("hello world"))
+
+         if repo.item(1).is_equal("hello world") then
+            assert(repo.key(2).is_equal("test"))
+            assert(repo.item(2).is_equal("foobar"))
+            assert(repo.key(1).is_equal("greetings"))
+            assert(repo.item(1).is_equal("hello world"))
+         else
+            assert(repo.key(1).is_equal("test"))
+            assert(repo.item(1).is_equal("foobar"))
+            assert(repo.key(2).is_equal("greetings"))
+            assert(repo.item(2).is_equal("hello world"))
+         end
+      end
+
+feature {} -- Expected pickle data (depends on compilation mode)
    storage_pickle: STRING
 
    check_storage_pickle: BOOLEAN is
       do
-         storage_pickle := "%N%
-         %                %"has_storage_signature%":   {%N%
-         %                    %"*%":     %"basic%",%N%
-         %                    %"type%":  %"BOOLEAN%",%N%
-         %                    %"value%": %"False%"%N%
-         %                },"
+         debug
+            storage_pickle := "%N%
+            %                %"storage_signature_count%": {%N%
+            %                    %"*%":     %"basic%",%N%
+            %                    %"type%":  %"INTEGER_32%",%N%
+            %                    %"value%": %"4%"%N%
+            %                },%N%
+            %                %"has_storage_signature%":   {%N%
+            %                    %"*%":     %"basic%",%N%
+            %                    %"type%":  %"BOOLEAN%",%N%
+            %                    %"value%": %"True%"%N%
+            %                },"
+         end
+         if storage_pickle = Void then
+            -- not debug
+            storage_pickle := "%N%
+            %                %"storage_signature_count%": {%N%
+            %                    %"*%":     %"basic%",%N%
+            %                    %"type%":  %"INTEGER_32%",%N%
+            %                    %"value%": %"0%"%N%
+            %                },%N%
+            %                %"has_storage_signature%":   {%N%
+            %                    %"*%":     %"basic%",%N%
+            %                    %"type%":  %"BOOLEAN%",%N%
+            %                    %"value%": %"False%"%N%
+            %                },"
+         end
          Result := True
+      end
+
+   prepare_storage_pickle is
+      require
+         storage_pickle = Void
+      do
+         check
+            check_storage_pickle
+         end
+         if storage_pickle = Void then
+            storage_pickle := "%N%
+            %                %"storage_signature_count%": {%N%
+            %                    %"*%":     %"basic%",%N%
+            %                    %"type%":  %"INTEGER_32%",%N%
+            %                    %"value%": %"0%"%N%
+            %                },"
+         end
+      ensure
+         storage_pickle /= Void
       end
 
    pickle: STRING is
@@ -35,16 +133,11 @@ feature {}
                                 "*":    "layout",
                                 "type": "STRING",
                                 "ref":  1,
-                                "data": {
-                                    "storage_signature_count": {
-                                        "*":     "basic",
-                                        "type":  "INTEGER_32",
-                                        "value": "0"
-                                    },#(1)
+                                "data": {#(1)
                                     "generation":              {
                                         "*":     "basic",
                                         "type":  "INTEGER_32",
-                                        "value": "0"
+                                        "value": "1"
                                     },
                                     "storage_lower":           {
                                         "*":     "basic",
@@ -54,12 +147,12 @@ feature {}
                                     "capacity":                {
                                         "*":     "basic",
                                         "type":  "INTEGER_32",
-                                        "value": "7"
+                                        "value": "6"
                                     },
                                     "storage":                 {
                                         "*":        "array",
                                         "type":     "CHARACTER",
-                                        "capacity": 7,
+                                        "capacity": 6,
                                         "data":     [
                                             {
                                                 "*":     "basic",
@@ -90,11 +183,6 @@ feature {}
                                                 "*":     "basic",
                                                 "type":  "CHARACTER",
                                                 "value": "114"
-                                            },
-                                            {
-                                                "*":     "basic",
-                                                "type":  "CHARACTER",
-                                                "value": "0"
                                             }
                                         ]
                                     },
@@ -109,16 +197,11 @@ feature {}
                                 "*":    "layout",
                                 "type": "STRING",
                                 "ref":  2,
-                                "data": {
-                                    "storage_signature_count": {
-                                        "*":     "basic",
-                                        "type":  "INTEGER_32",
-                                        "value": "0"
-                                    },#(1)
+                                "data": {#(1)
                                     "generation":              {
                                         "*":     "basic",
                                         "type":  "INTEGER_32",
-                                        "value": "0"
+                                        "value": "1"
                                     },
                                     "storage_lower":           {
                                         "*":     "basic",
@@ -128,12 +211,12 @@ feature {}
                                     "capacity":                {
                                         "*":     "basic",
                                         "type":  "INTEGER_32",
-                                        "value": "12"
+                                        "value": "11"
                                     },
                                     "storage":                 {
                                         "*":        "array",
                                         "type":     "CHARACTER",
-                                        "capacity": 12,
+                                        "capacity": 11,
                                         "data":     [
                                             {
                                                 "*":     "basic",
@@ -189,11 +272,6 @@ feature {}
                                                 "*":     "basic",
                                                 "type":  "CHARACTER",
                                                 "value": "100"
-                                            },
-                                            {
-                                                "*":     "basic",
-                                                "type":  "CHARACTER",
-                                                "value": "0"
                                             }
                                         ]
                                     },
@@ -208,66 +286,6 @@ feature {}
                     }
 
                     ]" # storage_pickle).out
-      end
-
-   make is
-      do
-         storage_pickle := once ""
-         check
-            check_storage_pickle
-         end
-         test_commit
-         test_update
-      end
-
-   test_commit is
-      local
-         str: STRING
-         strout: STRING_OUTPUT_STREAM
-         repo: JSON_STREAM_REPOSITORY[STRING]
-      do
-         str := ""
-         create strout.connect_to(str)
-         create repo.connect_to(Void, strout)
-
-         repo.put("foobar", "test")
-         repo.put("hello world", "greetings")
-
-         assert(repo.is_commitable)
-         repo.commit
-         assert(str.is_equal(pickle))
-      end
-
-   test_update is
-      local
-         strin: STRING_INPUT_STREAM
-         repo: JSON_STREAM_REPOSITORY[STRING]
-         value: STRING
-      do
-         create strin.from_string(pickle)
-         create repo.connect_to(strin, Void)
-         repo.update
-
-         assert(repo.count = 2)
-
-         assert(repo.has("test"))
-         value := repo.at("test")
-         assert(value.is_equal("foobar"))
-         assert(repo.has("greetings"))
-         value := repo.at("greetings")
-         assert(value.is_equal("hello world"))
-
-         if repo.item(1).is_equal("hello world") then
-            assert(repo.key(2).is_equal("test"))
-            assert(repo.item(2).is_equal("foobar"))
-            assert(repo.key(1).is_equal("greetings"))
-            assert(repo.item(1).is_equal("hello world"))
-         else
-            assert(repo.key(1).is_equal("test"))
-            assert(repo.item(1).is_equal("foobar"))
-            assert(repo.key(2).is_equal("greetings"))
-            assert(repo.item(2).is_equal("hello world"))
-         end
       end
 
 end

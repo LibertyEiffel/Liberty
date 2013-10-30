@@ -1,7 +1,7 @@
-se c -profile
-se c -no_gc
-se c -all_check -debug
-se c -all_check
-se c -loop_check
-se c -invariant_check
-se c -ensure_check
+-profile
+-no_gc
+-all_check
+-loop_check
+-invariant_check
+-ensure_check
+-require_check .* test_json_04.exe
