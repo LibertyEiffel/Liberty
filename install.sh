@@ -70,7 +70,7 @@ short: $LIBERTY_HOME/resources/short
 os: UNIX
 flavor: Linux
 tag: 3
-jobs: $((2 * $(grep '^processor' /proc/cpuinfo|wc -l)))
+jobs: $((1 + $(grep '^processor' /proc/cpuinfo|wc -l)))
 
 [Environment]
 path_liberty: $LIBERTY_HOME/
