@@ -10,12 +10,13 @@ deferred class ABSTRACT_HASHED_DICTIONARY[V_, K_]
 
 inherit
    SIMPLE_DICTIONARY[V_, K_]
-      redefine key_map_in, item_map_in, copy, manifest_make
+      redefine key_map_in, item_map_in, copy, manifest_make, default_create
       end
 
 insert
    HASH_TABLE_SIZE
       undefine out_in_tagged_out_memory
+      redefine default_create
       end
 
 feature {HASHED_DICTIONARY}
@@ -602,7 +603,7 @@ feature {}
          end
       end
 
-   make is
+   make, default_create is
          -- Create an empty dictionary. Internal storage `capacity' of the dictionary is initialized using the
          -- `Default_size' value. Then, tuning of needed storage `capacity' is performed automatically
          -- according to usage. If you are really sure that your dictionary is always really bigger than

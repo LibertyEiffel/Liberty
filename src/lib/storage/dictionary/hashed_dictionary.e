@@ -12,7 +12,7 @@ inherit
    ABSTRACT_HASHED_DICTIONARY[V_, K_]
 
 create {ANY}
-   make, with_capacity, manifest_creation
+   make, with_capacity, manifest_creation, default_create
 
 create {ABSTRACT_HASHED_DICTIONARY}
    special_common_dictionary

@@ -13,7 +13,7 @@ inherit
    ABSTRACT_AVL_DICTIONARY[V_, K_]
 
 create {ANY}
-   make, manifest_creation
+   make, manifest_creation, default_create
 
 feature {}
    ordered (k1, k2: K_): BOOLEAN is

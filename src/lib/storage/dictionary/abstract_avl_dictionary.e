@@ -13,7 +13,8 @@ inherit
    SIMPLE_DICTIONARY[V_, K_]
       redefine
          occurrences, fast_occurrences, key_at, fast_key_at, copy,
-         new_iterator_on_items
+         new_iterator_on_items,
+         default_create
       end
 
 insert
@@ -22,6 +23,8 @@ insert
          item_memory as key_memory
       export
          {ITERATOR_ON_AVL_DICTIONARY_ITEMS, ITERATOR_ON_AVL_DICTIONARY_KEYS, ITERATOR_ON_AVL_DICTIONARY} root
+      redefine
+         default_create
       end
 
 feature {ANY}
@@ -191,7 +194,7 @@ feature {}
          discard_node(n2)
       end
 
-   make is
+   make, default_create is
       do
          create map.make(0)
          next_generation
