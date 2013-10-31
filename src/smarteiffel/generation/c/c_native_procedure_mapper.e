@@ -190,6 +190,8 @@ feature {NATIVE_BUILT_IN}
             end
          elseif as_mark_item = name then
             cpp.memory.mark_item(rf7)
+         elseif as_se_fault = name then
+            function_body.append(once "/*se_fault*/{int*i=0;*i=0;}%N")
          else
             check -- Unknown external.
                False

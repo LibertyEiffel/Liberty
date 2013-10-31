@@ -353,6 +353,9 @@ feature {} -- Various useful tools:
       do
          print_run_time_stack
          breakpoint
+         debug
+            se_fault
+         end
          die_with_code(exit_failure_code)
       end
 
@@ -502,6 +505,12 @@ feature {}
    frozen deferred_breakpoint_memory: REFERENCE[BOOLEAN] is
       once
          create Result
+      end
+
+feature {}
+   se_fault is
+         -- raise a SEGFAULT signal
+      external "built_in"
       end
 
 end -- class ANY

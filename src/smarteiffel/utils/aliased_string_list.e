@@ -356,6 +356,8 @@ feature {} -- Hard coded feature names:
 
    as_se_atexit: STRING is "se_atexit"
 
+   as_se_fault: STRING is "se_fault"
+
    as_sedb_breakpoint: STRING is "sedb_breakpoint"
 
    as_set_item: STRING is "set_item"
