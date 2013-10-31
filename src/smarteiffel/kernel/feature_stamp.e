@@ -488,6 +488,10 @@ feature {ANY}
          if new_name = name then
             Result := Current
          else
+            --| **** TODO fix TEST_INHERIT2, problem seems to be around here (bad renaming)
+            --|if name.to_string.has_suffix(once "reset") then
+            --|   io.put_line("{#(1)}.#(2) -> {#(3)}.#(4)" # parent_type.name.to_string # name.to_string # new_type.name.to_string # new_name.to_string)
+            --|end
             Result := feature_accumulator.feature_stamp_of(new_name)
          end
       ensure
