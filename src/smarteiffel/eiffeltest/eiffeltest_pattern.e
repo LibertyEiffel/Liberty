@@ -6,10 +6,10 @@ class EIFFELTEST_PATTERN
 insert
    GLOBALS
 
-create {EIFFELTEST, EIFFELTEST_SERVER_RUN_TESTS}
+create {EIFFELTEST}
    make
 
-feature {EIFFELTEST, EIFFELTEST_SERVER_RUN_TESTS}
+feature {EIFFELTEST}
    match (string: ABSTRACT_STRING): BOOLEAN is
       require
          string /= Void
