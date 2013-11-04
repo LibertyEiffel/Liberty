@@ -13,7 +13,6 @@
 ./generation/eiffeldoc
 ./generation/fake_generator
 ./generation/pretty
-./generation/run/loadpath.se
 ./generation/sedb
 ./generation/short
 ./install

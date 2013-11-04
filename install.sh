@@ -102,8 +102,6 @@ mock: mocker
 pretty: pretty
 short: short
 test: eiffeltest
-test_ng: eiffeltest_ng
-test_server: eiffeltest_server
 wrap: wrappers-generator
 x_int: extract_internals
 
@@ -305,8 +303,6 @@ EOF
 6  bdw clean
 7  bdw ace_check
 8  bdw eiffeltest
-9  yes eiffeltest_ng
-10 yes eiffeltest_server
 EOF
     while read i gc tool; do
         progress 30 $i $MAXTOOLCOUNT "$tool"
@@ -468,8 +464,6 @@ mock: mocker
 pretty: pretty
 short: short
 test: eiffeltest
-test_ng: eiffeltest_ng
-test_server: eiffeltest_server
 wrap: wrappers-generator
 x_int: extract_internals
 
