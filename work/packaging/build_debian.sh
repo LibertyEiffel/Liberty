@@ -88,8 +88,11 @@ EOF
     fi
 fi
 
-test -d $HOME/.serc || {
-    test -d $orig_home/.serc && cp -a $orig_home/.serc $HOME/
+test -d $HOME/.config/liberty-eiffel || {
+    if [ -d $orig_home/.config/liberty-eiffel ]; then
+        mkdir -p $HOME/.config/liberty-eiffel
+        cp -a $orig_home/.config/liberty-eiffel/* $HOME/.config/liberty-eiffel
+    fi
 }
 
 test -d $TARGET/bin || {
