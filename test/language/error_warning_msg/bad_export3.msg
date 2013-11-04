@@ -2,7 +2,7 @@
 when the type of Current is BAD_EXPORT3. (See the next error report
 for details.)
 
-Line 15 column 14 in BAD_EXPORT3 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_export3.e):
+Line 15 column 14 in BAD_EXPORT3 (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_export3.e):
          aux.foo
              ^  
 ------
@@ -12,10 +12,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
-Line 5 column 9 in AUX_EXPORT3A (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3a.e):
+Line 5 column 9 in AUX_EXPORT3A (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3a.e):
 feature {ANY}
         ^    
 ------
@@ -26,7 +26,7 @@ hence making NONE unuseful and probably misleading for newcomers.
 So, just remove this NONE class name right now. Please update
 your code now.
 
-Line 7 column 15 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 15 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
               ^        
 ------
@@ -37,7 +37,7 @@ at all, hence making NONE useless and probably misleading for
 newcomers. So, just remove this NONE class name now. Please update
 your code now.
 
-Line 7 column 15 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 15 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
               ^        
 ------
@@ -47,10 +47,10 @@ is narrower than the one from the conforming parent(s) for AUX_EXPORT3B.prefix
 
 The source lines involved by the message are the following:
 
-Line 225 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 225 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Object Printing:
         ^                        
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -60,10 +60,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 137 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 137 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Basic operations:
         ^                         
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -73,10 +73,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 79 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 79 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Deep Comparison:
         ^                        
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -86,10 +86,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 87 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 87 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Duplication:
         ^                    
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -99,10 +99,10 @@ is narrower than the one from the conforming parent(s) for AUX_EXPORT3B.infix
 
 The source lines involved by the message are the following:
 
-Line 49 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 49 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Comparison:
         ^                   
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -112,10 +112,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 49 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 49 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Comparison:
         ^                   
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -125,10 +125,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 137 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 137 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Basic operations:
         ^                         
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -138,10 +138,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 225 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 225 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Object Printing:
         ^                        
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -151,10 +151,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 225 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 225 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Object Printing:
         ^                        
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -164,10 +164,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 417 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 420 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- The Guru section:
         ^                         
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -177,10 +177,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 29 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 29 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Access:
         ^               
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -190,10 +190,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 87 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 87 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Duplication:
         ^                    
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -203,10 +203,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 225 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 225 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Object Printing:
         ^                        
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -216,10 +216,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 417 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 420 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- The Guru section:
         ^                         
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -229,10 +229,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 87 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 87 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Duplication:
         ^                    
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -242,10 +242,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 41 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 41 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Status report:
         ^                      
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -255,10 +255,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 49 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 49 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Comparison:
         ^                   
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -268,10 +268,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 87 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 87 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Duplication:
         ^                    
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -281,10 +281,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 225 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 225 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Object Printing:
         ^                        
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -294,10 +294,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 485 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 488 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {INTERNALS_HANDLER}
         ^                  
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -307,10 +307,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 417 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 420 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- The Guru section:
         ^                         
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -320,10 +320,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 492 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 495 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {TYPED_INTERNALS}
         ^                
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -333,10 +333,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 29 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 29 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Access:
         ^               
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -346,10 +346,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 129 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 129 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Deep Duplication:
         ^                         
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -359,10 +359,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 225 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 225 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Object Printing:
         ^                        
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -372,10 +372,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 87 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 87 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Duplication:
         ^                    
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -385,10 +385,10 @@ This can lead to catcalls! The final export list is {}.
 
 The source lines involved by the message are the following:
 
-Line 225 column 9 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
+Line 225 column 9 in ANY (/home/persocad/Workspace/Dev/Liberty/src/lib/kernel/any.e):
 feature {ANY} -- Object Printing:
         ^                        
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
 ------
@@ -396,10 +396,10 @@ Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/langu
 
 The source lines involved by the message are the following:
 
-Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
+Line 7 column 14 in AUX_EXPORT3B (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         
-Line 6 column 4 in AUX_EXPORT3A (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3a.e):
+Line 6 column 4 in AUX_EXPORT3A (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3a.e):
    foo is do end
    ^            
 ------
