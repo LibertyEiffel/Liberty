@@ -475,7 +475,7 @@ feature {}
 
    output_path: STRING
 
-feature {COMPILE_TO_C, RUN, COMMAND_LINE_TOOLS}
+feature {COMPILE_TO_C, COMMAND_LINE_TOOLS}
    redirect_output_on (new_output_path: ABSTRACT_STRING) is
          -- -output_error_warning_on
       require
