@@ -19,13 +19,22 @@ unset CDPATH
 . $LIBERTY_HOME/work/tools.sh
 mkdir -p $TMPDIR
 
+title "Checking BDW GC"
+
 function check_libgc()
 {
 cat > $TMPDIR/check_libgc.c <<EOF
+#include <stdlib.h>
+#include <stdio.h>
 #include "gc/gc.h"
 
 int main() {
-   if ((GC_VERSION_MAJOR < 7 || GC_VERSION_MINOR < 2) && GC_ALPHA_VERSION == GC_NOT_ALPHA) {
+   unsigned version = GC_get_version();
+   unsigned major = (version & 0x00ff0000) >> 16;
+   unsigned minor = (version & 0x0000ff00) >> 8;
+   unsigned alpha = (version & 0x000000ff) != GC_NOT_ALPHA;
+   printf("Version %02d.%02d %s\n", major, minor, alpha ? "alpha" : "");
+   if (major < 7 || minor < 2 || alpha) {
       /* http://article.gmane.org/gmane.lisp.guile.bugs/5007/match=threads+test */
       exit(1);
    }
@@ -43,6 +52,7 @@ fi
 if check_libgc; then
     BDW_GC="-bdw_gc"
 else
+    error_message "BDW too old or missing"
     BDW_GC="-no_gc"
 fi
 export BDW_GC
