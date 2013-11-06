@@ -17,6 +17,34 @@ unset CDPATH
 
 . $LIBERTY_HOME/work/tools.sh
 
+function check_libgc()
+{
+cat > $TMPDIR/check_libgc.c <<EOF
+#include "gc/gc.h"
+
+int main() {
+   if ((GC_TMP_VERSION_MAJOR < 7 || GC_TMP_VERSION_MINOR < 2) && GC_TMP_ALPHA_VERSION == GC_NOT_ALPHA) {
+      /* http://article.gmane.org/gmane.lisp.guile.bugs/5007/match=threads+test */
+      exit(1);
+   }
+   exit(0);
+}
+EOF
+gcc -lgc $TMPDIR/check_libgc.c -o $TMPDIR/check_libgc
+if $TMPDIR/check_libgc; then
+    return 0
+else
+    return 1
+fi
+}
+
+if check_libgc; then
+    BDW_GC="-bdw_gc"
+else
+    BDW_GC="-no_gc"
+fi
+export BDW_GC
+
 function check_prerequisites()
 {
     title "Checking required programs."
@@ -295,7 +323,7 @@ EOF
         cd ${tool}.d
         case $gc in
             no) GC="-no_gc";;
-            bdw) GC="-bdw_gc";;
+            bdw) GC="$BDW_GC";;
             *) GC="";;
         esac
         run ../compile -verbose -boost $GC -no_split $tool -o $tool || exit 1
@@ -314,7 +342,7 @@ EOF
         cd ${tool}.d
         case $gc in
             no) GC="-no_gc";;
-            bdw) GC="-bdw_gc";;
+            bdw) GC="$BDW_GC";;
             *) GC="";;
         esac
         run ../compile -verbose -boost $GC $tool -o $tool || exit 1
@@ -337,7 +365,7 @@ EOF
         else
             case $gc in
                 no) GC="-no_gc";;
-                bdw) GC="-bdw_gc";;
+                bdw) GC="$BDW_GC";;
                 *) GC="";;
             esac
             run ../se c -verbose -boost $GC $tool -o $tool || exit 1
