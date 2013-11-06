@@ -25,7 +25,7 @@ cat > $TMPDIR/check_libgc.c <<EOF
 #include "gc/gc.h"
 
 int main() {
-   if ((GC_TMP_VERSION_MAJOR < 7 || GC_TMP_VERSION_MINOR < 2) && GC_TMP_ALPHA_VERSION == GC_NOT_ALPHA) {
+   if ((GC_VERSION_MAJOR < 7 || GC_VERSION_MINOR < 2) && GC_ALPHA_VERSION == GC_NOT_ALPHA) {
       /* http://article.gmane.org/gmane.lisp.guile.bugs/5007/match=threads+test */
       exit(1);
    }
