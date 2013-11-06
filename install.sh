@@ -9,6 +9,7 @@ export CC=${CC:-$CC_TYPE}
 export CXX=${CXX:-g++}
 export LIBERTY_HOME=$(pwd)
 export TARGET=${TARGET:-$LIBERTY_HOME/target}
+export TMPDIR=${TMPDIR:-$TARGET/tmp}
 export PATH=$TARGET/bin:$PATH
 export plain=${plain:-FALSE}
 export LOG=$TARGET/log/install$(date +'-%Y%m%d-%H%M%S').log
@@ -16,6 +17,7 @@ export PREREQUISITES="$CC $CXX gccxml"
 unset CDPATH
 
 . $LIBERTY_HOME/work/tools.sh
+mkdir -p $TMPDIR
 
 function check_libgc()
 {
