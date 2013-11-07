@@ -17,6 +17,7 @@ insert
       redefine
          next, end_of_input
       end
+   URL_VALIDITY
 
 create {ANY}
    connect_to, make
@@ -50,7 +51,7 @@ feature {ANY}
             check
                a_url.read
             end
-            connect_buffer(a_url)
+            connect_buffer(a_url, Void, Void)
          end
       ensure
          a_url.is_connected implies (a_url = buffer.url and then is_connected)
@@ -89,7 +90,7 @@ feature {}
       require
          is_connected
       local
-         name, entity, entity_value, data, data_blanks, pi_target, pi_data: UNICODE_STRING
+         name, entity, entity_value, entity_url, data, data_blanks, pi_target, pi_data: UNICODE_STRING
          again, done, open, open_close: BOOLEAN; l, c: INTEGER
       do
          from
@@ -148,16 +149,20 @@ feature {}
                               entity_value := validator.entity(entity, l, c)
                               if entity_value = Void then
                                  entity_value := callbacks.entity(entity, l, c)
+                                 entity_url := Void
+                              else
+                                 entity_url := validator.entity_url(entity, l, c)
                               end
                            else
                               entity_value := callbacks.entity(entity, l, c)
+                              entity_url := Void
                            end
                            if entity_value = Void then
                               callbacks.parse_error(l, c, once "Unknown entity")
                               Result := Parse_error
                            else
                               next
-                              connect_buffer_entity_value(entity_value)
+                              connect_buffer_entity_value(entity, entity_value, entity_url)
                            end
                         end
                      else
@@ -564,16 +569,17 @@ feature {}
    buffer: UNICODE_PARSER_BUFFER is
       do
          if not open_buffers.is_empty then
-            Result := open_buffers.top
+            Result := open_buffers.top.buffer
          end
       ensure
-         definition: open_buffers.is_empty or else Result = open_buffers.top
+         definition: open_buffers.is_empty or else Result = open_buffers.top.buffer
       end
 
    make is
          -- Create a not connected parser
       do
          create open_buffers.make
+         create urls.make
       end
 
    dtd_parser: XML_DTD_PARSER is
@@ -586,17 +592,39 @@ feature {}
          Result := callbacks.validator
       end
 
-   open_buffers: STACK[UNICODE_PARSER_BUFFER]
+   open_buffers: STACK[XML_PARSER_BUFFER]
+   urls: STACK[URL]
 
    closed_buffers: RECYCLING_POOL[UNICODE_PARSER_BUFFER] is
       once
          create Result.make
       end
 
-   connect_buffer (a_url: URL) is
+   connect_buffer (a_url, a_face_url: URL; a_entity_name: UNICODE_STRING) is
+      require
+         a_face_url /= Void implies a_entity_name /= Void
       local
          buf: like buffer
       do
+         io.put_string(once "connect_buffer(%"")
+         io.put_string(a_url.out)
+         io.put_string(once "%", ")
+         if a_face_url = Void then
+            io.put_string(once "Void")
+         else
+            io.put_character('"')
+            io.put_string(a_face_url.out)
+            io.put_character('"')
+         end
+         io.put_string(once ", ")
+         if a_entity_name = Void then
+            io.put_line(once "Void)")
+         else
+            io.put_character('"')
+            io.put_string(a_entity_name.as_utf8)
+            io.put_line(once "%")")
+         end
+
          if not closed_buffers.is_empty then
             buf := closed_buffers.item
          end
@@ -609,7 +637,13 @@ feature {}
             check
                a_url = buf.url
             end
-            open_buffers.push(buf)
+            urls.push(a_url)
+            if a_face_url = Void then
+               open_buffers.push(create {XML_PARSER_BUFFER}.set(buf, a_url, Void))
+            else
+               open_buffers.push(create {XML_PARSER_BUFFER}.set(buf, a_face_url, a_entity_name))
+               callbacks.open_entity_url(a_entity_name, a_face_url)
+            end
          end
       ensure
          a_url.is_connected implies (
@@ -618,27 +652,57 @@ feature {}
          )
       end
 
-   connect_buffer_entity_value (entity_value: UNICODE_STRING) is
+   connect_buffer_entity_value (entity_name, entity_value, entity_url: UNICODE_STRING) is
          --| **** TODO: hunt memory leaks
       require
          entity_value /= Void
       local
-         sis: STRING_INPUT_STREAM
+         sis: STRING_INPUT_STREAM; a_url: URL
       do
+         if valid_url(entity_url.as_utf8) then
+            if url_pool.is_empty then
+               create a_url.absolute(entity_url.as_utf8)
+            else
+               a_url := url_pool.item
+               a_url.absolute(entity_url.as_utf8)
+            end
+         else
+            if url_pool.is_empty then
+               create a_url.relative(urls.top, entity_url.as_utf8)
+            else
+               a_url := url_pool.item
+               a_url.relative(urls.top, entity_url.as_utf8)
+            end
+         end
          create sis.from_string(entity_value.as_utf8)
-         connect_buffer(sis.url)
+         connect_buffer(sis.url, a_url, entity_name)
       end
 
    disconnect_buffer is
       require
          not open_buffers.is_empty
       do
+         io.put_line(once "disconnect_buffer")
+
          buffer.disconnect
+         if open_buffers.top.entity /= Void then
+            callbacks.close_entity_url(open_buffers.top.entity, open_buffers.top.url)
+         end
          open_buffers.pop
       ensure
          open_buffers.count = old open_buffers.count - 1
          not (old buffer).is_connected
       end
+
+   url_pool: RECYCLING_POOL[URL] is
+      once
+         create Result.make
+      end
+
+invariant
+   open_buffers /= Void
+   urls /= Void
+   open_buffers.count = urls.count
 
 end -- class XML_PARSER
 --

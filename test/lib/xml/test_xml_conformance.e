@@ -22,7 +22,7 @@ feature {}
          bd.compute_file_path_with(path, once "xmlconf.xml")
          path.make_from_string(bd.last_entry)
          create tester.make(path)
-         label_assert(tester.error_message, not tester.at_error)
+         assert(not tester.at_error)
       end
 
 end

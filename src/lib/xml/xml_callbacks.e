@@ -77,6 +77,17 @@ feature {XML_PARSER}
       deferred
       end
 
+   open_entity_url (a_entity: UNICODE_STRING; a_url: URL) is
+         -- Called by the parser when the entity triggers the reading of another stream (i.e. a SYSTEM or
+         -- PUBLIC entity)
+      deferred
+      end
+
+   close_entity_url (a_entity: UNICODE_STRING; a_url: URL) is
+         -- Called by the parser when the stream triggered by `open_entity_url' is disconnected
+      deferred
+      end
+
    current_node: UNICODE_STRING is
          -- The current node
       deferred

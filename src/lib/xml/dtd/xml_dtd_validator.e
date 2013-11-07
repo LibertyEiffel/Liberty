@@ -1,3 +1,5 @@
+-- See the Copyright notice at the end of this file.
+--
 class XML_DTD_VALIDATOR
    --
    -- Helps the parser to validate an XML file using a DTD
@@ -106,6 +108,12 @@ feature {XML_PARSER}
          Result := entities.reference_at(a_entity)
       end
 
+   entity_url (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING is
+         -- When the parser reads an '''&entity;'''. Returns the entity URL if it is a SYSTEM entity.
+      do
+         Result := entity_urls.reference_at(a_entity)
+      end
+
    is_valid_data (a_data: UNICODE_STRING; line, column: INTEGER): BOOLEAN is
       do
          if point /= Void then
@@ -167,28 +175,6 @@ feature {} -- Nodes management, for validation
       end
 
 feature {} -- Attributes string management
-   strings_pool: RECYCLING_POOL[UNICODE_STRING] is
-      once
-         create Result.make
-      end
-
-   new_string (s: UNICODE_STRING): UNICODE_STRING is
-      do
-         if strings_pool.is_empty then
-            Result := s.twin
-         else
-            Result := strings_pool.item
-            Result.copy(s)
-         end
-      ensure
-         Result.is_equal(s)
-      end
-
-   free_string (a_string: like new_string) is
-      do
-         strings_pool.recycle(a_string)
-      end
-
    clear_attributes is
       local
          key, item: UNICODE_STRING
@@ -548,19 +534,25 @@ feature {XML_DTD_PARSER} -- <!ATTLIST . . .>
 
 feature {XML_DTD_PARSER} -- <!ENTITY . . .>
    entities: HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING]
+   entity_urls: HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING]
 
    has_entity (entity_name: UNICODE_STRING): BOOLEAN is
       do
          Result := entities.has(entity_name)
       end
 
-   add_entity (entity_name, entity_value: UNICODE_STRING) is
+   add_entity (entity_name, entity_value, entity__url: UNICODE_STRING) is
       require
          not has_entity(entity_name)
       do
          entities.add(entity_value, entity_name)
+         if entity__url /= Void then
+            entity_urls.add(entity__url, entity_name)
+         end
       ensure
          has_entity(entity_name)
+         entity(entity_name, 0, 0) = entity_value
+         entity_url(entity_name, 0, 0) = entity__url
       end
 
 feature {XML_DTD_ELEMENT}
@@ -706,6 +698,7 @@ feature {XML_DTD_MEMORY}
             create attributes.make
             create elements.make
             create entities.make
+            create entity_urls.make
             create context.make(0)
          end
       ensure
@@ -718,6 +711,7 @@ feature {RECYCLING_POOL}
          attributes.clear_count
          recycle_elements
          entities.clear_count
+         recycle_entity_urls
          context.clear_count
       end
 
@@ -739,7 +733,51 @@ feature {}
          elements.is_empty
       end
 
+   recycle_entity_urls is
+      local
+         i: INTEGER
+      do
+         from
+            i := entity_urls.lower
+         until
+            i > entity_urls.upper
+         loop
+            free_string(entity_urls.item(i))
+            i := i + 1
+         end
+         entity_urls.clear_count
+      ensure
+         entity_urls.is_empty
+      end
+
 invariant
    not root_name.is_empty
 
 end -- class XML_DTD_VALIDATOR
+--
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- This file is part of the SmartEiffel standard library.
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------

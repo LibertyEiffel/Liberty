@@ -101,11 +101,12 @@ feature {URL}
             instream.disconnect
             r.recycle(instream)
             instream := Void
-         else
-            check outstream /= Void end
+         elseif outstream /= Void then
             outstream.disconnect
             w.recycle(outstream)
             outstream := Void
+         else
+            check False end
          end
       ensure then
          stream = Void

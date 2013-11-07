@@ -1,3 +1,5 @@
+-- See the Copyright notice at the end of this file.
+--
 class XML_DTD_PARSER
    --
    -- Parses a validation instruction in an XML file:
@@ -94,16 +96,6 @@ feature {XML_PARSER}
 feature {}
    urls: FAST_ARRAY[URL]
    buffers: FAST_ARRAY[UNICODE_PARSER_BUFFER]
-
-   url_pool: RECYCLING_POOL[URL] is
-      once
-         create Result.make
-      end
-
-   buffer_pool: RECYCLING_POOL[UNICODE_PARSER_BUFFER] is
-      once
-         create Result.make
-      end
 
    set_buffer (a_buffer: UNICODE_PARSER_BUFFER) is
       do
@@ -744,7 +736,7 @@ feature {}
 
    parse_entity (validator: XML_DTD_VALIDATOR) is
       local
-         peid, id, val, pubid: UNICODE_STRING; sval: STRING
+         peid, id, val, pubid: UNICODE_STRING; sval: STRING; uval: UNICODE_STRING
       do
          skip_blanks
          if skip('%%') then
@@ -804,7 +796,12 @@ feature {}
                inspect current_character
                when 39, 34 then -- '%'', '"'
                   sval := read_string_as_string
-                  validator.add_entity(id, entity_system_file(sval))
+                  uval := new_empty_string
+                  if uval.utf8_decode_from(sval) then
+                     validator.add_entity(id, entity_system_file(sval), uval)
+                  else
+                     set_error(once "Invalid unicode string: " + sval)
+                  end
                else
                   set_error(once "String expected as system")
                end
@@ -818,7 +815,7 @@ feature {}
                   inspect current_character
                   when 39, 34 then -- '%'', '"'
                      sval := read_string_as_string
-                     validator.add_entity(id, entity_public_file(pubid, sval))
+                     validator.add_entity(id, entity_public_file(pubid, sval), entity_public_url(pubid, sval))
                   else
                      set_error(once "String expected as public name")
                   end
@@ -830,7 +827,7 @@ feature {}
                   current_character
                when 39, 34 then -- '%'', '"'
                   val := read_string.twin
-                  validator.add_entity(id, val)
+                  validator.add_entity(id, val, Void)
                else
                   set_error(once "String expected as parameter entity value")
                end
@@ -851,16 +848,29 @@ feature {}
             u.connect
          end
          if u.is_connected then
-            if string_pool.is_empty then
-               create Result.make_empty
-            else
-               Result := string_pool.item
-               Result.clear_count
-            end
+            Result := new_empty_string
             read_stream_in(Result, u)
             url_pool.recycle(u)
          else
             set_error(once "Cannot find entity system file")
+         end
+      end
+
+   entity_public_url (pubid: UNICODE_STRING; a_url: STRING): UNICODE_STRING is
+      local
+         repo: XML_DTD_PUBLIC_REPOSITORY; u, file_url: URL
+      do
+         file_url := relative_url(a_url)
+         u := repo.public_dtd(pubid, file_url)
+         Result := new_empty_string
+         if u = Void then
+            if not Result.utf8_decode_from(a_url) then
+               set_error(once "Invalid URL: " + a_url)
+            end
+         else
+            if not Result.utf8_decode_from(u.out) then
+               set_error(once "Invalid URL: " + u.out)
+            end
          end
       end
 
@@ -877,19 +887,14 @@ feature {}
             err.append(once "%": ")
             err.append(repo.last_error)
             set_error(err)
-            string_pool.recycle(Result)
+            free_string(Result)
             Result := Void
          else
             if not u.is_connected and then u.can_connect then
                u.connect
             end
             if u.is_connected then
-               if string_pool.is_empty then
-                  create Result.make_empty
-               else
-                  Result := string_pool.item
-                  Result.clear_count
-               end
+               Result := new_empty_string
                read_stream_in(Result, u)
                url_pool.recycle(u)
             end
@@ -934,7 +939,7 @@ feature {}
             pe_index := pe_index + 1
             if not pe_entity_strings.last.valid_index(pe_index) then
                -- we finished reading the parameter entity content: remove it
-               string_pool.recycle(pe_entity_names.last)
+               free_string(pe_entity_names.last)
                pe_index := pe_entity_old_indexes.last
                pe_entity_names.remove_last
                pe_entity_strings.remove_last
@@ -954,12 +959,7 @@ feature {}
                end
             else
                from
-                  if string_pool.is_empty then
-                     create pe_entity_name.make_empty
-                  else
-                     pe_entity_name := string_pool.item
-                     pe_entity_name.clear_count
-                  end
+                  pe_entity_name := new_empty_string
                until
                   end_of_input or else current_character = ';'.code
                loop
@@ -971,7 +971,7 @@ feature {}
                else
                   if pe_entity_name.is_empty then
                      set_error(once "Unexpected empty parameter entity name")
-                     string_pool.recycle(pe_entity_name)
+                     free_string(pe_entity_name)
                   else
                      if pe_entities /= Void then
                         string := pe_entities.reference_at(pe_entity_name)
@@ -982,14 +982,14 @@ feature {}
                         pe_entity_name.utf8_encode_in(err)
                         err.extend('"')
                         set_error(err)
-                        string_pool.recycle(pe_entity_name)
+                        free_string(pe_entity_name)
                      elseif string.is_empty then
                         -- OK, nothing to parse, let's continue
                         check
                            current_character = ';'.code
                         end
                         next -- to skip the ';'
-                        string_pool.recycle(pe_entity_name)
+                        free_string(pe_entity_name)
                      else
                         check
                            current_character = ';'.code
@@ -1084,12 +1084,34 @@ feature {}
          breakpoint
       end
 
-   string_pool: RECYCLING_POOL[UNICODE_STRING] is
-      once
-         create Result.make
-      end
-
 invariant
    urls /= Void implies (buffers /= Void and then (urls.count = buffers.count))
 
 end -- class XML_DTD_PARSER
+--
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- This file is part of the SmartEiffel standard library.
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------

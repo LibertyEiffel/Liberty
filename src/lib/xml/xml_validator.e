@@ -69,6 +69,11 @@ feature {XML_PARSER}
       deferred
       end
 
+   entity_url (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING is
+         -- When the parser reads an '''&entity;'''. Returns the entity URL if it is a SYSTEM or PUBLIC entity.
+      deferred
+      end
+
    is_valid_data (a_data: UNICODE_STRING; line, column: INTEGER): BOOLEAN is
          -- Called by the parser when the node contains raw data
       require
