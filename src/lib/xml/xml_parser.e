@@ -689,6 +689,7 @@ feature {}
             callbacks.close_entity_url(open_buffers.top.entity, open_buffers.top.url)
          end
          open_buffers.pop
+         urls.pop
       ensure
          open_buffers.count = old open_buffers.count - 1
          not (old buffer).is_connected

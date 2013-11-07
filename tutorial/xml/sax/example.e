@@ -13,23 +13,31 @@ create {}
    make
 
 feature {}
+   parser: XML_PARSER
+
    make is
       local
-         in: URL; parser: XML_PARSER
+         in: URL
       do
          create in.absolute("file://" + argument(1))
-         -- then connect the parser
+
+         -- connect the parser
          create parser.connect_to(in)
+
          -- create the nodes stack (current_node must be correctly
          -- implemented because the contracts check that)
-
          create nodes.make
-         -- and parse the flow. Everything else is handled by the
-         -- parser that calls back the following features.
 
+         -- parse the flow. Everything else is handled by the
+         -- parser that calls back the following features.
          parser.parse(Current)
-         -- then disconnect from the stream
-         in.disconnect
+
+         -- then disconnect
+         parser.disconnect
+
+         if at_error then
+            die_with_code(1)
+         end
       end
 
 feature {XML_PARSER}
@@ -131,10 +139,26 @@ feature {XML_PARSER}
          io.put_string(once ", ")
          io.put_integer(column)
          io.put_string(once "!%N")
-         io.put_string(message)
-         die_with_code(1)
+         io.put_line(message)
+         sedb_breakpoint
       end
 
    at_error: BOOLEAN
+
+   open_entity_url (a_entity: UNICODE_STRING; a_url: URL) is
+      do
+         io.put_string(once "open entity url &")
+         io.put_string(a_entity.as_utf8)
+         io.put_string(once ": ")
+         io.put_line(a_url.out)
+      end
+
+   close_entity_url (a_entity: UNICODE_STRING; a_url: URL) is
+      do
+         io.put_string(once "close entity url &")
+         io.put_string(a_entity.as_utf8)
+         io.put_string(once ": ")
+         io.put_line(a_url.out)
+      end
 
 end -- class EXAMPLE

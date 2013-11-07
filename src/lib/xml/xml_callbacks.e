@@ -80,11 +80,15 @@ feature {XML_PARSER}
    open_entity_url (a_entity: UNICODE_STRING; a_url: URL) is
          -- Called by the parser when the entity triggers the reading of another stream (i.e. a SYSTEM or
          -- PUBLIC entity)
+      require
+         a_url /= Void
       deferred
       end
 
    close_entity_url (a_entity: UNICODE_STRING; a_url: URL) is
          -- Called by the parser when the stream triggered by `open_entity_url' is disconnected
+      require
+         a_url /= Void
       deferred
       end
 

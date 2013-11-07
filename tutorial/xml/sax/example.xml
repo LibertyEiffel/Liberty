@@ -3,6 +3,7 @@
   <!ELEMENT tree node*>
   <!ELEMENT node (node|leaf)*>
   <!ELEMENT leaf #PCDATA>
+  <!ATTLIST leaf id ID #REQUIRED>
 ]>
 <tree>
   <node>
