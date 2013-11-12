@@ -1,6 +1,6 @@
 Package: liberty-eiffel-tools
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, liberty-eiffel-core-libs (= #VERSION#), gcc, libgc
+Depends: ${shlibs:Depends}, ${misc:Depends}, liberty-eiffel-core-libs (= #VERSION#), gcc, libgc1c2 (>= 7.2)
 Recommends: libgc-dev
 Suggests: liberty-eiffel-tools-src (= #VERSION#), emacs
 Description: The Liberty Eiffel tools
