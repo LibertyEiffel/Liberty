@@ -80,10 +80,10 @@ feature {PARSER}
             "agent", "alias", "all", "and", "as", "assign", "attribute", "check", "class", "convert", "create",
             "creation", "Current", "current", "debug", "deferred", "do", "else", "elseif", "end", "ensure",
             "expanded", "export", "external", "False", "false", "feature", "from", "frozen", "if", "implies",
-            "indexing", "infix", "inherit", "inspect", "invariant", "is", "like", "local", "loop", "obsolete",
-            "old", "once", "or", "precursor", "prefix", "redefine", "rename", "require", "rescue", "Result",
-            "result", "retry", "select", "separate", "then", "True", "true", "undefine", "unique", "until",
-            "variant", "when", "Void", "void", "xor"
+            "indexing", "infix", "inherit", "inspect", "invariant", "is", "like", "local", "loop", "not", "note",
+            "obsolete", "old", "once", "or", "Precursor", "precursor", "prefix", "redefine", "rename", "require",
+            "rescue", "Result", "result", "retry", "select", "separate", "then", "True", "true", "undefine",
+            "unique", "until", "variant", "when", "Void", "void", "xor"
          then
             Result := True
          else
