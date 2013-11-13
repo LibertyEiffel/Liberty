@@ -3,7 +3,7 @@
 --
 class AUX_PRE_ONCE3
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

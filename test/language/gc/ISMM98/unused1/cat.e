@@ -6,7 +6,7 @@ class CAT
 inherit
    ANIMAL
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

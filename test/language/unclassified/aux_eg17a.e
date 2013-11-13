@@ -3,7 +3,7 @@
 --
 expanded class AUX_EG17A
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

@@ -3,7 +3,7 @@
 --
 class AUX_SINGLETON3
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

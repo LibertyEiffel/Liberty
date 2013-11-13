@@ -3,7 +3,7 @@
 --
 class AUX_RENAME7A[G]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

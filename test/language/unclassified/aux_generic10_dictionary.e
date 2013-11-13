@@ -3,7 +3,7 @@
 --
 class AUX_GENERIC10_DICTIONARY[V, K -> INTEGER]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

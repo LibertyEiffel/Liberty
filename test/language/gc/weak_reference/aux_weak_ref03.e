@@ -6,7 +6,7 @@ class AUX_WEAK_REF03
 inherit
    DISPOSABLE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

@@ -3,7 +3,7 @@
 -- http://www.bagley.org/~doug/shootout/
 class STARTUP
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}

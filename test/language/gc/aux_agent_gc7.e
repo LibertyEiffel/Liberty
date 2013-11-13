@@ -3,7 +3,7 @@
 --
 class AUX_AGENT_GC7
 
-creation {ANY}
+create {ANY}
    set_patient
 
 feature {ANY}

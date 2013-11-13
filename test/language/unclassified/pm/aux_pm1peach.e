@@ -6,7 +6,7 @@ class AUX_PM1PEACH
 inherit
    AUX_PM1FRUIT
 
-creation {ANY}
+create {ANY}
    make
 
 end -- class AUX_PM1PEACH

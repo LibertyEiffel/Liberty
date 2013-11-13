@@ -5,7 +5,7 @@ expanded class TCP_CA_STATE_ENUM
 
 insert ENUM
 
-creation default_create
+create default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do

@@ -6,7 +6,7 @@ class AUX_EVOBT5
 inherit
    AUX_EVOBT4
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

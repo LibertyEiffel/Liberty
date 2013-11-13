@@ -6,7 +6,7 @@ class AUX_JLP8_ROW_MATRIX[E -> NUMERIC]
 inherit
    AUX_JLP8_MATRIX[E]
 
-creation {ANY}
+create {ANY}
    make, make_unit
 
 feature {ANY}

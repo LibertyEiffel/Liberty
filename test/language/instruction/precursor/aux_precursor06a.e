@@ -3,7 +3,7 @@
 --
 class AUX_PRECURSOR06A
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

@@ -9,7 +9,7 @@ inherit
       redefine dimension
       end
 
-creation {ANY}
+create {ANY}
    array2d_make, dimension
 
 feature {ANY}

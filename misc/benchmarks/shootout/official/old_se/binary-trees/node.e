@@ -1,6 +1,6 @@
 class NODE
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}

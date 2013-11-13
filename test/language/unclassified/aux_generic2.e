@@ -3,7 +3,7 @@
 --
 class AUX_GENERIC2
 
-creation {ANY}
+create {ANY}
    use
 
 feature {ANY}

@@ -17,7 +17,7 @@ class LIBERTY_INTERPRETER
 insert
    LOGGING
 
-creation {LIBERTYI}
+create {LIBERTYI}
    make
 
 feature {LIBERTYI}

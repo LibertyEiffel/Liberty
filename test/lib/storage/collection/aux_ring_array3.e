@@ -11,7 +11,7 @@ insert
       undefine copy, default_create, is_equal, fill_tagged_out_memory, out_in_tagged_out_memory
       end
 
-creation {ANY}
+create {ANY}
    test, make
 
 feature {ANY}

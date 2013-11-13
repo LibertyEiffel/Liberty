@@ -20,7 +20,7 @@ inherit
          as_target, is_void, builtin_deep_twin
       end
 
-creation {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_VOID}
+create {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_VOID}
    make
 
 feature {ANY}

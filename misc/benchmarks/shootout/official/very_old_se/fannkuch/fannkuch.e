@@ -8,7 +8,7 @@ class FANNKUCH
 inherit
 	ARGUMENTS
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}

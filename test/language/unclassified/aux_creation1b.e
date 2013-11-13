@@ -9,7 +9,7 @@ inherit
          display as y
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

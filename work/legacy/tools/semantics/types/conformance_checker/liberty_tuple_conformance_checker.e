@@ -23,7 +23,7 @@ inherit
 insert
    SINGLETON
 
-creation {LIBERTY_UNIVERSE}
+create {LIBERTY_UNIVERSE}
    make
 
 feature {LIBERTY_ACTUAL_TYPE}

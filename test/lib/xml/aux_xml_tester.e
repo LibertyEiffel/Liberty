@@ -3,7 +3,7 @@ class AUX_XML_TESTER
 inherit
    AUX_XML_CALLBACKS
 
-creation {AUX_XML_CONFORMANCE}
+create {AUX_XML_CONFORMANCE}
    valid, not_well_formed, invalid, error
 
 feature {XML_PARSER}

@@ -22,10 +22,10 @@ insert
       redefine out_in_tagged_out_memory, is_equal
       end
 
-creation {LIBERTY_TYPE_RESOLVER_IN_TYPE}
+create {LIBERTY_TYPE_RESOLVER_IN_TYPE}
    like_current, like_feature
 
-creation {LIBERTY_DELAYED_RESOLVER_IN_TYPE}
+create {LIBERTY_DELAYED_RESOLVER_IN_TYPE}
    specialized
 
 feature {ANY}

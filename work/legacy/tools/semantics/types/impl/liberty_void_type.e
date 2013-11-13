@@ -29,7 +29,7 @@ insert
       undefine out_in_tagged_out_memory
       end
 
-creation {LIBERTY_VOID}
+create {LIBERTY_VOID}
    make
 
 feature {ANY}

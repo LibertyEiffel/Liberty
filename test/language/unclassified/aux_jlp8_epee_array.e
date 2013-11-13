@@ -15,7 +15,7 @@ insert
          put as comp_put
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

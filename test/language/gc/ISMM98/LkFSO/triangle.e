@@ -3,7 +3,7 @@
 --
 class TRIANGLE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

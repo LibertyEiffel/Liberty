@@ -6,7 +6,7 @@ class AUX_CREATE04A
 inherit
    AUX_CREATE04
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

@@ -6,7 +6,7 @@ class AUX_BEFORE_EXIT2
 inherit
    DISPOSABLE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

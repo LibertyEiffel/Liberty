@@ -22,7 +22,7 @@ insert
       undefine out_in_tagged_out_memory
       end
 
-creation {LIBERTY_UNIVERSE}
+create {LIBERTY_UNIVERSE}
    make
 
 feature {ANY}

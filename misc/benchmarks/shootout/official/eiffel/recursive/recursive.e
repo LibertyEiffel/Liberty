@@ -10,7 +10,7 @@ class RECURSIVE
 insert
 	ARGUMENTS
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}

@@ -6,7 +6,7 @@ class AUX_INHERIT_ARRAY2
 inherit
    ARRAY[INTEGER]
 
-creation {ANY}
+create {ANY}
    test, make
 
 feature {ANY}

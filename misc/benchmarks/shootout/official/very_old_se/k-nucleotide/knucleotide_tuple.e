@@ -3,7 +3,7 @@ class KNUCLEOTIDE_TUPLE
 inherit
 	COMPARABLE
 
-creation make
+create make
 
 feature {}
 	make(f: like first; s: like second) is

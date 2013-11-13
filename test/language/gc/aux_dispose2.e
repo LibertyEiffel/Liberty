@@ -6,7 +6,7 @@ class AUX_DISPOSE2
 inherit
    DISPOSABLE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

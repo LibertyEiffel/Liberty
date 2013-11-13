@@ -6,7 +6,7 @@ class AUX_BEFORE_EXIT1
 insert
    DISPOSABLE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

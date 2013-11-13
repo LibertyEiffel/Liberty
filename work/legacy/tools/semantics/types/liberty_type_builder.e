@@ -32,7 +32,7 @@ insert
    LIBERTY_ERROR_LEVELS
    LOGGING
 
-creation {LIBERTY_ACTUAL_TYPE}
+create {LIBERTY_ACTUAL_TYPE}
    make
 
 feature {LIBERTY_ACTUAL_TYPE}

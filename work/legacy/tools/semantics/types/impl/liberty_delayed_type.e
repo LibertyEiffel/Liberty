@@ -22,7 +22,7 @@ inherit
       redefine mark_reachable_code, is_equal
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

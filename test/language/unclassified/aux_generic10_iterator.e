@@ -3,7 +3,7 @@
 --
 class AUX_GENERIC10_ITERATOR[E]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

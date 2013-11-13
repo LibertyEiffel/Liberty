@@ -20,7 +20,7 @@ insert
       export {} ll_make, ll_forth, ll_start, ll_has, ll_put, extend
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

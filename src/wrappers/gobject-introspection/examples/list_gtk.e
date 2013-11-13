@@ -3,7 +3,7 @@ class LIST_GTK
 insert
 	GTYPE_EXTERNALS
 
-creation make
+create make
 feature 
 	make is
 		local gtk: GI_TYPELIB

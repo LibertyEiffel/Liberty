@@ -3,7 +3,7 @@
 --
 class LINK[E]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

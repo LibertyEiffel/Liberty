@@ -6,7 +6,7 @@ insert
 	ANY
 	GTYPE_EXTERNALS
 
-creation {ANY} make
+create {ANY} make
 
 feature  {ANY}
 

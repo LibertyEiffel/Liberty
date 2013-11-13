@@ -3,7 +3,7 @@
 --
 class AUX_JP2[E]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

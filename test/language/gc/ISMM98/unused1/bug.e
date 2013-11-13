@@ -3,7 +3,7 @@
 --
 class BUG
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

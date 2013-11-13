@@ -1,6 +1,6 @@
 class AUX_AUTOMATON_01_CONTEXT
 
-creation {AUX_AUTOMATON_01}
+create {AUX_AUTOMATON_01}
    make
 
 feature {AUX_AUTOMATON_01}

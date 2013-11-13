@@ -7,7 +7,7 @@ inherit
          make as aux_make
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {XML_PARSER}

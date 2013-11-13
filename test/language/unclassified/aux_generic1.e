@@ -3,7 +3,7 @@
 --
 class AUX_GENERIC1[E]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

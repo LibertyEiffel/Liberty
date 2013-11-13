@@ -8,7 +8,7 @@ inherit
       rename nb_element as taille
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

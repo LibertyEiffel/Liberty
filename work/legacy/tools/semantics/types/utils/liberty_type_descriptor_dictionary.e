@@ -24,7 +24,7 @@ inherit
          out_in_tagged_out_memory, copy, is_equal
       end
 
-creation {LIBERTY_UNIVERSE}
+create {LIBERTY_UNIVERSE}
    make, with_capacity
 
 feature {ANY}

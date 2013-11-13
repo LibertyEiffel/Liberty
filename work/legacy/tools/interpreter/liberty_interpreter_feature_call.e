@@ -21,7 +21,7 @@ insert
    LIBERTY_TAGS
    LOGGING
 
-creation {LIBERTY_INTERPRETER}
+create {LIBERTY_INTERPRETER}
    make, make_precursor
 
 feature {ANY}

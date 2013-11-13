@@ -3,7 +3,7 @@
 --
 class AUX_FA4TRUC1
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

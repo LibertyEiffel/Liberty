@@ -6,7 +6,7 @@ class BINARYTREES
 inherit
 	ARGUMENTS
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}

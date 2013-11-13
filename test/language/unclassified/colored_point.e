@@ -8,7 +8,7 @@ inherit
       rename make as point_make
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

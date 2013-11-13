@@ -3,7 +3,7 @@
 --
 class AUX_CREATION1A
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

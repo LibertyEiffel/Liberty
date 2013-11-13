@@ -6,7 +6,7 @@ class AUX_PRE_ONCE10_B
 inherit
    AUX_PRE_ONCE10_A
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

@@ -9,7 +9,7 @@ inherit
 insert
    ARRAY2[E]
 
-creation {ANY}
+create {ANY}
    make, dimension
 
 feature {ANY}

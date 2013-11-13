@@ -7,7 +7,7 @@ inherit
    HASHABLE
    COMPARABLE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

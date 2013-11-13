@@ -17,7 +17,7 @@ class LIBERTY_ASM_STACK_VALUE
    -- A value in the stack.
    --
 
-creation {ANY}
+create {ANY}
    as_true, as_false, as_any_boolean, as_integer, as_any_integer
 
 feature {ANY}

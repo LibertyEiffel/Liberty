@@ -6,7 +6,7 @@ class AUX_INHERIT_FIXED_ARRAY1
 inherit
    FAST_ARRAY[REAL]
 
-creation {ANY}
+create {ANY}
    make
 
 end -- class AUX_INHERIT_FIXED_ARRAY1

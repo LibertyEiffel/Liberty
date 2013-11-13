@@ -6,7 +6,7 @@ class AUX_GENERIC7LL[G]
 insert
    ANY
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

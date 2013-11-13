@@ -3,7 +3,7 @@
 --
 expanded class AUX_ALG16
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

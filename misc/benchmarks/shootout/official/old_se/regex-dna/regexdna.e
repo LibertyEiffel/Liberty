@@ -9,7 +9,7 @@ class REGEXDNA
 insert
 	REGULAR_EXPRESSION_BUILDER
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}

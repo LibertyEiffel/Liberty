@@ -7,7 +7,7 @@ inherit
    AUX_REQUIRE1_A
    AUX_REQUIRE1_C
 
-creation {ANY}
+create {ANY}
    default_create
 
 feature {}

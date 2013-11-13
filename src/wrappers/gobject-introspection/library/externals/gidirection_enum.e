@@ -5,7 +5,7 @@ expanded class GIDIRECTION_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do

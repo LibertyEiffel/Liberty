@@ -5,7 +5,7 @@ expanded class XML_ENTITY_TYPE_ENUM
 
 insert ENUM
 
-creation default_create
+create default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do

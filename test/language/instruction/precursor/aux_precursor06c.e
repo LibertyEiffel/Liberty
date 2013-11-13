@@ -8,7 +8,7 @@ inherit
       redefine make
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

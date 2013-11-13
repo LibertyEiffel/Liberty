@@ -6,7 +6,7 @@ class APPLE
 inherit
    FRUIT
 
-creation {ANY}
+create {ANY}
    make
 
 end -- class APPLE

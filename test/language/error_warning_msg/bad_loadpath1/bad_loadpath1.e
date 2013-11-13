@@ -5,7 +5,7 @@ class   BAD_LOADPATH1
    --
    -- To check error message during "loadpath.se" loading.
    --
-creation
+create
    main
 
 feature {}

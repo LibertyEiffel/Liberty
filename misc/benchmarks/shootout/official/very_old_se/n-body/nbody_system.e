@@ -1,6 +1,6 @@
 class NBODY_SYSTEM
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}

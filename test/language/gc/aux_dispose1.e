@@ -9,7 +9,7 @@ inherit
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

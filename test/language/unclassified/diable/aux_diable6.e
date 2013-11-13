@@ -3,7 +3,7 @@
 --
 class AUX_DIABLE6[T]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

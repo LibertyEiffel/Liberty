@@ -29,10 +29,10 @@ insert
          copy, out_in_tagged_out_memory
       end
 
-creation {LIBERTY_BUILDER_TOOLS}
+create {LIBERTY_BUILDER_TOOLS}
    make
 
-creation {LIBERTY_FEATURE_DEFINITION}
+create {LIBERTY_FEATURE_DEFINITION}
    specialized
 
 feature {ANY}

@@ -30,7 +30,7 @@ insert
       redefine out_in_tagged_out_memory
       end
 
-creation {LIBERTY_TYPE_RESOLVER}
+create {LIBERTY_TYPE_RESOLVER}
    make
 
 feature {ANY}

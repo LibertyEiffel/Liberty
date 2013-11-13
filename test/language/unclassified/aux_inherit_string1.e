@@ -8,7 +8,7 @@ inherit
       rename make as string_make
       end
 
-creation {ANY}
+create {ANY}
    make, copy, string_make
 
 feature {ANY}

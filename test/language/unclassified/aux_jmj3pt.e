@@ -6,7 +6,7 @@ class AUX_JMJ3PT[E]
 inherit
    AUX_JMJ3TDT[E]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

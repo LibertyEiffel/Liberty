@@ -1,6 +1,6 @@
 class ITERATOR_OVER_ARGUMENTS
 inherit ITERATOR[GI_ARG_INFO]
-creation {GI_CALLABLE_INFO} from_callable
+create {GI_CALLABLE_INFO} from_callable
 feature {} -- Creation
 	from_callable (a_callable: GI_CALLABLE_INFO) is
 	require a_callable/=Void

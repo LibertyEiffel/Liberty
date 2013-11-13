@@ -8,7 +8,7 @@ inherit
       redefine default_create
       end
 
-creation {ANY}
+create {ANY}
    default_create, make
 
 feature {ANY}

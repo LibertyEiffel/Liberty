@@ -9,7 +9,7 @@ inherit
       end
    DISPOSABLE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

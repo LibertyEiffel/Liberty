@@ -17,7 +17,7 @@ class LIBERTY_TYPE_RESOLVER_IN_TYPE
 inherit
    LIBERTY_TYPE_RESOLVER
 
-creation {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER}
    make
 
 feature {ANY}

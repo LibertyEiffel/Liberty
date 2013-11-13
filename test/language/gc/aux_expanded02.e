@@ -3,7 +3,7 @@
 --
 expanded class AUX_EXPANDED02
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

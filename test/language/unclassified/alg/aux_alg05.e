@@ -3,7 +3,7 @@
 --
 class AUX_ALG05
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

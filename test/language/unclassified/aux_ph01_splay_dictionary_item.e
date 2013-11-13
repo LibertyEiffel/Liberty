@@ -14,7 +14,7 @@ class AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I -> COMPARABLE]
    --     4. The node's left child, of like type
    --     5. The node's right child, of like type
 
-creation {AUX_PH01_SPLAY_DICTIONARY}
+create {AUX_PH01_SPLAY_DICTIONARY}
    make, make_null
 
 feature {AUX_PH01_SPLAY_DICTIONARY_ITEM, AUX_PH01_SPLAY_DICTIONARY, AUX_PH01_SPLAY_DICTIONARY_ITERATOR}

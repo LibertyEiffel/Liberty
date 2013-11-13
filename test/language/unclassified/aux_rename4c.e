@@ -8,7 +8,7 @@ inherit
       rename memb as memc
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

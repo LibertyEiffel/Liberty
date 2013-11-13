@@ -9,7 +9,7 @@ inherit
       redefine slave
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

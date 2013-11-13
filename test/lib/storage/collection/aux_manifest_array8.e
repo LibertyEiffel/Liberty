@@ -3,7 +3,7 @@
 --
 expanded class AUX_MANIFEST_ARRAY8
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

@@ -7,7 +7,7 @@ inherit
 	ARGUMENTS
 	PLATFORM
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}

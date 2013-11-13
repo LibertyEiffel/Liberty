@@ -3,7 +3,7 @@
 --
 class AUX_JW01HOLDER[G]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

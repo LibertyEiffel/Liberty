@@ -4,7 +4,7 @@
 class AUX_PRECURSOR01
    -- Written by Vincent CROIZIER.
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

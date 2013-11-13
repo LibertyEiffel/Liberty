@@ -9,7 +9,7 @@ inherit GI_CALLABLE_INFO
 
 insert GIFUNCTIONINFO_EXTERNALS
 
-creation {GI_REPOSITORY, GI_INFO_FACTORY, WRAPPER} from_external_pointer
+create {GI_REPOSITORY, GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
 --   enum GInvokeError
 -- 

@@ -6,7 +6,7 @@ class AUX_INHERIT7B2
 inherit
    AUX_INHERIT7B
 
-creation {ANY}
+create {ANY}
    make
 
 feature {} -- Initialization

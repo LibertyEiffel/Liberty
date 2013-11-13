@@ -3,7 +3,7 @@
 --
 class AUX_POSITION4
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

@@ -3,7 +3,7 @@
 --
 class AUX_AGENT13C
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

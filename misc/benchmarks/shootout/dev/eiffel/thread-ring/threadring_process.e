@@ -1,6 +1,6 @@
 class THREADRING_PROCESS
 
-creation {THREADRING}
+create {THREADRING}
 	make
 
 feature {}

@@ -6,7 +6,7 @@ class AUX_EXCEPTION19SUB1
 inherit
    AUX_EXCEPTION19SUB
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

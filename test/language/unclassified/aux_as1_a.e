@@ -6,7 +6,7 @@ class AUX_AS1_A[G -> AUX_AS1_E]
 inherit
    AUX_AS1_ANY
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

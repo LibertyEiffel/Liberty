@@ -15,7 +15,7 @@ insert
          set_next_node as set_left_node
       end
 
-creation {ANY}
+create {ANY}
    make, make_node
 
 feature {ANY}

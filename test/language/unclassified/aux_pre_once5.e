@@ -6,7 +6,7 @@ class AUX_PRE_ONCE5
 inherit
    EXCEPTIONS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

@@ -6,7 +6,7 @@ class AUX_AGENT33AB
 inherit
    AUX_AGENT33A[AUX_AGENT33B]
 
-creation {ANY}
+create {ANY}
    make
 
 end -- class AUX_AGENT33AB

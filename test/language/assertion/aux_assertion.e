@@ -6,7 +6,7 @@ class AUX_ASSERTION
 insert
    ASSERTION_CONSTANTS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

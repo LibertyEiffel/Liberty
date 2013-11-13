@@ -22,7 +22,7 @@ inherit
 insert
    LIBERTY_ARRAY_MANIFEST_CONSTANTS
 
-creation {LIBERTY_INTERPRETER}
+create {LIBERTY_INTERPRETER}
    make
 
 feature {ANY}

@@ -20,7 +20,7 @@ class LIBERTY_TYPE_INIT
 insert
    LIBERTY_TYPE_BUILDER_TOOLS
 
-creation {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER}
    make
 
 feature {}

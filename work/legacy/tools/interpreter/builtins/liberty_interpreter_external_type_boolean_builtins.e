@@ -20,7 +20,7 @@ inherit
          call_implies, call_or_else, call_and_then
       end
 
-creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
+create {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
    make
 
 feature {LIBERTY_FEATURE_LOCAL_CONTEXT}

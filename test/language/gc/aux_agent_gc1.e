@@ -3,7 +3,7 @@
 --
 class AUX_AGENT_GC1
 
-creation {ANY}
+create {ANY}
    make_region, make_main
 
 feature {ANY}

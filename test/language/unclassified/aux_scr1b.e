@@ -3,7 +3,7 @@
 --
 class AUX_SCR1B
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

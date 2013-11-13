@@ -17,7 +17,7 @@ class LIBERTY_DELAYED_OPEN_ARGUMENT
 inherit
    LIBERTY_DELAYED_RESOLVER
 
-creation {LIBERTY_AGENT}
+create {LIBERTY_AGENT}
    make
 
 feature {ANY}

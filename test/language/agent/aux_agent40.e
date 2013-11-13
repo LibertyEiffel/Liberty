@@ -6,7 +6,7 @@ expanded class AUX_AGENT40
 insert
    DISPOSABLE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

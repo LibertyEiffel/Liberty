@@ -3,7 +3,7 @@
 --
 class POINT
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

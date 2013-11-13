@@ -1,6 +1,6 @@
 class AUX_AUTOMATON_01
 
-creation {TEST_AUTOMATON_01}
+create {TEST_AUTOMATON_01}
    make
 
 feature {TEST_AUTOMATON_01}

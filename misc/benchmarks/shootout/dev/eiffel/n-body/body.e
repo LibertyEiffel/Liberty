@@ -1,6 +1,6 @@
 class BODY
 
-creation {ANY}
+create {ANY}
 	jupiter, saturn, uranus, neptune, sun
 
 feature {ANY}

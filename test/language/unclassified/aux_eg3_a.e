@@ -3,7 +3,7 @@
 --
 class AUX_EG3_A
 
-creation {ANY}
+create {ANY}
    set_x
 
 feature {ANY}

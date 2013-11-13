@@ -8,7 +8,7 @@ class AUX_PH01_SPLAY_DICTIONARY_ITERATOR[I -> COMPARABLE]
    -- Copyright (C) Philip Malin 2000.
    --
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

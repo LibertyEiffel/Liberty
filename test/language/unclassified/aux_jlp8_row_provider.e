@@ -6,7 +6,7 @@ class AUX_JLP8_ROW_PROVIDER[E -> NUMERIC]
 inherit
    AUX_JLP8_PROVIDER[E]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

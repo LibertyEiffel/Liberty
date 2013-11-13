@@ -3,7 +3,7 @@
 --
 class AUX_DIABLE4[E]
 
-creation {ANY}
+create {ANY}
    from_model
 
 feature {ANY}

@@ -3,7 +3,7 @@
 --
 class AUX_FS3_A[X -> AUX_FS3_B]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

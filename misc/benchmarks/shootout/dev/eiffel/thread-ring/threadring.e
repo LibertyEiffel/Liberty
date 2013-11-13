@@ -3,7 +3,7 @@ class THREADRING
 insert
 	ARGUMENTS
 
-creation {}
+create {}
 	make
 
 feature {}

@@ -17,7 +17,7 @@ class LIBERTY_TYPE_MANIFEST_ARRAY_FEATURES_LISTENER
 inherit
    LIBERTY_TYPE_LISTENER
 
-creation {ANY}
+create {ANY}
    make
 
 feature {LIBERTY_TYPE}

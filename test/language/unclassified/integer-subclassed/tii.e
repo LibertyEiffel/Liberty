@@ -13,7 +13,7 @@ class TII
 
    -- but zero is defined like Current so this error should not occour.
 
-creation make
+create make
 feature make is
       local i: II
       do

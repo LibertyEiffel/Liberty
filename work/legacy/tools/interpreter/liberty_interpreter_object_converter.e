@@ -20,7 +20,7 @@ inherit
 insert
    LOGGING
 
-creation {LIBERTY_INTERPRETER}
+create {LIBERTY_INTERPRETER}
    make
 
 feature {ANY}

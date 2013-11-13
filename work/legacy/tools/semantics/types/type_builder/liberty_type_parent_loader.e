@@ -21,7 +21,7 @@ insert
    LIBERTY_TYPE_BUILDER_TOOLS
    LOGGING
 
-creation {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER}
    make
 
 feature {}

@@ -11,7 +11,7 @@ insert
       undefine is_equal
       end
 
-creation {ANY}
+create {ANY}
    test
 
 feature {ANY}

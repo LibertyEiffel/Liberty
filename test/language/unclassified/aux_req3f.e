@@ -6,7 +6,7 @@ class AUX_REQ3F
 inherit
    AUX_REQ3E
 
-creation {ANY}
+create {ANY}
    make
 
 end -- class AUX_REQ3F

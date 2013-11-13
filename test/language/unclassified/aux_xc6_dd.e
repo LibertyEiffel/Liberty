@@ -3,7 +3,7 @@
 --
 class AUX_XC6_DD[V -> AUX_XC6_AA]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

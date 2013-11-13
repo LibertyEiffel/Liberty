@@ -8,7 +8,7 @@ inherit
       rename make as array_make
       end
 
-creation {ANY}
+create {ANY}
    array_make
 
 end -- class AUX_INHERIT_ARRAY4

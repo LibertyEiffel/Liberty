@@ -1,6 +1,6 @@
 class AUX_CLI_07_CUSTOM_OPTION
 
-creation {TEST_CLI_07}
+create {TEST_CLI_07}
    make
 
 feature {TEST_CLI_07}

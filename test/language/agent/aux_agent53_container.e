@@ -3,7 +3,7 @@
 --
 class AUX_AGENT53_CONTAINER[G]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

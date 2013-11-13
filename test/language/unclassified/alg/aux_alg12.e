@@ -6,7 +6,7 @@ class AUX_ALG12
 inherit
    DISPOSABLE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

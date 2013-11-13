@@ -6,7 +6,7 @@ class DOG
 inherit
    ANIMAL
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

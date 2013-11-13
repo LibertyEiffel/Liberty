@@ -14,7 +14,7 @@ class AUX_PH01_SPLAY_DICTIONARY[E, I -> COMPARABLE]
    --    copy
    --      end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

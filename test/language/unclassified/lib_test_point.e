@@ -6,7 +6,7 @@ class LIB_TEST_POINT
 inherit
    ANY
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

@@ -3,7 +3,7 @@
 --
 class AUX_MANIFEST_ARRAY3
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

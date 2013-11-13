@@ -3,7 +3,7 @@
 --
 class AUX_PH4_SPLAY_DICTIONARY_ITERATOR[I -> COMPARABLE]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

@@ -6,7 +6,7 @@ class AUX_XC1BB
 inherit
    AUX_XC1A2[STRING, INTEGER]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

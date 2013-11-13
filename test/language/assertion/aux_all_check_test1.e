@@ -3,7 +3,7 @@
 --
 class AUX_ALL_CHECK_TEST1
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

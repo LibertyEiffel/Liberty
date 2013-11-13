@@ -3,7 +3,7 @@
 --
 expanded class HAND
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}

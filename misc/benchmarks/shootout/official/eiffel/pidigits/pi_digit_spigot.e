@@ -3,7 +3,7 @@ class PI_DIGIT_SPIGOT
 	-- Written by Cyril Adrian <cyril.adrian@laposte.net>
 	--
 
-creation {PIDIGITS}
+create {PIDIGITS}
 	make
 
 feature {PIDIGITS}
