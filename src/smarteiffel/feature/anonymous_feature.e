@@ -9,6 +9,7 @@ deferred class ANONYMOUS_FEATURE
 
 inherit
    VISITABLE
+   INDEXINGABLE
 
 insert
    GLOBALS

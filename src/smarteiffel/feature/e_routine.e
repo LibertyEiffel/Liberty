@@ -63,6 +63,8 @@ feature {ANY}
             header_comment.pretty(il)
          end
          pretty_printer.set_indent_level(level2)
+         pretty_index
+         pretty_printer.set_indent_level(level2)
          if obsolete_mark /= Void then
             pretty_printer.keyword(once "obsolete")
             obsolete_mark.pretty_without_once(level2)

@@ -412,7 +412,7 @@ The default is \"se\"."
 ;; Note obsolete is handled as a special case since it is both a
 ;; class-level and a feature-level keyword
 (defconst eif-class-level-keywords
-  "indexing\\|class\\|deferred[ \t]+class\\|expanded[ \t]+class\\|reference[ \t]+class\\|separate[ \t]+class\\|inherit\\|insert\\|convert\\|create\\|creation\\|feature"
+  "note\\|indexing\\|class\\|deferred[ \t]+class\\|expanded[ \t]+class\\|reference[ \t]+class\\|separate[ \t]+class\\|inherit\\|insert\\|convert\\|create\\|creation\\|feature"
   "Keywords introducing class-level clauses.
 Note that `invariant' and `obsolete' are not included here since can
 function as more than one type of keyword.")
@@ -567,7 +567,7 @@ If one of these occurs prior to an `eif-obsolete-keyword' then the
   "Regexp matching `create' keyword, with trailing context.")
 
 (defconst eif-indentation-keywords
-  (concat "indexing\\|rescue\\|inherit\\|insert\\|convert\\|create\\|creation" "\\|"
+  (concat "note\\|indexing\\|rescue\\|inherit\\|insert\\|convert\\|create\\|creation" "\\|"
           "invariant\\|require\\|local\\|ensure\\|obsolete" "\\|"
           eif-from-level-keywords "\\|"
           eif-if-or-inspect-level-keywords "\\|"

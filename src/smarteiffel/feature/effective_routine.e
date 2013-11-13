@@ -320,7 +320,7 @@ feature {}
                end
             end
          end
-         --|*** 
+         --|***
          --|*** if Result /= Void then
          --|*** from
          --|*** debug_counter := 1
@@ -341,7 +341,7 @@ feature {}
          --|*** error_handler.cancel
          --|*** end
          --|*** end
-         --|*** 
+         --|***
       ensure
          Result = Void or else Result = e
       end
@@ -383,7 +383,7 @@ feature {ANONYMOUS_FEATURE}
 
 feature {}
    remove_first_redundant_initialisation (type: TYPE; rb: like routine_body): INSTRUCTION is
-         -- The goal is to remove the first assignment of `rb' when this assignment 
+         -- The goal is to remove the first assignment of `rb' when this assignment
          -- (re)set the default value to some local (or Result).
       require
          rb /= Void
@@ -406,17 +406,17 @@ feature {}
                   Result := compound.twin_remove_first
                   smart_eiffel.magic_count_increment
                end
-            end 
+            end
          end
       end
-   
+
 feature {}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       local
          position: POSITION; compound: COMPOUND; sedb: INSTRUCTION
       do
          if routine_body /= Void then
-            routine_body := routine_body.inline_dynamic_dispatch(code_accumulator, type) 
+            routine_body := routine_body.inline_dynamic_dispatch(code_accumulator, type)
          end
          if not ace.boost then
             -- To see the eXit under -sedb as well:
@@ -437,7 +437,7 @@ feature {}
             end
          end
       end
-   
+
 end -- class EFFECTIVE_ROUTINE
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -2682,24 +2682,26 @@ feature {}
       end
 
    a_check: BOOLEAN is
-         --  ++ check -> "check" assertion "end"
+         --  ++ check -> "check" assertion [indexing] "end"
          --  ++
       local
-         sp: POSITION; hc: COMMENT; al: FAST_ARRAY[ASSERTION]
+         sp: POSITION; hc: COMMENT; al: FAST_ARRAY[ASSERTION]; chk: CHECK_COMPOUND
       do
          if a_keyword(fz_check) then
             sp := pos(start_line, start_column)
             hc := get_comment
             al := a_assertion
+            if hc /= Void or else al /= Void then
+               create chk.make(sp, hc, al)
+               last_instruction := chk
+               Result := True
+            end
+            a_indexing(chk)
             if not a_keyword(fz_end) then
                error_handler.add_position(sp)
                error_handler.add_position(current_position)
                error_handler.append(once "Keyword %"end%" expected at the end of check clause.")
                error_handler.print_as_fatal_error
-            end
-            if hc /= Void or else al /= Void then
-               create {CHECK_COMPOUND} last_instruction.make(sp, hc, al)
-               Result := True
             elseif skip1(';') then
             end
          end
@@ -2718,6 +2720,7 @@ feature {}
          --  ++                      ["convert" convert_clause]
          --  ++                      {"feature" feature_clause ...}
          --  ++                      ["invariant" assertion]
+         --  ++                      [indexing]
          --  ++                      "end"
          --  ++
       local
@@ -2725,7 +2728,7 @@ feature {}
          feature_clause: FEATURE_CLAUSE
       do
          inline_agents.clear_count
-         a_indexing
+         a_indexing(last_class_text)
          from
             prefixword := True
          until
@@ -2786,6 +2789,7 @@ feature {}
             al := a_assertion
             last_class_text.set_invariant(sp, hc, al)
          end
+         a_indexing(last_class_text)
          if a_keyword(fz_end) then
             ok := skip1(';')
             last_class_text.set_end_comment(get_comment)
@@ -4784,9 +4788,11 @@ feature {}
          Result := a_r10(False, implicit_current, sfn, a_actuals)
       end
 
-   a_index_clause: BOOLEAN is
+   a_index_clause (a_indexingable: INDEXINGABLE): BOOLEAN is
          --  ++ index_clause -> [identifier ":"] {index_value "," ...}+
          --  ++
+      require
+         a_indexingable /= Void
       local
          index_clause: INDEX_CLAUSE
       do
@@ -4821,7 +4827,10 @@ feature {}
                   error_handler.print_as_fatal_error
                end
             end
-            last_class_text.add_index_clause(index_clause)
+            if a_indexingable /= Void then
+               a_indexingable.add_index_clause(index_clause)
+               -- may be Void in some check clauses that contain only comments
+            end
          end
       end
 
@@ -4837,14 +4846,24 @@ feature {}
          end
       end
 
-   a_indexing is
+   a_indexing (a_indexingable: INDEXINGABLE) is
          --  ++ indexing -> "indexing" {index_clause ";" ...}
          --  ++
+      local
+         has_note: BOOLEAN
       do
-         if a_keyword(fz_indexing) then
+         if a_keyword(fz_note) then
+            has_note := True
+         elseif a_keyword(fz_indexing) then
+            error_handler.add_position(pos(start_line, start_column))
+            error_handler.append(once "`indexing' is an obsolete keyword, please use `note' instead.")
+            error_handler.print_as_warning
+            has_note := True
+         end
+         if has_note then
             from
             until
-               not a_index_clause
+               not a_index_clause(a_indexingable)
             loop
                ok := skip1(';')
             end
@@ -5549,6 +5568,7 @@ feature {}
          --  ++                 "once" compound
          --  ++
       do
+         a_indexing(tmp_feature)
          if a_keyword(fz_deferred) then
             last_class_text.set_is_deferred
             Result := tmp_feature.as_deferred_routine

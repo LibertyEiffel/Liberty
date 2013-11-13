@@ -7,6 +7,9 @@ class TMP_FEATURE
    -- At the end, the good effective ANONYMOUS_FEATURE is choose.
    --
 
+inherit
+   INDEXINGABLE
+
 insert
    GLOBALS
 
@@ -146,7 +149,7 @@ feature {EIFFEL_PARSER}
             error_handler.append(once "An attribute cannot be an assigner.")
             error_handler.print_as_fatal_error
          end
-         create Result.writable_attribute(n, type, obsolete_mark, header_comment, require_assertion)
+         create Result.writable_attribute(n, type, obsolete_mark, header_comment, require_assertion, index_list)
       end
 
    as_boolean_constant (value: EXPRESSION): FEATURE_TEXT is
@@ -164,7 +167,7 @@ feature {EIFFEL_PARSER}
          boolean_constant ::= value
          constant_attribute_common_checks(value)
          if type.is_boolean then
-            create Result.boolean_constant(n, type, boolean_constant)
+            create Result.boolean_constant(n, type, boolean_constant, index_list)
          else
             error_handler.add_position(type.start_position)
             error_handler.append(once "The type of this constant feature should be BOOLEAN.")
@@ -191,7 +194,7 @@ feature {EIFFEL_PARSER}
             error_handler.append(once "The type of this constant feature should be CHARACTER.")
             error_handler.print_as_fatal_error
          end
-         create Result.character_constant(n, type, character_constant)
+         create Result.character_constant(n, type, character_constant, index_list)
       end
 
    as_constant (value: EXPRESSION): FEATURE_TEXT is
@@ -236,10 +239,10 @@ feature {EIFFEL_PARSER}
                   end
                when 64 then
                end
-               create Result.integer_constant(n, integer_type_mark, integer_constant)
+               create Result.integer_constant(n, integer_type_mark, integer_constant, index_list)
             elseif type.is_real then
                --|*** Check for truncation *** (Dom Oct 2004) ***
-               create Result.real_constant(n, type, integer_constant.to_real_constant)
+               create Result.real_constant(n, type, integer_constant.to_real_constant, index_list)
             else
                error_handler.add_position(type.start_position)
                error_handler.append(once "The type of this constant feature should be INTEGER or REAL.")
@@ -248,7 +251,7 @@ feature {EIFFEL_PARSER}
          elseif {REAL_CONSTANT} ?:= value then
             real_constant ::= value
             if type.is_real then
-               create Result.real_constant(n, type, real_constant)
+               create Result.real_constant(n, type, real_constant, index_list)
                real_constant.set_result_type(type)
             else
                error_handler.add_position(type.start_position)
@@ -281,58 +284,58 @@ feature {EIFFEL_PARSER}
             error_handler.append(once "The type of this constant feature should be STRING.")
             error_handler.print_as_fatal_error
          end
-         create Result.string_constant(n, type, value)
+         create Result.string_constant(n, type, value, index_list)
       end
 
    as_deferred_routine: FEATURE_TEXT is
       do
          if type = Void then
-            create Result.deferred_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, assigned)
+            create Result.deferred_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, assigned, index_list)
          elseif assigned /= Void then
             error_handler.add_position(assigned.start_position)
             error_handler.append(once "A function cannot be an assigner.")
             error_handler.print_as_fatal_error
          else
-            create Result.deferred_function(n, arguments, type, obsolete_mark, header_comment, require_assertion)
+            create Result.deferred_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, index_list)
          end
       end
 
    as_external_routine (native: NATIVE; alias_tag: MANIFEST_STRING): FEATURE_TEXT is
       do
          if type = Void then
-            create Result.external_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, native, alias_tag, assigned)
+            create Result.external_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, native, alias_tag, assigned, index_list)
          elseif assigned /= Void then
             error_handler.add_position(assigned.start_position)
             error_handler.append(once "A function cannot be an assigner.")
             error_handler.print_as_fatal_error
          else
-            create Result.external_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, native, alias_tag)
+            create Result.external_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, native, alias_tag, index_list)
          end
       end
 
    as_once_routine: FEATURE_TEXT is
       do
          if type = Void then
-            create Result.once_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned)
+            create Result.once_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned, index_list)
          elseif assigned /= Void then
             error_handler.add_position(assigned.start_position)
             error_handler.append(once "A function cannot be an assigner.")
             error_handler.print_as_fatal_error
          else
-            create Result.once_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body)
+            create Result.once_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, index_list)
          end
       end
 
    as_procedure_or_function: FEATURE_TEXT is
       do
          if type = Void then
-            create Result.e_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned)
+            create Result.e_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned, index_list)
          elseif assigned /= Void then
             error_handler.add_position(assigned.start_position)
             error_handler.append(once "A function cannot be an assigner.")
             error_handler.print_as_fatal_error
          else
-            create Result.e_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body)
+            create Result.e_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, index_list)
          end
       end
 
@@ -349,7 +352,7 @@ feature {EIFFEL_PARSER}
             error_handler.append(once "Unique feature must have INTEGER type.")
             error_handler.print_as_fatal_error
          end
-         create Result.unique_constant(n, type)
+         create Result.unique_constant(n, type, index_list)
       end
 
 feature {}

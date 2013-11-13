@@ -11,13 +11,14 @@ class FEATURE_TEXT
 
 inherit
    VISITABLE
+   INDEXINGABLE
 
 insert
    GLOBALS
 
 create {TMP_FEATURE}
    writable_attribute, once_procedure, once_function, deferred_procedure, deferred_function, e_procedure,
-   e_function,   external_procedure, external_function, string_constant, character_constant, boolean_constant,
+   e_function, external_procedure, external_function, string_constant, character_constant, boolean_constant,
    integer_constant, real_constant, unique_constant
 
 create {CLASS_TEXT}
@@ -196,7 +197,7 @@ feature {ANY}
 
 feature {}
    writable_attribute (n: like names; rt: like result_type; om: like obsolete_mark
-                       hc: like header_comment; ra: like require_assertion) is
+                       hc: like header_comment; ra: like require_assertion; idx: like index_list) is
       require
          n /= Void
       do
@@ -204,15 +205,18 @@ feature {}
          result_type := rt
          obsolete_mark := om
          header_comment := hc
+         index_list := idx
          create {WRITABLE_ATTRIBUTE} anonymous_feature.make(rt, om, hc, ra)
          anonymous_feature.set_header_comment(header_comment)
+         anonymous_feature.set_index_list(idx)
       ensure
          names = n
          result_type = rt
       end
 
    once_procedure (n: like names; a: like arguments; om: like obsolete_mark; hc: like header_comment
-                   ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION; aa: like assigned) is
+                   ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION
+                   aa: like assigned; idx: like index_list) is
       require
          n /= Void
       do
@@ -221,6 +225,7 @@ feature {}
          obsolete_mark := om
          header_comment := hc
          assigned := aa
+         index_list := idx
          create {ONCE_PROCEDURE} anonymous_feature.make(a, om, hc, ra, local_vars, routine_body)
       ensure
          names = n
@@ -231,7 +236,8 @@ feature {}
       end
 
    once_function (n: like names; a: like arguments; rt: like result_type; om: like obsolete_mark
-                  hc: like header_comment; ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION) is
+                  hc: like header_comment; ra: like require_assertion; local_vars: LOCAL_VAR_LIST
+                  routine_body: INSTRUCTION; idx: like index_list) is
       require
          n /= Void
          rt /= Void
@@ -241,6 +247,7 @@ feature {}
          result_type := rt
          obsolete_mark := om
          header_comment := hc
+         index_list := idx
          create {ONCE_FUNCTION} anonymous_feature.make(a, rt, om, hc, ra, local_vars, routine_body)
       ensure
          names = n
@@ -251,7 +258,8 @@ feature {}
       end
 
    e_procedure (n: like names; a: like arguments; om: like obsolete_mark; hc: like header_comment
-                ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION; aa: like assigned) is
+                ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION
+                aa: like assigned; idx: like index_list) is
       require
          n /= Void
       do
@@ -260,6 +268,7 @@ feature {}
          obsolete_mark := om
          header_comment := hc
          assigned := aa
+         index_list := idx
          create {E_PROCEDURE} anonymous_feature.make(a, om, hc, ra, local_vars, routine_body)
       ensure
          names = n
@@ -270,7 +279,8 @@ feature {}
       end
 
    e_function (n: like names; a: like arguments; rt: like result_type; om: like obsolete_mark
-               hc: like header_comment; ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION) is
+               hc: like header_comment; ra: like require_assertion; local_vars: LOCAL_VAR_LIST
+               routine_body: INSTRUCTION; idx: like index_list) is
       require
          n /= Void
          rt /= Void
@@ -280,6 +290,7 @@ feature {}
          result_type := rt
          obsolete_mark := om
          header_comment := hc
+         index_list := idx
          create {E_FUNCTION} anonymous_feature.make(a, rt, om, hc, ra, local_vars, routine_body)
       ensure
          names = n
@@ -290,7 +301,7 @@ feature {}
       end
 
    deferred_procedure (n: like names; a: like arguments; om: like obsolete_mark; hc: like header_comment
-                       ra: like require_assertion; aa: like assigned) is
+                       ra: like require_assertion; aa: like assigned; idx: like index_list) is
       require
          n /= Void
       do
@@ -299,6 +310,7 @@ feature {}
          obsolete_mark := om
          header_comment := hc
          assigned := aa
+         index_list := idx
          create {DEFERRED_PROCEDURE} anonymous_feature.make(a, om, hc, ra)
       ensure
          names = n
@@ -309,7 +321,7 @@ feature {}
       end
 
    deferred_function (n: like names; a: like arguments; rt: like result_type; om: like obsolete_mark
-                      hc: like header_comment; ra: like require_assertion) is
+                      hc: like header_comment; ra: like require_assertion; idx: like index_list) is
       require
          n /= Void
          rt /= Void
@@ -319,6 +331,7 @@ feature {}
          result_type := rt
          obsolete_mark := om
          header_comment := hc
+         index_list := idx
          create {DEFERRED_FUNCTION} anonymous_feature.make(a, rt, om, hc, ra)
       ensure
          names = n
@@ -329,7 +342,8 @@ feature {}
       end
 
    external_procedure (n: like names; a: like arguments; om: like obsolete_mark; hc: like header_comment
-                       ra: like require_assertion; native: NATIVE; alias_tag: MANIFEST_STRING; aa: like assigned) is
+                       ra: like require_assertion; native: NATIVE; alias_tag: MANIFEST_STRING
+                       aa: like assigned; idx: like index_list) is
       require
          n /= Void
       do
@@ -338,6 +352,7 @@ feature {}
          obsolete_mark := om
          header_comment := hc
          assigned := aa
+         index_list := idx
          create {EXTERNAL_PROCEDURE} anonymous_feature.make(a, om, hc, ra, native, alias_tag)
       ensure
          names = n
@@ -348,7 +363,8 @@ feature {}
       end
 
    external_function (n: like names; a: like arguments; rt: like result_type; om: like obsolete_mark
-                      hc: like header_comment; ra: like require_assertion; native: NATIVE; alias_tag: MANIFEST_STRING) is
+                      hc: like header_comment; ra: like require_assertion; native: NATIVE
+                      alias_tag: MANIFEST_STRING; idx: like index_list) is
       require
          n /= Void
          rt /= Void
@@ -358,6 +374,7 @@ feature {}
          result_type := rt
          obsolete_mark := om
          header_comment := hc
+         index_list := idx
          create {EXTERNAL_FUNCTION} anonymous_feature.make(a, rt, om, hc, ra, native, alias_tag)
       ensure
          names = n
@@ -367,7 +384,7 @@ feature {}
          header_comment = hc
       end
 
-   string_constant (n: like names; rt: like result_type; ms: MANIFEST_STRING) is
+   string_constant (n: like names; rt: like result_type; ms: MANIFEST_STRING; idx: like index_list) is
       require
          n /= Void
          rt.is_string
@@ -375,14 +392,16 @@ feature {}
       do
          names := n
          result_type := rt
+         index_list := idx
          create {CST_ATT_STRING} anonymous_feature.make(rt, ms)
          anonymous_feature.set_header_comment(header_comment)
+         anonymous_feature.set_index_list(idx)
       ensure
          names = n
          result_type = rt
       end
 
-   character_constant (n: like names; rt: like result_type; cc: CHARACTER_CONSTANT) is
+   character_constant (n: like names; rt: like result_type; cc: CHARACTER_CONSTANT; idx: like index_list) is
       require
          n /= Void
          rt.is_character
@@ -390,14 +409,16 @@ feature {}
       do
          names := n
          result_type := rt
+         index_list := idx
          create {CST_ATT_CHARACTER} anonymous_feature.make(rt, cc)
          anonymous_feature.set_header_comment(header_comment)
+         anonymous_feature.set_index_list(idx)
       ensure
          names = n
          result_type = rt
       end
 
-   boolean_constant (n: like names; rt: like result_type; bc: BOOLEAN_CONSTANT) is
+   boolean_constant (n: like names; rt: like result_type; bc: BOOLEAN_CONSTANT; idx: like index_list) is
       require
          n /= Void
          rt.is_boolean
@@ -405,14 +426,16 @@ feature {}
       do
          names := n
          result_type := rt
+         index_list := idx
          create {CST_ATT_BOOLEAN} anonymous_feature.make(rt, bc)
          anonymous_feature.set_header_comment(header_comment)
+         anonymous_feature.set_index_list(idx)
       ensure
          names = n
          result_type = rt
       end
 
-   integer_constant (n: like names; rt: like result_type; ic: INTEGER_CONSTANT) is
+   integer_constant (n: like names; rt: like result_type; ic: INTEGER_CONSTANT; idx: like index_list) is
       require
          n /= Void
          rt.is_integer
@@ -420,15 +443,17 @@ feature {}
       do
          names := n
          result_type := rt
+         index_list := idx
          ic.set_result_type(rt)
          create {CST_ATT_INTEGER} anonymous_feature.make(ic)
          anonymous_feature.set_header_comment(header_comment)
+         anonymous_feature.set_index_list(idx)
       ensure
          names = n
          result_type = rt
       end
 
-   real_constant (n: like names; rt: like result_type; rc: REAL_CONSTANT) is
+   real_constant (n: like names; rt: like result_type; rc: REAL_CONSTANT; idx: like index_list) is
       require
          n /= Void
          rt.is_real
@@ -436,23 +461,27 @@ feature {}
       do
          names := n
          result_type := rt
+         index_list := idx
          create {CST_ATT_REAL} anonymous_feature.make(rt, rc)
          --|*** TO DO ***
          anonymous_feature.set_header_comment(header_comment)
+         anonymous_feature.set_index_list(idx)
       ensure
          names = n
          result_type = rt
       end
 
-   unique_constant (n: like names; rt: like result_type) is
+   unique_constant (n: like names; rt: like result_type; idx: like index_list) is
       require
          n /= Void
          rt.is_integer
       do
          names := n
          result_type := rt
+         index_list := idx
          create {CST_ATT_UNIQUE} anonymous_feature.make(rt)
          anonymous_feature.set_header_comment(header_comment)
+         anonymous_feature.set_index_list(idx)
       ensure
          names = n
          result_type = rt

@@ -15,6 +15,9 @@ inherit
    TAGGED
       redefine is_equal
       end
+   INDEXINGABLE
+      redefine is_equal
+      end
 
 insert
    GLOBALS
@@ -36,9 +39,6 @@ feature {ANY}
 
    cluster: CLUSTER
          -- The `cluster' used to load the class (also gives acces to the directory path).
-
-   index_list: INDEX_LIST
-         -- For the indexing of the class.
 
    heading_comment1: COMMENT
          -- Comment before keyword `class'.
@@ -193,9 +193,7 @@ feature {ANY}
          dummy_comment_flag: BOOLEAN
       do
          pretty_printer.set_indent_level(0)
-         if index_list /= Void then
-            index_list.pretty
-         end
+         pretty_index
          pretty_printer.set_indent_level(0)
          if pretty_printer.replacement_header /= Void then
             pretty_printer.put_string(pretty_printer.replacement_header)
@@ -628,17 +626,6 @@ feature {EIFFEL_PARSER, CLASS_TEXT_VISITOR}
       do
          hash_code := name.hash_code
          create {HASHED_DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]} feature_dictionary.make
-      end
-
-   add_index_clause (index_clause: INDEX_CLAUSE) is
-      require
-         index_clause /= Void
-      do
-         if index_list = Void then
-            create index_list.make(index_clause)
-         else
-            index_list.add_last(index_clause)
-         end
       end
 
    add_creation_clause (cc: CREATION_CLAUSE) is

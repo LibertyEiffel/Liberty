@@ -1,72 +1,44 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class INDEX_LIST
+deferred class INDEXINGABLE
    --
-   -- For the indexing clause in the heading part of a class.
+   -- Eiffel notes (old keyword is "indexing")
    --
-
-inherit
-   VISITABLE
-
-insert
-   GLOBALS
-
-create {INDEXINGABLE}
-   make
 
 feature {ANY}
-   pretty is
-      local
-         i: INTEGER
-      do
-         pretty_printer.set_indent_level(0)
-         pretty_printer.put_string(once "indexing")
-         pretty_printer.set_indent_level(1)
-         from
-            i := list.lower
-         until
-            i > list.upper
-         loop
-            list.item(i).pretty
-            i := i + 1
-         end
-         pretty_printer.set_indent_level(0)
-      end
-
-   accept (visitor: INDEX_LIST_VISITOR) is
-      do
-         visitor.visit_index_list(Current)
-      end
-
-feature {INDEX_LIST_VISITOR}
-   list: FAST_ARRAY[INDEX_CLAUSE]
+   index_list: INDEX_LIST
+         -- For the indexing of the class.
 
 feature {}
-   make (first: INDEX_CLAUSE) is
-      require
-         first /= Void
+   pretty_index is
       do
-         create list.with_capacity(4)
-         list.add_last(first)
-      ensure
-         list.first = first
+         if index_list /= Void then
+            index_list.pretty
+         end
+      end
+
+feature {EIFFEL_PARSER}
+   add_index_clause (index_clause: INDEX_CLAUSE) is
+      require
+         index_clause /= Void
+      do
+         if index_list = Void then
+            create index_list.make(index_clause)
+         else
+            index_list.add_last(index_clause)
+         end
       end
 
 feature {INDEXINGABLE}
-   add_last (ic: INDEX_CLAUSE) is
+   set_index_list (a_index_list: like index_list) is
       require
-         ic /= Void
+         brand_new: index_list = Void
       do
-         list.add_last(ic)
+         index_list := a_index_list
       end
 
-invariant
-   list.lower = 1
-
-   not list.is_empty
-
-end -- class INDEX_LIST
+end -- class INDEXINGABLE
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

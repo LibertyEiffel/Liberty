@@ -101,6 +101,8 @@ feature {} -- The keywords section:
 
    fz_no: STRING is "no"
 
+   fz_note: STRING is "note"
+
    fz_obsolete: STRING is "obsolete"
 
    fz_old: STRING is "old"
