@@ -411,10 +411,11 @@ The default is \"se\"."
 ;; class-level and a from-level keyword
 ;; Note obsolete is handled as a special case since it is both a
 ;; class-level and a feature-level keyword
+;; Note create, note, and indexing are also handled as special cases
 (defconst eif-class-level-keywords
-  "note\\|indexing\\|class\\|deferred[ \t]+class\\|expanded[ \t]+class\\|reference[ \t]+class\\|separate[ \t]+class\\|inherit\\|insert\\|convert\\|create\\|creation\\|feature"
+  "class\\|deferred[ \t]+class\\|expanded[ \t]+class\\|reference[ \t]+class\\|separate[ \t]+class\\|inherit\\|insert\\|convert\\|creation\\|feature"
   "Keywords introducing class-level clauses.
-Note that `invariant' and `obsolete' are not included here since can
+Note that `invariant', `obsolete', `indexing', `note', and `create' are not included here since can
 function as more than one type of keyword.")
 
 (defconst eif-class-level-keywords-regexp
@@ -492,6 +493,12 @@ See `eif-end-matching-keywords'.")
 (defconst eif-rescue-keyword "rescue"  "The `rescue' keyword.")
 
 (defconst eif-obsolete-keyword "obsolete"  "The `obsolete' keyword.")
+
+(defconst eif-indexing-keyword "note\\|indexing" "The `indexing' and `note' keywords.")
+
+(defconst eif-indexing-keyword-regexp
+  (eif-post-anchor eif-indexing-keyword)
+  "Regexp matching `indexing' and `note' keywords, with trailing context.")
 
 (defconst eif-rescue-keywords-regexp
   (eif-word-anchor eif-rescue-keyword)
@@ -676,7 +683,7 @@ Does not include `is'.  See `eif-all-keywords'.")
 ;; eif-{beginning,end}-of-feature.
 
 (defconst eif-routine-begin-regexp
-  "\\([a-z_][a-zA-Z_0-9]*\\)\\s-*\\(([^)]*)\\)?\\s-*\\(:\\s-*[A-Z][A-Za-z0-9_]*\\(\\s-*\\[[^\\]]*\\]\\)?\\)?\\s-*\\(assign\\s-*[a-z0-9_]+\\)\\s-*\\<is\\>\\s-*\\(--.*\\)?$"
+  "\\([a-z][a-zA-Z_0-9]*\\)\\s-*\\(([^)]*)\\)?\\s-*\\(:\\s-*[A-Z][A-Z0-9_]*\\(\\s-*\\[[^\\]]*\\]\\)?\\)?\\s-*\\(assign\\s-*[a-zA-Z0-9_]+\\)?\\s-*\\<is\\>\\s-*\\(--.*\\)?$"
   "Regexp matching the beginning of an Eiffel routine declaration.")
 
 (defconst eif-attribute-regexp
@@ -1138,6 +1145,16 @@ don't start with a relevant keyword, the calculation is handed off to
                 ;; There's possibly a better way of coding this exception.
                 ((looking-at eif-once-non-indent-regexp)
                  (setq indent (eif-calc-indent-non-keyword)))
+                ((looking-at eif-indexing-keyword-regexp)
+                 ;; Class-level or minor occurence?
+                 (if (string-match eif-check-keyword (eif-matching-kw eif-check-keywords-regexp))
+                     ;; In check.
+                     (setq indent (+ eif-matching-indent (eif-check-keyword-indent-m)))
+                   (if (save-excursion (eif-find-beginning-of-feature))
+                       ;; Minor. (BUG: "note" can also be at the END of the class!!!)
+                       (setq indent (eif-calc-indent-non-keyword))
+                     ;; Class-level.
+                     (setq indent (eif-class-level-kw-indent-m)))))
                 ((looking-at eif-class-level-keywords-regexp)
                  ;; File level keywords (indent defaults to 0)
                  (setq indent (eif-class-level-kw-indent-m)))
