@@ -318,7 +318,7 @@ feature {}
          elseif a_keyword(fz_creation) then
             error_handler.add_position(pos(l, c))
             error_handler.append(once "The keyword 'creation' is now replaced by 'create'. Please update your code.")
-            error_handler.print_as_style_warning --| **** TODO: make it a warning (in Bell), then an error (in Curtiss); then remove the keyword (in Curtiss+1)
+            error_handler.print_as_warning --| **** TODO: make it a warning (in Bell), then an error (in Curtiss); then remove the keyword (in Curtiss+1)
             Result := True
          end
       end
@@ -3512,6 +3512,9 @@ feature {}
                   error_handler.print_as_fatal_error
                end
             end
+            error_handler.add_position(sp)
+            error_handler.append(once "The !! notation is really old and ugly, it should not be used anymore. Please update your code and use the `create' keyword.")
+            error_handler.print_as_warning
             create {CREATE_INSTRUCTION} last_instruction.make(sp, type, writable, call)
          end
       end
