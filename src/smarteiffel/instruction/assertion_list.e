@@ -479,9 +479,12 @@ feature {LOOP_INSTRUCTION}
       end
 
 feature {CHECK_COMPOUND}
-   pretty_as_check_compound (indent_level: INTEGER) is
+   pretty_as_check_compound (indent_level: INTEGER; chk: CHECK_COMPOUND) is
+      require
+         chk /= Void
       do
          pretty_print_with_tag(indent_level, once "check")
+         chk.pretty_index(indent_level, Void)
          pretty_printer.set_indent_level(indent_level)
          pretty_printer.keyword(once "end")
          if pretty_printer.print_end_of_statement then

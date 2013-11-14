@@ -2696,7 +2696,7 @@ feature {}
                last_instruction := chk
                Result := True
             end
-            a_indexing(chk)
+            a_indexing(chk, Void)
             if not a_keyword(fz_end) then
                error_handler.add_position(sp)
                error_handler.add_position(current_position)
@@ -2728,7 +2728,7 @@ feature {}
          feature_clause: FEATURE_CLAUSE
       do
          inline_agents.clear_count
-         a_indexing(last_class_text)
+         a_indexing(last_class_text, once "top")
          from
             prefixword := True
          until
@@ -2789,7 +2789,7 @@ feature {}
             al := a_assertion
             last_class_text.set_invariant(sp, hc, al)
          end
-         a_indexing(last_class_text)
+         a_indexing(last_class_text, once "bottom")
          if a_keyword(fz_end) then
             ok := skip1(';')
             last_class_text.set_end_comment(get_comment)
@@ -4788,7 +4788,7 @@ feature {}
          Result := a_r10(False, implicit_current, sfn, a_actuals)
       end
 
-   a_index_clause (a_indexingable: INDEXINGABLE): BOOLEAN is
+   a_index_clause (a_indexingable: INDEXINGABLE; a_spec: STRING): BOOLEAN is
          --  ++ index_clause -> [identifier ":"] {index_value "," ...}+
          --  ++
       require
@@ -4799,7 +4799,7 @@ feature {}
          if a_ordinary_feature_name_or_local_name then
             Result := True
             if skip1(':') then
-               create index_clause.with_tag(token_buffer.hashed_string)
+               create index_clause.with_tag(token_buffer.hashed_string, a_spec)
                if a_index_value then
                   index_clause.add_last(last_manifest_string)
                else
@@ -4808,11 +4808,11 @@ feature {}
                   error_handler.print_as_fatal_error
                end
             else
-               create index_clause.without_tag(token_buffer.to_manifest_string)
+               create index_clause.without_tag(token_buffer.to_manifest_string, a_spec)
             end
          elseif a_manifest_string(True) then
             Result := True
-            create index_clause.without_tag(last_manifest_string)
+            create index_clause.without_tag(last_manifest_string, a_spec)
          end
          if Result then
             from
@@ -4846,7 +4846,7 @@ feature {}
          end
       end
 
-   a_indexing (a_indexingable: INDEXINGABLE) is
+   a_indexing (a_indexingable: INDEXINGABLE; a_spec: STRING) is
          --  ++ indexing -> "indexing" {index_clause ";" ...}
          --  ++
       local
@@ -4863,7 +4863,7 @@ feature {}
          if has_note then
             from
             until
-               not a_index_clause(a_indexingable)
+               not a_index_clause(a_indexingable, a_spec)
             loop
                ok := skip1(';')
             end
@@ -5568,7 +5568,7 @@ feature {}
          --  ++                 "once" compound
          --  ++
       do
-         a_indexing(tmp_feature)
+         a_indexing(tmp_feature, Void)
          if a_keyword(fz_deferred) then
             last_class_text.set_is_deferred
             Result := tmp_feature.as_deferred_routine

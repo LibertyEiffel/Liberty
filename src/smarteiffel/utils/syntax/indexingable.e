@@ -6,16 +6,26 @@ deferred class INDEXINGABLE
    -- Eiffel notes (old keyword is "indexing")
    --
 
+insert
+   GLOBALS
+
 feature {ANY}
    index_list: INDEX_LIST
          -- For the indexing of the class.
 
 feature {}
-   pretty_index is
+   pretty_index (indent_level: INTEGER; a_spec: STRING) is
       do
          if index_list /= Void then
-            index_list.pretty
+            index_list.pretty(indent_level, a_spec)
+            if indent_level = 0 and then not pretty_printer.zen_mode then
+               pretty_printer.set_indent_level(indent_level)
+               pretty_printer.skip_one_line
+            end
          end
+         pretty_printer.set_indent_level(indent_level)
+      ensure
+         pretty_printer.indent_level = indent_level
       end
 
 feature {EIFFEL_PARSER}

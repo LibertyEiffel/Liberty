@@ -9,6 +9,9 @@ class CHECK_COMPOUND
 inherit
    INSTRUCTION
    INDEXINGABLE
+      export {ASSERTION_LIST}
+         pretty_index
+      end
 
 create {ANY}
    make
@@ -96,9 +99,8 @@ feature {ANY}
    pretty (indent_level: INTEGER) is
       do
          if assertion_list /= Void then
-            assertion_list.pretty_as_check_compound(indent_level)
+            assertion_list.pretty_as_check_compound(indent_level, Current)
          end
-         pretty_index
       end
 
    accept (visitor: CHECK_COMPOUND_VISITOR) is

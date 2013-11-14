@@ -192,9 +192,7 @@ feature {ANY}
       local
          dummy_comment_flag: BOOLEAN
       do
-         pretty_printer.set_indent_level(0)
-         pretty_index
-         pretty_printer.set_indent_level(0)
+         pretty_index(0, once "top")
          if pretty_printer.replacement_header /= Void then
             pretty_printer.put_string(pretty_printer.replacement_header)
          elseif heading_comment1 /= Void then
@@ -241,6 +239,7 @@ feature {ANY}
             class_invariant.pretty_print_with_tag(0, once "invariant")
          end
          pretty_printer.set_indent_level(0)
+         pretty_index(0, once "bottom")
          if not pretty_printer.zen_mode then
             pretty_printer.skip_one_line
          end

@@ -16,22 +16,25 @@ create {INDEXINGABLE}
    make
 
 feature {ANY}
-   pretty is
+   pretty (indent_level: INTEGER; a_spec: STRING) is
       local
-         i: INTEGER
+         i: INTEGER; header: BOOLEAN; e: SAFE_EQUAL[STRING]
       do
-         pretty_printer.set_indent_level(0)
-         pretty_printer.put_string(once "indexing")
-         pretty_printer.set_indent_level(1)
          from
             i := list.lower
          until
             i > list.upper
          loop
-            list.item(i).pretty
+            if e.test(a_spec, list.item(i).spec) then
+               if not header then
+                  pretty_printer.set_indent_level(indent_level)
+                  pretty_printer.put_string(once "note")
+                  header := True
+               end
+               list.item(i).pretty(indent_level)
+            end
             i := i + 1
          end
-         pretty_printer.set_indent_level(0)
       end
 
    accept (visitor: INDEX_LIST_VISITOR) is

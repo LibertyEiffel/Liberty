@@ -107,9 +107,7 @@ feature {}
 
    pretty_print_routine_body (indent_level: INTEGER) is
       do
-         pretty_printer.set_indent_level(indent_level)
-         pretty_index
-         pretty_printer.set_indent_level(indent_level)
+         pretty_index(indent_level, Void)
          pretty_printer.put_string(once "deferred")
       end
 
