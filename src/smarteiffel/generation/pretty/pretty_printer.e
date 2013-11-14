@@ -4,14 +4,14 @@
 class PRETTY_PRINTER
    --
    -- Singleton in charge of handling Eiffel code pretty printing (this is used to implement the well
-   -- knowned "pretty" command).
+   -- known "pretty" command).
    -- This singleton is shared via the GLOBALS.`pretty_printer' once function.
    --
    -- The `pretty_printer' singleton takes care of Eiffel source code output in a given file. The indent
    -- level, the current column number as well as already skipped lines is automatically memorized.
    -- The `pretty_printer' singleton is also in charge of replacing sequence of blank characters with
    -- tabulation in the output. In order to make this object easy to use, the output is automatically
-   -- buffered so that indentation level can be change without any trouble.
+   -- buffered so that indentation level can be changed without any trouble.
    --
 
 insert
