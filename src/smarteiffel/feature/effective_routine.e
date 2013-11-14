@@ -82,15 +82,18 @@ feature {FEATURE_ACCUMULATOR}
 feature {ANONYMOUS_FEATURE_MIXER}
    specialize_body_in (new_type: TYPE; can_twin: BOOLEAN): like Current is
       local
-         lv: like local_vars; rb: like routine_body; rc: like rescue_compound
+         lv: like local_vars; clv: like closure_local_vars
+         rb: like routine_body; rc: like rescue_compound
       do
          if local_vars /= Void then
             lv := local_vars.specialize_in(new_type)
-            check
-               smart_eiffel.specializing_feature_local_var_list = Void
-            end
-            smart_eiffel.set_specializing_feature_variables(lv)
          end
+         clv := specialize_closure_local_var_lists_in(new_type)
+         check
+            smart_eiffel.specializing_feature_local_var_list = Void
+            smart_eiffel.specializing_closure_local_var_lists = Void
+         end
+         smart_eiffel.set_specializing_feature_variables(lv, clv)
          if routine_body /= Void then
             rb := routine_body.specialize_in(new_type)
          end
@@ -112,10 +115,9 @@ feature {ANONYMOUS_FEATURE_MIXER}
          end
          check
             smart_eiffel.specializing_feature_local_var_list = lv
+            smart_eiffel.specializing_closure_local_var_lists = clv
          end
-         if lv /= Void then
-            smart_eiffel.set_specializing_feature_variables(Void)
-         end
+         smart_eiffel.set_specializing_feature_variables(Void, Void)
       end
 
 feature {FEATURE_STAMP, PRECURSOR_CALL}
@@ -154,13 +156,20 @@ feature {FEATURE_STAMP, PRECURSOR_CALL}
 feature {ANONYMOUS_FEATURE_MIXER}
    specialize_body_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE; can_twin: BOOLEAN): like Current is
       local
-         lv, lv_memory: like local_vars; rb: like routine_body; rc: like rescue_compound
+         lv, lv_memory: like local_vars; clv, clv_memory: like closure_local_vars
+         rb: like routine_body; rc: like rescue_compound
       do
          if local_vars /= Void then
             lv := local_vars.specialize_thru(parent_type, parent_edge, new_type)
-            lv_memory := smart_eiffel.specializing_feature_local_var_list
-            smart_eiffel.set_specializing_feature_variables(lv)
          end
+         clv := specialize_closure_local_var_lists_thru(parent_type, parent_edge, new_type)
+         check
+            smart_eiffel.specializing_feature_local_var_list = Void
+            smart_eiffel.specializing_closure_local_var_lists = Void
+         end
+         lv_memory := smart_eiffel.specializing_feature_local_var_list
+         clv_memory := smart_eiffel.specializing_closure_local_var_lists
+         smart_eiffel.set_specializing_feature_variables(lv, clv)
          if routine_body /= Void then
             rb := routine_body.specialize_thru(parent_type, parent_edge, new_type)
          end
@@ -183,9 +192,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
          check
             lv /= Void implies smart_eiffel.specializing_feature_local_var_list = lv
          end
-         if lv /= Void then
-            smart_eiffel.set_specializing_feature_variables(lv_memory)
-         end
+         smart_eiffel.set_specializing_feature_variables(lv_memory, clv_memory)
       end
 
 feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}

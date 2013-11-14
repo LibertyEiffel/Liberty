@@ -19,6 +19,10 @@ create {TOKEN_BUFFER, INTROSPECTION_HANDLER}
    refer_to
 
 feature {ANY}
+   closure_rank: INTEGER
+         -- 0 if the local is declared in the function scope; >0 if the local is declared in the
+         -- nth enclosing function (i.e. available via a closure)
+
    rank: INTEGER
          -- The `rank' of the corresponding declaration in `local_var_list'.
 
@@ -40,7 +44,11 @@ feature {ANY}
       local
          lvl: like local_var_list
       do
-         lvl := smart_eiffel.specializing_feature_local_var_list
+         if closure_rank = 0 then
+            lvl := smart_eiffel.specializing_feature_local_var_list
+         else
+            lvl := smart_eiffel.specializing_closure_local_var_lists.item(closure_rank - 1)
+         end
          if declaration_type = Void then
             declaration_type := lvl.type_mark(rank).declaration_type.type
          else
@@ -60,7 +68,11 @@ feature {ANY}
       local
          lvl: like local_var_list
       do
-         lvl := smart_eiffel.specializing_feature_local_var_list
+         if closure_rank = 0 then
+            lvl := smart_eiffel.specializing_feature_local_var_list
+         else
+            lvl := smart_eiffel.specializing_closure_local_var_lists.item(closure_rank - 1)
+         end
          if local_var_list = lvl then
             Result := Current
          else
@@ -91,7 +103,11 @@ feature {ANY}
          local_var_list.name(rank).live_reference_counter_increment
          af := smart_eiffel.context_feature
          er ::= af
-         lvl := er.local_vars
+         if closure_rank = 0 then
+            lvl := er.local_vars
+         else
+            lvl := er.closure_local_vars.item(closure_rank - 1)
+         end
          if local_var_list = lvl then
             Result := Current
          else
@@ -126,7 +142,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
 feature {}
    local_var_list: LOCAL_VAR_LIST
 
-   refer_to (sp: POSITION; lvl: LOCAL_VAR_LIST; r: like rank) is
+   refer_to (sp: POSITION; lvl: LOCAL_VAR_LIST; r: like rank; cr: like closure_rank) is
          -- Using name `r' of `lvl' at place `sp'.
       require
          not sp.is_unknown
@@ -135,6 +151,7 @@ feature {}
          start_position := sp
          local_var_list := lvl
          rank := r
+         closure_rank := cr
          written_declaration_type_mark := lvl.type_mark(r)
          lvl.name(r).parsing_reference_counter_increment
       ensure

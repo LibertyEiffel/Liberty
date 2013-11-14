@@ -754,11 +754,13 @@ feature {CODE_PRINTER}
 
 feature {LOCAL_NAME2, EFFECTIVE_ROUTINE, EXTERNAL_ROUTINE, INTROSPECTION_HANDLER}
    specializing_feature_local_var_list: LOCAL_VAR_LIST
+   specializing_closure_local_var_lists: FAST_ARRAY[LOCAL_VAR_LIST]
 
 feature {EFFECTIVE_ROUTINE, EXTERNAL_ROUTINE, INTROSPECTION_HANDLER}
-   set_specializing_feature_variables (lvl: LOCAL_VAR_LIST) is
+   set_specializing_feature_variables (lvl: LOCAL_VAR_LIST; clvl: FAST_ARRAY[LOCAL_VAR_LIST]) is
       do
          specializing_feature_local_var_list := lvl
+         specializing_closure_local_var_lists := clvl
       end
 
 feature {}

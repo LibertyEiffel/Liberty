@@ -486,21 +486,19 @@ feature {}
       do
          if lv /= Void then
             local_vars := lv.specialize_in(new_type)
-            check
-               smart_eiffel.specializing_feature_local_var_list = Void
-            end
-            smart_eiffel.set_specializing_feature_variables(local_vars)
          end
+         check
+            smart_eiffel.specializing_feature_local_var_list = Void
+         end
+         smart_eiffel.set_specializing_feature_variables(local_vars, Void)
          if rb /= Void then
             routine_body := rb.specialize_in(new_type)
          end
-         if local_vars /= Void then
-            check
-               smart_eiffel.specializing_feature_local_var_list = local_vars
-            end
-            smart_eiffel.set_specializing_feature_variables(Void)
+         check
+            smart_eiffel.specializing_feature_local_var_list = local_vars
          end
-         external_routine := external_routine.current_or_twin_init(local_vars, routine_body, True,
+         smart_eiffel.set_specializing_feature_variables(Void, Void)
+         external_routine := external_routine.current_or_twin_init(local_vars, Void, routine_body, True,
                                                                    external_routine.ensure_assertion,
                                                                    external_routine.require_assertion,
                                                                    can_twin)
@@ -780,7 +778,7 @@ feature {}
                   attribute_type_mark := af.result_type.to_static(target_type, False)
                   if is_introspectable_attribute_type(attribute_type_mark) then
                      create when_clause.make_strippable(inspect_statement, fs)
-                     create local_var2.refer_to(start_position, lv, j)
+                     create local_var2.refer_to(start_position, lv, j, 0)
                      create assignment_attempt.make(local_var2, arg, True)
                      create arg_object_memory.make(local_var2, object_memory_fn)
                      create fn.ordinary_name(target_type.get_feature_name(fs).name, start_position)
@@ -1201,7 +1199,7 @@ feature {}
             create declaration.make(local_var1, tm)
             declarations := {ARRAY[DECLARATION]1, <<declaration>>}
             create lv.make(declarations)
-            create local_var2.refer_to(start_position, lv, 1)
+            create local_var2.refer_to(start_position, lv, 1, 0)
             create arg1.refer_to(start_position, arguments, 1)
             create arg2.refer_to(start_position, arguments, 2)
             create assignment_attempt.make(local_var2, arg1, True)

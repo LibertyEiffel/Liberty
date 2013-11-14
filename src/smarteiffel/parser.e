@@ -712,6 +712,8 @@ feature {}
 
    em26: STRING is "Same identifier appears twice (local/formal)."
 
+   em26_2: STRING is "Same identifier appears twice (local/closure)."
+
    em27: STRING is "Added %"(%"."
 
    em28: STRING is "Added %")%"."

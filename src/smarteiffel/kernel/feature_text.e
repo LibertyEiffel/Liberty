@@ -93,6 +93,8 @@ feature {ANY}
 
 feature {AGENT_CREATION}
    inline_agent_pretty (indent_level: INTEGER) is
+      require
+         is_inline_agent
       do
          anonymous_feature.pretty(indent_level, True)
       end
@@ -101,6 +103,7 @@ feature {FEATURE_CLAUSE}
    pretty is
       require
          pretty_printer.indent_level = 1
+         not is_inline_agent
       do
          anonymous_feature.pretty(1, False)
          pretty_printer.set_indent_level(0)
@@ -143,12 +146,24 @@ feature {FEATURE_CLAUSE}
          feature_clause = fc
       end
 
+feature {}
+   closure_arguments: FAST_ARRAY[FORMAL_ARG_LIST]
+   closure_local_vars: FAST_ARRAY[LOCAL_VAR_LIST]
+
 feature {EIFFEL_PARSER}
-   set_inline_agent is
+   set_inline_agent (ca: like closure_arguments; clv: like closure_local_vars) is
+      require
+         not ca.is_empty
+         not clv.is_empty
       do
          is_inline_agent := True
+         closure_arguments := ca.twin
+         closure_local_vars := clv.twin
+         anonymous_feature.set_closure(closure_arguments, closure_local_vars)
       ensure
          is_inline_agent
+         closure_arguments /= ca and then closure_arguments.is_equal(ca)
+         closure_local_vars /= clv and then closure_local_vars.is_equal(clv)
       end
 
    set_header_comment (hc: COMMENT) is

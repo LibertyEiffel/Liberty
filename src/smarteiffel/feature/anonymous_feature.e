@@ -991,6 +991,89 @@ feature {FEATURE_TEXT}
          rescue_compound = instruction
       end
 
+feature {LOCAL_NAME2}
+   closure_arguments: FAST_ARRAY[FORMAL_ARG_LIST]
+         -- Arguments of enclosing features
+
+   closure_local_vars: FAST_ARRAY[LOCAL_VAR_LIST]
+         -- Local vars of enclosing features
+
+feature {FEATURE_TEXT}
+   set_closure (ca: like closure_arguments; clv: like closure_local_vars) is
+      require
+         not ca.is_empty
+         not clv.is_empty
+      do
+         closure_arguments := ca
+         closure_local_vars := clv
+      ensure
+         closure_arguments = ca
+         closure_local_vars = clv
+      end
+
+feature {}
+   specialize_closure_local_var_lists_in (new_type: TYPE): like closure_local_vars is
+      local
+         i: INTEGER; lv1, lv2: LOCAL_VAR_LIST
+      do
+         if closure_local_vars /= Void then
+            from
+               Result := closure_local_vars
+               i := Result.lower
+            until
+               lv1 /= lv2 or else i > Result.upper
+            loop
+               lv1 := Result.item(i)
+               if lv1 /= Void then
+                  lv2 := lv1.specialize_in(new_type)
+               end
+               i := i + 1
+            end
+            if lv1 /= lv2 then
+               Result := Result.twin
+               from
+                  Result.put(lv2, i - 1)
+               until
+                  i > Result.upper
+               loop
+                  Result.put(Result.item(i).specialize_in(new_type), i)
+                  i := i + 1
+               end
+            end
+         end
+      end
+
+   specialize_closure_local_var_lists_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like closure_local_vars is
+      local
+         i: INTEGER; lv1, lv2: LOCAL_VAR_LIST
+      do
+         if closure_local_vars /= Void then
+            from
+               Result := closure_local_vars
+               i := Result.lower
+            until
+               lv1 /= lv2 or else i > Result.upper
+            loop
+               lv1 := Result.item(i)
+               if lv1 /= Void then
+                  lv2 := lv1.specialize_thru(parent_type, parent_edge, new_type)
+               end
+               i := i + 1
+            end
+            if lv1 /= lv2 then
+               Result := Result.twin
+               from
+                  Result.put(lv2, i - 1)
+               until
+                  i > Result.upper
+               loop
+                  Result.put(Result.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
+                  i := i + 1
+               end
+            end
+         end
+      end
+
 feature {RUN_FEATURE}
    hook_for (lt: LIVE_TYPE) is
          -- A hook called at adapt time by RUN_FEATURE

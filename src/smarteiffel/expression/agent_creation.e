@@ -60,7 +60,7 @@ feature {ANY}
    is_current, is_implicit_current: BOOLEAN is False
 
    inline_feature: FEATURE_TEXT
-         -- non-Void if the agent is an inline agent (useful for pretty)
+         -- non-Void if the agent is an inline agent (useful for pretty, also for closure parts)
 
    extra_bracket_flag: BOOLEAN is False
 
@@ -545,6 +545,7 @@ feature {}
       require
          not sp.is_unknown
          function_call /= Void
+         a_inline_feature /= Void implies a_inline_feature.is_inline_agent
       local
          rank, i, max_capacity: INTEGER; open_operand: OPEN_OPERAND; arguments: EFFECTIVE_ARG_LIST
          expression: EXPRESSION; closed_operand: CLOSED_OPERAND
@@ -600,6 +601,7 @@ feature {}
       ensure
          start_position = sp
          code = function_call
+         inline_feature = a_inline_feature
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
@@ -725,6 +727,7 @@ feature {C_LIVE_TYPE_COMPILER}
 
 invariant
    not start_position.is_unknown
+   inline_feature /= Void implies inline_feature.is_inline_agent
 
 end -- class AGENT_CREATION
 --

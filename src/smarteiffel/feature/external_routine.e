@@ -64,7 +64,8 @@ feature {ANY}
    specialize_body_in (new_type: TYPE; can_twin: BOOLEAN): like Current is
       local
          type_name: STRING
-         lv: like local_vars; rb: like routine_body
+         lv: like local_vars; clv: like closure_local_vars
+         rb: like routine_body
       do
          type_name := new_type.class_text.name.to_string
          if type_name = as_typed_internals then
@@ -76,47 +77,51 @@ feature {ANY}
          elseif first_name.to_string = as_to_internals then
             Result ::= introspection_handler.specialize_body_for_any_to_internals(Current, new_type, can_twin)
          else
+            check
+               smart_eiffel.specializing_feature_local_var_list = Void
+               smart_eiffel.specializing_closure_local_var_lists = Void
+            end
             if local_vars /= Void then
                lv := local_vars.specialize_in(new_type)
-               check
-                  smart_eiffel.specializing_feature_local_var_list = Void
-               end
-               smart_eiffel.set_specializing_feature_variables(lv)
             end
+            clv := specialize_closure_local_var_lists_in(new_type)
+            smart_eiffel.set_specializing_feature_variables(lv, clv)
             if routine_body /= Void then
                rb := routine_body.specialize_in(new_type)
             end
-            if lv /= Void then
-               check
-                  smart_eiffel.specializing_feature_local_var_list = lv
-               end
-               smart_eiffel.set_specializing_feature_variables(Void)
+            check
+               smart_eiffel.specializing_feature_local_var_list = lv
+               smart_eiffel.specializing_closure_local_var_lists = clv
             end
-            Result := current_or_twin_init(lv, rb, is_generated_eiffel, ensure_assertion, require_assertion, can_twin)
+            smart_eiffel.set_specializing_feature_variables(Void, Void)
+            Result := current_or_twin_init(lv, clv, rb, is_generated_eiffel, ensure_assertion, require_assertion, can_twin)
          end
       end
 
    specialize_body_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE; can_twin: BOOLEAN): like Current is
       local
-         lv, lv_memory: like local_vars; rb: like routine_body
+         lv, lv_memory: like local_vars
+         clv, clv_memory: like closure_local_vars
+         rb: like routine_body
       do
          if local_vars /= Void then
             lv := local_vars.specialize_thru(parent_type, parent_edge, new_type)
-            lv_memory := smart_eiffel.specializing_feature_local_var_list
-            smart_eiffel.set_specializing_feature_variables(lv)
          end
+         clv := specialize_closure_local_var_lists_thru(parent_type, parent_edge, new_type)
+         lv_memory := smart_eiffel.specializing_feature_local_var_list
+         clv_memory := smart_eiffel.specializing_closure_local_var_lists
+         smart_eiffel.set_specializing_feature_variables(lv, clv)
          if routine_body /= Void and then new_type.class_text.name.to_string /= as_typed_internals then
             rb := routine_body.specialize_thru(parent_type, parent_edge, new_type)
-            Result := current_or_twin_init(lv, rb, is_generated_eiffel, ensure_assertion, require_assertion, can_twin)
+            Result := current_or_twin_init(lv, clv, rb, is_generated_eiffel, ensure_assertion, require_assertion, can_twin)
          else
-            Result := current_or_twin_init_no_body(lv, is_generated_eiffel, ensure_assertion, require_assertion, can_twin)
+            Result := current_or_twin_init_no_body(lv, clv, is_generated_eiffel, ensure_assertion, require_assertion, can_twin)
          end
-         if lv /= Void then
-            check
-               smart_eiffel.specializing_feature_local_var_list = lv
-            end
-            smart_eiffel.set_specializing_feature_variables(lv_memory)
+         check
+            smart_eiffel.specializing_feature_local_var_list = lv
+            smart_eiffel.specializing_closure_local_var_lists = clv
          end
+         smart_eiffel.set_specializing_feature_variables(lv_memory, clv_memory)
       end
 
    specialize_and_check (type: TYPE): E_ROUTINE is
@@ -147,7 +152,7 @@ feature {ANY}
                ea := ensure_assertion.specialize_and_check(type)
             end
          end
-         Result := current_or_twin_init(local_vars, rb, is_generated_eiffel, ea, ra, True)
+         Result := current_or_twin_init(local_vars, closure_local_vars, rb, is_generated_eiffel, ea, ra, True)
       end
 
    has_been_specialized: BOOLEAN is
@@ -173,7 +178,7 @@ feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}
          if routine_body /= Void then
             rb := routine_body.simplify(type)
             if rb /= Void or else not is_generated_eiffel then
-               Result := current_or_twin_init(local_vars, rb, is_generated_eiffel, ensure_assertion, require_assertion, True)
+               Result := current_or_twin_init(local_vars, closure_local_vars, rb, is_generated_eiffel, ensure_assertion, require_assertion, True)
             else
                debug --| **** TODO: find why generated code does not simplify correctly (see TEST_JSON_04)
                   sedb_breakpoint
@@ -245,10 +250,10 @@ feature {}
          alias_string := description
       end
 
-   current_or_twin_init_no_body (lv: like local_vars; is_generated: like is_generated_eiffel;
+   current_or_twin_init_no_body (lv: like local_vars; clv: like closure_local_vars; is_generated: like is_generated_eiffel;
       ea: like ensure_assertion; ra: like require_assertion; can_twin: BOOLEAN): like Current is
       do
-         if lv = local_vars and then Void = routine_body and then is_generated = is_generated_eiffel
+         if lv = local_vars and then clv = closure_local_vars and then Void = routine_body and then is_generated = is_generated_eiffel
             and then ea = ensure_assertion and then ra = require_assertion then
             Result := Current
          else
@@ -257,7 +262,7 @@ feature {}
             else
                Result := Current
             end
-            Result.init(lv, Void, is_generated, ea, ra)
+            Result.init(lv, clv, Void, is_generated, ea, ra)
          end
       end
 
@@ -301,10 +306,11 @@ feature {INTROSPECTION_HANDLER}
       end
 
 feature {EXTERNAL_ROUTINE}
-   init (lv: like local_vars; rb: like routine_body; is_generated: like is_generated_eiffel;
+   init (lv: like local_vars; clv: like closure_local_vars; rb: like routine_body; is_generated: like is_generated_eiffel;
          ea: like ensure_assertion; ra: like require_assertion) is
       do
          local_vars := lv
+         closure_local_vars := clv
          routine_body := rb
          is_generated_eiffel := is_generated
          ensure_assertion := ea
@@ -318,12 +324,12 @@ feature {EXTERNAL_ROUTINE}
       end
 
 feature {INTROSPECTION_HANDLER}
-   current_or_twin_init (lv: like local_vars; rb: like routine_body; is_generated: like is_generated_eiffel;
+   current_or_twin_init (lv: like local_vars; clv: like closure_local_vars; rb: like routine_body; is_generated: like is_generated_eiffel;
       ea: like ensure_assertion; ra: like require_assertion; can_twin: BOOLEAN): like Current is
       require
          routine_body /= Void implies rb /= Void
       do
-         if lv = local_vars and then rb = routine_body and then is_generated = is_generated_eiffel
+         if lv = local_vars and then clv = closure_local_vars and then rb = routine_body and then is_generated = is_generated_eiffel
             and then ea = ensure_assertion and then ra = require_assertion then
             Result := Current
          else
@@ -332,7 +338,7 @@ feature {INTROSPECTION_HANDLER}
             else
                Result := Current
             end
-            Result.init(lv, rb, is_generated, ea, ra)
+            Result.init(lv, clv, rb, is_generated, ea, ra)
          end
       end
 

@@ -407,6 +407,10 @@ feature {}
    local_vars: LOCAL_VAR_LIST
          -- Void or actual local variables list.
 
+   closure_arguments: FAST_ARRAY[FORMAL_ARG_LIST]
+
+   closure_local_vars: FAST_ARRAY[LOCAL_VAR_LIST]
+
    ok: BOOLEAN
          -- Dummy variable to call functions.
 
@@ -1138,14 +1142,14 @@ feature {}
          error_handler.print_as_error
       end
 
-   a_argument: BOOLEAN is
+   a_argument_ (args: like arguments): BOOLEAN is
       local
          rank: INTEGER
       do
-         if arguments /= Void then
-            rank := arguments.rank_of(token_buffer.buffer)
+         if args /= Void then
+            rank := args.rank_of(token_buffer.buffer)
             if rank > 0 then
-               last_expression := token_buffer.to_argument_name2(arguments, rank)
+               last_expression := token_buffer.to_argument_name2(args, rank)
                Result := True
                if skip2(':', '=') or else skip3(':', ':', '=') or else skip2('?', '=') then
                   error_handler.add_position(pos(start_line, start_column))
@@ -1156,6 +1160,63 @@ feature {}
                   error_handler.append(once " for the left-hand side of an assignment.")
                   error_handler.print_as_fatal_error
                end
+            end
+         end
+      end
+
+   a_argument: BOOLEAN is
+      local
+         i: INTEGER
+      do
+         from
+            Result := a_argument_(arguments)
+         until
+            Result or else closure_arguments = Void or else i > closure_arguments.upper
+         loop
+            Result := a_argument_(closure_arguments.item(i))
+            i := i + 1
+         end
+      end
+
+   check_name_rank (name: LOCAL_ARGUMENT1; dl: DECLARATION_LIST; err: STRING): BOOLEAN is
+      local
+         rank: INTEGER
+      do
+         if dl /= Void then
+            rank := dl.fast_rank_of(name.to_string)
+         end
+         if rank = 0 then
+            Result := True
+         else
+            error_handler.add_position(name.start_position)
+            error_handler.add_position(dl.name(rank).start_position)
+            error_handler.append(err)
+            error_handler.print_as_error
+         end
+      end
+
+   check_name_rank_and_closure (name: LOCAL_ARGUMENT1) is
+      local
+         i: INTEGER; failed: BOOLEAN
+      do
+         if closure_arguments /= Void then
+            from
+               i := closure_arguments.lower
+            until
+               failed or else i > closure_arguments.upper
+            loop
+               failed := not check_name_rank(name, closure_arguments.item(i), em26_2)
+               i := i + 1
+            end
+         end
+         if closure_local_vars /= Void then
+            from
+               i := closure_local_vars.lower
+            until
+               failed or else i > closure_local_vars.upper
+            loop
+               failed := not check_name_rank(name, closure_local_vars.item(i), em26_2)
+               i := i + 1
             end
          end
       end
@@ -1180,6 +1241,7 @@ feature {}
                   -- Waiting for the first name of a group.
                   if a_ordinary_feature_name_or_local_name then
                      name := token_buffer.to_argument_name1
+                     check_name_rank_and_closure(name)
                      state := 1
                   elseif skip1(')') then
                      state := 5
@@ -1207,6 +1269,7 @@ feature {}
                   -- Waiting for a name (not the first).
                   if a_ordinary_feature_name_or_local_name then
                      name := token_buffer.to_argument_name1
+                     check_name_rank_and_closure(name)
                      state := 1
                   elseif cc = ',' or else cc = ';' then
                      error_handler.add_position(current_position)
@@ -1359,12 +1422,19 @@ feature {}
    S_waiting_for_a_type_mark:               INTEGER is 3
    S_waiting_for_optional_colon:            INTEGER is 4
 
+   check_local_var_rank_and_closure (name: LOCAL_NAME1) is
+      do
+         if check_name_rank(name, arguments, em26) then
+            check_name_rank_and_closure(name)
+         end
+      end
+
    a_local_var_list is
          --  ++ local_var_list -> [{declaration_group ";" ...}]
          --  ++ declaration_group -> {identifier "," ...}+ ":" type_mark
       local
          name: LOCAL_NAME1; name_list: ARRAY[LOCAL_NAME1]; declaration: DECLARATION; list: ARRAY[DECLARATION]
-         rank, state: INTEGER; sp: POSITION
+         state: INTEGER; sp: POSITION
       do
          from
          until
@@ -1376,15 +1446,7 @@ feature {}
                if a_local_name1 then
                   name := token_buffer.to_local_name1
                   state := S_waiting_for_colon_or_semicolon
-                  if arguments /= Void then
-                     rank := arguments.fast_rank_of(name.to_string)
-                     if rank > 0 then
-                        error_handler.add_position(name.start_position)
-                        error_handler.add_position(arguments.name(rank).start_position)
-                        error_handler.append(em26)
-                        error_handler.print_as_error
-                     end
-                  end
+                  check_local_var_rank_and_closure(name)
                elseif cc = ',' or else cc = ';' then
                   error_handler.add_position(current_position)
                   error_handler.append(em13)
@@ -1420,15 +1482,7 @@ feature {}
                if a_local_name1 then
                   name := token_buffer.to_local_name1
                   state := S_waiting_for_colon_or_semicolon
-                  if arguments /= Void then
-                     rank := arguments.fast_rank_of(name.to_string)
-                     if rank > 0 then
-                        error_handler.add_position(name.start_position)
-                        error_handler.add_position(arguments.name(rank).start_position)
-                        error_handler.append(em26)
-                        error_handler.print_as_error
-                     end
-                  end
+                  check_local_var_rank_and_closure(name)
                elseif cc = ',' or else cc = ';' then
                   error_handler.add_position(current_position)
                   error_handler.append(em13)
@@ -1484,23 +1538,45 @@ feature {}
          end
       end
 
-   a_local_name2: BOOLEAN is
+   a_local_name2_ (vars: like local_vars; closure_rank: INTEGER): BOOLEAN is
          -- Used to detect the usage of some local variable.
          -- See also `a_local_name1' and use the good one.
       local
          rank: INTEGER
       do
-         if local_vars /= Void then
-            rank := local_vars.rank_of(token_buffer.buffer)
+         if vars /= Void then
+            rank := vars.rank_of(token_buffer.buffer)
             if rank > 0 then
-               last_expression := token_buffer.to_local_name2(local_vars, rank)
+               last_expression := token_buffer.to_local_name2(vars, rank, closure_rank)
+               Result := True
                if inside_ensure_flag then
                   error_handler.add_position(last_expression.start_position)
                   error_handler.append(once "Must not use local variable in ensure assertions (VEEN).")
                   error_handler.print_as_fatal_error
+               elseif closure_rank > 0 and then (skip2(':', '=') or else skip3(':', ':', '=') or else skip2('?', '=')) then
+                  error_handler.add_position(pos(start_line, start_column))
+                  error_handler.append(once "Local name ")
+                  error_handler.add_expression(last_expression)
+                  error_handler.append(once " is not writable (reached through closure). Cannot use ")
+                  error_handler.add_expression(last_expression)
+                  error_handler.append(once " for the left-hand side of an assignment.")
+                  error_handler.print_as_fatal_error
                end
-               Result := True
             end
+         end
+      end
+
+   a_local_name2: BOOLEAN is
+      local
+         i: INTEGER
+      do
+         from
+            Result := a_local_name2_(local_vars, 0)
+         until
+            Result or else closure_local_vars = Void or else i > closure_local_vars.upper
+         loop
+            Result := a_local_name2_(closure_local_vars.item(i), i + 1)
+            i := i + 1
          end
       end
 
@@ -2727,6 +2803,10 @@ feature {}
          sp: POSITION; hc: COMMENT; al: FAST_ARRAY[ASSERTION]; prefixword: BOOLEAN
          feature_clause: FEATURE_CLAUSE
       do
+         check
+            closure_arguments /= Void implies closure_arguments.is_empty
+            closure_local_vars /= Void implies closure_local_vars.is_empty
+         end
          inline_agents.clear_count
          a_indexing(last_class_text, once "top")
          from
@@ -2816,6 +2896,14 @@ feature {}
          if not inline_agents.is_empty then
             create feature_clause.make(last_class_text, create {CLIENT_LIST}.make(current_position, Void), Void, inline_agents.twin)
             last_class_text.add_feature_clause(feature_clause)
+         end
+
+         if closure_arguments /= Void then
+            check
+               closure_local_vars /= Void
+            end
+            closure_arguments.clear_count
+            closure_local_vars.clear_count
          end
       end
 
@@ -4275,6 +4363,16 @@ feature {}
          iff, ief, irf: BOOLEAN
          a: like arguments; lv: like local_vars
       do
+         if closure_arguments = Void then
+            check
+               closure_local_vars = Void
+            end
+            create closure_arguments.with_capacity(2)
+            create closure_local_vars.with_capacity(2)
+         end
+         closure_arguments.add_last(arguments)
+         closure_local_vars.add_last(local_vars)
+
          outer_feature := tmp_feature
          iff := inside_function_flag
          ief := inside_ensure_flag
@@ -4332,7 +4430,7 @@ feature {}
                   error_handler.print_as_fatal_error
                end
                Result := tmp_feature.as_procedure_or_function
-               Result.set_inline_agent
+               Result.set_inline_agent(closure_arguments, closure_local_vars)
                inline_agents.add_last(Result)
 
                -- must reset the outer feature before calling a_actuals, otherwise the actuals won't be
@@ -4364,6 +4462,9 @@ feature {}
             arguments := a
             local_vars := lv
          end
+
+         closure_local_vars.remove_last
+         closure_arguments.remove_last
       end
 
    a_external: FEATURE_TEXT is

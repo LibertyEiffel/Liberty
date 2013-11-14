@@ -128,9 +128,9 @@ feature {PARSER}
          create Result.make(start_position, buffer)
       end
 
-   to_local_name2 (lvl: LOCAL_VAR_LIST; rank: INTEGER): LOCAL_NAME2 is
+   to_local_name2 (lvl: LOCAL_VAR_LIST; rank, closure_rank: INTEGER): LOCAL_NAME2 is
       do
-         create Result.refer_to(start_position, lvl, rank)
+         create Result.refer_to(start_position, lvl, rank, closure_rank)
       end
 
    to_tag_name: TAG_NAME is
