@@ -841,6 +841,9 @@ feature {}
             -- (6) ------------------------ Initialise Dump Stack:
             cpp.set_dump_stack_top_for(run_feature.type_of_current, once "&ds", once "link")
          end
+         if cpp.has_closures then
+            cpp.c_init_closure_locals(run_feature.local_vars, run_feature.type_of_current)
+         end
          -- (7) ---------------------------------- Add profile:
          if ace.profile then
             cpp.start_profile(run_feature)

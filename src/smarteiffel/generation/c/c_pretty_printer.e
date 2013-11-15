@@ -782,7 +782,10 @@ feature {}
 
 feature {ANY} -- Set of features to bufferize the next C function to be generated:
    pending_c_function: BOOLEAN
-         -- Indicates that a new C function is beeing prepared.
+         -- Indicates that a new C function is being prepared.
+
+   has_closures: BOOLEAN
+         -- Indicates that the new C function creates closures (locals are not generated in the same way)
 
    pending_c_function_signature: STRING is
          -- The signature of the `pending_c_function' beeing prepared.
@@ -806,6 +809,7 @@ feature {ANY} -- Set of features to bufferize the next C function to be generate
          not pending_c_function
       do
          pending_c_function := True
+         has_closures := False
          pending_c_function_counter := pending_c_function_counter + 1
          function_count_in_file := function_count_in_file + 1
       ensure
@@ -3487,7 +3491,7 @@ feature {}
 
 feature {C_COMPILATION_MIXIN}
    c_declare_locals (local_var_list: LOCAL_VAR_LIST; type: TYPE; volatile_flag: BOOLEAN) is
-         -- Generate the C code for the declaration part. The `volatile_flag' indicate that an extra
+         -- Generate the C code for the declaration part. The `volatile_flag' indicates that an extra
          -- volatile C keyword must be generated because we are in the case of a routine with a rescue
          -- clause.
       local
@@ -3501,6 +3505,24 @@ feature {C_COMPILATION_MIXIN}
             c_declare_local(local_var_list.name(i), type, volatile_flag)
             i := i + 1
          end
+      end
+
+   c_init_closure_locals (local_var_list: LOCAL_VAR_LIST; type: TYPE) is
+      require
+         has_closures
+      local
+         i: INTEGER
+      do
+         pending_c_function_body.append(once "/*[INIT CLOSURE LOCALS*/%N")
+         from
+            i := 1
+         until
+            i > local_var_list.count
+         loop
+            c_init_closure_local(local_var_list.name(i), type)
+            i := i + 1
+         end
+         pending_c_function_body.append(once "/*INIT CLOSURE LOCALS]*/%N")
       end
 
 feature {}
@@ -3519,7 +3541,38 @@ feature {}
                end
             end
             pending_c_function_body.append(result_type.for(static_tm))
-            pending_c_function_body.extend(' ')
+            if local_name.is_outside then
+               pending_c_function_body.extend('*')
+               has_closures := True
+            else
+               pending_c_function_body.extend(' ')
+            end
+            print_local(local_name.to_string)
+            pending_c_function_body.extend('=')
+            if local_name.is_outside then
+               pending_c_function_body.extend('(')
+               pending_c_function_body.append(result_type.for(static_tm))
+               pending_c_function_body.append(once "*)se_malloc(sizeof(")
+               pending_c_function_body.append(result_type.for(static_tm))
+               pending_c_function_body.append(once "))")
+            else
+               pending_c_function_body.append(initializer.for(static_tm))
+            end
+            pending_c_function_body.append(once ";%N")
+         end
+      end
+
+   c_init_closure_local (local_name: LOCAL_NAME1; type: TYPE) is
+         -- C declaration of the local.
+      require
+         pending_c_function
+         has_closures
+      local
+         static_tm: TYPE_MARK
+      do
+         if local_name.is_used(type) and then local_name.is_outside then
+            static_tm := local_name.result_type.to_static(type, False)
+            pending_c_function_body.extend('*')
             print_local(local_name.to_string)
             pending_c_function_body.extend('=')
             pending_c_function_body.append(initializer.for(static_tm))
@@ -3908,6 +3961,9 @@ feature {} -- ONCE_ROUTINE_POOL
          if local_vars /= Void then
             pending_c_function_body.extend('{')
             c_declare_locals(local_vars, rf.type_of_current, False)
+            if has_closures then
+               c_init_closure_locals(local_vars, rf.type_of_current)
+            end
          end
          --
          if rf.routine_body /= Void then

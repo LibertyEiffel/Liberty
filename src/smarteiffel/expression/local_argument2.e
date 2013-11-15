@@ -34,6 +34,30 @@ feature {ANY}
       do
       end
 
+   is_outside: BOOLEAN
+         -- True if the local or argument is reached outside of a closure.
+
+   as_outside: like Current is
+      do
+         if is_outside then
+            Result := Current
+         else
+            Result := twin
+            Result.set_outside
+         end
+      ensure
+         Result.is_outside
+         is_outside implies Result = Current
+      end
+
+feature {LOCAL_ARGUMENT2}
+   set_outside is
+      do
+         is_outside := True
+      ensure
+         is_outside
+      end
+
 invariant
    not start_position.is_unknown
 

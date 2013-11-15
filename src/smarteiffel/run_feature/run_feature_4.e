@@ -40,6 +40,11 @@ feature {ANY}
 
    is_once_function: BOOLEAN is False
 
+   has_closures: BOOLEAN is
+      do
+         Result := base_feature.has_closures
+      end
+
    side_effect_free: BOOLEAN is
       do
          if side_effect_free_flag then

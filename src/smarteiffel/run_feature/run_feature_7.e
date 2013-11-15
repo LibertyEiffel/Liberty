@@ -40,6 +40,8 @@ feature {ANY}
 
    is_once_function: BOOLEAN is False
 
+   has_closures: BOOLEAN is False
+
    arg_count: INTEGER is
       do
          if arguments /= Void then

@@ -28,6 +28,8 @@ feature {ANY}
 
    is_once_function: BOOLEAN is False
 
+   has_closures: BOOLEAN is False
+
    order: INTEGER
          -- Used for special sorting of LIVE_TYPE.writable_attributes
 

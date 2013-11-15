@@ -144,12 +144,13 @@ feature {E_ROUTINE}
       end
 
 feature {}
-   make_routine (fa: like arguments; om: like obsolete_mark; hc: like header_comment; ra: like require_assertion) is
+   make_routine (fa: like arguments; om: like obsolete_mark; hc: like header_comment; ra: like require_assertion; c: like has_closures) is
       do
          header_comment := hc
          arguments := fa
          obsolete_mark := om
          require_assertion := ra
+         has_closures := c
       end
 
    pretty_print_routine_body (indent_level: INTEGER) is

@@ -127,7 +127,7 @@ feature {PROCEDURE_CALL_1}
                                     -- It may be an attribute:
                                     fs := call_0_c.feature_stamp
                                     check
-                                       --|*** This seems to mean "fs has already been specialized", but can 
+                                       --|*** This seems to mean "fs has already been specialized", but can
                                        --|*** it be expressed with the new resolve_static_bindig_for? <FM-18/03/2006>
                                        -- fs = fs.resolve_dynamic_binding_for(type)
                                     end
@@ -155,7 +155,7 @@ feature {PROCEDURE_CALL_1}
             smart_eiffel.magic_count_increment
          end
       end
-   
+
 feature {PROCEDURE_CALL_N}
    inline_instruction_n (type: TYPE; target_type: TYPE; target: EXPRESSION; args: EFFECTIVE_ARG_LIST)
       : INLINE_MEMO is

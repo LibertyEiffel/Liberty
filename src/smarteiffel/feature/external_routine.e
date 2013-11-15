@@ -64,7 +64,7 @@ feature {ANY}
    specialize_body_in (new_type: TYPE; can_twin: BOOLEAN): like Current is
       local
          type_name: STRING
-         lv: like local_vars; clv: like closure_local_vars
+         lv, lv_memory: like local_vars; clv, clv_memory: like closure_local_vars
          rb: like routine_body
       do
          type_name := new_type.class_text.name.to_string
@@ -77,24 +77,22 @@ feature {ANY}
          elseif first_name.to_string = as_to_internals then
             Result ::= introspection_handler.specialize_body_for_any_to_internals(Current, new_type, can_twin)
          else
-            check
-               smart_eiffel.specializing_feature_local_var_list = Void
-               smart_eiffel.specializing_closure_local_var_lists = Void
-            end
             if local_vars /= Void then
                lv := local_vars.specialize_in(new_type)
             end
             clv := specialize_closure_local_var_lists_in(new_type)
+            lv_memory := smart_eiffel.specializing_feature_local_var_list
+            clv_memory := smart_eiffel.specializing_closure_local_var_lists
             smart_eiffel.set_specializing_feature_variables(lv, clv)
             if routine_body /= Void then
                rb := routine_body.specialize_in(new_type)
             end
+            Result := current_or_twin_init(lv, clv, rb, is_generated_eiffel, ensure_assertion, require_assertion, can_twin)
             check
                smart_eiffel.specializing_feature_local_var_list = lv
                smart_eiffel.specializing_closure_local_var_lists = clv
             end
-            smart_eiffel.set_specializing_feature_variables(Void, Void)
-            Result := current_or_twin_init(lv, clv, rb, is_generated_eiffel, ensure_assertion, require_assertion, can_twin)
+            smart_eiffel.set_specializing_feature_variables(lv_memory, clv_memory)
          end
       end
 
@@ -126,8 +124,13 @@ feature {ANY}
 
    specialize_and_check (type: TYPE): E_ROUTINE is
       local
+         lv_memory: like local_vars
+         clv_memory: like closure_local_vars
          ra: like require_assertion; ea: like ensure_assertion; rb: like routine_body
       do
+         lv_memory := smart_eiffel.specializing_feature_local_var_list
+         clv_memory := smart_eiffel.specializing_closure_local_var_lists
+         smart_eiffel.set_specializing_feature_variables(local_vars, closure_local_vars)
          if routine_body /= Void then
             if class_text_name.to_string = as_internals_handler then
                -- specialize_and_check is deferred until the adapt phase
@@ -153,6 +156,11 @@ feature {ANY}
             end
          end
          Result := current_or_twin_init(local_vars, closure_local_vars, rb, is_generated_eiffel, ea, ra, True)
+         check
+            smart_eiffel.specializing_feature_local_var_list = local_vars
+            smart_eiffel.specializing_closure_local_var_lists = closure_local_vars
+         end
+         smart_eiffel.set_specializing_feature_variables(lv_memory, clv_memory)
       end
 
    has_been_specialized: BOOLEAN is

@@ -36,6 +36,8 @@ feature {ANY}
 
    is_once_function: BOOLEAN is False
 
+   has_closures: BOOLEAN is False
+
    routine_body: INSTRUCTION is
       do
       end

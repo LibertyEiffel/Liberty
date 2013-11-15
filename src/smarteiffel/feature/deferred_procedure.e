@@ -21,7 +21,7 @@ feature {ANY}
       bc: like class_text; pe: like permissions) is
       do
          feature_text := bc.non_written(fn, Current)
-         make_routine(fa, Void, Void, ra)
+         make_routine(fa, Void, Void, ra, False)
          permissions := pe
          if ea /= Void then
             set_ensure_assertion(ea)
@@ -37,7 +37,7 @@ feature {ANY}
 feature {}
    make (fa: like arguments; om: like obsolete_mark; hc: like header_comment; ra: like require_assertion) is
       do
-         make_routine(fa, om, hc, ra)
+         make_routine(fa, om, hc, ra, False)
       end
 
 end -- class DEFERRED_PROCEDURE

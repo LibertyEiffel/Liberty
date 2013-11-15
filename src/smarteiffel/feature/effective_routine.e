@@ -82,17 +82,15 @@ feature {FEATURE_ACCUMULATOR}
 feature {ANONYMOUS_FEATURE_MIXER}
    specialize_body_in (new_type: TYPE; can_twin: BOOLEAN): like Current is
       local
-         lv: like local_vars; clv: like closure_local_vars
+         lv, lv_memory: like local_vars; clv, clv_memory: like closure_local_vars
          rb: like routine_body; rc: like rescue_compound
       do
          if local_vars /= Void then
             lv := local_vars.specialize_in(new_type)
          end
          clv := specialize_closure_local_var_lists_in(new_type)
-         check
-            smart_eiffel.specializing_feature_local_var_list = Void
-            smart_eiffel.specializing_closure_local_var_lists = Void
-         end
+         lv_memory := smart_eiffel.specializing_feature_local_var_list
+         clv_memory := smart_eiffel.specializing_closure_local_var_lists
          smart_eiffel.set_specializing_feature_variables(lv, clv)
          if routine_body /= Void then
             rb := routine_body.specialize_in(new_type)
@@ -105,7 +103,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
          else
             if can_twin then
                Result := twin
-               Result.init(lv, rb, rc)
+               Result.init(lv, clv, rb, rc)
             else
                Result := Current
                local_vars := lv
@@ -117,15 +115,19 @@ feature {ANONYMOUS_FEATURE_MIXER}
             smart_eiffel.specializing_feature_local_var_list = lv
             smart_eiffel.specializing_closure_local_var_lists = clv
          end
-         smart_eiffel.set_specializing_feature_variables(Void, Void)
+         smart_eiffel.set_specializing_feature_variables(lv_memory, clv_memory)
       end
 
 feature {FEATURE_STAMP, PRECURSOR_CALL}
    specialize_and_check (type: TYPE): like Current is
       local
+         lv_memory: like local_vars; clv_memory: like closure_local_vars
          rb: like routine_body; rc: like rescue_compound; ra: like require_assertion
          ea: like ensure_assertion
       do
+         lv_memory := smart_eiffel.specializing_feature_local_var_list
+         clv_memory := smart_eiffel.specializing_closure_local_var_lists
+         smart_eiffel.set_specializing_feature_variables(local_vars, closure_local_vars)
          if ace.boost then
             ra := require_assertion
             ea := ensure_assertion
@@ -147,10 +149,15 @@ feature {FEATURE_STAMP, PRECURSOR_CALL}
             Result := Current
          else
             Result := twin
-            Result.init(local_vars, rb, rc)
+            Result.init(local_vars, closure_local_vars, rb, rc)
             Result.set_require_assertion(ra)
             Result.set_ensure_assertion(ea)
          end
+         check
+            smart_eiffel.specializing_feature_local_var_list = local_vars
+            smart_eiffel.specializing_closure_local_var_lists = closure_local_vars
+         end
+         smart_eiffel.set_specializing_feature_variables(lv_memory, clv_memory)
       end
 
 feature {ANONYMOUS_FEATURE_MIXER}
@@ -163,10 +170,6 @@ feature {ANONYMOUS_FEATURE_MIXER}
             lv := local_vars.specialize_thru(parent_type, parent_edge, new_type)
          end
          clv := specialize_closure_local_var_lists_thru(parent_type, parent_edge, new_type)
-         check
-            smart_eiffel.specializing_feature_local_var_list = Void
-            smart_eiffel.specializing_closure_local_var_lists = Void
-         end
          lv_memory := smart_eiffel.specializing_feature_local_var_list
          clv_memory := smart_eiffel.specializing_closure_local_var_lists
          smart_eiffel.set_specializing_feature_variables(lv, clv)
@@ -181,7 +184,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
          else
             if can_twin then
                Result := twin
-               Result.init(lv, rb, rc)
+               Result.init(lv, clv, rb, rc)
             else
                Result := Current
                local_vars := lv
@@ -190,7 +193,8 @@ feature {ANONYMOUS_FEATURE_MIXER}
             end
          end
          check
-            lv /= Void implies smart_eiffel.specializing_feature_local_var_list = lv
+            smart_eiffel.specializing_feature_local_var_list = lv
+            smart_eiffel.specializing_closure_local_var_lists = clv
          end
          smart_eiffel.set_specializing_feature_variables(lv_memory, clv_memory)
       end
@@ -214,14 +218,15 @@ feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}
             Result := Current
          else
             Result := twin
-            Result.init(local_vars, rb, rc)
+            Result.init(local_vars, closure_local_vars, rb, rc)
          end
       end
 
 feature {EFFECTIVE_ROUTINE}
-   init (lv: like local_vars; rb: like routine_body; rc: like rescue_compound) is
+   init (lv: like local_vars; clv: like closure_local_vars; rb: like routine_body; rc: like rescue_compound) is
       do
          local_vars := lv
+         closure_local_vars := clv
          routine_body := rb
          rescue_compound := rc
       ensure
@@ -291,11 +296,10 @@ feature {}
    make_effective_routine (fa: like arguments; om: like obsolete_mark; hc: like header_comment
       ra: like require_assertion; lv: like local_vars; rb: like routine_body; c: like has_closures) is
       do
-         make_routine(fa, om, hc, ra)
+         make_routine(fa, om, hc, ra, c)
          local_vars := lv
          routine_body := rb
          use_current_state := not_computed
-         has_closures := c
       ensure
          local_vars = lv
          routine_body = rb

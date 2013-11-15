@@ -32,6 +32,8 @@ feature {ANY}
 
    is_once_function: BOOLEAN is False
 
+   has_closures: BOOLEAN is False
+
    arguments: FORMAL_ARG_LIST is
       do
       end

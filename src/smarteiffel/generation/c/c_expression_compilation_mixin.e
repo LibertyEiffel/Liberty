@@ -678,7 +678,20 @@ feature {ARGUMENT_NAME2}
 feature {LOCAL_NAME2}
    visit_local_name2 (visited: LOCAL_NAME2) is
       do
-         cpp.print_local(visited.to_string)
+         if visited.is_outside then
+            if visited.closure_rank = 0 then
+               function_body.append(once "(/*OUTCL:LOCAL*/*")
+               cpp.print_local(visited.to_string)
+               function_body.extend(')')
+            else
+               --| **** TODO: access to the variable defined outside of this feature
+               function_body.append(once "(/*OUTCL:OUT*/*")
+               cpp.print_local(visited.to_string)
+               function_body.extend(')')
+            end
+         else
+            cpp.print_local(visited.to_string)
+         end
       end
 
 feature {LOOP_VARIANT}

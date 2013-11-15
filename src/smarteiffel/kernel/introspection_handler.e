@@ -481,27 +481,27 @@ feature {}
 
    set_and_specialize_body (lv: LOCAL_VAR_LIST; rb: INSTRUCTION) is
       local
-         local_vars: LOCAL_VAR_LIST
+         local_vars, lv_memory: LOCAL_VAR_LIST; clv_memory: FAST_ARRAY[LOCAL_VAR_LIST]
          routine_body: INSTRUCTION
       do
          if lv /= Void then
             local_vars := lv.specialize_in(new_type)
          end
-         check
-            smart_eiffel.specializing_feature_local_var_list = Void
-         end
+         lv_memory := smart_eiffel.specializing_feature_local_var_list
+         clv_memory := smart_eiffel.specializing_closure_local_var_lists
          smart_eiffel.set_specializing_feature_variables(local_vars, Void)
          if rb /= Void then
             routine_body := rb.specialize_in(new_type)
          end
-         check
-            smart_eiffel.specializing_feature_local_var_list = local_vars
-         end
-         smart_eiffel.set_specializing_feature_variables(Void, Void)
          external_routine := external_routine.current_or_twin_init(local_vars, Void, routine_body, True,
                                                                    external_routine.ensure_assertion,
                                                                    external_routine.require_assertion,
                                                                    can_twin)
+         check
+            smart_eiffel.specializing_feature_local_var_list = local_vars
+            smart_eiffel.specializing_closure_local_var_lists = Void
+         end
+         smart_eiffel.set_specializing_feature_variables(lv_memory, clv_memory)
       end
 
    start_new_body_for (er: EXTERNAL_ROUTINE; nt: like new_type; ct: like can_twin) is

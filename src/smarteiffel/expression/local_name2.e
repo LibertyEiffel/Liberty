@@ -48,6 +48,7 @@ feature {ANY}
             lvl := smart_eiffel.specializing_feature_local_var_list
          else
             lvl := smart_eiffel.specializing_closure_local_var_lists.item(closure_rank - 1)
+            lvl.name(rank).set_outside
          end
          if declaration_type = Void then
             declaration_type := lvl.type_mark(rank).declaration_type.type
@@ -72,6 +73,7 @@ feature {ANY}
             lvl := smart_eiffel.specializing_feature_local_var_list
          else
             lvl := smart_eiffel.specializing_closure_local_var_lists.item(closure_rank - 1)
+            check lvl.name(rank).is_outside end
          end
          if local_var_list = lvl then
             Result := Current
@@ -82,8 +84,20 @@ feature {ANY}
       end
 
    specialize_and_check (type: TYPE): like Current is
+      local
+         lvl: like local_var_list
       do
-         Result := Current
+         if closure_rank = 0 then
+            lvl := smart_eiffel.specializing_feature_local_var_list
+         else
+            lvl := smart_eiffel.specializing_closure_local_var_lists.item(closure_rank - 1)
+         end
+         if lvl.name(rank).is_outside then
+            --| **** TODO: emit a warning in some cases?? (e.g. no GC)
+            Result := as_outside
+         else
+            Result := Current
+         end
       end
 
    has_been_specialized: BOOLEAN is

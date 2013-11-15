@@ -40,6 +40,11 @@ feature {ANY}
 
    is_once_function: BOOLEAN is False
 
+   has_closures: BOOLEAN is
+      do
+         Result := base_feature.has_closures
+      end
+
    result_type: TYPE_MARK is
       do
       end

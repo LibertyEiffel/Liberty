@@ -185,6 +185,10 @@ feature {ANY}
          name.mapping_c_in(buffer)
       end
 
+   has_closures: BOOLEAN is
+      deferred
+      end
+
 feature {RUN_FEATURE}
    is_in_computation: BOOLEAN is
       do

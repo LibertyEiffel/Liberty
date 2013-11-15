@@ -22,6 +22,9 @@ feature {ANY}
    rank: INTEGER
          -- The `rank' in the corresponding declaration list.
 
+   is_outside: BOOLEAN
+         -- True if the local or argument is reached from inside a closure.
+
    declaration_type: TYPE is
       do
          not_yet_implemented
@@ -99,6 +102,14 @@ feature {ANY}
 
    adapt_for (type: TYPE): like Current is
       deferred
+      end
+
+feature {LOCAL_ARGUMENT2}
+   set_outside is
+      do
+         is_outside := True
+      ensure
+         is_outside
       end
 
 feature {}

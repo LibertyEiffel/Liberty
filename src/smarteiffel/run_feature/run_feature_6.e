@@ -40,6 +40,11 @@ feature {ANY}
 
    is_once_function: BOOLEAN is True
 
+   has_closures: BOOLEAN is
+      do
+         Result := base_feature.has_closures
+      end
+
    is_precomputable_once: BOOLEAN is
       do
          Result := once_routine_pool.is_precomputed(base_feature)

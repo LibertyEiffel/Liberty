@@ -1019,7 +1019,7 @@ feature {}
          rt /= Void
          l /= Void
       do
-         make_routine(fa, om, hc, ra)
+         make_routine(fa, om, hc, ra, False)
          result_type := rt
          make_external_routine(l, en)
       end

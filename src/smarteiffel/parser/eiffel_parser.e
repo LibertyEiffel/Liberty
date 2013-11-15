@@ -4433,8 +4433,6 @@ feature {}
                Result.set_inline_agent(closure_arguments, closure_local_vars)
                inline_agents.add_last(Result)
 
-               outer_feature.set_has_closures
-
                -- must reset the outer feature before calling a_actuals, otherwise the actuals won't be
                -- correctly set
                tmp_feature.done
@@ -4447,6 +4445,8 @@ feature {}
                local_vars := lv
 
                last_expression := to_call(create {IMPLICIT_CURRENT}.make(spos), fn, a_actuals)
+
+               outer_feature.set_has_closures
             end
          end
 
