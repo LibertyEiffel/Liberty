@@ -271,14 +271,14 @@ feature {} -- Good tests: tests that must pass
             status := status + 1
          else
             if cecil_flag then
-               cleanup := agent (options, exe_name: STRING) is
+               cleanup := agent is
                           local
                              dummy: BOOLEAN
                           do
                              dummy := excluded_execution_of(once "Removing (#(1)) %"cecil.h%" file." # options,
                                                             agent file_tools.delete(once "cecil.h"))
                              strings.recycle(exe_name)
-                          end (options, exe_name)
+                          end
             else
                cleanup := agent strings.recycle(exe_name)
             end
