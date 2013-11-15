@@ -774,11 +774,15 @@ feature {}
                c_frame_descriptor_format.append(args.name(i).to_string)
                static_tm := args.type_mark(i).to_static(type, False)
                cpp.c_frame_descriptor_in(static_tm, c_frame_descriptor_format)
-               c_frame_descriptor_locals.append(once "(void**)&")
+               c_frame_descriptor_locals.append(once "(void**)")
                if use_real_name then
+                  if not args.name(i).is_outside then
+                     c_frame_descriptor_locals.extend('&')
+                  end
                   c_frame_descriptor_locals.extend('_')
                   c_frame_descriptor_locals.append(args.name(i).to_string)
                else
+                  c_frame_descriptor_locals.extend('&')
                   c_frame_descriptor_locals.extend('a')
                   i.append_in(c_frame_descriptor_locals)
                end
