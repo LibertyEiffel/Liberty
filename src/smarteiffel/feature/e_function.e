@@ -350,11 +350,11 @@ feature {E_FUNCTION}
 
 feature {}
    make (fa: like arguments; rt: like result_type; om: like obsolete_mark; hc: like header_comment
-      ra: like require_assertion; lv: like local_vars; rb: like routine_body) is
+      ra: like require_assertion; lv: like local_vars; rb: like routine_body; c: like has_closures) is
       require
          rt /= Void
       do
-         make_effective_routine(fa, om, hc, ra, lv, rb)
+         make_effective_routine(fa, om, hc, ra, lv, rb, c)
          result_type := rt
       end
 

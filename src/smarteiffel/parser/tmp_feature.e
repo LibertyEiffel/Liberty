@@ -42,6 +42,8 @@ feature {EIFFEL_PARSER}
 
    busy: BOOLEAN
 
+   has_closures: BOOLEAN
+
    initialize is
       require
          not busy
@@ -59,6 +61,7 @@ feature {EIFFEL_PARSER}
          require_assertion := Void
          local_vars := Void
          routine_body := Void
+         has_closures := False
          busy := True
       ensure
          arguments = Void
@@ -70,7 +73,15 @@ feature {EIFFEL_PARSER}
          routine_body = Void
          names.is_empty
          assigned = Void
+         not has_closures
          busy
+      end
+
+   set_has_closures is
+      do
+         has_closures := True
+      ensure
+         has_closures
       end
 
    done is
@@ -143,6 +154,7 @@ feature {EIFFEL_PARSER}
       require
          type /= Void
          arguments = Void
+         not has_closures
       do
          if assigned /= Void then
             error_handler.add_position(assigned.start_position)
@@ -156,6 +168,7 @@ feature {EIFFEL_PARSER}
       require
          value /= Void
          {BOOLEAN_CONSTANT} ?:= value
+         not has_closures
       local
          boolean_constant: BOOLEAN_CONSTANT
       do
@@ -179,6 +192,7 @@ feature {EIFFEL_PARSER}
       require
          value /= Void
          {CHARACTER_CONSTANT} ?:= value
+         not has_closures
       local
          character_constant: CHARACTER_CONSTANT
       do
@@ -200,6 +214,7 @@ feature {EIFFEL_PARSER}
    as_constant (value: EXPRESSION): FEATURE_TEXT is
       require
          value /= Void
+         not has_closures
       local
          integer_constant: INTEGER_CONSTANT; integer_type_mark: INTEGER_TYPE_MARK
          real_constant: REAL_CONSTANT
@@ -272,6 +287,8 @@ feature {EIFFEL_PARSER}
       end
 
    as_string_constant (value: MANIFEST_STRING): FEATURE_TEXT is
+      require
+         not has_closures
       do
          if assigned /= Void then
             error_handler.add_position(assigned.start_position)
@@ -288,6 +305,8 @@ feature {EIFFEL_PARSER}
       end
 
    as_deferred_routine: FEATURE_TEXT is
+      require
+         not has_closures
       do
          if type = Void then
             create Result.deferred_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, assigned, index_list)
@@ -301,6 +320,8 @@ feature {EIFFEL_PARSER}
       end
 
    as_external_routine (native: NATIVE; alias_tag: MANIFEST_STRING): FEATURE_TEXT is
+      require
+         not has_closures
       do
          if type = Void then
             create Result.external_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, native, alias_tag, assigned, index_list)
@@ -316,30 +337,32 @@ feature {EIFFEL_PARSER}
    as_once_routine: FEATURE_TEXT is
       do
          if type = Void then
-            create Result.once_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned, index_list)
+            create Result.once_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned, index_list, has_closures)
          elseif assigned /= Void then
             error_handler.add_position(assigned.start_position)
             error_handler.append(once "A function cannot be an assigner.")
             error_handler.print_as_fatal_error
          else
-            create Result.once_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, index_list)
+            create Result.once_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, index_list, has_closures)
          end
       end
 
    as_procedure_or_function: FEATURE_TEXT is
       do
          if type = Void then
-            create Result.e_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned, index_list)
+            create Result.e_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned, index_list, has_closures)
          elseif assigned /= Void then
             error_handler.add_position(assigned.start_position)
             error_handler.append(once "A function cannot be an assigner.")
             error_handler.print_as_fatal_error
          else
-            create Result.e_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, index_list)
+            create Result.e_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, index_list, has_closures)
          end
       end
 
    as_unique_constant: FEATURE_TEXT is
+      require
+         not has_closures
       do
          if assigned /= Void then
             error_handler.add_position(assigned.start_position)

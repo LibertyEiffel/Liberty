@@ -289,15 +289,17 @@ feature {}
       end
 
    make_effective_routine (fa: like arguments; om: like obsolete_mark; hc: like header_comment
-      ra: like require_assertion; lv: like local_vars; rb: like routine_body) is
+      ra: like require_assertion; lv: like local_vars; rb: like routine_body; c: like has_closures) is
       do
          make_routine(fa, om, hc, ra)
          local_vars := lv
          routine_body := rb
          use_current_state := not_computed
+         has_closures := c
       ensure
          local_vars = lv
          routine_body = rb
+         has_closures = c
       end
 
    left_most_current_direct_call_0_sequence (type: TYPE; e: EXPRESSION): CALL_0 is

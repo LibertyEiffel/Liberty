@@ -28,6 +28,8 @@ feature {ANY}
 
    routine_body: INSTRUCTION
 
+   has_closures: BOOLEAN
+
    pretty (indent_level: INTEGER; is_inline_agent: BOOLEAN) is
       local
          fn: FEATURE_NAME; il, level2, level3: INTEGER

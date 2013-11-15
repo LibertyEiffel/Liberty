@@ -59,6 +59,9 @@ feature {ANY}
    is_inline_agent: BOOLEAN
          -- True if the feature is an inline agent
 
+   has_closures: BOOLEAN
+         -- True if the feature contains inline agents
+
    clients: CLIENT_LIST is
       do
          Result := feature_clause.clients
@@ -231,7 +234,7 @@ feature {}
 
    once_procedure (n: like names; a: like arguments; om: like obsolete_mark; hc: like header_comment
                    ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION
-                   aa: like assigned; idx: like index_list) is
+                   aa: like assigned; idx: like index_list; c: like has_closures) is
       require
          n /= Void
       do
@@ -241,18 +244,20 @@ feature {}
          header_comment := hc
          assigned := aa
          index_list := idx
-         create {ONCE_PROCEDURE} anonymous_feature.make(a, om, hc, ra, local_vars, routine_body)
+         has_closures := c
+         create {ONCE_PROCEDURE} anonymous_feature.make(a, om, hc, ra, local_vars, routine_body, c)
       ensure
          names = n
          arguments = a
          obsolete_mark = om
          header_comment = hc
          assigned = aa
+         has_closures = c
       end
 
    once_function (n: like names; a: like arguments; rt: like result_type; om: like obsolete_mark
                   hc: like header_comment; ra: like require_assertion; local_vars: LOCAL_VAR_LIST
-                  routine_body: INSTRUCTION; idx: like index_list) is
+                  routine_body: INSTRUCTION; idx: like index_list; c: like has_closures) is
       require
          n /= Void
          rt /= Void
@@ -263,18 +268,20 @@ feature {}
          obsolete_mark := om
          header_comment := hc
          index_list := idx
-         create {ONCE_FUNCTION} anonymous_feature.make(a, rt, om, hc, ra, local_vars, routine_body)
+         has_closures := c
+         create {ONCE_FUNCTION} anonymous_feature.make(a, rt, om, hc, ra, local_vars, routine_body, c)
       ensure
          names = n
          arguments = a
          result_type = rt
          obsolete_mark = om
          header_comment = hc
+         has_closures = c
       end
 
    e_procedure (n: like names; a: like arguments; om: like obsolete_mark; hc: like header_comment
                 ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION
-                aa: like assigned; idx: like index_list) is
+                aa: like assigned; idx: like index_list; c: like has_closures) is
       require
          n /= Void
       do
@@ -284,18 +291,20 @@ feature {}
          header_comment := hc
          assigned := aa
          index_list := idx
-         create {E_PROCEDURE} anonymous_feature.make(a, om, hc, ra, local_vars, routine_body)
+         has_closures := c
+         create {E_PROCEDURE} anonymous_feature.make(a, om, hc, ra, local_vars, routine_body, c)
       ensure
          names = n
          arguments = a
          obsolete_mark = om
          header_comment = hc
          assigned = aa
+         has_closures = c
       end
 
    e_function (n: like names; a: like arguments; rt: like result_type; om: like obsolete_mark
                hc: like header_comment; ra: like require_assertion; local_vars: LOCAL_VAR_LIST
-               routine_body: INSTRUCTION; idx: like index_list) is
+               routine_body: INSTRUCTION; idx: like index_list; c: like has_closures) is
       require
          n /= Void
          rt /= Void
@@ -306,13 +315,15 @@ feature {}
          obsolete_mark := om
          header_comment := hc
          index_list := idx
-         create {E_FUNCTION} anonymous_feature.make(a, rt, om, hc, ra, local_vars, routine_body)
+         has_closures := c
+         create {E_FUNCTION} anonymous_feature.make(a, rt, om, hc, ra, local_vars, routine_body, c)
       ensure
          names = n
          arguments = a
          result_type = rt
          obsolete_mark = om
          header_comment = hc
+         has_closures = c
       end
 
    deferred_procedure (n: like names; a: like arguments; om: like obsolete_mark; hc: like header_comment
