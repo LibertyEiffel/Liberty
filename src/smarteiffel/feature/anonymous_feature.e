@@ -991,7 +991,7 @@ feature {FEATURE_TEXT}
          rescue_compound = instruction
       end
 
-feature {LOCAL_NAME2}
+feature {ANY}
    closure_arguments: FAST_ARRAY[FORMAL_ARG_LIST]
          -- Arguments of enclosing features
 

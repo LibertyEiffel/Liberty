@@ -684,9 +684,8 @@ feature {LOCAL_NAME2}
                cpp.print_local(visited.to_string)
                function_body.extend(')')
             else
-               --| **** TODO: access to the variable defined outside of this feature
-               function_body.append(once "(/*OUTCL:OUT*/*")
-               cpp.print_local(visited.to_string)
+               function_body.append(once "(/*OUTCL:OUT*/*CL_")
+               function_body.append(visited.to_string)
                function_body.extend(')')
             end
          else

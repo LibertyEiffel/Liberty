@@ -57,6 +57,9 @@ feature {ANY}
          -- difficult (if not impossible) to compute after inlining of dynamic dispatch, values of
          -- `resolve_in' are cached into `resolved_memory'.
 
+   context_features: HASHED_DICTIONARY[ANONYMOUS_FEATURE, TYPE]
+         -- The containing feature for each type
+
    is_current, is_implicit_current: BOOLEAN is False
 
    inline_feature: FEATURE_TEXT
@@ -215,6 +218,10 @@ feature {ANY}
          if has_omitted_open_arguments then
             warn_omitted_open_arguments
          end
+         if context_features = Void then
+            create context_features.make
+         end
+         context_features.put(smart_eiffel.context_feature, type)
          if code = Void then
             Result := Current
          else

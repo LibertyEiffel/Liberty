@@ -184,7 +184,7 @@ feature {}
 
    define_agent_creation_function (agent_creation: AGENT_CREATION; type: TYPE; mold_id: STRING; integer_mold_id: INTEGER) is
       local
-         boost: BOOLEAN; agent_type, agent_result: TYPE; tm: TYPE_MARK;   i: INTEGER
+         boost: BOOLEAN; agent_type, agent_result: TYPE; tm: TYPE_MARK; i: INTEGER
          expression: EXPRESSION; open_operand: OPEN_OPERAND; closed_operand: CLOSED_OPERAND
       do
          boost := ace.boost
@@ -312,6 +312,19 @@ feature {}
                i := i + 1
             end
          end
+         for_all_local_names(agent_creation, type,
+                             agent (local_name: LOCAL_NAME1; type_: TYPE) is
+                                local
+                                   local_tm: TYPE_MARK
+                                do
+                                   local_tm := local_name.result_type.to_static(type_, False)
+                                   if function_signature.last /= '(' then
+                                      function_signature.extend(',')
+                                   end
+                                   function_signature.append(cpp.result_type.for(local_tm))
+                                   function_signature.append(once "*CL_")
+                                   function_signature.append(local_name.to_string)
+                                end(?, type)) --| **** TODO: closure on type
          if function_signature.last = '(' then
             function_signature.append(once "void")
          end
@@ -348,6 +361,15 @@ feature {}
                i := i + 1
             end
          end
+         for_all_local_names(agent_creation, type,
+                             agent (local_name: LOCAL_NAME1) is
+                                do
+                                   function_body.append(once "u->CL_")
+                                   function_body.append(local_name.to_string)
+                                   function_body.append(once "=CL_")
+                                   function_body.append(local_name.to_string)
+                                   function_body.append(once ";%N")
+                                end(?))
          function_body.append(once "return((T0*)u);%N")
          cpp.dump_pending_c_function(True)
          cpp.memory.generate_agent_data(agent_creation, type, mold_id, agent closed_operand_name_in(?, function_body))
@@ -478,14 +500,27 @@ feature {}
                   out_h.extend(' ')
                   closed_operand_name_in(closed_operand, out_h)
                   out_h.extend(';')
+                  out_h.extend('%N')
                end
                i := i + 1
             end
          end
          if agent_result /= Void then
             out_h.append(cpp.argument_type.for(agent_result.canonical_type_mark))
-            out_h.append(once " R;")
+            out_h.append(once " R;%N")
          end
+         for_all_local_names(agent_creation, type,
+                             agent (local_name: LOCAL_NAME1; type_: TYPE) is
+                                local
+                                   local_tm: TYPE_MARK
+                                do
+                                   local_tm := local_name.result_type.to_static(type_, False)
+                                   out_h.append(cpp.result_type.for(local_tm))
+                                   out_h.append(once "*CL_")
+                                   out_h.append(local_name.to_string)
+                                   out_h.extend(';')
+                                   out_h.extend('%N')
+                                end(?, type)) --| **** TODO: closure on type
          out_h.append(once "};%N")
          cpp.write_out_h_buffer
          if agent_creation.is_equal_used_in(agent_type) then
@@ -1113,6 +1148,48 @@ feature {}
          -- To initialize field `locals' of `se_dump_stack'.
       once
          create Result.make(512)
+      end
+
+   for_all_local_names (agent_creation: AGENT_CREATION; type: TYPE; action: PROCEDURE[TUPLE[LOCAL_NAME1]]) is
+      local
+         i, j: INTEGER; cf: E_ROUTINE; local_name: LOCAL_NAME1
+      do
+         cf ::= agent_creation.context_features.fast_at(type)
+         if cf.local_vars /= Void then
+            from
+               i := 1
+            until
+               i > cf.local_vars.count
+            loop
+               local_name := cf.local_vars.name(i)
+               if local_name.is_used(type) and then local_name.is_outside then
+                  action.call([local_name])
+               end
+               i := i + 1
+            end
+         end
+         if cf.closure_local_vars /= Void then
+            from
+               j := cf.closure_local_vars.lower
+            until
+               j > cf.closure_local_vars.upper
+            loop
+               if cf.closure_local_vars.item(j) /= Void then
+                  from
+                     i := 1
+                  until
+                     i > cf.closure_local_vars.item(j).count
+                  loop
+                     local_name := cf.closure_local_vars.item(j).name(i)
+                     if local_name.is_used(type) and then local_name.is_outside then
+                        action.call([local_name])
+                     end
+                     i := i + 1
+                  end
+               end
+               j := j + 1
+            end
+         end
       end
 
 feature {LIVE_TYPE}
