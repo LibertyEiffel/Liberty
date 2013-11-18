@@ -22,8 +22,11 @@ feature {ANY}
    rank: INTEGER
          -- The `rank' in the corresponding declaration list.
 
-   is_outside: BOOLEAN
+   is_outside (type: TYPE): BOOLEAN is
          -- True if the local or argument is reached from inside a closure.
+      do
+         Result := outside_set /= Void and then outside_set.fast_has(type)
+      end
 
    declaration_type: TYPE is
       do
@@ -105,14 +108,19 @@ feature {ANY}
       end
 
 feature {LOCAL_ARGUMENT2}
-   set_outside is
+   set_outside (type: TYPE) is
       do
-         is_outside := True
+         if outside_set = Void then
+            create outside_set.make
+         end
+         outside_set.fast_add(type)
       ensure
-         is_outside
+         is_outside(type)
       end
 
 feature {}
+   outside_set: HASHED_SET[TYPE]
+
    name_clash_check_ (type: TYPE; msg: STRING) is
       require
          type /= Void

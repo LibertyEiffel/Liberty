@@ -128,6 +128,14 @@ feature {AGENT_CREATION}
                i := i + 1
             end
          end
+         for_all_local_names(visited, type,
+                             agent (local_name: LOCAL_NAME1) is
+                                do
+                                   if function_body.last /= '(' then
+                                      function_body.extend(',')
+                                   end
+                                   cpp.print_local(local_name.to_string)
+                                end(?))
          function_body.extend(')')
       end
 
@@ -1128,7 +1136,7 @@ feature {}
          cpp.pending_c_function
          visited.target /= Void
       local
-         boost: BOOLEAN
+         boost: BOOLEAN; i, j: INTEGER; af: ANONYMOUS_FEATURE; local_name: LOCAL_NAME1
       do
          function_body.append(visited.agent_args.signature)
          function_body.extend('(')

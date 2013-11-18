@@ -48,7 +48,7 @@ feature {ANY}
             lvl := smart_eiffel.specializing_feature_local_var_list
          else
             lvl := smart_eiffel.specializing_closure_local_var_lists.item(closure_rank - 1)
-            lvl.name(rank).set_outside
+            lvl.name(rank).set_outside(type)
          end
          if declaration_type = Void then
             declaration_type := lvl.type_mark(rank).declaration_type.type
@@ -73,7 +73,8 @@ feature {ANY}
             lvl := smart_eiffel.specializing_feature_local_var_list
          else
             lvl := smart_eiffel.specializing_closure_local_var_lists.item(closure_rank - 1)
-            check lvl.name(rank).is_outside end
+            check lvl.name(rank).is_outside(parent_type) end
+            lvl.name(rank).set_outside(new_type)
          end
          if local_var_list = lvl then
             Result := Current
@@ -91,8 +92,9 @@ feature {ANY}
             lvl := smart_eiffel.specializing_feature_local_var_list
          else
             lvl := smart_eiffel.specializing_closure_local_var_lists.item(closure_rank - 1)
+            check lvl.name(rank).is_outside(type) end
          end
-         if lvl.name(rank).is_outside then
+         if lvl.name(rank).is_outside(type) then
             --| **** TODO: emit a warning in some cases?? (e.g. no GC)
             Result := as_outside
          else

@@ -221,7 +221,9 @@ feature {}
                function_signature.extend(',')
                tm := open_operand.resolve_in(type).canonical_type_mark
                function_signature.append(cpp.result_type.for(tm))
-               function_signature.extend(' ')
+               if function_signature.last /= '*' then
+                  function_signature.extend(' ')
+               end
                open_operand_name_in(open_operand, function_signature)
                i := i + 1
             end
@@ -237,7 +239,9 @@ feature {}
                if agent_creation.stored_closed_operand(type, closed_operand) then
                   tm := closed_operand.resolve_in(type).canonical_type_mark
                   function_body.append(cpp.result_type.for(tm))
-                  function_body.extend(' ')
+                  if function_body.last /= '*' then
+                     function_body.extend(' ')
+                  end
                   closed_operand_name_in(closed_operand, function_body)
                   function_body.append(once "=(u->")
                   closed_operand_name_in(closed_operand, function_body)
@@ -246,6 +250,19 @@ feature {}
                i := i + 1
             end
          end
+         for_all_local_names(agent_creation, type,
+                             agent (local_name: LOCAL_NAME1; type_: TYPE) is
+                                local
+                                   local_tm: TYPE_MARK
+                                do
+                                   local_tm := local_name.result_type.to_static(type_, False)
+                                   function_body.append(cpp.result_type.for(local_tm))
+                                   function_body.append(once "*CL_")
+                                   function_body.append(local_name.to_string)
+                                   function_body.append(once "=(u->CL_")
+                                   function_body.append(local_name.to_string)
+                                   function_body.append(once ");%N")
+                                end(?, type)) --| **** TODO: closure on type
          if not boost then
             function_body.append(
                once "static se_frame_descriptor fd={%"Agent launcher%",0,0,%"%",1};%N")
@@ -704,40 +721,45 @@ feature {}
          function_signature.append(once "*/")
          --
          if run_feature.result_type = Void then
-            function_signature.append(once "void")
+            function_signature.append(once "void ")
          else
             function_signature.append(cpp.result_type.for(run_feature.result_type))
+            if function_signature.last /= '*' then
+               function_signature.extend(' ')
+            end
          end
-         function_signature.append(once " r")
+         function_signature.extend('r')
          run_feature.type_of_current.live_type.id.append_in(function_signature)
          run_feature.name.mapping_c_in(function_signature)
          function_signature.extend('(')
          if no_check then
             function_signature.append(once "se_dump_stack*caller")
-            if profile or else run_feature.use_current or else run_feature.arguments /= Void then
-               function_signature.extend(',')
-            end
          end
          if profile then
-            function_signature.append(once "se_local_profile_t*parent_profile")
-            if run_feature.use_current or else run_feature.arguments /= Void then
+            if function_signature.last /= '(' then
                function_signature.extend(',')
             end
+            function_signature.append(once "se_local_profile_t*parent_profile")
          end
          if run_feature.use_current then
-            function_signature.append(cpp.target_type.for(run_feature.type_of_current.canonical_type_mark))
-            function_signature.append(once " C")
-            if run_feature.arguments /= Void then
+            if function_signature.last /= '(' then
                function_signature.extend(',')
             end
-         end
-         if run_feature.arguments = Void then
-            if no_check or else profile then
-            elseif not run_feature.use_current then
-               function_signature.append(once "void")
+            function_signature.append(cpp.target_type.for(run_feature.type_of_current.canonical_type_mark))
+            if function_signature.last /= '*' then
+               function_signature.extend(' ')
             end
-         else
+            function_signature.extend('C')
+         end
+         if run_feature.arguments /= Void then
+            if function_signature.last /= '(' then
+               function_signature.extend(',')
+            end
             args_compile_to_c_in(run_feature.arguments, run_feature.type_of_current)
+         end
+         closure_args_compile_to_c_in(run_feature.base_feature, run_feature.type_of_current)
+         if function_signature.last = '(' then
+            function_signature.append(once "void")
          end
          function_signature.extend(')')
       ensure
@@ -758,10 +780,49 @@ feature {}
             end
             static_tm := args.type_mark(i).to_static(type, False)
             function_signature.append(cpp.argument_type.for(static_tm))
-            function_signature.extend(' ')
+            if function_signature.last /= '*' then
+               function_signature.extend(' ')
+            end
             function_signature.extend('a')
             i.append_in(function_signature)
             i := i + 1
+         end
+      end
+
+   closure_args_compile_to_c_in (bf: ANONYMOUS_FEATURE; type: TYPE) is
+      local
+         i, j: INTEGER; local_name: LOCAL_NAME1; static_tm: TYPE_MARK
+      do
+         if bf.closure_arguments /= Void then
+            --| **** TODO
+         end
+         if bf.closure_local_vars /= Void then
+            from
+               i := bf.closure_local_vars.lower
+            until
+               i > bf.closure_local_vars.upper
+            loop
+               if bf.closure_local_vars.item(i) /= Void then
+                  from
+                     j := 1
+                  until
+                     j > bf.closure_local_vars.item(i).count
+                  loop
+                     local_name := bf.closure_local_vars.item(i).name(j)
+                     if local_name.is_used(type) and then local_name.is_outside(type) then
+                        if function_signature.last /= '(' then
+                           function_signature.extend(',')
+                        end
+                        static_tm := local_name.result_type.to_static(type, False)
+                        function_signature.append(cpp.result_type.for(static_tm))
+                        function_signature.append(once "*CL_")
+                        function_signature.append(local_name.to_string)
+                     end
+                     j := j + 1
+                  end
+               end
+               i := i + 1
+            end
          end
       end
 
@@ -811,7 +872,7 @@ feature {}
                cpp.c_frame_descriptor_in(static_tm, c_frame_descriptor_format)
                c_frame_descriptor_locals.append(once "(void**)")
                if use_real_name then
-                  if not args.name(i).is_outside then
+                  if not args.name(i).is_outside(type) then
                      c_frame_descriptor_locals.extend('&')
                   end
                   c_frame_descriptor_locals.extend('_')
@@ -1148,48 +1209,6 @@ feature {}
          -- To initialize field `locals' of `se_dump_stack'.
       once
          create Result.make(512)
-      end
-
-   for_all_local_names (agent_creation: AGENT_CREATION; type: TYPE; action: PROCEDURE[TUPLE[LOCAL_NAME1]]) is
-      local
-         i, j: INTEGER; cf: E_ROUTINE; local_name: LOCAL_NAME1
-      do
-         cf ::= agent_creation.context_features.fast_at(type)
-         if cf.local_vars /= Void then
-            from
-               i := 1
-            until
-               i > cf.local_vars.count
-            loop
-               local_name := cf.local_vars.name(i)
-               if local_name.is_used(type) and then local_name.is_outside then
-                  action.call([local_name])
-               end
-               i := i + 1
-            end
-         end
-         if cf.closure_local_vars /= Void then
-            from
-               j := cf.closure_local_vars.lower
-            until
-               j > cf.closure_local_vars.upper
-            loop
-               if cf.closure_local_vars.item(j) /= Void then
-                  from
-                     i := 1
-                  until
-                     i > cf.closure_local_vars.item(j).count
-                  loop
-                     local_name := cf.closure_local_vars.item(j).name(i)
-                     if local_name.is_used(type) and then local_name.is_outside then
-                        action.call([local_name])
-                     end
-                     i := i + 1
-                  end
-               end
-               j := j + 1
-            end
-         end
       end
 
 feature {LIVE_TYPE}
