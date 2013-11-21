@@ -25,336 +25,336 @@ C Compiler options used: -pipe -O2 -fno-gcse
 extern "C" {
 #endif
 
-T0* se_manifest1174(T2 initial_lower,int argc,...){
+T0* se_manifest1179(T2 initial_lower,int argc,...){
 /*ARRAY[ARRAY[INTEGER_8]]*/
-T1174*C;
+T1179*C;
 va_list pa;
 int i=0;
 int imax;
 va_start(pa,argc);
-C=se_malloc(sizeof(T1174));
-*C=M1174;
-r1174manifest_make(C,argc,initial_lower);
+C=se_malloc(sizeof(T1179));
+*C=M1179;
+r1179manifest_make(C,argc,initial_lower);
 imax=argc;
 while (i < imax) {
 T0* element=((T0*)(va_arg(pa,T0*)));
-r1174manifest_put(C,i++,element);
+r1179manifest_put(C,i++,element);
 }
 va_end(pa);
 return ((T0*)C);
 }/*--*/
 
-T0* se_manifest1038(T2 initial_lower,int argc,...){
+T0* se_manifest1039(T2 initial_lower,int argc,...){
 /*ARRAY[TYPE_MARK]*/
-T1038*C;
+T1039*C;
 va_list pa;
 int i=0;
 int imax;
 va_start(pa,argc);
-C=se_malloc(sizeof(T1038));
-*C=M1038;
-r1038manifest_make(C,argc,initial_lower);
+C=se_malloc(sizeof(T1039));
+*C=M1039;
+r1039manifest_make(C,argc,initial_lower);
 imax=argc;
 while (i < imax) {
 T0* element=((T0*)(va_arg(pa,T0*)));
-r1038manifest_put(C,i++,element);
+r1039manifest_put(C,i++,element);
 }
 va_end(pa);
 return ((T0*)C);
 }/*--*/
 
-T0* se_manifest1095(T2 initial_lower,int argc,...){
+T0* se_manifest1098(T2 initial_lower,int argc,...){
 /*ARRAY[DECLARATION]*/
-T1095*C;
+T1098*C;
 va_list pa;
 int i=0;
 int imax;
 va_start(pa,argc);
-C=se_malloc(sizeof(T1095));
-*C=M1095;
-r1095manifest_make(C,argc,initial_lower);
+C=se_malloc(sizeof(T1098));
+*C=M1098;
+r1098manifest_make(C,argc,initial_lower);
 imax=argc;
 while (i < imax) {
 T0* element=((T0*)(va_arg(pa,T0*)));
-r1095manifest_put(C,i++,element);
+r1098manifest_put(C,i++,element);
 }
 va_end(pa);
 return ((T0*)C);
 }/*--*/
 
-T0* se_manifest1025(int argc,...){
+T0* se_manifest1026(int argc,...){
 /*FAST_ARRAY[STRING]*/
-T1025*C;
+T1026*C;
 va_list pa;
 int i=0;
 int imax;
 va_start(pa,argc);
-C=se_malloc(sizeof(T1025));
-*C=M1025;
-r1025manifest_make(C,argc);
+C=se_malloc(sizeof(T1026));
+*C=M1026;
+r1026manifest_make(C,argc);
 imax=argc;
 while (i < imax) {
 T0* element=((T0*)(va_arg(pa,T0*)));
-r1025manifest_put(C,i++,element);
+r1026manifest_put(C,i++,element);
 }
 va_end(pa);
 return ((T0*)C);
 }/*--*/
 
-T0* se_manifest1478(int argc,...){
+T0* se_manifest1486(int argc,...){
 /*FAST_ARRAY[POINTER]*/
-T1478*C;
+T1486*C;
 va_list pa;
 int i=0;
 int imax;
 va_start(pa,argc);
-C=se_malloc(sizeof(T1478));
-*C=M1478;
-r1478manifest_make(C,argc);
+C=se_malloc(sizeof(T1486));
+*C=M1486;
+r1486manifest_make(C,argc);
 imax=argc;
 while (i < imax) {
 T8 element=((T8)(va_arg(pa,T8)));
-r1478manifest_put(C,i++,element);
+r1486manifest_put(C,i++,element);
 }
 va_end(pa);
 return ((T0*)C);
 }/*--*/
 
-T0* se_manifest1175(T2 initial_lower,int argc,...){
+T0* se_manifest1180(T2 initial_lower,int argc,...){
 /*ARRAY[INTEGER_8]*/
-T1175*C;
+T1180*C;
 va_list pa;
 int i=0;
 int imax;
 va_start(pa,argc);
-C=se_malloc(sizeof(T1175));
-*C=M1175;
-r1175manifest_make(C,argc,initial_lower);
+C=se_malloc(sizeof(T1180));
+*C=M1180;
+r1180manifest_make(C,argc,initial_lower);
 imax=argc;
 while (i < imax) {
 T1 element=((T1)(va_arg(pa,int)));
-r1175manifest_put(C,i++,element);
+r1180manifest_put(C,i++,element);
 }
 va_end(pa);
 return ((T0*)C);
 }/*--*/
 
-T0* se_manifest1047(int argc,...){
+T0* se_manifest1048(int argc,...){
 /*HASHED_SET[HASHED_STRING]*/
-T1047*C;
+T1048*C;
 va_list pa;
 int i=0;
 int imax;
 va_start(pa,argc);
-C=se_malloc(sizeof(T1047));
-*C=M1047;
-r1047manifest_make(C,argc);
+C=se_malloc(sizeof(T1048));
+*C=M1048;
+r1048manifest_make(C,argc);
 imax=argc;
 while (i < imax) {
 T0* element=((T0*)(va_arg(pa,T0*)));
-r1047manifest_put(C,i++,element);
+r1048manifest_put(C,i++,element);
 }
 va_end(pa);
 return ((T0*)C);
 }/*--*/
 
-T0* se_manifest1140(int argc,...){
+T0* se_manifest1145(int argc,...){
 /*HASHED_SET[STRING]*/
-T1140*C;
+T1145*C;
 va_list pa;
 int i=0;
 int imax;
 va_start(pa,argc);
-C=se_malloc(sizeof(T1140));
-*C=M1140;
-r1140manifest_make(C,argc);
+C=se_malloc(sizeof(T1145));
+*C=M1145;
+r1145manifest_make(C,argc);
 imax=argc;
 while (i < imax) {
 T0* element=((T0*)(va_arg(pa,T0*)));
-r1140manifest_put(C,i++,element);
+r1145manifest_put(C,i++,element);
 }
 va_end(pa);
 return ((T0*)C);
 }/*--*/
 
-int can_assign_to386_from385(T0* expression){
+int can_assign_to387_from386(T0* expression){
 /* WHEN_ITEM_1 ?:= WHEN_ITEM */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 386/*WHEN_ITEM_1*/: return 1;
+case 387/*WHEN_ITEM_1*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to806_from690(T0* expression){
+int can_assign_to807_from691(T0* expression){
 /* LOADPATH ?:= CLASSES */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 806/*LOADPATH*/: return 1;
+case 807/*LOADPATH*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to680_from342(T0* expression){
+int can_assign_to681_from343(T0* expression){
 /* CST_ATT ?:= ANONYMOUS_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 685/*CST_ATT_CHARACTER*/: return 1;
-case 682/*CST_ATT_STRING*/: return 1;
-case 686/*CST_ATT_REAL*/: return 1;
-case 679/*CST_ATT_BOOLEAN*/: return 1;
-case 684/*CST_ATT_INTEGER*/: return 1;
-case 683/*CST_ATT_UNIQUE*/: return 1;
+case 686/*CST_ATT_CHARACTER*/: return 1;
+case 683/*CST_ATT_STRING*/: return 1;
+case 687/*CST_ATT_REAL*/: return 1;
+case 680/*CST_ATT_BOOLEAN*/: return 1;
+case 685/*CST_ATT_INTEGER*/: return 1;
+case 684/*CST_ATT_UNIQUE*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_toATTRIBUTE_from342(T0* expression){
+int can_assign_toATTRIBUTE_from343(T0* expression){
 /* ATTRIBUTE ?:= ANONYMOUS_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 687/*WRITABLE_ATTRIBUTE*/: return 1;
-case 685/*CST_ATT_CHARACTER*/: return 1;
-case 682/*CST_ATT_STRING*/: return 1;
-case 686/*CST_ATT_REAL*/: return 1;
-case 679/*CST_ATT_BOOLEAN*/: return 1;
-case 684/*CST_ATT_INTEGER*/: return 1;
-case 683/*CST_ATT_UNIQUE*/: return 1;
+case 688/*WRITABLE_ATTRIBUTE*/: return 1;
+case 686/*CST_ATT_CHARACTER*/: return 1;
+case 683/*CST_ATT_STRING*/: return 1;
+case 687/*CST_ATT_REAL*/: return 1;
+case 680/*CST_ATT_BOOLEAN*/: return 1;
+case 685/*CST_ATT_INTEGER*/: return 1;
+case 684/*CST_ATT_UNIQUE*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to678_from342(T0* expression){
+int can_assign_to679_from343(T0* expression){
 /* E_FUNCTION ?:= ANONYMOUS_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 678/*E_FUNCTION*/: return 1;
+case 679/*E_FUNCTION*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to572_from342(T0* expression){
+int can_assign_to573_from343(T0* expression){
 /* ONCE_FUNCTION ?:= ANONYMOUS_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 572/*ONCE_FUNCTION*/: return 1;
+case 573/*ONCE_FUNCTION*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to684_from342(T0* expression){
+int can_assign_to685_from343(T0* expression){
 /* CST_ATT_INTEGER ?:= ANONYMOUS_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 684/*CST_ATT_INTEGER*/: return 1;
+case 685/*CST_ATT_INTEGER*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to687_from342(T0* expression){
+int can_assign_to688_from343(T0* expression){
 /* WRITABLE_ATTRIBUTE ?:= ANONYMOUS_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 687/*WRITABLE_ATTRIBUTE*/: return 1;
+case 688/*WRITABLE_ATTRIBUTE*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to677_from342(T0* expression){
+int can_assign_to678_from343(T0* expression){
 /* E_PROCEDURE ?:= ANONYMOUS_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 677/*E_PROCEDURE*/: return 1;
+case 678/*E_PROCEDURE*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to676_from342(T0* expression){
+int can_assign_to677_from343(T0* expression){
 /* ONCE_PROCEDURE ?:= ANONYMOUS_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 676/*ONCE_PROCEDURE*/: return 1;
+case 677/*ONCE_PROCEDURE*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to679_from342(T0* expression){
+int can_assign_to680_from343(T0* expression){
 /* CST_ATT_BOOLEAN ?:= ANONYMOUS_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 679/*CST_ATT_BOOLEAN*/: return 1;
+case 680/*CST_ATT_BOOLEAN*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to461_from393(T0* expression){
+int can_assign_to462_from394(T0* expression){
 /* E_FALSE ?:= BOOLEAN_CONSTANT */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 461/*E_FALSE*/: return 1;
+case 462/*E_FALSE*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to368_from350(T0* expression){
+int can_assign_to369_from351(T0* expression){
 /* OTHER_INSPECT_STATEMENT ?:= INSTRUCTION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 368/*OTHER_INSPECT_STATEMENT*/: return 1;
+case 369/*OTHER_INSPECT_STATEMENT*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to402_from350(T0* expression){
+int can_assign_to403_from351(T0* expression){
 /* COMPOUND ?:= INSTRUCTION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 402/*COMPOUND*/: return 1;
+case 403/*COMPOUND*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to427_from350(T0* expression){
+int can_assign_to430_from351(T0* expression){
 /* COMMENT ?:= INSTRUCTION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 427/*COMMENT*/: return 1;
+case 430/*COMMENT*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to373_from350(T0* expression){
+int can_assign_to374_from351(T0* expression){
 /* ASSIGNMENT ?:= INSTRUCTION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 373/*ASSIGNMENT*/: return 1;
+case 374/*ASSIGNMENT*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to668_from350(T0* expression){
+int can_assign_to669_from351(T0* expression){
 /* SEDB ?:= INSTRUCTION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 668/*SEDB*/: return 1;
+case 669/*SEDB*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to755_from337(T0* expression){
+int can_assign_to756_from338(T0* expression){
 /* RUN_FEATURE_7 ?:= RUN_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 755/*RUN_FEATURE_7*/: return 1;
+case 756/*RUN_FEATURE_7*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to413_from337(T0* expression){
+int can_assign_to414_from338(T0* expression){
 /* RUN_FEATURE_2 ?:= RUN_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 413/*RUN_FEATURE_2*/: return 1;
+case 414/*RUN_FEATURE_2*/: return 1;
 }
 return 0;
 }/*--*/
@@ -364,505 +364,505 @@ int can_assign_to38_from39(T0* expression){
 if (expression == NULL) return 1;
 switch (expression->id) {
 case 7/*STRING*/: return 1;
-case 299/*FIXED_STRING*/: return 1;
+case 300/*FIXED_STRING*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to299_from38(T0* expression){
+int can_assign_to300_from38(T0* expression){
 /* FIXED_STRING ?:= NATIVELY_STORED_STRING */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 299/*FIXED_STRING*/: return 1;
+case 300/*FIXED_STRING*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to350_from347(T0* expression){
+int can_assign_to351_from348(T0* expression){
 /* INSTRUCTION ?:= CODE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 427/*COMMENT*/: return 1;
-case 348/*PROCEDURE_CALL_0*/: return 1;
-case 352/*PROCEDURE_CALL_1*/: return 1;
-case 353/*PROCEDURE_CALL_N*/: return 1;
-case 670/*REQUIRE_ASSERTION*/: return 1;
-case 524/*CHECK_COMPOUND*/: return 1;
-case 483/*DEBUG_COMPOUND*/: return 1;
-case 419/*IFTHEN*/: return 1;
-case 405/*IFTHENELSE*/: return 1;
-case 363/*WHEN_CLAUSE*/: return 1;
-case 368/*OTHER_INSPECT_STATEMENT*/: return 1;
-case 485/*MANIFEST_STRING_INSPECT_STATEMENT*/: return 1;
-case 433/*ASSERTION_LIST*/: return 1;
-case 472/*LOOP_INSTRUCTION*/: return 1;
-case 411/*CREATE_INSTRUCTION*/: return 1;
-case 469/*C_INLINE*/: return 1;
-case 500/*PRECURSOR_INSTRUCTION*/: return 1;
-case 373/*ASSIGNMENT*/: return 1;
-case 401/*ASSIGNMENT_ATTEMPT*/: return 1;
-case 470/*ASSIGNMENT_CALL_ASSIGNER*/: return 1;
-case 464/*RETRY_INSTRUCTION*/: return 1;
-case 402/*COMPOUND*/: return 1;
-case 666/*ENSURE_ASSERTION*/: return 1;
-case 432/*CLASS_INVARIANT*/: return 1;
-case 420/*NO_INVARIANT_WRAPPER*/: return 1;
-case 668/*SEDB*/: return 1;
-case 667/*UNUSED_EXPRESSION*/: return 1;
-case 669/*RUN_TIME_ERROR_INSTRUCTION*/: return 1;
-case 566/*VOID_PROC_CALL*/: return 1;
-case 671/*AGENT_INSTRUCTION*/: return 1;
-case 418/*RAW_CREATE_INSTRUCTION*/: return 1;
+case 430/*COMMENT*/: return 1;
+case 349/*PROCEDURE_CALL_0*/: return 1;
+case 353/*PROCEDURE_CALL_1*/: return 1;
+case 354/*PROCEDURE_CALL_N*/: return 1;
+case 671/*REQUIRE_ASSERTION*/: return 1;
+case 525/*CHECK_COMPOUND*/: return 1;
+case 484/*DEBUG_COMPOUND*/: return 1;
+case 420/*IFTHEN*/: return 1;
+case 406/*IFTHENELSE*/: return 1;
+case 364/*WHEN_CLAUSE*/: return 1;
+case 369/*OTHER_INSPECT_STATEMENT*/: return 1;
+case 486/*MANIFEST_STRING_INSPECT_STATEMENT*/: return 1;
+case 436/*ASSERTION_LIST*/: return 1;
+case 473/*LOOP_INSTRUCTION*/: return 1;
+case 412/*CREATE_INSTRUCTION*/: return 1;
+case 470/*C_INLINE*/: return 1;
+case 501/*PRECURSOR_INSTRUCTION*/: return 1;
+case 374/*ASSIGNMENT*/: return 1;
+case 402/*ASSIGNMENT_ATTEMPT*/: return 1;
+case 471/*ASSIGNMENT_CALL_ASSIGNER*/: return 1;
+case 465/*RETRY_INSTRUCTION*/: return 1;
+case 403/*COMPOUND*/: return 1;
+case 667/*ENSURE_ASSERTION*/: return 1;
+case 435/*CLASS_INVARIANT*/: return 1;
+case 421/*NO_INVARIANT_WRAPPER*/: return 1;
+case 669/*SEDB*/: return 1;
+case 668/*UNUSED_EXPRESSION*/: return 1;
+case 670/*RUN_TIME_ERROR_INSTRUCTION*/: return 1;
+case 567/*VOID_PROC_CALL*/: return 1;
+case 672/*AGENT_INSTRUCTION*/: return 1;
+case 419/*RAW_CREATE_INSTRUCTION*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to659_from347(T0* expression){
+int can_assign_to660_from348(T0* expression){
 /* COMPOUND_EXPRESSION ?:= CODE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 659/*COMPOUND_EXPRESSION*/: return 1;
+case 660/*COMPOUND_EXPRESSION*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to349_from347(T0* expression){
+int can_assign_to350_from348(T0* expression){
 /* PROCEDURE_CALL ?:= CODE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 348/*PROCEDURE_CALL_0*/: return 1;
-case 352/*PROCEDURE_CALL_1*/: return 1;
-case 353/*PROCEDURE_CALL_N*/: return 1;
+case 349/*PROCEDURE_CALL_0*/: return 1;
+case 353/*PROCEDURE_CALL_1*/: return 1;
+case 354/*PROCEDURE_CALL_N*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to402_from347(T0* expression){
+int can_assign_to403_from348(T0* expression){
 /* COMPOUND ?:= CODE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 402/*COMPOUND*/: return 1;
+case 403/*COMPOUND*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to356_from347(T0* expression){
+int can_assign_to357_from348(T0* expression){
 /* FUNCTION_CALL ?:= CODE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 494/*CALL_PREFIX_NOT*/: return 1;
-case 354/*FUNCTION_CALL_0*/: return 1;
-case 357/*FUNCTION_CALL_1*/: return 1;
-case 359/*FUNCTION_CALL_N*/: return 1;
-case 496/*CALL_PREFIX_PLUS*/: return 1;
-case 497/*CALL_PREFIX_MINUS*/: return 1;
-case 498/*CALL_PREFIX_FREEOP*/: return 1;
-case 521/*CALL_INFIX_FREEOP*/: return 1;
-case 520/*CALL_INFIX_POWER*/: return 1;
-case 516/*CALL_INFIX_TIMES*/: return 1;
-case 517/*CALL_INFIX_INT_DIV*/: return 1;
-case 518/*CALL_INFIX_INT_REM*/: return 1;
-case 519/*CALL_INFIX_DIV*/: return 1;
-case 515/*CALL_INFIX_PLUS*/: return 1;
-case 381/*CALL_INFIX_MINUS*/: return 1;
-case 511/*CALL_INFIX_LE*/: return 1;
-case 512/*CALL_INFIX_GE*/: return 1;
-case 513/*CALL_INFIX_LT*/: return 1;
-case 514/*CALL_INFIX_GT*/: return 1;
-case 409/*CALL_INFIX_AND_THEN*/: return 1;
-case 510/*CALL_INFIX_AND*/: return 1;
-case 507/*CALL_INFIX_OR_ELSE*/: return 1;
-case 508/*CALL_INFIX_OR*/: return 1;
-case 509/*CALL_INFIX_XOR*/: return 1;
-case 506/*CALL_INFIX_IMPLIES*/: return 1;
-case 421/*STATIC_CALL_0_C*/: return 1;
+case 495/*CALL_PREFIX_NOT*/: return 1;
+case 355/*FUNCTION_CALL_0*/: return 1;
+case 358/*FUNCTION_CALL_1*/: return 1;
+case 360/*FUNCTION_CALL_N*/: return 1;
+case 497/*CALL_PREFIX_PLUS*/: return 1;
+case 498/*CALL_PREFIX_MINUS*/: return 1;
+case 499/*CALL_PREFIX_FREEOP*/: return 1;
+case 522/*CALL_INFIX_FREEOP*/: return 1;
+case 521/*CALL_INFIX_POWER*/: return 1;
+case 517/*CALL_INFIX_TIMES*/: return 1;
+case 518/*CALL_INFIX_INT_DIV*/: return 1;
+case 519/*CALL_INFIX_INT_REM*/: return 1;
+case 520/*CALL_INFIX_DIV*/: return 1;
+case 516/*CALL_INFIX_PLUS*/: return 1;
+case 382/*CALL_INFIX_MINUS*/: return 1;
+case 512/*CALL_INFIX_LE*/: return 1;
+case 513/*CALL_INFIX_GE*/: return 1;
+case 514/*CALL_INFIX_LT*/: return 1;
+case 515/*CALL_INFIX_GT*/: return 1;
+case 410/*CALL_INFIX_AND_THEN*/: return 1;
+case 511/*CALL_INFIX_AND*/: return 1;
+case 508/*CALL_INFIX_OR_ELSE*/: return 1;
+case 509/*CALL_INFIX_OR*/: return 1;
+case 510/*CALL_INFIX_XOR*/: return 1;
+case 507/*CALL_INFIX_IMPLIES*/: return 1;
+case 422/*STATIC_CALL_0_C*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to411_from347(T0* expression){
+int can_assign_to412_from348(T0* expression){
 /* CREATE_INSTRUCTION ?:= CODE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 411/*CREATE_INSTRUCTION*/: return 1;
-case 418/*RAW_CREATE_INSTRUCTION*/: return 1;
+case 412/*CREATE_INSTRUCTION*/: return 1;
+case 419/*RAW_CREATE_INSTRUCTION*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to346_from347(T0* expression){
+int can_assign_to347_from348(T0* expression){
 /* EXPRESSION ?:= CODE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 387/*MANIFEST_STRING*/: return 1;
-case 525/*OLD_MANIFEST_ARRAY*/: return 1;
-case 494/*CALL_PREFIX_NOT*/: return 1;
-case 408/*ASSIGNMENT_TEST*/: return 1;
-case 480/*OPEN_OPERAND*/: return 1;
-case 378/*INTEGER_CONSTANT*/: return 1;
-case 481/*REAL_CONSTANT*/: return 1;
-case 482/*MANIFEST_GENERIC*/: return 1;
-case 354/*FUNCTION_CALL_0*/: return 1;
-case 357/*FUNCTION_CALL_1*/: return 1;
-case 359/*FUNCTION_CALL_N*/: return 1;
-case 496/*CALL_PREFIX_PLUS*/: return 1;
-case 497/*CALL_PREFIX_MINUS*/: return 1;
-case 498/*CALL_PREFIX_FREEOP*/: return 1;
-case 486/*MANIFEST_TUPLE*/: return 1;
-case 392/*E_TRUE*/: return 1;
-case 461/*E_FALSE*/: return 1;
-case 468/*CHARACTER_CONSTANT*/: return 1;
-case 487/*PRECURSOR_EXPRESSION*/: return 1;
-case 522/*FAKE_TARGET*/: return 1;
-case 523/*CREATE_EXPRESSION*/: return 1;
-case 425/*ASSERTION*/: return 1;
-case 376/*IMPLICIT_CURRENT*/: return 1;
-case 471/*LOOP_VARIANT*/: return 1;
-case 370/*RESULT*/: return 1;
-case 490/*WRITTEN_CURRENT*/: return 1;
-case 489/*AGENT_CREATION*/: return 1;
-case 462/*EXPRESSION_WITH_COMMENT*/: return 1;
-case 403/*E_VOID*/: return 1;
-case 499/*E_OLD*/: return 1;
-case 521/*CALL_INFIX_FREEOP*/: return 1;
-case 520/*CALL_INFIX_POWER*/: return 1;
-case 516/*CALL_INFIX_TIMES*/: return 1;
-case 517/*CALL_INFIX_INT_DIV*/: return 1;
-case 518/*CALL_INFIX_INT_REM*/: return 1;
-case 519/*CALL_INFIX_DIV*/: return 1;
-case 515/*CALL_INFIX_PLUS*/: return 1;
-case 381/*CALL_INFIX_MINUS*/: return 1;
-case 404/*BUILT_IN_EQ_NEQ*/: return 1;
-case 511/*CALL_INFIX_LE*/: return 1;
-case 512/*CALL_INFIX_GE*/: return 1;
-case 513/*CALL_INFIX_LT*/: return 1;
-case 514/*CALL_INFIX_GT*/: return 1;
-case 409/*CALL_INFIX_AND_THEN*/: return 1;
-case 510/*CALL_INFIX_AND*/: return 1;
-case 507/*CALL_INFIX_OR_ELSE*/: return 1;
-case 508/*CALL_INFIX_OR*/: return 1;
-case 509/*CALL_INFIX_XOR*/: return 1;
-case 506/*CALL_INFIX_IMPLIES*/: return 1;
-case 463/*ADDRESS_OF*/: return 1;
-case 364/*ARGUMENT_NAME2*/: return 1;
-case 417/*WRITABLE_ATTRIBUTE_NAME*/: return 1;
-case 400/*LOCAL_NAME2*/: return 1;
-case 534/*NON_VOID_NO_DISPATCH*/: return 1;
-case 659/*COMPOUND_EXPRESSION*/: return 1;
-case 661/*CREATE_WRITABLE*/: return 1;
-case 662/*CLOSED_OPERAND*/: return 1;
-case 362/*FAKE_ARGUMENT*/: return 1;
-case 653/*NO_DISPATCH*/: return 1;
-case 657/*DYNAMIC_DISPATCH_TEMPORARY1*/: return 1;
-case 656/*DYNAMIC_DISPATCH_TEMPORARY2*/: return 1;
-case 568/*VOID_CALL*/: return 1;
-case 658/*DYNAMIC_DISPATCH_TEMPORARY1_ID*/: return 1;
-case 655/*INTERNAL_LOCAL2*/: return 1;
-case 651/*NATURAL_CONSTANT*/: return 1;
-case 652/*NULL_POINTER*/: return 1;
-case 531/*IMPLICIT_CAST*/: return 1;
-case 663/*AGENT_EXPRESSION*/: return 1;
-case 421/*STATIC_CALL_0_C*/: return 1;
-case 372/*GENERATOR_GENERATING_TYPE*/: return 1;
-case 654/*NATIVE_ARRAY_ITEM*/: return 1;
-case 660/*FAKE_TUPLE*/: return 1;
+case 388/*MANIFEST_STRING*/: return 1;
+case 526/*OLD_MANIFEST_ARRAY*/: return 1;
+case 495/*CALL_PREFIX_NOT*/: return 1;
+case 409/*ASSIGNMENT_TEST*/: return 1;
+case 481/*OPEN_OPERAND*/: return 1;
+case 379/*INTEGER_CONSTANT*/: return 1;
+case 482/*REAL_CONSTANT*/: return 1;
+case 483/*MANIFEST_GENERIC*/: return 1;
+case 355/*FUNCTION_CALL_0*/: return 1;
+case 358/*FUNCTION_CALL_1*/: return 1;
+case 360/*FUNCTION_CALL_N*/: return 1;
+case 497/*CALL_PREFIX_PLUS*/: return 1;
+case 498/*CALL_PREFIX_MINUS*/: return 1;
+case 499/*CALL_PREFIX_FREEOP*/: return 1;
+case 487/*MANIFEST_TUPLE*/: return 1;
+case 393/*E_TRUE*/: return 1;
+case 462/*E_FALSE*/: return 1;
+case 469/*CHARACTER_CONSTANT*/: return 1;
+case 488/*PRECURSOR_EXPRESSION*/: return 1;
+case 523/*FAKE_TARGET*/: return 1;
+case 524/*CREATE_EXPRESSION*/: return 1;
+case 428/*ASSERTION*/: return 1;
+case 377/*IMPLICIT_CURRENT*/: return 1;
+case 472/*LOOP_VARIANT*/: return 1;
+case 371/*RESULT*/: return 1;
+case 491/*WRITTEN_CURRENT*/: return 1;
+case 490/*AGENT_CREATION*/: return 1;
+case 463/*EXPRESSION_WITH_COMMENT*/: return 1;
+case 404/*E_VOID*/: return 1;
+case 500/*E_OLD*/: return 1;
+case 522/*CALL_INFIX_FREEOP*/: return 1;
+case 521/*CALL_INFIX_POWER*/: return 1;
+case 517/*CALL_INFIX_TIMES*/: return 1;
+case 518/*CALL_INFIX_INT_DIV*/: return 1;
+case 519/*CALL_INFIX_INT_REM*/: return 1;
+case 520/*CALL_INFIX_DIV*/: return 1;
+case 516/*CALL_INFIX_PLUS*/: return 1;
+case 382/*CALL_INFIX_MINUS*/: return 1;
+case 405/*BUILT_IN_EQ_NEQ*/: return 1;
+case 512/*CALL_INFIX_LE*/: return 1;
+case 513/*CALL_INFIX_GE*/: return 1;
+case 514/*CALL_INFIX_LT*/: return 1;
+case 515/*CALL_INFIX_GT*/: return 1;
+case 410/*CALL_INFIX_AND_THEN*/: return 1;
+case 511/*CALL_INFIX_AND*/: return 1;
+case 508/*CALL_INFIX_OR_ELSE*/: return 1;
+case 509/*CALL_INFIX_OR*/: return 1;
+case 510/*CALL_INFIX_XOR*/: return 1;
+case 507/*CALL_INFIX_IMPLIES*/: return 1;
+case 464/*ADDRESS_OF*/: return 1;
+case 365/*ARGUMENT_NAME_REF*/: return 1;
+case 418/*WRITABLE_ATTRIBUTE_NAME*/: return 1;
+case 401/*LOCAL_NAME_REF*/: return 1;
+case 535/*NON_VOID_NO_DISPATCH*/: return 1;
+case 660/*COMPOUND_EXPRESSION*/: return 1;
+case 662/*CREATE_WRITABLE*/: return 1;
+case 663/*CLOSED_OPERAND*/: return 1;
+case 363/*FAKE_ARGUMENT*/: return 1;
+case 654/*NO_DISPATCH*/: return 1;
+case 658/*DYNAMIC_DISPATCH_TEMPORARY1*/: return 1;
+case 657/*DYNAMIC_DISPATCH_TEMPORARY2*/: return 1;
+case 569/*VOID_CALL*/: return 1;
+case 659/*DYNAMIC_DISPATCH_TEMPORARY1_ID*/: return 1;
+case 656/*INTERNAL_LOCAL2*/: return 1;
+case 652/*NATURAL_CONSTANT*/: return 1;
+case 653/*NULL_POINTER*/: return 1;
+case 532/*IMPLICIT_CAST*/: return 1;
+case 664/*AGENT_EXPRESSION*/: return 1;
+case 422/*STATIC_CALL_0_C*/: return 1;
+case 373/*GENERATOR_GENERATING_TYPE*/: return 1;
+case 655/*NATIVE_ARRAY_ITEM*/: return 1;
+case 661/*FAKE_TUPLE*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to378_from380(T0* expression){
+int can_assign_to379_from381(T0* expression){
 /* INTEGER_CONSTANT ?:= MANIFEST_EXPRESSION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 378/*INTEGER_CONSTANT*/: return 1;
+case 379/*INTEGER_CONSTANT*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to546_from547(T0* expression){
+int can_assign_to547_from548(T0* expression){
 /* PATH_NAME_NOTATION ?:= DIRECTORY_NOTATION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 545/*UNIX_DIRECTORY_NOTATION*/: return 1;
-case 549/*WINDOWS_DIRECTORY_NOTATION*/: return 1;
+case 546/*UNIX_DIRECTORY_NOTATION*/: return 1;
+case 550/*WINDOWS_DIRECTORY_NOTATION*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to550_from547(T0* expression){
+int can_assign_to551_from548(T0* expression){
 /* MACINTOSH_DIRECTORY_NOTATION ?:= DIRECTORY_NOTATION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 550/*MACINTOSH_DIRECTORY_NOTATION*/: return 1;
+case 551/*MACINTOSH_DIRECTORY_NOTATION*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to552_from547(T0* expression){
+int can_assign_to553_from548(T0* expression){
 /* OPENVMS_DIRECTORY_NOTATION ?:= DIRECTORY_NOTATION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 552/*OPENVMS_DIRECTORY_NOTATION*/: return 1;
+case 553/*OPENVMS_DIRECTORY_NOTATION*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to549_from547(T0* expression){
+int can_assign_to550_from548(T0* expression){
 /* WINDOWS_DIRECTORY_NOTATION ?:= DIRECTORY_NOTATION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 549/*WINDOWS_DIRECTORY_NOTATION*/: return 1;
+case 550/*WINDOWS_DIRECTORY_NOTATION*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to545_from547(T0* expression){
+int can_assign_to546_from548(T0* expression){
 /* UNIX_DIRECTORY_NOTATION ?:= DIRECTORY_NOTATION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 545/*UNIX_DIRECTORY_NOTATION*/: return 1;
+case 546/*UNIX_DIRECTORY_NOTATION*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to551_from547(T0* expression){
+int can_assign_to552_from548(T0* expression){
 /* AMIGA_DIRECTORY_NOTATION ?:= DIRECTORY_NOTATION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 551/*AMIGA_DIRECTORY_NOTATION*/: return 1;
+case 552/*AMIGA_DIRECTORY_NOTATION*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to553_from547(T0* expression){
+int can_assign_to554_from548(T0* expression){
 /* CYGWIN_DIRECTORY_NOTATION ?:= DIRECTORY_NOTATION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 553/*CYGWIN_DIRECTORY_NOTATION*/: return 1;
+case 554/*CYGWIN_DIRECTORY_NOTATION*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to504_from371(T0* expression){
+int can_assign_to505_from372(T0* expression){
 /* LIKE_ARGUMENT_TYPE_MARK ?:= TYPE_MARK */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 504/*LIKE_ARGUMENT_TYPE_MARK*/: return 1;
+case 505/*LIKE_ARGUMENT_TYPE_MARK*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to441_from371(T0* expression){
+int can_assign_to442_from372(T0* expression){
 /* REAL_TYPE_MARK ?:= TYPE_MARK */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 441/*REAL_TYPE_MARK*/: return 1;
+case 442/*REAL_TYPE_MARK*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to467_from371(T0* expression){
+int can_assign_to468_from372(T0* expression){
 /* WEAK_REFERENCE_TYPE_MARK ?:= TYPE_MARK */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 467/*WEAK_REFERENCE_TYPE_MARK*/: return 1;
+case 468/*WEAK_REFERENCE_TYPE_MARK*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to410_from371(T0* expression){
+int can_assign_to411_from372(T0* expression){
 /* CLASS_TYPE_MARK ?:= TYPE_MARK */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 410/*CLASS_TYPE_MARK*/: return 1;
+case 411/*CLASS_TYPE_MARK*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to414_from371(T0* expression){
+int can_assign_to415_from372(T0* expression){
 /* INTEGER_TYPE_MARK ?:= TYPE_MARK */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 414/*INTEGER_TYPE_MARK*/: return 1;
+case 415/*INTEGER_TYPE_MARK*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to476_from474(T0* expression){
+int can_assign_to477_from475(T0* expression){
 /* NATIVE_C_PLUS_PLUS ?:= NATIVE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 476/*NATIVE_C_PLUS_PLUS*/: return 1;
+case 477/*NATIVE_C_PLUS_PLUS*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to400_from346(T0* expression){
-/* LOCAL_NAME2 ?:= EXPRESSION */
-if (expression == NULL) return 1;
-switch (expression->id) {
-case 400/*LOCAL_NAME2*/: return 1;
-}
-return 0;
-}/*--*/
-
-int can_assign_to461_from346(T0* expression){
+int can_assign_to462_from347(T0* expression){
 /* E_FALSE ?:= EXPRESSION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 461/*E_FALSE*/: return 1;
+case 462/*E_FALSE*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to481_from346(T0* expression){
+int can_assign_to482_from347(T0* expression){
 /* REAL_CONSTANT ?:= EXPRESSION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 481/*REAL_CONSTANT*/: return 1;
+case 482/*REAL_CONSTANT*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to486_from346(T0* expression){
+int can_assign_to487_from347(T0* expression){
 /* MANIFEST_TUPLE ?:= EXPRESSION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 486/*MANIFEST_TUPLE*/: return 1;
+case 487/*MANIFEST_TUPLE*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to531_from346(T0* expression){
+int can_assign_to532_from347(T0* expression){
 /* IMPLICIT_CAST ?:= EXPRESSION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 531/*IMPLICIT_CAST*/: return 1;
+case 532/*IMPLICIT_CAST*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to356_from346(T0* expression){
+int can_assign_to357_from347(T0* expression){
 /* FUNCTION_CALL ?:= EXPRESSION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 494/*CALL_PREFIX_NOT*/: return 1;
-case 354/*FUNCTION_CALL_0*/: return 1;
-case 357/*FUNCTION_CALL_1*/: return 1;
-case 359/*FUNCTION_CALL_N*/: return 1;
-case 496/*CALL_PREFIX_PLUS*/: return 1;
-case 497/*CALL_PREFIX_MINUS*/: return 1;
-case 498/*CALL_PREFIX_FREEOP*/: return 1;
-case 521/*CALL_INFIX_FREEOP*/: return 1;
-case 520/*CALL_INFIX_POWER*/: return 1;
-case 516/*CALL_INFIX_TIMES*/: return 1;
-case 517/*CALL_INFIX_INT_DIV*/: return 1;
-case 518/*CALL_INFIX_INT_REM*/: return 1;
-case 519/*CALL_INFIX_DIV*/: return 1;
-case 515/*CALL_INFIX_PLUS*/: return 1;
-case 381/*CALL_INFIX_MINUS*/: return 1;
-case 511/*CALL_INFIX_LE*/: return 1;
-case 512/*CALL_INFIX_GE*/: return 1;
-case 513/*CALL_INFIX_LT*/: return 1;
-case 514/*CALL_INFIX_GT*/: return 1;
-case 409/*CALL_INFIX_AND_THEN*/: return 1;
-case 510/*CALL_INFIX_AND*/: return 1;
-case 507/*CALL_INFIX_OR_ELSE*/: return 1;
-case 508/*CALL_INFIX_OR*/: return 1;
-case 509/*CALL_INFIX_XOR*/: return 1;
-case 506/*CALL_INFIX_IMPLIES*/: return 1;
-case 421/*STATIC_CALL_0_C*/: return 1;
+case 495/*CALL_PREFIX_NOT*/: return 1;
+case 355/*FUNCTION_CALL_0*/: return 1;
+case 358/*FUNCTION_CALL_1*/: return 1;
+case 360/*FUNCTION_CALL_N*/: return 1;
+case 497/*CALL_PREFIX_PLUS*/: return 1;
+case 498/*CALL_PREFIX_MINUS*/: return 1;
+case 499/*CALL_PREFIX_FREEOP*/: return 1;
+case 522/*CALL_INFIX_FREEOP*/: return 1;
+case 521/*CALL_INFIX_POWER*/: return 1;
+case 517/*CALL_INFIX_TIMES*/: return 1;
+case 518/*CALL_INFIX_INT_DIV*/: return 1;
+case 519/*CALL_INFIX_INT_REM*/: return 1;
+case 520/*CALL_INFIX_DIV*/: return 1;
+case 516/*CALL_INFIX_PLUS*/: return 1;
+case 382/*CALL_INFIX_MINUS*/: return 1;
+case 512/*CALL_INFIX_LE*/: return 1;
+case 513/*CALL_INFIX_GE*/: return 1;
+case 514/*CALL_INFIX_LT*/: return 1;
+case 515/*CALL_INFIX_GT*/: return 1;
+case 410/*CALL_INFIX_AND_THEN*/: return 1;
+case 511/*CALL_INFIX_AND*/: return 1;
+case 508/*CALL_INFIX_OR_ELSE*/: return 1;
+case 509/*CALL_INFIX_OR*/: return 1;
+case 510/*CALL_INFIX_XOR*/: return 1;
+case 507/*CALL_INFIX_IMPLIES*/: return 1;
+case 422/*STATIC_CALL_0_C*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to534_from346(T0* expression){
+int can_assign_to535_from347(T0* expression){
 /* NON_VOID_NO_DISPATCH ?:= EXPRESSION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 534/*NON_VOID_NO_DISPATCH*/: return 1;
+case 535/*NON_VOID_NO_DISPATCH*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to480_from346(T0* expression){
+int can_assign_to481_from347(T0* expression){
 /* OPEN_OPERAND ?:= EXPRESSION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 480/*OPEN_OPERAND*/: return 1;
+case 481/*OPEN_OPERAND*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to468_from346(T0* expression){
+int can_assign_to469_from347(T0* expression){
 /* CHARACTER_CONSTANT ?:= EXPRESSION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 468/*CHARACTER_CONSTANT*/: return 1;
+case 469/*CHARACTER_CONSTANT*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to462_from346(T0* expression){
+int can_assign_to401_from347(T0* expression){
+/* LOCAL_NAME_REF ?:= EXPRESSION */
+if (expression == NULL) return 1;
+switch (expression->id) {
+case 401/*LOCAL_NAME_REF*/: return 1;
+}
+return 0;
+}/*--*/
+
+int can_assign_to463_from347(T0* expression){
 /* EXPRESSION_WITH_COMMENT ?:= EXPRESSION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 462/*EXPRESSION_WITH_COMMENT*/: return 1;
+case 463/*EXPRESSION_WITH_COMMENT*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to522_from346(T0* expression){
+int can_assign_to523_from347(T0* expression){
 /* FAKE_TARGET ?:= EXPRESSION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 522/*FAKE_TARGET*/: return 1;
+case 523/*FAKE_TARGET*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to392_from346(T0* expression){
+int can_assign_to393_from347(T0* expression){
 /* E_TRUE ?:= EXPRESSION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 392/*E_TRUE*/: return 1;
+case 393/*E_TRUE*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to378_from346(T0* expression){
+int can_assign_to379_from347(T0* expression){
 /* INTEGER_CONSTANT ?:= EXPRESSION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 378/*INTEGER_CONSTANT*/: return 1;
+case 379/*INTEGER_CONSTANT*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to393_from346(T0* expression){
+int can_assign_to394_from347(T0* expression){
 /* BOOLEAN_CONSTANT ?:= EXPRESSION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 392/*E_TRUE*/: return 1;
-case 461/*E_FALSE*/: return 1;
+case 393/*E_TRUE*/: return 1;
+case 462/*E_FALSE*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to387_from346(T0* expression){
+int can_assign_to388_from347(T0* expression){
 /* MANIFEST_STRING ?:= EXPRESSION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 387/*MANIFEST_STRING*/: return 1;
+case 388/*MANIFEST_STRING*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to652_from346(T0* expression){
+int can_assign_to653_from347(T0* expression){
 /* NULL_POINTER ?:= EXPRESSION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 652/*NULL_POINTER*/: return 1;
+case 653/*NULL_POINTER*/: return 1;
 }
 return 0;
 }/*--*/
