@@ -128,6 +128,14 @@ feature {AGENT_CREATION}
                i := i + 1
             end
          end
+         for_all_argument_names(visited, type,
+                                agent (argument_name: ARGUMENT_NAME1) is
+                                   do
+                                      if function_body.last /= '(' then
+                                         function_body.extend(',')
+                                      end
+                                      cpp.print_argument(argument_name.rank)
+                                   end(?))
          for_all_local_names(visited, type,
                              agent (local_name: LOCAL_NAME1) is
                                 do
@@ -680,7 +688,15 @@ feature {IMPLICIT_CAST}
 feature {ARGUMENT_NAME2}
    visit_argument_name2 (visited: ARGUMENT_NAME2) is
       do
-         cpp.print_argument(visited.rank)
+         if visited.closure_rank = 0 then
+            cpp.print_argument(visited.rank)
+         else
+            function_body.append("(/*OUTCA*/CA_")
+            visited.closure_rank.append_in(function_body)
+            function_body.extend('_')
+            visited.rank.append_in(function_body)
+            function_body.extend(')')
+         end
       end
 
 feature {LOCAL_NAME2}

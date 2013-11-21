@@ -230,7 +230,7 @@ feature {}
                   error_handler.append(fz_cad)
                   error_handler.print_as_fatal_error
                elseif rank > 0 then
-                  create an2.refer_to(tlf.like_what.start_position, Current, rank)
+                  create an2.refer_to(tlf.like_what.start_position, Current, rank, 0)
                   create tla.make(tlf.start_position, an2)
                   an.set_result_type(tla)
                end

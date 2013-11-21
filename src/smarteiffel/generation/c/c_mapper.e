@@ -61,7 +61,7 @@ feature {}
    frozen default_mapping_arg (run_feature: RUN_FEATURE; no_check, uc, tcbd: BOOLEAN) is
       local
          bf: ANONYMOUS_FEATURE
-         i, j: INTEGER; local_name: LOCAL_NAME1
+         i, j: INTEGER; local_name: LOCAL_ARGUMENT1
       do
          function_body.extend('(')
          if no_check then
@@ -93,7 +93,32 @@ feature {}
          end
          bf := run_feature.base_feature
          if bf.closure_arguments /= Void then
-            --| **** TODO
+            from
+               i := bf.closure_arguments.lower
+            until
+               i > bf.closure_arguments.upper
+            loop
+               if bf.closure_arguments.item(i) /= Void then
+                  from
+                     j := 1
+                  until
+                     j > bf.closure_arguments.item(i).count
+                  loop
+                     local_name := bf.closure_arguments.item(i).name(j)
+                     if local_name.is_outside(run_feature.type_of_current) then
+                        if function_body.last /= '(' then
+                           function_body.extend(',')
+                        end
+                        function_body.append(once "CA_")
+                        (i - bf.closure_arguments.lower + 1).append_in(function_body)
+                        function_body.extend('_')
+                        j.append_in(function_body)
+                     end
+                     j := j + 1
+                  end
+               end
+               i := i + 1
+            end
          end
          if bf.closure_local_vars /= Void then
             from

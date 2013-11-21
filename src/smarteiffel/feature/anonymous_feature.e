@@ -992,10 +992,10 @@ feature {FEATURE_TEXT}
       end
 
 feature {ANY}
-   closure_arguments: FAST_ARRAY[FORMAL_ARG_LIST]
+   closure_arguments: COLLECTION[FORMAL_ARG_LIST]
          -- Arguments of enclosing features
 
-   closure_local_vars: FAST_ARRAY[LOCAL_VAR_LIST]
+   closure_local_vars: COLLECTION[LOCAL_VAR_LIST]
          -- Local vars of enclosing features
 
 feature {FEATURE_TEXT}
@@ -1012,6 +1012,68 @@ feature {FEATURE_TEXT}
       end
 
 feature {}
+   specialize_closure_arguments_lists_in (new_type: TYPE): like closure_arguments is
+      local
+         i: INTEGER; fa1, fa2: FORMAL_ARG_LIST
+      do
+         if closure_arguments /= Void then
+            from
+               Result := closure_arguments
+               i := Result.lower
+            until
+               fa1 /= fa2 or else i > Result.upper
+            loop
+               fa1 := Result.item(i)
+               if fa1 /= Void then
+                  fa2 := fa1.specialize_in(new_type)
+               end
+               i := i + 1
+            end
+            if fa1 /= fa2 then
+               Result := Result.twin
+               from
+                  Result.put(fa2, i - 1)
+               until
+                  i > Result.upper
+               loop
+                  Result.put(Result.item(i).specialize_in(new_type), i)
+                  i := i + 1
+               end
+            end
+         end
+      end
+
+   specialize_closure_arguments_lists_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like closure_arguments is
+      local
+         i: INTEGER; fa1, fa2: FORMAL_ARG_LIST
+      do
+         if closure_arguments /= Void then
+            from
+               Result := closure_arguments
+               i := Result.lower
+            until
+               fa1 /= fa2 or else i > Result.upper
+            loop
+               fa1 := Result.item(i)
+               if fa1 /= Void then
+                  fa2 := fa1.specialize_thru(parent_type, parent_edge, new_type)
+               end
+               i := i + 1
+            end
+            if fa1 /= fa2 then
+               Result := Result.twin
+               from
+                  Result.put(fa2, i - 1)
+               until
+                  i > Result.upper
+               loop
+                  Result.put(Result.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
+                  i := i + 1
+               end
+            end
+         end
+      end
+
    specialize_closure_local_var_lists_in (new_type: TYPE): like closure_local_vars is
       local
          i: INTEGER; lv1, lv2: LOCAL_VAR_LIST

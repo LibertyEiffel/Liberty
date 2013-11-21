@@ -88,7 +88,7 @@ feature {EXTERNAL_FUNCTION}
       do
          if not is_native_array_internals_from_generating_type_used then
             native_array_internals_from_generating_type_position := sp
-            create arg.refer_to(sp, args, 2)
+            create arg.refer_to(sp, args, 2, 0)
             arg_type :=  args.type_mark(2).declaration_type.type
             arg.set_declaration_type(arg_type)
             create native_array_internals_from_generating_type_args.make_1(arg)
@@ -313,7 +313,7 @@ feature {EXTERNAL_ROUTINE}
                or er.first_name.to_string = as_native_array_internals_from_generating_type
                or er.first_name.to_string = as_valid_generating_type_for_native_array_internals
          end
-         create arg.refer_to(start_position, arguments, 1)
+         create arg.refer_to(start_position, arguments, 1, 0)
          create inspect_statement.make(start_position, arg)
          create when_clause.make(inspect_statement, start_position, Void)
          create manifest_string.from_identifier(start_position, string_aliaser.hashed_string(as_string))
@@ -481,7 +481,7 @@ feature {}
 
    set_and_specialize_body (lv: LOCAL_VAR_LIST; rb: INSTRUCTION) is
       local
-         local_vars, lv_memory: LOCAL_VAR_LIST; clv_memory: FAST_ARRAY[LOCAL_VAR_LIST]
+         local_vars, lv_memory: LOCAL_VAR_LIST; clv_memory: COLLECTION[LOCAL_VAR_LIST]
          routine_body: INSTRUCTION
       do
          if lv /= Void then
@@ -493,7 +493,7 @@ feature {}
          if rb /= Void then
             routine_body := rb.specialize_in(new_type)
          end
-         external_routine := external_routine.current_or_twin_init(local_vars, Void, routine_body, True,
+         external_routine := external_routine.current_or_twin_init(local_vars, Void, Void, routine_body, True,
                                                                    external_routine.ensure_assertion,
                                                                    external_routine.require_assertion,
                                                                    can_twin)
@@ -616,7 +616,7 @@ feature {}
       do
          feature_stamps := target_type.writable_attributes
          if not feature_stamps.is_empty then
-            create arg.refer_to(start_position, arguments, 1)
+            create arg.refer_to(start_position, arguments, 1, 0)
             create inspect_statement.make_strippable(start_position, arg, target_type)
             create result_variable.make(start_position)
             from
@@ -665,7 +665,7 @@ feature {}
       do
          feature_stamps := target_type.writable_attributes
          if not feature_stamps.is_empty then
-            create arg.refer_to(start_position, arguments, 1)
+            create arg.refer_to(start_position, arguments, 1, 0)
             create inspect_statement.make_strippable(start_position, arg, target_type)
             create result_variable.make(start_position)
             create implicit_current.make(start_position)
@@ -733,14 +733,14 @@ feature {}
       do
          feature_stamps := target_type.writable_attributes
          if not feature_stamps.is_empty then
-            create arg.refer_to(start_position, arguments, 2)
+            create arg.refer_to(start_position, arguments, 2, 0)
             create inspect_statement.make_strippable(start_position, arg, target_type)
             create implicit_current.make(start_position)
             implicit_current.force_declaration_type(new_type)
             create e_void.make(start_position)
             create object_memory_fn.simple_feature_name(as_object_memory, start_position)
             create object_memory.make(implicit_current, object_memory_fn)
-            create arg.refer_to(start_position, arguments, 1)
+            create arg.refer_to(start_position, arguments, 1, 0)
             create declarations.with_capacity(feature_stamps.count, 1)
             from
                i := feature_stamps.lower
@@ -844,7 +844,7 @@ feature {}
       do
          feature_stamps := target_type.writable_attributes
          if not feature_stamps.is_empty then
-            create arg.refer_to(start_position, arguments, 1)
+            create arg.refer_to(start_position, arguments, 1, 0)
             create inspect_statement.make_strippable(start_position, arg, target_type)
             from
                i := feature_stamps.lower
@@ -895,9 +895,9 @@ feature {}
       do
          feature_stamps := target_type.writable_attributes
          if not feature_stamps.is_empty then
-            create arg.refer_to(start_position, arguments, 2)
+            create arg.refer_to(start_position, arguments, 2, 0)
             create inspect_statement.make_strippable(start_position, arg, target_type)
-            create arg.refer_to(start_position, arguments, 1)
+            create arg.refer_to(start_position, arguments, 1, 0)
             create result_variable.make(start_position)
             from
                i := feature_stamps.lower
@@ -981,7 +981,7 @@ feature {}
          create implicit_current.make(start_position)
          create object_memory_fn.simple_feature_name(as_object_memory, start_position)
          create object_memory.make(implicit_current, object_memory_fn)
-         create arg.refer_to(start_position, arguments, 1)
+         create arg.refer_to(start_position, arguments, 1, 0)
          create arg_object_memory.make(arg, object_memory_fn)
          create eq.make_eq(object_memory, start_position, arg_object_memory)
          create result_variable.make(start_position)
@@ -1031,7 +1031,7 @@ feature {}
       do
          feature_stamps := target_type.writable_attributes
          if not feature_stamps.is_empty then
-            create arg.refer_to(start_position, arguments, 1)
+            create arg.refer_to(start_position, arguments, 1, 0)
             create inspect_statement.make_strippable(start_position, arg, target_type)
             create result_variable.make(start_position)
             from
@@ -1074,7 +1074,7 @@ feature {}
       do
          feature_stamps := target_type.writable_attributes
          if not feature_stamps.is_empty then
-            create arg.refer_to(start_position, arguments, 1)
+            create arg.refer_to(start_position, arguments, 1, 0)
             create inspect_statement.make_strippable(start_position, arg, target_type)
             create result_variable.make(start_position)
             from
@@ -1156,7 +1156,7 @@ feature {}
             create fn.simple_feature_name(as_object_memory, start_position)
             create object.make(implicit_current, fn)
             create fn.simple_feature_name(as_item, start_position)
-            create arg.refer_to(start_position, arguments, 1)
+            create arg.refer_to(start_position, arguments, 1, 0)
             create one.make(1, start_position)
             create i.make(arg, start_position, one)
             create args.make_1(i)
@@ -1200,8 +1200,8 @@ feature {}
             declarations := {ARRAY[DECLARATION]1, <<declaration>>}
             create lv.make(declarations)
             create local_var2.refer_to(start_position, lv, 1, 0)
-            create arg1.refer_to(start_position, arguments, 1)
-            create arg2.refer_to(start_position, arguments, 2)
+            create arg1.refer_to(start_position, arguments, 1, 0)
+            create arg2.refer_to(start_position, arguments, 2, 0)
             create assignment_attempt.make(local_var2, arg1, True)
             create fn.simple_feature_name(as_object_memory, start_position)
             create object.make(local_var2, fn)
@@ -1258,7 +1258,7 @@ feature {}
       do
          item_type_mark := native_array_element_type.canonical_type_mark
          if is_introspectable_attribute_type(item_type_mark) then
-            create arg.refer_to(start_position, arguments, 1)
+            create arg.refer_to(start_position, arguments, 1, 0)
             tm := item_type_mark.typed_internals_type_mark(start_position)
             create assignment_test.with_type_mark(tm, arg)
             create result_variable.make(start_position)
@@ -1293,7 +1293,7 @@ feature {}
          create fn.simple_feature_name(as_object_memory, start_position)
          create object_memory_target.make(implicit_current, fn)
          create fn.simple_feature_name(as_calloc, start_position)
-         create arg.refer_to(start_position, arguments, 1)
+         create arg.refer_to(start_position, arguments, 1, 0)
          create args.make_1(arg)
          create call.make(object_memory_target, fn, args)
          create assignemnt_1.make(object_memory, call)

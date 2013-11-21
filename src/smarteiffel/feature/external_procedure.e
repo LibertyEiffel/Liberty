@@ -68,10 +68,10 @@ feature {}
          initialize, increment: ASSIGNMENT
          copy_args: EFFECTIVE_ARG_LIST
       do
-         create arg_at.refer_to(start_position, arguments, 1)
-         create arg_src.refer_to(start_position, arguments, 2)
-         create arg_src_min.refer_to(start_position, arguments, 3)
-         create arg_src_max.refer_to(start_position, arguments, 4)
+         create arg_at.refer_to(start_position, arguments, 1, 0)
+         create arg_src.refer_to(start_position, arguments, 2, 0)
+         create arg_src_min.refer_to(start_position, arguments, 3, 0)
+         create arg_src_max.refer_to(start_position, arguments, 4, 0)
          t_int := smart_eiffel.type_integer_32
          -- from index := src_min
          create local_index.make(start_position, arg_src_min, once "copy index", True)

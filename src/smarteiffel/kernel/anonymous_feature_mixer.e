@@ -715,18 +715,25 @@ feature {FEATURE_ACCUMULATOR, RESULT, ARGUMENT_NAME2, LOCAL_NAME2} --|*** should
       end
 
 feature {ARGUMENT_NAME2}
-   formal_arg_list (context_type: TYPE): FORMAL_ARG_LIST is
+   formal_arg_list: FORMAL_ARG_LIST is
       require
          is_ready
       do
          check
             signature_ready
          end
-         --|*** PH(13/04/03) To be removed
-         --|if not signature_ready then
-         --|   specialize_signature(context_type)
-         --|end
          Result := build_definition.arguments
+      end
+
+   closure_formal_arg_list (closure_rank: INTEGER): FORMAL_ARG_LIST is
+      require
+         is_ready
+         closure_rank > 0
+      do
+         check
+            signature_ready
+         end
+         Result := build_definition.closure_arguments.item(closure_rank - 1 + build_definition.closure_arguments.lower)
       end
 
 feature {FEATURE_ACCUMULATOR, RESULT}

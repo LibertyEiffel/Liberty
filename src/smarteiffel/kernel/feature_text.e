@@ -150,8 +150,8 @@ feature {FEATURE_CLAUSE}
       end
 
 feature {}
-   closure_arguments: FAST_ARRAY[FORMAL_ARG_LIST]
-   closure_local_vars: FAST_ARRAY[LOCAL_VAR_LIST]
+   closure_arguments: COLLECTION[FORMAL_ARG_LIST]
+   closure_local_vars: COLLECTION[LOCAL_VAR_LIST]
 
 feature {EIFFEL_PARSER}
    set_inline_agent (ca: like closure_arguments; clv: like closure_local_vars) is

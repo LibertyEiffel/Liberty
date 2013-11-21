@@ -752,15 +752,24 @@ feature {CODE_PRINTER}
          Result := True
       end
 
-feature {LOCAL_NAME2, EFFECTIVE_ROUTINE, EXTERNAL_ROUTINE, INTROSPECTION_HANDLER}
+feature {LOCAL_ARGUMENT2, ANONYMOUS_FEATURE, INTROSPECTION_HANDLER}
    specializing_feature_local_var_list: LOCAL_VAR_LIST
-   specializing_closure_local_var_lists: FAST_ARRAY[LOCAL_VAR_LIST]
+   specializing_closure_local_var_lists: COLLECTION[LOCAL_VAR_LIST]
 
-feature {EFFECTIVE_ROUTINE, EXTERNAL_ROUTINE, INTROSPECTION_HANDLER}
-   set_specializing_feature_variables (lvl: LOCAL_VAR_LIST; clvl: FAST_ARRAY[LOCAL_VAR_LIST]) is
+   specializing_feature_arguments_list: FORMAL_ARG_LIST
+   specializing_closure_arguments_lists: COLLECTION[FORMAL_ARG_LIST]
+
+feature {ANONYMOUS_FEATURE, INTROSPECTION_HANDLER}
+   set_specializing_feature_variables (lvl: like specializing_feature_local_var_list; clvl: like specializing_closure_local_var_lists) is
       do
          specializing_feature_local_var_list := lvl
          specializing_closure_local_var_lists := clvl
+      end
+
+   set_specializing_feature_arguments (fal: like specializing_feature_arguments_list; cfal: like specializing_closure_arguments_lists) is
+      do
+         specializing_feature_arguments_list := fal
+         specializing_closure_arguments_lists := cfal
       end
 
 feature {}

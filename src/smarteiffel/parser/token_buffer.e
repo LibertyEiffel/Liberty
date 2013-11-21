@@ -98,9 +98,9 @@ feature {PARSER}
          create Result.make(start_position, buffer)
       end
 
-   to_argument_name2 (fal: FORMAL_ARG_LIST; rank: INTEGER): ARGUMENT_NAME2 is
+   to_argument_name2 (fal: FORMAL_ARG_LIST; rank, closure_rank: INTEGER): ARGUMENT_NAME2 is
       do
-         create Result.refer_to(start_position, fal, rank)
+         create Result.refer_to(start_position, fal, rank, closure_rank)
       end
 
    to_class_name: CLASS_NAME is

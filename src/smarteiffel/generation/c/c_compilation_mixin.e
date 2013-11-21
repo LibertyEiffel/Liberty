@@ -260,6 +260,48 @@ feature {}
          out_h.extend(')')
       end
 
+   for_all_argument_names (agent_creation: AGENT_CREATION; type: TYPE; action: PROCEDURE[TUPLE[ARGUMENT_NAME1, INTEGER]]) is
+      local
+         i, j: INTEGER; cf: E_ROUTINE; argument_name: ARGUMENT_NAME1
+      do
+         cf ::= agent_creation.context_features.fast_at(type)
+         if cf.arguments /= Void then
+            from
+               i := 1
+            until
+               i > cf.arguments.count
+            loop
+               argument_name := cf.arguments.name(i)
+               if argument_name.is_outside(type) then
+                  action.call([argument_name, 1])
+               end
+               i := i + 1
+            end
+         end
+         if cf.closure_arguments /= Void then
+            from
+               j := cf.closure_arguments.lower
+            until
+               j > cf.closure_arguments.upper
+            loop
+               if cf.closure_arguments.item(j) /= Void then
+                  from
+                     i := 1
+                  until
+                     i > cf.closure_arguments.item(j).count
+                  loop
+                     argument_name := cf.closure_arguments.item(j).name(i)
+                     if argument_name.is_outside(type) then
+                        action.call([argument_name, j - cf.closure_arguments.lower + 2])
+                     end
+                     i := i + 1
+                  end
+               end
+               j := j + 1
+            end
+         end
+      end
+
    for_all_local_names (agent_creation: AGENT_CREATION; type: TYPE; action: PROCEDURE[TUPLE[LOCAL_NAME1]]) is
       local
          i, j: INTEGER; cf: E_ROUTINE; local_name: LOCAL_NAME1

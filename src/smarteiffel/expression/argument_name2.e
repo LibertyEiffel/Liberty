@@ -16,6 +16,10 @@ create {ANY}
    refer_to
 
 feature {ANY}
+   closure_rank: INTEGER
+         -- 0 if the local is declared in the function scope; >0 if the local is declared in the
+         -- nth enclosing function (i.e. available via a closure)
+
    rank: INTEGER
 
    declaration_type: TYPE -- *** IT WOULD BE BETTER TO COMPUTE `declaration_type' USING
@@ -32,11 +36,16 @@ feature {ANY}
          Result := formal_arg_list.type_mark(rank).resolve_in(type)
       end
 
-   specialize_in (new_type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current is
       local
          fal: like formal_arg_list
       do
-         fal := feature_accumulator.current_mixer.formal_arg_list(new_type)
+         if closure_rank = 0 then
+            fal := feature_accumulator.current_mixer.formal_arg_list
+         else
+            fal := feature_accumulator.current_mixer.closure_formal_arg_list(closure_rank)
+            fal.name(rank).set_outside(type)
+         end
          if declaration_type = Void then
             declaration_type := fal.type_mark(rank).declaration_type.type
          end
@@ -52,7 +61,13 @@ feature {ANY}
       local
          fal: like formal_arg_list
       do
-         fal := feature_accumulator.current_mixer.formal_arg_list(new_type)
+         if closure_rank = 0 then
+            fal := feature_accumulator.current_mixer.formal_arg_list
+         else
+            fal := feature_accumulator.current_mixer.closure_formal_arg_list(closure_rank)
+            check fal.name(rank).is_outside(parent_type) end
+            fal.name(rank).set_outside(new_type)
+         end
          if formal_arg_list = fal then
             Result := Current
          else
@@ -62,8 +77,20 @@ feature {ANY}
       end
 
    specialize_and_check (type: TYPE): like Current is
+      local
+         fal: like formal_arg_list
       do
-         Result := Current
+         if closure_rank = 0 then
+            fal := smart_eiffel.specializing_feature_arguments_list
+         else
+            fal := smart_eiffel.specializing_closure_arguments_lists.item(closure_rank - 1 + smart_eiffel.specializing_closure_arguments_lists.lower)
+            check fal.name(rank).is_outside(type) end
+         end
+         if fal.name(rank).is_outside(type) then
+            Result := as_outside
+         else
+            Result := Current
+         end
       end
 
    has_been_specialized: BOOLEAN is
@@ -81,7 +108,15 @@ feature {ANY}
          af: ANONYMOUS_FEATURE; fal: FORMAL_ARG_LIST
       do
          af := smart_eiffel.context_feature
-         fal := af.arguments
+         if closure_rank = 0 then
+            fal := af.arguments
+         else
+            fal := af.closure_arguments.item(closure_rank - 1 + af.closure_arguments.lower)
+            check
+               fal.name(rank).is_outside(type)
+               is_outside
+            end
+         end
          check
             formal_arg_list.start_position = fal.start_position
          end
@@ -129,7 +164,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   refer_to (sp: POSITION; fal: FORMAL_ARG_LIST; r: like rank) is
+   refer_to (sp: POSITION; fal: FORMAL_ARG_LIST; r: like rank; cr: like closure_rank) is
       require
          not sp.is_unknown
          r.in_range(1, fal.count)
@@ -137,9 +172,11 @@ feature {}
          start_position := sp
          formal_arg_list := fal
          rank := r
+         closure_rank := cr
       ensure
          start_position = sp
          rank = r
+         closure_rank = cr
       end
 
 invariant

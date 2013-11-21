@@ -250,6 +250,26 @@ feature {}
                i := i + 1
             end
          end
+         for_all_argument_names(agent_creation, type,
+                                agent (argument_name: ARGUMENT_NAME1; type_: TYPE; closure_rank: INTEGER) is
+                                   local
+                                      argument_tm: TYPE_MARK
+                                   do
+                                      argument_tm := argument_name.result_type.to_static(type_, False)
+                                      function_body.append(cpp.result_type.for(argument_tm))
+                                      if function_body.last /= '*' then
+                                         function_body.extend(' ')
+                                      end
+                                      function_body.append(once "CA_")
+                                      closure_rank.append_in(function_body)
+                                      function_body.extend('_')
+                                      argument_name.rank.append_in(function_body)
+                                      function_body.append(once "=(u->CA_")
+                                      closure_rank.append_in(function_body)
+                                      function_body.extend('_')
+                                      argument_name.rank.append_in(function_body)
+                                      function_body.append(once ");%N")
+                                   end(?, type, ?)) --| **** TODO: closure on type
          for_all_local_names(agent_creation, type,
                              agent (local_name: LOCAL_NAME1; type_: TYPE) is
                                 local
@@ -329,6 +349,24 @@ feature {}
                i := i + 1
             end
          end
+         for_all_argument_names(agent_creation, type,
+                                agent (argument_name: ARGUMENT_NAME1; type_: TYPE; closure_rank: INTEGER) is
+                                   local
+                                      argument_tm: TYPE_MARK
+                                   do
+                                      argument_tm := argument_name.result_type.to_static(type_, False)
+                                      if function_signature.last /= '(' then
+                                         function_signature.extend(',')
+                                      end
+                                      function_signature.append(cpp.result_type.for(argument_tm))
+                                      if function_signature.last /= '*' then
+                                         function_signature.extend(' ')
+                                      end
+                                      function_signature.append(once "CA_")
+                                      closure_rank.append_in(function_signature)
+                                      function_signature.extend('_')
+                                      argument_name.rank.append_in(function_signature)
+                                   end(?, type, ?)) --| **** TODO: closure on type
          for_all_local_names(agent_creation, type,
                              agent (local_name: LOCAL_NAME1; type_: TYPE) is
                                 local
@@ -378,6 +416,19 @@ feature {}
                i := i + 1
             end
          end
+         for_all_argument_names(agent_creation, type,
+                                agent (argument_name: ARGUMENT_NAME1; closure_rank: INTEGER) is
+                                   do
+                                      function_body.append(once "u->CA_")
+                                      closure_rank.append_in(function_body)
+                                      function_body.extend('_')
+                                      argument_name.rank.append_in(function_body)
+                                      function_body.append(once "=CA_")
+                                      closure_rank.append_in(function_body)
+                                      function_body.extend('_')
+                                      argument_name.rank.append_in(function_body)
+                                      function_body.append(once ";%N")
+                                   end(?, ?))
          for_all_local_names(agent_creation, type,
                              agent (local_name: LOCAL_NAME1) is
                                 do
@@ -516,8 +567,7 @@ feature {}
                   out_h.append(cpp.result_type.for(tm))
                   out_h.extend(' ')
                   closed_operand_name_in(closed_operand, out_h)
-                  out_h.extend(';')
-                  out_h.extend('%N')
+                  out_h.append(once ";%N")
                end
                i := i + 1
             end
@@ -526,6 +576,22 @@ feature {}
             out_h.append(cpp.argument_type.for(agent_result.canonical_type_mark))
             out_h.append(once " R;%N")
          end
+         for_all_argument_names(agent_creation, type,
+                                agent (argument_name: ARGUMENT_NAME1; type_: TYPE; closure_rank: INTEGER) is
+                                   local
+                                      argument_tm: TYPE_MARK
+                                   do
+                                      argument_tm := argument_name.result_type.to_static(type_, False)
+                                      out_h.append(cpp.result_type.for(argument_tm))
+                                      if out_h.last /= '*' then
+                                         out_h.extend(' ')
+                                      end
+                                      out_h.append(once "CA_")
+                                      closure_rank.append_in(out_h)
+                                      out_h.extend('_')
+                                      argument_name.rank.append_in(out_h)
+                                      out_h.append(once ";%N")
+                                   end(?, type, ?)) --| **** TODO: closure on type
          for_all_local_names(agent_creation, type,
                              agent (local_name: LOCAL_NAME1; type_: TYPE) is
                                 local
@@ -535,8 +601,7 @@ feature {}
                                    out_h.append(cpp.result_type.for(local_tm))
                                    out_h.append(once "*CL_")
                                    out_h.append(local_name.to_string)
-                                   out_h.extend(';')
-                                   out_h.extend('%N')
+                                   out_h.append(once ";%N")
                                 end(?, type)) --| **** TODO: closure on type
          out_h.append(once "};%N")
          cpp.write_out_h_buffer
@@ -791,10 +856,40 @@ feature {}
 
    closure_args_compile_to_c_in (bf: ANONYMOUS_FEATURE; type: TYPE) is
       local
-         i, j: INTEGER; local_name: LOCAL_NAME1; static_tm: TYPE_MARK
+         i, j: INTEGER; local_name: LOCAL_ARGUMENT1; static_tm: TYPE_MARK
       do
          if bf.closure_arguments /= Void then
-            --| **** TODO
+            from
+               i := bf.closure_arguments.lower
+            until
+               i > bf.closure_arguments.upper
+            loop
+               if bf.closure_arguments.item(i) /= Void then
+                  from
+                     j := 1
+                  until
+                     j > bf.closure_arguments.item(i).count
+                  loop
+                     local_name := bf.closure_arguments.item(i).name(j)
+                     if local_name.is_outside(type) then
+                        if function_signature.last /= '(' then
+                           function_signature.extend(',')
+                        end
+                        static_tm := local_name.result_type.to_static(type, False)
+                        function_signature.append(cpp.result_type.for(static_tm))
+                        if function_signature.last /= '*' then
+                           function_signature.extend(' ')
+                        end
+                        function_signature.append(once "CA_")
+                        (i - bf.closure_local_vars.lower + 1).append_in(function_signature)
+                        function_signature.extend('_')
+                        j.append_in(function_signature)
+                     end
+                     j := j + 1
+                  end
+               end
+               i := i + 1
+            end
          end
          if bf.closure_local_vars /= Void then
             from

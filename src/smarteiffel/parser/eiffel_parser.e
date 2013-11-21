@@ -407,9 +407,9 @@ feature {}
    local_vars: LOCAL_VAR_LIST
          -- Void or actual local variables list.
 
-   closure_arguments: FAST_ARRAY[FORMAL_ARG_LIST]
+   closure_arguments: RING_ARRAY[FORMAL_ARG_LIST]
 
-   closure_local_vars: FAST_ARRAY[LOCAL_VAR_LIST]
+   closure_local_vars: RING_ARRAY[LOCAL_VAR_LIST]
 
    ok: BOOLEAN
          -- Dummy variable to call functions.
@@ -1142,14 +1142,14 @@ feature {}
          error_handler.print_as_error
       end
 
-   a_argument_ (args: like arguments): BOOLEAN is
+   a_argument_ (args: like arguments; closure_rank: INTEGER): BOOLEAN is
       local
          rank: INTEGER
       do
          if args /= Void then
             rank := args.rank_of(token_buffer.buffer)
             if rank > 0 then
-               last_expression := token_buffer.to_argument_name2(args, rank)
+               last_expression := token_buffer.to_argument_name2(args, rank, closure_rank)
                Result := True
                if skip2(':', '=') or else skip3(':', ':', '=') or else skip2('?', '=') then
                   error_handler.add_position(pos(start_line, start_column))
@@ -1169,11 +1169,11 @@ feature {}
          i: INTEGER
       do
          from
-            Result := a_argument_(arguments)
+            Result := a_argument_(arguments, 0)
          until
-            Result or else closure_arguments = Void or else i > closure_arguments.upper
+            Result or else closure_arguments = Void or else i >= closure_arguments.count
          loop
-            Result := a_argument_(closure_arguments.item(i))
+            Result := a_argument_(closure_arguments.item(i + closure_arguments.lower), i + 1)
             i := i + 1
          end
       end
@@ -1573,9 +1573,9 @@ feature {}
          from
             Result := a_local_name2_(local_vars, 0)
          until
-            Result or else closure_local_vars = Void or else i > closure_local_vars.upper
+            Result or else closure_local_vars = Void or else i >= closure_local_vars.count
          loop
-            Result := a_local_name2_(closure_local_vars.item(i), i + 1)
+            Result := a_local_name2_(closure_local_vars.item(i + closure_local_vars.lower), i + 1)
             i := i + 1
          end
       end
@@ -4367,11 +4367,11 @@ feature {}
             check
                closure_local_vars = Void
             end
-            create closure_arguments.with_capacity(2)
-            create closure_local_vars.with_capacity(2)
+            create closure_arguments.with_capacity(2, 0)
+            create closure_local_vars.with_capacity(2, 0)
          end
-         closure_arguments.add_last(arguments)
-         closure_local_vars.add_last(local_vars)
+         closure_arguments.add_first(arguments)
+         closure_local_vars.add_first(local_vars)
 
          outer_feature := tmp_feature
          iff := inside_function_flag
@@ -4465,8 +4465,8 @@ feature {}
             local_vars := lv
          end
 
-         closure_local_vars.remove_last
-         closure_arguments.remove_last
+         closure_local_vars.remove_first
+         closure_arguments.remove_first
       end
 
    a_external: FEATURE_TEXT is

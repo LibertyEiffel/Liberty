@@ -47,7 +47,7 @@ feature {ANY}
          if closure_rank = 0 then
             lvl := smart_eiffel.specializing_feature_local_var_list
          else
-            lvl := smart_eiffel.specializing_closure_local_var_lists.item(closure_rank - 1)
+            lvl := smart_eiffel.specializing_closure_local_var_lists.item(closure_rank - 1 + smart_eiffel.specializing_closure_local_var_lists.lower)
             lvl.name(rank).set_outside(type)
          end
          if declaration_type = Void then
@@ -72,7 +72,7 @@ feature {ANY}
          if closure_rank = 0 then
             lvl := smart_eiffel.specializing_feature_local_var_list
          else
-            lvl := smart_eiffel.specializing_closure_local_var_lists.item(closure_rank - 1)
+            lvl := smart_eiffel.specializing_closure_local_var_lists.item(closure_rank - 1 + smart_eiffel.specializing_closure_local_var_lists.lower)
             check lvl.name(rank).is_outside(parent_type) end
             lvl.name(rank).set_outside(new_type)
          end
@@ -91,7 +91,7 @@ feature {ANY}
          if closure_rank = 0 then
             lvl := smart_eiffel.specializing_feature_local_var_list
          else
-            lvl := smart_eiffel.specializing_closure_local_var_lists.item(closure_rank - 1)
+            lvl := smart_eiffel.specializing_closure_local_var_lists.item(closure_rank - 1 + smart_eiffel.specializing_closure_local_var_lists.lower)
             check lvl.name(rank).is_outside(type) end
          end
          if lvl.name(rank).is_outside(type) then
@@ -122,7 +122,7 @@ feature {ANY}
          if closure_rank = 0 then
             lvl := er.local_vars
          else
-            lvl := er.closure_local_vars.item(closure_rank - 1)
+            lvl := er.closure_local_vars.item(closure_rank - 1 + er.closure_local_vars.lower)
          end
          if local_var_list = lvl then
             Result := Current
