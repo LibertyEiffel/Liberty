@@ -752,13 +752,13 @@ feature {IMPLICIT_CURRENT}
       do
       end
 
-feature {LOCAL_NAME1}
-   visit_local_name1 (visited: LOCAL_NAME1) is
+feature {LOCAL_NAME_DEF}
+   visit_local_name1 (visited: LOCAL_NAME_DEF) is
       do
       end
 
-feature {LOCAL_NAME2}
-   visit_local_name2 (visited: LOCAL_NAME2) is
+feature {LOCAL_NAME_REF}
+   visit_local_name2 (visited: LOCAL_NAME_REF) is
       do
       end
 
@@ -787,13 +787,13 @@ feature {RESULT}
       do
       end
 
-feature {ARGUMENT_NAME1}
-   visit_argument_name1 (visited: ARGUMENT_NAME1) is
+feature {ARGUMENT_NAME_DEF}
+   visit_argument_name1 (visited: ARGUMENT_NAME_DEF) is
       do
       end
 
-feature {ARGUMENT_NAME2}
-   visit_argument_name2 (visited: ARGUMENT_NAME2) is
+feature {ARGUMENT_NAME_REF}
+   visit_argument_name2 (visited: ARGUMENT_NAME_REF) is
       do
       end
 

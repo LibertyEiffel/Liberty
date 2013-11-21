@@ -741,7 +741,7 @@ feature {}
          end
       end
 
-feature {PRECURSOR_CALL, RESULT, ARGUMENT_NAME2}
+feature {PRECURSOR_CALL, RESULT, ARGUMENT_NAME_REF}
    current_mixer: ANONYMOUS_FEATURE_MIXER
 
 feature {}

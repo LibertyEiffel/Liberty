@@ -8,7 +8,7 @@ inherit
    DYNAMIC_DISPATCH_TEMPORARY1_ID_VISITOR
    EXPRESSION_WITH_COMMENT_VISITOR
    INTERNAL_LOCAL2_VISITOR
-   LOCAL_NAME2_VISITOR
+   LOCAL_NAME_REF_VISITOR
    NATIVE_ARRAY_ITEM_VISITOR
    RESULT_VISITOR
    WRITABLE_ATTRIBUTE_NAME_VISITOR
@@ -54,8 +54,8 @@ feature {INTERNAL_LOCAL2}
       do
       end
 
-feature {LOCAL_NAME2}
-   visit_local_name2 (visited: LOCAL_NAME2) is
+feature {LOCAL_NAME_REF}
+   visit_local_name2 (visited: LOCAL_NAME_REF) is
       do
       end
 

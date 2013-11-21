@@ -688,7 +688,7 @@ feature {ANY}
          end
       end
 
-feature {C_PRETTY_PRINTER, LOCAL_ARGUMENT1}
+feature {C_PRETTY_PRINTER, LOCAL_ARGUMENT_DEF}
    name_from_string (s: STRING): FEATURE_NAME is
       require
          string_aliaser.registered_one(s)

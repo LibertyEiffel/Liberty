@@ -1178,7 +1178,7 @@ feature {}
          end
       end
 
-   check_name_rank (name: LOCAL_ARGUMENT1; dl: DECLARATION_LIST; err: STRING): BOOLEAN is
+   check_name_rank (name: LOCAL_ARGUMENT_DEF; dl: DECLARATION_LIST; err: STRING): BOOLEAN is
       local
          rank: INTEGER
       do
@@ -1195,7 +1195,7 @@ feature {}
          end
       end
 
-   check_name_rank_and_closure (name: LOCAL_ARGUMENT1) is
+   check_name_rank_and_closure (name: LOCAL_ARGUMENT_DEF) is
       local
          i: INTEGER; failed: BOOLEAN
       do
@@ -1225,7 +1225,7 @@ feature {}
          --  ++ formal_arg_list -> ["(" {declaration_group ";" ...} ")"]
          --  ++ declaration_group -> {identifier "," ...}+ ":" type_mark
       local
-         name: ARGUMENT_NAME1; name_list: ARRAY[ARGUMENT_NAME1]; declaration: DECLARATION
+         name: ARGUMENT_NAME_DEF; name_list: ARRAY[ARGUMENT_NAME_DEF]; declaration: DECLARATION
          list: ARRAY[DECLARATION]; state: INTEGER
       do
          Result := True
@@ -1341,7 +1341,7 @@ feature {}
       end
 
    a_local_name1: BOOLEAN is
-         -- Used inside `a_local_var_list' in order to detect a LOCAL_NAME1 name.
+         -- Used inside `a_local_var_list' in order to detect a LOCAL_NAME_DEF name.
          -- See also `a_local_name2' and use the good one.
       local
          backward_column: INTEGER; stop, lower_case_letter_encountered, may_be_a_keyword: BOOLEAN
@@ -1422,7 +1422,7 @@ feature {}
    S_waiting_for_a_type_mark:               INTEGER is 3
    S_waiting_for_optional_colon:            INTEGER is 4
 
-   check_local_var_rank_and_closure (name: LOCAL_NAME1) is
+   check_local_var_rank_and_closure (name: LOCAL_NAME_DEF) is
       do
          if check_name_rank(name, arguments, em26) then
             check_name_rank_and_closure(name)
@@ -1433,7 +1433,7 @@ feature {}
          --  ++ local_var_list -> [{declaration_group ";" ...}]
          --  ++ declaration_group -> {identifier "," ...}+ ":" type_mark
       local
-         name: LOCAL_NAME1; name_list: ARRAY[LOCAL_NAME1]; declaration: DECLARATION; list: ARRAY[DECLARATION]
+         name: LOCAL_NAME_DEF; name_list: ARRAY[LOCAL_NAME_DEF]; declaration: DECLARATION; list: ARRAY[DECLARATION]
          state: INTEGER; sp: POSITION
       do
          from
@@ -6042,7 +6042,7 @@ feature {}
          --  ++              "separate" static_type_mark
          --  ++
       local
-         sp: POSITION; argument_name2: ARGUMENT_NAME2
+         sp: POSITION; argument_name2: ARGUMENT_NAME_REF
       do
          Result := True
          if a_keyword(fz_like) then

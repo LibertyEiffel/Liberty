@@ -33,7 +33,7 @@ feature {ANY}
       end
 
 feature {DECLARATION_GROUP_VISITOR}
-   name_list: ARRAY[LOCAL_ARGUMENT1]
+   name_list: ARRAY[LOCAL_ARGUMENT_DEF]
 
 feature {}
    make (nl: like name_list; type: TYPE_MARK) is
@@ -107,7 +107,7 @@ feature {DECLARATION_LIST}
 
    specialize_in (type: TYPE): like Current is
       local
-         la1, la2: LOCAL_ARGUMENT1; nl: like name_list; i: INTEGER
+         la1, la2: LOCAL_ARGUMENT_DEF; nl: like name_list; i: INTEGER
       do
          from
             i := name_list.lower
@@ -137,7 +137,7 @@ feature {DECLARATION_LIST}
 
    specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
       local
-         la1, la2: LOCAL_ARGUMENT1; nl: like name_list; i: INTEGER
+         la1, la2: LOCAL_ARGUMENT_DEF; nl: like name_list; i: INTEGER
       do
          from
             i := name_list.lower

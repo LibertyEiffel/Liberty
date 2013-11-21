@@ -260,9 +260,9 @@ feature {}
          out_h.extend(')')
       end
 
-   for_all_argument_names (agent_creation: AGENT_CREATION; type: TYPE; action: PROCEDURE[TUPLE[ARGUMENT_NAME1, INTEGER]]) is
+   for_all_argument_names (agent_creation: AGENT_CREATION; type: TYPE; action: PROCEDURE[TUPLE[ARGUMENT_NAME_DEF, INTEGER]]) is
       local
-         i, j: INTEGER; cf: E_ROUTINE; argument_name: ARGUMENT_NAME1
+         i, j: INTEGER; cf: E_ROUTINE; argument_name: ARGUMENT_NAME_DEF
       do
          cf ::= agent_creation.context_features.fast_at(type)
          if cf.arguments /= Void then
@@ -302,9 +302,9 @@ feature {}
          end
       end
 
-   for_all_local_names (agent_creation: AGENT_CREATION; type: TYPE; action: PROCEDURE[TUPLE[LOCAL_NAME1]]) is
+   for_all_local_names (agent_creation: AGENT_CREATION; type: TYPE; action: PROCEDURE[TUPLE[LOCAL_NAME_DEF]]) is
       local
-         i, j: INTEGER; cf: E_ROUTINE; local_name: LOCAL_NAME1
+         i, j: INTEGER; cf: E_ROUTINE; local_name: LOCAL_NAME_DEF
       do
          cf ::= agent_creation.context_features.fast_at(type)
          if cf.local_vars /= Void then

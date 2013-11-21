@@ -251,7 +251,7 @@ feature {}
             end
          end
          for_all_argument_names(agent_creation, type,
-                                agent (argument_name: ARGUMENT_NAME1; type_: TYPE; closure_rank: INTEGER) is
+                                agent (argument_name: ARGUMENT_NAME_DEF; type_: TYPE; closure_rank: INTEGER) is
                                    local
                                       argument_tm: TYPE_MARK
                                    do
@@ -271,7 +271,7 @@ feature {}
                                       function_body.append(once ");%N")
                                    end(?, type, ?)) --| **** TODO: closure on type
          for_all_local_names(agent_creation, type,
-                             agent (local_name: LOCAL_NAME1; type_: TYPE) is
+                             agent (local_name: LOCAL_NAME_DEF; type_: TYPE) is
                                 local
                                    local_tm: TYPE_MARK
                                 do
@@ -350,7 +350,7 @@ feature {}
             end
          end
          for_all_argument_names(agent_creation, type,
-                                agent (argument_name: ARGUMENT_NAME1; type_: TYPE; closure_rank: INTEGER) is
+                                agent (argument_name: ARGUMENT_NAME_DEF; type_: TYPE; closure_rank: INTEGER) is
                                    local
                                       argument_tm: TYPE_MARK
                                    do
@@ -368,7 +368,7 @@ feature {}
                                       argument_name.rank.append_in(function_signature)
                                    end(?, type, ?)) --| **** TODO: closure on type
          for_all_local_names(agent_creation, type,
-                             agent (local_name: LOCAL_NAME1; type_: TYPE) is
+                             agent (local_name: LOCAL_NAME_DEF; type_: TYPE) is
                                 local
                                    local_tm: TYPE_MARK
                                 do
@@ -417,7 +417,7 @@ feature {}
             end
          end
          for_all_argument_names(agent_creation, type,
-                                agent (argument_name: ARGUMENT_NAME1; closure_rank: INTEGER) is
+                                agent (argument_name: ARGUMENT_NAME_DEF; closure_rank: INTEGER) is
                                    do
                                       function_body.append(once "u->CA_")
                                       closure_rank.append_in(function_body)
@@ -430,7 +430,7 @@ feature {}
                                       function_body.append(once ";%N")
                                    end(?, ?))
          for_all_local_names(agent_creation, type,
-                             agent (local_name: LOCAL_NAME1) is
+                             agent (local_name: LOCAL_NAME_DEF) is
                                 do
                                    function_body.append(once "u->CL_")
                                    function_body.append(local_name.to_string)
@@ -577,7 +577,7 @@ feature {}
             out_h.append(once " R;%N")
          end
          for_all_argument_names(agent_creation, type,
-                                agent (argument_name: ARGUMENT_NAME1; type_: TYPE; closure_rank: INTEGER) is
+                                agent (argument_name: ARGUMENT_NAME_DEF; type_: TYPE; closure_rank: INTEGER) is
                                    local
                                       argument_tm: TYPE_MARK
                                    do
@@ -593,7 +593,7 @@ feature {}
                                       out_h.append(once ";%N")
                                    end(?, type, ?)) --| **** TODO: closure on type
          for_all_local_names(agent_creation, type,
-                             agent (local_name: LOCAL_NAME1; type_: TYPE) is
+                             agent (local_name: LOCAL_NAME_DEF; type_: TYPE) is
                                 local
                                    local_tm: TYPE_MARK
                                 do
@@ -856,7 +856,7 @@ feature {}
 
    closure_args_compile_to_c_in (bf: ANONYMOUS_FEATURE; type: TYPE) is
       local
-         i, j: INTEGER; local_name: LOCAL_ARGUMENT1; static_tm: TYPE_MARK
+         i, j: INTEGER; local_name: LOCAL_ARGUMENT_DEF; static_tm: TYPE_MARK
       do
          if bf.closure_arguments /= Void then
             from
@@ -1129,7 +1129,7 @@ feature {}
          cpp.pending_c_function
       local
          i, id, class_invariant_flag: INTEGER; local_type: TYPE; rf: RUN_FEATURE
-         local_name: LOCAL_NAME1; internal_c_local: INTERNAL_C_LOCAL
+         local_name: LOCAL_NAME_DEF; internal_c_local: INTERNAL_C_LOCAL
       do
          from
             i := 1

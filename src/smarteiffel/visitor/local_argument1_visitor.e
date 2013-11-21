@@ -1,13 +1,13 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class LOCAL_ARGUMENT1_VISITOR
+deferred class LOCAL_ARGUMENT_DEF_VISITOR
 
 inherit
-   ARGUMENT_NAME1_VISITOR
-   LOCAL_NAME1_VISITOR
+   ARGUMENT_NAME_DEF_VISITOR
+   LOCAL_NAME_DEF_VISITOR
 
-end -- class LOCAL_ARGUMENT1_VISITOR
+end -- class LOCAL_ARGUMENT_DEF_VISITOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

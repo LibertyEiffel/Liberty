@@ -708,13 +708,13 @@ feature {}
          error_handler.print_as_warning
       end
 
-feature {FEATURE_ACCUMULATOR, RESULT, ARGUMENT_NAME2, LOCAL_NAME2} --|*** should be F_A only
+feature {FEATURE_ACCUMULATOR, RESULT, ARGUMENT_NAME_REF, LOCAL_NAME_REF} --|*** should be F_A only
    is_ready: BOOLEAN is
       do
          Result := not parents_af.is_empty or else body_feature /= Void
       end
 
-feature {ARGUMENT_NAME2}
+feature {ARGUMENT_NAME_REF}
    formal_arg_list: FORMAL_ARG_LIST is
       require
          is_ready

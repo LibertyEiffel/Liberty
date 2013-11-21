@@ -3526,7 +3526,7 @@ feature {C_COMPILATION_MIXIN}
       end
 
 feature {}
-   c_declare_local (local_name: LOCAL_NAME1; type: TYPE; volatile_flag: BOOLEAN) is
+   c_declare_local (local_name: LOCAL_NAME_DEF; type: TYPE; volatile_flag: BOOLEAN) is
          -- C declaration of the local.
       require
          pending_c_function
@@ -3562,7 +3562,7 @@ feature {}
          end
       end
 
-   c_init_closure_local (local_name: LOCAL_NAME1; type: TYPE) is
+   c_init_closure_local (local_name: LOCAL_NAME_DEF; type: TYPE) is
          -- C declaration of the local.
       require
          pending_c_function

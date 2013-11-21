@@ -67,8 +67,8 @@ feature {FAKE_TUPLE}
          crash
       end
 
-feature {ARGUMENT_NAME2}
-   visit_argument_name2 (visited: ARGUMENT_NAME2) is
+feature {ARGUMENT_NAME_REF}
+   visit_argument_name2 (visited: ARGUMENT_NAME_REF) is
       do
          cpp.print_argument(visited.rank)
       end

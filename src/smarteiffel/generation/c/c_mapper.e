@@ -61,7 +61,7 @@ feature {}
    frozen default_mapping_arg (run_feature: RUN_FEATURE; no_check, uc, tcbd: BOOLEAN) is
       local
          bf: ANONYMOUS_FEATURE
-         i, j: INTEGER; local_name: LOCAL_ARGUMENT1
+         i, j: INTEGER; local_name: LOCAL_ARGUMENT_DEF
       do
          function_body.extend('(')
          if no_check then

@@ -10,11 +10,11 @@ deferred class NAME
    --   WRITABLE_ATTRIBUTE_NAME: left-hand side or writable of create.
    --   LOCAL_ARGUMENT (deferred)
    --      LOCAL_NAME (deferred)
-   --         LOCAL_NAME1: in a declaration list.
-   --         LOCAL_NAME2: used in an expression.
+   --         LOCAL_NAME_DEF: in a declaration list.
+   --         LOCAL_NAME_REF: used in an expression.
    --      ARGUMENT_NAME (deferred)
-   --         ARGUMENT_NAME1: in a declaration list.
-   --         ARGUMENT_NAME2: used in an expression.
+   --         ARGUMENT_NAME_DEF: in a declaration list.
+   --         ARGUMENT_NAME_REF: used in an expression.
    --
 
 inherit

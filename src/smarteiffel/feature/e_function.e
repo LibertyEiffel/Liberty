@@ -228,7 +228,7 @@ feature {FUNCTION_CALL_N}
                         args: EFFECTIVE_ARG_LIST; return_type: TYPE): INLINE_MEMO is
       local
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN; assignment: ASSIGNMENT
-         argument_name2: ARGUMENT_NAME2; built_in_eq_neq: BUILT_IN_EQ_NEQ
+         argument_name2: ARGUMENT_NAME_REF; built_in_eq_neq: BUILT_IN_EQ_NEQ
       do
          direct_non_void_call_flag := target_type.direct_non_void_call_flag
          no_rescue_no_local_expanded := no_rescue_no_local_expanded_in(target_type)
@@ -376,7 +376,7 @@ feature {}
          target /= Void
          arg1 /= Void
       local
-         argument_name2: ARGUMENT_NAME2; call_0: CALL_0; call_1_arg1: CALL_1
+         argument_name2: ARGUMENT_NAME_REF; call_0: CALL_0; call_1_arg1: CALL_1
       do
          argument_name2 ?= call_1.arg1
          if argument_name2 /= Void then
@@ -419,7 +419,7 @@ feature {}
          target /= Void
          arg1 /= Void
       local
-         argument_name2: ARGUMENT_NAME2; call_0: CALL_0; call_1: CALL_1
+         argument_name2: ARGUMENT_NAME_REF; call_0: CALL_0; call_1: CALL_1
       do
          argument_name2 ?= built_in_eq_neq.right_side
          if argument_name2 /= Void then

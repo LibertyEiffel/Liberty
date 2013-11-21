@@ -4,7 +4,7 @@
 class RUNNER_ASSIGNMENT
 
 inherit
-   LOCAL_NAME2_VISITOR
+   LOCAL_NAME_REF_VISITOR
    WRITABLE_ATTRIBUTE_NAME_VISITOR
    RESULT_VISITOR
    INTERNAL_LOCAL2_VISITOR
@@ -66,8 +66,8 @@ feature {RUNNER_INSTRUCTIONS}
          value := Void
       end
 
-feature {LOCAL_NAME2}
-   visit_local_name2 (visited: LOCAL_NAME2) is
+feature {LOCAL_NAME_REF}
+   visit_local_name2 (visited: LOCAL_NAME_REF) is
       do
          current_frame.set_local_object(visited.to_string, value)
          entity_type := visited.resolve_in(current_frame.type_of_current)

@@ -129,7 +129,7 @@ feature {AGENT_CREATION}
             end
          end
          for_all_argument_names(visited, type,
-                                agent (argument_name: ARGUMENT_NAME1) is
+                                agent (argument_name: ARGUMENT_NAME_DEF) is
                                    do
                                       if function_body.last /= '(' then
                                          function_body.extend(',')
@@ -137,7 +137,7 @@ feature {AGENT_CREATION}
                                       cpp.print_argument(argument_name.rank)
                                    end(?))
          for_all_local_names(visited, type,
-                             agent (local_name: LOCAL_NAME1) is
+                             agent (local_name: LOCAL_NAME_DEF) is
                                 do
                                    if function_body.last /= '(' then
                                       function_body.extend(',')
@@ -685,8 +685,8 @@ feature {IMPLICIT_CAST}
          function_body.extend(')')
       end
 
-feature {ARGUMENT_NAME2}
-   visit_argument_name2 (visited: ARGUMENT_NAME2) is
+feature {ARGUMENT_NAME_REF}
+   visit_argument_name2 (visited: ARGUMENT_NAME_REF) is
       do
          if visited.closure_rank = 0 then
             cpp.print_argument(visited.rank)
@@ -699,8 +699,8 @@ feature {ARGUMENT_NAME2}
          end
       end
 
-feature {LOCAL_NAME2}
-   visit_local_name2 (visited: LOCAL_NAME2) is
+feature {LOCAL_NAME_REF}
+   visit_local_name2 (visited: LOCAL_NAME_REF) is
       do
          if visited.is_outside then
             if visited.closure_rank = 0 then
@@ -1152,7 +1152,7 @@ feature {}
          cpp.pending_c_function
          visited.target /= Void
       local
-         boost: BOOLEAN; i, j: INTEGER; af: ANONYMOUS_FEATURE; local_name: LOCAL_NAME1
+         boost: BOOLEAN; i, j: INTEGER; af: ANONYMOUS_FEATURE; local_name: LOCAL_NAME_DEF
       do
          function_body.append(visited.agent_args.signature)
          function_body.extend('(')

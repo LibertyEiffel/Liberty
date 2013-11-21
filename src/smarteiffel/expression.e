@@ -79,11 +79,11 @@ feature {ANY}
       do
          if {INTERNAL_LOCAL2} ?:= Current then
             Result := True
-         elseif {ARGUMENT_NAME2} ?:= Current then
+         elseif {ARGUMENT_NAME_REF} ?:= Current then
             Result := True
          elseif {ABSTRACT_CURRENT} ?:= Current then
             Result := True
-         elseif {LOCAL_NAME2} ?:= Current then
+         elseif {LOCAL_NAME_REF} ?:= Current then
             Result := True
          elseif {RESULT} ?:= Current then
             Result := True

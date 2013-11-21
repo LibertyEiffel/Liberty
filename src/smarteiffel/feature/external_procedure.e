@@ -57,7 +57,7 @@ feature {}
    collect_slice_copy (type: TYPE): INSTRUCTION is
       local
          local_index: INTERNAL_LOCAL2
-         arg_at, arg_src, arg_src_min, arg_src_max: ARGUMENT_NAME2
+         arg_at, arg_src, arg_src_min, arg_src_max: ARGUMENT_NAME_REF
          call_copy: PROCEDURE_CALL_1
          until_expression: CALL_INFIX_GT
          array_item, src_item: NATIVE_ARRAY_ITEM

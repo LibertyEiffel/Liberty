@@ -88,7 +88,7 @@ feature {LOCAL_VAR_LIST}
       end
 
 feature {DECLARATION_1_VISITOR}
-   name: LOCAL_ARGUMENT1
+   name: LOCAL_ARGUMENT_DEF
          -- Of the declared variable.
 
 feature {DECLARATION_1}

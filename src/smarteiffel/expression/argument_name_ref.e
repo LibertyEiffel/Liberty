@@ -1,13 +1,13 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class ARGUMENT_NAME2
+class ARGUMENT_NAME_REF
    --
    -- An argument name used somewhere.
    --
 
 inherit
-   LOCAL_ARGUMENT2
+   LOCAL_ARGUMENT_REF
 
 insert
    ARGUMENT_NAME
@@ -128,12 +128,12 @@ feature {ANY}
          end
       end
 
-   accept (visitor: ARGUMENT_NAME2_VISITOR) is
+   accept (visitor: ARGUMENT_NAME_REF_VISITOR) is
       do
          visitor.visit_argument_name2(Current)
       end
 
-feature {ARGUMENT_NAME2}
+feature {ARGUMENT_NAME_REF}
    set_formal_arg_list (fal: like formal_arg_list) is
       require
          fal /= Void
@@ -182,7 +182,7 @@ feature {}
 invariant
    formal_arg_list /= Void
 
-end -- class ARGUMENT_NAME2
+end -- class ARGUMENT_NAME_REF
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

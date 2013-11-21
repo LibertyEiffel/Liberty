@@ -83,7 +83,7 @@ feature {EXTERNAL_FUNCTION}
                                                         sp: like native_array_internals_from_generating_type_position;
                                                         args: FORMAL_ARG_LIST; nt: TYPE) is
       local
-         arg: ARGUMENT_NAME2; arg_type, dummy: TYPE
+         arg: ARGUMENT_NAME_REF; arg_type, dummy: TYPE
          live_types: TRAVERSABLE[LIVE_TYPE]; i: INTEGER; live_type: LIVE_TYPE
       do
          if not is_native_array_internals_from_generating_type_used then
@@ -301,7 +301,7 @@ feature {EXTERNAL_ROUTINE}
          er /= Void
          nt.class_text.name.to_string = as_internals_handler
       local
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          inspect_statement: OTHER_INSPECT_STATEMENT
          manifest_string: MANIFEST_STRING
          when_clause: WHEN_CLAUSE
@@ -604,7 +604,7 @@ feature {}
    specialize_body_for_type_attribute_name is
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          inspect_statement: OTHER_INSPECT_STATEMENT
          result_variable: RESULT
          i: INTEGER
@@ -649,7 +649,7 @@ feature {}
          target_type = new_type.generic_list.first
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          inspect_statement: OTHER_INSPECT_STATEMENT
          result_variable: RESULT
          implicit_current: IMPLICIT_CURRENT
@@ -704,7 +704,7 @@ feature {}
          target_type = new_type.generic_list.first
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          inspect_statement: OTHER_INSPECT_STATEMENT
          implicit_current: IMPLICIT_CURRENT
          e_void: E_VOID
@@ -716,12 +716,12 @@ feature {}
          af: ANONYMOUS_FEATURE
          attribute_type_mark: TYPE_MARK
          var_name: STRING
-         local_var1: LOCAL_NAME1
+         local_var1: LOCAL_NAME_DEF
          tm: TYPE_MARK
          declaration: DECLARATION_1
          lv: LOCAL_VAR_LIST
          when_clause: WHEN_CLAUSE
-         local_var2: LOCAL_NAME2
+         local_var2: LOCAL_NAME_REF
          assignment_attempt: ASSIGNMENT_ATTEMPT
          arg_object_memory, arg_capacity: FUNCTION_CALL_0
          fn: FEATURE_NAME
@@ -831,7 +831,7 @@ feature {}
    specialize_body_for_type_attribute_is_expanded is
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          inspect_statement: OTHER_INSPECT_STATEMENT
          i: INTEGER
          fs: FEATURE_STAMP
@@ -878,7 +878,7 @@ feature {}
    specialize_body_for_type_can_be_assigned_to_attribute is
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          inspect_statement: OTHER_INSPECT_STATEMENT
          i: INTEGER
          fs: FEATURE_STAMP
@@ -972,7 +972,7 @@ feature {}
          implicit_current: IMPLICIT_CURRENT
          object_memory_fn: FEATURE_NAME
          object_memory: FUNCTION_CALL_0
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          arg_object_memory: FUNCTION_CALL_0
          eq: BUILT_IN_EQ_NEQ
          result_variable: RESULT
@@ -1018,7 +1018,7 @@ feature {}
    specialize_body_for_type_attribute_generating_type is
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          inspect_statement: OTHER_INSPECT_STATEMENT
          result_variable: RESULT
          i: INTEGER
@@ -1061,7 +1061,7 @@ feature {}
    specialize_body_for_type_attribute_generator is
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          inspect_statement: OTHER_INSPECT_STATEMENT
          result_variable: RESULT
          i: INTEGER
@@ -1142,7 +1142,7 @@ feature {}
          implicit_current: IMPLICIT_CURRENT
          fn: FEATURE_NAME
          object: FUNCTION_CALL_0
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          one: INTEGER_CONSTANT
          i: CALL_INFIX_MINUS
          args: EFFECTIVE_ARG_LIST
@@ -1170,13 +1170,13 @@ feature {}
       local
          item_type_mark: TYPE_MARK
          var_name: STRING
-         local_var1: LOCAL_NAME1
+         local_var1: LOCAL_NAME_DEF
          tm: TYPE_MARK
          declaration: DECLARATION_1
          declarations: ARRAY[DECLARATION]
          lv: LOCAL_VAR_LIST
-         local_var2: LOCAL_NAME2
-         arg1, arg2: ARGUMENT_NAME2
+         local_var2: LOCAL_NAME_REF
+         arg1, arg2: ARGUMENT_NAME_REF
          assignment_attempt: ASSIGNMENT_ATTEMPT
          fn: FEATURE_NAME
          one: INTEGER_CONSTANT
@@ -1247,7 +1247,7 @@ feature {}
    specialize_body_for_na_type_can_be_assigned_to_item is
       local
          item_type_mark: TYPE_MARK
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          tm: TYPE_MARK
          assignment_test: ASSIGNMENT_TEST
          e_void: E_VOID
@@ -1280,7 +1280,7 @@ feature {}
          implicit_current: IMPLICIT_CURRENT
          object_memory_target: FUNCTION_CALL_0
          fn: FEATURE_NAME
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          args: EFFECTIVE_ARG_LIST
          call: FUNCTION_CALL_1
          assignemnt_1: ASSIGNMENT

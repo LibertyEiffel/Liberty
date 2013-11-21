@@ -208,7 +208,7 @@ feature {ANY} -- Infix Compiling
 feature {ANY} -- Expression compiling
         visit_address_of (visited: ADDRESS_OF) is do not_yet_implemented end
         visit_agent_creation (visited: AGENT_CREATION) is do not_yet_implemented end
-        visit_argument_name2 (visited: ARGUMENT_NAME2) is do not_yet_implemented end
+        visit_argument_name2 (visited: ARGUMENT_NAME_REF) is do not_yet_implemented end
         visit_agent_expression (visited: AGENT_EXPRESSION) is do not_yet_implemented end
         visit_assertion (visited: ASSERTION) is do not_yet_implemented end
         visit_assignment_test (visited: ASSIGNMENT_TEST) is do not_yet_implemented end
@@ -234,7 +234,7 @@ feature {ANY} -- Expression compiling
         visit_implicit_cast (visited: IMPLICIT_CAST) is do not_yet_implemented end
    visit_implicit_current (visited: IMPLICIT_CURRENT) is do not_yet_implemented end
    visit_internal_local2 (visited: INTERNAL_LOCAL2) is do not_yet_implemented end
-        visit_local_name2 (visited: LOCAL_NAME2) is do not_yet_implemented end
+        visit_local_name2 (visited: LOCAL_NAME_REF) is do not_yet_implemented end
         visit_loop_variant (visited: LOOP_VARIANT) is do not_yet_implemented end
         visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is do not_yet_implemented end
    visit_no_dispatch (visited: NO_DISPATCH) is do not_yet_implemented end

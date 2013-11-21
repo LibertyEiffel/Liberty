@@ -1,9 +1,9 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class LOCAL_ARGUMENT1
+deferred class LOCAL_ARGUMENT_DEF
    --
-   -- Common behavior for LOCAL_NAME1 and ARGUMENT_NAME1
+   -- Common behavior for LOCAL_NAME_DEF and ARGUMENT_NAME_DEF
    --
 
 inherit
@@ -59,7 +59,7 @@ feature {DECLARATION_LIST}
          rank = r
       end
 
-feature {LOCAL_ARGUMENT1, DECLARATION_LIST, DECLARATION}
+feature {LOCAL_ARGUMENT_DEF, DECLARATION_LIST, DECLARATION}
    set_result_type (rt: like result_type) is
       require
          rt /= Void
@@ -107,7 +107,7 @@ feature {ANY}
       deferred
       end
 
-feature {LOCAL_ARGUMENT2}
+feature {LOCAL_ARGUMENT_REF}
    set_outside (type: TYPE) is
       do
          if outside_set = Void then
@@ -137,7 +137,7 @@ feature {}
          end
       end
 
-end -- class LOCAL_ARGUMENT1
+end -- class LOCAL_ARGUMENT_DEF
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

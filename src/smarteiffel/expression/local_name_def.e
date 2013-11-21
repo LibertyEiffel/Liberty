@@ -1,13 +1,13 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class LOCAL_NAME1
+class LOCAL_NAME_DEF
    --
    -- A local name in some declaration list.
    --
 
 inherit
-   LOCAL_ARGUMENT1
+   LOCAL_ARGUMENT_DEF
 
 insert
    LOCAL_NAME
@@ -25,12 +25,12 @@ feature {ANY}
    adapt_for (type: TYPE): like Current is
       do
          --|*** (PH 25/08/04) should be identical with
-         --|*** ARGUMENT_NAME1.adapt_for, so put it in LOCAL_ARGUMENT1.
+         --|*** ARGUMENT_NAME_DEF.adapt_for, so put it in LOCAL_ARGUMENT_DEF.
          usage_warning_check(type) --|*** (PH 29/05/04) should be done earlier
          Result := Current
       end
 
-   accept (visitor: LOCAL_NAME1_VISITOR) is
+   accept (visitor: LOCAL_NAME_DEF_VISITOR) is
       do
          visitor.visit_local_name1(Current)
       end
@@ -56,7 +56,7 @@ feature {DECLARATION_LIST}
          name_clash_check_(type, once "Conflict between local/feature name (VRLE).")
       end
 
-feature {LOCAL_NAME2}
+feature {LOCAL_NAME_REF}
    parsing_reference_counter_increment is
       do
          parsing_reference_counter := parsing_reference_counter + 1
@@ -67,7 +67,7 @@ feature {LOCAL_NAME2}
          live_reference_counter := live_reference_counter + 1
       end
 
-feature {LOCAL_NAME1}
+feature {LOCAL_NAME_DEF}
    usage_warning_check (type: TYPE) is
       do
          if parsing_reference_counter = 0 then
@@ -83,7 +83,7 @@ feature {LOCAL_NAME1}
 
 feature {}
    parsing_reference_counter: INTEGER
-         -- How many LOCAL_NAME2 encountered during parsing for this local declaration.
+         -- How many LOCAL_NAME_REF encountered during parsing for this local declaration.
 
    live_reference_counter: INTEGER
          -- How many actual usage encountered in the living code?
@@ -101,7 +101,7 @@ feature {}
          to_string.is_equal(n) and string_aliaser.registered_one(to_string)
       end
 
-end -- class LOCAL_NAME1
+end -- class LOCAL_NAME_DEF
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

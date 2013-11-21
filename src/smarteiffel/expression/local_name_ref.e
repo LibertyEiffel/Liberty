@@ -1,13 +1,13 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class LOCAL_NAME2
+class LOCAL_NAME_REF
    --
    -- A local name used somewhere.
    --
 
 inherit
-   LOCAL_ARGUMENT2
+   LOCAL_ARGUMENT_REF
       redefine
          written_declaration_type_mark
       end
@@ -133,12 +133,12 @@ feature {ANY}
          end
       end
 
-   accept (visitor: LOCAL_NAME2_VISITOR) is
+   accept (visitor: LOCAL_NAME_REF_VISITOR) is
       do
          visitor.visit_local_name2(Current)
       end
 
-feature {LOCAL_NAME2}
+feature {LOCAL_NAME_REF}
    set_local_var_list (lvl: like local_var_list) is
       require
          lvl /= Void
@@ -179,7 +179,7 @@ feature {}
 invariant
    local_var_list /= Void
 
-end -- class LOCAL_NAME2
+end -- class LOCAL_NAME_REF
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
