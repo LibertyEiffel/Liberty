@@ -9,19 +9,19 @@ create {}
 feature {}
    make is
       do
-         run(3)
+         run("foo")
       end
 
-   run (a: INTEGER) is
+   run (a: STRING) is
       local
-         p: PROCEDURE[TUPLE[INTEGER]]
+         p: PROCEDURE[TUPLE[STRING]]
       do
-         p := agent (i: INTEGER) is
+         p := agent (i: STRING) is
                  do
-                    assert(a = 3)
-                    assert(i = 5)
+                    assert(a ~ "foo")
+                    assert(i ~ "bar")
                  end (?)
-         p.call([5])
+         p.call(["bar"])
       end
 
 end -- class TEST_CLOSURE03

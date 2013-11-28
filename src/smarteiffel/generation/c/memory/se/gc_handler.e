@@ -9,6 +9,9 @@ class GC_HANDLER
 inherit
    MEMORY_HANDLER
 
+insert
+   C_AGENT_CREATION_MIXIN
+
 create {MEMORY_HANDLER_FACTORY}
    make
 
@@ -413,8 +416,7 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
 
    generate_agent_data (agent_creation: AGENT_CREATION; type: TYPE; mold_id: STRING; generate_closed_operand: PROCEDURE[TUPLE[CLOSED_OPERAND]]) is
       local
-         i, j: INTEGER; t: TYPE; closed_operand: CLOSED_OPERAND; cf: E_ROUTINE
-         argument_name: ARGUMENT_NAME_DEF; local_name: LOCAL_NAME_DEF
+         i: INTEGER; t: TYPE; closed_operand: CLOSED_OPERAND
       do
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void gc_mark_")
@@ -451,81 +453,46 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
             end
          end
 
-         cf ::= agent_creation.context_features.fast_at(type)
+         for_all_argument_names(agent_creation, type,
+                                agent (argument_name: ARGUMENT_NAME_DEF; type_: TYPE; closure_rank: INTEGER) is
+                                   local
+                                      t_: TYPE
+                                   do
+                                      t_ := argument_name.resolve_in(type)
+                                      if t_.is_reference then
+                                         cpp.pending_c_function_body.append(once "gc_mark(u->CA_")
+                                         closure_rank.append_in(cpp.pending_c_function_body)
+                                         cpp.pending_c_function_body.extend('_')
+                                         argument_name.rank.append_in(cpp.pending_c_function_body)
+                                         cpp.pending_c_function_body.append(once ");%N")
+                                      elseif need_mark.for(t_) then
+                                         mark_in(t_.canonical_type_mark, cpp.pending_c_function_body)
+                                         cpp.pending_c_function_body.append(once "(&(u->CA_")
+                                         closure_rank.append_in(cpp.pending_c_function_body)
+                                         cpp.pending_c_function_body.extend('_')
+                                         argument_name.rank.append_in(cpp.pending_c_function_body)
+                                         cpp.pending_c_function_body.append(once "));%N")
+                                      end
+                                   end(?, type, ?)) --| **** TODO: closure on type
 
-         if cf.closure_arguments /= Void then
-            from
-               j := cf.closure_arguments.lower
-            until
-               j > cf.closure_arguments.upper
-            loop
-               if cf.closure_arguments.item(j) /= Void then
-                  from
-                     i := 1
-                  until
-                     i > cf.closure_arguments.item(j).count
-                  loop
-                     argument_name := cf.closure_arguments.item(j).name(i)
-                     if argument_name.is_outside(type) then
-                        t := argument_name.resolve_in(type)
-                        if t.is_reference then
-                           cpp.pending_c_function_body.append(once "gc_mark(u->CA_")
-                           (j - cf.closure_arguments.lower + 1).append_in(cpp.pending_c_function_body)
-                           cpp.pending_c_function_body.extend('_')
-                           i.append_in(cpp.pending_c_function_body)
-                           cpp.pending_c_function_body.append(once ");%N")
-                        elseif need_mark.for(t) then
-                           mark_in(t.canonical_type_mark, cpp.pending_c_function_body)
-                           cpp.pending_c_function_body.append(once "(&(u->CA_")
-                           (j - cf.closure_arguments.lower + 1).append_in(cpp.pending_c_function_body)
-                           cpp.pending_c_function_body.extend('_')
-                           i.append_in(cpp.pending_c_function_body)
-                           cpp.pending_c_function_body.append(once "));%N")
-                        end
-                     end
-                     i := i + 1
-                  end
-               end
-               j := j + 1
-            end
-         end
+         for_all_local_names(agent_creation, type,
+                             agent (local_name: LOCAL_NAME_DEF; type_: TYPE) is
+                                local
+                                   t_: TYPE
+                                do
+                                   t_ := local_name.resolve_in(type)
+                                   if t_.is_reference then
+                                      cpp.pending_c_function_body.append(once "gc_mark(*(u->CL_")
+                                      cpp.pending_c_function_body.append(local_name.to_string)
+                                      cpp.pending_c_function_body.append(once "));%N")
+                                   elseif need_mark.for(t_) then
+                                      mark_in(t.canonical_type_mark, cpp.pending_c_function_body)
+                                      cpp.pending_c_function_body.append(once "(u->CL_")
+                                      cpp.pending_c_function_body.append(local_name.to_string)
+                                      cpp.pending_c_function_body.append(once ");%N")
+                                   end
+                                end(?, type)) --| **** TODO: closure on type
 
-         if cf.closure_local_vars /= Void then
-            from
-               j := cf.closure_local_vars.lower
-            until
-               j > cf.closure_local_vars.upper
-            loop
-               if cf.closure_local_vars.item(j) /= Void then
-                  from
-                     i := 1
-                  until
-                     i > cf.closure_local_vars.item(j).count
-                  loop
-                     local_name := cf.closure_local_vars.item(j).name(i)
-                     if local_name.is_used(type) and then local_name.is_outside(type) then
-                        t := local_name.resolve_in(type)
-                        if t.is_reference then
-                           cpp.pending_c_function_body.append(once "gc_mark(*(u->CL_")
-                           (j - cf.closure_local_vars.lower + 1).append_in(cpp.pending_c_function_body)
-                           cpp.pending_c_function_body.extend('_')
-                           i.append_in(cpp.pending_c_function_body)
-                           cpp.pending_c_function_body.append(once "));%N")
-                        elseif need_mark.for(t) then
-                           mark_in(t.canonical_type_mark, cpp.pending_c_function_body)
-                           cpp.pending_c_function_body.append(once "(u->CL_")
-                           (j - cf.closure_local_vars.lower + 1).append_in(cpp.pending_c_function_body)
-                           cpp.pending_c_function_body.extend('_')
-                           i.append_in(cpp.pending_c_function_body)
-                           cpp.pending_c_function_body.append(once ");%N")
-                        end
-                     end
-                     i := i + 1
-                  end
-               end
-               j := j + 1
-            end
-         end
          cpp.pending_c_function_body.append(once "}%N")
          cpp.dump_pending_c_function(True)
       end
