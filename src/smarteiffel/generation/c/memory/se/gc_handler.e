@@ -413,7 +413,8 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
 
    generate_agent_data (agent_creation: AGENT_CREATION; type: TYPE; mold_id: STRING; generate_closed_operand: PROCEDURE[TUPLE[CLOSED_OPERAND]]) is
       local
-         i: INTEGER; t: TYPE; closed_operand: CLOSED_OPERAND
+         i, j: INTEGER; t: TYPE; closed_operand: CLOSED_OPERAND; cf: E_ROUTINE
+         argument_name: ARGUMENT_NAME_DEF; local_name: LOCAL_NAME_DEF
       do
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void gc_mark_")
@@ -447,6 +448,82 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
                   end
                end
                i := i + 1
+            end
+         end
+
+         cf ::= agent_creation.context_features.fast_at(type)
+
+         if cf.closure_arguments /= Void then
+            from
+               j := cf.closure_arguments.lower
+            until
+               j > cf.closure_arguments.upper
+            loop
+               if cf.closure_arguments.item(j) /= Void then
+                  from
+                     i := 1
+                  until
+                     i > cf.closure_arguments.item(j).count
+                  loop
+                     argument_name := cf.closure_arguments.item(j).name(i)
+                     if argument_name.is_outside(type) then
+                        t := argument_name.resolve_in(type)
+                        if t.is_reference then
+                           cpp.pending_c_function_body.append(once "gc_mark(u->CA_")
+                           (j - cf.closure_arguments.lower + 1).append_in(cpp.pending_c_function_body)
+                           cpp.pending_c_function_body.extend('_')
+                           i.append_in(cpp.pending_c_function_body)
+                           cpp.pending_c_function_body.append(once ");%N")
+                        elseif need_mark.for(t) then
+                           mark_in(t.canonical_type_mark, cpp.pending_c_function_body)
+                           cpp.pending_c_function_body.append(once "(&(u->CA_")
+                           (j - cf.closure_arguments.lower + 1).append_in(cpp.pending_c_function_body)
+                           cpp.pending_c_function_body.extend('_')
+                           i.append_in(cpp.pending_c_function_body)
+                           cpp.pending_c_function_body.append(once "));%N")
+                        end
+                     end
+                     i := i + 1
+                  end
+               end
+               j := j + 1
+            end
+         end
+
+         if cf.closure_local_vars /= Void then
+            from
+               j := cf.closure_local_vars.lower
+            until
+               j > cf.closure_local_vars.upper
+            loop
+               if cf.closure_local_vars.item(j) /= Void then
+                  from
+                     i := 1
+                  until
+                     i > cf.closure_local_vars.item(j).count
+                  loop
+                     local_name := cf.closure_local_vars.item(j).name(i)
+                     if local_name.is_used(type) and then local_name.is_outside(type) then
+                        t := local_name.resolve_in(type)
+                        if t.is_reference then
+                           cpp.pending_c_function_body.append(once "gc_mark(*(u->CL_")
+                           (j - cf.closure_local_vars.lower + 1).append_in(cpp.pending_c_function_body)
+                           cpp.pending_c_function_body.extend('_')
+                           i.append_in(cpp.pending_c_function_body)
+                           cpp.pending_c_function_body.append(once "));%N")
+                        elseif need_mark.for(t) then
+                           mark_in(t.canonical_type_mark, cpp.pending_c_function_body)
+                           cpp.pending_c_function_body.append(once "(u->CL_")
+                           (j - cf.closure_local_vars.lower + 1).append_in(cpp.pending_c_function_body)
+                           cpp.pending_c_function_body.extend('_')
+                           i.append_in(cpp.pending_c_function_body)
+                           cpp.pending_c_function_body.append(once ");%N")
+                        end
+                     end
+                     i := i + 1
+                  end
+               end
+               j := j + 1
             end
          end
          cpp.pending_c_function_body.append(once "}%N")

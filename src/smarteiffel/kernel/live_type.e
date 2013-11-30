@@ -809,7 +809,7 @@ feature {ANY}
          end
       end
 
-feature {LOCAL_VAR_LIST, LOCAL_NAME1}
+feature {LOCAL_VAR_LIST, LOCAL_NAME_DEF}
    side_effect_free_default_create: BOOLEAN is
       require
          smart_eiffel.status.collecting_done

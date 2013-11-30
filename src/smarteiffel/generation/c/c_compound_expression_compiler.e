@@ -472,16 +472,16 @@ feature {IMPLICIT_CAST}
          function_body.append(finish)
       end
 
-feature {ARGUMENT_NAME2}
-   visit_argument_name2 (visited: ARGUMENT_NAME2) is
+feature {ARGUMENT_NAME_REF}
+   visit_argument_name2 (visited: ARGUMENT_NAME_REF) is
       do
          function_body.append(continue)
          Precursor(visited)
          function_body.append(finish)
       end
 
-feature {LOCAL_NAME2}
-   visit_local_name2 (visited: LOCAL_NAME2) is
+feature {LOCAL_NAME_REF}
+   visit_local_name2 (visited: LOCAL_NAME_REF) is
       do
          function_body.append(continue)
          Precursor(visited)

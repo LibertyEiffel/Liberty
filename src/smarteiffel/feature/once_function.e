@@ -44,33 +44,35 @@ feature {ANY}
 feature {ANONYMOUS_FEATURE_MIXER}
    specialize_signature_in (new_type: TYPE): like Current is
       local
-         args: like arguments
+         args: like arguments; cfal: like closure_arguments
       do
          result_type.specialize_in(new_type)
          if arguments /= Void then
             args := arguments.specialize_in(new_type)
          end
-         if args = arguments then
+         cfal := specialize_closure_arguments_lists_in(new_type)
+         if args = arguments and then cfal = closure_arguments then
             Result := Current
          else
             Result := twin
-            Result.set_arguments(args)
+            Result.set_arguments(args, cfal)
          end
       end
 
    specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
       local
-         args: like arguments; rt: like result_type
+         args: like arguments; rt: like result_type; cfal: like closure_arguments
       do
          rt := result_type.specialize_thru(parent_type, parent_edge, new_type)
          if arguments /= Void then
             args := arguments.specialize_thru(parent_type, parent_edge, new_type)
          end
-         if result_type = rt and then args = arguments then
+         cfal := specialize_closure_arguments_lists_thru(parent_type, parent_edge, new_type)
+         if result_type = rt and then args = arguments and then cfal = closure_arguments then
             Result := Current
          else
             Result := twin
-            Result.set_arguments(args)
+            Result.set_arguments(args, cfal)
             Result.set_result_type(rt)
          end
       end

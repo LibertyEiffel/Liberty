@@ -93,14 +93,14 @@ feature {PARSER}
          end
       end
 
-   to_argument_name1: ARGUMENT_NAME1 is
+   to_argument_name1: ARGUMENT_NAME_DEF is
       do
          create Result.make(start_position, buffer)
       end
 
-   to_argument_name2 (fal: FORMAL_ARG_LIST; rank: INTEGER): ARGUMENT_NAME2 is
+   to_argument_name2 (fal: FORMAL_ARG_LIST; rank, closure_rank: INTEGER): ARGUMENT_NAME_REF is
       do
-         create Result.refer_to(start_position, fal, rank)
+         create Result.refer_to(start_position, fal, rank, closure_rank)
       end
 
    to_class_name: CLASS_NAME is
@@ -123,12 +123,12 @@ feature {PARSER}
          create Result.from_identifier(start_position, hashed_string)
       end
 
-   to_local_name1: LOCAL_NAME1 is
+   to_local_name1: LOCAL_NAME_DEF is
       do
          create Result.make(start_position, buffer)
       end
 
-   to_local_name2 (lvl: LOCAL_VAR_LIST; rank, closure_rank: INTEGER): LOCAL_NAME2 is
+   to_local_name2 (lvl: LOCAL_VAR_LIST; rank, closure_rank: INTEGER): LOCAL_NAME_REF is
       do
          create Result.refer_to(start_position, lvl, rank, closure_rank)
       end

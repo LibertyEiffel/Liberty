@@ -83,12 +83,14 @@ feature {ANONYMOUS_FEATURE_MIXER}
    specialize_body_in (new_type: TYPE; can_twin: BOOLEAN): like Current is
       local
          lv, lv_memory: like local_vars; clv, clv_memory: like closure_local_vars
+         cfa: like closure_arguments
          rb: like routine_body; rc: like rescue_compound
       do
          if local_vars /= Void then
             lv := local_vars.specialize_in(new_type)
          end
          clv := specialize_closure_local_var_lists_in(new_type)
+         cfa := specialize_closure_arguments_lists_in(new_type)
          lv_memory := smart_eiffel.specializing_feature_local_var_list
          clv_memory := smart_eiffel.specializing_closure_local_var_lists
          smart_eiffel.set_specializing_feature_variables(lv, clv)
@@ -98,15 +100,17 @@ feature {ANONYMOUS_FEATURE_MIXER}
          if rescue_compound /= Void then
             rc := rescue_compound.specialize_in(new_type)
          end
-         if lv = local_vars and then rb = routine_body and then rc = rescue_compound then
+         if lv = local_vars and then clv = closure_local_vars and then cfa = closure_arguments and then rb = routine_body and then rc = rescue_compound then
             Result := Current
          else
             if can_twin then
                Result := twin
-               Result.init(lv, clv, rb, rc)
+               Result.init(lv, clv, cfa, rb, rc)
             else
                Result := Current
                local_vars := lv
+               closure_local_vars := clv
+               closure_arguments := cfa
                routine_body := rb
                rescue_compound := rc
             end
@@ -122,12 +126,16 @@ feature {FEATURE_STAMP, PRECURSOR_CALL}
    specialize_and_check (type: TYPE): like Current is
       local
          lv_memory: like local_vars; clv_memory: like closure_local_vars
+         fa_memory: like arguments; cfa_memory: like closure_arguments
          rb: like routine_body; rc: like rescue_compound; ra: like require_assertion
          ea: like ensure_assertion
       do
          lv_memory := smart_eiffel.specializing_feature_local_var_list
          clv_memory := smart_eiffel.specializing_closure_local_var_lists
          smart_eiffel.set_specializing_feature_variables(local_vars, closure_local_vars)
+         fa_memory := smart_eiffel.specializing_feature_arguments_list
+         cfa_memory := smart_eiffel.specializing_closure_arguments_lists
+         smart_eiffel.set_specializing_feature_arguments(arguments, closure_arguments)
          if ace.boost then
             ra := require_assertion
             ea := ensure_assertion
@@ -149,7 +157,7 @@ feature {FEATURE_STAMP, PRECURSOR_CALL}
             Result := Current
          else
             Result := twin
-            Result.init(local_vars, closure_local_vars, rb, rc)
+            Result.init(local_vars, closure_local_vars, closure_arguments, rb, rc)
             Result.set_require_assertion(ra)
             Result.set_ensure_assertion(ea)
          end
@@ -157,6 +165,7 @@ feature {FEATURE_STAMP, PRECURSOR_CALL}
             smart_eiffel.specializing_feature_local_var_list = local_vars
             smart_eiffel.specializing_closure_local_var_lists = closure_local_vars
          end
+         smart_eiffel.set_specializing_feature_arguments(fa_memory, cfa_memory)
          smart_eiffel.set_specializing_feature_variables(lv_memory, clv_memory)
       end
 
@@ -164,12 +173,14 @@ feature {ANONYMOUS_FEATURE_MIXER}
    specialize_body_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE; can_twin: BOOLEAN): like Current is
       local
          lv, lv_memory: like local_vars; clv, clv_memory: like closure_local_vars
+         cfa: like closure_arguments
          rb: like routine_body; rc: like rescue_compound
       do
          if local_vars /= Void then
             lv := local_vars.specialize_thru(parent_type, parent_edge, new_type)
          end
          clv := specialize_closure_local_var_lists_thru(parent_type, parent_edge, new_type)
+         cfa := specialize_closure_arguments_lists_thru(parent_type, parent_edge, new_type)
          lv_memory := smart_eiffel.specializing_feature_local_var_list
          clv_memory := smart_eiffel.specializing_closure_local_var_lists
          smart_eiffel.set_specializing_feature_variables(lv, clv)
@@ -179,15 +190,17 @@ feature {ANONYMOUS_FEATURE_MIXER}
          if rescue_compound /= Void then
             rc := rescue_compound.specialize_thru(parent_type, parent_edge, new_type)
          end
-         if lv = local_vars and then rb = routine_body and then rc = rescue_compound then
+         if lv = local_vars and then clv = closure_local_vars and then cfa = closure_arguments and then rb = routine_body and then rc = rescue_compound then
             Result := Current
          else
             if can_twin then
                Result := twin
-               Result.init(lv, clv, rb, rc)
+               Result.init(lv, clv, cfa, rb, rc)
             else
                Result := Current
                local_vars := lv
+               closure_local_vars := clv
+               closure_arguments := cfa
                routine_body := rb
                rescue_compound := rc
             end
@@ -218,19 +231,22 @@ feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}
             Result := Current
          else
             Result := twin
-            Result.init(local_vars, closure_local_vars, rb, rc)
+            Result.init(local_vars, closure_local_vars, closure_arguments, rb, rc)
          end
       end
 
 feature {EFFECTIVE_ROUTINE}
-   init (lv: like local_vars; clv: like closure_local_vars; rb: like routine_body; rc: like rescue_compound) is
+   init (lv: like local_vars; clv: like closure_local_vars; cfa: like closure_arguments; rb: like routine_body; rc: like rescue_compound) is
       do
          local_vars := lv
          closure_local_vars := clv
+         closure_arguments := cfa
          routine_body := rb
          rescue_compound := rc
       ensure
          local_vars = lv
+         closure_local_vars = clv
+         closure_arguments = cfa
          routine_body = rb
          rescue_compound = rc
       end

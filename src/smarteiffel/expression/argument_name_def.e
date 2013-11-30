@@ -1,13 +1,13 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class ARGUMENT_NAME1
+class ARGUMENT_NAME_DEF
    --
    -- An argument name in some declaration list.
    --
 
 inherit
-   LOCAL_ARGUMENT1
+   LOCAL_ARGUMENT_DEF
 
 insert
    ARGUMENT_NAME
@@ -23,7 +23,7 @@ feature {ANY}
 
    adapt_for (type: TYPE): like Current is
          --|*** (PH 25/08/04) should be identical with
-         --|*** LOCAL_NAME1.adapt_for, so put it in LOCAL_ARGUMENT1.
+         --|*** LOCAL_NAME_DEF.adapt_for, so put it in LOCAL_ARGUMENT_DEF.
       local
          tm: TYPE_MARK
       do
@@ -36,7 +36,7 @@ feature {ANY}
          end
       end
 
-   accept (visitor: ARGUMENT_NAME1_VISITOR) is
+   accept (visitor: ARGUMENT_NAME_DEF_VISITOR) is
       do
          visitor.visit_argument_name1(Current)
       end
@@ -66,7 +66,7 @@ feature {}
          to_string.is_equal(n) and string_aliaser.registered_one(to_string)
       end
 
-end -- class ARGUMENT_NAME1
+end -- class ARGUMENT_NAME_DEF
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

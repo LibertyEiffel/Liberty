@@ -228,7 +228,7 @@ feature {FUNCTION_CALL_N}
                         args: EFFECTIVE_ARG_LIST; return_type: TYPE): INLINE_MEMO is
       local
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN; assignment: ASSIGNMENT
-         argument_name2: ARGUMENT_NAME2; built_in_eq_neq: BUILT_IN_EQ_NEQ
+         argument_name2: ARGUMENT_NAME_REF; built_in_eq_neq: BUILT_IN_EQ_NEQ
       do
          direct_non_void_call_flag := target_type.direct_non_void_call_flag
          no_rescue_no_local_expanded := no_rescue_no_local_expanded_in(target_type)
@@ -309,33 +309,35 @@ feature {ANY}
 feature {ANONYMOUS_FEATURE_MIXER}
    specialize_signature_in (new_type: TYPE): like Current is
       local
-         args: like arguments
+         args: like arguments; cfal: like closure_arguments
       do
          result_type.specialize_in(new_type)
          if arguments /= Void then
             args := arguments.specialize_in(new_type)
          end
-         if args = arguments then
+         cfal := specialize_closure_arguments_lists_in(new_type)
+         if args = arguments and then cfal = closure_arguments then
             Result := Current
          else
             Result := twin
-            Result.set_arguments(args)
+            Result.set_arguments(args, cfal)
          end
       end
 
    specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
       local
-         args: like arguments; rt: like result_type
+         args: like arguments; rt: like result_type; cfal: like closure_arguments
       do
          rt := result_type.specialize_thru(parent_type, parent_edge, new_type)
          if arguments /= Void then
             args := arguments.specialize_thru(parent_type, parent_edge, new_type)
          end
-         if result_type = rt and then args = arguments then
+         cfal := specialize_closure_arguments_lists_thru(parent_type, parent_edge, new_type)
+         if result_type = rt and then args = arguments and then cfal = closure_arguments then
             Result := Current
          else
             Result := twin
-            Result.set_arguments(args)
+            Result.set_arguments(args, cfal)
             Result.set_result_type(rt)
          end
       end
@@ -374,7 +376,7 @@ feature {}
          target /= Void
          arg1 /= Void
       local
-         argument_name2: ARGUMENT_NAME2; call_0: CALL_0; call_1_arg1: CALL_1
+         argument_name2: ARGUMENT_NAME_REF; call_0: CALL_0; call_1_arg1: CALL_1
       do
          argument_name2 ?= call_1.arg1
          if argument_name2 /= Void then
@@ -417,7 +419,7 @@ feature {}
          target /= Void
          arg1 /= Void
       local
-         argument_name2: ARGUMENT_NAME2; call_0: CALL_0; call_1: CALL_1
+         argument_name2: ARGUMENT_NAME_REF; call_0: CALL_0; call_1: CALL_1
       do
          argument_name2 ?= built_in_eq_neq.right_side
          if argument_name2 /= Void then

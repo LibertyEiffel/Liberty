@@ -357,7 +357,7 @@ feature {}
 
    initialize_locals is
       local
-         lv: like local_vars; local_name: LOCAL_NAME1; local_type: TYPE; i: INTEGER
+         lv: like local_vars; local_name: LOCAL_NAME_DEF; local_type: TYPE; i: INTEGER
       do
          lv := local_vars
          if lv /= Void then

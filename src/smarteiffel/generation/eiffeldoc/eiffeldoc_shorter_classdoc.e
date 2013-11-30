@@ -1070,8 +1070,8 @@ feature {LIKE_CURRENT_TYPE_MARK}
          put_class(context_class_text, True)
       end
 
-feature {ARGUMENT_NAME2}
-   visit_argument_name2 (visited: ARGUMENT_NAME2) is
+feature {ARGUMENT_NAME_REF}
+   visit_argument_name2 (visited: ARGUMENT_NAME_REF) is
       do
          html.put_string(visited.to_string)
       end

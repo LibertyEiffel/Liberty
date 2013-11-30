@@ -57,7 +57,7 @@ feature {}
    collect_slice_copy (type: TYPE): INSTRUCTION is
       local
          local_index: INTERNAL_LOCAL2
-         arg_at, arg_src, arg_src_min, arg_src_max: ARGUMENT_NAME2
+         arg_at, arg_src, arg_src_min, arg_src_max: ARGUMENT_NAME_REF
          call_copy: PROCEDURE_CALL_1
          until_expression: CALL_INFIX_GT
          array_item, src_item: NATIVE_ARRAY_ITEM
@@ -68,10 +68,10 @@ feature {}
          initialize, increment: ASSIGNMENT
          copy_args: EFFECTIVE_ARG_LIST
       do
-         create arg_at.refer_to(start_position, arguments, 1)
-         create arg_src.refer_to(start_position, arguments, 2)
-         create arg_src_min.refer_to(start_position, arguments, 3)
-         create arg_src_max.refer_to(start_position, arguments, 4)
+         create arg_at.refer_to(start_position, arguments, 1, 0)
+         create arg_src.refer_to(start_position, arguments, 2, 0)
+         create arg_src_min.refer_to(start_position, arguments, 3, 0)
+         create arg_src_max.refer_to(start_position, arguments, 4, 0)
          t_int := smart_eiffel.type_integer_32
          -- from index := src_min
          create local_index.make(start_position, arg_src_min, once "copy index", True)

@@ -597,16 +597,16 @@ feature {IMPLICIT_CAST}
          stream.put_character('}')
       end
 
-feature {ARGUMENT_NAME2}
-   visit_argument_name2 (visited: ARGUMENT_NAME2) is
+feature {ARGUMENT_NAME_REF}
+   visit_argument_name2 (visited: ARGUMENT_NAME_REF) is
       do
          stream.put_string(once "<argument:")
          stream.put_string(visited.to_string)
          stream.put_character('>')
       end
 
-feature {LOCAL_NAME2}
-   visit_local_name2 (visited: LOCAL_NAME2) is
+feature {LOCAL_NAME_REF}
+   visit_local_name2 (visited: LOCAL_NAME_REF) is
       do
          stream.put_string(once "<local:")
          stream.put_string(visited.to_string)

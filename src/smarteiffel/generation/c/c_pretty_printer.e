@@ -3526,7 +3526,7 @@ feature {C_COMPILATION_MIXIN}
       end
 
 feature {}
-   c_declare_local (local_name: LOCAL_NAME1; type: TYPE; volatile_flag: BOOLEAN) is
+   c_declare_local (local_name: LOCAL_NAME_DEF; type: TYPE; volatile_flag: BOOLEAN) is
          -- C declaration of the local.
       require
          pending_c_function
@@ -3541,15 +3541,15 @@ feature {}
                end
             end
             pending_c_function_body.append(result_type.for(static_tm))
-            if local_name.is_outside then
+            if local_name.is_outside(type) then
                pending_c_function_body.extend('*')
                has_closures := True
-            else
+            elseif pending_c_function_body.last /= '*' then
                pending_c_function_body.extend(' ')
             end
             print_local(local_name.to_string)
             pending_c_function_body.extend('=')
-            if local_name.is_outside then
+            if local_name.is_outside(type) then
                pending_c_function_body.extend('(')
                pending_c_function_body.append(result_type.for(static_tm))
                pending_c_function_body.append(once "*)se_malloc(sizeof(")
@@ -3562,7 +3562,7 @@ feature {}
          end
       end
 
-   c_init_closure_local (local_name: LOCAL_NAME1; type: TYPE) is
+   c_init_closure_local (local_name: LOCAL_NAME_DEF; type: TYPE) is
          -- C declaration of the local.
       require
          pending_c_function
@@ -3570,7 +3570,7 @@ feature {}
       local
          static_tm: TYPE_MARK
       do
-         if local_name.is_used(type) and then local_name.is_outside then
+         if local_name.is_used(type) and then local_name.is_outside(type) then
             static_tm := local_name.result_type.to_static(type, False)
             pending_c_function_body.extend('*')
             print_local(local_name.to_string)

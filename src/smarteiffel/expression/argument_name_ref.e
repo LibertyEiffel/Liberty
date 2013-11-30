@@ -1,21 +1,18 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class LOCAL_NAME2
+class ARGUMENT_NAME_REF
    --
-   -- A local name used somewhere.
+   -- An argument name used somewhere.
    --
 
 inherit
-   LOCAL_ARGUMENT2
-      redefine
-         written_declaration_type_mark
-      end
+   LOCAL_ARGUMENT_REF
 
 insert
-   LOCAL_NAME
+   ARGUMENT_NAME
 
-create {TOKEN_BUFFER, INTROSPECTION_HANDLER}
+create {ANY}
    refer_to
 
 feature {ANY}
@@ -24,76 +21,72 @@ feature {ANY}
          -- nth enclosing function (i.e. available via a closure)
 
    rank: INTEGER
-         -- The `rank' of the corresponding declaration in `local_var_list'.
 
-   declaration_type: TYPE
-
-   written_declaration_type_mark: TYPE_MARK
-
-   resolve_in (type: TYPE): TYPE is
-      do
-         Result := local_var_list.type_mark(rank).resolve_in(type)
-      end
+   declaration_type: TYPE -- *** IT WOULD BE BETTER TO COMPUTE `declaration_type' USING
+         -- `formal_arg_list' ... BUT IT DOES NOT WORK BECAUSE FOR EXAMPLE
+         -- like Current ARE HARD CODED INSIDE `formal_arg_list' *** DOM April 14th 2008 ***
 
    to_string: STRING is
       do
-         Result := local_var_list.name(rank).to_string
+         Result := formal_arg_list.name(rank).to_string
+      end
+
+   resolve_in (type: TYPE): TYPE is
+      do
+         Result := formal_arg_list.type_mark(rank).resolve_in(type)
       end
 
    specialize_in (type: TYPE): like Current is
       local
-         lvl: like local_var_list
+         fal: like formal_arg_list
       do
          if closure_rank = 0 then
-            lvl := smart_eiffel.specializing_feature_local_var_list
+            fal := feature_accumulator.current_mixer.formal_arg_list
          else
-            lvl := smart_eiffel.specializing_closure_local_var_lists.item(closure_rank - 1)
-            lvl.name(rank).set_outside
+            fal := feature_accumulator.current_mixer.closure_formal_arg_list(closure_rank)
+            fal.name(rank).set_outside(type)
          end
          if declaration_type = Void then
-            declaration_type := lvl.type_mark(rank).declaration_type.type
-         else
-            check
-               declaration_type = lvl.type_mark(rank).declaration_type.type
-            end
+            declaration_type := fal.type_mark(rank).declaration_type.type
          end
-         if local_var_list = lvl then
+         if formal_arg_list = fal then
             Result := Current
          else
             Result := twin
-            Result.set_local_var_list(lvl)
+            Result.set_formal_arg_list(fal)
          end
       end
 
    specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
       local
-         lvl: like local_var_list
+         fal: like formal_arg_list
       do
          if closure_rank = 0 then
-            lvl := smart_eiffel.specializing_feature_local_var_list
+            fal := feature_accumulator.current_mixer.formal_arg_list
          else
-            lvl := smart_eiffel.specializing_closure_local_var_lists.item(closure_rank - 1)
-            check lvl.name(rank).is_outside end
+            fal := feature_accumulator.current_mixer.closure_formal_arg_list(closure_rank)
+            check fal.name(rank).is_outside(parent_type) end
+            fal.name(rank).set_outside(new_type)
          end
-         if local_var_list = lvl then
+         if formal_arg_list = fal then
             Result := Current
          else
             Result := twin
-            Result.set_local_var_list(lvl)
+            Result.set_formal_arg_list(fal)
          end
       end
 
    specialize_and_check (type: TYPE): like Current is
       local
-         lvl: like local_var_list
+         fal: like formal_arg_list
       do
          if closure_rank = 0 then
-            lvl := smart_eiffel.specializing_feature_local_var_list
+            fal := smart_eiffel.specializing_feature_arguments_list
          else
-            lvl := smart_eiffel.specializing_closure_local_var_lists.item(closure_rank - 1)
+            fal := smart_eiffel.specializing_closure_arguments_lists.item(closure_rank - 1 + smart_eiffel.specializing_closure_arguments_lists.lower)
+            check fal.name(rank).is_outside(type) end
          end
-         if lvl.name(rank).is_outside then
-            --| **** TODO: emit a warning in some cases?? (e.g. no GC)
+         if fal.name(rank).is_outside(type) then
             Result := as_outside
          else
             Result := Current
@@ -107,44 +100,61 @@ feature {ANY}
 
    collect (type: TYPE): TYPE is
       do
-         Result := local_var_list.name(rank).collect(type)
+         Result := formal_arg_list.name(rank).collect(type)
       end
 
    adapt_for (type: TYPE): like Current is
       local
-         af: ANONYMOUS_FEATURE; er: E_ROUTINE; lvl: LOCAL_VAR_LIST
+         af: ANONYMOUS_FEATURE; fal: FORMAL_ARG_LIST
       do
-         local_var_list.name(rank).live_reference_counter_increment
          af := smart_eiffel.context_feature
-         er ::= af
          if closure_rank = 0 then
-            lvl := er.local_vars
+            fal := af.arguments
          else
-            lvl := er.closure_local_vars.item(closure_rank - 1)
+            fal := af.closure_arguments.item(closure_rank - 1 + af.closure_arguments.lower)
+            check
+               fal.name(rank).is_outside(type)
+               is_outside
+            end
          end
-         if local_var_list = lvl then
+         check
+            formal_arg_list.start_position = fal.start_position
+         end
+         if formal_arg_list = fal then
             Result := Current
          else
-            lvl.name(rank).live_reference_counter_increment
             Result := twin
-            Result.set_local_var_list(lvl)
+            Result.set_formal_arg_list(fal)
          end
       end
 
-   accept (visitor: LOCAL_NAME2_VISITOR) is
+   accept (visitor: ARGUMENT_NAME_REF_VISITOR) is
       do
-         visitor.visit_local_name2(Current)
+         visitor.visit_argument_name2(Current)
       end
 
-feature {LOCAL_NAME2}
-   set_local_var_list (lvl: like local_var_list) is
+feature {ARGUMENT_NAME_REF}
+   set_formal_arg_list (fal: like formal_arg_list) is
       require
-         lvl /= Void
+         fal /= Void
       do
-         local_var_list := lvl
+         formal_arg_list := fal
       ensure
-         local_var_list = lvl
+         formal_arg_list = fal
       end
+
+feature {INTROSPECTION_HANDLER}
+   set_declaration_type (declaration_type_: like declaration_type) is
+      require
+         declaration_type_ /= Void
+      do
+         declaration_type := declaration_type_
+      ensure
+         declaration_type = declaration_type_
+      end
+
+feature {LIKE_ARGUMENT_TYPE_MARK} --|*** PH: should be {}
+   formal_arg_list: FORMAL_ARG_LIST
 
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
@@ -154,30 +164,25 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   local_var_list: LOCAL_VAR_LIST
-
-   refer_to (sp: POSITION; lvl: LOCAL_VAR_LIST; r: like rank; cr: like closure_rank) is
-         -- Using name `r' of `lvl' at place `sp'.
+   refer_to (sp: POSITION; fal: FORMAL_ARG_LIST; r: like rank; cr: like closure_rank) is
       require
          not sp.is_unknown
-         r.in_range(1, lvl.count)
+         r.in_range(1, fal.count)
       do
          start_position := sp
-         local_var_list := lvl
+         formal_arg_list := fal
          rank := r
          closure_rank := cr
-         written_declaration_type_mark := lvl.type_mark(r)
-         lvl.name(r).parsing_reference_counter_increment
       ensure
          start_position = sp
-         local_var_list = lvl
          rank = r
+         closure_rank = cr
       end
 
 invariant
-   local_var_list /= Void
+   formal_arg_list /= Void
 
-end -- class LOCAL_NAME2
+end -- class ARGUMENT_NAME_REF
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

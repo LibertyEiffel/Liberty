@@ -244,7 +244,7 @@ feature {ANONYMOUS_FEATURE}
          character_constant: CHARACTER_CONSTANT; default_character: CHARACTER
       do
          Result := False
-         if left_side.is_result or else ({LOCAL_NAME2} ?:= left_side) then
+         if left_side.is_result or else ({LOCAL_NAME_REF} ?:= left_side) then
             if right_side.is_void then
                Result := True
             else

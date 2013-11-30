@@ -1,9 +1,9 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class LOCAL_ARGUMENT2
+deferred class LOCAL_ARGUMENT_REF
    --
-   -- Common behavior for LOCAL_NAME2 and ARGUMENT_NAME2
+   -- Common behavior for LOCAL_NAME_REF and ARGUMENT_NAME_REF
    --
 
 inherit
@@ -50,7 +50,7 @@ feature {ANY}
          is_outside implies Result = Current
       end
 
-feature {LOCAL_ARGUMENT2}
+feature {LOCAL_ARGUMENT_REF}
    set_outside is
       do
          is_outside := True
@@ -61,7 +61,7 @@ feature {LOCAL_ARGUMENT2}
 invariant
    not start_position.is_unknown
 
-end -- class LOCAL_ARGUMENT2
+end -- class LOCAL_ARGUMENT_REF
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

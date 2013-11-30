@@ -13,7 +13,7 @@ create {EIFFEL_PARSER, INTROSPECTION_HANDLER}
    make
 
 feature {ANY}
-   name (i: INTEGER): LOCAL_NAME1 is
+   name (i: INTEGER): LOCAL_NAME_DEF is
       do
          Result := flat_list.item(i)
       end
@@ -147,9 +147,9 @@ feature {ANY}
       end
 
 feature {DECLARATION}
-   add_last (n: LOCAL_ARGUMENT1) is
+   add_last (n: LOCAL_ARGUMENT_DEF) is
       require
-         {LOCAL_NAME1} ?:= n
+         {LOCAL_NAME_DEF} ?:= n
       local
          i: INTEGER; n1, n2: like name
       do

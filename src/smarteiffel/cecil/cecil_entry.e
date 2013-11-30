@@ -71,7 +71,7 @@ feature {ANY}
             code := code.adapt_for(type)
          end
          Result := Current
-      ensure
+      ensure then
          Result = Current
       end
 

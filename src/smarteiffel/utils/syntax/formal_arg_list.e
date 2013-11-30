@@ -13,7 +13,7 @@ create {ANY}
    make
 
 feature {ANY}
-   name (i: INTEGER): ARGUMENT_NAME1 is
+   name (i: INTEGER): ARGUMENT_NAME_DEF is
       do
          Result := flat_list.item(i)
       end
@@ -165,9 +165,9 @@ feature {ANY}
       end
 
 feature {DECLARATION}
-   add_last (n: LOCAL_ARGUMENT1) is
+   add_last (n: LOCAL_ARGUMENT_DEF) is
       require
-         {ARGUMENT_NAME1} ?:= n
+         {ARGUMENT_NAME_DEF} ?:= n
       local
          i: INTEGER; n1, n2: like name
       do
@@ -197,7 +197,7 @@ feature {}
          l.lower = 1
          not l.is_empty
       local
-         an: like name; tlf: LIKE_FEATURE_TYPE_MARK; an2: ARGUMENT_NAME2; tla, tla2: LIKE_ARGUMENT_TYPE_MARK
+         an: like name; tlf: LIKE_FEATURE_TYPE_MARK; an2: ARGUMENT_NAME_REF; tla, tla2: LIKE_ARGUMENT_TYPE_MARK
          i, rank, il, actual_count: INTEGER
       do
          list := l
@@ -230,7 +230,7 @@ feature {}
                   error_handler.append(fz_cad)
                   error_handler.print_as_fatal_error
                elseif rank > 0 then
-                  create an2.refer_to(tlf.like_what.start_position, Current, rank)
+                  create an2.refer_to(tlf.like_what.start_position, Current, rank, 0)
                   create tla.make(tlf.start_position, an2)
                   an.set_result_type(tla)
                end

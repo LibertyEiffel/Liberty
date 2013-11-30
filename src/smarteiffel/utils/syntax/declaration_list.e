@@ -67,7 +67,7 @@ feature {ANY}
          Result.in_range(0, count)
       end
 
-   name (i: INTEGER): LOCAL_ARGUMENT1 is
+   name (i: INTEGER): LOCAL_ARGUMENT_DEF is
       require
          i.in_range(1, count)
       deferred

@@ -19,6 +19,15 @@ feature {ANY}
    written_link: PROCEDURE_CALL_1
          -- To the syntactical written one which is at the origin of the creation of `Current'.
 
+   anonymous_feature (type: TYPE): ANONYMOUS_FEATURE is
+      local
+         target_type: TYPE; fs: FEATURE_STAMP
+      do
+         target_type := target.resolve_in(type)
+         fs := target_type.lookup(feature_name)
+         Result := fs.anonymous_feature(target_type)
+      end
+
    end_mark_comment: BOOLEAN is False
 
    start_position: POSITION is
@@ -81,7 +90,7 @@ feature {ANY}
          if t.is_void then
             -- As the target is Void, no need to consider arguments anymore.
             target_type := target.resolve_in(type)
-            fs := target_type.lookup(create {FEATURE_NAME}.simple_feature_name(as_call, start_position))
+            fs := target_type.lookup(feature_name)
             create {VOID_PROC_CALL} Result.make(start_position, fs, target_type)
          else
             ft := fake_tuple.simplify(type)
@@ -159,6 +168,17 @@ feature {}
             Result.init(t, args)
          end
       end
+
+   feature_name: FEATURE_NAME is
+      do
+         Result := feature_name_memory
+         if Result = Void then
+            create Result.simple_feature_name(as_call, start_position)
+            feature_name_memory := Result
+         end
+      end
+
+   feature_name_memory: FEATURE_NAME
 
 invariant
    written_link /= Void

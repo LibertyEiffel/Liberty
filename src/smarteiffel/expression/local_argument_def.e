@@ -1,9 +1,9 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class LOCAL_ARGUMENT1
+deferred class LOCAL_ARGUMENT_DEF
    --
-   -- Common behavior for LOCAL_NAME1 and ARGUMENT_NAME1
+   -- Common behavior for LOCAL_NAME_DEF and ARGUMENT_NAME_DEF
    --
 
 inherit
@@ -22,8 +22,11 @@ feature {ANY}
    rank: INTEGER
          -- The `rank' in the corresponding declaration list.
 
-   is_outside: BOOLEAN
+   is_outside (type: TYPE): BOOLEAN is
          -- True if the local or argument is reached from inside a closure.
+      do
+         Result := outside_set /= Void and then outside_set.fast_has(type)
+      end
 
    declaration_type: TYPE is
       do
@@ -56,7 +59,7 @@ feature {DECLARATION_LIST}
          rank = r
       end
 
-feature {LOCAL_ARGUMENT1, DECLARATION_LIST, DECLARATION}
+feature {LOCAL_ARGUMENT_DEF, DECLARATION_LIST, DECLARATION}
    set_result_type (rt: like result_type) is
       require
          rt /= Void
@@ -104,15 +107,20 @@ feature {ANY}
       deferred
       end
 
-feature {LOCAL_ARGUMENT2}
-   set_outside is
+feature {LOCAL_ARGUMENT_REF}
+   set_outside (type: TYPE) is
       do
-         is_outside := True
+         if outside_set = Void then
+            create outside_set.make
+         end
+         outside_set.fast_add(type)
       ensure
-         is_outside
+         is_outside(type)
       end
 
 feature {}
+   outside_set: HASHED_SET[TYPE]
+
    name_clash_check_ (type: TYPE; msg: STRING) is
       require
          type /= Void
@@ -129,7 +137,7 @@ feature {}
          end
       end
 
-end -- class LOCAL_ARGUMENT1
+end -- class LOCAL_ARGUMENT_DEF
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

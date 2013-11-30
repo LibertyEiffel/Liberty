@@ -641,14 +641,14 @@ feature {EXPRESSION_WITH_COMMENT}
          trace_result := False
       end
 
-feature {ARGUMENT_NAME2}
-   visit_argument_name2 (visited: ARGUMENT_NAME2) is
+feature {ARGUMENT_NAME_REF}
+   visit_argument_name2 (visited: ARGUMENT_NAME_REF) is
       do
          trace.append(visited.to_string)
       end
 
-feature {LOCAL_NAME2}
-   visit_local_name2 (visited: LOCAL_NAME2) is
+feature {LOCAL_NAME_REF}
+   visit_local_name2 (visited: LOCAL_NAME_REF) is
       do
          trace.append(visited.to_string)
       end

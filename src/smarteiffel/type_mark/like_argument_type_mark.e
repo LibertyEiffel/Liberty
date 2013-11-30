@@ -15,7 +15,7 @@ create {EIFFEL_PARSER, FORMAL_ARG_LIST}
    make
 
 feature {ANY}
-   like_what: ARGUMENT_NAME2
+   like_what: ARGUMENT_NAME_REF
          -- The one written.
 
    written_name: HASHED_STRING

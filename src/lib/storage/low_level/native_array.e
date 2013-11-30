@@ -32,6 +32,7 @@ feature {ANY} -- Basic features:
          nb_elements > 0
       external "built_in"
       ensure
+         Result.is_not_null
          Result.all_default(nb_elements - 1)
       end
 

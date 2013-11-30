@@ -1,19 +1,13 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class LOCAL_NAME1_VISITOR
+deferred class LOCAL_ARGUMENT_DEF_VISITOR
 
 inherit
-   VISITOR
+   ARGUMENT_NAME_DEF_VISITOR
+   LOCAL_NAME_DEF_VISITOR
 
-feature {LOCAL_NAME1}
-   visit_local_name1 (visited: LOCAL_NAME1) is
-      require
-         visited /= Void
-      deferred
-      end
-
-end -- class LOCAL_NAME1_VISITOR
+end -- class LOCAL_ARGUMENT_DEF_VISITOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

@@ -56,11 +56,18 @@ feature {ANY}
 
    specialize_and_check (type: TYPE): like Current is
       local
+         fa_memory: like arguments; cfa_memory: like closure_arguments
          ra: like require_assertion; ea: like ensure_assertion
       do
          if ace.boost then
             Result := Current
          else
+            fa_memory := smart_eiffel.specializing_feature_arguments_list
+            cfa_memory := smart_eiffel.specializing_closure_arguments_lists
+            check
+               closure_arguments = Void
+            end
+            smart_eiffel.set_specializing_feature_arguments(arguments, Void)
             if require_assertion /= Void then
                ra ::= require_assertion.specialize_and_check(type)
             end
@@ -74,6 +81,7 @@ feature {ANY}
                Result.set_require_assertion(ra)
                Result.set_ensure_assertion(ea)
             end
+            smart_eiffel.set_specializing_feature_arguments(fa_memory, cfa_memory)
          end
       end
 

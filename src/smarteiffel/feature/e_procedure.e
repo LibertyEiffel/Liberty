@@ -78,7 +78,7 @@ feature {PROCEDURE_CALL_1}
       local
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN; compound: COMPOUND
          proc_call: PROCEDURE_CALL; assignment: ASSIGNMENT; writable_attribute_name: WRITABLE_ATTRIBUTE_NAME
-         argument_name2: ARGUMENT_NAME2; left_side: FUNCTION_CALL_0; call_0_c: FUNCTION_CALL_0; call: FUNCTION_CALL
+         argument_name2: ARGUMENT_NAME_REF; left_side: FUNCTION_CALL_0; call_0_c: FUNCTION_CALL_0; call: FUNCTION_CALL
          inline_assignment_procedure: BOOLEAN; fs: FEATURE_STAMP; writable_attribute: WRITABLE_ATTRIBUTE
       do
          direct_non_void_call_flag := target_type.direct_non_void_call_flag
@@ -274,7 +274,7 @@ feature {}
       require
          body /= Void
       local
-         proc_call_1: PROCEDURE_CALL_1; proc_call_n: PROCEDURE_CALL_N; call_0: CALL_0; argument_name2: ARGUMENT_NAME2
+         proc_call_1: PROCEDURE_CALL_1; proc_call_n: PROCEDURE_CALL_N; call_0: CALL_0; argument_name2: ARGUMENT_NAME_REF
       do
          call_0 := left_most_current_direct_call_0_sequence(target_type, body.target)
          if call_0 = Void and then body.target.is_current then
@@ -323,7 +323,7 @@ feature {}
       require
          proc_call /= Void
       local
-         proc_call_n: PROCEDURE_CALL_N; call_0: CALL_0; argument_name2: ARGUMENT_NAME2
+         proc_call_n: PROCEDURE_CALL_N; call_0: CALL_0; argument_name2: ARGUMENT_NAME_REF
       do
          call_0 := left_most_current_direct_call_0_sequence(target_type, proc_call.target)
          if call_0 /= Void then
