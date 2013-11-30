@@ -46,7 +46,7 @@ feature {}
          log.info.put_line(once "Server #(1) starting..." # port.out)
          create stack.make
          stack.add_job(waitpid_job)
-         create socket.make(port, agent stack.add_job, agent stack.break)
+         create socket.make(port, agent stack.add_job(?), agent stack.break)
          stack.add_job(socket)
          log.info.put_line(once "Server #(1) started." # port.out)
          stack.run
