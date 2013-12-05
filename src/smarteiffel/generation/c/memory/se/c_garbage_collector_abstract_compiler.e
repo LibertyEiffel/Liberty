@@ -25,6 +25,32 @@ feature {}
          Result ::= cpp.memory
       end
 
+   ltid_in (lt: LIVE_TYPE; buffer: STRING; declare_type, for_closure: BOOLEAN) is
+      require
+         lt /= Void
+         buffer /= Void
+         for_closure implies lt.type.has_local_closure
+      do
+         if declare_type then
+            buffer.extend('T')
+         end
+         if for_closure and not declare_type then
+            buffer.append(once "CL")
+         end
+         lt.id.append_in(buffer)
+         if declare_type then
+            if for_closure then
+               buffer.extend('*')
+            end
+            if lt.is_reference then
+               buffer.extend('*')
+            end
+            if buffer.last /= '*' then
+               buffer.extend(' ')
+            end
+         end
+      end
+
 feature {GC_HANDLER}
    compile (type_mark: TYPE_MARK) is
       require

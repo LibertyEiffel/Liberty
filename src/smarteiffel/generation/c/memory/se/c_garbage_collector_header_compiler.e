@@ -40,44 +40,32 @@ feature {NATIVE_ARRAY_TYPE_MARK}
       end
 
 feature {}
-   gc_reference_ (visited: TYPE_MARK; ltid: INTEGER; for_closure: BOOLEAN) is
+   gc_reference_ (visited: TYPE_MARK; for_closure: BOOLEAN) is
+      local
+         lt: LIVE_TYPE
       do
+         lt := visited.type.live_type
          -- --------------- Define struct BXXX and typedef gcXXX :
          out_h.copy(once "typedef struct B")
-         if for_closure then
-            out_h.append(once "CL")
-         end
-         ltid.append_in(out_h)
+         ltid_in(lt, out_h, False, for_closure)
          out_h.append(once " gc")
-         if for_closure then
-            out_h.append(once "CL")
-         end
-         ltid.append_in(out_h)
+         ltid_in(lt, out_h, False, for_closure)
          out_h.append(once ";%Nstruct B")
-         if for_closure then
-            out_h.append(once "CL")
-         end
-         ltid.append_in(out_h)
+         ltid_in(lt, out_h, False, for_closure)
          out_h.append(once "{T")
-         ltid.append_in(out_h)
+         lt.id.append_in(out_h)
          if for_closure then
             out_h.extend('*')
          else
             out_h.extend(' ')
          end
          out_h.append(once "object;union {void*flag;gc")
-         if for_closure then
-            out_h.append(once "CL")
-         end
-         ltid.append_in(out_h)
+         ltid_in(lt, out_h, False, for_closure)
          out_h.append(once "*next;} header;};%N")
          cpp.write_out_h_buffer
          -- ----------------------------------- Declare storeXXX :
          out_h.copy(once "gc")
-         if for_closure then
-            out_h.append(once "CL")
-         end
-         ltid.append_in(out_h)
+         ltid_in(lt, out_h, False, for_closure)
          out_h.extend('*')
          memory.store_in(visited, out_h, for_closure)
          cpp.write_extern_2(out_h, once "(void*)0")
@@ -91,10 +79,7 @@ feature {}
          cpp.write_extern_2(out_h, once "(void*)0")
          -- --------------------------------- Declare gc_freeXXX :
          out_h.copy(once "gc")
-         if for_closure then
-            out_h.append(once "CL")
-         end
-         ltid.append_in(out_h)
+         ltid_in(lt, out_h, False, for_closure)
          out_h.extend('*')
          memory.free_in(visited, out_h, for_closure)
          cpp.write_extern_2(out_h, once "(void*)0")
@@ -107,13 +92,10 @@ feature {}
       end
 
    gc_reference (visited: TYPE_MARK) is
-      local
-         ltid: INTEGER
       do
-         ltid := visited.type.live_type.id
-         gc_reference_(visited, ltid, False)
+         gc_reference_(visited, False)
          if visited.type.has_local_closure then
-            gc_reference_(visited, ltid, True)
+            gc_reference_(visited, True)
          end
       end
 
