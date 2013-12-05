@@ -28,61 +28,92 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          out_h.copy(once "na_env ")
          memory.na_env_in(visited, out_h)
          out_c.copy(once "{0,NULL,NULL,NULL,(void(*)(T0*))")
-         memory.mark_in(visited, out_c)
+         memory.mark_in(visited, out_c, False)
          out_c.extend('}')
          cpp.write_extern_2(out_h, out_c)
          -- -------------------------------- Declare gc_info_nbXXX :
          if memory.info_flag then
             out_h.copy(once "int ")
-            memory.info_nb_in(visited, out_h)
+            memory.info_nb_in(visited, out_h, False)
             cpp.write_extern_0(out_h)
          end
       end
 
 feature {}
-   gc_reference (visited: TYPE_MARK) is
-      local
-         ltid: INTEGER
+   gc_reference_ (visited: TYPE_MARK; ltid: INTEGER; for_closure: BOOLEAN) is
       do
-         ltid := visited.type.live_type.id
          -- --------------- Define struct BXXX and typedef gcXXX :
          out_h.copy(once "typedef struct B")
+         if for_closure then
+            out_h.append(once "CL")
+         end
          ltid.append_in(out_h)
          out_h.append(once " gc")
+         if for_closure then
+            out_h.append(once "CL")
+         end
          ltid.append_in(out_h)
          out_h.append(once ";%Nstruct B")
+         if for_closure then
+            out_h.append(once "CL")
+         end
          ltid.append_in(out_h)
          out_h.append(once "{T")
          ltid.append_in(out_h)
-         out_h.append(once " object;union {void*flag;gc")
+         if for_closure then
+            out_h.extend('*')
+         else
+            out_h.extend(' ')
+         end
+         out_h.append(once "object;union {void*flag;gc")
+         if for_closure then
+            out_h.append(once "CL")
+         end
          ltid.append_in(out_h)
          out_h.append(once "*next;} header;};%N")
          cpp.write_out_h_buffer
          -- ----------------------------------- Declare storeXXX :
          out_h.copy(once "gc")
+         if for_closure then
+            out_h.append(once "CL")
+         end
          ltid.append_in(out_h)
          out_h.extend('*')
-         memory.store_in(visited, out_h)
+         memory.store_in(visited, out_h, for_closure)
          cpp.write_extern_2(out_h, once "(void*)0")
          -- ------------------------------ Declare store_leftXXX :
          out_h.copy(once "int ")
-         memory.store_left_in(visited, out_h)
+         memory.store_left_in(visited, out_h, for_closure)
          cpp.write_extern_0(out_h)
          -- ----------------------------------- Declare store_chunkXXX :
          out_h.copy(once "fsoc*")
-         memory.store_chunk_in(visited, out_h)
+         memory.store_chunk_in(visited, out_h, for_closure)
          cpp.write_extern_2(out_h, once "(void*)0")
          -- --------------------------------- Declare gc_freeXXX :
          out_h.copy(once "gc")
+         if for_closure then
+            out_h.append(once "CL")
+         end
          ltid.append_in(out_h)
          out_h.extend('*')
-         memory.free_in(visited, out_h)
+         memory.free_in(visited, out_h, for_closure)
          cpp.write_extern_2(out_h, once "(void*)0")
          -- -------------------------------- Declare gc_info_nbXXX :
          if memory.info_flag then
             out_h.copy(once "int ")
-            memory.info_nb_in(visited, out_h)
+            memory.info_nb_in(visited, out_h, for_closure)
             cpp.write_extern_0(out_h)
+         end
+      end
+
+   gc_reference (visited: TYPE_MARK) is
+      local
+         ltid: INTEGER
+      do
+         ltid := visited.type.live_type.id
+         gc_reference_(visited, ltid, False)
+         if visited.type.has_local_closure then
+            gc_reference_(visited, ltid, True)
          end
       end
 

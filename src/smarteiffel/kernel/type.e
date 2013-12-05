@@ -507,6 +507,9 @@ feature {ANY}
 
    hash_code: INTEGER
 
+   has_local_closure: BOOLEAN
+         -- True if some object of this type may be stored in an outside local variable (i.e. visible to some closure)
+
    add_parent (node: like Current) is
       local
          et: like external_type
@@ -689,6 +692,13 @@ feature {ANY}
       end
 
 feature {C_PRETTY_PRINTER, LOCAL_ARGUMENT_DEF}
+   set_local_closure is
+      do
+         has_local_closure := True
+      ensure
+         has_local_closure
+      end
+
    name_from_string (s: STRING): FEATURE_NAME is
       require
          string_aliaser.registered_one(s)

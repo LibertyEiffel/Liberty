@@ -23,13 +23,14 @@ feature {AGENT_TYPE_MARK}
 feature {NATIVE_ARRAY_TYPE_MARK}
    visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
       local
-         ltid: INTEGER
+         lt: LIVE_TYPE; ltid: INTEGER
       do
-         ltid := visited.type.live_type.id
+         lt := visited.type.live_type
+         ltid := lt.id
          -- ----------------------------- Definiton for gc_markXXX :
          cpp.prepare_c_function
          function_signature.append(once "void ")
-         memory.mark_in(visited, function_signature)
+         memory.mark_in(visited, function_signature, False)
          function_signature.append(once "(T")
          ltid.append_in(function_signature)
          function_signature.append(once " o)")
@@ -46,7 +47,7 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          function_body.append(cpp.result_type.for(visited.generic_list.first))
          function_body.append(once "))+sizeof(rsoh);%Nsize=((size+(sizeof(double)-1))&~(sizeof(double)-1));%N")
          if memory.info_flag then
-            memory.info_nb_in(visited, function_body)
+            memory.info_nb_in(visited, function_body, False)
             function_body.append(once "++;%N")
             memory.na_env_in(visited, function_body)
             function_body.append(once ".space_used+=size;%N")
@@ -83,6 +84,14 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          memory.na_env_in(visited, function_body)
          function_body.append(once ",size));%N")
          cpp.dump_pending_c_function(True)
+
+         if lt.type.has_local_closure then
+            gc_reference_sweep(visited, lt, ltid, False, True)
+            gc_reference_mark(visited, lt, ltid, True)
+            gc_reference_align_mark(visited, lt, ltid, True)
+            gc_reference_fsoc_model(visited, lt, ltid, True)
+            gc_reference_new(visited, lt, ltid, True)
+         end
       end
 
 feature {WEAK_REFERENCE_TYPE_MARK}
@@ -92,7 +101,7 @@ feature {WEAK_REFERENCE_TYPE_MARK}
       end
 
 feature {}
-   gc_reference_sweep (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER; is_weak_ref: BOOLEAN) is
+   gc_reference_sweep (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER; is_weak_ref, for_closure: BOOLEAN) is
       require
          lt = visited.type.live_type
          ltid = lt.id
@@ -102,16 +111,25 @@ feature {}
       do
          cpp.prepare_c_function
          function_signature.append(once "void gc_sweep")
+         if for_closure then
+            function_signature.append(once "CL")
+         end
          ltid.append_in(function_signature)
          function_signature.append(once "(fsoc*c)")
          function_body.append(once "gc")
+         if for_closure then
+            function_body.append(once "CL")
+         end
          ltid.append_in(function_body)
          function_body.append(once "*o1,*o2;%No1=((gc")
+         if for_closure then
+            function_body.append(once "CL")
+         end
          ltid.append_in(function_body)
          function_body.append(once "*)(&(c->first_object)));%N%
                                    %if(c->header.state_type==FSO_STORE_CHUNK){%N%
                                    %for(;o1<")
-         memory.store_in(visited, function_body)
+         memory.store_in(visited, function_body, for_closure)
          function_body.append(once ";o1++){%N%
                                    %if((o1->header.flag)==FSOH_MARKED){%N%
                                    %o1->header.flag=FSOH_UNMARKED;%N")
@@ -124,7 +142,14 @@ feature {}
                visited.generic_list.count = 1
             end
             is_monomorphic_weak_ref := wr_gen_arg_lt.run_time_set.count = 1
+            check
+               is_monomorphic_weak_ref implies not for_closure
+            end
             if is_monomorphic_weak_ref then
+               if for_closure then
+                  error_handler.append("Unexpected closure on weak_ref?!")
+                  error_handler.print_as_internal_error
+               end
                function_body.append(once "gc_update_weak_ref_item")
                ltid.append_in(function_body)
                function_body.append(once "(&(o1->object));%N")
@@ -135,16 +160,28 @@ feature {}
          function_body.append(once "}%Nelse{%N")
          memory.memory_dispose(once "o1", lt)
          function_body.append(once "o1->header.next=gc_free")
+         if for_closure then
+            function_body.append(once "CL")
+         end
          ltid.append_in(function_body)
          function_body.append(once ";%Ngc_free")
+         if for_closure then
+            function_body.append(once "CL")
+         end
          ltid.append_in(function_body)
          function_body.append(once "=o1;%N%
                                    %}%N}%N}%N%
                                    %else{%N%
                                    %int dead=1;%N%
                                    %gc")
+         if for_closure then
+            function_body.append(once "CL")
+         end
          ltid.append_in(function_body)
-         function_body.append(once "* old_gc_free = gc_free")
+         function_body.append(once "*old_gc_free=gc_free")
+         if for_closure then
+            function_body.append(once "CL")
+         end
          ltid.append_in(function_body)
          function_body.append(once ";%N%
                                    %o2=o1+c->count_minus_one;%N%
@@ -163,15 +200,24 @@ feature {}
          function_body.append(once "dead=0;}%Nelse{%N")
          memory.memory_dispose(once "o1", lt)
          function_body.append(once "o1->header.next=gc_free")
+         if for_closure then
+            function_body.append(once "CL")
+         end
          ltid.append_in(function_body)
          function_body.append(once ";%Ngc_free")
+         if for_closure then
+            function_body.append(once "CL")
+         end
          ltid.append_in(function_body)
          function_body.append(once "=o1;%N%
                                    %}%N}%N%
                                    %if (dead){%N%
                                    %gc_free")
+         if for_closure then
+            function_body.append(once "CL")
+         end
          ltid.append_in(function_body)
-         function_body.append(once " = old_gc_free;%N%
+         function_body.append(once "=old_gc_free;%N%
                                    %c->next=fsocfl;%N%
                                    %fsocfl=c;%N%
                                    %c->header.state_type=FSO_FREE_CHUNK;%N}%N%
@@ -219,7 +265,7 @@ feature {}
          end
       end
 
-   gc_reference_mark (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER) is
+   gc_reference_mark (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER; for_closure: BOOLEAN) is
       require
          lt = visited.type.live_type
          ltid = lt.id
@@ -228,56 +274,75 @@ feature {}
       do
          cpp.prepare_c_function
          function_signature.append(once "void ")
-         memory.mark_in(visited, function_signature)
+         memory.mark_in(visited, function_signature, for_closure)
          function_signature.append(once "(T")
          ltid.append_in(function_signature)
-         function_signature.append(once "*o)")
-         gc_check_id := lt.is_tagged and then ace.no_check
-         if gc_check_id then
-            function_body.append(once "se_gc_check_id(o,")
-            ltid.append_in(function_body)
-            function_body.append(once ");%N{%N")
+         if for_closure then
+            function_signature.extend('*')
          end
-         gc_mark_fixed_size(lt, False)
+         function_signature.append(once "*o)")
+         if for_closure then
+            gc_set_fsoh_marked(lt, for_closure)
+            function_body.append(once "gc_mark")
+            ltid.append_in(function_body)
+            function_body.append(once "(*o);%N")
+         else
+            gc_check_id := lt.is_tagged and then ace.no_check
+            if gc_check_id then
+               function_body.append(once "se_gc_check_id(o,")
+               ltid.append_in(function_body)
+               function_body.append(once ");%N{%N")
+            end
+            gc_mark_fixed_size(lt, False)
+         end
          if gc_check_id then
             function_body.append(once "}%N")
          end
          cpp.dump_pending_c_function(True)
       end
 
-   gc_reference_align_mark (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER) is
+   gc_reference_align_mark (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER; for_closure: BOOLEAN) is
       require
          lt = visited.type.live_type
          ltid = lt.id
       do
          cpp.prepare_c_function
          function_signature.append(once "void ")
-         memory.align_mark_in(visited, function_signature)
+         memory.align_mark_in(visited, function_signature, for_closure)
          function_signature.append(once "(fsoc*c,gc")
+         if for_closure then
+            function_signature.append(once "CL")
+         end
          ltid.append_in(function_signature)
          function_signature.append(once "*p)")
-         gc_align_mark_fixed_size(lt)
+         gc_align_mark_fixed_size(lt, for_closure)
          cpp.dump_pending_c_function(True)
       end
 
-   gc_reference_fsoc_model (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER) is
+   gc_reference_fsoc_model (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER; for_closure: BOOLEAN) is
       require
          lt = visited.type.live_type
          ltid = lt.id
       do
          cpp.out_h_buffer.copy(once "fsoc H")
+         if for_closure then
+            cpp.out_h_buffer.append(once "CL")
+         end
          ltid.append_in(cpp.out_h_buffer)
-         cpp.out_c_buffer.copy(once "{{FSOC_SIZE,FSO_STORE_CHUNK,%N(void(*)(mch*,void*))gc_align_mark")
-         ltid.append_in(cpp.out_c_buffer)
-         cpp.out_c_buffer.append(once ",%N(void(*)(mch*))gc_sweep")
-         ltid.append_in(cpp.out_c_buffer)
+         cpp.out_c_buffer.copy(once "{{FSOC_SIZE,FSO_STORE_CHUNK,%N(void(*)(mch*,void*))")
+         memory.align_mark_in(visited, cpp.out_c_buffer, for_closure)
+         cpp.out_c_buffer.append(once ",%N(void(*)(mch*))")
+         memory.sweep_in(visited, cpp.out_c_buffer, for_closure)
          cpp.out_c_buffer.append(once "},NULL,(((FSOC_SIZE-sizeof(fsoc)+sizeof(double))/sizeof(gc")
+         if for_closure then
+            cpp.out_c_buffer.append(once "CL")
+         end
          ltid.append_in(cpp.out_c_buffer)
          cpp.out_c_buffer.append(once "))-1)}")
          cpp.write_extern_2(cpp.out_h_buffer, cpp.out_c_buffer)
       end
 
-   gc_reference_new (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER) is
+   gc_reference_new (visited: TYPE_MARK; lt: LIVE_TYPE; ltid: INTEGER; for_closure: BOOLEAN) is
       require
          lt = visited.type.live_type
          ltid = lt.id
@@ -285,74 +350,99 @@ feature {}
          cpp.prepare_c_function
          function_signature.extend('T')
          ltid.append_in(function_signature)
+         if for_closure then
+            function_signature.extend('*')
+         end
          function_signature.append(once "*new")
+         if for_closure then
+            function_signature.append(once "CL")
+         end
          ltid.append_in(function_signature)
          function_signature.append(once "(void)")
          function_body.append(once "gc")
+         if for_closure then
+            function_body.append(once "CL")
+         end
          ltid.append_in(function_body)
          function_body.append(once "*n;%Nfsoc*c;%N")
          if memory.info_flag then
-            memory.info_nb_in(visited, function_body)
+            memory.info_nb_in(visited, function_body, for_closure)
             function_body.append(once "++;%N")
          end
          --
          function_body.append(once "if(")
-         memory.store_left_in(visited, function_body)
+         memory.store_left_in(visited, function_body, for_closure)
          function_body.append(once ">1){%N")
-         memory.store_left_in(visited, function_body)
+         memory.store_left_in(visited, function_body, for_closure)
          function_body.append(once "--;%Nn=")
-         memory.store_in(visited, function_body)
+         memory.store_in(visited, function_body, for_closure)
          function_body.append(once "++;%N}%Nelse if(")
-         memory.free_in(visited, function_body)
+         memory.free_in(visited, function_body, for_closure)
          function_body.append(once "!=NULL){%Nn=")
-         memory.free_in(visited, function_body)
+         memory.free_in(visited, function_body, for_closure)
          function_body.append(once ";%N")
-         memory.free_in(visited, function_body)
+         memory.free_in(visited, function_body, for_closure)
          function_body.append(once "=n->header.next;%N}%Nelse if(")
-         memory.store_left_in(visited, function_body)
+         memory.store_left_in(visited, function_body, for_closure)
          function_body.append(once "==1){%N")
-         memory.store_left_in(visited, function_body)
+         memory.store_left_in(visited, function_body, for_closure)
          function_body.append(once "=0;%N")
-         memory.store_chunk_in(visited, function_body)
+         memory.store_chunk_in(visited, function_body, for_closure)
          function_body.append(once "->header.state_type=FSO_USED_CHUNK;%N%
                                    %n=")
-         memory.store_in(visited, function_body)
+         memory.store_in(visited, function_body, for_closure)
          function_body.append(once "++;%N}%N%
                                    %else{%Nc=gc_fsoc_get1();%N%
                                    %if(")
-         memory.free_in(visited, function_body)
+         memory.free_in(visited, function_body, for_closure)
          function_body.append(once "!=NULL){%Nn=")
-         memory.free_in(visited, function_body)
+         memory.free_in(visited, function_body, for_closure)
          function_body.append(once ";%N")
-         memory.free_in(visited, function_body)
+         memory.free_in(visited, function_body, for_closure)
          function_body.append(once "=n->header.next;%N}%Nelse{%N%
                                    %if(c==NULL)c=gc_fsoc_get2();%N")
-         memory.store_chunk_in(visited, function_body)
+         memory.store_chunk_in(visited, function_body, for_closure)
          function_body.append(once "=c;%N*")
-         memory.store_chunk_in(visited, function_body)
+         memory.store_chunk_in(visited, function_body, for_closure)
          function_body.append(once "=H")
+         if for_closure then
+            function_body.append(once "CL")
+         end
          ltid.append_in(function_body)
          function_body.append(once ";%N")
-         memory.store_in(visited, function_body)
+         memory.store_in(visited, function_body, for_closure)
          function_body.append(once "=((gc")
+         if for_closure then
+            function_body.append(once "CL")
+         end
          ltid.append_in(function_body)
          function_body.append(once "*)(&(")
-         memory.store_chunk_in(visited, function_body)
+         memory.store_chunk_in(visited, function_body, for_closure)
          function_body.append(once "->first_object)));%N")
-         memory.store_left_in(visited, function_body)
+         memory.store_left_in(visited, function_body, for_closure)
          function_body.append(once "=H")
+         if for_closure then
+            function_body.append(once "CL")
+         end
          ltid.append_in(function_body)
          function_body.append(once ".count_minus_one;%Nn=")
-         memory.store_in(visited, function_body)
+         memory.store_in(visited, function_body, for_closure)
          function_body.append(once "++;%N}%N%
                                    %}%Nn->header.flag=FSOH_UNMARKED;%N")
-         if cpp.need_struct.for(visited) then
-            function_body.append(once "n->object=M")
-            ltid.append_in(function_body)
-            function_body.append(once ";%N")
+         if for_closure then
+            function_body.append(once "n->object=(void*)0;%N")
+         else
+            if cpp.need_struct.for(visited) then
+               function_body.append(once "n->object=M")
+               ltid.append_in(function_body)
+               function_body.append(once ";%N")
+            end
          end
          function_body.append(once "return((T")
          ltid.append_in(function_body)
+         if for_closure then
+            function_body.extend('*')
+         end
          function_body.append(once "*)n);%N")
          cpp.dump_pending_c_function(True)
       end
@@ -364,11 +454,18 @@ feature {}
          lt := visited.type.live_type
          ltid := lt.id
 
-         gc_reference_sweep(visited, lt, ltid, False)
-         gc_reference_mark(visited, lt, ltid)
-         gc_reference_align_mark(visited, lt, ltid)
-         gc_reference_fsoc_model(visited, lt, ltid)
-         gc_reference_new(visited, lt, ltid)
+         gc_reference_sweep(visited, lt, ltid, False, False)
+         gc_reference_mark(visited, lt, ltid, False)
+         gc_reference_align_mark(visited, lt, ltid, False)
+         gc_reference_fsoc_model(visited, lt, ltid, False)
+         gc_reference_new(visited, lt, ltid, False)
+         if lt.type.has_local_closure then
+            gc_reference_sweep(visited, lt, ltid, False, True)
+            gc_reference_mark(visited, lt, ltid, True)
+            gc_reference_align_mark(visited, lt, ltid, True)
+            gc_reference_fsoc_model(visited, lt, ltid, True)
+            gc_reference_new(visited, lt, ltid, True)
+         end
       end
 
    gc_weak_reference (visited: TYPE_MARK) is
@@ -378,12 +475,19 @@ feature {}
          lt := visited.type.live_type
          ltid := lt.id
 
-         gc_reference_sweep(visited, lt, ltid, True)
+         gc_reference_sweep(visited, lt, ltid, True, False)
          gc_reference_update_weak_ref_item(visited, lt, ltid)
-         gc_reference_mark(visited, lt, ltid)
-         gc_reference_align_mark(visited, lt, ltid)
-         gc_reference_fsoc_model(visited, lt, ltid)
-         gc_reference_new(visited, lt, ltid)
+         gc_reference_mark(visited, lt, ltid, False)
+         gc_reference_align_mark(visited, lt, ltid, False)
+         gc_reference_fsoc_model(visited, lt, ltid, False)
+         gc_reference_new(visited, lt, ltid, False)
+         if lt.type.has_local_closure then
+            gc_reference_sweep(visited, lt, ltid, True, True)
+            gc_reference_mark(visited, lt, ltid, True)
+            gc_reference_align_mark(visited, lt, ltid, True)
+            gc_reference_fsoc_model(visited, lt, ltid, True)
+            gc_reference_new(visited, lt, ltid, True)
+         end
       end
 
    gc_expanded (visited: TYPE_MARK) is
@@ -396,12 +500,24 @@ feature {}
             -- -------------------------- Definition for gc_markXXX:
             cpp.prepare_c_function
             function_signature.append(once "void ")
-            memory.mark_in(visited, function_signature)
+            memory.mark_in(visited, function_signature, False)
             function_signature.append(once "(T")
             lt_id.append_in(function_signature)
             function_signature.append(once "*o)")
             gc_mark_fixed_size(lt, True)
             cpp.dump_pending_c_function(True)
+            if lt.type.has_local_closure then
+               gc_reference_mark(visited, lt, lt_id, True)
+            end
+         end
+         if lt.type.has_local_closure then
+            --| **** TODO: those functions need a bit of love (some '*' operators to fix)
+            --| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            --| gc_reference_sweep(visited, lt, ltid, True, True)
+            --| gc_reference_mark(visited, lt, ltid, True)
+            --| gc_reference_align_mark(visited, lt, ltid, True)
+            --| gc_reference_fsoc_model(visited, lt, ltid, True)
+            --| gc_reference_new(visited, lt, ltid, True)
          end
       end
 
@@ -436,12 +552,15 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   gc_set_fsoh_marked (lt: LIVE_TYPE) is
+   gc_set_fsoh_marked (lt: LIVE_TYPE; for_closure: BOOLEAN) is
       require
          cpp.pending_c_function
       do
          if lt.canonical_type_mark.is_reference then
             function_body.append(once "((gc")
+            if for_closure then
+               function_body.append(once "CL")
+            end
             lt.id.append_in(function_body)
             function_body.append(once "*)o)->header.flag=FSOH_MARKED;%N")
          end
@@ -462,7 +581,7 @@ feature {}
       do
          cpp.recompilation_comment(lt)
          if as_weak_reference = lt.class_text_name.to_string then
-            gc_set_fsoh_marked(lt)
+            gc_set_fsoh_marked(lt, False)
          else
             wa_buf.clear_count
             wa_cyclic_buf.clear_count
@@ -488,7 +607,7 @@ feature {}
                end
             end
             if wa_buf.is_empty and then wa_cyclic_buf.is_empty then
-               gc_set_fsoh_marked(lt)
+               gc_set_fsoh_marked(lt, False)
             else
                if not wa_cyclic_buf.is_empty then
                   function_body.append(once "begin:%N")
@@ -498,7 +617,7 @@ feature {}
                   lt.id.append_in(function_body)
                   function_body.append(once "*)o)->header.flag==FSOH_UNMARKED){%N")
                end
-               gc_set_fsoh_marked(lt)
+               gc_set_fsoh_marked(lt, False)
                from
                   -- Ordinary attributes :
                   i := wa_buf.lower
@@ -599,7 +718,7 @@ feature {}
          end
       end
 
-   gc_align_mark_fixed_size (lt: LIVE_TYPE) is
+   gc_align_mark_fixed_size (lt: LIVE_TYPE; for_closure: BOOLEAN) is
          -- Compute the best body for gc_align_markXXX of a fixed_size object.
       require
          cpp.pending_c_function
@@ -607,12 +726,21 @@ feature {}
          lt.at_run_time
       do
          function_body.append(once "gc")
+         if for_closure then
+            function_body.append(once "CL")
+         end
          lt.id.append_in(function_body)
          function_body.append(once "*b=((gc")
+         if for_closure then
+            function_body.append(once "CL")
+         end
          lt.id.append_in(function_body)
          function_body.append(once "*)(&(c->first_object)));%N%
                                    %if((c->header.state_type==FSO_STORE_CHUNK)%
                                    %&&(((char*)p)>=((char*)store")
+         if for_closure then
+            function_body.append(once "CL")
+         end
          lt.id.append_in(function_body)
          function_body.append(once ")))return;%N%
                                    %if(((char*)p)>((char*)(b+(c->count_minus_one))))return;%N%
@@ -621,8 +749,17 @@ feature {}
                                    %if(p->header.flag==FSOH_UNMARKED){%N%
                                    %T")
          lt.id.append_in(function_body)
+         if for_closure then
+            function_body.extend('*')
+         end
          function_body.append(once "*o=(&(p->object));%N")
-         gc_mark_fixed_size(lt, True)
+         if for_closure then
+            function_body.append(once "gc_markCL")
+            lt.id.append_in(function_body)
+            function_body.append(once "(o);%N")
+         else
+            gc_mark_fixed_size(lt, True)
+         end
          function_body.append(once "}%N}%N")
       end
 

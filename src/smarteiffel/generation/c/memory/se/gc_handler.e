@@ -244,59 +244,91 @@ feature {}
       end
 
 feature {C_COMPILATION_MIXIN}
-   frozen store_in (type_mark: TYPE_MARK; buffer: STRING) is
+   frozen store_in (type_mark: TYPE_MARK; buffer: STRING; for_closure: BOOLEAN) is
       require
          type_mark.is_static
       do
          buffer.append(once "store")
+         if for_closure then
+            buffer.append(once "CL")
+         end
          type_mark.id.append_in(buffer)
       end
 
-   frozen store_left_in (type_mark: TYPE_MARK; buffer: STRING) is
+   frozen store_left_in (type_mark: TYPE_MARK; buffer: STRING; for_closure: BOOLEAN) is
       require
          type_mark.is_static
       do
          buffer.append(once "store_left")
+         if for_closure then
+            buffer.append(once "CL")
+         end
          type_mark.id.append_in(buffer)
       end
 
-   frozen store_chunk_in (type_mark: TYPE_MARK; buffer: STRING) is
+   frozen store_chunk_in (type_mark: TYPE_MARK; buffer: STRING; for_closure: BOOLEAN) is
       require
          type_mark.is_static
       do
          buffer.append(once "store_chunk")
+         if for_closure then
+            buffer.append(once "CL")
+         end
          type_mark.id.append_in(buffer)
       end
 
-   frozen free_in (type_mark: TYPE_MARK; buffer: STRING) is
+   frozen free_in (type_mark: TYPE_MARK; buffer: STRING; for_closure: BOOLEAN) is
       require
          type_mark.is_static
       do
          buffer.append(once "gc_free")
+         if for_closure then
+            buffer.append(once "CL")
+         end
          type_mark.id.append_in(buffer)
       end
 
-   frozen align_mark_in (type_mark: TYPE_MARK; buffer: STRING) is
+   frozen align_mark_in (type_mark: TYPE_MARK; buffer: STRING; for_closure: BOOLEAN) is
       require
          type_mark.is_static
       do
          buffer.append(once "gc_align_mark")
+         if for_closure then
+            buffer.append(once "CL")
+         end
          type_mark.id.append_in(buffer)
       end
 
-   frozen info_nb_in (type_mark: TYPE_MARK; buffer: STRING) is
+   frozen info_nb_in (type_mark: TYPE_MARK; buffer: STRING; for_closure: BOOLEAN) is
       require
          type_mark.is_static
       do
          buffer.append(once "gc_info_nb")
+         if for_closure then
+            buffer.append(once "CL")
+         end
          type_mark.id.append_in(buffer)
       end
 
-   frozen mark_in (type_mark: TYPE_MARK; buffer: STRING) is
+   frozen mark_in (type_mark: TYPE_MARK; buffer: STRING; for_closure: BOOLEAN) is
       require
          type_mark.is_static
       do
          buffer.append(once "gc_mark")
+         if for_closure then
+            buffer.append(once "CL")
+         end
+         type_mark.id.append_in(buffer)
+      end
+
+   frozen sweep_in (type_mark: TYPE_MARK; buffer: STRING; for_closure: BOOLEAN) is
+      require
+         type_mark.is_static
+      do
+         buffer.append(once "gc_sweep")
+         if for_closure then
+            buffer.append(once "CL")
+         end
          type_mark.id.append_in(buffer)
       end
 
@@ -443,7 +475,7 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
                      generate_closed_operand.call([closed_operand])
                      cpp.pending_c_function_body.append(once ");%N")
                   elseif need_mark.for(t) then
-                     mark_in(t.canonical_type_mark, cpp.pending_c_function_body)
+                     mark_in(t.canonical_type_mark, cpp.pending_c_function_body, False)
                      cpp.pending_c_function_body.append(once "(&(u->")
                      generate_closed_operand.call([closed_operand])
                      cpp.pending_c_function_body.append(once "));%N")
@@ -466,7 +498,7 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
                                          argument_name.rank.append_in(cpp.pending_c_function_body)
                                          cpp.pending_c_function_body.append(once ");%N")
                                       elseif need_mark.for(t_) then
-                                         mark_in(t_.canonical_type_mark, cpp.pending_c_function_body)
+                                         mark_in(t_.canonical_type_mark, cpp.pending_c_function_body, False)
                                          cpp.pending_c_function_body.append(once "(&(u->CA_")
                                          closure_rank.append_in(cpp.pending_c_function_body)
                                          cpp.pending_c_function_body.extend('_')
@@ -486,7 +518,7 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
                                       cpp.pending_c_function_body.append(local_name.to_string)
                                       cpp.pending_c_function_body.append(once "));%N")
                                    elseif need_mark.for(t_) then
-                                      mark_in(t.canonical_type_mark, cpp.pending_c_function_body)
+                                      mark_in(t.canonical_type_mark, cpp.pending_c_function_body, False)
                                       cpp.pending_c_function_body.append(once "(u->CL_")
                                       cpp.pending_c_function_body.append(local_name.to_string)
                                       cpp.pending_c_function_body.append(once ");%N")
@@ -590,10 +622,10 @@ feature {ONCE_ROUTINE_POOL, NATIVE_ARRAY_TYPE_MARK, NATIVE_BUILT_IN, C_COMPILATI
                cpp.pending_c_function_body.extend('X')
                --|*** Could be better when `non_void_no_dispatch_flag' !
                --|*** (Dom. june 14th 2004) ***
-               mark_in(ct, cpp.pending_c_function_body)
+               mark_in(ct, cpp.pending_c_function_body, False)
             else
                ct := run_time_set.first.canonical_type_mark
-               mark_in(ct, cpp.pending_c_function_body)
+               mark_in(ct, cpp.pending_c_function_body, False)
             end
             cpp.pending_c_function_body.extend('(')
             if ct.is_reference then
@@ -676,7 +708,7 @@ feature {}
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void X")
          ct := lt.canonical_type_mark
-         mark_in(ct, cpp.pending_c_function_signature)
+         mark_in(ct, cpp.pending_c_function_signature, False)
          cpp.pending_c_function_signature.append(once "(T0*o)")
          run_time_set := lt.run_time_set
          cpp.pending_c_function_body.append(once "{int i=o->id;%N")
@@ -695,7 +727,7 @@ feature {}
       do
          if bi = bs then
             lt := run_time_set.item(bi)
-            mark_in(lt.canonical_type_mark, cpp.pending_c_function_body)
+            mark_in(lt.canonical_type_mark, cpp.pending_c_function_body, False)
             cpp.pending_c_function_body.append(once "((T")
             lt.id.append_in(cpp.pending_c_function_body)
             cpp.pending_c_function_body.append(once "*)o);%N")

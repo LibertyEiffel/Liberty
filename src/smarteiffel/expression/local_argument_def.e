@@ -114,8 +114,10 @@ feature {LOCAL_ARGUMENT_REF}
             create outside_set.make
          end
          outside_set.fast_add(type)
+         resolve_in(type).set_local_closure
       ensure
          is_outside(type)
+         resolve_in(type).has_local_closure
       end
 
 feature {}

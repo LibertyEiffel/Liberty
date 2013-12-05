@@ -40,8 +40,12 @@ feature {NATIVE_ARRAY_TYPE_MARK}
 feature {}
    gc_reference (visited: TYPE_MARK) is
       do
-         memory.free_in(visited, function_body)
+         memory.free_in(visited, function_body, False)
          function_body.append(once "=(void*)0;%N")
+         if visited.type.has_local_closure then
+            memory.free_in(visited, function_body, True)
+            function_body.append(once "=(void*)0;%N")
+         end
       end
 
    gc_expanded (visited: TYPE_MARK) is
