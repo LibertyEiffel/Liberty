@@ -8,6 +8,6 @@ cd /home/et/Liberty_savannah
         git checkout $branch
         echo
         git merge --ff-only origin/$branch
-        git push --tags github $branch:github/$branch
     done
+    git push --tags github :
 } 2> pull.err > ../pull.out

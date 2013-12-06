@@ -271,14 +271,14 @@ feature {} -- Good tests: tests that must pass
             status := status + 1
          else
             if cecil_flag then
-               cleanup := agent is
+               cleanup := agent (options_, exe_name_: STRING) is
                           local
                              dummy: BOOLEAN
                           do
-                             dummy := excluded_execution_of(once "Removing (#(1)) %"cecil.h%" file." # options,
+                             dummy := excluded_execution_of(once "Removing (#(1)) %"cecil.h%" file." # options_,
                                                             agent file_tools.delete(once "cecil.h"))
-                             strings.recycle(exe_name)
-                          end
+                             strings.recycle(exe_name_)
+                          end (options, exe_name) --| **** TODO: closure on options, exe_name
             else
                cleanup := agent strings.recycle(exe_name)
             end
@@ -815,7 +815,7 @@ feature {}
          log.trace.put_line(once "Server #(1): loading tests for #(2)" # port.out # path)
          bd.change_current_working_directory(path)
          load_tests
-         waitpid_job.set_action(port.out, agent on_pid, agent on_timeout)
+         waitpid_job.set_action(port.out, agent on_pid(?, ?), agent on_timeout)
          create process_list.make(1, 0)
       ensure
          port = a_port
