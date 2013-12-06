@@ -136,31 +136,37 @@ feature {CLIENT_TYPE_MARK}
 feature {BOOLEAN_TYPE_MARK}
    visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK) is
       do
+         gc_kernel_expanded(visited)
       end
 
 feature {CHARACTER_TYPE_MARK}
    visit_character_type_mark (visited: CHARACTER_TYPE_MARK) is
       do
+         gc_kernel_expanded(visited)
       end
 
 feature {INTEGER_TYPE_MARK}
    visit_integer_type_mark (visited: INTEGER_TYPE_MARK) is
       do
+         gc_kernel_expanded(visited)
       end
 
 feature {NATURAL_TYPE_MARK}
    visit_natural_type_mark (visited: NATURAL_TYPE_MARK) is
       do
+         gc_kernel_expanded(visited)
       end
 
 feature {POINTER_TYPE_MARK}
    visit_pointer_type_mark (visited: POINTER_TYPE_MARK) is
       do
+         gc_kernel_expanded(visited)
       end
 
 feature {REAL_TYPE_MARK}
    visit_real_type_mark (visited: REAL_TYPE_MARK) is
       do
+         gc_kernel_expanded(visited)
       end
 
 feature {STRING_TYPE_MARK}
@@ -178,6 +184,12 @@ feature {WEAK_REFERENCE_TYPE_MARK}
 feature {}
    make is
       do
+      end
+
+   gc_kernel_expanded (visited: TYPE_MARK) is
+      require
+         visited.is_kernel_expanded
+      deferred
       end
 
    gc_reference (visited: TYPE_MARK) is

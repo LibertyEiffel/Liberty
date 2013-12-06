@@ -3550,11 +3550,7 @@ feature {}
             print_local(local_name.to_string)
             pending_c_function_body.extend('=')
             if local_name.is_outside(type) then
-               pending_c_function_body.extend('(')
-               pending_c_function_body.append(result_type.for(static_tm))
-               pending_c_function_body.append(once "*)se_malloc(sizeof(")
-               pending_c_function_body.append(result_type.for(static_tm))
-               pending_c_function_body.append(once "))")
+               memory.malloc_closure(static_tm.type.live_type)
             else
                pending_c_function_body.append(initializer.for(static_tm))
             end

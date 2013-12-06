@@ -178,6 +178,11 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
          end
       end
 
+   malloc_closure (lt: LIVE_TYPE) is
+      do
+         not_yet_implemented
+      end
+
    calloc (lt: LIVE_TYPE; n: PROCEDURE[TUPLE]) is
       do
          if lt.at_run_time then

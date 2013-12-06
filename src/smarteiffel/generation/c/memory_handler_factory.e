@@ -7,16 +7,42 @@ feature {ANY}
    set_no_gc is
       do
          mode.set_item(Mode_off)
+      ensure
+         is_no_gc
       end
 
    set_bdw_gc is
       do
          mode.set_item(Mode_bdw)
+      ensure
+         is_bdw_gc
       end
 
    set_info_flag is
       do
          info.set_item(True)
+      ensure
+         has_info_flag
+      end
+
+   is_no_gc: BOOLEAN is
+      do
+         Result := mode.item = Mode_off
+      end
+
+   is_bdw_gc: BOOLEAN is
+      do
+         Result := mode.item = Mode_bdw
+      end
+
+   is_se_gc: BOOLEAN is
+      do
+         Result := mode.item = Mode_standard
+      end
+
+   has_info_flag: BOOLEAN is
+      do
+         Result := info.item
       end
 
 feature {C_PRETTY_PRINTER}

@@ -49,6 +49,10 @@ feature {}
          function_body.append(once ");%N")
       end
 
+   gc_kernel_expanded (visited: TYPE_MARK) is
+      do
+      end
+
    gc_expanded (visited: TYPE_MARK) is
       do
       end

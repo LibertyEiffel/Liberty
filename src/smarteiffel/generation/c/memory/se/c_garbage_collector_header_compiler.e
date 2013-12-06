@@ -41,6 +41,8 @@ feature {NATIVE_ARRAY_TYPE_MARK}
 
 feature {}
    gc_reference_ (visited: TYPE_MARK; for_closure: BOOLEAN) is
+      require
+         visited.is_expanded implies for_closure
       local
          lt: LIVE_TYPE
       do
@@ -54,7 +56,7 @@ feature {}
          ltid_in(lt, out_h, False, for_closure)
          out_h.append(once "{T")
          lt.id.append_in(out_h)
-         if for_closure then
+         if for_closure and then visited.is_reference then
             out_h.extend('*')
          else
             out_h.extend(' ')
@@ -94,6 +96,13 @@ feature {}
    gc_reference (visited: TYPE_MARK) is
       do
          gc_reference_(visited, False)
+         if visited.type.has_local_closure then
+            gc_reference_(visited, True)
+         end
+      end
+
+   gc_kernel_expanded (visited: TYPE_MARK) is
+      do
          if visited.type.has_local_closure then
             gc_reference_(visited, True)
          end

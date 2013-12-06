@@ -102,6 +102,7 @@ feature {}
    gc_reference_sweep (visited: TYPE_MARK; lt: LIVE_TYPE; is_weak_ref, for_closure: BOOLEAN) is
       require
          lt = visited.type.live_type
+         lt.is_expanded implies for_closure
       local
          wr_gen_arg_lt: LIVE_TYPE
          is_monomorphic_weak_ref: BOOLEAN
@@ -234,6 +235,7 @@ feature {}
    gc_reference_mark (visited: TYPE_MARK; lt: LIVE_TYPE; for_closure: BOOLEAN) is
       require
          lt = visited.type.live_type
+         lt.is_expanded implies for_closure
       local
          gc_check_id: BOOLEAN
       do
@@ -245,9 +247,11 @@ feature {}
          function_signature.append(once "o)")
          if for_closure then
             gc_set_fsoh_marked(lt, for_closure)
-            function_body.append(once "gc_mark")
-            lt.id.append_in(function_body)
-            function_body.append(once "(*o);%N")
+            if not visited.is_kernel_expanded then
+               function_body.append(once "gc_mark")
+               lt.id.append_in(function_body)
+               function_body.append(once "(*o);%N")
+            end
          else
             gc_check_id := lt.is_tagged and then ace.no_check
             if gc_check_id then
@@ -266,6 +270,7 @@ feature {}
    gc_reference_align_mark (visited: TYPE_MARK; lt: LIVE_TYPE; for_closure: BOOLEAN) is
       require
          lt = visited.type.live_type
+         lt.is_expanded implies for_closure
       do
          cpp.prepare_c_function
          function_signature.append(once "void ")
@@ -280,6 +285,7 @@ feature {}
    gc_reference_fsoc_model (visited: TYPE_MARK; lt: LIVE_TYPE; for_closure: BOOLEAN) is
       require
          lt = visited.type.live_type
+         lt.is_expanded implies for_closure
       do
          cpp.out_h_buffer.copy(once "fsoc H")
          ltid_in(lt, cpp.out_h_buffer, False, for_closure)
@@ -296,6 +302,7 @@ feature {}
    gc_reference_new (visited: TYPE_MARK; lt: LIVE_TYPE; for_closure: BOOLEAN) is
       require
          lt = visited.type.live_type
+         lt.is_expanded implies for_closure
       do
          cpp.prepare_c_function
          ltid_in(lt, function_signature, True, for_closure)
@@ -361,7 +368,9 @@ feature {}
          function_body.append(once "++;%N}%N%
                                    %}%Nn->header.flag=FSOH_UNMARKED;%N")
          if for_closure then
-            function_body.append(once "n->object=(void*)0;%N")
+            function_body.append(once "n->object=")
+            function_body.append(cpp.initializer.for(visited))
+            function_body.append(once ";%N")
          else
             if cpp.need_struct.for(visited) then
                function_body.append(once "n->object=M")
@@ -416,6 +425,21 @@ feature {}
          end
       end
 
+   gc_kernel_expanded (visited: TYPE_MARK) is
+      local
+         lt: LIVE_TYPE
+      do
+         lt := visited.type.live_type
+
+         if visited.type.has_local_closure then
+            gc_reference_sweep(visited, lt, False, True)
+            gc_reference_mark(visited, lt, True)
+            gc_reference_align_mark(visited, lt, True)
+            gc_reference_fsoc_model(visited, lt, True)
+            gc_reference_new(visited, lt, True)
+         end
+      end
+
    gc_expanded (visited: TYPE_MARK) is
       local
          lt: LIVE_TYPE
@@ -426,8 +450,8 @@ feature {}
             cpp.prepare_c_function
             function_signature.append(once "void ")
             memory.mark_in(visited, function_signature, False)
-            function_signature.append(once "(")
-            ltid_in(lt, function_signature, True, False)
+            function_signature.append(once "(T")
+            lt.id.append_in(function_signature)
             function_signature.append(once "*o)")
             gc_mark_fixed_size(lt, True)
             cpp.dump_pending_c_function(True)
@@ -475,8 +499,9 @@ feature {}
    gc_set_fsoh_marked (lt: LIVE_TYPE; for_closure: BOOLEAN) is
       require
          cpp.pending_c_function
+         lt.is_expanded implies for_closure
       do
-         if lt.canonical_type_mark.is_reference then
+         if lt.canonical_type_mark.is_reference or else for_closure then
             function_body.append(once "((gc")
             ltid_in(lt, function_body, False, for_closure)
             function_body.append(once "*)o)->header.flag=FSOH_MARKED;%N")
@@ -654,13 +679,9 @@ feature {}
                                    %if(((char*)p)>((char*)(b+(c->count_minus_one))))return;%N%
                                    %if(((char*)p)<((char*)b))return;%N%
                                    %if(((((char*)p)-((char*)b))%%sizeof(*p))==0){%N%
-                                   %if(p->header.flag==FSOH_UNMARKED){%N%
-                                   %T")
-         lt.id.append_in(function_body)
-         if for_closure then
-            function_body.extend('*')
-         end
-         function_body.append(once "*o=(&(p->object));%N")
+                                   %if(p->header.flag==FSOH_UNMARKED){%N")
+         ltid_in(lt, function_body, True, for_closure)
+         function_body.append(once "o=(&(p->object));%N")
          if for_closure then
             function_body.append(once "gc_mark")
             ltid_in(lt, function_body, False, True)

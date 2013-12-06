@@ -87,6 +87,7 @@ feature {ANY}
    specialize_and_check (type: TYPE): like Current is
       local
          lvl: like local_var_list
+         mhf: MEMORY_HANDLER_FACTORY
       do
          if closure_rank = 0 then
             lvl := smart_eiffel.specializing_feature_local_var_list
@@ -95,7 +96,11 @@ feature {ANY}
             check lvl.name(rank).is_outside(type) end
          end
          if lvl.name(rank).is_outside(type) then
-            --| **** TODO: emit a warning in some cases?? (e.g. no GC)
+            if closure_rank = 0 and then mhf.is_no_gc then
+               error_handler.add_position(lvl.name(rank).start_position)
+               error_handler.append(once "This variable is used in a closure. Beware, each time the method is called, a lot of memory may be wasted.")
+               error_handler.print_as_warning
+            end
             Result := as_outside
          else
             Result := Current

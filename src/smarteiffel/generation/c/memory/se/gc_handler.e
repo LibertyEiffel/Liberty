@@ -377,6 +377,13 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
          cpp.pending_c_function_body.append(once "()")
       end
 
+   malloc_closure (lt: LIVE_TYPE) is
+      do
+         cpp.pending_c_function_body.append(once "newCL")
+         lt.id.append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once "()")
+      end
+
    calloc (lt: LIVE_TYPE; n: PROCEDURE[TUPLE]) is
       do
          cpp.pending_c_function_body.append(once "new")
@@ -518,7 +525,7 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
                                       cpp.pending_c_function_body.append(local_name.to_string)
                                       cpp.pending_c_function_body.append(once "));%N")
                                    elseif need_mark.for(t_) then
-                                      mark_in(t.canonical_type_mark, cpp.pending_c_function_body, False)
+                                      mark_in(t_.canonical_type_mark, cpp.pending_c_function_body, False)
                                       cpp.pending_c_function_body.append(once "(u->CL_")
                                       cpp.pending_c_function_body.append(local_name.to_string)
                                       cpp.pending_c_function_body.append(once ");%N")

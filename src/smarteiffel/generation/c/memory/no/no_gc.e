@@ -82,6 +82,12 @@ feature {C_PRETTY_PRINTER} -- memory-specific handling aspects
 
    may_need_size_table: BOOLEAN is False
 
+feature {}
+   init_malloc_zero is
+      once
+         cpp.write_extern_2(once "char se_malloc_zero", once "'\0'")
+      end
+
 feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
    malloc (lt: LIVE_TYPE) is
       do
@@ -90,8 +96,14 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
             lt.id.append_in(cpp.pending_c_function_body)
             cpp.pending_c_function_body.append(once "))")
          else
-            cpp.pending_c_function_body.append(once "se_malloc(1)")
+            init_malloc_zero
+            cpp.pending_c_function_body.append(once "&se_malloc_zero")
          end
+      end
+
+   malloc_closure (lt: LIVE_TYPE) is
+      do
+         cpp.pending_c_function_body.append(once "((T0**)se_malloc(sizeof(T0*)))")
       end
 
    calloc (lt: LIVE_TYPE; n: PROCEDURE[TUPLE]) is

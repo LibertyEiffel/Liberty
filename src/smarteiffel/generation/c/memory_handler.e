@@ -122,6 +122,12 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
       deferred
       end
 
+   malloc_closure (lt: LIVE_TYPE) is
+      require
+         lt.type.has_local_closure
+      deferred
+      end
+
 feature {C_COMPILATION_MIXIN} -- GC switches (see MEMORY)
    gc_disable is
          -- Code to disable garbage collection
