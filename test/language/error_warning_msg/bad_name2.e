@@ -11,7 +11,7 @@ feature {ANY}
       local
          p2: POINTER;
       do
-         !!p2.make;
+         create p2.make;
       end;
 
 end -- class POINTER

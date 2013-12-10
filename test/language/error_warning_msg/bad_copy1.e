@@ -12,7 +12,7 @@ feature {}
       local
          aux: AUX_COPY1;
       do
-         !!aux;
+         create aux;
          aux.copy(Current);
       end;
 

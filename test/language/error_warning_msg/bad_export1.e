@@ -12,7 +12,7 @@ feature {}
       local
          b: AUX_EXPORT1B
       do
-         !!b
+         create b
          b.foo
       end
 

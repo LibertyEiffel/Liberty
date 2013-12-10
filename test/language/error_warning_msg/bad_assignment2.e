@@ -14,7 +14,7 @@ feature {ANY}
       local
          ref: AUX_ASSIGNMENT2REF
       do
-         !!ref
+         create ref
          exp := ref -- This one is not allowed !
          print(exp.i.to_string)
       end

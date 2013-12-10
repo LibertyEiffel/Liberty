@@ -27,7 +27,7 @@ feature {}
       local
          aux: AUX_SELECT;
       do
-         !!aux;
+         create aux;
          aux := Current;
          aux.foo;
          foo;

@@ -11,7 +11,7 @@ feature {}
       local
          aux: BAD_RENAME1;
       do
-         !!aux.make;
+         create aux.make;
          aux.g;
       end;
 

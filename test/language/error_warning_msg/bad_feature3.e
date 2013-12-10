@@ -18,7 +18,7 @@ feature {} -- Test
    test_1 is
       local
       do
-         !! s.make (20)
+         create s.make (20)
          -- s is not an attribute of this class,
          -- this causes
          -- SmartEiffel compile_to_c to crash.

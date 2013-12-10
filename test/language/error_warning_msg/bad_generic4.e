@@ -14,7 +14,7 @@ feature {}
       local
          m: COLLECTION[INTEGER];
       do
-         !LINKED_LIST!m.make;
+         create {LINKED_LIST} m.make;
       end
 
 end -- class BAD_GENERIC4

@@ -11,7 +11,7 @@ feature {}
       local
          dctn: DICTIONARY[INTEGER];
       do
-         !!dctn.make;
+         create dctn.make;
       end;
 
 end -- class BAD_GENERIC1

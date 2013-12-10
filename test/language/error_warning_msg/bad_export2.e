@@ -11,7 +11,7 @@ feature {}
       local
          aux: AUX_EXPORT2A;
       do
-         !!aux;
+         create aux;
          aux.foo;
       end;
 

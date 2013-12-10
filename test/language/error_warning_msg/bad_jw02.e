@@ -13,8 +13,8 @@ feature {}
          n: AUX_JW01NAMED_THING
          h: AUX_JW01HOLDER[AUX_JW01NAMED_THING]
       do
-         !!n.make("Joe");
-         !!h.make (n);
+         create n.make("Joe");
+         create h.make (n);
          io.put_string(h.item);
       end
 
