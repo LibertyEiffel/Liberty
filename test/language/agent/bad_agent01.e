@@ -3,10 +3,6 @@ class BAD_AGENT01
 -- test inline agents with correct behaviour concerning local
 -- variables of the containing feature
 
--- the offending case is when the containing feature has a local and
--- the contained one tries to use it: there should be an error
--- message, not a crash
-
 insert
    EIFFELTEST_TOOLS
 
