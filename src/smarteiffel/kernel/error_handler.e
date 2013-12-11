@@ -268,6 +268,7 @@ feature {ANY}
       do
          do_print(once "Internal Error")
          sedb_breakpoint
+         --se_fault
          crash
       end
 

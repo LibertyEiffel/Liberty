@@ -686,7 +686,9 @@ feature {AGENT_POOL, CREATE_SUPPORT, ASSIGNMENT, ASSIGNMENT_ATTEMPT, CREATE_WRIT
 feature {ANONYMOUS_FEATURE, RUN_FEATURE, ARGUMENT_NAME_REF, LOCAL_NAME_REF, RESULT, E_OLD, INSPECT_STATEMENT, AGENT_CREATION}
    context_feature: ANONYMOUS_FEATURE is
       do
-         Result := context_feature_stack.top
+         if not context_feature_stack.is_empty then
+            Result := context_feature_stack.top
+         end
       end
 
 feature {ANONYMOUS_FEATURE, FEATURE_STAMP, RUN_FEATURE, C_LIVE_TYPE_COMPILER}
