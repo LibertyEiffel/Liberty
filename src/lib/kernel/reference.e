@@ -9,9 +9,6 @@ class REFERENCE[E_]
    -- shared.
    --
 
-inherit
-   ANY
-
 create {ANY}
    default_create, set_item
 

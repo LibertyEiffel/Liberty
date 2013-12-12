@@ -6,10 +6,13 @@ class COUNTER
    -- Simple counter object (useful as a once function).
    --
 
-feature {ANY}
-   item: INTEGER
-         -- The `value' of the counter.
+insert
+   REFERENCE[INTEGER]
 
+create {ANY}
+   default_create, set_item
+
+feature {ANY}
    increment, next is
          -- Increment the `item' of `Current' counter.
       do
