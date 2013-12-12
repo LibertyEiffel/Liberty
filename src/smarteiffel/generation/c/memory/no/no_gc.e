@@ -96,7 +96,12 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
 
    malloc_closure (lt: LIVE_TYPE) is
       do
-         cpp.pending_c_function_body.append(once "((T0**)se_malloc(sizeof(T0*)))")
+         cpp.pending_c_function_body.append(once "((T")
+         lt.id.append_in(cpp.pending_c_function_body)
+         if lt.is_reference then
+            cpp.pending_c_function_body.extend('*')
+         end
+         cpp.pending_c_function_body.append(once "*)se_malloc(sizeof(void*)))")
       end
 
    calloc (lt: LIVE_TYPE; n: PROCEDURE[TUPLE]) is
