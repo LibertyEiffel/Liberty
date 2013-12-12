@@ -243,7 +243,7 @@ feature {}
       local
          cn_internals_handler: CLASS_NAME
       once
-         create cn_internals_handler.unknown_position(string_aliaser.hashed_string(as_internals_handler))
+         create cn_internals_handler.unknown_position(string_aliaser.hashed_string(as_internals_handler), False)
          create Result.make(cn_internals_handler)
       end
 
