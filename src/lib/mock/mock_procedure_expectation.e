@@ -1,44 +1,29 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class MOCK_EXPECTATION
+class MOCK_PROCEDURE_EXPECTATION
 
-insert
-   ANY
-      redefine
-         default_create
-      end
+inherit
+   MOCK_EXPECTATION
 
-feature {ANY}
-   default_create is
+feature {MOCK_OBJECT}
+   call is
       do
-         if counter = Void then
-            create counter.set_item(1)
+         if side_effect /= Void then
+            side_effect.call([])
          end
       end
 
 feature {ANY}
-   times (how_many: INTEGER): like Current is
+   with_side_effect (a_side_effect: like side_effect) is
       do
-         counter.set_item(how_many)
-         Result := Current
-      ensure
-         Result = Current
-         counter.item = how_many
+         side_effect := a_side_effect
       end
 
-   done is
-      do
-         -- just to finish the expectation call chain, if there is no side effect
-      end
+feature {}
+   side_effect: PROCEDURE[TUPLE]
 
-feature {MOCK_EXPECT}
-   counter: COUNTER
-
-invariant
-   counter /= Void
-
-end -- class MOCK_EXPECTATION
+end -- class MOCK_PROCEDURE_EXPECTATION
 --
 -- Copyright (c) 2013 Cyril ADRIAN <cyril.adrian@gmail.com>
 --

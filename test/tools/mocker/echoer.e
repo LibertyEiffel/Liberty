@@ -1,5 +1,8 @@
 class ECHOER
 
+insert
+   EIFFELTEST_TOOLS
+
 create {ANY}
    make
 
@@ -10,9 +13,7 @@ feature {ANY}
       do
          echo.ping
          y := echo.echo(x)
-         check
-            y.is_equal(x)
-         end
+         assert(y.is_equal(x))
       end
 
 feature {}

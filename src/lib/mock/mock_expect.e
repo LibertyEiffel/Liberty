@@ -10,11 +10,15 @@ feature {ANY}
    all_done: BOOLEAN is
       do
          Result := calls = Void or else calls.is_empty
+            or else calls.for_all(agent (call: TUPLE[ABSTRACT_STRING, TUPLE, MOCK_EXPECTATION]): BOOLEAN is
+                                     do
+                                        Result := call.third.counter.item = 0
+                                     end (?))
       end
 
    all_done_message: STRING is
       local
-         i: INTEGER
+         i: INTEGER; more: BOOLEAN
       do
          if calls /= Void then
             Result := "Missing calls: "
@@ -23,10 +27,16 @@ feature {ANY}
             until
                i > calls.upper
             loop
-               if i > calls.lower then
-                  Result.append(once ", ")
+               if calls.item(i).third.counter.item /= 0 then
+                  if more then
+                     Result.append(once ", ")
+                  end
+                  Result.append("#(1)#(2)" # calls.item(i).first # calls.item(i).second.out)
+                  if calls.item(i).third.counter.item > 1 then
+                     Result.append("(#(1) times)" # calls.item(i).third.counter.item.out)
+                  end
+                  more := True
                end
-               Result.append("#(1)#(2)" # calls.item(i).first # calls.item(i).second.out)
                i := i + 1
             end
          end
@@ -38,6 +48,7 @@ feature {}
    add_call (feature_name: STRING; arguments: TUPLE; return: MOCK_EXPECTATION) is
       require
          feature_name /= Void
+         return /= Void
       do
          if calls = Void then
             create calls.make(1, 0)
@@ -52,7 +63,15 @@ feature {}
          call: TUPLE[ABSTRACT_STRING, TUPLE, MOCK_EXPECTATION]
       do
          if calls /= Void then
-            call := calls.first
+            from
+            until
+               call /= Void and then call.third.counter.item /= 0
+            loop
+               call := calls.first
+               if call.first /= feature_name.intern and then call.third.counter.item = 0 then
+                  calls.remove_first
+               end
+            end
          end
          if call = Void or else call.first /= feature_name.intern then
             label_assert("expect call to #(1)" # feature_name, False)
@@ -60,7 +79,10 @@ feature {}
             label_assert("bad arguments to call to #(1)" # feature_name, False)
          else
             Result := call.third
-            calls.remove_first
+            check
+               Result /= Void
+            end
+            Result.counter.decrement
          end
       end
 

@@ -84,35 +84,14 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
             if signature.result_type = Void then
                output.put_line(once "[
 feature {ANY}
-   #(2)#(3) is
-      do
-         add_call("#(2)", #(4), Void)
-      end
-
-feature {#(1)}
-   assert_#(2)#(3) is
-      local
-         dummy: MOCK_EXPECTATION
-      do
-         dummy := check_call("#(2)", #(4))
-         assert(dummy = Void)
-      end
-
-                                ]"
-                                # mock_name
-                                # signature.feature_name # signature.arguments
-                                # signature.arguments_tuple)
-            else
-               output.put_line(once "[
-feature {ANY}
-   #(2)#(3): MOCK_TYPED_EXPECTATION[#(5)] is
+   #(2)#(3): MOCK_PROCEDURE_EXPECTATION is
       do
          create Result
          add_call("#(2)", #(4), Result)
       end
 
 feature {#(1)}
-   assert_#(2)#(3): MOCK_TYPED_EXPECTATION[#(5)] is
+   assert_#(2)#(3): MOCK_PROCEDURE_EXPECTATION is
       do
          Result ::= check_call("#(2)", #(4))
       end
@@ -120,7 +99,26 @@ feature {#(1)}
                                 ]"
                                 # mock_name
                                 # signature.feature_name # signature.arguments
-                                # signature.arguments_tuple
+                                # signature.arguments_tuple # signature.arguments_list)
+            else
+               output.put_line(once "[
+feature {ANY}
+   #(2)#(3): MOCK_FUNCTION_EXPECTATION[#(6)] is
+      do
+         create Result
+         add_call("#(2)", #(4), Result)
+      end
+
+feature {#(1)}
+   assert_#(2)#(3): MOCK_FUNCTION_EXPECTATION[#(6)] is
+      do
+         Result ::= check_call("#(2)", #(4))
+      end
+
+                                ]"
+                                # mock_name
+                                # signature.feature_name # signature.arguments
+                                # signature.arguments_tuple # signature.arguments_list
                                 # signature.result_type)
             end
          else
