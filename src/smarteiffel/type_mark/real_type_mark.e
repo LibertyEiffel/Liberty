@@ -118,14 +118,14 @@ feature {}
       do
          pretty_name := real_32_name
          bit_count := 32
-         create class_text_name.make(real_32_name, sp)
+         create class_text_name.make(real_32_name, sp, False)
       end
 
    real_64 (sp: like start_position) is
       do
          pretty_name := real_64_name
          bit_count := 64
-         create class_text_name.make(real_64_name, sp)
+         create class_text_name.make(real_64_name, sp, False)
          -- It is not an error, the `class_text_name' is actually "REAL" internally.
       end
 
@@ -135,14 +135,14 @@ feature {}
       do
          pretty_name := real_name
          bit_count := ta.real_bit_count
-         create class_text_name.make(ta.real_alias, sp)
+         create class_text_name.make(ta.real_alias, sp, False)
       end
 
    real_80 (sp: like start_position) is
       do
          pretty_name := real_80_name
          bit_count := 80
-         create class_text_name.make(real_extended_name, sp)
+         create class_text_name.make(real_extended_name, sp, False)
          -- It is not an error, the `class_text_name' is actually "REAL_EXTENDED" internally.
       end
 
@@ -150,7 +150,7 @@ feature {}
       do
          pretty_name := real_128_name
          bit_count := 80
-         create class_text_name.make(real_extended_name, sp)
+         create class_text_name.make(real_extended_name, sp, False)
          -- It is not an error, the `class_text_name' is actually "REAL_EXTENDED" internally.
       end
 
@@ -158,7 +158,7 @@ feature {}
       do
          pretty_name := real_extended_name
          bit_count := 80
-         create class_text_name.make(real_extended_name, sp)
+         create class_text_name.make(real_extended_name, sp, False)
       end
 
    real_32_name: HASHED_STRING is

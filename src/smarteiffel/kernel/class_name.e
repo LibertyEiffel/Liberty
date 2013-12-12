@@ -28,6 +28,8 @@ feature {ANY}
    hash_code: INTEGER
          -- A memory cache for `hashed_name.hash_code'.
 
+   allow_missing: BOOLEAN
+
    predefined: BOOLEAN is
          -- All following classes are handled in a special way by the *_TYPE_MARK corresponding class.
       do
@@ -182,15 +184,17 @@ feature {INTEGER_TYPE_MARK, NATURAL_TYPE_MARK}
       end
 
 feature {}
-   make (hn: like hashed_name; sp: like start_position) is
+   make (hn: like hashed_name; sp: like start_position; am: like allow_missing) is
       require
          hn /= Void
       do
          set_hashed_name(hn)
          start_position := sp
+         allow_missing := am
       ensure
          hashed_name = hn
          start_position = sp
+         allow_missing = am
          to_string = hashed_name.to_string
          hash_code = to_string.hash_code
       end
@@ -201,7 +205,7 @@ feature {}
       local
          p: POSITION
       do
-         make(hn, p)
+         make(hn, p, False)
       ensure
          hashed_name = hn
          start_position.is_unknown

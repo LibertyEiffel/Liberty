@@ -27,32 +27,34 @@ feature {ANY}
          gl: ARRAY[TYPE_MARK]; static_tuple: TUPLE[TYPE, TYPE]
          ugtm: USER_GENERIC_TYPE_MARK
       do
-         if static_memory = Void then
-            create static_memory.make
-         else
-            static_tuple := static_memory.fast_reference_at(new_type)
-         end
-         if static_tuple = Void then
-            if is_generic then
-               gl := class_type_mark.class_text.constraints_generic_list
-               create ugtm.make(class_type_mark.class_text_name, gl)
-               Result := ugtm
+         if class_text /= Void then
+            if static_memory = Void then
+               create static_memory.make
             else
-               Result := class_type_mark
+               static_tuple := static_memory.fast_reference_at(new_type)
             end
-            static_tuple := [smart_eiffel.get_type(Result.to_static(new_type, False), False), smart_eiffel.get_type(Result.to_static(new_type, True), True)]
-            static_memory.add(static_tuple, new_type)
-         end
-         if allow_raw_class_name then
-            Result := static_tuple.second.canonical_type_mark
-         else
-            Result := static_tuple.first.canonical_type_mark
+            if static_tuple = Void then
+               if is_generic then
+                  gl := class_text.constraints_generic_list
+                  create ugtm.make(class_type_mark.class_text_name, gl)
+                  Result := ugtm
+               else
+                  Result := class_type_mark
+               end
+               static_tuple := [smart_eiffel.get_type(Result.to_static(new_type, False), False), smart_eiffel.get_type(Result.to_static(new_type, True), True)]
+               static_memory.add(static_tuple, new_type)
+            end
+            if allow_raw_class_name then
+               Result := static_tuple.second.canonical_type_mark
+            else
+               Result := static_tuple.first.canonical_type_mark
+            end
          end
       end
 
    is_generic: BOOLEAN is
       do
-         Result := class_type_mark.class_text.is_generic
+         Result := class_text.is_generic
       end
 
    written_name: HASHED_STRING is

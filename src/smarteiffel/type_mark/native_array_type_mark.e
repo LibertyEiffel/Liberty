@@ -56,7 +56,7 @@ feature {INTROSPECTION_HANDLER}
       do
          hs := string_aliaser.hashed_string(as_native_array_internals)
          tm := elements_type.at(position)
-         create cn.make(hs, position)
+         create cn.make(hs, position, False)
          gl := {ARRAY[TYPE_MARK] 1, <<tm>>}
          create {USER_GENERIC_TYPE_MARK} Result.make(cn, gl)
       end
@@ -70,7 +70,7 @@ feature {}
          of_what_wm, buffer: STRING
       do
          buffer := once "............................................."
-         create class_text_name.make(native_array_name, sp)
+         create class_text_name.make(native_array_name, sp, False)
          create generic_list.make(1, 1)
          generic_list.put(of_what, 1)
          of_what_wm := of_what.written_mark

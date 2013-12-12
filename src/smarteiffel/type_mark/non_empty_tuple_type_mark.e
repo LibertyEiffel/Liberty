@@ -57,7 +57,7 @@ feature {ANY}
 feature {TYPE_MARK}
    short_ (shorted_type: TYPE) is
       do
-         short_generic(shorted_type, create {CLASS_NAME}.make(string_aliaser.tuple_name, start_position))
+         short_generic(shorted_type, create {CLASS_NAME}.make(string_aliaser.tuple_name, start_position, False))
       end
 
 feature {}
@@ -74,7 +74,7 @@ feature {}
             buffer.extend(' ')
             gl.count.append_in(buffer)
          end
-         create class_text_name.make(string_aliaser.hashed_string(buffer), sp)
+         create class_text_name.make(string_aliaser.hashed_string(buffer), sp, False)
       ensure
          start_position = sp
          generic_list = gl

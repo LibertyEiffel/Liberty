@@ -135,21 +135,21 @@ feature {ANY}
       do
          bit_count := 8
          pretty_name := natural_8_name
-         create class_text_name.make(natural_8_name, sp)
+         create class_text_name.make(natural_8_name, sp, False)
       end
 
    natural_16 (sp: like start_position) is
       do
          bit_count := 16
          pretty_name := natural_16_name
-         create class_text_name.make(natural_16_name, sp)
+         create class_text_name.make(natural_16_name, sp, False)
       end
 
    natural_32 (sp: like start_position) is
       do
          bit_count := 32
          pretty_name := natural_32_name
-         create class_text_name.make(natural_32_name, sp)
+         create class_text_name.make(natural_32_name, sp, False)
       end
 
    natural (sp: like start_position) is
@@ -158,14 +158,14 @@ feature {ANY}
       do
          bit_count := ta.natural_bit_count
          pretty_name := natural_name
-         create class_text_name.make(ta.natural_alias, sp)
+         create class_text_name.make(ta.natural_alias, sp, False)
       end
 
    natural_64 (sp: like start_position) is
       do
          bit_count := 64
          pretty_name := natural_64_name
-         create class_text_name.make(natural_64_name, sp)
+         create class_text_name.make(natural_64_name, sp, False)
       end
 
    natural_8_name: HASHED_STRING is

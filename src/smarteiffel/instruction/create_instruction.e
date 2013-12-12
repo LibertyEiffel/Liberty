@@ -300,7 +300,7 @@ feature {}
       do
          start_position := sp
          hs := string_aliaser.hashed_string(as_typed_internals)
-         create cn.make(hs, sp)
+         create cn.make(hs, sp, False)
          gl := {ARRAY[TYPE_MARK] 1, <<create {LIKE_CURRENT_TYPE_MARK}.make(sp)>>}
          create ugtm.make(cn, gl)
          explicit_type := ugtm

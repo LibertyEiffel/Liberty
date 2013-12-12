@@ -126,7 +126,7 @@ feature {}
          end
       end
 
-   basic_make (c: like pretty_code; wo: like written_open; rt: like result_type) is
+   common_make (c: like pretty_code; wo: like written_open; rt: like result_type) is
       require
          class_text_name /= Void
          valid_code(c)
@@ -149,8 +149,8 @@ feature {}
          not sp.is_unknown
          wo /= Void
       do
-         create class_text_name.make(routine_name, sp)
-         basic_make(routine_code, wo, Void)
+         create class_text_name.make(routine_name, sp, False)
+         common_make(routine_code, wo, Void)
       ensure
          written_open = wo
       end
@@ -160,8 +160,8 @@ feature {}
          not sp.is_unknown
          wo /= Void
       do
-         create class_text_name.make(procedure_name, sp)
-         basic_make(procedure_code, wo, Void)
+         create class_text_name.make(procedure_name, sp, False)
+         common_make(procedure_code, wo, Void)
       ensure
          written_open = wo
          result_type = Void
@@ -173,8 +173,8 @@ feature {}
          wo /= Void
          rt /= Void
       do
-         create class_text_name.make(function_name, sp)
-         basic_make(function_code, wo, rt)
+         create class_text_name.make(function_name, sp, False)
+         common_make(function_code, wo, rt)
       ensure
          written_open = wo
          result_type = rt
@@ -185,8 +185,8 @@ feature {}
          not sp.is_unknown
          wo /= Void
       do
-         create class_text_name.make(function_name, sp)
-         basic_make(predicate_code, wo, create {BOOLEAN_TYPE_MARK}.make(sp))
+         create class_text_name.make(function_name, sp, False)
+         common_make(predicate_code, wo, create {BOOLEAN_TYPE_MARK}.make(sp))
       ensure
          written_open = wo
       end

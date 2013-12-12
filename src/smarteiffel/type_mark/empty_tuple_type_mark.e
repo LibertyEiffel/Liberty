@@ -81,7 +81,7 @@ feature {}
       require
          not sp.is_unknown
       do
-         create class_text_name.make(string_aliaser.tuple_name, sp)
+         create class_text_name.make(string_aliaser.tuple_name, sp, False)
       ensure
          start_position = sp
       end

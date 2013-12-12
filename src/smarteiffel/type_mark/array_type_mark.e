@@ -49,7 +49,7 @@ feature {}
          not sp.is_unknown
          of_what /= Void
       do
-         create class_text_name.make(array_name, sp)
+         create class_text_name.make(array_name, sp, False)
          set_generic_list_with(of_what)
       ensure
          start_position = sp

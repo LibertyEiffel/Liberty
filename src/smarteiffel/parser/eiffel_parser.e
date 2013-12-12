@@ -1938,7 +1938,7 @@ feature {}
       do
          if a_class_name then
             Result := True
-            last_class_name := token_buffer.to_class_name
+            last_class_name := token_buffer.to_class_name(False)
          end
       end
 
@@ -1973,7 +1973,7 @@ feature {}
             error_handler.append(token_buffer.buffer)
             error_handler.append(once "%".")
             error_handler.print_as_warning
-            last_class_name := token_buffer.to_class_name
+            last_class_name := token_buffer.to_class_name(False)
          else
             error_handler.add_position(current_position)
             error_handler.append(once "Name of the current class expected.")
@@ -1999,7 +1999,7 @@ feature {}
                fga := formal_generic_list.item(rank)
                if a_keyword(fga.name.to_string) then
                   sp := pos(start_line, start_column)
-                  create cn.make(fga.name.hashed_name, sp)
+                  create cn.make(fga.name.hashed_name, sp, True)
                   create last_formal_generic_type_mark.make(cn, fga, rank)
                   Result := True
                end
@@ -2907,7 +2907,7 @@ feature {}
          end
       end
 
-   a_static_type_mark (allow_missing_generics: BOOLEAN): BOOLEAN is
+   a_static_type_mark (for_client_list: BOOLEAN): BOOLEAN is
          --  ++ base_type_mark -> "ANY" | ARRAY "[" type_mark "]" | "BOOLEAN" |
          --  ++         "CHARACTER" | "DOUBLE" | "INTEGER" |
          --  ++         "POINTER" | "REAL" | "STRING" | "TUPLE" |
@@ -2933,7 +2933,7 @@ feature {}
                      last_type_mark /= Void
                   end
                   create {ARRAY_TYPE_MARK} last_type_mark.make(sp, last_type_mark)
-               elseif not allow_missing_generics then
+               elseif not for_client_list then
                   error_handler.add_position(current_position)
                   error_handler.append(once "Bad use of predefined type ARRAY.")
                   error_handler.print_as_fatal_error
@@ -2945,7 +2945,7 @@ feature {}
                      last_type_mark /= Void
                   end
                   create {NATIVE_ARRAY_TYPE_MARK} last_type_mark.make(sp, last_type_mark)
-               elseif not allow_missing_generics then
+               elseif not for_client_list then
                   error_handler.add_position(current_position)
                   error_handler.append(once "Bad use of predefined type NATIVE_ARRAY.")
                   error_handler.print_as_fatal_error
@@ -2957,7 +2957,7 @@ feature {}
                      last_type_mark /= Void
                   end
                   create {WEAK_REFERENCE_TYPE_MARK} last_type_mark.make(sp, last_type_mark)
-               elseif not allow_missing_generics then
+               elseif not for_client_list then
                   error_handler.add_position(current_position)
                   error_handler.append(once "Bad use of predefined type NATIVE_ARRAY.")
                   error_handler.print_as_fatal_error
@@ -2993,7 +2993,7 @@ feature {}
                                     %exportation at all, hence making NONE unuseful and probably misleading for %
                                     %newcomers. So, just remove this NONE class name right now. Please update your code now.")
                error_handler.print_as_warning
-               create {CLASS_TYPE_MARK} last_type_mark.make(token_buffer.to_class_name)
+               create {CLASS_TYPE_MARK} last_type_mark.make(token_buffer.to_class_name(for_client_list))
             when "POINTER" then
                create {POINTER_TYPE_MARK} last_type_mark.make(token_buffer.start_position)
             when "REAL_32" then
@@ -3180,7 +3180,7 @@ feature {}
                create {AGENT_TYPE_MARK} last_type_mark.function(sp, open_type_mark, result_type_mark)
             else
                from
-                  class_text_name := token_buffer.to_class_name
+                  class_text_name := token_buffer.to_class_name(for_client_list)
                until
                   state > 2
                loop
@@ -6033,7 +6033,7 @@ feature {}
          end
       end
 
-   a_type_mark (allow_missing_generics: BOOLEAN): BOOLEAN is
+   a_type_mark (for_client_list: BOOLEAN): BOOLEAN is
          --  ++ type_mark -> static_type_mark |
          --  ++              formal_generic_type_mark |
          --  ++              "like" "Current" |
@@ -6085,7 +6085,7 @@ feature {}
             error_handler.print_as_fatal_error
          elseif a_formal_generic_type_mark then
             last_type_mark := last_formal_generic_type_mark
-         elseif a_static_type_mark(allow_missing_generics) then
+         elseif a_static_type_mark(for_client_list) then
             -- `last_type_mark' already set.
          else
             Result := False

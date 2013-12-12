@@ -85,7 +85,7 @@ feature {TYPE_MARK}
 feature {}
    make (sp: like start_position) is
       do
-         create class_text_name.make(written_name, sp)
+         create class_text_name.make(written_name, sp, False)
       end
 
 invariant

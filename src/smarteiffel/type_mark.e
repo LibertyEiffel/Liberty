@@ -458,7 +458,7 @@ feature {INTROSPECTION_HANDLER}
       do
          hs := string_aliaser.hashed_string(as_typed_internals)
          tm := at(position)
-         create cn.make(hs, position)
+         create cn.make(hs, position, False)
          gl := {ARRAY[TYPE_MARK] 1, <<tm>>}
          create {USER_GENERIC_TYPE_MARK} Result.make(cn, gl)
       end

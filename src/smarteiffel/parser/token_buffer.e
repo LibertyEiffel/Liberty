@@ -103,9 +103,9 @@ feature {PARSER}
          create Result.refer_to(start_position, fal, rank, closure_rank)
       end
 
-   to_class_name: CLASS_NAME is
+   to_class_name (allow_missing: BOOLEAN): CLASS_NAME is
       do
-         create Result.make(string_aliaser.hashed_string(buffer), start_position)
+         create Result.make(string_aliaser.hashed_string(buffer), start_position, allow_missing)
       end
 
    to_feature_name: FEATURE_NAME is

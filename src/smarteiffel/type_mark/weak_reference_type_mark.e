@@ -73,7 +73,7 @@ feature {}
          of_what_wm, buffer: STRING
       do
          buffer := once "............................................."
-         create class_text_name.make(weak_reference_name, sp)
+         create class_text_name.make(weak_reference_name, sp, False)
          create generic_list.make(1, 1)
          generic_list.put(of_what, 1)
          of_what_wm := of_what.written_mark

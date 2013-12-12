@@ -80,7 +80,7 @@ feature {TYPE_MARK}
 feature {}
    make (sp: like start_position) is
       do
-         create class_text_name.make(string_aliaser.hashed_string(as_any), sp)
+         create class_text_name.make(string_aliaser.hashed_string(as_any), sp, False)
       ensure
          start_position = sp
       end

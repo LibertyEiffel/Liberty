@@ -146,21 +146,21 @@ feature {}
       do
          bit_count_memory := 8
          pretty_name := integer_8_name
-         create class_text_name.make(integer_8_name, sp)
+         create class_text_name.make(integer_8_name, sp, False)
       end
 
    integer_16 (sp: like start_position) is
       do
          bit_count_memory := 16
          pretty_name := integer_16_name
-         create class_text_name.make(integer_16_name, sp)
+         create class_text_name.make(integer_16_name, sp, False)
       end
 
    integer_32 (sp: like start_position) is
       do
          bit_count_memory := 32
          pretty_name := integer_32_name
-         create class_text_name.make(integer_32_name, sp)
+         create class_text_name.make(integer_32_name, sp, False)
       end
 
    integer (sp: like start_position) is
@@ -169,14 +169,14 @@ feature {}
       do
          bit_count_memory := ta.integer_bit_count
          pretty_name := integer_name
-         create class_text_name.make(ta.integer_alias, sp)
+         create class_text_name.make(ta.integer_alias, sp, False)
       end
 
    integer_64 (sp: like start_position) is
       do
          bit_count_memory := 64
          pretty_name := integer_64_name
-         create class_text_name.make(integer_64_name, sp)
+         create class_text_name.make(integer_64_name, sp, False)
       end
 
    integer_8_name: HASHED_STRING is

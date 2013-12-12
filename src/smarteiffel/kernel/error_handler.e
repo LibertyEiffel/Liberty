@@ -463,7 +463,7 @@ feature {}
             echo.w_put_character(':')
             echo.w_put_integer(pos.column)
             if err < positions.upper then
-               echo.put_line(once ": and")
+               echo.w_put_line(once ": and")
             end
             err := err + 1
          end

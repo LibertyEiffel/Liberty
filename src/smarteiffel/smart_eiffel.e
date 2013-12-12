@@ -940,12 +940,12 @@ feature {ANY} -- To get a TYPE:
             hs := string_aliaser.hashed_string(as_unicode_string)
             type_unicode_string_memory := type_dictionary.fast_reference_at(hs)
             if type_unicode_string_memory = Void then
-               create cn.make(hs, unknown_position)
+               create cn.make(hs, unknown_position, False)
                unicode_class_text := class_text(cn, True)
                check
                   unicode_class_text /= Void
                end
-               create cn.make(hs, unicode_class_text.name.start_position)
+               create cn.make(hs, unicode_class_text.name.start_position, False)
                type_unicode_string_memory := get_type(create {CLASS_TYPE_MARK}.make(cn), False)
             end
          end
@@ -1651,7 +1651,7 @@ feature {COMMAND_LINE_TOOLS}
 
          -- Finally, forcing creation of TUPLE:
          hashed_string := string_aliaser.hashed_string(as_tuple)
-         ct := class_text(create {CLASS_NAME}.make(hashed_string, ct.name.start_position), True)
+         ct := class_text(create {CLASS_NAME}.make(hashed_string, ct.name.start_position, False), True)
 
          -- Note: even the simple HELLO_WORLD, normally has to load TUPLE.
       end

@@ -649,7 +649,7 @@ feature {SMART_EIFFEL} -- Class loading
                origin := origin.parent
             end
          end
-         if Result = Void and then report_error then
+         if Result = Void and then not class_name.allow_missing and then report_error then
             error_handler.add_position(class_name.start_position)
             error_handler.append(once "Cannot find the class %"")
             error_handler.append(class_name.to_string)
@@ -685,13 +685,14 @@ feature {SMART_EIFFEL} -- Class loading
          -- The `load' flag must be True if we want to load the class if it is not already loaded. If False,
          -- we don't load the class and the result may be Void.
          -- If `cluster' is not Void it overrides the information in `class_name'.
+         -- Note: class_name.allow_missing may override report_error.
       require
          class_name /= Void
       do
          Result := find_class_text(class_name, report_error, False, cluster)
          if Result = Void and then load then
             Result := find_class_text(class_name, report_error, True, cluster)
-            if Result = Void and then report_error then
+            if Result = Void and then not class_name.allow_missing and then report_error then
                if class_name.is_tuple_related then
                   smart_eiffel.tuple_class_not_found_fatal_error(class_name)
                else
@@ -704,7 +705,7 @@ feature {SMART_EIFFEL} -- Class loading
             end
          end
       ensure
-         report_error implies Result /= Void
+         (report_error and not class_name.allow_missing) implies Result /= Void
       end
 
    remove (a_class_text: CLASS_TEXT) is
@@ -1551,7 +1552,7 @@ feature {}
             until
                not a_class_name
             loop
-               class_name := token_buffer.to_class_name
+               class_name := token_buffer.to_class_name(True)
                from
                   i := new_clusters.upper
                until
@@ -1575,7 +1576,7 @@ feature {}
             until
                not a_class_name
             loop
-               class_name := token_buffer.to_class_name
+               class_name := token_buffer.to_class_name(True)
                from
                   i := new_clusters.upper
                until
@@ -1599,7 +1600,7 @@ feature {}
             until
                not a_class_name
             loop
-               class_name := token_buffer.to_class_name
+               class_name := token_buffer.to_class_name(True)
                from
                   i := new_clusters.upper
                until
