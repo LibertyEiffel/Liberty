@@ -1,4 +1,4 @@
-indexing
+note
    description:
       "nodes representing an action"
    status:

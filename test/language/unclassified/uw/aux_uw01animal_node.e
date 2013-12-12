@@ -1,4 +1,4 @@
-indexing
+note
    description:
       "nodes representing animals"
    status:

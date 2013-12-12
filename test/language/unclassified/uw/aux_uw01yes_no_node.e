@@ -1,4 +1,4 @@
-indexing
+note
    description:
       "nodes with two actions, yes and no, and link to parent node"
    status:
