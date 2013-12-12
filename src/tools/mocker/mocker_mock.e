@@ -97,24 +97,12 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
             create signature.make(node)
             output.put_new_line
             if signature.result_type = Void then
-               output.put_string(once "[
-   #(1)#(2) is
-      do
-         expect.assert_#(1)#(3)
-      end
-
-                                       ]"
+               output.put_string(once "   #(1)#(2) is%N      do%N         expect.assert_#(1)#(3)%N      end%N%N"
                                  # signature.feature_name
                                  # signature.arguments
                                  # signature.arguments_list)
             else
-               output.put_string(once "[
-   #(1)#(2): #(3) is
-      do
-         Result := expect.assert_#(1)#(4).item
-      end
-
-                                       ]"
+               output.put_string(once "   #(1)#(2): #(3) is%N      do%N         Result := expect.assert_#(1)#(4).item%N      end%N%N"
                                  # signature.feature_name
                                  # signature.arguments
                                  # signature.result_type
