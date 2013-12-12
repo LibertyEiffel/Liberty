@@ -152,7 +152,7 @@ feature {}
          hs: HASHED_STRING; bcn: CLASS_NAME
       once
          hs := string_aliaser.hashed_string(once "STD_OUTPUT")
-         create bcn.unknown_position(hs)
+         create bcn.unknown_position(hs, False)
          create Result.make(bcn)
       end
 

@@ -271,7 +271,7 @@ feature {CLUSTER}
                         -- s is now simply the class name
                         cn := string_aliaser.hashed_string(s)
                         if is_valid_class_name(s) then
-                           ct := visited.class_text(create {CLASS_NAME}.unknown_position(cn), True, True)
+                           ct := visited.class_text(create {CLASS_NAME}.unknown_position(cn, False), True)
                            check
                               ct.cluster = visited
                            end

@@ -52,7 +52,7 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          buffer.copy(comment)
          buffer.shrink(offset, Result - 1)
          class_name.set_string(buffer)
-         ct := smart_eiffel.class_text_in_cluster(class_name, False, class_text.cluster)
+         ct := smart_eiffel.class_text_in_cluster(class_name, class_text.cluster)
          if ct = Void then
             -- not a class name
             html.put_string(buffer)
@@ -78,7 +78,7 @@ feature {}
 
    class_name: CLASS_NAME is
       once
-         create Result.unknown_position(string_aliaser.hashed_string(once "INTEGER"))
+         create Result.unknown_position(string_aliaser.hashed_string("INTEGER"), True)
       end
 
    put_class_name (ct: CLASS_TEXT) is

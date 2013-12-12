@@ -549,7 +549,7 @@ feature {ACE_HANDLER}
       end
 
 feature {}
-   best_cluster_of (origin: CLASSES; class_name: CLASS_NAME; report_error: BOOLEAN; skip: CLASSES): CLUSTER is
+   best_cluster_of (origin: CLASSES; class_name: CLASS_NAME; skip: CLASSES): CLUSTER is
       local
          c: like clusters_; d: like distances_
       do
@@ -557,7 +557,7 @@ feature {}
          d := distances_
          c.clear_count
          d.clear_count
-         origin.clusters_of(class_name, report_error, skip, c, d, 0)
+         origin.clusters_of(class_name, skip, c, d, 0)
          inspect
             c.count
          when 0 then
@@ -569,7 +569,7 @@ feature {}
             if d.item(d.lower + 1) > d.first then
                -- OK, the second one is strictly further; keep the closest
                Result := c.first
-            elseif report_error then
+            elseif not class_name.allow_missing then
                check
                   d.item(d.lower + 1) = d.first
                end
@@ -608,7 +608,7 @@ feature {SMART_EIFFEL} -- Class loading
          Result /= Void implies Result.name.is_equal(cluster_name)
       end
 
-   cluster_of (class_name: CLASS_NAME; start_cluster: CLUSTER; report_error: BOOLEAN): CLUSTER is
+   cluster_of (class_name: CLASS_NAME; start_cluster: CLUSTER): CLUSTER is
       require
          class_name /= Void
       local
@@ -636,7 +636,7 @@ feature {SMART_EIFFEL} -- Class loading
             end
          end
          if origin = Void then
-            Result := best_cluster_of(universe, class_name, report_error, Void)
+            Result := best_cluster_of(universe, class_name, Void)
          else
             -- OK, the class name is written in some other class.
             -- We try to find the closest class to that one in steps getting gradually up the tree.
@@ -644,12 +644,12 @@ feature {SMART_EIFFEL} -- Class loading
             until
                Result /= Void or else origin = Void
             loop
-               Result := best_cluster_of(origin, class_name, report_error, last_origin)
+               Result := best_cluster_of(origin, class_name, last_origin)
                last_origin := origin
                origin := origin.parent
             end
          end
-         if Result = Void and then not class_name.allow_missing and then report_error then
+         if Result = Void and then not class_name.allow_missing then
             error_handler.add_position(class_name.start_position)
             error_handler.append(once "Cannot find the class %"")
             error_handler.append(class_name.to_string)
@@ -657,7 +657,7 @@ feature {SMART_EIFFEL} -- Class loading
             error_handler.print_as_fatal_error
          end
       ensure
-         report_error implies Result /= Void
+         Result = Void implies class_name.allow_missing
       end
 
    all_class_texts (class_name: CLASS_NAME): FAST_ARRAY[CLASS_TEXT] is
@@ -668,7 +668,7 @@ feature {SMART_EIFFEL} -- Class loading
          d := distances_
          c.clear_count
          d.clear_count
-         universe.clusters_of(class_name, False, Void, c, d, 0)
+         universe.clusters_of(class_name, Void, c, d, 0)
          create Result.with_capacity(c.count)
          from
             i := c.lower
@@ -676,23 +676,22 @@ feature {SMART_EIFFEL} -- Class loading
             i > c.upper
          loop
             cluster := c.item(i)
-            Result.add_last(cluster.class_text(class_name, False, True))
+            Result.add_last(cluster.class_text(class_name, True))
             i := i + 1
          end
       end
 
-   class_text (class_name: CLASS_NAME; report_error, load: BOOLEAN; cluster: CLUSTER): CLASS_TEXT is
+   class_text (class_name: CLASS_NAME; load: BOOLEAN; cluster: CLUSTER): CLASS_TEXT is
          -- The `load' flag must be True if we want to load the class if it is not already loaded. If False,
          -- we don't load the class and the result may be Void.
          -- If `cluster' is not Void it overrides the information in `class_name'.
-         -- Note: class_name.allow_missing may override report_error.
       require
          class_name /= Void
       do
-         Result := find_class_text(class_name, report_error, False, cluster)
+         Result := find_class_text(class_name, False, cluster)
          if Result = Void and then load then
-            Result := find_class_text(class_name, report_error, True, cluster)
-            if Result = Void and then not class_name.allow_missing and then report_error then
+            Result := find_class_text(class_name, True, cluster)
+            if Result = Void and then not class_name.allow_missing then
                if class_name.is_tuple_related then
                   smart_eiffel.tuple_class_not_found_fatal_error(class_name)
                else
@@ -705,7 +704,7 @@ feature {SMART_EIFFEL} -- Class loading
             end
          end
       ensure
-         (report_error and not class_name.allow_missing) implies Result /= Void
+         Result = Void implies class_name.allow_missing
       end
 
    remove (a_class_text: CLASS_TEXT) is
@@ -719,7 +718,7 @@ feature {SMART_EIFFEL} -- Class loading
       end
 
 feature {}
-   find_class_text (class_name: CLASS_NAME; report_error, load: BOOLEAN; a_cluster: CLUSTER): CLASS_TEXT is
+   find_class_text (class_name: CLASS_NAME; load: BOOLEAN; a_cluster: CLUSTER): CLASS_TEXT is
       require
          class_name /= Void
       local
@@ -750,9 +749,9 @@ feature {}
             Result := pov.reference_at(class_name.hashed_name)
          end
          if Result = Void then
-            cluster := cluster_of(class_name, cluster, report_error)
+            cluster := cluster_of(class_name, cluster)
             if cluster /= Void then
-               Result := cluster.class_text(class_name, report_error, load)
+               Result := cluster.class_text(class_name, load)
                if Result /= Void then
                   pov.put(Result, class_name.hashed_name)
                   --|*** ???? add should work instead of put!!

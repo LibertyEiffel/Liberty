@@ -86,8 +86,8 @@ feature {}
          create {HASHED_DICTIONARY[ABSTRACT_GET_TEXT_DECLARATION, FEATURE_STAMP]}get_text_seeds.make
          echo.put_line(once "Looking for #(1)..." # fz_get_text_class)
          hs := string_aliaser.hashed_string(fz_get_text_class)
-         create get_text_class_name.unknown_position(hs)
-         get_text_class := smart_eiffel.class_text(get_text_class_name, True)
+         create get_text_class_name.unknown_position(hs, False)
+         get_text_class := smart_eiffel.class_text(get_text_class_name)
          get_text_type := get_text_class.declaration_type_of_like_current
          echo.put_line(once "#(1) found in #(2)" # fz_get_text_class # get_text_class.path)
 
@@ -155,8 +155,8 @@ feature {}
          hashed_root_class_name: HASHED_STRING; root_name: CLASS_NAME; root: CLASS_TEXT; root_type: TYPE
       do
          hashed_root_class_name := string_aliaser.hashed_string(root_class_name)
-         create root_name.unknown_position(hashed_root_class_name)
-         root := smart_eiffel.class_text(root_name, True)
+         create root_name.unknown_position(hashed_root_class_name, False)
+         root := smart_eiffel.class_text(root_name)
          if root = Void then
             error_handler.append(once "Cannot load root class ")
             error_handler.append(root_class_name)

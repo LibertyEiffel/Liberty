@@ -97,7 +97,7 @@ feature {}
             else
                -- There should be no classes without a cluster; only Cecil files and such
                check
-                  smart_eiffel.cluster_of(create {CLASS_NAME}.unknown_position(string_aliaser.hashed_string(class_name_of(name.to_string))), False) = Void
+                  smart_eiffel.cluster_of(create {CLASS_NAME}.unknown_position(string_aliaser.hashed_string(class_name_of(name.to_string)), True)) = Void
                end
                tfw.put_new_line
             end
@@ -272,9 +272,9 @@ feature {}
          hs: HASHED_STRING; cn: CLASS_NAME; c: CLUSTER; ids: like id_memory
       do
          hs := string_aliaser.hashed_string(class_name_of(string))
-         create cn.unknown_position(hs)
+         create cn.unknown_position(hs, True)
          hs := string_aliaser.hashed_string(string)
-         c := smart_eiffel.cluster_of(cn, False)
+         c := smart_eiffel.cluster_of(cn)
          if c /= Void then
             ids := cluster_id_memory(c)
             if is_default_class then

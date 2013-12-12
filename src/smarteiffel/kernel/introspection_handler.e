@@ -157,7 +157,7 @@ feature {LIVE_TYPE}
          smart_eiffel.magic_count_increment
          create make_blank_fn.simple_feature_name(as_make_blank, pos)
          create result_variable.make(pos)
-         create cn.unknown_position(string_aliaser.hashed_string(as_internals))
+         create cn.unknown_position(string_aliaser.hashed_string(as_internals), False)
          create internals.make(cn)
          result_variable.set_type_mark_memory(internals)
          if tm.is_native_array then

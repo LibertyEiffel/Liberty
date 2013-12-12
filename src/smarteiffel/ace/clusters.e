@@ -63,7 +63,7 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   clusters_of (class_name: CLASS_NAME; report_error: BOOLEAN; skip: CLASSES; clusters: FAST_ARRAY[CLUSTER]
+   clusters_of (class_name: CLASS_NAME; skip: CLASSES; clusters: FAST_ARRAY[CLUSTER]
       distances: FAST_ARRAY[INTEGER]; current_distance: INTEGER) is
       local
          i, child_distance: INTEGER; c: CLASSES
@@ -76,7 +76,7 @@ feature {ACE, CLASSES} -- Searching
          loop
             c := classeses.item(i)
             if c /= skip then
-               c.clusters_of(class_name, report_error, skip, clusters, distances, child_distance)
+               c.clusters_of(class_name, skip, clusters, distances, child_distance)
             end
             i := i + 1
          end

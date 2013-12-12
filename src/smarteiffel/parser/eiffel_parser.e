@@ -176,7 +176,7 @@ feature {SMART_EIFFEL}
                   n.extend(cc)
                   next_char
                end
-               create cn.unknown_position(string_aliaser.hashed_string(n))
+               create cn.unknown_position(string_aliaser.hashed_string(n), False)
             else
                from
                until

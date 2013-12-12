@@ -183,7 +183,7 @@ feature {}
          --
          ace.set_root_class_name_using(file_path)
          root_class := ace.root_class_name
-         create class_name.unknown_position(root_class)
+         create class_name.unknown_position(root_class, False)
          class_text := smart_eiffel.class_text_for_pretty(file_path, class_name)
          if class_text = Void then
             error_handler.append(command_line_name)

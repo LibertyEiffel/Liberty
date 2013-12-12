@@ -55,7 +55,7 @@ feature {ANY}
       do
          Result := class_text_memory
          if Result = Void then
-            Result := smart_eiffel.class_text(Current, True)
+            Result := smart_eiffel.class_text(Current)
             class_text_memory := Result
          end
       ensure
@@ -68,7 +68,8 @@ feature {ANY}
       do
          if class_text_memory = Void then
             if not has_tried_to_load then
-               class_text_memory := smart_eiffel.class_text(Current, False)
+               class_name_cache.make(hashed_name, start_position, True)
+               class_text_memory := smart_eiffel.class_text(class_name_cache)
                error_handler.cancel
                has_tried_to_load := True
             end
@@ -97,6 +98,12 @@ feature {ANY}
    accept (visitor: CLASS_NAME_VISITOR) is
       do
          visitor.visit_class_name(Current)
+      end
+
+feature {}
+   class_name_cache: CLASS_NAME is
+      once
+         create Result.unknown_position(string_aliaser.hashed_string(as_any), True)
       end
 
 feature {SMART_EIFFEL}
@@ -183,7 +190,7 @@ feature {INTEGER_TYPE_MARK, NATURAL_TYPE_MARK}
          hash_code = to_string.hash_code
       end
 
-feature {}
+feature {ANY}
    make (hn: like hashed_name; sp: like start_position; am: like allow_missing) is
       require
          hn /= Void
@@ -199,15 +206,16 @@ feature {}
          hash_code = to_string.hash_code
       end
 
-   unknown_position (hn: like hashed_name) is
+   unknown_position (hn: like hashed_name; am: like allow_missing) is
       require
          hn /= Void
       local
          p: POSITION
       do
-         make(hn, p, False)
+         make(hn, p, am)
       ensure
          hashed_name = hn
+         allow_missing = am
          start_position.is_unknown
          to_string = hashed_name.to_string
          hash_code = to_string.hash_code

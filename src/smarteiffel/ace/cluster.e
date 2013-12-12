@@ -44,7 +44,7 @@ feature {ACE}
       end
 
 feature {ACE, EIFFELDOC}
-   class_text (class_name: CLASS_NAME; report_error, load: BOOLEAN): CLASS_TEXT is
+   class_text (class_name: CLASS_NAME; load: BOOLEAN): CLASS_TEXT is
       require
          has(class_name.hashed_name)
       local
@@ -56,9 +56,9 @@ feature {ACE, EIFFELDOC}
             check
                pool.cluster_class(hs) /= Void
             end
-            if parser_buffer_for(hs, report_error) then
+            if parser_buffer_for(hs, class_name.allow_missing) then
                Result := smart_eiffel.analyze_class(class_name, Current)
-            elseif report_error then
+            elseif not class_name.allow_missing then
                error_handler.add_position(class_name.start_position)
                error_handler.append(once "Could not load class in cluster ")
                error_handler.append(directory_path)
@@ -110,7 +110,7 @@ feature {}
    class_text_map: DICTIONARY[CLASS_TEXT, HASHED_STRING]
 
 feature {}
-   parser_buffer_for (a_name: HASHED_STRING; report_error: BOOLEAN): BOOLEAN is
+   parser_buffer_for (a_name: HASHED_STRING; allow_missing: BOOLEAN): BOOLEAN is
          -- The algorithm to search some class on the disk using the `a_name' key which is usually some simple
          -- class name using the standard notation, but which can also be any other kind of notation (even
          -- file path notation). When the `Result' is True, the `parser_buffer' is ready to be used.
@@ -124,7 +124,7 @@ feature {}
             cluster := entry.cluster
             Result := prepare_parser_buffer_for(entry.path)
          end
-         if not Result and then report_error then
+         if not Result and then not allow_missing then
             echo.w_put_string("Unable to find file for class %"")
             echo.w_put_string(a_name.to_string)
             echo.w_put_string("%". ")

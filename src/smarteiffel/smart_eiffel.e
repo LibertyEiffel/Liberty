@@ -55,15 +55,15 @@ feature {ANY}
    no_id: BOOLEAN
          -- True when the ids file has not to be read.
 
-   cluster_of (class_name: CLASS_NAME; report_error: BOOLEAN): CLUSTER is
+   cluster_of (class_name: CLASS_NAME): CLUSTER is
          -- Retrieve the cluster of the class name. If more than one class exists with the same name, the
          -- closest to where the class name is written is returned.
       require
          class_name /= Void
       do
-         Result := ace.cluster_of(class_name, Void, report_error)
+         Result := ace.cluster_of(class_name, Void)
       ensure
-         report_error implies Result /= Void
+         Result = Void implies class_name.allow_missing
       end
 
    cluster_named (cluster_name: STRING): CLUSTER is
@@ -77,7 +77,7 @@ feature {ANY}
          Result /= Void implies Result.name.is_equal(cluster_name)
       end
 
-   class_text (class_name: CLASS_NAME; report_error: BOOLEAN): CLASS_TEXT is
+   class_text (class_name: CLASS_NAME): CLASS_TEXT is
          -- Retrieve the corresponding memorized one or launch the `eiffel_parser' if the `class_name'
          -- class is not yet loaded. When the `report_error' flag is False, no
          -- error occurs even when the class is not found.
@@ -85,7 +85,7 @@ feature {ANY}
       require
          class_name /= Void
       do
-         Result := ace.class_text(class_name, report_error, True, Void)
+         Result := ace.class_text(class_name, True, Void)
       ensure
          report_error implies Result /= Void
       end
@@ -97,19 +97,19 @@ feature {ANY}
       require
          class_name /= Void
       do
-         Result := ace.class_text(class_name, False, False, Void)
+         Result := ace.class_text(class_name, False, Void)
       end
 
-   class_text_in_cluster (class_name: CLASS_NAME; report_error: BOOLEAN; cluster: CLUSTER): CLASS_TEXT is
+   class_text_in_cluster (class_name: CLASS_NAME; cluster: CLUSTER): CLASS_TEXT is
          -- Retrieve the corresponding memorized one or launch the `eiffel_parser' if the `class_name'
-         -- class is not yet loaded. When the `report_error' flag is False, no
+         -- class is not yet loaded. When the `class_name.allow_missing` flag is True, no
          -- error occurs even when the class is not found. `cluster' is the client cluster to start the
          -- search from.
          -- (See also `class_text', `loaded_class_text'.)
       require
          class_name /= Void
       do
-         Result := ace.class_text(class_name, report_error, True, cluster)
+         Result := ace.class_text(class_name, True, cluster)
       ensure
          report_error implies Result /= Void
       end
@@ -246,7 +246,7 @@ feature {FINDER}
       require
          class_name /= Void
       do
-         Result := ace.all_class_texts(create {CLASS_NAME}.unknown_position(class_name))
+         Result := ace.all_class_texts(create {CLASS_NAME}.unknown_position(class_name, False))
       ensure
          Result /= Void
       end
@@ -941,7 +941,7 @@ feature {ANY} -- To get a TYPE:
             type_unicode_string_memory := type_dictionary.fast_reference_at(hs)
             if type_unicode_string_memory = Void then
                create cn.make(hs, unknown_position, False)
-               unicode_class_text := class_text(cn, True)
+               unicode_class_text := class_text(cn)
                check
                   unicode_class_text /= Void
                end
@@ -1113,8 +1113,8 @@ feature {ANY} -- To get a TYPE:
          hs: HASHED_STRING; cn: CLASS_NAME; c: CLUSTER
       do
          hs := string_aliaser.hashed_string(as_internals_handler)
-         create cn.unknown_position(hs)
-         c := cluster_of(cn, True)
+         create cn.unknown_position(hs, False)
+         c := cluster_of(cn)
          hs := long_type_name(hs, c)
          Result := type_dictionary.fast_reference_at(hs)
       end
@@ -1234,8 +1234,8 @@ feature {ANY} -- To get a TYPE:
          until
             stop
          loop
-            create cn.unknown_position(string_aliaser.hashed_string("TUPLE " + (max_tuple + 1).to_string))
-            ct := ace.class_text(cn, False, False, Void)
+            create cn.unknown_position(string_aliaser.hashed_string("TUPLE " + (max_tuple + 1).to_string), False)
+            ct := ace.class_text(cn, False, Void)
             if ct = Void then
                stop := True
             else
@@ -1326,8 +1326,8 @@ feature {LIVE_TYPE}
          hs: HASHED_STRING; cn: CLASS_NAME; t: TYPE; c: CLUSTER
       once
          hs := string_aliaser.hashed_string(as_disposable)
-         create cn.unknown_position(hs)
-         c := cluster_of(cn, True)
+         create cn.unknown_position(hs, False)
+         c := cluster_of(cn)
          hs := long_type_name(hs, c)
          t := type_dictionary.fast_reference_at(hs)
          if t = Void then
@@ -1463,7 +1463,7 @@ feature {ID_PROVIDER}
          if lt /= Void then
             ct := lt.class_text
          else
-            ct := ace.class_text(create {CLASS_NAME}.unknown_position(name), False, False, cluster)
+            ct := ace.class_text(create {CLASS_NAME}.unknown_position(name, True), False, cluster)
          end
          tfw.put_character('%N')
          if ct /= Void then
@@ -1647,11 +1647,11 @@ feature {COMMAND_LINE_TOOLS}
       once
          -- Forcing first creation of ANY in order to initialize the machinery:
          hashed_string := string_aliaser.hashed_string(as_any)
-         ct := class_text(create {CLASS_NAME}.unknown_position(hashed_string), True)
+         ct := class_text(create {CLASS_NAME}.unknown_position(hashed_string, False))
 
          -- Finally, forcing creation of TUPLE:
          hashed_string := string_aliaser.hashed_string(as_tuple)
-         ct := class_text(create {CLASS_NAME}.make(hashed_string, ct.name.start_position, False), True)
+         ct := class_text(create {CLASS_NAME}.make(hashed_string, ct.name.start_position, False))
 
          -- Note: even the simple HELLO_WORLD, normally has to load TUPLE.
       end
@@ -1815,14 +1815,14 @@ feature {ACE}
          hashed_root_class_name: HASHED_STRING; root_name: CLASS_NAME
       do
          hashed_root_class_name := string_aliaser.hashed_string(root_class_name)
-         create root_name.unknown_position(hashed_root_class_name)
+         create root_name.unknown_position(hashed_root_class_name, False)
          if cwd_cluster /= Void then
             echo.put_string(once "Looking for ")
             echo.put_string(root_class_name)
             echo.put_string(once " starting from cluster ")
             echo.put_line(cwd_cluster.name)
          end
-         Result := ace.class_text(root_name, True, True, cwd_cluster)
+         Result := ace.class_text(root_name, True, cwd_cluster)
       end
 
 feature {}

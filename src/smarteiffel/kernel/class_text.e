@@ -1064,7 +1064,7 @@ feature {}
          path := p
          cluster := c
          create insert_inherit_test_memory_cache.with_capacity(1024)
-         create name.unknown_position(string_aliaser.hashed_string(my_name))
+         create name.unknown_position(string_aliaser.hashed_string(my_name), False)
          c.register_class_text(Current)
       ensure
          path = p

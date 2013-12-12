@@ -42,7 +42,7 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   clusters_of (class_name: CLASS_NAME; report_error: BOOLEAN; skip: CLASSES; clusters: FAST_ARRAY[CLUSTER]
+   clusters_of (class_name: CLASS_NAME; skip: CLASSES; clusters: FAST_ARRAY[CLUSTER]
       distances: FAST_ARRAY[INTEGER]; current_distance: INTEGER) is
       local
          sorter: COLLECTION_SORTER[INTEGER]; i: INTEGER
@@ -57,7 +57,7 @@ feature {ACE, CLASSES} -- Searching
                distances.add(current_distance, i)
             end
          end
-         Precursor(class_name, report_error, skip, clusters, distances, current_distance)
+         Precursor(class_name, skip, clusters, distances, current_distance)
       end
 
    cluster_by_directory_path (a_path: STRING): CLUSTER is

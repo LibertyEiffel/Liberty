@@ -396,7 +396,7 @@ feature {CLASS_CHECKER}
          tuple_type: TYPE; tuple_class_text, ct: CLASS_TEXT; ccl: CREATION_CLAUSE_LIST; cn: CLASS_NAME
          dummy: BOOLEAN; fcl: FEATURE_CLAUSE_LIST; i, i2: INTEGER
       do
-         create cn.unknown_position(string_aliaser.hashed_string(as_any))
+         create cn.unknown_position(string_aliaser.hashed_string(as_any), False)
          create {CLASS_TYPE_MARK} client.make(cn)
          -- No sort for TUPLE:
          sort_flag := False

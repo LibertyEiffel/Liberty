@@ -66,8 +66,8 @@ feature {}
          until
             i > root_class_names.upper
          loop
-            create cn.unknown_position(root_class_names.item(i))
-            bc := smart_eiffel.class_text(cn, True)
+            create cn.unknown_position(root_class_names.item(i), False)
+            bc := smart_eiffel.class_text(cn)
             obsolete_mark := bc.obsolete_mark
             class_check(bc)
             i := i + 1
@@ -150,7 +150,7 @@ feature {}
          if a_client_or_void = Void then
             client := Void
          else
-            create cn.unknown_position(a_client_or_void)
+            create cn.unknown_position(a_client_or_void, True)
             create {CLASS_TYPE_MARK} client.make(cn)
          end
          short_printer.set_client(client)

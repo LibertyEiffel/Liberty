@@ -477,7 +477,7 @@ feature {}
          hs: HASHED_STRING
       once
          hs := string_aliaser.hashed_string(as_any)
-         create Result.unknown_position(hs)
+         create Result.unknown_position(hs, False)
       end
 
    class_name_tuple: CLASS_NAME is
@@ -485,7 +485,7 @@ feature {}
          hs: HASHED_STRING
       once
          hs := string_aliaser.hashed_string(as_tuple)
-         create Result.unknown_position(hs)
+         create Result.unknown_position(hs, False)
       end
 
    client_file_name_part_ (buffer: STRING; a_client: TYPE_MARK) is

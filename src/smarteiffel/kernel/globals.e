@@ -212,8 +212,8 @@ feature {ANY}
       local
          cn: CLASS_NAME
       once
-         create cn.unknown_position(string_aliaser.hashed_string(as_any))
-         Result := smart_eiffel.class_text(cn, True)
+         create cn.unknown_position(string_aliaser.hashed_string(as_any), False)
+         Result := smart_eiffel.class_text(cn)
       end
 
    frozen omitted_client_list: CLIENT_LIST is

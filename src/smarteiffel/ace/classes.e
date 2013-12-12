@@ -46,7 +46,7 @@ feature {ACE, CLASSES} -- Searching
          Result /= Void implies Result.name.is_equal(cluster_name)
       end
 
-   clusters_of (class_name: CLASS_NAME; report_error: BOOLEAN; skip: CLASSES; clusters: FAST_ARRAY[CLUSTER]
+   clusters_of (class_name: CLASS_NAME; skip: CLASSES; clusters: FAST_ARRAY[CLUSTER]
       distances: FAST_ARRAY[INTEGER]; current_distance: INTEGER) is
       require
          coherent: clusters.count = distances.count

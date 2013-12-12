@@ -67,7 +67,7 @@ feature {EIFFELDOC}
             loop
                class_name_todo := class_todo.item(i)
                if not class_done.has(class_name_todo) then
-                  ct := smart_eiffel.class_text(class_name_todo, False)
+                  ct := smart_eiffel.class_text(class_name_todo)
                   if ct /= Void then
                      if remote_cluster(ct.cluster) = Void then
                         shorter.short_for(ct, inherit_children.reference_at(ct.name), insert_children.reference_at(ct.name))

@@ -59,12 +59,19 @@ feature {ANY}
          end
       end
 
+feature {}
+   class_name_cache: CLASS_NAME is
+      once
+         create Result.unknown_position(string_aliaser.hashed_string(as_any), True)
+      end
+
 feature {FORMAL_GENERIC_LIST}
    generic_formal_arguments_check is
       local
          class_text: CLASS_TEXT
       do
-         class_text := smart_eiffel.class_text(name, False)
+         class_name_cache.make(name.hashed_name, name.start_position, True)
+         class_text := smart_eiffel.class_text(class_name_cache)
          if class_text /= Void then
             error_handler.add_position(name.start_position)
             error_handler.add_position(class_text.name.start_position)
