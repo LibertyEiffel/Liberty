@@ -16,7 +16,7 @@ feature {}
                     i: INTEGER
                  do
                     i := a
-                    assert(i = 5)
+                    assert(i = 3)
                  end
          a := 3
          p.call([])
