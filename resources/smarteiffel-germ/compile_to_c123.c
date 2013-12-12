@@ -25,103 +25,8 @@ C Compiler options used: -pipe -O2 -fno-gcse
 extern "C" {
 #endif
 
-T0* se_manifest1179(T2 initial_lower,int argc,...){
-/*ARRAY[ARRAY[INTEGER_8]]*/
-T1179*C;
-va_list pa;
-int i=0;
-int imax;
-va_start(pa,argc);
-C=se_malloc(sizeof(T1179));
-*C=M1179;
-r1179manifest_make(C,argc,initial_lower);
-imax=argc;
-while (i < imax) {
-T0* element=((T0*)(va_arg(pa,T0*)));
-r1179manifest_put(C,i++,element);
-}
-va_end(pa);
-return ((T0*)C);
-}/*--*/
-
-T0* se_manifest1039(T2 initial_lower,int argc,...){
-/*ARRAY[TYPE_MARK]*/
-T1039*C;
-va_list pa;
-int i=0;
-int imax;
-va_start(pa,argc);
-C=se_malloc(sizeof(T1039));
-*C=M1039;
-r1039manifest_make(C,argc,initial_lower);
-imax=argc;
-while (i < imax) {
-T0* element=((T0*)(va_arg(pa,T0*)));
-r1039manifest_put(C,i++,element);
-}
-va_end(pa);
-return ((T0*)C);
-}/*--*/
-
-T0* se_manifest1098(T2 initial_lower,int argc,...){
-/*ARRAY[DECLARATION]*/
-T1098*C;
-va_list pa;
-int i=0;
-int imax;
-va_start(pa,argc);
-C=se_malloc(sizeof(T1098));
-*C=M1098;
-r1098manifest_make(C,argc,initial_lower);
-imax=argc;
-while (i < imax) {
-T0* element=((T0*)(va_arg(pa,T0*)));
-r1098manifest_put(C,i++,element);
-}
-va_end(pa);
-return ((T0*)C);
-}/*--*/
-
-T0* se_manifest1026(int argc,...){
-/*FAST_ARRAY[STRING]*/
-T1026*C;
-va_list pa;
-int i=0;
-int imax;
-va_start(pa,argc);
-C=se_malloc(sizeof(T1026));
-*C=M1026;
-r1026manifest_make(C,argc);
-imax=argc;
-while (i < imax) {
-T0* element=((T0*)(va_arg(pa,T0*)));
-r1026manifest_put(C,i++,element);
-}
-va_end(pa);
-return ((T0*)C);
-}/*--*/
-
-T0* se_manifest1486(int argc,...){
-/*FAST_ARRAY[POINTER]*/
-T1486*C;
-va_list pa;
-int i=0;
-int imax;
-va_start(pa,argc);
-C=se_malloc(sizeof(T1486));
-*C=M1486;
-r1486manifest_make(C,argc);
-imax=argc;
-while (i < imax) {
-T8 element=((T8)(va_arg(pa,T8)));
-r1486manifest_put(C,i++,element);
-}
-va_end(pa);
-return ((T0*)C);
-}/*--*/
-
 T0* se_manifest1180(T2 initial_lower,int argc,...){
-/*ARRAY[INTEGER_8]*/
+/*ARRAY[ARRAY[INTEGER_8]]*/
 T1180*C;
 va_list pa;
 int i=0;
@@ -132,46 +37,141 @@ C=se_malloc(sizeof(T1180));
 r1180manifest_make(C,argc,initial_lower);
 imax=argc;
 while (i < imax) {
-T1 element=((T1)(va_arg(pa,int)));
+T0* element=((T0*)(va_arg(pa,T0*)));
 r1180manifest_put(C,i++,element);
 }
 va_end(pa);
 return ((T0*)C);
 }/*--*/
 
-T0* se_manifest1048(int argc,...){
-/*HASHED_SET[HASHED_STRING]*/
-T1048*C;
+T0* se_manifest1040(T2 initial_lower,int argc,...){
+/*ARRAY[TYPE_MARK]*/
+T1040*C;
 va_list pa;
 int i=0;
 int imax;
 va_start(pa,argc);
-C=se_malloc(sizeof(T1048));
-*C=M1048;
-r1048manifest_make(C,argc);
+C=se_malloc(sizeof(T1040));
+*C=M1040;
+r1040manifest_make(C,argc,initial_lower);
 imax=argc;
 while (i < imax) {
 T0* element=((T0*)(va_arg(pa,T0*)));
-r1048manifest_put(C,i++,element);
+r1040manifest_put(C,i++,element);
 }
 va_end(pa);
 return ((T0*)C);
 }/*--*/
 
-T0* se_manifest1145(int argc,...){
-/*HASHED_SET[STRING]*/
-T1145*C;
+T0* se_manifest1099(T2 initial_lower,int argc,...){
+/*ARRAY[DECLARATION]*/
+T1099*C;
 va_list pa;
 int i=0;
 int imax;
 va_start(pa,argc);
-C=se_malloc(sizeof(T1145));
-*C=M1145;
-r1145manifest_make(C,argc);
+C=se_malloc(sizeof(T1099));
+*C=M1099;
+r1099manifest_make(C,argc,initial_lower);
 imax=argc;
 while (i < imax) {
 T0* element=((T0*)(va_arg(pa,T0*)));
-r1145manifest_put(C,i++,element);
+r1099manifest_put(C,i++,element);
+}
+va_end(pa);
+return ((T0*)C);
+}/*--*/
+
+T0* se_manifest1027(int argc,...){
+/*FAST_ARRAY[STRING]*/
+T1027*C;
+va_list pa;
+int i=0;
+int imax;
+va_start(pa,argc);
+C=se_malloc(sizeof(T1027));
+*C=M1027;
+r1027manifest_make(C,argc);
+imax=argc;
+while (i < imax) {
+T0* element=((T0*)(va_arg(pa,T0*)));
+r1027manifest_put(C,i++,element);
+}
+va_end(pa);
+return ((T0*)C);
+}/*--*/
+
+T0* se_manifest1487(int argc,...){
+/*FAST_ARRAY[POINTER]*/
+T1487*C;
+va_list pa;
+int i=0;
+int imax;
+va_start(pa,argc);
+C=se_malloc(sizeof(T1487));
+*C=M1487;
+r1487manifest_make(C,argc);
+imax=argc;
+while (i < imax) {
+T8 element=((T8)(va_arg(pa,T8)));
+r1487manifest_put(C,i++,element);
+}
+va_end(pa);
+return ((T0*)C);
+}/*--*/
+
+T0* se_manifest1181(T2 initial_lower,int argc,...){
+/*ARRAY[INTEGER_8]*/
+T1181*C;
+va_list pa;
+int i=0;
+int imax;
+va_start(pa,argc);
+C=se_malloc(sizeof(T1181));
+*C=M1181;
+r1181manifest_make(C,argc,initial_lower);
+imax=argc;
+while (i < imax) {
+T1 element=((T1)(va_arg(pa,int)));
+r1181manifest_put(C,i++,element);
+}
+va_end(pa);
+return ((T0*)C);
+}/*--*/
+
+T0* se_manifest1049(int argc,...){
+/*HASHED_SET[HASHED_STRING]*/
+T1049*C;
+va_list pa;
+int i=0;
+int imax;
+va_start(pa,argc);
+C=se_malloc(sizeof(T1049));
+*C=M1049;
+r1049manifest_make(C,argc);
+imax=argc;
+while (i < imax) {
+T0* element=((T0*)(va_arg(pa,T0*)));
+r1049manifest_put(C,i++,element);
+}
+va_end(pa);
+return ((T0*)C);
+}/*--*/
+
+T0* se_manifest1146(int argc,...){
+/*HASHED_SET[STRING]*/
+T1146*C;
+va_list pa;
+int i=0;
+int imax;
+va_start(pa,argc);
+C=se_malloc(sizeof(T1146));
+*C=M1146;
+r1146manifest_make(C,argc);
+imax=argc;
+while (i < imax) {
+T0* element=((T0*)(va_arg(pa,T0*)));
+r1146manifest_put(C,i++,element);
 }
 va_end(pa);
 return ((T0*)C);
@@ -186,25 +186,25 @@ case 387/*WHEN_ITEM_1*/: return 1;
 return 0;
 }/*--*/
 
-int can_assign_to807_from691(T0* expression){
+int can_assign_to808_from692(T0* expression){
 /* LOADPATH ?:= CLASSES */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 807/*LOADPATH*/: return 1;
+case 808/*LOADPATH*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to681_from343(T0* expression){
+int can_assign_to682_from343(T0* expression){
 /* CST_ATT ?:= ANONYMOUS_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 686/*CST_ATT_CHARACTER*/: return 1;
-case 683/*CST_ATT_STRING*/: return 1;
-case 687/*CST_ATT_REAL*/: return 1;
-case 680/*CST_ATT_BOOLEAN*/: return 1;
-case 685/*CST_ATT_INTEGER*/: return 1;
-case 684/*CST_ATT_UNIQUE*/: return 1;
+case 687/*CST_ATT_CHARACTER*/: return 1;
+case 684/*CST_ATT_STRING*/: return 1;
+case 688/*CST_ATT_REAL*/: return 1;
+case 681/*CST_ATT_BOOLEAN*/: return 1;
+case 686/*CST_ATT_INTEGER*/: return 1;
+case 685/*CST_ATT_UNIQUE*/: return 1;
 }
 return 0;
 }/*--*/
@@ -213,22 +213,22 @@ int can_assign_toATTRIBUTE_from343(T0* expression){
 /* ATTRIBUTE ?:= ANONYMOUS_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 688/*WRITABLE_ATTRIBUTE*/: return 1;
-case 686/*CST_ATT_CHARACTER*/: return 1;
-case 683/*CST_ATT_STRING*/: return 1;
-case 687/*CST_ATT_REAL*/: return 1;
-case 680/*CST_ATT_BOOLEAN*/: return 1;
-case 685/*CST_ATT_INTEGER*/: return 1;
-case 684/*CST_ATT_UNIQUE*/: return 1;
+case 689/*WRITABLE_ATTRIBUTE*/: return 1;
+case 687/*CST_ATT_CHARACTER*/: return 1;
+case 684/*CST_ATT_STRING*/: return 1;
+case 688/*CST_ATT_REAL*/: return 1;
+case 681/*CST_ATT_BOOLEAN*/: return 1;
+case 686/*CST_ATT_INTEGER*/: return 1;
+case 685/*CST_ATT_UNIQUE*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to679_from343(T0* expression){
+int can_assign_to680_from343(T0* expression){
 /* E_FUNCTION ?:= ANONYMOUS_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 679/*E_FUNCTION*/: return 1;
+case 680/*E_FUNCTION*/: return 1;
 }
 return 0;
 }/*--*/
@@ -242,47 +242,47 @@ case 573/*ONCE_FUNCTION*/: return 1;
 return 0;
 }/*--*/
 
-int can_assign_to685_from343(T0* expression){
+int can_assign_to686_from343(T0* expression){
 /* CST_ATT_INTEGER ?:= ANONYMOUS_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 685/*CST_ATT_INTEGER*/: return 1;
+case 686/*CST_ATT_INTEGER*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to688_from343(T0* expression){
+int can_assign_to689_from343(T0* expression){
 /* WRITABLE_ATTRIBUTE ?:= ANONYMOUS_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 688/*WRITABLE_ATTRIBUTE*/: return 1;
+case 689/*WRITABLE_ATTRIBUTE*/: return 1;
+}
+return 0;
+}/*--*/
+
+int can_assign_to679_from343(T0* expression){
+/* E_PROCEDURE ?:= ANONYMOUS_FEATURE */
+if (expression == NULL) return 1;
+switch (expression->id) {
+case 679/*E_PROCEDURE*/: return 1;
 }
 return 0;
 }/*--*/
 
 int can_assign_to678_from343(T0* expression){
-/* E_PROCEDURE ?:= ANONYMOUS_FEATURE */
-if (expression == NULL) return 1;
-switch (expression->id) {
-case 678/*E_PROCEDURE*/: return 1;
-}
-return 0;
-}/*--*/
-
-int can_assign_to677_from343(T0* expression){
 /* ONCE_PROCEDURE ?:= ANONYMOUS_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 677/*ONCE_PROCEDURE*/: return 1;
+case 678/*ONCE_PROCEDURE*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to680_from343(T0* expression){
+int can_assign_to681_from343(T0* expression){
 /* CST_ATT_BOOLEAN ?:= ANONYMOUS_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 680/*CST_ATT_BOOLEAN*/: return 1;
+case 681/*CST_ATT_BOOLEAN*/: return 1;
 }
 return 0;
 }/*--*/
@@ -332,20 +332,20 @@ case 374/*ASSIGNMENT*/: return 1;
 return 0;
 }/*--*/
 
-int can_assign_to669_from351(T0* expression){
+int can_assign_to670_from351(T0* expression){
 /* SEDB ?:= INSTRUCTION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 669/*SEDB*/: return 1;
+case 670/*SEDB*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to756_from338(T0* expression){
+int can_assign_to757_from338(T0* expression){
 /* RUN_FEATURE_7 ?:= RUN_FEATURE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 756/*RUN_FEATURE_7*/: return 1;
+case 757/*RUN_FEATURE_7*/: return 1;
 }
 return 0;
 }/*--*/
@@ -386,7 +386,7 @@ case 430/*COMMENT*/: return 1;
 case 349/*PROCEDURE_CALL_0*/: return 1;
 case 353/*PROCEDURE_CALL_1*/: return 1;
 case 354/*PROCEDURE_CALL_N*/: return 1;
-case 671/*REQUIRE_ASSERTION*/: return 1;
+case 672/*REQUIRE_ASSERTION*/: return 1;
 case 525/*CHECK_COMPOUND*/: return 1;
 case 484/*DEBUG_COMPOUND*/: return 1;
 case 420/*IFTHEN*/: return 1;
@@ -404,24 +404,24 @@ case 402/*ASSIGNMENT_ATTEMPT*/: return 1;
 case 471/*ASSIGNMENT_CALL_ASSIGNER*/: return 1;
 case 465/*RETRY_INSTRUCTION*/: return 1;
 case 403/*COMPOUND*/: return 1;
-case 667/*ENSURE_ASSERTION*/: return 1;
+case 668/*ENSURE_ASSERTION*/: return 1;
 case 435/*CLASS_INVARIANT*/: return 1;
 case 421/*NO_INVARIANT_WRAPPER*/: return 1;
-case 669/*SEDB*/: return 1;
-case 668/*UNUSED_EXPRESSION*/: return 1;
-case 670/*RUN_TIME_ERROR_INSTRUCTION*/: return 1;
+case 670/*SEDB*/: return 1;
+case 669/*UNUSED_EXPRESSION*/: return 1;
+case 671/*RUN_TIME_ERROR_INSTRUCTION*/: return 1;
 case 567/*VOID_PROC_CALL*/: return 1;
-case 672/*AGENT_INSTRUCTION*/: return 1;
+case 673/*AGENT_INSTRUCTION*/: return 1;
 case 419/*RAW_CREATE_INSTRUCTION*/: return 1;
 }
 return 0;
 }/*--*/
 
-int can_assign_to660_from348(T0* expression){
+int can_assign_to661_from348(T0* expression){
 /* COMPOUND_EXPRESSION ?:= CODE */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 660/*COMPOUND_EXPRESSION*/: return 1;
+case 661/*COMPOUND_EXPRESSION*/: return 1;
 }
 return 0;
 }/*--*/
@@ -548,24 +548,24 @@ case 365/*ARGUMENT_NAME_REF*/: return 1;
 case 418/*WRITABLE_ATTRIBUTE_NAME*/: return 1;
 case 401/*LOCAL_NAME_REF*/: return 1;
 case 535/*NON_VOID_NO_DISPATCH*/: return 1;
-case 660/*COMPOUND_EXPRESSION*/: return 1;
-case 662/*CREATE_WRITABLE*/: return 1;
-case 663/*CLOSED_OPERAND*/: return 1;
+case 661/*COMPOUND_EXPRESSION*/: return 1;
+case 663/*CREATE_WRITABLE*/: return 1;
+case 664/*CLOSED_OPERAND*/: return 1;
 case 363/*FAKE_ARGUMENT*/: return 1;
-case 654/*NO_DISPATCH*/: return 1;
-case 658/*DYNAMIC_DISPATCH_TEMPORARY1*/: return 1;
-case 657/*DYNAMIC_DISPATCH_TEMPORARY2*/: return 1;
+case 655/*NO_DISPATCH*/: return 1;
+case 659/*DYNAMIC_DISPATCH_TEMPORARY1*/: return 1;
+case 658/*DYNAMIC_DISPATCH_TEMPORARY2*/: return 1;
 case 569/*VOID_CALL*/: return 1;
-case 659/*DYNAMIC_DISPATCH_TEMPORARY1_ID*/: return 1;
-case 656/*INTERNAL_LOCAL2*/: return 1;
-case 652/*NATURAL_CONSTANT*/: return 1;
-case 653/*NULL_POINTER*/: return 1;
+case 660/*DYNAMIC_DISPATCH_TEMPORARY1_ID*/: return 1;
+case 657/*INTERNAL_LOCAL2*/: return 1;
+case 653/*NATURAL_CONSTANT*/: return 1;
+case 654/*NULL_POINTER*/: return 1;
 case 532/*IMPLICIT_CAST*/: return 1;
-case 664/*AGENT_EXPRESSION*/: return 1;
+case 665/*AGENT_EXPRESSION*/: return 1;
 case 422/*STATIC_CALL_0_C*/: return 1;
 case 373/*GENERATOR_GENERATING_TYPE*/: return 1;
-case 655/*NATIVE_ARRAY_ITEM*/: return 1;
-case 661/*FAKE_TUPLE*/: return 1;
+case 656/*NATIVE_ARRAY_ITEM*/: return 1;
+case 662/*FAKE_TUPLE*/: return 1;
 }
 return 0;
 }/*--*/
@@ -858,11 +858,11 @@ case 388/*MANIFEST_STRING*/: return 1;
 return 0;
 }/*--*/
 
-int can_assign_to653_from347(T0* expression){
+int can_assign_to654_from347(T0* expression){
 /* NULL_POINTER ?:= EXPRESSION */
 if (expression == NULL) return 1;
 switch (expression->id) {
-case 653/*NULL_POINTER*/: return 1;
+case 654/*NULL_POINTER*/: return 1;
 }
 return 0;
 }/*--*/

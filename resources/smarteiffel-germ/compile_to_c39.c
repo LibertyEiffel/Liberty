@@ -25,37 +25,451 @@ C Compiler options used: -pipe -O2 -fno-gcse
 extern "C" {
 #endif
 
-static 
-/*agent launcher*/T0* afp_agenT792f792l126c52(se_agenT792f792l126c52*u){
-int closed_C=(u->closed_C);
-u->R=/*RF4:_inline_agent27*/r792_inline_agent27(closed_C)/*:RF4*/;
-return u->R;
+/*RUN_TIME_SET*/void r540make(T540*C,T0*a1){
+/*[INTERNAL_C_LOCAL list*/
+T0* tmp0;
+/*INTERNAL_C_LOCAL list]*/
+/*SFN*/(C->_owner/*2p*/)=a1;
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1196))));
+*((T1196*)tmp0/*new*/)=M1196;
+/*RF3:make*/r1196make(((T1196*)tmp0/*new*/));
+/*:RF3*//*SFN*/(C->_set/*2p*/)=tmp0/*new*/;
+/*tmp0.unlock*/
 }/*--*/
 
-/*agent creation*/T0*agenT792f792l126c52(int closed_C){
-se_agenT792f792l126c52*u=(void*)new_agent(1208);
-u->creation_mold_id=47;
-u->afp=afp_agenT792f792l126c52;
-u->closed_C=closed_C;
-return((T0*)u);
-}/*--*/
-T0*oBC792home=(void*)0;
-int fBC792home=0;
-
-/*XDG*/T0*r792home(T792 C){
-if(fBC792home==0){fBC792home=1;{
-oBC792home=/*RF4:getenv*/r792getenv(C,se_string(4,s543_11429A),(void*)0,(void*)0)/*:RF4*/;
-}}
-return oBC792home;
-}/*--*/
-
-/*XDG*/T0*r792package(void){
-T0* R=(void*)0;
-R=(/*RF2:item*/(((T1207*)oBC792package_name))->_item/*p*//*:RF2*/);
+/*RUN_TIME_SET*/T2 r540add_set(T540*C,T0*a1){
+T2 R=0;
+T2 _i=0;
+T0*_other_set=(void*)0;
+T0*_lt=(void*)0;
+_other_set=(/*RF2:set*/(((T540*)a1))->_set/*2p*//*:RF2*/);
+_i=INT32_C(1);
+while(1){
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:count*/(((T1196*)_other_set))->_count/*pp2pppii*//*:RF2*/))/*:RF8*/) break;
+_lt=/*RF4:item*/r1196item(((T1196*)_other_set),_i)/*:RF4*/;
+if(((/*RF2:owner*/(C)->_owner/*2p*//*:RF2*/))==((void*)(_lt))){
+}
+else{
+if((/*RF4:fast_has*/r1196fast_has((T1196*)((/*RF2:set*/(C)->_set/*2p*//*:RF2*/)),_lt)/*:RF4*/)==(0)){
+if(/*RF4:can_be_assigned_to*/r376can_be_assigned_to(((T376*)_lt),(/*RF2:owner*/(C)->_owner/*2p*//*:RF2*/))/*:RF4*/){
+/*RF3:fast_add*/r1196fast_add((T1196*)((/*RF2:set*/(C)->_set/*2p*//*:RF2*/)),_lt);
+/*:RF3*/R=/*RF8:+*/((int32_t)(R))+(INT32_C(1))/*:RF8*/;
+}
+}
+}
+_i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
+}
 return R;
 }/*--*/
 
-/*XDG*/T0*r792getenv(T792 C,T0*a1,T0*a2,T0*a3){
+/*RUN_TIME_SET*/void r540id_extra_information(T540*C,T0*a1){
+T2 _i=0;
+T0*_lt=(void*)0;
+/*RF3:put_string*/r457put_string(((T457*)a1),ms540_927498134Abc540A);
+/*:RF3*//*RF3:put_integer*/r457put_integer(((T457*)a1),/*IC*/(T11)((/*RF2:count*/((T1196*)((/*RF2:set*/(C)->_set/*2p*//*:RF2*/)))->_count/*pp2pppii*//*:RF2*/)));
+/*:RF3*//*RF3:filtered_put_character*/r457filtered_put_character(((T457*)a1),((T3)'\n'));
+/*:RF3*/if((((/*RF2:count*/((T1196*)((/*RF2:set*/(C)->_set/*2p*//*:RF2*/)))->_count/*pp2pppii*//*:RF2*/))==(INT8_C(0)))==(0)){
+/*RF3:put_string*/r457put_string(((T457*)a1),ms540_2014364610Abc540A);
+/*:RF3*/_i=INT32_C(1);
+while(1){
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:count*/((T1196*)((/*RF2:set*/(C)->_set/*2p*//*:RF2*/)))->_count/*pp2pppii*//*:RF2*/))/*:RF8*/) break;
+_lt=/*RF4:item*/r1196item((T1196*)((/*RF2:set*/(C)->_set/*2p*//*:RF2*/)),_i)/*:RF4*/;
+/*RF3:filtered_put_character*/r457filtered_put_character(((T457*)a1),((T3)'\011'));
+/*:RF3*//*RF3:put_string*/r457put_string(((T457*)a1),(/*RF2:to_string*/((T104*)((/*RF2:name*/(((T376*)_lt))->_name/*T3pppcp4piipp4pippi6p*//*:RF2*/)))->_to_string/*ip*//*:RF2*/));
+/*:RF3*//*RF3:filtered_put_character*/r457filtered_put_character(((T457*)a1),((T3)'\040'));
+/*:RF3*//*RF3:filtered_put_character*/r457filtered_put_character(((T457*)a1),((T3)'\050'));
+/*:RF3*//*RF3:put_integer*/r457put_integer(((T457*)a1),/*IC*/(T11)((/*RF2:id*/(((T376*)_lt))->_id/*T3pppcp4piipp4pippi6p*//*:RF2*/)));
+/*:RF3*//*RF3:filtered_put_character*/r457filtered_put_character(((T457*)a1),((T3)'\051'));
+/*:RF3*//*RF3:filtered_put_character*/r457filtered_put_character(((T457*)a1),((T3)'\n'));
+/*:RF3*/_i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
+}
+}
+}/*--*/
+
+/*RUN_TIME_SET*/T6 r540is_empty(T540*C){
+T6 R=0;
+R=((T6)(((/*RF2:count*/((T1196*)((/*RF2:set*/(C)->_set/*2p*//*:RF2*/)))->_count/*pp2pppii*//*:RF2*/))==(INT8_C(0))));
+return R;
+}/*--*/
+
+/*RUN_TIME_SET*/T2 r540count(T540*C){
+T2 R=0;
+R=(/*RF2:count*/((T1196*)((/*RF2:set*/(C)->_set/*2p*//*:RF2*/)))->_count/*pp2pppii*//*:RF2*/);
+return R;
+}/*--*/
+
+/*TAGGED_ERRORS*/void r707make(T707*C){
+/*[INTERNAL_C_LOCAL list*/
+T0* tmp0;
+/*INTERNAL_C_LOCAL list]*/
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1056))));
+*((T1056*)tmp0/*new*/)=M1056;
+/*RF3:with_capacity*/r1056with_capacity(((T1056*)tmp0/*new*/),INT32_C(4),INT32_C(0));
+/*:RF3*//*SFN*/(C->_data/*Tp*/)=tmp0/*new*/;
+/*tmp0.unlock*/
+}/*--*/
+
+/*TAGGED_ERROR*/void r706make(T706*C,T0*a1,T0*a2){
+if(((/*RF2:explanation*/(C)->_explanation/*p2p*//*:RF2*/))==((void*)((void*)0))){
+/*SFN*/(C->_explanation/*p2p*/)=/*RF8:twin*/r7twin(((T7*)a1))/*:RF8*/;
+/*SFN*/(C->_positions/*p2p*/)=/*RF8:twin*/r1053twin(((T1053*)a2))/*:RF8*/;
+}
+else{
+/*RF3:copy*/r7copy((T7*)((/*RF2:explanation*/(C)->_explanation/*p2p*//*:RF2*/)),a1);
+/*:RF3*//*RF3:copy*/r1053copy((T1053*)((/*RF2:positions*/(C)->_positions/*p2p*//*:RF2*/)),a2);
+/*:RF3*/}
+/*SFN*/(C->_is_emitted/*p2p*/)=((T6)(0));
+}/*--*/
+
+/*TAGGED_ERROR*/void r706recycle(T706*C){
+/*RF3:clear_count*/r7clear_count((T7*)((/*RF2:explanation*/(C)->_explanation/*p2p*//*:RF2*/)));
+/*:RF3*//*RF3:clear_count*/r1053clear_count((T1053*)((/*RF2:positions*/(C)->_positions/*p2p*//*:RF2*/)));
+/*:RF3*//*SFN*/(C->_is_emitted/*p2p*/)=((T6)(1));
+}/*--*/
+
+/*CECIL_FILE*/void r334parse(T334*C){
+/*[INTERNAL_C_LOCAL list*/
+T0* tmp0;
+T6 tmp1;
+T345 tmp2;
+T6 tmp3;
+/*INTERNAL_C_LOCAL list]*/
+T0*_c_name=(void*)0;
+T0*_type_mark=(void*)0;
+T0*_fn=(void*)0;
+T2 _i=0;
+T0*_cecil_entry=(void*)0;
+/*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r334echo()/*:RF6*/),ms334_1262756502Abc334A);
+/*:RF3*//*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r334echo()/*:RF6*/),(/*RF2:path*/(C)->_path/*3p*//*:RF2*/));
+/*:RF3*//*RF3:put_new_line*/r124put_new_line((T124*)(/*RF6:echo*/r334echo()/*:RF6*/));
+/*:RF3*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1204))));
+*((T1204*)tmp0/*new*/)=M1204;
+/*RF3:with_capacity*/r1204with_capacity(((T1204*)tmp0/*new*/),INT32_C(4));
+/*:RF3*//*SFN*/(C->_entries/*3p*/)=tmp0/*new*/;
+/*tmp0.unlock*/
+/*SFN*/(C->_path_h/*3p*/)=/*RF4:connect_to_cecil*/r102connect_to_cecil((T102*)(/*RF6:eiffel_parser*/r334eiffel_parser()/*:RF6*/),(/*RF2:path*/(C)->_path/*3p*//*:RF2*/))/*:RF4*/;
+while(1){
+/*until*/if(((/*RF2:cc*/((T102*)(/*RF6:eiffel_parser*/r334eiffel_parser()/*:RF6*/))->_cc/*pii10pp5ppppp2psIpppiiiip2pcpii*//*:RF2*/))==(((T3)'\000'))) break;
+_c_name=/*RF4:parse_c_name*/r102parse_c_name((T102*)(/*RF6:eiffel_parser*/r334eiffel_parser()/*:RF6*/))/*:RF4*/;
+_type_mark=/*RF4:parse_type_mark*/r102parse_type_mark((T102*)(/*RF6:eiffel_parser*/r334eiffel_parser()/*:RF6*/))/*:RF4*/;
+/*[inspectDynamicDispatch*/
+switch((((T0*)(_type_mark))->id)){
+case 416:
+tmp1/*is_static*/=((T6)(/*RF4:is_static*/r416is_static(((T416*)_type_mark))/*:RF4*/));
+break;
+case 448:
+tmp1/*is_static*/=((T6)(/*RF4:is_static*/r448is_static(((T448*)_type_mark))/*:RF4*/));
+break;
+case 449:
+tmp1/*is_static*/=((T6)(/*RF4:is_static*/r449is_static(((T449*)_type_mark))/*:RF4*/));
+break;
+case 451:
+tmp1/*is_static*/=((T6)(/*RF4:is_static*/r451is_static(((T451*)_type_mark))/*:RF4*/));
+break;
+case 452:
+tmp1/*is_static*/=((T6)(/*RF4:is_static*/r452is_static(((T452*)_type_mark))/*:RF4*/));
+break;
+case 468:
+tmp1/*is_static*/=((T6)(/*RF4:is_static*/r468is_static(((T468*)_type_mark))/*:RF4*/));
+break;
+case 493:
+case 502:
+case 504:
+case 505:
+case 506:
+tmp1/*is_static*/=((T6)(0));
+break;
+default:;
+tmp1/*is_static*/=((T6)(1));
+}
+/*inspect]*/
+if((tmp1/*is_static*/)==(0)){
+/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms334_36115402Abc334A);
+/*:RF3*//*[inspectDynamicDispatch*/
+switch((((T0*)(_type_mark))->id)){
+case 389:
+tmp2/*start_position*/=/*RF4:start_position*/r389start_position(((T389*)_type_mark))/*:RF4*/;
+break;
+case 411:
+tmp2/*start_position*/=/*RF4:start_position*/r411start_position(((T411*)_type_mark))/*:RF4*/;
+break;
+case 415:
+tmp2/*start_position*/=/*RF4:start_position*/r415start_position(((T415*)_type_mark))/*:RF4*/;
+break;
+case 416:
+tmp2/*start_position*/=/*RF4:start_position*/r416start_position(((T416*)_type_mark))/*:RF4*/;
+break;
+case 434:
+tmp2/*start_position*/=/*RF4:start_position*/r434start_position(((T434*)_type_mark))/*:RF4*/;
+break;
+case 441:
+tmp2/*start_position*/=/*RF4:start_position*/r441start_position(((T441*)_type_mark))/*:RF4*/;
+break;
+case 442:
+tmp2/*start_position*/=/*RF4:start_position*/r442start_position(((T442*)_type_mark))/*:RF4*/;
+break;
+case 443:
+tmp2/*start_position*/=/*RF4:start_position*/r443start_position(((T443*)_type_mark))/*:RF4*/;
+break;
+case 444:
+tmp2/*start_position*/=/*RF4:start_position*/r444start_position(((T444*)_type_mark))/*:RF4*/;
+break;
+case 445:
+tmp2/*start_position*/=/*RF4:start_position*/r445start_position(((T445*)_type_mark))/*:RF4*/;
+break;
+case 446:
+tmp2/*start_position*/=/*RF4:start_position*/r446start_position(((T446*)_type_mark))/*:RF4*/;
+break;
+case 448:
+tmp2/*start_position*/=/*RF4:start_position*/r448start_position(((T448*)_type_mark))/*:RF4*/;
+break;
+case 449:
+tmp2/*start_position*/=/*RF4:start_position*/r449start_position(((T449*)_type_mark))/*:RF4*/;
+break;
+case 451:
+tmp2/*start_position*/=/*RF4:start_position*/r451start_position(((T451*)_type_mark))/*:RF4*/;
+break;
+case 452:
+tmp2/*start_position*/=/*RF4:start_position*/r452start_position(((T452*)_type_mark))/*:RF4*/;
+break;
+case 468:
+tmp2/*start_position*/=/*RF4:start_position*/r468start_position(((T468*)_type_mark))/*:RF4*/;
+break;
+case 493:
+tmp2/*start_position*/=/*RF4:start_position*/r493start_position(((T493*)_type_mark))/*:RF4*/;
+break;
+case 502:
+tmp2/*start_position*/=(/*RF2:start_position*/(((T502*)_type_mark))->_start_position/*Tipp*//*:RF2*/);
+break;
+case 504:
+tmp2/*start_position*/=(/*RF2:start_position*/(((T504*)_type_mark))->_start_position/*T4pipp*//*:RF2*/);
+break;
+case 505:
+tmp2/*start_position*/=(/*RF2:start_position*/(((T505*)_type_mark))->_start_position/*Tp3pipp*//*:RF2*/);
+break;
+default:;
+tmp2/*start_position*/=/*RF4:start_position*/r506start_position(((T506*)_type_mark))/*:RF4*/;
+}
+/*inspect]*/
+/*RF3:add_position*/r287add_position(tmp2/*start_position*/);
+/*:RF3*//*RF3:print_as_fatal_error*/r287print_as_fatal_error(((T287*)oBC32error_handler));
+/*:RF3*/}
+/*[inspectDynamicDispatch*/
+switch((((T0*)(_type_mark))->id)){
+case 449:
+/*auto-unlock tmp1*/tmp1/*is_agent*/=((T6)(1));
+break;
+default:;
+tmp1/*is_agent*/=((T6)(0));
+}
+/*inspect]*/
+tmp3/*or else*/=((T6)(tmp1/*is_agent*/));
+if(tmp3/*or else*/){
+}
+else{
+/*[inspectDynamicDispatch*/
+switch((((T0*)(_type_mark))->id)){
+case 446:
+case 448:
+/*auto-unlock tmp1*/tmp1/*is_tuple*/=((T6)(1));
+break;
+default:;
+tmp1/*is_tuple*/=((T6)(0));
+}
+/*inspect]*/
+tmp3/*or else*/=((T6)(tmp1/*is_tuple*/));
+}
+if(tmp3/*or else*/){
+/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms334_855586967Abc334A);
+/*:RF3*//*[inspectDynamicDispatch*/
+switch((((T0*)(_type_mark))->id)){
+case 389:
+/*auto-unlock tmp2*/tmp2/*start_position*/=/*RF4:start_position*/r389start_position(((T389*)_type_mark))/*:RF4*/;
+break;
+case 411:
+tmp2/*start_position*/=/*RF4:start_position*/r411start_position(((T411*)_type_mark))/*:RF4*/;
+break;
+case 415:
+tmp2/*start_position*/=/*RF4:start_position*/r415start_position(((T415*)_type_mark))/*:RF4*/;
+break;
+case 416:
+tmp2/*start_position*/=/*RF4:start_position*/r416start_position(((T416*)_type_mark))/*:RF4*/;
+break;
+case 434:
+tmp2/*start_position*/=/*RF4:start_position*/r434start_position(((T434*)_type_mark))/*:RF4*/;
+break;
+case 441:
+tmp2/*start_position*/=/*RF4:start_position*/r441start_position(((T441*)_type_mark))/*:RF4*/;
+break;
+case 442:
+tmp2/*start_position*/=/*RF4:start_position*/r442start_position(((T442*)_type_mark))/*:RF4*/;
+break;
+case 443:
+tmp2/*start_position*/=/*RF4:start_position*/r443start_position(((T443*)_type_mark))/*:RF4*/;
+break;
+case 444:
+tmp2/*start_position*/=/*RF4:start_position*/r444start_position(((T444*)_type_mark))/*:RF4*/;
+break;
+case 445:
+tmp2/*start_position*/=/*RF4:start_position*/r445start_position(((T445*)_type_mark))/*:RF4*/;
+break;
+case 446:
+tmp2/*start_position*/=/*RF4:start_position*/r446start_position(((T446*)_type_mark))/*:RF4*/;
+break;
+case 448:
+tmp2/*start_position*/=/*RF4:start_position*/r448start_position(((T448*)_type_mark))/*:RF4*/;
+break;
+case 449:
+tmp2/*start_position*/=/*RF4:start_position*/r449start_position(((T449*)_type_mark))/*:RF4*/;
+break;
+case 451:
+tmp2/*start_position*/=/*RF4:start_position*/r451start_position(((T451*)_type_mark))/*:RF4*/;
+break;
+case 452:
+tmp2/*start_position*/=/*RF4:start_position*/r452start_position(((T452*)_type_mark))/*:RF4*/;
+break;
+case 468:
+tmp2/*start_position*/=/*RF4:start_position*/r468start_position(((T468*)_type_mark))/*:RF4*/;
+break;
+case 493:
+tmp2/*start_position*/=/*RF4:start_position*/r493start_position(((T493*)_type_mark))/*:RF4*/;
+break;
+case 502:
+tmp2/*start_position*/=(/*RF2:start_position*/(((T502*)_type_mark))->_start_position/*Tipp*//*:RF2*/);
+break;
+case 504:
+tmp2/*start_position*/=(/*RF2:start_position*/(((T504*)_type_mark))->_start_position/*T4pipp*//*:RF2*/);
+break;
+case 505:
+tmp2/*start_position*/=(/*RF2:start_position*/(((T505*)_type_mark))->_start_position/*Tp3pipp*//*:RF2*/);
+break;
+default:;
+tmp2/*start_position*/=/*RF4:start_position*/r506start_position(((T506*)_type_mark))/*:RF4*/;
+}
+/*inspect]*/
+/*RF3:add_position*/r287add_position(tmp2/*start_position*/);
+/*:RF3*//*RF3:print_as_fatal_error*/r287print_as_fatal_error(((T287*)oBC32error_handler));
+/*:RF3*/}
+_fn=/*RF4:parse_feature_name*/r102parse_feature_name((T102*)(/*RF6:eiffel_parser*/r334eiffel_parser()/*:RF6*/))/*:RF4*/;
+/*reusing tmp0*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T572))));
+*((T572*)tmp0/*new*/)=M572;
+/*RF3:make*/r572make(((T572*)tmp0/*new*/),_c_name,_type_mark,_fn,(T6)(/*RF4:a_creation_keyword*/r102a_creation_keyword((T102*)(/*RF6:eiffel_parser*/r334eiffel_parser()/*:RF6*/))/*:RF4*/));
+/*:RF3*/_cecil_entry=tmp0/*new*/;
+/*tmp0.unlock*/
+/*RF3:add_last*/r1204add_last((T1204*)((/*RF2:entries*/(C)->_entries/*3p*//*:RF2*/)),_cecil_entry);
+/*:RF3*/}
+/*RF3:disconnect*/r102disconnect((T102*)(/*RF6:eiffel_parser*/r334eiffel_parser()/*:RF6*/));
+/*:RF3*//*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r334echo()/*:RF6*/),ms334_864187036Abc334A);
+/*:RF3*/_i=INT32_C(0);
+while(1){
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1204*)((/*RF2:entries*/(C)->_entries/*3p*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+_cecil_entry=/*RF8:item*/((/*RF2:storage*/((T1204*)((/*RF2:entries*/(C)->_entries/*3p*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/;
+/*RF3:get_started*/r572get_started(((T572*)_cecil_entry),(T0*)C);
+/*:RF3*/_i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
+}
+}/*--*/
+
+/*CECIL_FILE*/void r334make(T334*C,T0*a1){
+/*SFN*/(C->_path/*3p*/)=a1;
+}/*--*/
+
+/*CECIL_FILE*/T0*r334eiffel_parser(void){
+/*[INTERNAL_C_LOCAL list*/
+T0* tmp0;
+/*INTERNAL_C_LOCAL list]*/
+if(fBC32eiffel_parser==0){fBC32eiffel_parser=1;{
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T102))));
+*((T102*)tmp0/*new*/)=M102;
+/*RF3:make*/r102make(((T102*)tmp0/*new*/));
+/*:RF3*/oBC32eiffel_parser=tmp0/*new*/;
+/*tmp0.unlock*/
+}}
+return oBC32eiffel_parser;
+}/*--*/
+
+/*CECIL_FILE*/T0*r334echo(void){
+/*[INTERNAL_C_LOCAL list*/
+T0* tmp0;
+/*INTERNAL_C_LOCAL list]*/
+if(fBC32echo==0){fBC32echo=1;{
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T124))));
+*((T124*)tmp0/*new*/)=M124;
+/*RF3:make*/r124make(((T124*)tmp0/*new*/));
+/*:RF3*/oBC32echo=tmp0/*new*/;
+/*tmp0.unlock*/
+}}
+return oBC32echo;
+}/*--*/
+
+/*CECIL_FILE*/void r334adapt_for(T334*C,T0*a1){
+T2 _i=0;
+T0*_entry=(void*)0;
+if(((/*RF2:entries*/(C)->_entries/*3p*//*:RF2*/))!=((void*)((void*)0))){
+_i=INT32_C(0);
+while(1){
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1204*)((/*RF2:entries*/(C)->_entries/*3p*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+_entry=/*RF4:adapt_for*/r572adapt_for((T572*)(/*RF8:item*/((/*RF2:storage*/((T1204*)((/*RF2:entries*/(C)->_entries/*3p*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+_i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
+}
+}
+}/*--*/
+
+/*CECIL_FILE*/void r334collect(T334*C,T0*a1){
+T2 _i=0;
+T0*_dummy=(void*)0;
+if(((/*RF2:entries*/(C)->_entries/*3p*//*:RF2*/))!=((void*)((void*)0))){
+_i=INT32_C(0);
+while(1){
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1204*)((/*RF2:entries*/(C)->_entries/*3p*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+_dummy=/*RF4:collect*/r572collect((T572*)(/*RF8:item*/((/*RF2:storage*/((T1204*)((/*RF2:entries*/(C)->_entries/*3p*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+_i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
+}
+}
+}/*--*/
+
+/*CECIL_FILE*/void r334inline_dynamic_dispatch(T334*C,T0*a1,T0*a2){
+T2 _i=0;
+if(((/*RF2:entries*/(C)->_entries/*3p*//*:RF2*/))!=((void*)((void*)0))){
+_i=INT32_C(0);
+while(1){
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1204*)((/*RF2:entries*/(C)->_entries/*3p*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+/*RF3:inline_dynamic_dispatch*/r572inline_dynamic_dispatch((T572*)(/*RF8:item*/((/*RF2:storage*/((T1204*)((/*RF2:entries*/(C)->_entries/*3p*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1,a2);
+/*:RF3*/_i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
+}
+}
+}/*--*/
+
+static 
+/*agent launcher*/T0* afp_agenT793f793l126c52(se_agenT793f793l126c52*u){
+int closed_C=(u->closed_C);
+u->R=/*RF4:_inline_agent29*/r793_inline_agent29(closed_C)/*:RF4*/;
+return u->R;
+}/*--*/
+
+/*agent creation*/T0*agenT793f793l126c52(int closed_C){
+se_agenT793f793l126c52*u=(void*)new_agent(1209);
+u->creation_mold_id=61;
+u->afp=afp_agenT793f793l126c52;
+u->closed_C=closed_C;
+return((T0*)u);
+}/*--*/
+T0*oBC793home=(void*)0;
+int fBC793home=0;
+
+/*XDG*/T0*r793home(T793 C){
+if(fBC793home==0){fBC793home=1;{
+oBC793home=/*RF4:getenv*/r793getenv(C,se_string(4,s543_11429A),(void*)0,(void*)0)/*:RF4*/;
+}}
+return oBC793home;
+}/*--*/
+
+/*XDG*/T0*r793package(void){
+T0* R=(void*)0;
+R=(/*RF2:item*/(((T1208*)oBC793package_name))->_item/*p*//*:RF2*/);
+return R;
+}/*--*/
+
+/*XDG*/T0*r793getenv(T793 C,T0*a1,T0*a2,T0*a3){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 T6 tmp1;
@@ -85,7 +499,7 @@ tmp1/*or else*/=((T6)(((/*RF2:count*/(((T7*)_value))->_count/*Tiiiini*//*:RF2*/)
 }
 if(tmp1/*or else*/){
 if((a3)==((void*)((void*)0))){
-/*RF3:put_line*/r80put_line(((T80*)oBC17std_error),/*RF4:#*/r7_ix_35(((T7*)se_string(35,s792_630125369A)),a1)/*:RF4*/);
+/*RF3:put_line*/r80put_line(((T80*)oBC17std_error),/*RF4:#*/r7_ix_35(((T7*)se_string(35,s793_630125369A)),a1)/*:RF4*/);
 /*:RF3*//*RF7:die_with_code*/se_die(INT32_C(1));
 /*:RF7*/}
 /*[inspectDynamicDispatch*/
@@ -108,26 +522,26 @@ R=/*RF4:intern*/r7intern(((T7*)_value))/*:RF4*/;
 }
 return R;
 }/*--*/
-T0*oBC792package_name=(void*)0;
-T0*oBC792config_home=(void*)0;
-int fBC792config_home=0;
+T0*oBC793package_name=(void*)0;
+T0*oBC793config_home=(void*)0;
+int fBC793config_home=0;
 
-/*XDG*/T0*r792config_home(T792 C){
+/*XDG*/T0*r793config_home(T793 C){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 T0* tmp1;
 /*INTERNAL_C_LOCAL list]*/
-if(fBC792config_home==0){fBC792config_home=1;{
+if(fBC793config_home==0){fBC793config_home=1;{
 /*[inspectDynamicDispatch*/
-switch((((T0*)((tmp0/*ddt1*/=(/*RF4:#*/r7_ix_35(((T7*)se_string(9,s792_17725666A)),/*RF6:config_home_*/r792config_home_(C)/*:RF6*/)/*:RF4*/))))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF4:#*/r7_ix_35(((T7*)se_string(9,s793_17725666A)),/*RF6:config_home_*/r793config_home_(C)/*:RF6*/)/*:RF4*/))))->id)){
 case 7:
-tmp1/*#*/=/*RF4:#*/r7_ix_35(((T7*)tmp0/*ddt1*/),/*RF4:package*/r792package()/*:RF4*/)/*:RF4*/;
+tmp1/*#*/=/*RF4:#*/r7_ix_35(((T7*)tmp0/*ddt1*/),/*RF4:package*/r793package()/*:RF4*/)/*:RF4*/;
 break;
 case 300:
-tmp1/*#*/=/*RF4:#*/r300_ix_35(((T300*)tmp0/*ddt1*/),/*RF4:package*/r792package()/*:RF4*/)/*:RF4*/;
+tmp1/*#*/=/*RF4:#*/r300_ix_35(((T300*)tmp0/*ddt1*/),/*RF4:package*/r793package()/*:RF4*/)/*:RF4*/;
 break;
 default:;
-tmp1/*#*/=/*RF4:#*/r312_ix_35(((T312*)tmp0/*ddt1*/),/*RF4:package*/r792package()/*:RF4*/)/*:RF4*/;
+tmp1/*#*/=/*RF4:#*/r312_ix_35(((T312*)tmp0/*ddt1*/),/*RF4:package*/r793package()/*:RF4*/)/*:RF4*/;
 }
 /*inspect]*/
 /*tmp0.unlock*/
@@ -143,23 +557,23 @@ default:;
 tmp0/*intern*/=/*RF4:intern*/r7intern((T7*)(/*RF4:memory*/r312memory(((T312*)tmp1/*#*/))/*:RF4*/))/*:RF4*/;
 }
 /*inspect]*/
-oBC792config_home=tmp0/*intern*/;
+oBC793config_home=tmp0/*intern*/;
 }}
-return oBC792config_home;
+return oBC793config_home;
 }/*--*/
 
-/*XDG*/T0*r792_inline_agent27(T792 C){
+/*XDG*/T0*r793_inline_agent29(T793 C){
 T0* R=(void*)0;
-R=/*RF4:#*/r7_ix_35(((T7*)se_string(12,s792_2078852867A)),/*RF6:home*/r792home(C)/*:RF6*/)/*:RF4*/;
+R=/*RF4:#*/r7_ix_35(((T7*)se_string(12,s793_2078852867A)),/*RF6:home*/r793home(C)/*:RF6*/)/*:RF4*/;
 return R;
 }/*--*/
-int fBC792set_package=0;
+int fBC793set_package=0;
 
-/*XDG*/void r792set_package(T0*a1){
+/*XDG*/void r793set_package(T0*a1){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
-if(fBC792set_package==0){fBC792set_package=1;{
+if(fBC793set_package==0){fBC793set_package=1;{
 /*[inspectDynamicDispatch*/
 switch((((T0*)(a1))->id)){
 case 7:
@@ -172,30 +586,30 @@ default:;
 tmp0/*intern*/=/*RF4:intern*/r7intern((T7*)(/*RF4:memory*/r312memory(((T312*)a1))/*:RF4*/))/*:RF4*/;
 }
 /*inspect]*/
-(/*RF2:item*/(((T1207*)oBC792package_name))->_item/*p*//*:RF2*/)=tmp0/*intern*/;
+(/*RF2:item*/(((T1208*)oBC793package_name))->_item/*p*//*:RF2*/)=tmp0/*intern*/;
 }}}/*--*/
-T0*oBC792config_home_=(void*)0;
-int fBC792config_home_=0;
+T0*oBC793config_home_=(void*)0;
+int fBC793config_home_=0;
 
-/*XDG*/T0*r792config_home_(T792 C){
-if(fBC792config_home_==0){fBC792config_home_=1;{
-oBC792config_home_=/*RF4:getenv*/r792getenv(C,se_string(15,s792_1309286095A),(void*)0,agenT792f792l126c52(C))/*:RF4*/;
+/*XDG*/T0*r793config_home_(T793 C){
+if(fBC793config_home_==0){fBC793config_home_=1;{
+oBC793config_home_=/*RF4:getenv*/r793getenv(C,se_string(15,s793_1309286095A),(void*)0,agenT793f793l126c52(C))/*:RF4*/;
 }}
-return oBC792config_home_;
+return oBC793config_home_;
 }/*--*/
 
-/*SERC_CHAIN*/void r789make(T789*C){
+/*SERC_CHAIN*/void r790make(T790*C){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
-tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1209))));
-*((T1209*)tmp0/*new*/)=M1209;
-/*RF3:make*/r1209make(((T1209*)tmp0/*new*/),INT32_C(1),INT32_C(0));
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1210))));
+*((T1210*)tmp0/*new*/)=M1210;
+/*RF3:make*/r1210make(((T1210*)tmp0/*new*/),INT32_C(1),INT32_C(0));
 /*:RF3*//*SFN*/(C->_config/*Tp*/)=tmp0/*new*/;
 /*tmp0.unlock*/
 }/*--*/
 
-/*SERC_CHAIN*/T0*r789sys(T789*C){
+/*SERC_CHAIN*/T0*r790sys(T790*C){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 T0* tmp1;
@@ -203,25 +617,25 @@ T0* tmp2;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
 T2 _i=0;
-_i=(/*RF2:lower*/((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_lower/*iiiini*//*:RF2*/);
+_i=(/*RF2:lower*/((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_lower/*iiiini*//*:RF2*/);
 while(1){
 tmp0/*or else*/=((T6)((R)!=((void*)((void*)0))));
 if(tmp0/*or else*/){
 }
 else{
-tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_upper/*iiiini*//*:RF2*/))/*:RF8*/));
+tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_upper/*iiiini*//*:RF2*/))/*:RF8*/));
 }
 /*until*/if(tmp0/*or else*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)((tmp1/*ddt1*/=(/*RF4:item*/r1209item((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
-case 789:
-tmp2/*sys*/=/*RF4:sys*/r789sys(((T789*)tmp1/*ddt1*/))/*:RF4*/;
-break;
+switch((((T0*)((tmp1/*ddt1*/=(/*RF4:item*/r1210item((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 790:
-tmp2/*sys*/=(/*RF2:sys*/(((T790*)tmp1/*ddt1*/))->_sys/*T5pi5p*//*:RF2*/);
+tmp2/*sys*/=/*RF4:sys*/r790sys(((T790*)tmp1/*ddt1*/))/*:RF4*/;
+break;
+case 791:
+tmp2/*sys*/=(/*RF2:sys*/(((T791*)tmp1/*ddt1*/))->_sys/*T5pi5p*//*:RF2*/);
 break;
 default:;
-/*UNUSED_EXPRESSION:*/(void)(/*RF4:item*/r1209item((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/);
+/*UNUSED_EXPRESSION:*/(void)(/*RF4:item*/r1210item((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/);
 tmp2/*sys*/=(void*)0;
 }
 /*inspect]*/
@@ -232,24 +646,24 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*SERC_CHAIN*/void r789loadpaths_in(T789*C,T0*a1){
+/*SERC_CHAIN*/void r790loadpaths_in(T790*C,T0*a1){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
 T2 _i=0;
-_i=(/*RF2:lower*/((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_lower/*iiiini*//*:RF2*/);
+_i=(/*RF2:lower*/((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_lower/*iiiini*//*:RF2*/);
 while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_upper/*iiiini*//*:RF2*/))/*:RF8*/) break;
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_upper/*iiiini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)((tmp0/*ddt1*/=(/*RF4:item*/r1209item((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
-case 789:
-/*RF3:loadpaths_in*/r789loadpaths_in(((T789*)tmp0/*ddt1*/),a1);
-/*:RF3*/break;
+switch((((T0*)((tmp0/*ddt1*/=(/*RF4:item*/r1210item((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 790:
 /*RF3:loadpaths_in*/r790loadpaths_in(((T790*)tmp0/*ddt1*/),a1);
 /*:RF3*/break;
+case 791:
+/*RF3:loadpaths_in*/r791loadpaths_in(((T791*)tmp0/*ddt1*/),a1);
+/*:RF3*/break;
 default:;
-/*UNUSED_EXPRESSION:*/(void)(/*RF4:item*/r1209item((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/);
+/*UNUSED_EXPRESSION:*/(void)(/*RF4:item*/r1210item((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/);
 }
 /*inspect]*/
 /*tmp0.unlock*/
@@ -257,7 +671,7 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 }/*--*/
 
-/*SERC_CHAIN*/T0*r789flavor(T789*C){
+/*SERC_CHAIN*/T0*r790flavor(T790*C){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 T0* tmp1;
@@ -265,25 +679,25 @@ T0* tmp2;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
 T2 _i=0;
-_i=(/*RF2:lower*/((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_lower/*iiiini*//*:RF2*/);
+_i=(/*RF2:lower*/((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_lower/*iiiini*//*:RF2*/);
 while(1){
 tmp0/*or else*/=((T6)((R)!=((void*)((void*)0))));
 if(tmp0/*or else*/){
 }
 else{
-tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_upper/*iiiini*//*:RF2*/))/*:RF8*/));
+tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_upper/*iiiini*//*:RF2*/))/*:RF8*/));
 }
 /*until*/if(tmp0/*or else*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)((tmp1/*ddt1*/=(/*RF4:item*/r1209item((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
-case 789:
-tmp2/*flavor*/=/*RF4:flavor*/r789flavor(((T789*)tmp1/*ddt1*/))/*:RF4*/;
-break;
+switch((((T0*)((tmp1/*ddt1*/=(/*RF4:item*/r1210item((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 790:
-tmp2/*flavor*/=(/*RF2:flavor*/(((T790*)tmp1/*ddt1*/))->_flavor/*T5pi5p*//*:RF2*/);
+tmp2/*flavor*/=/*RF4:flavor*/r790flavor(((T790*)tmp1/*ddt1*/))/*:RF4*/;
+break;
+case 791:
+tmp2/*flavor*/=(/*RF2:flavor*/(((T791*)tmp1/*ddt1*/))->_flavor/*T5pi5p*//*:RF2*/);
 break;
 default:;
-tmp2/*flavor*/=(/*RF2:flavor*/(((T791*)tmp1/*ddt1*/))->_flavor/*Ti2p*//*:RF2*/);
+tmp2/*flavor*/=(/*RF2:flavor*/(((T792*)tmp1/*ddt1*/))->_flavor/*Ti2p*//*:RF2*/);
 }
 /*inspect]*/
 /*tmp1.unlock*/
@@ -293,7 +707,7 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*SERC_CHAIN*/T0*r789environment(T789*C,T0*a1){
+/*SERC_CHAIN*/T0*r790environment(T790*C,T0*a1){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 T0* tmp1;
@@ -301,25 +715,25 @@ T0* tmp2;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
 T2 _i=0;
-_i=(/*RF2:lower*/((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_lower/*iiiini*//*:RF2*/);
+_i=(/*RF2:lower*/((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_lower/*iiiini*//*:RF2*/);
 while(1){
 tmp0/*or else*/=((T6)((R)!=((void*)((void*)0))));
 if(tmp0/*or else*/){
 }
 else{
-tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_upper/*iiiini*//*:RF2*/))/*:RF8*/));
+tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_upper/*iiiini*//*:RF2*/))/*:RF8*/));
 }
 /*until*/if(tmp0/*or else*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)((tmp1/*ddt1*/=(/*RF4:item*/r1209item((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
-case 789:
-tmp2/*environment*/=/*RF4:environment*/r789environment(((T789*)tmp1/*ddt1*/),a1)/*:RF4*/;
-break;
+switch((((T0*)((tmp1/*ddt1*/=(/*RF4:item*/r1210item((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 790:
-tmp2/*environment*/=/*RF4:reference_at*/r1028reference_at((T1028*)((/*RF2:my_environment*/(((T790*)tmp1/*ddt1*/))->_my_environment/*T5pi5p*//*:RF2*/)),a1)/*:RF4*/;
+tmp2/*environment*/=/*RF4:environment*/r790environment(((T790*)tmp1/*ddt1*/),a1)/*:RF4*/;
+break;
+case 791:
+tmp2/*environment*/=/*RF4:reference_at*/r1029reference_at((T1029*)((/*RF2:my_environment*/(((T791*)tmp1/*ddt1*/))->_my_environment/*T5pi5p*//*:RF2*/)),a1)/*:RF4*/;
 break;
 default:;
-tmp2/*environment*/=/*RF4:environment*/r791environment(a1)/*:RF4*/;
+tmp2/*environment*/=/*RF4:environment*/r792environment(a1)/*:RF4*/;
 }
 /*inspect]*/
 /*tmp1.unlock*/
@@ -329,7 +743,7 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*SERC_CHAIN*/T0*r789short(T789*C){
+/*SERC_CHAIN*/T0*r790short(T790*C){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 T0* tmp1;
@@ -337,25 +751,25 @@ T0* tmp2;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
 T2 _i=0;
-_i=(/*RF2:lower*/((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_lower/*iiiini*//*:RF2*/);
+_i=(/*RF2:lower*/((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_lower/*iiiini*//*:RF2*/);
 while(1){
 tmp0/*or else*/=((T6)((R)!=((void*)((void*)0))));
 if(tmp0/*or else*/){
 }
 else{
-tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_upper/*iiiini*//*:RF2*/))/*:RF8*/));
+tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_upper/*iiiini*//*:RF2*/))/*:RF8*/));
 }
 /*until*/if(tmp0/*or else*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)((tmp1/*ddt1*/=(/*RF4:item*/r1209item((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
-case 789:
-tmp2/*short*/=/*RF4:short*/r789short(((T789*)tmp1/*ddt1*/))/*:RF4*/;
-break;
+switch((((T0*)((tmp1/*ddt1*/=(/*RF4:item*/r1210item((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 790:
-tmp2/*short*/=(/*RF2:short*/(((T790*)tmp1/*ddt1*/))->_short/*T5pi5p*//*:RF2*/);
+tmp2/*short*/=/*RF4:short*/r790short(((T790*)tmp1/*ddt1*/))/*:RF4*/;
+break;
+case 791:
+tmp2/*short*/=(/*RF2:short*/(((T791*)tmp1/*ddt1*/))->_short/*T5pi5p*//*:RF2*/);
 break;
 default:;
-/*UNUSED_EXPRESSION:*/(void)(/*RF4:item*/r1209item((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/);
+/*UNUSED_EXPRESSION:*/(void)(/*RF4:item*/r1210item((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/);
 tmp2/*short*/=(void*)0;
 }
 /*inspect]*/
@@ -366,7 +780,7 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*SERC_CHAIN*/T0*r789bin(T789*C){
+/*SERC_CHAIN*/T0*r790bin(T790*C){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 T0* tmp1;
@@ -374,25 +788,25 @@ T0* tmp2;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
 T2 _i=0;
-_i=(/*RF2:lower*/((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_lower/*iiiini*//*:RF2*/);
+_i=(/*RF2:lower*/((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_lower/*iiiini*//*:RF2*/);
 while(1){
 tmp0/*or else*/=((T6)((R)!=((void*)((void*)0))));
 if(tmp0/*or else*/){
 }
 else{
-tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_upper/*iiiini*//*:RF2*/))/*:RF8*/));
+tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_upper/*iiiini*//*:RF2*/))/*:RF8*/));
 }
 /*until*/if(tmp0/*or else*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)((tmp1/*ddt1*/=(/*RF4:item*/r1209item((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
-case 789:
-tmp2/*bin*/=/*RF4:bin*/r789bin(((T789*)tmp1/*ddt1*/))/*:RF4*/;
-break;
+switch((((T0*)((tmp1/*ddt1*/=(/*RF4:item*/r1210item((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 790:
-tmp2/*bin*/=(/*RF2:bin*/(((T790*)tmp1/*ddt1*/))->_bin/*T5pi5p*//*:RF2*/);
+tmp2/*bin*/=/*RF4:bin*/r790bin(((T790*)tmp1/*ddt1*/))/*:RF4*/;
+break;
+case 791:
+tmp2/*bin*/=(/*RF2:bin*/(((T791*)tmp1/*ddt1*/))->_bin/*T5pi5p*//*:RF2*/);
 break;
 default:;
-/*UNUSED_EXPRESSION:*/(void)(/*RF4:item*/r1209item((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/);
+/*UNUSED_EXPRESSION:*/(void)(/*RF4:item*/r1210item((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/);
 tmp2/*bin*/=(void*)0;
 }
 /*inspect]*/
@@ -403,7 +817,7 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*SERC_CHAIN*/T0*r789c_mode(T789*C,T0*a1){
+/*SERC_CHAIN*/T0*r790c_mode(T790*C,T0*a1){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 T0* tmp1;
@@ -411,25 +825,25 @@ T0* tmp2;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
 T2 _i=0;
-_i=(/*RF2:lower*/((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_lower/*iiiini*//*:RF2*/);
+_i=(/*RF2:lower*/((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_lower/*iiiini*//*:RF2*/);
 while(1){
 tmp0/*or else*/=((T6)((R)!=((void*)((void*)0))));
 if(tmp0/*or else*/){
 }
 else{
-tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_upper/*iiiini*//*:RF2*/))/*:RF8*/));
+tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_upper/*iiiini*//*:RF2*/))/*:RF8*/));
 }
 /*until*/if(tmp0/*or else*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)((tmp1/*ddt1*/=(/*RF4:item*/r1209item((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
-case 789:
-tmp2/*c_mode*/=/*RF4:c_mode*/r789c_mode(((T789*)tmp1/*ddt1*/),a1)/*:RF4*/;
-break;
+switch((((T0*)((tmp1/*ddt1*/=(/*RF4:item*/r1210item((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 790:
-tmp2/*c_mode*/=/*RF4:reference_at*/r1212reference_at((T1212*)((/*RF2:my_c_modes*/(((T790*)tmp1/*ddt1*/))->_my_c_modes/*T5pi5p*//*:RF2*/)),a1)/*:RF4*/;
+tmp2/*c_mode*/=/*RF4:c_mode*/r790c_mode(((T790*)tmp1/*ddt1*/),a1)/*:RF4*/;
+break;
+case 791:
+tmp2/*c_mode*/=/*RF4:reference_at*/r1213reference_at((T1213*)((/*RF2:my_c_modes*/(((T791*)tmp1/*ddt1*/))->_my_c_modes/*T5pi5p*//*:RF2*/)),a1)/*:RF4*/;
 break;
 default:;
-/*UNUSED_EXPRESSION:*/(void)(/*RF4:item*/r1209item((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/);
+/*UNUSED_EXPRESSION:*/(void)(/*RF4:item*/r1210item((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/);
 tmp2/*c_mode*/=(void*)0;
 }
 /*inspect]*/
@@ -440,7 +854,7 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*SERC_CHAIN*/T0*r789os(T789*C){
+/*SERC_CHAIN*/T0*r790os(T790*C){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 T0* tmp1;
@@ -448,25 +862,25 @@ T0* tmp2;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
 T2 _i=0;
-_i=(/*RF2:lower*/((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_lower/*iiiini*//*:RF2*/);
+_i=(/*RF2:lower*/((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_lower/*iiiini*//*:RF2*/);
 while(1){
 tmp0/*or else*/=((T6)((R)!=((void*)((void*)0))));
 if(tmp0/*or else*/){
 }
 else{
-tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_upper/*iiiini*//*:RF2*/))/*:RF8*/));
+tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)))->_upper/*iiiini*//*:RF2*/))/*:RF8*/));
 }
 /*until*/if(tmp0/*or else*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)((tmp1/*ddt1*/=(/*RF4:item*/r1209item((T1209*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
-case 789:
-tmp2/*os*/=/*RF4:os*/r789os(((T789*)tmp1/*ddt1*/))/*:RF4*/;
-break;
+switch((((T0*)((tmp1/*ddt1*/=(/*RF4:item*/r1210item((T1210*)((/*RF2:config*/(C)->_config/*Tp*//*:RF2*/)),_i)/*:RF4*/))))->id)){
 case 790:
-tmp2/*os*/=(/*RF2:os*/(((T790*)tmp1/*ddt1*/))->_os/*T5pi5p*//*:RF2*/);
+tmp2/*os*/=/*RF4:os*/r790os(((T790*)tmp1/*ddt1*/))/*:RF4*/;
+break;
+case 791:
+tmp2/*os*/=(/*RF2:os*/(((T791*)tmp1/*ddt1*/))->_os/*T5pi5p*//*:RF2*/);
 break;
 default:;
-tmp2/*os*/=(/*RF2:os*/(((T791*)tmp1/*ddt1*/))->_os/*Ti2p*//*:RF2*/);
+tmp2/*os*/=(/*RF2:os*/(((T792*)tmp1/*ddt1*/))->_os/*Ti2p*//*:RF2*/);
 }
 /*inspect]*/
 /*tmp1.unlock*/
@@ -476,12 +890,12 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*SERC_DEFAULTS*/void r791make(T791*C){
+/*SERC_DEFAULTS*/void r792make(T792*C){
 /*SFN*/(C->_jobs/*Ti2p*/)=INT32_C(1);
-/*SFN*/(C->_flavor/*Ti2p*/)=ms111_2009849Abc791A;
+/*SFN*/(C->_flavor/*Ti2p*/)=ms111_2009849Abc792A;
 }/*--*/
 
-/*SERC_DEFAULTS*/T0*r791environment(T0*a1){
+/*SERC_DEFAULTS*/T0*r792environment(T0*a1){
 T0* R=(void*)0;
 int _system=0;
 R=/*RF4:get_environment_variable*/r533get_environment_variable(a1)/*:RF4*/;
@@ -492,9 +906,9 @@ return R;
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
-tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1210))));
-*((T1210*)tmp0/*new*/)=M1210;
-/*RF3:make*/r1210make(((T1210*)tmp0/*new*/),INT32_C(0));
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1211))));
+*((T1211*)tmp0/*new*/)=M1211;
+/*RF3:make*/r1211make(((T1211*)tmp0/*new*/),INT32_C(0));
 /*:RF3*//*SFN*/(C->_strings/*0ppi*/)=tmp0/*new*/;
 /*tmp0.unlock*/
 }/*--*/
@@ -509,24 +923,24 @@ T2 _i=0;
 T318 _item={(void*)0,0};
 /*RF3:clear_count*/r7clear_count(((T7*)a1));
 /*:RF3*//*RF3:set_item*/r318set_item(&((/*RF2:recycling_item*/(C)->_recycling_item/*0ppi*//*:RF2*/)),a1);
-/*:RF3*/if(/*RF4:is_empty*/r1210is_empty((T1210*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)))/*:RF4*/){
-/*RF3:add_last*/r1210add_last((T1210*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),(/*RF2:recycling_item*/(C)->_recycling_item/*0ppi*//*:RF2*/));
+/*:RF3*/if(/*RF4:is_empty*/r1211is_empty((T1211*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)))/*:RF4*/){
+/*RF3:add_last*/r1211add_last((T1211*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),(/*RF2:recycling_item*/(C)->_recycling_item/*0ppi*//*:RF2*/));
 /*:RF3*//*SFN*/(C->_recycling_item/*0ppi*/)=/*RF8:twin*/r318twin(&_item)/*:RF8*/;
 }
 else{
-_i=/*RF4:insert_index*/r732insert_index((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/),_item)/*:RF4*/;
-tmp0/*and then*/=((T6)(/*RF4:valid_index*/r1210valid_index((T1210*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_i)/*:RF4*/));
+_i=/*RF4:insert_index*/r733insert_index((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/),_item)/*:RF4*/;
+tmp0/*and then*/=((T6)(/*RF4:valid_index*/r1211valid_index((T1211*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_i)/*:RF4*/));
 if(tmp0/*and then*/){
-tmp0/*and then*/=((T6)((/*RF4:item*/r318item((tmp1/*fcstrangeisnotunlock*/=/*RF4:item*/r1210item((T1210*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_i)/*:RF4*/,&tmp1/*fcstrangeisnotunlock*/))/*:RF4*/)==((void*)((void*)0))));
+tmp0/*and then*/=((T6)((/*RF4:item*/r318item((tmp1/*fcstrangeisnotunlock*/=/*RF4:item*/r1211item((T1211*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_i)/*:RF4*/,&tmp1/*fcstrangeisnotunlock*/))/*:RF4*/)==((void*)((void*)0))));
 }
 if(tmp0/*and then*/){
-_item=/*RF8:twin*/r318twin((tmp2/*fcstrangeisnotunlock*/=/*RF4:item*/r1210item((T1210*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_i)/*:RF4*/,&tmp2/*fcstrangeisnotunlock*/))/*:RF8*/;
+_item=/*RF8:twin*/r318twin((tmp2/*fcstrangeisnotunlock*/=/*RF4:item*/r1211item((T1211*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_i)/*:RF4*/,&tmp2/*fcstrangeisnotunlock*/))/*:RF8*/;
 /*RF3:set_item*/r318set_item(&_item,a1);
-/*:RF3*//*RF3:put*/r1210put((T1210*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_item,_i);
+/*:RF3*//*RF3:put*/r1211put((T1211*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_item,_i);
 /*:RF3*//*RF3:set_item*/r318set_item(&((/*RF2:recycling_item*/(C)->_recycling_item/*0ppi*//*:RF2*/)),(void*)0);
 /*:RF3*/}
 else{
-/*RF3:add*/r1210add((T1210*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_item,_i);
+/*RF3:add*/r1211add((T1211*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_item,_i);
 /*:RF3*//*SFN*/(C->_recycling_item/*0ppi*/)=/*RF8:twin*/r318twin(&_item)/*:RF8*/;
 }
 }
@@ -552,11 +966,11 @@ T2 _i=0;
 T6 _gc=0;
 T318 _item={(void*)0,0};
 _gc=((T6)(/*RF8:collecting*/(0)/*:RF8*/));
-/*RF7:collection_off*//*:RF7*/if((/*RF4:is_empty*/r1210is_empty((T1210*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)))/*:RF4*/)==(0)){
+/*RF7:collection_off*//*:RF7*/if((/*RF4:is_empty*/r1211is_empty((T1211*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)))/*:RF4*/)==(0)){
 (/*RF2:capacity*/(_item)._capacity/*pi*//*:RF2*/)=a1;
-_i=/*RF4:insert_index*/r732insert_index((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/),_item)/*:RF4*/;
-if(/*RF4:valid_index*/r1210valid_index((T1210*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_i)/*:RF4*/){
-R=/*RF4:item*/r318item((tmp0/*fcstrangeisnotunlock*/=/*RF4:item*/r1210item((T1210*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_i)/*:RF4*/,&tmp0/*fcstrangeisnotunlock*/))/*:RF4*/;
+_i=/*RF4:insert_index*/r733insert_index((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/),_item)/*:RF4*/;
+if(/*RF4:valid_index*/r1211valid_index((T1211*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_i)/*:RF4*/){
+R=/*RF4:item*/r318item((tmp0/*fcstrangeisnotunlock*/=/*RF4:item*/r1211item((T1211*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_i)/*:RF4*/,&tmp0/*fcstrangeisnotunlock*/))/*:RF4*/;
 while(1){
 tmp1/*and then*/=((T6)((R)!=((void*)((void*)0))));
 if(tmp1/*and then*/){
@@ -570,12 +984,12 @@ tmp2/*or else*/=((T6)((_i)==(INT32_C(0))));
 }
 /*until*/if(tmp2/*or else*/) break;
 _i=/*RF8:-*/((int32_t)(_i))-(INT32_C(1))/*:RF8*/;
-R=/*RF4:item*/r318item((tmp3/*fcstrangeisnotunlock*/=/*RF4:item*/r1210item((T1210*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_i)/*:RF4*/,&tmp3/*fcstrangeisnotunlock*/))/*:RF4*/;
+R=/*RF4:item*/r318item((tmp3/*fcstrangeisnotunlock*/=/*RF4:item*/r1211item((T1211*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_i)/*:RF4*/,&tmp3/*fcstrangeisnotunlock*/))/*:RF4*/;
 }
 if((R)!=((void*)((void*)0))){
-_item=/*RF8:twin*/r318twin((/*auto-unlock tmp3*/tmp3/*fcstrangeisnotunlock*/=/*RF4:item*/r1210item((T1210*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_i)/*:RF4*/,&tmp3/*fcstrangeisnotunlock*/))/*:RF8*/;
+_item=/*RF8:twin*/r318twin((/*auto-unlock tmp3*/tmp3/*fcstrangeisnotunlock*/=/*RF4:item*/r1211item((T1211*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_i)/*:RF4*/,&tmp3/*fcstrangeisnotunlock*/))/*:RF8*/;
 /*RF3:set_item*/r318set_item(&_item,(void*)0);
-/*:RF3*//*RF3:put*/r1210put((T1210*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_item,_i);
+/*:RF3*//*RF3:put*/r1211put((T1211*)((/*RF2:strings*/(C)->_strings/*0ppi*//*:RF2*/)),_item,_i);
 /*:RF3*/if(/*RF8:<*/((int32_t)((/*RF2:capacity*/(((T7*)R))->_capacity/*Tiiiini*//*:RF2*/)))<(a1)/*:RF8*/){
 /*RF3:ensure_capacity*/r7ensure_capacity(((T7*)R),a1);
 /*:RF3*/}
@@ -594,7 +1008,7 @@ tmp4/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T7))));
 return R;
 }/*--*/
 
-/*SERC*/void r790make(T790*C){
+/*SERC*/void r791make(T791*C){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 T6 tmp1;
@@ -617,26 +1031,26 @@ T0*_pco=(void*)0;
 T0*_plo=(void*)0;
 T0*_so=(void*)0;
 T0*_tmp=(void*)0;
-/*SFN*/(C->_my_path/*T5pi5p*/)=/*RF8:twin*/r7twin((T7*)((/*RF2:to_string*/((T104*)((/*RF2:hashed_path*/((T121*)(/*RF6:parser_buffer*/r790parser_buffer()/*:RF6*/))->_hashed_path/*pi2p*//*:RF2*/)))->_to_string/*ip*//*:RF2*/)))/*:RF8*/;
+/*SFN*/(C->_my_path/*T5pi5p*/)=/*RF8:twin*/r7twin((T7*)((/*RF2:to_string*/((T104*)((/*RF2:hashed_path*/((T121*)(/*RF6:parser_buffer*/r791parser_buffer()/*:RF6*/))->_hashed_path/*pi2p*//*:RF2*/)))->_to_string/*ip*//*:RF2*/)))/*:RF8*/;
 /*RF3:a_inifile*/r105a_inifile(((T105*)oBC32ini_parser));
-/*:RF3*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1028))));
-*((T1028*)tmp0/*new*/)=M1028;
-/*RF3:make*/r1028make(((T1028*)tmp0/*new*/));
+/*:RF3*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1029))));
+*((T1029*)tmp0/*new*/)=M1029;
+/*RF3:make*/r1029make(((T1029*)tmp0/*new*/));
 /*:RF3*//*SFN*/(C->_my_environment/*T5pi5p*/)=tmp0/*new*/;
 /*tmp0.unlock*/
-/*reusing tmp0*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1028))));
-*((T1028*)tmp0/*new*/)=M1028;
-/*RF3:make*/r1028make(((T1028*)tmp0/*new*/));
+/*reusing tmp0*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1029))));
+*((T1029*)tmp0/*new*/)=M1029;
+/*RF3:make*/r1029make(((T1029*)tmp0/*new*/));
 /*:RF3*//*SFN*/(C->_my_loadpaths/*T5pi5p*/)=tmp0/*new*/;
 /*tmp0.unlock*/
-/*reusing tmp0*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1028))));
-*((T1028*)tmp0/*new*/)=M1028;
-/*RF3:make*/r1028make(((T1028*)tmp0/*new*/));
+/*reusing tmp0*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1029))));
+*((T1029*)tmp0/*new*/)=M1029;
+/*RF3:make*/r1029make(((T1029*)tmp0/*new*/));
 /*:RF3*//*SFN*/(C->_my_tools/*T5pi5p*/)=tmp0/*new*/;
 /*tmp0.unlock*/
-/*reusing tmp0*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1212))));
-*((T1212*)tmp0/*new*/)=M1212;
-/*RF3:make*/r1212make(((T1212*)tmp0/*new*/));
+/*reusing tmp0*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1213))));
+*((T1213*)tmp0/*new*/)=M1213;
+/*RF3:make*/r1213make(((T1213*)tmp0/*new*/));
 /*:RF3*//*SFN*/(C->_my_c_modes/*T5pi5p*/)=tmp0/*new*/;
 /*tmp0.unlock*/
 if(/*RF4:section_has*/r105section_has(((T105*)oBC32ini_parser),ms34_1509818Abc34A,ms34_3085Abc34A)/*:RF4*/){
@@ -657,9 +1071,9 @@ if(/*RF4:section_has*/r105section_has(((T105*)oBC32ini_parser),ms34_1509818Abc34
 if(/*RF4:section_has*/r105section_has(((T105*)oBC32ini_parser),ms34_1509818Abc34A,ms34_16630Abc34A)/*:RF4*/){
 _tmp=/*RF4:section_item*/r105section_item(((T105*)oBC32ini_parser),ms34_1509818Abc34A,ms34_16630Abc34A)/*:RF4*/;
 if((/*RF4:is_integer*/r7is_integer(((T7*)_tmp))/*:RF4*/)==(0)){
-/*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r790echo()/*:RF6*/),ms790_68224Abc790A);
-/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r790echo()/*:RF6*/),ms34_16630Abc34A);
-/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r790echo()/*:RF6*/),ms790_1932458562Abc790A);
+/*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r791echo()/*:RF6*/),ms791_68224Abc791A);
+/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r791echo()/*:RF6*/),ms34_16630Abc34A);
+/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r791echo()/*:RF6*/),ms791_1932458562Abc791A);
 /*:RF3*//*RF7:die_with_code*/se_die(INT32_C(1));
 /*:RF7*/}
 /*SFN*/(C->_jobs/*T5pi5p*/)=/*RF4:to_integer*/r7to_integer(((T7*)_tmp))/*:RF4*/;
@@ -669,52 +1083,52 @@ if((_i)!=((void*)((void*)0))){
 while(1){
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_i))->id)){
-case 809:
-tmp1/*is_off*/=((T6)(((/*RF2:index*/(((T809*)_i))->_index/*Tii*//*:RF2*/))==(INT8_C(0))));
+case 810:
+tmp1/*is_off*/=((T6)(((/*RF2:index*/(((T810*)_i))->_index/*Tii*//*:RF2*/))==(INT8_C(0))));
 break;
-case 1376:
-tmp1/*is_off*/=((T6)(/*RF4:is_off*/r1376is_off(((T1376*)_i))/*:RF4*/));
+case 1377:
+tmp1/*is_off*/=((T6)(/*RF4:is_off*/r1377is_off(((T1377*)_i))/*:RF4*/));
 break;
 default:;
-tmp1/*is_off*/=((T6)(/*RF4:is_off*/r1536is_off(((T1536*)_i))/*:RF4*/));
+tmp1/*is_off*/=((T6)(/*RF4:is_off*/r1537is_off(((T1537*)_i))/*:RF4*/));
 }
 /*inspect]*/
 /*until*/if(tmp1/*is_off*/) break;
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_i))->id)){
-case 809:
-/*reusing tmp0*/tmp0/*item*/=/*RF4:item*/r809item(((T809*)_i))/*:RF4*/;
+case 810:
+/*reusing tmp0*/tmp0/*item*/=/*RF4:item*/r810item(((T810*)_i))/*:RF4*/;
 break;
-case 1376:
-tmp0/*item*/=/*RF4:item*/r1376item(((T1376*)_i))/*:RF4*/;
+case 1377:
+tmp0/*item*/=/*RF4:item*/r1377item(((T1377*)_i))/*:RF4*/;
 break;
 default:;
-tmp0/*item*/=/*RF4:item*/r1536item(((T1536*)_i))/*:RF4*/;
+tmp0/*item*/=/*RF4:item*/r1537item(((T1537*)_i))/*:RF4*/;
 }
 /*inspect]*/
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_i))->id)){
-case 809:
-tmp2/*item*/=/*RF4:item*/r809item(((T809*)_i))/*:RF4*/;
+case 810:
+tmp2/*item*/=/*RF4:item*/r810item(((T810*)_i))/*:RF4*/;
 break;
-case 1376:
-tmp2/*item*/=/*RF4:item*/r1376item(((T1376*)_i))/*:RF4*/;
+case 1377:
+tmp2/*item*/=/*RF4:item*/r1377item(((T1377*)_i))/*:RF4*/;
 break;
 default:;
-tmp2/*item*/=/*RF4:item*/r1536item(((T1536*)_i))/*:RF4*/;
+tmp2/*item*/=/*RF4:item*/r1537item(((T1537*)_i))/*:RF4*/;
 }
 /*inspect]*/
-/*RF3:put*/r1028put((T1028*)((/*RF2:my_environment*/(C)->_my_environment/*T5pi5p*//*:RF2*/)),/*RF4:section_item*/r105section_item(((T105*)oBC32ini_parser),ms34_945182441Abc34A,tmp0/*item*/)/*:RF4*/,tmp2/*item*/);
+/*RF3:put*/r1029put((T1029*)((/*RF2:my_environment*/(C)->_my_environment/*T5pi5p*//*:RF2*/)),/*RF4:section_item*/r105section_item(((T105*)oBC32ini_parser),ms34_945182441Abc34A,tmp0/*item*/)/*:RF4*/,tmp2/*item*/);
 /*:RF3*//*[inspectDynamicDispatch*/
 switch((((T0*)(_i))->id)){
-case 809:
-/*RF3:next*/r809next(((T809*)_i));
+case 810:
+/*RF3:next*/r810next(((T810*)_i));
 /*:RF3*/break;
-case 1376:
-/*RF3:next*/r1376next(((T1376*)_i));
+case 1377:
+/*RF3:next*/r1377next(((T1377*)_i));
 /*:RF3*/break;
 default:;
-/*RF3:next*/r1536next(((T1536*)_i));
+/*RF3:next*/r1537next(((T1537*)_i));
 /*:RF3*/}
 /*inspect]*/
 }
@@ -724,52 +1138,52 @@ if((_i)!=((void*)((void*)0))){
 while(1){
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_i))->id)){
-case 809:
-/*auto-unlock tmp1*/tmp1/*is_off*/=((T6)(((/*RF2:index*/(((T809*)_i))->_index/*Tii*//*:RF2*/))==(INT8_C(0))));
+case 810:
+/*auto-unlock tmp1*/tmp1/*is_off*/=((T6)(((/*RF2:index*/(((T810*)_i))->_index/*Tii*//*:RF2*/))==(INT8_C(0))));
 break;
-case 1376:
-tmp1/*is_off*/=((T6)(/*RF4:is_off*/r1376is_off(((T1376*)_i))/*:RF4*/));
+case 1377:
+tmp1/*is_off*/=((T6)(/*RF4:is_off*/r1377is_off(((T1377*)_i))/*:RF4*/));
 break;
 default:;
-tmp1/*is_off*/=((T6)(/*RF4:is_off*/r1536is_off(((T1536*)_i))/*:RF4*/));
+tmp1/*is_off*/=((T6)(/*RF4:is_off*/r1537is_off(((T1537*)_i))/*:RF4*/));
 }
 /*inspect]*/
 /*until*/if(tmp1/*is_off*/) break;
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_i))->id)){
-case 809:
-/*auto-unlock tmp0*/tmp0/*item*/=/*RF4:item*/r809item(((T809*)_i))/*:RF4*/;
+case 810:
+/*auto-unlock tmp0*/tmp0/*item*/=/*RF4:item*/r810item(((T810*)_i))/*:RF4*/;
 break;
-case 1376:
-tmp0/*item*/=/*RF4:item*/r1376item(((T1376*)_i))/*:RF4*/;
+case 1377:
+tmp0/*item*/=/*RF4:item*/r1377item(((T1377*)_i))/*:RF4*/;
 break;
 default:;
-tmp0/*item*/=/*RF4:item*/r1536item(((T1536*)_i))/*:RF4*/;
+tmp0/*item*/=/*RF4:item*/r1537item(((T1537*)_i))/*:RF4*/;
 }
 /*inspect]*/
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_i))->id)){
-case 809:
-/*auto-unlock tmp2*/tmp2/*item*/=/*RF4:item*/r809item(((T809*)_i))/*:RF4*/;
+case 810:
+/*auto-unlock tmp2*/tmp2/*item*/=/*RF4:item*/r810item(((T810*)_i))/*:RF4*/;
 break;
-case 1376:
-tmp2/*item*/=/*RF4:item*/r1376item(((T1376*)_i))/*:RF4*/;
+case 1377:
+tmp2/*item*/=/*RF4:item*/r1377item(((T1377*)_i))/*:RF4*/;
 break;
 default:;
-tmp2/*item*/=/*RF4:item*/r1536item(((T1536*)_i))/*:RF4*/;
+tmp2/*item*/=/*RF4:item*/r1537item(((T1537*)_i))/*:RF4*/;
 }
 /*inspect]*/
-/*RF3:put*/r1028put((T1028*)((/*RF2:my_loadpaths*/(C)->_my_loadpaths/*T5pi5p*//*:RF2*/)),/*RF4:section_item*/r105section_item(((T105*)oBC32ini_parser),ms34_8054609Abc34A,tmp0/*item*/)/*:RF4*/,tmp2/*item*/);
+/*RF3:put*/r1029put((T1029*)((/*RF2:my_loadpaths*/(C)->_my_loadpaths/*T5pi5p*//*:RF2*/)),/*RF4:section_item*/r105section_item(((T105*)oBC32ini_parser),ms34_8054609Abc34A,tmp0/*item*/)/*:RF4*/,tmp2/*item*/);
 /*:RF3*//*[inspectDynamicDispatch*/
 switch((((T0*)(_i))->id)){
-case 809:
-/*RF3:next*/r809next(((T809*)_i));
+case 810:
+/*RF3:next*/r810next(((T810*)_i));
 /*:RF3*/break;
-case 1376:
-/*RF3:next*/r1376next(((T1376*)_i));
+case 1377:
+/*RF3:next*/r1377next(((T1377*)_i));
 /*:RF3*/break;
 default:;
-/*RF3:next*/r1536next(((T1536*)_i));
+/*RF3:next*/r1537next(((T1537*)_i));
 /*:RF3*/}
 /*inspect]*/
 }
@@ -779,52 +1193,52 @@ if((_i)!=((void*)((void*)0))){
 while(1){
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_i))->id)){
-case 809:
-/*auto-unlock tmp1*/tmp1/*is_off*/=((T6)(((/*RF2:index*/(((T809*)_i))->_index/*Tii*//*:RF2*/))==(INT8_C(0))));
+case 810:
+/*auto-unlock tmp1*/tmp1/*is_off*/=((T6)(((/*RF2:index*/(((T810*)_i))->_index/*Tii*//*:RF2*/))==(INT8_C(0))));
 break;
-case 1376:
-tmp1/*is_off*/=((T6)(/*RF4:is_off*/r1376is_off(((T1376*)_i))/*:RF4*/));
+case 1377:
+tmp1/*is_off*/=((T6)(/*RF4:is_off*/r1377is_off(((T1377*)_i))/*:RF4*/));
 break;
 default:;
-tmp1/*is_off*/=((T6)(/*RF4:is_off*/r1536is_off(((T1536*)_i))/*:RF4*/));
+tmp1/*is_off*/=((T6)(/*RF4:is_off*/r1537is_off(((T1537*)_i))/*:RF4*/));
 }
 /*inspect]*/
 /*until*/if(tmp1/*is_off*/) break;
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_i))->id)){
-case 809:
-/*auto-unlock tmp0*/tmp0/*item*/=/*RF4:item*/r809item(((T809*)_i))/*:RF4*/;
+case 810:
+/*auto-unlock tmp0*/tmp0/*item*/=/*RF4:item*/r810item(((T810*)_i))/*:RF4*/;
 break;
-case 1376:
-tmp0/*item*/=/*RF4:item*/r1376item(((T1376*)_i))/*:RF4*/;
+case 1377:
+tmp0/*item*/=/*RF4:item*/r1377item(((T1377*)_i))/*:RF4*/;
 break;
 default:;
-tmp0/*item*/=/*RF4:item*/r1536item(((T1536*)_i))/*:RF4*/;
+tmp0/*item*/=/*RF4:item*/r1537item(((T1537*)_i))/*:RF4*/;
 }
 /*inspect]*/
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_i))->id)){
-case 809:
-/*auto-unlock tmp2*/tmp2/*item*/=/*RF4:item*/r809item(((T809*)_i))/*:RF4*/;
+case 810:
+/*auto-unlock tmp2*/tmp2/*item*/=/*RF4:item*/r810item(((T810*)_i))/*:RF4*/;
 break;
-case 1376:
-tmp2/*item*/=/*RF4:item*/r1376item(((T1376*)_i))/*:RF4*/;
+case 1377:
+tmp2/*item*/=/*RF4:item*/r1377item(((T1377*)_i))/*:RF4*/;
 break;
 default:;
-tmp2/*item*/=/*RF4:item*/r1536item(((T1536*)_i))/*:RF4*/;
+tmp2/*item*/=/*RF4:item*/r1537item(((T1537*)_i))/*:RF4*/;
 }
 /*inspect]*/
-/*RF3:put*/r1028put((T1028*)((/*RF2:my_tools*/(C)->_my_tools/*T5pi5p*//*:RF2*/)),/*RF4:section_item*/r105section_item(((T105*)oBC32ini_parser),ms34_69805Abc34A,tmp0/*item*/)/*:RF4*/,tmp2/*item*/);
+/*RF3:put*/r1029put((T1029*)((/*RF2:my_tools*/(C)->_my_tools/*T5pi5p*//*:RF2*/)),/*RF4:section_item*/r105section_item(((T105*)oBC32ini_parser),ms34_69805Abc34A,tmp0/*item*/)/*:RF4*/,tmp2/*item*/);
 /*:RF3*//*[inspectDynamicDispatch*/
 switch((((T0*)(_i))->id)){
-case 809:
-/*RF3:next*/r809next(((T809*)_i));
+case 810:
+/*RF3:next*/r810next(((T810*)_i));
 /*:RF3*/break;
-case 1376:
-/*RF3:next*/r1376next(((T1376*)_i));
+case 1377:
+/*RF3:next*/r1377next(((T1377*)_i));
 /*:RF3*/break;
 default:;
-/*RF3:next*/r1536next(((T1536*)_i));
+/*RF3:next*/r1537next(((T1537*)_i));
 /*:RF3*/}
 /*inspect]*/
 }
@@ -834,14 +1248,14 @@ if((_i)!=((void*)((void*)0))){
 while(1){
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_i))->id)){
-case 809:
-/*auto-unlock tmp1*/tmp1/*is_off*/=((T6)(((/*RF2:index*/(((T809*)_i))->_index/*Tii*//*:RF2*/))==(INT8_C(0))));
+case 810:
+/*auto-unlock tmp1*/tmp1/*is_off*/=((T6)(((/*RF2:index*/(((T810*)_i))->_index/*Tii*//*:RF2*/))==(INT8_C(0))));
 break;
-case 1376:
-tmp1/*is_off*/=((T6)(/*RF4:is_off*/r1376is_off(((T1376*)_i))/*:RF4*/));
+case 1377:
+tmp1/*is_off*/=((T6)(/*RF4:is_off*/r1377is_off(((T1377*)_i))/*:RF4*/));
 break;
 default:;
-tmp1/*is_off*/=((T6)(/*RF4:is_off*/r1536is_off(((T1536*)_i))/*:RF4*/));
+tmp1/*is_off*/=((T6)(/*RF4:is_off*/r1537is_off(((T1537*)_i))/*:RF4*/));
 }
 /*inspect]*/
 /*until*/if(tmp1/*is_off*/) break;
@@ -860,14 +1274,14 @@ _plo=(void*)0;
 _so=(void*)0;
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_i))->id)){
-case 809:
-/*auto-unlock tmp0*/tmp0/*item*/=/*RF4:item*/r809item(((T809*)_i))/*:RF4*/;
+case 810:
+/*auto-unlock tmp0*/tmp0/*item*/=/*RF4:item*/r810item(((T810*)_i))/*:RF4*/;
 break;
-case 1376:
-tmp0/*item*/=/*RF4:item*/r1376item(((T1376*)_i))/*:RF4*/;
+case 1377:
+tmp0/*item*/=/*RF4:item*/r1377item(((T1377*)_i))/*:RF4*/;
 break;
 default:;
-tmp0/*item*/=/*RF4:item*/r1536item(((T1536*)_i))/*:RF4*/;
+tmp0/*item*/=/*RF4:item*/r1537item(((T1537*)_i))/*:RF4*/;
 }
 /*inspect]*/
 _m=tmp0/*item*/;
@@ -914,25 +1328,25 @@ _so=/*RF4:section_item*/r105section_item(((T105*)oBC32ini_parser),_m,ms34_306165
 /*RF3:make*/r545make(((T545*)tmp0/*new*/),_cc,_ccp,_clp,_csp,_cco,_clo,_pc,_pcp,_plp,_psp,_pco,_plo,_so);
 /*:RF3*/_cmode=tmp0/*new*/;
 /*tmp0.unlock*/
-/*RF3:put*/r1212put((T1212*)((/*RF2:my_c_modes*/(C)->_my_c_modes/*T5pi5p*//*:RF2*/)),_cmode,_m);
+/*RF3:put*/r1213put((T1213*)((/*RF2:my_c_modes*/(C)->_my_c_modes/*T5pi5p*//*:RF2*/)),_cmode,_m);
 /*:RF3*/}
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_i))->id)){
-case 809:
-/*RF3:next*/r809next(((T809*)_i));
+case 810:
+/*RF3:next*/r810next(((T810*)_i));
 /*:RF3*/break;
-case 1376:
-/*RF3:next*/r1376next(((T1376*)_i));
+case 1377:
+/*RF3:next*/r1377next(((T1377*)_i));
 /*:RF3*/break;
 default:;
-/*RF3:next*/r1536next(((T1536*)_i));
+/*RF3:next*/r1537next(((T1537*)_i));
 /*:RF3*/}
 /*inspect]*/
 }
 }
 }/*--*/
 
-/*SERC*/void r790add_all(T790*C,T0*a1,T0*a2,T0*a3){
+/*SERC*/void r791add_all(T791*C,T0*a1,T0*a2,T0*a3){
 /*[INTERNAL_C_LOCAL list*/
 T2 tmp0;
 T0* tmp1;
@@ -947,112 +1361,112 @@ _i=INT32_C(1);
 while(1){
 /*[inspectDynamicDispatch*/
 switch((((T0*)(a2))->id)){
-case 1028:
-tmp0/*upper*/=(/*RF2:count*/(((T1028*)a2))->_count/*Tpipiiini*//*:RF2*/);
+case 1029:
+tmp0/*upper*/=(/*RF2:count*/(((T1029*)a2))->_count/*Tpipiiini*//*:RF2*/);
 break;
 default:;
-tmp0/*upper*/=(/*RF2:count*/(((T1220*)a2))->_count/*T2pipiiini*//*:RF2*/);
+tmp0/*upper*/=(/*RF2:count*/(((T1221*)a2))->_count/*T2pipiiini*//*:RF2*/);
 }
 /*inspect]*/
 /*until*/if(/*RF8:>*/((int32_t)(_i))>(tmp0/*upper*/)/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
 switch((((T0*)(a2))->id)){
-case 1028:
-tmp1/*key*/=/*RF4:key*/r1028key(((T1028*)a2),_i)/*:RF4*/;
+case 1029:
+tmp1/*key*/=/*RF4:key*/r1029key(((T1029*)a2),_i)/*:RF4*/;
 break;
 default:;
-tmp1/*key*/=/*RF4:key*/r1220key(((T1220*)a2),_i)/*:RF4*/;
+tmp1/*key*/=/*RF4:key*/r1221key(((T1221*)a2),_i)/*:RF4*/;
 }
 /*inspect]*/
 _k=tmp1/*key*/;
 /*[inspectDynamicDispatch*/
 switch((((T0*)(a1))->id)){
-case 1028:
-/*auto-unlock tmp1*/tmp1/*reference_at*/=/*RF4:reference_at*/r1028reference_at(((T1028*)a1),_k)/*:RF4*/;
+case 1029:
+/*auto-unlock tmp1*/tmp1/*reference_at*/=/*RF4:reference_at*/r1029reference_at(((T1029*)a1),_k)/*:RF4*/;
 break;
 default:;
-tmp1/*reference_at*/=/*RF4:reference_at*/r1220reference_at(((T1220*)a1),_k)/*:RF4*/;
+tmp1/*reference_at*/=/*RF4:reference_at*/r1221reference_at(((T1221*)a1),_k)/*:RF4*/;
 }
 /*inspect]*/
 _v=tmp1/*reference_at*/;
 if((_v)==((void*)((void*)0))){
 /*[inspectDynamicDispatch*/
 switch((((T0*)(a1))->id)){
-case 1028:
+case 1029:
 /*[inspectDynamicDispatch*/
 switch((((T0*)(a2))->id)){
-case 1028:
-/*auto-unlock tmp1*/tmp1/*item*/=/*RF4:item*/r1028item(((T1028*)a2),_i)/*:RF4*/;
+case 1029:
+/*auto-unlock tmp1*/tmp1/*item*/=/*RF4:item*/r1029item(((T1029*)a2),_i)/*:RF4*/;
 break;
 default:;
-tmp1/*item*/=/*RF4:item*/r1220item(((T1220*)a2),_i)/*:RF4*/;
+tmp1/*item*/=/*RF4:item*/r1221item(((T1221*)a2),_i)/*:RF4*/;
 }
 /*inspect]*/
-/*RF3:add*/r1028add(((T1028*)a1),tmp1/*item*/,_k);
+/*RF3:add*/r1029add(((T1029*)a1),tmp1/*item*/,_k);
 /*:RF3*/break;
 default:;
 /*[inspectDynamicDispatch*/
 switch((((T0*)(a2))->id)){
-case 1028:
-tmp2/*item*/=/*RF4:item*/r1028item(((T1028*)a2),_i)/*:RF4*/;
+case 1029:
+tmp2/*item*/=/*RF4:item*/r1029item(((T1029*)a2),_i)/*:RF4*/;
 break;
 default:;
-tmp2/*item*/=/*RF4:item*/r1220item(((T1220*)a2),_i)/*:RF4*/;
+tmp2/*item*/=/*RF4:item*/r1221item(((T1221*)a2),_i)/*:RF4*/;
 }
 /*inspect]*/
-/*RF3:add*/r1220add(((T1220*)a1),tmp2/*item*/,_k);
+/*RF3:add*/r1221add(((T1221*)a1),tmp2/*item*/,_k);
 /*:RF3*/}
 /*inspect]*/
 }
 else{
 /*[inspectDynamicDispatch*/
 switch((((T0*)(a2))->id)){
-case 1028:
-tmp3/*item*/=/*RF4:item*/r1028item(((T1028*)a2),_i)/*:RF4*/;
+case 1029:
+tmp3/*item*/=/*RF4:item*/r1029item(((T1029*)a2),_i)/*:RF4*/;
 break;
 default:;
-tmp3/*item*/=/*RF4:item*/r1220item(((T1220*)a2),_i)/*:RF4*/;
+tmp3/*item*/=/*RF4:item*/r1221item(((T1221*)a2),_i)/*:RF4*/;
 }
 /*inspect]*/
 if((/*RF4:is_equal*/r7is_equal(((T7*)tmp3/*item*/),_v)/*:RF4*/)==(0)){
-/*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r790echo()/*:RF6*/),ms790_602797481Abc790A);
-/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r790echo()/*:RF6*/),a3);
-/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r790echo()/*:RF6*/),ms790_65332Abc790A);
-/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r790echo()/*:RF6*/),(/*RF2:my_path*/(C)->_my_path/*T5pi5p*//*:RF2*/));
-/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r790echo()/*:RF6*/),ms790_1000694404Abc790A);
-/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r790echo()/*:RF6*/),_k);
-/*:RF3*//*RF3:w_put_character*/r124w_put_character((T124*)(/*RF6:echo*/r790echo()/*:RF6*/),((T3)'\072'));
+/*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r791echo()/*:RF6*/),ms791_602797481Abc791A);
+/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r791echo()/*:RF6*/),a3);
+/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r791echo()/*:RF6*/),ms791_65332Abc791A);
+/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r791echo()/*:RF6*/),(/*RF2:my_path*/(C)->_my_path/*T5pi5p*//*:RF2*/));
+/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r791echo()/*:RF6*/),ms791_1000694404Abc791A);
+/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r791echo()/*:RF6*/),_k);
+/*:RF3*//*RF3:w_put_character*/r124w_put_character((T124*)(/*RF6:echo*/r791echo()/*:RF6*/),((T3)'\072'));
 /*:RF3*//*[inspectDynamicDispatch*/
 switch((((T0*)(a1))->id)){
-case 1028:
-tmp4/*at*/=/*RF4:at*/r1028at(((T1028*)a1),_k)/*:RF4*/;
+case 1029:
+tmp4/*at*/=/*RF4:at*/r1029at(((T1029*)a1),_k)/*:RF4*/;
 break;
 default:;
-tmp4/*at*/=/*RF4:at*/r1220at(((T1220*)a1),_k)/*:RF4*/;
+tmp4/*at*/=/*RF4:at*/r1221at(((T1221*)a1),_k)/*:RF4*/;
 }
 /*inspect]*/
-/*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r790echo()/*:RF6*/),tmp4/*at*/);
-/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r790echo()/*:RF6*/),ms790_789213750Abc790A);
-/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r790echo()/*:RF6*/),_k);
-/*:RF3*//*RF3:w_put_character*/r124w_put_character((T124*)(/*RF6:echo*/r790echo()/*:RF6*/),((T3)'\072'));
+/*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r791echo()/*:RF6*/),tmp4/*at*/);
+/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r791echo()/*:RF6*/),ms791_789213750Abc791A);
+/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r791echo()/*:RF6*/),_k);
+/*:RF3*//*RF3:w_put_character*/r124w_put_character((T124*)(/*RF6:echo*/r791echo()/*:RF6*/),((T3)'\072'));
 /*:RF3*//*[inspectDynamicDispatch*/
 switch((((T0*)(a2))->id)){
-case 1028:
-/*auto-unlock tmp4*/tmp4/*at*/=/*RF4:at*/r1028at(((T1028*)a2),_k)/*:RF4*/;
+case 1029:
+/*auto-unlock tmp4*/tmp4/*at*/=/*RF4:at*/r1029at(((T1029*)a2),_k)/*:RF4*/;
 break;
 default:;
-tmp4/*at*/=/*RF4:at*/r1220at(((T1220*)a2),_k)/*:RF4*/;
+tmp4/*at*/=/*RF4:at*/r1221at(((T1221*)a2),_k)/*:RF4*/;
 }
 /*inspect]*/
-/*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r790echo()/*:RF6*/),tmp4/*at*/);
-/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r790echo()/*:RF6*/),se_string(13,s790_1883030297A));
+/*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r791echo()/*:RF6*/),tmp4/*at*/);
+/*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r791echo()/*:RF6*/),se_string(13,s791_1883030297A));
 /*:RF3*/}
 }
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 }/*--*/
 
-/*SERC*/T0*r790echo(void){
+/*SERC*/T0*r791echo(void){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -1066,11 +1480,11 @@ tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T124))));
 return oBC32echo;
 }/*--*/
 
-/*SERC*/void r790loadpaths_in(T790*C,T0*a1){
-/*RF3:add_all*/r790add_all(C,a1,(/*RF2:my_loadpaths*/(C)->_my_loadpaths/*T5pi5p*//*:RF2*/),ms34_8054609Abc790A);
+/*SERC*/void r791loadpaths_in(T791*C,T0*a1){
+/*RF3:add_all*/r791add_all(C,a1,(/*RF2:my_loadpaths*/(C)->_my_loadpaths/*T5pi5p*//*:RF2*/),ms34_8054609Abc791A);
 /*:RF3*/}/*--*/
 
-/*SERC*/T0*r790parser_buffer(void){
+/*SERC*/T0*r791parser_buffer(void){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -1087,14 +1501,14 @@ T0*oBC79is_running_memory=(void*)0;
 
 /*AT_EXIT*/void r79run(void){
 T0*_action=(void*)0;
-(/*RF2:item*/(((T1030*)oBC79is_running_memory))->_item/*p*//*:RF2*/)=((T6)(1));
+(/*RF2:item*/(((T1031*)oBC79is_running_memory))->_item/*p*//*:RF2*/)=((T6)(1));
 while(1){
-/*until*/if(/*RF4:is_empty*/r1215is_empty((T1215*)(/*RF6:actions*/r79actions()/*:RF6*/))/*:RF4*/) break;
-_action=/*RF4:first*/r1215first((T1215*)(/*RF6:actions*/r79actions()/*:RF6*/))/*:RF4*/;
-/*RF3:remove_first*/r1215remove_first((T1215*)(/*RF6:actions*/r79actions()/*:RF6*/));
+/*until*/if(/*RF4:is_empty*/r1216is_empty((T1216*)(/*RF6:actions*/r79actions()/*:RF6*/))/*:RF4*/) break;
+_action=/*RF4:first*/r1216first((T1216*)(/*RF6:actions*/r79actions()/*:RF6*/))/*:RF4*/;
+/*RF3:remove_first*/r1216remove_first((T1216*)(/*RF6:actions*/r79actions()/*:RF6*/));
 /*:RF3*/agent_launcher(_action);
 }
-(/*RF2:item*/(((T1030*)oBC79is_running_memory))->_item/*p*//*:RF2*/)=((T6)(0));
+(/*RF2:item*/(((T1031*)oBC79is_running_memory))->_item/*p*//*:RF2*/)=((T6)(0));
 }/*--*/
 T0*oBC79actions=(void*)0;
 int fBC79actions=0;
@@ -1104,9 +1518,9 @@ int fBC79actions=0;
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
 if(fBC79actions==0){fBC79actions=1;{
-tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1215))));
-*((T1215*)tmp0/*new*/)=M1215;
-/*RF3:make*/r1215make(((T1215*)tmp0/*new*/),INT32_C(1),INT32_C(0));
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1216))));
+*((T1216*)tmp0/*new*/)=M1216;
+/*RF3:make*/r1216make(((T1216*)tmp0/*new*/),INT32_C(1),INT32_C(0));
 /*:RF3*/oBC79actions=tmp0/*new*/;
 /*tmp0.unlock*/
 }}
@@ -1127,10 +1541,10 @@ T6 tmp0;
 T6 R=0;
 T0*_sec=(void*)0;
 if(((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/))!=((void*)((void*)0))){
-_sec=/*RF4:reference_at*/r1219reference_at((T1219*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)),a1)/*:RF4*/;
+_sec=/*RF4:reference_at*/r1220reference_at((T1220*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)),a1)/*:RF4*/;
 tmp0/*and then*/=((T6)((_sec)!=((void*)((void*)0))));
 if(tmp0/*and then*/){
-tmp0/*and then*/=((T6)(/*RF4:has*/r1220has(((T1220*)_sec),a2)/*:RF4*/));
+tmp0/*and then*/=((T6)(/*RF4:has*/r1221has(((T1221*)_sec),a2)/*:RF4*/));
 }
 R=((T6)(tmp0/*and then*/));
 }
@@ -1211,16 +1625,16 @@ tmp4/*and then*/=((T6)(/*RF4:skip_spaces*/r105skip_spaces(C)/*:RF4*/));
 R=((T6)(tmp4/*and then*/));
 if(R){
 /*RF3:goto_next_line*/r105goto_next_line(C);
-/*:RF3*//*SFN*/(C->_last_section/*4pppspppiiiip2pcpii*/)=(/*RF2:to_string*/((T104*)(/*RF4:hashed_string*/r775hashed_string(&((/*RF2:token_buffer*/(C)->_token_buffer/*4pppspppiiiip2pcpii*//*:RF2*/)))/*:RF4*/))->_to_string/*ip*//*:RF2*/);
+/*:RF3*//*SFN*/(C->_last_section/*4pppspppiiiip2pcpii*/)=(/*RF2:to_string*/((T104*)(/*RF4:hashed_string*/r776hashed_string(&((/*RF2:token_buffer*/(C)->_token_buffer/*4pppspppiiiip2pcpii*//*:RF2*/)))/*:RF4*/))->_to_string/*ip*//*:RF2*/);
 if(((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/))==((void*)((void*)0))){
-tmp5/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1219))));
-*((T1219*)tmp5/*new*/)=M1219;
-/*RF3:make*/r1219make(((T1219*)tmp5/*new*/));
+tmp5/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1220))));
+*((T1220*)tmp5/*new*/)=M1220;
+/*RF3:make*/r1220make(((T1220*)tmp5/*new*/));
 /*:RF3*//*SFN*/(C->_sections/*4pppspppiiiip2pcpii*/)=tmp5/*new*/;
 /*tmp5.unlock*/
 }
-if((/*RF4:has*/r1219has((T1219*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)),(/*RF2:last_section*/(C)->_last_section/*4pppspppiiiip2pcpii*//*:RF2*/))/*:RF4*/)==(0)){
-/*RF3:add*/r1219add((T1219*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)),((T0*)create1220make()),(/*RF2:last_section*/(C)->_last_section/*4pppspppiiiip2pcpii*//*:RF2*/));
+if((/*RF4:has*/r1220has((T1220*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)),(/*RF2:last_section*/(C)->_last_section/*4pppspppiiiip2pcpii*//*:RF2*/))/*:RF4*/)==(0)){
+/*RF3:add*/r1220add((T1220*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)),((T0*)create1221make()),(/*RF2:last_section*/(C)->_last_section/*4pppspppiiiip2pcpii*//*:RF2*/));
 /*:RF3*/}
 /*RF3:a_keys*/r105a_keys(C);
 /*:RF3*/}
@@ -1260,7 +1674,7 @@ return oBC103unicode_string_buffer;
 
 /*INI_PARSER*/T6 r105is_install(void){
 T6 R=0;
-R=((T6)((/*RF2:item*/(((T1030*)oBC32install_memory))->_item/*p*//*:RF2*/)));
+R=((T6)((/*RF2:item*/(((T1031*)oBC32install_memory))->_item/*p*//*:RF2*/)));
 return R;
 }/*--*/
 
@@ -1307,7 +1721,7 @@ tmp0/*locexp*/=M345;
 /*tmp0.unlock*/
 /*SFN*/(C->_line/*4pppspppiiiip2pcpii*/)=a1;
 /*SFN*/(C->_column/*4pppspppiiiip2pcpii*/)=a2;
-/*SFN*/(C->_current_line/*4pppspppiiiip2pcpii*/)=/*RF8:item*/((/*RF2:storage*/((T1026*)((/*RF2:text*/((T121*)(/*RF6:parser_buffer*/r105parser_buffer()/*:RF6*/))->_text/*pi2p*//*:RF2*/)))->_storage/*Tiini*//*:RF2*/))[a1]/*:RF8*/;
+/*SFN*/(C->_current_line/*4pppspppiiiip2pcpii*/)=/*RF8:item*/((/*RF2:storage*/((T1027*)((/*RF2:text*/((T121*)(/*RF6:parser_buffer*/r105parser_buffer()/*:RF6*/))->_text/*pi2p*//*:RF2*/)))->_storage/*Tiini*//*:RF2*/))[a1]/*:RF8*/;
 /*SFN*/(C->_cc/*4pppspppiiiip2pcpii*/)=/*RF4:item*/r7item((T7*)((/*RF2:current_line*/(C)->_current_line/*4pppspppiiiip2pcpii*//*:RF2*/)),a2)/*:RF4*/;
 if(((/*RF2:last_comment*/(C)->_last_comment/*4pppspppiiiip2pcpii*//*:RF2*/))!=((void*)((void*)0))){
 _sp=/*RF8:twin*/r345twin((/*reusing tmp0*/tmp0/*fcstrangeisnotunlock*/=(/*RF2:start_position*/((T430*)((/*RF2:last_comment*/(C)->_last_comment/*4pppspppiiiip2pcpii*//*:RF2*/)))->_start_position/*Tpii*//*:RF2*/),&tmp0/*fcstrangeisnotunlock*/))/*:RF8*/;
@@ -1346,7 +1760,7 @@ T6 R=0;
 T2 _state=0;
 T2 _l=0;
 T2 _c=0;
-/*RF3:reset*/r775reset(&((/*RF2:token_buffer*/(C)->_token_buffer/*4pppspppiiiip2pcpii*//*:RF2*/)),(/*RF2:line*/(C)->_line/*4pppspppiiiip2pcpii*//*:RF2*/),(/*RF2:column*/(C)->_column/*4pppspppiiiip2pcpii*//*:RF2*/));
+/*RF3:reset*/r776reset(&((/*RF2:token_buffer*/(C)->_token_buffer/*4pppspppiiiip2pcpii*//*:RF2*/)),(/*RF2:line*/(C)->_line/*4pppspppiiiip2pcpii*//*:RF2*/),(/*RF2:column*/(C)->_column/*4pppspppiiiip2pcpii*//*:RF2*/));
 /*:RF3*/_state=INT32_C(0);
 while(1){
 tmp0/*or else*/=((T6)(((/*RF2:cc*/(C)->_cc/*4pppspppiiiip2pcpii*//*:RF2*/))==(((T3)'\n'))));
@@ -1376,7 +1790,7 @@ _c=(/*RF2:column*/(C)->_column/*4pppspppiiiip2pcpii*//*:RF2*/);
 /*:RF3*/_state=INT32_C(2);
 break;
 default:;
-/*RF3:extend*/r775extend((/*RF2:cc*/(C)->_cc/*4pppspppiiiip2pcpii*//*:RF2*/));
+/*RF3:extend*/r776extend((/*RF2:cc*/(C)->_cc/*4pppspppiiiip2pcpii*//*:RF2*/));
 /*:RF3*/}
 /*inspect]*/
 break;
@@ -1394,8 +1808,8 @@ _c=(/*RF2:column*/(C)->_column/*4pppspppiiiip2pcpii*//*:RF2*/);
 _state=INT32_C(2);
 break;
 default:;
-/*RF3:append*/r775append(/*RF6:buffer*/r105buffer()/*:RF6*/);
-/*:RF3*//*RF3:extend*/r775extend((/*RF2:cc*/(C)->_cc/*4pppspppiiiip2pcpii*//*:RF2*/));
+/*RF3:append*/r776append(/*RF6:buffer*/r105buffer()/*:RF6*/);
+/*:RF3*//*RF3:extend*/r776extend((/*RF2:cc*/(C)->_cc/*4pppspppiiiip2pcpii*//*:RF2*/));
 /*:RF3*/_state=INT32_C(0);
 }
 /*inspect]*/
@@ -1409,16 +1823,16 @@ _state=INT32_C(3);
 break;
 case 9:
 case 32:
-/*RF3:append*/r775append(/*RF6:buffer*/r105buffer()/*:RF6*/);
-/*:RF3*//*RF3:extend*/r775extend(((T3)'\055'));
+/*RF3:append*/r776append(/*RF6:buffer*/r105buffer()/*:RF6*/);
+/*:RF3*//*RF3:extend*/r776extend(((T3)'\055'));
 /*:RF3*//*RF3:clear_count*/r7clear_count((T7*)(/*RF6:buffer*/r105buffer()/*:RF6*/));
 /*:RF3*//*RF3:extend*/r7extend((T7*)(/*RF6:buffer*/r105buffer()/*:RF6*/),(/*RF2:cc*/(C)->_cc/*4pppspppiiiip2pcpii*//*:RF2*/));
 /*:RF3*/_state=INT32_C(1);
 break;
 default:;
-/*RF3:append*/r775append(/*RF6:buffer*/r105buffer()/*:RF6*/);
-/*:RF3*//*RF3:extend*/r775extend(((T3)'\055'));
-/*:RF3*//*RF3:extend*/r775extend((/*RF2:cc*/(C)->_cc/*4pppspppiiiip2pcpii*//*:RF2*/));
+/*RF3:append*/r776append(/*RF6:buffer*/r105buffer()/*:RF6*/);
+/*:RF3*//*RF3:extend*/r776extend(((T3)'\055'));
+/*:RF3*//*RF3:extend*/r776extend((/*RF2:cc*/(C)->_cc/*4pppspppiiiip2pcpii*//*:RF2*/));
 /*:RF3*/_state=INT32_C(0);
 }
 /*inspect]*/
@@ -1585,8 +1999,8 @@ T3 tmp0;
 T6 R=0;
 T6 _stop=0;
 if(/*RF4:is_letter*/r3is_letter((/*RF2:cc*/(C)->_cc/*4pppspppiiiip2pcpii*//*:RF2*/))/*:RF4*/){
-/*RF3:reset*/r775reset(&((/*RF2:token_buffer*/(C)->_token_buffer/*4pppspppiiiip2pcpii*//*:RF2*/)),(/*RF2:line*/(C)->_line/*4pppspppiiiip2pcpii*//*:RF2*/),(/*RF2:column*/(C)->_column/*4pppspppiiiip2pcpii*//*:RF2*/));
-/*:RF3*//*RF3:extend*/r775extend((/*RF2:cc*/(C)->_cc/*4pppspppiiiip2pcpii*//*:RF2*/));
+/*RF3:reset*/r776reset(&((/*RF2:token_buffer*/(C)->_token_buffer/*4pppspppiiiip2pcpii*//*:RF2*/)),(/*RF2:line*/(C)->_line/*4pppspppiiiip2pcpii*//*:RF2*/),(/*RF2:column*/(C)->_column/*4pppspppiiiip2pcpii*//*:RF2*/));
+/*:RF3*//*RF3:extend*/r776extend((/*RF2:cc*/(C)->_cc/*4pppspppiiiip2pcpii*//*:RF2*/));
 /*:RF3*/while(1){
 /*until*/if(_stop) break;
 /*RF3:next_char*/r105next_char(C);
@@ -1657,7 +2071,7 @@ case 119:
 case 120:
 case 121:
 case 122:
-/*RF3:extend*/r775extend((/*RF2:cc*/(C)->_cc/*4pppspppiiiip2pcpii*//*:RF2*/));
+/*RF3:extend*/r776extend((/*RF2:cc*/(C)->_cc/*4pppspppiiiip2pcpii*//*:RF2*/));
 /*:RF3*/break;
 default:;
 _stop=((T6)(1));
@@ -2231,17 +2645,17 @@ else{
 T6 tmp0;
 /*INTERNAL_C_LOCAL list]*/
 if(((/*RF2:default_section*/(C)->_default_section/*4pppspppiiiip2pcpii*//*:RF2*/))!=((void*)((void*)0))){
-/*RF3:clear_count*/r1220clear_count((T1220*)((/*RF2:default_section*/(C)->_default_section/*4pppspppiiiip2pcpii*//*:RF2*/)));
+/*RF3:clear_count*/r1221clear_count((T1221*)((/*RF2:default_section*/(C)->_default_section/*4pppspppiiiip2pcpii*//*:RF2*/)));
 /*:RF3*/}
 if(((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/))!=((void*)((void*)0))){
-/*RF3:clear_count*/r1219clear_count((T1219*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)));
+/*RF3:clear_count*/r1220clear_count((T1220*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)));
 /*:RF3*/}
 /*SFN*/(C->_drop_comments/*4pppspppiiiip2pcpii*/)=((T6)(1));
 /*SFN*/(C->_last_section/*4pppspppiiiip2pcpii*/)=(void*)0;
 /*SFN*/(C->_last_key/*4pppspppiiiip2pcpii*/)=(void*)0;
 /*SFN*/(C->_line/*4pppspppiiiip2pcpii*/)=INT32_C(1);
 /*SFN*/(C->_column/*4pppspppiiiip2pcpii*/)=INT32_C(1);
-/*SFN*/(C->_current_line/*4pppspppiiiip2pcpii*/)=/*RF8:item*/((/*RF2:storage*/((T1026*)((/*RF2:text*/((T121*)(/*RF6:parser_buffer*/r105parser_buffer()/*:RF6*/))->_text/*pi2p*//*:RF2*/)))->_storage/*Tiini*//*:RF2*/))[(/*RF2:line*/(C)->_line/*4pppspppiiiip2pcpii*//*:RF2*/)]/*:RF8*/;
+/*SFN*/(C->_current_line/*4pppspppiiiip2pcpii*/)=/*RF8:item*/((/*RF2:storage*/((T1027*)((/*RF2:text*/((T121*)(/*RF6:parser_buffer*/r105parser_buffer()/*:RF6*/))->_text/*pi2p*//*:RF2*/)))->_storage/*Tiini*//*:RF2*/))[(/*RF2:line*/(C)->_line/*4pppspppiiiip2pcpii*//*:RF2*/)]/*:RF8*/;
 /*SFN*/(C->_file_path/*4pppspppiiiip2pcpii*/)=(/*RF2:to_string*/((T104*)((/*RF2:hashed_path*/((T121*)(/*RF6:parser_buffer*/r105parser_buffer()/*:RF6*/))->_hashed_path/*pi2p*//*:RF2*/)))->_to_string/*ip*//*:RF2*/);
 if(((/*RF2:count*/((T7*)((/*RF2:current_line*/(C)->_current_line/*4pppspppiiiip2pcpii*//*:RF2*/)))->_count/*Tiiiini*//*:RF2*/))==(INT8_C(0))){
 /*SFN*/(C->_cc/*4pppspppiiiip2pcpii*/)=((T3)'\n');
@@ -2361,47 +2775,47 @@ else{
 _process=/*RF4:create_process*/r530create_process(&_process_factory)/*:RF4*/;
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_process))->id)){
-case 786:
-(/*RF2:direct_input*/(((T786*)_process))->_direct_input/*Tp7ppppp*//*:RF2*/)=((T6)(1));
-break;
 case 787:
 (/*RF2:direct_input*/(((T787*)_process))->_direct_input/*Tp7ppppp*//*:RF2*/)=((T6)(1));
 break;
+case 788:
+(/*RF2:direct_input*/(((T788*)_process))->_direct_input/*Tp7ppppp*//*:RF2*/)=((T6)(1));
+break;
 default:;
-(/*RF2:direct_input*/(((T788*)_process))->_direct_input/*Tpppp*//*:RF2*/)=((T6)(1));
+(/*RF2:direct_input*/(((T789*)_process))->_direct_input/*Tpppp*//*:RF2*/)=((T6)(1));
 }
 /*inspect]*/
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_process))->id)){
-case 786:
-(/*RF2:direct_error*/(((T786*)_process))->_direct_error/*Tp7ppppp*//*:RF2*/)=((T6)(1));
-break;
 case 787:
 (/*RF2:direct_error*/(((T787*)_process))->_direct_error/*Tp7ppppp*//*:RF2*/)=((T6)(1));
 break;
+case 788:
+(/*RF2:direct_error*/(((T788*)_process))->_direct_error/*Tp7ppppp*//*:RF2*/)=((T6)(1));
+break;
 default:;
-(/*RF2:direct_error*/(((T788*)_process))->_direct_error/*Tpppp*//*:RF2*/)=((T6)(1));
+(/*RF2:direct_error*/(((T789*)_process))->_direct_error/*Tpppp*//*:RF2*/)=((T6)(1));
 }
 /*inspect]*/
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_process))->id)){
-case 786:
-/*RF3:execute_command_line*/r786execute_command_line(((T786*)_process),_cmd,(T6)(1));
-/*:RF3*/break;
 case 787:
 /*RF3:execute_command_line*/r787execute_command_line(((T787*)_process),_cmd,(T6)(1));
 /*:RF3*/break;
-default:;
+case 788:
 /*RF3:execute_command_line*/r788execute_command_line(((T788*)_process),_cmd,(T6)(1));
+/*:RF3*/break;
+default:;
+/*RF3:execute_command_line*/r789execute_command_line(((T789*)_process),_cmd,(T6)(1));
 /*:RF3*/}
 /*inspect]*/
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_process))->id)){
-case 786:
-tmp6/*is_connected*/=((T6)((/*RF2:is_connected*/(((T786*)_process))->_is_connected/*Tp7ppppp*//*:RF2*/)));
-break;
 case 787:
 tmp6/*is_connected*/=((T6)((/*RF2:is_connected*/(((T787*)_process))->_is_connected/*Tp7ppppp*//*:RF2*/)));
+break;
+case 788:
+tmp6/*is_connected*/=((T6)((/*RF2:is_connected*/(((T788*)_process))->_is_connected/*Tp7ppppp*//*:RF2*/)));
 break;
 default:;
 tmp6/*is_connected*/=((T6)(0));
@@ -2410,11 +2824,11 @@ tmp6/*is_connected*/=((T6)(0));
 if(tmp6/*is_connected*/){
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_process))->id)){
-case 786:
-tmp7/*output*/=(/*RF2:output*/(((T786*)_process))->_output/*Tp7ppppp*//*:RF2*/);
-break;
 case 787:
 tmp7/*output*/=(/*RF2:output*/(((T787*)_process))->_output/*Tp7ppppp*//*:RF2*/);
+break;
+case 788:
+tmp7/*output*/=(/*RF2:output*/(((T788*)_process))->_output/*Tp7ppppp*//*:RF2*/);
 break;
 default:;
 tmp7/*output*/=(void*)0;
@@ -2423,31 +2837,31 @@ tmp7/*output*/=(void*)0;
 _stream=tmp7/*output*/;
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_stream))->id)){
-case 854:
-/*RF3:filtered_read_character*/r854filtered_read_character(((T854*)_stream));
+case 855:
+/*RF3:filtered_read_character*/r855filtered_read_character(((T855*)_stream));
 /*:RF3*/break;
 default:;
-/*RF3:filtered_read_character*/r856filtered_read_character(((T856*)_stream));
+/*RF3:filtered_read_character*/r857filtered_read_character(((T857*)_stream));
 /*:RF3*/}
 /*inspect]*/
 while(1){
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_stream))->id)){
-case 854:
-tmp8/*end_of_input*/=((T6)((/*RF2:end_of_input*/(((T854*)_stream))->_end_of_input/*Tpiccppppp*//*:RF2*/)));
+case 855:
+tmp8/*end_of_input*/=((T6)((/*RF2:end_of_input*/(((T855*)_stream))->_end_of_input/*Tpiccppppp*//*:RF2*/)));
 break;
 default:;
-tmp8/*end_of_input*/=((T6)((/*RF2:end_of_input*/(((T856*)_stream))->_end_of_input/*Tppccppppp*//*:RF2*/)));
+tmp8/*end_of_input*/=((T6)((/*RF2:end_of_input*/(((T857*)_stream))->_end_of_input/*Tppccppppp*//*:RF2*/)));
 }
 /*inspect]*/
 /*until*/if(tmp8/*end_of_input*/) break;
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_stream))->id)){
-case 854:
-tmp9/*last_character*/=(/*RF2:filtered_last_character*/(((T854*)_stream))->_filtered_last_character/*Tpiccppppp*//*:RF2*/);
+case 855:
+tmp9/*last_character*/=(/*RF2:filtered_last_character*/(((T855*)_stream))->_filtered_last_character/*Tpiccppppp*//*:RF2*/);
 break;
 default:;
-tmp9/*last_character*/=(/*RF2:filtered_last_character*/(((T856*)_stream))->_filtered_last_character/*Tppccppppp*//*:RF2*/);
+tmp9/*last_character*/=(/*RF2:filtered_last_character*/(((T857*)_stream))->_filtered_last_character/*Tppccppppp*//*:RF2*/);
 }
 /*inspect]*/
 _ch=tmp9/*last_character*/;
@@ -2463,21 +2877,21 @@ default:;
 /*inspect]*/
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_stream))->id)){
-case 854:
-/*RF3:filtered_read_character*/r854filtered_read_character(((T854*)_stream));
+case 855:
+/*RF3:filtered_read_character*/r855filtered_read_character(((T855*)_stream));
 /*:RF3*/break;
 default:;
-/*RF3:filtered_read_character*/r856filtered_read_character(((T856*)_stream));
+/*RF3:filtered_read_character*/r857filtered_read_character(((T857*)_stream));
 /*:RF3*/}
 /*inspect]*/
 }
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_process))->id)){
-case 786:
-/*RF3:wait*/r786wait(((T786*)_process));
-/*:RF3*/break;
 case 787:
 /*RF3:wait*/r787wait(((T787*)_process));
+/*:RF3*/break;
+case 788:
+/*RF3:wait*/r788wait(((T788*)_process));
 /*:RF3*/break;
 default:;
 }
@@ -2528,7 +2942,7 @@ T6 tmp0;
 T6 R=0;
 tmp0/*and then*/=((T6)(((/*RF2:default_section*/(C)->_default_section/*4pppspppiiiip2pcpii*//*:RF2*/))!=((void*)((void*)0))));
 if(tmp0/*and then*/){
-tmp0/*and then*/=((T6)(/*RF4:has*/r1220has((T1220*)((/*RF2:default_section*/(C)->_default_section/*4pppspppiiiip2pcpii*//*:RF2*/)),a1)/*:RF4*/));
+tmp0/*and then*/=((T6)(/*RF4:has*/r1221has((T1221*)((/*RF2:default_section*/(C)->_default_section/*4pppspppiiiip2pcpii*//*:RF2*/)),a1)/*:RF4*/));
 }
 R=((T6)(tmp0/*and then*/));
 return R;
@@ -2569,7 +2983,7 @@ _stop=((T6)(1));
 else{
 /*SFN*/(C->_line/*4pppspppiiiip2pcpii*/)=/*RF8:+*/((int32_t)((/*RF2:line*/(C)->_line/*4pppspppiiiip2pcpii*//*:RF2*/)))+(INT32_C(1))/*:RF8*/;
 /*SFN*/(C->_column/*4pppspppiiiip2pcpii*/)=INT32_C(1);
-/*SFN*/(C->_current_line/*4pppspppiiiip2pcpii*/)=/*RF8:item*/((/*RF2:storage*/((T1026*)((/*RF2:text*/((T121*)(/*RF6:parser_buffer*/r105parser_buffer()/*:RF6*/))->_text/*pi2p*//*:RF2*/)))->_storage/*Tiini*//*:RF2*/))[(/*RF2:line*/(C)->_line/*4pppspppiiiip2pcpii*//*:RF2*/)]/*:RF8*/;
+/*SFN*/(C->_current_line/*4pppspppiiiip2pcpii*/)=/*RF8:item*/((/*RF2:storage*/((T1027*)((/*RF2:text*/((T121*)(/*RF6:parser_buffer*/r105parser_buffer()/*:RF6*/))->_text/*pi2p*//*:RF2*/)))->_storage/*Tiini*//*:RF2*/))[(/*RF2:line*/(C)->_line/*4pppspppiiiip2pcpii*//*:RF2*/)]/*:RF8*/;
 if(((/*RF2:count*/((T7*)((/*RF2:current_line*/(C)->_current_line/*4pppspppiiiip2pcpii*//*:RF2*/)))->_count/*Tiiiini*//*:RF2*/))==(INT8_C(0))){
 /*SFN*/(C->_cc/*4pppspppiiiip2pcpii*/)=((T3)'\n');
 }
@@ -2630,14 +3044,14 @@ tmp0/*locexp*/=M345;
 /*INI_PARSER*/T0*r105sections_iterator(T105*C){
 T0* R=(void*)0;
 if(((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/))!=((void*)((void*)0))){
-R=/*RF4:new_iterator_on_keys*/r1219new_iterator_on_keys((T1219*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)))/*:RF4*/;
+R=/*RF4:new_iterator_on_keys*/r1220new_iterator_on_keys((T1220*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)))/*:RF4*/;
 }
 return R;
 }/*--*/
 
 /*INI_PARSER*/T0*r105section_item(T105*C,T0*a1,T0*a2){
 T0* R=(void*)0;
-R=/*RF4:at*/r1220at((T1220*)(/*RF4:at*/r1219at((T1219*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)),a1)/*:RF4*/),a2)/*:RF4*/;
+R=/*RF4:at*/r1221at((T1221*)(/*RF4:at*/r1220at((T1220*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)),a1)/*:RF4*/),a2)/*:RF4*/;
 return R;
 }/*--*/
 
@@ -2658,7 +3072,7 @@ if(((/*RF2:line*/(C)->_line/*4pppspppiiiip2pcpii*//*:RF2*/))==((/*RF2:count*/((T
 else{
 /*SFN*/(C->_line/*4pppspppiiiip2pcpii*/)=/*RF8:+*/((int32_t)((/*RF2:line*/(C)->_line/*4pppspppiiiip2pcpii*//*:RF2*/)))+(INT32_C(1))/*:RF8*/;
 /*SFN*/(C->_column/*4pppspppiiiip2pcpii*/)=INT32_C(1);
-/*SFN*/(C->_current_line/*4pppspppiiiip2pcpii*/)=/*RF8:item*/((/*RF2:storage*/((T1026*)((/*RF2:text*/((T121*)(/*RF6:parser_buffer*/r105parser_buffer()/*:RF6*/))->_text/*pi2p*//*:RF2*/)))->_storage/*Tiini*//*:RF2*/))[(/*RF2:line*/(C)->_line/*4pppspppiiiip2pcpii*//*:RF2*/)]/*:RF8*/;
+/*SFN*/(C->_current_line/*4pppspppiiiip2pcpii*/)=/*RF8:item*/((/*RF2:storage*/((T1027*)((/*RF2:text*/((T121*)(/*RF6:parser_buffer*/r105parser_buffer()/*:RF6*/))->_text/*pi2p*//*:RF2*/)))->_storage/*Tiini*//*:RF2*/))[(/*RF2:line*/(C)->_line/*4pppspppiiiip2pcpii*//*:RF2*/)]/*:RF8*/;
 if(((/*RF2:count*/((T7*)((/*RF2:current_line*/(C)->_current_line/*4pppspppiiiip2pcpii*//*:RF2*/)))->_count/*Tiiiini*//*:RF2*/))==(INT8_C(0))){
 /*SFN*/(C->_cc/*4pppspppiiiip2pcpii*/)=((T3)'\n');
 }
@@ -2689,7 +3103,7 @@ if((/*RF4:skip1*/r105skip1(C,((T3)'\072'))/*:RF4*/)==(0)){
 /*:RF3*//*RF3:print_as_warning*/r287print_as_warning(((T287*)oBC32error_handler));
 /*:RF3*/}
 _dummy=((T6)(/*RF4:skip_spaces*/r105skip_spaces(C)/*:RF4*/));
-/*SFN*/(C->_last_key/*4pppspppiiiip2pcpii*/)=/*RF8:twin*/r7twin((T7*)((/*RF2:to_string*/((T104*)(/*RF4:hashed_string*/r775hashed_string(&((/*RF2:token_buffer*/(C)->_token_buffer/*4pppspppiiiip2pcpii*//*:RF2*/)))/*:RF4*/))->_to_string/*ip*//*:RF2*/)))/*:RF8*/;
+/*SFN*/(C->_last_key/*4pppspppiiiip2pcpii*/)=/*RF8:twin*/r7twin((T7*)((/*RF2:to_string*/((T104*)(/*RF4:hashed_string*/r776hashed_string(&((/*RF2:token_buffer*/(C)->_token_buffer/*4pppspppiiiip2pcpii*//*:RF2*/)))/*:RF4*/))->_to_string/*ip*//*:RF2*/)))/*:RF8*/;
 if((/*RF4:last_value*/r105last_value(C)/*:RF4*/)!=((void*)((void*)0))){
 /*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r105echo()/*:RF6*/),ms105_42698349Abc105A);
 /*:RF3*//*RF3:w_put_string*/r124w_put_string((T124*)(/*RF6:echo*/r105echo()/*:RF6*/),(/*RF2:last_key*/(C)->_last_key/*4pppspppiiiip2pcpii*//*:RF2*/));
@@ -2723,7 +3137,7 @@ R=((T6)(1));
 else{
 if(/*RF4:a_string*/r105a_string(C)/*:RF4*/){
 R=((T6)(1));
-/*RF3:set_value*/r105set_value(C,/*RF8:twin*/r7twin((T7*)((/*RF2:to_string*/((T104*)(/*RF4:hashed_string*/r775hashed_string(&((/*RF2:token_buffer*/(C)->_token_buffer/*4pppspppiiiip2pcpii*//*:RF2*/)))/*:RF4*/))->_to_string/*ip*//*:RF2*/)))/*:RF8*/);
+/*RF3:set_value*/r105set_value(C,/*RF8:twin*/r7twin((T7*)((/*RF2:to_string*/((T104*)(/*RF4:hashed_string*/r776hashed_string(&((/*RF2:token_buffer*/(C)->_token_buffer/*4pppspppiiiip2pcpii*//*:RF2*/)))/*:RF4*/))->_to_string/*ip*//*:RF2*/)))/*:RF8*/);
 /*:RF3*/}
 }
 }
@@ -2754,15 +3168,15 @@ T0* tmp0;
 T0* R=(void*)0;
 T0*_sec=(void*)0;
 if(((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/))!=((void*)((void*)0))){
-_sec=/*RF4:reference_at*/r1219reference_at((T1219*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)),a1)/*:RF4*/;
+_sec=/*RF4:reference_at*/r1220reference_at((T1220*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)),a1)/*:RF4*/;
 if((_sec)!=((void*)((void*)0))){
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_sec))->id)){
-case 1028:
-tmp0/*new_iterator_on_keys*/=/*RF4:new_iterator_on_keys*/r1028new_iterator_on_keys(((T1028*)_sec))/*:RF4*/;
+case 1029:
+tmp0/*new_iterator_on_keys*/=/*RF4:new_iterator_on_keys*/r1029new_iterator_on_keys(((T1029*)_sec))/*:RF4*/;
 break;
 default:;
-tmp0/*new_iterator_on_keys*/=/*RF4:new_iterator_on_keys*/r1220new_iterator_on_keys(((T1220*)_sec))/*:RF4*/;
+tmp0/*new_iterator_on_keys*/=/*RF4:new_iterator_on_keys*/r1221new_iterator_on_keys(((T1221*)_sec))/*:RF4*/;
 }
 /*inspect]*/
 R=tmp0/*new_iterator_on_keys*/;
@@ -2777,16 +3191,16 @@ T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
 if(((/*RF2:last_section*/(C)->_last_section/*4pppspppiiiip2pcpii*//*:RF2*/))==((void*)((void*)0))){
 if(((/*RF2:default_section*/(C)->_default_section/*4pppspppiiiip2pcpii*//*:RF2*/))==((void*)((void*)0))){
-tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1220))));
-*((T1220*)tmp0/*new*/)=M1220;
-/*RF3:make*/r1220make(((T1220*)tmp0/*new*/));
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1221))));
+*((T1221*)tmp0/*new*/)=M1221;
+/*RF3:make*/r1221make(((T1221*)tmp0/*new*/));
 /*:RF3*//*SFN*/(C->_default_section/*4pppspppiiiip2pcpii*/)=tmp0/*new*/;
 /*tmp0.unlock*/
 }
-/*RF3:put*/r1220put((T1220*)((/*RF2:default_section*/(C)->_default_section/*4pppspppiiiip2pcpii*//*:RF2*/)),a1,(/*RF2:last_key*/(C)->_last_key/*4pppspppiiiip2pcpii*//*:RF2*/));
+/*RF3:put*/r1221put((T1221*)((/*RF2:default_section*/(C)->_default_section/*4pppspppiiiip2pcpii*//*:RF2*/)),a1,(/*RF2:last_key*/(C)->_last_key/*4pppspppiiiip2pcpii*//*:RF2*/));
 /*:RF3*/}
 else{
-/*RF3:put*/r1220put((T1220*)(/*RF4:at*/r1219at((T1219*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)),(/*RF2:last_section*/(C)->_last_section/*4pppspppiiiip2pcpii*//*:RF2*/))/*:RF4*/),a1,(/*RF2:last_key*/(C)->_last_key/*4pppspppiiiip2pcpii*//*:RF2*/));
+/*RF3:put*/r1221put((T1221*)(/*RF4:at*/r1220at((T1220*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)),(/*RF2:last_section*/(C)->_last_section/*4pppspppiiiip2pcpii*//*:RF2*/))/*:RF4*/),a1,(/*RF2:last_key*/(C)->_last_key/*4pppspppiiiip2pcpii*//*:RF2*/));
 /*:RF3*/}
 }/*--*/
 
@@ -2797,7 +3211,7 @@ else{
 /*INI_PARSER*/T0*r105key_iterator(T105*C){
 T0* R=(void*)0;
 if(((/*RF2:default_section*/(C)->_default_section/*4pppspppiiiip2pcpii*//*:RF2*/))!=((void*)((void*)0))){
-R=/*RF4:new_iterator_on_keys*/r1220new_iterator_on_keys((T1220*)((/*RF2:default_section*/(C)->_default_section/*4pppspppiiiip2pcpii*//*:RF2*/)))/*:RF4*/;
+R=/*RF4:new_iterator_on_keys*/r1221new_iterator_on_keys((T1221*)((/*RF2:default_section*/(C)->_default_section/*4pppspppiiiip2pcpii*//*:RF2*/)))/*:RF4*/;
 }
 return R;
 }/*--*/
@@ -2806,12 +3220,12 @@ return R;
 T0* R=(void*)0;
 if(((/*RF2:last_section*/(C)->_last_section/*4pppspppiiiip2pcpii*//*:RF2*/))==((void*)((void*)0))){
 if(((/*RF2:default_section*/(C)->_default_section/*4pppspppiiiip2pcpii*//*:RF2*/))!=((void*)((void*)0))){
-R=/*RF4:reference_at*/r1220reference_at((T1220*)((/*RF2:default_section*/(C)->_default_section/*4pppspppiiiip2pcpii*//*:RF2*/)),(/*RF2:last_key*/(C)->_last_key/*4pppspppiiiip2pcpii*//*:RF2*/))/*:RF4*/;
+R=/*RF4:reference_at*/r1221reference_at((T1221*)((/*RF2:default_section*/(C)->_default_section/*4pppspppiiiip2pcpii*//*:RF2*/)),(/*RF2:last_key*/(C)->_last_key/*4pppspppiiiip2pcpii*//*:RF2*/))/*:RF4*/;
 }
 }
 else{
-if(/*RF4:has*/r1219has((T1219*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)),(/*RF2:last_section*/(C)->_last_section/*4pppspppiiiip2pcpii*//*:RF2*/))/*:RF4*/){
-R=/*RF4:reference_at*/r1220reference_at((T1220*)(/*RF4:at*/r1219at((T1219*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)),(/*RF2:last_section*/(C)->_last_section/*4pppspppiiiip2pcpii*//*:RF2*/))/*:RF4*/),(/*RF2:last_key*/(C)->_last_key/*4pppspppiiiip2pcpii*//*:RF2*/))/*:RF4*/;
+if(/*RF4:has*/r1220has((T1220*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)),(/*RF2:last_section*/(C)->_last_section/*4pppspppiiiip2pcpii*//*:RF2*/))/*:RF4*/){
+R=/*RF4:reference_at*/r1221reference_at((T1221*)(/*RF4:at*/r1220at((T1220*)((/*RF2:sections*/(C)->_sections/*4pppspppiiiip2pcpii*//*:RF2*/)),(/*RF2:last_section*/(C)->_last_section/*4pppspppiiiip2pcpii*//*:RF2*/))/*:RF4*/),(/*RF2:last_key*/(C)->_last_key/*4pppspppiiiip2pcpii*//*:RF2*/))/*:RF4*/;
 }
 }
 return R;
@@ -2854,7 +3268,7 @@ tmp0/*resexp*/=M345;
 /*:RF3*/return R;
 }/*--*/
 
-/*CLASSES_TREE*/T0*r768system_cluster(T768*C,T0*a1,T0*a2){
+/*CLASSES_TREE*/T0*r769system_cluster(T769*C,T0*a1,T0*a2){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 T0* tmp1;
@@ -2862,19 +3276,19 @@ T0* tmp1;
 T0* R=(void*)0;
 T2 _i=0;
 int _ft=0;
-R=/*RF4:reference_at*/r1222reference_at((T1222*)(/*RF6:system_clusters*/r768system_clusters()/*:RF6*/),a2)/*:RF4*/;
+R=/*RF4:reference_at*/r1223reference_at((T1223*)(/*RF6:system_clusters*/r769system_clusters()/*:RF6*/),a2)/*:RF4*/;
 if((R)==((void*)((void*)0))){
-_i=((/*UT*/(void)((T1222*)(/*RF6:system_clusters*/r768system_clusters()/*:RF6*/))),/*RF1:lower*/INT32_C(1))/*:RF1*/;
+_i=((/*UT*/(void)((T1223*)(/*RF6:system_clusters*/r769system_clusters()/*:RF6*/))),/*RF1:lower*/INT32_C(1))/*:RF1*/;
 while(1){
 tmp0/*or else*/=((T6)((R)!=((void*)((void*)0))));
 if(tmp0/*or else*/){
 }
 else{
-tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:count*/((T1222*)(/*RF6:system_clusters*/r768system_clusters()/*:RF6*/))->_count/*pipiiini*//*:RF2*/))/*:RF8*/));
+tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:count*/((T1223*)(/*RF6:system_clusters*/r769system_clusters()/*:RF6*/))->_count/*pipiiini*//*:RF2*/))/*:RF8*/));
 }
 /*until*/if(tmp0/*or else*/) break;
-if(/*RF4:same_physical_file*/r289same_physical_file(/*RF4:key*/r1222key((T1222*)(/*RF6:system_clusters*/r768system_clusters()/*:RF6*/),_i)/*:RF4*/,a2)/*:RF4*/){
-R=/*RF4:item*/r1222item((T1222*)(/*RF6:system_clusters*/r768system_clusters()/*:RF6*/),_i)/*:RF4*/;
+if(/*RF4:same_physical_file*/r289same_physical_file(/*RF4:key*/r1223key((T1223*)(/*RF6:system_clusters*/r769system_clusters()/*:RF6*/),_i)/*:RF4*/,a2)/*:RF4*/){
+R=/*RF4:item*/r1223item((T1223*)(/*RF6:system_clusters*/r769system_clusters()/*:RF6*/),_i)/*:RF4*/;
 }
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
@@ -2884,13 +3298,13 @@ tmp1/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T440))));
 /*RF3:make*/r440make(((T440*)tmp1/*new*/),a1,a2,(T0*)C);
 /*:RF3*/R=tmp1/*new*/;
 /*tmp1.unlock*/
-/*RF3:add*/r1222add((T1222*)(/*RF6:system_clusters*/r768system_clusters()/*:RF6*/),R,a2);
+/*RF3:add*/r1223add((T1223*)(/*RF6:system_clusters*/r769system_clusters()/*:RF6*/),R,a2);
 /*:RF3*/}
 }
 return R;
 }/*--*/
 
-/*CLASSES_TREE*/void r768make(T768*C,T2 a1,T0*a2,T0*a3,T0*a4){
+/*CLASSES_TREE*/void r769make(T769*C,T2 a1,T0*a2,T0*a3,T0*a4){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -2898,48 +3312,48 @@ T0*_system_path=(void*)0;
 /*SFN*/(C->_name/*T4pppip*/)=a2;
 /*SFN*/(C->_path/*T4pppip*/)=a3;
 /*SFN*/(C->_distance/*T4pppip*/)=a1;
-tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1076))));
-*((T1076*)tmp0/*new*/)=M1076;
-/*RF3:with_capacity*/r1076with_capacity(((T1076*)tmp0/*new*/),INT32_C(16));
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1077))));
+*((T1077*)tmp0/*new*/)=M1077;
+/*RF3:with_capacity*/r1077with_capacity(((T1077*)tmp0/*new*/),INT32_C(16));
 /*:RF3*//*SFN*/(C->_classeses/*T4pppip*/)=tmp0/*new*/;
 /*tmp0.unlock*/
 if((a4)!=((void*)((void*)0))){
 _system_path=a4;
 }
 else{
-_system_path=/*RF4:string*/r275string(/*RF4:classes_path_to_system_path*/r768classes_path_to_system_path(C,a3)/*:RF4*/)/*:RF4*/;
+_system_path=/*RF4:string*/r275string(/*RF4:classes_path_to_system_path*/r769classes_path_to_system_path(C,a3)/*:RF4*/)/*:RF4*/;
 }
-/*SFN*/(C->_cluster/*T4pppip*/)=/*RF4:system_cluster*/r768system_cluster(C,a2,a4)/*:RF4*/;
+/*SFN*/(C->_cluster/*T4pppip*/)=/*RF4:system_cluster*/r769system_cluster(C,a2,a4)/*:RF4*/;
 }/*--*/
-T0*oBC768system_clusters=(void*)0;
-int fBC768system_clusters=0;
+T0*oBC769system_clusters=(void*)0;
+int fBC769system_clusters=0;
 
-/*CLASSES_TREE*/T0*r768system_clusters(void){
+/*CLASSES_TREE*/T0*r769system_clusters(void){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
-if(fBC768system_clusters==0){fBC768system_clusters=1;{
-tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1222))));
-*((T1222*)tmp0/*new*/)=M1222;
-/*RF3:make*/r1222make(((T1222*)tmp0/*new*/));
-/*:RF3*/oBC768system_clusters=tmp0/*new*/;
+if(fBC769system_clusters==0){fBC769system_clusters=1;{
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1223))));
+*((T1223*)tmp0/*new*/)=M1223;
+/*RF3:make*/r1223make(((T1223*)tmp0/*new*/));
+/*:RF3*/oBC769system_clusters=tmp0/*new*/;
 /*tmp0.unlock*/
 }}
-return oBC768system_clusters;
+return oBC769system_clusters;
 }/*--*/
 
-/*CLASSES_TREE*/void r768for_all(T768*C,T0*a1){
+/*CLASSES_TREE*/void r769for_all(T769*C,T0*a1){
 /*RF3:for_all*/r440for_all((T440*)((/*RF2:cluster*/(C)->_cluster/*T4pppip*//*:RF2*/)),a1);
-/*:RF3*//*RF3:_P_690_for_all*/r768_P_690_for_all(C,a1);
+/*:RF3*//*RF3:_P_691_for_all*/r769_P_691_for_all(C,a1);
 /*:RF3*/}/*--*/
 
-/*CLASSES_TREE*/T2 r768cluster_count(T768*C){
+/*CLASSES_TREE*/T2 r769cluster_count(T769*C){
 T2 R=0;
-R=/*RF8:+*/((int32_t)(INT32_C(1)))+(/*RF4:_P_690_cluster_count*/r768_P_690_cluster_count(C)/*:RF4*/)/*:RF8*/;
+R=/*RF8:+*/((int32_t)(INT32_C(1)))+(/*RF4:_P_691_cluster_count*/r769_P_691_cluster_count(C)/*:RF4*/)/*:RF8*/;
 return R;
 }/*--*/
 
-/*CLASSES_TREE*/T0*r768echo(void){
+/*CLASSES_TREE*/T0*r769echo(void){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -2953,196 +3367,196 @@ tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T124))));
 return oBC32echo;
 }/*--*/
 
-/*CLASSES_TREE*/T0*r768cluster_named(T768*C,T0*a1){
+/*CLASSES_TREE*/T0*r769cluster_named(T769*C,T0*a1){
 T0* R=(void*)0;
 if(((/*RF2:name*/(C)->_name/*T4pppip*//*:RF2*/))==((void*)(a1))){
 R=(/*RF2:cluster*/(C)->_cluster/*T4pppip*//*:RF2*/);
 }
 else{
-R=/*RF4:_P_690_cluster_named*/r768_P_690_cluster_named(C,a1)/*:RF4*/;
+R=/*RF4:_P_691_cluster_named*/r769_P_691_cluster_named(C,a1)/*:RF4*/;
 }
 return R;
 }/*--*/
 
-/*CLASSES_TREE*/void r768show_name(T768*C){
-/*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r768echo()/*:RF6*/),(/*RF2:name*/(C)->_name/*T4pppip*//*:RF2*/));
+/*CLASSES_TREE*/void r769show_name(T769*C){
+/*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r769echo()/*:RF6*/),(/*RF2:name*/(C)->_name/*T4pppip*//*:RF2*/));
 /*:RF3*//*RF3:show*/r440show((T440*)((/*RF2:cluster*/(C)->_cluster/*T4pppip*//*:RF2*/)));
 /*:RF3*/}/*--*/
 
-/*CLASSES_TREE*/T0*r768classes_path_to_system_path(T768*C,T0*a1){
+/*CLASSES_TREE*/T0*r769classes_path_to_system_path(T769*C,T0*a1){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
-R=ms111_0Abc691B;
+R=ms111_0Abc692B;
 /*RF3:copy*/r7copy(((T7*)R),a1);
 /*:RF3*//*[inspectDynamicDispatch*/
-switch((((T0*)((tmp0/*ddt1*/=(/*RF6:system_notation*/r768system_notation(C)/*:RF6*/))))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF6:system_notation*/r769system_notation(C)/*:RF6*/))))->id)){
 case 546:
-/*RF3:from_notation*/r546from_notation(((T546*)tmp0/*ddt1*/),oBC691classes_notation,R);
+/*RF3:from_notation*/r546from_notation(((T546*)tmp0/*ddt1*/),oBC692classes_notation,R);
 /*:RF3*/break;
 case 550:
-/*RF3:from_notation*/r550from_notation(((T550*)tmp0/*ddt1*/),oBC691classes_notation,R);
+/*RF3:from_notation*/r550from_notation(((T550*)tmp0/*ddt1*/),oBC692classes_notation,R);
 /*:RF3*/break;
 case 551:
-/*RF3:from_notation*/r551from_notation(((T551*)tmp0/*ddt1*/),oBC691classes_notation,R);
+/*RF3:from_notation*/r551from_notation(((T551*)tmp0/*ddt1*/),oBC692classes_notation,R);
 /*:RF3*/break;
 case 552:
-/*RF3:from_notation*/r552from_notation(((T552*)tmp0/*ddt1*/),oBC691classes_notation,R);
+/*RF3:from_notation*/r552from_notation(((T552*)tmp0/*ddt1*/),oBC692classes_notation,R);
 /*:RF3*/break;
 case 553:
-/*RF3:from_notation*/r553from_notation(((T553*)tmp0/*ddt1*/),oBC691classes_notation,R);
+/*RF3:from_notation*/r553from_notation(((T553*)tmp0/*ddt1*/),oBC692classes_notation,R);
 /*:RF3*/break;
 default:;
-/*RF3:from_notation*/r554from_notation(((T554*)tmp0/*ddt1*/),oBC691classes_notation,R);
+/*RF3:from_notation*/r554from_notation(((T554*)tmp0/*ddt1*/),oBC692classes_notation,R);
 /*:RF3*/}
 /*inspect]*/
 /*tmp0.unlock*/
 return R;
 }/*--*/
 
-/*CLASSES_TREE*/void r768get_started(T768*C,T2 a1){
+/*CLASSES_TREE*/void r769get_started(T769*C,T2 a1){
 /*RF3:get_started*/r440get_started((T440*)((/*RF2:cluster*/(C)->_cluster/*T4pppip*//*:RF2*/)),a1);
-/*:RF3*//*RF3:_P_690_get_started*/r768_P_690_get_started(C,a1);
+/*:RF3*//*RF3:_P_691_get_started*/r769_P_691_get_started(C,a1);
 /*:RF3*/}/*--*/
 
-/*CLASSES_TREE*/void r768clusters_of(T768*C,T0*a1,T6 a2,T0*a3,T0*a4,T0*a5,T2 a6){
+/*CLASSES_TREE*/void r769clusters_of(T769*C,T0*a1,T0*a2,T0*a3,T0*a4,T2 a5){
 int _sorter=0;
 T2 _i=0;
-if(/*RF4:has*/r770has((T770*)((/*RF2:pool*/((T440*)((/*RF2:cluster*/(C)->_cluster/*T4pppip*//*:RF2*/)))->_pool/*7pci5p*//*:RF2*/)),(/*RF2:hashed_name*/(((T94*)a1))->_hashed_name/*ppi2pi*//*:RF2*/))/*:RF4*/){
-if(/*RF4:is_empty*/r1033is_empty(((T1033*)a4))/*:RF4*/){
-/*RF3:add_last*/r1033add_last(((T1033*)a4),(/*RF2:cluster*/(C)->_cluster/*T4pppip*//*:RF2*/));
-/*:RF3*//*RF3:add_last*/r1042add_last(((T1042*)a5),a6);
+if(/*RF4:has*/r771has((T771*)((/*RF2:pool*/((T440*)((/*RF2:cluster*/(C)->_cluster/*T4pppip*//*:RF2*/)))->_pool/*7pci5p*//*:RF2*/)),(/*RF2:hashed_name*/(((T94*)a1))->_hashed_name/*pppi2pi*//*:RF2*/))/*:RF4*/){
+if(/*RF4:is_empty*/r1034is_empty(((T1034*)a3))/*:RF4*/){
+/*RF3:add_last*/r1034add_last(((T1034*)a3),(/*RF2:cluster*/(C)->_cluster/*T4pppip*//*:RF2*/));
+/*:RF3*//*RF3:add_last*/r1043add_last(((T1043*)a4),a5);
 /*:RF3*/}
 else{
-_i=/*RF4:insert_index*/r1456insert_index(a5,a6)/*:RF4*/;
-/*RF3:add*/r1033add(((T1033*)a4),(/*RF2:cluster*/(C)->_cluster/*T4pppip*//*:RF2*/),_i);
-/*:RF3*//*RF3:add*/r1042add(((T1042*)a5),a6,_i);
+_i=/*RF4:insert_index*/r1457insert_index(a4,a5)/*:RF4*/;
+/*RF3:add*/r1034add(((T1034*)a3),(/*RF2:cluster*/(C)->_cluster/*T4pppip*//*:RF2*/),_i);
+/*:RF3*//*RF3:add*/r1043add(((T1043*)a4),a5,_i);
 /*:RF3*/}
 }
-/*RF3:_P_690_clusters_of*/r768_P_690_clusters_of(C,a1,(T6)(a2),a3,a4,a5,a6);
+/*RF3:_P_691_clusters_of*/r769_P_691_clusters_of(C,a1,a2,a3,a4,a5);
 /*:RF3*/}/*--*/
 
-/*CLASSES_TREE*/void r768view_in(T768*C,T0*a1){
+/*CLASSES_TREE*/void r769view_in(T769*C,T0*a1){
 /*RF3:view_in*/r440view_in((T440*)((/*RF2:cluster*/(C)->_cluster/*T4pppip*//*:RF2*/)),a1);
-/*:RF3*//*RF3:_P_690_view_in*/r768_P_690_view_in(C,a1);
+/*:RF3*//*RF3:_P_691_view_in*/r769_P_691_view_in(C,a1);
 /*:RF3*/}/*--*/
 
-/*CLASSES_TREE*/T0*r768cluster_by_directory_path(T768*C,T0*a1){
+/*CLASSES_TREE*/T0*r769cluster_by_directory_path(T769*C,T0*a1){
 T0* R=(void*)0;
 if(/*RF4:is_equal*/r7is_equal((T7*)((/*RF2:path*/(C)->_path/*T4pppip*//*:RF2*/)),a1)/*:RF4*/){
 R=(/*RF2:cluster*/(C)->_cluster/*T4pppip*//*:RF2*/);
 }
 else{
-R=/*RF4:_P_690_cluster_by_directory_path*/r768_P_690_cluster_by_directory_path(C,a1)/*:RF4*/;
+R=/*RF4:_P_691_cluster_by_directory_path*/r769_P_691_cluster_by_directory_path(C,a1)/*:RF4*/;
 }
 return R;
 }/*--*/
 
-/*CLASSES_TREE*/T0*r768system_notation(T768*C){
-if(fBC691system_notation==0){fBC691system_notation=1;{
+/*CLASSES_TREE*/T0*r769system_notation(T769*C){
+if(fBC692system_notation==0){fBC692system_notation=1;{
 /*RF5:ensure_system_notation*/r534ensure_system_notation();
-/*:RF5*/oBC691system_notation=/*RF4:system_notation*/r534system_notation()/*:RF4*/;
+/*:RF5*/oBC692system_notation=/*RF4:system_notation*/r534system_notation()/*:RF4*/;
 }}
-return oBC691system_notation;
+return oBC692system_notation;
 }/*--*/
 
-/*CLASSES_TREE*/T2 r768loaded_class_count(T768*C){
+/*CLASSES_TREE*/T2 r769loaded_class_count(T769*C){
 T2 R=0;
-R=/*RF8:+*/((int32_t)(/*RF4:loaded_class_count*/r440loaded_class_count((T440*)((/*RF2:cluster*/(C)->_cluster/*T4pppip*//*:RF2*/)))/*:RF4*/))+(/*RF4:_P_690_loaded_class_count*/r768_P_690_loaded_class_count(C)/*:RF4*/)/*:RF8*/;
+R=/*RF8:+*/((int32_t)(/*RF4:loaded_class_count*/r440loaded_class_count((T440*)((/*RF2:cluster*/(C)->_cluster/*T4pppip*//*:RF2*/)))/*:RF4*/))+(/*RF4:_P_691_loaded_class_count*/r769_P_691_loaded_class_count(C)/*:RF4*/)/*:RF8*/;
 return R;
 }/*--*/
 
-/*CLASSES_TREE*/void r768show_tabs(T2 a1){
+/*CLASSES_TREE*/void r769show_tabs(T2 a1){
 T2 _i=0;
 _i=INT32_C(1);
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>(a1)/*:RF8*/) break;
-/*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r768echo()/*:RF6*/),ms691_1452Abc691A);
+/*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r769echo()/*:RF6*/),ms692_1452Abc692A);
 /*:RF3*/_i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
-/*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r768echo()/*:RF6*/),ms691_1047Abc691A);
+/*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r769echo()/*:RF6*/),ms692_1047Abc692A);
 /*:RF3*/}/*--*/
 
-/*CLASSES_TREE*/T0*r768to_string(T768*C){
+/*CLASSES_TREE*/T0*r769to_string(T769*C){
 T0* R=(void*)0;
-R=ms111_0Abc768A;
+R=ms111_0Abc769A;
 /*RF3:copy*/r7copy(((T7*)R),(/*RF2:path*/(C)->_path/*T4pppip*//*:RF2*/));
 /*:RF3*/return R;
 }/*--*/
 
-/*CLASSES_TREE*/void r768parse_include(T768*C){
+/*CLASSES_TREE*/void r769parse_include(T769*C){
 /*RF3:include_parsing*/r440include_parsing((T440*)((/*RF2:cluster*/(C)->_cluster/*T4pppip*//*:RF2*/)));
-/*:RF3*//*RF3:_P_690_parse_include*/r768_P_690_parse_include(C);
+/*:RF3*//*RF3:_P_691_parse_include*/r769_P_691_parse_include(C);
 /*:RF3*/}/*--*/
 
-/*CLASSES_TREE*/T0*r768find_physical_cluster(T768*C,T0*a1){
+/*CLASSES_TREE*/T0*r769find_physical_cluster(T769*C,T0*a1){
 T0* R=(void*)0;
 int _ft=0;
 if(/*RF4:same_physical_file*/r289same_physical_file((/*RF2:directory_path*/((T440*)((/*RF2:cluster*/(C)->_cluster/*T4pppip*//*:RF2*/)))->_directory_path/*7pci5p*//*:RF2*/),a1)/*:RF4*/){
 R=(/*RF2:cluster*/(C)->_cluster/*T4pppip*//*:RF2*/);
 }
 else{
-R=/*RF4:_P_690_find_physical_cluster*/r768_P_690_find_physical_cluster(C,a1)/*:RF4*/;
+R=/*RF4:_P_691_find_physical_cluster*/r769_P_691_find_physical_cluster(C,a1)/*:RF4*/;
 }
 return R;
 }/*--*/
 
-/*CLASSES_TREE*/void r768show(T768*C,T2 a1){
+/*CLASSES_TREE*/void r769show(T769*C,T2 a1){
 T2 _i=0;
 T2 _t=0;
-/*RF3:show_tabs*/r768show_tabs(a1);
-/*:RF3*//*RF3:show_name*/r768show_name(C);
+/*RF3:show_tabs*/r769show_tabs(a1);
+/*:RF3*//*RF3:show_name*/r769show_name(C);
 /*:RF3*/if(/*RF8:>*/((int32_t)((/*RF2:distance*/(C)->_distance/*T4pppip*//*:RF2*/)))>(INT32_C(0))/*:RF8*/){
-/*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r768echo()/*:RF6*/),ms690_1043Abc690A);
-/*:RF3*//*RF3:put_integer*/r124put_integer((T124*)(/*RF6:echo*/r768echo()/*:RF6*/),(/*RF2:distance*/(C)->_distance/*T4pppip*//*:RF2*/));
-/*:RF3*//*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r768echo()/*:RF6*/),ms109_215Abc690A);
+/*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r769echo()/*:RF6*/),ms691_1043Abc691A);
+/*:RF3*//*RF3:put_integer*/r124put_integer((T124*)(/*RF6:echo*/r769echo()/*:RF6*/),(/*RF2:distance*/(C)->_distance/*T4pppip*//*:RF2*/));
+/*:RF3*//*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r769echo()/*:RF6*/),ms109_215Abc691A);
 /*:RF3*/}
 else{
-/*RF3:put_new_line*/r124put_new_line((T124*)(/*RF6:echo*/r768echo()/*:RF6*/));
+/*RF3:put_new_line*/r124put_new_line((T124*)(/*RF6:echo*/r769echo()/*:RF6*/));
 /*:RF3*/}
 _t=/*RF8:+*/((int32_t)(a1))+(INT32_C(1))/*:RF8*/;
 _i=INT32_C(0);
 while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-/*RF3:show*/r689show(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),_t);
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+/*RF3:show*/r690show(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),_t);
 /*:RF3*/break;
-case 768:
-/*RF3:show*/r768show(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),_t);
+case 769:
+/*RF3:show*/r769show(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),_t);
 /*:RF3*/break;
 default:;
-/*RF3:show*/r807show(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),_t);
+/*RF3:show*/r808show(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),_t);
 /*:RF3*/}
 /*inspect]*/
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 }/*--*/
 
-/*CLASSES_TREE*/void r768_P_690_for_all(T768*C,T0*a1){
+/*CLASSES_TREE*/void r769_P_691_for_all(T769*C,T0*a1){
 T2 _i=0;
 _i=INT32_C(0);
 while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-/*RF3:for_all*/r689for_all(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+/*RF3:for_all*/r690for_all(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/break;
-case 768:
-/*RF3:for_all*/r768for_all(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
+case 769:
+/*RF3:for_all*/r769for_all(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/break;
 default:;
-/*RF3:for_all*/r807for_all(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
+/*RF3:for_all*/r808for_all(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/}
 /*inspect]*/
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 }/*--*/
 
-/*CLASSES_TREE*/T2 r768_P_690_cluster_count(T768*C){
+/*CLASSES_TREE*/T2 r769_P_691_cluster_count(T769*C){
 /*[INTERNAL_C_LOCAL list*/
 T2 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -3150,17 +3564,17 @@ T2 R=0;
 T2 _i=0;
 _i=INT32_C(0);
 while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-tmp0/*cluster_count*/=/*RF4:cluster_count*/r689cluster_count(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+tmp0/*cluster_count*/=/*RF4:cluster_count*/r690cluster_count(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
 break;
-case 768:
-tmp0/*cluster_count*/=/*RF4:cluster_count*/r768cluster_count(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
+case 769:
+tmp0/*cluster_count*/=/*RF4:cluster_count*/r769cluster_count(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
 break;
 default:;
-tmp0/*cluster_count*/=/*RF4:cluster_count*/r807cluster_count(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
+tmp0/*cluster_count*/=/*RF4:cluster_count*/r808cluster_count(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
 }
 /*inspect]*/
 R=/*RF8:+*/((int32_t)(R))+(tmp0/*cluster_count*/)/*:RF8*/;
@@ -3169,7 +3583,7 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*CLASSES_TREE*/T0*r768_P_690_cluster_named(T768*C,T0*a1){
+/*CLASSES_TREE*/T0*r769_P_691_cluster_named(T769*C,T0*a1){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 T0* tmp1;
@@ -3182,19 +3596,19 @@ tmp0/*or else*/=((T6)((R)!=((void*)((void*)0))));
 if(tmp0/*or else*/){
 }
 else{
-tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/));
+tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/));
 }
 /*until*/if(tmp0/*or else*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-tmp1/*cluster_named*/=/*RF4:cluster_named*/r689cluster_named(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+tmp1/*cluster_named*/=/*RF4:cluster_named*/r690cluster_named(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 break;
-case 768:
-tmp1/*cluster_named*/=/*RF4:cluster_named*/r768cluster_named(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+case 769:
+tmp1/*cluster_named*/=/*RF4:cluster_named*/r769cluster_named(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 break;
 default:;
-tmp1/*cluster_named*/=/*RF4:cluster_named*/r807cluster_named(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+tmp1/*cluster_named*/=/*RF4:cluster_named*/r808cluster_named(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 }
 /*inspect]*/
 R=tmp1/*cluster_named*/;
@@ -3203,47 +3617,47 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*CLASSES_TREE*/void r768_P_690_get_started(T768*C,T2 a1){
+/*CLASSES_TREE*/void r769_P_691_get_started(T769*C,T2 a1){
 T2 _i=0;
 _i=INT32_C(0);
 while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-/*RF3:get_started*/r689get_started(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+/*RF3:get_started*/r690get_started(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/break;
-case 768:
-/*RF3:get_started*/r768get_started(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
+case 769:
+/*RF3:get_started*/r769get_started(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/break;
 default:;
-/*RF3:get_started*/r807get_started(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
+/*RF3:get_started*/r808get_started(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/}
 /*inspect]*/
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 }/*--*/
 
-/*CLASSES_TREE*/void r768_P_690_clusters_of(T768*C,T0*a1,T6 a2,T0*a3,T0*a4,T0*a5,T2 a6){
+/*CLASSES_TREE*/void r769_P_691_clusters_of(T769*C,T0*a1,T0*a2,T0*a3,T0*a4,T2 a5){
 T2 _i=0;
 T2 _child_distance=0;
 T0*_c=(void*)0;
-_child_distance=/*RF8:+*/((int32_t)(a6))+((/*RF2:distance*/(C)->_distance/*T4pppip*//*:RF2*/))/*:RF8*/;
+_child_distance=/*RF8:+*/((int32_t)(a5))+((/*RF2:distance*/(C)->_distance/*T4pppip*//*:RF2*/))/*:RF8*/;
 _i=INT32_C(0);
 while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
-_c=/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/;
-if((_c)!=((void*)(a3))){
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+_c=/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/;
+if((_c)!=((void*)(a2))){
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_c))->id)){
-case 689:
-/*RF3:clusters_of*/r689clusters_of(((T689*)_c),a1,(T6)(a2),a3,a4,a5,_child_distance);
+case 690:
+/*RF3:clusters_of*/r690clusters_of(((T690*)_c),a1,a2,a3,a4,_child_distance);
 /*:RF3*/break;
-case 768:
-/*RF3:clusters_of*/r768clusters_of(((T768*)_c),a1,(T6)(a2),a3,a4,a5,_child_distance);
+case 769:
+/*RF3:clusters_of*/r769clusters_of(((T769*)_c),a1,a2,a3,a4,_child_distance);
 /*:RF3*/break;
 default:;
-/*RF3:clusters_of*/r807clusters_of(((T807*)_c),a1,(T6)(a2),a3,a4,a5,_child_distance);
+/*RF3:clusters_of*/r808clusters_of(((T808*)_c),a1,a2,a3,a4,_child_distance);
 /*:RF3*/}
 /*inspect]*/
 }
@@ -3251,28 +3665,28 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 }/*--*/
 
-/*CLASSES_TREE*/void r768_P_690_view_in(T768*C,T0*a1){
+/*CLASSES_TREE*/void r769_P_691_view_in(T769*C,T0*a1){
 T2 _i=0;
 _i=INT32_C(0);
 while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-/*RF3:view_in*/r689view_in(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+/*RF3:view_in*/r690view_in(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/break;
-case 768:
-/*RF3:view_in*/r768view_in(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
+case 769:
+/*RF3:view_in*/r769view_in(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/break;
 default:;
-/*RF3:view_in*/r807view_in(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
+/*RF3:view_in*/r808view_in(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/}
 /*inspect]*/
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 }/*--*/
 
-/*CLASSES_TREE*/T0*r768_P_690_cluster_by_directory_path(T768*C,T0*a1){
+/*CLASSES_TREE*/T0*r769_P_691_cluster_by_directory_path(T769*C,T0*a1){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 T0* tmp1;
@@ -3285,19 +3699,19 @@ tmp0/*or else*/=((T6)((R)!=((void*)((void*)0))));
 if(tmp0/*or else*/){
 }
 else{
-tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/));
+tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/));
 }
 /*until*/if(tmp0/*or else*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-tmp1/*cluster_by_directory_path*/=/*RF4:cluster_by_directory_path*/r689cluster_by_directory_path(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+tmp1/*cluster_by_directory_path*/=/*RF4:cluster_by_directory_path*/r690cluster_by_directory_path(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 break;
-case 768:
-tmp1/*cluster_by_directory_path*/=/*RF4:cluster_by_directory_path*/r768cluster_by_directory_path(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+case 769:
+tmp1/*cluster_by_directory_path*/=/*RF4:cluster_by_directory_path*/r769cluster_by_directory_path(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 break;
 default:;
-tmp1/*cluster_by_directory_path*/=/*RF4:cluster_by_directory_path*/r807cluster_by_directory_path(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+tmp1/*cluster_by_directory_path*/=/*RF4:cluster_by_directory_path*/r808cluster_by_directory_path(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 }
 /*inspect]*/
 R=tmp1/*cluster_by_directory_path*/;
@@ -3306,7 +3720,7 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*CLASSES_TREE*/T2 r768_P_690_loaded_class_count(T768*C){
+/*CLASSES_TREE*/T2 r769_P_691_loaded_class_count(T769*C){
 /*[INTERNAL_C_LOCAL list*/
 T2 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -3314,17 +3728,17 @@ T2 R=0;
 T2 _i=0;
 _i=INT32_C(0);
 while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-tmp0/*loaded_class_count*/=/*RF4:loaded_class_count*/r689loaded_class_count(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+tmp0/*loaded_class_count*/=/*RF4:loaded_class_count*/r690loaded_class_count(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
 break;
-case 768:
-tmp0/*loaded_class_count*/=/*RF4:loaded_class_count*/r768loaded_class_count(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
+case 769:
+tmp0/*loaded_class_count*/=/*RF4:loaded_class_count*/r769loaded_class_count(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
 break;
 default:;
-tmp0/*loaded_class_count*/=/*RF4:loaded_class_count*/r807loaded_class_count(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
+tmp0/*loaded_class_count*/=/*RF4:loaded_class_count*/r808loaded_class_count(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
 }
 /*inspect]*/
 R=/*RF8:+*/((int32_t)(R))+(tmp0/*loaded_class_count*/)/*:RF8*/;
@@ -3333,28 +3747,28 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*CLASSES_TREE*/void r768_P_690_parse_include(T768*C){
+/*CLASSES_TREE*/void r769_P_691_parse_include(T769*C){
 T2 _i=0;
 _i=INT32_C(0);
 while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-/*RF3:parse_include*/r689parse_include(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/));
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+/*RF3:parse_include*/r690parse_include(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/));
 /*:RF3*/break;
-case 768:
-/*RF3:parse_include*/r768parse_include(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/));
+case 769:
+/*RF3:parse_include*/r769parse_include(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/));
 /*:RF3*/break;
 default:;
-/*RF3:parse_include*/r807parse_include(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/));
+/*RF3:parse_include*/r808parse_include(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/));
 /*:RF3*/}
 /*inspect]*/
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 }/*--*/
 
-/*CLASSES_TREE*/T0*r768_P_690_find_physical_cluster(T768*C,T0*a1){
+/*CLASSES_TREE*/T0*r769_P_691_find_physical_cluster(T769*C,T0*a1){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 T0* tmp1;
@@ -3367,19 +3781,19 @@ tmp0/*or else*/=((T6)((R)!=((void*)((void*)0))));
 if(tmp0/*or else*/){
 }
 else{
-tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/));
+tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/));
 }
 /*until*/if(tmp0/*or else*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-tmp1/*find_physical_cluster*/=/*RF4:find_physical_cluster*/r689find_physical_cluster(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+tmp1/*find_physical_cluster*/=/*RF4:find_physical_cluster*/r690find_physical_cluster(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 break;
-case 768:
-tmp1/*find_physical_cluster*/=/*RF4:find_physical_cluster*/r768find_physical_cluster(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+case 769:
+tmp1/*find_physical_cluster*/=/*RF4:find_physical_cluster*/r769find_physical_cluster(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 break;
 default:;
-tmp1/*find_physical_cluster*/=/*RF4:find_physical_cluster*/r807find_physical_cluster(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+tmp1/*find_physical_cluster*/=/*RF4:find_physical_cluster*/r808find_physical_cluster(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T4pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 }
 /*inspect]*/
 R=tmp1/*find_physical_cluster*/;
@@ -3388,7 +3802,7 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*LOADPATH*/void r807make(T807*C,T2 a1,T0*a2,T0*a3,T0*a4,T0*a5,T6 a6){
+/*LOADPATH*/void r808make(T808*C,T2 a1,T0*a2,T0*a3,T0*a4,T0*a5,T6 a6){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -3396,75 +3810,75 @@ T0*_directory_path=(void*)0;
 T0*_loadpath_file=(void*)0;
 /*SFN*/(C->_distance/*T3pppip*/)=a1;
 /*SFN*/(C->_name/*T3pppip*/)=a2;
-_directory_path=/*RF4:new_twin*/r58new_twin((T58*)(/*RF6:strings*/r807strings()/*:RF6*/),a3)/*:RF4*/;
+_directory_path=/*RF4:new_twin*/r58new_twin((T58*)(/*RF6:strings*/r808strings()/*:RF6*/),a3)/*:RF4*/;
 /*RF3:to_parent_directory*/r546to_parent_directory(_directory_path);
 /*:RF3*/if((a4)!=((void*)((void*)0))){
-_loadpath_file=/*RF4:new_twin*/r58new_twin((T58*)(/*RF6:strings*/r807strings()/*:RF6*/),a4)/*:RF4*/;
+_loadpath_file=/*RF4:new_twin*/r58new_twin((T58*)(/*RF6:strings*/r808strings()/*:RF6*/),a4)/*:RF4*/;
 }
 else{
-_loadpath_file=/*RF4:new_twin*/r58new_twin((T58*)(/*RF6:strings*/r807strings()/*:RF6*/),/*RF4:classes_path_to_system_path*/r807classes_path_to_system_path(C,a3)/*:RF4*/)/*:RF4*/;
+_loadpath_file=/*RF4:new_twin*/r58new_twin((T58*)(/*RF6:strings*/r808strings()/*:RF6*/),/*RF4:classes_path_to_system_path*/r808classes_path_to_system_path(C,a3)/*:RF4*/)/*:RF4*/;
 }
 /*SFN*/(C->_path/*T3pppip*/)=a3;
-tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1076))));
-*((T1076*)tmp0/*new*/)=M1076;
-/*RF3:with_capacity*/r1076with_capacity(((T1076*)tmp0/*new*/),INT32_C(16));
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1077))));
+*((T1077*)tmp0/*new*/)=M1077;
+/*RF3:with_capacity*/r1077with_capacity(((T1077*)tmp0/*new*/),INT32_C(16));
 /*:RF3*//*SFN*/(C->_classeses/*T3pppip*/)=tmp0/*new*/;
 /*tmp0.unlock*/
-/*RF3:create_subtree*/r807create_subtree(C,_loadpath_file,_directory_path,a5,(T6)(a6));
-/*:RF3*//*RF3:recycle*/r58recycle((T58*)(/*RF6:strings*/r807strings()/*:RF6*/),_directory_path);
-/*:RF3*//*RF3:recycle*/r58recycle((T58*)(/*RF6:strings*/r807strings()/*:RF6*/),_loadpath_file);
+/*RF3:create_subtree*/r808create_subtree(C,_loadpath_file,_directory_path,a5,(T6)(a6));
+/*:RF3*//*RF3:recycle*/r58recycle((T58*)(/*RF6:strings*/r808strings()/*:RF6*/),_directory_path);
+/*:RF3*//*RF3:recycle*/r58recycle((T58*)(/*RF6:strings*/r808strings()/*:RF6*/),_loadpath_file);
 /*:RF3*/}/*--*/
 
-/*LOADPATH*/T0*r807connect(T807*C,T0*a1,T0*a2){
+/*LOADPATH*/T0*r808connect(T808*C,T0*a1,T0*a2){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
 T0*_sp=(void*)0;
-if(/*RF4:has*/r1225has(((T1225*)/*ND*/(T0*)(/*RF6:connected*/r807connected()/*:RF6*/)),(/*RF2:path*/(C)->_path/*T3pppip*//*:RF2*/))/*:RF4*/){
-/*RF3:error_cycle*/r807error_cycle(C);
+if(/*RF4:has*/r1226has(((T1226*)/*ND*/(T0*)(/*RF6:connected*/r808connected()/*:RF6*/)),(/*RF2:path*/(C)->_path/*T3pppip*//*:RF2*/))/*:RF4*/){
+/*RF3:error_cycle*/r808error_cycle(C);
 /*:RF3*/}
 if((a1)!=((void*)((void*)0))){
 _sp=a1;
 }
 else{
-_sp=/*RF4:classes_path_to_system_path*/r807classes_path_to_system_path(C,(/*RF2:path*/(C)->_path/*T3pppip*//*:RF2*/))/*:RF4*/;
+_sp=/*RF4:classes_path_to_system_path*/r808classes_path_to_system_path(C,(/*RF2:path*/(C)->_path/*T3pppip*//*:RF2*/))/*:RF4*/;
 }
-if(/*RF4:is_empty*/r1224is_empty((T1224*)(/*RF6:files*/r807files()/*:RF6*/))/*:RF4*/){
+if(/*RF4:is_empty*/r1225is_empty((T1225*)(/*RF6:files*/r808files()/*:RF6*/))/*:RF4*/){
 tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T100))));
 *((T100*)tmp0/*new*/)=M100;
 R=tmp0/*new*/;
 /*tmp0.unlock*/
 }
 else{
-R=/*RF4:last*/r1224last((T1224*)(/*RF6:files*/r807files()/*:RF6*/))/*:RF4*/;
-/*RF3:remove_last*/r1224remove_last((T1224*)(/*RF6:files*/r807files()/*:RF6*/));
+R=/*RF4:last*/r1225last((T1225*)(/*RF6:files*/r808files()/*:RF6*/))/*:RF4*/;
+/*RF3:remove_last*/r1225remove_last((T1225*)(/*RF6:files*/r808files()/*:RF6*/));
 /*:RF3*/}
-/*RF3:tfr_connect*/r124tfr_connect((T124*)(/*RF6:echo*/r807echo()/*:RF6*/),R,_sp);
+/*RF3:tfr_connect*/r124tfr_connect((T124*)(/*RF6:echo*/r808echo()/*:RF6*/),R,_sp);
 /*:RF3*/if(((/*RF2:path*/(((T100*)R))->_path/*iiipnpcpp*//*:RF2*/))!=((void*)((void*)0))){
-/*RF3:put*/r1225put(((T1225*)/*ND*/(T0*)(/*RF6:connected*/r807connected()/*:RF6*/)),R,(/*RF2:path*/(C)->_path/*T3pppip*//*:RF2*/));
+/*RF3:put*/r1226put(((T1226*)/*ND*/(T0*)(/*RF6:connected*/r808connected()/*:RF6*/)),R,(/*RF2:path*/(C)->_path/*T3pppip*//*:RF2*/));
 /*:RF3*/}
 else{
-/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms807_2007377394Abc807A);
+/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms808_2007377394Abc808A);
 /*:RF3*/if((a2)!=((void*)((void*)0))){
-/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms287_7207Abc807A);
-/*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),(/*RF2:path*/(((T807*)a2))->_path/*T3pppip*//*:RF2*/));
+/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms287_7207Abc808A);
+/*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),(/*RF2:path*/(((T808*)a2))->_path/*T3pppip*//*:RF2*/));
 /*:RF3*/}
 else{
-/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms807_2008215484Abc807A);
+/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms808_2008215484Abc808A);
 /*:RF3*/}
-/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms807_1644Abc807B);
+/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms808_1644Abc808B);
 /*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),(/*RF2:path*/(C)->_path/*T3pppip*//*:RF2*/));
-/*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms807_1635136368Abc807A);
+/*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms808_1635136368Abc808A);
 /*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),_sp);
-/*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms807_1101Abc807A);
+/*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms808_1101Abc808A);
 /*:RF3*//*RF3:print_as_warning*/r287print_as_warning(((T287*)oBC32error_handler));
 /*:RF3*/R=(void*)0;
 }
 return R;
 }/*--*/
 
-/*LOADPATH*/void r807add_classes(T807*C,T0*a1){
+/*LOADPATH*/void r808add_classes(T808*C,T0*a1){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 T2 tmp1;
@@ -3478,78 +3892,78 @@ tmp0/*or else*/=((T6)(_done));
 if(tmp0/*or else*/){
 }
 else{
-tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/));
+tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/));
 }
 /*until*/if(tmp0/*or else*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-tmp1/*distance*/=(/*RF2:distance*/(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->_distance/*Tpppip*//*:RF2*/);
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+tmp1/*distance*/=(/*RF2:distance*/(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->_distance/*Tpppip*//*:RF2*/);
 break;
-case 768:
-tmp1/*distance*/=(/*RF2:distance*/(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->_distance/*T4pppip*//*:RF2*/);
+case 769:
+tmp1/*distance*/=(/*RF2:distance*/(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->_distance/*T4pppip*//*:RF2*/);
 break;
 default:;
-tmp1/*distance*/=(/*RF2:distance*/(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->_distance/*T3pppip*//*:RF2*/);
+tmp1/*distance*/=(/*RF2:distance*/(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->_distance/*T3pppip*//*:RF2*/);
 }
 /*inspect]*/
 /*[inspectDynamicDispatch*/
 switch((((T0*)(a1))->id)){
-case 689:
-tmp2/*distance*/=(/*RF2:distance*/(((T689*)a1))->_distance/*Tpppip*//*:RF2*/);
+case 690:
+tmp2/*distance*/=(/*RF2:distance*/(((T690*)a1))->_distance/*Tpppip*//*:RF2*/);
 break;
-case 768:
-tmp2/*distance*/=(/*RF2:distance*/(((T768*)a1))->_distance/*T4pppip*//*:RF2*/);
+case 769:
+tmp2/*distance*/=(/*RF2:distance*/(((T769*)a1))->_distance/*T4pppip*//*:RF2*/);
 break;
 default:;
-tmp2/*distance*/=(/*RF2:distance*/(((T807*)a1))->_distance/*T3pppip*//*:RF2*/);
+tmp2/*distance*/=(/*RF2:distance*/(((T808*)a1))->_distance/*T3pppip*//*:RF2*/);
 }
 /*inspect]*/
 if(/*RF8:>*/((int32_t)(tmp1/*distance*/))>(tmp2/*distance*/)/*:RF8*/){
-/*RF3:add*/r1076add((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)),a1,_i);
+/*RF3:add*/r1077add((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)),a1,_i);
 /*:RF3*/_done=((T6)(1));
 }
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 if((_done)==(0)){
-/*RF3:add_last*/r1076add_last((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)),a1);
+/*RF3:add_last*/r1077add_last((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)),a1);
 /*:RF3*/}
 /*[inspectDynamicDispatch*/
 switch((((T0*)(a1))->id)){
-case 689:
-(/*RF2:parent*/(((T689*)a1))->_parent/*Tpppip*//*:RF2*/)=((T0*)(C));
+case 690:
+(/*RF2:parent*/(((T690*)a1))->_parent/*Tpppip*//*:RF2*/)=((T0*)(C));
 break;
-case 768:
-(/*RF2:parent*/(((T768*)a1))->_parent/*T4pppip*//*:RF2*/)=((T0*)(C));
+case 769:
+(/*RF2:parent*/(((T769*)a1))->_parent/*T4pppip*//*:RF2*/)=((T0*)(C));
 break;
 default:;
-(/*RF2:parent*/(((T807*)a1))->_parent/*T3pppip*//*:RF2*/)=((T0*)(C));
+(/*RF2:parent*/(((T808*)a1))->_parent/*T3pppip*//*:RF2*/)=((T0*)(C));
 }
 /*inspect]*/
 }/*--*/
 
-/*LOADPATH*/void r807for_all(T807*C,T0*a1){
+/*LOADPATH*/void r808for_all(T808*C,T0*a1){
 T2 _i=0;
 _i=INT32_C(0);
 while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-/*RF3:for_all*/r689for_all(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+/*RF3:for_all*/r690for_all(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/break;
-case 768:
-/*RF3:for_all*/r768for_all(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
+case 769:
+/*RF3:for_all*/r769for_all(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/break;
 default:;
-/*RF3:for_all*/r807for_all(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
+/*RF3:for_all*/r808for_all(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/}
 /*inspect]*/
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 }/*--*/
 
-/*LOADPATH*/T2 r807cluster_count(T807*C){
+/*LOADPATH*/T2 r808cluster_count(T808*C){
 /*[INTERNAL_C_LOCAL list*/
 T2 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -3557,17 +3971,17 @@ T2 R=0;
 T2 _i=0;
 _i=INT32_C(0);
 while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-tmp0/*cluster_count*/=/*RF4:cluster_count*/r689cluster_count(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+tmp0/*cluster_count*/=/*RF4:cluster_count*/r690cluster_count(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
 break;
-case 768:
-tmp0/*cluster_count*/=/*RF4:cluster_count*/r768cluster_count(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
+case 769:
+tmp0/*cluster_count*/=/*RF4:cluster_count*/r769cluster_count(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
 break;
 default:;
-tmp0/*cluster_count*/=/*RF4:cluster_count*/r807cluster_count(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
+tmp0/*cluster_count*/=/*RF4:cluster_count*/r808cluster_count(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
 }
 /*inspect]*/
 R=/*RF8:+*/((int32_t)(R))+(tmp0/*cluster_count*/)/*:RF8*/;
@@ -3576,7 +3990,7 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*LOADPATH*/void r807show_cycle(T807*C,T0*a1){
+/*LOADPATH*/void r808show_cycle(T808*C,T0*a1){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -3584,36 +3998,36 @@ T0*_p=(void*)0;
 T0*_l=(void*)0;
 /*[inspectDynamicDispatch*/
 switch((((T0*)(a1))->id)){
-case 689:
-tmp0/*parent*/=(/*RF2:parent*/(((T689*)a1))->_parent/*Tpppip*//*:RF2*/);
+case 690:
+tmp0/*parent*/=(/*RF2:parent*/(((T690*)a1))->_parent/*Tpppip*//*:RF2*/);
 break;
-case 768:
-tmp0/*parent*/=(/*RF2:parent*/(((T768*)a1))->_parent/*T4pppip*//*:RF2*/);
+case 769:
+tmp0/*parent*/=(/*RF2:parent*/(((T769*)a1))->_parent/*T4pppip*//*:RF2*/);
 break;
 default:;
-tmp0/*parent*/=(/*RF2:parent*/(((T807*)a1))->_parent/*T3pppip*//*:RF2*/);
+tmp0/*parent*/=(/*RF2:parent*/(((T808*)a1))->_parent/*T3pppip*//*:RF2*/);
 }
 /*inspect]*/
 _p=tmp0/*parent*/;
 if((_p)==((void*)(C))){
-/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms807_79Abc807A);
+/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms808_79Abc808A);
 /*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),(/*RF2:path*/(C)->_path/*T3pppip*//*:RF2*/));
-/*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms111_180Abc807A);
+/*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms111_180Abc808A);
 /*:RF3*/}
 else{
 if((_p)!=((void*)((void*)0))){
-/*RF3:show_cycle*/r807show_cycle(C,_p);
+/*RF3:show_cycle*/r808show_cycle(C,_p);
 /*:RF3*/}
 }
-if(can_assign_to807_from691((T0*)(a1))){
+if(can_assign_to808_from692((T0*)(a1))){
 _l=a1;
-/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms807_79Abc807B);
-/*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),(/*RF2:path*/(((T807*)_l))->_path/*T3pppip*//*:RF2*/));
-/*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms111_180Abc807B);
+/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms808_79Abc808B);
+/*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),(/*RF2:path*/(((T808*)_l))->_path/*T3pppip*//*:RF2*/));
+/*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms111_180Abc808B);
 /*:RF3*/}
 }/*--*/
 
-/*LOADPATH*/T0*r807echo(void){
+/*LOADPATH*/T0*r808echo(void){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -3627,13 +4041,13 @@ tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T124))));
 return oBC32echo;
 }/*--*/
 
-/*LOADPATH*/void r807error_cycle(T807*C){
-/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms807_1847764413Abc807A);
-/*:RF3*//*RF3:show_cycle*/r807show_cycle(C,(T0*)C);
+/*LOADPATH*/void r808error_cycle(T808*C){
+/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms808_1847764413Abc808A);
+/*:RF3*//*RF3:show_cycle*/r808show_cycle(C,(T0*)C);
 /*:RF3*//*RF3:print_as_fatal_error*/r287print_as_fatal_error(((T287*)oBC32error_handler));
 /*:RF3*/}/*--*/
 
-/*LOADPATH*/T0*r807cluster_named(T807*C,T0*a1){
+/*LOADPATH*/T0*r808cluster_named(T808*C,T0*a1){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 T0* tmp1;
@@ -3646,19 +4060,19 @@ tmp0/*or else*/=((T6)((R)!=((void*)((void*)0))));
 if(tmp0/*or else*/){
 }
 else{
-tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/));
+tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/));
 }
 /*until*/if(tmp0/*or else*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-tmp1/*cluster_named*/=/*RF4:cluster_named*/r689cluster_named(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+tmp1/*cluster_named*/=/*RF4:cluster_named*/r690cluster_named(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 break;
-case 768:
-tmp1/*cluster_named*/=/*RF4:cluster_named*/r768cluster_named(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+case 769:
+tmp1/*cluster_named*/=/*RF4:cluster_named*/r769cluster_named(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 break;
 default:;
-tmp1/*cluster_named*/=/*RF4:cluster_named*/r807cluster_named(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+tmp1/*cluster_named*/=/*RF4:cluster_named*/r808cluster_named(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 }
 /*inspect]*/
 R=tmp1/*cluster_named*/;
@@ -3666,24 +4080,24 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 return R;
 }/*--*/
-T0*oBC807connected=(void*)0;
-int fBC807connected=0;
+T0*oBC808connected=(void*)0;
+int fBC808connected=0;
 
-/*LOADPATH*/T0*r807connected(void){
+/*LOADPATH*/T0*r808connected(void){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
-if(fBC807connected==0){fBC807connected=1;{
-tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1225))));
-*((T1225*)tmp0/*new*/)=M1225;
-/*RF3:make*/r1225make(((T1225*)tmp0/*new*/));
-/*:RF3*/oBC807connected=tmp0/*new*/;
+if(fBC808connected==0){fBC808connected=1;{
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1226))));
+*((T1226*)tmp0/*new*/)=M1226;
+/*RF3:make*/r1226make(((T1226*)tmp0/*new*/));
+/*:RF3*/oBC808connected=tmp0/*new*/;
 /*tmp0.unlock*/
 }}
-return oBC807connected;
+return oBC808connected;
 }/*--*/
 
-/*LOADPATH*/T0*r807strings(void){
+/*LOADPATH*/T0*r808strings(void){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -3697,7 +4111,7 @@ tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T58))));
 return oBC32strings;
 }/*--*/
 
-/*LOADPATH*/void r807create_subtree(T807*C,T0*a1,T0*a2,T0*a3,T6 a4){
+/*LOADPATH*/void r808create_subtree(T808*C,T0*a1,T0*a2,T0*a3,T6 a4){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 T6 tmp1;
@@ -3708,23 +4122,23 @@ T0*_entry=(void*)0;
 T0*_a_system_path=(void*)0;
 T0*_system_entry=(void*)0;
 T2 _i=0;
-T692 _factory={0};
+T693 _factory={0};
 T0*_classes=(void*)0;
 T0*_sp=(void*)0;
 T0*_cp=(void*)0;
 int _ft=0;
-_tfr=/*RF4:connect*/r807connect(C,a1,a3)/*:RF4*/;
+_tfr=/*RF4:connect*/r808connect(C,a1,a3)/*:RF4*/;
 if((_tfr)!=((void*)((void*)0))){
 _i=INT32_C(1);
 while(1){
 /*until*/if((/*RF2:end_of_input*/(((T100*)_tfr))->_end_of_input/*iiipnpcpp*//*:RF2*/)) break;
 /*RF3:read_line*/r100read_line(((T100*)_tfr));
 /*:RF3*/if((((/*RF2:count*/((T7*)(/*RF6:last_string*/r100last_string()/*:RF6*/))->_count/*Tiiiini*//*:RF2*/))==(INT8_C(0)))==(0)){
-_entry=ms111_0Abc807A;
+_entry=ms111_0Abc808A;
 /*RF3:copy*/r7copy(((T7*)_entry),/*RF6:last_string*/r100last_string()/*:RF6*/);
-/*:RF3*//*RF3:environment_variable_substitution*/r111environment_variable_substitution((T111*)(/*RF6:system_tools*/r807system_tools()/*:RF6*/),(/*RF2:path*/(C)->_path/*T3pppip*//*:RF2*/),_entry);
+/*:RF3*//*RF3:environment_variable_substitution*/r111environment_variable_substitution((T111*)(/*RF6:system_tools*/r808system_tools()/*:RF6*/),(/*RF2:path*/(C)->_path/*T3pppip*//*:RF2*/),_entry);
 /*:RF3*//*[inspectDynamicDispatch*/
-switch((((T0*)((tmp0/*ddt1*/=(/*RF6:system_notation*/r807system_notation(C)/*:RF6*/))))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF6:system_notation*/r808system_notation(C)/*:RF6*/))))->id)){
 case 546:
 tmp1/*is_absolute_path*/=((T6)(/*RF4:is_absolute_path*/r546is_absolute_path(_entry)/*:RF4*/));
 break;
@@ -3751,14 +4165,14 @@ tmp2/*and then*/=((T6)(/*RF4:file_exists*/r289file_exists(_entry)/*:RF4*/));
 }
 if(tmp2/*and then*/){
 _sp=/*RF4:string*/r275string(_entry)/*:RF4*/;
-_cp=/*RF4:string*/r275string(/*RF4:system_path_to_classes_path*/r807system_path_to_classes_path(C,_entry)/*:RF4*/)/*:RF4*/;
+_cp=/*RF4:string*/r275string(/*RF4:system_path_to_classes_path*/r808system_path_to_classes_path(C,_entry)/*:RF4*/)/*:RF4*/;
 }
 /*auto-unlock tmp1*/tmp1/*and then*/=((T6)((_sp)==((void*)((void*)0))));
 if(tmp1/*and then*/){
 tmp1/*and then*/=((T6)(/*RF4:is_absolute_path*/r546is_absolute_path(_entry)/*:RF4*/));
 }
 if(tmp1/*and then*/){
-_sp=/*RF4:classes_path_to_system_path*/r807classes_path_to_system_path(C,_entry)/*:RF4*/;
+_sp=/*RF4:classes_path_to_system_path*/r808classes_path_to_system_path(C,_entry)/*:RF4*/;
 if(/*RF4:file_exists*/r289file_exists(_sp)/*:RF4*/){
 _sp=/*RF4:string*/r275string(_sp)/*:RF4*/;
 _cp=/*RF4:string*/r275string(_entry)/*:RF4*/;
@@ -3768,33 +4182,33 @@ _sp=(void*)0;
 }
 }
 if((_sp)==((void*)((void*)0))){
-_system_entry=/*RF4:new_twin*/r58new_twin((T58*)(/*RF6:strings*/r807strings()/*:RF6*/),_entry)/*:RF4*/;
+_system_entry=/*RF4:new_twin*/r58new_twin((T58*)(/*RF6:strings*/r808strings()/*:RF6*/),_entry)/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*reusing tmp0*/(tmp0/*ddt1*/=(/*RF6:system_notation*/r807system_notation(C)/*:RF6*/))))->id)){
+switch((((T0*)(/*reusing tmp0*/(tmp0/*ddt1*/=(/*RF6:system_notation*/r808system_notation(C)/*:RF6*/))))->id)){
 case 546:
-/*RF3:from_notation*/r546from_notation(((T546*)tmp0/*ddt1*/),oBC691classes_notation,_system_entry);
+/*RF3:from_notation*/r546from_notation(((T546*)tmp0/*ddt1*/),oBC692classes_notation,_system_entry);
 /*:RF3*/break;
 case 550:
-/*RF3:from_notation*/r550from_notation(((T550*)tmp0/*ddt1*/),oBC691classes_notation,_system_entry);
+/*RF3:from_notation*/r550from_notation(((T550*)tmp0/*ddt1*/),oBC692classes_notation,_system_entry);
 /*:RF3*/break;
 case 551:
-/*RF3:from_notation*/r551from_notation(((T551*)tmp0/*ddt1*/),oBC691classes_notation,_system_entry);
+/*RF3:from_notation*/r551from_notation(((T551*)tmp0/*ddt1*/),oBC692classes_notation,_system_entry);
 /*:RF3*/break;
 case 552:
-/*RF3:from_notation*/r552from_notation(((T552*)tmp0/*ddt1*/),oBC691classes_notation,_system_entry);
+/*RF3:from_notation*/r552from_notation(((T552*)tmp0/*ddt1*/),oBC692classes_notation,_system_entry);
 /*:RF3*/break;
 case 553:
-/*RF3:from_notation*/r553from_notation(((T553*)tmp0/*ddt1*/),oBC691classes_notation,_system_entry);
+/*RF3:from_notation*/r553from_notation(((T553*)tmp0/*ddt1*/),oBC692classes_notation,_system_entry);
 /*:RF3*/break;
 default:;
-/*RF3:from_notation*/r554from_notation(((T554*)tmp0/*ddt1*/),oBC691classes_notation,_system_entry);
+/*RF3:from_notation*/r554from_notation(((T554*)tmp0/*ddt1*/),oBC692classes_notation,_system_entry);
 /*:RF3*/}
 /*inspect]*/
 /*tmp0.unlock*/
 if((_a_system_path)==((void*)((void*)0))){
-_a_system_path=/*RF4:new_twin*/r58new_twin((T58*)(/*RF6:strings*/r807strings()/*:RF6*/),a1)/*:RF4*/;
+_a_system_path=/*RF4:new_twin*/r58new_twin((T58*)(/*RF6:strings*/r808strings()/*:RF6*/),a1)/*:RF4*/;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*reusing tmp0*/(tmp0/*ddt1*/=(/*RF6:system_notation*/r807system_notation(C)/*:RF6*/))))->id)){
+switch((((T0*)(/*reusing tmp0*/(tmp0/*ddt1*/=(/*RF6:system_notation*/r808system_notation(C)/*:RF6*/))))->id)){
 case 546:
 /*RF3:to_parent_directory*/r546to_parent_directory(_a_system_path);
 /*:RF3*/break;
@@ -3816,21 +4230,21 @@ default:;
 /*inspect]*/
 /*tmp0.unlock*/
 }
-_sp=/*RF4:new_path*/r807new_path(/*RF6:system_notation*/r807system_notation(C)/*:RF6*/,_a_system_path,_system_entry)/*:RF4*/;
+_sp=/*RF4:new_path*/r808new_path(/*RF6:system_notation*/r808system_notation(C)/*:RF6*/,_a_system_path,_system_entry)/*:RF4*/;
 if(/*RF4:file_exists*/r289file_exists(_sp)/*:RF4*/){
-_cp=/*RF4:new_path*/r807new_path(oBC691classes_notation,a2,_entry)/*:RF4*/;
+_cp=/*RF4:new_path*/r808new_path(oBC692classes_notation,a2,_entry)/*:RF4*/;
 }
 else{
 _sp=(void*)0;
 }
-/*RF3:recycle*/r58recycle((T58*)(/*RF6:strings*/r807strings()/*:RF6*/),_system_entry);
+/*RF3:recycle*/r58recycle((T58*)(/*RF6:strings*/r808strings()/*:RF6*/),_system_entry);
 /*:RF3*/}
 if((_sp)==((void*)((void*)0))){
 /*RF3:copy*/r7copy(((T7*)_entry),/*RF6:last_string*/r100last_string()/*:RF6*/);
-/*:RF3*/_sp=/*RF4:classes_path_to_system_path*/r807classes_path_to_system_path(C,_entry)/*:RF4*/;
-/*RF3:environment_variable_substitution*/r111environment_variable_substitution((T111*)(/*RF6:system_tools*/r807system_tools()/*:RF6*/),(/*RF2:path*/(C)->_path/*T3pppip*//*:RF2*/),_sp);
+/*:RF3*/_sp=/*RF4:classes_path_to_system_path*/r808classes_path_to_system_path(C,_entry)/*:RF4*/;
+/*RF3:environment_variable_substitution*/r111environment_variable_substitution((T111*)(/*RF6:system_tools*/r808system_tools()/*:RF6*/),(/*RF2:path*/(C)->_path/*T3pppip*//*:RF2*/),_sp);
 /*:RF3*//*[inspectDynamicDispatch*/
-switch((((T0*)(/*reusing tmp0*/(tmp0/*ddt1*/=(/*RF6:system_notation*/r807system_notation(C)/*:RF6*/))))->id)){
+switch((((T0*)(/*reusing tmp0*/(tmp0/*ddt1*/=(/*RF6:system_notation*/r808system_notation(C)/*:RF6*/))))->id)){
 case 546:
 /*auto-unlock tmp1*/tmp1/*is_absolute_path*/=((T6)(/*RF4:is_absolute_path*/r546is_absolute_path(_sp)/*:RF4*/));
 break;
@@ -3857,40 +4271,40 @@ tmp2/*and then*/=((T6)(/*RF4:file_exists*/r289file_exists(_sp)/*:RF4*/));
 }
 if(tmp2/*and then*/){
 _sp=/*RF4:string*/r275string(_sp)/*:RF4*/;
-_cp=/*RF4:string*/r275string(/*RF4:system_path_to_classes_path*/r807system_path_to_classes_path(C,_sp)/*:RF4*/)/*:RF4*/;
+_cp=/*RF4:string*/r275string(/*RF4:system_path_to_classes_path*/r808system_path_to_classes_path(C,_sp)/*:RF4*/)/*:RF4*/;
 }
 else{
 _sp=(void*)0;
 }
 }
 if((_sp)==((void*)((void*)0))){
-/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms807_480414235Abc807A);
+/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms808_480414235Abc808A);
 /*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),(/*RF2:path*/(C)->_path/*T3pppip*//*:RF2*/));
-/*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms807_1644Abc807A);
+/*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms808_1644Abc808A);
 /*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),/*RF6:last_string*/r100last_string()/*:RF6*/);
-/*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms277_216Abc807A);
+/*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms277_216Abc808A);
 /*:RF3*//*RF3:print_as_warning*/r287print_as_warning(((T287*)oBC32error_handler));
 /*:RF3*/}
 else{
-_classes=/*RF4:classes*/r692classes(&_factory,INT32_C(1),_sp,_cp,/*RF4:new_name*/r807new_name(C,_entry,_i)/*:RF4*/,(T0*)C,(T6)(a4))/*:RF4*/;
+_classes=/*RF4:classes*/r693classes(&_factory,INT32_C(1),_sp,_cp,/*RF4:new_name*/r808new_name(C,_entry,_i)/*:RF4*/,(T0*)C,(T6)(a4))/*:RF4*/;
 /*auto-unlock tmp1*/tmp1/*and then*/=((T6)((_classes)!=((void*)((void*)0))));
 if(tmp1/*and then*/){
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_classes))->id)){
-case 689:
-/*reusing tmp0*/tmp0/*parent*/=(/*RF2:parent*/(((T689*)_classes))->_parent/*Tpppip*//*:RF2*/);
+case 690:
+/*reusing tmp0*/tmp0/*parent*/=(/*RF2:parent*/(((T690*)_classes))->_parent/*Tpppip*//*:RF2*/);
 break;
-case 768:
-tmp0/*parent*/=(/*RF2:parent*/(((T768*)_classes))->_parent/*T4pppip*//*:RF2*/);
+case 769:
+tmp0/*parent*/=(/*RF2:parent*/(((T769*)_classes))->_parent/*T4pppip*//*:RF2*/);
 break;
 default:;
-tmp0/*parent*/=(/*RF2:parent*/(((T807*)_classes))->_parent/*T3pppip*//*:RF2*/);
+tmp0/*parent*/=(/*RF2:parent*/(((T808*)_classes))->_parent/*T3pppip*//*:RF2*/);
 }
 /*inspect]*/
 tmp1/*and then*/=((T6)((tmp0/*parent*/)==((void*)((void*)0))));
 }
 if(tmp1/*and then*/){
-/*RF3:add_classes*/r807add_classes(C,_classes);
+/*RF3:add_classes*/r808add_classes(C,_classes);
 /*:RF3*/}
 }
 }
@@ -3899,90 +4313,90 @@ _cp=(void*)0;
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 /*RF3:disconnect*/r100disconnect(((T100*)_tfr));
-/*:RF3*//*auto-unlock tmp1*/tmp1/*and then*/=((T6)(/*RF4:is_empty*/r1076is_empty((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))/*:RF4*/));
+/*:RF3*//*auto-unlock tmp1*/tmp1/*and then*/=((T6)(/*RF4:is_empty*/r1077is_empty((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))/*:RF4*/));
 if(tmp1/*and then*/){
 tmp1/*and then*/=((T6)((a4)==(0)));
 }
 if(tmp1/*and then*/){
-/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms807_1959331451Abc807A);
+/*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms808_1959331451Abc808A);
 /*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),(/*RF2:path*/(C)->_path/*T3pppip*//*:RF2*/));
-/*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms277_216Abc807B);
+/*:RF3*//*RF3:append*/r7append((T7*)(/*RF6:explanation*/r287explanation()/*:RF6*/),ms277_216Abc808B);
 /*:RF3*//*RF3:print_as_warning*/r287print_as_warning(((T287*)oBC32error_handler));
 /*:RF3*/}
 }
 if((_a_system_path)!=((void*)((void*)0))){
-/*RF3:recycle*/r58recycle((T58*)(/*RF6:strings*/r807strings()/*:RF6*/),_a_system_path);
+/*RF3:recycle*/r58recycle((T58*)(/*RF6:strings*/r808strings()/*:RF6*/),_a_system_path);
 /*:RF3*/}
 }/*--*/
 
-/*LOADPATH*/void r807show_name(T807*C){
-/*RF3:put_character*/r124put_character((T124*)(/*RF6:echo*/r807echo()/*:RF6*/),((T3)'\042'));
-/*:RF3*//*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r807echo()/*:RF6*/),(/*RF2:path*/(C)->_path/*T3pppip*//*:RF2*/));
-/*:RF3*//*RF3:put_character*/r124put_character((T124*)(/*RF6:echo*/r807echo()/*:RF6*/),((T3)'\042'));
+/*LOADPATH*/void r808show_name(T808*C){
+/*RF3:put_character*/r124put_character((T124*)(/*RF6:echo*/r808echo()/*:RF6*/),((T3)'\042'));
+/*:RF3*//*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r808echo()/*:RF6*/),(/*RF2:path*/(C)->_path/*T3pppip*//*:RF2*/));
+/*:RF3*//*RF3:put_character*/r124put_character((T124*)(/*RF6:echo*/r808echo()/*:RF6*/),((T3)'\042'));
 /*:RF3*/}/*--*/
 
-/*LOADPATH*/T0*r807classes_path_to_system_path(T807*C,T0*a1){
+/*LOADPATH*/T0*r808classes_path_to_system_path(T808*C,T0*a1){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
-R=ms111_0Abc691B;
+R=ms111_0Abc692B;
 /*RF3:copy*/r7copy(((T7*)R),a1);
 /*:RF3*//*[inspectDynamicDispatch*/
-switch((((T0*)((tmp0/*ddt1*/=(/*RF6:system_notation*/r807system_notation(C)/*:RF6*/))))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF6:system_notation*/r808system_notation(C)/*:RF6*/))))->id)){
 case 546:
-/*RF3:from_notation*/r546from_notation(((T546*)tmp0/*ddt1*/),oBC691classes_notation,R);
+/*RF3:from_notation*/r546from_notation(((T546*)tmp0/*ddt1*/),oBC692classes_notation,R);
 /*:RF3*/break;
 case 550:
-/*RF3:from_notation*/r550from_notation(((T550*)tmp0/*ddt1*/),oBC691classes_notation,R);
+/*RF3:from_notation*/r550from_notation(((T550*)tmp0/*ddt1*/),oBC692classes_notation,R);
 /*:RF3*/break;
 case 551:
-/*RF3:from_notation*/r551from_notation(((T551*)tmp0/*ddt1*/),oBC691classes_notation,R);
+/*RF3:from_notation*/r551from_notation(((T551*)tmp0/*ddt1*/),oBC692classes_notation,R);
 /*:RF3*/break;
 case 552:
-/*RF3:from_notation*/r552from_notation(((T552*)tmp0/*ddt1*/),oBC691classes_notation,R);
+/*RF3:from_notation*/r552from_notation(((T552*)tmp0/*ddt1*/),oBC692classes_notation,R);
 /*:RF3*/break;
 case 553:
-/*RF3:from_notation*/r553from_notation(((T553*)tmp0/*ddt1*/),oBC691classes_notation,R);
+/*RF3:from_notation*/r553from_notation(((T553*)tmp0/*ddt1*/),oBC692classes_notation,R);
 /*:RF3*/break;
 default:;
-/*RF3:from_notation*/r554from_notation(((T554*)tmp0/*ddt1*/),oBC691classes_notation,R);
+/*RF3:from_notation*/r554from_notation(((T554*)tmp0/*ddt1*/),oBC692classes_notation,R);
 /*:RF3*/}
 /*inspect]*/
 /*tmp0.unlock*/
 return R;
 }/*--*/
 
-/*LOADPATH*/void r807get_started(T807*C,T2 a1){
+/*LOADPATH*/void r808get_started(T808*C,T2 a1){
 T2 _i=0;
 _i=INT32_C(0);
 while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-/*RF3:get_started*/r689get_started(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+/*RF3:get_started*/r690get_started(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/break;
-case 768:
-/*RF3:get_started*/r768get_started(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
+case 769:
+/*RF3:get_started*/r769get_started(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/break;
 default:;
-/*RF3:get_started*/r807get_started(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
+/*RF3:get_started*/r808get_started(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/}
 /*inspect]*/
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 }/*--*/
 
-/*LOADPATH*/T0*r807system_path_to_classes_path(T807*C,T0*a1){
+/*LOADPATH*/T0*r808system_path_to_classes_path(T808*C,T0*a1){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 T6 tmp1;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
-R=ms111_0Abc691A;
+R=ms111_0Abc692A;
 /*[inspectDynamicDispatch*/
-switch((((T0*)((tmp0/*ddt1*/=(/*RF6:system_notation*/r807system_notation(C)/*:RF6*/))))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF6:system_notation*/r808system_notation(C)/*:RF6*/))))->id)){
 case 546:
 tmp1/*is_absolute_path*/=((T6)(/*RF4:is_absolute_path*/r546is_absolute_path(a1)/*:RF4*/));
 break;
@@ -4012,7 +4426,7 @@ else{
 /*RF3:copy*/r7copy(((T7*)R),/*RF6:last_entry*/r534last_entry()/*:RF6*/);
 /*:RF3*//*RF3:disconnect*/r534disconnect(&((/*RF2:basic_directory*/(C)->_basic_directory/*T3pppip*//*:RF2*/)));
 /*:RF3*//*[inspectDynamicDispatch*/
-switch((((T0*)(/*reusing tmp0*/(tmp0/*ddt1*/=(/*RF6:system_notation*/r807system_notation(C)/*:RF6*/))))->id)){
+switch((((T0*)(/*reusing tmp0*/(tmp0/*ddt1*/=(/*RF6:system_notation*/r808system_notation(C)/*:RF6*/))))->id)){
 case 546:
 /*RF3:to_subpath_with*/r546to_subpath_with(R,a1);
 /*:RF3*/break;
@@ -4038,30 +4452,30 @@ else{
 /*RF3:copy*/r7copy(((T7*)R),a1);
 /*:RF3*/}
 }
-/*RF3:from_notation*/r546from_notation(((T546*)oBC691classes_notation),/*RF6:system_notation*/r807system_notation(C)/*:RF6*/,R);
+/*RF3:from_notation*/r546from_notation(((T546*)oBC692classes_notation),/*RF6:system_notation*/r808system_notation(C)/*:RF6*/,R);
 /*:RF3*/return R;
 }/*--*/
 
-/*LOADPATH*/void r807clusters_of(T807*C,T0*a1,T6 a2,T0*a3,T0*a4,T0*a5,T2 a6){
+/*LOADPATH*/void r808clusters_of(T808*C,T0*a1,T0*a2,T0*a3,T0*a4,T2 a5){
 T2 _i=0;
 T2 _child_distance=0;
 T0*_c=(void*)0;
-_child_distance=/*RF8:+*/((int32_t)(a6))+((/*RF2:distance*/(C)->_distance/*T3pppip*//*:RF2*/))/*:RF8*/;
+_child_distance=/*RF8:+*/((int32_t)(a5))+((/*RF2:distance*/(C)->_distance/*T3pppip*//*:RF2*/))/*:RF8*/;
 _i=INT32_C(0);
 while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
-_c=/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/;
-if((_c)!=((void*)(a3))){
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+_c=/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/;
+if((_c)!=((void*)(a2))){
 /*[inspectDynamicDispatch*/
 switch((((T0*)(_c))->id)){
-case 689:
-/*RF3:clusters_of*/r689clusters_of(((T689*)_c),a1,(T6)(a2),a3,a4,a5,_child_distance);
+case 690:
+/*RF3:clusters_of*/r690clusters_of(((T690*)_c),a1,a2,a3,a4,_child_distance);
 /*:RF3*/break;
-case 768:
-/*RF3:clusters_of*/r768clusters_of(((T768*)_c),a1,(T6)(a2),a3,a4,a5,_child_distance);
+case 769:
+/*RF3:clusters_of*/r769clusters_of(((T769*)_c),a1,a2,a3,a4,_child_distance);
 /*:RF3*/break;
 default:;
-/*RF3:clusters_of*/r807clusters_of(((T807*)_c),a1,(T6)(a2),a3,a4,a5,_child_distance);
+/*RF3:clusters_of*/r808clusters_of(((T808*)_c),a1,a2,a3,a4,_child_distance);
 /*:RF3*/}
 /*inspect]*/
 }
@@ -4069,28 +4483,28 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 }/*--*/
 
-/*LOADPATH*/void r807view_in(T807*C,T0*a1){
+/*LOADPATH*/void r808view_in(T808*C,T0*a1){
 T2 _i=0;
 _i=INT32_C(0);
 while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-/*RF3:view_in*/r689view_in(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+/*RF3:view_in*/r690view_in(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/break;
-case 768:
-/*RF3:view_in*/r768view_in(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
+case 769:
+/*RF3:view_in*/r769view_in(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/break;
 default:;
-/*RF3:view_in*/r807view_in(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
+/*RF3:view_in*/r808view_in(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1);
 /*:RF3*/}
 /*inspect]*/
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 }/*--*/
 
-/*LOADPATH*/T0*r807cluster_by_directory_path(T807*C,T0*a1){
+/*LOADPATH*/T0*r808cluster_by_directory_path(T808*C,T0*a1){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 T0* tmp1;
@@ -4103,19 +4517,19 @@ tmp0/*or else*/=((T6)((R)!=((void*)((void*)0))));
 if(tmp0/*or else*/){
 }
 else{
-tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/));
+tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/));
 }
 /*until*/if(tmp0/*or else*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-tmp1/*cluster_by_directory_path*/=/*RF4:cluster_by_directory_path*/r689cluster_by_directory_path(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+tmp1/*cluster_by_directory_path*/=/*RF4:cluster_by_directory_path*/r690cluster_by_directory_path(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 break;
-case 768:
-tmp1/*cluster_by_directory_path*/=/*RF4:cluster_by_directory_path*/r768cluster_by_directory_path(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+case 769:
+tmp1/*cluster_by_directory_path*/=/*RF4:cluster_by_directory_path*/r769cluster_by_directory_path(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 break;
 default:;
-tmp1/*cluster_by_directory_path*/=/*RF4:cluster_by_directory_path*/r807cluster_by_directory_path(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+tmp1/*cluster_by_directory_path*/=/*RF4:cluster_by_directory_path*/r808cluster_by_directory_path(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 }
 /*inspect]*/
 R=tmp1/*cluster_by_directory_path*/;
@@ -4124,7 +4538,7 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*LOADPATH*/T0*r807system_tools(void){
+/*LOADPATH*/T0*r808system_tools(void){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -4138,15 +4552,15 @@ tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T111))));
 return oBC32system_tools;
 }/*--*/
 
-/*LOADPATH*/T0*r807system_notation(T807*C){
-if(fBC691system_notation==0){fBC691system_notation=1;{
+/*LOADPATH*/T0*r808system_notation(T808*C){
+if(fBC692system_notation==0){fBC692system_notation=1;{
 /*RF5:ensure_system_notation*/r534ensure_system_notation();
-/*:RF5*/oBC691system_notation=/*RF4:system_notation*/r534system_notation()/*:RF4*/;
+/*:RF5*/oBC692system_notation=/*RF4:system_notation*/r534system_notation()/*:RF4*/;
 }}
-return oBC691system_notation;
+return oBC692system_notation;
 }/*--*/
 
-/*LOADPATH*/T2 r807loaded_class_count(T807*C){
+/*LOADPATH*/T2 r808loaded_class_count(T808*C){
 /*[INTERNAL_C_LOCAL list*/
 T2 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -4154,17 +4568,17 @@ T2 R=0;
 T2 _i=0;
 _i=INT32_C(0);
 while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-tmp0/*loaded_class_count*/=/*RF4:loaded_class_count*/r689loaded_class_count(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+tmp0/*loaded_class_count*/=/*RF4:loaded_class_count*/r690loaded_class_count(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
 break;
-case 768:
-tmp0/*loaded_class_count*/=/*RF4:loaded_class_count*/r768loaded_class_count(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
+case 769:
+tmp0/*loaded_class_count*/=/*RF4:loaded_class_count*/r769loaded_class_count(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
 break;
 default:;
-tmp0/*loaded_class_count*/=/*RF4:loaded_class_count*/r807loaded_class_count(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
+tmp0/*loaded_class_count*/=/*RF4:loaded_class_count*/r808loaded_class_count(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))/*:RF4*/;
 }
 /*inspect]*/
 R=/*RF8:+*/((int32_t)(R))+(tmp0/*loaded_class_count*/)/*:RF8*/;
@@ -4173,62 +4587,62 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*LOADPATH*/void r807show_tabs(T2 a1){
+/*LOADPATH*/void r808show_tabs(T2 a1){
 T2 _i=0;
 _i=INT32_C(1);
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>(a1)/*:RF8*/) break;
-/*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r807echo()/*:RF6*/),ms691_1452Abc691A);
+/*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r808echo()/*:RF6*/),ms692_1452Abc692A);
 /*:RF3*/_i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
-/*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r807echo()/*:RF6*/),ms691_1047Abc691A);
+/*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r808echo()/*:RF6*/),ms692_1047Abc692A);
 /*:RF3*/}/*--*/
-T0*oBC807files=(void*)0;
-int fBC807files=0;
+T0*oBC808files=(void*)0;
+int fBC808files=0;
 
-/*LOADPATH*/T0*r807files(void){
+/*LOADPATH*/T0*r808files(void){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
-if(fBC807files==0){fBC807files=1;{
-tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1224))));
-*((T1224*)tmp0/*new*/)=M1224;
-/*RF3:make*/r1224make(((T1224*)tmp0/*new*/),INT32_C(0));
-/*:RF3*/oBC807files=tmp0/*new*/;
+if(fBC808files==0){fBC808files=1;{
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1225))));
+*((T1225*)tmp0/*new*/)=M1225;
+/*RF3:make*/r1225make(((T1225*)tmp0/*new*/),INT32_C(0));
+/*:RF3*/oBC808files=tmp0/*new*/;
 /*tmp0.unlock*/
 }}
-return oBC807files;
+return oBC808files;
 }/*--*/
 
-/*LOADPATH*/T0*r807to_string(T807*C){
+/*LOADPATH*/T0*r808to_string(T808*C){
 T0* R=(void*)0;
-R=ms111_0Abc807E;
+R=ms111_0Abc808E;
 /*RF3:copy*/r7copy(((T7*)R),(/*RF2:path*/(C)->_path/*T3pppip*//*:RF2*/));
 /*:RF3*/return R;
 }/*--*/
 
-/*LOADPATH*/void r807parse_include(T807*C){
+/*LOADPATH*/void r808parse_include(T808*C){
 T2 _i=0;
 _i=INT32_C(0);
 while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-/*RF3:parse_include*/r689parse_include(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/));
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+/*RF3:parse_include*/r690parse_include(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/));
 /*:RF3*/break;
-case 768:
-/*RF3:parse_include*/r768parse_include(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/));
+case 769:
+/*RF3:parse_include*/r769parse_include(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/));
 /*:RF3*/break;
 default:;
-/*RF3:parse_include*/r807parse_include(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/));
+/*RF3:parse_include*/r808parse_include(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/));
 /*:RF3*/}
 /*inspect]*/
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 }/*--*/
 
-/*LOADPATH*/T0*r807find_physical_cluster(T807*C,T0*a1){
+/*LOADPATH*/T0*r808find_physical_cluster(T808*C,T0*a1){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 T0* tmp1;
@@ -4241,19 +4655,19 @@ tmp0/*or else*/=((T6)((R)!=((void*)((void*)0))));
 if(tmp0/*or else*/){
 }
 else{
-tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/));
+tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/));
 }
 /*until*/if(tmp0/*or else*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-tmp1/*find_physical_cluster*/=/*RF4:find_physical_cluster*/r689find_physical_cluster(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+tmp1/*find_physical_cluster*/=/*RF4:find_physical_cluster*/r690find_physical_cluster(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 break;
-case 768:
-tmp1/*find_physical_cluster*/=/*RF4:find_physical_cluster*/r768find_physical_cluster(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+case 769:
+tmp1/*find_physical_cluster*/=/*RF4:find_physical_cluster*/r769find_physical_cluster(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 break;
 default:;
-tmp1/*find_physical_cluster*/=/*RF4:find_physical_cluster*/r807find_physical_cluster(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
+tmp1/*find_physical_cluster*/=/*RF4:find_physical_cluster*/r808find_physical_cluster(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),a1)/*:RF4*/;
 }
 /*inspect]*/
 R=tmp1/*find_physical_cluster*/;
@@ -4262,43 +4676,43 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*LOADPATH*/void r807show(T807*C,T2 a1){
+/*LOADPATH*/void r808show(T808*C,T2 a1){
 T2 _i=0;
 T2 _t=0;
-/*RF3:show_tabs*/r807show_tabs(a1);
-/*:RF3*//*RF3:show_name*/r807show_name(C);
+/*RF3:show_tabs*/r808show_tabs(a1);
+/*:RF3*//*RF3:show_name*/r808show_name(C);
 /*:RF3*/if(/*RF8:>*/((int32_t)((/*RF2:distance*/(C)->_distance/*T3pppip*//*:RF2*/)))>(INT32_C(0))/*:RF8*/){
-/*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r807echo()/*:RF6*/),ms690_1043Abc690A);
-/*:RF3*//*RF3:put_integer*/r124put_integer((T124*)(/*RF6:echo*/r807echo()/*:RF6*/),(/*RF2:distance*/(C)->_distance/*T3pppip*//*:RF2*/));
-/*:RF3*//*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r807echo()/*:RF6*/),ms109_215Abc690A);
+/*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r808echo()/*:RF6*/),ms691_1043Abc691A);
+/*:RF3*//*RF3:put_integer*/r124put_integer((T124*)(/*RF6:echo*/r808echo()/*:RF6*/),(/*RF2:distance*/(C)->_distance/*T3pppip*//*:RF2*/));
+/*:RF3*//*RF3:put_string*/r124put_string((T124*)(/*RF6:echo*/r808echo()/*:RF6*/),ms109_215Abc691A);
 /*:RF3*/}
 else{
-/*RF3:put_new_line*/r124put_new_line((T124*)(/*RF6:echo*/r807echo()/*:RF6*/));
+/*RF3:put_new_line*/r124put_new_line((T124*)(/*RF6:echo*/r808echo()/*:RF6*/));
 /*:RF3*/}
 _t=/*RF8:+*/((int32_t)(a1))+(INT32_C(1))/*:RF8*/;
 _i=INT32_C(0);
 while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
+/*until*/if(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_upper/*iini*//*:RF2*/))/*:RF8*/) break;
 /*[inspectDynamicDispatch*/
-switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
-case 689:
-/*RF3:show*/r689show(((T689*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),_t);
+switch((((T0*)(/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/))->id)){
+case 690:
+/*RF3:show*/r690show(((T690*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),_t);
 /*:RF3*/break;
-case 768:
-/*RF3:show*/r768show(((T768*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),_t);
+case 769:
+/*RF3:show*/r769show(((T769*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),_t);
 /*:RF3*/break;
 default:;
-/*RF3:show*/r807show(((T807*)/*RF8:item*/((/*RF2:storage*/((T1076*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),_t);
+/*RF3:show*/r808show(((T808*)/*RF8:item*/((/*RF2:storage*/((T1077*)((/*RF2:classeses*/(C)->_classeses/*T3pppip*//*:RF2*/)))->_storage/*iini*//*:RF2*/))[_i]/*:RF8*/),_t);
 /*:RF3*/}
 /*inspect]*/
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
 }/*--*/
 
-/*LOADPATH*/T0*r807new_path(T0*a1,T0*a2,T0*a3){
+/*LOADPATH*/T0*r808new_path(T0*a1,T0*a2,T0*a3){
 T0* R=(void*)0;
 T0*_buffer=(void*)0;
-_buffer=ms111_0Abc807B;
+_buffer=ms111_0Abc808B;
 /*RF3:copy*/r7copy(((T7*)_buffer),a2);
 /*:RF3*//*[inspectDynamicDispatch*/
 switch((((T0*)(a1))->id)){
@@ -4325,21 +4739,21 @@ R=/*RF4:string*/r275string(_buffer)/*:RF4*/;
 return R;
 }/*--*/
 
-/*LOADPATH*/T0*r807new_name(T807*C,T0*a1,T2 a2){
+/*LOADPATH*/T0*r808new_name(T808*C,T0*a1,T2 a2){
 T0* R=(void*)0;
 T0*_buffer=(void*)0;
-_buffer=ms111_0Abc807C;
+_buffer=ms111_0Abc808C;
 /*RF3:copy*/r7copy(((T7*)_buffer),a1);
 /*:RF3*/if(((/*RF2:count*/(((T7*)_buffer))->_count/*Tiiiini*//*:RF2*/))==(INT8_C(0))){
 /*RF3:add_last*/r7add_last(((T7*)_buffer),((T3)'\043'));
 /*:RF3*//*RF3:append_in*/r2append_in(a2,_buffer);
 /*:RF3*/}
 else{
-if(/*RF4:has_prefix*/r7has_prefix(((T7*)_buffer),ms807_277Abc807A)/*:RF4*/){
+if(/*RF4:has_prefix*/r7has_prefix(((T7*)_buffer),ms808_277Abc808A)/*:RF4*/){
 /*RF3:remove_head*/r7remove_head(((T7*)_buffer),INT32_C(2));
 /*:RF3*/}
 }
-R=ms111_0Abc807D;
+R=ms111_0Abc808D;
 /*RF3:copy*/r7copy(((T7*)R),(/*RF2:name*/(C)->_name/*T3pppip*//*:RF2*/));
 /*:RF3*//*RF3:add_last*/r7add_last(((T7*)R),((T3)'\072'));
 /*:RF3*//*RF3:append*/r7append(((T7*)R),_buffer);
