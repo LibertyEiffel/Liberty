@@ -192,6 +192,9 @@ feature {}
                                    Assertion level was #(3).
                                    ]" # lbl # gen # ass_flag)
          sedb_breakpoint
+         debug
+            se_fault
+         end
          die_with_code(1)
       end
 
