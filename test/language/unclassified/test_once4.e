@@ -4,7 +4,10 @@
 class TEST_ONCE4
 
 create {}
-   make, a_make, b_make
+   make
+
+create {TEST_ONCE4}
+   a_make, b_make
 
 feature {ANY}
    value: INTEGER
