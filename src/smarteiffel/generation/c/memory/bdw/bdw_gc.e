@@ -180,7 +180,7 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
 
    malloc_closure (lt: LIVE_TYPE) is
       do
-         not_yet_implemented
+         cpp.pending_c_function_body.append(once "se_malloc(sizeof(void*))")
       end
 
    calloc (lt: LIVE_TYPE; n: PROCEDURE[TUPLE]) is
