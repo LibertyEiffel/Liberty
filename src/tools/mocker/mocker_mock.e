@@ -45,23 +45,24 @@ class #(1)
 
 inherit
    #(2)
+   MOCK_TYPED_OBJECT[#(3)]
 
-insert
-   MOCK_OBJECT
-
-feature {ANY}
-   expect: like expect_memory is
-      do
-         Result := expect_memory
-         if Result = Void then
-            create Result
-            expect_memory := Result
-         end
-      end
+create {#(3)}
+   make
 
 feature {}
-   expect_memory: #(3)
-                                 ]" # mock_name # source_name # expect_name)
+   make (a_expect: like expect_) is
+      require
+         a_expect /= Void
+      do
+         expect_ := a_expect
+      ensure
+         expect_ = a_expect
+      end
+
+   expect_: #(3)
+                                 ]"
+                                 # mock_name # source_name # expect_name)
 
          node.node_at(node.lower+5).accept(Current)
 
@@ -69,7 +70,8 @@ feature {}
 
 end -- class #(1)
 
-                                 ]" # mock_name)
+                                 ]"
+                                 # mock_name)
       end
 
 feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
@@ -97,12 +99,29 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
             create signature.make(node)
             output.put_new_line
             if signature.result_type = Void then
-               output.put_string(once "   #(1)#(2) is%N      do%N         expect.assert_#(1)#(3).call%N      end%N"
+               output.put_string(once "   #(1)#(2) is%N%
+                                      %      local%N%
+                                      %         exp: MOCK_PROCEDURE_EXPECTATION%N%
+                                      %      do%N%
+                                      %         exp := expect_.assert_#(1)#(3)%N%
+                                      %         if exp /= Void then%N%
+                                      %            exp.call%N%
+                                      %         end%N%
+                                      %      end%N"
                                  # signature.feature_name
                                  # signature.arguments
                                  # signature.arguments_list)
             else
-               output.put_string(once "   #(1)#(2): #(3) is%N      do%N         Result := expect.assert_#(1)#(4).item%N      end%N"
+               output.put_string(once "   #(1)#(2): #(3) is%N%
+                                      %      local%N%
+                                      %         exp: MOCK_FUNCTION_EXPECTATION[#(3)]%N%
+                                      %      do%N%
+                                      %         exp := expect_.assert_#(1)#(4)%N%
+                                      %         if exp /= Void then%N%
+                                      %            exp.call%N%
+                                      %            Result := exp.item%N%
+                                      %         end%N%
+                                      %      end%N"
                                  # signature.feature_name
                                  # signature.arguments
                                  # signature.result_type

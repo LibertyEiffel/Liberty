@@ -1,20 +1,29 @@
 class TEST_ECHO
 
+insert
+   EIFFELTEST_TOOLS
+
 create {}
    make
 
 feature {}
    make is
       local
-         echo: ECHO_MOCK
+         echo: ECHO_EXPECT
          echoer: ECHOER
       do
          create echo
-         create echoer.make(echo)
-         echo.expect.ping.times(1).done
-         echo.expect.echo("foo").then_return("foo")
+         create echoer.make(echo.mock)
+         expect(<<
+                echo.ping.times(3),
+                echo.echo("foo").then_return("foo"),
+                echo.echo("bar").times(0),
+                echo.echo("blah").times(2).then_return("blah"),
+                >>)
+         replay_all
          echoer.check_echo("foo")
-         echo.expect.echo("bar").times(0).done
+         echoer.check_echo("blah")
+         echoer.check_echo("blah")
       end
 
 end

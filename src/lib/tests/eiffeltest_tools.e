@@ -4,10 +4,14 @@
 deferred class EIFFELTEST_TOOLS
    --
    -- Just insert class EIFFELTEST_TOOLS in your TEST_* class.
-   -- See also command `eiffeltest'.
+   --
+   -- See also commands `eiffeltest' and `mocker'.
    --
 
-feature {ANY}
+insert
+   DISPOSABLE
+
+feature {ANY} -- Action when an assert fails
    when_test_fails (what_to_do: PROCEDURE[TUPLE[INTEGER, ABSTRACT_STRING, ABSTRACT_STRING, ABSTRACT_STRING]]) is
       require
          what_to_do /= Void
@@ -17,7 +21,29 @@ feature {ANY}
          test_failed.item = what_to_do
       end
 
-feature {} -- `assert' methods used by tests
+feature {ANY} -- Mock features
+   expect (expectations: TRAVERSABLE[MOCK_EXPECTATION]) is
+      local
+         scenario: MOCK_EXPECTATIONS
+      do
+         scenario.expect(expectations)
+      end
+
+   next_expectations is
+      local
+         scenario: MOCK_EXPECTATIONS
+      do
+         scenario.next
+      end
+
+   replay_all is
+      local
+         scenario: MOCK_EXPECTATIONS
+      do
+         scenario.replay_all
+      end
+
+feature {ANY} -- `assert' methods used by tests
    assert (test: BOOLEAN) is
          -- Check that `test' is actually True. If `test' is True, nothing happens except that the
          -- `assert_counter' is incremented by one. When `test' is False, an error message is printed
@@ -215,6 +241,14 @@ feature {}
          Result := label
       ensure
          Result = label
+      end
+
+feature {}
+   dispose is
+      local
+         scenario: MOCK_EXPECTATIONS
+      do
+         scenario.check_all_done
       end
 
 invariant

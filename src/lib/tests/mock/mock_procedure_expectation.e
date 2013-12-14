@@ -1,26 +1,42 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class MOCK_OBJECT
+class MOCK_PROCEDURE_EXPECTATION
 
-insert
-   DISPOSABLE
-   EIFFELTEST_TOOLS
+inherit
+   MOCK_EXPECTATION
+
+create {MOCK_EXPECT}
+   make
 
 feature {}
-   dispose is
+   do_call is
       do
-         message_assert(agent expect.all_done_message, expect.all_done)
+         if side_effect /= Void then
+            side_effect.call([])
+         end
       end
 
-   expect: MOCK_EXPECT is
-      deferred
+feature {ANY}
+   with_side_effect, infix "~>" (a_side_effect: PROCEDURE[TUPLE]): like Current is
+      require
+         not ready
+         not result_ready
+      do
+         side_effect := a_side_effect
+         result_ready := True
+         Result := Current
+      ensure
+         side_effect = a_side_effect
+         Result = Current
+         result_ready
       end
 
-invariant
-   expect /= Void
+feature {}
+   side_effect: PROCEDURE[TUPLE]
+   result_ready: BOOLEAN
 
-end -- class MOCK_OBJECT
+end -- class MOCK_PROCEDURE_EXPECTATION
 --
 -- Copyright (c) 2013 Cyril ADRIAN <cyril.adrian@gmail.com>
 --

@@ -18,7 +18,6 @@ log/loadpath.se
 message_formatter/
 misc/loadpath.se
 mmi/loadpath.se
-mock/
 ncurses/loadpath.se
 net/loadpath.se
 numeric/loadpath.se
@@ -30,6 +29,7 @@ signal/
 sorting/
 storage/loadpath.se
 string/loadpath.se
+tests/loadpath.se
 time/loadpath.se
 unicode/
 xml/loadpath.se

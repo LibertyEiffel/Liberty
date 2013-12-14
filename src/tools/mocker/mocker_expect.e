@@ -45,20 +45,43 @@ class #(1)
 
 insert
    MOCK_EXPECT
+      redefine default_create
+      end
+
+feature {ANY}
+   mock: #(2)
+
+feature {}
+   default_create is
+      do
+         create {#(3)} mock.make(Current)
+      end
+
+   target: MOCK_TYPED_OBJECT[like Current] is
+      local
+         t: #(3)
+      do
+         t ::= mock
+         Result := t
+      end
 
 
-                                 ]" # expect_name)
+                                 ]"
+                                 # expect_name # source_name # mock_name)
 
          node.node_at(node.lower+5).accept(Current)
 
          output.put_string(once "[
 end -- class #(1)
 
-                                 ]" # expect_name)
+                                 ]"
+                                 # expect_name)
       end
 
 feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
    visit_eiffel_non_terminal_node_impl (node: EIFFEL_NON_TERMINAL_NODE_IMPL) is
+      local
+         expectation_type: ABSTRACT_STRING
       do
          inspect node.name
          when "Class" then
@@ -82,45 +105,37 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
             create signature.make(node)
 
             if signature.result_type = Void then
-               output.put_line(once "[
-feature {ANY}
-   #(2)#(3): MOCK_PROCEDURE_EXPECTATION is
-      do
-         create Result
-         add_call("#(2)", #(4), Result)
-      end
-
-feature {#(1)}
-   assert_#(2)#(3): MOCK_PROCEDURE_EXPECTATION is
-      do
-         Result ::= check_call("#(2)", #(4))
-      end
-
-                                ]"
-                                # mock_name
-                                # signature.feature_name # signature.arguments
-                                # signature.arguments_tuple # signature.arguments_list)
+               expectation_type := once "MOCK_PROCEDURE_EXPECTATION"
             else
-               output.put_line(once "[
+               expectation_type := once "MOCK_FUNCTION_EXPECTATION[#(1)]" # signature.result_type
+            end
+
+            output.put_line(once "[
 feature {ANY}
-   #(2)#(3): MOCK_FUNCTION_EXPECTATION[#(6)] is
+   #(2)#(3): #(6) is
       do
-         create Result
-         add_call("#(2)", #(4), Result)
+         create Result.make(target, feature_name_#(2), #(4))
       end
 
 feature {#(1)}
-   assert_#(2)#(3): MOCK_FUNCTION_EXPECTATION[#(6)] is
+   assert_#(2)#(3): #(6) is
+      local
+         scenario: MOCK_EXPECTATIONS
       do
-         Result ::= check_call("#(2)", #(4))
+         Result ::= scenario.check_call(target, feature_name_#(2), #(4))
+         label_assert(feature_name_#(2), Result /= Void)
+      end
+
+   feature_name_#(2): FIXED_STRING is
+      once
+         Result := "#(2)".intern
       end
 
                                 ]"
                                 # mock_name
                                 # signature.feature_name # signature.arguments
                                 # signature.arguments_tuple # signature.arguments_list
-                                # signature.result_type)
-            end
+                                # expectation_type)
          else
             Precursor(node)
          end

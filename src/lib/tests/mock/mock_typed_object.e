@@ -1,29 +1,20 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class MOCK_PROCEDURE_EXPECTATION
+deferred class MOCK_TYPED_OBJECT[E_ -> MOCK_EXPECT]
 
 inherit
-   MOCK_EXPECTATION
+   MOCK_OBJECT
 
-feature {MOCK_OBJECT}
-   call is
-      do
-         if side_effect /= Void then
-            side_effect.call([])
-         end
-      end
-
-feature {ANY}
-   with_side_effect (a_side_effect: like side_effect) is
-      do
-         side_effect := a_side_effect
-      end
+insert
+   EIFFELTEST_TOOLS
 
 feature {}
-   side_effect: PROCEDURE[TUPLE]
+   expect_: E_ is
+      deferred
+      end
 
-end -- class MOCK_PROCEDURE_EXPECTATION
+end -- class MOCK_TYPED_OBJECT
 --
 -- Copyright (c) 2013 Cyril ADRIAN <cyril.adrian@gmail.com>
 --

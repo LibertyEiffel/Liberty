@@ -1,44 +1,28 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class MOCK_EXPECTATION
+deferred class MOCK_TIMES
 
-insert
-   ANY
-      redefine
-         default_create
+feature {MOCK_EXPECTATION}
+   can_call: BOOLEAN is
+      deferred
       end
 
-feature {ANY}
-   default_create is
-      do
-         if counter = Void then
-            create counter.set_item(1)
-         end
+   call is
+      require
+         can_call
+      deferred
       end
 
-feature {ANY}
-   times (how_many: INTEGER): like Current is
-      do
-         counter.set_item(how_many)
-         Result := Current
-      ensure
-         Result = Current
-         counter.item = how_many
+   all_called is
+      deferred
       end
 
-   done is
-      do
-         -- just to finish the expectation call chain, if there is no side effect
+   all_done: BOOLEAN is
+      deferred
       end
 
-feature {MOCK_EXPECT}
-   counter: COUNTER
-
-invariant
-   counter /= Void
-
-end -- class MOCK_EXPECTATION
+end -- class MOCK_TIMES
 --
 -- Copyright (c) 2013 Cyril ADRIAN <cyril.adrian@gmail.com>
 --
