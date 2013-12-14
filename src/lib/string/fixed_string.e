@@ -130,6 +130,7 @@ feature {ABSTRACT_STRING}
          is_interned
       end
 
+feature {ANY}
    is_interned: BOOLEAN
 
 feature {ANY} -- Other features:
