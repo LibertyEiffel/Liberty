@@ -7,24 +7,25 @@ insert
    GLOBALS
 
 feature {}
-   for_all_arguments__ (fal: FORMAL_ARG_LIST; type: TYPE; action: PROCEDURE[TUPLE[ARGUMENT_NAME_DEF, INTEGER]]) is
+   for_all_arguments__ (fal: FORMAL_ARG_LIST; type: TYPE; action: PROCEDURE[TUPLE[ARGUMENT_NAME_DEF, INTEGER]]; closure_rank: INTEGER) is
       require
-         fal /= Void
          type /= Void
          action /= Void
       local
          i: INTEGER, argument_name: ARGUMENT_NAME_DEF
       do
-         from
-            i := 1
-         until
-            i > fal.count
-         loop
-            argument_name := fal.name(i)
-            if argument_name.is_outside(type) then
-               action.call([argument_name, 1])
+         if fal /= Void then
+            from
+               i := 1
+            until
+               i > fal.count
+            loop
+               argument_name := fal.name(i)
+               if argument_name.is_outside(type) then
+                  action.call([argument_name, closure_rank])
+               end
+               i := i + 1
             end
-            i := i + 1
          end
       end
 
@@ -34,40 +35,46 @@ feature {}
          type /= Void
          action /= Void
       local
-         cf: E_ROUTINE
+         cf: E_ROUTINE; i: INTEGER
          fal: FORMAL_ARG_LIST; cfal: COLLECTION[FORMAL_ARG_LIST]
       do
          cf ::= agent_creation.context_features.fast_reference_at(type)
          if cf /= Void then
             fal := cf.arguments
-            if fal /= Void then
-               for_all_arguments__(fal, type, action)
-            end
+            for_all_arguments__(fal, type, action, 0)
             cfal := cf.closure_arguments
             if cfal /= Void then
-               cfal.do_all(agent for_all_arguments__(?, type, action))
+               from
+                  i := cfal.lower
+               until
+                  i > cfal.upper
+               loop
+                  for_all_arguments__(cfal.item(i), type, action, i - cfal.lower + 1)
+                  i := i + 1
+               end
             end
          end
       end
 
    for_all_locals__ (lvl: LOCAL_VAR_LIST; type: TYPE; action: PROCEDURE[TUPLE[LOCAL_NAME_DEF]]) is
       require
-         lvl /= Void
          type /= Void
          action /= Void
       local
          i: INTEGER; local_name: LOCAL_NAME_DEF
       do
-         from
-            i := 1
-         until
-            i > lvl.count
-         loop
-            local_name := lvl.name(i)
-            if local_name.is_used(type) and then local_name.is_outside(type) then
-               action.call([local_name])
+         if lvl /= Void then
+            from
+               i := 1
+            until
+               i > lvl.count
+            loop
+               local_name := lvl.name(i)
+               if local_name.is_used(type) and then local_name.is_outside(type) then
+                  action.call([local_name])
+               end
+               i := i + 1
             end
-            i := i + 1
          end
       end
 
@@ -77,18 +84,23 @@ feature {}
          type /= Void
          action /= Void
       local
-         cf: E_ROUTINE
+         cf: E_ROUTINE; i: INTEGER
          lvl: LOCAL_VAR_LIST; clvl: COLLECTION[LOCAL_VAR_LIST]
       do
          cf ::= agent_creation.context_features.fast_reference_at(type)
          if cf /= Void then
             lvl := cf.local_vars
-            if lvl /= Void then
-               for_all_locals__(lvl, type, action)
-            end
+            for_all_locals__(lvl, type, action)
             clvl := cf.closure_local_vars
             if clvl /= Void then
-               clvl.do_all(agent for_all_locals__(?, type, action))
+               from
+                  i := clvl.lower
+               until
+                  i > clvl.upper
+               loop
+                  for_all_locals__(clvl.item(i), type, action)
+                  i := i + 1
+               end
             end
          end
       end

@@ -395,6 +395,9 @@ feature {}
    inside_rescue_flag: BOOLEAN
          -- True during the parsing of a rescue clause.
 
+   inside_class_invariant_flag: BOOLEAN
+         -- True during the parsing of a class invariant.
+
    tuple_flag: BOOLEAN
          -- True when we are parsing the special tuple.e file.
 
@@ -2865,9 +2868,11 @@ feature {}
          end
          if a_keyword(fz_invariant) then
             sp := pos(start_line, start_column)
+            inside_class_invariant_flag := True
             hc := get_comment
             al := a_assertion
             last_class_text.set_invariant(sp, hc, al)
+            inside_class_invariant_flag := False
          end
          a_indexing(last_class_text, once "bottom")
          if a_keyword(fz_end) then
@@ -4360,7 +4365,7 @@ feature {}
          spos, rpos: POSITION
          c, l: INTEGER
          outer_feature: like tmp_feature
-         iff, ief, irf: BOOLEAN
+         iff, ief, irf, icif: BOOLEAN
          a: like arguments; lv: like local_vars
       do
          if closure_arguments = Void then
@@ -4370,13 +4375,16 @@ feature {}
             create closure_arguments.with_capacity(2, 0)
             create closure_local_vars.with_capacity(2, 0)
          end
-         closure_arguments.add_first(arguments)
-         closure_local_vars.add_first(local_vars)
+         if not inside_class_invariant_flag then
+            closure_arguments.add_first(arguments)
+            closure_local_vars.add_first(local_vars)
+         end
 
          outer_feature := tmp_feature
          iff := inside_function_flag
          ief := inside_ensure_flag
          irf := inside_rescue_flag
+         icif := inside_class_invariant_flag
          a := arguments
          lv := local_vars
 
@@ -4384,6 +4392,7 @@ feature {}
          inside_function_flag := False
          inside_ensure_flag := False
          inside_rescue_flag := False
+         inside_class_invariant_flag := False
          arguments := Void
          local_vars := Void
 
@@ -4441,6 +4450,7 @@ feature {}
                inside_function_flag := iff
                inside_ensure_flag := ief
                inside_rescue_flag := irf
+               inside_class_invariant_flag := icif
                arguments := a
                local_vars := lv
 
@@ -4461,12 +4471,15 @@ feature {}
             inside_function_flag := iff
             inside_ensure_flag := ief
             inside_rescue_flag := irf
+            inside_class_invariant_flag := icif
             arguments := a
             local_vars := lv
          end
 
-         closure_local_vars.remove_first
-         closure_arguments.remove_first
+         if not inside_class_invariant_flag then
+            closure_local_vars.remove_first
+            closure_arguments.remove_first
+         end
       end
 
    a_external: FEATURE_TEXT is

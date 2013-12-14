@@ -261,11 +261,11 @@ feature {}
                                          function_body.extend(' ')
                                       end
                                       function_body.append(once "CA_")
-                                      closure_rank.append_in(function_body)
+                                      (closure_rank+1).append_in(function_body)
                                       function_body.extend('_')
                                       argument_name.rank.append_in(function_body)
                                       function_body.append(once "=(u->CA_")
-                                      closure_rank.append_in(function_body)
+                                      (closure_rank+1).append_in(function_body)
                                       function_body.extend('_')
                                       argument_name.rank.append_in(function_body)
                                       function_body.append(once ");%N")
@@ -363,7 +363,7 @@ feature {}
                                          function_signature.extend(' ')
                                       end
                                       function_signature.append(once "CA_")
-                                      closure_rank.append_in(function_signature)
+                                      (closure_rank+1).append_in(function_signature)
                                       function_signature.extend('_')
                                       argument_name.rank.append_in(function_signature)
                                    end(?, type, ?)) --| **** TODO: closure on type
@@ -420,11 +420,11 @@ feature {}
                                 agent (argument_name: ARGUMENT_NAME_DEF; closure_rank: INTEGER) is
                                    do
                                       function_body.append(once "u->CA_")
-                                      closure_rank.append_in(function_body)
+                                      (closure_rank+1).append_in(function_body)
                                       function_body.extend('_')
                                       argument_name.rank.append_in(function_body)
                                       function_body.append(once "=CA_")
-                                      closure_rank.append_in(function_body)
+                                      (closure_rank+1).append_in(function_body)
                                       function_body.extend('_')
                                       argument_name.rank.append_in(function_body)
                                       function_body.append(once ";%N")
@@ -587,7 +587,7 @@ feature {}
                                          out_h.extend(' ')
                                       end
                                       out_h.append(once "CA_")
-                                      closure_rank.append_in(out_h)
+                                      (closure_rank+1).append_in(out_h)
                                       out_h.extend('_')
                                       argument_name.rank.append_in(out_h)
                                       out_h.append(once ";%N")

@@ -129,13 +129,27 @@ feature {AGENT_CREATION}
             end
          end
          for_all_argument_names(visited, type,
-                                agent (argument_name: ARGUMENT_NAME_DEF) is
+                                agent (argument_name: ARGUMENT_NAME_DEF; type_: TYPE; closure_rank: INTEGER) is
+                                   local
+                                      argument_tm: TYPE_MARK
                                    do
                                       if function_body.last /= '(' then
                                          function_body.extend(',')
                                       end
-                                      cpp.print_argument(argument_name.rank)
-                                   end(?))
+                                      if closure_rank = 0 then
+                                         cpp.print_argument(argument_name.rank)
+                                      else
+                                         argument_tm := argument_name.result_type.to_static(type_, False)
+                                         function_body.append(cpp.result_type.for(argument_tm))
+                                         if function_body.last /= '*' then
+                                            function_body.extend(' ')
+                                         end
+                                         function_body.append(once "CA_")
+                                         closure_rank.append_in(function_body)
+                                         function_body.extend('_')
+                                         argument_name.rank.append_in(function_body)
+                                      end
+                                   end(?,type,?)) --| **** TODO: closure on type
          for_all_local_names(visited, type,
                              agent (local_name: LOCAL_NAME_DEF) is
                                 do

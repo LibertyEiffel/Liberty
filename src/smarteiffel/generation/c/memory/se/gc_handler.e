@@ -497,17 +497,17 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
                                    local
                                       t_: TYPE
                                    do
-                                      t_ := argument_name.resolve_in(type)
+                                      t_ := argument_name.resolve_in(type_)
                                       if t_.is_reference then
                                          cpp.pending_c_function_body.append(once "gc_mark(u->CA_")
-                                         closure_rank.append_in(cpp.pending_c_function_body)
+                                         (closure_rank+1).append_in(cpp.pending_c_function_body)
                                          cpp.pending_c_function_body.extend('_')
                                          argument_name.rank.append_in(cpp.pending_c_function_body)
                                          cpp.pending_c_function_body.append(once ");%N")
                                       elseif need_mark.for(t_) then
                                          mark_in(t_.canonical_type_mark, cpp.pending_c_function_body, False)
                                          cpp.pending_c_function_body.append(once "(&(u->CA_")
-                                         closure_rank.append_in(cpp.pending_c_function_body)
+                                         (closure_rank+1).append_in(cpp.pending_c_function_body)
                                          cpp.pending_c_function_body.extend('_')
                                          argument_name.rank.append_in(cpp.pending_c_function_body)
                                          cpp.pending_c_function_body.append(once "));%N")
@@ -519,7 +519,7 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
                                 local
                                    t_: TYPE
                                 do
-                                   t_ := local_name.resolve_in(type)
+                                   t_ := local_name.resolve_in(type_)
                                    if t_.is_reference then
                                       cpp.pending_c_function_body.append(once "gc_mark(*(u->CL_")
                                       cpp.pending_c_function_body.append(local_name.to_string)

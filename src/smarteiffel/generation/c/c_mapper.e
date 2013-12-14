@@ -109,7 +109,9 @@ feature {}
                         if function_body.last /= '(' then
                            function_body.extend(',')
                         end
-                        function_body.append(once "CA_")
+                        function_body.append(once "/*")
+                        function_body.append(local_name.to_string)
+                        function_body.append(once "*/CA_")
                         (i - bf.closure_arguments.lower + 1).append_in(function_body)
                         function_body.extend('_')
                         j.append_in(function_body)
