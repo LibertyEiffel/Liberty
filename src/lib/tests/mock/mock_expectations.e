@@ -12,21 +12,36 @@ insert
 
 feature {EIFFELTEST_TOOLS}
    expect (expectations: TRAVERSABLE[MOCK_EXPECTATION]) is
+      require
+         not is_replaying
       do
          groups.last.expect(expectations)
       end
 
    next is
+      require
+         not is_replaying
       do
          groups.add_last(create {MOCK_EXPECTATION_GROUP}.make)
       end
 
    replay_all is
+      require
+         not is_replaying
       do
          check_index.set_item(groups.lower)
+      ensure
+         is_replaying
+      end
+
+   is_replaying: BOOLEAN is
+      do
+         Result := groups.valid_index(check_index.item)
       end
 
    check_all_done is
+      require
+         is_replaying
       do
          message_assert(agent all_done_message, all_done)
       end
@@ -37,6 +52,7 @@ feature {MOCK_EXPECT}
          a_target /= Void
          a_feature_name.is_interned
          a_arguments /= Void
+         is_replaying
       do
          from
          until
@@ -55,7 +71,7 @@ feature {MOCK_EXPECT}
 feature {}
    check_index: COUNTER is
       once
-         create Result
+         create Result.set_item(groups.lower - 1)
       end
 
    groups: FAST_ARRAY[MOCK_EXPECTATION_GROUP] is
