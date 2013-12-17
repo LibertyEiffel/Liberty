@@ -38,7 +38,9 @@ feature {}
          cf: E_ROUTINE; i: INTEGER
          fal: FORMAL_ARG_LIST; cfal: COLLECTION[FORMAL_ARG_LIST]
       do
-         cf ::= agent_creation.context_features.fast_reference_at(type)
+         if agent_creation.context_features /= Void then
+            cf ::= agent_creation.context_features.fast_reference_at(type)
+         end
          if cf /= Void then
             fal := cf.arguments
             for_all_arguments__(fal, type, action, 0)
@@ -87,7 +89,9 @@ feature {}
          cf: E_ROUTINE; i: INTEGER
          lvl: LOCAL_VAR_LIST; clvl: COLLECTION[LOCAL_VAR_LIST]
       do
-         cf ::= agent_creation.context_features.fast_reference_at(type)
+         if agent_creation.context_features /= Void then
+            cf ::= agent_creation.context_features.fast_reference_at(type)
+         end
          if cf /= Void then
             lvl := cf.local_vars
             for_all_locals__(lvl, type, action)
