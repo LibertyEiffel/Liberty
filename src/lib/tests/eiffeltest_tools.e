@@ -248,7 +248,9 @@ feature {}
       local
          scenario: MOCK_EXPECTATIONS
       do
-         scenario.check_all_done
+         if scenario.is_replaying then
+            scenario.check_all_done
+         end
       end
 
 invariant
