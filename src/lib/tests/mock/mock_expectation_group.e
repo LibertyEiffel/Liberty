@@ -5,33 +5,29 @@ class MOCK_EXPECTATION_GROUP
 
 insert
    EIFFELTEST_TOOLS
-      rename
-         expect as et_expect,
-         replay_all as et_replay_all
-      end
 
-create {MOCK_EXPECTATIONS}
+create {MOCK_EXPECTATION_GROUPS}
    make
 
-feature {MOCK_EXPECTATIONS}
-   expect (expectations: TRAVERSABLE[MOCK_EXPECTATION]) is
+feature {MOCK_EXPECTATION_GROUPS}
+   expect (a_expectations: TRAVERSABLE[MOCK_EXPECTATION]) is
       require
-         not expectations.exists(agent {MOCK_EXPECTATION}.ready)
+         not a_expectations.exists(agent {MOCK_EXPECTATION}.ready)
       do
-         expectations.do_all(agent (expectation: MOCK_EXPECTATION) is
-                                local
-                                   exps: FAST_ARRAY[MOCK_EXPECTATION]
-                                do
-                                   expectation.done
-                                   exps := scenario.fast_reference_at(expectation.target)
-                                   if exps = Void then
-                                      create exps.with_capacity(4)
-                                      scenario.add(exps, expectation.target)
-                                   end
-                                   exps.add_last(expectation)
-                                end (?))
+         a_expectations.do_all(agent (expectation: MOCK_EXPECTATION) is
+                                  local
+                                     exps: FAST_ARRAY[MOCK_EXPECTATION]
+                                  do
+                                     expectation.done
+                                     exps := expectations.fast_reference_at(expectation.target)
+                                     if exps = Void then
+                                        create exps.with_capacity(4)
+                                        expectations.add(exps, expectation.target)
+                                     end
+                                     exps.add_last(expectation)
+                                  end (?))
       ensure
-         expectations.for_all(agent {MOCK_EXPECTATION}.ready)
+         a_expectations.for_all(agent {MOCK_EXPECTATION}.ready)
       end
 
    check_call (a_target: MOCK_OBJECT; a_feature_name: FIXED_STRING; a_arguments: TUPLE): MOCK_EXPECTATION is
@@ -43,7 +39,7 @@ feature {MOCK_EXPECTATIONS}
          exps: FAST_ARRAY[MOCK_EXPECTATION]
          i: INTEGER
       do
-         exps := scenario.fast_reference_at(a_target)
+         exps := expectations.fast_reference_at(a_target)
          if exps /= Void then
             from
                i := exps.lower
@@ -62,8 +58,11 @@ feature {MOCK_EXPECTATIONS}
       end
 
    all_called is
+      local
+         p: PROCEDURE[TUPLE[MOCK_EXPECTATION]]
       do
-         scenario.do_all(agent {FAST_ARRAY[MOCK_EXPECTATION]}.do_all(agent {MOCK_EXPECTATION}.all_called))
+         p := agent {MOCK_EXPECTATION}.all_called
+         expectations.do_all(agent {FAST_ARRAY[MOCK_EXPECTATION]}.do_all(p))
       end
 
    all_done_message_in (message: STRING) is
@@ -73,7 +72,7 @@ feature {MOCK_EXPECTATIONS}
          p: PROCEDURE[TUPLE[MOCK_EXPECTATION]]
       do
          p := agent {MOCK_EXPECTATION}.all_done_message_in(message)
-         scenario.do_all(agent {FAST_ARRAY[MOCK_EXPECTATION]}.do_all(p))
+         expectations.do_all(agent {FAST_ARRAY[MOCK_EXPECTATION]}.do_all(p))
       end
 
    all_done: BOOLEAN is
@@ -81,16 +80,16 @@ feature {MOCK_EXPECTATIONS}
          p: PREDICATE[TUPLE[MOCK_EXPECTATION]]
       do
          p := agent {MOCK_EXPECTATION}.all_done
-         Result := scenario.for_all(agent {FAST_ARRAY[MOCK_EXPECTATION]}.for_all(p))
+         Result := expectations.for_all(agent {FAST_ARRAY[MOCK_EXPECTATION]}.for_all(p))
       end
 
 feature {}
    make is
       do
-         create scenario.make(hash_coder)
+         create expectations.make(hash_coder)
       end
 
-   scenario: EXT_HASHED_DICTIONARY[FAST_ARRAY[MOCK_EXPECTATION], MOCK_OBJECT]
+   expectations: EXT_HASHED_DICTIONARY[FAST_ARRAY[MOCK_EXPECTATION], MOCK_OBJECT]
 
    hash_coder: FUNCTION[TUPLE[MOCK_OBJECT], INTEGER] is
       once
@@ -103,13 +102,13 @@ feature {}
       end
 
 invariant
-   scenario.for_all(agent (exps: FAST_ARRAY[MOCK_EXPECTATION]; target: MOCK_OBJECT): BOOLEAN is
-                       do
-                          Result := exps.for_all(agent (exp: MOCK_EXPECTATION): BOOLEAN is
-                                                    do
-                                                       Result := exp.target = target
-                                                    end (?))
-                       end (?,?))
+   expectations.for_all(agent (exps: FAST_ARRAY[MOCK_EXPECTATION]; target: MOCK_OBJECT): BOOLEAN is
+                           do
+                              Result := exps.for_all(agent (exp: MOCK_EXPECTATION): BOOLEAN is
+                                                        do
+                                                           Result := exp.target = target
+                                                        end (?))
+                           end (?,?))
 
 end -- class MOCK_EXPECTATION_GROUP
 --

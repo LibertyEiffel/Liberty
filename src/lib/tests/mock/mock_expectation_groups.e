@@ -1,38 +1,53 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class MOCK_EXPECTATIONS
+class MOCK_EXPECTATION_GROUPS
 
-feature {EIFFELTEST_TOOLS}
+insert
+   EIFFELTEST_TOOLS
+   DISPOSABLE
+
+create {MOCK_EXPECTATIONS}
+   make
+
+feature {MOCK_EXPECTATIONS}
    expect (expectations: TRAVERSABLE[MOCK_EXPECTATION]) is
       require
          not is_replaying
       do
-         groups.expect(expectations)
+         groups.last.expect(expectations)
       end
 
    next is
       require
          not is_replaying
       do
-         groups.next
+         groups.add_last(create {MOCK_EXPECTATION_GROUP}.make)
       end
 
    replay_all is
       require
          not is_replaying
       do
-         groups.replay_all
+         check_index.set_item(groups.lower)
       ensure
          is_replaying
       end
 
    is_replaying: BOOLEAN is
       do
-         Result := groups.is_replaying
+         Result := groups.valid_index(check_index.item)
       end
 
-feature {MOCK_EXPECT}
+feature {}
+   check_all_done is
+      require
+         is_replaying
+      do
+         message_assert(agent all_done_message, all_done)
+      end
+
+feature {MOCK_EXPECTATIONS}
    check_call (a_target: MOCK_OBJECT; a_feature_name: FIXED_STRING; a_arguments: TUPLE): MOCK_EXPECTATION is
       require
          a_target /= Void
@@ -40,18 +55,55 @@ feature {MOCK_EXPECT}
          a_arguments /= Void
          is_replaying
       do
-         Result := groups.check_call(a_target, a_feature_name, a_arguments)
+         from
+         until
+            Result /= Void or else not groups.valid_index(check_index.item)
+         loop
+            Result := groups.item(check_index.item).check_call(a_target, a_feature_name, a_arguments)
+            if Result = Void then
+               groups.item(check_index.item).all_called
+               check_index.increment
+            end
+         end
       ensure
          Result /= Void implies Result.can_call(a_target, a_feature_name, a_arguments)
       end
 
 feature {}
-   groups: MOCK_EXPECTATION_GROUPS is
-      once
-         create Result.make
+   make is
+      do
+         create check_index.set_item(groups.lower - 1)
+         create groups.with_capacity(2)
+         groups.add_last(create {MOCK_EXPECTATION_GROUP}.make)
       end
 
-end -- class MOCK_EXPECTATIONS
+   check_index: COUNTER
+   groups: FAST_ARRAY[MOCK_EXPECTATION_GROUP]
+
+   all_done_message: STRING is
+      require
+         not all_done
+      do
+         Result := "Some features were not called:%N"
+         groups.do_all(agent {MOCK_EXPECTATION_GROUP}.all_done_message_in(Result))
+      end
+
+   all_done: BOOLEAN is
+      do
+         Result := groups.for_all(agent {MOCK_EXPECTATION_GROUP}.all_done)
+      end
+
+   dispose is
+      do
+         if is_replaying then
+            check_all_done
+         end
+      end
+
+invariant
+   not groups.is_empty
+
+end -- class MOCK_EXPECTATION_GROUPS
 --
 -- Copyright (c) 2013 Cyril ADRIAN <cyril.adrian@gmail.com>
 --

@@ -119,8 +119,6 @@ feature {ANY}
 
 feature {#(1)}
    assert_#(2)#(3): #(6) is
-      local
-         scenario: MOCK_EXPECTATIONS
       do
          Result ::= scenario.check_call(target, feature_name_#(2), #(4))
          label_assert(feature_name_#(2), Result /= Void)
