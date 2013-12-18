@@ -11,7 +11,7 @@ feature {ANY}
 
    make is
       local
-         cr: REFERENCE[CHARACTER]; a: ANY
+         cr: REFERENCE[CHARACTER]; a: ANY_REFERENCE
       do
          assert('a' = 'a')
          assert('a' < 'b')

@@ -1,39 +1,14 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class REFERENCE[E_]
+class ANY_REFERENCE
    --
-   -- This class is useful to share a common volatile expanded value between different objects or as the
-   -- result of a once function.
-   -- So in most cases the E_ type is expanded and the reference to the REFERENCE[E_] container object is
-   -- shared.
+   -- An opaque reference to anything.
+   --
+   -- See also REFERENCE, WEAK_REFERENCE
    --
 
-inherit
-   ANY_REFERENCE
-
-create {ANY}
-   default_create, set_item
-
-feature {ANY}
-   item: E_
-
-   set_item (i: like item) assign item is
-      do
-         item := i
-      ensure
-         item = i
-      end
-
-   clear is
-         -- Reset `item' with the default value.
-      local
-         default_item: like item
-      do
-         item := default_item
-      end
-
-end -- class REFERENCE
+end -- class ANY_REFERENCE
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

@@ -14,7 +14,7 @@ class WEAK_REFERENCE[G_]
    --
 
 inherit
-   ANY
+   ANY_REFERENCE
 
 create {ANY}
    set_item
