@@ -189,7 +189,7 @@ feature {CLIENT_LIST}
                   Result := True
                else
                   item_type_mark := item_type_mark.to_static(target_type, True)
-                  if item_type_mark.try_class_text = Void then
+                  if item_type_mark = Void or else item_type_mark.try_class_text = Void then
                      -- just an unknown class, no big deal in a client clause
                   else
                      Result := tm_type = item_type_mark.type or else tm_type.insert_inherit_test(item_type_mark.type) /= unrelated_code

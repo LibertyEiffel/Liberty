@@ -149,8 +149,9 @@ feature {ANY}
          has_been_specialized
       deferred
       ensure
-         Result.is_static
+         Result /= Void implies Result.is_static
          is_static implies Result = Current
+         -- Result is Void if the class itself does not actually exist (e.g. in client clauses)
       end
 
    signature_resolve_in (new_type: TYPE): TYPE is
