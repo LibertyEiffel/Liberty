@@ -106,6 +106,14 @@ feature {ANY}
             target_type := t.resolve_in(type)
             fs := fs.resolve_static_binding_for(target_declaration_type, target_type)
             af := fs.anonymous_feature(target_type)
+            if af = Void then
+               if not target.is_implicit_current then
+                  error_handler.add_position(target.start_position)
+               end
+               error_handler.add_position(feature_name.start_position)
+               error_handler.append(once "Missing anonymous feature for this call")
+               error_handler.print_as_internal_error
+            end
             function_and_argument_count_check(af, Void)
             if feature_stamp = Void then
                feature_stamp := fs

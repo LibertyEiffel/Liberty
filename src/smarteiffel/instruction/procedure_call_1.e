@@ -111,6 +111,14 @@ feature {ANY}
             fs := fs.resolve_static_binding_for(target_declaration_type, target_type)
          end
          af := fs.anonymous_feature(target_type)
+         if af = Void then
+            if not target.is_implicit_current then
+               error_handler.add_position(target.start_position)
+            end
+            error_handler.add_position(feature_name.start_position)
+            error_handler.append(once "Missing anonymous feature for this call")
+            error_handler.print_as_internal_error
+         end
          procedure_and_argument_count_check(af, arguments)
          if feature_name.name.to_string = as_call and then target_type.is_agent then
             create {AGENT_INSTRUCTION} Result.make(type, Current, target_type, t, arguments)

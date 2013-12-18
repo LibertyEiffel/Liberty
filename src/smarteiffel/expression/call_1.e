@@ -122,6 +122,14 @@ feature {ANY}
                smart_eiffel.unknown_feature_fatal_error(target, target_type, feature_name)
             end
             af := fs.anonymous_feature(target_type)
+            if af = Void then
+               if not target.is_implicit_current then
+                  error_handler.add_position(target.start_position)
+               end
+               error_handler.add_position(feature_name.start_position)
+               error_handler.append(once "Missing anonymous feature for this call")
+               error_handler.print_as_internal_error
+            end
             function_and_argument_count_check(af, arguments)
             create {AGENT_EXPRESSION} Result.make(type, Current, target_type, t, arguments)
          else
@@ -165,6 +173,14 @@ feature {ANY}
                fs := fs.resolve_static_binding_for(target_declaration_type, target_type)
             end
             af := fs.anonymous_feature(target_type)
+            if af = Void then
+               if not target.is_implicit_current then
+                  error_handler.add_position(target.start_position)
+               end
+               error_handler.add_position(feature_name.start_position)
+               error_handler.append(once "Missing anonymous feature for this call")
+               error_handler.print_as_internal_error
+            end
             function_and_argument_count_check(af, arguments)
 
             arg := arg.specialize_and_check(type, af, target_type, target.is_current)
