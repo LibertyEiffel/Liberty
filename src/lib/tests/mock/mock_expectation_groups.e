@@ -72,8 +72,8 @@ feature {MOCK_EXPECTATIONS}
 feature {}
    make is
       do
-         create check_index.set_item(groups.lower - 1)
          create groups.with_capacity(2)
+         create check_index.set_item(groups.lower - 1)
          groups.add_last(create {MOCK_EXPECTATION_GROUP}.make)
       end
 
