@@ -1001,8 +1001,8 @@ feature {ANY}
 feature {FEATURE_TEXT}
    set_closure (ca: like closure_arguments; clv: like closure_local_vars) is
       require
-         not ca.is_empty
-         not clv.is_empty
+         ca /= Void
+         clv /= Void
       do
          closure_arguments := ca
          closure_local_vars := clv

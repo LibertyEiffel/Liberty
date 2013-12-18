@@ -156,8 +156,8 @@ feature {}
 feature {EIFFEL_PARSER}
    set_inline_agent (ca: like closure_arguments; clv: like closure_local_vars) is
       require
-         not ca.is_empty
-         not clv.is_empty
+         ca /= Void
+         clv /= Void
       do
          is_inline_agent := True
          closure_arguments := ca.twin
