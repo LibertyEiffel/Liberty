@@ -443,7 +443,7 @@ feature {} -- The constructor
    make is
       do
          create times.make(13)
-         set_phase(getting_started)
+         set_phase_(getting_started)
          safety_check_state := safety_check_not_done
       end
 
