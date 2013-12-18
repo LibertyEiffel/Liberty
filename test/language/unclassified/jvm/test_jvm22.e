@@ -9,9 +9,9 @@ create {}
 feature {ANY}
    make is
       local
-         a: ARRAY[ANY]
+         a: ARRAY[ANY_REFERENCE]
       do
-         a := {ARRAY[ANY] 1, << create {REFERENCE[INTEGER_8]}.set_item(1) >> }
+         a := {ARRAY[ANY_REFERENCE] 1, << create {REFERENCE[INTEGER_8]}.set_item(1) >> }
          assert(a.upper = 1)
       end
 
