@@ -925,6 +925,9 @@ feature {}
          -- Initialize all `c_frame_descriptor' variables accordingly.
       require
          ace.no_check
+      local
+         cfal: COLLECTION[FORMAL_ARG_LIST]; clvl: COLLECTION[LOCAL_VAR_LIST]
+         i: INTEGER
       do
          c_frame_descriptor_format.clear_count
          c_frame_descriptor_locals.clear_count
@@ -932,7 +935,20 @@ feature {}
             cpp.c_frame_descriptor_in(run_feature.type_of_current.canonical_type_mark, c_frame_descriptor_format)
          end
          if run_feature.arguments /= Void then
-            args_c_frame_descriptor(run_feature.arguments, run_feature.type_of_current, False)
+            args_c_frame_descriptor(run_feature.arguments, run_feature.type_of_current, False, 0)
+         end
+         cfal := run_feature.base_feature.closure_arguments
+         if cfal /= Void then
+            from
+               i := cfal.lower
+            until
+               i > cfal.upper
+            loop
+               if cfal.item(i) /= Void then
+                  args_c_frame_descriptor(cfal.item(i), run_feature.type_of_current, False, i - cfal.lower + 1)
+               end
+               i := i + 1
+            end
          end
          if run_feature.is_once_function then
             c_frame_descriptor_locals.append(once "(void**)&")
@@ -946,13 +962,27 @@ feature {}
             cpp.c_frame_descriptor_in(run_feature.result_type, c_frame_descriptor_format)
          end
          if run_feature.local_vars /= Void then
-            args_c_frame_descriptor(run_feature.local_vars, run_feature.type_of_current, True)
+            args_c_frame_descriptor(run_feature.local_vars, run_feature.type_of_current, True, 0)
+         end
+         clvl := run_feature.base_feature.closure_local_vars
+         if clvl /= Void then
+            from
+               i := clvl.lower
+            until
+               i > clvl.upper
+            loop
+               if clvl.item(i) /= Void then
+                  args_c_frame_descriptor(clvl.item(i), run_feature.type_of_current, True, i - clvl.lower + 1)
+               end
+               i := i + 1
+            end
          end
       end
 
-   args_c_frame_descriptor (args: DECLARATION_LIST; type: TYPE; use_real_name: BOOLEAN) is
+   args_c_frame_descriptor (args: DECLARATION_LIST; type: TYPE; is_local: BOOLEAN; closure_rank: INTEGER) is
       require
          ace.no_check
+         is_local = ({LOCAL_VAR_LIST} ?:= args)
       local
          i: INTEGER; static_tm: TYPE_MARK
       do
@@ -964,9 +994,23 @@ feature {}
             if args.name(i).is_used(type) then
                c_frame_descriptor_format.append(args.name(i).to_string)
                static_tm := args.type_mark(i).to_static(type, False)
-               cpp.c_frame_descriptor_in(static_tm, c_frame_descriptor_format)
+               if closure_rank > 0 then
+                  cpp.c_frame_descriptor_closure_in(static_tm, c_frame_descriptor_format)
+               else
+                  cpp.c_frame_descriptor_in(static_tm, c_frame_descriptor_format)
+               end
                c_frame_descriptor_locals.append(once "(void**)")
-               if use_real_name then
+               if closure_rank > 0 then
+                  if is_local then
+                     c_frame_descriptor_locals.append(once "CL_")
+                     c_frame_descriptor_locals.append(args.name(i).to_string)
+                  else
+                     c_frame_descriptor_locals.append(once "CA_")
+                     closure_rank.append_in(c_frame_descriptor_locals)
+                     c_frame_descriptor_locals.extend('_')
+                     i.append_in(c_frame_descriptor_locals)
+                  end
+               elseif is_local then
                   if not args.name(i).is_outside(type) then
                      c_frame_descriptor_locals.extend('&')
                   end

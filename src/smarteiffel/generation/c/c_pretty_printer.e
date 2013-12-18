@@ -2307,6 +2307,25 @@ feature {C_COMPILATION_MIXIN}
          buffer.extend('%%')
       end
 
+   c_frame_descriptor_closure_in (type_mark: TYPE_MARK; buffer: STRING) is
+         -- Update `c_frame_descriptor_format' accordingly (for closure locals and arguments).
+      require
+         type_mark.is_static
+         buffer /= Void
+      local
+         lt: LIVE_TYPE
+      do
+         buffer.extend('%%')
+         lt := type_mark.type.live_type
+         buffer.extend('R')
+         if lt = Void then
+            buffer.extend('0')
+         else
+            lt.id.append_in(buffer)
+         end
+         buffer.extend('%%')
+      end
+
 feature {}
    begin_c_linkage (output: TEXT_FILE_WRITE) is
          -- Begin wrap for C linkage
@@ -3550,6 +3569,10 @@ feature {}
             print_local(local_name.to_string)
             pending_c_function_body.extend('=')
             if local_name.is_outside(type) then
+               pending_c_function_body.extend('(')
+               pending_c_function_body.append(result_type.for(static_tm))
+               pending_c_function_body.extend('*')
+               pending_c_function_body.extend(')')
                memory.malloc_closure(static_tm.type.live_type)
             else
                pending_c_function_body.append(initializer.for(static_tm))
