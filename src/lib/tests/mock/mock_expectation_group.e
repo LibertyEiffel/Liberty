@@ -58,29 +58,20 @@ feature {MOCK_EXPECTATION_GROUPS}
       end
 
    all_called is
-      local
-         p: PROCEDURE[TUPLE[MOCK_EXPECTATION]]
       do
-         p := agent {MOCK_EXPECTATION}.all_called
-         expectations.do_all(agent {FAST_ARRAY[MOCK_EXPECTATION]}.do_all(p))
+         expectations.do_all(agent {FAST_ARRAY[MOCK_EXPECTATION]}.do_all(agent {MOCK_EXPECTATION}.all_called))
       end
 
    all_done_message_in (message: STRING) is
       require
          message /= Void
-      local
-         p: PROCEDURE[TUPLE[MOCK_EXPECTATION]]
       do
-         p := agent {MOCK_EXPECTATION}.all_done_message_in(message)
-         expectations.do_all(agent {FAST_ARRAY[MOCK_EXPECTATION]}.do_all(p))
+         expectations.do_all(agent {FAST_ARRAY[MOCK_EXPECTATION]}.do_all(agent {MOCK_EXPECTATION}.all_done_message_in(message)))
       end
 
    all_done: BOOLEAN is
-      local
-         p: PREDICATE[TUPLE[MOCK_EXPECTATION]]
       do
-         p := agent {MOCK_EXPECTATION}.all_done
-         Result := expectations.for_all(agent {FAST_ARRAY[MOCK_EXPECTATION]}.for_all(p))
+         Result := expectations.for_all(agent {FAST_ARRAY[MOCK_EXPECTATION]}.for_all(agent {MOCK_EXPECTATION}.all_done))
       end
 
 feature {}
