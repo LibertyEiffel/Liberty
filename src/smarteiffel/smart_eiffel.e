@@ -79,7 +79,7 @@ feature {ANY}
 
    class_text (class_name: CLASS_NAME): CLASS_TEXT is
          -- Retrieve the corresponding memorized one or launch the `eiffel_parser' if the `class_name'
-         -- class is not yet loaded. When the `report_error' flag is False, no
+         -- class is not yet loaded. When the `class_name.allow_missing' flag is True, no
          -- error occurs even when the class is not found.
          -- (See also `loaded_class_text'.)
       require
@@ -87,7 +87,7 @@ feature {ANY}
       do
          Result := ace.class_text(class_name, True, Void)
       ensure
-         report_error implies Result /= Void
+         Result = Void implies class_name.allow_missing
       end
 
    loaded_class_text (class_name: CLASS_NAME): CLASS_TEXT is
@@ -111,7 +111,7 @@ feature {ANY}
       do
          Result := ace.class_text(class_name, True, cluster)
       ensure
-         report_error implies Result /= Void
+         Result = Void implies class_name.allow_missing
       end
 
    generating_type_used: BOOLEAN
