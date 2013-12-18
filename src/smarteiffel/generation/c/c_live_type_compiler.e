@@ -991,28 +991,24 @@ feature {}
          until
             i > args.count
          loop
-            if args.name(i).is_used(type) then
+            if args.name(i).is_used(type) and (closure_rank = 0 or else args.name(i).is_outside(type)) then
                c_frame_descriptor_format.append(args.name(i).to_string)
                static_tm := args.type_mark(i).to_static(type, False)
                if closure_rank > 0 then
-                  if args.name(i).is_outside(type) then
-                     cpp.c_frame_descriptor_closure_in(static_tm, c_frame_descriptor_format)
-                  end
+                  cpp.c_frame_descriptor_closure_in(static_tm, c_frame_descriptor_format)
                else
                   cpp.c_frame_descriptor_in(static_tm, c_frame_descriptor_format)
                end
                c_frame_descriptor_locals.append(once "(void**)")
                if closure_rank > 0 then
-                  if args.name(i).is_outside(type) then
-                     if is_local then
-                        c_frame_descriptor_locals.append(once "CL_")
-                        c_frame_descriptor_locals.append(args.name(i).to_string)
-                     else
-                        c_frame_descriptor_locals.append(once "CA_")
-                        closure_rank.append_in(c_frame_descriptor_locals)
-                        c_frame_descriptor_locals.extend('_')
-                        i.append_in(c_frame_descriptor_locals)
-                     end
+                  if is_local then
+                     c_frame_descriptor_locals.append(once "CL_")
+                     c_frame_descriptor_locals.append(args.name(i).to_string)
+                  else
+                     c_frame_descriptor_locals.append(once "CA_")
+                     closure_rank.append_in(c_frame_descriptor_locals)
+                     c_frame_descriptor_locals.extend('_')
+                     i.append_in(c_frame_descriptor_locals)
                   end
                elseif is_local then
                   if not args.name(i).is_outside(type) then
