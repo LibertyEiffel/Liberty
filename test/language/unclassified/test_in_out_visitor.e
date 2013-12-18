@@ -27,8 +27,8 @@ feature {}
       do
          bootstrap
          create {HASHED_SET[STRING]} done.make
-         create cn.unknown_position(ace.root_class_name)
-         class_text := smart_eiffel.class_text(cn, True)
+         create cn.unknown_position(ace.root_class_name, False)
+         class_text := smart_eiffel.class_text(cn)
          assert(class_text /= Void)
          class_text.accept(Current)
          assert(done.fast_has(class_text.name.to_string))
