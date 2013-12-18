@@ -69,7 +69,6 @@ feature {ANY}
          end
       end
 
-
 feature {NON_VOID_NO_DISPATCH}
    collect_precomputable_function (non_void_no_dispatch: NON_VOID_NO_DISPATCH; fs: FEATURE_STAMP; type: TYPE) is
       require

@@ -17,7 +17,17 @@ create {GC_HANDLER}
 
 feature {AGENT_TYPE_MARK}
    visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
+      local
+         lt: LIVE_TYPE
       do
+         lt := visited.type.live_type
+         if lt.type.has_local_closure then
+            gc_reference_sweep(visited, lt, False, True)
+            gc_reference_mark(visited, lt, True)
+            gc_reference_align_mark(visited, lt, True)
+            gc_reference_fsoc_model(visited, lt, True)
+            gc_reference_new(visited, lt, True)
+         end
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}

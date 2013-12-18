@@ -15,6 +15,10 @@ create {GC_HANDLER}
 feature {AGENT_TYPE_MARK}
    visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
       do
+         if visited.type.has_local_closure then
+            memory.free_in(visited, function_body, True)
+            function_body.append(once "=(void*)0;%N")
+         end
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}

@@ -20,7 +20,7 @@ insert
       end
    SINGLETON
 
-feature {ASSIGNMENT, EFFECTIVE_ARG_LIST, FEATURE_CALL,   MANIFEST_GENERIC, AGENT_LAUNCHER, CREATE_WRITABLE, AGENT_POOL}
+feature {ASSIGNMENT, EFFECTIVE_ARG_LIST, FEATURE_CALL, MANIFEST_GENERIC, AGENT_LAUNCHER, CREATE_WRITABLE, AGENT_POOL}
    collect_normal (source, destination: TYPE) is
          -- Collect normal allowed assignment of `source' into `destination' (see export and require).
       require

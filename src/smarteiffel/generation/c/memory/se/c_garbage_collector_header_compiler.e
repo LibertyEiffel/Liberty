@@ -19,6 +19,9 @@ feature {AGENT_TYPE_MARK}
          visited.id.append_in(out_h)
          out_h.append(once "(x) (((se_agent0*)(x))->gc_mark_agent_mold((se_agent*)(x)))%N%N")
          cpp.write_out_h_buffer
+         if visited.type.has_local_closure then
+            gc_reference_(visited, True)
+         end
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}
