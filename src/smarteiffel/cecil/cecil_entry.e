@@ -91,7 +91,7 @@ feature {ANY}
 
    collect (type: TYPE): TYPE is
       local
-         fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE
+         fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; lt: LIVE_TYPE
       do
          if code /= Void then
             Result := code.collect(type)
@@ -110,6 +110,7 @@ feature {ANY}
                error_handler.append(once "The type for a creation procedure cannot be deferred.%N")
                error_handler.print_as_fatal_error
             end
+            lt := smart_eiffel.collect_one_type(target_type, True)
          end
       end
 
