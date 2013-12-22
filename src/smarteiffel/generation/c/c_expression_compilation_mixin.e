@@ -140,11 +140,9 @@ feature {AGENT_CREATION}
                                          cpp.print_argument(argument_name.rank)
                                       else
                                          argument_tm := argument_name.result_type.to_static(type_, False)
+                                         function_body.append(once "(/*OUTCA*/")
                                          function_body.append(cpp.result_type.for(argument_tm))
-                                         if function_body.last /= '*' then
-                                            function_body.extend(' ')
-                                         end
-                                         function_body.append(once "CA_")
+                                         function_body.append(once ")CA_")
                                          closure_rank.append_in(function_body)
                                          function_body.extend('_')
                                          argument_name.rank.append_in(function_body)
