@@ -244,7 +244,7 @@ feature {ANY}
          code_accumulator.close_current_context
       end
 
-feature {CECIL_POOL}
+feature {CECIL_POOL, C_PRETTY_PRINTER}
    run_feature: RUN_FEATURE is
       do
          Result := feature_stamp.run_feature_for(target_type)

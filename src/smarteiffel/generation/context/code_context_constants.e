@@ -25,6 +25,8 @@ feature {}
    C_inside_some_wrapper: INTEGER is unique
          -- The feature to be called is inside some wrapper using the most general convention.
 
+   C_cecil_create: INTEGER is unique
+   
 end -- class CODE_CONTEXT_CONSTANTS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
