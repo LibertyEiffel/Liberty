@@ -172,7 +172,7 @@ feature {ANY} -- Interfacing with C string:
          if is_shared then
             unshare
          end
-         Result := storage.to_pointer
+         Result := storage.to_external + storage_lower
       end
 
 feature {STRING_HANDLER} -- Creation from C string:
