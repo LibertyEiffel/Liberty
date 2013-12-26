@@ -31,8 +31,11 @@ feature {ANY}
    target_type: TYPE
          -- Alias of `target_type_mark.type'. Static `target_type' of the target of the feature to be called.
 
-   feature_stamp: FEATURE_STAMP -- *** VIRER??? ***
+   feature_stamp: FEATURE_STAMP is
          -- The corresponding one of `target_type' and `feature_name'.
+      do
+         Result := target_type.lookup(feature_name)
+      end
 
    start_position: POSITION is
       do
@@ -136,11 +139,8 @@ feature {ANY}
 
 feature {ANY}
    anonymous_feature: ANONYMOUS_FEATURE is
-      local
-         fs: FEATURE_STAMP
       do
-         fs := target_type.lookup(feature_name)
-         Result := fs.anonymous_feature(target_type)
+         Result := feature_stamp.anonymous_feature(target_type)
       ensure
          Result /= Void
       end
@@ -151,7 +151,6 @@ feature {CECIL_FILE}
       require
          cecil_file /= Void
          target_type = Void
-         feature_stamp = Void
          may_report_an_error: error_handler.is_empty
       local
          dummy: BOOLEAN; fs: FEATURE_STAMP; fake_target: FAKE_TARGET
@@ -190,13 +189,11 @@ feature {CECIL_FILE}
                end
             end
          end
-         fs := target_type.lookup(feature_name)
          create fake_target.make(target_type_mark.start_position, target_type_mark)
-         code := fs.fake_feature_call(target_type_mark.start_position, fake_target, target_type)
+         code := feature_stamp.fake_feature_call(target_type_mark.start_position, fake_target, target_type)
          on_echo(cecil_file)
       ensure
          target_type /= Void
-         feature_stamp /= Void
          code /= Void
          may_report_an_error: error_handler.is_empty
       end
@@ -244,7 +241,7 @@ feature {ANY}
          code_accumulator.close_current_context
       end
 
-feature {CECIL_POOL}
+feature {ANY}
    run_feature: RUN_FEATURE is
       do
          Result := feature_stamp.run_feature_for(target_type)
