@@ -1605,7 +1605,7 @@ feature {ANY}
          code := stack_top.code
          inspect
             code
-         when C_create_expression, C_inside_some_wrapper then
+         when C_create_expression, C_inside_some_wrapper, C_cecil_create then
             pending_c_function_body.extend('a')
             index.append_in(pending_c_function_body)
          when C_inside_twin then
@@ -1686,7 +1686,7 @@ feature {C_COMPILATION_MIXIN}
                end
             when C_inside_some_wrapper then
                -- Well, we cannot put an `sedb_breakpoint' here.
-            when C_inside_twin, C_create_instruction, C_create_expression, C_precursor then
+            when C_inside_twin, C_create_instruction, C_create_expression, C_precursor, C_cecil_create then
                check
                   False
                end
@@ -1807,7 +1807,7 @@ feature {C_MAPPER}
          when C_direct_call then
             e := stack_top.target
             Result := not (e.is_current or assertion_checks_disabled)
-         when C_inside_twin, C_inside_some_wrapper, C_create_instruction, C_create_expression, C_precursor then
+         when C_inside_twin, C_inside_some_wrapper, C_create_instruction, C_create_expression, C_precursor, C_cecil_create then
             Result := False
          end
       end
@@ -1831,6 +1831,13 @@ feature {C_COMPILATION_MIXIN}
          rf := fs.run_feature_for(type)
          stack_top.set_static_type(rf.type_of_current)
          stack_top.set_internal_c_local(internal_c_local)
+      end
+
+   push_cecil_create (type: TYPE; rf: RUN_FEATURE) is
+      do
+         stack_push(C_cecil_create)
+         stack_top.set_type(type)
+         stack_top.set_static_type(rf.type_of_current)
       end
 
 feature {CREATE_INSTRUCTION, LOCAL_VAR_LIST, ONCE_ROUTINE_POOL, CECIL_POOL, C_COMPILATION_MIXIN}
@@ -2779,7 +2786,7 @@ feature {}
                end
                stack_top.internal_c_local.append_in(pending_c_function_body)
             end
-         when C_precursor, C_inside_some_wrapper then
+         when C_precursor, C_inside_some_wrapper, C_cecil_create then
             pending_c_function_body.extend('C')
          end
       end
@@ -4206,8 +4213,10 @@ feature {} -- CECIL_POOL
             internal_c_local.append_in(pending_c_function_body)
             internal_c_local.unlock
             pending_c_function_body.append(once ";%N}")
-         end
-         if cecil_entry.code = Void then
+            push_cecil_create(cecil_entry.target_type, cecil_entry.run_feature)
+            mapper.compile(cecil_entry.run_feature)
+            pop
+         elseif cecil_entry.code = Void then
             -- Well, nothing to do.
          elseif result_type_mark = Void then
             code_compiler.compile(cecil_entry.code, type)

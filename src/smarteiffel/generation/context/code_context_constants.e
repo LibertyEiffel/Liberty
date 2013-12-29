@@ -5,15 +5,15 @@ deferred class CODE_CONTEXT_CONSTANTS
 
 feature {}
    C_direct_call: INTEGER is unique
-         -- Target is sure not to be Void and there is only one possible type (target is 
+         -- Target is sure not to be Void and there is only one possible type (target is
          -- often Current, a manifest string or some expanded).
 
    C_create_instruction: INTEGER is unique
-         -- Target has been just created with a create instruction and need to be initialized 
+         -- Target has been just created with a create instruction and need to be initialized
          -- with some create procedure call.
 
    C_create_expression: INTEGER is unique
-         -- Target has been just created with a create expression and need to be initialized 
+         -- Target has been just created with a create expression and need to be initialized
          -- inside the create function.
 
    C_inside_twin: INTEGER is unique
@@ -24,6 +24,9 @@ feature {}
 
    C_inside_some_wrapper: INTEGER is unique
          -- The feature to be called is inside some wrapper using the most general convention.
+
+   C_cecil_create: INTEGER is unique
+         -- The target has just been created, the create instruction is called via CECIL
 
 end -- class CODE_CONTEXT_CONSTANTS
 --
