@@ -29,16 +29,16 @@ feature {ANY}
          if id = id_ then
             Result := Current
          else
-            Result := children.aggregate(agent (res, val: UI_WIDGET; key, inner_id: FIXED_STRING): UI_WIDGET is
+            Result := children.aggregate(agent (res, val: UI_WIDGET; key: FIXED_STRING): UI_WIDGET is
                                          do
                                             if res /= Void then
                                                Result := res
-                                            elseif key = inner_id then
+                                            elseif key = id_ then
                                                Result := val
                                             else
-                                               Result := val.find(inner_id)
+                                               Result := val.find(id_)
                                             end
-                                         end (?, ?, ?, id_), Void)
+                                         end (?, ?, ?), Void)
          end
       end
 
