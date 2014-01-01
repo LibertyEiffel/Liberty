@@ -100,7 +100,7 @@ feature {}
          if handler /= Void then
             if line.is_not_null then
                s := once ""
-               s.from_external(line)
+               s.from_external_copy(line)
             end
             handler.call([s])
          end
