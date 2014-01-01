@@ -29,16 +29,16 @@ feature {ANY}
          if id = id_ then
             Result := Current
          else
-            Result := children.aggregate(agent (res, val: UI_WIDGET; key, inner_id: FIXED_STRING): UI_WIDGET is
+            Result := children.aggregate(agent (res, val: UI_WIDGET; key: FIXED_STRING): UI_WIDGET is
                                          do
                                             if res /= Void then
                                                Result := res
-                                            elseif key = inner_id then
+                                            elseif key = id_ then
                                                Result := val
                                             else
-                                               Result := val.find(inner_id)
+                                               Result := val.find(id_)
                                             end
-                                         end (?, ?, ?, id_), Void)
+                                         end (?, ?, ?), Void)
          end
       end
 
@@ -62,16 +62,16 @@ feature {}
 
    connect_children (a_connect: UI_CONNECT_ITEM; a_connect_children: FAST_ARRAY[UI_CONNECT_ITEM]) is
       local
-         outer_connect: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_PANEL]
+         connect: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_PANEL]
       do
-         outer_connect ::= a_connect
-         a_connect_children.do_all(agent (connect: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_PANEL]; child: UI_CONNECT_ITEM) is
+         connect ::= a_connect
+         a_connect_children.do_all(agent (child: UI_CONNECT_ITEM) is
                                    local
                                       connect_child: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_WIDGET]
                                    do
                                       connect_child ::= child
                                       connect.item.add(connect_child.item)
-                                   end (outer_connect, ?))
+                                   end (?))
       end
 
 end -- class UI_PANEL

@@ -103,16 +103,17 @@ feature {}
          end
       end
 
-   aggregate (item: FUNCTION[TUPLE[CURSES_DESC_WIDGET], INTEGER]; outer_func: FUNCTION[TUPLE[INTEGER, INTEGER], INTEGER]): INTEGER is
+   aggregate (item: FUNCTION[TUPLE[CURSES_DESC_WIDGET], INTEGER];
+              func: FUNCTION[TUPLE[INTEGER, INTEGER], INTEGER]): INTEGER is
       local
-         outer_res: REFERENCE[INTEGER]
+         res: REFERENCE[INTEGER]
       do
-         create outer_res
-         widgets.do_all(agent (w: CURSES_DESC_WIDGET; res: REFERENCE[INTEGER]; val: FUNCTION[TUPLE[CURSES_DESC_WIDGET], INTEGER]; func: FUNCTION[TUPLE[INTEGER, INTEGER], INTEGER]) is
+         create res
+         widgets.do_all(agent (w: CURSES_DESC_WIDGET; val: FUNCTION[TUPLE[CURSES_DESC_WIDGET], INTEGER]) is
                         do
                            res.set_item(func.item([res.item, val.item([w])]))
-                        end(?, outer_res, item, outer_func))
-         Result := outer_res.item
+                        end(?, item))
+         Result := res.item
       end
 
 feature {}

@@ -32,16 +32,16 @@ feature {}
 
    connect_children (a_connect: UI_CONNECT_ITEM; a_connect_children: FAST_ARRAY[UI_CONNECT_ITEM]) is
       local
-         outer_connect: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_APPLICATION]
+         connect: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_APPLICATION]
       do
-         outer_connect ::= a_connect
-         a_connect_children.do_all(agent (connect: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_APPLICATION]; child: UI_CONNECT_ITEM) is
+         connect ::= a_connect
+         a_connect_children.do_all(agent (child: UI_CONNECT_ITEM) is
                                    local
                                       connect_child: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_WINDOW]
                                    do
                                       connect_child ::= child
                                       connect.item.add(connect_child.item)
-                                   end (outer_connect, ?))
+                                   end (?))
       end
 
 end -- class UI_APPLICATION

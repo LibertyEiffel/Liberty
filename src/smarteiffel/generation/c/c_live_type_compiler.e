@@ -1005,7 +1005,7 @@ feature {}
                      c_frame_descriptor_locals.append(once "CL_")
                      c_frame_descriptor_locals.append(args.name(i).to_string)
                   else
-                     c_frame_descriptor_locals.append(once "CA_")
+                     c_frame_descriptor_locals.append(once "&CA_")
                      closure_rank.append_in(c_frame_descriptor_locals)
                      c_frame_descriptor_locals.extend('_')
                      i.append_in(c_frame_descriptor_locals)
@@ -1017,8 +1017,7 @@ feature {}
                   c_frame_descriptor_locals.extend('_')
                   c_frame_descriptor_locals.append(args.name(i).to_string)
                else
-                  c_frame_descriptor_locals.extend('&')
-                  c_frame_descriptor_locals.extend('a')
+                  c_frame_descriptor_locals.append(once "&a")
                   i.append_in(c_frame_descriptor_locals)
                end
                c_frame_descriptor_locals.extend(',')

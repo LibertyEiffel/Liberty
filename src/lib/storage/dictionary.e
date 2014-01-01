@@ -87,7 +87,7 @@ feature {ANY} -- Removing:
          k /= Void
       deferred
       ensure
-         not has(k)
+         not fast_has(k)
       end
 
    clear_count is
