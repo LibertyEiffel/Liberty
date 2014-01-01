@@ -209,6 +209,16 @@ feature {XML_PARSER}
          fire_update_error(once "Unexpected entity", line, column)
       end
 
+   open_entity_url (a_entity: UNICODE_STRING; a_url: URL) is
+         -- XML_REPOSITORY doen't use entity urls
+      do
+         fire_update_error(once "Unexpected entityurl", last_line, last_column)
+      end
+
+   close_entity_url (a_entity: UNICODE_STRING; a_url: URL) is
+      do
+      end
+   
    data (a_data: UNICODE_STRING; line, column: INTEGER) is
       local
          i: INTEGER; break: BOOLEAN
