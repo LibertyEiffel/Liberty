@@ -5,7 +5,7 @@ expanded class USER_INTERFACE
 
 feature {ANY}
    run_curses (app: UI_APPLICATION) is
-         -- Create a new Curses user interface
+         -- Create a new Curses user interface and run an internal stack
       local
          job: CURSES_JOB
       do
@@ -14,26 +14,48 @@ feature {ANY}
          job.start
       end
 
+   stack_curses (app: UI_APPLICATION; stack: LOOP_STACK) is
+         -- Create a new Curses user interface and add it to the provided stack
+      do
+         not_yet_implemented
+      end
+
    run_readline (app: UI_APPLICATION) is
-         -- Create a new GNU Readline user interface
+         -- Create a new GNU Readline user interface and run an internal stack
       local
-         stack: LOOP_STACK; job: READLINE_JOB
+         stack: LOOP_STACK
       do
          create stack.make
-         create job.connect(app, agent stack.add_job)
-         stack.add_job(job)
+         stack_readline(app, stack)
          stack.run
       end
 
-   run_web (app: UI_APPLICATION) is
-         -- Create a new Web user interface (actually a web server)
+   stack_readline (app: UI_APPLICATION; stack: LOOP_STACK) is
+         -- Create a new GNU Readline user interface and add it to the provided stack
       local
-         stack: LOOP_STACK; job: WEB_JOB
+         job: READLINE_JOB
       do
-         create stack.make
          create job.connect(app, agent stack.add_job)
          stack.add_job(job)
+      end
+
+   run_web (app: UI_APPLICATION) is
+         -- Create a new Web user interface (actually a web server) and run an internal stack
+      local
+         stack: LOOP_STACK
+      do
+         create stack.make
+         stack_web(app, stack)
          stack.run
+      end
+
+   stack_web (app: UI_APPLICATION; stack: LOOP_STACK) is
+         -- Create a new Web user interface (actually a web server) and add it to the provided stack
+      local
+         job: WEB_JOB
+      do
+         create job.connect(app, agent stack.add_job)
+         stack.add_job(job)
       end
 
 end -- class USER_INTERFACE
