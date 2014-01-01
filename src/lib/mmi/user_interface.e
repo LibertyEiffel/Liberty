@@ -3,21 +3,29 @@
 --
 expanded class USER_INTERFACE
 
+insert
+   NCURSES_HANDLER
+
 feature {ANY}
    run_curses (app: UI_APPLICATION) is
          -- Create a new Curses user interface and run an internal stack
       local
-         job: CURSES_JOB
+         stack: LOOP_STACK
       do
-         -- the loop stack is controlled by the ncurses framework
-         create job.connect(app)
-         job.start
+         create stack.make
+         start_curses(app, stack)
       end
 
-   stack_curses (app: UI_APPLICATION; stack: LOOP_STACK) is
-         -- Create a new Curses user interface and add it to the provided stack
+   start_curses (app: UI_APPLICATION; stack: LOOP_STACK) is
+         -- Create a new Curses user interface, add it to the provided stack, *and* run the stack.
+         -- (The loop stack is controlled by the ncurses framework)
+      local
+         nt: NCURSES_TOOLS
+         job: CURSES_JOB
       do
-         not_yet_implemented
+         nt.ncurses.set_loop_stack(stack)
+         create job.connect(app)
+         job.start
       end
 
    run_readline (app: UI_APPLICATION) is
