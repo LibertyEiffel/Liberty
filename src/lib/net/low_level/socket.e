@@ -15,6 +15,18 @@ insert
 feature {SOCKET_HANDLER}
    default_buffer_size: INTEGER is 8192
 
+   set_sync(a_sync: BOOLEAN) is
+         -- set blocking mode for reading, True is blocking, False nonblocking
+      deferred
+      ensure
+         sync = a_sync
+      end
+
+   sync: BOOLEAN is
+         -- the blocking mode for reading from the socket, True is blocking, False nonblocking
+      deferred
+      end
+   
    is_connected: BOOLEAN is
       deferred
       ensure

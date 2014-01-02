@@ -34,10 +34,12 @@ feature {ANY}
    can_read_character: BOOLEAN is
          -- Can be ''temporarily'' False because the socket does not yet have available data
       do
-         if delay_read then
-            delayed_read
-         end
-         if is_remote_connected then
+         if socket.sync then
+            Result := is_connected
+         else
+            if delay_read then
+               delayed_read
+            end
             Result := not end_of_stream or else in_buffer.valid_index(next_index)
          end
       end
@@ -87,6 +89,18 @@ feature {ANY}
    error: STRING is
       do
          Result := socket.error
+      end
+
+   set_blocking is
+         -- set blocking read mode for the socket
+      do
+         socket.set_sync(True)
+      end
+
+   set_nonblocking is
+         -- set non blocking read mode for the socket
+      do
+         socket.set_sync(False)
       end
 
 feature {}
@@ -224,17 +238,19 @@ feature {}
             -- It means that a real read operation was performed, or the stream is newly connected.
             -- Otherwise, nothing is to be done.
             if in_buffer.valid_index(index + 1) then
+               -- not yet all data consumed
                check
                   not end_of_stream
                end
                next_index := index + 1
             elseif socket.is_connected then
+               -- read data
                socket.read
                if socket.is_connected then
                   last_read := socket.last_read
                   if last_read.is_empty then
                      end_of_stream := True
-                     --next_index := index + 1
+                     next_index := index + 1
                   else
                      end_of_stream := False
                      -- Remove all previously read characters but the last one (to be able to unread once).
@@ -243,7 +259,7 @@ feature {}
                         beginning_of_stream := False
                         in_buffer.put(in_buffer.last, in_buffer.lower)
                         in_buffer.set_count(1)
-                        next_index := in_buffer.lower + 1
+                        next_index := in_buffer.lower + 1 -- set out-of-bound next_index to signal can_read_character = False
                      else
                         check
                            beginning_of_stream
@@ -258,11 +274,11 @@ feature {}
                   end
                else
                   end_of_stream := True
-                  --next_index := index + 1
+                  next_index := index + 1
                end
             else
                end_of_stream := True
-               --next_index := index + 1
+               next_index := index + 1
             end
          end
       ensure
@@ -315,6 +331,7 @@ feature {}
          out_buffer := ""
          socket.when_disconnected(agent socket_disconnected(?))
          beginning_of_stream := True
+         end_of_stream := True
       ensure
          at_beginning: beginning_of_stream and then index = in_buffer.lower - 1
          must_ensure_read: next_index = index

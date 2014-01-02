@@ -71,6 +71,18 @@ feature {SOCKET_HANDLER}
 
    fd: INTEGER
 
+   set_sync (a_sync: like sync) is
+      do
+         sync := a_sync
+         if a_sync then
+            buffer_size := 1
+         else
+            buffer_size := default_buffer_size
+         end
+      end
+
+   sync: BOOLEAN
+
 feature {}
    connect (a_fd: like fd) is
       do
@@ -84,21 +96,8 @@ feature {}
          delay_read := False
       end
 
-   sync: BOOLEAN
    buffer_size: like default_buffer_size
    delay_read: BOOLEAN
-
-   set_sync (a_sync: like sync) is
-      do
-         sync := a_sync
-         if a_sync then
-            buffer_size := 1
-         else
-            buffer_size := default_buffer_size
-         end
-      ensure
-         sync = a_sync
-      end
 
    delayed_read is
       require
