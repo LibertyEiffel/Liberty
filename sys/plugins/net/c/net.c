@@ -43,7 +43,7 @@ static void set_error(void) {
   int err = net_errno;
   switch(err) {
   case 0:
-  case EAGAIN:
+      /*  case EAGAIN: handled by net_last_error_try_again */
     clear_error();
     break;
   default:

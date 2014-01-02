@@ -111,6 +111,7 @@ feature {}
          if count < 0 then
             if net_last_error_try_again then
                count := 0
+               last_delayed_read.clear_count
                debug ("socket")
                   log.trace.put_line(once "error while reading from socket: #(1) (will retry)" # last_error)
                end
