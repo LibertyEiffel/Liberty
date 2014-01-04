@@ -113,7 +113,7 @@ feature {ANY}
          if closure_rank = 0 then
             fal := af.arguments
          else
-            fal := af.closure_arguments.item(closure_rank - 1)
+            fal := af.closure_arguments.item(closure_rank - 1 + af.closure_arguments.lower)
             check
                fal.name(rank).is_outside(type)
                is_outside
