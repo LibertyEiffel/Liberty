@@ -701,6 +701,9 @@ feature {ARGUMENT_NAME_REF}
    visit_argument_name_ref (visited: ARGUMENT_NAME_REF) is
       do
          if visited.closure_rank = 0 then
+            function_body.append(once "/*`")
+            function_body.append(visited.to_string)
+            function_body.append(once "'*/")
             cpp.print_argument(visited.rank)
          else
             function_body.append(once "(/*OUTCA:`")

@@ -70,7 +70,16 @@ feature {FAKE_TUPLE}
 feature {ARGUMENT_NAME_REF}
    visit_argument_name_ref (visited: ARGUMENT_NAME_REF) is
       do
-         cpp.print_argument(visited.rank)
+         if visited.closure_rank = 0 then
+            cpp.print_argument(visited.rank)
+         else
+            function_body.append(once "/*`")
+            function_body.append(visited.to_string)
+            function_body.append(once "'*/CA_")
+            visited.closure_rank.append_in(function_body)
+            function_body.extend('_')
+            visited.rank.append_in(function_body)
+         end
       end
 
 feature {LOOP_VARIANT}
