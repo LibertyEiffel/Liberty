@@ -67,7 +67,7 @@ feature {RUNNER_INSTRUCTIONS}
       end
 
 feature {LOCAL_NAME_REF}
-   visit_local_name2 (visited: LOCAL_NAME_REF) is
+   visit_local_name_ref (visited: LOCAL_NAME_REF) is
       do
          current_frame.set_local_object(visited.to_string, value)
          entity_type := visited.resolve_in(current_frame.type_of_current)

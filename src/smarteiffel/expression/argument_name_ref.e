@@ -19,6 +19,7 @@ feature {ANY}
    closure_rank: INTEGER
          -- 0 if the local is declared in the function scope; >0 if the local is declared in the
          -- nth enclosing function (i.e. available via a closure)
+         -- Note: the `formal_arg_list' will link to the good one.
 
    rank: INTEGER
 
@@ -88,6 +89,7 @@ feature {ANY}
          end
          if fal.name(rank).is_outside(type) then
             Result := as_outside
+            Result.set_formal_arg_list(fal)
          else
             Result := Current
          end
@@ -111,7 +113,7 @@ feature {ANY}
          if closure_rank = 0 then
             fal := af.arguments
          else
-            fal := af.closure_arguments.item(closure_rank - 1 + af.closure_arguments.lower)
+            fal := af.closure_arguments.item(closure_rank - 1)
             check
                fal.name(rank).is_outside(type)
                is_outside
@@ -130,7 +132,7 @@ feature {ANY}
 
    accept (visitor: ARGUMENT_NAME_REF_VISITOR) is
       do
-         visitor.visit_argument_name2(Current)
+         visitor.visit_argument_name_ref(Current)
       end
 
 feature {ARGUMENT_NAME_REF}
@@ -168,19 +170,25 @@ feature {}
       require
          not sp.is_unknown
          r.in_range(1, fal.count)
+         cr >= 0
       do
          start_position := sp
          formal_arg_list := fal
          rank := r
          closure_rank := cr
+         is_outside := cr > 0
       ensure
          start_position = sp
+         formal_arg_list = fal
          rank = r
          closure_rank = cr
       end
 
 invariant
-   formal_arg_list /= Void
+   not start_position.is_unknown
+   rank.in_range(1, formal_arg_list.count)
+   closure_rank >= 0
+   closure_rank /= 0 implies is_outside
 
 end -- class ARGUMENT_NAME_REF
 --

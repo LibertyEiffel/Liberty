@@ -481,7 +481,7 @@ feature {}
 
    set_and_specialize_body (lv: LOCAL_VAR_LIST; rb: INSTRUCTION) is
       local
-         local_vars, lv_memory: LOCAL_VAR_LIST; clv_memory: COLLECTION[LOCAL_VAR_LIST]
+         local_vars, lv_memory: LOCAL_VAR_LIST; clv_memory: FAST_ARRAY[LOCAL_VAR_LIST]
          routine_body: INSTRUCTION
       do
          if lv /= Void then

@@ -102,6 +102,7 @@ feature {ANY}
                error_handler.print_as_warning
             end
             Result := as_outside
+            Result.set_local_var_list(lvl)
          else
             Result := Current
          end
@@ -121,7 +122,6 @@ feature {ANY}
       local
          af: ANONYMOUS_FEATURE; er: E_ROUTINE; lvl: LOCAL_VAR_LIST
       do
-         local_var_list.name(rank).live_reference_counter_increment
          af := smart_eiffel.context_feature
          er ::= af
          if closure_rank = 0 then
@@ -129,10 +129,10 @@ feature {ANY}
          else
             lvl := er.closure_local_vars.item(closure_rank - 1 + er.closure_local_vars.lower)
          end
+         lvl.name(rank).live_reference_counter_increment
          if local_var_list = lvl then
             Result := Current
          else
-            lvl.name(rank).live_reference_counter_increment
             Result := twin
             Result.set_local_var_list(lvl)
          end
@@ -140,7 +140,7 @@ feature {ANY}
 
    accept (visitor: LOCAL_NAME_REF_VISITOR) is
       do
-         visitor.visit_local_name2(Current)
+         visitor.visit_local_name_ref(Current)
       end
 
 feature {LOCAL_NAME_REF}
@@ -175,14 +175,18 @@ feature {}
          closure_rank := cr
          written_declaration_type_mark := lvl.type_mark(r)
          lvl.name(r).parsing_reference_counter_increment
+         is_outside := cr > 0
       ensure
          start_position = sp
          local_var_list = lvl
          rank = r
+         closure_rank = cr
       end
 
 invariant
-   local_var_list /= Void
+   rank.in_range(1, local_var_list.count)
+   closure_rank >= 0
+   closure_rank /= 0 implies is_outside
 
 end -- class LOCAL_NAME_REF
 --

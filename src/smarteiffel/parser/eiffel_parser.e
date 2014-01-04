@@ -1152,7 +1152,7 @@ feature {}
          if args /= Void then
             rank := args.rank_of(token_buffer.buffer)
             if rank > 0 then
-               last_expression := token_buffer.to_argument_name2(args, rank, closure_rank)
+               last_expression := token_buffer.to_argument_name_ref(args, rank, closure_rank)
                Result := True
                if skip2(':', '=') or else skip3(':', ':', '=') or else skip2('?', '=') then
                   error_handler.add_position(pos(start_line, start_column))
@@ -1171,13 +1171,16 @@ feature {}
       local
          i: INTEGER
       do
-         from
-            Result := a_argument_(arguments, 0)
-         until
-            Result or else closure_arguments = Void or else i >= closure_arguments.count
-         loop
-            Result := a_argument_(closure_arguments.item(i + closure_arguments.lower), i + 1)
-            i := i + 1
+         Result := a_argument_(arguments, 0)
+         if closure_arguments /= Void then
+            from
+               i := closure_arguments.lower
+            until
+               Result or else i > closure_arguments.upper
+            loop
+               Result := a_argument_(closure_arguments.item(i), i - closure_arguments.lower + 1)
+               i := i + 1
+            end
          end
       end
 
@@ -1243,7 +1246,7 @@ feature {}
                when 0 then
                   -- Waiting for the first name of a group.
                   if a_ordinary_feature_name_or_local_name then
-                     name := token_buffer.to_argument_name1
+                     name := token_buffer.to_argument_name_def
                      check_name_rank_and_closure(name)
                      state := 1
                   elseif skip1(')') then
@@ -1271,7 +1274,7 @@ feature {}
                when 2 then
                   -- Waiting for a name (not the first).
                   if a_ordinary_feature_name_or_local_name then
-                     name := token_buffer.to_argument_name1
+                     name := token_buffer.to_argument_name_def
                      check_name_rank_and_closure(name)
                      state := 1
                   elseif cc = ',' or else cc = ';' then
@@ -1343,9 +1346,9 @@ feature {}
          %the compiler.")
       end
 
-   a_local_name1: BOOLEAN is
+   a_local_name_def: BOOLEAN is
          -- Used inside `a_local_var_list' in order to detect a LOCAL_NAME_DEF name.
-         -- See also `a_local_name2' and use the good one.
+         -- See also `a_local_name_ref' and use the good one.
       local
          backward_column: INTEGER; stop, lower_case_letter_encountered, may_be_a_keyword: BOOLEAN
          not_an_identifier: BOOLEAN
@@ -1446,8 +1449,8 @@ feature {}
             inspect
                state
             when S_waiting_for_the_first_name_of_a_group then
-               if a_local_name1 then
-                  name := token_buffer.to_local_name1
+               if a_local_name_def then
+                  name := token_buffer.to_local_name_def
                   state := S_waiting_for_colon_or_semicolon
                   check_local_var_rank_and_closure(name)
                elseif cc = ',' or else cc = ';' then
@@ -1482,8 +1485,8 @@ feature {}
                   state := S_waiting_for_a_second_local_name
                end
             when S_waiting_for_a_second_local_name then
-               if a_local_name1 then
-                  name := token_buffer.to_local_name1
+               if a_local_name_def then
+                  name := token_buffer.to_local_name_def
                   state := S_waiting_for_colon_or_semicolon
                   check_local_var_rank_and_closure(name)
                elseif cc = ',' or else cc = ';' then
@@ -1541,16 +1544,16 @@ feature {}
          end
       end
 
-   a_local_name2_ (vars: like local_vars; closure_rank: INTEGER): BOOLEAN is
+   a_local_name_ref_ (vars: like local_vars; closure_rank: INTEGER): BOOLEAN is
          -- Used to detect the usage of some local variable.
-         -- See also `a_local_name1' and use the good one.
+         -- See also `a_local_name_def' and use the good one.
       local
          rank: INTEGER
       do
          if vars /= Void then
             rank := vars.rank_of(token_buffer.buffer)
             if rank > 0 then
-               last_expression := token_buffer.to_local_name2(vars, rank, closure_rank)
+               last_expression := token_buffer.to_local_name_ref(vars, rank, closure_rank)
                Result := True
                if inside_ensure_flag then
                   error_handler.add_position(last_expression.start_position)
@@ -1569,17 +1572,20 @@ feature {}
          end
       end
 
-   a_local_name2: BOOLEAN is
+   a_local_name_ref: BOOLEAN is
       local
          i: INTEGER
       do
-         from
-            Result := a_local_name2_(local_vars, 0)
-         until
-            Result or else closure_local_vars = Void or else i >= closure_local_vars.count
-         loop
-            Result := a_local_name2_(closure_local_vars.item(i + closure_local_vars.lower), i + 1)
-            i := i + 1
+         Result := a_local_name_ref_(local_vars, 0)
+         if closure_local_vars /= Void then
+            from
+               i := closure_local_vars.lower
+            until
+               Result or else i > closure_local_vars.upper
+            loop
+               Result := a_local_name_ref_(closure_local_vars.item(i), i - closure_local_vars.lower + 1)
+               i := i + 1
+            end
          end
       end
 
@@ -1945,7 +1951,7 @@ feature {}
          end
       end
 
-   a_base_class_name1 is
+   a_base_class_name_def is
          -- Read the current class text name which is just after the "class" keyword.
       local
          cn: CLASS_NAME; bc: CLASS_TEXT
@@ -2167,7 +2173,7 @@ feature {}
                create {RESULT} local_name.make(sp)
                create {ADDRESS_OF} last_expression.with_local(local_name)
             elseif a_ordinary_feature_name_or_local_name then
-               if a_local_name2 then
+               if a_local_name_ref then
                   create {ADDRESS_OF} last_expression.with_local(last_expression)
                else
                   sfn := token_buffer.to_feature_name
@@ -2348,7 +2354,7 @@ feature {}
             end
          elseif a_ordinary_feature_name_or_local_name then
             Result := True
-            if a_local_name2 then
+            if a_local_name_ref then
                writable := last_expression
                if skip2(':', '=') then
                   if a_expression then
@@ -2836,7 +2842,7 @@ feature {}
             error_handler.append(once "Keyword %"class%" expected.")
             error_handler.print_as_fatal_error
          end
-         a_base_class_name1
+         a_base_class_name_def
          a_formal_generic_list
          last_class_text.finish_create
          if a_keyword(fz_obsolete) then
@@ -4320,7 +4326,7 @@ feature {}
          elseif a_ordinary_feature_name_or_local_name then
             if a_argument then
                Result := a_r10(False, last_expression, Void, Void)
-            elseif a_local_name2 then
+            elseif a_local_name_ref then
                writable := last_expression
                if skip3('?', ':', '=') then
                   if not a_expression then
@@ -6055,7 +6061,7 @@ feature {}
          --  ++              "separate" static_type_mark
          --  ++
       local
-         sp: POSITION; argument_name2: ARGUMENT_NAME_REF
+         sp: POSITION; argument_name_ref: ARGUMENT_NAME_REF
       do
          Result := True
          if a_keyword(fz_like) then
@@ -6068,8 +6074,8 @@ feature {}
                create {LIKE_FEATURE_TYPE_MARK} last_type_mark.make(sp, last_feature_name)
             elseif a_ordinary_feature_name_or_local_name then
                if a_argument then
-                  argument_name2 ::= last_expression
-                  create {LIKE_ARGUMENT_TYPE_MARK} last_type_mark.make(sp, argument_name2)
+                  argument_name_ref ::= last_expression
+                  create {LIKE_ARGUMENT_TYPE_MARK} last_type_mark.make(sp, argument_name_ref)
                else
                   create {LIKE_FEATURE_TYPE_MARK} last_type_mark.make(sp, token_buffer.to_feature_name)
                end
@@ -6292,7 +6298,7 @@ feature {}
             l := line
             c := column
             if a_ordinary_feature_name_or_local_name then
-               if a_local_name2 then
+               if a_local_name_ref then
                   Result := True
                elseif a_argument then
                   go_back_at(l, c)

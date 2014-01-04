@@ -732,8 +732,9 @@ feature {ARGUMENT_NAME_REF}
       do
          check
             signature_ready
+            build_definition.closure_arguments /= Void
          end
-         Result := build_definition.closure_arguments.item(closure_rank - 1 + build_definition.closure_arguments.lower)
+         Result := build_definition.closure_arguments.item(closure_rank + build_definition.closure_arguments.lower - 1)
       end
 
 feature {FEATURE_ACCUMULATOR, RESULT}

@@ -756,10 +756,10 @@ feature {CODE_PRINTER}
 
 feature {LOCAL_ARGUMENT_REF, ANONYMOUS_FEATURE, INTROSPECTION_HANDLER}
    specializing_feature_local_var_list: LOCAL_VAR_LIST
-   specializing_closure_local_var_lists: COLLECTION[LOCAL_VAR_LIST]
+   specializing_closure_local_var_lists: FAST_ARRAY[LOCAL_VAR_LIST]
 
    specializing_feature_arguments_list: FORMAL_ARG_LIST
-   specializing_closure_arguments_lists: COLLECTION[FORMAL_ARG_LIST]
+   specializing_closure_arguments_lists: FAST_ARRAY[FORMAL_ARG_LIST]
 
 feature {ANONYMOUS_FEATURE, INTROSPECTION_HANDLER}
    set_specializing_feature_variables (lvl: like specializing_feature_local_var_list; clvl: like specializing_closure_local_var_lists) is

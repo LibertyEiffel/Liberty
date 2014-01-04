@@ -16,7 +16,7 @@ inherit
          visit_generic_type_mark, visit_agent_type_mark,
          enter_class_invariant,
          visit_call_support, visit_written_current, visit_result, visit_e_old, visit_manifest_string,
-         visit_effective_arg_list, visit_argument_name2, visit_built_in_eq_neq, visit_implicit_cast,
+         visit_effective_arg_list, visit_argument_name_ref, visit_built_in_eq_neq, visit_implicit_cast,
          visit_e_void, visit_e_true, visit_e_false, visit_character_constant, visit_integer_constant,
          visit_natural_constant, visit_real_constant, visit_create_expression
       end
@@ -1071,7 +1071,7 @@ feature {LIKE_CURRENT_TYPE_MARK}
       end
 
 feature {ARGUMENT_NAME_REF}
-   visit_argument_name2 (visited: ARGUMENT_NAME_REF) is
+   visit_argument_name_ref (visited: ARGUMENT_NAME_REF) is
       do
          html.put_string(visited.to_string)
       end

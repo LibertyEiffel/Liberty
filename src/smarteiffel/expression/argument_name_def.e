@@ -38,7 +38,7 @@ feature {ANY}
 
    accept (visitor: ARGUMENT_NAME_DEF_VISITOR) is
       do
-         visitor.visit_argument_name1(Current)
+         visitor.visit_argument_name_def(Current)
       end
 
    is_used (type: TYPE): BOOLEAN is

@@ -228,7 +228,7 @@ feature {FUNCTION_CALL_N}
                         args: EFFECTIVE_ARG_LIST; return_type: TYPE): INLINE_MEMO is
       local
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN; assignment: ASSIGNMENT
-         argument_name2: ARGUMENT_NAME_REF; built_in_eq_neq: BUILT_IN_EQ_NEQ
+         argument_name_ref: ARGUMENT_NAME_REF; built_in_eq_neq: BUILT_IN_EQ_NEQ
       do
          direct_non_void_call_flag := target_type.direct_non_void_call_flag
          no_rescue_no_local_expanded := no_rescue_no_local_expanded_in(target_type)
@@ -278,10 +278,10 @@ feature {FUNCTION_CALL_N}
             if assignment /= Void and then assignment.left_side.is_result then
                built_in_eq_neq ?= assignment.right_side
                if built_in_eq_neq /= Void then
-                  argument_name2 ?= built_in_eq_neq.left_side
-                  if argument_name2 /= Void and then argument_name2.rank = 1 then
-                     argument_name2 ?= built_in_eq_neq.right_side
-                     if argument_name2 /= Void and then argument_name2.rank = 2 then
+                  argument_name_ref ?= built_in_eq_neq.left_side
+                  if argument_name_ref /= Void and then argument_name_ref.rank = 1 then
+                     argument_name_ref ?= built_in_eq_neq.right_side
+                     if argument_name_ref /= Void and then argument_name_ref.rank = 2 then
                         Result := smart_eiffel.get_inline_memo
                         Result.set_expression(built_in_eq_neq.inline_with(args.expression(1), args.expression(2), type))
                      end
@@ -376,10 +376,10 @@ feature {}
          target /= Void
          arg1 /= Void
       local
-         argument_name2: ARGUMENT_NAME_REF; call_0: CALL_0; call_1_arg1: CALL_1
+         argument_name_ref: ARGUMENT_NAME_REF; call_0: CALL_0; call_1_arg1: CALL_1
       do
-         argument_name2 ?= call_1.arg1
-         if argument_name2 /= Void then
+         argument_name_ref ?= call_1.arg1
+         if argument_name_ref /= Void then
             -- The argument is passed as it is:
             if call_1.target.is_current then
                -- Simple "Result := Current.foo(arg1)" relay routine now replaced:
@@ -419,10 +419,10 @@ feature {}
          target /= Void
          arg1 /= Void
       local
-         argument_name2: ARGUMENT_NAME_REF; call_0: CALL_0; call_1: CALL_1
+         argument_name_ref: ARGUMENT_NAME_REF; call_0: CALL_0; call_1: CALL_1
       do
-         argument_name2 ?= built_in_eq_neq.right_side
-         if argument_name2 /= Void then
+         argument_name_ref ?= built_in_eq_neq.right_side
+         if argument_name_ref /= Void then
             -- The argument is passed as it is:
             if built_in_eq_neq.left_side.is_current then
                -- Simple "Result := Current = arg1" now replaced:

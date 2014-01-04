@@ -522,22 +522,22 @@ feature {UNUSED_EXPRESSION}
       end
 
 feature {LOCAL_NAME_DEF}
-   visit_local_name1 (visited: LOCAL_NAME_DEF) is
+   visit_local_name_def (visited: LOCAL_NAME_DEF) is
       do
       end
 
 feature {ARGUMENT_NAME_DEF}
-   visit_argument_name1 (visited: ARGUMENT_NAME_DEF) is
+   visit_argument_name_def (visited: ARGUMENT_NAME_DEF) is
       do
       end
 
 feature {LOCAL_NAME_REF}
-   visit_local_name2 (visited: LOCAL_NAME_REF) is
+   visit_local_name_ref (visited: LOCAL_NAME_REF) is
       do
       end
 
 feature {ARGUMENT_NAME_REF}
-   visit_argument_name2 (visited: ARGUMENT_NAME_REF) is
+   visit_argument_name_ref (visited: ARGUMENT_NAME_REF) is
       do
       end
 

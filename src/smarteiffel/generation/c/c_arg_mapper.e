@@ -18,7 +18,7 @@ insert
          visit_assertion,
          visit_fake_target,
          visit_fake_tuple,
-         visit_argument_name2,
+         visit_argument_name_ref,
          visit_loop_variant,
          visit_compound_expression,
          visit_dynamic_dispatch_temporary1_id,
@@ -68,7 +68,7 @@ feature {FAKE_TUPLE}
       end
 
 feature {ARGUMENT_NAME_REF}
-   visit_argument_name2 (visited: ARGUMENT_NAME_REF) is
+   visit_argument_name_ref (visited: ARGUMENT_NAME_REF) is
       do
          cpp.print_argument(visited.rank)
       end

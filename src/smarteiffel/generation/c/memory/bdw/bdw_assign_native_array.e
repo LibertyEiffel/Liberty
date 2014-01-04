@@ -55,7 +55,7 @@ feature {INTERNAL_LOCAL2}
       end
 
 feature {LOCAL_NAME_REF}
-   visit_local_name2 (visited: LOCAL_NAME_REF) is
+   visit_local_name_ref (visited: LOCAL_NAME_REF) is
       do
       end
 

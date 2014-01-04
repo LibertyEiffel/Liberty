@@ -61,8 +61,8 @@ insert
          visit_function_call_n,
          visit_generator_generating_type,
          visit_implicit_cast,
-         visit_argument_name2,
-         visit_local_name2,
+         visit_argument_name_ref,
+         visit_local_name_ref,
          visit_loop_variant,
          visit_e_false,
          visit_e_true,
@@ -473,7 +473,7 @@ feature {IMPLICIT_CAST}
       end
 
 feature {ARGUMENT_NAME_REF}
-   visit_argument_name2 (visited: ARGUMENT_NAME_REF) is
+   visit_argument_name_ref (visited: ARGUMENT_NAME_REF) is
       do
          function_body.append(continue)
          Precursor(visited)
@@ -481,7 +481,7 @@ feature {ARGUMENT_NAME_REF}
       end
 
 feature {LOCAL_NAME_REF}
-   visit_local_name2 (visited: LOCAL_NAME_REF) is
+   visit_local_name_ref (visited: LOCAL_NAME_REF) is
       do
          function_body.append(continue)
          Precursor(visited)

@@ -33,8 +33,8 @@ insert
          visit_fake_target,
          visit_fake_tuple,
          visit_generator_generating_type,
-         visit_argument_name2,
-         visit_local_name2,
+         visit_argument_name_ref,
+         visit_local_name_ref,
          visit_loop_variant,
          visit_e_void,
          visit_manifest_string,
@@ -232,13 +232,13 @@ feature {GENERATOR_GENERATING_TYPE}
       end
 
 feature {ARGUMENT_NAME_REF}
-   visit_argument_name2 (visited: ARGUMENT_NAME_REF) is
+   visit_argument_name_ref (visited: ARGUMENT_NAME_REF) is
       do
          standard_mapping_c_target(visited)
       end
 
 feature {LOCAL_NAME_REF}
-   visit_local_name2 (visited: LOCAL_NAME_REF) is
+   visit_local_name_ref (visited: LOCAL_NAME_REF) is
       do
          standard_mapping_c_target(visited)
       end

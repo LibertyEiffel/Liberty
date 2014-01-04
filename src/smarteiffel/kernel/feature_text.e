@@ -150,18 +150,22 @@ feature {FEATURE_CLAUSE}
       end
 
 feature {}
-   closure_arguments: COLLECTION[FORMAL_ARG_LIST]
-   closure_local_vars: COLLECTION[LOCAL_VAR_LIST]
+   closure_arguments: FAST_ARRAY[FORMAL_ARG_LIST]
+   closure_local_vars: FAST_ARRAY[LOCAL_VAR_LIST]
 
 feature {EIFFEL_PARSER}
-   set_inline_agent (ca: like closure_arguments; clv: like closure_local_vars) is
+   set_inline_agent (ca: COLLECTION[FORMAL_ARG_LIST]; clv: COLLECTION[LOCAL_VAR_LIST]) is
       require
          ca /= Void
          clv /= Void
       do
          is_inline_agent := True
-         closure_arguments := ca.twin
-         closure_local_vars := clv.twin
+         if not ca.is_empty then
+            create closure_arguments.from_collection(ca)
+         end
+         if not clv.is_empty then
+            create closure_local_vars.from_collection(clv)
+         end
          anonymous_feature.set_closure(closure_arguments, closure_local_vars)
       ensure
          is_inline_agent

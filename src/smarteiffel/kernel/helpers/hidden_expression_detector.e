@@ -507,7 +507,7 @@ feature {NULL_POINTER}
       end
 
 feature {ARGUMENT_NAME_REF}
-   visit_argument_name2 (visited: ARGUMENT_NAME_REF) is
+   visit_argument_name_ref (visited: ARGUMENT_NAME_REF) is
       do
          -- Nothing to do
       end
@@ -541,7 +541,7 @@ feature {PRECURSOR_EXPRESSION}
       end
 
 feature {LOCAL_NAME_REF}
-   visit_local_name2 (visited: LOCAL_NAME_REF) is
+   visit_local_name_ref (visited: LOCAL_NAME_REF) is
       do
          check
             False

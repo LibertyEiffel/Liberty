@@ -698,12 +698,14 @@ feature {IMPLICIT_CAST}
       end
 
 feature {ARGUMENT_NAME_REF}
-   visit_argument_name2 (visited: ARGUMENT_NAME_REF) is
+   visit_argument_name_ref (visited: ARGUMENT_NAME_REF) is
       do
          if visited.closure_rank = 0 then
             cpp.print_argument(visited.rank)
          else
-            function_body.append("(/*OUTCA*/CA_")
+            function_body.append(once "(/*OUTCA:`")
+            function_body.append(visited.to_string)
+            function_body.append(once "('*/CA_")
             visited.closure_rank.append_in(function_body)
             function_body.extend('_')
             visited.rank.append_in(function_body)
@@ -712,7 +714,7 @@ feature {ARGUMENT_NAME_REF}
       end
 
 feature {LOCAL_NAME_REF}
-   visit_local_name2 (visited: LOCAL_NAME_REF) is
+   visit_local_name_ref (visited: LOCAL_NAME_REF) is
       do
          if visited.is_outside then
             if visited.closure_rank = 0 then

@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {ARGUMENT_NAME_DEF}
-   visit_argument_name1 (visited: ARGUMENT_NAME_DEF) is
+   visit_argument_name_def (visited: ARGUMENT_NAME_DEF) is
       require
          visited /= Void
       deferred

@@ -32,7 +32,7 @@ feature {ANY}
 
    accept (visitor: LOCAL_NAME_DEF_VISITOR) is
       do
-         visitor.visit_local_name1(Current)
+         visitor.visit_local_name_def(Current)
       end
 
 feature {ANY}

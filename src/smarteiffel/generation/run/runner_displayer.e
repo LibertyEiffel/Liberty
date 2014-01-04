@@ -598,7 +598,7 @@ feature {IMPLICIT_CAST}
       end
 
 feature {ARGUMENT_NAME_REF}
-   visit_argument_name2 (visited: ARGUMENT_NAME_REF) is
+   visit_argument_name_ref (visited: ARGUMENT_NAME_REF) is
       do
          stream.put_string(once "<argument:")
          stream.put_string(visited.to_string)
@@ -606,7 +606,7 @@ feature {ARGUMENT_NAME_REF}
       end
 
 feature {LOCAL_NAME_REF}
-   visit_local_name2 (visited: LOCAL_NAME_REF) is
+   visit_local_name_ref (visited: LOCAL_NAME_REF) is
       do
          stream.put_string(once "<local:")
          stream.put_string(visited.to_string)

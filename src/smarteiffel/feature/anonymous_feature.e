@@ -992,17 +992,14 @@ feature {FEATURE_TEXT}
       end
 
 feature {ANY}
-   closure_arguments: COLLECTION[FORMAL_ARG_LIST]
+   closure_arguments: FAST_ARRAY[FORMAL_ARG_LIST]
          -- Arguments of enclosing features
 
-   closure_local_vars: COLLECTION[LOCAL_VAR_LIST]
+   closure_local_vars: FAST_ARRAY[LOCAL_VAR_LIST]
          -- Local vars of enclosing features
 
 feature {FEATURE_TEXT}
    set_closure (ca: like closure_arguments; clv: like closure_local_vars) is
-      require
-         ca /= Void
-         clv /= Void
       do
          closure_arguments := ca
          closure_local_vars := clv
@@ -1024,7 +1021,9 @@ feature {}
                fa1 /= fa2 or else i > Result.upper
             loop
                fa1 := Result.item(i)
-               if fa1 /= Void then
+               if fa1 = Void then
+                  fa2 := Void
+               else
                   fa2 := fa1.specialize_in(new_type)
                end
                i := i + 1
@@ -1036,7 +1035,11 @@ feature {}
                until
                   i > Result.upper
                loop
-                  Result.put(Result.item(i).specialize_in(new_type), i)
+                  fa1 := Result.item(i)
+                  if fa1 /= Void then
+                     fa2 := fa1.specialize_in(new_type)
+                     Result.put(fa2, i)
+                  end
                   i := i + 1
                end
             end
@@ -1055,7 +1058,9 @@ feature {}
                fa1 /= fa2 or else i > Result.upper
             loop
                fa1 := Result.item(i)
-               if fa1 /= Void then
+               if fa1 = Void then
+                  fa2 := Void
+               else
                   fa2 := fa1.specialize_thru(parent_type, parent_edge, new_type)
                end
                i := i + 1
@@ -1067,7 +1072,11 @@ feature {}
                until
                   i > Result.upper
                loop
-                  Result.put(Result.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
+                  fa1 := Result.item(i)
+                  if fa1 /= Void then
+                     fa2 := fa1.specialize_thru(parent_type, parent_edge, new_type)
+                     Result.put(fa2, i)
+                  end
                   i := i + 1
                end
             end
@@ -1098,7 +1107,11 @@ feature {}
                until
                   i > Result.upper
                loop
-                  Result.put(Result.item(i).specialize_in(new_type), i)
+                  lv1 := Result.item(i)
+                  if lv1 /= Void then
+                     lv2 := lv1.specialize_in(new_type)
+                     Result.put(lv2, i)
+                  end
                   i := i + 1
                end
             end
@@ -1129,7 +1142,11 @@ feature {}
                until
                   i > Result.upper
                loop
-                  Result.put(Result.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
+                  lv1 := Result.item(i)
+                  if lv1 /= Void then
+                     lv2 := lv1.specialize_thru(parent_type, parent_edge, new_type)
+                     Result.put(lv2, i)
+                  end
                   i := i + 1
                end
             end

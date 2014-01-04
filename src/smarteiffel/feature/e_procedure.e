@@ -78,7 +78,7 @@ feature {PROCEDURE_CALL_1}
       local
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN; compound: COMPOUND
          proc_call: PROCEDURE_CALL; assignment: ASSIGNMENT; writable_attribute_name: WRITABLE_ATTRIBUTE_NAME
-         argument_name2: ARGUMENT_NAME_REF; left_side: FUNCTION_CALL_0; call_0_c: FUNCTION_CALL_0; call: FUNCTION_CALL
+         argument_name_ref: ARGUMENT_NAME_REF; left_side: FUNCTION_CALL_0; call_0_c: FUNCTION_CALL_0; call: FUNCTION_CALL
          inline_assignment_procedure: BOOLEAN; fs: FEATURE_STAMP; writable_attribute: WRITABLE_ATTRIBUTE
       do
          direct_non_void_call_flag := target_type.direct_non_void_call_flag
@@ -115,8 +115,8 @@ feature {PROCEDURE_CALL_1}
                      if assignment /= Void then
                         -- Now looking for assignment procedure (e.g. {STRING}.set_count):
                         writable_attribute_name ?= assignment.left_side
-                        argument_name2 ?= assignment.right_side
-                        if writable_attribute_name /= Void and then argument_name2 /= Void then
+                        argument_name_ref ?= assignment.right_side
+                        if writable_attribute_name /= Void and then argument_name_ref /= Void then
                            inline_assignment_procedure := True
                            if target_type.is_expanded then
                               call ?= target
@@ -274,28 +274,28 @@ feature {}
       require
          body /= Void
       local
-         proc_call_1: PROCEDURE_CALL_1; proc_call_n: PROCEDURE_CALL_N; call_0: CALL_0; argument_name2: ARGUMENT_NAME_REF
+         proc_call_1: PROCEDURE_CALL_1; proc_call_n: PROCEDURE_CALL_N; call_0: CALL_0; argument_name_ref: ARGUMENT_NAME_REF
       do
          call_0 := left_most_current_direct_call_0_sequence(target_type, body.target)
          if call_0 = Void and then body.target.is_current then
             if body.arg_count = 1 then
-               argument_name2 ?= body.arguments.expression(1)
-               if argument_name2 /= Void then
+               argument_name_ref ?= body.arguments.expression(1)
+               if argument_name_ref /= Void then
                   proc_call_1 ?= body
                   proc_call_1 := proc_call_1.inline_with(target, arg)
                   Result := smart_eiffel.get_inline_memo
                   Result.set_instruction(proc_call_1)
                end
             elseif body.arg_count = 2 then
-               argument_name2 ?= body.arguments.expression(1)
-               if argument_name2 /= Void and then body.arguments.expression(2).is_static then
+               argument_name_ref ?= body.arguments.expression(1)
+               if argument_name_ref /= Void and then body.arguments.expression(2).is_static then
                   proc_call_n ?= body
                   proc_call_n := proc_call_n.inline_2(target, arg, proc_call_n.arguments.expression(2))
                   Result := smart_eiffel.get_inline_memo
                   Result.set_instruction(proc_call_n)
                else
-                  argument_name2 ?= body.arguments.expression(2)
-                  if argument_name2 /= Void and then body.arguments.expression(1).is_static then
+                  argument_name_ref ?= body.arguments.expression(2)
+                  if argument_name_ref /= Void and then body.arguments.expression(1).is_static then
                      proc_call_n ?= body
                      proc_call_n := proc_call_n.inline_2(target, proc_call_n.arguments.expression(1), arg)
                      Result := smart_eiffel.get_inline_memo
@@ -306,8 +306,8 @@ feature {}
          elseif call_0 /= Void then
             if body.arg_count = 1 then
                -- (May be the {FILE_TOOLS}.delete.)
-               argument_name2 ?= body.arguments.expression(1)
-               if argument_name2 /= Void then
+               argument_name_ref ?= body.arguments.expression(1)
+               if argument_name_ref /= Void then
                   call_0 := left_most_current_direct_call_0_sequence_inline(type, call_0, target_type, target)
                   proc_call_1 ?= body
                   proc_call_1 := proc_call_1.inline_with(call_0, arg)
@@ -323,16 +323,16 @@ feature {}
       require
          proc_call /= Void
       local
-         proc_call_n: PROCEDURE_CALL_N; call_0: CALL_0; argument_name2: ARGUMENT_NAME_REF
+         proc_call_n: PROCEDURE_CALL_N; call_0: CALL_0; argument_name_ref: ARGUMENT_NAME_REF
       do
          call_0 := left_most_current_direct_call_0_sequence(target_type, proc_call.target)
          if call_0 /= Void then
             if args.count = 2 and then proc_call.arg_count = 2 then
                -- (May be the {FAST_ARRAY}.put.)
-               argument_name2 ?= proc_call.arguments.expression(1)
-               if argument_name2 /= Void and then argument_name2.rank = 1 then
-                  argument_name2 ?= proc_call.arguments.expression(2)
-                  if argument_name2 /= Void and then argument_name2.rank = 2 then
+               argument_name_ref ?= proc_call.arguments.expression(1)
+               if argument_name_ref /= Void and then argument_name_ref.rank = 1 then
+                  argument_name_ref ?= proc_call.arguments.expression(2)
+                  if argument_name_ref /= Void and then argument_name_ref.rank = 2 then
                      call_0 := left_most_current_direct_call_0_sequence_inline(type, call_0, target_type, target)
                      proc_call_n ?= proc_call
                      proc_call_n := proc_call_n.inline_2(call_0, args.expression(1), args.expression(2))
