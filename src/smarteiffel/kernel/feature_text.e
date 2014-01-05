@@ -169,8 +169,26 @@ feature {EIFFEL_PARSER}
          anonymous_feature.set_closure(closure_arguments, closure_local_vars)
       ensure
          is_inline_agent
-         closure_arguments /= ca and then closure_arguments.is_equal(ca)
-         closure_local_vars /= clv and then closure_local_vars.is_equal(clv)
+         closure_arguments /= ca
+            and then (ca.is_empty implies closure_arguments = Void)
+            and then (not ca.is_empty
+               implies closure_arguments.count = ca.count
+               and then (
+                  ((closure_arguments.lower)|..|(closure_arguments.upper)).for_all(agent (i: INTEGER; ca_: COLLECTION[FORMAL_ARG_LIST]): BOOLEAN is
+                                                                                      do
+                                                                                         Result := closure_arguments.item(i) = ca_.item(i - closure_arguments.lower + ca_.lower)
+                                                                                      end (?, ca)) --| **** TODO: closure (bug)
+               ))
+         closure_local_vars /= clv
+            and then (clv.is_empty implies closure_local_vars = Void)
+            and then (not clv.is_empty
+               implies closure_local_vars.count = clv.count
+               and then (
+                  ((closure_local_vars.lower)|..|(closure_local_vars.upper)).for_all(agent (i: INTEGER; clv_: COLLECTION[LOCAL_VAR_LIST]): BOOLEAN is
+                                                                                        do
+                                                                                           Result := closure_local_vars.item(i) = clv_.item(i - closure_local_vars.lower + clv_.lower)
+                                                                                        end (?, clv)) --| **** TODO: closure (bug)
+               ))
       end
 
    set_header_comment (hc: COMMENT) is
