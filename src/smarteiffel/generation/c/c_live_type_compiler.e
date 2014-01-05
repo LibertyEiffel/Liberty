@@ -343,7 +343,9 @@ feature {}
                   end
                   tm := closed_operand.resolve_in(type).canonical_type_mark
                   function_signature.append(cpp.result_type.for(tm))
-                  function_signature.extend(' ')
+                  if function_signature.last /= '*' then
+                     function_signature.extend(' ')
+                  end
                   closed_operand_name_in(closed_operand, function_signature)
                end
                i := i + 1
