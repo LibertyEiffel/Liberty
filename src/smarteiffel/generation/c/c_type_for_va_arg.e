@@ -44,7 +44,7 @@ feature {NATURAL_TYPE_MARK}
    visit_natural_type_mark (visited: NATURAL_TYPE_MARK) is
       do
          if visited.bit_count <= 32 then
-            buffer.append(once "uint32")
+            buffer.append(once "uint32_t")
          else
             buffer.append(once "uint")
             visited.bit_count.append_in(buffer)
