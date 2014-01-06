@@ -1,14 +1,14 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class NCURSES_TOOLS
+expanded class NCURSES_TOOLS
    --
    -- To share the access to the `ncurses' singleton.
    -- Just insert this class in order to use NCURSES.
    -- See example in the SmartEiffel/tutorial/ncurses directory.
    --
 
-feature {}
+feature {ANY}
    ncurses: NCURSES is
          -- Access to the `ncurses' singleton.
       once
