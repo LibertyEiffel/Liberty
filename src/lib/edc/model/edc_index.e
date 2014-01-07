@@ -26,7 +26,7 @@ deferred class EDC_INDEX
 
 insert
    EDC_CONSTANTS
-   ESE_VISITABLE
+   VISITABLE
 
 feature {ANY}
    table: EDC_TABLE

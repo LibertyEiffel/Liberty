@@ -28,7 +28,7 @@ create {ANY}
    make, manifest_creation
 
 feature {ANY}
-   accept (a_visitor: ESE_VISITOR) is
+   accept (a_visitor: VISITOR) is
       local
          v: EDC_PRIMARY_KEY_VISITOR
       do

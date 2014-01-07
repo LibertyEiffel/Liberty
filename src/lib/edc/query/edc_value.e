@@ -25,7 +25,7 @@ deferred class EDC_VALUE
    --
 
 inherit
-   ESE_VISITABLE
+   VISITABLE
 
 feature {ANY}
    value (a_columns: TRAVERSABLE[EDC_COLUMN]; a_data: TRAVERSABLE[EDC_DATUM]): EDC_DATUM is

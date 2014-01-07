@@ -30,7 +30,7 @@ create {EDC_TYPED_COLUMN}
    make
 
 feature {ANY}
-   accept (a_visitor: ESE_VISITOR) is
+   accept (a_visitor: VISITOR) is
       local
          v: EDC_STRING_COLUMN_VALUE_VISITOR
       do

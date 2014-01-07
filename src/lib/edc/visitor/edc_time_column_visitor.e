@@ -22,7 +22,7 @@
 deferred class EDC_TIME_COLUMN_VISITOR
 
 inherit
-   ESE_VISITOR
+   VISITOR
 
 feature {EDC_TIME_COLUMN}
    visit_time_column (a_time_column: EDC_TIME_COLUMN) is

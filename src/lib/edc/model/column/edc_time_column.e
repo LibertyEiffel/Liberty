@@ -33,7 +33,7 @@ feature {ANY}
          create Result.make(Current)
       end
 
-   accept (a_visitor: ESE_VISITOR) is
+   accept (a_visitor: VISITOR) is
       local
          v: EDC_TIME_COLUMN_VISITOR
       do

@@ -25,7 +25,7 @@ deferred class EDC_QUERY
    --
 
 inherit
-   ESE_VISITABLE
+   VISITABLE
 
 insert
    EDC_CONSTANTS

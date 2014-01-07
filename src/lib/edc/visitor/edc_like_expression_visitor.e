@@ -22,7 +22,7 @@
 deferred class EDC_LIKE_EXPRESSION_VISITOR
 
 inherit
-   ESE_VISITOR
+   VISITOR
 
 feature {EDC_LIKE_EXPRESSION}
    visit_like_expression (a_like_expression: EDC_LIKE_EXPRESSION) is

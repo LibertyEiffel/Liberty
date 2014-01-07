@@ -22,7 +22,7 @@
 deferred class EDC_DELETE_VISITOR
 
 inherit
-   ESE_VISITOR
+   VISITOR
 
 feature {EDC_DELETE}
    visit_delete (a_delete: EDC_DELETE) is

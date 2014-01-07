@@ -28,7 +28,7 @@ create {EDC_INCREMENT_COLUMN}
    make
 
 feature {ANY}
-   accept (a_visitor: ESE_VISITOR) is
+   accept (a_visitor: VISITOR) is
       local
          v: EDC_INCREMENT_VALUE_VISITOR
       do

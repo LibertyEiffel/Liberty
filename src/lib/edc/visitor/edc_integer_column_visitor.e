@@ -22,7 +22,7 @@
 deferred class EDC_INTEGER_COLUMN_VISITOR
 
 inherit
-   ESE_VISITOR
+   VISITOR
 
 feature {EDC_INTEGER_COLUMN}
    visit_integer_column (a_integer_column: EDC_INTEGER_COLUMN) is

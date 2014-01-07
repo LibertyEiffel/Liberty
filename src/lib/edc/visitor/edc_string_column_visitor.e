@@ -22,7 +22,7 @@
 deferred class EDC_STRING_COLUMN_VISITOR
 
 inherit
-   ESE_VISITOR
+   VISITOR
 
 feature {EDC_STRING_COLUMN}
    visit_string_column (a_string_column: EDC_STRING_COLUMN) is

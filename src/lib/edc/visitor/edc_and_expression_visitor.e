@@ -22,7 +22,7 @@
 deferred class EDC_AND_EXPRESSION_VISITOR
 
 inherit
-   ESE_VISITOR
+   VISITOR
 
 feature {EDC_AND_EXPRESSION}
    visit_and_expression (a_and_expression: EDC_AND_EXPRESSION) is

@@ -40,8 +40,8 @@ feature {}
          tools = a_tools
       end
 
-feature {ESE_TYPED_VISITABLE, ESE_VISITOR}
-   as_typed (item_type_generator: STRING): ESE_VISITOR is
+feature {ESE_TYPED_VISITABLE, VISITOR}
+   as_typed (item_type_generator: STRING): VISITOR is
       do
          check
             False

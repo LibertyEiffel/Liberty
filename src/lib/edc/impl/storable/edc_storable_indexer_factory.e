@@ -27,7 +27,7 @@ inherit
 create {EDC_STORABLE_INDEX}
    make
 
-feature {ESE_TYPED_VISITABLE, ESE_VISITOR}
+feature {ESE_TYPED_VISITABLE, VISITOR}
    as_typed (item_type_generator: STRING): EDC_SQLITE_QUERY_BUILDER_TOOLS is
       do
          check
