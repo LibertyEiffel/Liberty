@@ -24,7 +24,7 @@ class EDC_DELETE
 inherit
    EDC_SELECTABLE
 
-creation {EDC_CONNECTION}
+create {EDC_CONNECTION}
    make
 
 feature {ANY}

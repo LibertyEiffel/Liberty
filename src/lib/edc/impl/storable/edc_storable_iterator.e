@@ -24,7 +24,7 @@ class EDC_STORABLE_ITERATOR
 inherit
    ITERATOR[EDC_DATUM]
 
-creation {EDC_STORABLE_TRAVERSABLE}
+create {EDC_STORABLE_TRAVERSABLE}
    make
 
 feature {ANY}

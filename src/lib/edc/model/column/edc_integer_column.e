@@ -27,7 +27,7 @@ inherit
 insert
    EDC_HASHABLE_COLUMN[INTEGER_32]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

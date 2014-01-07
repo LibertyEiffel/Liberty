@@ -24,7 +24,7 @@ class EDC_INSERT
 inherit
    EDC_QUERY
 
-creation {EDC_CONNECTION}
+create {EDC_CONNECTION}
    make
 
 feature {ANY}

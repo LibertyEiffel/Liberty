@@ -24,7 +24,7 @@ class EDC_CHARACTER_COLUMN_VALUE
 inherit
    EDC_COMPARABLE_COLUMN_VALUE[CHARACTER]
 
-creation {EDC_TYPED_COLUMN}
+create {EDC_TYPED_COLUMN}
    make
 
 feature {ANY}

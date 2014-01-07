@@ -27,7 +27,7 @@ inherit
 insert
    XML_REPOSITORY_IMPL[STORABLE]
 
-creation {ANY}
+create {ANY}
    from_string
 
 feature {ANY}

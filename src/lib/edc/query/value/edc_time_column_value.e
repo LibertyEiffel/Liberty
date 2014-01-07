@@ -24,7 +24,7 @@ class EDC_TIME_COLUMN_VALUE
 inherit
    EDC_COMPARABLE_COLUMN_VALUE[TIME]
 
-creation {EDC_TYPED_COLUMN}
+create {EDC_TYPED_COLUMN}
    make
 
 feature {ANY}

@@ -24,7 +24,7 @@ class EDC_ERROR_LOCKED
 inherit
    EDC_ERROR
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

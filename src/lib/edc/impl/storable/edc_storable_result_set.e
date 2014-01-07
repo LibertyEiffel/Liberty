@@ -24,7 +24,7 @@ class EDC_STORABLE_RESULT_SET
 inherit
    EDC_RESULT_SET
 
-creation {EDC_STORABLE_EXPRESSION_SELECTOR}
+create {EDC_STORABLE_EXPRESSION_SELECTOR}
    make
 
 feature {ANY} -- Connection:

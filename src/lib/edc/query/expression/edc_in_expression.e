@@ -25,7 +25,7 @@ inherit
    EDC_EXPRESSION
    ESE_TYPED_VISITABLE[T_]
 
-creation {EDC_VALUE}
+create {EDC_VALUE}
    make
 
 feature {}

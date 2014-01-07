@@ -26,7 +26,7 @@ inherit
       redefine can_disconnect
       end
 
-creation {EDC_STORABLE_SAVEPOINT}
+create {EDC_STORABLE_SAVEPOINT}
    make
 
 feature {ANY}

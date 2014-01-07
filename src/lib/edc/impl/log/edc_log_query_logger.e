@@ -31,7 +31,7 @@ inherit
    EDC_UPDATE_VISITOR
    EDC_DELETE_VISITOR
 
-creation {EDC_LOG_CONNECTION}
+create {EDC_LOG_CONNECTION}
    make
 
 feature {EDC_LOG_CONNECTION}

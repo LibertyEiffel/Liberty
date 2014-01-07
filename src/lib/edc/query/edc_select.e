@@ -24,7 +24,7 @@ class EDC_SELECT
 inherit
    EDC_SELECTABLE
 
-creation {EDC_CONNECTION}
+create {EDC_CONNECTION}
    make
 
 feature {ANY}

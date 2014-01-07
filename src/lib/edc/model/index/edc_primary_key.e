@@ -24,7 +24,7 @@ class EDC_PRIMARY_KEY
 inherit
    EDC_INDEX
 
-creation {ANY}
+create {ANY}
    make, manifest_creation
 
 feature {ANY}

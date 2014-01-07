@@ -26,7 +26,7 @@ inherit
       redefine is_like, infix "~="
       end
 
-creation {EDC_TYPED_COLUMN}
+create {EDC_TYPED_COLUMN}
    make
 
 feature {ANY}

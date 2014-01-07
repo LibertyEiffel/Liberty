@@ -26,7 +26,7 @@ inherit
       redefine valid_last_character
       end
 
-creation {EDC_BLOB}
+create {EDC_BLOB}
    from_string
 
 feature {EDC_BLOB}

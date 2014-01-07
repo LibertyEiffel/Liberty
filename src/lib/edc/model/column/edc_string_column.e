@@ -27,7 +27,7 @@ inherit
       redefine valid_value
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

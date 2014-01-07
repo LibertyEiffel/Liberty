@@ -21,7 +21,7 @@
 -- -----------------------------------------------------------------------------------------------------------
 class EDC_STORABLE_EXPRESSION_SELECTOR
 
-creation {EDC_STORABLE_SELECTOR}
+create {EDC_STORABLE_SELECTOR}
    make
 
 feature {EDC_STORABLE_SELECTOR}

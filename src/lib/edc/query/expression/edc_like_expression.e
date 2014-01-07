@@ -24,7 +24,7 @@ class EDC_LIKE_EXPRESSION
 inherit
    EDC_EXPRESSION
 
-creation {EDC_VALUE}
+create {EDC_VALUE}
    make
 
 feature {ANY}

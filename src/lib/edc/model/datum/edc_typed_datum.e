@@ -24,7 +24,7 @@ class EDC_TYPED_DATUM[D_]
 inherit
    EDC_DATUM
 
-creation {EDC_DATUM_FACTORY}
+create {EDC_DATUM_FACTORY}
    set_item
 
 feature {ANY}

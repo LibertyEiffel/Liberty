@@ -27,7 +27,7 @@ inherit
 insert
    SINGLETON
 
-creation {EDC_SQLITE_CONNECTION}
+create {EDC_SQLITE_CONNECTION}
    make
 
 feature {}

@@ -24,7 +24,7 @@ class EDC_NOT_NULL_CONSTRAINT
 inherit
    EDC_CONSTRAINT
 
-creation {EDC_CONSTRAINTS}
+create {EDC_CONSTRAINTS}
    make
 
 feature {ANY}

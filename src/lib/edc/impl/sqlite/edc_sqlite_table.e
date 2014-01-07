@@ -21,7 +21,7 @@
 -- -----------------------------------------------------------------------------------------------------------
 class EDC_SQLITE_TABLE
 
-creation {EDC_SQLITE_CONNECTION}
+create {EDC_SQLITE_CONNECTION}
    make, with_table
 
 feature {EDC_SQLITE_CONNECTION}

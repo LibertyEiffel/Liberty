@@ -24,7 +24,7 @@ class EDC_BLOB_COLUMN
 inherit
    EDC_TYPED_COLUMN[EDC_BLOB]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

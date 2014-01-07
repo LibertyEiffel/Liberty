@@ -24,7 +24,7 @@ class EDC_TIME_COLUMN
 inherit
    EDC_TYPED_COLUMN[TIME]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

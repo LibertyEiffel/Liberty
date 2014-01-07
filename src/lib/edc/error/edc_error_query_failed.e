@@ -24,7 +24,7 @@ class EDC_ERROR_QUERY_FAILED
 inherit
    EDC_ERROR
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}

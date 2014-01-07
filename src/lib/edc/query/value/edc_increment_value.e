@@ -24,7 +24,7 @@ class EDC_INCREMENT_VALUE
 inherit
    EDC_TYPED_VALUE[INTEGER]
 
-creation {EDC_INCREMENT_COLUMN}
+create {EDC_INCREMENT_COLUMN}
    make
 
 feature {ANY}
