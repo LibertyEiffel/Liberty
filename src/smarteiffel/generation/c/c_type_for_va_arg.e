@@ -4,6 +4,9 @@
 class C_TYPE_FOR_VA_ARG
 
 inherit
+   TYPE_MARK_VISITOR
+
+insert
    C_TYPE_FOR_ARGUMENT
       redefine
          visit_boolean_type_mark,

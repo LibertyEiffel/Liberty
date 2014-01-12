@@ -4,6 +4,9 @@
 class C_TYPE_FOR_TARGET
 
 inherit
+   TYPE_MARK_VISITOR
+
+insert
    C_TYPE_FOR_ARGUMENT
       redefine
          visit_agent_type_mark,

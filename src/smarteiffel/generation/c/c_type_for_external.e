@@ -1,18 +1,42 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class C_TYPE_FOR_RESULT
+class C_TYPE_FOR_EXTERNAL
 
 inherit
    TYPE_MARK_VISITOR
 
 insert
-   C_TYPE_FOR_ARGUMENT
+   C_TYPE_FOR_RESULT
+      redefine
+         for, visit_native_array_type_mark
+      end
 
 create {C_PRETTY_PRINTER}
    make
 
-end -- class C_TYPE_FOR_RESULT
+feature {ANY}
+   for (type_mark: TYPE_MARK): STRING is
+      require else
+         type_mark = Void
+      do
+         if type_mark = Void then
+            Result := once "void"
+         elseif type_mark.is_reference then
+            Result := once "void*"
+         else
+            Result := Precursor(type_mark)
+         end
+      end
+
+feature {NATIVE_ARRAY_TYPE_MARK}
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+      do
+         visited.generic_list.first.accept(Current)
+         buffer.extend('*')
+      end
+
+end -- class C_TYPE_FOR_EXTERNAL
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

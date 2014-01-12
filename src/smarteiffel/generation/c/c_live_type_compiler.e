@@ -125,12 +125,12 @@ feature {}
          af := address_of.feature_stamp.anonymous_feature(target_type)
          cpp.prepare_c_function
          result_type := af.result_type
-         function_signature.append(cpp.result_type.for_external(result_type))
+         function_signature.append(cpp.external_type.for(result_type))
          function_signature.append(once " W")
          target_type.id.append_in(function_signature)
          function_signature.append(address_of.feature_stamp.name.to_string)
          function_signature.extend('(')
-         function_signature.append(cpp.result_type.for_external(target_type.canonical_type_mark))
+         function_signature.append(cpp.external_type.for(target_type.canonical_type_mark))
          function_signature.append(once " C")
          if af.arguments /= Void then
             function_signature.extend(',')

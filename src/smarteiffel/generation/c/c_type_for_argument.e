@@ -15,7 +15,7 @@ create {C_PRETTY_PRINTER}
 feature {ANY}
    for (type_mark: TYPE_MARK): STRING is
       require
-         type_mark.is_static
+         type_mark /= Void and then type_mark.is_static
       do
          Result := buffer
          Result.clear_count

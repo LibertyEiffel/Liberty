@@ -43,6 +43,7 @@ feature {ANY} -- Code generators
 feature {ANY} -- C-related type properties
    target_type: C_TYPE_FOR_TARGET
    result_type: C_TYPE_FOR_RESULT
+   external_type: C_TYPE_FOR_EXTERNAL
    argument_type: C_TYPE_FOR_ARGUMENT
    va_arg_type: C_TYPE_FOR_VA_ARG
    need_struct: C_NEED_STRUCT
@@ -70,6 +71,7 @@ feature {}
 
          create target_type.make
          create result_type.make
+         create external_type.make
          create argument_type.make
          create va_arg_type.make
          create need_struct.make
@@ -3620,7 +3622,7 @@ feature {C_COMPILATION_MIXIN}
                str.extend(',')
             end
             t := formal_arg_list.type_mark(i).to_static(tgt_type, False)
-            str.append(result_type.for_external(t))
+            str.append(external_type.for(t))
             str.extend(' ')
             str.extend('a')
             i.append_in(str)
@@ -4159,9 +4161,9 @@ feature {} -- CECIL_POOL
          arguments := af.arguments
          prepare_c_function
          if cecil_entry.is_creation then
-            pending_c_function_signature.append(result_type.for_external(cecil_entry.target_type_mark))
+            pending_c_function_signature.append(external_type.for(cecil_entry.target_type_mark))
          else
-            pending_c_function_signature.append(result_type.for_external(result_type_mark))
+            pending_c_function_signature.append(external_type.for(result_type_mark))
          end
          pending_c_function_signature.extend(' ')
          pending_c_function_signature.append(cecil_entry.c_name)
@@ -4173,7 +4175,7 @@ feature {} -- CECIL_POOL
                external_prototype_in(arguments, pending_c_function_signature, cecil_entry.target_type)
             end
          else
-            pending_c_function_signature.append(result_type.for_external(cecil_entry.target_type_mark))
+            pending_c_function_signature.append(external_type.for(cecil_entry.target_type_mark))
             pending_c_function_signature.append(once " C")
             if arguments /= Void then
                pending_c_function_signature.extend(',')
@@ -4182,10 +4184,10 @@ feature {} -- CECIL_POOL
          end
          pending_c_function_signature.extend(')')
          if cecil_entry.is_creation then
-            pending_c_function_body.append(result_type.for_external(cecil_entry.target_type_mark))
+            pending_c_function_body.append(external_type.for(cecil_entry.target_type_mark))
             pending_c_function_body.append(once " C;%N")
          elseif result_type_mark /= Void then
-            pending_c_function_body.append(result_type.for_external(result_type_mark))
+            pending_c_function_body.append(external_type.for(result_type_mark))
             pending_c_function_body.append(once " R;%N")
          end
          memory.pre_cecil_define

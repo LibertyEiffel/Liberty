@@ -89,7 +89,7 @@ feature {}
             extra_c_prototype_in_cpp_out_h_buffer(visited.start_position, rf8.type_of_current, rf8.base_feature)
             function_signature.append(out_h)
             function_body.append(once "return ((")
-            function_body.append(cpp.result_type.for_external(rf8.result_type))
+            function_body.append(cpp.external_type.for(rf8.result_type))
             function_body.extend(')')
             if rf8.arguments /= Void then
                args_count := rf8.arguments.count
