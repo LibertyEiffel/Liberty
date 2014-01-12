@@ -68,8 +68,8 @@
 #  include <unistd.h>
 #endif
 #if !defined(WIN32) && \
-       (defined(WINVER) || defined(_WIN32_WINNT) || defined(_WIN32) || \
-        defined(__WIN32__) || defined(__TOS_WIN__) || defined(_MSC_VER))
+	   (defined(WINVER) || defined(_WIN32_WINNT) || defined(_WIN32) || \
+		defined(__WIN32__) || defined(__TOS_WIN__) || defined(_MSC_VER))
 #  define WIN32 1
 #endif
 #ifdef WIN32
@@ -272,28 +272,28 @@ typedef int_least8_t int8_t;
 
 /* HP RISC */
 #  if defined(__hppa__) || defined(__hppa) || defined(__hp9000) || \
-      defined(__hp9000s300) || defined(hp9000s300) || \
-      defined(__hp9000s700) || defined(hp9000s700) || \
-      defined(__hp9000s800) || defined(hp9000s800) || defined(hp9000s820)
+	  defined(__hp9000s300) || defined(hp9000s300) || \
+	  defined(__hp9000s700) || defined(hp9000s700) || \
+	  defined(__hp9000s800) || defined(hp9000s800) || defined(hp9000s820)
 #    define BYTE_ORDER      BIG_ENDIAN
 #  endif
 
 /* IBM */
 #  if defined(ibm032) || defined(ibm370) || defined(_IBMR2) || \
-      defined(IBM370) || defined(__MVS__)
+	  defined(IBM370) || defined(__MVS__)
 #    define BYTE_ORDER      BIG_ENDIAN
 #  endif
 
 /* Intel x86 */
 #  if defined(i386) || defined(__i386__) || defined(__i386) || \
-      defined(_M_IX86) || defined(_X86_) || defined(__THW_INTEL) || \
-      defined(sun386)
+	  defined(_M_IX86) || defined(_X86_) || defined(__THW_INTEL) || \
+	  defined(sun386)
 #    define BYTE_ORDER      LITTLE_ENDIAN
 #  endif
 
 /* Intel Itanium */
 #  if defined(__ia64__) || defined(_IA64) || defined(__IA64__) || \
-      defined(_M_IA64) || defined(_M_AMD64) || defined(_M_IX86) || defined(_AMD64_)
+	  defined(_M_IA64) || defined(_M_AMD64) || defined(_M_IX86) || defined(_AMD64_)
 #    define BYTE_ORDER      LITTLE_ENDIAN
 #  endif
 
@@ -319,8 +319,8 @@ typedef int_least8_t int8_t;
 /* Power PC */
 /* this processor is bi-endian, how to know if little-endian is set? */
 #  if defined(__powerpc) || defined(__powerpc__) || defined(__POWERPC__) || \
-      defined(__ppc__) || defined(__ppc) || defined(_M_PPC) || \
-      defined(__PPC) || defined(__PPC__)
+	  defined(__ppc__) || defined(__ppc) || defined(_M_PPC) || \
+	  defined(__PPC) || defined(__PPC__)
 #    define BYTE_ORDER      BIG_ENDIAN
 #  endif
 
@@ -331,7 +331,7 @@ typedef int_least8_t int8_t;
 
 /* RS/6000 */
 #  if defined(__THW_RS6000) || defined(_IBMR2) || defined(_POWER) || \
-      defined(_ARCH_PWR) || defined(_ARCH_PWR2)
+	  defined(_ARCH_PWR) || defined(_ARCH_PWR2)
 #    define BYTE_ORDER      BIG_ENDIAN
 #  endif
 
@@ -347,7 +347,7 @@ typedef int_least8_t int8_t;
 
 /* VAX */
 #  if defined(vax) || defined(VAX) || defined(__vax__) || defined(_vax_) || \
-      defined(__vax) || defined(__VAX)
+	  defined(__vax) || defined(__VAX)
 #    define BYTE_ORDER      LITTLE_ENDIAN
 #  endif
 
@@ -545,9 +545,12 @@ typedef void* T8;
 /*
    Wrappers for `malloc' and `calloc':
 */
+void se_check_malloc(const void*result, const char*format, ...);
 void* se_malloc(size_t size);
 void* se_calloc(size_t nmemb, size_t size);
 void* se_realloc(void* src, size_t size);
+void* se_malloc_(size_t size, void*(*alloc)(size_t));
+void* se_calloc_(size_t nmemb, size_t size, void*(*alloc)(size_t,size_t));
 
 /*
    die method.
@@ -555,21 +558,21 @@ void* se_realloc(void* src, size_t size);
 void se_die(int code);
 
 /*
-    Runtime hooks. They allow different runtime modules to be quite independant. In time, they will also allow
-    thread-safe operations.
+	Runtime hooks. They allow different runtime modules to be quite independant. In time, they will also allow
+	thread-safe operations.
 
-    Currently known modules:
-      - boost
-      - no_check
-      - sedb
-      - gc
-      - print stack
-      - profile
-      - plugins
+	Currently known modules:
+	  - boost
+	  - no_check
+	  - sedb
+	  - gc
+	  - print stack
+	  - profile
+	  - plugins
 
-    However, currently only profile uses this method. It will be extended to other modules later.
+	However, currently only profile uses this method. It will be extended to other modules later.
 
-    The currently defined hooks are described in the enum below (the names should be self-explanatory).
+	The currently defined hooks are described in the enum below (the names should be self-explanatory).
  */
 typedef enum {
   SE_HANDLE_EXCEPTION_SET, /* called when an exception handler is set, prior to SETJMP */
