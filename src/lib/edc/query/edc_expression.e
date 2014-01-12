@@ -22,7 +22,7 @@
 deferred class EDC_EXPRESSION
 
 inherit
-   ESE_VISITABLE
+   VISITABLE
 
 feature {ANY}
    infix "and" (other: EDC_EXPRESSION): EDC_EXPRESSION is

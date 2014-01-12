@@ -24,11 +24,11 @@ class EDC_LIKE_EXPRESSION
 inherit
    EDC_EXPRESSION
 
-creation {EDC_VALUE}
+create {EDC_VALUE}
    make
 
 feature {ANY}
-   accept (a_visitor: ESE_VISITOR) is
+   accept (a_visitor: VISITOR) is
       local
          v: EDC_LIKE_EXPRESSION_VISITOR
       do

@@ -33,7 +33,7 @@ insert
       export {} all
       end
 
-creation {EDC_SQLITE_DRIVER}
+create {EDC_SQLITE_DRIVER}
    make
 
 feature {ANY} -- Connection management:

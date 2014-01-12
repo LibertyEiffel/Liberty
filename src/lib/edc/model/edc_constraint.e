@@ -25,7 +25,7 @@ deferred class EDC_CONSTRAINT
    --
 
 inherit
-   ESE_VISITABLE
+   VISITABLE
       redefine is_equal
       end
 

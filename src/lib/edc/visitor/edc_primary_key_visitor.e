@@ -22,7 +22,7 @@
 deferred class EDC_PRIMARY_KEY_VISITOR
 
 inherit
-   ESE_VISITOR
+   VISITOR
 
 feature {EDC_PRIMARY_KEY}
    visit_primary_key (a_primary_key: EDC_PRIMARY_KEY) is

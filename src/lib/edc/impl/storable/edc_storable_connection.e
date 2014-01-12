@@ -24,7 +24,7 @@ class EDC_STORABLE_CONNECTION
 inherit
    EDC_CONNECTION
 
-creation {EDC_STORABLE_DRIVER}
+create {EDC_STORABLE_DRIVER}
    prepare_connect
 
 feature {ANY}

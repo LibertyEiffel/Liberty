@@ -22,10 +22,10 @@
 deferred class EDC_TYPEABLE_VISITOR
 
 inherit
-   ESE_VISITOR
+   VISITOR
 
-feature {ESE_TYPED_VISITABLE, ESE_VISITOR}
-   as_typed (item_type_generator: STRING): ESE_VISITOR is
+feature {ESE_TYPED_VISITABLE, VISITOR}
+   as_typed (item_type_generator: STRING): VISITOR is
       do
          Result := typed_visitors.reference_at(item_type_generator)
          if Result = Void then
@@ -47,7 +47,7 @@ feature {ESE_TYPED_VISITABLE, ESE_VISITOR}
       end
 
 feature {}
-   typed_visitors: HASHED_DICTIONARY[ESE_VISITOR, STRING] is
+   typed_visitors: HASHED_DICTIONARY[VISITOR, STRING] is
       once
          create Result.make
       end

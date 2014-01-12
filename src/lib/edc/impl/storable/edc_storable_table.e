@@ -30,7 +30,7 @@ inherit
 insert
    STORABLE
 
-creation {EDC_STORABLE_CONNECTION}
+create {EDC_STORABLE_CONNECTION}
    make
 
 feature {ANY}

@@ -21,7 +21,7 @@
 -- -----------------------------------------------------------------------------------------------------------
 class EDC_GDA_TABLE
 
-creation {EDC_GDA_CONNECTION}
+create {EDC_GDA_CONNECTION}
    make
 
 feature {EDC_GDA_CONNECTION}

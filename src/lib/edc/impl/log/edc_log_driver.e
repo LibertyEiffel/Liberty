@@ -36,7 +36,7 @@ insert
       export {} sql_can_connect_to, sql_connect_to
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {EDC_CONNECTION_FACTORY}

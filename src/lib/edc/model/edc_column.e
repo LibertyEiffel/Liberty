@@ -28,7 +28,7 @@ insert
    EDC_CONSTANTS
       redefine is_equal
       end
-   ESE_VISITABLE
+   VISITABLE
       redefine is_equal
       end
 

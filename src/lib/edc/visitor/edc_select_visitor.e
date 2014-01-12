@@ -22,7 +22,7 @@
 deferred class EDC_SELECT_VISITOR
 
 inherit
-   ESE_VISITOR
+   VISITOR
 
 feature {EDC_SELECT}
    visit_select (a_select: EDC_SELECT) is

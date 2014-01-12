@@ -22,7 +22,7 @@
 deferred class EDC_UPDATE_VISITOR
 
 inherit
-   ESE_VISITOR
+   VISITOR
 
 feature {EDC_UPDATE}
    visit_update (a_update: EDC_UPDATE) is

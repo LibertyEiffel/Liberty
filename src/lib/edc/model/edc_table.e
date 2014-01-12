@@ -25,15 +25,15 @@ insert
    EDC_CONSTANTS
       redefine is_equal
       end
-   ESE_VISITABLE
+   VISITABLE
       redefine is_equal
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   accept (a_visitor: ESE_VISITOR) is
+   accept (a_visitor: VISITOR) is
       local
          v: EDC_TABLE_VISITOR
       do

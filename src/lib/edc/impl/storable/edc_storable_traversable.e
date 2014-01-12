@@ -24,7 +24,7 @@ class EDC_STORABLE_TRAVERSABLE
 inherit
    TRAVERSABLE[EDC_DATUM]
 
-creation {EDC_STORABLE_DATA}
+create {EDC_STORABLE_DATA}
    make
 
 feature {ANY} -- Indexing:

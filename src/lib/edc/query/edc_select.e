@@ -24,11 +24,11 @@ class EDC_SELECT
 inherit
    EDC_SELECTABLE
 
-creation {EDC_CONNECTION}
+create {EDC_CONNECTION}
    make
 
 feature {ANY}
-   accept (a_visitor: ESE_VISITOR) is
+   accept (a_visitor: VISITOR) is
       local
          v: EDC_SELECT_VISITOR
       do

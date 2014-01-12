@@ -22,7 +22,7 @@
 deferred class EDC_INSERT_VISITOR
 
 inherit
-   ESE_VISITOR
+   VISITOR
 
 feature {EDC_INSERT}
    visit_insert (a_insert: EDC_INSERT) is

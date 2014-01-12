@@ -24,7 +24,7 @@ class EDC_STORABLE_SAVEPOINT
 inherit
    EDC_SAVEPOINT
 
-creation {EDC_STORABLE_CONNECTION}
+create {EDC_STORABLE_CONNECTION}
    make
 
 feature {ANY}

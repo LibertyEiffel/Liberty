@@ -30,7 +30,7 @@ insert
       export {} call_handler_is_equal
       end
 
-creation {EDC_LOG_DRIVER}
+create {EDC_LOG_DRIVER}
    make
 
 feature {ANY}

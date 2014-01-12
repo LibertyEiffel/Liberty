@@ -24,11 +24,11 @@ class EDC_INSERT
 inherit
    EDC_QUERY
 
-creation {EDC_CONNECTION}
+create {EDC_CONNECTION}
    make
 
 feature {ANY}
-   accept (a_visitor: ESE_VISITOR) is
+   accept (a_visitor: VISITOR) is
       local
          v: EDC_INSERT_VISITOR
       do

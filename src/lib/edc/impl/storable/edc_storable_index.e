@@ -24,7 +24,7 @@ class EDC_STORABLE_INDEX
 inherit
    EDC_STORABLE_DATA
 
-creation {EDC_STORABLE_TABLE}
+create {EDC_STORABLE_TABLE}
    make
 
 feature {ANY}

@@ -29,10 +29,10 @@ inherit
    EDC_STRING_COLUMN_VISITOR
    EDC_TIME_COLUMN_VISITOR
 
-creation {EDC_SQLITE_RESULT_SET}
+create {EDC_SQLITE_RESULT_SET}
    make
 
-feature {ESE_TYPED_VISITABLE, ESE_VISITOR}
+feature {ESE_TYPED_VISITABLE, VISITOR}
    as_typed (item_type_generator: STRING): EDC_SQLITE_QUERY_BUILDER_TOOLS is
       do
          check

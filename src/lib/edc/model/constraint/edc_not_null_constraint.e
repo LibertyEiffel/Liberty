@@ -24,11 +24,11 @@ class EDC_NOT_NULL_CONSTRAINT
 inherit
    EDC_CONSTRAINT
 
-creation {EDC_CONSTRAINTS}
+create {EDC_CONSTRAINTS}
    make
 
 feature {ANY}
-   accept (a_visitor: ESE_VISITOR) is
+   accept (a_visitor: VISITOR) is
       local
          v: EDC_NOT_NULL_CONSTRAINT_VISITOR
       do

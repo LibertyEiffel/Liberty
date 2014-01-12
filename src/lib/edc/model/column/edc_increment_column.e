@@ -25,7 +25,7 @@ inherit
    EDC_COMPARABLE_COLUMN[INTEGER_32]
 
 feature {ANY}
-   accept (a_visitor: ESE_VISITOR) is
+   accept (a_visitor: VISITOR) is
       local
          v: EDC_INCREMENT_COLUMN_VISITOR
       do

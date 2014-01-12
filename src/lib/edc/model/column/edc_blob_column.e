@@ -24,7 +24,7 @@ class EDC_BLOB_COLUMN
 inherit
    EDC_TYPED_COLUMN[EDC_BLOB]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -33,7 +33,7 @@ feature {ANY}
          create Result.make(Current)
       end
 
-   accept (a_visitor: ESE_VISITOR) is
+   accept (a_visitor: VISITOR) is
       local
          v: EDC_BLOB_COLUMN_VISITOR
       do

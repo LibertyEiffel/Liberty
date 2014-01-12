@@ -22,7 +22,7 @@
 deferred class EDC_BLOB_COLUMN_VISITOR
 
 inherit
-   ESE_VISITOR
+   VISITOR
 
 feature {EDC_BLOB_COLUMN}
    visit_blob_column (a_blob_column: EDC_BLOB_COLUMN) is

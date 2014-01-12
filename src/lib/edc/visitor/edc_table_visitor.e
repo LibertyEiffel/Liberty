@@ -22,7 +22,7 @@
 deferred class EDC_TABLE_VISITOR
 
 inherit
-   ESE_VISITOR
+   VISITOR
 
 feature {EDC_TABLE}
    visit_table (a_table: EDC_TABLE) is

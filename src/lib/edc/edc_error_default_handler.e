@@ -24,7 +24,7 @@ class EDC_ERROR_DEFAULT_HANDLER
 inherit
    EDC_ERROR_HANDLER
 
-creation {EDC_CONSTANTS}
+create {EDC_CONSTANTS}
    make
 
 feature {EDC_ERROR_CONNECTION_FAILED}

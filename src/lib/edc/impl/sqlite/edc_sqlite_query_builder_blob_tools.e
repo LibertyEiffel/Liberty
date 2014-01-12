@@ -34,7 +34,7 @@ inherit
 insert
    SINGLETON
 
-creation {EDC_SQLITE_QUERY_BUILDER_TOOLS}
+create {EDC_SQLITE_QUERY_BUILDER_TOOLS}
    make
 
 feature {EDC_MANIFEST_VALUE}

@@ -29,7 +29,7 @@ inherit
       redefine is_equal
       end
 
-creation {EDC_COLUMN}
+create {EDC_COLUMN}
    make
 
 feature {}

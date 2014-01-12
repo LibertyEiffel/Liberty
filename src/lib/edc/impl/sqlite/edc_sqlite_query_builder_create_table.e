@@ -36,7 +36,7 @@ inherit
 insert
    SINGLETON
 
-creation {EDC_SQLITE_CONNECTION}
+create {EDC_SQLITE_CONNECTION}
    make
 
 feature {}
@@ -57,8 +57,8 @@ feature {}
 
    state_create_index: INTEGER is 2
 
-feature {ESE_TYPED_VISITABLE, ESE_VISITOR}
-   as_typed (item_type_generator: STRING): ESE_VISITOR is
+feature {ESE_TYPED_VISITABLE, VISITOR}
+   as_typed (item_type_generator: STRING): VISITOR is
       do
          check
             no_untyped_visitor: False

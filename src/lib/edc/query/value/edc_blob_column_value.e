@@ -24,11 +24,11 @@ class EDC_BLOB_COLUMN_VALUE
 inherit
    EDC_COLUMN_VALUE[EDC_BLOB]
 
-creation {EDC_TYPED_COLUMN}
+create {EDC_TYPED_COLUMN}
    make
 
 feature {ANY}
-   accept (a_visitor: ESE_VISITOR) is
+   accept (a_visitor: VISITOR) is
       local
          v: EDC_BLOB_COLUMN_VALUE_VISITOR
       do

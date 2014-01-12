@@ -22,7 +22,7 @@
 deferred class EDC_INCREMENT_COLUMN_VALUE_VISITOR
 
 inherit
-   ESE_VISITOR
+   VISITOR
 
 feature {EDC_INCREMENT_COLUMN_VALUE}
    visit_increment_column_value (a_increment_column_value: EDC_INCREMENT_COLUMN_VALUE) is

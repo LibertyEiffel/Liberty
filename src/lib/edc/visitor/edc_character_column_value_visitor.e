@@ -22,7 +22,7 @@
 deferred class EDC_CHARACTER_COLUMN_VALUE_VISITOR
 
 inherit
-   ESE_VISITOR
+   VISITOR
 
 feature {EDC_CHARACTER_COLUMN_VALUE}
    visit_character_column_value (a_character_column_value: EDC_CHARACTER_COLUMN_VALUE) is

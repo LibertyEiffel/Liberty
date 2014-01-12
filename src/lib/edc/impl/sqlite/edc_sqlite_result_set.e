@@ -24,7 +24,7 @@ class EDC_SQLITE_RESULT_SET
 inherit
    EDC_RESULT_SET
 
-creation {EDC_SQLITE_CONNECTION}
+create {EDC_SQLITE_CONNECTION}
    make
 
 feature {ANY} -- Connection:

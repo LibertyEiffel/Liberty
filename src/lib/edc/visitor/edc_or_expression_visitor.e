@@ -22,7 +22,7 @@
 deferred class EDC_OR_EXPRESSION_VISITOR
 
 inherit
-   ESE_VISITOR
+   VISITOR
 
 feature {EDC_OR_EXPRESSION}
    visit_or_expression (a_or_expression: EDC_OR_EXPRESSION) is

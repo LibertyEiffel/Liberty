@@ -24,11 +24,11 @@ class EDC_TIME_COLUMN_VALUE
 inherit
    EDC_COMPARABLE_COLUMN_VALUE[TIME]
 
-creation {EDC_TYPED_COLUMN}
+create {EDC_TYPED_COLUMN}
    make
 
 feature {ANY}
-   accept (a_visitor: ESE_VISITOR) is
+   accept (a_visitor: VISITOR) is
       local
          v: EDC_TIME_COLUMN_VALUE_VISITOR
       do
