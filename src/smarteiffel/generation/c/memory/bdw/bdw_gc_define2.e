@@ -333,7 +333,7 @@ feature {}
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void*bdw_weakref_new(int n)")
          cpp.pending_c_function_body.append(once "void*result=GC_MALLOC_ATOMIC(n*sizeof(bdw_Twr));%N%
-                                                 %se_check_malloc(result);%N%
+                                                 %se_check_malloc(result, %"No more memory (GC_MALLOC_ATOMIC failed).\n%");%N%
                                                  %return result;%N")
          cpp.dump_pending_c_function(True)
       end
