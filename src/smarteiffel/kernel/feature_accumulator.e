@@ -442,16 +442,17 @@ feature {}
 feature {LIKE_FEATURE_TYPE_MARK, WRITABLE_ATTRIBUTE_NAME, FUNCTION_CALL}
    find_type_for (fs: FEATURE_STAMP): TYPE_MARK is
       local
-         fn: FEATURE_NAME
+         fn: FEATURE_NAME; afm: ANONYMOUS_FEATURE_MIXER
       do
          fn := context_type.get_feature_name(fs)
-         if features_dictionary.reference_at(fn).computing_result_type = 1 then
+         afm := features_dictionary.reference_at(fn)
+         if afm.computing_result_type = 1 then
             if error_handler.is_empty then
                error_handler.append(once "Unable to solve cyclic anchored types.")
             end
             error_handler.add_position(fn.start_position)
          end
-         Result := features_dictionary.reference_at(fn).result_type(context_type)
+         Result := afm.result_type(context_type)
          check
             Result /= Void
          end
