@@ -8,7 +8,7 @@ class C_PLUS_PLUS_CLASS
 
 inherit 
 	COMPOSED_NODE -- hence also a STORABLE_NODE and a NAMED_NODE
-		undefine compute_eiffel_name end
+		--undefine compute_eiffel_name end
 	CONTEXTED_NODE -- therefore also a NAMED_NODE
 	FILED_NODE
 	IDENTIFIED_NODE
@@ -77,8 +77,8 @@ feature {ANY}
 			output.flush
 			output.disconnect
 		else
-			if is_anonymous then log_string(once "Skipping anonymous structure at line "+line.out+".%N")
-			else log(once "Struct @(1) skipped%N", <<c_string_name>>)
+			if is_anonymous then log_string(once "Skipping anonymous C++ class at line "+line.out+". An anonymous class? Prettu strange, don't you think?%N")
+			else log(once "C++ class @(1) skipped%N", <<c_string_name>>)
 			end
 			
 		end
