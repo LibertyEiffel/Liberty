@@ -148,11 +148,11 @@ feature {ANY}
                      std_error.put_line(once "No moved functions file given")
                      print_usage
                   end
-               elseif arg.is_equal(once "--version") or else
-                  arg.is_equal(once "-v") then
+               elseif arg.is_equal(once "--version") then
                   print_version
                   die_with_code(0)
-               elseif arg.is_equal(once "--verbose") then
+               elseif arg.is_equal(once "--verbose") or else
+                  arg.is_equal(once "-v") then
                   settings.set_verbose(True)
                -- TODO: re-enable grouping output on standard output
                -- elseif arg.is_equal(once "--on-standard-output") then

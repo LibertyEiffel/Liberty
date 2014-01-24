@@ -8,7 +8,7 @@ class C_PLUS_PLUS_CLASS
 
 inherit 
 	COMPOSED_NODE -- hence also a STORABLE_NODE and a NAMED_NODE
-		--undefine compute_eiffel_name end
+		undefine compute_eiffel_name end
 	CONTEXTED_NODE -- therefore also a NAMED_NODE
 	FILED_NODE
 	IDENTIFIED_NODE
@@ -70,14 +70,15 @@ feature {ANY}
 			path.add_last(eiffel_name.as_lower+once ".e")
 			log(once "Class @(1) to @(2) in @(3)%N", <<c_string_name, eiffel_name, path.to_string>>)
 			create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
-			-- emit_header
+			buffer.reset
+			emit_header
 			-- emit_members
 			-- emit_size
-			-- emit_footer
+			emit_footer
 			output.flush
 			output.disconnect
 		else
-			if is_anonymous then log_string(once "Skipping anonymous C++ class at line "+line.out+". An anonymous class? Prettu strange, don't you think?%N")
+			if is_anonymous then log_string(once "Skipping anonymous C++ class at line "+line.out+". An anonymous class? Is this a bug?%N")
 			else log(once "C++ class @(1) skipped%N", <<c_string_name>>)
 			end
 			
@@ -95,6 +96,25 @@ feature {ANY}
 	-- TODO: the above reference to STANDARD_C_LIBRARY_TYPES creates requires
 	-- to wrap standard C library using a file called
 	-- "standard-c-library.gcc-xml"; allow the user to specify its name,
+feature {} -- Implementation
+	emit_header is
+
+		do
+		buffer.append(automatically_generated_header)
+		buffer.append(once "class ")
+		buffer.append(eiffel_name)
+		-- TODO: emit_description(class_descriptions.reference_at(eiffel_name))
+		buffer.put_message(once "%T -- class @(1)%N",<< c_string_name >>)
+		buffer.append(class_inherits)
+		buffer.put_message(once "%T@(1)%N",<<settings.typedefs>>)
+		buffer.print_on(output)
+
+		end
+
+	emit_footer is 
+		do
+
+		end
 end -- class C_PLUS_PLUS_CLASS
 
 -- Copyright 2010 Paolo Redaelli
