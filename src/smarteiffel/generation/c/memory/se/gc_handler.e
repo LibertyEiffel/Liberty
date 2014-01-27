@@ -11,6 +11,7 @@ inherit
 
 insert
    C_AGENT_CREATION_MIXIN
+   TAGGER
 
 create {MEMORY_HANDLER_FACTORY}
    make
@@ -115,34 +116,24 @@ feature {C_PRETTY_PRINTER}
 
    echo_information is
       local
-         tag_count: HASHED_DICTIONARY[INTEGER, HASHED_STRING]
-         i: INTEGER; tag: HASHED_STRING
+         i: INTEGER; tag: C_GARBAGE_COLLECTOR_TAG
+         sorter: COLLECTION_SORTER[C_GARBAGE_COLLECTOR_TAG]
       do
+         sorter.sort(wa_list_map)
          from
-            create tag_count.with_capacity(wa_list_map.count)
+            echo.print_count(once "equivalent memory structure", wa_list_map.count)
             i := wa_list_map.lower
          until
             i > wa_list_map.upper
          loop
             tag := wa_list_map.item(i)
-            if tag_count.fast_has(tag) then
-               tag_count.fast_put(tag_count.fast_at(tag) + 1, tag)
-            else
-               tag_count.add(1, tag)
-            end
-            i := i + 1
-         end
-         from
-            echo.print_count(once "equivalent memory structure", tag_count.count)
-            i := tag_count.lower
-         until
-            i > tag_count.upper
-         loop
-            echo.put_string(once "    [")
-            echo.put_string(tag_count.key(i).to_string)
-            echo.put_string(once "] ")
-            echo.put_integer(tag_count.item(i))
-            echo.put_new_line
+            echo.put_character('%T')
+            echo.put_integer(tag.count)
+            echo.put_string(once "%Tid:")
+            echo.put_integer(tag.id)
+            echo.put_string(once "%Tstruct:{")
+            echo.put_string(tag.tag.to_string)
+            echo.put_line(once "}")
             i := i + 1
          end
       end
@@ -615,8 +606,20 @@ feature {C_PRETTY_PRINTER}
 
 feature {C_HEADER_PASS_0}
    register_wa_list (live_type: LIVE_TYPE) is
+      local
+         index: INTEGER
+         tag: C_GARBAGE_COLLECTOR_TAG
       do
-         wa_list_map.add(wa_list_tagger.for(live_type), live_type)
+         special_tag.set(wa_list_tagger.for(live_type))
+         index := wa_list_map.first_index_of(special_tag)
+         if wa_list_map.valid_index(index) then
+            tag := wa_list_map.item(index)
+         else
+            create tag.make(special_tag.tag)
+            wa_list_map.add_last(tag)
+         end
+         tag.increment
+         live_type.set_tag(wa_list_tag, tag)
       end
 
 feature {C_COMPILATION_MIXIN}
@@ -701,7 +704,7 @@ feature {}
          create before_mark_compiler.make
          create need_mark.make
          create native_array_collector.make
-         create wa_list_map.make
+         create wa_list_map.make(0)
          create wa_list_tagger.make
       end
 
@@ -914,7 +917,17 @@ feature {}
 
    wa_list_tagger: C_GARBAGE_COLLECTOR_TAGGER
 
-   wa_list_map: HASHED_DICTIONARY[HASHED_STRING, LIVE_TYPE]
+   wa_list_map: FAST_ARRAY[C_GARBAGE_COLLECTOR_TAG]
+
+   wa_list_tag: FIXED_STRING is
+      once
+         Result := "c_struct_signature".intern
+      end
+
+   special_tag: C_GARBAGE_COLLECTOR_TAG is
+      once
+         create Result.special
+      end
 
 end -- class GC_HANDLER
 --
