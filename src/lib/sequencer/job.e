@@ -16,7 +16,6 @@ deferred class JOB
    --
 
 insert
-   ANY
    PLATFORM
 
 feature {JOB, LOOP_ITEM}
@@ -27,7 +26,7 @@ feature {JOB, LOOP_ITEM}
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET) is
          -- Use `events' to descibe condition that make this job ready to `continue'.
-         -- `events' describe the conditions to be satisfied before 
+         -- `events' describe the conditions to be satisfied before
          -- runing this job for one more step.
       require
          events /= Void
