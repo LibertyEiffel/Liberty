@@ -64,6 +64,10 @@ feature {C_PRETTY_PRINTER} -- C code phases
       do
       end
 
+   echo_information is
+      do
+      end
+
 feature {C_PRETTY_PRINTER} -- specific objects
    manifest_string_in (c_code: STRING; string_at_run_time: BOOLEAN) is
       do
@@ -204,6 +208,11 @@ feature {C_PRETTY_PRINTER}
       end
 
    end_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+      do
+      end
+
+feature {C_HEADER_PASS_0}
+   register_wa_list (live_type: LIVE_TYPE) is
       do
       end
 

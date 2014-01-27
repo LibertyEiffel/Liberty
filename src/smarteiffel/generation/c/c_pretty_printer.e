@@ -1176,6 +1176,7 @@ feature {}
          echo.put_integer(context_stack.count)
          echo.put_character('%N')
          smart_eiffel.echo_polymorphic_inspect_distribution(once "during C code generation (backend)")
+         memory.echo_information
       end
 
    customize_runtime is
