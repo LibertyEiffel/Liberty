@@ -323,7 +323,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
             else
                put_string(once "No ")
                put_string(msg)
-               put_string(once ".%N")
+               put_string(once "s.%N")
             end
          end
       end
