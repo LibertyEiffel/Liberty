@@ -88,6 +88,10 @@ feature {C_PRETTY_PRINTER} -- C code phases
       deferred
       end
 
+   echo_information is
+      deferred
+      end
+
 feature {C_PRETTY_PRINTER} -- specific objects
    manifest_string_in (c_code: STRING; string_at_run_time: BOOLEAN) is
          -- Code to create a new Manifest STRING and assign it in the "s" local C variable.
@@ -222,6 +226,13 @@ feature {C_PRETTY_PRINTER}
       end
 
    end_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+      deferred
+      end
+
+feature {C_HEADER_PASS_0}
+   register_wa_list (live_type: LIVE_TYPE) is
+      require
+         live_type.writable_attributes /= Void
       deferred
       end
 

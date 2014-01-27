@@ -113,6 +113,40 @@ feature {C_PRETTY_PRINTER}
                                                  %#endif%N")
       end
 
+   echo_information is
+      local
+         tag_count: HASHED_DICTIONARY[INTEGER, HASHED_STRING]
+         i: INTEGER; tag: HASHED_STRING
+      do
+         from
+            create tag_count.with_capacity(wa_list_map.count)
+            i := wa_list_map.lower
+         until
+            i > wa_list_map.upper
+         loop
+            tag := wa_list_map.item(i)
+            if tag_count.fast_has(tag) then
+               tag_count.fast_put(tag_count.fast_at(tag) + 1, tag)
+            else
+               tag_count.add(1, tag)
+            end
+            i := i + 1
+         end
+         from
+            echo.print_count(once "equivalent memory structure", tag_count.count)
+            i := tag_count.lower
+         until
+            i > tag_count.upper
+         loop
+            echo.put_string(once "    [")
+            echo.put_string(tag_count.key(i).to_string)
+            echo.put_string(once "] ")
+            echo.put_integer(tag_count.item(i))
+            echo.put_new_line
+            i := i + 1
+         end
+      end
+
 feature {C_PRETTY_PRINTER}
    define1 is
       do
@@ -579,6 +613,12 @@ feature {C_PRETTY_PRINTER}
       do
       end
 
+feature {C_HEADER_PASS_0}
+   register_wa_list (live_type: LIVE_TYPE) is
+      do
+         wa_list_map.add(wa_list_tagger.for(live_type), live_type)
+      end
+
 feature {C_COMPILATION_MIXIN}
    need_struct_for (type_mark: TYPE_MARK): BOOLEAN is
       do
@@ -661,6 +701,8 @@ feature {}
          create before_mark_compiler.make
          create need_mark.make
          create native_array_collector.make
+         create wa_list_map.make
+         create wa_list_tagger.make
       end
 
    compute_ceils is
@@ -869,6 +911,10 @@ feature {}
          -- ReSizable Objects Chunks Size.
 
    dispose_flag: BOOLEAN
+
+   wa_list_tagger: C_GARBAGE_COLLECTOR_TAGGER
+
+   wa_list_map: HASHED_DICTIONARY[HASHED_STRING, LIVE_TYPE]
 
 end -- class GC_HANDLER
 --

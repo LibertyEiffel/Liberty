@@ -22,6 +22,7 @@ create {ANY}
    make
 
 feature {ANY} -- Code generators
+   header_pass_0: C_HEADER_PASS_0
    header_pass_1: C_HEADER_PASS_1
    header_pass_2: C_HEADER_PASS_2
    header_pass_3: C_HEADER_PASS_3
@@ -52,6 +53,7 @@ feature {ANY} -- C-related type properties
 feature {}
    make is
       do
+         create header_pass_0.make
          create header_pass_1.make
          create header_pass_2.make
          create header_pass_3.make
@@ -114,6 +116,7 @@ feature {SMART_EIFFEL}
             -- ---------------------------------------------------------
             smart_eiffel.show_live_types
             -- ---------------------------------------------------------
+            header_pass_0.compile
             header_pass_1.compile
             header_pass_2.compile
             header_pass_3.compile
@@ -1173,6 +1176,7 @@ feature {}
          echo.put_integer(context_stack.count)
          echo.put_character('%N')
          smart_eiffel.echo_polymorphic_inspect_distribution(once "during C code generation (backend)")
+         memory.echo_information
       end
 
    customize_runtime is
