@@ -27,8 +27,8 @@ feature {}
          wa := live_type.writable_attributes
          if wa /= Void then
             sorter.sort(wa)
-            cpp.memory.register_wa_list(live_type)
          end
+         cpp.memory.register_wa_list(live_type)
       end
 
    sorter: COMPARATOR_COLLECTION_SORTER[RUN_FEATURE_2]
@@ -104,7 +104,7 @@ feature {BOOLEAN_TYPE_MARK}
 feature {POINTER_TYPE_MARK}
    visit_pointer_type_mark (visited: POINTER_TYPE_MARK) is
       do
-         priority := 10
+         priority := 18
       end
 
 feature {NATURAL_TYPE_MARK}
@@ -122,17 +122,15 @@ feature {INTEGER_TYPE_MARK}
 feature {STRING_TYPE_MARK}
    visit_string_type_mark (visited: STRING_TYPE_MARK) is
       do
-         priority := 10
+         priority := 100
       end
 
 feature {CLASS_TYPE_MARK}
    visit_class_type_mark (visited: CLASS_TYPE_MARK) is
       do
          if not visited.type.has_external_type then
-            if visited.is_reference then
-               priority := 10
-            else
-               priority := 0
+               if visited.is_reference then
+               priority := 100
             end
          else
             priority := 0
@@ -142,53 +140,51 @@ feature {CLASS_TYPE_MARK}
 feature {ANY_TYPE_MARK}
    visit_any_type_mark (visited: ANY_TYPE_MARK) is
       do
-         priority := 10
+         priority := 100
       end
 
 feature {EMPTY_TUPLE_TYPE_MARK}
    visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK) is
       do
-         priority := 10
+         priority := 100
       end
 
 feature {NON_EMPTY_TUPLE_TYPE_MARK}
    visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK) is
       do
-         priority := 10
+         priority := 100
       end
 
 feature {AGENT_TYPE_MARK}
    visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
       do
-         priority := 10
+         priority := 100
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}
    visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
       do
-         priority := 10
+         priority := 99
       end
 
 feature {WEAK_REFERENCE_TYPE_MARK}
    visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
       do
-         priority := 9
+         priority := 100
       end
 
 feature {USER_GENERIC_TYPE_MARK}
    visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
       do
          if visited.is_reference then
-            priority := 10
-         else
-            priority := 0
+            priority := 100
          end
       end
 
 feature {ARRAY_TYPE_MARK}
    visit_array_type_mark (visited: ARRAY_TYPE_MARK) is
       do
-         priority := 10
+         priority := 100
       end
 
 end -- class C_HEADER_PASS_0

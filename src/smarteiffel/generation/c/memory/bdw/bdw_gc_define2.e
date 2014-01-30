@@ -224,7 +224,9 @@ feature {}
          cpp.pending_c_function_body.append(cpp.target_type.for(tm))
          cpp.pending_c_function_body.append(once ")se_malloc((*n)*sizeof(T")
          live_type.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "));%N")
+         cpp.pending_c_function_body.append(once "/*")
+         cpp.pending_c_function_body.append(live_type.structure_signature)
+         cpp.pending_c_function_body.append(once "*/));%N")
          if has_finalizer then
             cpp.pending_c_function_body.append(once "GC_REGISTER_FINALIZER_NO_ORDER(R, bdw_finalizeT")
             live_type.id.append_in(cpp.pending_c_function_body)
@@ -279,7 +281,9 @@ feature {}
             cpp.pending_c_function_body.append(once "0*));%N")
          else
             et.id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "));%N")
+            cpp.pending_c_function_body.append(once "/*")
+            cpp.pending_c_function_body.append(et.live_type.structure_signature)
+            cpp.pending_c_function_body.append(once "*/));%N")
          end
          cpp.pending_c_function_body.append(once "return R;%N")
          cpp.dump_pending_c_function(True)

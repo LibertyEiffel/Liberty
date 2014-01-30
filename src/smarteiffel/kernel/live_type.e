@@ -1077,8 +1077,8 @@ feature {RUN_FEATURE}
          actual_clients_.fast_add(lt)
       end
 
-feature {C_PRETTY_PRINTER, LIVE_TYPE}
-   structure_signature: STRING is
+feature {ANY}
+   structure_signature: STRING is --| **** TODO remove and use the generation/c cluster's tag "c_struct_signature" instead
          -- Terse description of the C struct. Used for recompilation comments.
       require
          at_run_time

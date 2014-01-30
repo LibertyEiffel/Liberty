@@ -186,7 +186,9 @@ feature {NATIVE_BUILT_IN}
             elseif type_of_current.is_agent then
                function_body.append(once "(((se_agent*)C)->u0.eq==((se_agent*)a1)->u0.eq)&&(((se_agent*)C)->u0.eq((se_agent*)C,(se_agent*)a1))")
             elseif live_type_of_current.is_tagged then
-               function_body.append(once "((T6)((C->id==a1->id)?!memcmp(C,a1,sizeof(*C)):0))")
+               function_body.append(once "((T6)((C->id==a1->id)?!memcmp(C,a1,sizeof(*C/*")
+               function_body.append(live_type_of_current.structure_signature)
+               function_body.append(once "*/)):0))")
             elseif live_type_of_current.writable_attributes = Void then
                if ace.boost then
                   cbd := cpp.cannot_drop_all
@@ -203,7 +205,9 @@ feature {NATIVE_BUILT_IN}
             elseif type_of_current.is_user_expanded or else not ace.boost then
                function_body.append(once "(T6)!memcmp(C,&a1,sizeof(T")
                type_of_current.id.append_in(function_body)
-               function_body.append(once "))")
+               function_body.append(once ")/*")
+               function_body.append(live_type_of_current.structure_signature)
+               function_body.append(once "*/)")
             else
                function_body.append(once "!memcmp(")
                cpp.put_target_as_target(type_of_current)
@@ -215,7 +219,9 @@ feature {NATIVE_BUILT_IN}
                cpp.put_ith_argument(1)
                function_body.append(once "),sizeof(T")
                live_type_of_current.id.append_in(function_body)
-               function_body.append(once "))")
+               function_body.append(once ")/*")
+               function_body.append(live_type_of_current.structure_signature)
+               function_body.append(once "*/)")
             end
          elseif as_standard_twin = name then
             c_mapping_standard_twin
@@ -638,7 +644,10 @@ feature {} -- built-ins
                   function_body.has_suffix(once "R=")
                end
                function_body.remove_tail(2)
-               function_body.append(once "memcpy(&R,C,sizeof(R))")
+               function_body.append(once "memcpy(&R,C,sizeof(R")
+               function_body.append(once ")/*")
+               function_body.append(type_of_current.live_type.structure_signature)
+               function_body.append(once "*/)")
             end
          else
             function_body.append(once "((void*)")
@@ -661,7 +670,9 @@ feature {} -- built-ins
             end
             function_body.append(once "sizeof(")
             function_body.append(cpp.argument_type.for(elt_type.canonical_type_mark))
-            function_body.extend(')')
+            function_body.append(once "/*")
+            function_body.append(elt_type.live_type.structure_signature)
+            function_body.append(once "*/)")
             if tcbd then
                function_body.extend(')')
             end

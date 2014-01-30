@@ -103,7 +103,9 @@ feature {NATIVE_BUILT_IN}
                cpp.put_ith_argument(1)
                function_body.append(once ",sizeof(T")
                type_of_current.id.append_in(function_body)
-               function_body.append(once "));%N")
+               function_body.append(once "/*")
+               function_body.append(type_of_current.live_type.structure_signature)
+               function_body.append(once "*/));%N")
             end
          elseif as_print_run_time_stack = name then
             function_body.append(once "se_print_run_time_stack();%N")
@@ -252,7 +254,9 @@ feature {} -- built-ins
                   cpp.put_ith_argument(2)
                   function_body.append(once "]),&a1tmp,sizeof(T")
                   elt_type.id.append_in(function_body)
-                  function_body.append(once "));}%N")
+                  function_body.append(once "/*")
+                  function_body.append(elt_type.live_type.structure_signature)
+                  function_body.append(once "*/));}%N")
                end
             else
                cpp.memory.put_ref_in_native_array(rf7)
@@ -273,6 +277,9 @@ feature {} -- built-ins
                function_body.append(once "0*")
             else
                elt_type.id.append_in(function_body) --|**** TODO: that is wrong; should use the type's copy feature
+               function_body.append(once "/*")
+               function_body.append(elt_type.live_type.structure_signature)
+               function_body.append(once "*/")
             end
             function_body.append(once "));}%N")
          else

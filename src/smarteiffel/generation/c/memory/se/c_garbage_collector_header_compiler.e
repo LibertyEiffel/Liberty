@@ -8,6 +8,9 @@ class C_GARBAGE_COLLECTOR_HEADER_COMPILER
 
 inherit
    C_GARBAGE_COLLECTOR_ABSTRACT_COMPILER
+      redefine
+         make
+      end
 
 create {GC_HANDLER}
    make
@@ -16,7 +19,7 @@ feature {AGENT_TYPE_MARK}
    visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
       do
          out_h.copy(once "%N#define gc_mark")
-         visited.id.append_in(out_h)
+         ltid_in(visited.type.live_type, out_h, False, False)
          out_h.append(once "(x) (((se_agent0*)(x))->gc_mark_agent_mold((se_agent*)(x)))%N%N")
          cpp.write_out_h_buffer
          if visited.type.has_local_closure then
@@ -58,7 +61,7 @@ feature {}
          out_h.append(once ";%Nstruct B")
          ltid_in(lt, out_h, False, for_closure)
          out_h.append(once "{T")
-         lt.id.append_in(out_h)
+         ltid_in(lt, out_h, False, False)
          if for_closure and then visited.is_reference then
             out_h.extend('*')
          else
@@ -113,6 +116,14 @@ feature {}
 
    gc_expanded (visited: TYPE_MARK) is
       do
+      end
+
+feature {}
+   structer: C_GARBAGE_COLLECTOR_STRUCTER
+
+   make is
+      do
+         create structer.make
       end
 
 end -- class C_GARBAGE_COLLECTOR_HEADER_COMPILER

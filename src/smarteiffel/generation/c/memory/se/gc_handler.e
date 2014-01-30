@@ -119,14 +119,14 @@ feature {C_PRETTY_PRINTER}
          i: INTEGER; tag: C_GARBAGE_COLLECTOR_TAG
          sorter: COLLECTION_SORTER[C_GARBAGE_COLLECTOR_TAG]
       do
-         sorter.sort(wa_list_map)
+         sorter.sort(c_struct_signature_map)
          from
-            echo.print_count(once "equivalent memory structure", wa_list_map.count)
-            i := wa_list_map.lower
+            echo.print_count(once "equivalent memory structure", c_struct_signature_map.count)
+            i := c_struct_signature_map.lower
          until
-            i > wa_list_map.upper
+            i > c_struct_signature_map.upper
          loop
-            tag := wa_list_map.item(i)
+            tag := c_struct_signature_map.item(i)
             echo.put_character('%T')
             echo.put_integer(tag.count)
             echo.put_string(once "%Tid:")
@@ -397,25 +397,31 @@ feature {C_PRETTY_PRINTER}
 feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
    malloc (lt: LIVE_TYPE) is
       do
-         cpp.pending_c_function_body.append(once "new")
+         cpp.pending_c_function_body.append(once "(/*malloc*/(T")
          lt.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "()")
+         cpp.pending_c_function_body.append(once "*)new")
+         lt.id.append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once "())")
       end
 
    malloc_closure (lt: LIVE_TYPE) is
       do
-         cpp.pending_c_function_body.append(once "newCL")
+         cpp.pending_c_function_body.append(once "(/*malloc_closure*/(T")
          lt.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "()")
+         cpp.pending_c_function_body.append(once "*)newCL")
+         lt.id.append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once "())")
       end
 
    calloc (lt: LIVE_TYPE; n: PROCEDURE[TUPLE]) is
       do
-         cpp.pending_c_function_body.append(once "new")
+         cpp.pending_c_function_body.append(once "(/*calloc*/(T")
          lt.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.extend('(')
+         cpp.pending_c_function_body.append(once ")new")
+         lt.id.append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once "(")
          n.call([])
-         cpp.pending_c_function_body.extend(')')
+         cpp.pending_c_function_body.append(once "))")
       end
 
 feature {C_COMPILATION_MIXIN} -- GC switches (see MEMORY)
@@ -610,16 +616,16 @@ feature {C_HEADER_PASS_0}
          index: INTEGER
          tag: C_GARBAGE_COLLECTOR_TAG
       do
-         special_tag.set(wa_list_tagger.for(live_type))
-         index := wa_list_map.first_index_of(special_tag)
-         if wa_list_map.valid_index(index) then
-            tag := wa_list_map.item(index)
+         special_tag.set(c_struct_signature_tagger.for(live_type))
+         index := c_struct_signature_map.first_index_of(special_tag)
+         if c_struct_signature_map.valid_index(index) then
+            tag := c_struct_signature_map.item(index)
          else
             create tag.make(special_tag.tag)
-            wa_list_map.add_last(tag)
+            c_struct_signature_map.add_last(tag)
          end
          tag.increment
-         live_type.set_tag(wa_list_tag, tag)
+         live_type.set_tag(c_struct_signature_tag, tag)
       end
 
 feature {C_COMPILATION_MIXIN}
@@ -704,8 +710,8 @@ feature {}
          create before_mark_compiler.make
          create need_mark.make
          create native_array_collector.make
-         create wa_list_map.make(0)
-         create wa_list_tagger.make
+         create c_struct_signature_map.make(0)
+         create c_struct_signature_tagger.make
       end
 
    compute_ceils is
@@ -915,18 +921,19 @@ feature {}
 
    dispose_flag: BOOLEAN
 
-   wa_list_tagger: C_GARBAGE_COLLECTOR_TAGGER
+   c_struct_signature_tagger: C_GARBAGE_COLLECTOR_TAGGER
 
-   wa_list_map: FAST_ARRAY[C_GARBAGE_COLLECTOR_TAG]
-
-   wa_list_tag: FIXED_STRING is
-      once
-         Result := "c_struct_signature".intern
-      end
+   c_struct_signature_map: FAST_ARRAY[C_GARBAGE_COLLECTOR_TAG]
 
    special_tag: C_GARBAGE_COLLECTOR_TAG is
       once
          create Result.special
+      end
+
+feature {C_GARBAGE_COLLECTOR_ABSTRACT_COMPILER}
+   c_struct_signature_tag: FIXED_STRING is
+      once
+         Result := "c_struct_signature".intern
       end
 
 end -- class GC_HANDLER

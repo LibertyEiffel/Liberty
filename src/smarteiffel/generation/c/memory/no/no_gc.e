@@ -92,7 +92,9 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
          if cpp.need_struct.for(lt.canonical_type_mark) then
             cpp.pending_c_function_body.append(once "se_malloc(sizeof(T")
             lt.id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "))")
+            cpp.pending_c_function_body.append(once "/*")
+            cpp.pending_c_function_body.append(lt.structure_signature)
+            cpp.pending_c_function_body.append(once "*/))")
          else
             cpp.pending_c_function_body.append(once "se_malloc(1)")
          end
@@ -122,6 +124,9 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
             cpp.pending_c_function_body.append(once "0*")
          else
             et.id.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once "/*")
+            cpp.pending_c_function_body.append(et.live_type.structure_signature)
+            cpp.pending_c_function_body.append(once "*/")
          end
          cpp.pending_c_function_body.append(once "))")
       end

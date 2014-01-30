@@ -18,11 +18,20 @@ insert
          is_equal
       end
    SINGLETON
+   TAGGER
+      undefine
+         is_equal
+      end
 
 feature {}
    memory: GC_HANDLER is
       do
          Result ::= cpp.memory
+      end
+
+   c_struct_signature_tag: FIXED_STRING is
+      do
+         Result := memory.c_struct_signature_tag
       end
 
    ltid_in (lt: LIVE_TYPE; buffer: STRING; declare_type, for_closure: BOOLEAN) is
@@ -44,9 +53,10 @@ feature {}
             end
             if lt.is_reference then
                buffer.extend('*')
-            end
-            if buffer.last /= '*' then
-               buffer.extend(' ')
+            else
+               buffer.append(once "/*")
+               buffer.append(lt.structure_signature)
+               buffer.append(once "*/")
             end
          end
       end

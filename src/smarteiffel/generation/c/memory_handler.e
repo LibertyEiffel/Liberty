@@ -231,8 +231,6 @@ feature {C_PRETTY_PRINTER}
 
 feature {C_HEADER_PASS_0}
    register_wa_list (live_type: LIVE_TYPE) is
-      require
-         live_type.writable_attributes /= Void
       deferred
       end
 

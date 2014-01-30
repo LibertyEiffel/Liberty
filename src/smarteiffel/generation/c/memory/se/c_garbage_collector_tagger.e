@@ -14,15 +14,18 @@ create {GC_HANDLER}
 
 feature {GC_HANDLER}
    for (lt: LIVE_TYPE): HASHED_STRING is
-      require
-         lt.writable_attributes /= Void
       do
          check
             tag.is_empty
             type = Void
          end
          type := lt.type
-         fill_tag(lt)
+         if lt.is_tagged then
+            tag.extend('T')
+         end
+         if lt.writable_attributes /= Void then
+            fill_tag(lt)
+         end
          Result := string_aliaser.hashed_string(tag)
          tag.clear_count
          type := Void
@@ -51,7 +54,7 @@ feature {C_GARBAGE_COLLECTOR_TAGGER}
 feature {AGENT_TYPE_MARK}
    visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
       do
-         tag.extend('p')
+         tag.extend('a')
       end
 
 feature {ARRAY_TYPE_MARK}
@@ -63,7 +66,7 @@ feature {ARRAY_TYPE_MARK}
 feature {NATIVE_ARRAY_TYPE_MARK}
    visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
       do
-         tag.extend('p')
+         tag.extend('A')
       end
 
 feature {NON_EMPTY_TUPLE_TYPE_MARK}

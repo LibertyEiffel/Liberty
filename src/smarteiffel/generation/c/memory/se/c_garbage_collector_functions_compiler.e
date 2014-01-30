@@ -53,7 +53,9 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          function_signature.append(once "(unsigned int size)")
          function_body.append(once "size=(size*sizeof(")
          function_body.append(cpp.result_type.for(visited.generic_list.first))
-         function_body.append(once "))+sizeof(rsoh);%Nsize=((size+(sizeof(double)-1))&~(sizeof(double)-1));%N")
+         function_body.append(once "/*")
+         function_body.append(lt.type.generic_list.first.live_type.structure_signature)
+         function_body.append(once "*/))+sizeof(rsoh);%Nsize=((size+(sizeof(double)-1))&~(sizeof(double)-1));%N")
          if memory.info_flag then
             memory.info_nb_in(visited, function_body, False)
             function_body.append(once "++;%N")
@@ -150,7 +152,7 @@ feature {}
                   error_handler.print_as_internal_error
                end
                function_body.append(once "gc_update_weak_ref_item")
-               lt.id.append_in(function_body)
+               ltid_in(lt, function_body, False, False)
                function_body.append(once "(&(o1->object));%N")
             else
                function_body.append(once "gc_update_weak_ref_item_polymorph((Tgc*)&(o1->object));%N")
@@ -178,7 +180,7 @@ feature {}
          if is_weak_ref then
             if is_monomorphic_weak_ref then
                function_body.append(once "gc_update_weak_ref_item")
-               lt.id.append_in(function_body)
+               ltid_in(lt, function_body, False, False)
                function_body.append(once "(&(o1->object));%N")
             else
                function_body.append(once "gc_update_weak_ref_item_polymorph((Tgc*)&(o1->object));%N")
@@ -192,7 +194,7 @@ feature {}
          ltid_in(lt, function_body, False, for_closure)
          function_body.append(once "=o1;%N%
                                    %}%N}%N%
-                                   %if (dead){%N%
+                                   %if(dead){%N%
                                    %gc_free")
          ltid_in(lt, function_body, False, for_closure)
          function_body.append(once "=old_gc_free;%N%
@@ -218,14 +220,14 @@ feature {}
          if is_monomorphic_weak_ref then
             cpp.prepare_c_function
             function_signature.append(once "void gc_update_weak_ref_item")
-            lt.id.append_in(function_signature)
+            ltid_in(lt, function_signature, False, False)
             function_signature.append(once "(T")
-            lt.id.append_in(function_signature)
-            function_signature.append(once "* wr)")
+            ltid_in(lt, function_signature, False, False)
+            function_signature.append(once "*wr)")
             function_body.append(once "gc")
             arg_id := wr_gen_arg_lt.run_time_set.first.id
             arg_id.append_in(function_body)
-            function_body.append(once "* obj_ptr = (gc")
+            function_body.append(once "*obj_ptr=(gc")
             arg_id.append_in(function_body)
             function_body.append(once "*)(wr->o);%N%
                                       %if (obj_ptr != NULL){%N%
@@ -259,14 +261,14 @@ feature {}
             gc_set_fsoh_marked(lt, for_closure)
             if not visited.is_kernel_expanded then
                function_body.append(once "gc_mark")
-               lt.id.append_in(function_body)
+               ltid_in(lt, function_body, False, False)
                function_body.append(once "(*o);%N")
             end
          else
             gc_check_id := lt.is_tagged and then ace.no_check
             if gc_check_id then
                function_body.append(once "se_gc_check_id(o,")
-               lt.id.append_in(function_body)
+               ltid_in(lt, function_body, False, False)
                function_body.append(once ");%N{%N")
             end
             gc_mark_fixed_size(lt, False)
@@ -460,8 +462,8 @@ feature {}
             cpp.prepare_c_function
             function_signature.append(once "void ")
             memory.mark_in(visited, function_signature, False)
-            function_signature.append(once "(T")
-            lt.id.append_in(function_signature)
+            function_signature.append(once "(")
+            ltid_in(lt, function_signature, True, False)
             function_signature.append(once "*o)")
             gc_mark_fixed_size(lt, True)
             cpp.dump_pending_c_function(True)
@@ -566,7 +568,7 @@ feature {}
                end
                if not is_unmarked then
                   function_body.append(once "if(((gc")
-                  lt.id.append_in(function_body)
+                  ltid_in(lt, function_body, False, False)
                   function_body.append(once "*)o)->header.flag==FSOH_UNMARKED){%N")
                end
                gc_set_fsoh_marked(lt, False)
@@ -597,7 +599,7 @@ feature {}
                      function_body.append(once ";%Nif((o!=NULL)")
                      if is_unmarked then
                         function_body.append(once "&&(((gc")
-                        lt.id.append_in(function_body)
+                        ltid_in(lt, function_body, False, False)
                         function_body.append(once "*)o)->header.flag==FSOH_UNMARKED))")
                      else
                         function_body.extend(')')
@@ -641,8 +643,8 @@ feature {}
             field_name.copy(once "o->_")
             field_name.append(rf2.name.to_string)
             if  attribute_type.is_native_array and then insert_native_array_collector_flag(lt) then
-               function_body.append(once "{%NT")
-               attribute_type.id.append_in(function_body)
+               function_body.append(once "{%N")
+               ltid_in(attribute_type, function_body, True, False)
                function_body.append(once " na=")
                function_body.append(field_name)
                function_body.append(once "[
@@ -654,7 +656,7 @@ feature {}
 
                   ]")
                function_body.append(once "r")
-               lt.id.append_in(function_body)
+               ltid_in(lt, function_body, False, False)
                function_body.append(once "mark_native_arrays(")
                if not ace.boost then
                   -- Hope there is no bug in `mark_native_arrays'...

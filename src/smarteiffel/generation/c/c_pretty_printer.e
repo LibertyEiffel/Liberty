@@ -1773,7 +1773,9 @@ feature {C_COMPILATION_MIXIN}
          end
          pending_c_function_body.append(once "sizeof(T")
          t.live_type.id.append_in(pending_c_function_body)
-         pending_c_function_body.extend(')')
+         pending_c_function_body.append(once "/*")
+         pending_c_function_body.append(t.live_type.structure_signature)
+         pending_c_function_body.append(once "*/)")
          if tcbd then
             pending_c_function_body.extend(')')
          end
