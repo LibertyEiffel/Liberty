@@ -73,7 +73,7 @@ feature {EDC_CONNECTION}
       end
 
 feature {ANY}
-   fetch_direction: INTEGER
+   fetch_direction: INTEGER_8
 
    column_count: INTEGER is
       do

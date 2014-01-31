@@ -31,6 +31,9 @@ inherit
 
 insert
    SINGLETON
+      undefine
+         is_equal
+      end
 
 feature {EDC_CONNECTION_FACTORY}
    new_connection (url: STRING; info: DICTIONARY[STRING, STRING]): EDC_STORABLE_CONNECTION is
