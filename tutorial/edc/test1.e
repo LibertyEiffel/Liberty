@@ -46,19 +46,19 @@ feature {} -- root procedures
 
    test_sqlite is
       local
-         info: DICTIONARY[STRING, STRING]
+--         info: DICTIONARY[STRING, STRING]
       do
-         register_driver(create {EDC_SQLITE_DRIVER}.make(default_error_handler))
+--         register_driver(create {EDC_SQLITE_DRIVER}.make(default_error_handler))
          -- the SQLite supports extra information that are passed to the SQLite database as PRAGMAs.
          -- REMEMBER: in Eiffel the values come before the key!
-         info := {HASHED_DICTIONARY[STRING, STRING] << "OFF", "synchronous";
-                                                       "EXCLUSIVE", "locking_mode";
-                                                       "1", "count_changes";
-                                                       "full", "auto_vacuum" >> }
+--         info := {HASHED_DICTIONARY[STRING, STRING] << "OFF", "synchronous";
+--                                                       "EXCLUSIVE", "locking_mode";
+--                                                       "1", "count_changes";
+--                                                       "full", "auto_vacuum" >> }
          io.put_new_line
          io.put_string("== SQLite ==")
          io.put_new_line
-         test("sqlite://test.db", info)
+--         test("sqlite://test.db", info)
       end
 
    test_gda is
@@ -115,8 +115,8 @@ feature {} -- test implementation
          show_result_set(set)
          -- --------------------------------------------------------------------------------
          -- PARAMETERIZED QUERY
-         query := cnx.select_data({FAST_ARRAY[EDC_COLUMN] << user_id, user_name >> }).where(user_name == &user_name)
-         -- parameter is an ampersand and its column name (denotes the parameter type)
+         query := cnx.select_data({FAST_ARRAY[EDC_COLUMN] << user_id, user_name >> }).where(user_name == #user_name)
+         -- parameter is an hash and its column name (denotes the parameter type)
          -- the where clause could also have been written:
          -- .where(user_name.as_value.equals(user_name.parameter))
          std_error.put_line(once "-- parameterized query with good data:")
