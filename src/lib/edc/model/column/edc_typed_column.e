@@ -34,7 +34,7 @@ feature {ANY}
          create Result.make(a_data)
       end
 
-   prefix "&", parameter: EDC_PARAMETER[T_] is
+   prefix "#", parameter: EDC_PARAMETER[T_] is
       do
          create Result.make
       end
