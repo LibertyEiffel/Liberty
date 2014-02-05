@@ -3,7 +3,7 @@ automaton/
 backtracking/loadpath.se
 cli/loadpath.se
 design_patterns/
-edc/loadpath.se
+edc-new/loadpath.se
 exec/loadpath.se
 foreign_interface/
 get_text/loadpath.se
