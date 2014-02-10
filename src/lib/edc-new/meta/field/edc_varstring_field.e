@@ -1,7 +1,7 @@
 class EDC_VARSTRING_FIELD[R_ -> EDC_RECORD]
 
 inherit
-   EDC_TYPED_FIELD[R_, STRING]
+   EDC_BASIC_FIELD[R_, STRING]
 
 create {EDC_DESCRIPTOR}
    make, with_options

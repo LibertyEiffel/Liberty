@@ -1,8 +1,83 @@
 deferred class EDC_FIELD[E_]
 
+insert
+   ANY
+      rename
+         default as field_default
+      end
+
 feature {ANY}
+   default: E_ is
+         -- Default value of the field
+      do
+      end
+
+   is_null, is_not_null: EDC_FIELD_CRITERION[E_] is
+      require
+         default = Void
+      deferred
+      ensure
+         Result /= Void
+      end
+
    ge, gt, le, lt, eq, ne: EDC_FIELD_CRITERION[E_] is
       deferred
+      ensure
+         Result /= Void
+      end
+
+   infix "<=" (value: E_): EDC_FIELD_CRITERION[E_] is
+      require
+         value /= Void
+      do
+         Result := ge.value(value)
+      ensure
+         Result /= Void
+      end
+
+   infix "<" (value: E_): EDC_FIELD_CRITERION[E_] is
+      require
+         value /= Void
+      do
+         Result := gt.value(value)
+      ensure
+         Result /= Void
+      end
+
+   infix ">=" (value: E_): EDC_FIELD_CRITERION[E_] is
+      require
+         value /= Void
+      do
+         Result := le.value(value)
+      ensure
+         Result /= Void
+      end
+
+   infix ">" (value: E_): EDC_FIELD_CRITERION[E_] is
+      require
+         value /= Void
+      do
+         Result := lt.value(value)
+      ensure
+         Result /= Void
+      end
+
+   infix "==" (value: E_): EDC_FIELD_CRITERION[E_] is
+      require
+         value /= Void
+      do
+         Result := eq.value(value)
+      ensure
+         Result /= Void
+      end
+
+   infix "=/=" (value: E_): EDC_FIELD_CRITERION[E_] is
+      require
+         value /= Void
+      do
+         Result := ne.value(value)
+      ensure
+         Result /= Void
       end
 
 feature {EDC_DESCRIPTOR}

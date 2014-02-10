@@ -10,7 +10,7 @@ feature {ANY}
    list (session: EDC_SESSION): TRAVERSABLE[R_] is
       do
          create {FAST_ARRAY[R_]} Result.make(0)
-      ensure
+      ensure then
          Result.count.in_range(0, 1)
       end
 

@@ -14,7 +14,7 @@ feature {}
          d_employee: EMPLOYEE_DESCRIPTOR
          employees: TRAVERSABLE[EMPLOYEE]
          employee: EMPLOYEE
-         name, phone_nr: STRING
+         id, name, phone_nr: STRING
       do
          create {EDC_DUMMY_SESSION} session.open
          if session.is_open then
@@ -27,12 +27,13 @@ feature {}
                else
                   employee := employees.first
                end
+               id := employee.id
                employee.set_phone_number("+33123456789")
                session.commit
             end
 
             -- another method: use fetch/where instead of find
-            employee := d_employee.fetch(Edc_default).where(d_employee.id.eq.value(employee.id)).list(session).first
+            employee := d_employee.fetch(Edc_default).where(d_employee.id == id).list(session).first
             name := employee.name
             phone_nr := employee.phone_number
             -- check the phone_number, should be the one committed above

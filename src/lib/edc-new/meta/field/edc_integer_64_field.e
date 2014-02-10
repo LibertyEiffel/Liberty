@@ -1,7 +1,7 @@
 class EDC_INTEGER_64_FIELD[R_ -> EDC_RECORD]
 
 inherit
-   EDC_TYPED_FIELD[R_, INTEGER_64]
+   EDC_BASIC_FIELD[R_, INTEGER_64]
 
 create {EDC_DESCRIPTOR}
    make, with_options
