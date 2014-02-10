@@ -6,6 +6,47 @@ inherit
 create {EDC_DESCRIPTOR}
    make, with_options
 
+feature {ANY}
+   is_null: EDC_FIELD_CRITERION[REF_] is
+      do
+         not_yet_implemented
+      end
+
+   is_not_null: EDC_FIELD_CRITERION[REF_] is
+      do
+         not_yet_implemented
+      end
+
+   ge: EDC_FIELD_CRITERION[REF_] is
+      do
+         not_yet_implemented
+      end
+
+   gt: EDC_FIELD_CRITERION[REF_] is
+      do
+         not_yet_implemented
+      end
+
+   le: EDC_FIELD_CRITERION[REF_] is
+      do
+         not_yet_implemented
+      end
+
+   lt: EDC_FIELD_CRITERION[REF_] is
+      do
+         not_yet_implemented
+      end
+
+   eq: EDC_FIELD_CRITERION[REF_] is
+      do
+         not_yet_implemented
+      end
+
+   ne: EDC_FIELD_CRITERION[REF_] is
+      do
+         not_yet_implemented
+      end
+
 feature {EDC_RECORD}
    item (r: R_): REF_ is
       do
