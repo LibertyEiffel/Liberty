@@ -1,6 +1,6 @@
 class EMPLOYEE
 
-insert
+inherit
    EDC_TYPED_RECORD[EMPLOYEE_DESCRIPTOR, STRING]
 
 create {ANY}

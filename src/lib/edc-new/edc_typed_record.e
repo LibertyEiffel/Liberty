@@ -6,4 +6,13 @@ inherit
 feature {ANY}
    descriptor: D_
 
+feature {ANY}
+   delete is
+      do
+         descriptor.delete(Current)
+      end
+
+invariant
+   descriptor /= Void
+
 end

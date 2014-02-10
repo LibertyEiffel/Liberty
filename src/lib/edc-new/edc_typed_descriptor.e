@@ -14,4 +14,12 @@ feature {ANY}
          create {EDC_FETCH[R_]} Result.make(options)
       end
 
+   delete (record: EDC_RECORD) is
+      local
+         r: R_
+      do
+         r ::= record
+         not_yet_implemented --| **** TODO r.session.???
+      end
+
 end -- class EDC_TYPED_DESCRIPTOR

@@ -38,6 +38,8 @@ feature {}
             phone_nr := employee.phone_number
             -- check the phone_number, should be the one committed above
 
+            employee.delete
+
             session.close
          end
       end

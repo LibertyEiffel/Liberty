@@ -10,7 +10,7 @@ feature {ANY}
          options.valid_session(session)
       deferred
       ensure
-         Result /= Void
+         Result.for_all(agent (record: R_; s: EDC_SESSION): BOOLEAN is do Result := record.session = s end (?, session)) --| **** TODO closure
       end
 
    options: EDC_QUERY_OPTION

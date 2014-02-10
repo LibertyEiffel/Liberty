@@ -1,6 +1,6 @@
 class DEPARTMENT
 
-insert
+inherit
    EDC_TYPED_RECORD[DEPARTMENT_DESCRIPTOR, STRING]
 
 create {ANY}

@@ -3,6 +3,13 @@ deferred class EDC_DESCRIPTOR[K_]
 insert
    EDC_CONSTANTS
 
+feature {ANY}
+   delete (record: EDC_RECORD) is
+      require
+         record /= Void
+      deferred
+      end
+
 feature {} -- Field options
    Edc_primary_key: EDC_FIELD_OPTION is
       once
