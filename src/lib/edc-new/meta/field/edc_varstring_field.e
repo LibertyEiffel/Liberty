@@ -9,12 +9,12 @@ create {EDC_DESCRIPTOR}
 feature {EDC_RECORD}
    item (r: R_): STRING is
       do
-         not_yet_implemented
+         Result := r.session.varstring_field.item(r, Current)
       end
 
    set (r: R_; i: like item) is
       do
-         not_yet_implemented
+         r.session.varstring_field.set(r, Current, i)
       end
 
 feature {}

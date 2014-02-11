@@ -6,13 +6,13 @@ inherit
 feature {EDC_RECORD}
    item (r: R_): E_ is
       require
-         r /= Void
+         added: r.session /= Void
       deferred
       end
 
    set (r: R_; i: like item) is
       require
-         r /= Void
+         added: r.session /= Void
       deferred
       ensure
          i = Void implies item(r) = Void

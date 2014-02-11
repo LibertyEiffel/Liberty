@@ -16,17 +16,20 @@ feature {ANY}
       do
          crit_value := e
          crit := Crit_is_value
+         Result := Current
       end
 
    field (f: EDC_FIELD[E_]): like Current is
       do
          crit_field := f
          crit := Crit_is_field
+         Result := Current
       end
 
    argument: like Current is
       do
          crit := Crit_is_argument
+         Result := Current
       end
 
 feature {}

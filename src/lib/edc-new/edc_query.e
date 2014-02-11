@@ -7,9 +7,11 @@ feature {ANY}
          crit /= Void
       do
          crit_where := crit
+         Result := Current
       ensure
          has_where
          crit_where = crit
+         Result = Current
       end
 
    having (crit: EDC_CRITERION): like Current is
@@ -18,9 +20,11 @@ feature {ANY}
          crit /= Void
       do
          crit_having := crit
+         Result := Current
       ensure
          has_having
          crit_having = crit
+         Result = Current
       end
 
    order_by (crit: EDC_ORDERING): like Current is
@@ -29,9 +33,11 @@ feature {ANY}
          crit /= Void
       do
          crit_order_by := crit
+         Result := Current
       ensure
          has_order_by
          crit_order_by = crit
+         Result = Current
       end
 
    has_where: BOOLEAN is

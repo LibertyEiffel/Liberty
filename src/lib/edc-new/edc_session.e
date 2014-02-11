@@ -46,4 +46,27 @@ feature {ANY}
       deferred
       end
 
+   add (record: EDC_RECORD) is
+      require
+         in_transaction
+         record.session = Void
+      deferred
+      ensure
+         record.session = Current
+      end
+
+feature {EDC_STRING_FIELD}
+   string_field: EDC_SESSION_FETCH[STRING]
+
+feature {EDC_VARSTRING_FIELD}
+   varstring_field: EDC_SESSION_FETCH[STRING]
+
+feature {EDC_INTEGER_64_FIELD}
+   int64_field: EDC_SESSION_FETCH[INTEGER_64]
+
+invariant
+   string_field /= Void
+   varstring_field /= Void
+   int64_field /= Void
+
 end

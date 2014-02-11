@@ -53,9 +53,14 @@ feature {ANY}
       end
 
 feature {}
-   with_id (a_id: like id) is
+   with_id (a_session: like session; a_id: like id) is
+      require
+         a_session /= Void
       do
+         a_session.add(Current)
          descriptor.id.set(Current, a_id)
+      ensure
+         added: session = a_session
       end
 
 end -- class EMPLOYEE
