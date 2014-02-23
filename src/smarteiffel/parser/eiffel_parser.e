@@ -4887,6 +4887,7 @@ feature {}
                   elseif a_keyword(fz_create) then
                      creation_clause := a_creation_clause(pos(start_line, start_column), False)
                      if a_keyword(fz_end) then
+                        constraint.generic_creation := creation_clause
                         state := 2
                      else
                         state := -2
