@@ -1,26 +1,20 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class TEST_GENERIC13
+class AUX_GENERIC13_ACTUAL
 
 insert
-   EIFFELTEST_TOOLS
+   AUX_GENERIC13_CONSTRAINT
 
-create {}
+create {ANY}
    make
 
-feature {ANY}
+feature {}
    make is
-      local
-         foo: AUX_GENERIC13_GENERIC[AUX_GENERIC13_ACTUAL]
-         a: AUX_GENERIC13_ACTUAL
       do
-         create foo
-         a := foo.new
-         -- assert(a /= Void)
       end
 
-end -- class TEST_GENERIC13
+end -- class AUX_GENERIC13_ACTUAL
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

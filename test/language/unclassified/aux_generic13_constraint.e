@@ -1,15 +1,7 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class AUX_GENERIC13_CONSTRAINT
-
-create {ANY}
-   make
-
-feature {}
-   make is
-      do
-      end
+deferred class AUX_GENERIC13_CONSTRAINT
 
 end -- class AUX_GENERIC13_CONSTRAINT
 --

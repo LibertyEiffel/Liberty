@@ -3,6 +3,12 @@
 --
 class AUX_GENERIC13_GENERIC[C -> AUX_GENERIC13_CONSTRAINT create make end]
 
+feature {ANY}
+   new: C is
+      do
+         -- create Result.make
+      end
+
 end -- class AUX_GENERIC13_GENERIC
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
