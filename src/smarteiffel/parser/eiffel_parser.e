@@ -2861,7 +2861,7 @@ feature {}
          until
             not a_creation_keyword
          loop
-            a_creation_clause(pos(start_line, start_column))
+            last_class_text.add_creation_clause(a_creation_clause(pos(start_line, start_column), True))
          end
          if a_keyword(fz_convert) then
             a_convert_clause(pos(start_line, start_column))
@@ -3766,13 +3766,15 @@ feature {}
          end
       end
 
-   a_creation_clause (sp: POSITION) is
+   a_creation_clause (sp: POSITION; with_clients: BOOLEAN): CREATION_CLAUSE is
          --  ++ creation_clause -> [clients] [comment] feature_list
          --  ++
       local
-         clients: CLIENT_LIST; comments: COMMENT; creation_clause: CREATION_CLAUSE
+         clients: CLIENT_LIST; comments: COMMENT
       do
-         clients := a_clients
+         if with_clients then
+            clients := a_clients
+         end
          comments := get_comment
          if not a_feature_name_list then
             error_handler.add_position(sp)
@@ -3784,8 +3786,7 @@ feature {}
             create last_feature_name.simple_feature_name(as_default_create, sp)
             create last_feature_name_list.make_1(last_feature_name)
          end
-         create creation_clause.make(sp, clients, comments, last_feature_name_list)
-         last_class_text.add_creation_clause(creation_clause)
+         create Result.make(sp, clients, comments, last_feature_name_list)
       end
 
    a_convert_clause (sp: POSITION) is
@@ -4810,6 +4811,7 @@ feature {}
          --  ++
       local
          fga: FORMAL_GENERIC_ARG; formal_generic_name: CLASS_NAME; constraint: TYPE_MARK; state: INTEGER
+         creation_clause: CREATION_CLAUSE
       do
          formal_generic_list := Void
          if skip1('[') then
@@ -4817,7 +4819,7 @@ feature {}
                create formal_generic_list.make(pos(start_line, start_column))
                last_class_text.set_formal_generic_list(formal_generic_list)
             until
-               state > 3
+               state < 0
             loop
                inspect
                   state
@@ -4827,7 +4829,7 @@ feature {}
                      formal_generic_name := last_class_name
                      state := 1
                   else
-                     state := 5
+                     state := -2
                   end
                when 1 then
                   -- Waiting for "->" or "," or "]".
@@ -4842,11 +4844,11 @@ feature {}
                      when ',' then
                         state := 0
                      when ']' then
-                        state := 4
+                        state := -1
                      end
                      ok := skip1(cc)
                   else
-                     state := 5
+                     state := -2
                   end
                when 2 then
                   -- Waiting for "," or "]".
@@ -4859,11 +4861,11 @@ feature {}
                      when ',' then
                         state := 0
                      when ']' then
-                        state := 4
+                        state := -1
                      end
                      ok := skip1(cc)
                   else
-                     state := 5
+                     state := -2
                   end
                when 3 then
                   -- Waiting for a `constraint' type.
@@ -4872,17 +4874,31 @@ feature {}
                      state := 2
                   elseif a_static_type_mark(False) then
                      constraint := last_type_mark
-                     state := 2
+                     state := 4
                   else
                      error_handler.add_position(current_position)
                      error_handler.append(once "Constraint Class name expected.")
                      error_handler.print_as_fatal_error
                   end
+               when 4 then
+                  -- Waiting got "create", ",", or "]".
+                  if cc = ',' or else cc = ']' then
+                     state := 2
+                  elseif a_keyword(fz_create) then
+                     creation_clause := a_creation_clause(pos(start_line, start_column), False)
+                     if a_keyword(fz_end) then
+                        state := 2
+                     else
+                        state := -2
+                     end
+                  else
+                     state := -2
+                  end
                end
             end
             inspect
                state
-            when 4 then
+            when -1 then
                if formal_generic_list.count = 0 then
                   error_handler.add_position(formal_generic_list.start_position)
                   error_handler.append(once "Empty formal generic list (deleted).")
@@ -4890,7 +4906,7 @@ feature {}
                   formal_generic_list := Void
                   last_class_text.set_formal_generic_list(Void)
                end
-            when 5 then
+            when -2 then
                check
                   nb_errors > 0
                end
