@@ -101,6 +101,16 @@ feature {TYPE_MARK}
          end
       end
 
+   formal_generic_creation: CREATION_CLAUSE is
+      local
+         constraint: TYPE_MARK
+      do
+         constraint := formal_generic_arg.constraint
+         if constraint /= Void then
+            Result := constraint.generic_creation
+         end
+      end
+
 feature {FORMAL_GENERIC_TYPE_MARK_VISITOR}
    formal_name: CLASS_NAME
          -- The one at the corresponding `start_position'.
