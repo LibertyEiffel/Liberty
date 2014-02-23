@@ -662,7 +662,7 @@ feature {} -- built-ins
       local
          elt_type: TYPE; tcbd: BOOLEAN
       do
-         elt_type := type_of_current.private_generic_list.first
+         elt_type := type_of_current.generic_list.first
          if as_element_sizeof = name then
             tcbd := cpp.target_cannot_be_dropped
             if tcbd then

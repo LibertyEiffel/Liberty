@@ -3862,7 +3862,7 @@ feature {} -- MANIFEST_GENERIC_POOL
          native_array_id: INTEGER; va_type: TYPE_MARK
       do
          native_array_id := native_array.live_type.id
-         va_type := native_array.private_generic_list.first.canonical_type_mark
+         va_type := native_array.generic_list.first.canonical_type_mark
          prepare_c_function
          pending_c_function_signature.extend('T')
          native_array_id.append_in(pending_c_function_signature)

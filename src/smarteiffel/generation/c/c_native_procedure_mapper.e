@@ -236,7 +236,7 @@ feature {} -- built-ins
       local
          elt_type: TYPE
       do
-         elt_type := rf7.type_of_current.private_generic_list.item(1)
+         elt_type := rf7.type_of_current.generic_list.first
          if name = as_put then
             if elt_type.is_user_expanded then
                if elt_type.is_empty_expanded then
