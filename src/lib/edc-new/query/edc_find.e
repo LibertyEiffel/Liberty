@@ -9,7 +9,7 @@ create {EDC_DESCRIPTOR}
 feature {ANY}
    list (session: EDC_SESSION): TRAVERSABLE[R_] is
       do
-         create {FAST_ARRAY[R_]} Result.make(0)
+         create {FAST_ARRAY[R_]} Result.make(0) --| **** TODO
       ensure then
          Result.count.in_range(0, 1)
       end
