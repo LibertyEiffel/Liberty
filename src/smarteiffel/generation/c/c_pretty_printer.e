@@ -1968,16 +1968,16 @@ feature {C_COMPILATION_MIXIN}
          if live_type_of_current /= Void then
             if live_type_of_current.is_reference then
                pending_c_function_body.append(once "if(se_rci(caller,C))")
-               end
-               pending_c_function_body.append(once "se_i")
-               live_type_of_current.id.append_in(pending_c_function_body)
-               if ace.profile then
-                  pending_c_function_body.append(once "(&ds,&local_profile,C);%N")
-               else
-                  pending_c_function_body.append(once "(&ds,C);%N")
-               end
+            end
+            pending_c_function_body.append(once "se_i")
+            live_type_of_current.id.append_in(pending_c_function_body)
+            if ace.profile then
+               pending_c_function_body.append(once "(&ds,&local_profile,C);%N")
+            else
+               pending_c_function_body.append(once "(&ds,C);%N")
             end
          end
+      end
 
 feature {ANY}
    class_invariant_call_opening (type_of_target: TYPE; extra_cast_flag: BOOLEAN): INTEGER is
