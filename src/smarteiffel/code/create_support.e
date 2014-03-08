@@ -85,7 +85,6 @@ feature {CREATE_SUPPORT}
             if writable.written_declaration_type_mark.is_formal_generic then
                fgtm ::= writable.written_declaration_type_mark
                creation_constraint := fgtm.formal_generic_creation
-               created_type_memory := fgtm.resolve_in(type)
                debug
                   echo.w_put_string(once "**** Implicit creation type in ")
                   echo.w_put_string(type.canonical_type_mark.written_mark)
@@ -94,9 +93,8 @@ feature {CREATE_SUPPORT}
                   echo.w_put_string(once "] => ")
                   echo.w_put_line(created_type_memory.canonical_type_mark.written_mark)
                end
-            else
-               created_type_memory := writable.resolve_in(type)
             end
+            created_type_memory := writable.resolve_in(type)
          else
             if explicit_type.is_formal_generic then
                fgtm ::= writable.written_declaration_type_mark
