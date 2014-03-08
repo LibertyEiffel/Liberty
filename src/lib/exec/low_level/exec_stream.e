@@ -4,7 +4,7 @@
 deferred class EXEC_STREAM
 
 feature {PROCESS}
-   pipe: POINTER
+   pipe: POINTER --| **** TODO: memory leak, never deallocated
 
 feature {}
    create_pipe is
