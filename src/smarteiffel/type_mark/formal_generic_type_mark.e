@@ -101,6 +101,7 @@ feature {TYPE_MARK}
          end
       end
 
+feature {CREATE_SUPPORT}
    formal_generic_creation: CREATION_CLAUSE is
       local
          constraint: TYPE_MARK

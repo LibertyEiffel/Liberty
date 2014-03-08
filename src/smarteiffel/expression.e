@@ -136,7 +136,8 @@ feature {ANY}
       end
 
    written_declaration_type_mark: TYPE_MARK is
-         -- This variant of `declaration_type' is used only to check the left-hand side of "?:=", "::=" or "?=".
+         -- This variant of `declaration_type' is used to check the left-hand side of "?:=", "::=" or "?="
+         -- and the generic creation constraints.
          -- Note: this is the written one i.e. not always a static one.
       require
          assignment_test_family_only: is_writable

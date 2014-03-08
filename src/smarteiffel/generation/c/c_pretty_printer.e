@@ -2422,6 +2422,13 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
       local
          p: POSITION; internal_c_local: INTERNAL_C_LOCAL
       do
+         p := target.start_position
+         --error_handler.add_position(p)
+         --error_handler.append(once "Target is always Void here. Expect a crash at runtime.")
+         --error_handler.append(once "The context type is ")
+         --error_handler.append(type.canonical_type_mark.written_mark)
+         --error_handler.print_as_warning
+
          if return_type /= Void then
             if return_type.is_reference then
                -- Because of a Borland C compiler bug we have to add this extra cast:
@@ -2434,11 +2441,10 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
             pending_c_function_body.extend('(')
             code_compiler.compile(target, type)
             pending_c_function_body.extend(',')
-            put_position(target.start_position)
+            put_position(p)
             pending_c_function_body.extend(')')
          else
             pending_c_function_body.append(once "/*se_evobt*/")
-            p := target.start_position
             put_position_comment_on(out_c, p)
             code_compiler.compile(target, type)
             pending_c_function_body.extend(',')

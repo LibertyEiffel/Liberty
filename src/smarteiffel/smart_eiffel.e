@@ -394,7 +394,7 @@ feature {ANY}
          Result := live_type_map_
       end
 
-feature {FEATURE_CALL, WRITABLE_ATTRIBUTE_NAME, MANIFEST_STRING_POOL, CREATION_CLAUSE, ADDRESS_OF, ONCE_FUNCTION, MANIFEST_GENERIC, BUILT_IN_EQ_NEQ}
+feature {FEATURE_CALL, WRITABLE_ATTRIBUTE_NAME, MANIFEST_STRING_POOL, CREATION_CLAUSE, ADDRESS_OF, ONCE_FUNCTION, MANIFEST_GENERIC, BUILT_IN_EQ_NEQ, CECIL_ENTRY}
    collect (type: TYPE; fs: FEATURE_STAMP; at_run_time: BOOLEAN): TYPE is
          -- The `Result' is not Void when `fs' is actually a function (see ensure).
       require

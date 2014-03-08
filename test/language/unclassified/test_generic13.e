@@ -17,7 +17,7 @@ feature {ANY}
       do
          create foo
          a := foo.new
-         -- assert(a /= Void)
+         assert(a /= Void)
       end
 
 end -- class TEST_GENERIC13

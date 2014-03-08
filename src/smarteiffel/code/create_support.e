@@ -78,20 +78,43 @@ feature {CREATE_SUPPORT}
       local
          created_type_memory, writable_type: TYPE; fn: FEATURE_NAME; class_to_create: CLASS_TEXT
          feature_stamp: FEATURE_STAMP; creation_clause_list: CREATION_CLAUSE_LIST
+         fgtm: FORMAL_GENERIC_TYPE_MARK; creation_constraint: CREATION_CLAUSE
          anonymous_feature: ANONYMOUS_FEATURE; default_expression: EXPRESSION
       do
-         if explicit_type /= Void then
-            if explicit_type.is_formal_generic then
-               -- Because `explicit_type' may be inherited:
-               if start_position.class_text = explicit_type.start_position.class_text then
-                  error_handler.add_position(start_position)
-                  error_handler.append(once "Creation call on formal generic type (")
-                  error_handler.append(explicit_type.written_mark)
-                  error_handler.append(once ").")
-                  error_handler.print_as_fatal_error
+         if explicit_type = Void then
+            if writable.written_declaration_type_mark.is_formal_generic then
+               fgtm ::= writable.written_declaration_type_mark
+               creation_constraint := fgtm.formal_generic_creation
+               created_type_memory := fgtm.resolve_in(type)
+               debug
+                  echo.w_put_string(once "**** Implicit creation type in ")
+                  echo.w_put_string(type.canonical_type_mark.written_mark)
+                  echo.w_put_string(once ": [")
+                  echo.w_put_string(writable.written_declaration_type_mark.written_mark)
+                  echo.w_put_string(once "] => ")
+                  echo.w_put_line(created_type_memory.canonical_type_mark.written_mark)
                end
+            else
+               created_type_memory := writable.resolve_in(type)
             end
-            created_type_memory := explicit_type.resolve_in(type)
+         else
+            if explicit_type.is_formal_generic then
+               fgtm ::= writable.written_declaration_type_mark
+               creation_constraint := fgtm.formal_generic_creation
+               if creation_constraint = Void then
+                  -- Because `explicit_type' may be inherited:
+                  if start_position.class_text = explicit_type.start_position.class_text then
+                     error_handler.add_position(start_position)
+                     error_handler.append(once "Creation call on formal generic type (")
+                     error_handler.append(explicit_type.written_mark)
+                     error_handler.append(once "). No create constraint specified.")
+                     error_handler.print_as_fatal_error
+                  end
+               end
+               created_type_memory := fgtm.resolve_in(type)
+            else
+               created_type_memory := explicit_type.resolve_in(type)
+            end
             if writable /= Void then
                writable_type := writable.resolve_in(type)
                if not created_type_memory.can_be_assigned_to(writable_type) then
@@ -107,8 +130,6 @@ feature {CREATE_SUPPORT}
                   error_handler.print_as_fatal_error
                end
             end
-         else
-            created_type_memory := writable.resolve_in(type)
          end
          class_to_create := created_type_memory.class_text
          if class_to_create.is_deferred then
@@ -116,70 +137,75 @@ feature {CREATE_SUPPORT}
             error_handler.append(created_type_memory.name.to_string)
             error_handler.append(once " is deferred. (Cannot create object.)")
             error_handler.add_position(start_position)
-            error_handler.print_as_fatal_error
-         end
-         creation_clause_list := class_to_create.creation_clause_list
-         feature_stamp := call.feature_stamp
-         anonymous_feature := feature_stamp.anonymous_feature(created_type_memory)
-         if anonymous_feature.result_type /= Void then
-            error_handler.add_position(anonymous_feature.start_position)
-            error_handler.add_position(call.start_position)
-            error_handler.append(once "Feature found is not a procedure.")
-            error_handler.print_as_fatal_error
-         end
-         if creation_clause_list = Void then
-            if not default_create_call then
-               error_handler.append(once "Type ")
-               error_handler.append(created_type_memory.name.to_string)
-               error_handler.append(once " has no creation list. You must use the default creation method %
-                %(named `default_create' in class ANY, or just omit the method name).")
-               error_handler.add_position(call.start_position)
-               error_handler.add_position(start_position)
+            if creation_constraint /= Void then
+               error_handler.cancel
+            else
                error_handler.print_as_fatal_error
             end
          else
-            fn := created_type_memory.get_feature_name(feature_stamp)
-            if not class_to_create.has_creation_check(fn, start_position, type, created_type_memory) then
-               if default_create_call then
-                  error_handler.append(once "Creation clause exists for type ")
+            creation_clause_list := class_to_create.creation_clause_list
+            feature_stamp := call.feature_stamp
+            anonymous_feature := feature_stamp.anonymous_feature(created_type_memory)
+            if anonymous_feature.result_type /= Void then
+               error_handler.add_position(anonymous_feature.start_position)
+               error_handler.add_position(call.start_position)
+               error_handler.append(once "Feature found is not a procedure.")
+               error_handler.print_as_fatal_error
+            end
+            if creation_clause_list = Void then
+               if not default_create_call then
+                  error_handler.append(once "Type ")
                   error_handler.append(created_type_memory.name.to_string)
-                  error_handler.append(once " and the default creation procedure (see `default_create' in class ANY) %
-                   %is not allowed. You must use one of the available creation procedure here.")
+                  error_handler.append(once " has no creation list. You must use the default creation method %
+                   %(named `default_create' in class ANY, or just omit the method name).")
+                  error_handler.add_position(call.start_position)
                   error_handler.add_position(start_position)
-                  creation_clause_list.all_positions_in_error_handler
-                  error_handler.print_as_fatal_error
-               else
-                  error_handler.add_position(call.feature_name.start_position)
-                  error_handler.add_position(fn.start_position)
-                  error_handler.append(fn.to_string)
-                  error_handler.append(once " is not in the creation list of type ")
-                  error_handler.append(created_type_memory.name.to_string)
-                  error_handler.append(once ".")
-                  error_handler.add_position(creation_clause_list.start_position)
                   error_handler.print_as_fatal_error
                end
+            else
+               fn := created_type_memory.get_feature_name(feature_stamp)
+               if not class_to_create.has_creation_check(fn, start_position, type, created_type_memory) then
+                  if default_create_call then
+                     error_handler.append(once "Creation clause exists for type ")
+                     error_handler.append(created_type_memory.name.to_string)
+                     error_handler.append(once " and the default creation procedure (see `default_create' in class ANY) %
+                      %is not allowed. You must use one of the available creation procedure here.")
+                     error_handler.add_position(start_position)
+                     creation_clause_list.all_positions_in_error_handler
+                     error_handler.print_as_fatal_error
+                  else
+                     error_handler.add_position(call.feature_name.start_position)
+                     error_handler.add_position(fn.start_position)
+                     error_handler.append(fn.to_string)
+                     error_handler.append(once " is not in the creation list of type ")
+                     error_handler.append(created_type_memory.name.to_string)
+                     error_handler.append(once ".")
+                     error_handler.add_position(creation_clause_list.start_position)
+                     error_handler.print_as_fatal_error
+                  end
+               end
+               if fn.to_string = as_manifest_creation then
+                  error_handler.add_position(call.feature_name.start_position)
+                  error_handler.add_position(fn.start_position)
+                  error_handler.append(once "`manifest_create' is not an ordinary creation procedure. Please use the {")
+                  error_handler.append(created_type_memory.name.to_string)
+                  error_handler.append(once " ... << ... >> } manifest creation notation.")
+                  error_handler.print_as_error
+               end
             end
-            if fn.to_string = as_manifest_creation then
-               error_handler.add_position(call.feature_name.start_position)
-               error_handler.add_position(fn.start_position)
-               error_handler.append(once "`manifest_create' is not an ordinary creation procedure. Please use the {")
+            if created_type_memory.is_kernel_expanded then
+               error_handler.add_position(start_position)
+               error_handler.append(once "Cannot use such a strange create expression for type ")
                error_handler.append(created_type_memory.name.to_string)
-               error_handler.append(once " ... << ... >> } manifest creation notation.")
-               error_handler.print_as_error
+               error_handler.append(once " which is a simple and predefined expanded type.")
+               if not created_type_memory.is_pointer then
+                  error_handler.append(once " Actually, just replace this create expression with ")
+                  default_expression := created_type_memory.canonical_type_mark.default_expression(start_position)
+                  error_handler.add_expression(default_expression)
+                  error_handler.append(once " and you are done.")
+               end
+               error_handler.print_as_fatal_error
             end
-         end
-         if created_type_memory.is_kernel_expanded then
-            error_handler.add_position(start_position)
-            error_handler.append(once "Cannot use such a strange create expression for type ")
-            error_handler.append(created_type_memory.name.to_string)
-            error_handler.append(once " which is a simple and predefined expanded type.")
-            if not created_type_memory.is_pointer then
-               error_handler.append(once " Actually, just replace this create expression with ")
-               default_expression := created_type_memory.canonical_type_mark.default_expression(start_position)
-               error_handler.add_expression(default_expression)
-               error_handler.append(once " and you are done.")
-            end
-            error_handler.print_as_fatal_error
          end
       ensure
          may_report_an_error: error_handler.is_empty

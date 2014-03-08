@@ -3,6 +3,11 @@
 --
 deferred class AUX_GENERIC13_CONSTRAINT
 
+feature {}
+   make is
+      deferred
+      end
+
 end -- class AUX_GENERIC13_CONSTRAINT
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
