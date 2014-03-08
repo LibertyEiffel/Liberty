@@ -38,11 +38,16 @@ feature {ANY}
 
    add (record: EDC_RECORD) is
       local
-         session_data: like data
+         record_data: like session_data
       do
          record.set_session(Current)
-         create session_data
-         record.set_session_data(session_data)
+         create record_data
+         record.set_session_data(record_data)
+      end
+
+feature {}
+   select_data_in (data: FAST_ARRAY[EDC_SESSION_DATA]; table_name: FIXED_STRING; where, having: EDC_CRITERION; order_by: EDC_ORDERING) is
+      do
       end
 
 feature {}
@@ -60,7 +65,7 @@ feature {}
       end
 
 feature {EDC_DUMMY_SESSION_FETCH}
-   data (record: EDC_RECORD): EDC_DUMMY_SESSION_DATA is
+   session_data (record: EDC_RECORD): EDC_DUMMY_SESSION_DATA is
       require
          added: record.session_data /= Void
       do

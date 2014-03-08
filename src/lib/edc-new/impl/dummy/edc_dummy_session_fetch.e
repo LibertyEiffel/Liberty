@@ -9,12 +9,12 @@ create {EDC_DUMMY_SESSION}
 feature {EDC_FIELD}
    item (record: EDC_RECORD; field: EDC_FIELD[E_]): E_ is
       do
-         Result := dataset.reference_at(session.data(record).internal_id)
+         Result := dataset.reference_at(session.session_data(record).internal_id)
       end
 
    set (record: EDC_RECORD; field: EDC_FIELD[E_]; i: E_) is
       do
-         dataset.fast_put(i, session.data(record).internal_id)
+         dataset.fast_put(i, session.session_data(record).internal_id)
       end
 
 feature {}

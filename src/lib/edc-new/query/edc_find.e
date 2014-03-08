@@ -1,4 +1,4 @@
-class EDC_FIND[R_ -> EDC_RECORD, K_]
+class EDC_FIND[D_ -> EDC_TYPED_DESCRIPTOR[R_, K_], R_ -> EDC_RECORD, K_]
 
 inherit
    EDC_TYPED_QUERY[R_]
@@ -8,8 +8,29 @@ create {EDC_DESCRIPTOR}
 
 feature {ANY}
    list (session: EDC_SESSION): TRAVERSABLE[R_] is
+      local
+         descriptor: D_
+         data: FAST_ARRAY[EDC_SESSION_DATA]
+         res: FAST_ARRAY[R_]
+         i: INTEGER; record: R_
       do
-         create {FAST_ARRAY[R_]} Result.make(0) --| **** TODO
+         check
+            actual_descriptor: descriptor /= Void
+         end
+         data := session.select_data(descriptor.table.name, crit_where, crit_having, crit_order_by)
+         create res.make(data.count)
+         from
+            i := data.lower
+         until
+            i > data.upper
+         loop
+            record := descriptor.new_record
+            record.set_session_data(data.item(i))
+            res.put(record, i)
+            i := i + 1
+         end
+         session.recycle_data(data)
+         Result := res
       ensure then
          Result.count.in_range(0, 1)
       end

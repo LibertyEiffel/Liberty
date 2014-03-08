@@ -1,4 +1,4 @@
-class EDC_FETCH[R_ -> EDC_RECORD]
+class EDC_FETCH[D_ -> EDC_TYPED_DESCRIPTOR[R_, K_], R_ -> EDC_RECORD, K_]
 
 inherit
    EDC_TYPED_QUERY[R_]
