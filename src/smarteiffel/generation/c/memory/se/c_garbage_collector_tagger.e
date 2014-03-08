@@ -29,8 +29,6 @@ feature {GC_HANDLER}
          Result := string_aliaser.hashed_string(tag)
          tag.clear_count
          type := Void
-      ensure
-         string_aliaser.registered_one(Result)
       end
 
 feature {C_GARBAGE_COLLECTOR_TAGGER}
