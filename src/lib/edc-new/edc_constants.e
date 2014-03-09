@@ -11,4 +11,15 @@ feature {} -- Query options
          create {EDC_QUERY_OPTION_FOR_UPDATE} Result.make
       end
 
+feature {} -- Field options
+   Edc_primary_key: EDC_FIELD_OPTION is
+      once
+         create {EDC_FIELD_OPTION_PRIMARY_KEY} Result.make
+      end
+
+   Edc_mandatory: EDC_FIELD_OPTION is
+      once
+         create {EDC_FIELD_OPTION_MANDATORY} Result.make
+      end
+
 end -- class EDC_CONSTANTS

@@ -1,7 +1,7 @@
 deferred class EDC_FIELD[E_]
 
-insert
-   ANY
+inherit
+   EDC_ANY_FIELD
       rename
          default as field_default
       end
@@ -90,7 +90,6 @@ feature {EDC_DESCRIPTOR}
       end
 
 feature {}
-   options: EDC_FIELD_OPTION
    validators: FAST_ARRAY[PREDICATE[TUPLE[E_]]]
 
 end -- class EDC_FIELD

@@ -1,4 +1,4 @@
-deferred class EDC_TYPED_RECORD[D_ -> EDC_DESCRIPTOR[K_], K_]
+deferred class EDC_TYPED_RECORD[D_ -> EDC_DESCRIPTOR[K_], K_ -> TUPLE]
 
 inherit
    EDC_RECORD

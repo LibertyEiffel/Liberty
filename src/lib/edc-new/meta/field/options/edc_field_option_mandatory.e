@@ -9,7 +9,7 @@ inherit
 insert
    SINGLETON
 
-create {EDC_DESCRIPTOR}
+create {EDC_CONSTANTS}
    make
 
 feature {}

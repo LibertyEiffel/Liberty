@@ -74,6 +74,7 @@ feature {}
          ref_table := a_ref_table
          name := a_name.intern
          options := a_options
+         table.add_field(Current)
       ensure
          table = a_table
          ref_table = a_ref_table

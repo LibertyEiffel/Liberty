@@ -20,7 +20,7 @@ feature {}
          if session.is_open then
             session.begin
             if session.in_transaction then
-               employees := d_employee.find("007", Edc_for_update).list(session)
+               employees := d_employee.find(["007"], Edc_for_update).list(session)
                if employees.is_empty then
                   create employee.with_id(session, "007")
                   employee.set_name("James Bond")

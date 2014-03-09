@@ -33,6 +33,7 @@ feature {}
          name := a_name.intern
          length := a_length
          options := a_options
+         table.add_field(Current)
       ensure
          table = a_table
          name = a_name.intern

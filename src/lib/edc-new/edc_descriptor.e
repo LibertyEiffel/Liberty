@@ -1,4 +1,4 @@
-deferred class EDC_DESCRIPTOR[K_]
+deferred class EDC_DESCRIPTOR[K_ -> TUPLE]
 
 insert
    EDC_CONSTANTS
@@ -10,15 +10,12 @@ feature {ANY}
       deferred
       end
 
-feature {} -- Field options
-   Edc_primary_key: EDC_FIELD_OPTION is
-      once
-         create {EDC_FIELD_OPTION_PRIMARY_KEY} Result.make
-      end
-
-   Edc_mandatory: EDC_FIELD_OPTION is
-      once
-         create {EDC_FIELD_OPTION_MANDATORY} Result.make
+   criterion_primary_key (a_pk: K_): EDC_CRITERION is
+      require
+         a_pk /= Void
+      deferred
+      ensure
+         Result /= Void
       end
 
 end -- class EDC_TYPED_DESCRIPTOR

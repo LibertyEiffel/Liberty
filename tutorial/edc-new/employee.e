@@ -1,7 +1,7 @@
 class EMPLOYEE
 
 inherit
-   EDC_TYPED_RECORD[EMPLOYEE_DESCRIPTOR, STRING]
+   EDC_TYPED_RECORD[EMPLOYEE_DESCRIPTOR, TUPLE[STRING]]
 
 create {ANY}
    default_create, with_id

@@ -1,4 +1,4 @@
-deferred class EDC_TYPED_DESCRIPTOR[R_ -> EDC_RECORD create default_create end, K_]
+deferred class EDC_TYPED_DESCRIPTOR[R_ -> EDC_RECORD create default_create end, K_ -> TUPLE]
    -- this class is meant to be expanded.
 
 insert
@@ -25,6 +25,16 @@ feature {ANY}
       do
          r ::= record
          not_yet_implemented --| **** TODO r.session.???
+      end
+
+   criterion_primary_key (a_pk: K_): EDC_CRITERION is
+      require
+         table.pk.count = a_pk.count
+      local
+         i: INTEGER
+      do
+         --| **** I need to think a lot! TUPLE is not iterable and even if
+         --| **** it were, its content elements conform to nothing.
       end
 
 feature {EDC_TYPED_QUERY}

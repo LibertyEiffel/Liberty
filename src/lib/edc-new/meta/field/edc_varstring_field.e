@@ -31,6 +31,7 @@ feature {}
          table := a_table
          name := a_name.intern
          options := a_options
+         table.add_field(Current)
       ensure
          table = a_table
          name = a_name.intern
