@@ -2,6 +2,9 @@ class EDC_STRING_FIELD[R_ -> EDC_RECORD]
 
 inherit
    EDC_BASIC_FIELD[R_, STRING]
+      redefine
+         is_pk_compatible
+      end
 
 create {EDC_DESCRIPTOR}
    make, with_options
@@ -16,6 +19,9 @@ feature {EDC_RECORD}
       do
          r.session.string_field.set(r, Current, i)
       end
+
+feature {EDC_ANY_TABLE}
+   is_pk_compatible: BOOLEAN is True
 
 feature {}
    make (a_table: like table; a_name: ABSTRACT_STRING; a_length: like length) is

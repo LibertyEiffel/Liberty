@@ -7,16 +7,8 @@ feature {ANY}
    table: EDC_TABLE[R_]
 
 feature {EDC_ANY_TABLE}
-   frozen is_pk_compatible: BOOLEAN is
-      do
-         inspect
-            generating_type
-         when "EDC_INTEGER_64_FIELD", "EDC_STRING_FIELD" then
-            Result := True
-         else
-            check not Result end
-         end
-      end
+   is_pk_compatible: BOOLEAN is False
+         -- Do not redefine if you don't know what you are doing!
 
 feature {EDC_RECORD}
    item (r: R_): E_ is
