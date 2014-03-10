@@ -4,13 +4,14 @@ compiler:
 before_install:
   - "sudo apt-get update -qq"
   - "sudo apt-get install -qq readline-dev"
-install:
-  - "./install.sh -bootstrap"
-env:
-  - TEST_SUITE=language
-  - TEST_SUITE=lib
-  - TEST_SUITE=tools
+#install:
+#  - "./install.sh -bootstrap"
+#env:
+#  - TEST_SUITE=language
+#  - TEST_SUITE=lib
+#  - TEST_SUITE=tools
 script:
-  - "cd test/$TEST_SUITE && ../../target/bin/se test ."
+#  - "cd test/$TEST_SUITE && ../../target/bin/se test ."
+  - "work/packaging/build_debian.sh"
 cache:
   - apt
