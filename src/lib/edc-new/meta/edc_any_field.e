@@ -8,6 +8,11 @@ feature {ANY}
       deferred
       end
 
+feature {EDC_ANY_TABLE}
+   is_pk_compatible: BOOLEAN is
+      deferred
+      end
+
 invariant
    table /= Void
    not name.is_empty

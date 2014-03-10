@@ -23,6 +23,11 @@ feature {EDC_ANY_FIELD}
       do
          fields_.add_last(a_field)
          if a_field.options = Edc_primary_key then
+            if not a_field.is_pk_compatible then
+               std_error.put_string(a_field.generating_type)
+               std_error.put_line(once " is not PK compatible.")
+               crash
+            end
             pk_.add_last(a_field)
          end
       ensure
