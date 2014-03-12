@@ -8,7 +8,8 @@ script:
   - "work/packaging/build_debian.sh"
   - "rm -rf /tmp/liberty-eiffel-logs"
   - "sudo dpkg -i work/packaging/debs/*.deb"
-  - "find tutorial -name aux\\* -prune -o -name \\*.e -print | while read e; do echo $e; ( exe=$(basename $e .e).exe; cd $(dirname $e); se c -clean -style_warning -o $exe $e && $exe && rm -f $exe ) || exit 1; done"
+  - "which se"
+  - "find $(pwd)/tutorial -name 'aux*' -prune -o -name '*.e' '(' -execdir $(pwd)/work/se_run.sh {} ';' -o -quit ')'"
 after_failure:
   - "test -d /tmp/liberty-eiffel-logs && for log in /tmp/liberty-eiffel-logs/*.log; do echo '**** LOG:' $log; cat $log; done"
 cache:
