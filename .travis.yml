@@ -6,10 +6,10 @@ before_install:
   - "sudo apt-get install -qq g++ gccxml reprepro devscripts docbook-to-man libgc-dev libgc1c2 coreutils"
 install:
   - "./install.sh -plain -bootstrap"
-  - "bash -x work/packaging/build_debian.sh"
-  - "for log in target/log/*.log; do echo; echo '**** LOG:' $log; cat $log; done"
+  - "work/packaging/build_debian.sh"
   - "sudo dpkg -c work/packaging/debs/liberty-eiffel-tools_*.deb"
   - "sudo dpkg -i work/packaging/debs/*.deb"
+  - "for log in target/log/liberty-eiffel-*.log; do echo; echo '**** LOG:' $log; cat $log; done"
 script:
   - "find $(pwd)/tutorial -name 'aux*' -prune -o -name '*.e' '(' -exec $(pwd)/work/se_run.sh {} ';' -o -quit ')'"
 cache:
