@@ -3,14 +3,14 @@ compiler:
   - gcc
 before_install:
   - "sudo apt-get update -qq"
-  - "sudo apt-get install -qq g++ gccxml reprepro devscripts docbook-to-man libgc-dev libgc1c2"
+  - "sudo apt-get install -qq g++ gccxml reprepro devscripts docbook-to-man libgc-dev libgc1c2 coreutils"
 install:
-  - "work/packaging/build_debian.sh -clean"
+  - "bash -x ./install.sh"
+  - "bash -x work/packaging/build_debian.sh"
+  - "for log in target/log/*.log; do echo; echo '**** LOG:' $log; cat $log; done"
   - "sudo dpkg -c work/packaging/debs/liberty-eiffel-tools_*.deb"
   - "sudo dpkg -i work/packaging/debs/*.deb"
 script:
   - "find $(pwd)/tutorial -name 'aux*' -prune -o -name '*.e' '(' -exec $(pwd)/work/se_run.sh {} ';' -o -quit ')'"
-after_script:
-  - "for log in target/log/*.log; do echo; echo '**** LOG:' $log; cat $log; done"
 cache:
   - apt
