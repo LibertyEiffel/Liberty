@@ -5,8 +5,9 @@ before_install:
   - "sudo apt-get update -qq"
   - "sudo apt-get install -qq g++ gccxml reprepro devscripts docbook-to-man libgc-dev"
 script:
-  - "work/packaging/build_debian.sh"
+  - "work/packaging/build_debian.sh && rm -rf /tmp/liberty-eiffel-logs"
+  - "find tutorial -name aux\* -prune -o -name \*.e -print | while read e; do echo $e; ( exe=$(basename $e .e).exe; cd $(dirname $e); se c -clean -style_warning -o $exe $e && $exe ) || exit 1; done"
 after_failure:
-  - "for log in /tmp/liberty-eiffel-logs/*.log; do echo '**** LOG:' $log; cat $log; done"
+  - "test -d /tmp/liberty-eiffel-logs && for log in /tmp/liberty-eiffel-logs/*.log; do echo '**** LOG:' $log; cat $log; done"
 cache:
   - apt
