@@ -4,14 +4,9 @@ compiler:
 before_install:
   - "sudo apt-get update -qq"
   - "sudo apt-get install -qq g++ gccxml"
-#install:
-#  - "./install.sh -bootstrap"
-#env:
-#  - TEST_SUITE=language
-#  - TEST_SUITE=lib
-#  - TEST_SUITE=tools
 script:
-#  - "cd test/$TEST_SUITE && ../../target/bin/se test ."
   - "work/packaging/build_debian.sh"
+after_failure:
+  - "for log in /tmp/liberty-eiffel-logs/*.log; do echo '**** LOG:' $log; cat $log; done"
 cache:
   - apt
