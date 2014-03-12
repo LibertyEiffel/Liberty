@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-e=$1
+cd $(dirname $1)
+e=$(basename $1)
 exe=${e%.e}.exe
-$(which se) c -clean -style_warning -o $exe $e || exit 1
+/usr/bin/se c -clean -style_warning -o $exe $e || exit 1
 exec ./$e
