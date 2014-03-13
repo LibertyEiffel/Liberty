@@ -10,7 +10,7 @@ if [ -r $in ]; then
 fi
 
 echo '~~~~~~~~~~~~~~~~ TUTORIAL:' $1
-se c -clean -style_warning -require_check -o $exe $e || exit 1
+se c -boost -no_split -o $exe $e || exit 1
 
 export PIDFILE=$(mktemp)
 
