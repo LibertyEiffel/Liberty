@@ -9,10 +9,7 @@ before_install:
 install:
   - "./install.sh -plain -bootstrap"
   - "work/packaging/build_debian.sh"
-# - "sudo dpkg -c work/packaging/debs/liberty-eiffel-tools_*.deb"
   - "sudo dpkg -i work/packaging/debs/*.deb"
-# - "for log in target/log/liberty-eiffel-*.log; do echo; echo '~~~~~~~~~~~~~~~~ LOG:' $log; cat $log; done"
-# - "for se in /etc/xdg/liberty-eiffel/*.se; do echo; echo '~~~~~~~~~~~~~~~~ SE:' $se; cat $se; done"
   - "rm -rf $HOME/.config/liberty-eiffel"
 script:
   - "work/se_run_tutorial.sh"
