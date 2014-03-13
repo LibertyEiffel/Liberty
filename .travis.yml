@@ -10,7 +10,7 @@ install:
   - "sudo dpkg -c work/packaging/debs/liberty-eiffel-tools_*.deb"
   - "sudo dpkg -i work/packaging/debs/*.deb"
   - "for log in target/log/liberty-eiffel-*.log; do echo; echo '**** LOG:' $log; cat $log; done"
-  - "for se in /etc/liberty-eiffel/*.se; do echo; echo '**** SE:' $se; car $se; done"
+  - "for se in /etc/xdg/liberty-eiffel/*.se; do echo; echo '**** SE:' $se; cat $se; done"
 script:
   - "find $(pwd)/tutorial -name 'aux*' -prune -o -name '*.e' '(' -exec $(pwd)/work/se_run.sh {} ';' -o -quit ')'"
 cache:
