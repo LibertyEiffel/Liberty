@@ -7,7 +7,7 @@ before_install:
   - "sudo apt-get update -qq"
   - "sudo apt-get install -qq g++ gccxml reprepro devscripts docbook-to-man libgc-dev libgc1c2 coreutils"
 install:
-  - "./install.sh -plain -bootstrap"
+  - "./install.sh -bootstrap"
   - "work/packaging/build_debian.sh"
   - "sudo dpkg -i work/packaging/debs/*.deb"
   - "rm -rf $HOME/.config/liberty-eiffel"
