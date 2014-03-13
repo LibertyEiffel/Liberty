@@ -25,13 +25,16 @@ exe_pid=$!
 
 echo $exe_pid > $PIDFILE
 
-test -x $sh && ./$sh $exe_pid &
-sh_pid=$!
+ssh_pid=""
+test -x $sh && {
+    ./$sh $exe_pid &
+    sh_pid=$!
+}
 
 (
     sleep 30
     test -r $PIDFILE && {
-        echo "**** Process takes too long, killing!"
+        echo "**** Process $exe takes too long, killing!"
         kill $(<$PIDFILE)
     }
 )&
@@ -40,10 +43,14 @@ kill_pid=$!
 wait $exe_pid
 status=$?
 
-kill $kill_pid
-wait $kill_pid 2>/dev/null
-kill $sh_pid
-wait $sh_pid 2>/dev/null
+{
+    kill $kill_pid
+    wait $kill_pid
+    if [ -n "$sh_pid" ]; then
+        kill $sh_pid
+        wait $sh_pid
+    fi
+} 2>/dev/null
 
 rm -f $PIDFILE
 
