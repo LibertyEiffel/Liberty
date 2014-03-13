@@ -26,13 +26,13 @@ feature {}
          io.put_string(s)
          io.flush
          counter := counter + 1
-         if counter \\ 100000 = 0 then
+         if counter \\ 100 = 0 then
             io.put_string("%Ncounter = ")
             io.put_integer(counter)
             io.put_new_line
          end
 
-         Result := True
+         Result := counter < 1000
       end
 
 end -- class EXAMPLE2
