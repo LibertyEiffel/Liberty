@@ -9,7 +9,10 @@ travis_fold=tutorial.$(echo ${1%.e} | sed 's!.*/tutorial/!!;s!/!.!g')
 
 echo travis_fold:start:$travis_fold
 echo $1
-se c -boost -no_split -o $exe $e || exit 1
+se c -boost -no_split -o $exe $e || {
+    echo travis_fold:end:$travis_fold
+    exit 1
+}
 
 export PIDFILE=$(mktemp)
 
