@@ -9,9 +9,8 @@ if [ -r $in ]; then
     exec <$in
 fi
 
-echo
 echo '~~~~~~~~~~~~~~~~ TUTORIAL:' $1
-se c -clean -style_warning -o $exe $e || exit 1
+se c -clean -style_warning -require_check -o $exe $e || exit 1
 
 export PIDFILE=$(mktemp)
 
