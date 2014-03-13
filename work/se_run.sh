@@ -10,13 +10,13 @@ if [ -r $in ]; then
     exec <$in
 fi
 
-echo '~~~~~~~~~~~~~~~~ TUTORIAL:' $1
+echo travis_fold:start:$e
 se c -boost -no_split -o $exe $e || exit 1
 
 export PIDFILE=$(mktemp)
 
 (
-    ulimit -t 60
+    ulimit -t 60 2>/dev/null
     ./$exe
     ret=$?
     rm -f $PIDFILE
@@ -54,5 +54,8 @@ status=$?
 } 2>/dev/null
 
 rm -f $PIDFILE
+
+test $status -ne 0 && echo '****' $e '=> status' $status
+echo travis_fold:end:$e
 
 exit $status
