@@ -15,6 +15,6 @@ install:
 # - "for se in /etc/xdg/liberty-eiffel/*.se; do echo; echo '~~~~~~~~~~~~~~~~ SE:' $se; cat $se; done"
   - "rm -rf $HOME/.config/liberty-eiffel"
 script:
-  - "find $(pwd)/tutorial -name 'aux*' -prune -o -name '*.e' -exec $(pwd)/work/se_run.sh {} ';'"
+  - "work/se_run_tutorial.sh"
 cache:
   - apt
