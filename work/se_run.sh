@@ -5,8 +5,9 @@ e=$(basename $1)
 exe=${e%.e}.exe
 in=${e%.e}.in
 sh=${e%.e}.sh
+travis_fold=$(echo ${e%.e} | sed 's!^.*/tutorial/!!;s!/!.!g')
 
-echo travis_fold:start:$e
+echo travis_fold:start:$travis_fold
 se c -boost -no_split -o $exe $e || exit 1
 
 export PIDFILE=$(mktemp)
@@ -57,6 +58,6 @@ status=$?
 rm -f $PIDFILE
 
 test $status -ne 0 && echo '****' $e '=> status' $status
-echo travis_fold:end:$e
+echo travis_fold:end:$travis_fold
 
 exit $status
