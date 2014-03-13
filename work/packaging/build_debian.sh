@@ -153,7 +153,7 @@ for debian in $packages/*.pkg/debian; do
     cp -a $package_dir/* .
 
     # customize debian/changelog
-    sed 's/#SNAPSHOT#/'"$tag"'/g' -i debian/changelog
+    sed 's/#SNAPSHOT#/'"$tag"'/g;s/#DATE#/'"$(date -R)"'/g' -i debian/changelog
 
     # customize debian/control
     mv debian/control debian/control~
