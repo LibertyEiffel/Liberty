@@ -15,22 +15,15 @@ if [ -r $in ]; then
     exec <$in
 fi
 
-pidfile=$(mktemp)
+export PIDFILE=$(mktemp)
 (
-    ./$exe &
-    pid=$!
-    echo $pid > $pidfile
-    wait
-    ret=$!
-    rm -f $pidfile
+    ./$exe
+    ret=$?
+    rm -f $PIDFILE
     exit $ret
 ) &
-
-exe_pid=$(<$pidfile)
-if [ $? -ne 0 ]; then
-    wait $exe_pid
-    exit $!
-fi
+exe_pid=$!
+echo $exe_pid > $PIDFILE
 
 if [ -r $script ]; then
     ./$script $exe_pid &
@@ -38,8 +31,10 @@ fi
 
 (
     sleep 30
-    echo "**** Process takes too long, killing!"
-    test -r $pidfile && kill -9 $(<$pidfile)
+    test -r $PIDFILE && {
+        echo "**** Process takes too long, killing!"
+        kill -9 $(<$PIDFILE)
+    }
 )&
 kill_pid=$!
 
@@ -47,6 +42,6 @@ wait $exe_pid
 status=$?
 
 kill $kill_pid
-rm -f $pidfile
+rm -f $PIDFILE
 
 exit $status
