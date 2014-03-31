@@ -123,7 +123,7 @@ struct se_profile_source_access {
   se_profile_t* access;
 
   int32_t count;                 /* number of times the function represented by "access" was called "from
-				    here" */
+                                    here" */
 };
 
 /* A target access: how many times the function called another one, and how much time it cost */
@@ -143,9 +143,9 @@ struct se_profile {
   se_time_t own;                 /* the total "own" time (not counting nested calls) */
   se_time_t cumul;               /* the total "cumul" time (counting nested calls) */
   int exceptions;                /* the number of times this function did not finish properly because of an
-				    exception */
+                                    exception */
   se_profile_source_access_t* sources;  /* the functions that called this one, and how many times. The total
-					   of their calls must be equal to "call_count". */
+                                           of their calls must be equal to "call_count". */
   se_profile_target_access_t* targets;  /* the functions this one called, and how many times. */
   int32_t depth;                 /* for recursive functions, the depth of the recursion. */
 };
@@ -155,12 +155,12 @@ struct se_local_profile {
   se_time_t     start;           /* the time this function was called at */
   se_time_t     cumul;           /* the cumulative times of the function's children */
   int current_time_counter;      /* number of times the current_time() function was called at the start of the
-				    function */
+                                    function */
 };
 
 /* ---------------------------------------------------------------------- */
 
-extern se_local_profile_t gc_local_profile;
+extern TLS(se_local_profile_t) gc_local_profile;
 
 /*
  * initializes and starts profiling

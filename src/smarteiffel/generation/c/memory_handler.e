@@ -68,6 +68,11 @@ feature {C_PRETTY_PRINTER} -- C code phases
       deferred
       end
 
+   initialize_thread is
+         -- Code for runtime customization at thread start. Used to set the stack bottom.
+      deferred
+      end
+
    gc_info_before_exit is
          -- Code for runtime cleanup in the "atexit" C function
       deferred

@@ -184,6 +184,11 @@ feature {ANY}
          create Result
       end
 
+   frozen thread_pool: THREAD_POOL is
+      once
+         create Result
+      end
+
    frozen exceptions: EXCEPTIONS
 
    frozen exceptions_handler: EXCEPTIONS_HANDLER is

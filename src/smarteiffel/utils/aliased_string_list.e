@@ -89,6 +89,10 @@ feature {} -- Hard-coded class names:
 
    as_text_file_write: STRING is "TEXT_FILE_WRITE"
 
+   as_thread_context: STRING is "THREAD_CONTEXT"
+
+   as_thread_lock: STRING is "THREAD_LOCK"
+
    as_tuple: STRING is "TUPLE"
 
    as_type: STRING is "TYPE"
@@ -107,6 +111,8 @@ feature {} -- Hard coded feature names:
    as_agent: STRING is "agent"
 
    as_allocated_bytes: STRING is "allocated_bytes"
+
+   as_alloc_native_data: STRING is "alloc_native_data"
 
    as_as_16_ne: STRING is "as_16_ne"
 
@@ -220,6 +226,8 @@ feature {} -- Hard coded feature names:
 
    as_force_to_real_64: STRING is "force_to_real_64"
 
+   as_free_native_data: STRING is "free_native_data"
+
    as_from_external_sized_copy: STRING is "from_external_sized_copy"
 
    as_from_pointer: STRING is "from_pointer"
@@ -246,7 +254,11 @@ feature {} -- Hard coded feature names:
 
    as_is_empty: STRING is "is_empty"
 
+   as_is_finished: STRING is "is_finished"
+
    as_is_infinity: STRING is "is_infinity"
+
+   as_is_locked: STRING is "is_locked"
 
    as_is_normal: STRING is "is_normal"
 
@@ -254,11 +266,15 @@ feature {} -- Hard coded feature names:
 
    as_is_not_null: STRING is "is_not_null"
 
+   as_is_started: STRING is "is_started"
+
    as_is_subnormal: STRING is "is_subnormal"
 
    as_item: STRING is "item"
 
    as_last: STRING is "last"
+
+   as_lock: STRING is "lock"
 
    as_lower: STRING is "lower"
 
@@ -299,6 +315,12 @@ feature {} -- Hard coded feature names:
    as_maximum_double: STRING is "Maximum_double"
 
    as_maximum_real: STRING is "Maximum_real"
+
+   as_native_data: STRING is "native_data"
+
+   as_notify: STRING is "notify"
+
+   as_notify_all: STRING is "notify_all"
 
    as_object_as_pointer: STRING is "object_as_pointer"
 
@@ -346,6 +368,8 @@ feature {} -- Hard coded feature names:
 
    as_rounded: STRING is "rounded"
 
+   as_run: STRING is "run"
+
    as_same_dynamic_type: STRING is "same_dynamic_type"
 
    as_second: STRING is "second"
@@ -374,6 +398,8 @@ feature {} -- Hard coded feature names:
 
    as_standard_twin: STRING is "standard_twin"
 
+   as_status: STRING is "status"
+
    as_std_error: STRING is "std_error"
 
    as_std_input: STRING is "std_input"
@@ -391,6 +417,8 @@ feature {} -- Hard coded feature names:
    as_storage_lower: STRING is "storage_lower"
 
    as_third: STRING is "third"
+
+   as_timed_wait: STRING is "timed_wait"
 
    as_to_character: STRING is "to_character"
 
@@ -430,11 +458,16 @@ feature {} -- Hard coded feature names:
 
    as_type_item_is_expanded: STRING is "type_item_is_expanded"
 
+   as_unlock: STRING is "unlock"
+
    as_upper: STRING is "upper"
 
    as_valid_generating_type_for_internals: STRING is "valid_generating_type_for_internals"
 
    as_valid_generating_type_for_native_array_internals: STRING is "valid_generating_type_for_native_array_internals"
+
+   as_wait: STRING is "wait"
+
    as_with_capacity: STRING is "with_capacity"
 
 feature {} -- Operator/Infix/Prefix list:

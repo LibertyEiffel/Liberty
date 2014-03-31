@@ -123,6 +123,9 @@ feature {ANY}
    deep_twin_used: BOOLEAN
          -- When `deep_twin' support is necessary.
 
+   thread_used: BOOLEAN
+         -- When threading support is necessary (i.e. threads are actually started using THREAD_CONTEXT.run).
+
    accumulating_type: TYPE is
          -- Service provided for debugging purpose only
       do
@@ -394,7 +397,8 @@ feature {ANY}
          Result := live_type_map_
       end
 
-feature {FEATURE_CALL, WRITABLE_ATTRIBUTE_NAME, MANIFEST_STRING_POOL, CREATION_CLAUSE, ADDRESS_OF, ONCE_FUNCTION, MANIFEST_GENERIC, BUILT_IN_EQ_NEQ, CECIL_ENTRY}
+feature {FEATURE_CALL, WRITABLE_ATTRIBUTE_NAME, MANIFEST_STRING_POOL, CREATION_CLAUSE, ADDRESS_OF, ONCE_FUNCTION, MANIFEST_GENERIC, BUILT_IN_EQ_NEQ, CECIL_ENTRY, NATIVE_BUILT_IN}
+   --| **** TODO this client list is ridiculous
    collect (type: TYPE; fs: FEATURE_STAMP; at_run_time: BOOLEAN): TYPE is
          -- The `Result' is not Void when `fs' is actually a function (see ensure).
       require
@@ -754,14 +758,14 @@ feature {CODE_PRINTER}
          Result := True
       end
 
-feature {LOCAL_ARGUMENT_REF, ANONYMOUS_FEATURE, INTROSPECTION_HANDLER}
+feature {LOCAL_ARGUMENT_REF, ANONYMOUS_FEATURE, INTROSPECTION_HANDLER, THREAD_POOL}
    specializing_feature_local_var_list: LOCAL_VAR_LIST
    specializing_closure_local_var_lists: FAST_ARRAY[LOCAL_VAR_LIST]
 
    specializing_feature_arguments_list: FORMAL_ARG_LIST
    specializing_closure_arguments_lists: FAST_ARRAY[FORMAL_ARG_LIST]
 
-feature {ANONYMOUS_FEATURE, INTROSPECTION_HANDLER}
+feature {ANONYMOUS_FEATURE, INTROSPECTION_HANDLER, THREAD_POOL}
    set_specializing_feature_variables (lvl: like specializing_feature_local_var_list; clvl: like specializing_closure_local_var_lists) is
       do
          specializing_feature_local_var_list := lvl
@@ -1583,6 +1587,12 @@ feature {LIVE_TYPE}
    set_deep_twin_used is
       do
          deep_twin_used := True
+      end
+
+feature {NATIVE_BUILT_IN}
+   set_thread_used is
+      do
+         thread_used := True
       end
 
 feature {RUN_FEATURE_8, EXTERNAL_FUNCTION, GENERATOR_GENERATING_TYPE} --|*** remove RUN_FEATURE_8

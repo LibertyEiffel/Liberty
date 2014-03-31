@@ -25,56 +25,29 @@
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------
 */
-#define SE_EXCEPTIONS 1
-
 /*
-  Constants from Eiffel class EXCEPTIONS :
+  This file (SmartEiffel/sys/runtime/thread.h) contains the threading
+  declarations.
 */
-#define Check_instruction         1
-#define Class_invariant           2
-#define Developer_exception       3
-#define Incorrect_inspect_value   4
-#define Loop_invariant            5
-#define Loop_variant              6
-#define No_more_memory            7
-#define Postcondition             8
-#define Precondition              9
-#define Routine_failure           10
-#define Os_signal                 11
-#define Void_attached_to_expanded 12
-#define Void_call_target          13
-#define System_level_type_error   14
 
-/*
-   This will be the structure of rescue contexts.  A rescue context
-   will be declared for every routine that has a rescue clause.
+#ifndef _THREAD_H
+#define _THREAD_H
 
-   The `next' pointer is the address of the next rescue context if there
-   is one higher up the call chain, or NULL if there is no other
-   context.
-*/
-struct rescue_context {
-  JMP_BUF jb;
-#ifndef SE_BOOST
-    /* To keep track of dump stack to unwind it safely
-       before the LONGJMP :
-    */
-    struct _se_dump_stack * top_of_ds ;
-#endif
-  struct rescue_context *next;
-};
+typedef struct se_thread se_thread_t;
+typedef struct se_thread_lock se_thread_lock_t;
 
-extern TLS(struct rescue_context*) rescue_context_top;
-extern TLS(int                   ) internal_exception_number;
-extern TLS(int                   ) original_internal_exception_number;
-extern TLS(int                   ) signal_exception_number;
-extern TLS(char*                 ) additional_error_message;
+extern void* se_thread_alloc(void);
+extern void se_thread_run(void*(*thread)(EIF_OBJECT,void(*)(void*),void*),EIF_OBJECT C,void*data);
+extern void se_thread_wait(void*data);
 
-void setup_signal_handler(void);
-void signal_exception_handler(int);
-void internal_exception_handler(int);
-void print_exception(void);
+extern void* se_thread_lock_alloc(void);
+extern void se_thread_lock_free(void*lock);
+extern EIF_BOOLEAN se_thread_lock_is_locked(void*lock);
+extern void se_thread_lock_lock(void*lock);
+extern void se_thread_lock_unlock(void*lock);
+extern EIF_BOOLEAN se_thread_lock_timed_wait(void*lock,int tm);
+extern void se_thread_lock_wait(void*lock);
+extern void se_thread_lock_notify(void*lock);
+extern void se_thread_lock_notify_all(void*lock);
 
-#ifndef SE_BOOST
-void free_exception_frames(void);
-#endif
+#endif /* #ifndef _THREAD_H */

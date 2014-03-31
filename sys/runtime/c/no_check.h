@@ -74,7 +74,7 @@ struct _se_frame_descriptor {
 };
 
 /* For flat_check opion */
-extern int assertion_depth;
+extern TLS(int) assertion_depth;
 
 /*
   To keep the track of execution in order to be able to print a
@@ -91,7 +91,7 @@ struct _se_dump_stack {
   int depth;
 };
 
-extern se_dump_stack* se_dst;
+extern TLS(se_dump_stack*) se_dst;
 #define set_se_dst(ds) do { if (!se_dst) (ds)->depth = 1; else if (se_dst->caller != (ds)) (ds)->depth = se_dst->depth+1; se_dst=(ds); } while (0)
 
 int se_stack_size(se_dump_stack* ds);

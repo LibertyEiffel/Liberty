@@ -45,6 +45,10 @@ feature {C_PRETTY_PRINTER} -- C code phases
       do
       end
 
+   initialize_thread is
+      do
+      end
+
    gc_info_before_exit is
       do
          if info_flag then

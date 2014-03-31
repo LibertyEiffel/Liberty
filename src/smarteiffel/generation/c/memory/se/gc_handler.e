@@ -77,6 +77,12 @@ feature {C_PRETTY_PRINTER}
                                                  %#endif%N")
       end
 
+   initialize_thread is
+      do
+         cpp.pending_c_function_body.append(once "gcmt=((mch**)se_malloc((gcmt_max+1)*sizeof(void*)));%N%
+                                                 %stack_bottom=((void**)(void*)(&C));%N")
+      end
+
    post_initialize_runtime is
       do
          cpp.out_h_buffer.append(once "manifest_string_mark1();%N")

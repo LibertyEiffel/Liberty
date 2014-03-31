@@ -30,7 +30,7 @@
   when `ace.no_check' is true (ie. all modes except -boost).
 */
 
-int assertion_depth=1;
+TLS(int) assertion_depth=1;
 
 /*
    To print object into the trace-stack :
@@ -139,7 +139,7 @@ void se_prinT8(FILE* file, EIF_POINTER* o) {
 /*
   The upper most context (SmartEiffel Dump stack Top) :
 */
-se_dump_stack* se_dst=NULL;
+TLS(se_dump_stack*) se_dst=NULL;
 
 int se_stack_size(se_dump_stack* ds) {
   return ds->depth;
@@ -909,7 +909,7 @@ void se_print_locals_in(FILE* file, se_dump_stack* ds, int enter) {
 }
 
 #ifdef SE_TRACE
-static int se_call_depth=0;
+static TLS(int) se_call_depth=0;
 
 void se_print_call_trace(se_dump_stack *ds) {
   int i;

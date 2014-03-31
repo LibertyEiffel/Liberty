@@ -15,7 +15,7 @@ inherit
 insert
    TRAVERSABLE[CODE]
 
-create {CODE_ACCUMULATOR}
+create {ANY}
    from_list
 
 create {COMPOUND_EXPRESSION}
