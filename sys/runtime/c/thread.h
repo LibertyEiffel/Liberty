@@ -33,11 +33,7 @@
 #ifndef _THREAD_H
 #define _THREAD_H
 
-typedef struct se_thread se_thread_t;
-typedef struct se_thread_lock se_thread_lock_t;
-
-extern void* se_thread_alloc(void);
-extern void se_thread_run(void*(*thread)(EIF_OBJECT,void(*)(void*),void*),EIF_OBJECT C,void*data);
+extern void*se_thread_run(void (*thread)(EIF_OBJECT,void(*)(void*),void*),EIF_OBJECT C);
 extern void se_thread_wait(void*data);
 
 extern void* se_thread_lock_alloc(void);

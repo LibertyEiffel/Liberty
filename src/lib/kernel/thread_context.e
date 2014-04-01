@@ -54,7 +54,6 @@ feature {THREAD}
       do
          thread := t
          args := a
-         alloc_native_data
       ensure
          thread = t
          args = a
@@ -62,14 +61,9 @@ feature {THREAD}
 
    native_data: POINTER
 
-   alloc_native_data is
-      external "built_in"
-      end
-
 invariant
    thread /= Void
    args /= Void
-   native_data.is_not_null
 
 end -- class THREAD_CONTEXT
 --

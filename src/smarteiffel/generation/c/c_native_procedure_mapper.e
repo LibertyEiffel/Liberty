@@ -335,17 +335,15 @@ feature {} -- Threads
    c_mapping_thread_context_proc is
       do
          if as_run = name then
-            function_body.append(once "se_thread_run((void*(*)(T0*,void(*)(void*),void*))thread_run")
+            function_body.append(once "((T")
+            type_of_current.id.append_in(function_body);
+            function_body.append(once "*)")
+            cpp.put_target_as_value
+            function_body.append(once ")->_native_data=se_thread_run((void(*)(T0*,void(*)(void*),void*))thread_run")
             type_of_current.id.append_in(function_body);
             function_body.append(once ",(T0*)(")
             cpp.put_target_as_value
-            function_body.append(once "),(")
-            cpp.put_target_as_target(type_of_current)
-            function_body.append(once ")->_native_data);%N")
-         elseif as_alloc_native_data = name then
-            function_body.append(once "(")
-            cpp.put_target_as_target(type_of_current)
-            function_body.append(once ")->_native_data=se_thread_alloc();%N")
+            function_body.append(once "));%N")
          elseif as_wait = name then
             function_body.append(once "se_thread_wait((")
             cpp.put_target_as_target(type_of_current)

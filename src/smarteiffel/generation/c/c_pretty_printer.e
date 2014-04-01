@@ -1241,11 +1241,11 @@ feature {} -- Threading
             status_type := fs_status.anonymous_feature(type).result_type.resolve_in(type)
 
             prepare_c_function
-            pending_c_function_signature.copy(once "void*thread_run")
+            pending_c_function_signature.copy(once "void thread_run")
             type.id.append_in(pending_c_function_signature)
             pending_c_function_signature.append(once "(/*thread context*/T")
             type.id.append_in(pending_c_function_signature)
-            pending_c_function_signature.append(once "*C,void(*start_unlock)(void*),void*data)")
+            pending_c_function_signature.append(once "*C,void(*signal)(void*),void*sigdata)")
 
             pending_c_function_body.append(result_type.for(status_type.canonical_type_mark))
             if pending_c_function_body.last /= '*' then
@@ -1275,7 +1275,7 @@ feature {} -- Threading
 
             memory.initialize_thread
             pending_c_function_body.append(once "*(volatile T6*)&(C->_is_started)=1;%N%
-                                                 %start_unlock(data);%N")
+                                                %signal(sigdata);%N")
 
             if call /= Void then
                compound_expression_compiler.compile(once "R=", call, once ";%N", type)
@@ -1283,9 +1283,8 @@ feature {} -- Threading
 
             pending_c_function_body.append(once "*(volatile ")
             pending_c_function_body.append(result_type.for(status_type.canonical_type_mark))
-            pending_c_function_body.append(once "*)&(C->_status)=R;%N")
-
-            pending_c_function_body.append(once "*(volatile T6*)&(C->_is_finished)=1;%N")
+            pending_c_function_body.append(once "*)&(C->_status)=R;%N%
+                                                %*(volatile T6*)&(C->_is_finished)=1;%N")
 
             dump_pending_c_function(True)
 
