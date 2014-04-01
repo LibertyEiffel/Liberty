@@ -19,36 +19,21 @@
 --
 -- http://ese.sourceforge.net
 -- -----------------------------------------------------------------------------------------------------------
-deferred class EDC_STORABLE_DRIVER[R_ -> REPOSITORY[EDC_STORABLE_TABLE]]
-   --
-   -- Data is stored in a REPOSITORY.
-   --
-   -- See also EDC_STORABLE_XML_FILE_DRIVER
-   --
+deferred class ESE_VISITOR
+	--
+	-- Builds on the standard Visitor pattern to add some type-able facilities (for using with generic
+	-- classes).
+	--
 
 inherit
-   EDC_DRIVER
+	VISITOR
 
-insert
-   SINGLETON
-      undefine
-         is_equal
-      end
+feature {ESE_TYPED_VISITABLE, ESE_VISITOR}
+	as_typed (item_type_generator: STRING): ESE_VISITOR is
+			-- can be force-assigned to a ESE_TYPED_VISITOR of the "good" type
+		deferred
+		ensure
+			Result /= Void
+		end
 
-feature {EDC_CONNECTION_FACTORY}
-   new_connection (url: STRING; info: DICTIONARY[STRING, STRING]): EDC_STORABLE_CONNECTION is
-      do
-         create Result.prepare_connect
-         Result.connect_to(new_repository(url, info))
-      end
-
-feature {}
-   new_repository (url: STRING; info: DICTIONARY[STRING, STRING]): R_ is
-      deferred
-      ensure
-         Result /= Void
-      end
-
-   transient: REPOSITORY_TRANSIENT
-
-end -- class EDC_STORABLE_DRIVER
+end -- class ESE_VISITOR

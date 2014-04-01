@@ -187,12 +187,12 @@ feature {EDC_STORABLE_EXPRESSION_SELECTOR}
       end
 
 feature {ANY} -- Fetch direction:
-   set_fetch_direction (a_fetch_direction: INTEGER) is
+   set_fetch_direction (a_fetch_direction: like fetch_direction) is
       do
          fetch_direction := a_fetch_direction
       end
 
-   fetch_direction: INTEGER
+   fetch_direction: INTEGER_8
 
 feature {EDC_CALL_HANDLER}
    call_select (a_selectable: EDC_SELECTABLE): EDC_RESULT_SET is
@@ -239,7 +239,7 @@ feature {EDC_STORABLE_DRIVER}
          a_repository.is_commitable
       do
          repository := a_repository
-         fetch_direction := Fetch_forward
+         fetch_direction := fetch_forward
          debug
             create tables.make(0)
          end

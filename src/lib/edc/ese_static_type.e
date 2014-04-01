@@ -19,36 +19,28 @@
 --
 -- http://ese.sourceforge.net
 -- -----------------------------------------------------------------------------------------------------------
-deferred class EDC_STORABLE_DRIVER[R_ -> REPOSITORY[EDC_STORABLE_TABLE]]
-   --
-   -- Data is stored in a REPOSITORY.
-   --
-   -- See also EDC_STORABLE_XML_FILE_DRIVER
-   --
+expanded class ESE_STATIC_TYPE[T_]
+	--
+	-- To get the static type of T_
+	--
+	-- Non-OO crap to ensure type selection for visitors.
+	--
 
-inherit
-   EDC_DRIVER
+feature {ESE_TYPED_VISITABLE}
+	type_name: STRING is
+		local
+			i: INTEGER
+		do
+			Result := once ""
+			Result.copy(generating_type)
+			i := 17
+			check
+				i = Result.first_index_of('[') + 1
+			end
+			Result.shrink(i, Result.upper - 1)
+		ensure
+			Result /= Void
+			generating_type.is_equal("ESE_STATIC_TYPE[" + Result + "]")
+		end
 
-insert
-   SINGLETON
-      undefine
-         is_equal
-      end
-
-feature {EDC_CONNECTION_FACTORY}
-   new_connection (url: STRING; info: DICTIONARY[STRING, STRING]): EDC_STORABLE_CONNECTION is
-      do
-         create Result.prepare_connect
-         Result.connect_to(new_repository(url, info))
-      end
-
-feature {}
-   new_repository (url: STRING; info: DICTIONARY[STRING, STRING]): R_ is
-      deferred
-      ensure
-         Result /= Void
-      end
-
-   transient: REPOSITORY_TRANSIENT
-
-end -- class EDC_STORABLE_DRIVER
+end -- class ESE_STATIC_TYPE

@@ -26,6 +26,9 @@ inherit
 
 insert
    SINGLETON
+      undefine
+         is_equal
+      end
 
 create {ANY}
    make

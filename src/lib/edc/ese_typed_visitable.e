@@ -19,36 +19,31 @@
 --
 -- http://ese.sourceforge.net
 -- -----------------------------------------------------------------------------------------------------------
-deferred class EDC_STORABLE_DRIVER[R_ -> REPOSITORY[EDC_STORABLE_TABLE]]
-   --
-   -- Data is stored in a REPOSITORY.
-   --
-   -- See also EDC_STORABLE_XML_FILE_DRIVER
-   --
+deferred class ESE_TYPED_VISITABLE[T_]
+	--
+	-- An object that can be visited by a ESE_TYPED_VISITOR[T_].
+	--
 
 inherit
-   EDC_DRIVER
+	VISITABLE
 
 insert
-   SINGLETON
-      undefine
-         is_equal
-      end
+	INTERNALS_HANDLER
 
-feature {EDC_CONNECTION_FACTORY}
-   new_connection (url: STRING; info: DICTIONARY[STRING, STRING]): EDC_STORABLE_CONNECTION is
-      do
-         create Result.prepare_connect
-         Result.connect_to(new_repository(url, info))
-      end
+feature {ANY}
+	frozen accept (visitor: ESE_VISITOR) is
+		local
+			t: ESE_STATIC_TYPE[T_]; v: ESE_TYPED_VISITOR[T_]
+		do
+			-- This is totally not object-oriented. Erk. How to do better?
+			v ::= visitor.as_typed(t.type_name)
+			typed_accept(v)
+		end
 
 feature {}
-   new_repository (url: STRING; info: DICTIONARY[STRING, STRING]): R_ is
-      deferred
-      ensure
-         Result /= Void
-      end
+	typed_accept (visitor: ESE_TYPED_VISITOR[T_]) is
+			-- Accept to be visited by the `visitor'.
+		deferred
+		end
 
-   transient: REPOSITORY_TRANSIENT
-
-end -- class EDC_STORABLE_DRIVER
+end -- class ESE_TYPED_VISITABLE
