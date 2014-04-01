@@ -10,4 +10,4 @@ cd /home/et/Liberty_savannah
         git merge --ff-only origin/$branch
     done
     git push --tags github :
-} 2> pull.err > ../pull.out
+} 2> ../pull.err > ../pull.out
