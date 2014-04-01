@@ -32,7 +32,7 @@ feature {ANY}
          else
             Result := other = Current
          end
-      ensure
+      ensure then
          (not Result) implies (tag /= other.tag and id /= other.id)
          Result implies (tag = other.tag and (id = 0 or other.id = 0 or id = other.id))
       end

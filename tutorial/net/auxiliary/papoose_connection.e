@@ -50,6 +50,8 @@ feature {} -- method handlers reuse
                   method
                when "GET", "POST" then
                   create {HTTP_GET_HANDLER} Result.make(method, uri, version)
+               when "~SHUTDOWN" then
+                  server.shutdown
                else
                   if no_method_handlers.is_empty then
                      create nop.make(uri, version)

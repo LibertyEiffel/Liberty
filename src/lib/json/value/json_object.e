@@ -22,8 +22,26 @@ feature {ANY}
       end
 
    is_equal (other: like Current): BOOLEAN is
+      local
+         i: INTEGER; k: JSON_STRING; v, ov: JSON_VALUE
+         eq: SAFE_EQUAL[JSON_VALUE]
       do
-         Result := members.is_equal(other.members)
+         if members.count = other.members.count then
+            from
+               Result := True
+               i := members.lower
+            until
+               not Result or else i > members.upper
+            loop
+               k := members.key(i)
+               v := members.item(i)
+               if other.members.has(k) then
+                  ov := other.members.reference_at(k)
+               end
+               Result := eq.test(v, ov)
+               i := i + 1
+            end
+         end
       end
 
    out_in_tagged_out_memory is

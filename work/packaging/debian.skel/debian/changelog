@@ -1,5 +1,11 @@
-liberty-eiffel (2013.11#SNAPSHOT#) unstable; urgency=low
+liberty-eiffel (2014.dev#SNAPSHOT#) unstable; urgency=low
+
+  * Alexander Graham Bell
+
+ -- Cyril Adrian <cyril.adrian@gmail.com>  #DATE#
+
+liberty-eiffel (2013.11) unstable; urgency=low
 
   * Charles Adler, Jr.
 
- -- Cyril Adrian <cyril.adrian@gmail.com>  Mon, 11 Feb 2013 14:26:12 +0100
+ -- Cyril Adrian <cyril.adrian@gmail.com>  Wed, 27 Nov 2013 08:37:00 +0100

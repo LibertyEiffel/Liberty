@@ -253,7 +253,7 @@ feature {}
                                                                                                                           agent set_integer_64)
                else
                   if type.name.to_string.has_prefix(once "NATIVE_ARRAY[") then
-                     create {RUNNER_TYPED_NATIVE_ARRAY_BUILTINS[RUNNER_STRUCTURED_OBJECT, RUNNER_STRUCTURED_OBJECT]} Result.make(type, type.private_generic_list.first,
+                     create {RUNNER_TYPED_NATIVE_ARRAY_BUILTINS[RUNNER_STRUCTURED_OBJECT, RUNNER_STRUCTURED_OBJECT]} Result.make(type, type.generic_list.first,
                                                                                                                                  agent trivial_retrieve,
                                                                                                                                  agent trivial_set)
                   else

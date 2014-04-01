@@ -1551,10 +1551,19 @@ feature {}
          smart_eiffel.is_ready
       local
          inv: ASSERTION_LIST; id: INTEGER; profile: BOOLEAN; type: TYPE
+         c_type: STRING
       do
          inv := live_type.class_invariant
          type := live_type.type
          id := live_type.id
+         c_type := once ""
+         if live_type.is_reference or else cpp.need_struct.for(live_type.canonical_type_mark) then
+            c_type.copy(once "T")
+            id.append_in(c_type)
+            c_type.extend('*')
+         else
+            c_type.copy(once "int ")
+         end
          profile := ace.profile -- The invariant frame descriptor :
          out_h.copy(once "se_frame_descriptor se_ifd")
          id.append_in(out_h)
@@ -1566,17 +1575,15 @@ feature {}
          cpp.write_extern_2(out_h, out_c)
          -- The function itself:
          cpp.prepare_c_function
-         function_signature.extend('T')
-         id.append_in(function_signature)
-         function_signature.append(once "*se_i")
+         function_signature.append(c_type)
+         function_signature.append(once "se_i")
          id.append_in(function_signature)
          function_signature.append(once "(se_dump_stack*caller,")
          if profile then
             function_signature.append(once "se_local_profile_t*parent_profile,")
          end
-         function_signature.extend('T')
-         id.append_in(function_signature)
-         function_signature.append(once "*C)")
+         function_signature.append(c_type)
+         function_signature.append(once "C)")
          function_body.append(once "se_dump_stack ds;%N")
          if profile then
             cpp.local_profile

@@ -95,22 +95,22 @@
 #endif
 
 
-int se_gc_strategy = SE_GC_DEFAULT_MEMORY_STRATEGY;
+TLS(int) se_gc_strategy = SE_GC_DEFAULT_MEMORY_STRATEGY;
 
-int collector_counter = 0;
+TLS(int) collector_counter = 0;
 
 static void gcna_align_mark(rsoc*c,void*o);
-static rsoc*rsocfl=NULL; /* ReSizable Object Chunk Free List. */
+static TLS(rsoc*)rsocfl=NULL; /* ReSizable Object Chunk Free List. */
 
-void**stack_bottom=NULL;
-mch**gcmt=NULL; /* Garbage Collector Main Table. */
-int gcmt_max=2048;
-int gcmt_used=0;
-fsoc*fsocfl=NULL; /* Fixed Size Object Chunk Free List. */
-int gc_is_off=0;
-unsigned int fsoc_count=0;
-unsigned int rsoc_count=0;
-void*gcmt_tail_addr=NULL;
+TLS(void**      ) stack_bottom=NULL;
+TLS(mch**       ) gcmt=NULL; /* Garbage Collector Main Table. */
+TLS(int         ) gcmt_max=2048;
+TLS(int         ) gcmt_used=0;
+TLS(fsoc*       ) fsocfl=NULL; /* Fixed Size Object Chunk Free List. */
+TLS(int         ) gc_is_off=0;
+TLS(unsigned int) fsoc_count=0;
+TLS(unsigned int) rsoc_count=0;
+TLS(void*       ) gcmt_tail_addr=NULL;
 
 static int chunk_rounded(int size) {
   int rounded_size = size;

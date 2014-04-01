@@ -216,6 +216,7 @@ feature {NATIVE, CECIL_ENTRY}
          if result_type /= Void then
             from_external_(type, result_type)
          end
+         from_external_(type, type.canonical_type_mark)
       end
 
 feature {}
@@ -247,10 +248,10 @@ feature {}
                from
                   i := external_types.lower
                until
-                  i > external_types.count
+                  i > external_types.upper
                loop
                   type2 := external_types.item(i)
-                  -- We must be pessimistic (i.e. everything can happens in the wild external world ;-):
+                  -- We must be pessimistic (i.e. everything can happen in the wild external world ;-):
                   collect_force(type1, type2)
                   collect_force(type2, type1)
                   i := i + 1

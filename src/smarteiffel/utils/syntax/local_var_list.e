@@ -9,7 +9,7 @@ class LOCAL_VAR_LIST
 inherit
    DECLARATION_LIST
 
-create {EIFFEL_PARSER, INTROSPECTION_HANDLER}
+create {ANY}
    make
 
 feature {ANY}

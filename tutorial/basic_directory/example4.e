@@ -41,6 +41,7 @@ feature {}
 
    recursive_list_of (some_path: STRING) is
       local
+         file_tools: FILE_TOOLS
          basic_directory: BASIC_DIRECTORY; some_entry, another_path: STRING
       do
          if not already_visited_places.has(some_path) then
@@ -56,10 +57,14 @@ feature {}
                   basic_directory.end_of_input
                loop
                   some_entry := basic_directory.last_entry.twin
-                  basic_directory.compute_subdirectory_with(some_path, some_entry)
-                  if not basic_directory.last_entry.is_empty then
-                     another_path := basic_directory.last_entry.twin
-                     recursive_list_of(another_path)
+                  if some_entry.is_empty or else some_entry.first = '.' then
+                     -- skip
+                  else
+                     basic_directory.compute_subdirectory_with(some_path, some_entry)
+                     if not basic_directory.last_entry.is_empty and then file_tools.is_directory(basic_directory.last_entry) then
+                        another_path := basic_directory.last_entry.twin
+                        recursive_list_of(another_path)
+                     end
                   end
 
                   basic_directory.read_entry

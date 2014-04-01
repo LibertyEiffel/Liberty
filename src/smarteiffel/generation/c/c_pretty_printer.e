@@ -1196,6 +1196,11 @@ feature {}
          if smart_eiffel.deep_twin_used then
             sys_runtime_h_and_c(as_deep_twin)
          end
+         if smart_eiffel.thread_used then
+            sys_runtime_h_and_c(once "thread")
+            system_tools.add_pthread_lib
+            customize_thread_pool_runtime
+         end
          if ace.profile then
             system_tools.add_lib_profile
             system_tools.add_lib_math
@@ -1206,6 +1211,91 @@ feature {C_LIVE_TYPE_COMPILER}
    defined_agent_creation: FAST_ARRAY[STRING] is
       once
          create Result.with_capacity(32)
+      end
+
+feature {} -- Threading
+   customize_thread_pool_runtime is
+      require
+         not pending_c_function
+         smart_eiffel.thread_used
+      local
+         i, n: INTEGER; type, status_type: TYPE; call: EXPRESSION
+         fs_status: FEATURE_STAMP
+      do
+         n := thread_pool.count
+         if n > 0 and then ace.profile then
+            echo.w_put_line("Threads don't support profile! Feel free to contribute.")
+            crash
+         end
+
+         echo.print_count(once "Thread root function", n)
+
+         from
+            i := 1
+         until
+            i > n
+         loop
+            type := thread_pool.type(i)
+            call := thread_pool.call(i)
+            fs_status := type.feature_stamp_of(fs_status_name)
+            status_type := fs_status.anonymous_feature(type).result_type.resolve_in(type)
+
+            prepare_c_function
+            pending_c_function_signature.copy(once "void*thread_run")
+            type.id.append_in(pending_c_function_signature)
+            pending_c_function_signature.append(once "(/*thread context*/T")
+            type.id.append_in(pending_c_function_signature)
+            pending_c_function_signature.append(once "*C,void(*start_unlock)(void*),void*data)")
+
+            pending_c_function_body.append(result_type.for(status_type.canonical_type_mark))
+            if pending_c_function_body.last /= '*' then
+               pending_c_function_body.extend(' ')
+            end
+            pending_c_function_body.append("R=")
+            pending_c_function_body.append(initializer.for(type.canonical_type_mark))
+            pending_c_function_body.append(once ";%N")
+
+            pending_c_function_body.append(once "T0*_tuple_args=(void*)0;%N")
+
+            if ace.no_check then
+               pending_c_function_body.append(once "[
+                                                    se_frame_descriptor fd={"<thread root>",0,0,"",1};
+                                                    se_dump_stack ds;
+                                                    ds.fd=&fd;
+                                                    ds.p=0;
+                                                    ds.caller=NULL;
+                                                    ds.exception_origin=NULL;
+                                                    ds.locals=NULL;
+                                                    ds.depth=0;
+
+                                                    se_dst=&ds;
+
+                                                    ]")
+            end
+
+            memory.initialize_thread
+            pending_c_function_body.append(once "*(volatile T6*)&(C->_is_started)=1;%N%
+                                                 %start_unlock(data);%N")
+
+            if call /= Void then
+               compound_expression_compiler.compile(once "R=", call, once ";%N", type)
+            end
+
+            pending_c_function_body.append(once "*(volatile ")
+            pending_c_function_body.append(result_type.for(status_type.canonical_type_mark))
+            pending_c_function_body.append(once "*)&(C->_status)=R;%N")
+
+            pending_c_function_body.append(once "*(volatile T6*)&(C->_is_finished)=1;%N")
+
+            dump_pending_c_function(True)
+
+            i := i + 1
+         end
+      end
+
+   fs_status_name: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_status)
       end
 
 feature {}
@@ -1279,7 +1369,10 @@ feature {}
          define_agent_launcher_heading(agent_args, once "(live)")
          if agent_args.agent_result /= Void then
             pending_c_function_body.append(result_type.for(agent_args.agent_result.canonical_type_mark))
-            pending_c_function_body.append(" R=")
+            if pending_c_function_body.last /= '*' then
+               pending_c_function_body.extend(' ')
+            end
+            pending_c_function_body.append("R=")
             if agent_args.agent_result.is_reference then
                pending_c_function_body.append(once "NULL;%N")
             else
@@ -1968,16 +2061,16 @@ feature {C_COMPILATION_MIXIN}
          if live_type_of_current /= Void then
             if live_type_of_current.is_reference then
                pending_c_function_body.append(once "if(se_rci(caller,C))")
-               end
-               pending_c_function_body.append(once "se_i")
-               live_type_of_current.id.append_in(pending_c_function_body)
-               if ace.profile then
-                  pending_c_function_body.append(once "(&ds,&local_profile,C);%N")
-               else
-                  pending_c_function_body.append(once "(&ds,C);%N")
-               end
+            end
+            pending_c_function_body.append(once "se_i")
+            live_type_of_current.id.append_in(pending_c_function_body)
+            if ace.profile then
+               pending_c_function_body.append(once "(&ds,&local_profile,C);%N")
+            else
+               pending_c_function_body.append(once "(&ds,C);%N")
             end
          end
+      end
 
 feature {ANY}
    class_invariant_call_opening (type_of_target: TYPE; extra_cast_flag: BOOLEAN): INTEGER is
@@ -2422,6 +2515,13 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
       local
          p: POSITION; internal_c_local: INTERNAL_C_LOCAL
       do
+         p := target.start_position
+         --error_handler.add_position(p)
+         --error_handler.append(once "Target is always Void here. Expect a crash at runtime.")
+         --error_handler.append(once "The context type is ")
+         --error_handler.append(type.canonical_type_mark.written_mark)
+         --error_handler.print_as_warning
+
          if return_type /= Void then
             if return_type.is_reference then
                -- Because of a Borland C compiler bug we have to add this extra cast:
@@ -2434,11 +2534,10 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
             pending_c_function_body.extend('(')
             code_compiler.compile(target, type)
             pending_c_function_body.extend(',')
-            put_position(target.start_position)
+            put_position(p)
             pending_c_function_body.extend(')')
          else
             pending_c_function_body.append(once "/*se_evobt*/")
-            p := target.start_position
             put_position_comment_on(out_c, p)
             code_compiler.compile(target, type)
             pending_c_function_body.extend(',')
@@ -3862,7 +3961,7 @@ feature {} -- MANIFEST_GENERIC_POOL
          native_array_id: INTEGER; va_type: TYPE_MARK
       do
          native_array_id := native_array.live_type.id
-         va_type := native_array.private_generic_list.first.canonical_type_mark
+         va_type := native_array.generic_list.first.canonical_type_mark
          prepare_c_function
          pending_c_function_signature.extend('T')
          native_array_id.append_in(pending_c_function_signature)
@@ -4048,7 +4147,11 @@ feature {RUN_FEATURE_5, RUN_FEATURE_6, C_COMPILATION_MIXIN}
          bcbf := bf.class_text
          flag := once_routine_pool.o_flag(bf)
          if not once_flag(flag) then
-            out_h_buffer.copy(once "int ")
+            if smart_eiffel.thread_used then
+               out_h_buffer.copy(once "TLS(int)")
+            else
+               out_h_buffer.copy(once "int ")
+            end
             out_h_buffer.append(flag)
             write_extern_0(out_h_buffer)
          end
@@ -4068,6 +4171,9 @@ feature {RUN_FEATURE_5, RUN_FEATURE_6, C_COMPILATION_MIXIN}
          unique_result := string_aliaser.string(unique_result)
          if not once_flag(unique_result) then
             out_h_buffer.clear_count
+            if smart_eiffel.thread_used then
+               out_h_buffer.append(once "TLS(")
+            end
             rt := rf.result_type
             out_h_buffer.extend('T')
             if rt.is_expanded then
@@ -4075,6 +4181,9 @@ feature {RUN_FEATURE_5, RUN_FEATURE_6, C_COMPILATION_MIXIN}
                out_h_buffer.extend(' ')
             else
                out_h_buffer.append(once "0*")
+            end
+            if smart_eiffel.thread_used then
+               out_h_buffer.append(once ")")
             end
             out_h_buffer.append(unique_result)
             out_c_buffer.copy(initializer.for(rt))

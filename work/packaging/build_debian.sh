@@ -137,7 +137,7 @@ do_debuild() {
 
 echo
 echo "Generating packages"
-version=$(head -n 1 $packages/debian.skel/debian/changelog | sed 's/#SNAPSHOT#/'"$tag"'/g' | awk -F'[()]' '{print $2}')
+version=$(head -n 1 $packages/debian.skel/debian/changelog | sed 's/#SNAPSHOT#/'"$tag"'/g;s/#DATE#/'"$(date -R)"'/g' | awk -F'[()]' '{print $2}')
 for debian in $packages/*.pkg/debian; do
     package_dir=${debian%/debian}
     package=$(basename ${debian%.pkg/debian})
@@ -153,7 +153,7 @@ for debian in $packages/*.pkg/debian; do
     cp -a $package_dir/* .
 
     # customize debian/changelog
-    sed 's/#SNAPSHOT#/'"$tag"'/g' -i debian/changelog
+    sed 's/#SNAPSHOT#/'"$tag"'/g;s/#DATE#/'"$(date -R)"'/g' -i debian/changelog
 
     # customize debian/control
     mv debian/control debian/control~

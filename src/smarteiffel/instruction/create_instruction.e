@@ -187,7 +187,7 @@ feature {ANY}
             create name.ordinary_name(creation_type.get_feature_name(fs).name, w.start_position)
             create {PROCEDURE_CALL_0} c.make(w, name)
             if explicit_type /= Void then
-               c.set_target(w)
+               c.set_target(w) --| **** TODO: what for??? the `make' above assigns the target too!
             end
          else
             c := call

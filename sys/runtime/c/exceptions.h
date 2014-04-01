@@ -30,20 +30,20 @@
 /*
   Constants from Eiffel class EXCEPTIONS :
 */
-#define Check_instruction 	  1
-#define Class_invariant 	  2
-#define Developer_exception 	  3
+#define Check_instruction         1
+#define Class_invariant           2
+#define Developer_exception       3
 #define Incorrect_inspect_value   4
-#define Loop_invariant 		  5
-#define Loop_variant 		  6
-#define No_more_memory  	  7
-#define Postcondition 		  8
-#define Precondition  		  9
-#define Routine_failure  	  10
-#define	Os_signal		  11
+#define Loop_invariant            5
+#define Loop_variant              6
+#define No_more_memory            7
+#define Postcondition             8
+#define Precondition              9
+#define Routine_failure           10
+#define Os_signal                 11
 #define Void_attached_to_expanded 12
-#define Void_call_target 	  13
-#define System_level_type_error	  14
+#define Void_call_target          13
+#define System_level_type_error   14
 
 /*
    This will be the structure of rescue contexts.  A rescue context
@@ -64,11 +64,11 @@ struct rescue_context {
   struct rescue_context *next;
 };
 
-extern struct rescue_context* rescue_context_top;
-extern int internal_exception_number;
-extern int original_internal_exception_number;
-extern int signal_exception_number;
-extern char* additional_error_message;
+extern TLS(struct rescue_context*) rescue_context_top;
+extern TLS(int                   ) internal_exception_number;
+extern TLS(int                   ) original_internal_exception_number;
+extern TLS(int                   ) signal_exception_number;
+extern TLS(char*                 ) additional_error_message;
 
 void setup_signal_handler(void);
 void signal_exception_handler(int);

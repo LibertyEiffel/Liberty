@@ -31,7 +31,11 @@ feature {NATIVE_ARRAY_TYPE_MARK}
    visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
       do
          -- ------------------------------------ Declare na_envXXX :
-         out_h.copy(once "na_env ")
+         if smart_eiffel.thread_used then
+            out_h.copy(once "TLS(na_env)")
+         else
+            out_h.copy(once "na_env ")
+         end
          memory.na_env_in(visited, out_h)
          out_c.copy(once "{0,NULL,NULL,NULL,(void(*)(T0*))")
          memory.mark_in(visited, out_c, False)
@@ -39,7 +43,11 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          cpp.write_extern_2(out_h, out_c)
          -- -------------------------------- Declare gc_info_nbXXX :
          if memory.info_flag then
-            out_h.copy(once "int ")
+            if smart_eiffel.thread_used then
+               out_h.copy(once "TLS(int)")
+            else
+               out_h.copy(once "int ")
+            end
             memory.info_nb_in(visited, out_h, False)
             cpp.write_extern_0(out_h)
          end
@@ -72,28 +80,54 @@ feature {}
          out_h.append(once "*next;} header;};%N")
          cpp.write_out_h_buffer
          -- ----------------------------------- Declare storeXXX :
-         out_h.copy(once "gc")
+         if smart_eiffel.thread_used then
+            out_h.copy(once "TLS(gc")
+         else
+            out_h.copy(once "gc")
+         end
          ltid_in(lt, out_h, False, for_closure)
          out_h.extend('*')
+         if smart_eiffel.thread_used then
+            out_h.extend(')')
+         end
          memory.store_in(visited, out_h, for_closure)
          cpp.write_extern_2(out_h, once "(void*)0")
          -- ------------------------------ Declare store_leftXXX :
-         out_h.copy(once "int ")
+         if smart_eiffel.thread_used then
+            out_h.copy(once "TLS(int)")
+         else
+            out_h.copy(once "int ")
+         end
          memory.store_left_in(visited, out_h, for_closure)
          cpp.write_extern_0(out_h)
          -- ----------------------------------- Declare store_chunkXXX :
-         out_h.copy(once "fsoc*")
+         if smart_eiffel.thread_used then
+            out_h.copy(once "TLS(fsoc*)")
+         else
+            out_h.copy(once "fsoc*")
+         end
          memory.store_chunk_in(visited, out_h, for_closure)
          cpp.write_extern_2(out_h, once "(void*)0")
          -- --------------------------------- Declare gc_freeXXX :
-         out_h.copy(once "gc")
+         if smart_eiffel.thread_used then
+            out_h.copy(once "TLS(gc")
+         else
+            out_h.copy(once "gc")
+         end
          ltid_in(lt, out_h, False, for_closure)
          out_h.extend('*')
+         if smart_eiffel.thread_used then
+            out_h.extend(')')
+         end
          memory.free_in(visited, out_h, for_closure)
          cpp.write_extern_2(out_h, once "(void*)0")
          -- -------------------------------- Declare gc_info_nbXXX :
          if memory.info_flag then
-            out_h.copy(once "int ")
+            if smart_eiffel.thread_used then
+               out_h.copy(once "TLS(int)")
+            else
+               out_h.copy(once "int ")
+            end
             memory.info_nb_in(visited, out_h, for_closure)
             cpp.write_extern_0(out_h)
          end

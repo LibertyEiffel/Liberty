@@ -26,13 +26,13 @@
 -- ------------------------------------------------------------------------------------------------------------
 */
 #ifdef SE_GC_LIB
-gc_agent *store_agent = NULL;
-gc_agent *gc_free_agent = NULL;
-int       store_left_agent = 0;
-int       count_agent=0;
-int       gc_info_nb_agent = 0;
-fsoc     *store_chunk_agent = NULL;
-fsoc H_agent =
+TLS(gc_agent *) store_agent = NULL;
+TLS(gc_agent *) gc_free_agent = NULL;
+TLS(int       ) store_left_agent = 0;
+TLS(int       ) count_agent=0;
+TLS(int       ) gc_info_nb_agent = 0;
+TLS(fsoc     *) store_chunk_agent = NULL;
+TLS(fsoc      ) H_agent =
 {
   {
     FSOC_SIZE, FSO_STORE_CHUNK,
@@ -69,7 +69,7 @@ se_agent* new_agent(Tid id) {
     {
       c = gc_fsoc_get1 ();
       if (c == NULL)
-	c = gc_fsoc_get2 ();
+        c = gc_fsoc_get2 ();
       store_chunk_agent = c;
       *store_chunk_agent = H_agent;
       store_agent = ((gc_agent *) (&(store_chunk_agent->first_object)));
@@ -101,11 +101,11 @@ void gc_sweep_agent (fsoc * c) {
   if (c->header.state_type == FSO_STORE_CHUNK) {
     for (; a1 < store_agent; a1++) {
       if ((a1->header.flag) == FSOH_MARKED) {
-	a1->header.flag = FSOH_UNMARKED;
+        a1->header.flag = FSOH_UNMARKED;
       }
       else if ((a1->header.flag) == FSOH_UNMARKED) {
-	a1->header.next = gc_free_agent;
-	gc_free_agent = a1;
+        a1->header.next = gc_free_agent;
+        gc_free_agent = a1;
       }
     }
   }
@@ -116,12 +116,12 @@ void gc_sweep_agent (fsoc * c) {
     a2 = a1 + c->count_minus_one;
     for (; a1 <= a2; a2--) {
       if ((a2->header.flag) == FSOH_MARKED) {
-	a2->header.flag = FSOH_UNMARKED;
-	dead = 0;
+        a2->header.flag = FSOH_UNMARKED;
+        dead = 0;
       }
       else if ((a2->header.flag) == FSOH_UNMARKED) {
-	flt->header.next = a2;
-	flt = a2;
+        flt->header.next = a2;
+        flt = a2;
       }
     }
     if (dead) {
@@ -130,11 +130,11 @@ void gc_sweep_agent (fsoc * c) {
       char *sup=(char*)(((gc_agent*)(&(c->first_object)))+c->count_minus_one);
       a1=gc_free_agent;
       while(a1!=NULL) {
-	if(inf>(char*)a1 || (char*)a1>sup) {
-	  *prvnxt=a1;
-	  prvnxt=&a1->header.next;
-	}
-	a1=a1->header.next;
+        if(inf>(char*)a1 || (char*)a1>sup) {
+          *prvnxt=a1;
+          prvnxt=&a1->header.next;
+        }
+        a1=a1->header.next;
       }
       *prvnxt=NULL;
       c->next = fsocfl;

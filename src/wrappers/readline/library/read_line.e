@@ -38,8 +38,11 @@ feature {ANY} -- Read line
       end
 
    completion: READ_LINE_COMPLETION is
+      local
+         c: READLINE_CECIL -- we need that indirection to force LibertyEiffel to "see" the assignment READLINE_CECIL -> READ_LINE_COMPLETION
       once
-         create Result.make
+         create {READ_LINE_COMPLETION} c.make
+         Result ::= c
       end
 
    history: READ_LINE_HISTORY is

@@ -95,7 +95,7 @@ feature {NATIVE_BUILT_IN}
          elseif as_is_deep_equal = name then
             flag := True
          elseif type_of_current.is_native_array and then as_calloc = name then
-            flag := expanded_initializer(type_of_current.private_generic_list.item(1))
+            flag := expanded_initializer(type_of_current.generic_list.first)
          end
       end
 

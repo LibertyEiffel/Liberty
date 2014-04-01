@@ -38,9 +38,7 @@ feature {}
             io.put_string("The new loop is ready.%N")
          end
 
-         if counter < 10 then
-            Result := True
-         end
+         Result := counter < 10
       end
 
    close: BOOLEAN

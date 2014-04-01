@@ -6,6 +6,7 @@
 ## Ignore object files
 *.[oa]
 a.out
+*.exe
 ## Ignore logs of any kind
 *.log
 ## Ignore tags

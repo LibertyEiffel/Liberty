@@ -135,7 +135,7 @@ feature {}
          end
          if is_generic then
             -- The declaration_type is a parent for the current type, but as there is no inherit
-            -- clause for it we force it's creation before current type:
+            -- clause for it we force its creation before current type:
             generic_type := ctm.class_text.declaration_type_of_like_current
 
             -- Performs some extra checks only for the `canonical_type_mark' (i.e. made only once):
@@ -503,8 +503,6 @@ feature {ANY}
 
    class_text: CLASS_TEXT
 
-   private_generic_list: ARRAY[TYPE]
-
    hash_code: INTEGER
 
    has_local_closure: BOOLEAN
@@ -690,6 +688,9 @@ feature {ANY}
             Result := canonical_type_mark.id
          end
       end
+
+feature {TYPE}
+   private_generic_list: ARRAY[TYPE]
 
 feature {C_PRETTY_PRINTER, LOCAL_ARGUMENT_DEF}
    set_local_closure is

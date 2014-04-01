@@ -194,10 +194,16 @@ feature {NATIVE_BUILT_IN}
             cpp.memory.mark_item(rf7)
          elseif as_se_fault = name then
             function_body.append(once "/*se_fault*/{int*i=0;*i=0;}%N")
+         elseif as_thread_context = bcn then
+            c_mapping_thread_context_proc
+         elseif as_thread_lock = bcn then
+            c_mapping_thread_lock_proc
          else
-            check -- Unknown external.
-               False
-            end
+            echo.w_put_string(once "Unknown ")
+            echo.w_put_string(bcn)
+            echo.w_put_string(once " built-in: ")
+            echo.w_put_line(name)
+            not_yet_implemented
          end
       end
 
@@ -236,7 +242,7 @@ feature {} -- built-ins
       local
          elt_type: TYPE
       do
-         elt_type := rf7.type_of_current.private_generic_list.item(1)
+         elt_type := rf7.type_of_current.generic_list.first
          if name = as_put then
             if elt_type.is_user_expanded then
                if elt_type.is_empty_expanded then
@@ -323,6 +329,71 @@ feature {} -- built-ins
             cpp.put_ith_argument(1)
             function_body.append(once "));%N")
          end
+      end
+
+feature {} -- Threads
+   c_mapping_thread_context_proc is
+      do
+         if as_run = name then
+            function_body.append(once "se_thread_run((void*(*)(T0*,void(*)(void*),void*))thread_run")
+            type_of_current.id.append_in(function_body);
+            function_body.append(once ",(T0*)(")
+            cpp.put_target_as_value
+            function_body.append(once "),(")
+            cpp.put_target_as_target(type_of_current)
+            function_body.append(once ")->_native_data);%N")
+         elseif as_alloc_native_data = name then
+            function_body.append(once "(")
+            cpp.put_target_as_target(type_of_current)
+            function_body.append(once ")->_native_data=se_thread_alloc();%N")
+         elseif as_wait = name then
+            function_body.append(once "se_thread_wait((")
+            cpp.put_target_as_target(type_of_current)
+            function_body.append(once ")->_native_data);%N")
+         end
+      end
+
+   c_mapping_thread_lock_proc is
+      do
+         if as_lock = name then
+            function_body.append(once "se_thread_lock_lock((")
+            cpp.put_target_as_target(type_of_current)
+            function_body.append(once ")->_native_data);%N")
+         elseif as_unlock = name then
+            function_body.append(once "se_thread_lock_unlock((")
+            cpp.put_target_as_target(type_of_current)
+            function_body.append(once ")->_native_data);%N")
+         elseif as_wait = name then
+            function_body.append(once "se_thread_lock_wait((")
+            cpp.put_target_as_target(type_of_current)
+            function_body.append(once ")->_native_data);%N")
+         elseif as_notify = name then
+            function_body.append(once "se_thread_lock_notify((")
+            cpp.put_target_as_target(type_of_current)
+            function_body.append(once ")->_native_data);%N")
+         elseif as_notify_all = name then
+            function_body.append(once "se_thread_lock_notify_all((")
+            cpp.put_target_as_target(type_of_current)
+            function_body.append(once ")->_native_data);%N")
+         elseif as_alloc_native_data = name then
+            function_body.append(once "(")
+            cpp.put_target_as_target(type_of_current)
+            function_body.append(once ")->_native_data = se_thread_lock_alloc();%N")
+         elseif as_free_native_data = name then
+            function_body.append(once "se_thread_lock_free((")
+            cpp.put_target_as_target(type_of_current)
+            function_body.append(once ")->_native_data);%N")
+         end
+      end
+
+   fs_thread_name: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(once "thread")
+      end
+
+   fs_args_name: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(once "args")
       end
 
 end -- class C_NATIVE_PROCEDURE_MAPPER

@@ -914,6 +914,9 @@ feature {SMART_EIFFEL}
             end
             i := i + 1
          end
+         if type.class_text.name.to_string = as_thread_context then
+            thread_pool.simplify(type)
+         end
       end
 
    contextual_simplify is

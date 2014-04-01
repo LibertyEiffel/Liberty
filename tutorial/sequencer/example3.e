@@ -22,15 +22,17 @@ feature {}
          time.update
          create lm.make
          lm.add_job(create {SIMPLE_BACKGROUND_JOB}.set_work(agent do_count, Void, 1))
-         lm.add_job(create {SIMPLE_PERIODIC_JOB}.set_work(agent running, Void, 1, 0.1))
+         lm.add_job(create {SIMPLE_PERIODIC_JOB}.set_work(agent running, Void, 1, 0.5))
          lm.add_job(create {SIMPLE_PERIODIC_JOB}.set_work(agent progress_print, Void, 0, 3))
          lm.run
       end
 
+   done: BOOLEAN
+
    do_count: BOOLEAN is
       do
          counter := counter + 1
-         Result := True
+         Result := not done
       end
 
    running: BOOLEAN is
@@ -51,7 +53,7 @@ feature {}
          io.put_string(s)
          io.flush
          counter2 := counter2 + 1
-         Result := True
+         Result := not done
       end
 
    progress_print: BOOLEAN is
@@ -68,7 +70,8 @@ feature {}
          time := now
          io.put_new_line
          old_counter := counter
-         Result := True
+         done := counter > 10000
+         Result := not done
       end
 
 end -- class EXAMPLE3

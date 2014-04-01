@@ -762,7 +762,9 @@ feature {PRECURSOR_CALL}
       end
 
 feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
-   to_fake_tuple: FAKE_TUPLE is
+   to_fake_tuple (type: TYPE): FAKE_TUPLE is
+      require
+         count = 1
       local
          tuple_expression: MANIFEST_TUPLE; tuple_type: TYPE; tuple_type_mark: TUPLE_TYPE_MARK
          eal: EFFECTIVE_ARG_LIST; r: like remainder; fc0_1, fc0_2: FUNCTION_CALL_0
@@ -772,7 +774,7 @@ feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
             tuple_expression ::= first_one
          else
             -- generate the fake tuple using calls to item_1, item_2...
-            tuple_type := first_one.declaration_type
+            tuple_type := first_one.resolve_in(type)
             if tuple_type.is_tuple then
                tuple_type_mark ::= tuple_type.canonical_type_mark
                inspect
@@ -796,7 +798,7 @@ feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
                   until
                      i > tuple_type_mark.count
                   loop
-                     feature_name := once "item_xxx"
+                     feature_name := once "item_xx"
                      feature_name.copy(once "item_")
                      i.append_in(feature_name)
                      create fc0_2.make(first_one, create {FEATURE_NAME}.simple_feature_name(feature_name, first_one.start_position))
@@ -805,9 +807,8 @@ feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
                   end
                   create eal.make_n(fc0_1, r)
                end
-               if eal /= Void then
-                  create tuple_expression.make(first_one.start_position, eal)
-               end
+               create tuple_expression.make(first_one.start_position, eal)
+               tuple_expression := tuple_expression.specialize_in(type)
             else
                error_handler.add_position(first_one.start_position)
                error_handler.append(once "Agent calls need a tuple!")
@@ -815,9 +816,6 @@ feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
             end
          end
          create Result.make(tuple_expression)
-         check
-            remainder = Void
-         end
       end
 
 feature {EFFECTIVE_ARG_LIST, FAKE_TUPLE, CALL_1}

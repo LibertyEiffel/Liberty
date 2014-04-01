@@ -235,6 +235,18 @@ feature {ANY} -- Others:
          not Result.is_empty
       end
 
+   generic_creation: CREATION_CLAUSE
+
+   set_generic_creation (a_generic_creation: like generic_creation) assign generic_creation is
+      require
+         a_generic_creation /= Void
+         generic_creation = Void
+      do
+         generic_creation := a_generic_creation
+      ensure
+         generic_creation = a_generic_creation
+      end
+
    frozen is_kernel_expanded: BOOLEAN is
          -- Is it written one of: "BOOLEAN", "CHARACTER", "INTEGER", "INTEGER_8", "INTEGER_16",
          -- "INTEGER_32", "INTEGER_64", "NATURAL_8", "NATURAL_16", "NATURAL_32", "NATURAL_64",
