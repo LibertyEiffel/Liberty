@@ -11,14 +11,14 @@ feature {}
 
    make is
       local
-         t: THREAD[STRING, TUPLE[STRING]]
+         t: THREAD[STRING, TUPLE[STRING, INTEGER_8]]
          c1, c2: THREAD_CONTEXT[STRING, TUPLE]
       do
          create ready_lock
          create io_lock
-         create t.make(agent in_thread(?))
-         c1 := t.start(["Thread 1"])
-         c2 := t.start(["Thread 2"])
+         create t.make(agent in_thread(?,?))
+         c1 := t.start(["Thread 1", 7])
+         c2 := t.start(["Thread 2", 4])
          if c1.is_started and then c2.is_started then
             from
                ready_lock.lock
@@ -46,7 +46,7 @@ feature {}
          end
       end
 
-   in_thread (in: STRING): STRING is
+   in_thread (in: STRING; count: INTEGER_8): STRING is
       local
          i, r: INTEGER
       do
@@ -55,7 +55,7 @@ feature {}
          io_lock.unlock
 
          from
-            i := 10
+            i := count
          until
             i < 0
          loop

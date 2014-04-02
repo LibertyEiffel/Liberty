@@ -170,6 +170,7 @@ feature {C_PRETTY_PRINTER}
    add_pthread_lib is
       do
          add_external_lib(once "pthread")
+         add_external_lib(once "rt") -- used by timespec timeouts
       end
 
 feature {}

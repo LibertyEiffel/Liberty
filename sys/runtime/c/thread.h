@@ -40,6 +40,7 @@ extern void se_thread_wait(void*data);
 extern void se_thread_register(void);
 extern void se_thread_barrier(void(*on_crossing)(void));
 extern void se_thread_checkpoint(void);
+extern void se_thread_stop(void);
 
 extern void* se_thread_lock_alloc(void);
 extern void se_thread_lock_free(void*lock);

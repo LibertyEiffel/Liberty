@@ -2971,6 +2971,9 @@ feature {}
             internal_c_local.append_in(pending_c_function_body)
             class_invariant_call_closing(class_invariant_flag, True)
          end
+         if smart_eiffel.thread_used then
+            pending_c_function_body.append(once "se_thread_stop();%N")
+         end
          pending_c_function_body.append(once "handle(SE_HANDLE_NORMAL_EXIT, NULL);%N");
          if ace.no_check then
             set_dump_stack_top_for(rf3.type_of_current, once "NULL", once "unlink")
