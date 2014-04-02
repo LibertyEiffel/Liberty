@@ -48,7 +48,7 @@ feature {}
 
    in_thread (in: STRING): STRING is
       local
-         i: INTEGER
+         i, r: INTEGER
       do
          io_lock.lock
          io.put_line(in)
@@ -59,12 +59,13 @@ feature {}
          until
             i < 0
          loop
+            c_inline_c("_r=(int)(250L+random()*1750L/RAND_MAX);%N");
             io_lock.lock
-            io.put_line(in + " computing... " + i.out)
+            io.put_line(in + " computing...%T" + i.out + "%T[" + r.out + "ms]")
             io_lock.unlock
 
             c_inline_h("#include <poll.h>%N")
-            c_inline_c("poll(NULL,0,250);%N");
+            c_inline_c("poll(NULL,0,_r);%N");
 
             ready_lock.lock
             if i = 0 then

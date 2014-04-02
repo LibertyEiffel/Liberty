@@ -97,7 +97,7 @@
 
 TLS(int) se_gc_strategy = SE_GC_DEFAULT_MEMORY_STRATEGY;
 
-TLS(int) collector_counter = 0;
+volatile int collector_counter = 0;
 
 static void gcna_align_mark(rsoc*c,void*o);
 static TLS(rsoc*)rsocfl=NULL; /* ReSizable Object Chunk Free List. */

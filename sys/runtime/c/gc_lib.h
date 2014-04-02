@@ -65,7 +65,7 @@ extern TLS(int) se_gc_strategy;
 */
 #define SE_GCINFO SE_ERR
 
-extern TLS(int) collector_counter; /* MEMORY.collector_counter */
+extern volatile int collector_counter; /* MEMORY.collector_counter */
 
 typedef struct s_mch mch; /* Memory Chunk Header. */
 typedef struct s_fsoc fsoc; /* Fixed Size Objects Chunk. */
