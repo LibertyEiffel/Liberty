@@ -41,6 +41,7 @@ typedef struct se_thread_pool se_thread_pool_t;
 typedef struct se_thread se_thread_t;
 typedef struct se_thread_lock se_thread_lock_t;
 typedef struct se_thread_run_data se_thread_run_data_t;
+typedef struct se_thread_barrier se_thread_barrier_t;
 
 #define SYSCALL(call) do{if(call){perror(__FILE__ ": " #call);exit(7);}}while(0)
 
@@ -52,7 +53,7 @@ struct se_thread_pool {
    size_t running;
    pthread_mutex_t lock;
    pthread_cond_t cond;
-   pthread_barrier_t*barrier;
+   se_thread_barrier_t*barrier;
 };
 
 struct se_thread {
@@ -67,7 +68,7 @@ struct se_thread {
    size_t queue_length;
 };
 
-typedef struct se_thread_run_data {
+struct se_thread_run_data {
    void (*thread_run)(EIF_OBJECT,void(*)(void*),void*);
    EIF_OBJECT C;
    pthread_mutex_t lock;
@@ -75,7 +76,12 @@ typedef struct se_thread_run_data {
    int started;
    int done;
    se_thread_run_data_t*next;
-} se_thread_run_data_t;
+};
+
+struct se_thread_barrier {
+   pthread_barrier_t barrier;
+   void (*on_crossing)(void);
+};
 
 /* ---------------------------------------------------------------- */
 
@@ -84,12 +90,15 @@ static se_thread_pool_t global_thread_pool = {NULL,0,0,PTHREAD_MUTEX_INITIALIZER
 static void thread_pool_barrier(void) {
    /* REQUIRE: the global_thread_pool lock must be taken */
 
-   pthread_barrier_t*barrier;
+   se_thread_barrier_t*barrier;
    do {
       barrier = global_thread_pool.barrier;
       if (barrier) {
          SYSCALL(pthread_mutex_unlock(&(global_thread_pool.lock)));
-         pthread_barrier_wait(barrier);
+         pthread_barrier_wait(&(barrier->barrier));
+         if (barrier->on_crossing) {
+            barrier->on_crossing();
+         }
          SYSCALL(pthread_mutex_lock(&(global_thread_pool.lock)));
       }
    } while (barrier);
@@ -290,18 +299,19 @@ void se_thread_register(void) {
    SYSCALL(pthread_mutex_unlock(&(thread->run_lock)));
 }
 
-void se_thread_barrier(void) {
-   pthread_barrier_t barrier;
+void se_thread_barrier(void(*on_crossing)(void)) {
+   se_thread_barrier_t barrier;
 
    SYSCALL(pthread_mutex_lock(&(global_thread_pool.lock)));
 
    thread_pool_barrier();
 
-   SYSCALL(pthread_barrier_init(&barrier, NULL, global_thread_pool.running));
+   SYSCALL(pthread_barrier_init(&(barrier.barrier), NULL, global_thread_pool.running));
+   barrier.on_crossing = on_crossing;
    global_thread_pool.barrier = &barrier;
 
    SYSCALL(pthread_mutex_unlock(&(global_thread_pool.lock)));
-   pthread_barrier_wait(&barrier);
+   pthread_barrier_wait(&(barrier.barrier));
    SYSCALL(pthread_mutex_lock(&(global_thread_pool.lock)));
 
    if (global_thread_pool.barrier != &barrier) {
@@ -311,6 +321,11 @@ void se_thread_barrier(void) {
    global_thread_pool.barrier = NULL;
 
    SYSCALL(pthread_mutex_unlock(&(global_thread_pool.lock)));
+
+   SYSCALL(pthread_barrier_destroy(&(barrier.barrier)));
+   if (on_crossing) {
+      on_crossing();
+   }
 }
 
 void se_thread_checkpoint(void) {
