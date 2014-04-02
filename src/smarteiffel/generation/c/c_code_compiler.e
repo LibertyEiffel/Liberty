@@ -538,6 +538,7 @@ feature {LOOP_INSTRUCTION}
          if variant_flag then
             cpp.variant_check(type, visited.loop_variant)
          end
+         cpp.memory.checkpoint
          if visited.loop_body /= Void then
             compile_code(visited.loop_body)
          end

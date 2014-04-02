@@ -219,6 +219,11 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
       deferred
       end
 
+feature {C_COMPILATION_MIXIN}
+   checkpoint is
+      deferred
+      end
+
 feature {C_NATIVE_PROCEDURE_MAPPER}
    mark_item (rf7: RUN_FEATURE_7) is
          -- the `mark_item' function code

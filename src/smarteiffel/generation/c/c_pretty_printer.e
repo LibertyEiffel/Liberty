@@ -2726,6 +2726,9 @@ feature {}
          if ace.sedb then
             pending_c_function_body.append(once "se_general_trace_switch=1;%N")
          end
+         if smart_eiffel.thread_used then
+            pending_c_function_body.append(once "se_thread_register();%N")
+         end
          internal_c_local := pending_c_function_lock_local(lt.type, once "root")
          memory.allocation_of(internal_c_local, lt)
          pending_c_function_body.append(once "eiffel_root_object=((T")

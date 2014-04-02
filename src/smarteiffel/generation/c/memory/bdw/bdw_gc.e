@@ -276,6 +276,11 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
       do
       end
 
+feature {C_COMPILATION_MIXIN}
+   checkpoint is
+      do
+      end
+
 feature {C_NATIVE_PROCEDURE_MAPPER}
    mark_item (rf7: RUN_FEATURE_7) is
       local

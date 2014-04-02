@@ -42,6 +42,8 @@ typedef struct se_thread se_thread_t;
 typedef struct se_thread_lock se_thread_lock_t;
 typedef struct se_thread_run_data se_thread_run_data_t;
 
+#define SYSCALL(call) do{if(call){perror(__FILE__ ": " #call);exit(7);}}while(0)
+
 /* ---------------------------------------------------------------- */
 
 struct se_thread_pool {
@@ -49,6 +51,8 @@ struct se_thread_pool {
    size_t capacity;
    size_t running;
    pthread_mutex_t lock;
+   pthread_cond_t cond;
+   pthread_barrier_t*barrier;
 };
 
 struct se_thread {
@@ -75,90 +79,72 @@ typedef struct se_thread_run_data {
 
 /* ---------------------------------------------------------------- */
 
-static se_thread_pool_t THREAD_POOL = {NULL,0,0,PTHREAD_MUTEX_INITIALIZER};
+static se_thread_pool_t global_thread_pool = {NULL,0,0,PTHREAD_MUTEX_INITIALIZER,PTHREAD_COND_INITIALIZER,NULL};
+
+static void thread_pool_barrier(void) {
+   /* REQUIRE: the global_thread_pool lock must be taken */
+
+   pthread_barrier_t*barrier;
+   do {
+      barrier = global_thread_pool.barrier;
+      if (barrier) {
+         SYSCALL(pthread_mutex_unlock(&(global_thread_pool.lock)));
+         pthread_barrier_wait(barrier);
+         SYSCALL(pthread_mutex_lock(&(global_thread_pool.lock)));
+      }
+   } while (barrier);
+}
 
 static void thread_pool_extend(void) {
-   /* REQUIRE: the THREAD_POOL lock must be taken */
+   /* REQUIRE: the global_thread_pool lock must be taken */
 
    size_t new_capacity;
    se_thread_t*new_threads;
 
-   new_capacity = THREAD_POOL.capacity == 0 ? 16 : THREAD_POOL.capacity * 2;
+   new_capacity = global_thread_pool.capacity == 0 ? 16 : global_thread_pool.capacity * 2;
    new_threads = se_malloc(sizeof(se_thread_t) * new_capacity);
-   if (THREAD_POOL.capacity) {
-      memcpy(new_threads, THREAD_POOL.threads, sizeof(se_thread_t)* THREAD_POOL.capacity);
-      free(THREAD_POOL.threads);
+   if (global_thread_pool.capacity) {
+      memcpy(new_threads, global_thread_pool.threads, sizeof(se_thread_t)* global_thread_pool.capacity);
+      free(global_thread_pool.threads);
    }
-   memset(new_threads + THREAD_POOL.capacity, 0, new_capacity - THREAD_POOL.capacity);
+   memset(new_threads + global_thread_pool.capacity, 0, new_capacity - global_thread_pool.capacity);
 
-   THREAD_POOL.capacity = new_capacity;
-   THREAD_POOL.threads = new_threads;
+   global_thread_pool.capacity = new_capacity;
+   global_thread_pool.threads = new_threads;
 }
 
 static void thread_pool_thread_signal(se_thread_run_data_t*data) {
    data->started = 1;
-
-   if (pthread_cond_signal(&(data->cond))) {
-      perror("thread_pool_thread_signal:pthread_cond_signal");
-      exit(7);
-   }
-
-   if (pthread_mutex_unlock(&(data->lock))) {
-      perror("thread_pool_thread_signal:pthread_mutex_unlock");
-      exit(7);
-   }
+   SYSCALL(pthread_cond_signal(&(data->cond)));
+   SYSCALL(pthread_mutex_unlock(&(data->lock)));
 }
 
 static int thread_pool_thread_unqueue(se_thread_t *thread) {
    int result = 0; // continue -- must be non-zero to stop the thread
    se_thread_run_data_t*data = NULL;
 
-   if (pthread_mutex_lock(&(thread->queue_lock))) {
-      perror("thread_pool_thread_unqueue:pthread_mutex_lock");
-      exit(7);
-   }
-
+   SYSCALL(pthread_mutex_lock(&(thread->queue_lock)));
    while (thread->queue_first == NULL) {
-      if (pthread_cond_wait(&(thread->queue_cond), &(thread->queue_lock))) {
-         perror("thread_pool_thread_unqueue:pthread_cond_wait");
-         exit(7);
-      }
+      SYSCALL(pthread_cond_wait(&(thread->queue_cond), &(thread->queue_lock)));
    }
-
    data = thread->queue_first;
+   SYSCALL(pthread_mutex_unlock(&(thread->queue_lock)));
+
+   SYSCALL(pthread_mutex_lock(&(data->lock))); // unlocked by start callback: thread_pool_thread_signal
+   data->thread_run(data->C,(void(*)(void*))thread_pool_thread_signal,data);
+
+   SYSCALL(pthread_mutex_lock(&(data->lock)));
+   data->done = 1;
+   SYSCALL(pthread_cond_signal(&(data->cond)));
+   SYSCALL(pthread_mutex_unlock(&(data->lock)));
+
+   SYSCALL(pthread_mutex_lock(&(thread->queue_lock)));
    thread->queue_first = data->next;
    if (data->next == NULL) {
       thread->queue_last = NULL;
    }
-
-   if (pthread_mutex_unlock(&(thread->queue_lock))) {
-      perror("thread_pool_thread_unqueue:pthread_mutex_unlock");
-      exit(7);
-   }
-
-   if (pthread_mutex_lock(&(data->lock))) {
-      perror("thread_pool_thread_unqueue:pthread_mutex_lock");
-      exit(7);
-   }
-
-   data->thread_run(data->C,(void(*)(void*))thread_pool_thread_signal,data);
-
-   if (pthread_mutex_lock(&(data->lock))) {
-      perror("thread_pool_thread_unqueue:pthread_mutex_lock");
-      exit(7);
-   }
-
-   data->done = 1;
-
-   if (pthread_cond_signal(&(data->cond))) {
-      perror("thread_pool_thread_unqueue:pthread_mutex_unlock");
-      exit(7);
-   }
-
-   if (pthread_mutex_unlock(&(data->lock))) {
-      perror("thread_pool_thread_unqueue:pthread_mutex_unlock");
-      exit(7);
-   }
+   thread->queue_length--;
+   SYSCALL(pthread_mutex_unlock(&(thread->queue_lock)));
 
    return result;
 }
@@ -166,21 +152,12 @@ static int thread_pool_thread_unqueue(se_thread_t *thread) {
 static void*thread_pool_thread_root_fn(se_thread_t *thread) {
    char *error = NULL;
    int stop = 0;
-   if (pthread_mutex_lock(&(thread->run_lock))) {
-      perror("thread_pool_thread_root_fn:pthread_mutex_lock");
-      exit(7);
-   }
+   SYSCALL(pthread_mutex_lock(&(thread->run_lock)));
 
    thread->running = 2;
 
-   if (pthread_cond_signal(&(thread->run_cond))) {
-      perror("thread_pool_thread_root_fn:pthread_cond_signal");
-      exit(7);
-   }
-   if (pthread_mutex_unlock(&(thread->run_lock))) {
-      perror("thread_pool_thread_root_fn:pthread_mutex_unlock");
-      exit(7);
-   }
+   SYSCALL(pthread_cond_signal(&(thread->run_cond)));
+   SYSCALL(pthread_mutex_unlock(&(thread->run_lock)));
 
    while (!stop) { /* TODO end condition */
       stop = thread_pool_thread_unqueue(thread);
@@ -189,109 +166,77 @@ static void*thread_pool_thread_root_fn(se_thread_t *thread) {
    return NULL;
 }
 
+static void thread_pool_init(se_thread_t*thread) {
+   SYSCALL(pthread_mutex_init(&(thread->run_lock), NULL));
+   SYSCALL(pthread_cond_init(&(thread->run_cond), NULL));
+   SYSCALL(pthread_mutex_init(&(thread->queue_lock), NULL));
+   SYSCALL(pthread_cond_init(&(thread->queue_cond), NULL));
+}
+
 static void thread_pool_start(se_thread_t*thread) {
    thread->running = 1;
 
-   if (pthread_mutex_init(&(thread->run_lock), NULL)) {
-      perror("thread_pool_start:pthread_mutex_init");
-      exit(7);
-   }
-   if (pthread_cond_init(&(thread->run_cond), NULL)) {
-      perror("thread_pool_start:pthread_cond_init");
-      exit(7);
-   }
-   if (pthread_mutex_init(&(thread->queue_lock), NULL)) {
-      perror("thread_pool_start:pthread_mutex_init");
-      exit(7);
-   }
-   if (pthread_cond_init(&(thread->queue_cond), NULL)) {
-      perror("thread_pool_start:pthread_cond_init");
-      exit(7);
-   }
+   thread_pool_init(thread);
 
-   if (pthread_mutex_lock(&(thread->run_lock))) {
-      perror("thread_pool_start:pthread_mutex_lock");
-      exit(7);
-   }
+   SYSCALL(pthread_mutex_lock(&(thread->run_lock)));
 
-   if (pthread_create(&(thread->id), NULL, (void*(*)(void*))thread_pool_thread_root_fn, thread)) {
-      perror("thread_pool_start:pthread_create");
-      exit(7);
-   }
+   SYSCALL(pthread_create(&(thread->id), NULL, (void*(*)(void*))thread_pool_thread_root_fn, thread));
 
    while (thread->running < 2) {
-      if (pthread_cond_wait(&(thread->run_cond), &(thread->run_lock))) {
-         perror("thread_pool_start:pthread_cond_wait");
-         exit(7);
-      }
+      SYSCALL(pthread_cond_wait(&(thread->run_cond), &(thread->run_lock)));
    }
 
-   if (pthread_mutex_unlock(&(thread->run_lock))) {
-      perror("thread_pool_start:pthread_mutex_unlock");
-      exit(7);
-   }
+   SYSCALL(pthread_mutex_unlock(&(thread->run_lock)));
 }
 
-static se_thread_run_data_t*thread_pool_run(void (*thread_run)(EIF_OBJECT,void(*)(void*),void*), EIF_OBJECT C) {
-   se_thread_run_data_t*data;
+static se_thread_t*thread_pool_find(void(*start)(se_thread_t*)) {
+   se_thread_t*result = NULL;
    unsigned int i, s=1;
-   se_thread_t *thread=NULL;
 
-   if (pthread_mutex_lock(&(THREAD_POOL.lock))) {
-      perror("thread_pool_run:pthread_mutex_lock");
-      exit(7);
-   }
+   SYSCALL(pthread_mutex_lock(&(global_thread_pool.lock)));
+
+   thread_pool_barrier();
+
+   do {
+      for (i = 0; i < global_thread_pool.capacity && s > 0; i++) {
+         if (global_thread_pool.threads[i].running == 0) {
+            result = &(global_thread_pool.threads[i]);
+            s = 0;
+            start(result);
+            global_thread_pool.running++;
+         } else {
+            SYSCALL(pthread_mutex_lock(&(global_thread_pool.threads[i].queue_lock)));
+            if (global_thread_pool.threads[i].queue_length < s) {
+               result = &(global_thread_pool.threads[i]);
+               s = result->queue_length;
+            }
+            SYSCALL(pthread_mutex_unlock(&(global_thread_pool.threads[i].queue_lock)));
+         }
+      }
+      if (result == NULL) {
+         thread_pool_extend();
+      }
+   } while (result == NULL);
+
+   SYSCALL(pthread_mutex_unlock(&(global_thread_pool.lock)));
+
+   return result;
+}
+
+static se_thread_run_data_t*thread_pool_run(void(*start)(se_thread_t*), void (*thread_run)(EIF_OBJECT,void(*)(void*),void*), EIF_OBJECT C) {
+   se_thread_run_data_t*data;
+   se_thread_t *thread=thread_pool_find(start);
 
    data = se_malloc(sizeof(se_thread_run_data_t));
    data->thread_run = thread_run;
    data->C = C;
-   if (pthread_mutex_init(&(data->lock),NULL)) {
-      perror("thread_pool_run:pthread_mutex_init");
-      exit(7);
-   }
-   if (pthread_cond_init(&(data->cond),NULL)) {
-      perror("thread_pool_run:pthread_mutex_init");
-      exit(7);
-   }
+   SYSCALL(pthread_mutex_init(&(data->lock),NULL));
+   SYSCALL(pthread_cond_init(&(data->cond),NULL));
    data->started = 0;
    data->done = 0;
    data->next = NULL;
 
-   do {
-      for (i = 0; i < THREAD_POOL.capacity && s > 0; i++) {
-         if (THREAD_POOL.threads[i].running == 0) {
-            thread = &(THREAD_POOL.threads[i]);
-            s = 0;
-            thread_pool_start(thread);
-         } else {
-            if (pthread_mutex_lock(&(THREAD_POOL.threads[i].queue_lock))) {
-               perror("thread_pool_run:pthread_mutex_lock");
-               exit(7);
-            }
-            if (THREAD_POOL.threads[i].queue_length < s) {
-               thread = &(THREAD_POOL.threads[i]);
-               s = thread->queue_length;
-            }
-            if (pthread_mutex_lock(&(THREAD_POOL.threads[i].queue_lock))) {
-               perror("thread_pool_run:pthread_mutex_lock");
-               exit(7);
-            }
-         }
-      }
-      if (thread == NULL) {
-         thread_pool_extend();
-      }
-   } while (thread == NULL);
-
-   if (pthread_mutex_unlock(&(THREAD_POOL.lock))) {
-      perror("thread_pool_run:pthread_mutex_unlock");
-      exit(7);
-   }
-
-   if (pthread_mutex_lock(&(thread->queue_lock))) {
-      perror("thread_pool_run:pthread_mutex_lock");
-      exit(7);
-   }
+   SYSCALL(pthread_mutex_lock(&(thread->queue_lock)));
 
    if (thread->queue_last == NULL) {
       thread->queue_first = thread->queue_last = data;
@@ -299,16 +244,10 @@ static se_thread_run_data_t*thread_pool_run(void (*thread_run)(EIF_OBJECT,void(*
       thread->queue_last->next = data;
       thread->queue_last = data;
    }
+   thread->queue_length++;
 
-   if (pthread_cond_signal(&(thread->queue_cond))) {
-      perror("thread_pool_run:pthread_cond_signal");
-      exit(7);
-   }
-
-   if (pthread_mutex_unlock(&(thread->queue_lock))) {
-      perror("thread_pool_run:pthread_mutex_unlock");
-      exit(7);
-   }
+   SYSCALL(pthread_cond_signal(&(thread->queue_cond)));
+   SYSCALL(pthread_mutex_unlock(&(thread->queue_lock)));
 
    return data;
 }
@@ -316,24 +255,13 @@ static se_thread_run_data_t*thread_pool_run(void (*thread_run)(EIF_OBJECT,void(*
 /* ---------------------------------------------------------------- */
 
 void*se_thread_run(void (*thread_run)(EIF_OBJECT,void(*)(void*),void*),EIF_OBJECT C) {
-   se_thread_run_data_t*data=thread_pool_run(thread_run, C);
+   se_thread_run_data_t*data=thread_pool_run(thread_pool_start, thread_run, C);
 
-   if (pthread_mutex_lock(&(data->lock))) {
-      perror("se_thread_run:pthread_mutex_lock");
-      exit(7);
-   }
-
+   SYSCALL(pthread_mutex_lock(&(data->lock)));
    while (!data->started) {
-      if (pthread_cond_wait(&(data->cond), &(data->lock))) {
-         perror("se_thread_run:pthread_cond_wait");
-         exit(7);
-      }
+      SYSCALL(pthread_cond_wait(&(data->cond), &(data->lock)));
    }
-
-   if (pthread_mutex_unlock(&(data->lock))) {
-      perror("se_thread_run:pthread_mutex_unlock");
-      exit(7);
-   }
+   SYSCALL(pthread_mutex_unlock(&(data->lock)));
 
    return data;
 }
@@ -341,24 +269,56 @@ void*se_thread_run(void (*thread_run)(EIF_OBJECT,void(*)(void*),void*),EIF_OBJEC
 void se_thread_wait(void *data_) {
    se_thread_run_data_t*data = (se_thread_run_data_t*)data_;
 
-   if (pthread_mutex_lock(&(data->lock))) {
-      perror("se_thread_wait:pthread_mutex_lock");
-      exit(7);
-   }
-
+   SYSCALL(pthread_mutex_lock(&(data->lock)));
    while (!data->done) {
-      if (pthread_cond_wait(&(data->cond), &(data->lock))) {
-         perror("se_thread_wait:pthread_cond_wait");
-         exit(7);
-      }
+      SYSCALL(pthread_cond_wait(&(data->cond), &(data->lock)));
    }
-
-   if (pthread_mutex_unlock(&(data->lock))) {
-      perror("se_thread_wait:pthread_mutex_unlock");
-      exit(7);
-   }
+   SYSCALL(pthread_mutex_unlock(&(data->lock)));
 
    free(data);
+}
+
+void se_thread_register(void) {
+   se_thread_t*thread=thread_pool_find(thread_pool_init);
+
+   SYSCALL(pthread_mutex_lock(&(thread->run_lock)));
+
+   thread->running = 2;
+   thread->id = pthread_self();
+   thread->queue_length = (size_t)~0;
+
+   SYSCALL(pthread_mutex_unlock(&(thread->run_lock)));
+}
+
+void se_thread_barrier(void) {
+   pthread_barrier_t barrier;
+
+   SYSCALL(pthread_mutex_lock(&(global_thread_pool.lock)));
+
+   thread_pool_barrier();
+
+   SYSCALL(pthread_barrier_init(&barrier, NULL, global_thread_pool.running));
+   global_thread_pool.barrier = &barrier;
+
+   SYSCALL(pthread_mutex_unlock(&(global_thread_pool.lock)));
+   pthread_barrier_wait(&barrier);
+   SYSCALL(pthread_mutex_lock(&(global_thread_pool.lock)));
+
+   if (global_thread_pool.barrier != &barrier) {
+      fprintf(stderr, "unexpected barrier value %p != %p", global_thread_pool.barrier, &barrier);
+      exit(7);
+   }
+   global_thread_pool.barrier = NULL;
+
+   SYSCALL(pthread_mutex_unlock(&(global_thread_pool.lock)));
+}
+
+void se_thread_checkpoint(void) {
+   if (*(volatile pthread_barrier_t**)&(global_thread_pool.barrier)) {
+      SYSCALL(pthread_mutex_lock(&(global_thread_pool.lock)));
+      thread_pool_barrier();
+      SYSCALL(pthread_mutex_unlock(&(global_thread_pool.lock)));
+   }
 }
 
 /* ---------------------------------------------------------------- */
@@ -373,21 +333,18 @@ struct se_thread_lock {
 
 void* se_thread_lock_alloc(void) {
    se_thread_lock_t *result = se_malloc(sizeof(se_thread_lock_t));
-   if (pthread_mutex_init(&(result->check), NULL))
-      perror("se_thread_lock_alloc");
-   if (pthread_mutex_init(&(result->lock), NULL))
-      perror("se_thread_lock_alloc");
-   if (pthread_cond_init(&(result->cond), NULL))
-      perror("se_thread_lock_alloc");
+   SYSCALL(pthread_mutex_init(&(result->check), NULL));
+   SYSCALL(pthread_mutex_init(&(result->lock), NULL));
+   SYSCALL(pthread_cond_init(&(result->cond), NULL));
    result->locker = NULL;
    return result;
 }
 
 void se_thread_lock_free(void*data) {
    se_thread_lock_t*lock = (se_thread_lock_t*)data;
-   pthread_cond_destroy(&(lock->cond));
-   pthread_mutex_destroy(&(lock->lock));
-   pthread_mutex_destroy(&(lock->check));
+   SYSCALL(pthread_cond_destroy(&(lock->cond)));
+   SYSCALL(pthread_mutex_destroy(&(lock->lock)));
+   SYSCALL(pthread_mutex_destroy(&(lock->check)));
    free(lock);
 }
 
@@ -395,42 +352,37 @@ EIF_BOOLEAN se_thread_lock_is_locked(void*data) {
    EIF_BOOLEAN result = 0;
    se_thread_lock_t*lock = (se_thread_lock_t*)data;
    pthread_t *locker;
-   if (pthread_mutex_lock(&(lock->check)))
-      perror("se_thread_lock_is_locked");
-   else {
-      locker = lock->locker;
-      result = locker != NULL && pthread_equal(*locker, pthread_self());
-      if (pthread_mutex_unlock(&(lock->check)))
-         perror("se_thread_lock_is_locked");
-   }
+
+   SYSCALL(pthread_mutex_lock(&(lock->check)));
+
+   locker = lock->locker;
+   result = locker != NULL && pthread_equal(*locker, pthread_self());
+
+   SYSCALL(pthread_mutex_unlock(&(lock->check)));
+
    return result;
 }
 
 void se_thread_lock_lock(void*data) {
    se_thread_lock_t*lock = (se_thread_lock_t*)data;
-   if (pthread_mutex_lock(&(lock->lock)))
-      perror("se_thread_lock_lock");
-   else if (pthread_mutex_lock(&(lock->check)))
-      perror("se_thread_lock_lock");
-   else {
-      lock->locker = &(lock->locker_);
-      lock->locker_ = pthread_self();
-      if (pthread_mutex_unlock(&(lock->check)))
-         perror("se_thread_lock_lock");
-   }
+   SYSCALL(pthread_mutex_lock(&(lock->lock)));
+   SYSCALL(pthread_mutex_lock(&(lock->check)));
+
+   lock->locker = &(lock->locker_);
+   lock->locker_ = pthread_self();
+
+   SYSCALL(pthread_mutex_unlock(&(lock->check)));
 }
 
 void se_thread_lock_unlock(void*data) {
    se_thread_lock_t*lock = (se_thread_lock_t*)data;
-   if (pthread_mutex_lock(&(lock->check)))
-      perror("se_thread_lock_unlock");
-   else {
-      lock->locker = NULL;
-      if (pthread_mutex_unlock(&(lock->check)))
-         perror("se_thread_lock_unlock");
-   }
-   if (pthread_mutex_unlock(&(lock->lock)))
-       perror("se_thread_lock_unlock");
+
+   SYSCALL(pthread_mutex_lock(&(lock->check)));
+
+   lock->locker = NULL;
+
+   SYSCALL(pthread_mutex_unlock(&(lock->check)));
+   SYSCALL(pthread_mutex_unlock(&(lock->lock)));
 }
 
 EIF_BOOLEAN se_thread_lock_timed_wait(void*data,int tm) {
@@ -438,56 +390,51 @@ EIF_BOOLEAN se_thread_lock_timed_wait(void*data,int tm) {
    int res;
    EIF_BOOLEAN result = 1;
    struct timespec tmout = { tm / 1000, (tm % 1000) * 1000000 };
-   if (pthread_mutex_lock(&(lock->check)))
-      perror("se_thread_lock_timed_wait");
-   else {
-      lock->locker = NULL;
-      if (pthread_mutex_unlock(&(lock->check)))
-         perror("se_thread_lock_timed_wait");
-   }
+   SYSCALL(pthread_mutex_lock(&(lock->check)));
+
+   lock->locker = NULL;
+   SYSCALL(pthread_mutex_unlock(&(lock->check)));
+
    res = pthread_cond_timedwait(&(lock->cond), &(lock->lock), &tmout);
    if (res == ETIMEDOUT) {
       result = 0;
-   } else if (res)
+   } else if (res) {
       perror("se_thread_lock_timed_wait");
-   if (pthread_mutex_lock(&(lock->check)))
-      perror("se_thread_lock_timed_wait");
-   else {
-      lock->locker = &(lock->locker_);
-      lock->locker_ = pthread_self();
-      if (pthread_mutex_unlock(&(lock->check)))
-         perror("se_thread_lock_timed_wait");
+      exit(7);
    }
+
+   SYSCALL(pthread_mutex_lock(&(lock->check)));
+
+   lock->locker = &(lock->locker_);
+   lock->locker_ = pthread_self();
+
+   SYSCALL(pthread_mutex_unlock(&(lock->check)));
    return result;
 }
 
 void se_thread_lock_wait(void*data) {
    se_thread_lock_t*lock = (se_thread_lock_t*)data;
-   if (pthread_mutex_lock(&(lock->check)))
-      perror("se_thread_lock_wait");
-   else {
-      lock->locker = NULL;
-      if (pthread_mutex_unlock(&(lock->check)))
-         perror("se_thread_lock_wait");
-   }
-   if (pthread_cond_wait(&(lock->cond), &(lock->lock)))
-      perror("se_thread_lock_wait");
-   if (pthread_mutex_lock(&(lock->check)))
-      perror("se_thread_lock_wait");
-   else {
-      lock->locker = &(lock->locker_);
-      lock->locker_ = pthread_self();
-      if (pthread_mutex_unlock(&(lock->check)))
-         perror("se_thread_lock_wait");
-   }
+   SYSCALL(pthread_mutex_lock(&(lock->check)));
+
+   lock->locker = NULL;
+
+   SYSCALL(pthread_mutex_unlock(&(lock->check)));
+
+   SYSCALL(pthread_cond_wait(&(lock->cond), &(lock->lock)));
+   SYSCALL(pthread_mutex_lock(&(lock->check)));
+
+   lock->locker = &(lock->locker_);
+   lock->locker_ = pthread_self();
+
+   SYSCALL(pthread_mutex_unlock(&(lock->check)));
 }
 
 void se_thread_lock_notify(void*data) {
    se_thread_lock_t*lock = (se_thread_lock_t*)data;
-   pthread_cond_signal(&(lock->cond));
+   SYSCALL(pthread_cond_signal(&(lock->cond)));
 }
 
 void se_thread_lock_notify_all(void*data) {
    se_thread_lock_t*lock = (se_thread_lock_t*)data;
-   pthread_cond_broadcast(&(lock->cond));
+   SYSCALL(pthread_cond_broadcast(&(lock->cond)));
 }

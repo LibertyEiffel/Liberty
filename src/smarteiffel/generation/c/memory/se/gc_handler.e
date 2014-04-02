@@ -590,6 +590,15 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
          cpp.out_h_buffer.append(once "void(*gc_mark_agent_mold)(se_agent*);%N")
       end
 
+feature {C_COMPILATION_MIXIN}
+   checkpoint is
+      do
+         if smart_eiffel.thread_used then
+            -- check to see if we must mark & sweep
+            cpp.pending_c_function_body.append(once "se_thread_checkpoint();%N")
+         end
+      end
+
 feature {C_NATIVE_PROCEDURE_MAPPER}
    mark_item (rf7: RUN_FEATURE_7) is
       local

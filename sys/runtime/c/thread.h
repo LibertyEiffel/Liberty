@@ -33,8 +33,13 @@
 #ifndef _THREAD_H
 #define _THREAD_H
 
+#define SE_THREAD 1
+
 extern void*se_thread_run(void (*thread)(EIF_OBJECT,void(*)(void*),void*),EIF_OBJECT C);
 extern void se_thread_wait(void*data);
+extern void se_thread_register(void);
+extern void se_thread_barrier(void);
+extern void se_thread_checkpoint(void);
 
 extern void* se_thread_lock_alloc(void);
 extern void se_thread_lock_free(void*lock);
