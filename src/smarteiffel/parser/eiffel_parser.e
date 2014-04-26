@@ -2017,11 +2017,17 @@ feature {}
          end
       end
 
-   a_free_operator_definition (prefix_flag: BOOLEAN): BOOLEAN is
+   freeop_prefix: INTEGER_8 is 1
+   freeop_infix: INTEGER_8 is 2
+   freeop_alias: INTEGER_8 is 3
+
+   a_free_operator_definition (freeop: INTEGER_8): BOOLEAN is
          -- A free operator name definition (the one which comes after the
          -- "infix" keyword or the "prefix" keyword at the definition
          -- place). A free operator must start and finish with one of the
          -- following character:  +-*/\=<>@#|&~
+      require
+         freeop.in_range(freeop_prefix, freeop_alias)
       local
          stop: BOOLEAN; l, c: INTEGER
       do
@@ -2059,19 +2065,20 @@ feature {}
             end
             if buffer.count = 1 and then buffer.first = '=' then
                error_handler.add_position(pos(l, c))
-               error_handler.append(once "The basic = operator cannot be redefined. (This is a %
-      %hard-coded builtin that we must trust.)")
+               error_handler.append(once "The basic = operator cannot be redefined. (This is a hard-coded builtin that we must trust.)")
                error_handler.print_as_fatal_error
             end
-            create_infix_prefix(prefix_flag, l, c)
+            create_infix_prefix(freeop, l, c)
          else
          end
       end
 
-   a_free_operator_usage (prefix_flag: BOOLEAN): BOOLEAN is
+   a_free_operator_usage (freeop: INTEGER_8): BOOLEAN is
          -- Syntactically, a free operator must start and finish with one
          -- of the following set of characters:  +-*/\=<>@#|&~
          -- Because of priority, traditional operators are not handled here.
+      require
+         freeop.in_range(freeop_prefix, freeop_alias)
       local
          stop: BOOLEAN; l, c: INTEGER
       do
@@ -2140,7 +2147,7 @@ feature {}
             end
             if Result then
                skip_comments
-               create_infix_prefix(prefix_flag, l, c)
+               create_infix_prefix(freeop, l, c)
             else
                go_back_at(l, c)
             end
@@ -4077,7 +4084,7 @@ feature {}
             else
                err_exp(sp, True, as_minus)
             end
-         elseif a_free_operator_usage(True) then
+         elseif a_free_operator_usage(freeop_prefix) then
             op := last_feature_name
             if a_e8 then
                if last_expression.is_void then
@@ -4613,14 +4620,21 @@ feature {}
          --  ++                 infix |
          --  ++                 simple_feature_name
          --  ++
+      local
+         fn: like last_feature_name
       do
          if a_prefix then
             Result := True
          elseif a_infix then
             Result := True
          elseif a_ordinary_feature_name_or_local_name then
-            last_feature_name := token_buffer.to_feature_name
-            Result := True
+            fn := token_buffer.to_feature_name
+            if a_alias(fn) then
+               Result := True
+            else
+               last_feature_name := fn
+               Result := True
+            end
          end
       end
 
@@ -4678,6 +4692,9 @@ feature {}
          elseif a_feature_name then
             Result := True
             tmp_feature.add_synonym(last_feature_name)
+            if last_feature_name.name_alias /= Void then
+               tmp_feature.add_synonym(last_feature_name.name_alias)
+            end
          end
       end
 
@@ -4749,6 +4766,7 @@ feature {}
                   error_handler.print_as_fatal_error
                end
             end
+            check_alias
             if a_keyword(fz_is) then
                if a_keyword(fz_unique) then
                   last_feature_declaration := tmp_feature.as_unique_constant
@@ -4803,6 +4821,45 @@ feature {}
             arguments := Void
          end
          tmp_feature.done
+      end
+
+   check_alias is
+      local
+         i: INTEGER; a: FEATURE_NAME
+      do
+         from
+            i := tmp_feature.names.lower
+         until
+            i > tmp_feature.names.upper
+         loop
+            a := tmp_feature.names.item(i).name_alias
+            if a /= Void then
+               if a.is_infix_name then
+                  if (a.name.to_string = as_plus or else a.name.to_string = as_minus) and then (tmp_feature.arguments = Void or else tmp_feature.arguments.count = 0) then
+                     a.set_plus_minus_prefix
+                  elseif tmp_feature.arguments = Void or else tmp_feature.arguments.count /= 1 then
+                     error_handler.add_position(a.start_position)
+                     error_handler.append("This alias can be used only as infix, needing exactly one argument.")
+                     error_handler.print_as_fatal_error
+                  elseif tmp_feature.type = Void then
+                     error_handler.add_position(a.start_position)
+                     error_handler.append("This alias can be used only as infix, needing a Result type.")
+                     error_handler.print_as_fatal_error
+                  end
+               elseif a.is_prefix_name then
+                  if tmp_feature.arguments /= Void and then tmp_feature.arguments.count /= 0 then
+                     error_handler.add_position(a.start_position)
+                     error_handler.append("This alias can be used only as prefix, needing exactly zero argument.")
+                     error_handler.print_as_fatal_error
+                  elseif tmp_feature.type = Void then
+                     error_handler.add_position(a.start_position)
+                     error_handler.append("This alias can be used only as prefix, needing a Result type.")
+                     error_handler.print_as_fatal_error
+                  end
+               end
+            end
+            i := i + 1
+         end
       end
 
    a_formal_generic_list is
@@ -5027,7 +5084,7 @@ feature {}
                error_handler.print_as_warning
             end
             if a_binary(sp) then
-            elseif a_free_operator_definition(False) then
+            elseif a_free_operator_definition(freeop_infix) then
             else
                error_handler.add_position(current_position)
                error_handler.append(once "Infix operator name expected.")
@@ -5538,6 +5595,44 @@ feature {}
          end
       end
 
+   a_alias (fn: like last_feature_name): BOOLEAN is
+         --  ++ alias -> "alias" "%"" unary "%""
+         --  ++          "alias" "%"" free_operator "%""
+         --  ++
+      local
+         sp: POSITION
+      do
+         if a_keyword(fz_alias) then
+            sp := pos(start_line, start_column)
+            if cc = '%"' then
+               next_char
+            else
+               error_handler.add_position(current_position)
+               error_handler.append(once "Character '%%%"' inserted after %"alias%".")
+               error_handler.print_as_warning
+            end
+            if a_binary(sp) then
+               fn.name_alias := last_feature_name
+               last_feature_name := fn
+            elseif a_unary then
+               fn.name_alias := last_feature_name
+               last_feature_name := fn
+            elseif a_free_operator_definition(freeop_alias) then
+               fn.name_alias := last_feature_name
+               last_feature_name := fn
+            else
+               error_handler.add_position(current_position)
+               error_handler.append(once "Alias operator name expected.")
+               error_handler.print_as_fatal_error
+            end
+            if not skip1('%"') then
+               error_handler.add_position(current_position)
+               error_handler.append(once "Character '%%%"' inserted.")
+               error_handler.print_as_warning
+            end
+         end
+      end
+
    a_prefix: BOOLEAN is
          --  ++ prefix -> "prefix" "%"" unary "%""
          --  ++           "prefix" "%"" free_operator "%""
@@ -5553,7 +5648,7 @@ feature {}
                error_handler.print_as_warning
             end
             if a_unary then
-            elseif a_free_operator_definition(True) then
+            elseif a_free_operator_definition(freeop_prefix) then
             else
                error_handler.add_position(current_position)
                error_handler.append(once "Prefix operator name expected.")
@@ -5999,7 +6094,7 @@ feature {}
       local
          infix_name: FEATURE_NAME; infix_freeop: CALL_INFIX_FREEOP
       do
-         if a_free_operator_usage(False) then
+         if a_free_operator_usage(freeop_infix) then
             if left_part.is_void then
                error_handler.add_position(left_part.start_position)
                error_handler.add_position(last_feature_name.start_position)
@@ -6590,15 +6685,21 @@ feature {}
          end
       end
 
-   create_infix_prefix (prefix_flag: BOOLEAN; l, c: INTEGER) is
+   create_infix_prefix (freeop: INTEGER_8; l, c: INTEGER) is
+      require
+         freeop.in_range(freeop_prefix, freeop_alias)
       local
          operator: HASHED_STRING
       do
          operator := string_aliaser.hashed_string(buffer)
-         if prefix_flag then
+         inspect
+            freeop
+         when freeop_prefix then
             create last_feature_name.prefix_name(operator, pos(l, c))
-         else
+         when freeop_infix then
             create last_feature_name.infix_name(operator, pos(l, c))
+         when freeop_alias then
+            create last_feature_name.alias_name(operator, pos(l, c))
          end
       end
 
