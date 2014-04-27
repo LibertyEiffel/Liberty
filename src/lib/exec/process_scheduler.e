@@ -125,11 +125,11 @@ feature {ANY}
       end
 
 feature {}
-   on_launched: ROUTINE[TUPLE[STRING, STRING, TRAVERSABLE[STRING], BOOLEAN]]
+   on_launched: PROCEDURE[TUPLE[STRING, STRING, TRAVERSABLE[STRING], BOOLEAN]]
 
    on_failed: like on_launched
 
-   on_finished: ROUTINE[TUPLE[INTEGER, STRING, STRING, TRAVERSABLE[STRING], BOOLEAN]]
+   on_finished: PROCEDURE[TUPLE[INTEGER, STRING, STRING, TRAVERSABLE[STRING], BOOLEAN]]
 
    post_launch (process: PROCESS; launch_info: PROCESS_LAUNCH_INFO) is
       local

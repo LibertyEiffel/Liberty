@@ -16,11 +16,6 @@ feature {ANY}
       external "built_in"
       end
 
-   call (o: O_) is
-         -- Call feature with all its operands, using `o' for the open operands.
-      external "built_in"
-      end
-
 end -- class FUNCTION
 --
 -- Copyright (c) 2009-2014 by all the people cited in the AUTHORS file.
