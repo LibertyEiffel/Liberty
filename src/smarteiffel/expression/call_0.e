@@ -94,7 +94,7 @@ feature {ANY}
             end
             target_type := type
             af := feature_stamp.anonymous_feature(type)
-            function_and_argument_count_check(af, Void)
+            function_and_argument_count_check(type, af, Void)
             Result := Current
          else
             t := target.specialize_and_check(type)
@@ -114,7 +114,7 @@ feature {ANY}
                error_handler.append(once "Missing anonymous feature for this call")
                error_handler.print_as_internal_error
             end
-            function_and_argument_count_check(af, Void)
+            function_and_argument_count_check(type, af, Void)
             if feature_stamp = Void then
                feature_stamp := fs
             end

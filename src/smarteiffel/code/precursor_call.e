@@ -63,7 +63,7 @@ feature {ANY}
          if arguments /= Void then
             arg := arguments.specialize_in(new_type)
          end
-         smart_eiffel.argument_count_check(Void, start_position, saf, arg)
+         smart_eiffel.argument_count_check(Void, new_type, start_position, saf, arg)
          Result := current_or_twin_init(saf, arg)
       end
 

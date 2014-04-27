@@ -173,6 +173,9 @@ feature {ANY}
          if fal /= Void then
             i := fal.count
          end
+         if count >= i and then fal.type_mark(i).is_tuple and then not expression(i).resolve_in(t).is_tuple then
+            synthetize_tuple(t, fal)
+         end
          check
             -- Because `smart_eiffel.argument_count_check' has already been called.
             i = count
@@ -411,6 +414,49 @@ feature {ANY}
             Result := expression(i).is_static
             i := i + 1
          end
+      end
+
+feature {}
+   synthetize_tuple(t: TYPE; fal: FORMAL_ARG_LIST) is
+      require
+         count >= fal.count
+         fal.type_mark(fal.count).is_tuple
+         not expression(fal.count).resolve_in(t).is_tuple
+      local
+         tup: MANIFEST_TUPLE; rem: FAST_ARRAY[EXPRESSION]
+         eal: EFFECTIVE_ARG_LIST
+         i: INTEGER
+      do
+         if count = fal.count then
+            create eal.make_1(expression(count))
+         elseif count = fal.count + 1 then
+            create eal.make_2(expression(fal.count), expression(count))
+         else
+            check
+               count >= fal.count + 2
+            end
+            from
+               create rem.with_capacity(count - fal.count - 2)
+               i := fal.count + 1
+            until
+               i > count
+            loop
+               rem.add_last(expression(i))
+               i := i + 1
+            end
+            create eal.make_n(expression(fal.count), rem)
+         end
+         create tup.make(expression(fal.count).start_position, eal)
+         if fal.count = 1 then
+            first_one := tup
+            remainder := Void --| **** lost memory
+         else
+            remainder.remove_tail(count - fal.count)
+            remainder.put(tup, fal.count - 2)
+         end
+      ensure
+         count = fal.count
+         expression(count).resolve_in(t).is_tuple
       end
 
 feature {ANY} -- Implementation of TRAVERSABLE:
