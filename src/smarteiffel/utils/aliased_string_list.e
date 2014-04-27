@@ -470,7 +470,7 @@ feature {} -- Hard coded feature names:
 
    as_with_capacity: STRING is "with_capacity"
 
-feature {} -- Operator/Infix/Prefix list:
+feature {} -- Operator/Infix/Prefix/Alias list:
    as_and: STRING is "and"
 
    as_and_then: STRING is "and then"
@@ -490,6 +490,8 @@ feature {} -- Operator/Infix/Prefix list:
    as_bit_rotate_right: STRING is "#>>"
 
    as_bit_shift_right_unsigned: STRING is "|>>>"
+
+   as_brackets: STRING is "[]"
 
    as_eq: STRING is "="
 
@@ -514,6 +516,8 @@ feature {} -- Operator/Infix/Prefix list:
    as_or: STRING is "or"
 
    as_or_else: STRING is "or else"
+
+   as_parentheses: STRING is "()"
 
    as_plus: STRING is "+"
 

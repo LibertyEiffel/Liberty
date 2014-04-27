@@ -16,7 +16,7 @@ insert
 feature {ANY}
    call (o: O_) is
          -- Call feature with all its operands, using `o' for the open operands.
-      external "built_in"
+      deferred
       end
 
    is_equal (other: like Current): BOOLEAN is

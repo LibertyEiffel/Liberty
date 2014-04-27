@@ -159,11 +159,12 @@ feature {}
                         create_hashed_string(as_typed_internals),
                         create_hashed_string(as_unicode_string),
                         create_hashed_string(as_weak_reference),
-                        -- Operator/Infix/Prefix list:
+                        -- Operator/Infix/Prefix/Alias list:
                         create_hashed_string(as_and),
                         create_hashed_string(as_and_then),
                         create_hashed_string(as_at),
                         create_hashed_string(as_backslash_backslash),
+                        create_hashed_string(as_brackets),
                         create_hashed_string(as_bit_and),
                         create_hashed_string(as_bit_clear),
                         create_hashed_string(as_bit_not),
@@ -187,6 +188,7 @@ feature {}
                         create_hashed_string(as_not),
                         create_hashed_string(as_or),
                         create_hashed_string(as_or_else),
+                        create_hashed_string(as_parentheses),
                         create_hashed_string(as_plus),
                         create_hashed_string(as_pow),
                         create_hashed_string(as_sharp_backslash_backslash),

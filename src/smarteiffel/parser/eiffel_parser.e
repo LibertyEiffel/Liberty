@@ -2021,7 +2021,7 @@ feature {}
    freeop_infix: INTEGER_8 is 2
    freeop_alias: INTEGER_8 is 3
 
-   a_free_operator_definition (freeop: INTEGER_8): BOOLEAN is
+   a_free_operator_definition (freeop: INTEGER_8; sp: POSITION): BOOLEAN is
          -- A free operator name definition (the one which comes after the
          -- "infix" keyword or the "prefix" keyword at the definition
          -- place). A free operator must start and finish with one of the
@@ -2031,45 +2031,55 @@ feature {}
       local
          stop: BOOLEAN; l, c: INTEGER
       do
-         inspect
-            cc
-         when '+', '-', '*', '/', '\', '=', '<', '>', '@', '#', '|', '&', '~' then
-            l := line
-            c := column
-            buffer.clear_count
-            Result := True
-            from
-               buffer.extend(cc)
-               next_char
-            until
-               stop
-            loop
-               inspect
-                  cc
-               when '.', '?', '{', '}' then
-                  Result := False
+         if freeop = freeop_alias then
+            if skip2('[', ']') then
+               create last_feature_name.alias_name(brackets_name, sp)
+               Result := True
+            elseif skip2('(', ')') then
+               create last_feature_name.alias_name(parentheses_name, sp)
+               Result := True
+            end
+         end
+         if not Result then
+            inspect
+               cc
+            when '+', '-', '*', '/', '\', '=', '<', '>', '@', '#', '|', '&', '~' then
+               l := line
+               c := column
+               buffer.clear_count
+               Result := True
+               from
                   buffer.extend(cc)
                   next_char
-               when '+', '-', '*', '/', '\', '=', '<', '>', '@', '#', '|', '&', '~', '^' then
-                  Result := True
-                  buffer.extend(cc)
-                  next_char
-               else
-                  stop := True
+               until
+                  stop
+               loop
+                  inspect
+                     cc
+                  when '.', '?', '{', '}' then
+                     Result := False
+                     buffer.extend(cc)
+                     next_char
+                  when '+', '-', '*', '/', '\', '=', '<', '>', '@', '#', '|', '&', '~', '^' then
+                     Result := True
+                     buffer.extend(cc)
+                     next_char
+                  else
+                     stop := True
+                  end
                end
+               if not Result then
+                  error_handler.add_position(pos(line, column))
+                  error_handler.append(em43)
+                  error_handler.print_as_fatal_error
+               end
+               if buffer.count = 1 and then buffer.first = '=' then
+                  error_handler.add_position(pos(l, c))
+                  error_handler.append(once "The basic = operator cannot be redefined. (This is a hard-coded builtin that we must trust.)")
+                  error_handler.print_as_fatal_error
+               end
+               create_infix_prefix(freeop, l, c)
             end
-            if not Result then
-               error_handler.add_position(pos(line, column))
-               error_handler.append(em43)
-               error_handler.print_as_fatal_error
-            end
-            if buffer.count = 1 and then buffer.first = '=' then
-               error_handler.add_position(pos(l, c))
-               error_handler.append(once "The basic = operator cannot be redefined. (This is a hard-coded builtin that we must trust.)")
-               error_handler.print_as_fatal_error
-            end
-            create_infix_prefix(freeop, l, c)
-         else
          end
       end
 
@@ -2595,6 +2605,16 @@ feature {}
       end
 
 feature {FUNCTION_CALL, EXTERNAL_PROCEDURE}
+   brackets_name: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_brackets)
+      end
+
+   parentheses_name: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_parentheses)
+      end
+
    le_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_le)
@@ -5084,7 +5104,7 @@ feature {}
                error_handler.print_as_warning
             end
             if a_binary(sp) then
-            elseif a_free_operator_definition(freeop_infix) then
+            elseif a_free_operator_definition(freeop_infix, sp) then
             else
                error_handler.add_position(current_position)
                error_handler.append(once "Infix operator name expected.")
@@ -5614,10 +5634,10 @@ feature {}
             if a_binary(sp) then
                fn.name_alias := last_feature_name
                last_feature_name := fn
-            elseif a_unary then
+            elseif a_unary(sp) then
                fn.name_alias := last_feature_name
                last_feature_name := fn
-            elseif a_free_operator_definition(freeop_alias) then
+            elseif a_free_operator_definition(freeop_alias, sp) then
                fn.name_alias := last_feature_name
                last_feature_name := fn
             else
@@ -5637,8 +5657,11 @@ feature {}
          --  ++ prefix -> "prefix" "%"" unary "%""
          --  ++           "prefix" "%"" free_operator "%""
          --  ++
+      local
+         sp: POSITION
       do
          if a_keyword(fz_prefix) then
+            sp := pos(start_line, start_column)
             Result := True
             if cc = '%"' then
                next_char
@@ -5647,8 +5670,8 @@ feature {}
                error_handler.append(once "Character '%%%"' inserted after %"prefix%".")
                error_handler.print_as_warning
             end
-            if a_unary then
-            elseif a_free_operator_definition(freeop_prefix) then
+            if a_unary(sp) then
+            elseif a_free_operator_definition(freeop_prefix, sp) then
             else
                error_handler.add_position(current_position)
                error_handler.append(once "Prefix operator name expected.")
@@ -6265,18 +6288,18 @@ feature {}
          end
       end
 
-   a_unary: BOOLEAN is
+   a_unary (sp: POSITION): BOOLEAN is
          --  ++ unary -> "not" | "+" | "-"
          --  ++
       do
          if a_keyword(as_not) then
-            create last_feature_name.prefix_name(not_name, pos(start_line, start_column))
+            create last_feature_name.prefix_name(not_name, sp)
             Result := True
          elseif skip1('+') then
-            create last_feature_name.prefix_name(plus_name, pos(start_line, start_column))
+            create last_feature_name.prefix_name(plus_name, sp)
             Result := True
          elseif skip1('-') then
-            create last_feature_name.prefix_name(minus_name, pos(start_line, start_column))
+            create last_feature_name.prefix_name(minus_name, sp)
             Result := True
          end
       end
