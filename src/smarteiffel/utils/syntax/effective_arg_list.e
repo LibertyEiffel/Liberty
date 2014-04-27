@@ -156,17 +156,12 @@ feature {ANY}
          Result.has_been_specialized
       end
 
-   specialize_and_check (t: TYPE; af: ANONYMOUS_FEATURE; target_type: TYPE; is_current: BOOLEAN): like Current is
+   specialize_and_check (t: TYPE; af: ANONYMOUS_FEATURE; target_type: TYPE): like Current is
          -- Checks the validity of argument passing (i.e. assignments) from the effective arguments list into
          -- the formal arguments list from `af'.
          --
          --|*** Change exportation to verify what's follow:
          --| (Must be called specialize_and_check of call_proc_call and precursor_call and AGENT_CREATION as well).
-         --|*** (Dom. feb 7th 2004)
-         --|
-         --|***
-         --| What is `is_current' for ? Is it really for the type of
-         --| the target of the call ? Strange or I am tired.
          --|*** (Dom. feb 7th 2004)
       require
          has_been_specialized
@@ -179,7 +174,7 @@ feature {ANY}
             i := fal.count
          end
          check
-         -- Because `smart_eiffel.argument_count_check' has already been called.
+            -- Because `smart_eiffel.argument_count_check' has already been called.
             i = count
          end
          e2 := specialize_and_check_basic(t, first_one, fal.type_mark(1), target_type)

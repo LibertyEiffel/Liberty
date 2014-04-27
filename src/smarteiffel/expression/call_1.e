@@ -183,7 +183,7 @@ feature {ANY}
             end
             function_and_argument_count_check(af, arguments)
 
-            arg := arg.specialize_and_check(type, af, target_type, target.is_current)
+            arg := arg.specialize_and_check(type, af, target_type)
             check
                arg.count = arguments.count
             end

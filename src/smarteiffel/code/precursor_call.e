@@ -46,7 +46,7 @@ feature {ANY}
       do
          saf := specialized_anonymous_feature.specialize_and_check(type)
          if arguments /= Void then
-            args := arguments.specialize_and_check(type, saf, type, True)
+            args := arguments.specialize_and_check(type, saf, type)
             check
                specialized_anonymous_feature.arguments.count = args.count
             end

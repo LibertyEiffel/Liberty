@@ -112,7 +112,7 @@ feature {ANY}
             error_handler.print_as_internal_error
          end
          procedure_and_argument_count_check(af, arguments)
-         arg := arguments.specialize_and_check(type, af, target_type, target.is_current)
+         arg := arguments.specialize_and_check(type, af, target_type)
          check
             arg.count = arguments.count
          end
