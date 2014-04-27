@@ -4,7 +4,7 @@ The reference file is "log.ref" and this file must be created manually.
 If you confirm that "log.new" is correct, just overwrite "log.ref" with "log.new".
 --------------------------------------------------------------------------------
 Found 0 test_* files.
-Found 407 bad_* files.
+Found 411 bad_* files.
 Found 2 subdirectories.
 --------------------------------------------------------------------------------
 se c bad_address_of1.e -o bad_address_of1.exe -style_warning -output_error_warning_on bad_address_of1.new
@@ -66,6 +66,14 @@ Removing "bad_agent26.new".
 Running "bad_agent26.exe".
 se clean bad_agent26.e
 Removing "bad_agent26.exe".
+se c bad_alias_01.e -o bad_alias_01.exe -style_warning -output_error_warning_on bad_alias_01.new
+Removing "bad_alias_01.new".
+se c bad_alias_02.e -o bad_alias_02.exe -style_warning -output_error_warning_on bad_alias_02.new
+Removing "bad_alias_02.new".
+se c bad_alias_03.e -o bad_alias_03.exe -style_warning -output_error_warning_on bad_alias_03.new
+Removing "bad_alias_03.new".
+se c bad_alias_04.e -o bad_alias_04.exe -style_warning -output_error_warning_on bad_alias_04.new
+Removing "bad_alias_04.new".
 se c bad_argument_list1.e -o bad_argument_list1.exe -style_warning -output_error_warning_on bad_argument_list1.new
 Removing "bad_argument_list1.new".
 se c bad_array1.e -o bad_array1.exe -style_warning -output_error_warning_on bad_array1.new
