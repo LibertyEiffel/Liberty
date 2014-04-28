@@ -170,15 +170,9 @@ feature {ANY}
          i: INTEGER; e1, e2: EXPRESSION; rem: like remainder; fal: FORMAL_ARG_LIST
       do
          fal := af.arguments
-         if fal /= Void then
-            i := fal.count
-         end
-         if count >= i and then fal.type_mark(i).is_tuple and then not expression(i).resolve_in(t).is_tuple then
-            synthetize_tuple(t, fal)
-         end
          check
-            -- Because `smart_eiffel.argument_count_check' has already been called.
-            i = count
+            fal /= Void implies fal.count >= count
+            fal = Void implies count = 0
          end
          e2 := specialize_and_check_basic(t, first_one, fal.type_mark(1), target_type)
          if first_one /= e2 then
@@ -237,6 +231,9 @@ feature {ANY}
                   end
                end
             end
+         end
+         if fal /= Void and then count >= fal.count then
+            Result.final_specialize_check(t, target_type, fal)
          end
       ensure
          Result.count = count
@@ -416,17 +413,47 @@ feature {ANY}
          end
       end
 
+feature {EFFECTIVE_ARG_LIST}
+   final_specialize_check (t, target_type: TYPE; fal: FORMAL_ARG_LIST) is
+      require
+         fal /= Void and then count >= fal.count
+      local
+         fal_count: INTEGER
+      do
+         fal_count := fal.count
+         if count > fal_count or else (fal.name(fal_count).resolve_in(target_type).is_tuple and then not expression(fal_count).resolve_in(t).is_tuple) then
+            synthetize_tuple(t, fal)
+         elseif count > fal_count then
+            error_handler.append(once "The feature called has ")
+            error_handler.append_integer(fal_count)
+            error_handler.append(once " formal argument")
+            if fal_count > 1 then
+               error_handler.extend('s')
+            end
+            error_handler.append(once " while the actual argument list has ")
+            error_handler.append_integer(count)
+            error_handler.append(once " argument")
+            if count > 1 then
+               error_handler.extend('s')
+            end
+            error_handler.append(once ".")
+            error_handler.add_position(fal.start_position)
+            error_handler.add_position(start_position)
+            error_handler.print_as_fatal_error
+         end
+      end
+
 feature {}
-   synthetize_tuple(t: TYPE; fal: FORMAL_ARG_LIST) is
+   synthetize_tuple (t: TYPE; fal: FORMAL_ARG_LIST) is
       require
          count >= fal.count
-         fal.type_mark(fal.count).is_tuple
-         not expression(fal.count).resolve_in(t).is_tuple
       local
          tup: MANIFEST_TUPLE; rem: FAST_ARRAY[EXPRESSION]
          eal: EFFECTIVE_ARG_LIST
          i: INTEGER
+         mhf: MEMORY_HANDLER_FACTORY
       do
+         sedb_breakpoint
          if count = fal.count then
             create eal.make_1(expression(count))
          elseif count = fal.count + 1 then
@@ -447,12 +474,28 @@ feature {}
             create eal.make_n(expression(fal.count), rem)
          end
          create tup.make(expression(fal.count).start_position, eal)
+         tup := tup.specialize_and_check(t)
+         check
+            fal.count > 0
+         end
          if fal.count = 1 then
             first_one := tup
             remainder := Void --| **** lost memory
          else
             remainder.remove_tail(count - fal.count)
             remainder.put(tup, fal.count - 2)
+         end
+
+         error_handler.append(once "Synthetizing ")
+         error_handler.add_type(tup.resolve_in(t))
+         error_handler.append(once " for extra arguments.")
+         error_handler.add_position(fal.name(count).start_position)
+         error_handler.add_position(expression(count).start_position)
+         if mhf.is_no_gc then
+            error_handler.append(once " May lose memory.")
+            error_handler.print_as_warning
+         else
+            error_handler.print_as_style_warning
          end
       ensure
          count = fal.count
