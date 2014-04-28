@@ -167,14 +167,18 @@ feature {ANY}
          has_been_specialized
          af.arguments /= Void implies af.arguments.has_been_specialized
       local
-         i: INTEGER; e1, e2: EXPRESSION; rem: like remainder; fal: FORMAL_ARG_LIST
+         i, fal_count, rem_upper: INTEGER; e1, e2: EXPRESSION; rem: like remainder; fal: FORMAL_ARG_LIST
       do
          fal := af.arguments
-         check
-            fal /= Void implies fal.count >= count
-            fal = Void implies count = 0
+         if fal /= Void then
+            fal_count := fal.count
          end
-         e2 := specialize_and_check_basic(t, first_one, fal.type_mark(1), target_type)
+         rem_upper := fal_count - 2
+         check
+            -- see smart_eiffel.argument_count_check
+            fal_count >= count
+         end
+         e2 := specialize_and_check_basic(t, first_one, fal.type_mark(1), target_type, fal_count = 1, fal)
          if first_one /= e2 then
             Result := twin
             Result.set_first_one(e2)
@@ -183,10 +187,10 @@ feature {ANY}
                   i := remainder.lower
                   e2 := Void
                until
-                  e1 /= e2 or else i > remainder.upper
+                  e1 /= e2 or else i > rem_upper
                loop
                   e1 := remainder.item(i)
-                  e2 := specialize_and_check_basic(t, e1, fal.type_mark(i + 2), target_type)
+                  e2 := specialize_and_check_basic(t, e1, fal.type_mark(i + 2), target_type, i + 2 = fal_count, fal)
                   i := i + 1
                end
                if e1 /= e2 then
@@ -195,9 +199,9 @@ feature {ANY}
                   from
                      rem.put(e2, i - 1)
                   until
-                     i > rem.upper
+                     i > rem_upper
                   loop
-                     e2 := specialize_and_check_basic(t, remainder.item(i), fal.type_mark(i + 2), target_type)
+                     e2 := Result.specialize_and_check_basic(t, remainder.item(i), fal.type_mark(i + 2), target_type, i + 2 = fal_count, fal)
                      rem.put(e2, i)
                      i := i + 1
                   end
@@ -210,10 +214,10 @@ feature {ANY}
                   i := remainder.lower
                   e2 := Void
                until
-                  e1 /= e2 or else i > remainder.upper
+                  e1 /= e2 or else i > rem_upper
                loop
                   e1 := remainder.item(i)
-                  e2 := specialize_and_check_basic(t, e1, fal.type_mark(i + 2), target_type)
+                  e2 := specialize_and_check_basic(t, e1, fal.type_mark(i + 2), target_type, i + 2 = fal_count, fal)
                   i := i + 1
                end
                if e1 /= e2 then
@@ -223,9 +227,9 @@ feature {ANY}
                   from
                      rem.put(e2, i - 1)
                   until
-                     i > rem.upper
+                     i > rem_upper
                   loop
-                     e2 := specialize_and_check_basic(t, remainder.item(i), fal.type_mark(i + 2), target_type)
+                     e2 := Result.specialize_and_check_basic(t, remainder.item(i), fal.type_mark(i + 2), target_type, i + 2 = fal_count, fal)
                      rem.put(e2, i)
                      i := i + 1
                   end
@@ -233,7 +237,7 @@ feature {ANY}
             end
          end
          if fal /= Void and then count >= fal.count then
-            Result.final_specialize_check(t, target_type, fal)
+            Result.specialize_check_count(t, target_type, fal)
          end
       ensure
          Result.count = count
@@ -411,95 +415,6 @@ feature {ANY}
             Result := expression(i).is_static
             i := i + 1
          end
-      end
-
-feature {EFFECTIVE_ARG_LIST}
-   final_specialize_check (t, target_type: TYPE; fal: FORMAL_ARG_LIST) is
-      require
-         fal /= Void and then count >= fal.count
-      local
-         fal_count: INTEGER
-      do
-         fal_count := fal.count
-         if count > fal_count or else (fal.name(fal_count).resolve_in(target_type).is_tuple and then not expression(fal_count).resolve_in(t).is_tuple) then
-            synthetize_tuple(t, fal)
-         elseif count > fal_count then
-            error_handler.append(once "The feature called has ")
-            error_handler.append_integer(fal_count)
-            error_handler.append(once " formal argument")
-            if fal_count > 1 then
-               error_handler.extend('s')
-            end
-            error_handler.append(once " while the actual argument list has ")
-            error_handler.append_integer(count)
-            error_handler.append(once " argument")
-            if count > 1 then
-               error_handler.extend('s')
-            end
-            error_handler.append(once ".")
-            error_handler.add_position(fal.start_position)
-            error_handler.add_position(start_position)
-            error_handler.print_as_fatal_error
-         end
-      end
-
-feature {}
-   synthetize_tuple (t: TYPE; fal: FORMAL_ARG_LIST) is
-      require
-         count >= fal.count
-      local
-         tup: MANIFEST_TUPLE; rem: FAST_ARRAY[EXPRESSION]
-         eal: EFFECTIVE_ARG_LIST
-         i: INTEGER
-         mhf: MEMORY_HANDLER_FACTORY
-      do
-         sedb_breakpoint
-         if count = fal.count then
-            create eal.make_1(expression(count))
-         elseif count = fal.count + 1 then
-            create eal.make_2(expression(fal.count), expression(count))
-         else
-            check
-               count >= fal.count + 2
-            end
-            from
-               create rem.with_capacity(count - fal.count - 2)
-               i := fal.count + 1
-            until
-               i > count
-            loop
-               rem.add_last(expression(i))
-               i := i + 1
-            end
-            create eal.make_n(expression(fal.count), rem)
-         end
-         create tup.make(expression(fal.count).start_position, eal)
-         tup := tup.specialize_and_check(t)
-         check
-            fal.count > 0
-         end
-         if fal.count = 1 then
-            first_one := tup
-            remainder := Void --| **** lost memory
-         else
-            remainder.remove_tail(count - fal.count)
-            remainder.put(tup, fal.count - 2)
-         end
-
-         error_handler.append(once "Synthetizing ")
-         error_handler.add_type(tup.resolve_in(t))
-         error_handler.append(once " for extra arguments.")
-         error_handler.add_position(fal.name(count).start_position)
-         error_handler.add_position(expression(count).start_position)
-         if mhf.is_no_gc then
-            error_handler.append(once " May lose memory.")
-            error_handler.print_as_warning
-         else
-            error_handler.print_as_style_warning
-         end
-      ensure
-         count = fal.count
-         expression(count).resolve_in(t).is_tuple
       end
 
 feature {ANY} -- Implementation of TRAVERSABLE:
@@ -971,19 +886,10 @@ feature {AGENT_CREATION}
          item(index) = closed_operand
       end
 
-feature {}
-   collecting_formal: FAST_ARRAY[FORMAL_ARG_LIST] is
-      once
-         create Result.with_capacity(10)
-      end
-
-   collecting_formal_sub_type: FAST_ARRAY[TYPE] is
-      once
-         create Result.with_capacity(10)
-      end
-
-   specialize_and_check_basic (t: TYPE; exp: EXPRESSION; formal_type_mark: TYPE_MARK; target_type: TYPE): EXPRESSION is
+feature {EFFECTIVE_ARG_LIST}
+   specialize_and_check_basic (t: TYPE; exp: EXPRESSION; formal_type_mark: TYPE_MARK; target_type: TYPE; is_last: BOOLEAN; fal: FORMAL_ARG_LIST): EXPRESSION is
          -- `exp' is interpreted in `t', `formal_type_mark' in `target_type'
+         -- `is_last` and `fal` are used for implicit tuple as last argument, if need be
       require
          exp.has_been_specialized
       local
@@ -1011,7 +917,9 @@ feature {}
             Result := open_operand
          else
             actual_type := e.resolve_in(t)
-            if not actual_type.can_be_assigned_to(formal_type) then
+            if is_last and then formal_type.is_tuple and then not actual_type.is_tuple then
+               e := synthetize_tuple(t, fal)
+            elseif not actual_type.can_be_assigned_to(formal_type) then
                error_handler.add_position(e.start_position)
                error_handler.add_position(formal_type_mark.start_position)
                error_handler.append(once "Cannot pass ")
@@ -1027,6 +935,110 @@ feature {}
          end
       ensure
          Result.has_been_specialized
+      end
+
+   specialize_check_count (t, target_type: TYPE; fal: FORMAL_ARG_LIST) is
+      require
+         fal /= Void and then count >= fal.count
+      local
+         fal_count: INTEGER
+      do
+         fal_count := fal.count
+         if count > fal_count then
+            if synthetic_tuple then
+               if fal_count = 1 then
+                  remainder := Void --| **** lost memory
+               else
+                  remainder.remove_tail(count - fal_count)
+               end
+            else
+               error_handler.append(once "The feature called has ")
+               error_handler.append_integer(fal_count)
+               error_handler.append(once " formal argument")
+               if fal_count > 1 then
+                  error_handler.extend('s')
+               end
+               error_handler.append(once " while the actual argument list has ")
+               error_handler.append_integer(count)
+               error_handler.append(once " argument")
+               if count > 1 then
+                  error_handler.extend('s')
+               end
+               error_handler.append(once ".")
+               error_handler.add_position(fal.start_position)
+               error_handler.add_position(start_position)
+               error_handler.print_as_fatal_error
+            end
+         end
+      ensure
+         count = fal.count
+      end
+
+feature {}
+   synthetic_tuple: BOOLEAN
+
+   synthetize_tuple (t: TYPE; fal: FORMAL_ARG_LIST): EXPRESSION is
+      require
+         count >= fal.count
+         not synthetic_tuple
+      local
+         tup: MANIFEST_TUPLE; rem: FAST_ARRAY[EXPRESSION]
+         eal: EFFECTIVE_ARG_LIST
+         i: INTEGER
+         mhf: MEMORY_HANDLER_FACTORY
+      do
+         sedb_breakpoint
+         if count = fal.count then
+            create eal.make_1(expression(count).specialize_and_check(t))
+         elseif count = fal.count + 1 then
+            create eal.make_2(expression(fal.count), expression(count).specialize_and_check(t))
+         else
+            check
+               count >= fal.count + 2
+            end
+            from
+               create rem.with_capacity(count - fal.count - 2)
+               i := fal.count + 1
+            until
+               i > count
+            loop
+               rem.add_last(expression(i))
+               i := i + 1
+            end
+            create eal.make_n(expression(fal.count).specialize_and_check(t), rem)
+         end
+         create tup.make(expression(fal.count).start_position, eal)
+         tup := tup.specialize_and_check(t)
+
+         error_handler.append(once "Synthetizing ")
+         error_handler.add_type(tup.resolve_in(t))
+         error_handler.append(once " for extra arguments.")
+         error_handler.add_position(fal.name(count).start_position)
+         error_handler.add_position(expression(count).start_position)
+         if mhf.is_no_gc then
+            error_handler.append(once " May lose memory.")
+            error_handler.print_as_warning
+         else
+            error_handler.print_as_style_warning
+         end
+
+         synthetic_tuple := True
+         Result := tup
+      ensure
+         count = fal.count
+         expression(count).resolve_in(t).is_tuple
+         synthetic_tuple
+      end
+
+feature {}
+   collecting_formal: FAST_ARRAY[FORMAL_ARG_LIST] is
+      once
+         create Result.with_capacity(10)
+      end
+
+   collecting_formal_sub_type: FAST_ARRAY[TYPE] is
+      once
+         create Result.with_capacity(10)
       end
 
    make_1 (e: EXPRESSION) is
