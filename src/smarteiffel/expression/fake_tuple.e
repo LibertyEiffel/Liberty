@@ -155,9 +155,12 @@ feature {ANY}
          sedb_breakpoint
          check
             False
-            -- Because Void can be a valid item in `list,' and because Void as no type,
+            -- Because Void can be a valid item in `list,' and because Void has no type,
             -- one must not collect `Current' entirely. Each item must be collected separately.
          end
+         error_handler.add_position(start_position)
+         error_handler.append("FAKE_TUPLE.resolve_in called")
+         error_handler.print_as_internal_error
       end
 
    collect (type: TYPE): TYPE is
@@ -165,9 +168,12 @@ feature {ANY}
          sedb_breakpoint
          check
             False
-            -- Because Void can be a valid item in `list,' and because Void as no type,
+            -- Because Void can be a valid item in `list,' and because Void has no type,
             -- one must not collect `Current' entirely. Each item must be collected separately.
          end
+         error_handler.add_position(start_position)
+         error_handler.append("FAKE_TUPLE.collect called")
+         error_handler.print_as_internal_error
       end
 
    side_effect_free (type: TYPE): BOOLEAN is

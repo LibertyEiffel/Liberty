@@ -39,7 +39,7 @@
 #include <unistd.h>
 #endif
 
-/* 
+/*
    List of possible values for the `sedb_status' variable:
 
    SEDB_RUNNING_STATUS: we are in running mode.

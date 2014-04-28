@@ -123,6 +123,9 @@ feature {ANY}
    deep_twin_used: BOOLEAN
          -- When `deep_twin' support is necessary.
 
+   thread_used: BOOLEAN
+         -- When threading support is necessary (i.e. threads are actually started using THREAD_CONTEXT.run).
+
    accumulating_type: TYPE is
          -- Service provided for debugging purpose only
       do
@@ -394,7 +397,8 @@ feature {ANY}
          Result := live_type_map_
       end
 
-feature {FEATURE_CALL, WRITABLE_ATTRIBUTE_NAME, MANIFEST_STRING_POOL, CREATION_CLAUSE, ADDRESS_OF, ONCE_FUNCTION, MANIFEST_GENERIC, BUILT_IN_EQ_NEQ, CECIL_ENTRY}
+feature {FEATURE_CALL, WRITABLE_ATTRIBUTE_NAME, MANIFEST_STRING_POOL, CREATION_CLAUSE, ADDRESS_OF, ONCE_FUNCTION, MANIFEST_GENERIC, BUILT_IN_EQ_NEQ, CECIL_ENTRY, NATIVE_BUILT_IN}
+   --| **** TODO this client list is ridiculous
    collect (type: TYPE; fs: FEATURE_STAMP; at_run_time: BOOLEAN): TYPE is
          -- The `Result' is not Void when `fs' is actually a function (see ensure).
       require
@@ -563,8 +567,8 @@ feature {ONCE_ROUTINE_POOL}
          dummy := collect(type, fs, False)
       end
 
-feature {FUNCTION_CALL, PROCEDURE_CALL, PRECURSOR_CALL, AGENT_CREATION}
-   argument_count_check (error_trap: FUNCTION_CALL
+feature {FUNCTION_CALL, PROCEDURE_CALL, PRECURSOR_CALL}
+   argument_count_check (error_trap: FUNCTION_CALL; type: TYPE;
                          call_site: POSITION; af: ANONYMOUS_FEATURE; actual_args: EFFECTIVE_ARG_LIST) is
          -- Check that the number of arguments of `af' is compatible with `actual_args'. Only the number of
          -- arguments is checked here. (The complete conformance test is performed in EFFECTIVE_ARG_LIST.)
@@ -573,13 +577,24 @@ feature {FUNCTION_CALL, PROCEDURE_CALL, PRECURSOR_CALL, AGENT_CREATION}
          af /= Void
       local
          formal_args: FORMAL_ARG_LIST; actual, formal: INTEGER
+         mhf: MEMORY_HANDLER_FACTORY
       do
          formal_args := af.arguments
          if formal_args /= Void then
             if actual_args /= Void then
                formal := formal_args.count
                actual := actual_args.count
-               if actual /= formal then
+               if actual >= formal and then formal_args.type_mark(formal).is_tuple and then not actual_args.expression(actual).resolve_in(type).is_tuple then
+                  error_handler.append(once "Will synthetize TUPLE here.")
+                  error_handler.add_position(formal_args.name(formal).start_position)
+                  error_handler.add_position(actual_args.expression(formal).start_position)
+                  if mhf.is_no_gc then
+                     error_handler.append(once " May lose memory.")
+                     error_handler.print_as_warning
+                  else
+                     error_handler.print_as_style_warning
+                  end
+               elseif actual /= formal then
                   error_handler.append(once "The feature called has ")
                   error_handler.append_integer(formal)
                   error_handler.append(once " formal argument")
@@ -754,14 +769,14 @@ feature {CODE_PRINTER}
          Result := True
       end
 
-feature {LOCAL_ARGUMENT_REF, ANONYMOUS_FEATURE, INTROSPECTION_HANDLER}
+feature {LOCAL_ARGUMENT_REF, ANONYMOUS_FEATURE, INTROSPECTION_HANDLER, THREAD_POOL}
    specializing_feature_local_var_list: LOCAL_VAR_LIST
    specializing_closure_local_var_lists: FAST_ARRAY[LOCAL_VAR_LIST]
 
    specializing_feature_arguments_list: FORMAL_ARG_LIST
    specializing_closure_arguments_lists: FAST_ARRAY[FORMAL_ARG_LIST]
 
-feature {ANONYMOUS_FEATURE, INTROSPECTION_HANDLER}
+feature {ANONYMOUS_FEATURE, INTROSPECTION_HANDLER, THREAD_POOL}
    set_specializing_feature_variables (lvl: like specializing_feature_local_var_list; clvl: like specializing_closure_local_var_lists) is
       do
          specializing_feature_local_var_list := lvl
@@ -1583,6 +1598,12 @@ feature {LIVE_TYPE}
    set_deep_twin_used is
       do
          deep_twin_used := True
+      end
+
+feature {NATIVE_BUILT_IN}
+   set_thread_used is
+      do
+         thread_used := True
       end
 
 feature {RUN_FEATURE_8, EXTERNAL_FUNCTION, GENERATOR_GENERATING_TYPE} --|*** remove RUN_FEATURE_8

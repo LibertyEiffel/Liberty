@@ -166,6 +166,13 @@ feature {BDW_GC}
 	 add_external_lib(once "gc")
       end
 
+feature {C_PRETTY_PRINTER}
+   add_pthread_lib is
+      do
+         add_external_lib(once "pthread")
+         add_external_lib(once "rt") -- used by timespec timeouts
+      end
+
 feature {}
    add_lib_math_do_it_again is
       do

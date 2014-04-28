@@ -1166,6 +1166,8 @@ feature {}
                cpp.set_dump_stack_top_for(run_feature.type_of_current, once "&ds", once "link")
             end
          end
+         -- (14) --------------------------- Memory checkpoint :
+         cpp.memory.checkpoint
       end
 
    initialize_expanded (local_var_list: LOCAL_VAR_LIST; type: TYPE) is

@@ -9,6 +9,12 @@ class PROCEDURE[O_ -> TUPLE]
 inherit
    ROUTINE[O_]
 
+feature {ANY}
+   call alias "()" (o: O_) is
+         -- Call feature with all its operands, using `o' for the open operands.
+      external "built_in"
+      end
+
 end -- class PROCEDURE
 --
 -- Copyright (c) 2009-2014 by all the people cited in the AUTHORS file.

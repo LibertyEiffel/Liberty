@@ -68,6 +68,11 @@ feature {C_PRETTY_PRINTER} -- C code phases
       deferred
       end
 
+   initialize_thread is
+         -- Code for runtime customization at thread start. Used to set the stack bottom.
+      deferred
+      end
+
    gc_info_before_exit is
          -- Code for runtime cleanup in the "atexit" C function
       deferred
@@ -211,6 +216,11 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
 
    define_agent_data_0 is
          -- See C_PRETTY_PRINTER.customize_agent_pool_runtime_1
+      deferred
+      end
+
+feature {C_COMPILATION_MIXIN}
+   checkpoint is
       deferred
       end
 

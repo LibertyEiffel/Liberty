@@ -15,7 +15,7 @@ inherit
 insert
    LOCAL_NAME
 
-create {TOKEN_BUFFER, INTROSPECTION_HANDLER}
+create {ANY}
    refer_to
 
 feature {ANY}

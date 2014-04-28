@@ -25,24 +25,24 @@ C Compiler options used: -pipe -O2 -fno-gcse
 extern "C" {
 #endif
 
-/*C_PLUGIN_FACTORY*/T1005*create1005(void){
+/*C_PLUGIN_FACTORY*/T1006*create1006(void){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
 tmp0/*new*/=/*alloc*/((T0*)(se_malloc(1)));
-return ((T1005*)tmp0/*new*/);
+return ((T1006*)tmp0/*new*/);
 /*tmp0.unlock*/
 }/*--*/
 
-/*C_PLUGIN_FACTORY*/T0*r1005new(T346 a1,T0*a2,T0*a3){
+/*C_PLUGIN_FACTORY*/T0*r1006new(T347 a1,T0*a2,T0*a3){
 /*[INTERNAL_C_LOCAL list*/
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
-tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1006/*10pipppp2pi*/))));
-*((T1006*)tmp0/*new*/)=M1006;
-r346default_create(&(((T1006*)tmp0/*new*/)->_start_position));
-/*RF3:make*/r1006make(((T1006*)tmp0/*new*/),/*`position'*/a1,/*`a_name'*/a2,/*`a_path'*/a3);
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1007/*10pipppp2pi*/))));
+*((T1007*)tmp0/*new*/)=M1007;
+r347default_create(&(((T1007*)tmp0/*new*/)->_start_position));
+/*RF3:make*/r1007make(((T1007*)tmp0/*new*/),/*`position'*/a1,/*`a_name'*/a2,/*`a_path'*/a3);
 /*:RF3*/R=tmp0/*new*/;
 /*tmp0.unlock*/
 return R;

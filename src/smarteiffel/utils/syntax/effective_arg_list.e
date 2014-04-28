@@ -156,17 +156,12 @@ feature {ANY}
          Result.has_been_specialized
       end
 
-   specialize_and_check (t: TYPE; af: ANONYMOUS_FEATURE; target_type: TYPE; is_current: BOOLEAN): like Current is
+   specialize_and_check (t: TYPE; af: ANONYMOUS_FEATURE; target_type: TYPE): like Current is
          -- Checks the validity of argument passing (i.e. assignments) from the effective arguments list into
          -- the formal arguments list from `af'.
          --
          --|*** Change exportation to verify what's follow:
          --| (Must be called specialize_and_check of call_proc_call and precursor_call and AGENT_CREATION as well).
-         --|*** (Dom. feb 7th 2004)
-         --|
-         --|***
-         --| What is `is_current' for ? Is it really for the type of
-         --| the target of the call ? Strange or I am tired.
          --|*** (Dom. feb 7th 2004)
       require
          has_been_specialized
@@ -178,8 +173,11 @@ feature {ANY}
          if fal /= Void then
             i := fal.count
          end
+         if count >= i and then fal.type_mark(i).is_tuple and then not expression(i).resolve_in(t).is_tuple then
+            synthetize_tuple(t, fal)
+         end
          check
-         -- Because `smart_eiffel.argument_count_check' has already been called.
+            -- Because `smart_eiffel.argument_count_check' has already been called.
             i = count
          end
          e2 := specialize_and_check_basic(t, first_one, fal.type_mark(1), target_type)
@@ -416,6 +414,49 @@ feature {ANY}
             Result := expression(i).is_static
             i := i + 1
          end
+      end
+
+feature {}
+   synthetize_tuple(t: TYPE; fal: FORMAL_ARG_LIST) is
+      require
+         count >= fal.count
+         fal.type_mark(fal.count).is_tuple
+         not expression(fal.count).resolve_in(t).is_tuple
+      local
+         tup: MANIFEST_TUPLE; rem: FAST_ARRAY[EXPRESSION]
+         eal: EFFECTIVE_ARG_LIST
+         i: INTEGER
+      do
+         if count = fal.count then
+            create eal.make_1(expression(count))
+         elseif count = fal.count + 1 then
+            create eal.make_2(expression(fal.count), expression(count))
+         else
+            check
+               count >= fal.count + 2
+            end
+            from
+               create rem.with_capacity(count - fal.count - 2)
+               i := fal.count + 1
+            until
+               i > count
+            loop
+               rem.add_last(expression(i))
+               i := i + 1
+            end
+            create eal.make_n(expression(fal.count), rem)
+         end
+         create tup.make(expression(fal.count).start_position, eal)
+         if fal.count = 1 then
+            first_one := tup
+            remainder := Void --| **** lost memory
+         else
+            remainder.remove_tail(count - fal.count)
+            remainder.put(tup, fal.count - 2)
+         end
+      ensure
+         count = fal.count
+         expression(count).resolve_in(t).is_tuple
       end
 
 feature {ANY} -- Implementation of TRAVERSABLE:
@@ -762,7 +803,9 @@ feature {PRECURSOR_CALL}
       end
 
 feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
-   to_fake_tuple: FAKE_TUPLE is
+   to_fake_tuple (type: TYPE): FAKE_TUPLE is
+      require
+         count = 1
       local
          tuple_expression: MANIFEST_TUPLE; tuple_type: TYPE; tuple_type_mark: TUPLE_TYPE_MARK
          eal: EFFECTIVE_ARG_LIST; r: like remainder; fc0_1, fc0_2: FUNCTION_CALL_0
@@ -772,7 +815,7 @@ feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
             tuple_expression ::= first_one
          else
             -- generate the fake tuple using calls to item_1, item_2...
-            tuple_type := first_one.declaration_type
+            tuple_type := first_one.resolve_in(type)
             if tuple_type.is_tuple then
                tuple_type_mark ::= tuple_type.canonical_type_mark
                inspect
@@ -796,7 +839,7 @@ feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
                   until
                      i > tuple_type_mark.count
                   loop
-                     feature_name := once "item_xxx"
+                     feature_name := once "item_xx"
                      feature_name.copy(once "item_")
                      i.append_in(feature_name)
                      create fc0_2.make(first_one, create {FEATURE_NAME}.simple_feature_name(feature_name, first_one.start_position))
@@ -805,9 +848,8 @@ feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
                   end
                   create eal.make_n(fc0_1, r)
                end
-               if eal /= Void then
-                  create tuple_expression.make(first_one.start_position, eal)
-               end
+               create tuple_expression.make(first_one.start_position, eal)
+               tuple_expression := tuple_expression.specialize_in(type)
             else
                error_handler.add_position(first_one.start_position)
                error_handler.append(once "Agent calls need a tuple!")
@@ -815,9 +857,6 @@ feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
             end
          end
          create Result.make(tuple_expression)
-         check
-            remainder = Void
-         end
       end
 
 feature {EFFECTIVE_ARG_LIST, FAKE_TUPLE, CALL_1}

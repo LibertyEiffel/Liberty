@@ -61,7 +61,7 @@ status=$?
 
 rm -f $PIDFILE
 
-test $status -ne 0 && echo '****' $e '=> status' $status
+test $status -ne 0 && echo 'status='$status
 echo travis_fold:end:$travis_fold
 
 exit $status

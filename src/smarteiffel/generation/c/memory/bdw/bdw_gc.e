@@ -107,6 +107,11 @@ feature {C_PRETTY_PRINTER} -- C code phases
                                                  %GC_stackbottom=(char*)(void*)&argc;%N")
       end
 
+   initialize_thread is
+      do
+         cpp.pending_c_function_body.append(once "GC_stackbottom=(char*)(void*)&C;%N")
+      end
+
    post_initialize_runtime is
       do
       end
@@ -268,6 +273,11 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
       end
 
    define_agent_data_0 is
+      do
+      end
+
+feature {C_COMPILATION_MIXIN}
+   checkpoint is
       do
       end
 

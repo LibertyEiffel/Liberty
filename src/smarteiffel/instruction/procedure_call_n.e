@@ -111,8 +111,8 @@ feature {ANY}
             error_handler.append(once "Missing anonymous feature for this call")
             error_handler.print_as_internal_error
          end
-         procedure_and_argument_count_check(af, arguments)
-         arg := arguments.specialize_and_check(type, af, target_type, target.is_current)
+         procedure_and_argument_count_check(type, af, arguments)
+         arg := arguments.specialize_and_check(type, af, target_type)
          check
             arg.count = arguments.count
          end

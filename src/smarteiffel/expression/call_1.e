@@ -130,7 +130,7 @@ feature {ANY}
                error_handler.append(once "Missing anonymous feature for this call")
                error_handler.print_as_internal_error
             end
-            function_and_argument_count_check(af, arguments)
+            function_and_argument_count_check(type, af, arguments)
             create {AGENT_EXPRESSION} Result.make(type, Current, target_type, t, arguments)
          else
             arg := arguments
@@ -181,9 +181,9 @@ feature {ANY}
                error_handler.append(once "Missing anonymous feature for this call")
                error_handler.print_as_internal_error
             end
-            function_and_argument_count_check(af, arguments)
+            function_and_argument_count_check(type, af, arguments)
 
-            arg := arg.specialize_and_check(type, af, target_type, target.is_current)
+            arg := arg.specialize_and_check(type, af, target_type)
             check
                arg.count = arguments.count
             end

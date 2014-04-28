@@ -119,11 +119,11 @@ feature {ANY}
             error_handler.append(once "Missing anonymous feature for this call")
             error_handler.print_as_internal_error
          end
-         procedure_and_argument_count_check(af, arguments)
+         procedure_and_argument_count_check(type, af, arguments)
          if feature_name.name.to_string = as_call and then target_type.is_agent then
             create {AGENT_INSTRUCTION} Result.make(type, Current, target_type, t, arguments)
          else
-            arg := arguments.specialize_and_check(type, af, target_type, target.is_current)
+            arg := arguments.specialize_and_check(type, af, target_type)
             check
                arg.count = arguments.count
             end

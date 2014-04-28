@@ -11,7 +11,7 @@ inherit
    ROUTINE[O_]
 
 feature {ANY}
-   item (o: O_): R_ is
+   item alias "()" (o: O_): R_ is
          -- Result of calling feature with all its operands, using `o' for the open operands.
       external "built_in"
       end

@@ -41,26 +41,26 @@
    Top of the rescue context stack (or NULL if there is no current
    context) :
 */
-struct rescue_context* rescue_context_top = NULL;
+TLS(struct rescue_context*) rescue_context_top = NULL;
 
 /*
    Set to nonzero if the exception was internally generated, as with an
    assertion violation.  It is Os_signal (11) for an OS signal.
 */
-int internal_exception_number;
-int original_internal_exception_number;
+TLS(int) internal_exception_number = 0;
+TLS(int) original_internal_exception_number = 0;
 
 /*
    Set to nonzero if the exception was a signal (external).  It is 0
    for an internal exception.
 */
-int signal_exception_number;
+TLS(int) signal_exception_number = 0;
 
 /*
    Used by some internal exceptions to print additional debugging
    information when the exception is not handled and a dump is done.
 */
-char* additional_error_message;
+TLS(char*) additional_error_message = NULL;
 
 static void critical_error_exit(void) {
 /* This is called whenever a critical error in the SmartEiffel

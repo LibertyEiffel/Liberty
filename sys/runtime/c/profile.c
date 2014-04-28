@@ -50,7 +50,7 @@
  *  - Windows (any 32-bit flavour)
  */
 
-static long current_time_counter = 0L;
+static TLS(long) current_time_counter = 0L;
 
 /* -- [ Particular cases ] ---------------------------------------------- */
 #if defined (__GNUC__)
@@ -99,7 +99,7 @@ static inline uint64_t getusec(void){
   return (tv.tv_usec+tv.tv_sec*1000000ULL);
 }
 
-static uint64_t cyclesPerUsec = 0;
+static TLS(uint64_t) cyclesPerUsec = 0;
 
 static inline void cycles2date(se_time_t* time) {
   uint64_t cycles = time->cycles;
@@ -480,12 +480,12 @@ static se_profile_target_access_t* profile_target_access(se_profile_target_acces
 
 /* ------------------------------------------------------------------------ */
 
-static se_profile_t profiler_profile;
-static se_time_t measure_drift;
+static TLS(se_profile_t) profiler_profile;
+static TLS(se_time_t) measure_drift;
 
-static se_local_profile_t** open_profiles = NULL;
-static int open_profiles_capacity = 0;
-static int open_profiles_count = 0;
+static TLS(se_local_profile_t**) open_profiles = NULL;
+static TLS(int                 ) open_profiles_capacity = 0;
+static TLS(int                 ) open_profiles_count = 0;
 
 static void show_profile_stack(void) {
   int i = open_profiles_count;
@@ -494,9 +494,9 @@ static void show_profile_stack(void) {
   }
 }
 
-static int* profile_exceptions = NULL;
-static int profile_exceptions_capacity = 0;
-static int profile_exceptions_count = 0;
+static TLS(int*) profile_exceptions = NULL;
+static TLS(int ) profile_exceptions_capacity = 0;
+static TLS(int ) profile_exceptions_count = 0;
 
 static void profile_exception_set(void) {
   if (profile_exceptions_count == profile_exceptions_capacity) {
@@ -527,8 +527,8 @@ static void profile_exception_thrown(void) {
   }
 }
 
-static se_profile_t gc_profile;
-se_local_profile_t gc_local_profile;
+static TLS(se_profile_t) gc_profile={0,};
+TLS(se_local_profile_t) gc_local_profile={0,};
 
 static void profile_enter_gc(void) {
   se_local_profile_t*parent_profile = open_profiles_count==0 ? NULL : open_profiles[open_profiles_count-1];
@@ -541,8 +541,8 @@ static void profile_exit_gc(void) {
   stop_profile(parent_profile, &gc_local_profile);
 }
 
-static se_profile_t printstack_profile;
-se_local_profile_t printstack_local_profile;
+static TLS(se_profile_t) printstack_profile={0,};
+TLS(se_local_profile_t) printstack_local_profile={0,};
 
 static void profile_enter_printstack(void) {
   se_local_profile_t*parent_profile = open_profiles_count==0 ? NULL : open_profiles[open_profiles_count-1];
@@ -555,9 +555,9 @@ static void profile_exit_printstack(void) {
   stop_profile(parent_profile, &printstack_local_profile);
 }
 
-static se_profile_t sedb_profile;
-static se_local_profile_t sedb_local_profile;
-static int sedb_stopped;
+static TLS(se_profile_t      ) sedb_profile={0,};
+static TLS(se_local_profile_t) sedb_local_profile={0,};
+static TLS(int               ) sedb_stopped=0;
 
 static void profile_sedb_break(void) {
   se_local_profile_t*parent_profile = open_profiles_count==0 ? NULL : open_profiles[open_profiles_count-1];

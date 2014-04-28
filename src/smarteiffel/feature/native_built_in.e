@@ -46,11 +46,27 @@ feature {EXTERNAL_FUNCTION}
 feature {EXTERNAL_ROUTINE}
    collect (type: TYPE; external_routine: EXTERNAL_ROUTINE) is
       local
-         name: STRING
+         name, bcn: STRING
       do
          name := external_routine.first_name.to_string
          if as_se_argv = name then
             manifest_string_pool.collect_string(smart_eiffel.type_string)
+         else
+            bcn := type.class_text.name.to_string
+            if bcn = as_thread_context then
+               collect_fs(type, native_data)
+               if as_run = name then
+                  smart_eiffel.set_thread_used
+                  collect_fs(type, is_started)
+                  collect_fs(type, is_finished)
+                  collect_fs(type, status)
+                  collect_fs(type, thread)
+                  thread_pool.collect(type, external_routine.start_position)
+               end
+            elseif bcn = as_thread_lock then
+               smart_eiffel.set_thread_used
+               collect_fs(type, native_data)
+            end
          end
       end
 
@@ -61,6 +77,49 @@ feature {EXTERNAL_TYPE}
       end
 
 feature {}
+   collect_fs (type: TYPE; fs_name: HASHED_STRING) is
+      local
+         t: TYPE; fs: FEATURE_STAMP
+      do
+         fs := type.feature_stamp_of(fs_name)
+         t := smart_eiffel.collect(type, fs, True)
+      end
+
+   thread: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(once "thread")
+      end
+
+   run: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_run)
+      end
+
+   wait: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_wait)
+      end
+
+   native_data: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_native_data)
+      end
+
+   is_started: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_is_started)
+      end
+
+   is_finished: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_is_finished)
+      end
+
+   status: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_status)
+      end
+
    fe_nyi (rf: RUN_FEATURE) is
       do
          error_handler.add_position(rf.start_position)

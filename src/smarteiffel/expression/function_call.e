@@ -299,7 +299,7 @@ feature {EIFFEL_PARSER}
 feature {}
    declaration_type_memory: TYPE
 
-   frozen function_and_argument_count_check (af: ANONYMOUS_FEATURE; actual_args: like arguments) is
+   frozen function_and_argument_count_check (type: TYPE; af: ANONYMOUS_FEATURE; actual_args: like arguments) is
          -- Check that the feature found is really a function then launch `argument_count_check'.
       require
          af /= Void
@@ -320,7 +320,7 @@ feature {}
                error_handler.print_as_fatal_error
             end
          end
-         smart_eiffel.argument_count_check(Current, feature_name.start_position, af, actual_args)
+         smart_eiffel.argument_count_check(Current, type, feature_name.start_position, af, actual_args)
       end
 
    frozen true_or_false (boolean: BOOLEAN): EXPRESSION is

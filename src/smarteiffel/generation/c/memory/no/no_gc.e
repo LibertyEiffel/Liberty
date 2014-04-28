@@ -45,6 +45,10 @@ feature {C_PRETTY_PRINTER} -- C code phases
       do
       end
 
+   initialize_thread is
+      do
+      end
+
    gc_info_before_exit is
       do
          if info_flag then
@@ -198,6 +202,11 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
       end
 
    define_agent_data_0 is
+      do
+      end
+
+feature {C_COMPILATION_MIXIN}
+   checkpoint is
       do
       end
 

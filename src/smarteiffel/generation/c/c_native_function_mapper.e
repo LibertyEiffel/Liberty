@@ -416,6 +416,16 @@ feature {NATIVE_BUILT_IN}
             if cbd then
                function_body.extend(')')
             end
+         elseif as_thread_lock = bcn then
+            if as_is_locked = name then
+               function_body.append(once "se_thread_lock_is_locked((")
+               cpp.put_target_as_target(type_of_current)
+               function_body.append(once ")->_native_data)")
+            elseif as_timed_wait = name then
+               function_body.append(once "se_thread_lock_timed_wait((")
+               cpp.put_target_as_target(type_of_current)
+               function_body.append(once ")->_native_data)")
+            end
          else
             echo.w_put_string(once "Unknown ")
             echo.w_put_string(bcn)

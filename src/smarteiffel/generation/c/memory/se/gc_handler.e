@@ -75,6 +75,16 @@ feature {C_PRETTY_PRINTER}
                                                  %#ifdef FIXED_STACK_BOTTOM%N%
                                                  %if (!stack_bottom) stack_bottom=((void**)(void*)(&argc));%N%
                                                  %#endif%N")
+         if smart_eiffel.thread_used then
+            cpp.write_extern_0(once "void*gc_lock");
+            cpp.pending_c_function_body.append(once "gc_lock=se_thread_lock_alloc();%N")
+         end
+      end
+
+   initialize_thread is
+      do
+         cpp.pending_c_function_body.append(once "gcmt=((mch**)se_malloc((gcmt_max+1)*sizeof(void*)));%N%
+                                                 %stack_bottom=((void**)(void*)(&C));%N")
       end
 
    post_initialize_runtime is
@@ -584,6 +594,15 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
          cpp.out_h_buffer.append(once "void(*gc_mark_agent_mold)(se_agent*);%N")
       end
 
+feature {C_COMPILATION_MIXIN}
+   checkpoint is
+      do
+         if smart_eiffel.thread_used then
+            -- check to see if we must mark & sweep
+            cpp.pending_c_function_body.append(once "se_thread_checkpoint();%N")
+         end
+      end
+
 feature {C_NATIVE_PROCEDURE_MAPPER}
    mark_item (rf7: RUN_FEATURE_7) is
       local
@@ -877,6 +896,9 @@ feature {}
       do
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void gc_start(void)")
+         if smart_eiffel.thread_used then
+            cpp.pending_c_function_body.append(once "se_thread_lock_lock(gc_lock);%N")
+         end
          cpp.pending_c_function_body.append(once "handle(SE_HANDLE_ENTER_GC,NULL);%N");
          cpp.pending_c_function_body.append(once "if(!gc_is_off && !garbage_delayed()){%N")
          cpp.pending_c_function_body.append(once "gcmt_tail_addr=(((char*)(gcmt[gcmt_used-1]))+%
@@ -902,14 +924,22 @@ feature {}
                         %if(t[i]!=NULL)gc_mark7(t[i]);%N%
                         %i--;}%N}%N")
          end
-         cpp.pending_c_function_body.append(once "mark_stack_and_registers();%N%
-                     %gc_sweep();%N%
-                     %collector_counter++;%N")
+         if smart_eiffel.thread_used then
+            cpp.pending_c_function_body.append(once "se_thread_barrier(mark_stack_and_registers);%N%
+                                                    %se_thread_barrier(gc_sweep);%N")
+         else
+            cpp.pending_c_function_body.append(once "mark_stack_and_registers();%N%
+                                                    %gc_sweep();%N")
+         end
+         cpp.pending_c_function_body.append(once "collector_counter++;%N")
          if info_flag then
             cpp.pending_c_function_body.append(once "gc_info();%N")
          end
          cpp.pending_c_function_body.append(once "}%N")
          cpp.pending_c_function_body.append(once "handle(SE_HANDLE_EXIT_GC,NULL);%N");
+         if smart_eiffel.thread_used then
+            cpp.pending_c_function_body.append(once "se_thread_lock_unlock(gc_lock);%N")
+         end
          cpp.dump_pending_c_function(True)
       end
 

@@ -66,7 +66,7 @@ feature {ANY} -- Accessing:
       end
 
 feature {ANY} -- Other features:
-   get_new_iterator: ITERATOR[EDC_DATUM] is
+   g_get_new_iterator: ITERATOR[EDC_DATUM] is
       do
          create {EDC_STORABLE_ITERATOR} Result.make(Current)
       end
