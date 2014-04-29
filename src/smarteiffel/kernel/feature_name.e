@@ -432,7 +432,7 @@ feature {EIFFEL_PARSER, FEATURE_ACCUMULATOR}
 
    set_plus_minus_prefix is
       require
-         is_infix
+         is_infix_name
          name.to_string = as_plus or else name.to_string = as_minus
       do
          inspect
@@ -445,7 +445,7 @@ feature {EIFFEL_PARSER, FEATURE_ACCUMULATOR}
          end
       ensure
          (old is_frozen) = is_frozen
-         is_prefix
+         is_prefix_name
       end
 
 feature {FEATURE_STAMP}

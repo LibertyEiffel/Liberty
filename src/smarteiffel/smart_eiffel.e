@@ -571,30 +571,23 @@ feature {FUNCTION_CALL, PROCEDURE_CALL, PRECURSOR_CALL}
    argument_count_check (error_trap: FUNCTION_CALL; type: TYPE;
                          call_site: POSITION; af: ANONYMOUS_FEATURE; actual_args: EFFECTIVE_ARG_LIST) is
          -- Check that the number of arguments of `af' is compatible with `actual_args'. Only the number of
-         -- arguments is checked here. (The complete conformance test is performed in EFFECTIVE_ARG_LIST.)
+         -- arguments is checked here.
+         --
+         -- NOTE: only a partial count check here, because of implicit tuples.
+         --
+         -- The complete count and conformance test is actually performed in EFFECTIVE_ARG_LIST.
       require
          not call_site.is_unknown
          af /= Void
       local
          formal_args: FORMAL_ARG_LIST; actual, formal: INTEGER
-         mhf: MEMORY_HANDLER_FACTORY
       do
          formal_args := af.arguments
          if formal_args /= Void then
             if actual_args /= Void then
                formal := formal_args.count
                actual := actual_args.count
-               if actual >= formal and then formal_args.type_mark(formal).is_tuple and then not actual_args.expression(actual).resolve_in(type).is_tuple then
-                  error_handler.append(once "Will synthetize TUPLE here.")
-                  error_handler.add_position(formal_args.name(formal).start_position)
-                  error_handler.add_position(actual_args.expression(formal).start_position)
-                  if mhf.is_no_gc then
-                     error_handler.append(once " May lose memory.")
-                     error_handler.print_as_warning
-                  else
-                     error_handler.print_as_style_warning
-                  end
-               elseif actual /= formal then
+               if actual < formal then
                   error_handler.append(once "The feature called has ")
                   error_handler.append_integer(formal)
                   error_handler.append(once " formal argument")
