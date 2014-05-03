@@ -19,15 +19,6 @@ feature {ANY}
    written_link: PROCEDURE_CALL_1
          -- To the syntactical written one which is at the origin of the creation of `Current'.
 
-   anonymous_feature (type: TYPE): ANONYMOUS_FEATURE is
-      local
-         target_type: TYPE; fs: FEATURE_STAMP
-      do
-         target_type := target.resolve_in(type)
-         fs := target_type.lookup(feature_name)
-         Result := fs.anonymous_feature(target_type)
-      end
-
    end_mark_comment: BOOLEAN is False
 
    start_position: POSITION is
