@@ -394,7 +394,7 @@ feature {ANY} -- Display support:
       end
 
 feature {ANY} -- Agents based features:
-   do_all (action: PROCEDURE[TUPLE[V_, K_]]) is
+   do_all (action: ROUTINE[TUPLE[V_, K_]]) is
          -- Apply `action' to every [V_, K_] associations of `Current'.
          --
          -- See also `for_all', `exist'.

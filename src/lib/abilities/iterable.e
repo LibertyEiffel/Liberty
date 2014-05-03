@@ -28,7 +28,7 @@ feature {ANY} -- Other features:
       end
 
 feature {ANY} -- Agent-based features:
-   do_all (action: PROCEDURE[TUPLE[E_]]) is
+   do_all (action: ROUTINE[TUPLE[E_]]) is
          -- Apply `action' to every item of `Current'.
          --
          -- See also `for_all', `exists', `aggregate'.

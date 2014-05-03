@@ -16,6 +16,12 @@ feature {ANY}
       external "built_in"
       end
 
+   call (o: O_) is
+         -- For compatibility only.
+      obsolete "This feature should not be used: the result is lost."
+      external "built_in"
+      end
+
 end -- class FUNCTION
 --
 -- Copyright (c) 2009-2014 by all the people cited in the AUTHORS file.

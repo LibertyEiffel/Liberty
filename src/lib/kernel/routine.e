@@ -18,6 +18,10 @@ feature {ANY}
       external "built_in"
       end
 
+   call (o: O_) is
+      deferred
+      end
+
 end -- class ROUTINE
 --
 -- Copyright (c) 2009-2014 by all the people cited in the AUTHORS file.
