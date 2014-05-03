@@ -307,8 +307,8 @@ feature {}
       do
       end
 
-   frozen procedure_and_argument_count_check (type: TYPE; af: ANONYMOUS_FEATURE; actual_args: like arguments) is
-         -- Check that the feature found is really a procedure then launch `argument_count_check'.
+   frozen procedure_check (type: TYPE; af: ANONYMOUS_FEATURE; actual_args: like arguments) is
+         -- Check that the feature found is really a procedure.
       require
          af /= Void
       do
@@ -321,7 +321,6 @@ feature {}
             error_handler.append(once "This call has a result value (and you must use it).")
             error_handler.print_as_fatal_error
          end
-         smart_eiffel.argument_count_check(Void, type, feature_name.start_position, af, actual_args)
       end
 
 end -- class PROCEDURE_CALL

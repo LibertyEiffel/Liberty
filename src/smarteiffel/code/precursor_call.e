@@ -47,9 +47,6 @@ feature {ANY}
          saf := specialized_anonymous_feature.specialize_and_check(type)
          if arguments /= Void then
             args := arguments.specialize_and_check(type, saf, type)
-            check
-               specialized_anonymous_feature.arguments.count = args.count
-            end
          end
          Result := current_or_twin_init(saf, args)
       end
@@ -63,7 +60,6 @@ feature {ANY}
          if arguments /= Void then
             arg := arguments.specialize_in(new_type)
          end
-         smart_eiffel.argument_count_check(Void, new_type, start_position, saf, arg)
          Result := current_or_twin_init(saf, arg)
       end
 

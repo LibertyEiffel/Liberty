@@ -1,63 +1,19 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class CALL_INFIX_FREEOP
-   --
-   --   Infix free operator : "@...", "#...", "|...", "&..."
-   --
+deferred class EFFECTIVE_ARG_LIST_N_VISITOR
 
 inherit
-   CALL_INFIX
+   VISITOR
 
-create {EIFFEL_PARSER}
-   make
-
-create {AGENT_CREATION, CALL_INFIX}
-   with
-
-feature {ANY}
-   precedence: INTEGER is 10
-
-   left_brackets: BOOLEAN is False
-
-   operator: STRING is
-      do
-         Result := feature_name.to_string
-      end
-      --|*** simplify_1_: EXPRESSION is
-      --|*** do
-      --|*** target := target.simplify_1
-      --|*** arguments.simplify_1
-      --|*** -- *** TODO ???? : shift operation on INTEGERs. (Dom. march 26th 2004) ***
-      --|*** Result := Current
-      --|*** end
-
-feature {ANY}
-   accept (visitor: CALL_INFIX_FREEOP_VISITOR) is
-      do
-         visitor.visit_call_infix_freeop(Current)
-      end
-
-feature {}
-   make (lp: like target; in: like feature_name; rp: like arg1) is
+feature {EFFECTIVE_ARG_LIST_N}
+   visit_effective_arg_list_n (visited: EFFECTIVE_ARG_LIST_N) is
       require
-         lp /= Void
-         in.is_free_operator
-         rp /= Void
-      do
-         target := lp
-         feature_name := in
-         create {EFFECTIVE_ARG_LIST_N} arguments.make_1(start_position, rp)
-      ensure
-         target = lp
-         feature_name = in
-         arguments.first = rp
+         visited /= Void
+      deferred
       end
 
-invariant
-   feature_name.is_free_operator
-
-end -- class CALL_INFIX_FREEOP
+end -- class EFFECTIVE_ARG_LIST_N_VISITOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

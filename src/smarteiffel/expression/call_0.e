@@ -76,16 +76,17 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): EXPRESSION is
          --|*** PH/Dom(22/01/04) Improvement: save the result of
          --|"target.declaration_type.search(feature_name)" because it
          --|will not change. Hope the memory penalty is not too big
          --|for the computing time saved.
          ----------- Duplicate code call_0/proc_call_0  -----------
-         --|*** Except for the `function_and_argument_count_check' calls (Dom. march 28th 2004) ***
+         --|*** Except for the `function_check' calls (Dom. march 28th 2004) ***
       local
          fs: like feature_stamp; t: like target; target_type, target_declaration_type: TYPE
-         af: ANONYMOUS_FEATURE
+         af: ANONYMOUS_FEATURE; args: EFFECTIVE_ARG_LIST
+         res: like Current; call_1: FUNCTION_CALL_1
       do
          if target.is_current then
             check
@@ -94,8 +95,21 @@ feature {ANY}
             end
             target_type := type
             af := feature_stamp.anonymous_feature(type)
-            function_and_argument_count_check(type, af, Void)
-            Result := Current
+            if function_check(type, af, Void) then
+               if arguments_0 = Void then
+                  create arguments_0.make(start_position)
+               end
+               args := arguments_0.specialize_and_check(type, af, type)
+               if args = arguments_0 then
+                  Result := Current
+               else
+                  create call_1.make(target, feature_name, args)
+                  call_1.set_feature_stamp(feature_stamp)
+                  Result := call_1.specialize_and_check(type)
+               end
+            else
+               Result := Current
+            end
          else
             t := target.specialize_and_check(type)
             target_declaration_type := t.declaration_type
@@ -114,17 +128,31 @@ feature {ANY}
                error_handler.append(once "Missing anonymous feature for this call")
                error_handler.print_as_internal_error
             end
-            function_and_argument_count_check(type, af, Void)
-            if feature_stamp = Void then
-               feature_stamp := fs
+            if function_check(type, af, Void) then
+               if arguments_0 = Void then
+                  create arguments_0.make(start_position)
+               end
+               args := arguments_0.specialize_and_check(type, af, target_type)
+               if args /= arguments_0 then
+                  create call_1.make(t, feature_name, args)
+                  call_1.set_feature_stamp(fs)
+                  call_1.standard_check_export_and_obsolete_calls(type, target_type, af)
+                  Result := call_1.specialize_and_check(type)
+               end
             end
-            Result := current_or_twin_init(t, fs)
-         end
-         Result.standard_check_export_and_obsolete_calls(type, target_type, af)
-         check
-            feature_stamp /= Void
-            Result.feature_stamp /= Void
-            Result.feature_stamp.has_type(Result.target.resolve_in(type))
+            if Result = Void then
+               if feature_stamp = Void then
+                  feature_stamp := fs
+               end
+               res := current_or_twin_init(t, fs)
+               res.standard_check_export_and_obsolete_calls(type, target_type, af)
+               check
+                  feature_stamp /= Void
+                  res.feature_stamp /= Void
+                  res.feature_stamp.has_type(res.target.resolve_in(type))
+               end
+               Result := res
+            end
          end
       end
 
@@ -212,6 +240,8 @@ feature {}
             Result.set_feature_stamp(fs)
          end
       end
+
+   arguments_0: EFFECTIVE_ARG_LIST_0
 
 feature {EFFECTIVE_ROUTINE}
    frozen inline_with (new_target: EXPRESSION): like Current is

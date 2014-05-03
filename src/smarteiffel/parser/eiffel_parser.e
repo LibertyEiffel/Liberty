@@ -2215,9 +2215,10 @@ feature {}
          --  ++ actuals -> "(" {actual "," ...} ")"
          --  ++
       local
-         first_one: EXPRESSION; remainder: FAST_ARRAY[EXPRESSION]
+         sp, ep: POSITION; first_one: EXPRESSION; remainder: FAST_ARRAY[EXPRESSION]
       do
          if skip1('(') then
+            sp := pos(start_line, start_column)
             from
             until
                not a_expression
@@ -2236,17 +2237,23 @@ feature {}
                   remainder.add_last(last_expression)
                end
             end
-            if first_one = Void then
-               error_handler.add_position(current_position)
-               error_handler.append(once "Empty argument list (deleted).")
-               error_handler.print_as_style_warning
+            if skip1(')') then
+               ep := pos(start_line, start_column)
             else
-               create Result.make_n(first_one, remainder)
-            end
-            if not skip1(')') then
+               ep := pos(line, column)
                error_handler.add_position(current_position)
                error_handler.append(once "')' expected to end arguments list.")
                error_handler.print_as_fatal_error
+            end
+            if first_one = Void then
+               --| **** removed style warning because of alias "()"
+               --| **** TODO: put it elsewhere?
+               --error_handler.add_position(current_position)
+               --error_handler.append(once "Empty argument list (deleted).")
+               --error_handler.print_as_style_warning
+            else
+               create {EFFECTIVE_ARG_LIST_N} Result.make_n(sp, first_one, remainder)
+               Result.end_position := ep
             end
          end
       end
@@ -4172,8 +4179,9 @@ feature {}
          --  ++       function_call r10 |
          --  ++
       local
-         type_mark: TYPE_MARK; args: EFFECTIVE_ARG_LIST; sp: POSITION; eal: EFFECTIVE_ARG_LIST
+         type_mark: TYPE_MARK; args: EFFECTIVE_ARG_LIST; sp: POSITION; eal: EFFECTIVE_ARG_LIST_N
          delayed_call: FUNCTION_CALL; writable: EXPRESSION; ft: FEATURE_TEXT; ewc: EXPRESSION_WITH_COMMENT
+         e1: EXPRESSION; rem: FAST_ARRAY[EXPRESSION]
       do
          if skip1('(') then
             if a_expression then
@@ -4190,18 +4198,24 @@ feature {}
                error_handler.print_as_fatal_error
             end
          elseif skip1('[') then
-            from
-               Result := True
-               sp := pos(start_line, start_column)
-            until
-               not a_expression
-            loop
-               if eal = Void then
-                  create eal.make_1(last_expression)
-               else
-                  eal.add_last(last_expression)
-               end
+            Result := True
+            sp := pos(start_line, start_column)
+            if a_expression then
+               e1 := last_expression
                ok := skip1(',')
+               if a_expression then
+                  from
+                     create rem.with_capacity(4)
+                     rem.add_last(last_expression)
+                     ok := skip1(',')
+                  until
+                     not a_expression
+                  loop
+                     rem.add_last(last_expression)
+                     ok := skip1(',')
+                  end
+               end
+               create eal.make_n(sp, e1, rem)
             end
             if not skip1(']') then
                error_handler.add_position(current_position)

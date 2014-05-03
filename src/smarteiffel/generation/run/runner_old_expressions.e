@@ -167,8 +167,13 @@ feature {BUILT_IN_EQ_NEQ}
          end
       end
 
-feature {EFFECTIVE_ARG_LIST}
-   visit_effective_arg_list (visited: EFFECTIVE_ARG_LIST) is
+feature {EFFECTIVE_ARG_LIST_0}
+   visit_effective_arg_list_0 (visited: EFFECTIVE_ARG_LIST_0) is
+      do
+      end
+
+feature {EFFECTIVE_ARG_LIST_N}
+   visit_effective_arg_list_n (visited: EFFECTIVE_ARG_LIST_N) is
       do
          visited.first_one.accept(Current)
          if visited.remainder /= Void then

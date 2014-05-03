@@ -91,7 +91,7 @@ feature {EXTERNAL_FUNCTION}
             create arg.refer_to(sp, args, 2, 0)
             arg_type :=  args.type_mark(2).declaration_type.type
             arg.set_declaration_type(arg_type)
-            create native_array_internals_from_generating_type_args.make_1(arg)
+            create native_array_internals_from_generating_type_args.make_1(start_position, arg)
             smart_eiffel.magic_count_increment
          else
             live_types := smart_eiffel.live_type_map
@@ -444,7 +444,7 @@ feature {}
          for_object_fn, capacity_fn: FEATURE_NAME
          native_array_internals_type_mark: TYPE_MARK
          capacity: FUNCTION_CALL_0
-         args: EFFECTIVE_ARG_LIST
+         args: EFFECTIVE_ARG_LIST_N
          internals_creation_call: PROCEDURE_CALL_N
          internals_creation: CREATE_INSTRUCTION
          to_internals_fn: FEATURE_NAME
@@ -459,7 +459,7 @@ feature {}
             create capacity_fn.simple_feature_name(as_capacity, start_position)
             create capacity.make(container, capacity_fn)
             native_array_internals_type_mark := target_tm.typed_internals_type_mark(start_position)
-            create args.make_2(target, capacity)
+            create args.make_2(start_position, target, capacity)
             create internals_creation_call.make(result_variable, for_object_fn, args)
             create internals_creation.make(start_position, native_array_internals_type_mark,
                                            result_variable, internals_creation_call)
@@ -597,7 +597,7 @@ feature {}
 
    native_array_internals_from_generating_type_position: POSITION
 
-   native_array_internals_from_generating_type_args: EFFECTIVE_ARG_LIST
+   native_array_internals_from_generating_type_args: EFFECTIVE_ARG_LIST_N
 
 feature {}
    -- Generate code for all writable attributes. Dead attributes will be sorted out during the adapt phase.
@@ -1145,7 +1145,7 @@ feature {}
          arg: ARGUMENT_NAME_REF
          one: INTEGER_CONSTANT
          i: CALL_INFIX_MINUS
-         args: EFFECTIVE_ARG_LIST
+         args: EFFECTIVE_ARG_LIST_N
          item: FUNCTION_CALL_1
          assignment: INSTRUCTION
       do
@@ -1159,7 +1159,7 @@ feature {}
             create arg.refer_to(start_position, arguments, 1, 0)
             create one.make(1, start_position)
             create i.make(arg, start_position, one)
-            create args.make_1(i)
+            create args.make_1(start_position, i)
             create item.make(object, fn, args)
             assignment := internals_of(item, element_type_mark, object, result_variable)
          end
@@ -1182,7 +1182,7 @@ feature {}
          one: INTEGER_CONSTANT
          object: FUNCTION_CALL_0
          i: CALL_INFIX_MINUS
-         args: EFFECTIVE_ARG_LIST
+         args: EFFECTIVE_ARG_LIST_N
          implicit_current: IMPLICIT_CURRENT
          set_item: PROCEDURE_CALL_N
          compound: COMPOUND
@@ -1207,7 +1207,7 @@ feature {}
             create object.make(local_var2, fn)
             create one.make(1, start_position)
             create i.make(arg2, start_position, one)
-            create args.make_2(object, i)
+            create args.make_2(start_position, object, i)
             create implicit_current.make(start_position)
             create object.make(implicit_current, fn)
             create fn.simple_feature_name(as_put, start_position)
@@ -1221,7 +1221,7 @@ feature {}
             else
                create e_void.make(start_position)
                create neq.make_neq(arg1, start_position, e_void)
-               create args.make_2(e_void, i)
+               create args.make_2(start_position, e_void, i)
                create set_item.make(object, fn, args)
                create if_then_else.with_else(start_position, neq, compound, set_item)
                new_body := if_then_else
@@ -1281,7 +1281,7 @@ feature {}
          object_memory_target: FUNCTION_CALL_0
          fn: FEATURE_NAME
          arg: ARGUMENT_NAME_REF
-         args: EFFECTIVE_ARG_LIST
+         args: EFFECTIVE_ARG_LIST_N
          call: FUNCTION_CALL_1
          assignemnt_1: ASSIGNMENT
          capacity: WRITABLE_ATTRIBUTE_NAME
@@ -1294,7 +1294,7 @@ feature {}
          create object_memory_target.make(implicit_current, fn)
          create fn.simple_feature_name(as_calloc, start_position)
          create arg.refer_to(start_position, arguments, 1, 0)
-         create args.make_1(arg)
+         create args.make_1(start_position, arg)
          create call.make(object_memory_target, fn, args)
          create assignemnt_1.make(object_memory, call)
          create capacity.make(string_aliaser.hashed_string(as_capacity), start_position)

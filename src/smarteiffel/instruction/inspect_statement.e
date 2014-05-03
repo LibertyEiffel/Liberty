@@ -615,9 +615,9 @@ feature {MANIFEST_STRING_INSPECTOR}
 
    item_call (type: TYPE; e_local: EXPRESSION): FUNCTION_CALL_1 is
       local
-         fn_item: FEATURE_NAME; args: EFFECTIVE_ARG_LIST
+         fn_item: FEATURE_NAME; args: EFFECTIVE_ARG_LIST_N
       do
-         create args.make_1(create {INTEGER_CONSTANT}.make(0, start_position))
+         create args.make_1(start_position, create {INTEGER_CONSTANT}.make(0, start_position))
          create fn_item.ordinary_name(item_name, start_position)
          create Result.make_specialized(e_local, e_local.resolve_in(type), fn_item, args)
       end

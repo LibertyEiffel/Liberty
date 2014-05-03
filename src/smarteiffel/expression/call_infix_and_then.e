@@ -74,7 +74,7 @@ feature {}
       do
          target := left
          create feature_name.infix_name(and_then_name, operator_position)
-         create arguments.make_1(right)
+         create {EFFECTIVE_ARG_LIST_N} arguments.make_1(start_position, right)
       ensure
          target = left
          start_position = operator_position

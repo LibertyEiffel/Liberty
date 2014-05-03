@@ -299,28 +299,26 @@ feature {EIFFEL_PARSER}
 feature {}
    declaration_type_memory: TYPE
 
-   frozen function_and_argument_count_check (type: TYPE; af: ANONYMOUS_FEATURE; actual_args: like arguments) is
-         -- Check that the feature found is really a function then launch `argument_count_check'.
+   frozen function_check (type: TYPE; af: ANONYMOUS_FEATURE; actual_args: like arguments): BOOLEAN is
+         -- Check that the feature found is really a function.
+         -- Returns False if the function is in fact an agent creation.
       require
          af /= Void
-      local
-         trapped: BOOLEAN
       do
-         if af.result_type = Void then
-            if smart_eiffel.try_agent_creation_error_trap(Current) then
-               -- Well, false alarm, its just an AGENT_CREATION which is actually a PROCEDURE_CALL.
-               trapped := True
-            else
-               error_handler.add_position(af.start_position)
-               error_handler.add_position(feature_name.start_position)
-               error_handler.append(once "Feature found is a procedure.")
-               error_handler.print_as_error
-               error_handler.add_position(feature_name.start_position)
-               error_handler.append(once "This call has no result.")
-               error_handler.print_as_fatal_error
-            end
+         if smart_eiffel.try_agent_creation_error_trap(Current) then
+            -- Well, false alarm, its just an AGENT_CREATION which is actually a PROCEDURE_CALL.
+            check not Result end
+         elseif af.result_type /= Void then
+            Result := True
+         else
+            error_handler.add_position(af.start_position)
+            error_handler.add_position(feature_name.start_position)
+            error_handler.append(once "Feature found is a procedure.")
+            error_handler.print_as_error
+            error_handler.add_position(feature_name.start_position)
+            error_handler.append(once "This call has no result.")
+            error_handler.print_as_fatal_error
          end
-         smart_eiffel.argument_count_check(Current, type, feature_name.start_position, af, actual_args)
       end
 
    frozen true_or_false (boolean: BOOLEAN): EXPRESSION is

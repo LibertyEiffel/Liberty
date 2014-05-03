@@ -4,14 +4,8 @@
 deferred class EFFECTIVE_ARG_LIST_VISITOR
 
 inherit
-   VISITOR
-
-feature {EFFECTIVE_ARG_LIST}
-   visit_effective_arg_list (visited: EFFECTIVE_ARG_LIST) is
-      require
-         visited /= Void
-      deferred
-      end
+   EFFECTIVE_ARG_LIST_0_VISITOR
+   EFFECTIVE_ARG_LIST_N_VISITOR
 
 end -- class EFFECTIVE_ARG_LIST_VISITOR
 --

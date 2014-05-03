@@ -131,7 +131,7 @@ feature {}
       require
          not sp.is_unknown
       do
-         create Result.make_1(tuple_args_ref)
+         create {EFFECTIVE_ARG_LIST_N} Result.make_1(sp, tuple_args_ref)
       end
 
    fn_item: FEATURE_NAME is

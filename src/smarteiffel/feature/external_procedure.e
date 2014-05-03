@@ -66,7 +66,7 @@ feature {}
          t_int: TYPE
          compound: COMPOUND
          initialize, increment: ASSIGNMENT
-         copy_args: EFFECTIVE_ARG_LIST
+         copy_args: EFFECTIVE_ARG_LIST_N
       do
          create arg_at.refer_to(start_position, arguments, 1, 0)
          create arg_src.refer_to(start_position, arguments, 2, 0)
@@ -86,7 +86,7 @@ feature {}
          offset.set_feature_stamp(t_int.lookup(create {FEATURE_NAME}.infix_name(eiffel_parser.minus_name, start_position)))
          create array_item.make(start_position, offset, type.generic_list.first)
          create src_item.make_array(start_position, arg_src, local_index)
-         create copy_args.make_1(src_item)
+         create copy_args.make_1(start_position, src_item)
          create call_copy.make(array_item, smart_eiffel.type_any.class_text.any_copy_feature.names.first, copy_args)
          call_copy.set_feature_stamp(type.generic_list.first.copy_stamp)
          create one.make(1, start_position)

@@ -91,12 +91,16 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): INSTRUCTION is
          ----------- Duplicate code call_0/proc_call_0  -----------
-         --|*** Except for the `procedure_and_argument_count_check' call (Dom. march 28th 2004) ***
+         --|*** Except for the `procedure_check' call (Dom. march 28th 2004) ***
       local
-         fs: like feature_stamp; t: like target; target_type, target_declaration_type: TYPE; af: ANONYMOUS_FEATURE
+         fs: like feature_stamp; t: like target; target_type, target_declaration_type: TYPE; af: ANONYMOUS_FEATURE; args: EFFECTIVE_ARG_LIST
+         res: like Current; call_1: PROCEDURE_CALL_1
       do
+         if arguments_0 = Void then
+            create arguments_0.make(start_position)
+         end
          if target.is_current then
             check
                target = target.specialize_and_check(type)
@@ -104,8 +108,15 @@ feature {ANY}
             end
             target_type := type
             af := feature_stamp.anonymous_feature(type)
-            procedure_and_argument_count_check(type, af, Void)
-            Result := Current
+            procedure_check(type, af, Void)
+            args := arguments_0.specialize_and_check(type, af, type)
+            if args = arguments_0 then
+               Result := Current
+            else
+               create call_1.make(target, feature_name, args)
+               call_1.set_feature_stamp(feature_stamp)
+               Result := call_1.specialize_and_check(type)
+            end
          else
             t := target.specialize_and_check(type)
             target_type := t.resolve_in(type)
@@ -124,23 +135,30 @@ feature {ANY}
                error_handler.append(once "Missing anonymous feature for this call")
                error_handler.print_as_internal_error
             end
-            procedure_and_argument_count_check(type, af, Void)
+            procedure_check(type, af, Void)
+            args := arguments_0.specialize_and_check(type, af, target_type)
             if feature_stamp = Void then
                feature_stamp := fs
             end
-            if t = target and then feature_stamp = fs then
+            if args /= arguments_0 then
+               create call_1.make(t, feature_name, args)
+               call_1.set_feature_stamp(fs)
+               call_1.standard_check_export_and_obsolete_calls(type, target_type, af)
+               Result := call_1.specialize_and_check(type)
+            elseif t = target and then feature_stamp = fs then
                Result := Current
             else
-               Result := twin
-               Result.set_target(t)
-               Result.set_feature_stamp(fs)
+               res := twin
+               res.set_target(t)
+               res.set_feature_stamp(fs)
+               res.standard_check_export_and_obsolete_calls(type, target_type, af)
+               check
+                  feature_stamp /= Void
+                  res.feature_stamp /= Void
+                  res.feature_stamp.has_type(res.target.resolve_in(type))
+               end
+               Result := res
             end
-         end
-         Result.standard_check_export_and_obsolete_calls(type, target_type, af)
-         check
-            feature_stamp /= Void
-            Result.feature_stamp /= Void
-            Result.feature_stamp.has_type(Result.target.resolve_in(type))
          end
       end
 
@@ -215,6 +233,8 @@ feature {}
          target = t
          feature_name = fn
       end
+
+   arguments_0: EFFECTIVE_ARG_LIST_0
 
 invariant
    arguments = Void
