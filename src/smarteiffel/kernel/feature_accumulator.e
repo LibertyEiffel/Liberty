@@ -394,7 +394,7 @@ feature {}
             if context_type.class_text.proper_has(current_fn) and current_fn.start_position.class_text /= context_type.class_text then
                ct1 := current_fn.start_position.class_text
                ct2 := context_type.class_text
-               sedb_breakpoint
+               --| **** TODO why this sedb_breakpoint ??
             end
             context_type.add_feature(current_fn, feature_stamp)
          end
