@@ -113,7 +113,7 @@ feature {ANY}
             error_handler.print_as_internal_error
          end
          procedure_check(type, af, arguments)
-         arg := arguments.specialize_and_check(type, af, target_type)
+         arg := arguments.specialize_and_check(type, af, target_type, True)
          if arg.count > 1 then
             if feature_stamp = Void then
                feature_stamp := fs

@@ -99,7 +99,7 @@ feature {ANY}
                if arguments_0 = Void then
                   create arguments_0.make(start_position)
                end
-               args := arguments_0.specialize_and_check(type, af, type)
+               args := arguments_0.specialize_and_check(type, af, type, True)
                if args = arguments_0 then
                   Result := Current
                else
@@ -132,7 +132,7 @@ feature {ANY}
                if arguments_0 = Void then
                   create arguments_0.make(start_position)
                end
-               args := arguments_0.specialize_and_check(type, af, target_type)
+               args := arguments_0.specialize_and_check(type, af, target_type, True)
                if args /= arguments_0 then
                   create call_1.make(t, feature_name, args)
                   call_1.set_feature_stamp(fs)

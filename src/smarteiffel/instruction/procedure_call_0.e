@@ -109,7 +109,7 @@ feature {ANY}
             target_type := type
             af := feature_stamp.anonymous_feature(type)
             procedure_check(type, af, Void)
-            args := arguments_0.specialize_and_check(type, af, type)
+            args := arguments_0.specialize_and_check(type, af, type, True)
             if args = arguments_0 then
                Result := Current
             else
@@ -136,7 +136,7 @@ feature {ANY}
                error_handler.print_as_internal_error
             end
             procedure_check(type, af, Void)
-            args := arguments_0.specialize_and_check(type, af, target_type)
+            args := arguments_0.specialize_and_check(type, af, target_type, True)
             if feature_stamp = Void then
                feature_stamp := fs
             end

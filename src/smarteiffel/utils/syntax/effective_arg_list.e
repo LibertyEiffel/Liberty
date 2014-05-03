@@ -50,7 +50,7 @@ feature {ANY}
          Result.has_been_specialized
       end
 
-   specialize_and_check (t: TYPE; af: ANONYMOUS_FEATURE; target_type: TYPE): EFFECTIVE_ARG_LIST is
+   specialize_and_check (t: TYPE; af: ANONYMOUS_FEATURE; target_type: TYPE; allow_tuple: BOOLEAN): EFFECTIVE_ARG_LIST is
          -- Checks the validity of argument passing (i.e. assignments) from the effective arguments list into
          -- the formal arguments list from `af'.
       require
@@ -320,8 +320,8 @@ feature {}
          synthetic_tuple := True
          Result := tup
       ensure
-         Result.resolve_in(t).is_tuple
-         synthetic_tuple
+         Result /= Void implies Result.resolve_in(t).is_tuple
+         Result = Void xor synthetic_tuple
       end
 
 end -- class EFFECTIVE_ARG_LIST

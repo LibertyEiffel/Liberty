@@ -135,7 +135,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (t: TYPE; af: ANONYMOUS_FEATURE; target_type: TYPE): EFFECTIVE_ARG_LIST_N is
+   specialize_and_check (t: TYPE; af: ANONYMOUS_FEATURE; target_type: TYPE; allow_tuple: BOOLEAN): EFFECTIVE_ARG_LIST_N is
          --|*** Change exportation to verify what's follow:
          --| (Must be called specialize_and_check of call_proc_call and precursor_call and AGENT_CREATION as well).
          --|*** (Dom. feb 7th 2004)
@@ -149,7 +149,7 @@ feature {ANY}
          if remainder /= Void then
             rem_upper := (fal_count - 2).min(remainder.upper)
          end
-         e2 := specialize_and_check_basic(t, first_one, fal.type_mark(1), target_type, fal_count = 1, fal)
+         e2 := specialize_and_check_basic(t, first_one, fal.type_mark(1), target_type, allow_tuple and then fal_count = 1, fal)
          if first_one /= e2 then
             Result := twin
             Result.set_first_one(e2)
@@ -161,7 +161,7 @@ feature {ANY}
                   e1 /= e2 or else i > rem_upper
                loop
                   e1 := remainder.item(i)
-                  e2 := specialize_and_check_basic(t, e1, fal.type_mark(i + 2), target_type, i + 2 = fal_count, fal)
+                  e2 := specialize_and_check_basic(t, e1, fal.type_mark(i + 2), target_type, allow_tuple and then i + 2 = fal_count, fal)
                   i := i + 1
                end
                if e1 /= e2 then
@@ -172,7 +172,7 @@ feature {ANY}
                   until
                      i > rem_upper
                   loop
-                     e2 := Result.specialize_and_check_basic(t, remainder.item(i), fal.type_mark(i + 2), target_type, i + 2 = fal_count, fal)
+                     e2 := Result.specialize_and_check_basic(t, remainder.item(i), fal.type_mark(i + 2), target_type, allow_tuple and then i + 2 = fal_count, fal)
                      rem.put(e2, i)
                      i := i + 1
                   end
@@ -188,7 +188,7 @@ feature {ANY}
                   e1 /= e2 or else i > rem_upper
                loop
                   e1 := remainder.item(i)
-                  e2 := specialize_and_check_basic(t, e1, fal.type_mark(i + 2), target_type, i + 2 = fal_count, fal)
+                  e2 := specialize_and_check_basic(t, e1, fal.type_mark(i + 2), target_type, allow_tuple and then i + 2 = fal_count, fal)
                   i := i + 1
                end
                if e1 /= e2 then
@@ -200,7 +200,7 @@ feature {ANY}
                   until
                      i > rem_upper
                   loop
-                     e2 := Result.specialize_and_check_basic(t, remainder.item(i), fal.type_mark(i + 2), target_type, i + 2 = fal_count, fal)
+                     e2 := Result.specialize_and_check_basic(t, remainder.item(i), fal.type_mark(i + 2), target_type, allow_tuple and then i + 2 = fal_count, fal)
                      rem.put(e2, i)
                      i := i + 1
                   end
@@ -800,7 +800,7 @@ feature {EFFECTIVE_ARG_LIST}
          if fal /= Void then
             fal_count := fal.count
          end
-         if count > fal_count then
+         if count /= fal_count then
             if synthetic_tuple then
                if fal_count = 1 then
                   remainder := Void --| **** lost memory

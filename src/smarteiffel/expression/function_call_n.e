@@ -128,7 +128,7 @@ feature {ANY}
          if not function_check(type, af, arguments) then
             --sedb_breakpoint
          end
-         arg := arguments.specialize_and_check(type, af, target_type)
+         arg := arguments.specialize_and_check(type, af, target_type, True)
          if arg.count > 1 then
             if feature_stamp = Void then
                feature_stamp := fs

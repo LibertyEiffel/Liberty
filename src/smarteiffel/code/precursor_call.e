@@ -46,7 +46,7 @@ feature {ANY}
       do
          saf := specialized_anonymous_feature.specialize_and_check(type)
          if arguments /= Void then
-            args := arguments.specialize_and_check(type, saf, type)
+            args := arguments.specialize_and_check(type, saf, type, False)
          end
          Result := current_or_twin_init(saf, args)
       end

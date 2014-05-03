@@ -38,7 +38,7 @@ feature {ANY}
          check False end
       end
 
-   specialize_and_check (t: TYPE; af: ANONYMOUS_FEATURE; target_type: TYPE): EFFECTIVE_ARG_LIST is
+   specialize_and_check (t: TYPE; af: ANONYMOUS_FEATURE; target_type: TYPE; allow_tuple: BOOLEAN): EFFECTIVE_ARG_LIST is
       local
          fal: FORMAL_ARG_LIST; formal_type: TYPE
       do
@@ -47,7 +47,7 @@ feature {ANY}
             Result := Current
          elseif fal.count = 1 then
             formal_type := fal.type_mark(1).resolve_in(target_type)
-            if formal_type.is_tuple then
+            if allow_tuple and then formal_type.is_tuple then
                create {EFFECTIVE_ARG_LIST_N} Result.make_1(start_position, synthetize_tuple(t, fal))
                Result.end_position := end_position
             else

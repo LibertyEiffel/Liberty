@@ -123,7 +123,7 @@ feature {ANY}
          if feature_name.name.to_string = as_call and then target_type.is_agent then
             create {AGENT_INSTRUCTION} Result.make(type, Current, target_type, t, arguments)
          else
-            arg := arguments.specialize_and_check(type, af, target_type)
+            arg := arguments.specialize_and_check(type, af, target_type, True)
             if arg.count = arguments.count then
                if feature_stamp = Void then
                   feature_stamp := fs
