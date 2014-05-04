@@ -221,7 +221,7 @@ feature {ANY}
                   create remainder.with_capacity(1)
                else
                end
-               remainder.add_last(synthetize_tuple(t, fal))
+               remainder.add_last(synthetize_tuple(target_type, t, fal))
             end
          end
          Result.specialize_check_count(t, target_type, fal)
@@ -774,8 +774,10 @@ feature {EFFECTIVE_ARG_LIST}
          else
             actual_type := e.resolve_in(t)
             if is_last and then formal_type.is_tuple and then not actual_type.is_tuple then
-               e := synthetize_tuple(t, fal)
-            elseif not actual_type.can_be_assigned_to(formal_type) then
+               e := synthetize_tuple(target_type, t, fal)
+               actual_type := e.resolve_in(t)
+            end
+            if not actual_type.can_be_assigned_to(formal_type) then
                error_handler.add_position(e.start_position)
                error_handler.add_position(formal_type_mark.start_position)
                error_handler.append(once "Cannot pass ")

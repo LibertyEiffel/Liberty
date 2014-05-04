@@ -48,7 +48,7 @@ feature {ANY}
          elseif fal.count = 1 then
             formal_type := fal.type_mark(1).resolve_in(target_type)
             if allow_tuple and then formal_type.is_tuple then
-               create {EFFECTIVE_ARG_LIST_N} Result.make_1(start_position, synthetize_tuple(t, fal))
+               create {EFFECTIVE_ARG_LIST_N} Result.make_1(start_position, synthetize_tuple(target_type, t, fal))
                Result.end_position := end_position
             else
                specialize_count_error(af.start_position, fal)

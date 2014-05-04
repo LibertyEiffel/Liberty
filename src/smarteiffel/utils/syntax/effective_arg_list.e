@@ -262,12 +262,32 @@ feature {AGENT_CREATION}
 feature {}
    synthetic_tuple: BOOLEAN
 
-   synthetize_tuple (t: TYPE; fal: FORMAL_ARG_LIST): EXPRESSION is
+   synthetic_tuple_arg (index: INTEGER; type: TYPE; fal: FORMAL_ARG_LIST; formal_tuple_type: NON_EMPTY_TUPLE_TYPE_MARK): EXPRESSION is
+      require
+         fal.count <= count
+         index >= 0
+         index < count - fal.count
+      local
+         actual_type, formal_type: TYPE; e: EXPRESSION
+      do
+         check
+            formal_tuple_type.generic_list.lower = 1
+         end
+         formal_type := formal_tuple_type.generic_list.item(index + 1).resolve_in(type)
+
+         e := expression(fal.count + index).specialize_and_check(type)
+         actual_type := e.resolve_in(type)
+
+         Result := assignment_handler.implicit_cast(e, actual_type, formal_type)
+      end
+
+   synthetize_tuple (target_type, t: TYPE; fal: FORMAL_ARG_LIST): EXPRESSION is
       require
          fal /= Void and then fal.count > 0
          count >= fal.count - 1
          not synthetic_tuple
       local
+         ftt: NON_EMPTY_TUPLE_TYPE_MARK
          tup: MANIFEST_TUPLE; rem: FAST_ARRAY[EXPRESSION]
          eal: EFFECTIVE_ARG_LIST_N
          i, fal_count: INTEGER
@@ -275,40 +295,41 @@ feature {}
       do
          fal_count := fal.count
          if count < fal_count then
-            check eal = Void end
-            create tup.make(start_position, eal)
+            create tup.make(start_position, Void)
          else
+            ftt ::= fal.type_mark(fal_count).resolve_in(target_type).canonical_type_mark
             if count = fal_count then
-               create eal.make_1(start_position, expression(count).specialize_and_check(t))
+               create eal.make_1(start_position, synthetic_tuple_arg(0, t, fal, ftt))
             elseif count = fal_count + 1 then
-               create eal.make_2(start_position, expression(fal_count).specialize_and_check(t), expression(count).specialize_and_check(t))
+               create eal.make_2(start_position, synthetic_tuple_arg(0, t, fal, ftt), synthetic_tuple_arg(1, t, fal, ftt))
             else
                check
                   count >= fal_count + 2
                end
                from
                   create rem.with_capacity(count - fal_count - 2)
-                  i := fal_count + 1
+                  i := 0
                until
-                  i > count
+                  i >= count - fal_count
                loop
-                  rem.add_last(expression(i))
+                  rem.add_last(synthetic_tuple_arg(i, t, fal, ftt))
                   i := i + 1
                end
-               create eal.make_n(start_position, expression(fal_count).specialize_and_check(t), rem)
+               create eal.make_n(start_position, synthetic_tuple_arg(0, t, fal, ftt), rem)
             end
             create tup.make(expression(fal_count).start_position, eal)
          end
+
          tup := tup.specialize_and_check(t)
 
          error_handler.append(once "Synthetizing ")
          error_handler.add_type(tup.resolve_in(t))
          error_handler.append(once " for extra arguments.")
          error_handler.add_position(fal.name(fal_count).start_position)
-         if fal_count < count then
-            error_handler.add_position(expression(fal_count).start_position)
-         else
+         if fal_count > count then
             error_handler.add_position(end_position)
+         else
+            error_handler.add_position(expression(fal_count).start_position)
          end
          if mhf.is_no_gc then
             error_handler.append(once " May lose memory.")
@@ -320,8 +341,8 @@ feature {}
          synthetic_tuple := True
          Result := tup
       ensure
-         Result /= Void implies Result.resolve_in(t).is_tuple
-         Result = Void xor synthetic_tuple
+         Result.resolve_in(t).is_tuple
+         synthetic_tuple
       end
 
 end -- class EFFECTIVE_ARG_LIST

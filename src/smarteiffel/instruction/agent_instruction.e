@@ -137,7 +137,7 @@ feature {}
          agent_type := at
          written_link := wl
          target := t
-         fake_tuple := args.to_fake_tuple(type).specialize_and_check(type)
+         fake_tuple := args.to_fake_tuple(type)
          specialize_check(type)
          fake_tuple := fake_tuple.implicit_cast(type, at.open_arguments)
       ensure

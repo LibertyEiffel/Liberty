@@ -120,10 +120,12 @@ feature {ANY}
             error_handler.print_as_internal_error
          end
          procedure_check(type, af, arguments)
-         if feature_name.name.to_string = as_call and then target_type.is_agent then
-            create {AGENT_INSTRUCTION} Result.make(type, Current, target_type, t, arguments)
+
+         arg := arguments.specialize_and_check(type, af, target_type, True)
+
+         if af.names.first.to_string = as_call and then target_type.is_agent then
+            create {AGENT_INSTRUCTION} Result.make(type, Current, target_type, t, arg)
          else
-            arg := arguments.specialize_and_check(type, af, target_type, True)
             if arg.count = arguments.count then
                if feature_stamp = Void then
                   feature_stamp := fs

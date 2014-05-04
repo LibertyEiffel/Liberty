@@ -114,80 +114,71 @@ feature {ANY}
          a1: like arg1; like_current_result: like Current; call_n: FUNCTION_CALL_N
       do
          t := target.specialize_and_check(type)
-         target_type := t.resolve_in(type)
-
-         if feature_name.name.to_string = as_item and then target_type.is_agent then
-            fs := target_type.search(feature_name)
-            if fs = Void then
-               smart_eiffel.unknown_feature_fatal_error(target, target_type, feature_name)
-            end
-            af := fs.anonymous_feature(target_type)
-            if af = Void then
-               if not target.is_implicit_current then
-                  error_handler.add_position(target.start_position)
-               end
-               error_handler.add_position(feature_name.start_position)
-               error_handler.append(once "Missing anonymous feature for this call")
-               error_handler.print_as_internal_error
-            end
-            if function_check(type, af, arguments) then
-               --sedb_breakpoint
-            end
-            create {AGENT_EXPRESSION} Result.make(type, Current, target_type, t, arguments)
+         if target.is_current then
+            target_type := type
          else
-            arg := arguments
-            a1 := arg1
-            a1 := a1.specialize_and_check(type)
-            if a1 /= arg1 then
-               arg := arg.twin
-               arg.put(a1, 1)
-            end
+            target_type := t.resolve_in(type)
+         end
 
-            -- Looking for the balancing_rule:
-            if is_balanced_operator(feature_name.to_string) then
-               if target_type.is_integer or else target_type.is_real then
-                  if is_question_mark_open_operand(a1) then
-                     -- In the case of a question mark (?) OPEN_OPERAND, we cannot call `resolve_in'
-                     -- yet and, by nature, we must not apply balancing rule here.
-                     -- (If one want to allow balancing he must use a curly typed OPEN_OPERAND.)
-                  else
-                     argument_type := a1.resolve_in(type)
-                     if argument_type.is_integer or else argument_type.is_real then
-                        if argument_type /= target_type then
-                           if target_type.can_be_assigned_to(argument_type) then
-                              t := assignment_handler.implicit_cast(t, target_type, argument_type)
-                              target_type := argument_type
-                           end
+         arg := arguments
+         a1 := arg1
+         a1 := a1.specialize_and_check(type)
+         if a1 /= arg1 then
+            arg := arg.twin
+            arg.put(a1, 1)
+         end
+
+         -- Looking for the balancing_rule:
+         --| **** TODO replace by conversion here
+         if is_balanced_operator(feature_name.to_string) then
+            if target_type.is_integer or else target_type.is_real then
+               if is_question_mark_open_operand(a1) then
+                  -- In the case of a question mark (?) OPEN_OPERAND, we cannot call `resolve_in'
+                  -- yet and, by nature, we must not apply balancing rule here.
+                  -- (If one want to allow balancing he must use a curly typed OPEN_OPERAND.)
+               else
+                  argument_type := a1.resolve_in(type)
+                  if argument_type.is_integer or else argument_type.is_real then
+                     if argument_type /= target_type then
+                        if target_type.can_be_assigned_to(argument_type) then
+                           t := assignment_handler.implicit_cast(t, target_type, argument_type)
+                           target_type := argument_type
                         end
                      end
                   end
                end
             end
+         end
 
-            if target.is_current and then target = t then
-               fs := feature_stamp
-            else
-               target_declaration_type := t.declaration_type
-               fs := target_declaration_type.search(feature_name)
-               if fs = Void then
-                  smart_eiffel.unknown_feature_fatal_error(target, target_declaration_type, feature_name)
-               end
-               fs := fs.resolve_static_binding_for(target_declaration_type, target_type)
+         if target.is_current then
+            fs := feature_stamp
+         else
+            target_declaration_type := t.declaration_type
+            fs := target_declaration_type.search(feature_name) -- *** OBSOLETE *** Dom march 15th 2006 ***
+            if fs = Void then
+               smart_eiffel.unknown_feature_fatal_error(target, target_declaration_type, feature_name)
             end
-            af := fs.anonymous_feature(target_type)
-            if af = Void then
-               if not target.is_implicit_current then
-                  error_handler.add_position(target.start_position)
-               end
-               error_handler.add_position(feature_name.start_position)
-               error_handler.append(once "Missing anonymous feature for this call")
-               error_handler.print_as_internal_error
-            end
-            if not function_check(type, af, arguments) then
-               --sedb_breakpoint
-            end
+            fs := fs.resolve_static_binding_for(target_declaration_type, target_type)
+         end
 
-            arg := arg.specialize_and_check(type, af, target_type, True)
+         af := fs.anonymous_feature(target_type)
+         if af = Void then
+            if not target.is_implicit_current then
+               error_handler.add_position(target.start_position)
+            end
+            error_handler.add_position(feature_name.start_position)
+            error_handler.append(once "Missing anonymous feature for this call")
+            error_handler.print_as_internal_error
+         end
+         if function_check(type, af, arguments) then
+            --sedb_breakpoint
+         end
+
+         arg := arg.specialize_and_check(type, af, target_type, True)
+
+         if af.names.first.to_string = as_item and then target_type.is_agent then
+            create {AGENT_EXPRESSION} Result.make(type, Current, target_type, t, arg)
+         else
             if arg.count = arguments.count then
                if feature_stamp = Void then
                   feature_stamp := fs
