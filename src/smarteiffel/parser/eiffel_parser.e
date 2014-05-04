@@ -2217,7 +2217,7 @@ feature {}
       local
          sp, ep: POSITION; first_one: EXPRESSION; remainder: FAST_ARRAY[EXPRESSION]
       do
-         if skip1('(') then
+         if not skipped_new_line and then skip1('(') then
             sp := pos(start_line, start_column)
             from
             until
