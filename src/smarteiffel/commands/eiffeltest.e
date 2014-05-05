@@ -178,8 +178,7 @@ feature {}
 
    check_eiffel_directory_path is
       local
-         path, name: STRING; directory_scanner: BASIC_DIRECTORY
-         subdirectory_list, test_list, bad_list: FAST_ARRAY[STRING]
+         path: STRING
       do
          echo.put_string("Now checking or creating %"eiffeltest%" subdirectory.%N")
          path := directory_path.twin
