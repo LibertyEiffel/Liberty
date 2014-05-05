@@ -26,10 +26,6 @@ feature {ANY}
    agent_args: AGENT_ARGS
          -- Computed using `fake_tuple'.
 
-   anonymous_feature (target_type: TYPE): ANONYMOUS_FEATURE is
-      deferred
-      end
-
 feature {ANY}
    use_current (type: TYPE): BOOLEAN is
       do

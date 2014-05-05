@@ -501,6 +501,9 @@ feature {}
    drop_comments: BOOLEAN
          -- When objects COMMENT are not necessary.
 
+   skipped_new_line: BOOLEAN
+         -- True when the last skip_comments skipped a new-line
+
    skip_comments is
          -- Skip separators and comments if any. Unless `drop_comments',
          -- comments are stored in `last_comment'.
@@ -508,12 +511,16 @@ feature {}
          sp: POSITION; stop: BOOLEAN
       do
          from
+            skipped_new_line := False
          until
             stop
          loop
             inspect
                cc
-            when '%N', '%R', '%F', ' ', '%T' then
+            when '%N', '%R' then
+               skipped_new_line := True
+               next_char
+            when '%F', ' ', '%T' then
                next_char
             when '-' then
                next_char
@@ -634,6 +641,7 @@ feature {}
                   Result := True
                   cc := current_line.item(i)
                   column := i
+                  skip_comments
                end
             end
          end

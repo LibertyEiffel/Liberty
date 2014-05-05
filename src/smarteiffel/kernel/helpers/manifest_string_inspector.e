@@ -32,6 +32,8 @@ feature {INSPECT_STATEMENT_VISITOR}
       end
 
 feature {}
+   start_position: POSITION
+
    make (ei: INSPECT_STATEMENT) is
       require
          ei /= Void
@@ -39,6 +41,7 @@ feature {}
          when_list: FAST_ARRAY[WHEN_CLAUSE]; val: FAST_ARRAY[WHEN_ITEM]; i, j, n: INTEGER; wi1: WHEN_ITEM_1
          s: STRING; ms: MANIFEST_STRING
       do
+         start_position := ei.start_position
          create headers.make(0)
          when_list := ei.when_list
          from
@@ -185,7 +188,7 @@ feature {}
                    a_prefix: STRING; pos: POSITION): INSTRUCTION is
       local
          i_call: FUNCTION_CALL_1
-         args: EFFECTIVE_ARG_LIST
+         args: EFFECTIVE_ARG_LIST_N
          then_compound, else_compound, when_compound: INSTRUCTION; ifthenelse: IFTHENELSE
          inspect_chars: OTHER_INSPECT_STATEMENT; eq: BUILT_IN_EQ_NEQ
          when_clause: WHEN_CLAUSE
@@ -220,7 +223,7 @@ feature {}
             -- 0 (not found).
             create {ASSIGNMENT} else_compound.inline_make(state_local, create {INTEGER_CONSTANT}.make(0, pos))
          else
-            create args.make_1(create {INTEGER_CONSTANT}.make(level + 1, pos))
+            create args.make_1(start_position, create {INTEGER_CONSTANT}.make(level + 1, pos))
             i_call := item_call.twin
             i_call.set_arguments(args)
             if chars.count = 1 then

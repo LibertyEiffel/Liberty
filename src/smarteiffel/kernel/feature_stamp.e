@@ -626,7 +626,7 @@ feature {CECIL_ENTRY, ADDRESS_OF}
       end
 
 feature {}
-   fake_effective_arg_list (start_position: POSITION; target_type: TYPE; af: ANONYMOUS_FEATURE): EFFECTIVE_ARG_LIST is
+   fake_effective_arg_list (start_position: POSITION; target_type: TYPE; af: ANONYMOUS_FEATURE): EFFECTIVE_ARG_LIST_N is
          -- Note: not moved in ANONYMOUS_FEATURE because we don't need to add more dispatch.
       local
          first: FAKE_ARGUMENT; remainder: FAST_ARRAY[EXPRESSION]; fake_argument: FAKE_ARGUMENT
@@ -646,9 +646,9 @@ feature {}
                   remainder.add_last(fake_argument)
                   i := i + 1
                end
-               create Result.make_n(first, remainder)
+               create Result.make_n(start_position, first, remainder)
             else
-               create Result.make_1(first)
+               create Result.make_1(start_position, first)
             end
          end
       end

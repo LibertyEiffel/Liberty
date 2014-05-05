@@ -291,7 +291,7 @@ feature {}
          else
             t := ls.resolve_in(type)
             if t.is_user_expanded and then t = rs.resolve_in(type) then
-               create {FUNCTION_CALL_1} Result.make_specialized(ls, t, create {FEATURE_NAME}.simple_feature_name(as_is_equal, start_position), create {EFFECTIVE_ARG_LIST}.make_1(rs))
+               create {FUNCTION_CALL_1} Result.make_specialized(ls, t, create {FEATURE_NAME}.simple_feature_name(as_is_equal, start_position), create {EFFECTIVE_ARG_LIST_N}.make_1(start_position, rs))
                if not eq_flag then
                   create {CALL_PREFIX_NOT} Result.make(start_position, Result)
                end

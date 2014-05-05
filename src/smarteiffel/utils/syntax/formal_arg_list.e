@@ -123,28 +123,31 @@ feature {ANY}
       end
 
 feature {AGENT_CREATION}
-   omitted_open_arguments (type, target_type: TYPE; sp: POSITION): EFFECTIVE_ARG_LIST is
+   omitted_open_arguments (type, target_type: TYPE; sp: POSITION): EFFECTIVE_ARG_LIST_N is
          -- Create the corresponding ommited open arguments list.
       local
-         rank: INTEGER; open_operand: OPEN_OPERAND; resolved: TYPE
+         rank: INTEGER; open_operand: OPEN_OPERAND; resolved: TYPE; remainder: FAST_ARRAY[EXPRESSION]
       do
          create open_operand.question_mark(sp)
          open_operand.set_rank(1)
          resolved := type_mark(1).resolve_in(target_type)
          open_operand.update_resolved_memory(type, resolved)
-         create Result.make_1(open_operand)
-         from
-            rank := 2
-         until
-            rank > count
-         loop
-            create open_operand.question_mark(sp)
-            open_operand.set_rank(rank)
-            resolved := type_mark(rank).resolve_in(target_type)
-            open_operand.update_resolved_memory(type, resolved)
-            Result.add_last(open_operand)
-            rank := rank + 1
+         if count > 1 then
+            create remainder.with_capacity(count - 2)
+            from
+               rank := 2
+            until
+               rank > count
+            loop
+               create open_operand.question_mark(sp)
+               open_operand.set_rank(rank)
+               resolved := type_mark(rank).resolve_in(target_type)
+               open_operand.update_resolved_memory(type, resolved)
+               remainder.add_last(open_operand)
+               rank := rank + 1
+            end
          end
+         create Result.make_n(start_position, open_operand, remainder)
       ensure
          Result.count = count
       end

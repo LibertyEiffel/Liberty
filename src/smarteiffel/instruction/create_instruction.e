@@ -296,7 +296,7 @@ feature {}
          type /= Void
       local
          hs: HASHED_STRING; cn: CLASS_NAME; gl: ARRAY[TYPE_MARK]; ugtm: USER_GENERIC_TYPE_MARK
-         fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST; er: RESULT; target: IMPLICIT_CURRENT
+         fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST_N; er: RESULT; target: IMPLICIT_CURRENT
       do
          start_position := sp
          hs := string_aliaser.hashed_string(as_typed_internals)
@@ -308,7 +308,7 @@ feature {}
          create {CREATE_WRITABLE} writable.make(explicit_type, er)
          create fn.simple_feature_name(as_for_object, sp)
          create target.make(sp)
-         create eal.make_1(target)
+         create eal.make_1(start_position, target)
          create {PROCEDURE_CALL_1} call.make(writable, fn, eal)
       end
 

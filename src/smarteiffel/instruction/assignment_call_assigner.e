@@ -73,7 +73,7 @@ feature {ANY}
          l: FUNCTION_CALL; r: EXPRESSION
          target_type: TYPE; fn: FEATURE_NAME
          fs_assigned: FEATURE_STAMP; af_assigned, af_assigner: ANONYMOUS_FEATURE
-         pc_arguments, arguments: EFFECTIVE_ARG_LIST
+         pc_arguments: EFFECTIVE_ARG_LIST; arguments: EFFECTIVE_ARG_LIST_N
          args: FAST_ARRAY[EXPRESSION]; i: INTEGER
          collected_actual_call: PROCEDURE_CALL
       do
@@ -108,7 +108,7 @@ feature {ANY}
 
          pc_arguments := l.arguments
          if pc_arguments = Void then
-            create arguments.make_1(r)
+            create arguments.make_1(start_position, r)
             create {PROCEDURE_CALL_1} collected_actual_call.make(l.target, fn, arguments)
          else
             create args.with_capacity(pc_arguments.count)
@@ -120,7 +120,7 @@ feature {ANY}
                args.add_last(pc_arguments.expression(i))
                i := i + 1
             end
-            create arguments.make_n(r, args)
+            create arguments.make_n(start_position, r, args)
             create {PROCEDURE_CALL_N} collected_actual_call.make(l.target, fn, arguments)
          end
 

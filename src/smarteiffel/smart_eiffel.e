@@ -567,74 +567,6 @@ feature {ONCE_ROUTINE_POOL}
          dummy := collect(type, fs, False)
       end
 
-feature {FUNCTION_CALL, PROCEDURE_CALL, PRECURSOR_CALL}
-   argument_count_check (error_trap: FUNCTION_CALL; type: TYPE;
-                         call_site: POSITION; af: ANONYMOUS_FEATURE; actual_args: EFFECTIVE_ARG_LIST) is
-         -- Check that the number of arguments of `af' is compatible with `actual_args'. Only the number of
-         -- arguments is checked here.
-         --
-         -- NOTE: only a partial count check here, because of implicit tuples.
-         --
-         -- The complete count and conformance test is actually performed in EFFECTIVE_ARG_LIST.
-      require
-         not call_site.is_unknown
-         af /= Void
-      local
-         formal_args: FORMAL_ARG_LIST; actual, formal: INTEGER
-      do
-         formal_args := af.arguments
-         if formal_args /= Void then
-            if actual_args /= Void then
-               formal := formal_args.count
-               actual := actual_args.count
-               if actual < formal then
-                  error_handler.append(once "The feature called has ")
-                  error_handler.append_integer(formal)
-                  error_handler.append(once " formal argument")
-                  if formal > 1 then
-                     error_handler.extend('s')
-                  end
-                  error_handler.append(once " while the actual argument list has ")
-                  error_handler.append_integer(actual)
-                  error_handler.append(once " argument")
-                  if actual > 1 then
-                     error_handler.extend('s')
-                  end
-                  error_handler.append(once ".")
-                  error_handler.add_position(formal_args.start_position)
-                  error_handler.add_position(actual_args.start_position)
-                  error_handler.print_as_fatal_error
-               end
-            elseif try_agent_creation_error_trap(error_trap) then
-               -- Well, false alarm, its just an AGENT_CREATION with an ommitted actual arguments list.
-            else
-               formal := formal_args.count
-               error_handler.append(once "The feature called has ")
-               error_handler.append_integer(formal)
-               error_handler.append(once " formal argument")
-               if formal > 1 then
-                  error_handler.extend('s')
-               end
-               error_handler.append(once " while there is no actual argument list in the call.")
-               error_handler.add_position(formal_args.start_position)
-               error_handler.add_position(call_site)
-               error_handler.print_as_fatal_error
-            end
-         elseif actual_args /= Void then
-            actual := actual_args.count
-            error_handler.append(once "The feature called has no formal argument while the actual argument list has ")
-            error_handler.append_integer(actual)
-            error_handler.append(once " argument")
-            if actual > 1 then
-               error_handler.extend('s')
-            end
-            error_handler.append(once ".")
-            error_handler.add_position(af.start_position)
-            error_handler.add_position(actual_args.start_position)
-            error_handler.print_as_fatal_error
-         end
-      end
-
 feature {TYPE_MARK}
    long_type_name (type_name: HASHED_STRING; type_cluster: CLUSTER): HASHED_STRING is
       require
@@ -1809,7 +1741,7 @@ feature {AGENT_CREATION}
          agent_creation_error_trap.pop
       end
 
-feature {FUNCTION_CALL}
+feature {FUNCTION_CALL, PROCEDURE_CALL}
    try_agent_creation_error_trap (function_call: FUNCTION_CALL): BOOLEAN is
       do
          if not agent_creation_error_trap.is_empty then

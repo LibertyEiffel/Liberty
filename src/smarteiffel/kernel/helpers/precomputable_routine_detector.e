@@ -227,7 +227,7 @@ feature {CST_ATT_CHARACTER}
       do
       end
 
-feature {ANY} --|*** CONTINUER LES EXPORTS ***
+feature {LOCAL_VAR_LIST}
    visit_local_var_list (visited: LOCAL_VAR_LIST) is
       local
          i: INTEGER; type_mark: TYPE_MARK; type: TYPE
@@ -246,7 +246,13 @@ feature {ANY} --|*** CONTINUER LES EXPORTS ***
          end
       end
 
-   visit_effective_arg_list (visited: EFFECTIVE_ARG_LIST) is
+feature {EFFECTIVE_ARG_LIST_0}
+   visit_effective_arg_list_0 (visited: EFFECTIVE_ARG_LIST_0) is
+      do
+      end
+
+feature {EFFECTIVE_ARG_LIST_N}
+   visit_effective_arg_list_n (visited: EFFECTIVE_ARG_LIST_N) is
       local
          i: INTEGER
       do
@@ -260,10 +266,12 @@ feature {ANY} --|*** CONTINUER LES EXPORTS ***
          end
       end
 
+feature {COMMENT}
    visit_comment (visited: COMMENT) is
       do
       end
 
+feature {FAKE_TUPLE}
    visit_fake_tuple (visited: FAKE_TUPLE) is
       do
          precomputable := False
@@ -319,7 +327,7 @@ feature {OLD_MANIFEST_ARRAY}
 feature {MANIFEST_TUPLE}
    visit_manifest_tuple (visited: MANIFEST_TUPLE) is
       do
-         visit_effective_arg_list(visited.effective_arg_list)
+         visited.effective_arg_list.accept(Current)
       end
 
 feature {DEBUG_COMPOUND}

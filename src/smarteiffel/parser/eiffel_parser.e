@@ -2214,40 +2214,57 @@ feature {}
    a_actuals: EFFECTIVE_ARG_LIST is
          --  ++ actuals -> "(" {actual "," ...} ")"
          --  ++
-      local
-         first_one: EXPRESSION; remainder: FAST_ARRAY[EXPRESSION]
       do
-         if skip1('(') then
-            from
-            until
-               not a_expression
-            loop
-               if not skip1(',') and then cc /= ')' then
-                  error_handler.add_position(current_position)
-                  error_handler.append(em5)
-                  error_handler.print_as_warning
-               end
-               if first_one = Void then
-                  first_one := last_expression
-               else
-                  if remainder = Void then
-                     create remainder.with_capacity(4)
-                  end
-                  remainder.add_last(last_expression)
-               end
+         if not skipped_new_line and then skip1('(') then
+            Result := a_actuals_until(')')
+         end
+      end
+
+   a_actuals_until (close: CHARACTER): EFFECTIVE_ARG_LIST is
+         --  ++ actuals -> "(" {actual "," ...} ")"
+         --  ++                ^
+         --  ++
+      local
+         sp, ep: POSITION; first_one: EXPRESSION; remainder: FAST_ARRAY[EXPRESSION]
+      do
+         sp := pos(start_line, start_column)
+         from
+         until
+            not a_expression
+         loop
+            if not skip1(',') and then cc /= close then
+               error_handler.add_position(current_position)
+               error_handler.append(em5)
+               error_handler.print_as_warning
             end
             if first_one = Void then
-               error_handler.add_position(current_position)
-               error_handler.append(once "Empty argument list (deleted).")
-               error_handler.print_as_style_warning
+               first_one := last_expression
             else
-               create Result.make_n(first_one, remainder)
+               if remainder = Void then
+                  create remainder.with_capacity(4)
+               end
+               remainder.add_last(last_expression)
             end
-            if not skip1(')') then
-               error_handler.add_position(current_position)
-               error_handler.append(once "')' expected to end arguments list.")
-               error_handler.print_as_fatal_error
-            end
+         end
+         if skip1(close) then
+            ep := pos(start_line, start_column)
+         else
+            ep := pos(line, column)
+            error_handler.add_position(current_position)
+            error_handler.extend('%'')
+            error_handler.extend(close)
+            error_handler.append(once "' expected to end arguments list.")
+            error_handler.print_as_fatal_error
+         end
+         if first_one = Void then
+            --| **** removed style warning because of alias "()"
+            --| **** TODO: put it elsewhere?
+            --error_handler.add_position(current_position)
+            --error_handler.append(once "Empty argument list (deleted).")
+            --error_handler.print_as_style_warning
+         else
+            create {EFFECTIVE_ARG_LIST_N} Result.make_n(sp, first_one, remainder)
+            Result.end_position := ep
          end
       end
 
@@ -2269,6 +2286,34 @@ feature {}
                                  %Nothing else but a simple feature name is meaningful just after a dot.")
             error_handler.print_as_fatal_error
          end
+      end
+
+   a_alias_parentheses (do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN is
+         --  ++ alias_parentheses -> "(" {actual "," ...} ")"
+         --  ++                          ^
+      require
+         target /= Void
+      local
+         sp: POSITION; sfn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST
+      do
+         sp := pos(start_line, start_column)
+         eal := a_actuals_until(')')
+         create sfn.alias_name(parentheses_name, sp)
+         Result := a_r10(do_instruction, target, sfn, eal)
+      end
+
+   a_alias_brackets (do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN is
+         --  ++ alias_brackets -> "[" {actual "," ...} "]"
+         --  ++                       ^
+      require
+         target /= Void
+      local
+         sp: POSITION; sfn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST
+      do
+         sp := pos(start_line, start_column)
+         eal := a_actuals_until(']')
+         create sfn.alias_name(brackets_name, sp)
+         Result := a_r10(do_instruction, target, sfn, eal)
       end
 
    a_assignment_or_procedure_call: BOOLEAN is
@@ -2604,7 +2649,7 @@ feature {}
          end
       end
 
-feature {FUNCTION_CALL, EXTERNAL_PROCEDURE}
+feature {EXTERNAL_PROCEDURE, FUNCTION_CALL, PROCEDURE_CALL}
    brackets_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_brackets)
@@ -4172,8 +4217,9 @@ feature {}
          --  ++       function_call r10 |
          --  ++
       local
-         type_mark: TYPE_MARK; args: EFFECTIVE_ARG_LIST; sp: POSITION; eal: EFFECTIVE_ARG_LIST
+         type_mark: TYPE_MARK; args: EFFECTIVE_ARG_LIST; sp: POSITION; eal: EFFECTIVE_ARG_LIST_N
          delayed_call: FUNCTION_CALL; writable: EXPRESSION; ft: FEATURE_TEXT; ewc: EXPRESSION_WITH_COMMENT
+         e1: EXPRESSION; rem: FAST_ARRAY[EXPRESSION]
       do
          if skip1('(') then
             if a_expression then
@@ -4190,18 +4236,24 @@ feature {}
                error_handler.print_as_fatal_error
             end
          elseif skip1('[') then
-            from
-               Result := True
-               sp := pos(start_line, start_column)
-            until
-               not a_expression
-            loop
-               if eal = Void then
-                  create eal.make_1(last_expression)
-               else
-                  eal.add_last(last_expression)
-               end
+            Result := True
+            sp := pos(start_line, start_column)
+            if a_expression then
+               e1 := last_expression
                ok := skip1(',')
+               if a_expression then
+                  from
+                     create rem.with_capacity(4)
+                     rem.add_last(last_expression)
+                     ok := skip1(',')
+                  until
+                     not a_expression
+                  loop
+                     rem.add_last(last_expression)
+                     ok := skip1(',')
+                  end
+               end
+               create eal.make_n(sp, e1, rem)
             end
             if not skip1(']') then
                error_handler.add_position(current_position)
@@ -6154,6 +6206,22 @@ feature {}
                error_handler.print_as_fatal_error
             end
             Result := just_after_a_dot(do_instruction, to_call(t, fn, eal))
+         elseif not skipped_new_line and then skip1('(') then
+            if t /= Void and then t.is_void then
+               error_handler.add_position(t.start_position)
+               error_handler.append(once "Void is not a valid target (i.e. just after a dot).")
+               error_handler.print_as_fatal_error
+            end
+            -- alias "()"
+            Result := a_alias_parentheses(do_instruction, to_call(t, fn, eal))
+         elseif not skipped_new_line and then skip1('[') then
+            if t /= Void and then t.is_void then
+               error_handler.add_position(t.start_position)
+               error_handler.append(once "Void is not a valid target (i.e. just after a dot).")
+               error_handler.print_as_fatal_error
+            end
+            -- alias "[]"
+            Result := a_alias_brackets(do_instruction, to_call(t, fn, eal))
          elseif do_instruction then
             last_instruction := to_proc_call(t, fn, eal)
             if last_instruction /= Void then
