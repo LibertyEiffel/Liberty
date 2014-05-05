@@ -2216,18 +2216,20 @@ feature {}
          --  ++
       do
          if not skipped_new_line and then skip1('(') then
-            Result := a_actuals_until(')')
+            Result := a_actuals_until(')', False)
          end
       end
 
-   a_actuals_until (close: CHARACTER): EFFECTIVE_ARG_LIST is
+   a_actuals_until (close: CHARACTER; allow_empty: BOOLEAN): EFFECTIVE_ARG_LIST is
          --  ++ actuals -> "(" {actual "," ...} ")"
          --  ++                ^
          --  ++
       local
-         sp, ep: POSITION; first_one: EXPRESSION; remainder: FAST_ARRAY[EXPRESSION]
+         sp, ep: POSITION; first_one: EXPRESSION; remainder: FAST_ARRAY[EXPRESSION]; l, c: INTEGER
       do
-         sp := pos(start_line, start_column)
+         l := start_line
+         c := start_column
+         sp := pos(l, c)
          from
          until
             not a_expression
@@ -2257,11 +2259,9 @@ feature {}
             error_handler.print_as_fatal_error
          end
          if first_one = Void then
-            --| **** removed style warning because of alias "()"
-            --| **** TODO: put it elsewhere?
-            --error_handler.add_position(current_position)
-            --error_handler.append(once "Empty argument list (deleted).")
-            --error_handler.print_as_style_warning
+            if not allow_empty then
+               go_back_at(l, c) -- empty actuals is not accepted, further analysis may trigger alias "()" and alias "[]"
+            end
          else
             create {EFFECTIVE_ARG_LIST_N} Result.make_n(sp, first_one, remainder)
             Result.end_position := ep
@@ -2297,7 +2297,7 @@ feature {}
          sp: POSITION; sfn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST
       do
          sp := pos(start_line, start_column)
-         eal := a_actuals_until(')')
+         eal := a_actuals_until(')', True)
          create sfn.alias_name(parentheses_name, sp)
          Result := a_r10(do_instruction, target, sfn, eal)
       end
@@ -2311,7 +2311,7 @@ feature {}
          sp: POSITION; sfn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST
       do
          sp := pos(start_line, start_column)
-         eal := a_actuals_until(']')
+         eal := a_actuals_until(']', True)
          create sfn.alias_name(brackets_name, sp)
          Result := a_r10(do_instruction, target, sfn, eal)
       end

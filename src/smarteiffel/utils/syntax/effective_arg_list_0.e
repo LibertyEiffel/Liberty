@@ -193,6 +193,7 @@ feature {}
          not sp.is_unknown
       do
          start_position := sp
+         end_position := sp
       end
 
 end -- class EFFECTIVE_ARG_LIST
