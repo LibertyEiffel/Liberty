@@ -173,13 +173,14 @@ feature {DECLARATION}
       end
 
 feature {}
-   make (l: like list) is
+   make (sp: POSITION; l: like list) is
       require
          l.lower = 1
          not l.is_empty
       local
          il, actual_count: INTEGER
       do
+         start_position := sp
          list := l
          actual_count := compute_flat_list_count_by_using_list
          create flat_list.make(1, actual_count)

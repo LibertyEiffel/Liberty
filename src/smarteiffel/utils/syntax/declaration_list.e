@@ -25,10 +25,7 @@ feature {DECLARATION_LIST, VISITOR}
          -- The same contents as `list' but flat.
 
 feature {ANY}
-   start_position: POSITION is
-      do
-         Result := flat_list.first.start_position
-      end
+   start_position: POSITION
 
    count: INTEGER is
       do

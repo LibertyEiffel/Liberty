@@ -1232,12 +1232,13 @@ feature {}
          --  ++ declaration_group -> {identifier "," ...}+ ":" type_mark
       local
          name: ARGUMENT_NAME_DEF; name_list: ARRAY[ARGUMENT_NAME_DEF]; declaration: DECLARATION
-         list: ARRAY[DECLARATION]; state: INTEGER
+         list: ARRAY[DECLARATION]; state: INTEGER; sp: POSITION
       do
          Result := True
          arguments := Void
          if skip1('(') then
             from
+               sp := pos(start_line, start_column)
             until
                state > 4
             loop
@@ -1329,7 +1330,7 @@ feature {}
                error_handler.append(once "Empty formal argument list (deleted).")
                error_handler.print_as_style_warning
             else
-               create arguments.make(list)
+               create arguments.make(sp, list)
                tmp_feature.set_arguments(arguments)
             end
          end
@@ -1440,9 +1441,10 @@ feature {}
          --  ++ declaration_group -> {identifier "," ...}+ ":" type_mark
       local
          name: LOCAL_NAME_DEF; name_list: ARRAY[LOCAL_NAME_DEF]; declaration: DECLARATION; list: ARRAY[DECLARATION]
-         state: INTEGER; sp: POSITION
+         state: INTEGER; sp, p: POSITION
       do
          from
+            sp := current_position
          until
             state > S_waiting_for_optional_colon
          loop
@@ -1495,8 +1497,8 @@ feature {}
                   error_handler.print_as_style_warning
                   ok := skip1(',') or else skip1(';')
                elseif a_type_mark(False) then
-                  sp := last_type_mark.start_position
-                  go_back_at(sp.line, sp.column)
+                  p := last_type_mark.start_position
+                  go_back_at(p.line, p.column)
                   error_handler.add_position(current_position)
                   error_handler.append(once "Added missing %":%" semicolon before this type mark.")
                   error_handler.print_as_warning
@@ -1539,7 +1541,7 @@ feature {}
             end
          end
          if list /= Void then
-            create local_vars.make(list)
+            create local_vars.make(sp, list)
             tmp_feature.set_local_vars(local_vars)
          end
       end

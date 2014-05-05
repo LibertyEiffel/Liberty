@@ -194,7 +194,7 @@ feature {DECLARATION}
       end
 
 feature {}
-   make (l: like list) is
+   make (sp: POSITION; l: like list) is
          -- Parsing creation procedure.
       require
          l.lower = 1
@@ -203,6 +203,7 @@ feature {}
          an: like name; tlf: LIKE_FEATURE_TYPE_MARK; an2: ARGUMENT_NAME_REF; tla, tla2: LIKE_ARGUMENT_TYPE_MARK
          i, rank, il, actual_count: INTEGER
       do
+         start_position := sp
          list := l
          -- Setting up the `flat_list' first:
          actual_count := compute_flat_list_count_by_using_list
