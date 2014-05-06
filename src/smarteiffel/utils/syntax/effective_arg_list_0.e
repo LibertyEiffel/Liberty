@@ -182,7 +182,7 @@ feature {}
             error_handler.append(once "s")
          end
          error_handler.append(once " argument while the actual argument list has no argument.")
-         error_handler.add_position(af_position)
+         error_handler.add_position(fal.start_position)
          error_handler.add_position(start_position)
          error_handler.print_as_fatal_error
       end
@@ -193,6 +193,7 @@ feature {}
          not sp.is_unknown
       do
          start_position := sp
+         end_position := sp
       end
 
 end -- class EFFECTIVE_ARG_LIST

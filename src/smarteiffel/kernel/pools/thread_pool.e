@@ -93,7 +93,7 @@ feature {}
          create tuple_args_def.make(sp, once "tuple_args")
          fs_args := t.lookup(fn_args)
          tm_args := fs_args.anonymous_feature(t).result_type.resolve_in(t).canonical_type_mark
-         create lv.make({ARRAY[DECLARATION] 1, << create {DECLARATION_1}.make(tuple_args_def, tm_args) >>})
+         create lv.make(sp, {ARRAY[DECLARATION] 1, << create {DECLARATION_1}.make(tuple_args_def, tm_args) >>})
          create tuple_args_ref.refer_to(sp, lv, 1, 0)
          create aa.make(tuple_args_ref, thread_args(sp), True)
          create c.make(thread_routine(sp), fn_item, tuple_to_arguments(tuple_args_ref, sp))

@@ -766,7 +766,7 @@ feature {}
                   feature_stamps.lower = declarations.lower
                   feature_stamps.upper >= declarations.upper
                end
-               create lv.make(declarations)
+               create lv.make(start_position, declarations)
                from
                   i := feature_stamps.lower
                   j := i
@@ -1198,7 +1198,7 @@ feature {}
             tm := item_type_mark.typed_internals_type_mark(start_position)
             create declaration.make(local_var1, tm)
             declarations := {ARRAY[DECLARATION]1, <<declaration>>}
-            create lv.make(declarations)
+            create lv.make(start_position, declarations)
             create local_var2.refer_to(start_position, lv, 1, 0)
             create arg1.refer_to(start_position, arguments, 1, 0)
             create arg2.refer_to(start_position, arguments, 2, 0)

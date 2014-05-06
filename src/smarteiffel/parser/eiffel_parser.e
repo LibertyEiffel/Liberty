@@ -1232,12 +1232,13 @@ feature {}
          --  ++ declaration_group -> {identifier "," ...}+ ":" type_mark
       local
          name: ARGUMENT_NAME_DEF; name_list: ARRAY[ARGUMENT_NAME_DEF]; declaration: DECLARATION
-         list: ARRAY[DECLARATION]; state: INTEGER
+         list: ARRAY[DECLARATION]; state: INTEGER; sp: POSITION
       do
          Result := True
          arguments := Void
          if skip1('(') then
             from
+               sp := pos(start_line, start_column)
             until
                state > 4
             loop
@@ -1329,7 +1330,7 @@ feature {}
                error_handler.append(once "Empty formal argument list (deleted).")
                error_handler.print_as_style_warning
             else
-               create arguments.make(list)
+               create arguments.make(sp, list)
                tmp_feature.set_arguments(arguments)
             end
          end
@@ -1440,9 +1441,10 @@ feature {}
          --  ++ declaration_group -> {identifier "," ...}+ ":" type_mark
       local
          name: LOCAL_NAME_DEF; name_list: ARRAY[LOCAL_NAME_DEF]; declaration: DECLARATION; list: ARRAY[DECLARATION]
-         state: INTEGER; sp: POSITION
+         state: INTEGER; sp, p: POSITION
       do
          from
+            sp := current_position
          until
             state > S_waiting_for_optional_colon
          loop
@@ -1495,8 +1497,8 @@ feature {}
                   error_handler.print_as_style_warning
                   ok := skip1(',') or else skip1(';')
                elseif a_type_mark(False) then
-                  sp := last_type_mark.start_position
-                  go_back_at(sp.line, sp.column)
+                  p := last_type_mark.start_position
+                  go_back_at(p.line, p.column)
                   error_handler.add_position(current_position)
                   error_handler.append(once "Added missing %":%" semicolon before this type mark.")
                   error_handler.print_as_warning
@@ -1539,7 +1541,7 @@ feature {}
             end
          end
          if list /= Void then
-            create local_vars.make(list)
+            create local_vars.make(sp, list)
             tmp_feature.set_local_vars(local_vars)
          end
       end
@@ -2216,18 +2218,20 @@ feature {}
          --  ++
       do
          if not skipped_new_line and then skip1('(') then
-            Result := a_actuals_until(')')
+            Result := a_actuals_until(')', False)
          end
       end
 
-   a_actuals_until (close: CHARACTER): EFFECTIVE_ARG_LIST is
+   a_actuals_until (close: CHARACTER; allow_empty: BOOLEAN): EFFECTIVE_ARG_LIST is
          --  ++ actuals -> "(" {actual "," ...} ")"
          --  ++                ^
          --  ++
       local
-         sp, ep: POSITION; first_one: EXPRESSION; remainder: FAST_ARRAY[EXPRESSION]
+         sp, ep: POSITION; first_one: EXPRESSION; remainder: FAST_ARRAY[EXPRESSION]; l, c: INTEGER
       do
-         sp := pos(start_line, start_column)
+         l := start_line
+         c := start_column
+         sp := pos(l, c)
          from
          until
             not a_expression
@@ -2257,11 +2261,9 @@ feature {}
             error_handler.print_as_fatal_error
          end
          if first_one = Void then
-            --| **** removed style warning because of alias "()"
-            --| **** TODO: put it elsewhere?
-            --error_handler.add_position(current_position)
-            --error_handler.append(once "Empty argument list (deleted).")
-            --error_handler.print_as_style_warning
+            if not allow_empty then
+               go_back_at(l, c) -- empty actuals is not accepted, further analysis may trigger alias "()" and alias "[]"
+            end
          else
             create {EFFECTIVE_ARG_LIST_N} Result.make_n(sp, first_one, remainder)
             Result.end_position := ep
@@ -2297,7 +2299,7 @@ feature {}
          sp: POSITION; sfn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST
       do
          sp := pos(start_line, start_column)
-         eal := a_actuals_until(')')
+         eal := a_actuals_until(')', True)
          create sfn.alias_name(parentheses_name, sp)
          Result := a_r10(do_instruction, target, sfn, eal)
       end
@@ -2311,7 +2313,7 @@ feature {}
          sp: POSITION; sfn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST
       do
          sp := pos(start_line, start_column)
-         eal := a_actuals_until(']')
+         eal := a_actuals_until(']', True)
          create sfn.alias_name(brackets_name, sp)
          Result := a_r10(do_instruction, target, sfn, eal)
       end

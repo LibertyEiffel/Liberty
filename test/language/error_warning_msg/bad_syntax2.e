@@ -11,7 +11,7 @@ feature {}
       local
          i: INTEGER
       do
-         foo ()
+         foo
          inspect
             i
          when then
