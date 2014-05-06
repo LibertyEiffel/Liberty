@@ -101,7 +101,8 @@ feature {ANY}
       local
          fs: like feature_stamp; af: ANONYMOUS_FEATURE; arg: like arguments; t: like target
          target_type, target_declaration_type: TYPE
-         res: like Current; call_1: FUNCTION_CALL_1
+         res: like Current; fn: FEATURE_NAME
+         call_n: FUNCTION_CALL_N; call_1: FUNCTION_CALL_1; call_0: FUNCTION_CALL_0
       do
          t := target.specialize_and_check(type)
          if target.is_current then
@@ -125,34 +126,49 @@ feature {ANY}
             error_handler.append(once "Missing anonymous feature for this call")
             error_handler.print_as_internal_error
          end
-         if not function_check(type, af, arguments) then
-            --sedb_breakpoint
-         end
-         arg := arguments.specialize_and_check(type, af, target_type, True)
-         if arg.count > 1 then
-            if feature_stamp = Void then
-               feature_stamp := fs
-            end
-            if t = target and then feature_stamp = fs and then arg = arguments then
-               res := Current
-            else
-               res := twin
-               res.init(t, arg, fs)
-            end
-            res.standard_check_export_and_obsolete_calls(type, target_type, af)
-            check
-               feature_stamp /= Void
-               res.feature_stamp /= Void
-            end
-            Result := res
+
+         if af.arguments = Void then
+            -- semantic alias "()"
+            create call_0.make(t, feature_name)
+            call_0.set_feature_stamp(fs)
+            call_0.standard_check_export_and_obsolete_calls(type, target_type, af)
+            t := call_0.specialize_and_check(type)
+            create fn.alias_name(eiffel_parser.parentheses_name, arguments.start_position)
+            create call_n.make(t, fn, arguments)
+            call_n := call_n.specialize_in(type)
+            Result := call_n.specialize_and_check(type)
          else
-            check
-               arg.count > 0
+            if not function_check(type, af, arguments) then
+               --sedb_breakpoint
             end
-            create call_1.make(t, feature_name, arg)
-            call_1.set_feature_stamp(fs)
-            call_1.standard_check_export_and_obsolete_calls(type, target_type, af)
-            Result := call_1.specialize_and_check(type)
+            arg := arguments.specialize_and_check(type, af, target_type, True)
+            if arg.count > 1 then
+               if feature_stamp = Void then
+                  feature_stamp := fs
+               end
+               if t = target and then feature_stamp = fs and then arg = arguments then
+                  res := Current
+               else
+                  res := twin
+                  res.init(t, arg, fs)
+               end
+               res.standard_check_export_and_obsolete_calls(type, target_type, af)
+               check
+                  feature_stamp /= Void
+                  res.feature_stamp /= Void
+               end
+               Result := res
+            elseif arg.count > 0 then
+               create call_1.make(t, feature_name, arg)
+               call_1.set_feature_stamp(fs)
+               call_1.standard_check_export_and_obsolete_calls(type, target_type, af)
+               Result := call_1.specialize_and_check(type)
+            else
+               error_handler.append("Strange formal/actual arguments mismatch!")
+               error_handler.add_position(arg.start_position)
+               error_handler.add_position(af.arguments.start_position)
+               error_handler.print_as_internal_error
+            end
          end
       end
 
