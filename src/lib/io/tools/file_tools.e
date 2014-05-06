@@ -165,7 +165,7 @@ feature {ANY}
       end
 
    is_directory (path: ABSTRACT_STRING): BOOLEAN is
-         -- Is `path' a direcory?
+         -- Is `path' a directory?
       require
          path /= Void
          path.count > 0
