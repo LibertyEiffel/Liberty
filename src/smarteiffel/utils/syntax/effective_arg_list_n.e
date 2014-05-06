@@ -670,11 +670,11 @@ feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
                   end
                when 1 then
                   create fc0_1.make(first_one, create {FEATURE_NAME}.simple_feature_name(once "item_1", first_one.start_position))
-                  create eal.make_1(start_position, fc0_1)
+                  create eal.make_1(start_position, fc0_1.specialize_in(type))
                when 2 then
                   create fc0_1.make(first_one, create {FEATURE_NAME}.simple_feature_name(once "item_1", first_one.start_position))
                   create fc0_2.make(first_one, create {FEATURE_NAME}.simple_feature_name(once "item_2", first_one.start_position))
-                  create eal.make_2(start_position, fc0_1, fc0_2)
+                  create eal.make_2(start_position, fc0_1.specialize_in(type), fc0_2.specialize_in(type))
                else
                   create fc0_1.make(first_one, create {FEATURE_NAME}.simple_feature_name(once "item_1", first_one.start_position))
                   create r.with_capacity(tuple_type_mark.count - 1)
@@ -687,13 +687,13 @@ feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
                      feature_name.copy(once "item_")
                      i.append_in(feature_name)
                      create fc0_2.make(first_one, create {FEATURE_NAME}.simple_feature_name(feature_name, first_one.start_position))
-                     r.add_last(fc0_2)
+                     r.add_last(fc0_2.specialize_in(type))
                      i := i + 1
                   end
-                  create eal.make_n(start_position, fc0_1, r)
+                  create eal.make_n(start_position, fc0_1.specialize_in(type), r)
                end
                create tuple_expression.make(first_one.start_position, eal)
-               tuple_expression := tuple_expression.specialize_in(type)
+               tuple_expression := tuple_expression
             else
                error_handler.add_position(first_one.start_position)
                error_handler.append(once "Agent calls need a tuple!")
@@ -701,6 +701,7 @@ feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
             end
          end
          create Result.make(tuple_expression)
+         Result := Result.specialize_and_check(type)
       end
 
 feature {EFFECTIVE_ARG_LIST, FAKE_TUPLE, CALL_1}
