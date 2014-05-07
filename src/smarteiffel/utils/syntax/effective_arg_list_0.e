@@ -181,7 +181,7 @@ feature {}
          if fal.count > 1 then
             error_handler.append(once "s")
          end
-         error_handler.append(once " argument while the actual argument list has no argument.")
+         error_handler.append(once " while the actual argument list has no argument.")
          error_handler.add_position(fal.start_position)
          error_handler.add_position(start_position)
          error_handler.print_as_fatal_error
