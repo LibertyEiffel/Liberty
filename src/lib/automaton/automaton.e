@@ -85,11 +85,13 @@ feature {}
    last_transition (from_state: STATE[E_]; e: E_) is
       require
          from_state /= Void
+      local
+         no_state: STATE[E_]
       do
          debug ("automaton/transition")
             std_output.put_line(from_state.name.out + " => Void")
          end
-         transition.call([e, from_state, Void])
+         transition.call([e, from_state, no_state])
       end
 
 feature {STATE} --|* TODO: should be STATE[E_] (when Liberty can bootstrap)
