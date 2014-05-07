@@ -2651,7 +2651,7 @@ feature {}
          end
       end
 
-feature {EXTERNAL_PROCEDURE, FUNCTION_CALL, PROCEDURE_CALL}
+feature {EXTERNAL_PROCEDURE, FEATURE_CALL}
    brackets_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_brackets)
@@ -4780,10 +4780,25 @@ feature {}
          --  ++                         "is" manifest_constant |
          --  ++                         "is" routine]
          --  ++
+      local
+         is_prefix, is_infix, is_alias: BOOLEAN
+         prefix_sp, infix_sp, alias_sp: POSITION
       do
          from
             tmp_feature.initialize
             if a_possibly_frozen_feature_name then
+               if last_feature_name.is_prefix_name then
+                  is_prefix := True
+                  prefix_sp := last_feature_name.start_position
+               end
+               if last_feature_name.is_infix_name then
+                  is_infix := True
+                  infix_sp := last_feature_name.start_position
+               end
+               if last_feature_name.name_alias /= Void then
+                  is_alias := True
+                  alias_sp := last_feature_name.name_alias.start_position
+               end
                Result := True
             elseif a_expression then
                error_handler.add_position(last_expression.start_position)
@@ -4805,7 +4820,20 @@ feature {}
          until
             not skip1(',')
          loop
-            if not a_possibly_frozen_feature_name then
+            if a_possibly_frozen_feature_name then
+               if not is_prefix and then last_feature_name.is_prefix_name then
+                  is_prefix := True
+                  prefix_sp := last_feature_name.start_position
+               end
+               if not is_infix and then last_feature_name.is_infix_name then
+                  is_infix := True
+                  infix_sp := last_feature_name.start_position
+               end
+               if not is_alias and then last_feature_name.name_alias /= Void then
+                  is_alias := True
+                  alias_sp := last_feature_name.name_alias.start_position
+               end
+            else
                error_handler.add_position(current_position)
                error_handler.append(once "Error inside feature name definition. Unable to find the synonymous name %
                                     %which must be just after the previous colon mark %",%".")
@@ -4819,6 +4847,20 @@ feature {}
          end
          if Result then
             if not a_formal_arg_list then
+               error_handler.print_as_fatal_error
+            end
+            if is_prefix and then tmp_feature.arguments /= Void then
+               error_handler.add_position(prefix_sp)
+               error_handler.add_position(tmp_feature.arguments.start_position)
+               error_handler.append("Prefix functions cannot have arguments.")
+               error_handler.print_as_fatal_error
+            end
+            if is_infix and then (tmp_feature.arguments = Void or else tmp_feature.arguments.count /= 1) then
+               error_handler.add_position(infix_sp)
+               if tmp_feature.arguments /= Void then
+                  error_handler.add_position(tmp_feature.arguments.start_position)
+               end
+               error_handler.append("Infix functions must have exactly one argument.")
                error_handler.print_as_fatal_error
             end
             if skip1(':') then
