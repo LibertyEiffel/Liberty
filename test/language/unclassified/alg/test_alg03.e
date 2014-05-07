@@ -10,6 +10,9 @@ inherit
       redefine make
       end
 
+insert
+   EIFFELTEST_TOOLS
+
 create {}
    make
 
@@ -22,21 +25,6 @@ feature {ANY}
          assert(a = 1)
          assert(b = 0)
       end
-
-   assert (bool: BOOLEAN) is
-      do
-         cpt := cpt + 1
-         if not bool then
-            std_output.put_string("TEST_ALG03: ERROR Test # ")
-            std_output.put_integer(cpt)
-            std_output.put_string("%N")
-            crash
-         else
-            --std_output.put_string("Yes%N");
-         end
-      end
-
-   cpt: INTEGER
 
 end -- class TEST_ALG03
 --

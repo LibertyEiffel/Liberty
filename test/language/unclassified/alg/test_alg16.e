@@ -4,6 +4,9 @@
 class TEST_ALG16
    -- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
 
+insert
+   EIFFELTEST_TOOLS
+
 create {}
    make
 
@@ -33,18 +36,6 @@ feature {}
          assert(once_routine1.item = 1)
          assert(once_routine2.item = 1)
       end
-
-   assert (b: BOOLEAN) is
-      do
-         cpt := cpt + 1
-         if not b then
-            std_output.put_string("TEST_ALG16: ERROR Test # ")
-            std_output.put_integer(cpt)
-            std_output.put_string("%N")
-         end
-      end
-
-   cpt: INTEGER
 
 end -- class TEST_ALG16
 --
