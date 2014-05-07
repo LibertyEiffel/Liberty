@@ -7,10 +7,7 @@ deferred class AGENT_LAUNCHER
    --
 
 inherit
-   VISITABLE
-
-insert
-   GLOBALS
+   CODE
 
 feature {ANY}
    agent_type: TYPE
