@@ -101,7 +101,7 @@ feature {ANY}
       local
          fs: like feature_stamp; af: ANONYMOUS_FEATURE; arg: like arguments; t: like target
          target_type, target_declaration_type: TYPE
-         res: like Current; fn: FEATURE_NAME
+         res: like Current
          call_n: FUNCTION_CALL_N; call_1: FUNCTION_CALL_1; call_0: FUNCTION_CALL_0
       do
          t := target.specialize_and_check(type)
@@ -128,15 +128,23 @@ feature {ANY}
          end
 
          if af.arguments = Void then
-            -- semantic alias "()"
-            create call_0.make(t, feature_name)
-            call_0.set_feature_stamp(fs)
-            call_0.standard_check_export_and_obsolete_calls(type, target_type, af)
-            t := call_0.specialize_and_check(type)
-            create fn.alias_name(eiffel_parser.parentheses_name, arguments.start_position)
-            create call_n.make(t, fn, arguments)
-            call_n := call_n.specialize_in(type)
-            Result := call_n.specialize_and_check(type)
+            if fs.anonymous_feature(target_type).result_type /= Void and then target_type.valid_feature_name(parentheses_feature_name) then
+               -- semantic alias "()"
+               create call_0.make(t, feature_name)
+               call_0.set_feature_stamp(fs)
+               call_0.standard_check_export_and_obsolete_calls(type, target_type, af)
+               t := call_0.specialize_and_check(type)
+               create call_n.make(t, parentheses_feature_name, arguments)
+               call_n := call_n.specialize_in(type)
+               Result := call_n.specialize_and_check(type)
+            else
+               error_handler.append(once "The feature called has no formal argument while the actual argument list has ")
+               error_handler.append_integer(arguments.count)
+               error_handler.append(once " arguments.")
+               error_handler.add_position(af.start_position)
+               error_handler.add_position(arguments.start_position)
+               error_handler.print_as_fatal_error
+            end
          else
             if not function_check(type, af, arguments) then
                --sedb_breakpoint

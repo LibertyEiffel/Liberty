@@ -369,9 +369,23 @@ feature {}
          end
       end
 
+   parentheses_feature_name: like parentheses_feature_name_memory is
+      require
+         arguments /= Void
+      do
+         Result := parentheses_feature_name_memory
+         if Result = Void then
+            create Result.alias_name(eiffel_parser.parentheses_name, arguments.start_position)
+            parentheses_feature_name_memory := Result
+         end
+      ensure
+         Result.start_position = arguments.start_position
+      end
+
+   parentheses_feature_name_memory: FEATURE_NAME
+
 invariant
    target /= Void
-
    feature_name /= Void
 
 end -- class FEATURE_CALL

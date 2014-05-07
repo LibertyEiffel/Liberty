@@ -3,8 +3,8 @@
 The source lines involved by the message are the following:
 
 Line 16 column 12 in BAD_LIKE12 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_like12.e):
-         b.g(x)
-           ^   
+         b.g
+           ^
 Line 10 column 4 in AUX_LIKE12A (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_like12a.e):
    g: like f
    ^        
@@ -13,6 +13,6 @@ Line 10 column 4 in AUX_LIKE12A (/home/cadrian/Workspace/Dev/Liberty/test/langua
 use it).
 
 Line 16 column 12 in BAD_LIKE12 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_like12.e):
-         b.g(x)
-           ^   
+         b.g
+           ^
 ------

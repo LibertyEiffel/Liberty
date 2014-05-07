@@ -11,9 +11,9 @@ create {}
 feature {}
    make is
       local
-         b: AUX_LIKE12B; x: INTEGER
+         b: AUX_LIKE12B
       do
-         b.g(x)
+         b.g
       end
 
 end -- class BAD_LIKE12
