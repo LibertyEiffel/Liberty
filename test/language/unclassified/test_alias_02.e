@@ -25,9 +25,9 @@ feature {}
 
          assert(universal = 42)
 
-         --| **** TODO: not-syntactic case
-         --| assert(sq(2) = 4)
-         --| assert(sq(4) = 16)
+         -- not-syntactic case (needs semantic analysis)
+         assert(sq(2) = 4)
+         assert(sq(4) = 16)
       end
 
    sq: FUNCTION[TUPLE[INTEGER], INTEGER] is
