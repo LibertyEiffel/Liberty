@@ -1,17 +1,18 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class COMPLEX_GENERAL[A_SIZE->FLOAT]
---
--- Common ancestor of all complex types: COMPLEX_32, COMPLEX_64, ...
---
+expanded class COMPLEX_GENERAL[A_SIZE -> FLOAT]
+   --
+   -- Common ancestor of all complex types: COMPLEX_32, COMPLEX_64, ...
+   --
 
 insert
    NUMERIC
       rename sign as real_sign
       redefine out, fill_tagged_out_memory
       end
-   MATH_CONSTANTS -- to get Pi
+   MATH_CONSTANTS
+      -- to get Pi
       undefine is_equal, out, fill_tagged_out_memory
       end
    EXCEPTIONS
@@ -26,9 +27,9 @@ feature {ANY}
          imaginary := imaginary.one
       end
 
-   set,set_cartesian (a_real_part, an_imaginary_part: A_SIZE) is
+   set, set_cartesian (a_real_part, an_imaginary_part: A_SIZE) is
       do
-         real:=a_real_part
+         real := a_real_part
          imaginary := an_imaginary_part
       end
 
@@ -42,42 +43,50 @@ feature {ANY}
 feature {ANY}
    infix "+" (other: like Current): like Current is
       do
-         Result.set(real+other.real, imaginary+other.imaginary)
+         Result.set(real + other.real, imaginary + other.imaginary)
       end
 
    infix "-" (other: like Current): like Current is
       do
-         Result.set(real-other.real, imaginary-other.imaginary)
+         Result.set(real - other.real, imaginary - other.imaginary)
       end
 
    infix "*" (other: like Current): like Current is
       do
-         Result.set
-         (real*other.real - imaginary*other.imaginary,
-          imaginary*other.real + real*other.imaginary)
+         Result.set(real * other.real - imaginary * other.imaginary, imaginary * other.real + real * other.imaginary)
       end
 
    infix "/" (other: like Current): like Current is
-      local den: A_SIZE
+      local
+         den: A_SIZE
       do
          den := other.squared_modulus
-         Result.set
-         (real*other.real - imaginary*other.imaginary,
-          imaginary*other.real + real*other.imaginary)
+         Result.set(real * other.real - imaginary * other.imaginary, imaginary * other.real + real * other.imaginary)
       end
 
    infix "^" (e: INTEGER): like Current is
-      local ci, ni: INTEGER -- current index and index of the next iteration
+      local
+         ci, ni: INTEGER
       do
-         from Result:=Current; ci:=1; ni:=2 until ni>e
+         -- current index and index of the next iteration
+         from
+            Result := Current
+            ci := 1
+            ni := 2
+         until
+            ni > e
          loop
-            Result:=Result*Result
-            ci:=ni; ni:=ni*2
+            Result := Result * Result
+            ci := ni
+            ni := ni * 2
          end
-         from until ci=e
+
+         from
+         until
+            ci = e
          loop
-            Result := Result*Current
-            ci:=ci+1
+            Result := Result * Current
+            ci := ci + 1
          end
       end
 
@@ -88,38 +97,40 @@ feature {ANY}
 
    prefix "-": like Current is
       do
-         Result.set(-real,-imaginary)
+         Result.set(-real, -imaginary)
       end
 
    divisible (other: like Current): BOOLEAN is
       do
-         Result := other/=zero
+         Result := other /= zero
       end
 
    hash_code: INTEGER is
       do
-		  Result := (real+imaginary).hash_code
-		  -- Note: it is debatabe if such an hash code implementation is actually useful.  
+         Result := (real + imaginary).hash_code
+         -- Note: it is debatabe if such an hash code implementation is actually useful.
       end
 
    real_sign: INTEGER_8 is
       do
-         Result:=real.sign
+         Result := real.sign
       end
 
    sign: like Current is
-      require not is_zero
-      local coeff: A_SIZE
+      require
+         not is_zero
+      local
+         coeff: A_SIZE
       do
          -- See http://en.wikipedia.org/wiki/Sign_function sign is NOT an INTEGER_8 for a complex but like Current!
          -- It could be naively implemented with
-         Result.set_polar(coeff.one,phase)
+         Result.set_polar(coeff.one, phase)
          -- but it may be implemented in a better way.
       end
 
    is_zero: BOOLEAN is
       do
-         Result := (real ~= real.zero) and (imaginary ~= real.zero)
+         Result := real ~= real.zero and imaginary ~= real.zero
       end
 
    zero: like Current is
@@ -140,20 +151,20 @@ feature {ANY}
 
    is_equal (other: like Current): BOOLEAN is
       do
-         Result := real=other.real and then imaginary=other.imaginary
+         Result := real = other.real and then imaginary = other.imaginary
       end
 
    is_near_equal, infix "~=" (other: like Current): BOOLEAN is
       do
-		  debug
-			  print(&Current + " ~= " + &other + "%N") 
-		  end
-		  Result := (real ~= other.real) and (imaginary ~= other.imaginary)
+         debug
+            print(&Current + " ~= " + &other + "%N")
+         end
+         Result := real ~= other.real and imaginary ~= other.imaginary
       end
 
    conjugate: like Current is
       do
-         Result.set(real,-imaginary)
+         Result.set(real, -imaginary)
       end
 
 feature {ANY} -- Cartesian representation
@@ -163,13 +174,16 @@ feature {ANY} -- Polar representation
    modulus: A_SIZE is
       do
          Result := squared_modulus.sqrt
-      ensure non_negative: Result.sign /= -1
+      ensure
+         non_negative: Result.sign /= -1
       end
 
    phase: A_SIZE is
-      require not is_zero
+      require
+         not is_zero
       do
-         not_yet_implemented -- Pi is not converted automaticaaly to A_SIZE
+         not_yet_implemented
+         -- Pi is not converted automaticaaly to A_SIZE
          -- inspect real.sign
          -- when  1 then Result := imaginary.atan2(real) -- same as (imaginary/real).atan
          -- when -1 then
@@ -187,30 +201,32 @@ feature {ANY} -- Polar representation
 
    squared_modulus: A_SIZE is
       do
-         Result := real*real + imaginary*imaginary
+         Result := real * real + imaginary * imaginary
          -- Note: NUMERIC does not have infix "^" (an_exponent: INTEGER): like Current...
-      ensure non_negative: Result.sign /= -1
+      ensure
+         non_negative: Result.sign /= -1
       end
 
 feature {ANY} -- Object Printing:
    out: STRING is
-      -- do
-      --    Result := "("
-      --    real.append_in(Result)
-      --    Result.append(once ", ")
-      --    imaginary.append_in(Result)
-      --    Result.append_character(')')
-  local real_digits, imaginary_digits: INTEGER
+         -- do
+         --    Result := "("
+         --    real.append_in(Result)
+         --    Result.append(once ", ")
+         --    imaginary.append_in(Result)
+         --    Result.append_character(')')
+      local
+         real_digits, imaginary_digits: INTEGER
       do
-		  -- This is a far and large heuristic way to compute significant decimal digits of floating point number
-		  real_digits := real.mantissa_bits.to_integer_32//3
-		  imaginary_digits := imaginary.mantissa_bits.to_integer_32//3
-		  create Result.with_capacity(real_digits+imaginary_digits+6)
-		  Result.append(once "(")
-		  real.append_in_scientific(Result,real_digits)
-		  Result.append(once ", ")
-		  imaginary.append_in_scientific(Result,imaginary_digits)
-		  Result.append(once ")")
+         -- This is a far and large heuristic way to compute significant decimal digits of floating point number
+         real_digits := real.mantissa_bits.to_integer_32 // 3
+         imaginary_digits := imaginary.mantissa_bits.to_integer_32 // 3
+         create Result.with_capacity(real_digits + imaginary_digits + 6)
+         Result.append(once "(")
+         real.append_in_scientific(Result, real_digits)
+         Result.append(once ", ")
+         imaginary.append_in_scientific(Result, imaginary_digits)
+         Result.append(once ")")
       end
 
    fill_tagged_out_memory is
