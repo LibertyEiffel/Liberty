@@ -1839,6 +1839,10 @@ feature {}
                if cc = '.' then
                   next_char
                   Result := just_after_a_dot(False, last_expression)
+               elseif cc = '(' then
+                  Result := a_alias_parentheses(False, last_expression)
+               elseif cc = '[' then
+                  Result := a_alias_brackets(False, last_expression)
                else
                   skip_comments
                   if cc = '.' then
@@ -1849,12 +1853,20 @@ feature {}
                      error_handler.print_as_style_warning
                      next_char
                      Result := just_after_a_dot(False, last_expression)
+                  elseif not skipped_new_line and then cc = '(' then
+                     Result := a_alias_parentheses(False, last_expression)
+                  elseif not skipped_new_line and then cc = '[' then
+                     Result := a_alias_brackets(False, last_expression)
                   end
                end
             when Instruction_syntax_flag then
                if cc = '.' then
                   next_char
                   Result := just_after_a_dot(True, last_expression)
+               elseif cc = '(' then
+                  Result := a_alias_parentheses(True, last_expression)
+               elseif cc = '[' then
+                  Result := a_alias_brackets(True, last_expression)
                else
                   skip_comments
                   if cc = '.' then
@@ -1865,6 +1877,10 @@ feature {}
                      error_handler.print_as_style_warning
                      next_char
                      Result := just_after_a_dot(True, last_expression)
+                  elseif not skipped_new_line and then cc = '(' then
+                     Result := a_alias_parentheses(True, last_expression)
+                  elseif not skipped_new_line and then cc = '[' then
+                     Result := a_alias_brackets(True, last_expression)
                   end
                end
             end
@@ -2217,7 +2233,11 @@ feature {}
          --  ++ actuals -> "(" {actual "," ...} ")"
          --  ++
       do
-         if not skipped_new_line and then skip1('(') then
+         if not skipped_new_line and then cc = '(' then
+            start_line := line
+            start_column := column
+            next_char
+            skip_comments
             Result := a_actuals_until(')', False)
          end
       end
@@ -2227,10 +2247,11 @@ feature {}
          --  ++                ^
          --  ++
       local
-         sp, ep: POSITION; first_one: EXPRESSION; remainder: FAST_ARRAY[EXPRESSION]; l, c: INTEGER
+         sp, ep: POSITION; first_one: EXPRESSION; remainder: FAST_ARRAY[EXPRESSION]; l, c: INTEGER; snl: BOOLEAN
       do
          l := start_line
          c := start_column
+         snl := skipped_new_line
          sp := pos(l, c)
          from
          until
@@ -2262,7 +2283,8 @@ feature {}
          end
          if first_one = Void then
             if not allow_empty then
-               go_back_at(l, c) -- empty actuals is not accepted, further analysis may trigger alias "()" and alias "[]"
+               go_back_at(l, c) -- empty actuals is not accepted, further analysis may trigger alias "()"
+               skipped_new_line := snl
             end
          else
             create {EFFECTIVE_ARG_LIST_N} Result.make_n(sp, first_one, remainder)
@@ -2276,12 +2298,12 @@ feature {}
       require
          target /= Void
       local
-         sfn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST
+         fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST
       do
          if a_ordinary_feature_name_or_local_name then
-            sfn := token_buffer.to_feature_name
+            fn := token_buffer.to_feature_name
             eal := a_actuals
-            Result := a_r10(do_instruction, target, sfn, eal)
+            Result := a_r10(do_instruction, target, fn, eal)
          else
             error_handler.add_position(current_position)
             error_handler.append(once "Simple identifier expected just after a dot. %
@@ -2292,30 +2314,40 @@ feature {}
 
    a_alias_parentheses (do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN is
          --  ++ alias_parentheses -> "(" {actual "," ...} ")"
-         --  ++                          ^
+         --  ++                      ^
       require
          target /= Void
+         cc = '('
       local
-         sp: POSITION; sfn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST
+         sp: POSITION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST
       do
+         start_line := line
+         start_column := column
          sp := pos(start_line, start_column)
+         next_char
+         skip_comments
          eal := a_actuals_until(')', True)
-         create sfn.alias_name(parentheses_name, sp)
-         Result := a_r10(do_instruction, target, sfn, eal)
+         create fn.alias_name(parentheses_name, sp)
+         Result := a_r10(do_instruction, target, fn, eal)
       end
 
    a_alias_brackets (do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN is
          --  ++ alias_brackets -> "[" {actual "," ...} "]"
-         --  ++                       ^
+         --  ++                   ^
       require
          target /= Void
+         cc = '['
       local
-         sp: POSITION; sfn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST
+         sp: POSITION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST
       do
+         start_line := line
+         start_column := column
          sp := pos(start_line, start_column)
+         next_char
+         skip_comments
          eal := a_actuals_until(']', True)
-         create sfn.alias_name(brackets_name, sp)
-         Result := a_r10(do_instruction, target, sfn, eal)
+         create fn.alias_name(brackets_name, sp)
+         Result := a_r10(do_instruction, target, fn, eal)
       end
 
    a_assignment_or_procedure_call: BOOLEAN is
@@ -2361,6 +2393,14 @@ feature {}
                create {PRECURSOR_EXPRESSION} last_expression.make(sp, type_mark, args)
                inside_function_precursor_check(last_expression)
                Result := just_after_a_dot(True, last_expression)
+            elseif not skipped_new_line and then cc = '(' then
+               create {PRECURSOR_EXPRESSION} last_expression.make(sp, type_mark, args)
+               inside_function_precursor_check(last_expression)
+               Result := a_alias_parentheses(True, last_expression)
+            elseif not skipped_new_line and then cc = '[' then
+               create {PRECURSOR_EXPRESSION} last_expression.make(sp, type_mark, args)
+               inside_function_precursor_check(last_expression)
+               Result := a_alias_brackets(True, last_expression)
             else
                create {PRECURSOR_INSTRUCTION} last_instruction.make(sp, type_mark, args)
                if inside_function_flag then
@@ -4306,6 +4346,20 @@ feature {}
                end
                next_char
                Result := just_after_a_dot(False, last_manifest_string)
+            elseif cc = '(' then
+               if last_manifest_string.once_flag then
+                  error_handler.add_position(current_position)
+                  error_handler.append(em19)
+                  error_handler.print_as_warning
+               end
+               Result := a_alias_parentheses(False, last_manifest_string)
+            elseif cc = '[' then
+               if last_manifest_string.once_flag then
+                  error_handler.add_position(current_position)
+                  error_handler.append(em19)
+                  error_handler.print_as_warning
+               end
+               Result := a_alias_brackets(False, last_manifest_string)
             else
                skip_comments
                if cc = '.' then
@@ -4320,6 +4374,10 @@ feature {}
                   end
                   next_char
                   Result := just_after_a_dot(False, last_manifest_string)
+               elseif not skipped_new_line and then cc = '(' then
+                  Result := a_alias_parentheses(False, last_manifest_string)
+               elseif not skipped_new_line and then cc = '[' then
+                  Result := a_alias_brackets(False, last_manifest_string)
                else
                   last_expression := last_manifest_string
                end
@@ -4337,6 +4395,14 @@ feature {}
                create {PRECURSOR_EXPRESSION} last_expression.make(sp, type_mark, args)
                inside_function_precursor_check(last_expression)
                Result := just_after_a_dot(False, last_expression)
+            elseif not skipped_new_line and then cc = '(' then
+               create {PRECURSOR_EXPRESSION} last_expression.make(sp, type_mark, args)
+               inside_function_precursor_check(last_expression)
+               Result := a_alias_parentheses(False, last_manifest_string)
+            elseif not skipped_new_line and then cc = '[' then
+               create {PRECURSOR_EXPRESSION} last_expression.make(sp, type_mark, args)
+               inside_function_precursor_check(last_expression)
+               Result := a_alias_brackets(False, last_manifest_string)
             else
                create {PRECURSOR_EXPRESSION} last_expression.make(sp, type_mark, args)
                inside_function_precursor_check(last_expression)
@@ -5327,6 +5393,20 @@ feature {}
                end
                next_char
                Result := just_after_a_dot(True, last_manifest_string)
+            elseif cc = '(' then
+               if last_manifest_string.once_flag then
+                  error_handler.add_position(current_position)
+                  error_handler.append(em19)
+                  error_handler.print_as_warning
+               end
+               Result := a_alias_parentheses(True, last_manifest_string)
+            elseif cc = '[' then
+               if last_manifest_string.once_flag then
+                  error_handler.add_position(current_position)
+                  error_handler.append(em19)
+                  error_handler.print_as_warning
+               end
+               Result := a_alias_brackets(True, last_manifest_string)
             else
                skip_comments
                if cc = '.' then
@@ -5341,6 +5421,10 @@ feature {}
                   end
                   next_char
                   Result := just_after_a_dot(True, last_manifest_string)
+               elseif not skipped_new_line and then cc = '(' then
+                  Result := a_alias_parentheses(True, last_manifest_string)
+               elseif not skipped_new_line and then cc = '[' then
+                  Result := a_alias_brackets(True, last_manifest_string)
                else
                   error_handler.add_position(last_manifest_string.start_position)
                   error_handler.add_position(current_position)
@@ -6236,6 +6320,8 @@ feature {}
 
    a_r10 (do_instruction: BOOLEAN; t: EXPRESSION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST): BOOLEAN is
          --  ++ r10 -> "." after_a_dot |
+         --  ++        "(" alias_parentheses |
+         --  ++        "[" alias_brackets |
          --  ++        ^
          --  ++
       local
@@ -6246,25 +6332,23 @@ feature {}
          if skip1('.') then
             if t /= Void and then t.is_void then
                error_handler.add_position(t.start_position)
-               error_handler.append(once "Void is not a valid target (i.e. just after a dot).")
+               error_handler.append(once "Void is not a valid target (i.e. just before a dot).")
                error_handler.print_as_fatal_error
             end
             Result := just_after_a_dot(do_instruction, to_call(t, fn, eal))
-         elseif not skipped_new_line and then skip1('(') then
+         elseif not skipped_new_line and then cc = '(' then
             if t /= Void and then t.is_void then
                error_handler.add_position(t.start_position)
-               error_handler.append(once "Void is not a valid target (i.e. just after a dot).")
+               error_handler.append(once "Void is not a valid target (i.e. just before an alias %"()%").")
                error_handler.print_as_fatal_error
             end
-            -- alias "()"
             Result := a_alias_parentheses(do_instruction, to_call(t, fn, eal))
-         elseif not skipped_new_line and then skip1('[') then
+         elseif not skipped_new_line and then cc = '[' then
             if t /= Void and then t.is_void then
                error_handler.add_position(t.start_position)
-               error_handler.append(once "Void is not a valid target (i.e. just after a dot).")
+               error_handler.append(once "Void is not a valid target (i.e. just before an alias %"[]%").")
                error_handler.print_as_fatal_error
             end
-            -- alias "[]"
             Result := a_alias_brackets(do_instruction, to_call(t, fn, eal))
          elseif do_instruction then
             last_instruction := to_proc_call(t, fn, eal)
