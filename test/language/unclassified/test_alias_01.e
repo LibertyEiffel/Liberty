@@ -24,6 +24,9 @@ feature {}
          b := a - 12
          assert(a = b)
          assert(a.i = -42)
+
+         assert(a[0] = -42)
+         assert(a[1] = -21)
       end
 
 end

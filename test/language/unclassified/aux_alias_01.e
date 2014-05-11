@@ -30,4 +30,9 @@ feature {ANY}
          Result = Current
       end
 
+   item alias "[]" (index: INTEGER_8): INTEGER is
+      do
+         Result := i |>> index
+      end
+
 end
