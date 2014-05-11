@@ -85,8 +85,7 @@ feature {ANY}
             fs_assigned.has_anonymous_feature_for(target_type)
          end
          af_assigned := fs_assigned.anonymous_feature(target_type)
-         af_assigner := af_assigned.assigner
-         if af_assigner = Void then
+         if af_assigned.assigner = Void or else target_type.lookup(af_assigned.assigner) = Void then
             error_handler.append(once "Such an expression cannot be on the left-hand side of an assignment operator. There is no assigner to `")
             error_handler.append(l.feature_name.to_string)
             error_handler.append(once "` in class ")
@@ -95,6 +94,7 @@ feature {ANY}
             error_handler.add_position(start_position)
             error_handler.print_as_fatal_error
          end
+         af_assigner := target_type.lookup(af_assigned.assigner).anonymous_feature(target_type)
          fn := af_assigner.names.first
 
          echo.put_string(once "Replacing assign to {")

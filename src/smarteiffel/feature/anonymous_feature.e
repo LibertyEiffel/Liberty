@@ -102,8 +102,8 @@ feature {ANY}
          Result := first_name.start_position
       end
 
-   assigner: ANONYMOUS_FEATURE
-         -- If this feature can be assigned to, the assigner feature.
+   assigner: FEATURE_NAME
+         -- If this feature can be assigned to, the assigner feature name.
 
    frozen obsolete_warning_check (type: TYPE; caller: POSITION) is
       do

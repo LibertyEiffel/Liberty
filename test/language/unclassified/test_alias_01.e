@@ -27,6 +27,11 @@ feature {}
 
          assert(a[0] = -42)
          assert(a[1] = -21)
+
+         a[1] := 12
+         assert(a[1] = 12)
+         assert(a[2] = 6)
+         assert(a[0] = 24)
       end
 
 end

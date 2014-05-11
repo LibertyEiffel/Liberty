@@ -401,9 +401,9 @@ feature {ANY}
 
    set_name_alias (a: like name_alias) assign name_alias is
       require
-         not a.is_simple_feature_name
+         a.is_simple_feature_name /= is_simple_feature_name
          name_alias = Void
-         is_simple_feature_name
+         a.name_alias /= Void implies a.name_alias = Current
       do
          name_alias := a
       ensure
@@ -535,7 +535,8 @@ invariant
 
    string_aliaser.registered_one(to_string)
 
-   name_alias /= Void implies not name_alias.is_simple_feature_name
+   name_alias /= Void implies (name_alias.is_simple_feature_name /= is_simple_feature_name)
+   name_alias /= Void implies (name_alias.name_alias = Void or else name_alias.name_alias = Current)
 
 end -- class FEATURE_NAME
 --

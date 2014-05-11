@@ -35,4 +35,11 @@ feature {ANY}
          Result := i |>> index
       end
 
+   set_item (value: INTEGER; index: INTEGER_8) assign item is
+      do
+         i := value |<< index
+      ensure
+         item(index) = value
+      end
+
 end

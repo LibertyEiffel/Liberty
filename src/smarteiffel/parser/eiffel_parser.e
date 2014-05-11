@@ -5813,12 +5813,15 @@ feature {}
             end
             if a_binary(sp) then
                fn.name_alias := last_feature_name
+               last_feature_name.name_alias := fn
                last_feature_name := fn
             elseif a_unary(sp) then
                fn.name_alias := last_feature_name
+               last_feature_name.name_alias := fn
                last_feature_name := fn
             elseif a_free_operator_definition(freeop_alias, sp) then
                fn.name_alias := last_feature_name
+               last_feature_name.name_alias := fn
                last_feature_name := fn
             else
                error_handler.add_position(current_position)
