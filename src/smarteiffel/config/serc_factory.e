@@ -37,6 +37,7 @@ feature {ANY}
             add_to_chain(chain, "/etc/serc", "    ")
             add_to_chain(chain, "/etc/xdg/liberty-eiffel", "    ")
             add_to_chain(chain, "/etc/liberty-eiffel", "    ")
+            add_to_chain(chain, "/usr/local/etc/liberty-eiffel", "    ")
             add_to_chain(chain, xdg.config_home, "    ")
             s := home_env
             if s /= Void then
