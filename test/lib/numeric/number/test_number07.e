@@ -28,8 +28,6 @@ feature {}
          assert(n @= 1)
          text_file_write.disconnect
          assert(file_tools.same_files("test_number07.new", "test_number07.ref"))
-         file_tools.delete("test_number07.new")
-         assert(not file_tools.file_exists("test_number07.new"))
       end
 
    file_tools: FILE_TOOLS

@@ -15,7 +15,7 @@ feature {ANY}
          conv("toto")
       end
 
-   conv (x: ANY) is
+   conv (x: ABSTRACT_STRING) is
       do
       end
 

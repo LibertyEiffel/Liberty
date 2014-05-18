@@ -11,7 +11,7 @@ feature {}
       local
          sum: INTEGER
       do
-         sum := (1 |..| 1000).aggregate(agent add, 0)
+         sum := ({INTEGER 1} |..| {INTEGER 1000}).aggregate(agent add(?,?), 0)
          assert(sum = (1000*1001)//2)
       end
 
