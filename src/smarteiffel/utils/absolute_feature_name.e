@@ -26,9 +26,20 @@ feature {ANY}
 
    matches (class_name_: like class_name; feature_name_: like feature_name): BOOLEAN is
       do
-         Result := class_name.is_equal(class_name_) and then feature_name.is_equal(feature_name_)
+         if class_name = Void then
+            Result := class_name_ = Void
+         else
+            Result := class_name.is_equal(class_name_)
+         end
+         if Result then
+            if feature_name = Void then
+               Result := feature_name_ = Void
+            else
+               Result := feature_name.is_equal(feature_name_)
+            end
+         end
       ensure
-         Result = (class_name.is_equal(class_name_) and then feature_name.is_equal(feature_name_))
+         --Result = (class_name.is_equal(class_name_) and then feature_name.is_equal(feature_name_))
       end
 
 feature {}

@@ -395,6 +395,10 @@ feature {FEATURE_ACCUMULATOR}
       local
          gl: ARRAY[TYPE_MARK]
       do
+         debug
+            echo.put_string(once "Collecting type: ")
+            echo.put_line(name.to_string)
+         end
          -- Validity check section done here because the newly created TYPE is now really ready for use:
          if is_generic then
             gl := canonical_type_mark.generic_list
@@ -1363,7 +1367,7 @@ feature {}
    collect_one_feature (final_fn: FEATURE_NAME; inherit_index: INTEGER) is
          -- The loop is done in reverse order, so conforming types will be analyzed first.
          -- Types after `inherit_index' are ignored because they have
-         -- already been used and we know `final_fn' not to be known  into.
+         -- already been used and we know `final_fn' not to be known into.
       local
          accu: FEATURE_ACCUMULATOR; i, j: INTEGER; a_type: TYPE; old_name, new_name: FEATURE_NAME; a_fs: FEATURE_STAMP
          a_parent_edge: PARENT_EDGE; an_af: ANONYMOUS_FEATURE; renamed: BOOLEAN; a_rename: RENAME_PAIR

@@ -423,7 +423,14 @@ feature {CREATE_INSTRUCTION}
          -- For all kind of newly created objet, we may call the class invariant:
          class_invariant_flag := cpp.class_invariant_call_opening(created_type_memory, True)
          if class_invariant_flag > 0 then
-            compile_expression(visited.writable)
+            if created_type_memory.is_expanded and then cpp.need_struct.for(created_type_memory.canonical_type_mark) then
+               function_body.extend('&')
+               function_body.extend('(')
+               compile_expression(visited.writable)
+               function_body.extend(')')
+            else
+               compile_expression(visited.writable)
+            end
             cpp.class_invariant_call_closing(class_invariant_flag, True)
          end
       end

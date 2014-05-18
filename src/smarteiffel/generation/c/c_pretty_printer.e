@@ -2968,6 +2968,9 @@ feature {}
          pop
          class_invariant_flag := class_invariant_call_opening(rf3.type_of_current, True)
          if class_invariant_flag > 0 then
+            if internal_c_local.type.has_external_type or else (internal_c_local.type.is_expanded and then cpp.need_struct.for(internal_c_local.type.canonical_type_mark)) then
+               pending_c_function_body.extend('&')
+            end
             internal_c_local.append_in(pending_c_function_body)
             class_invariant_call_closing(class_invariant_flag, True)
          end
@@ -4090,6 +4093,9 @@ feature {} -- ONCE_ROUTINE_POOL
             end
             class_invariant_flag := class_invariant_call_opening(rt.type, True)
             if class_invariant_flag > 0 then
+               if rt.is_expanded and then cpp.need_struct.for(rt) then
+                  pending_c_function_body.extend('&')
+               end
                once_routine_pool.unique_result_in(pending_c_function_body, rf.base_feature)
                class_invariant_call_closing(class_invariant_flag, True)
             end

@@ -225,20 +225,28 @@ feature {CLIENT_LIST}
       require
          new_type /= Void
       local
-         i: INTEGER
+         i: INTEGER; tm: TYPE_MARK
       do
          from
             i := 1
          until
             i > count
          loop
-            item(i).specialize_in(new_type)
+            tm := item(i)
+            if tm.start_position.class_text = new_type.class_text then
+               tm.specialize_in(new_type)
+            else
+               sedb_breakpoint
+            end
             i := i + 1
          end
+      ensure
+         has_been_specialized
       end
 
    specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
       require
+         has_been_specialized
          parent_type /= Void
          parent_edge /= Void
          new_type /= Void
@@ -279,6 +287,26 @@ feature {CLIENT_LIST}
             end
             create Result.make(f, r)
          end
+      ensure
+         Result.has_been_specialized
+      end
+
+feature {CLIENT_LIST, TYPE_MARK_LIST}
+   has_been_specialized: BOOLEAN is
+      local
+         i: INTEGER
+      do
+         from
+            i := 1
+            Result := True
+         until
+            i > count or else not Result
+         loop
+            Result := item(i).has_been_specialized
+            i := i + 1
+         end
+      ensure
+         assertion_only: Result
       end
 
 feature {CLIENT_LIST, TYPE_MARK_LIST}
