@@ -17,8 +17,8 @@ feature {ANY}
          create {HASHED_DICTIONARY[INTEGER, INTEGER]} dict_a.make
          dict_a.put(1, 1)
          create {HASHED_DICTIONARY[STRING, INTEGER]} dict_b.make
-         itere_a := dict_a.get_new_iterator_on_items
-         itere_b := dict_b.get_new_iterator_on_items
+         itere_a := dict_a.new_iterator_on_items
+         itere_b := dict_b.new_iterator_on_items
       end
 
 end -- class TEST_DICTIONARY8
