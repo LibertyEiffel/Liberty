@@ -31,6 +31,9 @@ feature {ANY}
                buffer := buffer.calloc(4096)
                capacity := 4096
             end
+            if the_terminal_settings /= Void then
+               the_terminal_settings.make(output_stream, Current)
+            end
          end
       end
 
@@ -50,6 +53,9 @@ feature {ANY}
             if capacity = 0 then
                buffer := buffer.calloc(4096)
                capacity := 4096
+            end
+            if the_terminal_settings /= Void then
+               the_terminal_settings.make(output_stream, Current)
             end
          end
       end
@@ -164,6 +170,17 @@ feature {ANY}
          buffer_position := buffer_position + 4
       end
 
+   terminal_settings: TERMINAL_SETTINGS is
+      do
+         if the_terminal_settings = Void then
+            create the_terminal_settings.make(filtered_stream_pointer, Current)
+         end
+         Result := the_terminal_settings
+      ensure
+         valid: Result /= Void
+         associated: Result.associated_stream = Current
+      end
+   
 feature {FILTER}
    filtered_descriptor: INTEGER is 0
    filtered_has_descriptor: BOOLEAN is False
@@ -180,7 +197,8 @@ feature {}
    buffer_position: INTEGER
    capacity: INTEGER
    output_stream: POINTER
-
+   the_terminal_settings: TERMINAL_SETTINGS
+   
    make is
          -- The new created object is not connected. (See also `connect_to' and
          -- `connect_for_appending_to'.)

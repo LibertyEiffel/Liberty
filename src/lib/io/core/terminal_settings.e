@@ -14,7 +14,7 @@ insert
 create {FILE_STREAM}
    make
 
-feature {}
+feature {FILE_STREAM}
    make(a_fd: POINTER; a_fs: FILE_STREAM) is
 		require
 			valid_stream: a_fs /= Void

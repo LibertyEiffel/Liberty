@@ -34,7 +34,7 @@ feature {ANY}
             end
             buffer_position := 0
             buffer_size := 0
-            if the_terminal_settings != Void then
+            if the_terminal_settings /= Void then
                the_terminal_settings.make(filtered_stream_pointer, Current)
             end
          end
