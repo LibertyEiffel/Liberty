@@ -34,6 +34,9 @@ feature {ANY}
             end
             buffer_position := 0
             buffer_size := 0
+            if the_terminal_settings != Void then
+               the_terminal_settings.make(filtered_stream_pointer, Current)
+            end
          end
       ensure then
          is_connected implies not end_of_input
@@ -202,6 +205,18 @@ feature {ANY}
          Result := io_ftell (filtered_stream_pointer) - buffer_size + buffer_position
       end
 
+   terminal_settings: TERMINAL_SETTINGS is
+      do
+         if the_terminal_settings = Void then
+            create the_terminal_settings.make(filtered_stream_pointer, Current)
+         end
+         Result := the_terminal_settings
+      ensure
+         valid: Result /= Void
+         associated: Result.associated_stream = Current
+      end
+   
+
 feature {FILTER}
    filtered_descriptor: INTEGER is
       do
@@ -239,6 +254,8 @@ feature {}
    buffer_position, buffer_size: INTEGER
 
    capacity: INTEGER
+
+   the_terminal_settings: TERMINAL_SETTINGS
 
    fill_buffer is
       do
