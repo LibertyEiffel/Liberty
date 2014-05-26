@@ -26,7 +26,7 @@
 -- ------------------------------------------------------------------------------------------------------------
 */
 /*
-  This file (SmartEiffel/sys/runtime/base.h) contains all basic Eiffel
+  This file (Liberty/sys/runtime/base.h) contains all basic Eiffel
   type definitions.
   This file is automatically included in the header for all modes of
   compilation: -boost, -no_check, -require_check, -ensure_check, ...
@@ -266,7 +266,7 @@ typedef int_least8_t int8_t;
 #  elif defined(__ARMEB__)
 #    define BYTE_ORDER      BIG_ENDIAN
 #  elif defined(__arm__)
-#    error "ARMs are bi-endian processors. Endianness is unknown for this system, please drop an e-mail to SmartEiffel@loria.fr"
+#    error "ARMs are bi-endian processors. Endianness is unknown for this system, please drop an e-mail to liberty-eiffel@gnu.org"
 #  endif
 
 /* HP RISC */
@@ -312,7 +312,7 @@ typedef int_least8_t int8_t;
 #  elif defined(MIPSEB) || defined(_MIPSEB)
 #    define BYTE_ORDER      BIG_ENDIAN
 #  elif defined(__mips__) || defined(__mips) || defined(__MIPS__)
-#    error "MIPS are bi-endian processors. Endianness is unknown for this system, please drop an e-mail to SmartEiffel@loria.fr"
+#    error "MIPS are bi-endian processors. Endianness is unknown for this system, please drop an e-mail to liberty-eiffel@gnu.org"
 #  endif
 
 /* Power PC */
@@ -368,10 +368,10 @@ typedef int_least8_t int8_t;
 
 
 #if !defined(BYTE_ORDER)
-#  error "Unknown byte order. Add your system in above macros once you know your system type. Please drop an e-mail to SmartEiffel@loria.fr"
+#  error "Unknown byte order. Add your system in above macros once you know your system type. Please drop an e-mail to liberty-eiffel@gnu.org"
 #endif
 #if (BYTE_ORDER != BIG_ENDIAN && BYTE_ORDER != LITTLE_ENDIAN)
-#  error "Only little-endian and big-endian are valid at this time. Please drop an e-mail to SmartEiffel@loria.fr"
+#  error "Only little-endian and big-endian are valid at this time. Please drop an e-mail to liberty-eiffel@gnu.org"
 #endif
 
 

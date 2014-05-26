@@ -1041,7 +1041,7 @@ void mark_stack_and_registers(void){
 
 #  if !defined(SE_BOOST)
   if (stack_pointer < max) {
-    fprintf(stderr, "Wrong stack direction: your stack decrease as the stack grows (or complex stack management). Please drop an e-mail to SmartEiffel@loria.fr\n");
+    fprintf(stderr, "Wrong stack direction: your stack decrease as the stack grows (or complex stack management). Please drop an e-mail to liberty-eiffel@gnu.org\n");
     exit(1); }
 #  endif
 
@@ -1067,7 +1067,7 @@ void mark_stack_and_registers(void){
 
 #  if !defined(SE_BOOST)
   if (stack_pointer > max) {
-    fprintf(stderr, "Wrong stack direction: the stack addresses increase as the stack grows (or complex stack management). Please drop an e-mail to SmartEiffel@loria.fr\n");
+    fprintf(stderr, "Wrong stack direction: the stack addresses increase as the stack grows (or complex stack management). Please drop an e-mail to liberty-eiffel@gnu.org\n");
     exit(1); }
 #  endif
 

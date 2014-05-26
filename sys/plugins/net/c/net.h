@@ -63,7 +63,7 @@
 
 #else
 
-#error "Unknown OS. Cannot use sockets. Please drop an email to SmartEiffel@loria.fr"
+#error "Unknown OS. Cannot use sockets. Please drop an email to liberty-eiffel@gnu.org"
 
 #endif
 
