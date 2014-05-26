@@ -32,13 +32,7 @@ HANDLE sem_msg_ready;
 #endif
 
 EIF_POINTER _sequencer_create_set(void) {
-  void * mem;
-  mem = malloc(sizeof(fd_set));
-  if (!mem) {
-    fprintf(stderr, "Error in malloc for select, exiting\n");
-    exit(1);
-  }
-  return mem;
+  return se_malloc(sizeof(fd_set));
 }
 
 int sequencer_wait(int n, fd_set *read_set, int read_size, fd_set *write_set, int write_size, fd_set *exception_set, int exception_size, int s, int us){
