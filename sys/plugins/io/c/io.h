@@ -72,7 +72,7 @@ extern int io_same_physical_file(char*path1,char*path2);
  #define termios_tcgetattr(fp, s_termios) (tcgetattr(termios_fd(fp), s_termios) == 0 ? 0 : errno)
  #define termios_tcsetattr(fp, s_termios) (tcsetattr(termios_fd(fp), TCSADRAIN, s_termios) == 0 ? 0 : errno)
  #define termios_allocate() ((EIF_POINTER) se_malloc(sizeof(struct termios)))
- #define termios_free(s_termios_p) ((void)free(s_termios_p))
+ #define termios_free(s_termios_p) (free(s_termios_p))
  #define termios_strerror(err) (strerror(err))
 #else
  #error TERMINAL_SETTINGS currently not implemented on this platform (please port termios.h)
