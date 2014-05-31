@@ -238,8 +238,8 @@ feature {}
          -- low level tcgetattr in termios.h
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "termios_tcgetattr"
          }"
       end
@@ -248,8 +248,8 @@ feature {}
          -- low level tcsetattr in termios.h
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "termios_tcsetattr"
          }"
       end
@@ -258,8 +258,8 @@ feature {}
          -- low level cfgetispeed in termios.h
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "termios_cfgetispeed"
          }"
       end
@@ -268,8 +268,8 @@ feature {}
          -- low level cfgetospeed in termios.h
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "termios_cfgetospeed"
          }"
       end
@@ -278,8 +278,8 @@ feature {}
          -- low level cfsetispeed in termios.h
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "termios_cfsetispeed"
          }"
       end
@@ -288,8 +288,8 @@ feature {}
          -- low level cfsetospeed in termios.h
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "termios_cfsetospeed"
          }"
       end
@@ -298,8 +298,8 @@ feature {}
          -- low level tctrain in termios.h
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "termios_tcdrain"
          }"
       end
@@ -308,8 +308,8 @@ feature {}
          -- allocate a internal termios struct
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "termios_allocate()"
          }"
       end
@@ -318,8 +318,8 @@ feature {}
          -- allocate a internal termios struct
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "termios_free"
          }"
       end
@@ -328,8 +328,8 @@ feature {}
          -- allocate a internal termios struct
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "termios_strerror"
          }"
       end
@@ -337,8 +337,8 @@ feature {}
    termios_b50: INTEGER is
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "B50"
          }"
       end
@@ -346,8 +346,8 @@ feature {}
    termios_b75: INTEGER is
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "B75"
          }"
       end
@@ -355,8 +355,8 @@ feature {}
    termios_b110: INTEGER is
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "B110"
          }"
       end
@@ -364,8 +364,8 @@ feature {}
    termios_b134: INTEGER is
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "B134"
          }"
       end
@@ -373,8 +373,8 @@ feature {}
    termios_b150: INTEGER is
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "B150"
          }"
       end
@@ -382,8 +382,8 @@ feature {}
    termios_b200: INTEGER is
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "B200"
          }"
       end
@@ -391,8 +391,8 @@ feature {}
    termios_b300: INTEGER is
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "B300"
          }"
       end
@@ -400,8 +400,8 @@ feature {}
    termios_b600: INTEGER is
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "B600"
          }"
       end
@@ -409,8 +409,8 @@ feature {}
    termios_b1200: INTEGER is
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "B1200"
          }"
       end
@@ -418,8 +418,8 @@ feature {}
    termios_b1800: INTEGER is
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "B1800"
          }"
       end
@@ -427,8 +427,8 @@ feature {}
    termios_b2400: INTEGER is
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "B2400"
          }"
       end
@@ -436,8 +436,8 @@ feature {}
    termios_b4800: INTEGER is
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "B4800"
          }"
       end
@@ -445,8 +445,8 @@ feature {}
    termios_b9600: INTEGER is
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "B9600"
          }"
       end
@@ -454,8 +454,8 @@ feature {}
    termios_b19200: INTEGER is
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "B19200"
          }"
       end
@@ -463,8 +463,8 @@ feature {}
    termios_b38400: INTEGER is
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "B38400"
          }"
       end
@@ -472,8 +472,8 @@ feature {}
    termios_b57600: INTEGER is
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "B57600"
          }"
       end
@@ -481,8 +481,8 @@ feature {}
    termios_b115200: INTEGER is
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "B115200"
          }"
       end
@@ -490,8 +490,8 @@ feature {}
    termios_b230400: INTEGER is
       external "plug_in"
       alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
+         location: "${sys}/plugins/io"
+         module_name: "io_termios"
          feature_name: "B230400"
          }"
       end
