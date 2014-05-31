@@ -61,12 +61,12 @@ feature {}
          lt: LIVE_TYPE
       do
          lt := visited.type.live_type
-         -- --------------- Define struct BXXX and typedef gcXXX :
-         out_h.copy(once "typedef struct B")
+         -- --------------- Define struct GC_BXXX and typedef gcXXX :
+         out_h.copy(once "typedef struct GC_B")
          ltid_in(lt, out_h, False, for_closure)
          out_h.append(once " gc")
          ltid_in(lt, out_h, False, for_closure)
-         out_h.append(once ";%Nstruct B")
+         out_h.append(once ";%Nstruct GC_B")
          ltid_in(lt, out_h, False, for_closure)
          out_h.append(once "{T")
          ltid_in(lt, out_h, False, False)
