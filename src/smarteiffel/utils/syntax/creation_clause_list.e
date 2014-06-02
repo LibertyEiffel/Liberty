@@ -17,6 +17,11 @@ feature {ANY}
          Result := list.first.start_position
       end
 
+   count: INTEGER is
+      do
+         Result := list.count
+      end
+
    pretty is
       local
          i: INTEGER

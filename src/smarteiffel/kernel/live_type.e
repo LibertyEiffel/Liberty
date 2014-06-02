@@ -1254,10 +1254,17 @@ feature {CREATE_EXPRESSION}
          -- run-time using `fs' as the creation procedure. Also not that `fs' can be Void in the case of
          -- a create expression with no call.
       do
-         if create_function_list = Void then
-            create create_function_list.with_capacity(4)
-         end
-         if fs /= Void then
+         if fs = Void then
+            if create_function_list = Void then
+               check
+                  type.class_text.creation_clause_list = Void
+               end
+               create create_function_list.with_capacity(0)
+            end
+         else
+            if create_function_list = Void then
+               create create_function_list.with_capacity(type.class_text.creation_clause_list.count)
+            end
             if not create_function_list.fast_has(fs) then
                create_function_list.add_last(fs)
             end
