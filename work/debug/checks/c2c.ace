@@ -1,0 +1,41 @@
+system "c2c"
+root
+    COMPILE_TO_C: make
+
+default
+    trace(yes)
+    collect(no)
+    assertion(no)
+    debug(no)
+    verbose(no)
+    manifest_string_trace(no)
+
+cluster
+   lib: "${path_liberty_core}/loadpath.se"
+      default
+         trace(no)
+      end
+
+   smarteiffel: "${path_smarteiffel}/loadpath.se"
+      default
+         assertion(all)
+      option
+         debug(yes): POSITION
+          -- Because it would be really too slow:
+         assertion (ensure): CLASS_TEXT, GRAPH_NODE, FEATURE_NAME, HASHED_STRING, SMART_EIFFEL,
+            STRING_ALIASER, PARSER_BUFFER, ORDERED_DICTIONARY, INI_PARSER, FEATURE_STAMP,
+            ERROR_HANDLER, SYSTEM_TOOLS, ACE, CLASS_NAME, EIFFEL_PARSER, STATUS,
+            COMMENT
+      end
+
+   tools: "${path_tools}"
+      default
+         trace(no)
+      end
+
+generate
+   no_strip(yes)
+   split("by_type")
+   c_compiler_options: "-g"
+
+end
