@@ -95,7 +95,7 @@ feature {ANY}
             end
             target_type := type
             af := feature_stamp.anonymous_feature(type)
-            if function_check(type, af, Void) then
+            if function_check(type, af) then
                if arguments_0 = Void then
                   create arguments_0.make(start_position)
                end
@@ -128,7 +128,7 @@ feature {ANY}
                error_handler.append(once "Missing anonymous feature for this call")
                error_handler.print_as_internal_error
             end
-            if function_check(type, af, Void) then
+            if function_check(type, af) then
                if arguments_0 = Void then
                   create arguments_0.make(start_position)
                end

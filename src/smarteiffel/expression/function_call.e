@@ -299,7 +299,7 @@ feature {EIFFEL_PARSER}
 feature {}
    declaration_type_memory: TYPE
 
-   frozen function_check (type: TYPE; af: ANONYMOUS_FEATURE; actual_args: like arguments): BOOLEAN is
+   frozen function_check (type: TYPE; af: ANONYMOUS_FEATURE): BOOLEAN is
          -- Check that the feature found is really a function.
          -- Returns False if the function is in fact an agent creation.
       require

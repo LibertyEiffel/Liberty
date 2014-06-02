@@ -108,7 +108,7 @@ feature {ANY}
             end
             target_type := type
             af := feature_stamp.anonymous_feature(type)
-            procedure_check(type, af, Void)
+            procedure_check(type, af)
             args := arguments_0.specialize_and_check(type, af, type, True)
             if args = arguments_0 then
                Result := Current
@@ -135,7 +135,7 @@ feature {ANY}
                error_handler.append(once "Missing anonymous feature for this call")
                error_handler.print_as_internal_error
             end
-            procedure_check(type, af, Void)
+            procedure_check(type, af)
             args := arguments_0.specialize_and_check(type, af, target_type, True)
             if feature_stamp = Void then
                feature_stamp := fs
