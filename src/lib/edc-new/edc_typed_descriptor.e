@@ -9,7 +9,7 @@ feature {ANY}
       deferred
       end
 
-   find (primary_key: K_; options: EDC_QUERY_OPTION): EDC_TYPED_QUERY[R_] is
+   find (options: EDC_QUERY_OPTION; primary_key: K_): EDC_TYPED_QUERY[R_] is
       do
          create {EDC_FIND[like Current, R_, K_]} Result.make(primary_key, options)
       end
