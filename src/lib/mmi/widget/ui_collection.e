@@ -20,10 +20,10 @@ feature {ANY}
          children_: FAST_ARRAY[UI_CONNECT_ITEM]
       do
          create children_.with_capacity(children.count)
-         children.do_all(agent (a_child: UI_; a_children: FAST_ARRAY[UI_CONNECT_ITEM]) is
-                         do
-                            a_children.add_last(a_child.connect_to(a_job))
-                         end (?, children_))
+         children.for_each(agent (a_child: UI_; a_children: FAST_ARRAY[UI_CONNECT_ITEM]) is
+                           do
+                              a_children.add_last(a_child.connect_to(a_job))
+                           end (?, children_))
          Result := Precursor(a_job)
          connect_children(Result, children_)
       end

@@ -33,7 +33,7 @@ feature {ANY}
          --         print("Time:     " + t.time.out + "%N")
          --         print("Visits:   " + t.visits.out + "%N")
          --         print("%NTreatment Queue - Remaining Treatment Time%N")
-         region.hospital.treatment.do_all(agent end_print(?))
+         region.hospital.treatment.for_each(agent end_print(?))
          assert(True)
       end
 

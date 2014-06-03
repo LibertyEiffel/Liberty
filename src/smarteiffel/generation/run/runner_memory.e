@@ -43,10 +43,10 @@ feature {RUNNER_PROCESSOR}
                             agent_builtins(type))
 
          if agent_creation.open_operand_list /= Void then
-            agent_creation.open_operand_list.do_all(agent add_new_open_operand(processor, Result, ?))
+            agent_creation.open_operand_list.for_each(agent add_new_open_operand(processor, Result, ?))
          end
          if agent_creation.closed_operand_list /= Void then
-            agent_creation.closed_operand_list.do_all(agent add_new_closed_operand(processor, Result, ?))
+            agent_creation.closed_operand_list.for_each(agent add_new_closed_operand(processor, Result, ?))
          end
          if Result.target = Void then
             Result.set_operand(-1, processor.current_frame.target)

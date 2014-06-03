@@ -66,11 +66,11 @@ feature {ANY} -- Basic accessing:
          Result = item(1)
       end
 
-   do_all (action: PROCEDURE[TUPLE[LIVE_TYPE]]) is
+   for_each (action: PROCEDURE[TUPLE[LIVE_TYPE]]) is
       require
          action /= Void
       do
-         set.do_all(action)
+         set.for_each(action)
       end
 
 feature {LIVE_TYPE}

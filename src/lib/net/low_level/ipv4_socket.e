@@ -29,17 +29,13 @@ feature {SOCKET_SERVER, SOCKET_HANDLER}
             bind_values := bind_values.calloc(6)
          end
          net_accept(server.fd, bind_values, a_sync)
+         error := last_error
          fd := bind_values.item(5)
-         if fd >= 0 then
-            check
-               last_error = Void
-            end
+         if error = Void and then fd >= 0 then
             common_make(bind_values.item(0), bind_values.item(1), bind_values.item(2), bind_values.item(3), bind_values.item(4), a_sync)
             is_connected := True
             is_remote_connected := True
             delay_read := False
-         else
-            error := last_error
          end
       end
 

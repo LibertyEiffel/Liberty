@@ -27,9 +27,9 @@ feature {ANY}
    triage_examination is
       do
          transfers.clear
-         treatment.do_all(agent discharge_one_patient(?))
-         examination.do_all(agent treat_or_transfert_one_patient(?))
-         triage.do_all(agent triage_one_patient(?))
+         treatment.for_each(agent discharge_one_patient(?))
+         examination.for_each(agent treat_or_transfert_one_patient(?))
+         triage.for_each(agent triage_one_patient(?))
          if alea.test(0.7) then
             new_arrival(create {AUX_AGENT_GC3})
          end

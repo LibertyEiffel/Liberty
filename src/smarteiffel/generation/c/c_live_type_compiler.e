@@ -74,7 +74,7 @@ feature {}
             if live_type.create_function_list.is_empty then
                create_function_define(live_type, Void)
             else
-               live_type.create_function_list.do_all(agent create_function_define(live_type, ?))
+               live_type.create_function_list.for_each(agent create_function_define(live_type, ?))
             end
          end
 
@@ -103,7 +103,7 @@ feature {}
          end
 
          if live_type.precursor_run_features /= Void then
-            live_type.precursor_run_features.do_all(agent {RUN_FEATURE}.accept(Current))
+            live_type.precursor_run_features.for_each(agent {RUN_FEATURE}.accept(Current))
          end
 
          if live_type.class_text.invariant_check and then live_type.class_invariant /= Void then

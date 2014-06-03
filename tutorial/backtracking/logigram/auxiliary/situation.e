@@ -70,7 +70,7 @@ feature {ANY}
          builder: MASK_BUILDER
       do
          create builder.make(Current)
-         situation.do_all(agent {BIT_STRING}.set_all)
+         situation.for_each(agent {BIT_STRING}.set_all)
          nrsol := 0
          from
             set_current_node(description.constraints.build_nodes(builder))

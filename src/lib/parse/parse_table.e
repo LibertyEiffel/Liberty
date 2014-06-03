@@ -121,7 +121,7 @@ feature {ANY}
                log.trace.put_line(atom_name)
                log.trace.put_line(once "Known atoms:")
                log.trace.put_line(once "--8<--------")
-               atoms.do_all(agent print_atom(?, ?))
+               atoms.for_each(agent print_atom(?, ?))
                log.trace.put_line(once "-------->8--")
                breakpoint
             end
@@ -144,7 +144,7 @@ feature {ANY}
       require
          action /= Void
       do
-         atoms.do_all(action)
+         atoms.for_each(action)
       end
 
 feature {}

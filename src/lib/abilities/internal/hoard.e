@@ -27,7 +27,7 @@ feature {ANY} -- Counting:
       end
 
 feature {ANY} -- Agent-based features:
-   do_all (action: ROUTINE[TUPLE[E_]]) is
+   for_each (action: PROCEDURE[TUPLE[E_]]) is
          -- Apply `action' to every item of `Current'.
          --
          -- See also `for_all', `exists', `aggregate'.
@@ -36,10 +36,28 @@ feature {ANY} -- Agent-based features:
       deferred
       end
 
+   frozen do_all (action: ROUTINE[TUPLE[E_]]) is
+         -- Apply `action' to every item of `Current'.
+         --
+         -- See also `for_all', `exists', `aggregate'.
+      obsolete "This feature is not secure because it accepts a FUNCTION, the result of which is lost. Plese use `for_each` instead."
+      require
+         action /= Void
+      local
+         p: PROCEDURE[TUPLE[E_]]
+      do
+         if p ?:= action then
+            p ::= action
+         else
+            p := agent (a: ROUTINE[TUPLE[E_]]; e: E_) is do a.call([e]) end (action, ?)
+         end
+         for_each(p)
+      end
+
    for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
          -- Do all items satisfy `test'?
          --
-         -- See also `do_all', `exists', `aggregate'.
+         -- See also `for_each', `exists', `aggregate'.
       require
          test /= Void
       deferred
@@ -48,7 +66,7 @@ feature {ANY} -- Agent-based features:
    exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
          -- Does at least one item satisfy `test'?
          --
-         -- See also `do_all', `for_all', `aggregate'.
+         -- See also `for_each', `for_all', `aggregate'.
       require
          test /= Void
       deferred
@@ -57,7 +75,7 @@ feature {ANY} -- Agent-based features:
    aggregate (action: FUNCTION[TUPLE[E_, E_], E_]; initial: E_): E_ is
          -- Aggregate all the elements starting from the initial value.
          --
-         -- See also `do_all', `for_all', `exists'.
+         -- See also `for_each', `for_all', `exists'.
       require
          action /= Void
       deferred

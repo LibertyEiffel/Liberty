@@ -13,7 +13,7 @@ create {}
 feature {ANY}
    data: ARRAY[STRING]
 
-   do_all (action: ROUTINE[TUPLE[STRING]]) is
+   for_each (action: PROCEDURE[TUPLE[STRING]]) is
       local
          i: INTEGER
       do
@@ -33,7 +33,7 @@ feature {ANY}
       do
          data := {ARRAY[STRING] 1, << "eins", "zwei", "drei" >> }
          test := "zwei"
-         do_all(agent print_string(?, True))
+         for_each(agent print_string(?, True))
       end
 
    print_string (s: STRING; new_line: BOOLEAN) is

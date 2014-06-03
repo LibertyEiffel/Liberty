@@ -37,7 +37,7 @@ feature {}
    notify is
          -- Notify all the observers that the state of Current changed
       do
-         observers.do_all(agent {OBSERVER[like Current]}.update(Current))
+         observers.for_each(agent {OBSERVER[like Current]}.update(Current))
       end
 
 feature {}

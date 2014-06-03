@@ -12,8 +12,8 @@ feature {}
       do
          create aa.make
          create bb.with_capacity(10)
-         aa.do_all(agent {AUX_AGENT08A}.foo)
-         bb.do_all(agent {AUX_AGENT08B}.foo)
+         aa.for_each(agent {AUX_AGENT08A}.foo)
+         bb.for_each(agent {AUX_AGENT08B}.foo)
       end
 
    aa: LINKED_LIST[AUX_AGENT08A]

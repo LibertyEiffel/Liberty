@@ -92,19 +92,19 @@ feature {JSON_OBJECT}
             open_repository(layout, json.line, json.column)
             jobj ::= json.members.at(json_data)
             jarr ::= json.members.at(json_refs)
-            jobj.members.do_all(agent (value: JSON_VALUE; string: JSON_STRING; refs: JSON_ARRAY) is
-                                local
-                                   jn: JSON_NUMBER; r: INTEGER; lo: REPOSITORY_LAYOUT
-                                do
-                                   lo := new_layout(once "reference")
-                                   update_layouts.push(lo)
-                                   last_name := string.string.to_utf8
-                                   jn ::= value
-                                   r := jn.int.to_integer_32
-                                   open_reference(last_name, r, lo, value.line, value.column)
-                                   refs.array.item(r - 1 + refs.array.lower).accept(Current)
-                                   close_reference(value.line, value.column)
-                                end (?, ?, jarr))
+            jobj.members.for_each(agent (value: JSON_VALUE; string: JSON_STRING; refs: JSON_ARRAY) is
+                                  local
+                                     jn: JSON_NUMBER; r: INTEGER; lo: REPOSITORY_LAYOUT
+                                  do
+                                     lo := new_layout(once "reference")
+                                     update_layouts.push(lo)
+                                     last_name := string.string.to_utf8
+                                     jn ::= value
+                                     r := jn.int.to_integer_32
+                                     open_reference(last_name, r, lo, value.line, value.column)
+                                     refs.array.item(r - 1 + refs.array.lower).accept(Current)
+                                     close_reference(value.line, value.column)
+                                  end (?, ?, jarr))
             close_repository(json.line, json.column)
 
          when "layout" then
@@ -117,11 +117,11 @@ feature {JSON_OBJECT}
             ref := jnum.int.to_integer_32
             open_layout(type, ref, layout, json.line, json.column)
             jobj ::= json.members.at(json_data)
-            jobj.members.do_all(agent (value: JSON_VALUE; string: JSON_STRING) is
-                                do
-                                   last_name := string.string.to_utf8
-                                   value.accept(Current)
-                                end)
+            jobj.members.for_each(agent (value: JSON_VALUE; string: JSON_STRING) is
+                                  do
+                                     last_name := string.string.to_utf8
+                                     value.accept(Current)
+                                  end)
             close_layout(json.line, json.column)
 
          when "array" then
@@ -134,13 +134,13 @@ feature {JSON_OBJECT}
             cap := jnum.int.to_integer_32
             open_array(last_name, type, cap, layout, json.line, json.column)
             jarr ::= json.members.at(json_data)
-            jarr.array.enumerate.do_all(agent (value: JSON_VALUE; index: INTEGER) is
-                                        do
-                                           last_name := "item("
-                                           (index+1).append_in(last_name)
-                                           last_name.extend(')')
-                                           value.accept(Current)
-                                        end)
+            jarr.array.enumerate.for_each(agent (value: JSON_VALUE; index: INTEGER) is
+                                          do
+                                             last_name := "item("
+                                             (index+1).append_in(last_name)
+                                             last_name.extend(')')
+                                             value.accept(Current)
+                                          end)
             close_array(json.line, json.column)
 
          when "basic" then
@@ -163,11 +163,11 @@ feature {JSON_OBJECT}
             type.copy(jstr.string.as_utf8)
             open_embedded(last_name, type, layout, json.line, json.column)
             jobj ::= json.members.at(json_data)
-            jobj.members.do_all(agent (value: JSON_VALUE; string: JSON_STRING) is
-                                do
-                                   last_name := string.string.to_utf8
-                                   value.accept(Current)
-                                end)
+            jobj.members.for_each(agent (value: JSON_VALUE; string: JSON_STRING) is
+                                  do
+                                     last_name := string.string.to_utf8
+                                     value.accept(Current)
+                                  end)
             close_embedded(json.line, json.column)
 
          when "reference" then

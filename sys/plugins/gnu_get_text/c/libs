@@ -1,2 +1,2 @@
-[UNIX.needs_libintl]
+[UNIX.Cygwin]
 intl: intl

@@ -87,7 +87,7 @@ feature {COMMENT}
 feature {COMPOUND}
    visit_compound (visited: COMPOUND) is
       do
-         visited.list.do_all(agent (i: INSTRUCTION) is do i.accept(Current); stream.put_string(once "; ") end)
+         visited.list.for_each(agent (i: INSTRUCTION) is do i.accept(Current); stream.put_string(once "; ") end)
       end
 
 feature {CREATE_INSTRUCTION}
@@ -140,7 +140,7 @@ feature {}
       do
          stream.put_string(once "inspect ")
          visited.expression.accept(Current)
-         visited.when_list.do_all(agent {WHEN_CLAUSE}.accept(Current))
+         visited.when_list.for_each(agent {WHEN_CLAUSE}.accept(Current))
          if visited.else_compound /= Void then
             stream.put_string(once " else ...")
          end
@@ -281,7 +281,7 @@ feature {WHEN_CLAUSE}
    visit_when_clause (visited: WHEN_CLAUSE) is
       do
          stream.put_string(once " when ")
-         visited.list.do_all(agent {WHEN_ITEM}.accept(Current))
+         visited.list.for_each(agent {WHEN_ITEM}.accept(Current))
          stream.put_string(once " then ...")
       end
 
@@ -678,7 +678,7 @@ feature {MANIFEST_GENERIC}
          stream.put_string(visited.type_mark.written_mark)
          stream.put_character(' ')
          if visited.optional_arguments /= Void then
-            visited.optional_arguments.do_all(agent (arg: EXPRESSION) is
+            visited.optional_arguments.for_each(agent (arg: EXPRESSION) is
                                               do
                                                  arg.accept(Current)
                                                  stream.put_string(once ", ")
@@ -841,7 +841,7 @@ feature {EFFECTIVE_ARG_LIST_N}
       do
          visited.first_one.accept(Current)
          if visited.remainder /= Void then
-            visited.remainder.do_all(agent (e: EXPRESSION) is
+            visited.remainder.for_each(agent (e: EXPRESSION) is
                                      do
                                         stream.put_string(once ", ")
                                         e.accept(Current)

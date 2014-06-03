@@ -20,7 +20,7 @@ feature {ANY}
          until
             i = 0
          loop
-            a.do_all(agent increment(?))
+            a.for_each(agent increment(?))
             i := i - 1
          end
          mem := allocated_bytes

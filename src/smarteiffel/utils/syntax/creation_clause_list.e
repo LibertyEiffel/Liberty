@@ -19,7 +19,9 @@ feature {ANY}
 
    count: INTEGER is
       do
-         Result := list.count
+         if list /= Void then
+            Result := list.count
+         end
       end
 
    pretty is

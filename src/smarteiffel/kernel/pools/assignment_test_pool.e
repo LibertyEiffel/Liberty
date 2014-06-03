@@ -60,7 +60,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {ANY}
-   do_all (action: PROCEDURE[TUPLE[TYPE, TYPE]]) is
+   for_each (action: PROCEDURE[TUPLE[TYPE, TYPE]]) is
       require
          action /= Void
       local

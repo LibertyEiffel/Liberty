@@ -6,7 +6,7 @@ class AUX_AGENT10[E]
 feature {ANY}
    item: E
 
-   do_all (action: ROUTINE[TUPLE[E]]) is
+   for_each (action: PROCEDURE[TUPLE[E]]) is
       do
       end
 

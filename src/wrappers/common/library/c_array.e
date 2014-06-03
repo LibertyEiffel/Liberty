@@ -545,158 +545,158 @@ feature {ANY} -- Looking and comparison:
 
 feature {ANY}
    -- Agents based features:
-   -- do_all (action: ROUTINE[TUPLE[ITEM_]]) is
+   -- for_each (action: ROUTINE[TUPLE[ITEM_]]) is
    -- do
-   -- 			-- Apply `action' to every item of `Current'.
-   -- 			--
-   -- 			-- See also `for_all', `exists'.
-   -- 		require
-   -- 			action /= Void
-   -- 		local
-   -- 			i: INTEGER
-   -- 		do
-   -- 			from
-   -- 				i := lower
-   -- 			until
-   -- 				i > upper
-   -- 			loop
-   -- 				action.call([item(i)])
-   -- 				i := i + 1
+   --                   -- Apply `action' to every item of `Current'.
+   --                   --
+   --                   -- See also `for_all', `exists'.
+   --           require
+   --                   action /= Void
+   --           local
+   --                   i: INTEGER
+   --           do
+   --                   from
+   --                           i := lower
+   --                   until
+   --                           i > upper
+   --                   loop
+   --                           action.call([item(i)])
+   --                           i := i + 1
    -- end
    -- end
    -- for_all (test: PREDICATE[TUPLE[ITEM_]]): BOOLEAN is
-   --		do
-   -- 			-- Do all items satisfy `test'?
-   -- 			--
-   -- 			-- See also `do_all', `exists'.
-   -- 		require
-   -- 			test /= Void
-   -- 		local
-   -- 			i: INTEGER
-   -- 		do
-   -- 			from
-   -- 				Result := True
-   -- 				i := lower
-   -- 			until
-   -- 				not Result or else i > upper
-   -- 			loop
-   -- 				Result := test.item([item(i)])
-   -- 				i := i + 1
+   --           do
+   --                   -- Do all items satisfy `test'?
+   --                   --
+   --                   -- See also `for_each', `exists'.
+   --           require
+   --                   test /= Void
+   --           local
+   --                   i: INTEGER
+   --           do
+   --                   from
+   --                           Result := True
+   --                           i := lower
+   --                   until
+   --                           not Result or else i > upper
+   --                   loop
+   --                           Result := test.item([item(i)])
+   --                           i := i + 1
    -- end
-   --		end
+   --           end
    -- exists (test: PREDICATE[TUPLE[ITEM_]]): BOOLEAN is
-   --		do
-   -- 			-- Does at least one item satisfy `test'?
-   -- 			--
-   -- 			-- See also `do_all', `for_all'.
-   -- 		require
-   -- 			test /= Void
-   -- 		local
-   -- 			i: INTEGER
-   -- 		do
-   -- 			from
-   -- 				i := lower
-   -- 			until
-   -- 				Result or else i > upper
-   -- 			loop
-   -- 				Result := test.item([item(i)])
-   -- 				i := i + 1
+   --           do
+   --                   -- Does at least one item satisfy `test'?
+   --                   --
+   --                   -- See also `for_each', `for_all'.
+   --           require
+   --                   test /= Void
+   --           local
+   --                   i: INTEGER
+   --           do
+   --                   from
+   --                           i := lower
+   --                   until
+   --                           Result or else i > upper
+   --                   loop
+   --                           Result := test.item([item(i)])
+   --                           i := i + 1
    -- end
    -- end
-   
+
 
 feature {ANY} -- Other features:
    replace_all (old_value, new_value: like item) is
       obsolete "Unimplemented!"
       do
-         -- 			-- Replace all occurrences of the element `old_value' by `new_value' using `is_equal' for comparison.
-         -- 			--
-         -- 			-- See also `fast_replace_all', `move'.
-         -- 		deferred
-         -- 		ensure
-         -- 			count = old count
-         -- 			not (create {SAFE_EQUAL[ITEM_]}).test(old_value, new_value) implies occurrences(old_value) = 0
+         --                     -- Replace all occurrences of the element `old_value' by `new_value' using `is_equal' for comparison.
+         --                     --
+         --                     -- See also `fast_replace_all', `move'.
+         --             deferred
+         --             ensure
+         --                     count = old count
+         --                     not (create {SAFE_EQUAL[ITEM_]}).test(old_value, new_value) implies occurrences(old_value) = 0
       end
 
    fast_replace_all (old_value, new_value: like item) is
       obsolete "Unimplemented!"
       do
-         -- 			-- Replace all occurrences of the element `old_value' by `new_value' using basic `=' for comparison.
-         -- 			--
-         -- 			-- See also `replace_all', `move'.
-         -- 		deferred
-         -- 		ensure
-         -- 			count = old count
-         -- 			old_value /= new_value implies fast_occurrences(old_value) = 0
+         --                     -- Replace all occurrences of the element `old_value' by `new_value' using basic `=' for comparison.
+         --                     --
+         --                     -- See also `replace_all', `move'.
+         --             deferred
+         --             ensure
+         --                     count = old count
+         --                     old_value /= new_value implies fast_occurrences(old_value) = 0
       end
-      --	move (lower_index, upper_index, distance: INTEGER) is
-      --		do
-      -- 			-- Move range `lower_index' .. `upper_index' by `distance' positions.
-      -- 			--	Negative distance moves towards lower indices.
-      -- 			-- Free places get default values.
-      -- 			--
-      -- 			-- See also `slice', `replace_all'.
-      -- 		require
-      -- 			lower_index <= upper_index
-      -- 			valid_index(lower_index)
-      -- 			valid_index(lower_index + distance)
-      -- 			valid_index(upper_index)
-      -- 			valid_index(upper_index + distance)
-      -- 		local
-      -- 			default_value: like item; i: INTEGER
-      -- 		do
-      -- 			if distance = 0 then
-      -- 			elseif distance < 0 then
-      -- 				from
-      -- 					i := lower_index
-      -- 				until
-      -- 					i > upper_index
-      -- 				loop
-      -- 					put(item(i), i + distance)
-      -- 					put(default_value, i)
-      -- 					i := i + 1
+      --        move (lower_index, upper_index, distance: INTEGER) is
+      --                do
+      --                        -- Move range `lower_index' .. `upper_index' by `distance' positions.
+      --                        --      Negative distance moves towards lower indices.
+      --                        -- Free places get default values.
+      --                        --
+      --                        -- See also `slice', `replace_all'.
+      --                require
+      --                        lower_index <= upper_index
+      --                        valid_index(lower_index)
+      --                        valid_index(lower_index + distance)
+      --                        valid_index(upper_index)
+      --                        valid_index(upper_index + distance)
+      --                local
+      --                        default_value: like item; i: INTEGER
+      --                do
+      --                        if distance = 0 then
+      --                        elseif distance < 0 then
+      --                                from
+      --                                        i := lower_index
+      --                                until
+      --                                        i > upper_index
+      --                                loop
+      --                                        put(item(i), i + distance)
+      --                                        put(default_value, i)
+      --                                        i := i + 1
       -- end
-      -- 			else
-      -- 				from
-      -- 					i := upper_index
-      -- 				until
-      -- 					i < lower_index
-      -- 				loop
-      -- 					put(item(i), i + distance)
-      -- 					put(default_value, i)
-      -- 					i := i - 1
-      --	end
-      --	end
-      -- 		ensure
-      -- 			count = old count
-      --	end
+      --                        else
+      --                                from
+      --                                        i := upper_index
+      --                                until
+      --                                        i < lower_index
+      --                                loop
+      --                                        put(item(i), i + distance)
+      --                                        put(default_value, i)
+      --                                        i := i - 1
+      --        end
+      --        end
+      --                ensure
+      --                        count = old count
+      --        end
 
    slice (min, max: INTEGER): like Current is
       obsolete "Unimplemented!"
       do
-         -- 			-- New collection consisting of items at indexes in [`min'..`max'].
-         -- 			-- Result has the same dynamic type as `Current'.
-         -- 			-- The `lower' index of the `Result' is the same as `lower'.
-         -- 			--
-         -- 			-- See also `from_collection', `move', `replace_all'.
-         -- 		require
-         -- 			lower <= min
-         -- 			max <= upper
-         -- 			min <= max + 1
-         -- 		deferred
-         -- 		ensure
-         -- 			same_dynamic_type(Result)
-         -- 			Result.count = max - min + 1
-         -- 			Result.lower = lower
+         --                     -- New collection consisting of items at indexes in [`min'..`max'].
+         --                     -- Result has the same dynamic type as `Current'.
+         --                     -- The `lower' index of the `Result' is the same as `lower'.
+         --                     --
+         --                     -- See also `from_collection', `move', `replace_all'.
+         --             require
+         --                     lower <= min
+         --                     max <= upper
+         --                     min <= max + 1
+         --             deferred
+         --             ensure
+         --                     same_dynamic_type(Result)
+         --                     Result.count = max - min + 1
+         --                     Result.lower = lower
       end
 
    reverse is
       obsolete "Unimplemented!"
       do
-         -- 			-- Reverse the order of the elements.
-         -- 		deferred
-         -- 		ensure
-         -- 			count = old count
+         --                     -- Reverse the order of the elements.
+         --             deferred
+         --             ensure
+         --                     count = old count
       end
 
 feature {ANY} -- struct_size: INTEGER

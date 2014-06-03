@@ -285,19 +285,19 @@ feature {}
    group_atomic (nam: STRING; values: ARRAY[STRING]) is
       do
          description.add_group_atomic(nam)
-         values.do_all(agent description.group.add_item(?))
+         values.for_each(agent description.group.add_item(?))
       end
 
    group_numeric (nam: STRING; values: ARRAY[STRING]) is
       do
          description.add_group_numeric(nam)
-         values.do_all(agent description.group.add_item(?))
+         values.for_each(agent description.group.add_item(?))
       end
 
    group_ordered (nam: STRING; values: ARRAY[STRING]) is
       do
          description.add_group_ordered(nam)
-         values.do_all(agent description.group.add_item(?))
+         values.for_each(agent description.group.add_item(?))
       end
 
 feature {}
