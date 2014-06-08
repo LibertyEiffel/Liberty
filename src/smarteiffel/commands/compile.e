@@ -59,6 +59,7 @@ feature {ANY}
         -o <file>           Put the executable program into <file>
         -no_main            Don't include a main() in the generated executable
         -no_gc              Disable garbage collection
+        -bdw_gc             Use Boehm-Demers-Weiser conservative GC
         -gc_info            Enable status messages from the garbage collector
         -no_strip           Don't run 'strip' on the generated executable
         -no_split           Generate only one C file

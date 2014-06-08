@@ -55,5 +55,5 @@ int basic_exec_pipe_write(se_pipe_data_t*,char,int);
 char* basic_exec_pipe_error(se_pipe_data_t*);
 
 #else
-#error "pipes not implemented. Drop a mail to smarteiffel@loria.fr"
+#error "pipes not implemented. Drop a mail to liberty-eiffel@gnu.org"
 #endif
