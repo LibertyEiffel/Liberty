@@ -44,4 +44,14 @@ feature {ANY}
          create {EDC_CRITERION_NOT_EQUAL[R_, E_]} Result.make(Current)
       end
 
+feature {EDC_ANY_TABLE}
+   pk_field (pk: TUPLE; index: INTEGER): E_ is
+      require
+         is_pk_compatible
+         index.in_range(1, 4)
+         pk.count >= index
+      local
+      do
+      end
+
 end -- class EDC_BASIC_FIELD

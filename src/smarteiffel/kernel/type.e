@@ -1546,7 +1546,7 @@ feature {ANY}
          action /= Void
       do
          if address_of_memory2 /= Void then
-            address_of_memory2.do_all(action)
+            address_of_memory2.for_each(action)
          end
       end
 

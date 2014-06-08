@@ -22,9 +22,9 @@ feature {}
       do
          expected := {FAST_ARRAY[STRING] << "bar", "foo", "duck" >> }
          checker := agent (actual: STRING; index: INTEGER): BOOLEAN is
-                       do
-                          Result := actual.is_equal(expected.item(index))
-                       end(?, ?)
+                    do
+                       Result := actual.is_equal(expected.item(index))
+                    end(?, ?)
          assert(data.count = expected.count)
          assert(data.for_all(checker))
 
@@ -32,10 +32,10 @@ feature {}
          expected.add_last("kouak")
 
          assert(data.count = expected.count)
-         data.do_all(agent (item: STRING; key: INTEGER) is
-                        do
-                           label_assert(key.out, checker.item([item, key]))
-                        end (?, ?))
+         data.for_each(agent (item: STRING; key: INTEGER) is
+                       do
+                          label_assert(key.out, checker(item, key))
+                       end (?, ?))
       end
 
 end

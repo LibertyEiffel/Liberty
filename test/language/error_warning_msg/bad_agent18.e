@@ -17,7 +17,7 @@ feature {ANY}
          list: FAST_ARRAY[like Current]
       do
          -- wrong number of effective parameters (2 instead of 1)
-         list.do_all(agent {BAD_AGENT18}.f1(1,2))
+         list.for_each(agent {BAD_AGENT18}.f1(1,2))
       end
 
 end -- class BAD_AGENT18

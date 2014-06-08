@@ -293,7 +293,7 @@ feature {}
          frame_name.clear_count
          name.complete_name_in(frame_name)
          std_output.put_line(once "(#(1)) {#(2)}.#(3) -- #(4)" # depth.out # target.type.name.to_string # frame_name # state)
-         instructions_list.do_all(agent (i: INSTRUCTION) is
+         instructions_list.for_each(agent (i: INSTRUCTION) is
                                   do
                                      std_output.put_string(once "     - ")
                                      i.accept(displayer)

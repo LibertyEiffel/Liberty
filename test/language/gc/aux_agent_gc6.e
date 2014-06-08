@@ -49,7 +49,7 @@ feature {ANY}
          end
       end
 
-   do_all (proc: ROUTINE[TUPLE[AUX_AGENT_GC3]]) is
+   for_each (proc: ROUTINE[TUPLE[AUX_AGENT_GC3]]) is
       local
          node: AUX_AGENT_GC7
       do

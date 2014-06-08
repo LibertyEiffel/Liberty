@@ -12,7 +12,7 @@ feature {ANY}
          my_array: ARRAY[STRING]
       do
          my_array := {ARRAY[STRING] 1, << "Benedicte", "Lucien", "Marie" >> }
-         my_array.do_all(agent print_item(?))
+         my_array.for_each(agent print_item(?))
       end
 
 feature {}

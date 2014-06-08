@@ -3748,7 +3748,7 @@ feature {} -- ASSIGNMENT_TEST_POOL
       do
          split_c_file_padding_here
          echo.print_count(once "Assignment test (%"?:=%") function", assignment_test_pool.count)
-         assignment_test_pool.do_all(agent c_define_assignment_test_for(?, ?))
+         assignment_test_pool.for_each(agent c_define_assignment_test_for(?, ?))
       end
 
    c_define_assignment_test_for (left_type, right_type: TYPE) is
@@ -3831,7 +3831,7 @@ feature {} -- MANIFEST_GENERIC_POOL
          smart_eiffel.is_ready
       do
          split_c_file_padding_here
-         manifest_generic_pool.do_all(agent c_define_manifest_generic_for(?))
+         manifest_generic_pool.for_each(agent c_define_manifest_generic_for(?))
       end
 
    c_define_manifest_generic_for (manifest_generic: MANIFEST_GENERIC) is
@@ -4253,7 +4253,7 @@ feature {} -- CECIL_POOL
          save_out_h: like out_h
       do
          save_out_h := out_h
-         cecil_pool.do_all(agent cecil_define_users_for_file(?))
+         cecil_pool.for_each(agent cecil_define_users_for_file(?))
          out_h := save_out_h
       end
 
@@ -4264,7 +4264,7 @@ feature {} -- CECIL_POOL
          if cecil_file.has_entries then
             echo.put_string(once "Cecil (C function for external code) :%N")
             connect_cecil_out_h(cecil_file.path_h)
-            cecil_file.do_all(agent cecil_define_users_for_entry(cecil_file, ?))
+            cecil_file.for_each(agent cecil_define_users_for_entry(cecil_file, ?))
             disconnect_cecil_out_h
          end
       end

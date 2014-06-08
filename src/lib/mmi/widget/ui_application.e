@@ -35,13 +35,13 @@ feature {}
          connect: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_APPLICATION]
       do
          connect ::= a_connect
-         a_connect_children.do_all(agent (child: UI_CONNECT_ITEM) is
-                                   local
-                                      connect_child: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_WINDOW]
-                                   do
-                                      connect_child ::= child
-                                      connect.item.add(connect_child.item)
-                                   end (?))
+         a_connect_children.for_each(agent (child: UI_CONNECT_ITEM) is
+                                     local
+                                        connect_child: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_WINDOW]
+                                     do
+                                        connect_child ::= child
+                                        connect.item.add(connect_child.item)
+                                     end (?))
       end
 
 end -- class UI_APPLICATION

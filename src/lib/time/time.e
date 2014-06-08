@@ -219,7 +219,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Setting common time mode (local or universal):
-      set_universal_time is
+   set_universal_time is
       do
          time_mode_memo.set_item(1)
       ensure

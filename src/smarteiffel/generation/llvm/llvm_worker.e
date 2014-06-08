@@ -92,7 +92,7 @@ feature {ANY} -- Implementation
                         else
                                 ("Non-generic class #(1)%N" # name).print_on(std_output);
                         end
-                        a_class.feature_dictionary.do_all(agent compile_feature)
+                        a_class.feature_dictionary.for_each(agent compile_feature)
                         -- Gather the attributes of inherited and inserted classes.
                         -- Gather the attributes defined in a_class itself
                         -- Build an array and create an LLVM_STRUCT_TYPE

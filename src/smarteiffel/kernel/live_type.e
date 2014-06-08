@@ -152,7 +152,7 @@ feature {SMART_EIFFEL, EXTERNAL_ROUTINE, LIVE_TYPE_EXTRA_COLLECTOR}
                -- No need to collect what's in "when" clauses of "inspect" which are now implementing
                -- dynamic dispatch.
             else
-               run_time_set.do_all(agent collect_sub_type(fs, ?))
+               run_time_set.for_each(agent collect_sub_type(fs, ?))
             end
          end
       ensure
@@ -470,7 +470,7 @@ feature {SMART_EIFFEL} -- Collect:
             collect(default_create_stamp)
          end
 
-         live_type_extra_collectors.do_all(agent {LIVE_TYPE_EXTRA_COLLECTOR}.collect(Current))
+         live_type_extra_collectors.for_each(agent {LIVE_TYPE_EXTRA_COLLECTOR}.collect(Current))
 
          from
          until
@@ -1255,20 +1255,21 @@ feature {CREATE_EXPRESSION}
          -- a create expression with no call.
       do
          if fs = Void then
-            if create_function_list = Void then
-               check
-                  type.class_text.creation_clause_list = Void
-               end
-               create create_function_list.with_capacity(0)
-            end
+            create_function_list := empty_create_function_list
          else
             if create_function_list = Void then
-               create create_function_list.with_capacity(type.class_text.creation_clause_list.count)
+               create create_function_list.with_capacity(2)
             end
             if not create_function_list.fast_has(fs) then
                create_function_list.add_last(fs)
             end
          end
+      end
+
+feature {}
+   empty_create_function_list: FAST_ARRAY[FEATURE_STAMP] is
+      once
+         create Result.make(0)
       end
 
 feature {INTROSPECTION_HANDLER}

@@ -15,7 +15,7 @@ feature {}
       do
          --***         create coll.make(1, 0)
          --***         coll.add_last(1)
-         --***         coll.do_all(agent print)
+         --***         coll.for_each(agent print)
          --***
       end
 

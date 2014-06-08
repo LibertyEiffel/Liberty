@@ -11,9 +11,9 @@ feature {}
    make is
       do
          create aa
-         aa.do_all(agent fa(?))
+         aa.for_each(agent fa(?))
          create bb
-         bb.do_all(agent fb(?))
+         bb.for_each(agent fb(?))
       end
 
    aa: AUX_AGENT10[INTEGER]

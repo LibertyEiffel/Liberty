@@ -44,7 +44,7 @@ feature {ANY}
 
          log_string(once "Making wrappers.%N")
          tree.emit_wrappers
-         -- tree.namespaces.do_all(agent {GCCXML_NODE}.emit_wrappers)
+         -- tree.namespaces.for_each(agent {GCCXML_NODE}.emit_wrappers)
          close_plugin_files
       end
 
@@ -195,7 +195,7 @@ feature {ANY}
                   std_error.put_string(once "Generating low-level wrappers only for ")
                   std_error.put_integer(headers.count)
                   std_error.put_string(once " files: ")
-                  headers.do_all(agent put_comma_separated_string(std_error, ?))
+                  headers.for_each(agent put_comma_separated_string(std_error, ?))
                   std_error.put_new_line
                end
             end

@@ -7,7 +7,7 @@ feature {ANY}
    run is
       do
          before_run
-         do_all
+         for_each
          after_run
       end
 
@@ -50,7 +50,7 @@ feature {ANY}
 
    provider: AUX_JLP8_PROVIDER[E]
 
-   do_all is
+   for_each is
       do
          from
             provider.start

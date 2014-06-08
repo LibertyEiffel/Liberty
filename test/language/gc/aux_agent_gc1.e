@@ -48,14 +48,14 @@ feature {ANY}
 
    next_time is
       do
-         districts.do_all(agent {AUX_AGENT_GC1}.next_time_and_transfer_to(hospital))
+         districts.for_each(agent {AUX_AGENT_GC1}.next_time_and_transfer_to(hospital))
          hospital.triage_examination
       end
 
    next_time_and_transfer_to (destination: AUX_AGENT_GC2) is
       do
          next_time
-         hospital.transfers.do_all(agent destination.new_arrival(?))
+         hospital.transfers.for_each(agent destination.new_arrival(?))
       end
 
    accumulate_totals: AUX_AGENT_GC5 is

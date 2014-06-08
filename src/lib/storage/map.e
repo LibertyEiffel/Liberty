@@ -12,6 +12,7 @@ inherit
    TRAVERSABLE[V_]
       rename
          new_iterator as new_iterator_on_items,
+         for_each as for_each_item,
          do_all as do_all_items,
          for_all as for_all_items,
          exists as exists_item,
@@ -394,7 +395,7 @@ feature {ANY} -- Display support:
       end
 
 feature {ANY} -- Agents based features:
-   do_all (action: ROUTINE[TUPLE[V_, K_]]) is
+   for_each (action: PROCEDURE[TUPLE[V_, K_]]) is
          -- Apply `action' to every [V_, K_] associations of `Current'.
          --
          -- See also `for_all', `exist'.
@@ -415,10 +416,28 @@ feature {ANY} -- Agents based features:
          end
       end
 
+   frozen do_all (action: ROUTINE[TUPLE[V_, K_]]) is
+         -- Apply `action' to every [V_, K_] associations of `Current'.
+         --
+         -- See also `for_all', `exist'.
+      obsolete "This feature is not secure because it accepts a FUNCTION, the result of which is lost. Plese use `for_each` instead."
+      require
+         action /= Void
+      local
+         p: PROCEDURE[TUPLE[V_, K_]]
+      do
+         if p ?:= action then
+            p ::= action
+         else
+            p := agent (v: V_; k: K_) is do action.call([v, k]) end (?, ?)
+         end
+         for_each(p)
+      end
+
    for_all (test: PREDICATE[TUPLE[V_, K_]]): BOOLEAN is
          -- Do all [V_, K_] associations satisfy `test'?
          --
-         -- See also `do_all', `exist'.
+         -- See also `for_each', `exist'.
       require
          test /= Void
       local
@@ -440,7 +459,7 @@ feature {ANY} -- Agents based features:
    exists (test: PREDICATE[TUPLE[V_, K_]]): BOOLEAN is
          -- Does at least one [V_, K_] association satisfy `test'?
          --
-         -- See also `for_all', `do_all'.
+         -- See also `for_all', `for_each'.
       require
          test /= Void
       local
@@ -461,7 +480,7 @@ feature {ANY} -- Agents based features:
    aggregate (action: FUNCTION[TUPLE[V_, V_, K_], V_]; initial: V_): V_ is
          -- Aggregate all the elements starting from the initial value.
          --
-         -- See also `do_all', `for_all', `exists'.
+         -- See also `for_each', `for_all', `exists'.
       require
          action /= Void
       local

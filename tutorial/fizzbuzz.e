@@ -7,7 +7,7 @@ create {}
 feature {}
    make is
       do
-         (1|..|100).do_all(agent show(?))
+         (1|..|100).for_each(agent show(?))
       end
 
    show (i: INTEGER_8) is

@@ -23,7 +23,7 @@ deferred class TRAVERSABLE[E_]
 inherit
    ITERABLE[E_]
       undefine -- because INDEXABLE features are more performant
-         do_all, for_all, exists, aggregate,
+         for_each, for_all, exists, aggregate,
          out_in_tagged_out_memory
       end
    INDEXABLE[E_]

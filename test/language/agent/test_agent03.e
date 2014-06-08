@@ -16,11 +16,11 @@ feature {}
          string: STRING; memo: INTEGER
       do
          my_collection := {ARRAY[STRING] 1, << "Benedicte", "Lucien", "Marie" >> }
-         my_collection.do_all(agent print_item1('#', ?))
+         my_collection.for_each(agent print_item1('#', ?))
          number := 0
-         my_collection.do_all(agent print_item1('#', ?))
+         my_collection.for_each(agent print_item1('#', ?))
          number := 0
-         my_collection.do_all(agent print_item2(?))
+         my_collection.for_each(agent print_item2(?))
          memo := assert_counter.item
          agent1 := agent print3
          assert(memo = assert_counter.item)
@@ -31,9 +31,9 @@ feature {}
          assert(string.is_equal("APPLE"))
          agent2 := agent function2({APPLE})
          number := 0
-         my_collection.do_all(agent function1(?))
+         my_collection.for_each(agent (s: STRING) is do assert(s.is_equal(function1(s))) end (?))
          assert(number = 3)
-         (agent function1(?)).call(["foo"])
+         assert("foo".is_equal((agent function1(?)).item(["foo"])))
       end
 
    function1 (s: STRING): STRING is

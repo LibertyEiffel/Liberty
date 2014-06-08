@@ -99,7 +99,7 @@ feature {CLUSTER}
          path := a_cluster.directory_path
          if path /= Void and then not path.is_empty then
             create directory.scan(path)
-            directory.do_all(agent io.put_line(?))
+            directory.for_each(agent io.put_line(?))
          else
             io.put_line(once "Path void or empty")
          end

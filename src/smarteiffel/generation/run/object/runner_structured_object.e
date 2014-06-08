@@ -46,7 +46,7 @@ feature {ANY}
       do
          type.long_name.out_in_tagged_out_memory
          tagged_out_memory.extend('[')
-         fields.do_all(agent (o: RUNNER_OBJECT; f: FIXED_STRING) is
+         fields.for_each(agent (o: RUNNER_OBJECT; f: FIXED_STRING) is
                        do
                           f.out_in_tagged_out_memory
                           tagged_out_memory.extend('=')
@@ -89,7 +89,7 @@ feature {RUNNER_UNTYPED_BUILTINS}
          o: like Current
       do
          o ::= expand(other)
-         o.fields.do_all(agent (object: RUNNER_OBJECT; name: FIXED_STRING) is
+         o.fields.for_each(agent (object: RUNNER_OBJECT; name: FIXED_STRING) is
                          do
                             fields.fast_put(expand(object), name)
                          end)
@@ -148,7 +148,7 @@ feature {}
          model.type.is_expanded
       do
          make(model.processor, model.type, model.builtins)
-         model.fields.do_all(agent (field_value: RUNNER_OBJECT; field_name: FIXED_STRING) is
+         model.fields.for_each(agent (field_value: RUNNER_OBJECT; field_name: FIXED_STRING) is
                              do
                                 fields.fast_put(expand(field_value), field_name)
                              end)
@@ -177,7 +177,7 @@ feature {}
    initialize_fields is
       do
          create fields.make
-         type.writable_attributes.do_all(agent (stamp: FEATURE_STAMP) is
+         type.writable_attributes.for_each(agent (stamp: FEATURE_STAMP) is
                                          local
                                             rf: RUN_FEATURE; t: TYPE; o: RUNNER_OBJECT
                                          do

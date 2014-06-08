@@ -14,18 +14,18 @@ feature {MOCK_EXPECTATION_GROUPS}
       require
          not a_expectations.exists(agent {MOCK_EXPECTATION}.ready)
       do
-         a_expectations.do_all(agent (expectation: MOCK_EXPECTATION) is
-                                  local
-                                     exps: FAST_ARRAY[MOCK_EXPECTATION]
-                                  do
-                                     expectation.done
-                                     exps := expectations.fast_reference_at(expectation.target)
-                                     if exps = Void then
-                                        create exps.with_capacity(4)
-                                        expectations.add(exps, expectation.target)
-                                     end
-                                     exps.add_last(expectation)
-                                  end (?))
+         a_expectations.for_each(agent (expectation: MOCK_EXPECTATION) is
+                                 local
+                                    exps: FAST_ARRAY[MOCK_EXPECTATION]
+                                 do
+                                    expectation.done
+                                    exps := expectations.fast_reference_at(expectation.target)
+                                    if exps = Void then
+                                       create exps.with_capacity(4)
+                                       expectations.add(exps, expectation.target)
+                                    end
+                                    exps.add_last(expectation)
+                                 end (?))
       ensure
          a_expectations.for_all(agent {MOCK_EXPECTATION}.ready)
       end
@@ -59,14 +59,14 @@ feature {MOCK_EXPECTATION_GROUPS}
 
    all_called is
       do
-         expectations.do_all(agent {FAST_ARRAY[MOCK_EXPECTATION]}.do_all(agent {MOCK_EXPECTATION}.all_called))
+         expectations.for_each(agent {FAST_ARRAY[MOCK_EXPECTATION]}.for_each(agent {MOCK_EXPECTATION}.all_called))
       end
 
    all_done_message_in (message: STRING) is
       require
          message /= Void
       do
-         expectations.do_all(agent {FAST_ARRAY[MOCK_EXPECTATION]}.do_all(agent {MOCK_EXPECTATION}.all_done_message_in(message)))
+         expectations.for_each(agent {FAST_ARRAY[MOCK_EXPECTATION]}.for_each(agent {MOCK_EXPECTATION}.all_done_message_in(message)))
       end
 
    all_done: BOOLEAN is

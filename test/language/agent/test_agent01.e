@@ -15,7 +15,7 @@ feature {}
          my_collection: COLLECTION[STRING]
       do
          my_collection := {ARRAY[STRING] 1, << "Benedicte", "Lucien", "Marie" >> }
-         my_collection.do_all(agent print_item('#', ?))
+         my_collection.for_each(agent print_item('#', ?))
       end
 
    print_item (c: CHARACTER; item: STRING) is

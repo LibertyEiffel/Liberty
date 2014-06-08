@@ -22,7 +22,7 @@ feature {C_PRETTY_PRINTER}
          out_h.copy(header_comment)
          flush_out_h
          pre_compile
-         smart_eiffel.live_type_map.do_all(agent compile_live_type)
+         smart_eiffel.live_type_map.for_each(agent compile_live_type)
       end
 
 feature {}

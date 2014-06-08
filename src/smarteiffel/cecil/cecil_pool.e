@@ -142,12 +142,12 @@ feature {ANY}
    State_collected: INTEGER is 2
    State_adapted: INTEGER is 3
 
-   do_all (action: PROCEDURE[TUPLE[CECIL_FILE]]) is
+   for_each (action: PROCEDURE[TUPLE[CECIL_FILE]]) is
       require
          action /= Void
       do
          if cecil_files /= Void then
-            cecil_files.do_all(action)
+            cecil_files.for_each(action)
          end
       end
 

@@ -10,13 +10,13 @@ create {}
 feature {}
    make is
       do
-         a1.do_all(agent (i: INTEGER_8) is
-            do
-               assert(a2.exists(agent (j: INTEGER_8): BOOLEAN is
-                                   do
-                                      Result := (j = 2 ^ i)
-                                   end (?)))
-            end (?))
+         a1.for_each(agent (i: INTEGER_8) is
+                     do
+                        assert(a2.exists(agent (j: INTEGER_8): BOOLEAN is
+                                         do
+                                            Result := (j = 2 ^ i)
+                                         end (?)))
+                     end (?))
       end
 
    a1: FAST_ARRAY[INTEGER_8] is

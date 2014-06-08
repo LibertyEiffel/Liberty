@@ -47,7 +47,7 @@ feature {ANY}
       require
          action /= Void
       do
-         collected_precomputable_function.do_all(action)
+         collected_precomputable_function.for_each(action)
       end
 
    do_all_precomputed_ordered (action: PROCEDURE[TUPLE[NON_VOID_NO_DISPATCH]]) is
