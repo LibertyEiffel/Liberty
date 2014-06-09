@@ -4509,6 +4509,16 @@ feature {}
          create Result.with_capacity(256)
       end
 
+   a_is: BOOLEAN is
+      do
+         if a_keyword(fz_is) then
+            error_handler.append(once "Keyword %"is%" is deprecated.")
+            error_handler.add_position(pos(start_line, start_column))
+            error_handler.print_as_style_warning
+            Result := True
+         end
+      end
+
    a_inline_agent: FEATURE_TEXT is
          --  ++ inline_agent -> formal_arg_list
          --  ++                 [":" type]
@@ -4519,7 +4529,7 @@ feature {}
          spos, rpos: POSITION
          c, l: INTEGER
          outer_feature: like tmp_feature
-         iff, ief, irf, icif: BOOLEAN
+         iff, ief, irf, icif, expect_routine: BOOLEAN
          a: like arguments; lv: like local_vars
       do
          if closure_arguments = Void then
@@ -4575,7 +4585,12 @@ feature {}
                end
             end
 
-            if a_keyword(fz_is) then
+            if a_is then
+               expect_routine := True
+            end
+
+            last_feature_declaration := a_routine(expect_routine)
+            if last_feature_declaration /= Void then
                -- OK, really an inline agent; let's allocate resources (viz feature name)
                inline_agent_counter := inline_agent_counter + 1
                n := once ""
@@ -4586,7 +4601,6 @@ feature {}
                tmp_feature.add_synonym(fn)
 
                rpos := current_position
-               last_feature_declaration := a_routine
                if (not {E_PROCEDURE} ?:= last_feature_declaration.anonymous_feature) and then (not {E_FUNCTION} ?:= last_feature_declaration.anonymous_feature) then
                   error_handler.add_position(rpos)
                   error_handler.append(once "Bad inline agent definition (%"do...end%" routine body expected).")
@@ -4847,7 +4861,7 @@ feature {}
          --  ++                         "is" routine]
          --  ++
       local
-         is_prefix, is_infix, is_alias: BOOLEAN
+         is_prefix, is_infix, is_alias, expect_routine: BOOLEAN
          prefix_sp, infix_sp, alias_sp: POSITION
       do
          from
@@ -4911,8 +4925,11 @@ feature {}
                error_handler.print_as_fatal_error
             end
          end
+
          if Result then
-            if not a_formal_arg_list then
+            if a_formal_arg_list then
+               expect_routine := tmp_feature.arguments /= Void
+            else
                error_handler.print_as_fatal_error
             end
             if is_prefix and then tmp_feature.arguments /= Void then
@@ -4938,10 +4955,18 @@ feature {}
                   error_handler.append(em16)
                   error_handler.print_as_fatal_error
                end
+            elseif a_type_mark(False) then
+               error_handler.add_position(pos(start_line, start_column))
+               error_handler.append(once "Added ':' before type mark.")
+               error_handler.print_as_warning
+               inside_function_flag := True
+               tmp_feature.set_type(last_type_mark)
             end
+
             if a_keyword(fz_assign) then
                if a_feature_name then
                   tmp_feature.set_assigned(last_feature_name)
+                  expect_routine := True
                else
                   error_handler.add_position(current_position)
                   error_handler.append(once "Expected a feature name to assign.")
@@ -4949,56 +4974,57 @@ feature {}
                end
             end
             check_alias
-            if a_keyword(fz_is) then
-               if a_keyword(fz_unique) then
-                  last_feature_declaration := tmp_feature.as_unique_constant
-                  ok := skip1(';')
-                  last_feature_declaration.set_header_comment(get_comment)
-               elseif a_boolean_constant then
-                  last_feature_declaration := tmp_feature.as_boolean_constant(last_expression)
-                  ok := skip1(';')
-                  last_feature_declaration.set_header_comment(get_comment)
-               elseif a_character_constant(Atomic_syntax_flag) then
-                  last_feature_declaration := tmp_feature.as_character_constant(last_expression)
-                  ok := skip1(';')
-                  last_feature_declaration.set_header_comment(get_comment)
-               elseif a_manifest_string(True) then
-                  unused_once_warning_check
-                  last_manifest_string.set_once_flag(True)
-                  last_feature_declaration := tmp_feature.as_string_constant(last_manifest_string)
-                  ok := skip1(';')
-                  last_feature_declaration.set_header_comment(get_comment)
-               elseif a_manifest_or_type_test(Atomic_syntax_flag) then
-                  last_feature_declaration := tmp_feature.as_constant(last_expression)
-                  ok := skip1(';')
-                  last_feature_declaration.set_header_comment(get_comment)
-               else
-                  last_feature_declaration := a_routine
-               end
-            elseif tmp_feature.arguments /= Void then
-               error_handler.add_position(current_position)
-               error_handler.append(once "Syntax error while trying to parse the header of routine `")
-               error_handler.append(tmp_feature.first_name.to_string)
-               error_handler.append(once "'. May be, you just miss to add the %"is%" keyword?")
-               error_handler.print_as_fatal_error
-            elseif tmp_feature.type = Void then
-               error_handler.add_position(current_position)
-               if a_keyword(fz_do) or else a_keyword(fz_once) then
-                  error_handler.append(once "Missing the %"is%" keyword?")
-               elseif a_type_mark(False) then
-                  error_handler.append(once "Missing %":%" before the type mark?")
-               else
-                  error_handler.append(once "Bad procedure definition.")
-               end
-               error_handler.append(once " Unable to parse definition of `")
-               error_handler.append(tmp_feature.first_name.to_string)
-               error_handler.append(once "'.")
-               error_handler.print_as_fatal_error
-            else
-               last_feature_declaration := tmp_feature.as_writable_attribute
+
+            if a_is then
+               expect_routine := True
+            end
+
+            if a_keyword(fz_unique) then
+               last_feature_declaration := tmp_feature.as_unique_constant
                ok := skip1(';')
                last_feature_declaration.set_header_comment(get_comment)
+            elseif a_boolean_constant then
+               last_feature_declaration := tmp_feature.as_boolean_constant(last_expression)
+               ok := skip1(';')
+               last_feature_declaration.set_header_comment(get_comment)
+            elseif a_character_constant(Atomic_syntax_flag) then
+               last_feature_declaration := tmp_feature.as_character_constant(last_expression)
+               ok := skip1(';')
+               last_feature_declaration.set_header_comment(get_comment)
+            elseif a_manifest_string(True) then
+               unused_once_warning_check
+               last_manifest_string.set_once_flag(True)
+               last_feature_declaration := tmp_feature.as_string_constant(last_manifest_string)
+               ok := skip1(';')
+               last_feature_declaration.set_header_comment(get_comment)
+            elseif a_manifest_or_type_test(Atomic_syntax_flag) then
+               last_feature_declaration := tmp_feature.as_constant(last_expression)
+               ok := skip1(';')
+               last_feature_declaration.set_header_comment(get_comment)
+            else
+               last_feature_declaration := a_routine(expect_routine)
             end
+
+            if last_feature_declaration = Void then
+               if tmp_feature.arguments /= Void then
+                  error_handler.add_position(current_position)
+                  error_handler.append(once "Syntax error while trying to parse the header of routine `")
+                  error_handler.append(tmp_feature.first_name.to_string)
+                  error_handler.append(once "'. A routine with arguments cannot be an attribute.")
+                  error_handler.print_as_fatal_error
+               elseif tmp_feature.type = Void then
+                  error_handler.add_position(current_position)
+                  error_handler.append(once "Bad procedure definition. Unable to parse definition of `")
+                  error_handler.append(tmp_feature.first_name.to_string)
+                  error_handler.append(once "'. Missing function type?")
+                  error_handler.print_as_fatal_error
+               else
+                  last_feature_declaration := tmp_feature.as_writable_attribute
+                  ok := skip1(';')
+                  last_feature_declaration.set_header_comment(get_comment)
+               end
+            end
+
             inside_function_flag := False
             arguments := Void
          end
@@ -5924,7 +5950,7 @@ feature {}
          end
       end
 
-   a_routine: FEATURE_TEXT is
+   a_routine (expect_routine: BOOLEAN): FEATURE_TEXT is
          --  ++ routine -> ["obsolete" manifest_string]
          --  ++            ["require" ["else"] assertion]
          --  ++            ["local" entity_declaration_list]
@@ -5934,12 +5960,16 @@ feature {}
          --  ++            "end"
          --  ++
       local
-         sp: POSITION; hc, ec: COMMENT; al: FAST_ARRAY[ASSERTION]; else_flag, then_flag: BOOLEAN; resc: INSTRUCTION
+         sp: POSITION; hc, ec: COMMENT; al: FAST_ARRAY[ASSERTION]; else_flag, then_flag, expect_body: BOOLEAN; resc: INSTRUCTION; l, c: INTEGER
       do
+         l := line
+         c := column
+         expect_body := expect_routine
          if a_keyword(fz_obsolete) then
             if a_manifest_string(True) then
                last_manifest_string.set_once_flag(True)
                tmp_feature.set_obsolete_mark(last_manifest_string)
+               expect_body := True
             else
                error_handler.add_position(current_position)
                error_handler.append(once "Obsolete manifest string expected.")
@@ -5952,62 +5982,75 @@ feature {}
             else_flag := a_keyword(fz_else)
             hc := get_comment
             tmp_feature.set_require(sp, else_flag, hc, a_assertion)
+            expect_body := True
          end
          if a_keyword(fz_local) then
             a_local_var_list
+            expect_body := True
          end
-         Result := a_routine_body
-         if a_keyword(fz_ensure) then
-            sp := pos(start_line, start_column)
-            inside_ensure_flag := True
-            then_flag := a_keyword(fz_then)
-            hc := get_comment
-            al := a_assertion
-            if hc /= Void or else al /= Void then
-               Result.set_ensure_assertion(create {ENSURE_ASSERTION}.make(sp, then_flag, hc, al))
-            end
-            inside_ensure_flag := False
-         end
-         if a_keyword(fz_rescue) then
-            inside_rescue_flag := True
-            resc := a_compound2(fz_rescue, fz_end)
-            if not no_rescue then
-               Result.set_rescue_compound(resc)
-            end
-            inside_rescue_flag := False
-         elseif a_keyword(fz_end) then
-            if ace.sedb then
-               sp := pos(start_line, start_column)
-               Result.set_sedb_trace_before_exit(sp)
-            end
+         Result := a_routine_body(expect_body)
+         if Result = Void then
+            go_back_at(l, c)
          else
-            error_handler.add_position(current_position)
-            if skip2(':', '=') or else skip3(':', ':', '=') or else skip2('?', '=') then
-               error_handler.append(once "Such an expression cannot be on the left-hand side of an assignment %
-               %operator. A dot can never be used for the left-hand side part of an assignment operator. %
-               %Valid left-hand side can be Result, some local or the name of an attribute of Current. %
-               %See also http://SmartEiffel/wiki/en/Syntax_diagrams#Writable.php for details.")
-               error_handler.print_as_fatal_error
-            else
-               error_handler.append(once "A routine must be ended with %"end%".")
-               error_handler.print_as_warning
+            if a_keyword(fz_ensure) then
+               sp := pos(start_line, start_column)
+               inside_ensure_flag := True
+               then_flag := a_keyword(fz_then)
+               hc := get_comment
+               al := a_assertion
+               if hc /= Void or else al /= Void then
+                  Result.set_ensure_assertion(create {ENSURE_ASSERTION}.make(sp, then_flag, hc, al))
+               end
+               inside_ensure_flag := False
             end
+            if a_keyword(fz_rescue) then
+               inside_rescue_flag := True
+               resc := a_compound2(fz_rescue, fz_end)
+               if not no_rescue then
+                  Result.set_rescue_compound(resc)
+               end
+               inside_rescue_flag := False
+            elseif a_keyword(fz_end) then
+               if ace.sedb then
+                  sp := pos(start_line, start_column)
+                  Result.set_sedb_trace_before_exit(sp)
+               end
+            else
+               error_handler.add_position(current_position)
+               if skip2(':', '=') or else skip3(':', ':', '=') or else skip2('?', '=') then
+                  error_handler.append(once "Such an expression cannot be on the left-hand side of an assignment %
+                  %operator. A dot can never be used for the left-hand side part of an assignment operator. %
+                  %Valid left-hand side can be Result, some local or the name of an attribute of Current. %
+                  %See also http://SmartEiffel/wiki/en/Syntax_diagrams#Writable.php for details.")
+                  error_handler.print_as_fatal_error
+               else
+                  error_handler.append(once "A routine must be ended with %"end%".")
+                  error_handler.print_as_warning
+               end
+            end
+            ok := skip1(';')
+            ec := get_comment
+            if ec /= Void then
+               Result.anonymous_feature.set_end_comment(ec)
+            end
+            local_vars := Void
          end
-         ok := skip1(';')
-         ec := get_comment
-         if ec /= Void then
-            Result.anonymous_feature.set_end_comment(ec)
-         end
-         local_vars := Void
+      ensure
+         expect_routine implies Result /= Void
       end
 
-   a_routine_body: FEATURE_TEXT is
+   a_routine_body (expected: BOOLEAN): FEATURE_TEXT is
          --  ++ routine_body -> "deferred" |
          --  ++                 "external" external |
          --  ++                 "do" compound |
          --  ++                 "once" compound
+         --  ++                 "attribute"
          --  ++
+      local
+         l, c: INTEGER
       do
+         l := line
+         c := column
          a_indexing(tmp_feature, Void)
          if a_keyword(fz_deferred) then
             last_class_text.set_is_deferred
@@ -6022,11 +6065,15 @@ feature {}
             Result := tmp_feature.as_once_routine
          elseif a_keyword(once "attribute") then
             Result := tmp_feature.as_writable_attribute
-         else
+         elseif expected then
             error_handler.add_position(current_position)
             error_handler.append(once "Routine body expected.")
             error_handler.print_as_fatal_error
+         else
+            go_back_at(l, c)
          end
+      ensure
+         expected implies Result /= Void
       end
 
    a_r1 (left_part: like last_expression) is
