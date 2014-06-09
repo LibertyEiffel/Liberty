@@ -457,9 +457,9 @@ feature {FEATURE_ACCUMULATOR}
          class_text.check_level_2(Current)
       end
 
-feature {CLASS_CHECKER, TYPE}
+feature {CLASS_CHECKER, TYPE, IFTHENELSE_EXP}
    up_to_any_in (parent_list: FAST_ARRAY[TYPE]) is
-         -- Add in `parent_list', a path to the ANY class, whithout including the ANY class itself.
+         -- Add in `parent_list', a path to the ANY class, without including the ANY class itself.
          --|*** Wrong comment
       require
          not parent_list.is_empty
@@ -1180,7 +1180,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {FEATURE_ACCUMULATOR, FEATURE_STAMP}
-   print_feature_hierarchy(final_fs: FEATURE_STAMP; seed: ABSOLUTE_FEATURE_NAME; inherit_link: BOOLEAN): BOOLEAN is
+   print_feature_hierarchy (final_fs: FEATURE_STAMP; seed: ABSOLUTE_FEATURE_NAME; inherit_link: BOOLEAN): BOOLEAN is
          -- Code for printing error message (do not care for speed). All TYPEs and NAMEs for the feature are
          -- printed from seed to current type.
       require

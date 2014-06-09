@@ -3586,6 +3586,112 @@ feature {}
          end
       end
 
+   a_exp2 (compound_of, terminator: STRING): EXPRESSION is
+         -- Call `a_expression' and then enforce the `terminator' at the end.
+      do
+         if a_expression then
+            Result := last_expression
+         else
+            error_handler.append(once "Expression expected (")
+            error_handler.append(compound_of)
+            error_handler.append(once ").")
+            error_handler.print_as_fatal_error
+         end
+         if not a_keyword(terminator) then
+            error_handler.append(once "After expression (")
+            error_handler.append(compound_of)
+            error_handler.append(once "). Keyword %"")
+            error_handler.append(terminator)
+            error_handler.add_position(current_position)
+            error_handler.append(once "%" expected.")
+            error_handler.print_as_fatal_error
+         end
+      end
+
+   a_conditional_exp: BOOLEAN is
+         --  ++ conditional_exp -> "if" expression "then" expression
+         --  ++                    [ {"elseif" expression "then" expression ...}+ ]
+         --  ++                    [ "else" expression ]
+         --  ++                    "end"
+         --  ++
+      local
+         expression1, expression2: EXPRESSION; then_part1: EXPRESSION; ifthenelse: IFTHENELSE_EXP
+         ifthen: IFTHEN_EXP; sp1, sp2: POSITION; else_part: EXPRESSION
+      do
+         if a_keyword(fz_if) then
+            Result := True
+            sp1 := pos(start_line, start_column)
+            if not a_expression then
+               error_handler.add_position(sp1)
+               error_handler.add_position(current_position)
+               error_handler.append(once "Expression expected after the %"if%" keyword.")
+               error_handler.print_as_fatal_error
+            end
+            expression1 := last_expression
+            if expression1.is_void then
+               error_handler.add_position(expression1.start_position)
+               error_handler.append(once "Void is not a valid BOOLEAN expression (just after keyword %"if%").")
+               error_handler.print_as_fatal_error
+            end
+            then_part1 := a_then_exp
+            if a_keyword(fz_elseif) then
+               from
+                  sp2 := pos(start_line, start_column)
+                  if not a_expression then
+                     error_handler.add_position(sp2)
+                     error_handler.add_position(current_position)
+                     error_handler.append(once "Expression expected after %"elseif%" keyword.")
+                     error_handler.print_as_fatal_error
+                  end
+                  expression2 := last_expression
+                  no_void_after_elseif_check(expression2)
+                  create ifthen.make(sp2, expression2, a_then_exp)
+                  create ifthenelse.with_elseif(sp1, expression1, then_part1, ifthen)
+               until
+                  not a_keyword(fz_elseif)
+               loop
+                  sp2 := pos(start_line, start_column)
+                  if not a_expression then
+                     error_handler.add_position(sp2)
+                     error_handler.add_position(current_position)
+                     error_handler.append(once "Expression expected after the %"elseif%" keyword.")
+                     error_handler.print_as_fatal_error
+                  end
+                  expression2 := last_expression
+                  no_void_after_elseif_check(expression2)
+                  ifthenelse.add_elseif(create {IFTHEN_EXP}.make(sp2, expression2, a_then_exp))
+               end
+               if a_keyword(fz_else) then
+                  else_part := a_exp2(once "else part", fz_end)
+                  if else_part /= Void then
+                     ifthenelse.set_else(else_part)
+                  end
+               elseif not a_keyword(fz_end) then
+                  error_handler.add_position(sp1)
+                  error_handler.add_position(current_position)
+                  error_handler.append(once "Added %"end%" to finish this %"if%" statement.")
+                  error_handler.print_as_warning
+               end
+               last_expression := ifthenelse
+            elseif a_keyword(fz_else) then
+               else_part := a_exp2(once "else part", fz_end)
+               if else_part = Void then
+                  create {IFTHEN_EXP} last_expression.make(sp1, expression1, then_part1)
+               else
+                  create {IFTHENELSE_EXP} last_expression.with_else(sp1, expression1, then_part1, else_part)
+               end
+            else
+               if not a_keyword(fz_end) then
+                  error_handler.add_position(sp1)
+                  error_handler.add_position(current_position)
+                  error_handler.append(once "Keyword %"end%" added to finish this %"if%" statement.")
+                  error_handler.print_as_warning
+               end
+               create {IFTHEN_EXP} last_expression.make(sp1, expression1, then_part1)
+            end
+         end
+      end
+
    a_conditional: BOOLEAN is
          --  ++ conditional -> "if" expression "then" compound
          --  ++                [ {"elseif" expression "then" compound ...}+ ]
@@ -3594,7 +3700,7 @@ feature {}
          --  ++
       local
          expression1, expression2: EXPRESSION; then_part1: INSTRUCTION; ifthenelse: IFTHENELSE
-         ifthen: IFTHEN; sp1, sp2: POSITION; else_compound: INSTRUCTION
+         ifthen: IFTHEN; sp1, sp2: POSITION; else_part: INSTRUCTION
       do
          if a_keyword(fz_if) then
             Result := True
@@ -3640,9 +3746,9 @@ feature {}
                   ifthenelse.add_elseif(create {IFTHEN}.make(sp2, expression2, a_then_compound))
                end
                if a_keyword(fz_else) then
-                  else_compound := a_compound2(once "else part", fz_end)
-                  if else_compound /= Void then
-                     ifthenelse.set_else(else_compound)
+                  else_part := a_compound2(once "else part", fz_end)
+                  if else_part /= Void then
+                     ifthenelse.set_else(else_part)
                   end
                elseif not a_keyword(fz_end) then
                   error_handler.add_position(sp1)
@@ -3652,11 +3758,11 @@ feature {}
                end
                last_instruction := ifthenelse
             elseif a_keyword(fz_else) then
-               else_compound := a_compound2(once "else part", fz_end)
-               if else_compound = Void then
+               else_part := a_compound2(once "else part", fz_end)
+               if else_part = Void then
                   create {IFTHEN} last_instruction.make(sp1, expression1, then_part1)
                else
-                  create {IFTHENELSE} last_instruction.with_else(sp1, expression1, then_part1, else_compound)
+                  create {IFTHENELSE} last_instruction.with_else(sp1, expression1, then_part1, else_part)
                end
             else
                if not a_keyword(fz_end) then
@@ -3688,6 +3794,23 @@ feature {}
             error_handler.print_as_warning
          end
          Result := a_compound1
+      end
+
+   a_then_exp: EXPRESSION is
+         --  ++ then_exp -> "then" expression
+      do
+         if not a_keyword(fz_then) then
+            error_handler.add_position(current_position)
+            error_handler.append(once "Added missing %"then%" keyword.")
+            error_handler.print_as_warning
+         end
+         if a_expression then
+            Result := last_expression
+         else
+            error_handler.add_position(current_position)
+            error_handler.append(once "Expected expression after the %"then%" keyword.")
+            error_handler.print_as_fatal_error
+         end
       end
 
    a_old_creation: BOOLEAN is
@@ -4257,6 +4380,7 @@ feature {}
          --  ++       argument r10 |
          --  ++       identifier ?:= expression
          --  ++       function_call r10 |
+         -- ++        a_condition_exp r10
          --  ++
       local
          type_mark: TYPE_MARK; args: EFFECTIVE_ARG_LIST; sp: POSITION; eal: EFFECTIVE_ARG_LIST_N
@@ -4499,6 +4623,8 @@ feature {}
             else
                Result := a_function_call
             end
+         elseif a_conditional_exp then
+            Result := a_r10(False, last_expression, Void, Void)
          end
       end
 

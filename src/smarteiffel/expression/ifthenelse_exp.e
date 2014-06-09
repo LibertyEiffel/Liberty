@@ -1,19 +1,19 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class IFTHENELSE
+class IFTHENELSE_EXP
    --
-   -- The most general form of the if-then-else INSTRUCTION. Actually, if-then-else INSTRUCTIONs are handled
-   -- with IFTHENELSE but also with IFTHEN. Indeed, when we have a single if-then without else part, the
-   -- parser creates only an IFTHEN object. When we have an "else" part or when there are at least one
-   -- "elseif", the general IFTHENELSE is used.
+   -- The most general form of the if-then-else EXPRESSION. Actually, if-then-else EXPRESSIONs are handled
+   -- with IFTHENELSE_EXP but also with IFTHEN_EXP. Indeed, when we have a single if-then without else part, the
+   -- parser creates only an IFTHEN_EXP object. When we have an "else" part or when there are at least one
+   -- "elseif", the general IFTHENELSE_EXP is used.
    --
 
 inherit
-   INSTRUCTION
+   EXPRESSION
 
 insert
-   IF_SUPPORT
+   IF_SUPPORT_EXP
 
 create {ANY}
    with_else
@@ -21,14 +21,14 @@ create {ANY}
 create {EIFFEL_PARSER}
    with_elseif
 
-create {IFTHENELSE}
+create {IFTHENELSE_EXP}
    with_elseif_and_else
 
 feature {ANY}
-   elseif_list: FAST_ARRAY[IFTHEN]
+   elseif_list: FAST_ARRAY[IFTHEN_EXP]
          -- Non Void when there are "else if" items.
 
-   else_compound: INSTRUCTION
+   else_part: EXPRESSION
          -- Not Void if any.
 
    use_current (type: TYPE): BOOLEAN is
@@ -36,9 +36,7 @@ feature {ANY}
          i: INTEGER
       do
          Result := expression.use_current(type)
-         if not Result and then then_compound /= Void then
-            Result := then_compound.use_current(type)
-         end
+            or else then_expression.use_current(type)
          if not Result and then elseif_list /= Void then
             from
                i := elseif_list.lower
@@ -49,8 +47,8 @@ feature {ANY}
                i := i + 1
             end
          end
-         if not Result and then else_compound /= Void then
-            Result := else_compound.use_current(type)
+         if not Result and then else_part /= Void then
+            Result := else_part.use_current(type)
          end
       end
 
@@ -59,9 +57,7 @@ feature {ANY}
          i: INTEGER
       do
          expression.safety_check(type)
-         if then_compound /= Void then
-            then_compound.safety_check(type)
-         end
+         then_expression.safety_check(type)
          if elseif_list /= Void then
             from
                i := elseif_list.lower
@@ -72,20 +68,18 @@ feature {ANY}
                i := i + 1
             end
          end
-         if else_compound /= Void then
-            else_compound.safety_check(type)
+         if else_part /= Void then
+            else_part.safety_check(type)
          end
       end
 
    specialize_in (type: TYPE): like Current is
       local
-         e: like expression; tc: like then_compound; eil: like elseif_list; it1, it2: IFTHEN; i: INTEGER
-         ec: like else_compound
+         e: like expression; tc: like then_expression; eil: like elseif_list; it1, it2: IFTHEN_EXP; i: INTEGER
+         ec: like else_part
       do
          e := expression.specialize_in(type)
-         if then_compound /= Void then
-            tc := then_compound.specialize_in(type)
-         end
+         tc := then_expression.specialize_in(type)
          if elseif_list /= Void then
             from
                i := elseif_list.lower
@@ -110,21 +104,19 @@ feature {ANY}
                end
             end
          end
-         if else_compound /= Void then
-            ec := else_compound.specialize_in(type)
+         if else_part /= Void then
+            ec := else_part.specialize_in(type)
          end
          Result := current_or_twin_init(e, tc, eil, ec)
       end
 
    specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
       local
-         e: like expression; tc: like then_compound; eil: like elseif_list; it1, it2: IFTHEN; i: INTEGER
-         ec: like else_compound
+         e: like expression; tc: like then_expression; eil: like elseif_list; it1, it2: IFTHEN_EXP; i: INTEGER
+         ec: like else_part
       do
          e := expression.specialize_thru(parent_type, parent_edge, new_type)
-         if then_compound /= Void then
-            tc := then_compound.specialize_thru(parent_type, parent_edge, new_type)
-         end
+         tc := then_expression.specialize_thru(parent_type, parent_edge, new_type)
          if elseif_list /= Void then
             from
                i := elseif_list.lower
@@ -149,21 +141,19 @@ feature {ANY}
                end
             end
          end
-         if else_compound /= Void then
-            ec := else_compound.specialize_thru(parent_type, parent_edge, new_type)
+         if else_part /= Void then
+            ec := else_part.specialize_thru(parent_type, parent_edge, new_type)
          end
          Result := current_or_twin_init(e, tc, eil, ec)
       end
 
    specialize_and_check (type: TYPE): like Current is
       local
-         e: like expression; tc: like then_compound; eil: like elseif_list; it1, it2: IFTHEN; i: INTEGER
-         ec: like else_compound
+         e: like expression; tc: like then_expression; eil: like elseif_list; it1, it2: IFTHEN_EXP; i: INTEGER
+         ec: like else_part
       do
          e := expression.specialize_and_check(type)
-         if then_compound /= Void then
-            tc := then_compound.specialize_and_check(type)
-         end
+         tc := then_expression.specialize_and_check(type)
          if elseif_list /= Void then
             from
                i := elseif_list.lower
@@ -188,8 +178,8 @@ feature {ANY}
                end
             end
          end
-         if else_compound /= Void then
-            ec := else_compound.specialize_and_check(type)
+         if else_part /= Void then
+            ec := else_part.specialize_and_check(type)
          end
          Result := current_or_twin_init(e, tc, eil, ec)
          Result.specialize_check(type)
@@ -200,9 +190,7 @@ feature {ANY}
          i: INTEGER
       do
          Result := expression.has_been_specialized
-         if Result and then then_compound /= Void then
-            Result := then_compound.has_been_specialized
-         end
+            and then then_expression.has_been_specialized
          if elseif_list /= Void then
             from
                i := elseif_list.lower
@@ -213,43 +201,41 @@ feature {ANY}
                i := i + 1
             end
          end
-         if Result and then else_compound /= Void then
-            Result := else_compound.has_been_specialized
+         if Result and then else_part /= Void then
+            Result := else_part.has_been_specialized
          end
       end
 
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): EXPRESSION is
       local
-         e: like expression; tc: like then_compound; eil: like elseif_list; ifthen: IFTHEN
-         ec: like else_compound; bc: BOOLEAN_CONSTANT
+         e: like expression; tc: like then_expression; eil: like elseif_list; ifthen: IFTHEN_EXP
+         ec: like else_part; bc: BOOLEAN_CONSTANT
       do
          e := expression.simplify(type)
          bc ?= e
          if bc /= Void then
             smart_eiffel.magic_count_increment
             if bc.value then
-               if then_compound /= Void then
-                  Result := then_compound.simplify(type)
-               end
+               Result := then_expression.simplify(type)
             elseif elseif_list = Void then
-               if else_compound /= Void then
-                  Result := else_compound.simplify(type)
+               if else_part /= Void then
+                  Result := else_part.simplify(type)
                end
             else
                ifthen := elseif_list.first
                e := ifthen.expression.simplify(type)
-               tc := ifthen.then_compound
+               tc := ifthen.then_expression
                if elseif_list.count >= 2 then
                   eil := elseif_list.twin
                   eil.remove_first
                   eil := simplify_elseif_list(type, True, eil)
                end
-               ec := else_compound
+               ec := else_part
                if eil /= Void then
                   bc ?= eil.last.expression
                   if bc /= Void then
                      check bc.value end -- would have been removed if it was False
-                     ec := eil.last.then_compound
+                     ec := eil.last.then_expression
                      if eil.count = 1 then
                         eil := Void
                      else
@@ -265,22 +251,20 @@ feature {ANY}
                end
                if eil = Void then
                   if ec = Void then
-                     create {IFTHEN} Result.make(ifthen.start_position, e, tc)
+                     create {IFTHEN_EXP} Result.make(ifthen.start_position, e, tc)
                   else
-                     create {IFTHENELSE} Result.with_else(ifthen.start_position, e, tc, ec)
+                     create {IFTHENELSE_EXP} Result.with_else(ifthen.start_position, e, tc, ec)
                   end
                else
-                  create {IFTHENELSE} Result.with_elseif_and_else(ifthen.start_position, e, tc, eil, ec)
+                  create {IFTHENELSE_EXP} Result.with_elseif_and_else(ifthen.start_position, e, tc, eil, ec)
                end
             end
          else
-            if then_compound /= Void then
-               tc := then_compound.simplify(type)
-            end
+            tc := then_expression.simplify(type)
             if elseif_list /= Void then
                eil := simplify_elseif_list(type, False, elseif_list)
             end
-            ec := else_compound
+            ec := else_part
             if eil /= Void then
                bc ?= eil.last.expression
                if bc /= Void then
@@ -289,7 +273,7 @@ feature {ANY}
                   end
                   -- would have been removed if it was False
                   smart_eiffel.magic_count_increment
-                  ec := eil.last.then_compound
+                  ec := eil.last.then_expression
                   if eil.count = 1 then
                      eil := Void
                   else
@@ -303,14 +287,14 @@ feature {ANY}
             if ec /= Void then
                ec := ec.simplify(type)
             end
-            if e = expression and then tc = then_compound and then eil = elseif_list and then ec = else_compound then
+            if e = expression and then tc = then_expression and then eil = elseif_list and then ec = else_part then
                Result := Current
             elseif eil /= Void then
-               create {IFTHENELSE} Result.with_elseif_and_else(start_position, e, tc, eil, ec)
+               create {IFTHENELSE_EXP} Result.with_elseif_and_else(start_position, e, tc, eil, ec)
             elseif ec /= Void then
-               create {IFTHENELSE} Result.with_elseif_and_else(start_position, e, tc, eil, ec)
+               create {IFTHENELSE_EXP} Result.with_elseif_and_else(start_position, e, tc, eil, ec)
             else
-               create {IFTHEN} Result.make(start_position, e, tc)
+               create {IFTHEN_EXP} Result.make(start_position, e, tc)
             end
          end
       end
@@ -330,52 +314,57 @@ feature {ANY}
                i := i + 1
             end
          end
-         if else_compound /= Void then
+         if else_part /= Void then
             pretty_printer.set_indent_level(indent_level)
             pretty_printer.put_string(once "else")
             pretty_printer.set_indent_level(indent_level + 1)
-            else_compound.pretty(indent_level + 1)
+            else_part.pretty(indent_level + 1)
          end
          pretty_end_if(indent_level)
       end
 
-   accept (visitor: IFTHENELSE_VISITOR) is
+   accept (visitor: IFTHENELSE_EXP_VISITOR) is
       do
-         visitor.visit_ifthenelse(Current)
+         visitor.visit_ifthenelse_exp(Current)
       end
 
    collect (type: TYPE): TYPE is
       local
-         dummy: TYPE; i: INTEGER
+         dummy, t: TYPE; i: INTEGER
       do
-         dummy := expression.collect(type)
-         if then_compound /= Void then
-            dummy := then_compound.collect(type)
+         if collect_map /= Void then
+            Result := collect_map.fast_reference_at(type)
          end
+         collect_set.clear_count
+         dummy := expression.collect(type)
+         filter_collect_set(Result = Void, then_expression.collect(type))
          if elseif_list /= Void then
             from
                i := elseif_list.lower
             until
                i > elseif_list.upper
             loop
-               dummy := elseif_list.item(i).collect(type)
+               filter_collect_set(Result = Void, elseif_list.item(i).collect(type))
                i := i + 1
             end
          end
-         if else_compound /= Void then
-            dummy := else_compound.collect(type)
+         if else_part /= Void then
+            filter_collect_set(Result = Void, else_part.collect(type))
+         end
+         if Result = Void then
+            Result := resolve_collect_set
+            create collect_map.make
+            collect_map.add(Result, type)
          end
       end
 
    adapt_for (type: TYPE): like Current is
       local
-         e: like expression; tc: like then_compound; eil: like elseif_list; it1, it2: IFTHEN; i: INTEGER
-         ec: like else_compound; bc: BOOLEAN_CONSTANT
+         e: like expression; tc: like then_expression; eil: like elseif_list; it1, it2: IFTHEN_EXP; i: INTEGER
+         ec: like else_part; bc: BOOLEAN_CONSTANT
       do
          e := expression.adapt_for(type)
-         if then_compound /= Void then
-            tc := then_compound.adapt_for(type)
-         end
+         tc := then_expression.adapt_for(type)
          if elseif_list /= Void then
             from
                i := elseif_list.lower
@@ -400,13 +389,13 @@ feature {ANY}
                end
             end
          end
-         ec := else_compound
+         ec := else_part
          if eil /= Void then
             bc ?= eil.last.expression
             if bc /= Void and then bc.value then
                check False end --|*** PH 06/05/05
-               -- Finally the `else_compound' cannot be reached:
-               ec := eil.last.then_compound
+               -- Finally the `else_part' cannot be reached:
+               ec := eil.last.then_expression
                eil.remove_last
                if eil.is_empty then
                   eil := Void
@@ -423,23 +412,23 @@ feature {ANY}
       end
 
 feature {EIFFEL_PARSER}
-   set_else (ec: like else_compound) is
+   set_else (ec: like else_part) is
       require
          ec /= Void
       do
-         else_compound := ec
+         else_part := ec
       ensure
-         else_compound = ec
+         else_part = ec
       end
 
-   add_elseif (ifthen: IFTHEN) is
+   add_elseif (ifthen: IFTHEN_EXP) is
       require
          ifthen /= Void
       do
          elseif_list.add_last(ifthen)
       end
 
-feature {IFTHENELSE}
+feature {IFTHENELSE_EXP}
    specialize_check (type: TYPE) is
       local
          i: INTEGER
@@ -457,17 +446,17 @@ feature {IFTHENELSE}
          end
       end
 
-   init (e: like expression; tc: like then_compound; eil: like elseif_list; ec: like else_compound) is
+   init (e: like expression; tc: like then_expression; eil: like elseif_list; ec: like else_part) is
       do
          expression := e
-         then_compound := tc
+         then_expression := tc
          elseif_list := eil
-         else_compound := ec
+         else_part := ec
       ensure
          expression = e
-         then_compound = tc
+         then_expression = tc
          elseif_list = eil
-         else_compound = ec
+         else_part = ec
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
@@ -476,92 +465,83 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          -- "elseif" constructions are removed and replaced by imbricated "else if then...". Thus,
          -- extra statements needed by dynamic dispatch have a place to go (between "else" and "if").
       local
-         e: like expression; tc: like then_compound; ec: like else_compound; i: INSTRUCTION
+         e: like expression; tc: like then_expression; ec: like else_part; i: EXPRESSION
       do
          expression.inline_dynamic_dispatch_(code_accumulator, type)
          e := code_accumulator.current_context.last.to_expression
          code_accumulator.current_context.remove_last
-         if then_compound /= Void then
-            code_accumulator.open_new_context
-            then_compound.inline_dynamic_dispatch_(code_accumulator, type)
-            tc := code_accumulator.current_context_to_instruction
-            code_accumulator.close_current_context
-         end
+         then_expression.inline_dynamic_dispatch_(code_accumulator, type)
+         tc := code_accumulator.current_context.last.to_expression
+         code_accumulator.current_context.remove_last
          code_accumulator.open_new_context
          inline_dd(code_accumulator, type, elseif_list, 0)
-         ec := code_accumulator.current_context_to_instruction
+         ec := code_accumulator.current_context_to_expression
          if ec /= Void then
-            create {IFTHENELSE} i.with_else(start_position, e, tc, ec)
+            create {IFTHENELSE_EXP} i.with_else(start_position, e, tc, ec)
          else
-            create {IFTHEN} i.make(start_position, e, tc)
+            create {IFTHEN_EXP} i.make(start_position, e, tc)
          end
          code_accumulator.close_current_context
          code_accumulator.current_context.add_last(i)
       end
 
 feature {}
-   inline_dd (code_accumulator: CODE_ACCUMULATOR; type: TYPE; eil: FAST_ARRAY[IFTHEN]; eil_idx: INTEGER) is
+   inline_dd (code_accumulator: CODE_ACCUMULATOR; type: TYPE; eil: FAST_ARRAY[IFTHEN_EXP]; eil_idx: INTEGER) is
          -- Recursive continuation of `inline_dynamic_dispatch_'.
       local
-         e: like expression; tc: like then_compound; eil_item: IFTHEN; ec: like else_compound; i: INSTRUCTION
+         e: like expression; tc: like then_expression; eil_item: IFTHEN_EXP; ec: like else_part; i: EXPRESSION
       do
          if eil /= Void and then eil_idx < eil.upper then
             eil_item := eil.item(eil_idx)
             eil_item.expression.inline_dynamic_dispatch_(code_accumulator, type)
             e := code_accumulator.current_context.last.to_expression
             code_accumulator.current_context.remove_last
-            if eil_item.then_compound /= Void then
-               code_accumulator.open_new_context
-               eil_item.then_compound.inline_dynamic_dispatch_(code_accumulator, type)
-               tc := code_accumulator.current_context_to_instruction
-               code_accumulator.close_current_context
-            end
+            eil_item.then_expression.inline_dynamic_dispatch_(code_accumulator, type)
+            tc := code_accumulator.current_context.last.to_expression
+            code_accumulator.current_context.remove_last
             code_accumulator.open_new_context
             inline_dd(code_accumulator, type, eil, eil_idx + 1)
-            ec := code_accumulator.current_context_to_instruction
+            ec := code_accumulator.current_context_to_expression
             code_accumulator.close_current_context
-            create {IFTHENELSE} i.with_else(eil_item.start_position, e, tc, ec)
+            create {IFTHENELSE_EXP} i.with_else(eil_item.start_position, e, tc, ec)
             code_accumulator.current_context.add_last(i)
          elseif eil /= Void and then eil_idx = eil.upper then
             eil_item := eil.item(eil_idx)
             eil_item.expression.inline_dynamic_dispatch_(code_accumulator, type)
             e := code_accumulator.current_context.last.to_expression
             code_accumulator.current_context.remove_last
-            if eil_item.then_compound /= Void then
+            eil_item.then_expression.inline_dynamic_dispatch_(code_accumulator, type)
+            tc := code_accumulator.current_context.last.to_expression
+            code_accumulator.current_context.remove_last
+            if else_part /= Void then
                code_accumulator.open_new_context
-               eil_item.then_compound.inline_dynamic_dispatch_(code_accumulator, type)
-               tc := code_accumulator.current_context_to_instruction
-               code_accumulator.close_current_context
-            end
-            if else_compound /= Void then
-               code_accumulator.open_new_context
-               else_compound.inline_dynamic_dispatch_(code_accumulator, type)
-               ec := code_accumulator.current_context_to_instruction
+               else_part.inline_dynamic_dispatch_(code_accumulator, type)
+               ec := code_accumulator.current_context_to_expression
                code_accumulator.close_current_context
                if ec /= Void then
-                  create {IFTHENELSE} i.with_else(eil_item.start_position, e, tc, ec)
+                  create {IFTHENELSE_EXP} i.with_else(eil_item.start_position, e, tc, ec)
                else
-                  create {IFTHEN} i.make(eil_item.start_position, e, tc)
+                  create {IFTHEN_EXP} i.make(eil_item.start_position, e, tc)
                end
                code_accumulator.current_context.add_last(i)
             else
-               create {IFTHEN} i.make(eil_item.start_position, e, tc)
+               create {IFTHEN_EXP} i.make(eil_item.start_position, e, tc)
                code_accumulator.current_context.add_last(i)
             end
          else
             check
                eil = Void
             end
-            else_compound.inline_dynamic_dispatch_(code_accumulator, type)
+            else_part.inline_dynamic_dispatch_(code_accumulator, type)
          end
       end
 
 feature {}
-   current_or_twin_init (e: like expression; tc: like then_compound; eil: like elseif_list; ec: like else_compound): like Current is
+   current_or_twin_init (e: like expression; tc: like then_expression; eil: like elseif_list; ec: like else_part): like Current is
       require
          e /= Void
       do
-         if e = expression and then tc = then_compound and then eil = elseif_list and then ec = else_compound then
+         if e = expression and then tc = then_expression and then eil = elseif_list and then ec = else_part then
             Result := Current
          else
             Result := twin
@@ -569,12 +549,12 @@ feature {}
          end
       ensure
          Result.expression = e
-         Result.then_compound = tc
+         Result.then_expression = tc
          Result.elseif_list = eil
-         Result.else_compound = ec
+         Result.else_part = ec
       end
 
-   with_else (sp: like start_position; e: like expression; tc: like then_compound; ec: like else_compound) is
+   with_else (sp: like start_position; e: like expression; tc: like then_expression; ec: like else_part) is
       require
          not sp.is_unknown
          e /= Void
@@ -582,16 +562,16 @@ feature {}
       do
          start_position := sp
          expression := e
-         then_compound := tc
-         else_compound := ec
+         then_expression := tc
+         else_part := ec
       ensure
          start_position = sp
          expression = e
-         then_compound = tc
-         else_compound = ec
+         then_expression = tc
+         else_part = ec
       end
 
-   with_elseif (sp: like start_position; e: like expression; tc: like then_compound; ifthen: IFTHEN) is
+   with_elseif (sp: like start_position; e: like expression; tc: like then_expression; ifthen: IFTHEN_EXP) is
       require
          not sp.is_unknown
          e /= Void
@@ -599,17 +579,17 @@ feature {}
       do
          start_position := sp
          expression := e
-         then_compound := tc
+         then_expression := tc
          create elseif_list.with_capacity(2)
          elseif_list.add_last(ifthen)
       ensure
          start_position = sp
          expression = e
-         then_compound = tc
+         then_expression = tc
       end
 
-   with_elseif_and_else (sp: like start_position; e: like expression; tc: like then_compound; eil: like elseif_list
-                         ec: like else_compound) is
+   with_elseif_and_else (sp: like start_position; e: like expression; tc: like then_expression; eil: like elseif_list
+                         ec: like else_part) is
       require
          not sp.is_unknown
          e /= Void
@@ -617,15 +597,15 @@ feature {}
       do
          start_position := sp
          expression := e
-         then_compound := tc
+         then_expression := tc
          elseif_list := eil
-         else_compound := ec
+         else_part := ec
       ensure
          start_position = sp
          expression = e
-         then_compound = tc
+         then_expression = tc
          elseif_list = eil
-         else_compound = ec
+         else_part = ec
       end
 
    simplify_elseif_list (type: TYPE; twin_already_done: BOOLEAN; eil: like elseif_list): like elseif_list is
@@ -633,7 +613,7 @@ feature {}
          type /= Void
          eil.count >= 1
       local
-         twin_done: BOOLEAN; e1, e2: EXPRESSION; inst1, inst2: INSTRUCTION; ifthen: IFTHEN; i: INTEGER
+         twin_done: BOOLEAN; e1, e2: EXPRESSION; inst1, inst2: EXPRESSION; ifthen: IFTHEN_EXP; i: INTEGER
          bc: BOOLEAN_CONSTANT
       do
          from
@@ -646,12 +626,8 @@ feature {}
             ifthen := Result.item(i)
             e1 := ifthen.expression
             e2 := e1.simplify(type)
-            inst1 := ifthen.then_compound
-            if inst1 = Void then
-               inst2 := Void
-            else
-               inst2 := inst1.simplify(type)
-            end
+            inst1 := ifthen.then_expression
+            inst2 := inst1.simplify(type)
             bc ?= e2
             if bc /= Void then
                if bc.value then
@@ -673,7 +649,7 @@ feature {}
                         Result := Result.twin
                         twin_done := True
                      end
-                     Result.put(create {IFTHEN}.make(ifthen.start_position, e2, inst2), i)
+                     Result.put(create {IFTHEN_EXP}.make(ifthen.start_position, e2, inst2), i)
                   end
                else
                   -- The current item can be removed:
@@ -690,7 +666,7 @@ feature {}
                   Result := Result.twin
                   twin_done := True
                end
-               Result.put(create {IFTHEN}.make(ifthen.start_position, e2, inst2), i)
+               Result.put(create {IFTHEN_EXP}.make(ifthen.start_position, e2, inst2), i)
             end
             i := i + 1
          end
@@ -704,7 +680,7 @@ feature {}
    canonical_form: BOOLEAN is
       do
          if elseif_list = Void then
-            Result := else_compound /= Void
+            Result := else_part /= Void
          else
             Result := not elseif_list.is_empty
          end
@@ -712,10 +688,69 @@ feature {}
          assertion_check_only: Result
       end
 
+feature {}
+   collect_map: HASHED_DICTIONARY[TYPE, TYPE]
+
+   collect_set: FAST_ARRAY[TYPE] is
+      once
+         create Result.make(0)
+      end
+
+   filter_collect_set (perform: BOOLEAN; t: TYPE) is
+      do
+         if perform and then not collect_set.fast_has(t) then
+            collect_set.add_last(t)
+            t.up_to_any_in(collect_set)
+         end
+      ensure
+         perform implies (
+            old (collect_set.fast_has(t)) implies collect_set.count = old collect_set.count
+            and then
+            old (not collect_set.fast_has(t)) implies collect_set.count > old collect_set.count
+            and then
+            collect_set.fast_has(t)
+         )
+         (not perform) implies collect_set.count = old collect_set.count
+      end
+
+   resolve_collect_set: TYPE is
+      require
+         not collect_set.is_empty
+      local
+         i: INTEGER; t: TYPE
+      do
+         Result := resolve_collect_set_(collect_set.first, collect_set.lower + 1)
+         if Result = Void then
+            --| **** TODO: check for INTEGER and co. for balancing rule, or wait for true conversion
+            error_handler.add_position(start_position)
+            error_handler.append("Could not find any conformant common type to those expressions.")
+            error_handler.print_as_fatal_error
+         end
+      end
+
+   resolve_collect_set_ (type: TYPE; i: INTEGER): TYPE is
+      local
+         t: TYPE
+      do
+         if i > collect_set.upper then
+            Result := type
+         else
+            t := collect_set.item(i)
+            if t.inherits_from(type) then
+               Result := resolve_collect_set_(type, i + 1)
+            elseif type.inherits_from(t) then
+               Result := resolve_collect_set_(t, i + 1)
+               if Result = Void then
+                  Result := resolve_collect_set_(type, i + 1)
+               end
+            end
+         end
+      end
+
 invariant
    canonical_form
 
-end -- class IFTHENELSE
+end -- class IFTHENELSE_EXP
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
