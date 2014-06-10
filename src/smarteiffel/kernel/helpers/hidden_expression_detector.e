@@ -47,10 +47,12 @@ feature {}
       local
          t: EXPRESSION
       do
-         t := visited.target
-         check_anonymous_feature(visited.feature_stamp.anonymous_feature(t.resolve_in(current_type)))
          if not hidden then
-            t.accept(Current)
+            t := visited.target
+            check_anonymous_feature(visited.feature_stamp.anonymous_feature(t.resolve_in(current_type)))
+            if not hidden then
+               t.accept(Current)
+            end
          end
       end
 
@@ -59,6 +61,39 @@ feature {}
          visit_call(visited)
          if not hidden then
             visited.arg1.accept(Current)
+         end
+      end
+
+feature {IFTHEN_EXP}
+   visit_ifthen_exp (visited: IFTHEN_EXP) is
+      do
+         visited.expression.accept(Current)
+         if not hidden then
+            visited.then_expression.accept(Current)
+         end
+      end
+
+feature {IFTHENELSE_EXP}
+   visit_ifthenelse_exp (visited: IFTHENELSE_EXP) is
+      local
+         i: INTEGER
+      do
+         visited.expression.accept(Current)
+         if not hidden then
+            visited.then_expression.accept(Current)
+         end
+         if visited.elseif_list /= Void then
+            from
+               i := visited.elseif_list.lower
+            until
+               hidden or else i > visited.elseif_list.upper
+            loop
+               visited.elseif_list.item(i).accept(Current)
+               i := i + 1
+            end
+         end
+         if not hidden and then visited.else_part /= Void then
+            visited.else_part.accept(Current)
          end
       end
 
@@ -139,16 +174,18 @@ feature {OLD_MANIFEST_ARRAY}
 feature {BUILT_IN_EQ_NEQ}
    visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ) is
       do
-         visited.left_side.accept(Current)
          if not hidden then
-            visited.right_side.accept(Current)
+            visited.left_side.accept(Current)
+            if not hidden then
+               visited.right_side.accept(Current)
+            end
          end
       end
 
 feature {ASSIGNMENT_TEST}
    visit_assignment_test (visited: ASSIGNMENT_TEST) is
       do
-         if visited.left_writable /= Void then
+         if not hidden and then visited.left_writable /= Void then
             visited.left_writable.accept(Current)
          end
          if not hidden then
@@ -159,7 +196,7 @@ feature {ASSIGNMENT_TEST}
 feature {ASSERTION}
    visit_assertion (visited: ASSERTION) is
       do
-         if visited.expression /= Void then
+         if not hidden and then visited.expression /= Void then
             visited.expression.accept(Current)
          end
       end
@@ -167,16 +204,20 @@ feature {ASSERTION}
 feature {AGENT_EXPRESSION}
    visit_agent_expression (visited: AGENT_EXPRESSION) is
       do
-         visited.target.accept(Current)
          if not hidden then
-            visited.fake_tuple.accept(Current)
+            visited.target.accept(Current)
+            if not hidden then
+               visited.fake_tuple.accept(Current)
+            end
          end
       end
 
 feature {AGENT_CREATION}
    visit_agent_creation (visited: AGENT_CREATION) is
       do
-         visited.code.accept(Current)
+         if not hidden then
+            visited.code.accept(Current)
+         end
       end
 
 feature {CREATE_EXPRESSION}
@@ -217,16 +258,22 @@ feature {MANIFEST_TUPLE}
 feature {NATIVE_ARRAY_ITEM}
    visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
       do
-         if visited.array /= Void then
-            visited.array.accept(Current)
+         if not hidden then
+            if visited.array /= Void then
+               visited.array.accept(Current)
+            end
+            if not hidden then
+               visited.index.accept(Current)
+            end
          end
-         visited.index.accept(Current)
       end
 
 feature {NON_VOID_NO_DISPATCH}
    visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH) is
       do
-         check_anonymous_feature(visited.feature_stamp.anonymous_feature(visited.context_type))
+         if not hidden then
+            check_anonymous_feature(visited.feature_stamp.anonymous_feature(visited.context_type))
+         end
       end
 
 feature {WRITTEN_CURRENT}
@@ -266,13 +313,17 @@ feature {GENERATOR_GENERATING_TYPE}
 feature {EXPRESSION_WITH_COMMENT}
    visit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT) is
       do
-         visited.expression.accept(Current)
+         if not hidden then
+            visited.expression.accept(Current)
+         end
       end
 
 feature {E_OLD}
    visit_e_old (visited: E_OLD) is
       do
-         visited.expression.accept(Current)
+         if not hidden then
+            visited.expression.accept(Current)
+         end
       end
 
 feature {ADDRESS_OF}

@@ -91,8 +91,23 @@ feature {LOOP_VARIANT}
 
 feature {COMPOUND_EXPRESSION}
    visit_compound_expression (visited: COMPOUND_EXPRESSION) is
+      local
+         i: INTEGER; exp: EXPRESSION
       do
-         not_yet_implemented
+         -- GCC specific?? (anyway it will at least work with that compiler, it is a good step from the
+         -- previous terse not_yet_implemented)
+         function_body.append(once "({%N")
+         from
+            i := visited.list.lower
+         until
+            i = visited.list.upper
+         loop
+            cpp.code_compiler.compile(visited.list.item(i), type)
+            i := i + 1
+         end
+         exp ::= visited.list.last
+         exp.accept(Current)
+         function_body.append(once ";%N})")
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}

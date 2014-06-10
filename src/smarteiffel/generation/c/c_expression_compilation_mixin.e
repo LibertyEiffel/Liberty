@@ -197,6 +197,42 @@ feature {ASSIGNMENT_TEST}
          function_body.append(once "))")
       end
 
+feature {IFTHEN_EXP}
+   visit_ifthen_exp (visited: IFTHEN_EXP) is
+      do
+         function_body.append(once "(")
+         visited.expression.accept(Current)
+         function_body.append(once ")?(")
+         visited.then_expression.accept(Current)
+         function_body.append(once ")")
+      end
+
+feature {IFTHENELSE_EXP}
+   visit_ifthenelse_exp (visited: IFTHENELSE_EXP) is
+      local
+         i: INTEGER
+      do
+         function_body.append(once "((")
+         visited.expression.accept(Current)
+         function_body.append(once ")?(")
+         visited.then_expression.accept(Current)
+         function_body.append(once "):")
+         if visited.elseif_list /= Void then
+            from
+               i := visited.elseif_list.lower
+            until
+               i > visited.elseif_list.upper
+            loop
+               visit_ifthen_exp(visited.elseif_list.item(i))
+               function_body.append(once ":")
+               i := i + 1
+            end
+         end
+         function_body.append(once "(")
+         visited.else_part.accept(Current)
+         function_body.append(once "))")
+      end
+
 feature {BUILT_IN_EQ_NEQ}
    visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ) is
       local

@@ -560,6 +560,40 @@ feature {IFTHEN}
          end
       end
 
+feature {IFTHENELSE_EXP}
+   visit_ifthenelse_exp (visited: IFTHENELSE_EXP) is
+      local
+         elseif_list: FAST_ARRAY[IFTHEN_EXP]; i: INTEGER
+      do
+         visited.expression.accept(Current)
+         if precomputable and then visited.then_expression /= Void then
+            visited.then_expression.accept(Current)
+         end
+         if precomputable and then visited.elseif_list /= Void then
+            from
+               elseif_list := visited.elseif_list
+               i := elseif_list.lower
+            until
+               not precomputable or else i > elseif_list.upper
+            loop
+               visit_ifthen_exp(elseif_list.item(i))
+               i := i + 1
+            end
+         end
+         if precomputable and then visited.else_part /= Void then
+            visited.else_part.accept(Current)
+         end
+      end
+
+feature {IFTHEN_EXP}
+   visit_ifthen_exp (visited: IFTHEN_EXP) is
+      do
+         visited.expression.accept(Current)
+         if precomputable and then visited.then_expression /= Void then
+            visited.then_expression.accept(Current)
+         end
+      end
+
 feature {LOOP_INSTRUCTION}
    visit_loop_instruction (visited: LOOP_INSTRUCTION) is
       do

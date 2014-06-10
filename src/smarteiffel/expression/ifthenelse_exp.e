@@ -29,7 +29,6 @@ feature {ANY}
          -- Non Void when there are "else if" items.
 
    else_part: EXPRESSION
-         -- Not Void if any.
 
    use_current (type: TYPE): BOOLEAN is
       local
@@ -47,7 +46,7 @@ feature {ANY}
                i := i + 1
             end
          end
-         if not Result and then else_part /= Void then
+         if not Result then
             Result := else_part.use_current(type)
          end
       end
@@ -68,9 +67,7 @@ feature {ANY}
                i := i + 1
             end
          end
-         if else_part /= Void then
-            else_part.safety_check(type)
-         end
+         else_part.safety_check(type)
       end
 
    specialize_in (type: TYPE): like Current is
@@ -104,9 +101,7 @@ feature {ANY}
                end
             end
          end
-         if else_part /= Void then
-            ec := else_part.specialize_in(type)
-         end
+         ec := else_part.specialize_in(type)
          Result := current_or_twin_init(e, tc, eil, ec)
       end
 
@@ -141,9 +136,7 @@ feature {ANY}
                end
             end
          end
-         if else_part /= Void then
-            ec := else_part.specialize_thru(parent_type, parent_edge, new_type)
-         end
+         ec := else_part.specialize_thru(parent_type, parent_edge, new_type)
          Result := current_or_twin_init(e, tc, eil, ec)
       end
 
@@ -178,9 +171,7 @@ feature {ANY}
                end
             end
          end
-         if else_part /= Void then
-            ec := else_part.specialize_and_check(type)
-         end
+         ec := else_part.specialize_and_check(type)
          Result := current_or_twin_init(e, tc, eil, ec)
          Result.specialize_check(type)
       end
@@ -201,7 +192,7 @@ feature {ANY}
                i := i + 1
             end
          end
-         if Result and then else_part /= Void then
+         if Result then
             Result := else_part.has_been_specialized
          end
       end
@@ -218,9 +209,7 @@ feature {ANY}
             if bc.value then
                Result := then_expression.simplify(type)
             elseif elseif_list = Void then
-               if else_part /= Void then
-                  Result := else_part.simplify(type)
-               end
+               Result := else_part.simplify(type)
             else
                ifthen := elseif_list.first
                e := ifthen.expression.simplify(type)
@@ -314,12 +303,10 @@ feature {ANY}
                i := i + 1
             end
          end
-         if else_part /= Void then
-            pretty_printer.set_indent_level(indent_level)
-            pretty_printer.put_string(once "else")
-            pretty_printer.set_indent_level(indent_level + 1)
-            else_part.pretty(indent_level + 1)
-         end
+         pretty_printer.set_indent_level(indent_level)
+         pretty_printer.put_string(once "else")
+         pretty_printer.set_indent_level(indent_level + 1)
+         else_part.pretty(indent_level + 1)
          pretty_end_if(indent_level)
       end
 
@@ -328,33 +315,58 @@ feature {ANY}
          visitor.visit_ifthenelse_exp(Current)
       end
 
-   collect (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE is
       local
-         dummy, t: TYPE; i: INTEGER
+         t: TYPE; i: INTEGER
       do
-         if collect_map /= Void then
-            Result := collect_map.fast_reference_at(type)
+         if resolve_map /= Void then
+            Result := resolve_map.fast_reference_at(type)
          end
-         collect_set.clear_count
-         dummy := expression.collect(type)
-         filter_collect_set(Result = Void, then_expression.collect(type))
+         resolve_set.clear_count
+         filter_resolve_set(Result = Void, then_expression.resolve_in(type))
          if elseif_list /= Void then
             from
                i := elseif_list.lower
             until
                i > elseif_list.upper
             loop
-               filter_collect_set(Result = Void, elseif_list.item(i).collect(type))
+               filter_resolve_set(Result = Void, elseif_list.item(i).resolve_in(type))
                i := i + 1
             end
          end
-         if else_part /= Void then
-            filter_collect_set(Result = Void, else_part.collect(type))
-         end
+         filter_resolve_set(Result = Void, else_part.resolve_in(type))
          if Result = Void then
-            Result := resolve_collect_set
-            create collect_map.make
-            collect_map.add(Result, type)
+            Result := resolve_resolve_set
+            create resolve_map.make
+            resolve_map.add(Result, type)
+         end
+      end
+
+   collect (type: TYPE): TYPE is
+      local
+         dummy, t: TYPE; i: INTEGER
+      do
+         if resolve_map /= Void then
+            Result := resolve_map.fast_reference_at(type)
+         end
+         resolve_set.clear_count
+         dummy := expression.collect(type)
+         filter_resolve_set(Result = Void, then_expression.collect(type))
+         if elseif_list /= Void then
+            from
+               i := elseif_list.lower
+            until
+               i > elseif_list.upper
+            loop
+               filter_resolve_set(Result = Void, elseif_list.item(i).collect(type))
+               i := i + 1
+            end
+         end
+         filter_resolve_set(Result = Void, else_part.collect(type))
+         if Result = Void then
+            Result := resolve_resolve_set
+            create resolve_map.make
+            resolve_map.add(Result, type)
          end
       end
 
@@ -513,21 +525,12 @@ feature {}
             eil_item.then_expression.inline_dynamic_dispatch_(code_accumulator, type)
             tc := code_accumulator.current_context.last.to_expression
             code_accumulator.current_context.remove_last
-            if else_part /= Void then
-               code_accumulator.open_new_context
-               else_part.inline_dynamic_dispatch_(code_accumulator, type)
-               ec := code_accumulator.current_context_to_expression
-               code_accumulator.close_current_context
-               if ec /= Void then
-                  create {IFTHENELSE_EXP} i.with_else(eil_item.start_position, e, tc, ec)
-               else
-                  create {IFTHEN_EXP} i.make(eil_item.start_position, e, tc)
-               end
-               code_accumulator.current_context.add_last(i)
-            else
-               create {IFTHEN_EXP} i.make(eil_item.start_position, e, tc)
-               code_accumulator.current_context.add_last(i)
-            end
+            code_accumulator.open_new_context
+            else_part.inline_dynamic_dispatch_(code_accumulator, type)
+            ec := code_accumulator.current_context_to_expression
+            code_accumulator.close_current_context
+            create {IFTHENELSE_EXP} i.with_else(eil_item.start_position, e, tc, ec)
+            code_accumulator.current_context.add_last(i)
          else
             check
                eil = Void
@@ -593,7 +596,7 @@ feature {}
       require
          not sp.is_unknown
          e /= Void
-         eil /= Void or ec /= Void
+         ec /= Void
       do
          start_position := sp
          expression := e
@@ -679,47 +682,45 @@ feature {}
 
    canonical_form: BOOLEAN is
       do
-         if elseif_list = Void then
-            Result := else_part /= Void
-         else
-            Result := not elseif_list.is_empty
+         if else_part /= Void then
+            Result := elseif_list /= Void implies not elseif_list.is_empty
          end
       ensure
          assertion_check_only: Result
       end
 
 feature {}
-   collect_map: HASHED_DICTIONARY[TYPE, TYPE]
+   resolve_map: HASHED_DICTIONARY[TYPE, TYPE]
 
-   collect_set: FAST_ARRAY[TYPE] is
+   resolve_set: FAST_ARRAY[TYPE] is
       once
          create Result.make(0)
       end
 
-   filter_collect_set (perform: BOOLEAN; t: TYPE) is
+   filter_resolve_set (perform: BOOLEAN; t: TYPE) is
       do
-         if perform and then not collect_set.fast_has(t) then
-            collect_set.add_last(t)
-            t.up_to_any_in(collect_set)
+         if perform and then not resolve_set.fast_has(t) then
+            resolve_set.add_last(t)
+            t.up_to_any_in(resolve_set)
          end
       ensure
          perform implies (
-            old (collect_set.fast_has(t)) implies collect_set.count = old collect_set.count
+            old (resolve_set.fast_has(t)) implies resolve_set.count = old resolve_set.count
             and then
-            old (not collect_set.fast_has(t)) implies collect_set.count > old collect_set.count
+            old (not resolve_set.fast_has(t)) implies resolve_set.count > old resolve_set.count
             and then
-            collect_set.fast_has(t)
+            resolve_set.fast_has(t)
          )
-         (not perform) implies collect_set.count = old collect_set.count
+         (not perform) implies resolve_set.count = old resolve_set.count
       end
 
-   resolve_collect_set: TYPE is
+   resolve_resolve_set: TYPE is
       require
-         not collect_set.is_empty
+         not resolve_set.is_empty
       local
          i: INTEGER; t: TYPE
       do
-         Result := resolve_collect_set_(collect_set.first, collect_set.lower + 1)
+         Result := resolve_resolve_set_(resolve_set.first, resolve_set.lower + 1)
          if Result = Void then
             --| **** TODO: check for INTEGER and co. for balancing rule, or wait for true conversion
             error_handler.add_position(start_position)
@@ -728,20 +729,20 @@ feature {}
          end
       end
 
-   resolve_collect_set_ (type: TYPE; i: INTEGER): TYPE is
+   resolve_resolve_set_ (type: TYPE; i: INTEGER): TYPE is
       local
          t: TYPE
       do
-         if i > collect_set.upper then
+         if i > resolve_set.upper then
             Result := type
          else
-            t := collect_set.item(i)
+            t := resolve_set.item(i)
             if t.inherits_from(type) then
-               Result := resolve_collect_set_(type, i + 1)
+               Result := resolve_resolve_set_(type, i + 1)
             elseif type.inherits_from(t) then
-               Result := resolve_collect_set_(t, i + 1)
+               Result := resolve_resolve_set_(t, i + 1)
                if Result = Void then
-                  Result := resolve_collect_set_(type, i + 1)
+                  Result := resolve_resolve_set_(type, i + 1)
                end
             end
          end

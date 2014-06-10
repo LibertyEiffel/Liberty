@@ -143,6 +143,12 @@ feature {IFTHENELSE}
          trace_result := False
       end
 
+feature {IFTHENELSE_EXP}
+   visit_ifthenelse_exp (visited: IFTHENELSE_EXP) is
+      do
+         trace_result := False
+      end
+
 feature {VOID_PROC_CALL}
    visit_void_proc_call (visited: VOID_PROC_CALL) is
       do
@@ -748,6 +754,12 @@ feature {IFTHEN}
          trace_result := False
       end
 
+feature {IFTHEN_EXP}
+   visit_ifthen_exp (visited: IFTHEN_EXP) is
+      do
+         trace_result := False
+      end
+
 feature {CREATE_EXPRESSION}
    visit_create_expression (visited: CREATE_EXPRESSION) is
       do
@@ -781,7 +793,7 @@ feature {UNUSED_EXPRESSION}
 
 feature {INSPECT_STATEMENT}
    trace_in (tr: like trace; ty: like type; instruction: INSTRUCTION): BOOLEAN is
-         -- In case of a True `Result', there is a possibility that the `instruction' can be indentical to
+         -- In case of a True `Result', there is a possibility that the `instruction' can be identical to
          -- some other piece of `instruction' (written somewhere else!).
       require
          smart_eiffel.status.inlining_dynamic_dispatch_done

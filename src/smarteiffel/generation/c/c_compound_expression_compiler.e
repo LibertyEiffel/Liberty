@@ -88,7 +88,9 @@ insert
          visit_open_operand,
          visit_precursor_expression,
          visit_result,
-         visit_writable_attribute_name
+         visit_writable_attribute_name,
+         visit_ifthen_exp,
+         visit_ifthenelse_exp
       end
 
 create {C_PRETTY_PRINTER}
@@ -728,6 +730,22 @@ feature {RESULT}
 
 feature {WRITABLE_ATTRIBUTE_NAME}
    visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
+      do
+         function_body.append(continue)
+         Precursor(visited)
+         function_body.append(finish)
+      end
+
+feature {IFTHEN_EXP}
+   visit_ifthen_exp (visited: IFTHEN_EXP) is
+      do
+         function_body.append(continue)
+         Precursor(visited)
+         function_body.append(finish)
+      end
+
+feature {IFTHENELSE_EXP}
+   visit_ifthenelse_exp (visited: IFTHENELSE_EXP) is
       do
          function_body.append(continue)
          Precursor(visited)

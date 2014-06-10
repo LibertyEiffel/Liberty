@@ -3606,6 +3606,8 @@ feature {}
             error_handler.append(once "%" expected.")
             error_handler.print_as_fatal_error
          end
+      ensure
+         Result /= Void
       end
 
    a_conditional_exp: BOOLEAN is
@@ -3666,28 +3668,21 @@ feature {}
                   if else_part /= Void then
                      ifthenelse.set_else(else_part)
                   end
-               elseif not a_keyword(fz_end) then
+               else
                   error_handler.add_position(sp1)
                   error_handler.add_position(current_position)
-                  error_handler.append(once "Added %"end%" to finish this %"if%" statement.")
-                  error_handler.print_as_warning
+                  error_handler.append("An if-then-else expression must have an 'else' part.")
+                  error_handler.print_as_fatal_error
                end
                last_expression := ifthenelse
             elseif a_keyword(fz_else) then
                else_part := a_exp2(once "else part", fz_end)
-               if else_part = Void then
-                  create {IFTHEN_EXP} last_expression.make(sp1, expression1, then_part1)
-               else
-                  create {IFTHENELSE_EXP} last_expression.with_else(sp1, expression1, then_part1, else_part)
-               end
+               create {IFTHENELSE_EXP} last_expression.with_else(sp1, expression1, then_part1, else_part)
             else
-               if not a_keyword(fz_end) then
-                  error_handler.add_position(sp1)
-                  error_handler.add_position(current_position)
-                  error_handler.append(once "Keyword %"end%" added to finish this %"if%" statement.")
-                  error_handler.print_as_warning
-               end
-               create {IFTHEN_EXP} last_expression.make(sp1, expression1, then_part1)
+               error_handler.add_position(sp1)
+               error_handler.add_position(current_position)
+               error_handler.append("An if-then-else expression must have an 'else' part.")
+               error_handler.print_as_fatal_error
             end
          end
       end
