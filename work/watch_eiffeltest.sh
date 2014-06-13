@@ -96,6 +96,6 @@ EOF
         exec $0 _internal | less -R
         ;;
     *)
-        exec watch --color -n 30 "$@" $0 _internal
+        exec watch --color -n 1 "$@" $0 _internal
         ;;
 esac

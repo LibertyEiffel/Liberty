@@ -73,7 +73,7 @@ feature {ANY} -- Check that the underlying traversable has not changed
       end
 
 feature {ANY} -- Agent-based features:
-   do_all (action: ROUTINE[TUPLE[E_]]) is
+   for_each (action: PROCEDURE[TUPLE[E_]]) is
          -- Apply `action' to every item of `Current'.
          --
          -- See also `for_all', `exists', `aggregate'.
@@ -93,7 +93,7 @@ feature {ANY} -- Agent-based features:
    for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
          -- Do all items satisfy `test'?
          --
-         -- See also `do_all', `exists', `aggregate'.
+         -- See also `for_each', `exists', `aggregate'.
       do
          from
             Result := True
@@ -111,7 +111,7 @@ feature {ANY} -- Agent-based features:
    exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
          -- Does at least one item satisfy `test'?
          --
-         -- See also `do_all', `for_all', `aggregate'.
+         -- See also `for_each', `for_all', `aggregate'.
       do
          from
             start
@@ -128,7 +128,7 @@ feature {ANY} -- Agent-based features:
    aggregate (action: FUNCTION[TUPLE[E_, E_], E_]; initial: E_): E_ is
          -- Aggregate all the elements starting from the initial value.
          --
-         -- See also `do_all', `for_all', `exists'.
+         -- See also `for_each', `for_all', `exists'.
       do
          from
             Result := initial

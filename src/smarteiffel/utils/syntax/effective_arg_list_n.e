@@ -218,10 +218,21 @@ feature {ANY}
                   end
                when 2 then
                   check remainder = Void end
-                  create remainder.with_capacity(1)
+                  create rem.with_capacity(1)
+                  if Result = Current then
+                     Result := twin
+                  end
+                  Result.set_remainder(rem)
                else
+                  if Result = Current then
+                     Result := twin
+                     rem := remainder.twin
+                     Result.set_remainder(rem)
+                  else
+                     rem := remainder
+                  end
                end
-               remainder.add_last(synthetize_tuple(target_type, t, fal))
+               rem.add_last(synthetize_tuple(target_type, t, fal))
             end
          end
          Result.specialize_check_count(t, target_type, fal)

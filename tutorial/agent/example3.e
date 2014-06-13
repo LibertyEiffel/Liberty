@@ -1,7 +1,7 @@
 class EXAMPLE3
    --
-   -- In the DICTIONARY class, the `do_all' feature has an agent argument wich is
-   -- a routine with two arguments, one for the value (type `V') and one for
+   -- In the DICTIONARY class, the `for_each' feature has an agent argument wich is
+   -- a procedure with two arguments, one for the value (type `V') and one for
    -- the key (type `K').
    --
 
@@ -16,9 +16,9 @@ feature {ANY}
          my_array := {ARRAY[STRING] 1, << "Benedicte", "Lucien", "Marie" >> }
          create my_dictionary.make
          -- Using an agent to fill `my_dictionary' with `my_array':
-         my_array.do_all(agent fill_it(?))
+         my_array.for_each(agent fill_it(?))
          -- Using another agent to print `my_dictionary':
-         my_dictionary.do_all(agent print_key_value(?, ?))
+         my_dictionary.for_each(agent print_key_value(?, ?))
       end
 
 feature {}

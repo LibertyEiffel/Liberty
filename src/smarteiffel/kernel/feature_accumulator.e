@@ -244,6 +244,11 @@ feature {TYPE}
             i > features.upper
          loop
             m := features.item(i)
+            debug
+               echo.put_string(once "    Specializing signature of feature: ")
+               echo.put_line(m.feature_name.to_string)
+            end
+            current_mixer := m
             m.specialize_signature(context_type)
             i := i + 1
          end
@@ -253,6 +258,10 @@ feature {TYPE}
             i > features.upper
          loop
             m := features.item(i)
+            debug
+               echo.put_string(once "    Specializing feature: ")
+               echo.put_line(m.feature_name.to_string)
+            end
             current_mixer := m
             m.specialize_feature(context_type)
             fs := context_type.lookup(m.feature_name)
@@ -269,6 +278,7 @@ feature {TYPE}
             i > features.upper
          loop
             m := features.item(i)
+            current_mixer := m
             collect_assigner(m)
             free.add_last(m)
             i := i + 1
@@ -287,6 +297,7 @@ feature {TYPE}
          end
          smart_eiffel.status.end_specializing(context_type)
          specialize_and_check_list.add(context_type)
+         current_mixer := Void
          context_type := Void
          waiting_type := waiting_type - 1
       ensure

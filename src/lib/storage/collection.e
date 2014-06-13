@@ -192,7 +192,9 @@ feature {ANY} -- Adding:
             add_last(other.item(i))
             i := i + 1
          end
-                 -- Note: AFAIK it could also be implemented with other.do_all(agent add_last). Paolo 2011-08-12
+         -- Note: AFAIK it could also be implemented with other.for_each(agent add_last). Paolo 2011-08-12
+         -- Yes, but it MUST NOT. We are in the standard library and it must work without the GC so don't build useless
+         -- objects. Cad 2014-06-03
       ensure
          count = other.count + old count
       end

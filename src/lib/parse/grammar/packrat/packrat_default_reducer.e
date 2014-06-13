@@ -79,7 +79,7 @@ feature {PACKRAT_GRAMMAR}
    reduce_pattern is
       do
          last_pattern := seq(first_alternative, one, Void, Void)
-         last_choice.do_all(agent reduce_pattern_map(?))
+         last_choice.for_each(agent reduce_pattern_map(?))
          reset_choice
       end
 

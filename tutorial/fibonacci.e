@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          if argument_count /= 1 or else not argument(1).is_integer then
             io.put_string("Usage: ")
@@ -19,7 +19,7 @@ feature {ANY}
          io.put_new_line
       end
 
-   fibonacci (i: INTEGER): INTEGER is
+   fibonacci (i: INTEGER): INTEGER
       require
          i >= 0
       do

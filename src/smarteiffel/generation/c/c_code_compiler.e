@@ -58,7 +58,7 @@ feature {ENSURE_ASSERTION}
       do
          if not visited.is_always_true(type) then
             cpp.stop_recursive_assertion_opening(True)
-            visited.list.do_all(agent compile_assertion_as_ensure(?))
+            visited.list.for_each(agent compile_assertion_as_ensure(?))
             cpp.stop_recursive_assertion_closing(True)
          end
       end
@@ -77,7 +77,7 @@ feature {CLASS_INVARIANT}
                cpp.start_profile_class_invariant(type.live_type)
             end
             cpp.stop_recursive_assertion_opening(False)
-            visited.list.do_all(agent compile_assertion_as_class_invariant(?))
+            visited.list.for_each(agent compile_assertion_as_class_invariant(?))
             cpp.stop_recursive_assertion_closing(False)
             if ace.profile then
                cpp.stop_profile
@@ -423,7 +423,14 @@ feature {CREATE_INSTRUCTION}
          -- For all kind of newly created objet, we may call the class invariant:
          class_invariant_flag := cpp.class_invariant_call_opening(created_type_memory, True)
          if class_invariant_flag > 0 then
-            compile_expression(visited.writable)
+            if created_type_memory.is_expanded and then cpp.need_struct.for(created_type_memory.canonical_type_mark) then
+               function_body.extend('&')
+               function_body.extend('(')
+               compile_expression(visited.writable)
+               function_body.extend(')')
+            else
+               compile_expression(visited.writable)
+            end
             cpp.class_invariant_call_closing(class_invariant_flag, True)
          end
       end
@@ -1026,7 +1033,7 @@ feature {}
       do
          if not assertion_list.is_always_true(type) then
             cpp.stop_recursive_assertion_opening(True)
-            assertion_list.do_all(agent compile_assertion_as_loop_invariant(?))
+            assertion_list.for_each(agent compile_assertion_as_loop_invariant(?))
             cpp.stop_recursive_assertion_closing(True)
          end
       end
@@ -1071,7 +1078,7 @@ feature {}
       require
          not assertion_list.is_always_true(type)
       do
-         assertion_list.list.do_all(agent compile_assertion_as_require_1(?))
+         assertion_list.list.for_each(agent compile_assertion_as_require_1(?))
       end
 
    compile_as_require_n (assertion_list: ASSERTION_LIST) is
@@ -1079,7 +1086,7 @@ feature {}
       require
          not assertion_list.is_always_true(type)
       do
-         assertion_list.do_all(agent compile_assertion_as_require_n(?))
+         assertion_list.for_each(agent compile_assertion_as_require_n(?))
       end
 
    compile_assertion_as_require_n (assertion: ASSERTION) is
@@ -1096,7 +1103,7 @@ feature {}
       do
          if not assertion_list.is_always_true(type) then
             cpp.stop_recursive_assertion_opening(True)
-            assertion_list.do_all(agent compile_assertion_as_check_compound(?))
+            assertion_list.for_each(agent compile_assertion_as_check_compound(?))
             cpp.stop_recursive_assertion_closing(True)
          end
       end

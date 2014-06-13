@@ -26,7 +26,7 @@ feature {ANY}
             integer := integer - 1
          end
          string := ""
-         collection.do_all(agent {AUX_SZ513}.append_in(string))
+         collection.for_each(agent {AUX_SZ513}.append_in(string))
          assert(string.is_equal(" 0  1  2  3  4 "))
       end
 

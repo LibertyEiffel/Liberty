@@ -19,6 +19,8 @@ feature {ANY}
    can_connect: BOOLEAN
          -- True if some client can connect to the server.
 
+   error: STRING
+
    shutdown is
          -- Wait for the connections to finish, then stop the server.
          -- No more connections will be accepted.

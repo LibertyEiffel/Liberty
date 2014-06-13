@@ -520,7 +520,7 @@ feature {}
    basic_create_0 (nt: INTEGER; hn: like name; sp: like start_position) is
          -- The really basic final one.
       require
-         (nt = C_simple_feature_name) xor (nt = C_infix_name) xor (nt = C_prefix_name)
+         (nt = C_simple_feature_name) xor (nt = C_infix_name) xor (nt = C_prefix_name) xor (nt = C_alias_name)
          hn /= Void
       do
          name_type := nt

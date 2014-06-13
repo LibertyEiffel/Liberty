@@ -38,7 +38,7 @@ feature {HTTP_PROTOCOL}
          filtered_put_character(' ')
          filtered_put_string(http_version)
          filtered_put_string(new_line)
-         request_headers.do_all(agent add_header(?, ?))
+         request_headers.for_each(agent add_header(?, ?))
          filtered_put_string(new_line)
          flush
       end

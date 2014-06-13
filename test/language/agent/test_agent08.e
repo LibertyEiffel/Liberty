@@ -14,8 +14,8 @@ feature {}
          create bb.with_capacity(10, 1)
          aa.add_last(create {AUX_AGENT08A})
          bb.add_last(create {AUX_AGENT08B})
-         aa.do_all(agent {AUX_AGENT08A}.foo)
-         bb.do_all(agent {AUX_AGENT08B}.foo)
+         aa.for_each(agent {AUX_AGENT08A}.foo)
+         bb.for_each(agent {AUX_AGENT08B}.foo)
       end
 
    aa: ARRAY[AUX_AGENT08A]

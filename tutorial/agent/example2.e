@@ -16,12 +16,12 @@ feature {ANY}
          my_collection := {ARRAY[STRING] 1, << "Benedicte", "Lucien", "Marie" >> }
          create my_list.make
          -- Using an agent to fill `my_list' using `my_collection':
-         my_collection.do_all(agent my_list.add_last(?))
+         my_collection.for_each(agent my_list.add_last(?))
          create {HASHED_SET[STRING]} my_set.make
          -- Using an agent to fill `my_set' with `my_list':
-         my_list.do_all(agent my_set.add(?))
+         my_list.for_each(agent my_set.add(?))
          -- Using an agent to print `my_set':
-         my_set.do_all(agent print_item(?))
+         my_set.for_each(agent print_item(?))
       end
 
 feature {}

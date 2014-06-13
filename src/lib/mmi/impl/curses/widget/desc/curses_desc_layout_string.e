@@ -16,7 +16,7 @@ feature {CURSES_DESCRIPTOR}
    build (parent: NCURSES_WINDOW) is
       do
          ncurses_widget := parent.create_sub_window(0, 0, parent.width, parent.height)
-         widgets.do_all(agent {CURSES_DESC_WIDGET}.build(ncurses_widget))
+         widgets.for_each(agent {CURSES_DESC_WIDGET}.build(ncurses_widget))
       end
 
    layout (a_x, a_y, a_width, a_height: INTEGER) is
@@ -34,21 +34,21 @@ feature {CURSES_DESCRIPTOR}
          inspect
             justify
          when justify_head then
-            widgets.do_all(agent layout_groupped_widgets(?, wx, wy))
+            widgets.for_each(agent layout_groupped_widgets(?, wx, wy))
          when justify_tail then
             if orientation = orientation_horizontal then
                wx.set_item(a_width - min_width)
             else
                wy.set_item(a_height - min_height)
             end
-            widgets.do_all(agent layout_groupped_widgets(?, wx, wy))
+            widgets.for_each(agent layout_groupped_widgets(?, wx, wy))
          when justify_center then
             if orientation = orientation_horizontal then
                wx.set_item((a_width - min_width) // 2)
             else
                wy.set_item((a_height - min_height) // 2)
             end
-            widgets.do_all(agent layout_groupped_widgets(?, wx, wy))
+            widgets.for_each(agent layout_groupped_widgets(?, wx, wy))
          when justify_spread_out then
             not_yet_implemented
          end
@@ -109,10 +109,10 @@ feature {}
          res: REFERENCE[INTEGER]
       do
          create res
-         widgets.do_all(agent (w: CURSES_DESC_WIDGET; val: FUNCTION[TUPLE[CURSES_DESC_WIDGET], INTEGER]) is
-                        do
-                           res.set_item(func.item([res.item, val.item([w])]))
-                        end(?, item))
+         widgets.for_each(agent (w: CURSES_DESC_WIDGET; val: FUNCTION[TUPLE[CURSES_DESC_WIDGET], INTEGER]) is
+                          do
+                             res.set_item(func.item([res.item, val.item([w])]))
+                          end(?, item))
          Result := res.item
       end
 

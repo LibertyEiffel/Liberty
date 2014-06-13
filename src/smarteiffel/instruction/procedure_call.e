@@ -307,7 +307,7 @@ feature {}
       do
       end
 
-   frozen procedure_check (type: TYPE; af: ANONYMOUS_FEATURE; actual_args: like arguments) is
+   frozen procedure_check (type: TYPE; af: ANONYMOUS_FEATURE) is
          -- Check that the feature found is really a procedure.
       require
          af /= Void

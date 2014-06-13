@@ -1,5 +1,5 @@
-****** Fatal Error: The feature called has 1 argument argument
-while the actual argument list has no argument.
+****** Fatal Error: The feature called has 1 argument while the
+actual argument list has no argument.
 
 The source lines involved by the message are the following:
 

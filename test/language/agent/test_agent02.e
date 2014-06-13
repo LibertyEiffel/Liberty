@@ -15,9 +15,9 @@ feature {ANY}
          my_collection: COLLECTION[STRING]
       do
          my_collection := {ARRAY[STRING] 1, << "Benedicte", "Lucien", "Marie" >> }
-         my_collection.do_all(agent print_item1('#', ?))
+         my_collection.for_each(agent print_item1('#', ?))
          number := 0
-         my_collection.do_all(agent print_item2(?))
+         my_collection.for_each(agent print_item2(?))
       end
 
 feature {}

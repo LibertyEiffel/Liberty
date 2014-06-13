@@ -31,11 +31,11 @@ feature {SMART_EIFFEL}
       end
 
 feature {ANY}
-   do_all (action: PROCEDURE[TUPLE[MANIFEST_GENERIC]]) is
+   for_each (action: PROCEDURE[TUPLE[MANIFEST_GENERIC]]) is
       require
          action /= Void
       do
-         collected_manifest_generic.do_all(action)
+         collected_manifest_generic.for_each(action)
       end
 
 end -- class MANIFEST_GENERIC_POOL

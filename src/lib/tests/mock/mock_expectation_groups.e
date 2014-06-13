@@ -85,7 +85,7 @@ feature {}
          not all_done
       do
          Result := "Some features were not called:%N"
-         groups.do_all(agent {MOCK_EXPECTATION_GROUP}.all_done_message_in(Result))
+         groups.for_each(agent {MOCK_EXPECTATION_GROUP}.all_done_message_in(Result))
       end
 
    all_done: BOOLEAN is

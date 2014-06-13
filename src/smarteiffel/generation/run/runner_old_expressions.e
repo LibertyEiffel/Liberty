@@ -122,10 +122,10 @@ feature {AGENT_CREATION}
          else
             visited.code.accept(Current)
             if visited.open_operand_list /= Void then
-               visited.open_operand_list.do_all(agent {OPEN_OPERAND}.accept(Current))
+               visited.open_operand_list.for_each(agent {OPEN_OPERAND}.accept(Current))
             end
             if visited.closed_operand_list /= Void then
-               visited.closed_operand_list.do_all(agent {CLOSED_OPERAND}.accept(Current))
+               visited.closed_operand_list.for_each(agent {CLOSED_OPERAND}.accept(Current))
             end
          end
       end
@@ -138,7 +138,7 @@ feature {AGENT_EXPRESSION}
          else
             visited.target.accept(Current)
             if visited.fake_tuple.list /= Void then
-               visited.fake_tuple.list.do_all(agent {EXPRESSION}.accept(Current))
+               visited.fake_tuple.list.for_each(agent {EXPRESSION}.accept(Current))
             end
          end
       end
@@ -177,7 +177,7 @@ feature {EFFECTIVE_ARG_LIST_N}
       do
          visited.first_one.accept(Current)
          if visited.remainder /= Void then
-            visited.remainder.do_all(agent {EXPRESSION}.accept(Current))
+            visited.remainder.for_each(agent {EXPRESSION}.accept(Current))
          end
       end
 
@@ -233,9 +233,9 @@ feature {MANIFEST_GENERIC}
             Precursor(visited)
          else
             if visited.optional_arguments /= Void then
-               visited.optional_arguments.do_all(agent {EXPRESSION}.accept(Current))
+               visited.optional_arguments.for_each(agent {EXPRESSION}.accept(Current))
             end
-            visited.item_list.do_all(agent {EXPRESSION}.accept(Current))
+            visited.item_list.for_each(agent {EXPRESSION}.accept(Current))
          end
       end
 
@@ -255,7 +255,7 @@ feature {OLD_MANIFEST_ARRAY}
          if old_mode then
             Precursor(visited)
          else
-            visited.list.do_all(agent {EXPRESSION}.accept(Current))
+            visited.list.for_each(agent {EXPRESSION}.accept(Current))
          end
       end
 
@@ -345,7 +345,7 @@ feature {COMPOUND_EXPRESSION}
          if old_mode then
             Precursor(visited)
          else
-            visited.do_all(agent visit_compound_expression_code)
+            visited.for_each(agent visit_compound_expression_code)
          end
       end
 

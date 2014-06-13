@@ -189,7 +189,7 @@ feature {ANY}
                error_handler.print_as_fatal_error
             end
          else
-            if function_check(type, af, arguments) then
+            if function_check(type, af) then
                --sedb_breakpoint
             end
             arg := arg.specialize_and_check(type, af, target_type, True)

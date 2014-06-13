@@ -37,7 +37,7 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
    prepare_parse is
       do
          is_set := False
-         args.do_all(agent {COMMAND_LINE_ARGUMENT}.prepare_parse)
+         args.for_each(agent {COMMAND_LINE_ARGUMENT}.prepare_parse)
       end
 
    parse_command_line (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT is
@@ -88,14 +88,14 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
    usage_details (stream: OUTPUT_STREAM) is
       do
          if not detailed then
-            args.do_all(agent {COMMAND_LINE_ARGUMENT}.usage_details(stream))
+            args.for_each(agent {COMMAND_LINE_ARGUMENT}.usage_details(stream))
             detailed := True
          end
       end
 
    undo_parse (context: COMMAND_LINE_CONTEXT) is
       do
-         args.do_all(agent {COMMAND_LINE_ARGUMENT}.undo_parse(context))
+         args.for_each(agent {COMMAND_LINE_ARGUMENT}.undo_parse(context))
       end
 
 feature {}

@@ -19,7 +19,7 @@ feature {}
    do_compile (live_type: LIVE_TYPE) is
       do
          if live_type.canonical_type_mark.is_user_expanded and then live_type.writable_attributes /= Void then
-            live_type.writable_attributes.do_all(agent compile_expanded(?))
+            live_type.writable_attributes.for_each(agent compile_expanded(?))
          end
          live_type.canonical_type_mark.accept(Current)
       end

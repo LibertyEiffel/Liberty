@@ -27,12 +27,13 @@ feature {ANY}
          real_extended := unchecked_c_divide_ext({REAL_EXTENDED 1.0}, {REAL_EXTENDED 0.0}) - unchecked_c_divide_ext({REAL_EXTENDED 1.0}, {REAL_EXTENDED 0.0})
          assert(real_extended.is_not_a_number)
       end
-feature
+
+feature {}
    unchecked_c_divide_64(x, y: REAL_64): REAL_64 is
       external "C inline"
       alias "(($x) / ($y))"
       end
-   
+
    unchecked_c_divide_32(x, y: REAL_32): REAL_32 is
       external "C inline"
       alias "(($x) / ($y))"
@@ -42,7 +43,7 @@ feature
       external "C inline"
       alias "(($x) / ($y))"
       end
-   
+
 end -- class TEST_IS_NOT_A_NUMBER
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

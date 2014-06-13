@@ -268,17 +268,36 @@ feature {}
          index >= 0
          index < count - fal.count
       local
+         formal_type_mark: TYPE_MARK
          actual_type, formal_type: TYPE; e: EXPRESSION
       do
          check
             formal_tuple_type.generic_list.lower = 1
          end
-         formal_type := formal_tuple_type.generic_list.item(index + 1).resolve_in(type)
 
          e := expression(fal.count + index).specialize_and_check(type)
          actual_type := e.resolve_in(type)
 
-         Result := assignment_handler.implicit_cast(e, actual_type, formal_type)
+         if not formal_tuple_type.generic_list.valid_index(index + 1) then
+            Result := e
+         else
+            formal_type_mark := formal_tuple_type.generic_list.item(index + 1)
+            formal_type := formal_type_mark.resolve_in(type)
+            if actual_type.can_be_assigned_to(formal_type) then
+               Result := assignment_handler.implicit_cast(e, actual_type, formal_type)
+            else
+               error_handler.add_position(e.start_position)
+               error_handler.add_position(formal_type_mark.start_position)
+               error_handler.append(once "Cannot pass ")
+               error_handler.add_expression(e)
+               error_handler.append(once " which is of type ")
+               error_handler.append(actual_type.name.to_string)
+               error_handler.append(once " into formal type ")
+               error_handler.append(formal_type.name.to_string)
+               error_handler.append(once ".")
+               error_handler.print_as_fatal_error
+            end
+         end
       end
 
    synthetize_tuple (target_type, t: TYPE; fal: FORMAL_ARG_LIST): EXPRESSION is
@@ -299,9 +318,9 @@ feature {}
          else
             ftt ::= fal.type_mark(fal_count).resolve_in(target_type).canonical_type_mark
             if count = fal_count then
-               create eal.make_1(start_position, synthetic_tuple_arg(0, t, fal, ftt))
+               create eal.make_1(expression(fal_count).start_position, synthetic_tuple_arg(0, t, fal, ftt))
             elseif count = fal_count + 1 then
-               create eal.make_2(start_position, synthetic_tuple_arg(0, t, fal, ftt), synthetic_tuple_arg(1, t, fal, ftt))
+               create eal.make_2(expression(fal_count).start_position, synthetic_tuple_arg(0, t, fal, ftt), synthetic_tuple_arg(1, t, fal, ftt))
             else
                check
                   count >= fal_count + 2
@@ -315,12 +334,25 @@ feature {}
                   rem.add_last(synthetic_tuple_arg(i, t, fal, ftt))
                   i := i + 1
                end
-               create eal.make_n(start_position, synthetic_tuple_arg(0, t, fal, ftt), rem)
+               create eal.make_n(expression(fal_count).start_position, synthetic_tuple_arg(0, t, fal, ftt), rem)
             end
             create tup.make(expression(fal_count).start_position, eal)
          end
 
          tup := tup.specialize_and_check(t)
+
+         if not tup.resolve_in(t).can_be_assigned_to(ftt.resolve_in(t)) then
+            error_handler.add_position(tup.start_position)
+            error_handler.add_position(ftt.start_position)
+            error_handler.append(once "Cannot pass ")
+            error_handler.add_expression(tup)
+            error_handler.append(once " which is of type ")
+            error_handler.add_type(tup.resolve_in(t))
+            error_handler.append(once " into formal type ")
+            error_handler.add_type(ftt.resolve_in(t))
+            error_handler.append(once ".")
+            error_handler.print_as_fatal_error
+         end
 
          error_handler.append(once "Synthetizing ")
          error_handler.add_type(tup.resolve_in(t))
@@ -340,6 +372,7 @@ feature {}
 
          synthetic_tuple := True
          Result := tup
+         smart_eiffel.magic_count_increment
       ensure
          Result.resolve_in(t).is_tuple
          synthetic_tuple

@@ -396,7 +396,7 @@ feature {}
                   -- There are both an export clause and a local definition.
                   -- Ignore the export clause and display a warning
                   redefined_name := parent_edge.get_redefine(feature_name)
-                  if   redefined_name /= Void then
+                  if redefined_name /= Void then
                      error_handler.add_position(redefined_name.start_position)
                   end
                   error_handler.add_position(tmp_clients.start_position)
@@ -425,13 +425,15 @@ feature {}
                i > parents_af.upper
             loop
                parent_edge := parents_edges.item(i)
-               tmp_clients := parent_edge.exports_for(feature_name)
                parent_clients := parents_af.item(i).permissions
+               tmp_clients := parent_edge.exports_for(feature_name)
                if tmp_clients = Void then
                   tmp_clients := parent_edge.exports_for_all
-                  if tmp_clients = Void then
-                     tmp_clients := parent_clients
-                  end
+               end
+               if tmp_clients = Void then
+                  tmp_clients := parent_clients
+               else
+                  tmp_clients.specialize_in(parent_edge.type_mark.resolve_in(context_type))
                end
                if Result = Void then
                   Result := tmp_clients
@@ -457,12 +459,14 @@ feature {}
             loop
                parent_edge := parents_edges.item(i)
                tmp_clients := parent_edge.exports_for(feature_name)
-               if tmp_clients /= Void  and then not tmp_clients.wider_than(Result) then
-                  error_handler.add_position(tmp_clients.start_position)
-                  error_handler.append(once "The final client list for ")
-                  error_handler.append(feature_name.to_string)
-                  error_handler.append(once " is different from the one explicitly listed here.")
-                  error_handler_show_resulting_client_list(Result)
+               if tmp_clients /= Void then
+                  if not tmp_clients.wider_than(Result) then
+                     error_handler.add_position(tmp_clients.start_position)
+                     error_handler.append(once "The final client list for ")
+                     error_handler.append(feature_name.to_string)
+                     error_handler.append(once " is different from the one explicitly listed here.")
+                     error_handler_show_resulting_client_list(Result)
+                  end
                end
                i := i + 1
             end
@@ -517,6 +521,7 @@ feature {}
          end
       ensure
          Result /= Void
+         Result.has_been_specialized
       end
 
 feature {PRECURSOR_CALL}

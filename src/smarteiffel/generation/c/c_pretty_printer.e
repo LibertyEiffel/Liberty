@@ -2968,6 +2968,9 @@ feature {}
          pop
          class_invariant_flag := class_invariant_call_opening(rf3.type_of_current, True)
          if class_invariant_flag > 0 then
+            if internal_c_local.type.has_external_type or else (internal_c_local.type.is_expanded and then cpp.need_struct.for(internal_c_local.type.canonical_type_mark)) then
+               pending_c_function_body.extend('&')
+            end
             internal_c_local.append_in(pending_c_function_body)
             class_invariant_call_closing(class_invariant_flag, True)
          end
@@ -3745,7 +3748,7 @@ feature {} -- ASSIGNMENT_TEST_POOL
       do
          split_c_file_padding_here
          echo.print_count(once "Assignment test (%"?:=%") function", assignment_test_pool.count)
-         assignment_test_pool.do_all(agent c_define_assignment_test_for(?, ?))
+         assignment_test_pool.for_each(agent c_define_assignment_test_for(?, ?))
       end
 
    c_define_assignment_test_for (left_type, right_type: TYPE) is
@@ -3828,7 +3831,7 @@ feature {} -- MANIFEST_GENERIC_POOL
          smart_eiffel.is_ready
       do
          split_c_file_padding_here
-         manifest_generic_pool.do_all(agent c_define_manifest_generic_for(?))
+         manifest_generic_pool.for_each(agent c_define_manifest_generic_for(?))
       end
 
    c_define_manifest_generic_for (manifest_generic: MANIFEST_GENERIC) is
@@ -4090,6 +4093,9 @@ feature {} -- ONCE_ROUTINE_POOL
             end
             class_invariant_flag := class_invariant_call_opening(rt.type, True)
             if class_invariant_flag > 0 then
+               if rt.is_expanded and then cpp.need_struct.for(rt) then
+                  pending_c_function_body.extend('&')
+               end
                once_routine_pool.unique_result_in(pending_c_function_body, rf.base_feature)
                class_invariant_call_closing(class_invariant_flag, True)
             end
@@ -4247,7 +4253,7 @@ feature {} -- CECIL_POOL
          save_out_h: like out_h
       do
          save_out_h := out_h
-         cecil_pool.do_all(agent cecil_define_users_for_file(?))
+         cecil_pool.for_each(agent cecil_define_users_for_file(?))
          out_h := save_out_h
       end
 
@@ -4258,7 +4264,7 @@ feature {} -- CECIL_POOL
          if cecil_file.has_entries then
             echo.put_string(once "Cecil (C function for external code) :%N")
             connect_cecil_out_h(cecil_file.path_h)
-            cecil_file.do_all(agent cecil_define_users_for_entry(cecil_file, ?))
+            cecil_file.for_each(agent cecil_define_users_for_entry(cecil_file, ?))
             disconnect_cecil_out_h
          end
       end

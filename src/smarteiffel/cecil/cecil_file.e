@@ -33,12 +33,12 @@ feature {ANY}
          Result := entries /= Void
       end
 
-   do_all (action: PROCEDURE[TUPLE[CECIL_ENTRY]]) is
+   for_each (action: PROCEDURE[TUPLE[CECIL_ENTRY]]) is
       require
          has_entries
          action /= Void
       do
-         entries.do_all(action)
+         entries.for_each(action)
       end
 
 feature {CECIL_POOL}

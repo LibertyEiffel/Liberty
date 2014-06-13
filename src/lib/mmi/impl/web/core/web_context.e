@@ -191,13 +191,13 @@ feature {WEB_CONNECTION}
             should_disconnect := check_connection
 
             set_reply_header(once "Content-Length", reply_stream_.count.out)
-            reply_headers.do_all(agent (v: STRING; k: FIXED_STRING) is
-                                 do
-                                    debug
-                                       log.info.put_string("#(1): #(2)%R%N" # k # v)
-                                    end
-                                    stream.put_string("#(1): #(2)%R%N" # k # v)
-                                 end)
+            reply_headers.for_each(agent (v: STRING; k: FIXED_STRING) is
+                                   do
+                                      debug
+                                         log.info.put_string("#(1): #(2)%R%N" # k # v)
+                                      end
+                                      stream.put_string("#(1): #(2)%R%N" # k # v)
+                                   end)
 
             debug
                log.info.put_string(once "%R%N")

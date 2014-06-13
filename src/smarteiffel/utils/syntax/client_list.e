@@ -118,7 +118,7 @@ feature {ANY}
          visitor.visit_client_list(Current)
       end
 
-feature {ANONYMOUS_FEATURE}
+feature {ANONYMOUS_FEATURE, ANONYMOUS_FEATURE_MIXER}
    specialize_in (new_type: TYPE) is
       require
          new_type /= Void
@@ -126,10 +126,13 @@ feature {ANONYMOUS_FEATURE}
          if type_mark_list /= Void then
             type_mark_list.specialize_in(new_type)
          end
+      ensure
+         has_been_specialized
       end
 
    specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
       require
+         has_been_specialized
          parent_type /= Void
          parent_edge /= Void
          new_type /= Void
@@ -144,6 +147,20 @@ feature {ANONYMOUS_FEATURE}
          else
             create Result.make(start_position, tml)
          end
+      ensure
+         Result.has_been_specialized
+      end
+
+feature {ANONYMOUS_FEATURE, ANONYMOUS_FEATURE_MIXER, CLIENT_LIST}
+   has_been_specialized: BOOLEAN is
+      do
+         if type_mark_list = Void then
+            Result := True
+         else
+            Result := type_mark_list.has_been_specialized
+         end
+      ensure
+         assertion_only: Result
       end
 
 feature {ANONYMOUS_FEATURE_MIXER, CLIENT_LIST_VISITOR}

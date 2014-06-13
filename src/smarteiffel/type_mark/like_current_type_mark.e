@@ -33,9 +33,6 @@ feature {ANY}
 
    to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK is
       do
-         check
-            not allow_raw_class_name
-         end
          Result := new_type.canonical_type_mark
       end
 

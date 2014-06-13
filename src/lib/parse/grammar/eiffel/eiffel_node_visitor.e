@@ -11,7 +11,7 @@ inherit
 feature {EIFFEL_LIST_NODE_IMPL}
    visit_eiffel_list_node_impl (node: EIFFEL_LIST_NODE_IMPL) is
       do
-         node.do_all(agent {EIFFEL_NODE}.accept(Current))
+         node.for_each(agent {EIFFEL_NODE}.accept(Current))
       end
 
 feature {EIFFEL_NON_TERMINAL_NODE_IMPL}

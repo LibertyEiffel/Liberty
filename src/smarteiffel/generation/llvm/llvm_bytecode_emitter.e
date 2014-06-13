@@ -69,7 +69,7 @@ feature {SMART_EIFFEL}
                         -- controller.connect(controller_path)
 
                         -- Tell
-                        (1|..|ace.cluster_count).do_all (agent (an_index: INTEGER_32) is
+                        (1|..|ace.cluster_count).for_each(agent (an_index: INTEGER_32) is
                         local message: ZMQ_STRING_MESSAGE
                         do
                                 create message.from_string("compile-cluster "| &an_index)

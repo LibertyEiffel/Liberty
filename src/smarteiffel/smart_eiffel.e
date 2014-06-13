@@ -346,7 +346,7 @@ feature {CODE_PRINTER}
    customize_runtime is
       do
          if collected_plug_in /= Void then
-            collected_plug_in.do_all(agent {NATIVE_PLUG_IN}.customize_runtime)
+            collected_plug_in.for_each(agent {NATIVE_PLUG_IN}.customize_runtime)
          end
       end
 

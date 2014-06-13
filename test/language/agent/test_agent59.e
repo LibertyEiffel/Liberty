@@ -25,7 +25,7 @@ feature {ANY}
    object_contents: STRING is
       do
          Result := "bar"
-         field_list.do_all(agent show_content(Result, ?))
+         field_list.for_each(agent show_content(Result, ?))
       end
 
    show_content (bar, foo: STRING) is

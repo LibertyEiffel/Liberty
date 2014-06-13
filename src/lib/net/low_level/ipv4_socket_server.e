@@ -59,11 +59,13 @@ feature {}
             end
             Result.bind(Current, a_sync)
          end
+         error := Result.error
          if Result.is_connected then
             connected_sockets.add_last(Result)
          end
       ensure
          Result.is_connected implies connected_sockets.fast_has(Result) and then connected_sockets.count = old connected_sockets.count + 1
+         not Result.is_connected implies error /= Void
       end
 
    unbind_socket (socket: IPV4_SOCKET) is

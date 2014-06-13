@@ -138,7 +138,7 @@ feature {ANY}
                error_handler.print_as_fatal_error
             end
          else
-            procedure_check(type, af, arguments)
+            procedure_check(type, af)
             arg := arguments.specialize_and_check(type, af, target_type, True)
             if af.names.first.to_string = as_call and then target_type.is_agent then
                create {AGENT_INSTRUCTION} Result.make(type, Current, target_type, t, arg)

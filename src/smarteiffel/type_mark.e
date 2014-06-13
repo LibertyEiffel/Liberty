@@ -117,7 +117,7 @@ feature {ANY}
          start_position.class_text = new_type.class_text
       deferred
       ensure
-         Current.has_been_specialized
+         has_been_specialized
       end
 
    specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): TYPE_MARK is

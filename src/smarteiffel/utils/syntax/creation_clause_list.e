@@ -17,6 +17,13 @@ feature {ANY}
          Result := list.first.start_position
       end
 
+   count: INTEGER is
+      do
+         if list /= Void then
+            Result := list.count
+         end
+      end
+
    pretty is
       local
          i: INTEGER
