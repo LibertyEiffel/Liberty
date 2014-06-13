@@ -192,7 +192,7 @@ if (substage("debian packaging")) {
 
 //- 32bit debian packaging
 if (substage("32 bit debian packaging")) {
-   execute("ssh et32@et32 \"cd Liberty && git fetch origin && git checkout master && git merge --ff-only FETCH_HEAD && ./work/packaging/build_debian.sh", $ulimit_time = 3600);
+   execute("ssh et32@et32 \"cd Liberty && git fetch origin && git checkout master && git merge --ff-only FETCH_HEAD && ./work/packaging/build_debian.sh\"", $ulimit_time = 3600);
    endsubstage();
 }
 
