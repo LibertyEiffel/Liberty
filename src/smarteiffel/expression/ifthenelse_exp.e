@@ -317,7 +317,7 @@ feature {ANY}
 
    resolve_in (type: TYPE): TYPE is
       local
-         t: TYPE; i: INTEGER
+         i: INTEGER
       do
          if resolve_map /= Void then
             Result := resolve_map.fast_reference_at(type)
@@ -344,7 +344,7 @@ feature {ANY}
 
    collect (type: TYPE): TYPE is
       local
-         dummy, t: TYPE; i: INTEGER
+         dummy: TYPE; i: INTEGER
       do
          if resolve_map /= Void then
             Result := resolve_map.fast_reference_at(type)
@@ -421,6 +421,39 @@ feature {ANY}
             ec := ec.adapt_for(type)
          end
          Result := current_or_twin_init(e, tc, eil, ec)
+      end
+
+   non_void_no_dispatch_type (type: TYPE): TYPE is
+      do
+         Result := resolve_in(type)
+      end
+
+   bracketed_pretty (indent_level: INTEGER) is
+      do
+         pretty_printer.put_character('(')
+         pretty(indent_level)
+         pretty_printer.put_character(')')
+      end
+
+   pretty_target (indent_level: INTEGER) is
+      do
+         pretty_printer.put_character('(')
+         pretty(indent_level)
+         pretty_printer.put_character(')')
+         pretty_printer.put_character('.')
+      end
+
+   declaration_type: TYPE
+
+   short (type: TYPE) is
+      do
+         --| **** TODO
+      end
+
+   short_target (type: TYPE) is
+      do
+         short(type)
+         short_printer.put_dot
       end
 
 feature {EIFFEL_PARSER}
@@ -717,8 +750,6 @@ feature {}
    resolve_resolve_set: TYPE is
       require
          not resolve_set.is_empty
-      local
-         i: INTEGER; t: TYPE
       do
          Result := resolve_resolve_set_(resolve_set.first, resolve_set.lower + 1)
          if Result = Void then

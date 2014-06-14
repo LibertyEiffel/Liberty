@@ -3,8 +3,9 @@
 --
 class IFTHEN_EXP
    --
-   -- Used when we have an single if-then EXPRESSION with no else part or when it is a component of
-   -- an IFTHENELSE_EXP (see also IFTHENELSE_EXP).
+   -- Used when it is a component of an IFTHENELSE_EXP (see also IFTHENELSE_EXP).
+   --
+   -- Note: There cannot be any if-then expression without an else part.
    --
 
 inherit
@@ -112,6 +113,41 @@ feature {ANY}
          visitor.visit_ifthen_exp(Current)
       end
 
+   resolve_in (type: TYPE): TYPE is
+      do
+         check False end
+      end
+
+   non_void_no_dispatch_type (type: TYPE): TYPE is
+      do
+         check False end
+      end
+
+   bracketed_pretty (indent_level: INTEGER) is
+      do
+         check False end
+      end
+
+   pretty_target (indent_level: INTEGER) is
+      do
+         check False end
+      end
+
+   declaration_type: TYPE is
+      do
+         check False end
+      end
+
+   short (type: TYPE) is
+      do
+         check False end
+      end
+
+   short_target (type: TYPE) is
+      do
+         check False end
+      end
+
 feature {IFTHEN_EXP}
    init (e: like expression; tc: like then_expression) is
       require
@@ -128,7 +164,7 @@ feature {IFTHEN_EXP}
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       local
-         e: like expression; tc: like then_expression; internal_local2: INTERNAL_LOCAL2
+         e: like expression; tc: like then_expression
       do
          expression.inline_dynamic_dispatch_(code_accumulator, type)
          e := code_accumulator.current_context.last.to_expression

@@ -26,6 +26,18 @@ feature {ANY}
 
    end_mark_comment: BOOLEAN is True
 
+feature {ANY} -- EXPRESSION common properties
+   is_void: BOOLEAN is False
+   is_static: BOOLEAN is False
+   is_result: BOOLEAN is False
+   is_current: BOOLEAN is False
+   is_writable: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN is False
+   is_manifest_string: BOOLEAN is False
+   is_implicit_current: BOOLEAN is False
+
+   precedence: INTEGER is 2
+
 feature {IF_SUPPORT_EXP}
    frozen specialize_check_ (type: TYPE) is
       local
